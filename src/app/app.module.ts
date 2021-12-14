@@ -23,6 +23,7 @@ import { SPS1Component } from './sequencesParticulieres/sps1/sps1.component';
 import { TropheesComponent } from './trophees/trophees.component';
 import { RevisionsComponent } from './revisions/revisions.component';
 import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-hasard.component';
+import { CompetitionsComponent } from './competitions/competitions.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-h
     SPS1Component,
     TropheesComponent,
     RevisionsComponent,
-    ExercicesAuHasardComponent
+    ExercicesAuHasardComponent,
+    CompetitionsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,35 +1,6 @@
 /****************************************************************************************************
 ***** Bandeau supérieur
 ****************************************************************************************************/
-/* Met les icones en couleur */
-.tabs-menu-link.is-warning i {
-  filter: invert(73%) sepia(96%) saturate(209%) hue-rotate(346deg) brightness(104%) contrast(103%);
-}
-
-.tabs-menu-link.is-link i {
-  filter: invert(29%) sepia(98%) saturate(796%) hue-rotate(203deg) brightness(101%) contrast(88%);
-}
-
-.tabs-menu-link.is-info i {
-  filter: invert(49%) sepia(45%) saturate(746%) hue-rotate(165deg) brightness(94%) contrast(83%);
-}
-
-.tabs-menu-link.is-danger i {
-  filter: invert(44%) sepia(73%) saturate(4057%) hue-rotate(324deg) brightness(98%) contrast(92%);
-}
-
-.tabs-menu-link.is-primary i {
-  filter: invert(56%) sepia(99%) saturate(1427%) hue-rotate(128deg) brightness(97%) contrast(103%);
-}
-
-.tabs-menu-link.is-success i {
-  filter: invert(67%) sepia(17%) saturate(1218%) hue-rotate(101deg) brightness(96%) contrast(92%);
-}
-
-.tabs-menu-link.is-orange i {
-  filter: invert(99%) sepia(56%) saturate(6131%) hue-rotate(302deg) brightness(101%) contrast(98%);
-}
-
 /* Met les icones en blanc lors du survol */
 .tabs-menu-link:hover i {
   filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
@@ -64,6 +35,10 @@ li:hover .is-orange {
   background-color: #FCBA82;
 }
 
+li:hover .is-sponsor {
+  background-color: #ea4aaa;
+}
+
 /* Met en évidence l'onglet actif */
 .is-actif>.tabs-menu-link i {
   filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
@@ -95,6 +70,10 @@ li.is-actif .is-success {
 
 li.is-actif .is-orange {
   background-color: #FCBA82;
+}
+
+li.is-actif .is-sponsor {
+  background-color: #ea4aaa;
 }
 
 .tabs a:hover {
@@ -163,7 +142,7 @@ button:hover>i {
 
 .enorme {
   font-size: xx-large;
-  width: 150px;
+  width: 185px;
 }
 
 .gigantesque {
