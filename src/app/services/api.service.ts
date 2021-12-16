@@ -77,6 +77,9 @@ export class ApiService {
   surveilleModificationsDuProfil() {
     this.profilModifie.subscribe(valeursModifiees => {
       if (!valeursModifiees.includes('score')) this.majLastAction()
+      if (valeursModifiees.includes('identifiant')) {
+        this.recupClassement()
+      }
     })
   }
 
@@ -87,20 +90,25 @@ export class ApiService {
     if (isDevMode()) {
       this.classement = [
         {
+          id: '1',
           lienAvatar: 'https://avatars.dicebear.com/api/adventurer/id1.svg',
           pseudo: 'lapin bleu',
           score: '17',
-          lienTrophees: 'tcqnfy'
+          lienTrophees: 'tcqnfy',
+          classement: 2
         }, {
+          id: '2',
           lienAvatar: '',
           pseudo: 'anonyme',
           score: '38',
-          lienTrophees: 'tuoocj'
+          lienTrophees: 'tuoocj',
+          classement: 1
         }
       ]
     } else {
       this.http.get<UserSimplifie[]>(this.baseUrl + '/classement.php').subscribe(usersSimplifies => {
         this.classement = usersSimplifies
+        this.recupWhosOnline()
       }, error => {
         console.log(error)
       })
@@ -115,15 +123,19 @@ export class ApiService {
     if (isDevMode()) {
       this.onlineUsers = [
         {
+          id: '1',
           lienAvatar: 'https://avatars.dicebear.com/api/adventurer/id1.svg',
           pseudo: 'lapin bleu',
           score: '17',
-          lienTrophees: 'tuoocj'
+          lienTrophees: 'tuoocj',
+          classement: 2
         }, {
+          id: '2',
           lienAvatar: 'https://avatars.dicebear.com/api/adventurer/id2.svg',
           pseudo: 'Pierre verte',
           score: '38',
-          lienTrophees: 'tuoocj'
+          lienTrophees: 'tuoocj',
+          classement: 1
         }
       ]
     } else {
@@ -383,15 +395,19 @@ export class ApiService {
       this.onlineNb = 2
       this.onlineUsers = [
         {
+          id: '1',
           lienAvatar: 'https://avatars.dicebear.com/api/adventurer/id1.svg',
           pseudo: 'lapin bleu',
           score: '17',
-          lienTrophees: ''
+          lienTrophees: '',
+          classement: 2
         }, {
+          id: '2',
           lienAvatar: 'https://avatars.dicebear.com/api/adventurer/id2.svg',
           pseudo: 'Pierre verte',
           score: '38',
-          lienTrophees: ''
+          lienTrophees: '',
+          classement: 1
         }
       ]
     } else {

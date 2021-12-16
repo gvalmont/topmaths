@@ -18,7 +18,7 @@ interface Ligne {
 @Component({
   selector: 'app-sequences',
   templateUrl: './sequences.component.html',
-  styleUrls: ['../../assets/css/bulma.css']
+  styleUrls: []
 })
 export class SequencesComponent implements OnInit {
   lignes: Ligne[]

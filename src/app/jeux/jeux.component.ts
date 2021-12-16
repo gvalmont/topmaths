@@ -60,7 +60,7 @@ interface Projet {
 @Component({
   selector: 'app-jeux',
   templateUrl: './jeux.component.html',
-  styleUrls: ['../../assets/css/bulma.css']
+  styleUrls: []
 })
 export class JeuxComponent implements OnInit {
   modal!: HTMLElement;

@@ -132,6 +132,10 @@ button:hover>i {
   filter: invert(41%) sepia(47%) saturate(2515%) hue-rotate(298deg) brightness(97%) contrast(88%);
 }
 
+.is-orange i {
+  filter: invert(80%) sepia(16%) saturate(1434%) hue-rotate(326deg) brightness(103%) contrast(98%);
+}
+
 /****************************************************************************************************
 ***** Autres
 ****************************************************************************************************/
@@ -177,6 +181,13 @@ button:hover>i {
   width: 100%;
   height: 100%;
   z-index: 99;
+}
+
+.avatar {
+  background-image: var(--image-badge), var(--image-avatar);
+  background-position: right bottom, center;
+  background-size: 24px, 48px;
+  background-repeat: no-repeat, no-repeat;
 }
 
 .moveUp {

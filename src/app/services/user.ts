@@ -27,15 +27,19 @@ export class User {
   }
 }
 export class UserSimplifie {
+  public id: string
   public pseudo: string;
   public lienAvatar: string;
   public score: string;
   public lienTrophees: string;
+  public classement: number
 
-  constructor(lienAvatar: string, pseudo: string, score: string, lienTrophees: string) {
+  constructor(id: string, lienAvatar: string, pseudo: string, score: string, lienTrophees: string, classement: number) {
+    this.id = id
     this.pseudo = pseudo
     this.lienAvatar = lienAvatar
     this.score = score
     this.lienTrophees = lienTrophees
+    this.classement = classement
   }
 }

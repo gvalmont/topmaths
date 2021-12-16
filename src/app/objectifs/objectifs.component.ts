@@ -19,7 +19,7 @@ interface Ligne {
 @Component({
   selector: 'app-objectifs',
   templateUrl: './objectifs.component.html',
-  styleUrls: ['../../assets/css/bulma.css']
+  styleUrls: []
 })
 export class ObjectifsComponent implements OnInit {
   lignes: Ligne[]

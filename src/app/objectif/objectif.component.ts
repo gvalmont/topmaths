@@ -14,7 +14,7 @@ interface ExerciceDejaFait {
 @Component({
   selector: 'app-objectif',
   templateUrl: './objectif.component.html',
-  styleUrls: ['../../assets/css/bulma.css']
+  styleUrls: []
 })
 export class ObjectifComponent implements OnInit {
   reference: string

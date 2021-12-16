@@ -11,7 +11,7 @@ import { Niveau as NiveauObjectif } from '../services/objectifs';
 @Component({
   selector: 'app-sequence',
   templateUrl: './sequence.component.html',
-  styleUrls: ['../../assets/css/bulma.css']
+  styleUrls: []
 })
 export class SequenceComponent implements OnInit {
   reference: string

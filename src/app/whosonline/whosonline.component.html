@@ -1,23 +1,43 @@
 <!-- Nombre d'utilisateurs connectés -->
 <div class="columns">
-  <div class="column is-flex is-align-items-center is-justify-content-center">
+  <div class="column">
     <div class="dropdown is-right is-hoverable">
       <div class="dropdown-trigger">
-        <a routerLink="/classement" routerLinkActive="active">
-          <p *ngIf="dataService.onlineNb == 0">Pas d'utilisateur connecté</p>
-          <p *ngIf="dataService.onlineNb > 0">{{dataService.onlineNb}}
-            {{dataService.onlineNb > 1 ? 'utilisateurs sont connectés' : 'utilisateur est connecté'}} dont
-            {{dataService.onlineNb - dataService.onlineUsers.length}}
-            {{dataService.onlineNb - dataService.onlineUsers.length > 1 ? 'invisibles' : 'invisible'}}</p>
+        <a routerLink="/classement" routerLinkActive="active" class="is-link">
+          <i class="image is-48x48"><img src="assets/img/gvalmont/leaderboard-lesser-regular.svg" /></i>
         </a>
       </div>
       <div class="dropdown-menu">
         <div class="dropdown-content">
           <div class="dropdown-item">
-            <p>Afficher le classement</p>
+            <p>Voir le classement individuel</p>
           </div>
         </div>
       </div>
+    </div>
+    &nbsp;
+    <div class="dropdown is-right is-hoverable">
+      <div class="dropdown-trigger">
+        <a routerLink="/classement" routerLinkActive="active" class="is-link">
+          <i class="image is-48x48"><img src="assets/img/gvalmont/leaderboard-regular.svg" /></i>
+        </a>
+      </div>
+      <div class="dropdown-menu">
+        <div class="dropdown-content">
+          <div class="dropdown-item">
+            <p>Voir le classement par équipe</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <br>
+      <p *ngIf="dataService.onlineNb == 0">Pas d'utilisateur connecté</p>
+      <p *ngIf="dataService.onlineNb > 0">{{dataService.onlineNb}}
+        {{dataService.onlineNb > 1 ? 'utilisateurs sont connectés' : 'utilisateur est connecté'}} dont
+        {{dataService.onlineNb - dataService.onlineUsers.length}}
+        {{dataService.onlineNb - dataService.onlineUsers.length > 1 ? 'invisibles' : 'invisible'}}
+      </p>
     </div>
   </div>
 </div>
@@ -27,13 +47,16 @@
     <!-- On fait un tableau à une seule colonne pour que les contenus restent alignés en vue portrait -->
     <div class="column is-flex is-align-items-center is-justify-content-center">
       <!-- Avatar -->
-      <div class="column is-one-fifth">
-        <figure class="image is-48x48 is-inline-block">
-          <img [src]="onlineUser.lienAvatar" />
+      <div class="column is-4">
+        <figure *ngIf="onlineUser.pseudo != 'anonyme'" class="avatar image is-48x48 is-inline-block"
+        [style]="'--image-avatar: url(' + onlineUser.lienAvatar + ');--image-badge:url(assets/img/gvalmont/top' + top(onlineUser.classement) + '.svg)'">
+        </figure>
+        <figure *ngIf="onlineUser.pseudo == 'anonyme'" class="avatar image is-48x48 is-inline-block"
+        [style]="'--image-avatar: url(assets/img/reshot/user-3294.svg);--image-badge:url(assets/img/gvalmont/top' + top(onlineUser.classement) + '.svg)'">
         </figure>
       </div>
       <!-- Pseudo -->
-      <div class="column is-three-fifths">
+      <div class="column is-6">
         <div *ngIf="onlineUser.lienTrophees != ''" class="dropdown is-right is-hoverable is-inline-block">
           <div class="dropdown-trigger">
             <a (click)="voirTropheesPerso(onlineUser)">{{onlineUser.pseudo}}</a>
@@ -41,7 +64,7 @@
           <div class="dropdown-menu">
             <div class="dropdown-content">
               <div class="dropdown-item">
-                <p>Afficher ses trophées</p>
+                <p>Voir ses trophées</p>
               </div>
             </div>
           </div>
@@ -49,7 +72,7 @@
         <div *ngIf="onlineUser.lienTrophees == ''" class="is-inline-block">{{onlineUser.pseudo}}</div>
       </div>
       <!-- Scores -->
-      <div class="column is-one-fifth">
+      <div class="column is-2">
         <div class="dropdown is-right is-hoverable">
           <div class="dropdown-trigger">
             <a (click)="voirClassementPerso(onlineUser)">{{onlineUser.score}}</a>
@@ -57,7 +80,7 @@
           <div class="dropdown-menu">
             <div class="dropdown-content">
               <div class="dropdown-item">
-                <p>Afficher son classement</p>
+                <p>Voir son classement</p>
               </div>
             </div>
           </div>

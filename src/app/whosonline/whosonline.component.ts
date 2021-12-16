@@ -6,7 +6,7 @@ import { UserSimplifie } from '../services/user';
 @Component({
   selector: 'app-whosonline',
   templateUrl: './whosonline.component.html',
-  styleUrls: ['../../assets/css/bulma.css']
+  styleUrls: []
 })
 export class WhosonlineComponent implements OnInit {
 
@@ -14,6 +14,21 @@ export class WhosonlineComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  /**
+   * Renvoie le numéro du badge correspondant au classement
+   * @param classement 
+   * @returns 
+   */
+  top(classement: number) {
+    if (classement <= 3) return classement
+    else if (classement <= 5) return 5
+    else if (classement <= 10) return 10
+    else if (classement <= 20) return 20
+    else if (classement <= 50) return 50
+    else return 0
+  }
+  
   /**
    * Envoie l'utilisateur sur la page de classement et l'ancre correspondant au pseudo cliqué
    * @param user 
