@@ -184,10 +184,12 @@ button:hover>i {
 }
 
 .avatar {
-  background-image: var(--image-badge), var(--image-avatar);
-  background-position: right bottom, center;
-  background-size: 24px, 48px;
-  background-repeat: no-repeat, no-repeat;
+  height: 68px;
+  width: 48px;
+  background-image: var(--image-badge), var(--image-equipe), var(--image-avatar);
+  background-position: right bottom, left bottom, center;
+  background-size: 24px, 24px, 48px;
+  background-repeat: no-repeat, no-repeat, no-repeat;
 }
 
 .moveUp {
