@@ -1,3 +1,13 @@
+:root {
+  --window-height: 200px;
+  --foreground-transform: scale(1, 1);
+}
+.emblemes {
+  --foreground-primary-color: black;
+  --foreground-secondary-color: black;
+  --background-color: black;
+}
+
 /****************************************************************************************************
 ***** Bandeau supérieur
 ****************************************************************************************************/
@@ -190,6 +200,11 @@ button:hover>i {
   background-position: right bottom, left bottom, center;
   background-size: 24px, 24px, 48px;
   background-repeat: no-repeat, no-repeat, no-repeat;
+}
+
+.foregrounds, .backgrounds {
+  height: var(--window-height);
+  overflow: scroll;
 }
 
 .moveUp {

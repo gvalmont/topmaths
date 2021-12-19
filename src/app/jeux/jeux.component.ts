@@ -86,6 +86,7 @@ export class JeuxComponent implements OnInit {
     this.recuperationDesProjets()
     this.redimensionneLesCartes()
   }
+  
   /**
    * On détecte les changements de taille de fenêtre,
    * et on ajuste la largeur des cartes en conséquence.

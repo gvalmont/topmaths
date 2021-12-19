@@ -15,6 +15,7 @@ import { TropheesComponent } from './trophees/trophees.component';
 import { RevisionsComponent } from './revisions/revisions.component';
 import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-hasard.component';
 import { CompetitionsComponent } from './competitions/competitions.component';
+import { AdminComponent } from './equipe/admin/admin.component';
 
 const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'revisions', component: RevisionsComponent },
   { path: 'exercices-au-hasard', component: ExercicesAuHasardComponent },
   { path: 'competitions', component: CompetitionsComponent },
+  { path: 'equipe/admin', component: AdminComponent},
   { path: '', component: AccueilComponent },
   { path: ':ref', component: ObjectifComponent },
   { path: '**', component: AccueilComponent }

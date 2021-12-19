@@ -1,0 +1,31 @@
+<div class="columns centre">
+  <div class="column">
+    <div id="backgrounds" class="backgrounds" (click)="majEmbleme()"></div>
+  </div>
+  <div class="column">
+      <div>Couleurs</div>
+    <div class="columns">
+      <div class="column"></div>
+      <div class="column">
+        <div id="embleme" class="embleme"></div>
+      </div>
+      <div class="column"></div>
+    </div>
+    <br>
+    <div class="credits is-size-7">
+      <span>2012 - 2020 ArenaNet, Inc. All rights reserved. NCsoft, the interlocking NC logo, ArenaNet, Arena.net, Guild Wars, Guild Wars Factions, Factions, Guild Wars Nightfall, Nightfall, Guild Wars: Eye of the North, Eye of the North, Guild Wars 2, and all associated logos and designs are trademarks or registered trademarks of NCsoft Corporation. All other trademarks are the property of their respective owners.</span>
+      <br><br>
+      <span>Emblem Editor originally developed by Kelian B.</span>
+    </div>
+  </div>
+  <div class="column">
+    <div id="foregrounds" class="foregrounds" (click)="majEmbleme(); changerCouleur()"></div>
+  </div>
+</div>
+<div id="parametresEmbleme" class="cache">
+  <div id="foregroundId"></div>
+  <div id="foregroundPrimaryColor"></div>
+  <div id="foregroundSecondaryColor"></div>
+  <div id="backgroundId"></div>
+  <div id="backgroundColor"></div>
+</div>
