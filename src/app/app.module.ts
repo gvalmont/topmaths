@@ -24,7 +24,7 @@ import { TropheesComponent } from './trophees/trophees.component';
 import { RevisionsComponent } from './revisions/revisions.component';
 import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-hasard.component';
 import { CompetitionsComponent } from './competitions/competitions.component';
-import { AdminComponent } from './equipe/admin/admin.component';
+import { EquipeModificationComponent } from './equipe/modification/equipe.modification.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
@@ -46,7 +46,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
     RevisionsComponent,
     ExercicesAuHasardComponent,
     CompetitionsComponent,
-    AdminComponent
+    EquipeModificationComponent
   ],
   imports: [
     BrowserModule,

@@ -47,10 +47,10 @@ interface Emblem {
 
 @Component({
   selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  templateUrl: './equipe.modification.component.html',
+  styleUrls: ['./equipe.modification.component.css']
 })
-export class AdminComponent implements OnInit {
+export class EquipeModificationComponent implements OnInit {
   foregroundId: number
   foregroundPrimaryColor: string
   foregroundSecondaryColor: string
