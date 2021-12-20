@@ -23,6 +23,7 @@
     "bulma": "^0.9.3",
     "mathjax-angular": "^1.4.2",
     "ng-particles": "^2.20.3",
+    "ngx-color-picker": "^11.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "tsparticles-shape-confetti": "^1.14.2",

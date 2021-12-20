@@ -1,186 +1,308 @@
 [
   {
     "masculin":"adorable",
-    "feminin":"adorable"
+    "feminin":"adorable",
+    "Mpluriel":"adorables",
+    "Fpluriel":"adorables"
   }, {
     "masculin":"confiant",
-    "feminin":"confiante"
+    "feminin":"confiante",
+    "Mpluriel":"confiants",
+    "Fpluriel":"confiantes"
   }, {
     "masculin":"dynamique",
-    "feminin":"dynamique"
+    "feminin":"dynamique",
+    "Mpluriel":"dynamiques",
+    "Fpluriel":"dynamiques"
   }, {
     "masculin":"élégant",
-    "feminin":"élégante"
+    "feminin":"élégante",
+    "Mpluriel":"élégants",
+    "Fpluriel":"élégantes"
   }, {
     "masculin":"énervé",
-    "feminin":"énervée"
+    "feminin":"énervée",
+    "Mpluriel":"énervés",
+    "Fpluriel":"énervées"
   }, {
     "masculin":"inquiet",
-    "feminin":"inquiète"
+    "feminin":"inquiète",
+    "Mpluriel":"inquiets",
+    "Fpluriel":"inquiètes"
   }, {
     "masculin":"maladroit",
-    "feminin":"maladroite"
+    "feminin":"maladroite",
+    "Mpluriel":"maladroits",
+    "Fpluriel":"maladroites"
   }, {
     "masculin":"nerveux",
-    "feminin":"nerveuse"
+    "feminin":"nerveuse",
+    "Mpluriel":"nerveux",
+    "Fpluriel":"nerveuses"
   }, {
     "masculin":"parfait",
-    "feminin":"parfaite"
+    "feminin":"parfaite",
+    "Mpluriel":"parfaits",
+    "Fpluriel":"parfaites"
   }, {
     "masculin":"sauvage",
-    "feminin":"sauvage"
+    "feminin":"sauvage",
+    "Mpluriel":"sauvages",
+    "Fpluriel":"sauvages"
   }, {
     "masculin":"séduisant",
-    "feminin":"séduisante"
+    "feminin":"séduisante",
+    "Mpluriel":"séduisants",
+    "Fpluriel":"séduisantes"
   }, {
     "masculin":"timide",
-    "feminin":"timide"
+    "feminin":"timide",
+    "Mpluriel":"timides",
+    "Fpluriel":"timides"
   }, {
     "masculin":"vif",
-    "feminin":"vive"
+    "feminin":"vive",
+    "Mpluriel":"vifs",
+    "Fpluriel":"vives"
   }, {
     "masculin":"agressif",
-    "feminin":"agressive"
+    "feminin":"agressive",
+    "Mpluriel":"agressifs",
+    "Fpluriel":"agressives"
   }, {
     "masculin":"ambitieux",
-    "feminin":"ambitieuse"
+    "feminin":"ambitieuse",
+    "Mpluriel":"ambitieux",
+    "Fpluriel":"ambitieuses"
   }, {
     "masculin":"calme",
-    "feminin":"calme"
+    "feminin":"calme",
+    "Mpluriel":"calmes",
+    "Fpluriel":"calmes"
   }, {
     "masculin":"combatif",
-    "feminin":"combative"
+    "feminin":"combative",
+    "Mpluriel":"combatifs",
+    "Fpluriel":"combatives"
   }, {
     "masculin":"coopératif",
-    "feminin":"coopérative"
+    "feminin":"coopérative",
+    "Mpluriel":"coopératifs",
+    "Fpluriel":"coopératives"
   }, {
     "masculin":"dangereux",
-    "feminin":"dangereuse"
+    "feminin":"dangereuse",
+    "Mpluriel":"dangereux",
+    "Fpluriel":"dangereuses"
   }, {
     "masculin":"doué",
-    "feminin":"douée"
+    "feminin":"douée",
+    "Mpluriel":"doués",
+    "Fpluriel":"douées"
   }, {
     "masculin":"égoïste",
-    "feminin":"égoïste"
+    "feminin":"égoïste",
+    "Mpluriel":"égoïstes",
+    "Fpluriel":"égoïstes"
   }, {
     "masculin":"fourbe",
-    "feminin":"fourbe"
+    "feminin":"fourbe",
+    "Mpluriel":"fourbes",
+    "Fpluriel":"fourbes"
   }, {
     "masculin":"généreux",
-    "feminin":"généreuse"
+    "feminin":"généreuse",
+    "Mpluriel":"généreux",
+    "Fpluriel":"généreuses"
   }, {
     "masculin":"hésitant",
-    "feminin":"hésitante"
+    "feminin":"hésitante",
+    "Mpluriel":"hésitants",
+    "Fpluriel":"hésitantes"
   }, {
     "masculin":"intrépide",
-    "feminin":"intrépide"
+    "feminin":"intrépide",
+    "Mpluriel":"intrépides",
+    "Fpluriel":"intrépides"
   }, {
     "masculin":"jaloux",
-    "feminin":"jalouse"
+    "feminin":"jalouse",
+    "Mpluriel":"jaloux",
+    "Fpluriel":"jalouses"
   }, {
     "masculin":"mystérieux",
-    "feminin":"mystérieuse"
+    "feminin":"mystérieuse",
+    "Mpluriel":"mystérieux",
+    "Fpluriel":"mystérieuses"
   }, {
     "masculin":"sincère",
-    "feminin":"sincère"
+    "feminin":"sincère",
+    "Mpluriel":"sincères",
+    "Fpluriel":"sincères"
   }, {
     "masculin":"amoureux",
-    "feminin":"amoureuse"
+    "feminin":"amoureuse",
+    "Mpluriel":"amoureux",
+    "Fpluriel":"amoureuses"
   }, {
     "masculin":"fidèle",
-    "feminin":"fidèle"
+    "feminin":"fidèle",
+    "Mpluriel":"fidèles",
+    "Fpluriel":"fidèles"
   }, {
     "masculin":"fier",
-    "feminin":"fière"
+    "feminin":"fière",
+    "Mpluriel":"fiers",
+    "Fpluriel":"fières"
   }, {
     "masculin":"gêné",
-    "feminin":"gênée"
+    "feminin":"gênée",
+    "Mpluriel":"gênés",
+    "Fpluriel":"gênées"
   }, {
     "masculin":"gentil",
-    "feminin":"gentille"
+    "feminin":"gentille",
+    "Mpluriel":"gentils",
+    "Fpluriel":"gentilles"
   }, {
     "masculin":"heureux",
-    "feminin":"heureuse"
+    "feminin":"heureuse",
+    "Mpluriel":"heureux",
+    "Fpluriel":"heureuses"
   }, {
     "masculin":"prudent",
-    "feminin":"prudente"
+    "feminin":"prudente",
+    "Mpluriel":"prudents",
+    "Fpluriel":"prudentes"
   }, {
     "masculin":"rageux",
-    "feminin":"rageuse"
+    "feminin":"rageuse",
+    "Mpluriel":"rageux",
+    "Fpluriel":"rageuses"
   }, {
     "masculin":"timide",
-    "feminin":"timide"
+    "feminin":"timide",
+    "Mpluriel":"timides",
+    "Fpluriel":"timides"
   }, {
     "masculin":"tranquille",
-    "feminin":"tranquille"
+    "feminin":"tranquille",
+    "Mpluriel":"tranquilles",
+    "Fpluriel":"tranquilles"
   }, {
     "masculin":"colossal",
-    "feminin":"colossale"
+    "feminin":"colossale",
+    "Mpluriel":"colossaux",
+    "Fpluriel":"colossales"
   }, {
     "masculin":"énorme",
-    "feminin":"énorme"
+    "feminin":"énorme",
+    "Mpluriel":"énormes",
+    "Fpluriel":"énormes"
   }, {
     "masculin":"gigantesque",
-    "feminin":"gigantesque"
+    "feminin":"gigantesque",
+    "Mpluriel":"gigantesques",
+    "Fpluriel":"gigantesques"
   }, {
     "masculin":"immense",
-    "feminin":"immense"
+    "feminin":"immense",
+    "Mpluriel":"immenses",
+    "Fpluriel":"immenses"
   }, {
     "masculin":"important",
-    "feminin":"importante"
+    "feminin":"importante",
+    "Mpluriel":"importants",
+    "Fpluriel":"importantes"
   }, {
     "masculin":"imposant",
-    "feminin":"imposante"
+    "feminin":"imposante",
+    "Mpluriel":"imposants",
+    "Fpluriel":"imposantes"
   }, {
     "masculin":"minuscule",
-    "feminin":"minuscule"
+    "feminin":"minuscule",
+    "Mpluriel":"minuscules",
+    "Fpluriel":"minuscules"
   }, {
     "masculin":"rapide",
-    "feminin":"rapide"
+    "feminin":"rapide",
+    "Mpluriel":"rapides",
+    "Fpluriel":"rapides"
   }, {
     "masculin":"bleu",
-    "feminin":"bleue"
+    "feminin":"bleue",
+    "Mpluriel":"bleus",
+    "Fpluriel":"bleues"
   }, {
     "masculin":"rouge",
-    "feminin":"rouge"
+    "feminin":"rouge",
+    "Mpluriel":"rouges",
+    "Fpluriel":"rouges"
   }, {
     "masculin":"vert",
-    "feminin":"verte"
+    "feminin":"verte",
+    "Mpluriel":"verts",
+    "Fpluriel":"vertes"
   }, {
     "masculin":"blanc",
-    "feminin":"blanche"
+    "feminin":"blanche",
+    "Mpluriel":"blancs",
+    "Fpluriel":"blanches"
   }, {
     "masculin":"rose",
-    "feminin":"rose"
+    "feminin":"rose",
+    "Mpluriel":"roses",
+    "Fpluriel":"roses"
   }, {
     "masculin":"pourpre",
-    "feminin":"pourpre"
+    "feminin":"pourpre",
+    "Mpluriel":"pourpres",
+    "Fpluriel":"pourpres"
   }, {
     "masculin":"rare",
-    "feminin":"rare"
+    "feminin":"rare",
+    "Mpluriel":"rares",
+    "Fpluriel":"rares"
   }, {
     "masculin":"épique",
-    "feminin":"épique"
+    "feminin":"épique",
+    "Mpluriel":"épiques",
+    "Fpluriel":"épiques"
   }, {
     "masculin":"légendaire",
-    "feminin":"légendaire"
+    "feminin":"légendaire",
+    "Mpluriel":"légendaires",
+    "Fpluriel":"légendaires"
   }, {
     "masculin":"enchanté",
-    "feminin":"enchantée"
+    "feminin":"enchantée",
+    "Mpluriel":"enchantés",
+    "Fpluriel":"enchantées"
   }, {
     "masculin":"audacieux",
-    "feminin":"audacieuse"
+    "feminin":"audacieuse",
+    "Mpluriel":"audacieux",
+    "Fpluriel":"audacieuses"
   }, {
     "masculin":"sérieux",
-    "feminin":"sérieuse"
+    "feminin":"sérieuse",
+    "Mpluriel":"sérieux",
+    "Fpluriel":"sérieuses"
   }, {
     "masculin":"microscopique",
-    "feminin":"microscopique"
+    "feminin":"microscopique",
+    "Mpluriel":"microscopiques",
+    "Fpluriel":"microscopiques"
   }, {
     "masculin":"joyeux",
-    "feminin":"joyeuse"
+    "feminin":"joyeuse",
+    "Mpluriel":"joyeux",
+    "Fpluriel":"joyeuses"
   }, {
     "masculin":"séduisant",
-    "feminin":"séduisante"
+    "feminin":"séduisante",
+    "Mpluriel":"séduisants",
+    "Fpluriel":"séduisantes"
   }
 ]

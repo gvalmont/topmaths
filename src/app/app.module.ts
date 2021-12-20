@@ -25,6 +25,7 @@ import { RevisionsComponent } from './revisions/revisions.component';
 import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-hasard.component';
 import { CompetitionsComponent } from './competitions/competitions.component';
 import { AdminComponent } from './equipe/admin/admin.component';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { AdminComponent } from './equipe/admin/admin.component';
       },
       "src": "https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/startup.js"
     }),
-    MathjaxModule.forChild()
+    MathjaxModule.forChild(),
+    ColorPickerModule
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

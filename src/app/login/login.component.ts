@@ -39,11 +39,11 @@ export class LoginComponent {
    * @param identifiant 
    */
   login(identifiant: string) {
-    if (this.errPetitNbChar || this.errGrandNbChar || this.errSpChar) {
+    if (this.inputOk(identifiant)) {
+      this.dataService.login(identifiant, true)
+    } else {
       this.shake = true
       setTimeout(() => this.shake = false, 500)
-    } else {
-      this.dataService.login(identifiant, true)
     }
   }
 
@@ -53,16 +53,20 @@ export class LoginComponent {
    */
   surveilleChamp() {
     this.angForm.valueChanges.subscribe(x => {
-      const str = x.identifiant
-      this.defaut = true
-      this.errSpChar = false
-      this.errPetitNbChar = false
-      this.errGrandNbChar = false
-      if (str.length != 0) this.defaut = false
-      if (str.length < 4 && str.length != 0) this.errPetitNbChar = true
-      if (str.length > 5) this.errGrandNbChar = true
-      if (!this.dataService.onlyLettersAndNumbers(str)) this.errSpChar = true
+      this.inputOk(x.identifiant)
     })
+  }
+
+  inputOk(input: string) {
+    this.defaut = true
+    this.errSpChar = false
+    this.errPetitNbChar = false
+    this.errGrandNbChar = false
+    if (input.length != 0) this.defaut = false
+    if (input.length < 4 && input.length != 0) this.errPetitNbChar = true
+    if (input.length > 5) this.errGrandNbChar = true
+    if (!this.dataService.onlyLettersAndNumbers(input)) this.errSpChar = true
+    return (!this.defaut && !this.errSpChar && !this.errPetitNbChar && !this.errGrandNbChar)
   }
 
   /**

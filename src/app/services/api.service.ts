@@ -264,7 +264,11 @@ export class ApiService {
       });
     }
   }
+  creationEquipe(teamName: string, lienImage: string,
+    foregroundId: number, foregroundPrimaryColor: string, foregroundSecondaryColor: string,
+    backgroundId: number, backgroundColor: string){
 
+  }
   /**
    * Signale à l'utilisateur un problème dans l'enregistrement d'un nouvel identifiant
    * @param typeErreur chaine de caractères
