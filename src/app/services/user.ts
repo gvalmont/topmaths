@@ -10,9 +10,10 @@ export class User {
   public codeTrophees: string;
   public tropheesVisibles: string;
   public cleScore: string
+  public classement: number
 
   constructor(identifiant: string, lienAvatar: string, scores: string, lastLogin: string, lastAction: string, visible: string, pseudo: string, score: string,
-        codeTrophees: string, tropheesVisibles: string, cleScore: string) {
+        codeTrophees: string, tropheesVisibles: string, cleScore: string, classement: number) {
     this.identifiant = identifiant
     this.lienAvatar = lienAvatar
     this.scores = scores
@@ -24,6 +25,7 @@ export class User {
     this.codeTrophees = codeTrophees
     this.tropheesVisibles = tropheesVisibles
     this.cleScore = cleScore
+    this.classement = classement
   }
 }
 export class UserSimplifie {

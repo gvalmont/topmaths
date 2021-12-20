@@ -24,12 +24,7 @@
         </div>
         <!-- Avatar -->
         <div class="column is-one-fifth">
-          <figure *ngIf="user.pseudo != 'anonyme'" class="avatar image is-48x48 is-inline-block"
-          [style]="'--image-avatar: url(' + user.lienAvatar + ');--image-badge:url(assets/img/gvalmont/top' + top(user.classement) + '.svg)'">
-          </figure>
-          <figure *ngIf="user.pseudo == 'anonyme'" class="avatar image is-48x48 is-inline-block"
-          [style]="'--image-avatar: url(assets/img/reshot/user-3294.svg);--image-badge:url(assets/img/gvalmont/top' + top(user.classement) + '.svg)'">
-          </figure>
+          <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(user)"></figure>
         </div>
         <!-- Pseudo -->
         <div class="column is-two-fifths">

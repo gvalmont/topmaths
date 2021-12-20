@@ -8,7 +8,7 @@
     </div>
     <!-- Avatar -->
     <div class="is-clickable" (click)="ouvrirModale('avatar')">
-      <img [src]="dataService.user.lienAvatar" width="160px" />
+      <figure class="avatar is-inline-block is-large" [style]="dataService.getStyleAvatar(dataService.user)"></figure>
       <i class="image is-24x24 is-inline-block"><img src="assets/img/cc0/edit-svgrepo-com.svg" /></i>
     </div>
     <br>

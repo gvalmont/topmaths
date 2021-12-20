@@ -202,6 +202,12 @@ button:hover>i {
   background-repeat: no-repeat, no-repeat, no-repeat;
 }
 
+.avatar.is-large {
+  height: 272px;
+  width: 192px;
+  background-size: 96px, 96px, 192px;
+}
+
 .foregrounds, .backgrounds {
   height: var(--window-height);
   overflow: scroll;
