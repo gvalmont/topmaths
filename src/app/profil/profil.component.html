@@ -2,14 +2,18 @@
   <div class="column is-one-fifth"></div>
   <div class="column is-three-fifths">
     <!-- Pseudo -->
-    <div class="is-clickable" (click)="ouvrirModale('pseudo')">
-      <h1 class="title is-2 is-inline-block">{{dataService.user.pseudo}}</h1>&nbsp;
-      <i class="image is-24x24 is-inline-block"><img src="assets/img/cc0/edit-svgrepo-com.svg" /></i>
+    <div>
+      <a (click)="ouvrirModale('pseudo')">
+        <h1 class="title is-2 is-inline-block">{{dataService.user.pseudo}}</h1>&nbsp;
+        <i class="image is-24x24 is-inline-block"><img src="assets/img/cc0/edit-svgrepo-com.svg" /></i>
+      </a>
     </div>
     <!-- Avatar -->
-    <div class="is-clickable" (click)="ouvrirModale('avatar')">
-      <figure class="avatar is-inline-block is-large" [style]="dataService.getStyleAvatar(dataService.user)"></figure>
-      <i class="image is-24x24 is-inline-block"><img src="assets/img/cc0/edit-svgrepo-com.svg" /></i>
+    <div>
+      <a (click)="ouvrirModale('avatar')">
+        <figure class="avatar is-inline-block is-large" [style]="dataService.getStyleAvatar(dataService.user)"></figure>
+        <i class="image is-24x24 is-inline-block"><img src="assets/img/cc0/edit-svgrepo-com.svg" /></i>
+      </a>
     </div>
     <br>
     <!-- Score -->
@@ -17,6 +21,63 @@
       <h2 class="title">Mon score : {{dataService.user.score}}</h2>
     </div>
     <br>
+    <!-- Équipe -->
+    <div *ngIf="dataService.user.equipe != ''">
+      <a (click)="voirPageEquipe()">
+        <button class="button is-info is-large">Page de la TEAM PZK</button>
+      </a>
+    </div>
+    <!-- Rejoindre une équipe -->
+    <div class="columns is-centered">
+      <div class="column is-narrow">
+        <div *ngIf="dataService.user.equipe == ''" class="dropdown is-hoverable">
+          <div class="dropdown-trigger">
+            <!-- Champ de connexion -->
+            <form [formGroup]="angFormE" (ngSubmit)="rejoindreEquipe(angFormE.value.codeEquipe)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              <div class="field is-inline-block">
+                <div [ngClass]="{'control has-icons-left has-icons-right': true, 'shake': shakeE}">
+                  <!-- Champ en lui-même -->
+                  <input [ngClass]="{'input': true, 'is-success': (!errPetitNbCharE && !errGrandNbCharE && !errSpCharE && !defautE && !errCodeIncorrectE), 'is-danger': (errPetitNbCharE || errGrandNbCharE || errSpCharE || errCodeIncorrectE)}" type="text" name="codeEquipe" formControlName="codeEquipe" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Code équipe" size="7">
+                  <!-- icônes de part et d'autre du champ -->
+                  <span class="icon is-small is-left filter-grey">
+                    <i class="image is-24x24"><img src="assets/img/cc0/users-267.svg" /></i>
+                  </span>
+                  <span *ngIf="(!errPetitNbCharE && !errGrandNbCharE && !errSpCharE && !defautE)" class="icon is-small is-right filter-grey">
+                    <i class="image is-24x24"><img src="assets/img/cc0/check-svgrepo-com.svg" /></i>
+                  </span>
+                  <span *ngIf="(errPetitNbCharE || errGrandNbCharE || errSpCharE)" class="icon is-small is-right filter-grey">
+                    <i class="image is-24x24"><img src="assets/img/cc0/warning-exclamation-sign-in-filled-triangle-svgrepo-com.svg" /></i>
+                  </span>
+                </div>
+              </div>
+              &nbsp;
+              <!-- Bouton d'envoi -->
+              <button type="submit" class="button is-info is-inline-block">Rejoindre l'équipe</button>
+              <!-- Indications sous le champ -->
+              <div *ngIf="(!errPetitNbCharE && !errGrandNbCharE && !errSpCharE && !defautE && !errCodeIncorrectE)" class="has-text-success">Ça a l'air bon !</div>
+              <div *ngIf="errPetitNbCharE" class="has-text-danger">C'est trop court !</div>
+              <div *ngIf="errGrandNbCharE" class="has-text-danger">C'est trop long !</div>
+              <div *ngIf="errSpCharE" class="has-text-danger">Il ne faut que des lettres en minuscule !</div>
+              <div *ngIf="errCodeIncorrectE" class="has-text-danger">Code incorrect</div>
+            </form>
+          </div>
+          <div class="dropdown-menu">
+            <div class="dropdown-content">
+              <div class="dropdown-item is-size-6">
+                <p>Si tu veux rejoindre l'équipe de quelqu'un d'autre,
+                  tu peux entrer le code d'équipe qu'il ou elle t'a donné.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="dataService.user.equipe == ''">
+          <a (click)="creerNouvelleEquipe()">
+            <button class="button is-info is-outlined">Créer une nouvelle équipe</button>
+          </a>
+        </div>
+      </div>
+    </div>
     <!-- Trophées -->
     <div *ngIf="dataService.user.codeTrophees != ''">
       <a (click)="voirTropheesPerso()">
@@ -115,16 +176,16 @@
                     <i class="image is-24x24"><img src="assets/img/cc0/warning-exclamation-sign-in-filled-triangle-svgrepo-com.svg" /></i>
                   </span>
                 </div>
-                <!-- Indications sous le champ -->
-                <div *ngIf="(!errPetitNbChar && !errGrandNbChar && !errSpChar && !defaut && !errCodeIncorrect)" class="has-text-success">Ça a l'air bon !</div>
-                <div *ngIf="errPetitNbChar" class="has-text-danger">C'est trop court !</div>
-                <div *ngIf="errGrandNbChar" class="has-text-danger">C'est trop long !</div>
-                <div *ngIf="errSpChar" class="has-text-danger">Il ne faut que des lettres en minuscule !</div>
-                <div *ngIf="errCodeIncorrect" class="has-text-danger">Code incorrect</div>
               </div>
               &nbsp;
               <!-- Bouton d'envoi -->
               <button type="submit" class="button is-success is-inline-block">Créer le lien</button>
+              <!-- Indications sous le champ -->
+              <div *ngIf="(!errPetitNbChar && !errGrandNbChar && !errSpChar && !defaut && !errCodeIncorrect)" class="has-text-success">Ça a l'air bon !</div>
+              <div *ngIf="errPetitNbChar" class="has-text-danger">C'est trop court !</div>
+              <div *ngIf="errGrandNbChar" class="has-text-danger">C'est trop long !</div>
+              <div *ngIf="errSpChar" class="has-text-danger">Il ne faut que des lettres en minuscule !</div>
+              <div *ngIf="errCodeIncorrect" class="has-text-danger">Code incorrect</div>
             </form>
           </div>
           <div class="dropdown-menu">
@@ -138,13 +199,19 @@
         </div>
       </div>
     </div>
-    <!-- Supprimer le lien -->
-    <form *ngIf="dataService.user.codeTrophees != ''" [formGroup]="angForm" (ngSubmit)="supprimerLienTrophees()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <!-- Quitter l'équipe -->
+    <div *ngIf="dataService.user.equipe != ''">
       <br>
-      <!-- Bouton d'envoi -->
-      <button type="submit" class="button is-danger">Supprimer le lien vers les trophées</button>
-    </form>
-    <br>
+      <button (click)="quitterEquipe()" class="button is-danger">Quitter la TEAM PZK</button>
+      <br>
+    </div>
+    <!-- Supprimer le lienTrophees -->
+    <div *ngIf="dataService.user.codeTrophees != ''">
+      <br>
+      <button (click)="supprimerLienTrophees()" class="button is-danger">Supprimer le lien vers les trophées</button>
+      <br>
+    </div>
+    <br><br>
     <!-- Déconnexion -->
     <div *ngIf="dataService.user.lastLogin != '' && derniereConnexion != 'undefined NaN undefined NaN à NaNhNaNmin'">
       <p class="has-text-grey is-size-6">Quelqu'un s'est connecté sur ce compte le {{derniereConnexion}}.<br>

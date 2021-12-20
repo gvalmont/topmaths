@@ -11,9 +11,10 @@ export class User {
   public tropheesVisibles: string;
   public cleScore: string
   public classement: number
+  public equipe: string
 
   constructor(identifiant: string, lienAvatar: string, scores: string, lastLogin: string, lastAction: string, visible: string, pseudo: string, score: string,
-        codeTrophees: string, tropheesVisibles: string, cleScore: string, classement: number) {
+        codeTrophees: string, tropheesVisibles: string, cleScore: string, classement: number, equipe: string) {
     this.identifiant = identifiant
     this.lienAvatar = lienAvatar
     this.scores = scores
@@ -26,6 +27,7 @@ export class User {
     this.tropheesVisibles = tropheesVisibles
     this.cleScore = cleScore
     this.classement = classement
+    this.equipe = equipe
   }
 }
 export class UserSimplifie {
@@ -35,9 +37,10 @@ export class UserSimplifie {
   public score: string;
   public lienTrophees: string;
   public classement: number
+  public equipe: string
   public styleAvatar?: string;
 
-  constructor(id: string, lienAvatar: string, pseudo: string, score: string, lienTrophees: string, classement: number, styleAvatar?: string) {
+  constructor(id: string, lienAvatar: string, pseudo: string, score: string, lienTrophees: string, classement: number, equipe: string, styleAvatar?: string) {
     this.id = id
     this.pseudo = pseudo
     this.lienAvatar = lienAvatar
@@ -45,5 +48,6 @@ export class UserSimplifie {
     this.lienTrophees = lienTrophees
     this.classement = classement
     this.styleAvatar = styleAvatar
+    this.equipe = equipe
   }
 }

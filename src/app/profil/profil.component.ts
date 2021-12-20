@@ -23,6 +23,13 @@ export class ProfilComponent implements OnInit {
   errSpChar: boolean
   errCodeIncorrect: boolean
   shake: boolean
+  angFormE: FormGroup
+  defautE: boolean
+  errGrandNbCharE: boolean
+  errPetitNbCharE: boolean
+  errSpCharE: boolean
+  errCodeIncorrectE: boolean
+  shakeE: boolean
   lienAvatar: string
   pseudo: string
   yeux: Slider
@@ -40,7 +47,7 @@ export class ProfilComponent implements OnInit {
 
   constructor(private fb: FormBuilder, public http: HttpClient, public appComponent: AppComponent, public dataService: ApiService, private router: Router) {
     this.angForm = this.fb.group({
-      codeTrophee: ['', [Validators.required, Validators.minLength(6), Validators.minLength(6)]]
+      codeTrophee: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]]
     });
     this.defaut = true
     this.errGrandNbChar = false
@@ -49,6 +56,16 @@ export class ProfilComponent implements OnInit {
     this.errCodeIncorrect = false
     this.shake = false
     this.surveilleChamp()
+    this.angFormE = this.fb.group({
+      codeEquipe: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]]
+    });
+    this.defautE = true
+    this.errGrandNbCharE = false
+    this.errPetitNbCharE = false
+    this.errSpCharE = false
+    this.errCodeIncorrectE = false
+    this.shakeE = false
+    this.surveilleChampE()
     this.yeux = {
       value: 1,
       options: {
@@ -149,6 +166,22 @@ export class ProfilComponent implements OnInit {
     } else {
       console.log('modalePseudo non trouvée')
     }
+  }
+
+  voirPageEquipe(){
+    //A coder
+  }
+
+  rejoindreEquipe(codeEquipe: string) {
+    //A coder
+  }
+
+  creerNouvelleEquipe(){
+    //A coder
+  }
+
+  quitterEquipe(){
+    //A coder
   }
 
   /**
@@ -423,7 +456,7 @@ export class ProfilComponent implements OnInit {
   }
 
   /**
-   * Surveille le champ de connexion,
+   * Surveille le champ de lien trophées,
    * actualise les booléens sur lesquels s'appuie le formatage du champ
    */
   surveilleChamp() {
@@ -438,6 +471,25 @@ export class ProfilComponent implements OnInit {
       if (str.length < 6 && str.length != 0) this.errPetitNbChar = true
       if (str.length > 6) this.errGrandNbChar = true
       if (!/^[a-z]*$/.test(str)) this.errSpChar = true
+    })
+  }
+
+  /**
+   * Surveille le champ pour rejoindre une équipe,
+   * actualise les booléens sur lesquels s'appuie le formatage du champ
+   */
+   surveilleChampE() {
+    this.angFormE.valueChanges.subscribe(x => {
+      const str = x.codeEquipe
+      this.defautE = true
+      this.errSpCharE = false
+      this.errPetitNbCharE = false
+      this.errGrandNbCharE = false
+      this.errCodeIncorrectE = false
+      if (str.length != 0) this.defautE = false
+      if (str.length < 5 && str.length != 0) this.errPetitNbCharE = true
+      if (str.length > 5) this.errGrandNbCharE = true
+      if (!/^[a-z]*$/.test(str)) this.errSpCharE = true
     })
   }
 

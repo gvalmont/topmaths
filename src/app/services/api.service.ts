@@ -54,7 +54,8 @@ export class ApiService {
       codeTrophees: '',
       tropheesVisibles: '',
       cleScore: '',
-      classement: 0
+      classement: 0,
+      equipe: ''
     }
     this.onlineUsers = []
     this.classement = []
@@ -98,14 +99,16 @@ export class ApiService {
           pseudo: 'lapin bleu',
           score: '17',
           lienTrophees: 'tcqnfy',
-          classement: 2
+          classement: 2,
+          equipe: ''
         }, {
           id: '2',
           lienAvatar: '',
           pseudo: 'anonyme',
           score: '38',
           lienTrophees: 'tuoocj',
-          classement: 1
+          classement: 1,
+          equipe: ''
         }
       ]
     } else {
@@ -131,14 +134,16 @@ export class ApiService {
           pseudo: 'lapin bleu',
           score: '17',
           lienTrophees: 'tuoocj',
-          classement: 2
+          classement: 2,
+          equipe: ''
         }, {
           id: '2',
           lienAvatar: 'https://avatars.dicebear.com/api/adventurer/id2.svg',
           pseudo: 'Pierre verte',
           score: '38',
           lienTrophees: 'tuoocj',
-          classement: 1
+          classement: 1,
+          equipe: ''
         }
       ]
     } else {
@@ -203,7 +208,8 @@ export class ApiService {
         codeTrophees: 'tuoocj',
         tropheesVisibles: '',
         cleScore: 'abc',
-        classement: 9
+        classement: 9,
+        equipe: ''
       }
       this.setToken('identifiant', this.user.identifiant)
       this.setToken('version', this.derniereVersionToken)
@@ -277,7 +283,8 @@ export class ApiService {
         codeTrophees: '',
         tropheesVisibles: '',
         cleScore: '',
-        classement: 0
+        classement: 0,
+        equipe: ''
       }
       this.http.post<User[]>(this.baseUrl + '/register.php', user).subscribe(users => {
         this.isloggedIn = true
@@ -442,14 +449,16 @@ export class ApiService {
           pseudo: 'lapin bleu',
           score: '17',
           lienTrophees: '',
-          classement: 2
+          classement: 2,
+          equipe: ''
         }, {
           id: '2',
           lienAvatar: 'https://avatars.dicebear.com/api/adventurer/id2.svg',
           pseudo: 'Pierre verte',
           score: '38',
           lienTrophees: '',
-          classement: 1
+          classement: 1,
+          equipe: ''
         }
       ]
     } else {
@@ -477,7 +486,7 @@ export class ApiService {
     if (isDevMode()) {
       this.deleteToken('identifiant')
       this.deleteToken('version')
-      this.user = new User('', '', '', '', '', '', '', '', '', '', '', 0)
+      this.user = new User('', '', '', '', '', '', '', '', '', '', '', 0, '')
       this.isloggedIn = false
       this.profilModifie.emit([
         'identifiant',
@@ -496,7 +505,7 @@ export class ApiService {
         data => {
           this.deleteToken('identifiant')
           this.deleteToken('version')
-          this.user = new User('', '', '', '', '', '', '', '', '', '', '', 0)
+          this.user = new User('', '', '', '', '', '', '', '', '', '', '', 0, '')
           this.isloggedIn = false
           this.profilModifie.emit([
             'identifiant',
