@@ -40,7 +40,7 @@ export class LoginComponent {
    */
   login(identifiant: string) {
     if (this.inputOk(identifiant)) {
-      this.dataService.login(identifiant, true)
+      this.dataService.login(identifiant, true, true)
     } else {
       this.shake = true
       setTimeout(() => this.shake = false, 500)

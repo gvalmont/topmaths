@@ -38,6 +38,7 @@ export class ApiService {
   ancienPseudoClique: string
   lienTropheesClique: string
   trophees!: Trophee5e | Trophee4e
+  derniereVersionToken: string
 
   @Output() profilModifie: EventEmitter<string[]> = new EventEmitter();
   constructor(private http: HttpClient, private router: Router) {
@@ -65,6 +66,7 @@ export class ApiService {
     this.listeFeminins = []
     this.listeAdjectifs = []
     this.isloggedIn = false
+    this.derniereVersionToken = '2'
     this.surveilleModificationsDuProfil()
     this.recupereDonneesPseudos() // En cas de création d'un nouveau compte
   }
@@ -158,8 +160,10 @@ export class ApiService {
    * - Fire un event pour prévenir de la connexion
    * - Redirige vers la page qu'on a voulu accéder ou vers la page profil.
    * @param identifiant identifiant à chercher dans la bdd
+   * @param secure false si connexion automatique, true si l'utilisateur saisit son identifiant
+   * @param redigire true s'il y a une redirection à faire, false sinon
    */
-  login(identifiant: string, redirige?: boolean) {
+  login(identifiant: string, secure: boolean, redirige?: boolean) {
     if (isDevMode()) {
       this.user = {
         identifiant: 'X',
@@ -174,7 +178,8 @@ export class ApiService {
         tropheesVisibles: '',
         cleScore: 'abc'
       }
-      this.setToken(this.user.identifiant);
+      this.setToken('identifiant', this.user.identifiant)
+      this.setToken('version', this.derniereVersionToken)
       this.isloggedIn = true
       this.profilModifie.emit([
         'identifiant',
@@ -188,13 +193,16 @@ export class ApiService {
         'codeTrophees',
         'tropheesVisibles'])
     } else {
-      this.http.post<User[]>(this.baseUrl + '/login.php', { identifiant }).subscribe(users => {
+      let loginPage: string
+      secure ? loginPage = '/securelogin.php' : loginPage = '/autologin.php'
+      this.http.post<User[]>(this.baseUrl + loginPage, { identifiant }).subscribe(users => {
         if (users[0].identifiant == 'personne') {
           console.log('identifiant non trouvé, on en crée un nouveau')
           this.registration(identifiant)
         } else {
           this.isloggedIn = true
-          this.setToken(users[0].identifiant);
+          this.setToken('identifiant', users[0].identifiant)
+          this.setToken('version', this.derniereVersionToken)
           this.user = users[0]
           this.profilModifie.emit([
             'identifiant',
@@ -245,7 +253,8 @@ export class ApiService {
       }
       this.http.post<User[]>(this.baseUrl + '/register.php', user).subscribe(users => {
         this.isloggedIn = true
-        this.setToken(users[0].identifiant);
+        this.setToken('identifiant', users[0].identifiant);
+        this.setToken('version', this.derniereVersionToken);
         this.user = users[0]
         this.profilModifie.emit([
           'identifiant',
@@ -260,6 +269,7 @@ export class ApiService {
           'tropheesVisibles'])
         this.router.navigate(['profil'])
       }, error => {
+        console.log(error)
         this.erreurRegistration('userregistration', error['message'])
       });
     }
@@ -437,7 +447,8 @@ export class ApiService {
    */
   logout() {
     if (isDevMode()) {
-      this.deleteToken()
+      this.deleteToken('identifiant')
+      this.deleteToken('version')
       this.user = new User('', '', '', '', '', '', '', '', '', '', '')
       this.isloggedIn = false
       this.profilModifie.emit([
@@ -455,7 +466,8 @@ export class ApiService {
     } else {
       this.http.post(this.baseUrl + `/logout.php`, this.user).subscribe(
         data => {
-          this.deleteToken()
+          this.deleteToken('identifiant')
+          this.deleteToken('version')
           this.user = new User('', '', '', '', '', '', '', '', '', '', '')
           this.isloggedIn = false
           this.profilModifie.emit([
@@ -562,26 +574,29 @@ export class ApiService {
   }
 
   /**
-   * Crée un token 'identifiant' dans le localStorage
-   * @param value Valeur du token 'identifiant'
+   * Crée un token dans le localStorage
+   * @param key clé to token
+   * @param value Valeur du token
    */
-  setToken(value: string) {
-    localStorage.setItem('identifiant', value);
+  setToken(key: string, value: string) {
+    localStorage.setItem(key, value);
   }
 
   /**
-   * Récupère la valeur du token 'identifiant' du localStorage
-   * @returns Valeur du token 'identifiant''identifiant'
+   * Récupère la valeur du token key du localStorage
+   * @param key
+   * @returns Valeur du token key
    */
-  getToken() {
-    return localStorage.getItem('identifiant');
+  getToken(key: string) {
+    return localStorage.getItem(key);
   }
 
   /**
-   * Supprime le token 'identifiant' du localStorage
+   * Supprime le token key du localStorage
+   * @param key
    */
-  deleteToken() {
-    localStorage.removeItem('identifiant');
+  deleteToken(key: string) {
+    localStorage.removeItem(key);
   }
 
   /**
@@ -591,8 +606,9 @@ export class ApiService {
    * @returns boolean
    */
   checkLoggedIn() {
-    const usertoken = this.getToken();
-    if (usertoken != null) {
+    const usertoken = this.getToken('identifiant');
+    const version = this.getToken('version')
+    if (usertoken != null && version == this.derniereVersionToken) {
       this.isloggedIn = true
     } else {
       this.isloggedIn = false

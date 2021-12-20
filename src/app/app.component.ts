@@ -67,9 +67,10 @@ export class AppComponent implements OnDestroy {
    * Vérifie la présence d'un token de connexion et récupère le profil utilisateur le cas échéant
    */
   recupereProfil() {
-    const identifiant = this.dataService.getToken()
-    if (identifiant != null) {
-      this.dataService.login(identifiant, false)
+    const identifiant = this.dataService.getToken('identifiant')
+    const version = this.dataService.getToken('version')
+    if (identifiant != null && version == this.dataService.derniereVersionToken) {
+      this.dataService.login(identifiant, false, false)
     }
   }
   /**
