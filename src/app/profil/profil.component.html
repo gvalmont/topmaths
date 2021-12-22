@@ -22,15 +22,15 @@
     </div>
     <br>
     <!-- Équipe -->
-    <div *ngIf="dataService.user.codeEquipe != ''">
+    <div *ngIf="dataService.user.teamName != ''">
       <a (click)="voirPageEquipe()">
-        <button class="button is-info is-large">Page de la TEAM PZK</button>
+        <button class="button is-info is-large">Page de la TEAM {{ dataService.user.teamName }}</button>
       </a>
     </div>
     <!-- Rejoindre une équipe -->
     <div class="columns is-centered">
       <div class="column is-narrow">
-        <div *ngIf="dataService.user.codeEquipe == ''" class="dropdown is-hoverable">
+        <div *ngIf="dataService.user.teamName == ''" class="dropdown is-hoverable">
           <div class="dropdown-trigger">
             <!-- Champ de connexion -->
             <form [formGroup]="angFormE" (ngSubmit)="rejoindreEquipe(angFormE.value.codeEquipe)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
@@ -71,7 +71,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="dataService.user.codeEquipe == ''">
+        <div *ngIf="dataService.user.teamName == ''">
           <a (click)="creerNouvelleEquipe()">
             <button class="button is-info is-outlined">Créer une nouvelle équipe</button>
           </a>
@@ -200,9 +200,9 @@
       </div>
     </div>
     <!-- Quitter l'équipe -->
-    <div *ngIf="dataService.user.codeEquipe != ''">
+    <div *ngIf="dataService.user.teamName != ''">
       <br>
-      <button (click)="quitterEquipe()" class="button is-danger">Quitter la TEAM PZK</button>
+      <button (click)="quitterEquipe()" class="button is-danger">Quitter la TEAM {{ dataService.user.teamName }}</button>
       <br>
     </div>
     <!-- Supprimer le lienTrophees -->

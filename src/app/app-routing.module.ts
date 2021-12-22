@@ -16,6 +16,7 @@ import { RevisionsComponent } from './revisions/revisions.component';
 import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-hasard.component';
 import { CompetitionsComponent } from './competitions/competitions.component';
 import { EquipeModificationComponent } from './equipe/modification/equipe.modification.component';
+import { EquipePageComponent } from './equipe/page/equipe.page.component';
 
 const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
@@ -36,7 +37,8 @@ const routes: Routes = [
   { path: 'revisions', component: RevisionsComponent },
   { path: 'exercices-au-hasard', component: ExercicesAuHasardComponent },
   { path: 'competitions', component: CompetitionsComponent },
-  { path: 'equipe/admin/:ref', component: EquipeModificationComponent},
+  { path: 'team/admin/:ref', component: EquipeModificationComponent, canActivate: [AuthguardGuard]},
+  { path: 'team/:teamName', component: EquipePageComponent},
   { path: '', component: AccueilComponent },
   { path: ':ref', component: ObjectifComponent },
   { path: '**', component: AccueilComponent }

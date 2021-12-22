@@ -1,4 +1,5 @@
 export class User {
+  public id: number
   public identifiant: string;
   public lienAvatar: string;
   public scores: string;
@@ -11,10 +12,12 @@ export class User {
   public tropheesVisibles: string;
   public cleScore: string
   public classement: number
-  public codeEquipe: string
+  public teamName: string
+  public scoreEquipe: number
 
-  constructor(identifiant: string, lienAvatar: string, scores: string, lastLogin: string, lastAction: string, visible: string, pseudo: string, score: string,
-        codeTrophees: string, tropheesVisibles: string, cleScore: string, classement: number, codeEquipe: string) {
+  constructor(id: number, identifiant: string, lienAvatar: string, scores: string, lastLogin: string, lastAction: string, visible: string, pseudo: string, score: string,
+        codeTrophees: string, tropheesVisibles: string, cleScore: string, classement: number, teamName: string, scoreEquipe: number) {
+    this.id = id
     this.identifiant = identifiant
     this.lienAvatar = lienAvatar
     this.scores = scores
@@ -27,20 +30,22 @@ export class User {
     this.tropheesVisibles = tropheesVisibles
     this.cleScore = cleScore
     this.classement = classement
-    this.codeEquipe = codeEquipe
+    this.teamName = teamName
+    this.scoreEquipe = scoreEquipe
   }
 }
 export class UserSimplifie {
-  public id: string
+  public id: number
   public pseudo: string;
-  public lienAvatar: string;
-  public score: string;
-  public lienTrophees: string;
+  public lienAvatar: string
+  public score: string
+  public lienTrophees: string
   public classement: number
-  public codeEquipe: string
-  public styleAvatar?: string;
+  public teamName: string
+  public scoreEquipe: number
+  public styleAvatar?: string
 
-  constructor(id: string, lienAvatar: string, pseudo: string, score: string, lienTrophees: string, classement: number, codeEquipe: string, styleAvatar?: string) {
+  constructor(id: number, lienAvatar: string, pseudo: string, score: string, lienTrophees: string, classement: number, teamName: string, scoreEquipe: number, styleAvatar?: string) {
     this.id = id
     this.pseudo = pseudo
     this.lienAvatar = lienAvatar
@@ -48,6 +53,7 @@ export class UserSimplifie {
     this.lienTrophees = lienTrophees
     this.classement = classement
     this.styleAvatar = styleAvatar
-    this.codeEquipe = codeEquipe
+    this.teamName = teamName
+    this.scoreEquipe = scoreEquipe
   }
 }

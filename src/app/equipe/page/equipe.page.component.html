@@ -1,0 +1,68 @@
+<div class="container centre">
+<h1 class="title is-2">TEAM {{ dataService.infosEquipe.teamName }}</h1>
+<figure class="image is-128x128 is-inline-block">
+  <img [src]="dataService.infosEquipe.lienEmbleme | safe" />
+</figure>
+<h2 class="title is-3"> Score : {{ dataService.infosEquipe.score }} </h2>
+<div *ngIf="dataService.user.teamName == dataService.infosEquipe.teamName" class="is-flex is-align-items-center is-justify-content-center">
+  <div><br><br></div>
+  <button routerLink="/team/admin/modification" *ngIf="dataService.user.id == dataService.infosEquipe.leader" class="button is-info">Paramètres</button>
+  <button *ngIf="!afficherCodeEquipe" class="button is-light" (click)="afficherCodeEquipe = true">Afficher le code d'équipe</button>
+  <span *ngIf="afficherCodeEquipe">&nbsp;&nbsp; Code d'équipe : {{ dataService.infosEquipe.codeEquipe }}</span>
+  <div><br><br></div>
+</div>
+<div><br><br></div>
+<h1 class="title is-2">Membres</h1>
+  <div *ngFor="let membre of dataService.infosEquipe.membres; index as i">
+    <div class="columns">
+      <!-- On fait un tableau à une seule colonne pour que les contenus restent alignés en vue portrait -->
+      <div class="column is-flex is-align-items-center is-justify-content-center">
+        <!-- Classement -->
+        <div class="column is-one-fifth">
+          <p class="title is-5 has-text-weight-bold">{{ i + 1 }}</p>
+        </div>
+        <!-- Avatar -->
+        <div class="column is-one-fifth">
+          <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(membre)"></figure>
+        </div>
+        <!-- Pseudo -->
+        <div class="column is-two-fifths">
+          <div *ngIf="membre.pseudo != 'anonyme'" class="is-inline-block">
+            <div class="column is-three-fifths">
+              <div *ngIf="membre.lienTrophees != ''" class="dropdown is-right is-hoverable is-inline-block">
+                <div class="dropdown-trigger">
+                  <a (click)="voirTropheesPerso(membre)">{{membre.pseudo}}</a>
+                </div>
+                <div class="dropdown-menu">
+                  <div class="dropdown-content">
+                    <div class="dropdown-item">
+                      <p>Afficher ses trophées</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="membre.lienTrophees == ''" class="is-inline-block">{{membre.pseudo}}</div>
+            </div>
+          </div>
+          <div *ngIf="membre.pseudo == 'anonyme'" class="is-inline-block">
+            < anonyme >
+          </div>
+        </div>
+        <!-- Scores -->
+        <div class="column is-one-fifth">
+          <div *ngIf="membre.lienTrophees != ''" class="dropdown is-right is-hoverable is-inline-block">
+            <div class="dropdown-trigger">{{membre.score}}
+            </div>
+            <div class="dropdown-menu">
+              <div class="dropdown-content">
+                <div class="dropdown-item">
+                  <p>{{ membre.pseudo }} a ajouté {{ membre.score }} au score de la TEAM {{ dataService.infosEquipe.teamName }} !</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

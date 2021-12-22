@@ -8,10 +8,11 @@ export class Equipe {
   backgroundId: number
   backgroundColor: string
   leader: string
+  membres: string[]
 
   constructor(teamName: string, codeEquipe: string, lienEmbleme: string,
     foregroundId: number, foregroundPrimaryColor: string, foregroundSecondaryColor: string,
-    backgroundId: number, backgroundColor: string, leader: string) {
+    backgroundId: number, backgroundColor: string, leader: string, membres: string[]) {
       this.teamName = teamName
       this.codeEquipe = codeEquipe
       this.lienEmbleme = lienEmbleme
@@ -21,5 +22,6 @@ export class Equipe {
       this.backgroundId = backgroundId
       this.backgroundColor = backgroundColor
       this.leader = leader
+      this.membres = membres
   }
 }

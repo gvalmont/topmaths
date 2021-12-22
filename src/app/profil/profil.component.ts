@@ -169,7 +169,7 @@ export class ProfilComponent implements OnInit {
   }
 
   voirPageEquipe(){
-    //A coder
+    this.router.navigate(['team', this.dataService.user.teamName])
   }
 
   rejoindreEquipe(codeEquipe: string) {
@@ -182,8 +182,8 @@ export class ProfilComponent implements OnInit {
    * sinon envoie vers la page de création d'une nouvelle équipe
    */
   creerNouvelleEquipe(){
-    if (this.dataService.user.codeEquipe == '') {
-      this.router.navigate(['equipe', 'admin', 'creation'])
+    if (this.dataService.user.teamName == '') {
+      this.router.navigate(['team', 'admin', 'creation'])
     } else {
       alert('Tu fais déjà partie d\'une équipe !\nTu dois d\'abord la quitter si tu veux en créer une autre.')
     }

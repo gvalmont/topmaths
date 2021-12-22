@@ -6,8 +6,8 @@
     <form [formGroup]="angForm" (ngSubmit)="envoi()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       <!-- Nom de l'équipe -->
       <div class="columns is-flex is-align-items-center is-justify-content-center">
-        <div class="column"><h1 class="title is-2 has-text-right">TEAM</h1></div>
-        <div class="column has-text-left">
+        <div class="column"><h1 [ngClass]="{'title is-2' : true, 'has-text-right' : creation, 'has-text-centered' : modification}">TEAM{{ modification ? ' ' + dataService.infosEquipe.teamName : ''}}</h1></div>
+        <div *ngIf="creation" class="column has-text-left">
         <div class="field is-inline-block">
           <div [ngClass]="{'control has-icons-right is-inline-block': true, 'shake': shake}">
             <!-- Champ en lui-même -->
@@ -79,7 +79,7 @@
         </div>
       </div>
       <div>
-        <button type="submit" *ngIf="creation" class="button is-success is-large">Créer la TEAM {{ teamName | uppercase}}</button>
+        <button type="submit" *ngIf="creation || dataService.infosEquipe.codeEquipe != ''" class="button is-success is-large"> {{ creation ? 'Créer' : 'Modifier' }} la TEAM {{ teamName | uppercase}}</button>
       </div>
     </form>
     <br>

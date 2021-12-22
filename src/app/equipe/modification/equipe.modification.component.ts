@@ -89,7 +89,7 @@ export class EquipeModificationComponent implements OnInit {
     this.flags = []
     this.modification = false
     this.creation = false
-    this.teamName = ''
+    this.teamName = dataService.user.teamName
     this.angForm = new FormGroup({
       teamName: new FormControl('', [Validators.required])
     })
@@ -166,6 +166,7 @@ export class EquipeModificationComponent implements OnInit {
   envoi() {
     if (this.inputOk()) {
       this.secureLogin.login({
+        creationOuModification: this.creation ? 'creation' : 'modification',
         teamName: this.teamName.toUpperCase(),
         lienEmbleme: this.lienImage(),
         foregroundId: this.foregroundId,
@@ -204,7 +205,7 @@ export class EquipeModificationComponent implements OnInit {
           const retourSecureLogin = event.data.retourSecureLogin
           if (typeof (retourSecureLogin) != 'undefined' && retourSecureLogin != 'erreur' && retourSecureLogin != 'different') {
             const donnees = event.data.donnees
-            this.dataService.creationEquipe(donnees.teamName, donnees.lienEmbleme,
+            this.dataService.creationModificationEquipe(donnees.creationOuModification, donnees.teamName, donnees.lienEmbleme,
               donnees.foregroundId, donnees.foregroundPrimaryColor, donnees.foregroundSecondaryColor,
               donnees.backgroundId, donnees.backgroundColor, retourSecureLogin)
           }
