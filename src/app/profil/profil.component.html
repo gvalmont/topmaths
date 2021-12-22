@@ -202,7 +202,7 @@
     <!-- Quitter l'équipe -->
     <div *ngIf="dataService.user.teamName != ''">
       <br>
-      <button (click)="dataService.quitterEquipe()" class="button is-danger">Quitter la TEAM {{ dataService.user.teamName }}</button>
+      <button (click)="quitterEquipe()" class="button is-danger">Quitter la TEAM {{ dataService.user.teamName }}</button>
       <br>
     </div>
     <!-- Supprimer le lienTrophees -->
@@ -305,4 +305,39 @@
     <br><br>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="fermerModale('pseudo')"></button>
+</div>
+
+<!-- Modale de confirmation -->
+<div id="modaleConfirmation" class="modal centre">
+  <div class="modal-background" (click)="fermerModale('confirmation')"></div>
+  <div><br><br><br></div>
+  <div class="modal-content has-background-white">
+    <!-- Texte -->
+    <br><br>
+    <p>
+      Si tu quittes la TEAM {{ dataService.user.teamName }},
+      le nombre de points que tu as fait gagné à l'équipe sera réinitialisé
+      et tu vas avoir besoin du code d'équipe si tu veux la rejoindre à nouveau
+    </p>
+    <p *ngIf="dataService.user.id == dataService.infosEquipe.leader">
+      De plus, plus personne ne pourra modifier l'emblème de l'équipe.
+    </p>
+    <p>
+      Tu es{{ dataService.user.id == dataService.infosEquipe.leader ? ' vraiment' : ' ' }} sûr(e) de vouloir la quitter ?
+    </p>
+    <br><br>
+    <!-- Boutons -->
+    <div class="columns">
+      <div class="column is-5 is-flex is-align-items-center is-justify-content-right">
+        <button (click)="fermerModale('confirmation')" class="button is-danger">Annuler</button>
+      </div>
+      <div class="column is-2 is-flex is-align-items-center is-justify-content-center">
+      </div>
+      <div class="column is-5 is-flex is-align-items-center is-justify-content-left">
+        <button (click)="dataService.quitterEquipe(); fermerModale('confirmation')" class="button is-success">Continuer</button>
+      </div>
+    </div>
+    <br><br><br>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="fermerModale('confirmation')"></button>
 </div>

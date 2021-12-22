@@ -42,6 +42,7 @@ export class ProfilComponent implements OnInit {
   modaleAvatar!: HTMLElement
   derniereConnexion: string
   modalePseudo!: HTMLElement
+  modaleConfirmation!: HTMLElement
   enCoursDeModif: string
   modifTerminee: string
 
@@ -166,6 +167,12 @@ export class ProfilComponent implements OnInit {
     } else {
       console.log('modalePseudo non trouvée')
     }
+    modale = document.getElementById("modaleConfirmation")
+    if (modale != null) {
+      this.modaleConfirmation = modale
+    } else {
+      console.log('modaleConfirmation non trouvée')
+    }
   }
 
   voirPageEquipe(){
@@ -183,6 +190,13 @@ export class ProfilComponent implements OnInit {
     } else {
       alert('Tu fais déjà partie d\'une équipe !\nTu dois d\'abord la quitter si tu veux en créer une autre.')
     }
+  }
+
+  /**
+   * Ouvre la modale de confirmation pour quitter l'équipe
+   */
+  quitterEquipe() {
+    this.ouvrirModale('confirmation')
   }
 
   /**
@@ -538,6 +552,9 @@ export class ProfilComponent implements OnInit {
     } else if (type == 'pseudo') {
       this.pseudo = this.dataService.user.pseudo
       this.modalePseudo.style.display = "block"
+    } else if (type == 'confirmation') {
+      this.modaleConfirmation.style.display = "block"
+      this.dataService.recupInfosEquipe(this.dataService.user.teamName)
     }
   }
 
@@ -553,6 +570,8 @@ export class ProfilComponent implements OnInit {
       this.modaleAvatar.style.display = "none"
     } else if (type == 'pseudo') {
       this.modalePseudo.style.display = "none"
+    } else if (type == 'confirmation') {
+      this.modaleConfirmation.style.display = "none"
     }
   }
 

@@ -3,7 +3,6 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
-import { SecureloginService } from 'src/app/services/securelogin.service';
 
 interface GuildEmblems {
   emblemBackgroundDefs: SVGPathElement[][]
@@ -78,7 +77,7 @@ export class EquipeModificationComponent implements OnInit {
   teamName: string
   dateDerniereReponse: Date
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, private secureLogin: SecureloginService) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, public dataService: ApiService) {
     this.emblemBackgroundDefs = []
     this.emblemDefs = []
     this.foregroundId = Math.floor(Math.random() * 243 + 1)
@@ -165,7 +164,7 @@ export class EquipeModificationComponent implements OnInit {
    */
   envoi() {
     if (this.inputOk()) {
-      this.secureLogin.login({
+      this.dataService.securelogin({
         creationOuModification: this.creation ? 'creation' : 'modification',
         teamName: this.teamName.toUpperCase(),
         lienEmbleme: this.lienImage(),
