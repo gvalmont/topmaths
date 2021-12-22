@@ -370,18 +370,18 @@ export class ApiService {
    * envoie un postMessage de type retourSecureLogin avec le résultat du test
    * @param secureIdentifiant 
    */
-  secureLogin(secureIdentifiant: string, donnees: object) {
+  secureLogin(secureIdentifiant: string, donnees: object, origineDemande: string) {
     this.http.post<User[]>(this.baseUrl + '/securelogin.php', { identifiant: this.user.identifiant, secureIdentifiant: secureIdentifiant }).subscribe(users => {
       if (users[0].identifiant == 'personne') {
-        window.frames.postMessage({ retourSecureLogin: 'erreur' }, this.origine)
+        window.frames.postMessage({ retourSecureLogin: 'erreur', donnees: donnees, origineDemande: origineDemande }, this.origine)
       } else if (users[0].identifiant == 'different') {
-        window.frames.postMessage({ retourSecureLogin: 'different' }, this.origine)
+        window.frames.postMessage({ retourSecureLogin: 'different', donnees: donnees, origineDemande: origineDemande }, this.origine)
       } else {
-        window.frames.postMessage({ retourSecureLogin: secureIdentifiant, donnees: donnees }, this.origine)
+        window.frames.postMessage({ retourSecureLogin: secureIdentifiant, donnees: donnees, origineDemande: origineDemande }, this.origine)
       }
     },
       error => {
-        window.frames.postMessage({ retourSecureLogin: 'erreur' }, this.origine)
+        window.frames.postMessage({ retourSecureLogin: 'erreur', donnees: donnees, origineDemande: origineDemande }, this.origine)
         this.erreurRegistration('secureLogin', error['message'])
         console.log(error)
       })

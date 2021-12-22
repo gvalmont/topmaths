@@ -19,7 +19,7 @@ export class SecureloginService {
    * À tout moment, si l'utilisateur clique sur le fond ou la croix, détruit la modale
    * @param data données à transmettre
    */
-  login(data: object) {
+  login(data: object, origineDemande: string) {
     const origine = this.dataService.origine
     this.ecouteMessagesPost()
     this.div = document.createElement('div')
@@ -123,7 +123,7 @@ export class SecureloginService {
             champSecureLogin.className = 'input is-large is-success'
             const bouton = <HTMLButtonElement>document.getElementById("secureLoginButton")
             bouton.disabled = true
-            window.frames.postMessage({ secureLogin: champSecureLogin.value, donnees: data }, origine)
+            window.frames.postMessage({ secureLogin: champSecureLogin.value, donnees: data, origineDemande: origineDemande }, origine)
           } else {
             champSecureLogin.className = 'input is-large is-danger shake'
             setTimeout(() => champSecureLogin.className = 'input is-large is-danger', 500)
@@ -156,9 +156,10 @@ export class SecureloginService {
           // Tentative de connexion
           const identifiant = event.data.secureLogin
           const donnees = event.data.donnees
+          const origineDemande = event.data.origineDemande
           if (typeof (identifiant) != 'undefined') {
             if (this.inputOk(identifiant)) { // On envoie la demande si l'input passe les tests clients
-              this.dataService.secureLogin(identifiant, donnees)
+              this.dataService.secureLogin(identifiant, donnees, origineDemande)
             } else { // Sinon on secoue
               const champSecureLogin = <HTMLInputElement>document.getElementById("champSecureLogin")
               champSecureLogin.className = 'input is-large is-danger shake'

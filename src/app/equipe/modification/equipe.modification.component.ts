@@ -174,7 +174,7 @@ export class EquipeModificationComponent implements OnInit {
         foregroundSecondaryColor: this.foregroundSecondaryColor,
         backgroundId: this.backgroundId,
         backgroundColor: this.backgroundColor
-      })
+      }, 'equipeModification')
     } else {
       if (this.defaut) {
         alert("Il faut choisir le nom de l'équipe !")
@@ -201,10 +201,11 @@ export class EquipeModificationComponent implements OnInit {
       document.body.appendChild(divListener)
       window.addEventListener('message', (event) => {
         const dateNouvelleReponse = new Date()
-        if (dateNouvelleReponse.getTime() - this.dateDerniereReponse.getTime() > 1000) {
+        if (dateNouvelleReponse.getTime() - this.dateDerniereReponse.getTime() > 200) {
           const retourSecureLogin = event.data.retourSecureLogin
-          if (typeof (retourSecureLogin) != 'undefined' && retourSecureLogin != 'erreur' && retourSecureLogin != 'different') {
-            const donnees = event.data.donnees
+          const donnees = event.data.donnees
+          const origineDemande = event.data.origineDemande
+          if (origineDemande == 'equipeModification' && typeof (retourSecureLogin) != 'undefined' && retourSecureLogin != 'erreur' && retourSecureLogin != 'different') {
             this.dataService.creationModificationEquipe(donnees.creationOuModification, donnees.teamName, donnees.lienEmbleme,
               donnees.foregroundId, donnees.foregroundPrimaryColor, donnees.foregroundSecondaryColor,
               donnees.backgroundId, donnees.backgroundColor, retourSecureLogin)
