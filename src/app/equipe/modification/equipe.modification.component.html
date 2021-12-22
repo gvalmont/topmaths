@@ -3,7 +3,7 @@
     <div id="backgrounds" class="backgrounds" (click)="majEmbleme()"></div>
   </div>
   <div class="column">
-    <form [formGroup]="angForm" (ngSubmit)="envoi(angForm.value.teamName)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <form [formGroup]="angForm" (ngSubmit)="envoi()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       <!-- Nom de l'équipe -->
       <div class="columns is-flex is-align-items-center is-justify-content-center">
         <div class="column"><h1 class="title is-2 has-text-right">TEAM</h1></div>
@@ -95,8 +95,5 @@
 </div>
 <div id="parametresEmbleme" class="cache">
   <div id="foregroundId"></div>
-  <div id="foregroundPrimaryColor"></div>
-  <div id="foregroundSecondaryColor"></div>
   <div id="backgroundId"></div>
-  <div id="backgroundColor"></div>
 </div>

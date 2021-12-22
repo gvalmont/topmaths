@@ -3,6 +3,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { SecureloginService } from 'src/app/services/securelogin.service';
 
 interface GuildEmblems {
   emblemBackgroundDefs: SVGPathElement[][]
@@ -75,8 +76,9 @@ export class EquipeModificationComponent implements OnInit {
   errDejaPris: boolean
   shake: boolean
   teamName: string
+  dateDerniereReponse: Date
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, public dataService: ApiService) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, private secureLogin: SecureloginService) {
     this.emblemBackgroundDefs = []
     this.emblemDefs = []
     this.foregroundId = Math.floor(Math.random() * 243 + 1)
@@ -98,7 +100,9 @@ export class EquipeModificationComponent implements OnInit {
     this.errNomInterdit = false
     this.errDejaPris = false
     this.shake = false
+    this.dateDerniereReponse = new Date()
     this.surveilleChamp()
+    this.ecouteMessagesPost()
     this.route.params.subscribe(params => {
       if (params.ref == 'modification') {
         this.modification = true
@@ -149,22 +153,19 @@ export class EquipeModificationComponent implements OnInit {
     if (this.teamName.length < 3 && this.teamName.length != 0) this.errPetitNbChar = true
     if (this.teamName.length > 3) this.errGrandNbChar = true
     if (!this.dataService.onlyLettersAndNumbers(this.teamName)) this.errSpChar = true
-    const listeDesNomsInterdits = ['6KB', 'KBO', 'KB0', 'BIT', 'CAB', 'PEN', 'PUT', 'SLP']
+    const listeDesNomsInterdits = ['6KB', 'KBO', 'KB0', 'BIT', 'CAB', 'PEN', 'PUT', 'SLP', '666']
     if (listeDesNomsInterdits.includes(this.teamName.toUpperCase())) this.errNomInterdit = true
     return (!this.defaut && !this.errSpChar && !this.errPetitNbChar && !this.errGrandNbChar && !this.errNomInterdit)
   }
 
   /**
-   * Secoue le champ si la saisie est incorrecte,
-   * vérifie si le nom n'est pas encore pris,
-   * effectue la modification le cas échéant
-   * @param teamName
+   * Si l'input passe le test en local,
+   * demande une nouvelle authentification,
+   * sinon secoue le champ
    */
-  envoi(teamName: string) {
+  envoi() {
     if (this.inputOk()) {
-      this.dataService.creationEquipe(teamName.toUpperCase(), this.lienImage(),
-        this.foregroundId, this.foregroundPrimaryColor, this.foregroundSecondaryColor,
-        this.backgroundId, this.backgroundColor)
+      this.secureLogin.login()
     } else {
       if (this.defaut) {
         alert("Il faut choisir le nom de l'équipe !")
@@ -173,6 +174,44 @@ export class EquipeModificationComponent implements OnInit {
       }
       this.shake = true
       setTimeout(() => this.shake = false, 500)
+    }
+  }
+
+  /**
+   * Attend les messages contenant un retourSecureLogin,
+   * si le retour est correct, lance this.dataService.creationEquipe
+   * 
+   * Attend les messages contenant un retourCreationEquipe,
+   * prévient si le retour n'est pas correct
+   */
+  ecouteMessagesPost() {
+    const divListenerExistant = document.getElementById('equipeModificationListener')
+    if (divListenerExistant == null) {
+      const divListener = document.createElement('div')
+      divListener.id = 'equipeModificationListener'
+      document.body.appendChild(divListener)
+      window.addEventListener('message', (event) => {
+        const dateNouvelleReponse = new Date()
+        if (dateNouvelleReponse.getTime() - this.dateDerniereReponse.getTime() > 1000) {
+          const retourSecureLogin = event.data.retourSecureLogin
+          if (typeof (retourSecureLogin) != 'undefined' && retourSecureLogin != 'erreur' && retourSecureLogin != 'different') {
+            this.dataService.creationEquipe(this.teamName.toUpperCase(), this.lienImage(),
+              this.foregroundId, this.foregroundPrimaryColor, this.foregroundSecondaryColor,
+              this.backgroundId, this.backgroundColor, retourSecureLogin)
+          }
+          const retourCreationEquipe = event.data.retourCreationEquipe
+          if (typeof (retourCreationEquipe) != 'undefined') {
+            if (retourCreationEquipe == 'erreur') {
+              alert("une erreur s'est produite lors de la création d'équipe")
+            } else if (retourCreationEquipe == 'existe_deja') {
+              alert("Une équipe avec ce nom existe déjà")
+              this.errDejaPris = true
+              this.shake = true
+              setTimeout(() => this.shake = false, 500)
+            }
+          }
+        }
+      })
     }
   }
 

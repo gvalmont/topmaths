@@ -176,8 +176,17 @@ export class ProfilComponent implements OnInit {
     //A coder
   }
 
+  /**
+   * Vérifie si l'utilisateur fait déjà partie d'une équipe,
+   * prévient si c'est le cas,
+   * sinon envoie vers la page de création d'une nouvelle équipe
+   */
   creerNouvelleEquipe(){
-    //A coder
+    if (this.dataService.user.codeEquipe == '') {
+      this.router.navigate(['equipe', 'admin', 'creation'])
+    } else {
+      alert('Tu fais déjà partie d\'une équipe !\nTu dois d\'abord la quitter si tu veux en créer une autre.')
+    }
   }
 
   quitterEquipe(){

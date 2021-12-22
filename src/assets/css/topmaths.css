@@ -213,6 +213,10 @@ button:hover>i {
   overflow: scroll;
 }
 
+#modaleSecureLogin {
+  background-color: darkslategray;
+}
+
 .moveUp {
   /* Start the shake animation and make the animation last for 0.5 seconds */
   animation: moveUp 2s;
