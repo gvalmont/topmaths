@@ -498,6 +498,27 @@ export class ApiService {
   }
 
   /**
+   * Vérifie si l'utilisateur est bien leader de l'équipe,
+   * récupère les infos sur l'équipe,
+   * dirige vers la page de modification de l'équipe
+   */
+  modifierEquipe() {
+    this.http.post<Equipe[]>(`${this.baseUrl}/getEquipe.php`, { codeEquipe: this.infosEquipe.codeEquipe, leader: this.user.id }).subscribe(equipes => {
+      this.equipe = equipes[0]
+      if (this.equipe.teamName == 'personne') {
+        alert("Tu n'es pas le chef de cette équipe")
+        this.router.navigate(['accueil'])
+      }
+      else {
+        this.router.navigate(['team', 'admin', 'modification'])
+      }
+    }, error => {
+      this.erreurRegistration('modifierEquipe', error['message'])
+      console.log(error)
+    });
+  }
+
+  /**
    * Signale à l'utilisateur un problème dans l'enregistrement d'un nouvel identifiant
    * @param typeErreur chaine de caractères
    * @param erreur objet erreur
@@ -510,6 +531,8 @@ export class ApiService {
     } else if (typeErreur == 'userregistration') {
       alert('Une erreur s\'est produite lors de l\'accès à la base de données (peut-être que la connexion n\'est pas sécurisée ? (https)\n\nLe message d\'erreur est le suivant :\n' + erreur)
     } else if (typeErreur == 'creationEquipe') {
+      alert('Une erreur s\'est produite lors de l\'accès à la base de données (peut-être que la connexion n\'est pas sécurisée ? (https)\n\nLe message d\'erreur est le suivant :\n' + erreur)
+    } else if (typeErreur == 'modifierEquipe') {
       alert('Une erreur s\'est produite lors de l\'accès à la base de données (peut-être que la connexion n\'est pas sécurisée ? (https)\n\nLe message d\'erreur est le suivant :\n' + erreur)
     } else if (typeErreur == 'secureLogin') {
       alert('Une erreur s\'est produite lors de l\'accès à la base de données (peut-être que la connexion n\'est pas sécurisée ? (https)\n\nLe message d\'erreur est le suivant :\n' + erreur)

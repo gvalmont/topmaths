@@ -79,6 +79,12 @@
         </div>
       </div>
       <div>
+        Tout changer
+        <figure (click)="majAleatoire('tout')" class="image is-48x48 is-inline-block is-clickable">
+          <img src="assets/img/cc0/dice-svgrepo-com.svg" />
+        </figure>
+      </div>
+      <div>
         <button type="submit" *ngIf="creation || dataService.infosEquipe.codeEquipe != ''" class="button is-success is-large"> {{ creation ? 'Créer' : 'Modifier' }} la TEAM {{ teamName | uppercase}}</button>
       </div>
     </form>

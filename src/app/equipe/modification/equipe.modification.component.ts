@@ -104,6 +104,11 @@ export class EquipeModificationComponent implements OnInit {
     this.ecouteMessagesPost()
     this.route.params.subscribe(params => {
       if (params.ref == 'modification') {
+        this.foregroundId = this.dataService.equipe.foregroundId
+        this.foregroundPrimaryColor = this.dataService.equipe.foregroundPrimaryColor
+        this.foregroundSecondaryColor = this.dataService.equipe.foregroundSecondaryColor
+        this.backgroundId = this.dataService.equipe.backgroundId
+        this.backgroundColor = this.dataService.equipe.backgroundColor
         this.modification = true
         this.creation = false
       } else {
@@ -246,9 +251,11 @@ export class EquipeModificationComponent implements OnInit {
    * Met des couleurs aléatoires aux emblèmes
    */
   initCouleurs() {
-    this.foregroundPrimaryColor = this.couleurAleatoire()
-    this.foregroundSecondaryColor = this.couleurAleatoire()
-    this.backgroundColor = this.couleurAleatoire()
+    if (this.creation) {
+      this.foregroundPrimaryColor = this.couleurAleatoire()
+      this.foregroundSecondaryColor = this.couleurAleatoire()
+      this.backgroundColor = this.couleurAleatoire()
+    }
     this.majCouleurs()
   }
 
@@ -272,6 +279,14 @@ export class EquipeModificationComponent implements OnInit {
         this.initEmbleme()
         break;
       case 'foregroundId':
+        this.foregroundId = Math.floor(Math.random() * 243 + 1)
+        this.initEmbleme()
+        break;
+      case 'tout':
+        this.majForegroundPrimaryColor(this.couleurAleatoire())
+        this.majForegroundSecondaryColor(this.couleurAleatoire())
+        this.majBackgroundColor(this.couleurAleatoire())
+        this.backgroundId = Math.floor(Math.random() * 27 + 2)
         this.foregroundId = Math.floor(Math.random() * 243 + 1)
         this.initEmbleme()
         break;
