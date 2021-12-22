@@ -165,7 +165,15 @@ export class EquipeModificationComponent implements OnInit {
    */
   envoi() {
     if (this.inputOk()) {
-      this.secureLogin.login()
+      this.secureLogin.login({
+        teamName: this.teamName.toUpperCase(),
+        lienEmbleme: this.lienImage(),
+        foregroundId: this.foregroundId,
+        foregroundPrimaryColor: this.foregroundPrimaryColor,
+        foregroundSecondaryColor: this.foregroundSecondaryColor,
+        backgroundId: this.backgroundId,
+        backgroundColor: this.backgroundColor
+      })
     } else {
       if (this.defaut) {
         alert("Il faut choisir le nom de l'équipe !")
@@ -195,9 +203,10 @@ export class EquipeModificationComponent implements OnInit {
         if (dateNouvelleReponse.getTime() - this.dateDerniereReponse.getTime() > 1000) {
           const retourSecureLogin = event.data.retourSecureLogin
           if (typeof (retourSecureLogin) != 'undefined' && retourSecureLogin != 'erreur' && retourSecureLogin != 'different') {
-            this.dataService.creationEquipe(this.teamName.toUpperCase(), this.lienImage(),
-              this.foregroundId, this.foregroundPrimaryColor, this.foregroundSecondaryColor,
-              this.backgroundId, this.backgroundColor, retourSecureLogin)
+            const donnees = event.data.donnees
+            this.dataService.creationEquipe(donnees.teamName, donnees.lienEmbleme,
+              donnees.foregroundId, donnees.foregroundPrimaryColor, donnees.foregroundSecondaryColor,
+              donnees.backgroundId, donnees.backgroundColor, retourSecureLogin)
           }
           const retourCreationEquipe = event.data.retourCreationEquipe
           if (typeof (retourCreationEquipe) != 'undefined') {

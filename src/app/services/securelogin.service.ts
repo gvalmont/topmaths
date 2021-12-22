@@ -17,8 +17,9 @@ export class SecureloginService {
    * si l'authentification est correcte d'un point de vue client, demande le point de vue serveur avec this.dataService.secureLogin(identifiant)
    * 
    * À tout moment, si l'utilisateur clique sur le fond ou la croix, détruit la modale
+   * @param data données à transmettre
    */
-  login() {
+  login(data: object) {
     const origine = this.dataService.origine
     this.ecouteMessagesPost()
     this.div = document.createElement('div')
@@ -122,7 +123,7 @@ export class SecureloginService {
             champSecureLogin.className = 'input is-large is-success'
             const bouton = <HTMLButtonElement>document.getElementById("secureLoginButton")
             bouton.disabled = true
-            window.frames.postMessage({ secureLogin: champSecureLogin.value }, origine)
+            window.frames.postMessage({ secureLogin: champSecureLogin.value, donnees: data }, origine)
           } else {
             champSecureLogin.className = 'input is-large is-danger shake'
             setTimeout(() => champSecureLogin.className = 'input is-large is-danger', 500)
@@ -154,9 +155,10 @@ export class SecureloginService {
         if (dateNouvelleReponse.getTime() - this.dateDerniereReponse.getTime() > 200) {
           // Tentative de connexion
           const identifiant = event.data.secureLogin
+          const donnees = event.data.donnees
           if (typeof (identifiant) != 'undefined') {
             if (this.inputOk(identifiant)) { // On envoie la demande si l'input passe les tests clients
-              this.dataService.secureLogin(identifiant)
+              this.dataService.secureLogin(identifiant, donnees)
             } else { // Sinon on secoue
               const champSecureLogin = <HTMLInputElement>document.getElementById("champSecureLogin")
               champSecureLogin.className = 'input is-large is-danger shake'
