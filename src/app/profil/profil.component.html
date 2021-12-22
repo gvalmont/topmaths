@@ -33,7 +33,7 @@
         <div *ngIf="dataService.user.teamName == ''" class="dropdown is-hoverable">
           <div class="dropdown-trigger">
             <!-- Champ de connexion -->
-            <form [formGroup]="angFormE" (ngSubmit)="rejoindreEquipe(angFormE.value.codeEquipe)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+            <form [formGroup]="angFormE" (ngSubmit)="dataService.rejoindreEquipe(angFormE.value.codeEquipe)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
               <div class="field is-inline-block">
                 <div [ngClass]="{'control has-icons-left has-icons-right': true, 'shake': shakeE}">
                   <!-- Champ en lui-même -->
@@ -202,7 +202,7 @@
     <!-- Quitter l'équipe -->
     <div *ngIf="dataService.user.teamName != ''">
       <br>
-      <button (click)="quitterEquipe()" class="button is-danger">Quitter la TEAM {{ dataService.user.teamName }}</button>
+      <button (click)="dataService.quitterEquipe()" class="button is-danger">Quitter la TEAM {{ dataService.user.teamName }}</button>
       <br>
     </div>
     <!-- Supprimer le lienTrophees -->

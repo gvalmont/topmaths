@@ -205,6 +205,23 @@ export class ApiService {
     }
   }
 
+  rejoindreEquipe(codeEquipe: string) {
+    this.http.post<User[]>(this.baseUrl + '/rejoindreEquipe.php', { identifiant: this.user.identifiant, codeEquipe: codeEquipe }).subscribe(users => {
+      if (users[0].identifiant == 'personne') {
+        alert('Code incorrect')
+      } else {
+        this.user = users[0]
+      }
+    },
+      error => {
+        console.log(error)
+      })
+    }
+
+  quitterEquipe(){
+    //A coder
+  }
+
   /**
    * Récupère dans la base de données la liste des utilisateurs ayant été actifs au cours des 10 dernières minutes
    * ainsi que le nombre d'utilisateurs désirant rester invisibles

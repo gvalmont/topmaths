@@ -172,10 +172,6 @@ export class ProfilComponent implements OnInit {
     this.router.navigate(['team', this.dataService.user.teamName])
   }
 
-  rejoindreEquipe(codeEquipe: string) {
-    //A coder
-  }
-
   /**
    * Vérifie si l'utilisateur fait déjà partie d'une équipe,
    * prévient si c'est le cas,
@@ -187,10 +183,6 @@ export class ProfilComponent implements OnInit {
     } else {
       alert('Tu fais déjà partie d\'une équipe !\nTu dois d\'abord la quitter si tu veux en créer une autre.')
     }
-  }
-
-  quitterEquipe(){
-    //A coder
   }
 
   /**
