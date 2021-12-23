@@ -50,13 +50,13 @@
         </div>
         <!-- Scores -->
         <div class="column is-one-fifth">
-          <div *ngIf="membre.lienTrophees != ''" class="dropdown is-right is-hoverable is-inline-block">
-            <div class="dropdown-trigger">{{membre.score}}
+          <div class="dropdown is-right is-hoverable is-inline-block">
+            <div class="dropdown-trigger">{{ membre.scoreEquipe }}
             </div>
             <div class="dropdown-menu">
               <div class="dropdown-content">
                 <div class="dropdown-item">
-                  <p>{{ membre.pseudo }} a ajouté {{ membre.score }} au score de la TEAM {{ dataService.infosEquipe.teamName }} !</p>
+                  <p>{{ membre.pseudo }} a ajouté {{ membre.scoreEquipe }} au score de la TEAM {{ dataService.infosEquipe.teamName }} !</p>
                 </div>
               </div>
             </div>
