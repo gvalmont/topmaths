@@ -1,6 +1,8 @@
 :root {
   --window-height: 200px;
   --foreground-transform: scale(1, 1);
+  --image-equipe:url(/assets/img/gvalmont/blank.svg);
+  --image-badge:url(/assets/img/gvalmont/blank.svg);
 }
 .emblemes {
   --foreground-primary-color: black;
