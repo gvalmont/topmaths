@@ -236,7 +236,7 @@
     <div><img [src]="lienAvatar" width="200px" /></div>
     <!-- Boutons -->
     <div class="columns">
-      <div class="column is-5 is-flex is-align-items-center is-justify-content-right">
+      <div class="column is-5 is-flex is-align-items-center is-justify-content-center">
         <button (click)="fermerModale('avatar')" class="button is-danger">Annuler</button>
       </div>
       <div class="column is-2 has-text-centered">
@@ -246,7 +246,7 @@
           </figure>
         </a>
       </div>
-      <div class="column is-5 is-flex is-align-items-center is-justify-content-left">
+      <div class="column is-5 is-flex is-align-items-center is-justify-content-center">
         <button (click)="enregistrerAvatar()" class="button is-success">Enregistrer</button>
       </div>
     </div>
@@ -281,7 +281,7 @@
     <br><br>
     <!-- Boutons -->
     <div class="columns">
-      <div class="column is-5 is-flex is-align-items-center is-justify-content-right">
+      <div class="column is-5 is-flex is-align-items-center is-justify-content-center">
         <button (click)="fermerModale('pseudo')" class="button is-danger">Annuler</button>
       </div>
       <div class="column is-2 is-flex is-align-items-center is-justify-content-center">
@@ -291,7 +291,7 @@
           </figure>
         </a>
       </div>
-      <div class="column is-5 is-flex is-align-items-center is-justify-content-left">
+      <div class="column is-5 is-flex is-align-items-center is-justify-content-center">
         <button (click)="enregistrerPseudo()" class="button is-success">Enregistrer</button>
       </div>
     </div>
@@ -311,7 +311,7 @@
 <div id="modaleConfirmation" class="modal centre">
   <div class="modal-background" (click)="fermerModale('confirmation')"></div>
   <div><br><br><br></div>
-  <div class="modal-content has-background-white">
+  <div class="modal-content has-background-white px-6">
     <!-- Texte -->
     <br><br>
     <p>
@@ -319,21 +319,23 @@
       le nombre de points que tu as fait gagné à l'équipe sera réinitialisé
       et tu vas avoir besoin du code d'équipe si tu veux la rejoindre à nouveau
     </p>
+    <br>
     <p *ngIf="dataService.user.id == dataService.infosEquipe.leader">
       De plus, plus personne ne pourra modifier l'emblème de l'équipe.
     </p>
+    <div *ngIf="dataService.user.id == dataService.infosEquipe.leader"><br></div>
     <p>
       Tu es{{ dataService.user.id == dataService.infosEquipe.leader ? ' vraiment' : ' ' }} sûr(e) de vouloir la quitter ?
     </p>
     <br><br>
     <!-- Boutons -->
     <div class="columns">
-      <div class="column is-5 is-flex is-align-items-center is-justify-content-right">
+      <div class="column is-5 is-flex is-align-items-center is-justify-content-center">
         <button (click)="fermerModale('confirmation')" class="button is-danger">Annuler</button>
       </div>
       <div class="column is-2 is-flex is-align-items-center is-justify-content-center">
       </div>
-      <div class="column is-5 is-flex is-align-items-center is-justify-content-left">
+      <div class="column is-5 is-flex is-align-items-center is-justify-content-center">
         <button (click)="dataService.quitterEquipe(); fermerModale('confirmation')" class="button is-success">Continuer</button>
       </div>
     </div>
