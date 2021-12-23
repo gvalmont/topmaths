@@ -38,7 +38,8 @@ export class ApiService {
   isloggedIn: boolean
   user: User
   onlineUsers: UserSimplifie[]
-  classement: UserSimplifie[]
+  classementIndividuel: UserSimplifie[]
+  classementEquipes: InfosEquipe[]
   onlineNb: number
   feminin: boolean
   listeMasculins: Nom[]
@@ -85,7 +86,8 @@ export class ApiService {
       membres: []
     }
     this.onlineUsers = []
-    this.classement = []
+    this.classementIndividuel = []
+    this.classementEquipes = []
     this.onlineNb = 0
     this.feminin = false
     this.pseudoClique = ''
@@ -133,7 +135,7 @@ export class ApiService {
    */
   recupClassement() {
     if (isDevMode()) {
-      this.classement = [
+      this.classementIndividuel = [
         {
           id: 1,
           lienAvatar: 'https://avatars.dicebear.com/api/adventurer/id1.svg',
@@ -154,10 +156,24 @@ export class ApiService {
           scoreEquipe: 0
         }
       ]
+      this.classementEquipes = [
+        {
+          leader: 0,
+          codeEquipe: "",
+          teamName: "AMG",
+          lienEmbleme: '',
+          score: 28,
+          membres: []
+        }
+      ]
     } else {
-      this.http.get<UserSimplifie[]>(this.baseUrl + '/classement.php').subscribe(usersSimplifies => {
-        this.classement = usersSimplifies
-        this.recupWhosOnline()
+      this.http.get<UserSimplifie[]>(this.baseUrl + '/classementIndividuel.php').subscribe(usersSimplifies => {
+        this.classementIndividuel = usersSimplifies
+      }, error => {
+        console.log(error)
+      })
+      this.http.get<InfosEquipe[]>(this.baseUrl + '/classementEquipes.php').subscribe(equipes => {
+        this.classementEquipes = equipes
       }, error => {
         console.log(error)
       })

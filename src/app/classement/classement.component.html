@@ -1,35 +1,40 @@
 <div class="container is-max-desktop centre">
-  <i class="image is-64x64 is-inline-block"><img src="assets/img/gvalmont/star-left.svg" /></i>
+  <i *ngIf="ongletActif == 'equipes'" class="image is-64x64 is-inline-block"><img src="assets/img/gvalmont/star-left.svg" /></i>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <i class="image is-128x128 is-inline-block"><img src="assets/img/cc0/crown-with-pointed-tips-svgrepo-com.svg" /></i>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <i class="image is-64x64 is-inline-block"><img src="assets/img/gvalmont/star-right.svg" /></i>
-  <h1 class="title is-1">Classement individuel</h1>
-  <div *ngFor="let user of dataService.classement; index as i">
-    <div class="columns">
-      <!-- On fait un tableau à une seule colonne pour que les contenus restent alignés en vue portrait -->
-      <div class="column is-flex is-align-items-center is-justify-content-center">
-        <!-- Classement -->
-        <div class="column is-one-fifth">
-          <p *ngIf="i + 1 == 1">
-          <figure class="image is-48x48 is-inline-block"><img src="assets/img/gvalmont/top1.svg" /></figure>
-          </p>
-          <p *ngIf="i + 1 == 2">
-          <figure class="image is-48x48 is-inline-block"><img src="assets/img/gvalmont/top2.svg" /></figure>
-          </p>
-          <p *ngIf="i + 1 == 3">
-          <figure class="image is-48x48 is-inline-block"><img src="assets/img/gvalmont/top3.svg" /></figure>
-          </p>
-          <p *ngIf="i + 1 > 3" class="title is-5 has-text-weight-bold">{{ i + 1 }}</p>
-        </div>
-        <!-- Avatar -->
-        <div class="column is-one-fifth">
-          <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(user)"></figure>
-        </div>
-        <!-- Pseudo -->
-        <div class="column is-two-fifths">
-          <div *ngIf="user.pseudo != 'anonyme'" class="is-inline-block">
-            <div class="column is-three-fifths">
+  <i *ngIf="ongletActif == 'equipes'" class="image is-64x64 is-inline-block"><img src="assets/img/gvalmont/star-right.svg" /></i>
+  <div class="tabs is-medium is-centered">
+    <ul class="tabs-menu">
+      <li [ngClass]="{'is-active': ongletActif == 'individuel'}"><a [routerLink]="['/classement/individuel']">Classement individuel</a></li>
+      <li [ngClass]="{'is-active': ongletActif == 'equipes'}"><a [routerLink]="['/classement/equipes']">Classement des équipes</a></li>
+    </ul>
+  </div>
+  <div *ngIf="ongletActif == 'individuel'">
+    <div *ngFor="let user of dataService.classementIndividuel; index as i">
+      <div class="columns">
+        <!-- On fait un tableau à une seule colonne pour que les contenus restent alignés en vue portrait -->
+        <div class="column is-flex is-align-items-center is-justify-content-center">
+          <!-- Classement -->
+          <div class="column is-one-fifth">
+            <p *ngIf="i + 1 == 1">
+            <figure class="image is-48x48 is-inline-block"><img src="assets/img/gvalmont/top1.svg" /></figure>
+            </p>
+            <p *ngIf="i + 1 == 2">
+            <figure class="image is-48x48 is-inline-block"><img src="assets/img/gvalmont/top2.svg" /></figure>
+            </p>
+            <p *ngIf="i + 1 == 3">
+            <figure class="image is-48x48 is-inline-block"><img src="assets/img/gvalmont/top3.svg" /></figure>
+            </p>
+            <p *ngIf="i + 1 > 3" class="title is-5 has-text-weight-bold">{{ i + 1 }}</p>
+          </div>
+          <!-- Avatar -->
+          <div class="column is-one-fifth">
+            <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(user)"></figure>
+          </div>
+          <!-- Pseudo -->
+          <div class="column is-two-fifths">
+            <div *ngIf="user.pseudo != 'anonyme'" class="is-inline-block">
               <div *ngIf="user.lienTrophees != ''" class="dropdown is-right is-hoverable is-inline-block">
                 <div class="dropdown-trigger">
                   <a (click)="voirTropheesPerso(user)">{{user.pseudo}}</a>
@@ -44,14 +49,56 @@
               </div>
               <div *ngIf="user.lienTrophees == ''" class="is-inline-block">{{user.pseudo}}</div>
             </div>
+            <div *ngIf="user.pseudo == 'anonyme'" class="is-inline-block">
+              < anonyme>
+            </div>
           </div>
-          <div *ngIf="user.pseudo == 'anonyme'" class="is-inline-block">
-            < anonyme >
+          <!-- Scores -->
+          <div class="column is-one-fifth">
+            {{user.score}}
           </div>
         </div>
-        <!-- Scores -->
-        <div class="column is-one-fifth">
-          {{user.score}}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="ongletActif == 'equipes'">
+    <div *ngFor="let equipe of dataService.classementEquipes; index as i">
+      <div class="columns">
+        <!-- On fait un tableau à une seule colonne pour que les contenus restent alignés en vue portrait -->
+        <div class="column is-flex is-align-items-center is-justify-content-center">
+          <!-- Classement -->
+          <div class="column is-one-fifth">
+            <p *ngIf="i + 1 == 1">
+            <figure class="image is-96x96 is-inline-block"><img src="assets/img/gvalmont/top1.svg" /></figure>
+            </p>
+            <p *ngIf="i + 1 == 2">
+            <figure class="image is-96x96 is-inline-block"><img src="assets/img/gvalmont/top2.svg" /></figure>
+            </p>
+            <p *ngIf="i + 1 == 3">
+            <figure class="image is-96x96 is-inline-block"><img src="assets/img/gvalmont/top3.svg" /></figure>
+            </p>
+            <p *ngIf="i + 1 > 3" class="title is-4 has-text-weight-bold">{{ i + 1 }}</p>
+          </div>
+          <!-- Emblème -->
+          <div class="column is-one-fifth">
+            <a [routerLink]="'/team/' + equipe.teamName" routerLinkActive="active">
+              <figure class="image is-96x96">
+                <img [src]="'/team_emblems/' + equipe.teamName + '.svg'">
+              </figure>
+            </a>
+          </div>
+          <!-- TeamName -->
+          <div class="column is-two-fifths">
+            <div class="is-inline-block is-size-4">
+              <a [routerLink]="'/team/' + equipe.teamName" routerLinkActive="active">
+                TEAM <b>{{ equipe.teamName }}</b>
+              </a>
+            </div>
+          </div>
+          <!-- Score -->
+          <div class="column is-one-fifth is-size-4">
+            {{ equipe.score }}
+          </div>
         </div>
       </div>
     </div>
