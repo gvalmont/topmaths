@@ -80,53 +80,48 @@ export class SequenceComponent implements OnInit {
    * lance this.dataService.majScore si ce n'est pas le cas
    */
   ecouteMessagesPost() {
-    const divListenerExistant = document.getElementById('sequenceListener')
-    if (divListenerExistant == null) {
-      const divListener = document.createElement('div')
-      divListener.id = 'sequenceListener'
-      document.body.appendChild(divListener)
-      window.addEventListener('message', (event) => {
-        const dateNouvelleReponse = new Date()
-        if (dateNouvelleReponse.getTime() - this.dateDerniereReponse.getTime() > 200) {
-          const url: string = event.data.url;
-          if (typeof (url) != 'undefined') {
-            // On cherche à quel exercice correspond ce message
-            for (const calculMental of this.calculsMentaux) {
-              for (const niveau of calculMental.niveaux) {
-                if (typeof (niveau.lien) != 'undefined') {
-                  if (url == niveau.lien) {
-                    // On a trouvé à quel exercice correspond ce message
-                    const nbBonnesReponses: number = event.data.nbBonnesReponses
-                    const nbMauvaisesReponses: number = event.data.nbMauvaisesReponses
-                    const slider: number = event.data.slider
-                    if (typeof (slider) != 'undefined') {
-                      // On s'assure que les exercices soient différents pour ne pas ajouter plusieurs fois du score
-                      if (this.derniereUrl != niveau.lien || this.derniereGraine != niveau.graine || this.dernierSlider != niveau.slider) {
-                        this.derniereUrl = niveau.lien
-                        if (typeof (niveau.graine) != 'undefined') this.derniereGraine = niveau.graine
-                        if (typeof (niveau.slider) != 'undefined') this.dernierSlider = niveau.slider
-                        const majScore: string = (parseInt(niveau.score) * nbBonnesReponses).toString()
-                        if (parseInt(majScore) > 0) {
-                          this.dataService.majScore(majScore, niveau.lien)
-                          this.messageScore = '+ ' + majScore
-                          niveau.bonneReponse = true
-                          setTimeout(() => niveau.bonneReponse = false, 2000)
-                          if (nbMauvaisesReponses == 0) {
-                            this.confetti.lanceConfetti()
-                          }
+    window.addEventListener('message', (event) => {
+      console.log('sequence', event)
+      const dateNouvelleReponse = new Date()
+      if (dateNouvelleReponse.getTime() - this.dateDerniereReponse.getTime() > 200) {
+        const url: string = event.data.url;
+        if (typeof (url) != 'undefined') {
+          // On cherche à quel exercice correspond ce message
+          for (const calculMental of this.calculsMentaux) {
+            for (const niveau of calculMental.niveaux) {
+              if (typeof (niveau.lien) != 'undefined') {
+                if (url == niveau.lien) {
+                  // On a trouvé à quel exercice correspond ce message
+                  const nbBonnesReponses: number = event.data.nbBonnesReponses
+                  const nbMauvaisesReponses: number = event.data.nbMauvaisesReponses
+                  const slider: number = event.data.slider
+                  if (typeof (slider) != 'undefined') {
+                    // On s'assure que les exercices soient différents pour ne pas ajouter plusieurs fois du score
+                    if (this.derniereUrl != niveau.lien || this.derniereGraine != niveau.graine || this.dernierSlider != niveau.slider) {
+                      this.derniereUrl = niveau.lien
+                      if (typeof (niveau.graine) != 'undefined') this.derniereGraine = niveau.graine
+                      if (typeof (niveau.slider) != 'undefined') this.dernierSlider = niveau.slider
+                      const majScore: string = (parseInt(niveau.score) * nbBonnesReponses).toString()
+                      if (parseInt(majScore) > 0) {
+                        this.dataService.majScore(majScore, niveau.lien)
+                        this.messageScore = '+ ' + majScore
+                        niveau.bonneReponse = true
+                        setTimeout(() => niveau.bonneReponse = false, 2000)
+                        if (nbMauvaisesReponses == 0) {
+                          this.confetti.lanceConfetti()
                         }
                       }
                     }
-                    niveau.graine = event.data.graine
-                    niveau.lienACopier = `${url.split(',a=')[0]},a=${niveau.graine}${url.split(',a=')[1]}`
                   }
+                  niveau.graine = event.data.graine
+                  niveau.lienACopier = `${url.split(',a=')[0]},a=${niveau.graine}${url.split(',a=')[1]}`
                 }
               }
             }
           }
         }
-      })
-    }
+      }
+    })
   }
 
   /**
@@ -250,7 +245,7 @@ export class SequenceComponent implements OnInit {
       for (const niveau of calculMental.niveaux) {
         niveauxTemp.push({
           commentaire: niveau.commentaire,
-          lien: niveau.lien + '&embed=https://topmaths.fr',
+          lien: niveau.lien + '&embed=' + this.dataService.origine,
           score: niveau.score,
           lienACopier: niveau.lien
         })

@@ -50,7 +50,7 @@
             <iframe class="has-ratio" [src]="niveau.lien | safe" allowfullscreen=""></iframe>
           </div>
           <span *ngIf="niveau.bonneReponse">
-            <h3 [ngClass]="{'huge': true, 'moveUp': niveau.bonneReponse}">{{messageScore}}</h3>
+            <h3 [ngClass]="{'pleinEcran is-unselectable gigantesque': true, 'moveUp': niveau.bonneReponse}">{{messageScore}}</h3>
           </span>
         </div>
       </div>

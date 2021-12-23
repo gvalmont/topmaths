@@ -622,7 +622,8 @@ export class ApiService {
         identifiant: this.user.identifiant,
         score: (parseInt(this.user.score) + parseInt(score)).toString(),
         cleScore: this.user.cleScore,
-        url: url
+        url: url,
+        teamName: this.user.teamName
       }).subscribe(
         users => {
           console.log(users[0])

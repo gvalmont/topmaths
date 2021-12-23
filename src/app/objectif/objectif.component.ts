@@ -82,61 +82,58 @@ export class ObjectifComponent implements OnInit {
    * lance this.dataService.majScore si ce n'est pas le cas
    */
   ecouteMessagesPost() {
-    const divListenerExistant = document.getElementById('objectifListener')
-    if (divListenerExistant == null) {
-      const divListener = document.createElement('div')
-      divListener.id = 'objectifListener'
-      document.body.appendChild(divListener)
-      window.addEventListener('message', (event) => {
-        const dateNouvelleReponse = new Date()
-        if (dateNouvelleReponse.getTime() - this.dateDerniereReponse.getTime() > 200) {
-          const url: string = event.data.url;
-          if (typeof (url) != 'undefined') {
-            // On cherche à quel exercice correspond ce message
-            for (const exercice of this.exercices) {
-              if (typeof (exercice.lienACopier) != 'undefined') {
-                /* A décommenter pour débugger lorsqu'il n'y a pas de confettis et que le score ne se met pas à jour
-                console.log('lienACopier ' + exercice.lienACopier)
-                console.log('url ' + url) */
-                if (url.split('&serie=')[0].split(',i=')[0] == exercice.lienACopier.split('&serie=')[0].split(',i=')[0]) { // Lorsqu'un exercice n'est pas interactifReady, le ,i=0 est retiré de l'url
-                  // On a trouvé à quel exercice correspond ce message
-                  const nbBonnesReponses: number = event.data.nbBonnesReponses
-                  const nbMauvaisesReponses: number = event.data.nbMauvaisesReponses
-                  const titre: string = event.data.titre
-                  const slider: number = event.data.slider
-                  if (typeof (titre) != 'undefined' || typeof (slider) != 'undefined') {
-                    const exerciceDejaFait: ExerciceDejaFait = {
-                      url: exercice.lienACopier,
-                      graine: exercice.graine,
-                      titre: titre,
-                      slider: slider
-                    }
-                    const stringExerciceDejaFait: string = exerciceDejaFait.url + exerciceDejaFait.graine + exerciceDejaFait.titre + exerciceDejaFait.slider
-                    // On s'assure que les exercices soient différents pour ne pas ajouter plusieurs fois du score
-                    if (!this.exercicesDejaFaits.includes(stringExerciceDejaFait)) {
-                      this.exercicesDejaFaits.push(stringExerciceDejaFait)
-                      this.dateDerniereReponse = new Date()
-                      const majScore: string = (parseInt(exercice.score) * nbBonnesReponses).toString()
-                      if (parseInt(majScore) > 0) {
-                        this.dataService.majScore(majScore, exercice.lienACopier)
-                        this.messageScore = '+ ' + majScore
-                        exercice.bonneReponse = true
-                        setTimeout(() => exercice.bonneReponse = false, 2000)
-                        if (nbMauvaisesReponses == 0) {
-                          this.confetti.lanceConfetti()
-                        }
+    window.addEventListener('message', (event) => {
+      const dateNouvelleReponse = new Date()
+      if (dateNouvelleReponse.getTime() - this.dateDerniereReponse.getTime() > 200) {
+        const url: string = event.data.url;
+        if (typeof (url) != 'undefined') {
+          // On cherche à quel exercice correspond ce message
+          for (const exercice of this.exercices) {
+            if (typeof (exercice.lienACopier) != 'undefined') {
+              /* A décommenter pour débugger lorsqu'il n'y a pas de confettis et que le score ne se met pas à jour
+              console.log('lienACopier ' + exercice.lienACopier)
+              console.log('url ' + url) */
+              if (url.split('&serie=')[0].split(',i=')[0] == exercice.lienACopier.split('&serie=')[0].split(',i=')[0]) { // Lorsqu'un exercice n'est pas interactifReady, le ,i=0 est retiré de l'url
+                // On a trouvé à quel exercice correspond ce message
+                const nbBonnesReponses: number = event.data.nbBonnesReponses
+                const nbMauvaisesReponses: number = event.data.nbMauvaisesReponses
+                const titre: string = event.data.titre
+                const slider: number = event.data.slider
+                if (typeof (titre) != 'undefined' || typeof (slider) != 'undefined') {
+                  const exerciceDejaFait: ExerciceDejaFait = {
+                    url: exercice.lienACopier,
+                    graine: exercice.graine,
+                    titre: titre,
+                    slider: slider
+                  }
+                  const stringExerciceDejaFait: string = exerciceDejaFait.url + exerciceDejaFait.graine + exerciceDejaFait.titre + exerciceDejaFait.slider
+                  // On s'assure que les exercices soient différents pour ne pas ajouter plusieurs fois du score
+                  if (!this.exercicesDejaFaits.includes(stringExerciceDejaFait)) {
+                    this.exercicesDejaFaits.push(stringExerciceDejaFait)
+                    this.dateDerniereReponse = new Date()
+                    const majScore: string = (parseInt(exercice.score) * nbBonnesReponses).toString()
+                    if (parseInt(majScore) > 0) {
+                      this.dataService.majScore(majScore, exercice.lienACopier)
+
+                      this.messageScore = '+ ' + majScore
+                      exercice.bonneReponse = true
+                      setTimeout(() => exercice.bonneReponse = false, 2000)
+
+
+                      if (nbMauvaisesReponses == 0) {
+                        this.confetti.lanceConfetti()
                       }
                     }
                   }
-                  exercice.graine = event.data.graine
-                  exercice.lienACopier = url
                 }
+                exercice.graine = event.data.graine
+                exercice.lienACopier = url
               }
             }
           }
         }
-      })
-    }
+      }
+    })
   }
 
   /**
@@ -225,7 +222,7 @@ export class ObjectifComponent implements OnInit {
         })
         this.exercices[this.exercices.length - 1].lien = this.exercices[this.exercices.length - 1].lien.replace('&ex=', ',' + i + '&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
         if (exercice.slug.slice(0, 25) == 'https://mathsmentales.net') {
-          this.exercices[this.exercices.length - 1].lien = exercice.slug + '&embed=https://topmaths.fr'
+          this.exercices[this.exercices.length - 1].lien = exercice.slug + '&embed=' + this.dataService.origine
         } else if (exercice.slug.slice(0, 4) == 'http') {
           this.exercices[this.exercices.length - 1].lien = exercice.slug
         }
