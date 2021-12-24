@@ -10,7 +10,7 @@
     </div>
     <!-- Avatar -->
     <div>
-      <a (click)="ouvrirModale('avatar')">
+      <a routerLink="/profil/avatar/couleur" routerLinkActive="active">
         <figure class="avatar is-inline-block is-large" [style]="dataService.getStyleAvatar(dataService.user)"></figure>
         <i class="image is-24x24 is-inline-block"><img src="assets/img/cc0/edit-svgrepo-com.svg" /></i>
       </a>
@@ -225,49 +225,6 @@
     <!-- Utilisateurs connectés -->
     <app-whosonline></app-whosonline>
   </div>
-</div>
-
-<!-- Modale de création d'avatar -->
-<div id="modaleAvatar" class="modal centre">
-  <div class="modal-background" (click)="fermerModale('avatar')"></div>
-  <div><br><br><br></div>
-  <div class="modal-content has-background-white">
-    <!-- Avatar -->
-    <div><img [src]="lienAvatar" width="200px" /></div>
-    <!-- Boutons -->
-    <div class="columns">
-      <div class="column is-5 is-flex is-align-items-center is-justify-content-center">
-        <button (click)="fermerModale('avatar')" class="button is-danger">Annuler</button>
-      </div>
-      <div class="column is-2 has-text-centered">
-        <a>
-          <figure (click)="avatarAleatoire()" class="image is-64x64 is-inline-block is-flex is-align-items-center is-justify-content-center">
-            <img src="assets/img/cc0/dice-svgrepo-com.svg" />
-          </figure>
-        </a>
-      </div>
-      <div class="column is-5 is-flex is-align-items-center is-justify-content-center">
-        <button (click)="enregistrerAvatar()" class="button is-success">Enregistrer</button>
-      </div>
-    </div>
-    <!-- Sliders -->
-    <ngx-slider [(value)]="yeux.value" [options]="yeux.options" (valueChange)="majLienAvatar($event)"></ngx-slider>
-    <ngx-slider [(value)]="sourcils.value" [options]="sourcils.options" (valueChange)="majLienAvatar($event)"></ngx-slider>
-    <ngx-slider [(value)]="bouche.value" [options]="bouche.options" (valueChange)="majLienAvatar($event)"></ngx-slider>
-    <ngx-slider [(value)]="accessoire.value" [options]="accessoire.options" (valueChange)="majLienAvatar($event)"></ngx-slider>
-    <ngx-slider [(value)]="cheveux.value" [options]="cheveux.options" (valueChange)="majLienAvatar($event)"></ngx-slider>
-    <ngx-slider [(value)]="couleurPeau.value" [options]="couleurPeau.options" (valueChange)="majLienAvatar($event)"></ngx-slider>
-    <ngx-slider [(value)]="couleurCheveux.value" [options]="couleurCheveux.options" (valueChange)="majLienAvatar($event)"></ngx-slider>
-    <!-- Copyright -->
-    <footer class="footer">
-      <div class="content has-text-centered">
-        <p>Les avatars ont été dessinés par
-          <a href="https://www.instagram.com/lischis_adventures/">Lisa Wischofsky</a> sous licence CC BY 4.0.
-        </p>
-      </div>
-    </footer>
-  </div>
-  <button class="modal-close is-large" aria-label="close" (click)="fermerModale('avatar')"></button>
 </div>
 
 <!-- Modale de création de pseudo -->

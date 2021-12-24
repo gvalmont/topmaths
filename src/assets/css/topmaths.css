@@ -169,6 +169,14 @@ button:hover>i {
   width: 170px;
 }
 
+.is-width-130 {
+  width: 130px;
+}
+
+.is-selected {
+  border: 2px;border-style: solid;
+}
+
 .p-7 {
   padding: 6rem !important;
 }
@@ -202,6 +210,23 @@ button:hover>i {
   background-position: right bottom, left bottom, center;
   background-size: 24px, 24px, 48px;
   background-repeat: no-repeat, no-repeat, no-repeat;
+}
+
+#avatarAleatoireMenu, #enregistrerAvatarMenu {
+  height: 96px;
+  width: 96px;
+  background-position: bottom right;
+  background-size: 64px;
+  background-repeat: no-repeat;
+}
+
+#avatarAleatoireMenu {
+  background-image: url(/assets/img/cc0/dice-svgrepo-com.svg);
+}
+
+#enregistrerAvatarMenu {
+  background-image: url(/assets/img/cc0/check-svgrepo-com.svg);
+  filter: invert(67%) sepia(17%) saturate(1218%) hue-rotate(101deg) brightness(96%) contrast(92%);
 }
 
 .avatar.is-large {

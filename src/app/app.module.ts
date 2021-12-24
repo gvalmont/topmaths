@@ -27,6 +27,7 @@ import { CompetitionsComponent } from './competitions/competitions.component';
 import { EquipeModificationComponent } from './equipe/modification/equipe.modification.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { EquipePageComponent } from './equipe/page/equipe.page.component';
+import { AvatarComponent } from './avatar/avatar.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { EquipePageComponent } from './equipe/page/equipe.page.component';
     ExercicesAuHasardComponent,
     CompetitionsComponent,
     EquipeModificationComponent,
-    EquipePageComponent
+    EquipePageComponent,
+    AvatarComponent
   ],
   imports: [
     BrowserModule,

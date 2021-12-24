@@ -63,7 +63,7 @@ export class ApiService {
     this.user = {
       id: 0,
       identifiant: '',
-      lienAvatar: '',
+      codeAvatar: '',
       scores: '',
       lastLogin: '',
       lastAction: '',
@@ -138,7 +138,7 @@ export class ApiService {
       this.classementIndividuel = [
         {
           id: 1,
-          lienAvatar: 'https://avatars.dicebear.com/api/adventurer/id1.svg',
+          codeAvatar: '#fff,1,2,3,4,5,#000',
           pseudo: 'lapin bleu',
           score: '17',
           lienTrophees: 'tcqnfy',
@@ -147,7 +147,7 @@ export class ApiService {
           scoreEquipe: 0
         }, {
           id: 2,
-          lienAvatar: '',
+          codeAvatar: '#000,5,4,3,2,1,#fff',
           pseudo: 'anonyme',
           score: '38',
           lienTrophees: 'tuoocj',
@@ -196,7 +196,7 @@ export class ApiService {
           {
             id: 2,
             pseudo: 'anonyme',
-            lienAvatar: 'https://avatars.dicebear.com/api/adventurer/id2.svg',
+            codeAvatar: '#fff,1,2,3,4,5,#000',
             score: '38',
             lienTrophees: 'tuoocj',
             classement: 1,
@@ -206,7 +206,7 @@ export class ApiService {
           {
             id: 2,
             pseudo: 'lapin bleu',
-            lienAvatar: 'https://avatars.dicebear.com/api/adventurer/id3.svg',
+            codeAvatar: '#000,5,4,3,2,1,#fff',
             score: '38',
             lienTrophees: 'tcqnfy',
             classement: 2,
@@ -270,7 +270,7 @@ export class ApiService {
       this.onlineUsers = [
         {
           id: 1,
-          lienAvatar: 'https://avatars.dicebear.com/api/adventurer/id1.svg',
+          codeAvatar: '#fff,1,2,3,4,5,#000',
           pseudo: 'lapin bleu',
           score: '17',
           lienTrophees: 'tuoocj',
@@ -279,7 +279,7 @@ export class ApiService {
           scoreEquipe: 0
         }, {
           id: 2,
-          lienAvatar: 'https://avatars.dicebear.com/api/adventurer/id2.svg',
+          codeAvatar: '#000,5,4,3,2,1,#fff',
           pseudo: 'Pierre verte',
           score: '38',
           lienTrophees: 'tuoocj',
@@ -306,7 +306,7 @@ export class ApiService {
     const lienEquipe = `/team_emblems/${user.teamName}.svg`
     const lienBadge = `/assets/img/gvalmont/top${this.top(user.classement)}.svg`
     let lienAvatar: string
-    user.pseudo == 'anonyme' ? lienAvatar = 'assets/img/reshot/user-3294.svg' : lienAvatar = user.lienAvatar
+    user.pseudo == 'anonyme' ? lienAvatar = 'assets/img/reshot/user-3294.svg' : lienAvatar = `/avatars/${user.id}.svg`
     let style = `--image-avatar:url(${lienAvatar});`
     if (user.teamName != '') style += `--image-equipe:url(${lienEquipe});`
     if (user.classement <= 50) style += `--image-badge:url(${lienBadge});`
@@ -343,7 +343,7 @@ export class ApiService {
       this.user = {
         id: 0,
         identifiant: 'X',
-        lienAvatar: 'https://avatars.dicebear.com/api/adventurer/topmaths.svg?scale=90&eyes=variant12&eyebrows=variant09&mouth=variant21&accessoires=glasses&accessoiresProbability=100&hair=long07&skinColor=variant03&hairColor=brown01',
+        codeAvatar: '#000,5,4,3,2,1,#fff',
         scores: 'actives',
         lastLogin: '',
         lastAction: '',
@@ -442,7 +442,7 @@ export class ApiService {
       const user: User = {
         id: 0,
         identifiant: identifiant,
-        lienAvatar: `https://avatars.dicebear.com/api/adventurer/${identifiant}.svg`,
+        codeAvatar: this.avatarAleatoire(),
         scores: '',
         lastLogin: '',
         lastAction: '',
@@ -608,12 +608,24 @@ export class ApiService {
   }
 
   /**
-   * Modifie le lienAvatar dans la bdd
-   * @param lienAvatar 
+   * Modifie le codeAvatar dans la bdd et écrit le svg
+   * @param lienAvatar
+   * @param codeAvatar
    */
-  majAvatar(lienAvatar: string) {
-    this.user.lienAvatar = lienAvatar
-    this.majProfil(['lienAvatar'])
+  majAvatar(lienAvatar: string, codeAvatar: string) {
+    this.user.codeAvatar = codeAvatar
+    if (isDevMode()) {
+      this.profilModifie.emit(['lienAvatar'])
+    } else {
+      this.http.post<User[]>(this.baseUrl + `/majAvatar.php`, {identifiant: this.user.identifiant, codeAvatar: this.user.codeAvatar, lienAvatar: lienAvatar}).subscribe(
+        users => {
+          console.log(users[0])
+          this.profilModifie.emit(['lienAvatar'])
+        },
+        error => {
+          console.log(error)
+        });
+    }
   }
 
   /**
@@ -674,7 +686,7 @@ export class ApiService {
       this.onlineUsers = [
         {
           id: 1,
-          lienAvatar: 'https://avatars.dicebear.com/api/adventurer/id1.svg',
+          codeAvatar: this.avatarAleatoire(),
           pseudo: 'lapin bleu',
           score: '17',
           lienTrophees: '',
@@ -683,7 +695,7 @@ export class ApiService {
           scoreEquipe: 0
         }, {
           id: 2,
-          lienAvatar: 'https://avatars.dicebear.com/api/adventurer/id2.svg',
+          codeAvatar: this.avatarAleatoire(),
           pseudo: 'Pierre verte',
           score: '38',
           lienTrophees: '',
@@ -1064,6 +1076,18 @@ export class ApiService {
         }
       })
     }
+  }
+
+  avatarAleatoire() {
+    const r = function (max: number) {
+      return Math.floor(Math.random() * max)
+    }
+
+  const c = function() {
+    const o = Math.round, r = Math.random, s = 255
+    return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')'
+  }
+    return `${c()},${r(26)},${r(10)},${r(30)},${r(7)},${r(36)},${c()}`
   }
 
   /**

@@ -17,6 +17,7 @@ import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-h
 import { CompetitionsComponent } from './competitions/competitions.component';
 import { EquipeModificationComponent } from './equipe/modification/equipe.modification.component';
 import { EquipePageComponent } from './equipe/page/equipe.page.component';
+import { AvatarComponent } from './avatar/avatar.component';
 
 const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
@@ -33,6 +34,8 @@ const routes: Routes = [
   { path: 'jeux', component: JeuxComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profil', component: ProfilComponent, canActivate: [AuthguardGuard] },
+  { path: 'profil/avatar/:parametre', component: AvatarComponent},
+  { path: 'profil/avatar', redirectTo: 'profil/avatar/couleur' },
   { path: 'classement/:categorie', component: ClassementComponent },
   { path: 'classement', redirectTo: 'classement/individuel' },
   { path: 'revisions', component: RevisionsComponent },

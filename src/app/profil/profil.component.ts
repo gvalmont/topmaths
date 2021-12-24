@@ -30,7 +30,6 @@ export class ProfilComponent implements OnInit {
   errSpCharE: boolean
   errCodeIncorrectE: boolean
   shakeE: boolean
-  lienAvatar: string
   pseudo: string
   yeux: Slider
   sourcils: Slider
@@ -138,7 +137,6 @@ export class ProfilComponent implements OnInit {
       }
     }
     this.pseudo = dataService.user.pseudo
-    this.lienAvatar = this.dataService.user.lienAvatar
     this.derniereConnexion = this.dateDeDerniereConnexion()
     this.enCoursDeModif = ''
     this.modifTerminee = ''
@@ -155,13 +153,7 @@ export class ProfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let modale = document.getElementById("modaleAvatar")
-    if (modale != null) {
-      this.modaleAvatar = modale
-    } else {
-      console.log('modaleAvatar non trouvée')
-    }
-    modale = document.getElementById("modalePseudo")
+    let modale = document.getElementById("modalePseudo")
     if (modale != null) {
       this.modalePseudo = modale
     } else {
@@ -231,223 +223,6 @@ export class ProfilComponent implements OnInit {
   }
 
   /**
-   * Place les sliders aléatoirement pour créer un avatar aléatoire
-   */
-  avatarAleatoire() {
-    let yeux = 1
-    let sourcils = 1
-    let bouche = 1
-    let accessoire = 1
-    let cheveux = 1
-    let couleurPeau = 1
-    let couleurCheveux = 1
-    if (typeof (this.yeux.options.ceil) != 'undefined') yeux = Math.random() * this.yeux.options.ceil
-    this.yeux.value = yeux
-    if (typeof (this.sourcils.options.ceil) != 'undefined') sourcils = Math.random() * this.sourcils.options.ceil
-    this.sourcils.value = sourcils
-    if (typeof (this.bouche.options.ceil) != 'undefined') bouche = Math.random() * this.bouche.options.ceil
-    this.bouche.value = bouche
-    if (typeof (this.accessoire.options.ceil) != 'undefined') accessoire = Math.random() * this.accessoire.options.ceil
-    this.accessoire.value = accessoire
-    if (typeof (this.cheveux.options.ceil) != 'undefined') cheveux = Math.random() * this.cheveux.options.ceil
-    this.cheveux.value = cheveux
-    if (typeof (this.couleurPeau.options.ceil) != 'undefined') couleurPeau = Math.random() * this.couleurPeau.options.ceil
-    this.couleurPeau.value = couleurPeau
-    if (typeof (this.couleurCheveux.options.ceil) != 'undefined') couleurCheveux = Math.random() * this.couleurCheveux.options.ceil
-    this.couleurCheveux.value = couleurCheveux
-    this.majLienAvatar()
-  }
-
-  /**
-   * Met à jour le lien de l'avatar à partir des données des sliders.
-   * @param event non utilisé
-   */
-  majLienAvatar(event?: any) {
-    this.lienAvatar = `https://avatars.dicebear.com/api/adventurer/topmaths.svg?scale=90&eyes=${this.format(this.yeux)}&eyebrows=${this.format(this.sourcils)}&mouth=${this.format(this.bouche)}&accessoires=${this.format(this.accessoire, 'accessoire')}&hair=${this.format(this.cheveux, 'cheveux')}&skinColor=${this.format(this.couleurPeau)}&hairColor=${this.format(this.couleurCheveux, 'couleurCheveux')}`
-  }
-
-  /**
-   * Enregistre le lienAvatar dans la bdd et ferme la modale
-   */
-  enregistrerAvatar() {
-    this.dataService.majAvatar(this.lienAvatar)
-    this.modaleAvatar.style.display = "none";
-  }
-
-  /**
-   * Enregistre le pseudo dans la bdd et ferme la modale
-   */
-  enregistrerPseudo() {
-    this.dataService.majPseudo(this.pseudo)
-    this.modalePseudo.style.display = "none";
-  }
-
-  /**
-   * Récupère le lienAvatar de this.dataService.user,
-   * Récupère les paramètres de l'url,
-   * Ajuste les valeurs des sliders.
-   */
-  deconstruitLienAvatar() {
-    const parametres = this.dataService.user.lienAvatar.split('&')
-    if (parametres[1] != null) {
-      this.yeux.value = parseInt(parametres[1].split('variant')[1])
-      this.sourcils.value = parseInt(parametres[2].split('variant')[1])
-      this.bouche.value = parseInt(parametres[3].split('variant')[1])
-      switch (parametres[4].split('=')[1]) {
-        case 'sunglasses':
-          if (parametres[5].split('=')[1] == '0') this.accessoire.value = 1
-          else this.accessoire.value = 2
-          break;
-        case 'glasses':
-          this.accessoire.value = 3
-          break
-        case 'smallGlasses':
-          this.accessoire.value = 4
-          break
-        case 'mustache':
-          this.accessoire.value = 5
-          break
-        case 'blush':
-          this.accessoire.value = 6
-          break
-        case 'birthmark':
-          this.accessoire.value = 7
-          break
-        default:
-          this.accessoire.value = 1
-          break;
-      }
-      const longueurCheveux = parametres[6].split('=')[1].slice(0, parametres[6].split('=')[1].length - 2)
-      if (longueurCheveux == 'long') {
-        this.cheveux.value = parseInt(parametres[6].split('=')[1].slice(parametres[6].split('=')[1].length - 2))
-      } else {
-        this.cheveux.value = parseInt(parametres[6].split('=')[1].slice(parametres[6].split('=')[1].length - 2)) + 20
-      }
-      this.couleurPeau.value = parseInt(parametres[7].split('variant')[1])
-      switch (parametres[8].split('=')[1]) {
-        case 'red01':
-          this.couleurCheveux.value = 1
-          break
-        case 'red02':
-          this.couleurCheveux.value = 2
-          break
-        case 'red03':
-          this.couleurCheveux.value = 3
-          break
-        case 'blonde01':
-          this.couleurCheveux.value = 4
-          break
-        case 'blonde02':
-          this.couleurCheveux.value = 5
-          break
-        case 'blonde03':
-          this.couleurCheveux.value = 6
-          break
-        case 'brown01':
-          this.couleurCheveux.value = 7
-          break
-        case 'brown02':
-          this.couleurCheveux.value = 8
-          break
-        case 'black':
-          this.couleurCheveux.value = 9
-          break
-        case 'gray':
-          this.couleurCheveux.value = 10
-          break
-        case 'green':
-          this.couleurCheveux.value = 11
-          break
-        case 'blue':
-          this.couleurCheveux.value = 12
-          break
-        case 'pink':
-          this.couleurCheveux.value = 13
-          break
-        case 'purple':
-          this.couleurCheveux.value = 14
-          break
-        default:
-          this.couleurCheveux.value = 1
-          break
-
-      }
-    }
-  }
-
-  /**
-   * Formate correctement les différentes variables pour la mettre dans l'url de dicebear
-   * Par défaut, le formatage est de la forme 'variant' + this.nb2chiffres(trait.value)
-   * Certains traits ne respectent pas ce formatage et sont signalés via le paramètre special
-   * @param trait peut être le slider correspondant aux yeux, sourcils, bouche, accessoire, cheveux, couleurPeau ou couleurCheveux
-   * @param special peut être 'accessoire', 'cheveux' ou 'couleurCheveux'
-   * @returns string correctement formaté pour insertion dans l'url de dicebear
-   */
-  format(trait: Slider, special?: string) {
-    if (special === 'accessoire') {
-      switch (trait.value) {
-        case 1:
-          return 'sunglasses&accessoiresProbability=0'
-        case 2:
-          return 'sunglasses&accessoiresProbability=100'
-        case 3:
-          return 'glasses&accessoiresProbability=100'
-        case 4:
-          return 'smallGlasses&accessoiresProbability=100'
-        case 5:
-          return 'mustache&accessoiresProbability=100'
-        case 6:
-          return 'blush&accessoiresProbability=100'
-        case 7:
-          return 'birthmark&accessoiresProbability=100'
-        default:
-          return 'sunglasses&accessoiresProbability=0'
-      }
-    } else if (special === 'cheveux') {
-      if (trait.value <= 20) {
-        return 'long' + this.nb2chiffres(trait.value)
-      } else {
-        return 'short' + this.nb2chiffres(trait.value - 20)
-      }
-    } else if (special === 'couleurCheveux') {
-      switch (trait.value) {
-        case 1:
-          return 'red01'
-        case 2:
-          return 'red02'
-        case 3:
-          return 'red03'
-        case 4:
-          return 'blonde01'
-        case 5:
-          return 'blonde02'
-        case 6:
-          return 'blonde03'
-        case 7:
-          return 'brown01'
-        case 8:
-          return 'brown02'
-        case 9:
-          return 'black'
-        case 10:
-          return 'gray'
-        case 11:
-          return 'green'
-        case 12:
-          return 'blue'
-        case 13:
-          return 'pink'
-        case 14:
-          return 'purple'
-        default:
-          return 'red01'
-      }
-    } else {
-      return 'variant' + this.nb2chiffres(trait.value)
-    }
-  }
-
-  /**
    * Ajoute un 0 aux nombres à un chiffre
    * Convertir les nombres en string
    * @param nb 
@@ -468,6 +243,14 @@ export class ProfilComponent implements OnInit {
    */
   pseudoAleatoire() {
     this.pseudo = this.dataService.pseudoAleatoire()
+  }
+
+  /**
+   * Enregistre le pseudo dans la bdd et ferme la modale
+   */
+  enregistrerPseudo() {
+    this.dataService.majPseudo(this.pseudo)
+    this.modalePseudo.style.display = "none";
   }
 
   /**
@@ -543,13 +326,10 @@ export class ProfilComponent implements OnInit {
 
   /**
    * Ouvre la modale
-   * @param type peut être avatar ou pseudo
+   * @param type peut être pseudo ou confirmation
    */
   ouvrirModale(type: string) {
-    if (type == 'avatar') {
-      this.deconstruitLienAvatar()
-      this.modaleAvatar.style.display = "block"
-    } else if (type == 'pseudo') {
+     if (type == 'pseudo') {
       this.pseudo = this.dataService.user.pseudo
       this.modalePseudo.style.display = "block"
     } else if (type == 'confirmation') {
@@ -560,15 +340,10 @@ export class ProfilComponent implements OnInit {
 
   /**
    * Ferme la modale
-   * @param type peut être avatar ou pseudo
+   * @param type peut être pseudo ou confirmation
    */
   fermerModale(type: string) {
-    if (type == 'avatar') {
-      // fermerModale est utilisée pour quitter la création d'avatar sans enregistrer
-      // on récupère donc l'avatar de this.dataService.user
-      this.lienAvatar = this.dataService.user.lienAvatar
-      this.modaleAvatar.style.display = "none"
-    } else if (type == 'pseudo') {
+     if (type == 'pseudo') {
       this.modalePseudo.style.display = "none"
     } else if (type == 'confirmation') {
       this.modaleConfirmation.style.display = "none"

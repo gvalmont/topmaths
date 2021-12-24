@@ -1,0 +1,105 @@
+<div class="columns has-text-centered">
+  <div class="column is-4">
+    <div id='svgDiv' class="is-inline-block" style="width: 390px;"></div>
+  </div>
+  <div class="column is-8">
+    <div class="tabs is-centered" style="margin-top: -50px;">
+      <ul>
+        <li>
+          <a (click)="avatarAleatoire()">
+            <span class="image is-96x96"><div id="avatarAleatoireMenu"></div></span>
+          </a>
+        </li>
+        <li [ngClass]="{'is-active': ongletActif == 'couleur'}">
+          <a [routerLink]="['/profil/avatar/couleur']">
+            <span class="image is-96x96"><div id="skinColorMenu"></div></span>
+          </a>
+        </li>
+        <li [ngClass]="{'is-active': ongletActif == 'yeux'}">
+          <a [routerLink]="['/profil/avatar/yeux']">
+            <span class="image is-96x96"><div id="eyesMenu"></div></span>
+          </a>
+        </li>
+        <li [ngClass]="{'is-active': ongletActif == 'sourcils'}">
+          <a [routerLink]="['/profil/avatar/sourcils']">
+            <span class="image is-96x96"><div id="eyebrowsMenu"></div></span>
+          </a>
+        </li>
+        <li [ngClass]="{'is-active': ongletActif == 'bouche'}">
+          <a [routerLink]="['/profil/avatar/bouche']">
+            <span class="image is-96x96"><div id="mouthMenu"></div></span>
+          </a>
+        </li>
+        <li [ngClass]="{'is-active': ongletActif == 'accessoires'}">
+          <a [routerLink]="['/profil/avatar/accessoires']">
+            <span class="image is-96x96"><div id="accessoiresMenu"></div></span>
+          </a>
+        </li>
+        <li [ngClass]="{'is-active': ongletActif == 'cheveux'}">
+          <a [routerLink]="['/profil/avatar/cheveux']">
+            <span class="image is-96x96"><div id="hairMenu"></div></span>
+          </a>
+        </li>
+        <li [ngClass]="{'is-active': ongletActif == 'couleurCheveux'}">
+          <a [routerLink]="['/profil/avatar/couleurCheveux']">
+            <span class="image is-96x96"><div id="hairColorMenu"></div></span>
+          </a>
+        </li>
+        <li>
+          <a (click)="afficherModaleConfirmation()">
+            <span class="image is-96x96"><div id="enregistrerAvatarMenu"></div></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div id="panel" (click)="majAvatar()"></div>
+  </div>
+</div>
+<svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#05a" />
+      <stop offset="100%" stop-color="#0a5" />
+    </linearGradient>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f2d3b1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ecad80;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>
+<div class="cache">
+  <div id="skinColor"></div>
+  <div id="eyes"></div>
+  <div id="eyebrows"></div>
+  <div id="mouth"></div>
+  <div id="accessoires"></div>
+  <div id="hair"></div>
+  <div id="hairColor"></div>
+</div>
+
+<!-- Modale de confirmation -->
+<div id="modaleConfirmation" class="modal centre">
+  <div class="modal-background" (click)="fermerModaleConfirmation()"></div>
+  <div><br><br><br></div>
+  <div class="modal-content has-background-white px-6 is-size-3">
+    <!-- Texte -->
+    <div id="confirmationSvgDiv"></div>
+    <p>
+      Enregistrer cet avatar ?
+    </p>
+    <br>
+    <!-- Boutons -->
+    <div class="columns">
+      <div class="column is-5 is-flex is-align-items-center is-justify-content-center">
+        <button (click)="fermerModaleConfirmation()" class="button is-danger">Annuler</button>
+      </div>
+      <div class="column is-2 is-flex is-align-items-center is-justify-content-center">
+      </div>
+      <div class="column is-5 is-flex is-align-items-center is-justify-content-center">
+        <button (click)="majProfil()" class="button is-success">Enregistrer</button>
+      </div>
+    </div>
+    <br>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="fermerModaleConfirmation()"></button>
+</div>
