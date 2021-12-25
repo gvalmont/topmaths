@@ -371,7 +371,7 @@ export class ApiService {
       this.user = {
         id: 0,
         identifiant: 'X',
-        codeAvatar: '#000,5,4,3,2,1,#fff',
+        codeAvatar: '',
         scores: 'actives',
         lastLogin: '',
         lastAction: '',

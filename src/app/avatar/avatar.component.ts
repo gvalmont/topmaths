@@ -71,6 +71,7 @@ export class AvatarComponent implements OnInit {
     div = document.getElementById('svgDiv')
     if (div != null) this.svgDiv = div
     this.recupereOngletActif()
+    this.recupereParametresActuels()
     this.initPage()
     div = document.getElementById("modaleConfirmation")
     if (div != null) this.modaleConfirmation = div
@@ -110,14 +111,12 @@ export class AvatarComponent implements OnInit {
     if (typeof (this.avatarsDef) == 'undefined') {
       this.http.get<AvatarsDef>('assets/data/avatars-def.json').subscribe(avatarsDef => {
         this.avatarsDef = avatarsDef
-        this.recupereParametresActuels()
         this.initMenu()
         this.initPanel()
         this.initAvatar()
         this.majAvatar()
       })
     } else {
-      this.recupereParametresActuels()
       this.initMenu()
       this.initPanel()
       this.initAvatar()
@@ -311,10 +310,10 @@ export class AvatarComponent implements OnInit {
     let svg = document.createElement('div')
     svg.innerHTML = this.svg
     if (cibleAAttacher.id == 'panel') {
-    svg.id = typeof (el.skinColor) != 'undefined' ? 'skin' + el.skinColor : typeof (el.eyes) != 'undefined' ? 'eyes' + el.eyes :
-      typeof (el.eyebrows) != 'undefined' ? 'eyeb' + el.eyebrows : typeof (el.mouth) != 'undefined' ? 'mout' + el.mouth :
-        typeof (el.accessoires) != 'undefined' ? 'acce' + this.accessoiresId(el.accessoires) :
-          typeof (el.hair) != 'undefined' ? 'hair' + el.hair : typeof (el.hairColor) != 'undefined' ? 'hcol' + el.hairColor : 'inconnu'
+      svg.id = typeof (el.skinColor) != 'undefined' ? 'skin' + el.skinColor : typeof (el.eyes) != 'undefined' ? 'eyes' + el.eyes :
+        typeof (el.eyebrows) != 'undefined' ? 'eyeb' + el.eyebrows : typeof (el.mouth) != 'undefined' ? 'mout' + el.mouth :
+          typeof (el.accessoires) != 'undefined' ? 'acce' + this.accessoiresId(el.accessoires) :
+            typeof (el.hair) != 'undefined' ? 'hair' + el.hair : typeof (el.hairColor) != 'undefined' ? 'hcol' + el.hairColor : 'inconnu'
     }
     svg.onclick = (function () {
       let div: HTMLElement | null = null
@@ -346,11 +345,14 @@ export class AvatarComponent implements OnInit {
       }
     })
     svg.className = 'is-width-130 is-inline-block'
-    cibleAAttacher.appendChild(svg)
-    if (cibleAAttacher.id != 'panel') {
-      if (cibleAAttacher.id == 'svgDiv') svg.className = 'is-inline-block'
+    if (cibleAAttacher.id == 'panel') {
+      cibleAAttacher.appendChild(svg)
+    } else if (cibleAAttacher.id == 'svgDiv') {
+      svg.className = 'is-inline-block'
       cibleAAttacher.replaceChild(svg.childNodes[0], cibleAAttacher.childNodes[0])
     } else {
+      cibleAAttacher.textContent = ''
+      cibleAAttacher.appendChild(svg)
     }
   }
 
@@ -361,7 +363,7 @@ export class AvatarComponent implements OnInit {
    */
   majProfil() {
     this.modaleConfirmation.style.display = 'none'
-    this.dataService.majAvatar(this.lienImage(),`${this.skinColor}&${this.eyes}&${this.eyebrows}&${this.mouth}&${this.accessoiresId(this.accessoires)}&${this.hair}&${this.hairColor}`)
+    this.dataService.majAvatar(this.lienImage(), `${this.skinColor}&${this.eyes}&${this.eyebrows}&${this.mouth}&${this.accessoiresId(this.accessoires)}&${this.hair}&${this.hairColor}`)
     this.router.navigate(['/profil'])
   }
 
