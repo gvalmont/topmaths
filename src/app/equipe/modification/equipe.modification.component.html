@@ -39,30 +39,40 @@
       <div *ngIf="errDejaPris" class="has-text-danger">Ce nom est déjà pris !</div>
       <br>
       <div class="columns">
-        <div class="column">
           <div class="column">
-            <div>Couleur de l'arrière plan</div>
-            <input [cpCancelButton]="true" [cpCancelButtonText]="'Annuler'" [cpPosition]="'bottom'" [style.background]="backgroundColor" [colorPicker]="backgroundColor" (colorPickerChange)="majBackgroundColor($event)" />
+            <span>Arrière plan</span>
+            &nbsp;&nbsp;
+            <span [cpCancelButton]="true" [cpCancelButtonText]="'Annuler'" [cpPosition]="'bottom'" [style.background]="backgroundColor" [colorPicker]="backgroundColor" (colorPickerChange)="majBackgroundColor($event)">
+              <figure class="image is-32x32 is-inline-block is-clickable"></figure>
+            </span>
+            &nbsp;&nbsp;
             <figure (click)="majAleatoire('backgroundColor')" class="image is-32x32 is-inline-block is-clickable">
               <img src="assets/img/cc0/dice-svgrepo-com.svg" />
             </figure>
           </div>
           <div class="column">
-            <div>Couleur principale</div>
-            <input class="is-inline-block" [cpCancelButton]="true" [cpCancelButtonText]="'Annuler'" [cpPosition]="'bottom-right'" [style.background]="foregroundPrimaryColor" [colorPicker]="foregroundPrimaryColor" (colorPickerChange)="majForegroundPrimaryColor($event)" />
+            <span>Couleur 1</span>
+            &nbsp;&nbsp;
+            <span [cpCancelButton]="true" [cpCancelButtonText]="'Annuler'" [cpPosition]="'bottom-right'" [style.background]="foregroundPrimaryColor" [colorPicker]="foregroundPrimaryColor" (colorPickerChange)="majForegroundPrimaryColor($event)">
+              <figure class="image is-32x32 is-inline-block is-clickable"></figure>
+            </span>
+            &nbsp;&nbsp;
             <figure (click)="majAleatoire('foregroundPrimaryColor')" class="image is-32x32 is-inline-block is-clickable">
               <img src="assets/img/cc0/dice-svgrepo-com.svg" />
             </figure>
           </div>
           <div class="column">
-            <div>Couleur secondaire</div>
-            <input [cpCancelButton]="true" [cpCancelButtonText]="'Annuler'" [cpPosition]="'bottom'" [style.background]="foregroundSecondaryColor" [colorPicker]="foregroundSecondaryColor" (colorPickerChange)="majForegroundSecondaryColor($event)" />
+            <span>Couleur 2</span>
+            &nbsp;&nbsp;
+            <span [cpCancelButton]="true" [cpCancelButtonText]="'Annuler'" [cpPosition]="'bottom'" [style.background]="foregroundSecondaryColor" [colorPicker]="foregroundSecondaryColor" (colorPickerChange)="majForegroundSecondaryColor($event)">
+              <figure class="image is-32x32 is-inline-block is-clickable"></figure>
+            </span>
+            &nbsp;&nbsp;
             <figure (click)="majAleatoire('foregroundSecondaryColor')" class="image is-32x32 is-inline-block is-clickable">
               <img src="assets/img/cc0/dice-svgrepo-com.svg" />
             </figure>
           </div>
         </div>
-      </div>
       <div class="columns is-flex is-align-items-center is-justify-content-center">
         <div class="column">
           Arrière plan aléatoire
