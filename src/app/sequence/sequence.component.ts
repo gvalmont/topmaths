@@ -1,11 +1,11 @@
-import { sequence } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
-import { Component, isDevMode, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import { ConfettiService } from '../services/confetti.service';
 import { CalculMental, Niveau, NiveauCM, Objectif, QuestionFlash, Sequence } from '../services/sequences';
 import { Niveau as NiveauObjectif } from '../services/objectifs';
+import { ViewportScroller } from '@angular/common';
 
 
 @Component({
@@ -33,13 +33,16 @@ export class SequenceComponent implements OnInit {
   dernierSlider: number
   messageScore: string
   dateDerniereReponse: Date
+  modaleExercicesUrl: string
+  bonneReponse: boolean
+  ancre: string
 
-  constructor(public http: HttpClient, private route: ActivatedRoute, private dataService: ApiService, public confetti: ConfettiService) {
+  constructor(public http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, public confetti: ConfettiService, public router: Router, private viewportScroller: ViewportScroller) {
     this.reference = ''
     this.numero = 0
     this.titre = ''
     this.objectifs = []
-    this.calculsMentaux = [new CalculMental('', '', [new NiveauCM('', '', '', '', '', false, 0)], false)]
+    this.calculsMentaux = [new CalculMental('', '', [new NiveauCM('', '', '', '', '', 0)], false)]
     this.questionsFlash = []
     this.lienQuestionsFlash = ''
     this.lienEval = ''
@@ -54,12 +57,22 @@ export class SequenceComponent implements OnInit {
     this.dernierSlider = 0
     this.messageScore = ''
     this.dateDerniereReponse = new Date()
+    this.modaleExercicesUrl = ''
+    this.bonneReponse = false
+    this.ancre = ''
     setTimeout(() => this.confetti.stop(), 3000) // Sinon un reliquat reste apparent
   }
 
   ngOnInit(): void {
     this.observeChangementsDeRoute()
     this.ecouteMessagesPost()
+  }
+
+  /**
+   * Scroll vers l'ancre de l'exercice qui a été cliqué pour ouvrir la modale exercices
+   */
+   scrollBack(): void {
+    this.viewportScroller.scrollToAnchor(this.ancre)
   }
 
   /**
@@ -81,7 +94,6 @@ export class SequenceComponent implements OnInit {
    */
   ecouteMessagesPost() {
     window.addEventListener('message', (event) => {
-      console.log('sequence', event)
       const dateNouvelleReponse = new Date()
       if (dateNouvelleReponse.getTime() - this.dateDerniereReponse.getTime() > 200) {
         const url: string = event.data.url;
@@ -105,8 +117,8 @@ export class SequenceComponent implements OnInit {
                       if (parseInt(majScore) > 0) {
                         this.dataService.majScore(majScore, niveau.lien)
                         this.messageScore = '+ ' + majScore
-                        niveau.bonneReponse = true
-                        setTimeout(() => niveau.bonneReponse = false, 2000)
+                        this.bonneReponse = true
+                        setTimeout(() => this.bonneReponse = false, 2000)
                         if (nbMauvaisesReponses == 0) {
                           this.confetti.lanceConfetti()
                         }
@@ -333,13 +345,16 @@ export class SequenceComponent implements OnInit {
   }
 
   /**
-   * Copie dans le presse-papier le lien vers un certain niveau d'un calcul mental
-   * @param niveau 
+   * Paramètre la modale exercice avec l'url de l'exercice et l'ancre pour le retour puis l'affiche
+   * @param exercice pour récupérer son .lienACopier
+   * @param numeroExercice pour l'ancre de retour
    */
-  copierLien(niveau: NiveauCM) {
-    if (typeof (niveau.lienACopier) != 'undefined') {
-      navigator.clipboard.writeText(niveau.lienACopier);
-      alert('Le lien vers l\'exercice a été copié')
+   ouvrirModaleExercices(niveau: NiveauCM, numeroExercice: number) {
+    const modaleExercices = document.getElementById("modaleExercices")
+    if (modaleExercices != null && typeof (niveau.lienACopier) != 'undefined') {
+      this.modaleExercicesUrl = niveau.lienACopier
+      this.ancre = 'exercice0' + numeroExercice
+      modaleExercices.style.display = "block"
     }
   }
 

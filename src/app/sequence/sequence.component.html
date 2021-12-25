@@ -12,46 +12,31 @@
     </div>
   </div>
   <div class="box" *ngIf="calculsMentaux[0] != null && calculsMentaux[0].reference != ''; else divPasDeCalculMental">
-    <h2 class="title is-3">Calcul Mental
-      <i *ngIf="calculsMentaux[0] != null && calculsMentaux.length == 1 && calculsMentaux[0].niveaux.length == 1"
-        class="image is-24x24 is-inline-block is-clickable" (click)="copierLien(calculsMentaux[0].niveaux[0])">
-        <img src="assets/img/cc0/copy-interface-symbol-svgrepo-com.svg" />
-      </i>
-    </h2>
+    <h2 class="title is-3">Calcul Mental</h2>
     <div *ngIf="presenceCalculMental">
       <div *ngFor="let calculMental of calculsMentaux; index as i">
-        <p *ngIf="calculMental.pageExiste; else calculMentalSansLien">Dans cette séquence, le calcul mental porte sur :<br>
-          <a [routerLink]="['/objectif',calculMental.reference]">{{calculMental.reference}} : {{calculMental.titre}}</a>
-          &nbsp;
-          <i *ngIf="calculsMentaux[0] != null && calculsMentaux.length > 1 && calculsMentaux[0].niveaux.length == 1"
-            class="image is-24x24 is-inline-block is-clickable" (click)="copierLien(calculsMentaux[0].niveaux[0])">
-            <img src="assets/img/cc0/copy-interface-symbol-svgrepo-com.svg" />
-          </i>
+        <p>Dans cette séquence, le calcul mental porte sur :</p>
+        <p *ngIf="calculMental.pageExiste">
+          <a [routerLink]="['/objectif', calculMental.reference]">
+            {{calculMental.reference}} : {{calculMental.titre}}
+          </a>
         </p>
-        <ng-template #calculMentalSansLien>
-          <p>Dans cette séquence, le calcul mental porte sur :<br>
-            {{calculMental.reference}} : {{calculMental.titre}} &nbsp;
-            <i *ngIf="calculsMentaux[0] != null && calculsMentaux.length > 1 && calculsMentaux[0].niveaux.length == 1"
-              class="image is-24x24 is-inline-block is-clickable" (click)="copierLien(calculsMentaux[0].niveaux[0])">
-              <img src="assets/img/cc0/copy-interface-symbol-svgrepo-com.svg" />
-            </i>
-          </p>
-        </ng-template>
+        <p *ngIf="!calculMental.pageExiste">
+          {{calculMental.reference}} : {{calculMental.titre}}
+        </p>
         <div><br></div>
         <div *ngFor="let niveau of calculMental.niveaux; index as j">
           <div><br></div>
-          <h3 class="title is-4" *ngIf="calculMental.niveaux.length > 1">Niveau {{j + 1}}
-            <i class="image is-24x24 is-inline-block is-clickable" (click)="copierLien(niveau)">
-              <img src="assets/img/cc0/copy-interface-symbol-svgrepo-com.svg" />
-            </i>
+          <h3 [id]="'exercice' + j + 1" class="title is-4 is-inline-block">
+            <a (click)="ouvrirModaleExercices(niveau, j + 1)">
+              Niveau {{j + 1}}
+              &nbsp;
+              <i class='image is-24x24 is-inline-block'>
+                <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
+              </i>
+            </a>
           </h3>
           <p>{{niveau.commentaire}}</p>
-          <div class="image is-16by9">
-            <iframe class="has-ratio" [src]="niveau.lien | safe" allowfullscreen=""></iframe>
-          </div>
-          <span *ngIf="niveau.bonneReponse">
-            <h3 [ngClass]="{'pleinEcran is-unselectable gigantesque': true, 'moveUp': niveau.bonneReponse}">{{messageScore}}</h3>
-          </span>
         </div>
       </div>
     </div>
@@ -67,12 +52,14 @@
     <p>Dans cette séquence, une question flash porte sur l’un des objectifs ci-dessus et les deux autres portent sur :</p>
     <div class="p-1">
       <div class="p-1" *ngFor="let questionFlash of questionsFlash; index as i">
-        <a *ngIf="questionFlash.pageExiste; else questionFlashSansLien"
-          [routerLink]="['/objectif',questionFlash.reference]">{{questionFlash.reference}} :
-          {{questionFlash.titre}}
-        </a>
-        <ng-template #questionFlashSansLien>{{questionFlash.reference}} : {{questionFlash.titre}}
-        </ng-template>
+        <p *ngIf="questionFlash.pageExiste">
+          <a [routerLink]="['/objectif',questionFlash.reference]">{{questionFlash.reference}} :
+            {{questionFlash.titre}}
+          </a>
+        </p>
+        <p *ngIf="!questionFlash.pageExiste">
+          {{questionFlash.reference}} : {{questionFlash.titre}}
+        </p>
       </div>
     </div>
     <div class="pt-5 pb-1">
@@ -95,6 +82,6 @@
   <!-- Utilisateurs connectés -->
   <app-whosonline></app-whosonline>
 </div>
-<ng-particles [id]="confetti.id" [options]="confetti.particlesOptions"
-  (particlesLoaded)="confetti.particlesLoaded($event)" (particlesInit)="confetti.particlesInit($event)"></ng-particles>
+<ng-particles [id]="confetti.id" [options]="confetti.particlesOptions" (particlesLoaded)="confetti.particlesLoaded($event)" (particlesInit)="confetti.particlesInit($event)"></ng-particles>
 <div id="tsparticles"></div>
+<app-modale-exercices [url]="modaleExercicesUrl" (modaleFermee)="scrollBack()"></app-modale-exercices>

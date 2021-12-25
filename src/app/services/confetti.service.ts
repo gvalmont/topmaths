@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Container, Main } from 'tsparticles';
+import { Options } from 'node_modules/tsparticles/Options/Classes/Options';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfettiService {
   confetti: Container
-  particlesOptions: any
+  particlesOptions!: any
   id : string
   
   constructor() {
@@ -54,7 +55,9 @@ export class ConfettiService {
     this.particlesOptions = {
       autoPlay: false,
       fullScreen: {
-        enable: true
+        enable: true,
+        zIndex: 200,
+        load: ''
       },
       particles: {
         number: {

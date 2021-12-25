@@ -1,6 +1,7 @@
+import { ViewportScroller } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, HostListener } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import { ConfettiService } from '../services/confetti.service';
 import { Niveau, Objectif, Video, Exercice } from '../services/objectifs';
@@ -25,13 +26,15 @@ export class ObjectifComponent implements OnInit {
   exercices: Exercice[]
   lienFiche: string
   lienAnki: string
-  portrait: boolean
   messageScore: string
   presenceVideo: boolean
   dateDerniereReponse: Date
   exercicesDejaFaits: string[]
+  modaleExercicesUrl: string
+  bonneReponse: boolean
+  ancre: string
 
-  constructor(public http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, public confetti: ConfettiService) {
+  constructor(public http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, public confetti: ConfettiService, public router: Router, private viewportScroller: ViewportScroller) {
     this.reference = ''
     this.titre = ''
     this.rappelDuCoursHTML = ''
@@ -40,12 +43,13 @@ export class ObjectifComponent implements OnInit {
     this.exercices = []
     this.lienFiche = ''
     this.lienAnki = ''
-    this.portrait = true
     this.messageScore = ''
     this.exercicesDejaFaits = []
     this.presenceVideo = false
     this.dateDerniereReponse = new Date()
-    this.isPortraitUpdate()
+    this.modaleExercicesUrl = ''
+    this.bonneReponse = false
+    this.ancre = ''
     dataService.profilModifie.subscribe(valeursModifiees => {
       if (valeursModifiees.includes('scores')) this.modificationDesAttributs()
     })
@@ -58,21 +62,10 @@ export class ObjectifComponent implements OnInit {
   }
 
   /**
-   * On détecte les changements de taille de fenêtre,
-   * et on ajuste la largeur des cartes en conséquence.
-   * @param event
+   * Scroll vers l'ancre de l'exercice qui a été cliqué pour ouvrir la modale exercices
    */
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.isPortraitUpdate()
-  }
-
-  /**
-   * Vérifie si l'écran est en portrait ou en paysage
-   * et met à jour this.isPortrait
-   */
-  isPortraitUpdate() {
-    window.innerHeight > window.innerWidth ? this.portrait = true : this.portrait = false
+  scrollBack(): void {
+    this.viewportScroller.scrollToAnchor(this.ancre)
   }
 
   /**
@@ -114,12 +107,9 @@ export class ObjectifComponent implements OnInit {
                     const majScore: string = (parseInt(exercice.score) * nbBonnesReponses).toString()
                     if (parseInt(majScore) > 0) {
                       this.dataService.majScore(majScore, exercice.lienACopier)
-
                       this.messageScore = '+ ' + majScore
-                      exercice.bonneReponse = true
-                      setTimeout(() => exercice.bonneReponse = false, 2000)
-
-
+                      this.bonneReponse = true
+                      setTimeout(() => this.bonneReponse = false, 2000)
                       if (nbMauvaisesReponses == 0) {
                         this.confetti.lanceConfetti()
                       }
@@ -258,6 +248,20 @@ export class ObjectifComponent implements OnInit {
     if (typeof (exercice.lienACopier) != 'undefined') {
       navigator.clipboard.writeText(exercice.lienACopier);
       alert('Le lien vers l\'exercice a été copié')
+    }
+  }
+
+  /**
+   * Paramètre la modale exercice avec l'url de l'exercice et l'ancre pour le retour puis l'affiche
+   * @param exercice pour récupérer son .lienACopier
+   * @param numeroExercice pour l'ancre de retour
+   */
+   ouvrirModaleExercices(exercice: Exercice, numeroExercice: number) {
+    const modaleExercices = document.getElementById("modaleExercices")
+    if (modaleExercices != null && typeof (exercice.lienACopier) != 'undefined') {
+      this.modaleExercicesUrl = exercice.lienACopier
+      this.ancre = 'exercice0' + numeroExercice
+      modaleExercices.style.display = "block"
     }
   }
 

@@ -56,16 +56,14 @@ export class NiveauCM {
   public score: string
   public lienACopier?: string
   public graine?: string
-  public bonneReponse?: boolean
   public slider?: number
 
-  constructor(commentaire: string, lien: string, score: string, lienACopier: string, graine: string, bonneReponse: boolean, slider: number) {
+  constructor(commentaire: string, lien: string, score: string, lienACopier: string, graine: string, slider: number) {
     this.commentaire = commentaire
     this.lien = lien
     this.score = score
     this.lienACopier = lienACopier
     this.graine = graine
-    this.bonneReponse = bonneReponse
     this.slider = slider
   }
 }

@@ -28,6 +28,7 @@ import { EquipeModificationComponent } from './equipe/modification/equipe.modifi
 import { ColorPickerModule } from 'ngx-color-picker';
 import { EquipePageComponent } from './equipe/page/equipe.page.component';
 import { AvatarComponent } from './avatar/avatar.component';
+import { ModaleExercicesComponent } from './modale-exercices/modale-exercices.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { AvatarComponent } from './avatar/avatar.component';
     CompetitionsComponent,
     EquipeModificationComponent,
     EquipePageComponent,
-    AvatarComponent
+    AvatarComponent,
+    ModaleExercicesComponent
   ],
   imports: [
     BrowserModule,

@@ -69,15 +69,13 @@ export class Exercice {
   public lien: string
   public score: string
   public lienACopier?: string
-  public bonneReponse?: boolean
 
-  constructor(couleur: string, slug: string, graine: string, lien: string, score: string, lienACopier?: string, bonneReponse?: boolean) {
+  constructor(couleur: string, slug: string, graine: string, lien: string, score: string, lienACopier?: string) {
     this.couleur = couleur
     this.slug = slug
     this.graine = graine
     this.lien = lien
     this.score = score
     this.lienACopier = lienACopier
-    this.bonneReponse = bonneReponse
   }
 }

@@ -1,0 +1,13 @@
+<div id="modaleExercices" class="centre pleinEcran has-background-white cache">
+  <figure id="modal-back" class='is-clickable' (click)="fermerModale()">
+    <img src='/assets/img/cc0/backward-arrow-svgrepo-com.svg' />
+  </figure>
+  <figure id="modal-copy" class="is-clickable" (click)="copierLien()">
+    <img src="assets/img/cc0/copy-interface-symbol-svgrepo-com.svg" />
+  </figure>
+  <figure id="modal-cross" class="is-clickable" (click)="fermerModale()">
+    <img src="assets/img/cc0/cross-svgrepo-com.svg" />
+  </figure>
+  <iframe width="100%" height="100%" class="has-ratio" [src]="url | safe" allowfullscreen></iframe>
+</div>
+<div id="modaleExercicesUrl"></div>
