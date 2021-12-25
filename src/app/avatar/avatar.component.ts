@@ -95,7 +95,7 @@ export class AvatarComponent implements OnInit {
   }
 
   /**
-   * Récupère le niveau, le thème et le sous-thème à partir de l'url afin de pouvoir éventuellement les filtrer
+   * Récupère le paramètre de l'avatar à modifier de l'url
    */
   recupereParametresUrl() {
     this.route.params.subscribe(params => {
@@ -103,16 +103,21 @@ export class AvatarComponent implements OnInit {
     })
   }
 
+  /**
+   * Lance l'initialisation des différents paramètres de la page en récupérant au préalable les paramètres des avatars si besoin
+   */
   initPage() {
     if (typeof (this.avatarsDef) == 'undefined') {
       this.http.get<AvatarsDef>('assets/data/avatars-def.json').subscribe(avatarsDef => {
         this.avatarsDef = avatarsDef
+        this.recupereParametresActuels()
         this.initMenu()
         this.initPanel()
         this.initAvatar()
         this.majAvatar()
       })
     } else {
+      this.recupereParametresActuels()
       this.initMenu()
       this.initPanel()
       this.initAvatar()
@@ -120,6 +125,28 @@ export class AvatarComponent implements OnInit {
     }
   }
 
+  /**
+   * Récupère les infos de l'avatar actuel pour partir de l'avatar actuel
+   */
+  recupereParametresActuels() {
+    if (this.dataService.user.codeAvatar != '') {
+      const parametres = this.dataService.user.codeAvatar.split('&')
+      this.skinColor = parametres[0]
+      this.eyes = parseInt(parametres[1])
+      this.eyebrows = parseInt(parametres[2])
+      this.mouth = parseInt(parametres[3])
+      this.accessoires = []
+      for (const accessoire of parametres[4].split('-')) {
+        this.accessoires.push(parseInt(accessoire))
+      }
+      this.hair = parseInt(parametres[5])
+      this.hairColor = parametres[6]
+    }
+  }
+
+  /**
+   * Crée les images pour le menu
+   */
   initMenu() {
     const skinColorMenu = document.getElementById("skinColorMenu")
     if (skinColorMenu != null) this.ajouteSvg(skinColorMenu, { skinColor: this.skinColor })
@@ -137,6 +164,9 @@ export class AvatarComponent implements OnInit {
     if (hairColorMenu != null) this.ajouteSvg(hairColorMenu, { hairColor: this.hairColor })
   }
 
+  /**
+   * Crée les images pour présenter les options
+   */
   initPanel() {
     this.panel.textContent = ''
     switch (this.ongletActif) {
@@ -181,6 +211,10 @@ export class AvatarComponent implements OnInit {
     this.svgDiv.innerHTML = this.svg
   }
 
+  /**
+   * Met dans des div les paramètres de l'avatar actuel
+   * (div qui seront modifiés par des onclick des différentes options)
+   */
   initAvatar() {
     const skinColor = document.getElementById("skinColor")
     if (skinColor != null) skinColor.innerText = this.skinColor
@@ -198,6 +232,9 @@ export class AvatarComponent implements OnInit {
     if (hairColor != null) hairColor.innerText = this.hairColor
   }
 
+  /**
+   * Récupère les paramètres depuis les div
+   */
   majAvatar() {
     const skinColor = document.getElementById("skinColor")
     if (skinColor != null) this.skinColor = skinColor.innerText
@@ -217,6 +254,9 @@ export class AvatarComponent implements OnInit {
     this.initMenu()
   }
 
+  /**
+   * Fixe des paramètres aléatoires et relance l'initialisation de la page
+   */
   avatarAleatoire() {
     this.skinColor = this.avatarsDef.skinColor[Math.floor(Math.random() * this.avatarsDef.skinColor.length)].color
     this.hairColor = this.avatarsDef.hairColor[Math.floor(Math.random() * this.avatarsDef.hairColor.length)].color
@@ -228,6 +268,11 @@ export class AvatarComponent implements OnInit {
     this.initPage()
   }
 
+  /**
+   * Fonction principale qui sert à créer un svg à partir des données de avatars-def.json et des paramètres qui lui sont passés
+   * @param cibleAAttacher HTMLElement à qui on va append le svg
+   * @param el Paramètres de l'avatar à générer
+   */
   ajouteSvg(cibleAAttacher: HTMLElement, el: { skinColor?: string, eyes?: number, eyebrows?: number, mouth?: number, accessoires?: number[], hair?: number, hairColor?: string }) {
     this.svg = this.avatarsDef.debut
     if (cibleAAttacher.id == 'panel' || cibleAAttacher.id == 'svgDiv') { // Panneau avec tous les choix et avatar en cours de création
@@ -263,12 +308,14 @@ export class AvatarComponent implements OnInit {
     this.svg = this.svg.replace(/colorsSkinValue/g, this.skinColor)
     this.svg = this.svg.replace(/colorsHairValue/g, this.hairColor)
     this.svg += this.avatarsDef.fin
-    let svg = document.createElement('svg')
+    let svg = document.createElement('div')
     svg.innerHTML = this.svg
+    if (cibleAAttacher.id == 'panel') {
     svg.id = typeof (el.skinColor) != 'undefined' ? 'skin' + el.skinColor : typeof (el.eyes) != 'undefined' ? 'eyes' + el.eyes :
       typeof (el.eyebrows) != 'undefined' ? 'eyeb' + el.eyebrows : typeof (el.mouth) != 'undefined' ? 'mout' + el.mouth :
         typeof (el.accessoires) != 'undefined' ? 'acce' + this.accessoiresId(el.accessoires) :
           typeof (el.hair) != 'undefined' ? 'hair' + el.hair : typeof (el.hairColor) != 'undefined' ? 'hcol' + el.hairColor : 'inconnu'
+    }
     svg.onclick = (function () {
       let div: HTMLElement | null = null
       switch (svg.id.slice(0, 4)) {
@@ -302,14 +349,20 @@ export class AvatarComponent implements OnInit {
     cibleAAttacher.appendChild(svg)
     if (cibleAAttacher.id != 'panel') {
       if (cibleAAttacher.id == 'svgDiv') svg.className = 'is-inline-block'
-      cibleAAttacher.replaceChild(svg, cibleAAttacher.childNodes[0])
+      cibleAAttacher.replaceChild(svg.childNodes[0], cibleAAttacher.childNodes[0])
     } else {
     }
   }
 
+  /**
+   * Ferme la modale de confirmation
+   * Envoie les données de l'avatar au controlleur de l'api
+   * redirige vers le profil
+   */
   majProfil() {
     this.modaleConfirmation.style.display = 'none'
-    this.dataService.majAvatar(this.lienImage(),`${this.skinColor},${this.eyes},${this.eyebrows},${this.mouth},${this.accessoiresId(this.accessoires)},${this.hair},${this.hairColor}`)
+    this.dataService.majAvatar(this.lienImage(),`${this.skinColor}&${this.eyes}&${this.eyebrows}&${this.mouth}&${this.accessoiresId(this.accessoires)}&${this.hair}&${this.hairColor}`)
+    this.router.navigate(['/profil'])
   }
 
   /**
@@ -323,22 +376,38 @@ export class AvatarComponent implements OnInit {
     return "data:image/svg+xml;base64," + btoa(svgData)
   }
 
+  /**
+   * append une copie de l'avatar à la modale de confirmation et l'affiche
+   */
   afficherModaleConfirmation() {
     this.confirmationSvgDiv.textContent = ''
     this.confirmationSvgDiv.appendChild(this.svgDiv.cloneNode(true))
     this.modaleConfirmation.style.display = 'block'
   }
 
+  /**
+   * Ferme la modale de confirmation
+   */
   fermerModaleConfirmation() {
     this.modaleConfirmation.style.display = 'none'
   }
 
+  /**
+   * Ajoute un groupe contenant les infos du trait passé en paramètre
+   * @param trait yeux, cheveux etc.
+   * @param id id du groupe si on veut pouvoir y accéder plus tard
+   */
   ajouteTrait(trait: Trait, id: string) {
     this.svg += `<g class="${id}" transform="translate(-161 -83)">`
     this.svg += trait.path
     this.svg += '</g>'
   }
 
+  /**
+   * Renvoie un string contenant les différents éléments de l'array séparés par des tirets
+   * @param accessoires 
+   * @returns string
+   */
   accessoiresId(accessoires: number[]) {
     let str = ''
     for (const accessoire of accessoires) {

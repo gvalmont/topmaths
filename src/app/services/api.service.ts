@@ -54,6 +54,8 @@ export class ApiService {
   infosEquipe: InfosEquipe
   dateDerniereReponse: Date
   div!: HTMLElement
+  lienAvatar: string
+  styleAvatar: string
 
   @Output() profilModifie: EventEmitter<string[]> = new EventEmitter();
   constructor(private http: HttpClient, private router: Router) {
@@ -111,6 +113,8 @@ export class ApiService {
       membres: []
     }
     this.dateDerniereReponse = new Date()
+    this.lienAvatar = ''
+    this.styleAvatar = ''
     this.surveilleModificationsDuProfil()
     this.ecouteMessagesPost()
     this.recupereDonneesPseudos() // En cas de création d'un nouveau compte
@@ -126,6 +130,10 @@ export class ApiService {
       if (!valeursModifiees.includes('score')) this.majLastAction()
       if (valeursModifiees.includes('identifiant')) {
         this.recupClassement()
+      }
+      if (valeursModifiees.includes('lienAvatar')) {
+        this.lienAvatar = this.getLienAvatar(this.user)
+        this.styleAvatar = this.getStyleAvatar(this.user)
       }
     })
   }
@@ -300,16 +308,36 @@ export class ApiService {
   }
 
   /**
+   * Si l'utilisateur choisit de rester anonyme ou qu'il n'a pas de codeAvatar, renvoie le lien vers l'icone de base
+   * Sinon, épure le codeAvatar et renvoie le lien vers son avatar (avec un ?user.codeAvatar épuré pour signaler une mise à jour et forcer le retéléchargement)
+   * @param user 
+   * @returns 
+   */
+  getLienAvatar(user: User | UserSimplifie) {
+    let lienAvatar: string
+    if (user.pseudo == 'anonyme' || user.codeAvatar == '') {
+      lienAvatar = 'assets/img/reshot/user-3294.svg'
+    } else {
+      lienAvatar = `/avatars/${user.id}.svg?${user.codeAvatar}`
+      lienAvatar = lienAvatar.replace(/-/g, '')
+      lienAvatar = lienAvatar.replace(/,/g, '')
+      lienAvatar = lienAvatar.replace(/\s/g, '')
+      lienAvatar = lienAvatar.replace(/\(/g, '')
+      lienAvatar = lienAvatar.replace(/\)/g, '')
+      lienAvatar = lienAvatar.replace(/#/g, '')
+    }
+    return lienAvatar
+  }
+
+  /**
    * Renvoie un style de css qui permet d'afficher un avatar, l'emblème de son équipe et le badge de son classement
    */
   getStyleAvatar(user: User | UserSimplifie) {
     const lienEquipe = `/team_emblems/${user.teamName}.svg`
     const lienBadge = `/assets/img/gvalmont/top${this.top(user.classement)}.svg`
-    let lienAvatar: string
-    user.pseudo == 'anonyme' ? lienAvatar = 'assets/img/reshot/user-3294.svg' : lienAvatar = `/avatars/${user.id}.svg`
-    let style = `--image-avatar:url(${lienAvatar});`
-    if (user.teamName != '') style += `--image-equipe:url(${lienEquipe});`
-    if (user.classement <= 50) style += `--image-badge:url(${lienBadge});`
+    let style = `--image-avatar:url('${this.getLienAvatar(user)}');`
+    if (user.teamName != '') style += `--image-equipe:url('${lienEquipe}');`
+    if (user.classement <= 50) style += `--image-badge:url('${lienBadge}');`
     return <string>style
   }
 
@@ -442,7 +470,7 @@ export class ApiService {
       const user: User = {
         id: 0,
         identifiant: identifiant,
-        codeAvatar: this.avatarAleatoire(),
+        codeAvatar: '',
         scores: '',
         lastLogin: '',
         lastAction: '',
@@ -617,7 +645,7 @@ export class ApiService {
     if (isDevMode()) {
       this.profilModifie.emit(['lienAvatar'])
     } else {
-      this.http.post<User[]>(this.baseUrl + `/majAvatar.php`, {identifiant: this.user.identifiant, codeAvatar: this.user.codeAvatar, lienAvatar: lienAvatar}).subscribe(
+      this.http.post<User[]>(this.baseUrl + `/majAvatar.php`, { identifiant: this.user.identifiant, codeAvatar: this.user.codeAvatar, lienAvatar: lienAvatar }).subscribe(
         users => {
           console.log(users[0])
           this.profilModifie.emit(['lienAvatar'])
@@ -1083,10 +1111,10 @@ export class ApiService {
       return Math.floor(Math.random() * max)
     }
 
-  const c = function() {
-    const o = Math.round, r = Math.random, s = 255
-    return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')'
-  }
+    const c = function () {
+      const o = Math.round, r = Math.random, s = 255
+      return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')'
+    }
     return `${c()},${r(26)},${r(10)},${r(30)},${r(7)},${r(36)},${c()}`
   }
 
