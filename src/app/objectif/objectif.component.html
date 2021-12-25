@@ -50,4 +50,4 @@
 </div>
 <ng-particles [id]="confetti.id" [options]="confetti.particlesOptions" (particlesLoaded)="confetti.particlesLoaded($event)" (particlesInit)="confetti.particlesInit($event)"></ng-particles>
 <div id="tsparticles"></div>
-<app-modale-exercices [url]="modaleExercicesUrl" (modaleFermee)="scrollBack()"></app-modale-exercices>
+<app-modale-exercices [url]="modaleExercicesUrl" [loading]="loading" (modaleFermee)="scrollBack($event)"></app-modale-exercices>

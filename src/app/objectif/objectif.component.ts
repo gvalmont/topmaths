@@ -33,6 +33,7 @@ export class ObjectifComponent implements OnInit {
   modaleExercicesUrl: string
   bonneReponse: boolean
   ancre: string
+  loading: boolean
 
   constructor(public http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, public confetti: ConfettiService, public router: Router, private viewportScroller: ViewportScroller) {
     this.reference = ''
@@ -50,6 +51,7 @@ export class ObjectifComponent implements OnInit {
     this.modaleExercicesUrl = ''
     this.bonneReponse = false
     this.ancre = ''
+    this.loading = false
     dataService.profilModifie.subscribe(valeursModifiees => {
       if (valeursModifiees.includes('scores')) this.modificationDesAttributs()
     })
@@ -64,7 +66,7 @@ export class ObjectifComponent implements OnInit {
   /**
    * Scroll vers l'ancre de l'exercice qui a été cliqué pour ouvrir la modale exercices
    */
-  scrollBack(): void {
+  scrollBack(event: any): void {
     this.viewportScroller.scrollToAnchor(this.ancre)
   }
 
@@ -80,6 +82,7 @@ export class ObjectifComponent implements OnInit {
       if (dateNouvelleReponse.getTime() - this.dateDerniereReponse.getTime() > 200) {
         const url: string = event.data.url;
         if (typeof (url) != 'undefined') {
+          this.loading = false
           // On cherche à quel exercice correspond ce message
           for (const exercice of this.exercices) {
             if (typeof (exercice.lienACopier) != 'undefined') {
@@ -259,6 +262,7 @@ export class ObjectifComponent implements OnInit {
    ouvrirModaleExercices(exercice: Exercice, numeroExercice: number) {
     const modaleExercices = document.getElementById("modaleExercices")
     if (modaleExercices != null && typeof (exercice.lienACopier) != 'undefined') {
+      this.loading = true
       this.modaleExercicesUrl = exercice.lienACopier
       this.ancre = 'exercice0' + numeroExercice
       modaleExercices.style.display = "block"

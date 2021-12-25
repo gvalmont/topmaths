@@ -1,0 +1,10 @@
+
+
+#loading > img {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+  z-index: 250;
+  max-width: 300px;
+}

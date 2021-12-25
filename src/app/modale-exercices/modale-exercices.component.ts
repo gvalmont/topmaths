@@ -7,15 +7,21 @@ import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@
 })
 export class ModaleExercicesComponent implements OnInit {
   @Input() url: string
+  @Input() loading: boolean
   @Output() modaleFermee = new EventEmitter<boolean>();
   modale!: HTMLElement
   modaleUrl!: HTMLElement
   boutonRetour!: HTMLElement
   boutonFermer!: HTMLElement
   boutonCopier!: HTMLElement
+  lienSpinner: string
+  site: string
 
   constructor() {
     this.url = ''
+    this.loading = true
+    this.lienSpinner = ''
+    this.site = ''
   }
 
   ngOnInit(): void {
@@ -23,10 +29,24 @@ export class ModaleExercicesComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.url.currentValue.toString().slice(0, 25) == 'https://mathsmentales.net') {
-      this.parametrage('mathsmentales')
-    } else if (changes.url.currentValue.toString().slice(0, 34) == 'https://coopmaths.fr/mathalea.html') {
-      this.parametrage('mathalea')
+    if (typeof(changes.url) != 'undefined') {
+      if (changes.url.currentValue.toString().slice(0, 25) == 'https://mathsmentales.net') {
+        this.site = 'mathsmentales'
+        this.parametrage()
+      } else if (changes.url.currentValue.toString().slice(0, 34) == 'https://coopmaths.fr/mathalea.html') {
+        this.site = 'mathalea'
+        this.parametrage()
+      }
+    }
+  }
+
+  /**
+   * Pour mathsmentales, une fois l'iframe chargé on enlève le spinner
+   * Pour mathaléa, il reste encore pas mal de choses à charcher, on attend le message post
+   */
+  loaded() {
+    if (this.site == 'mathsmentales') {
+      this.loading = false
     }
   }
 
@@ -48,11 +68,12 @@ export class ModaleExercicesComponent implements OnInit {
 
   /**
    * Positionne les boutons pour être en accord avec le site en plein écran
-   * @param site Peut être mathalea ou mathsmentales
    */
-  parametrage(site: string) {
-    switch (site) {
+  parametrage() {
+    switch (this.site) {
       case 'mathalea':
+        this.lienSpinner = '/assets/img/cc0/orange-spinner.svg'
+
         this.boutonRetour.style.left = '20px'
         this.boutonRetour.style.right = ''
         this.boutonRetour.style.top = '35px'
@@ -69,6 +90,8 @@ export class ModaleExercicesComponent implements OnInit {
         this.boutonFermer.style.width = '30px'
         break;
       case 'mathsmentales':
+        this.lienSpinner = '/assets/img/cc0/blue-spinner.svg'
+        
         this.boutonRetour.style.left = '20px'
         this.boutonRetour.style.right = ''
         this.boutonRetour.style.top = '80px'

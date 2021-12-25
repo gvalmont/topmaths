@@ -36,6 +36,7 @@ export class SequenceComponent implements OnInit {
   modaleExercicesUrl: string
   bonneReponse: boolean
   ancre: string
+  loading: boolean
 
   constructor(public http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, public confetti: ConfettiService, public router: Router, private viewportScroller: ViewportScroller) {
     this.reference = ''
@@ -60,6 +61,7 @@ export class SequenceComponent implements OnInit {
     this.modaleExercicesUrl = ''
     this.bonneReponse = false
     this.ancre = ''
+    this.loading = false
     setTimeout(() => this.confetti.stop(), 3000) // Sinon un reliquat reste apparent
   }
 
@@ -98,6 +100,7 @@ export class SequenceComponent implements OnInit {
       if (dateNouvelleReponse.getTime() - this.dateDerniereReponse.getTime() > 200) {
         const url: string = event.data.url;
         if (typeof (url) != 'undefined') {
+          this.loading = false
           // On cherche à quel exercice correspond ce message
           for (const calculMental of this.calculsMentaux) {
             for (const niveau of calculMental.niveaux) {
@@ -352,6 +355,7 @@ export class SequenceComponent implements OnInit {
    ouvrirModaleExercices(niveau: NiveauCM, numeroExercice: number) {
     const modaleExercices = document.getElementById("modaleExercices")
     if (modaleExercices != null && typeof (niveau.lienACopier) != 'undefined') {
+      this.loading = true
       this.modaleExercicesUrl = niveau.lienACopier
       this.ancre = 'exercice0' + numeroExercice
       modaleExercices.style.display = "block"
