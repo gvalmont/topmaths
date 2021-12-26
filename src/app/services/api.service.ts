@@ -66,7 +66,6 @@ export class ApiService {
       id: 0,
       identifiant: '',
       codeAvatar: '',
-      scores: '',
       lastLogin: '',
       lastAction: '',
       visible: '',
@@ -372,7 +371,6 @@ export class ApiService {
         id: 0,
         identifiant: 'X',
         codeAvatar: '',
-        scores: 'actives',
         lastLogin: '',
         lastAction: '',
         visible: '',
@@ -391,7 +389,6 @@ export class ApiService {
       this.profilModifie.emit([
         'identifiant',
         'lienAvatar',
-        'scores',
         'lastLogin',
         'lastAction',
         'visible',
@@ -414,7 +411,6 @@ export class ApiService {
           this.profilModifie.emit([
             'identifiant',
             'lienAvatar',
-            'scores',
             'lastLogin',
             'lastAction',
             'visible',
@@ -471,7 +467,6 @@ export class ApiService {
         id: 0,
         identifiant: identifiant,
         codeAvatar: '',
-        scores: '',
         lastLogin: '',
         lastAction: '',
         visible: '',
@@ -492,7 +487,6 @@ export class ApiService {
         this.profilModifie.emit([
           'identifiant',
           'lienAvatar',
-          'scores',
           'lastLogin',
           'lastAction',
           'visible',
@@ -696,15 +690,6 @@ export class ApiService {
   }
 
   /**
-   * Modifie le token lienAvatar et le lienAvatar dans la bdd
-   * @param scores peut être 'actives' ou 'desactives'
-   */
-  majScores(scores: string) {
-    this.user.scores = scores
-    this.majProfil(['scores'])
-  }
-
-  /**
    * Modifie la date de dernière action
    * Met à jour la liste d'utilisateurs en ligne et leur nombre
    */
@@ -757,12 +742,11 @@ export class ApiService {
     if (isDevMode()) {
       this.deleteToken('identifiant')
       this.deleteToken('version')
-      this.user = new User(0, '', '', '', '', '', '', '', '', '', '', '', 0, '', 0)
+      this.user = new User(0, '', '', '', '', '', '', '', '', '', '', 0, '', 0)
       this.isloggedIn = false
       this.profilModifie.emit([
         'identifiant',
         'lienAvatar',
-        'scores',
         'lastLogin',
         'lastAction',
         'visible',
@@ -776,12 +760,11 @@ export class ApiService {
         data => {
           this.deleteToken('identifiant')
           this.deleteToken('version')
-          this.user = new User(0, '', '', '', '', '', '', '', '', '', '', '', 0, '', 0)
+          this.user = new User(0, '', '', '', '', '', '', '', '', '', '', 0, '', 0)
           this.isloggedIn = false
           this.profilModifie.emit([
             'identifiant',
             'lienAvatar',
-            'scores',
             'lastLogin',
             'lastAction',
             'visible',

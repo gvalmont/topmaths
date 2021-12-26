@@ -141,7 +141,7 @@ export class ProfilComponent implements OnInit {
     this.enCoursDeModif = ''
     this.modifTerminee = ''
     this.dataService.profilModifie.subscribe(valeursModifiees => {
-      if (valeursModifiees.includes('scores') || valeursModifiees.includes('visible') || valeursModifiees.includes('tropheesVisibles')) {
+      if (valeursModifiees.includes('visible') || valeursModifiees.includes('tropheesVisibles')) {
         this.modifTerminee = this.enCoursDeModif
         this.enCoursDeModif = ''
       }

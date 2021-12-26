@@ -2,7 +2,6 @@ export class User {
   public id: number
   public identifiant: string;
   public codeAvatar: string;
-  public scores: string;
   public lastLogin: string;
   public lastAction: string;
   public visible: string;
@@ -15,12 +14,11 @@ export class User {
   public teamName: string
   public scoreEquipe: number
 
-  constructor(id: number, identifiant: string, codeAvatar: string, scores: string, lastLogin: string, lastAction: string, visible: string, pseudo: string, score: string,
+  constructor(id: number, identifiant: string, codeAvatar: string, lastLogin: string, lastAction: string, visible: string, pseudo: string, score: string,
         codeTrophees: string, tropheesVisibles: string, cleScore: string, classement: number, teamName: string, scoreEquipe: number) {
     this.id = id
     this.identifiant = identifiant
     this.codeAvatar = codeAvatar
-    this.scores = scores
     this.lastLogin = lastLogin
     this.lastAction = lastAction
     this.visible = visible

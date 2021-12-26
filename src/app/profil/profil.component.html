@@ -86,28 +86,6 @@
     </div>
     <!-- Paramètres -->
     <br><br>
-    <!-- Scores -->
-    <button *ngIf="dataService.user.scores == 'actives'" type="submit" class="button is-danger is-outlined" (click)="dataService.majScores('desactives'); enCoursDeModif = 'scores'; modifTerminee = ''">
-      Désactiver les scores
-    </button>
-    <button *ngIf="dataService.user.scores != 'actives'" class="button is-danger">
-      Les scores sont désactivés
-    </button>
-    &nbsp;
-    <button *ngIf="dataService.user.scores != 'actives'" type="submit" class="button is-success is-outlined" (click)="dataService.majScores('actives'); enCoursDeModif = 'scores'; modifTerminee = ''">
-      Activer les scores
-    </button>
-    <button *ngIf="dataService.user.scores == 'actives'" class="button is-success">
-      Les scores sont activés
-    </button>
-    &nbsp;
-    <figure *ngIf="enCoursDeModif == 'scores'" class="image is-32x32 is-inline-block">
-      <img [src]="'assets/img/Loading.gif'">
-    </figure>
-    <i *ngIf="modifTerminee == 'scores'" class="image is-32x32 is-inline-block">
-      <img src="assets/img/cc0/check-svgrepo-com.svg" />
-    </i>
-    <br><br>
     <!-- Anonymat -->
     <button *ngIf="dataService.user.visible == 'oui'" type="submit" class="button is-danger is-outlined" (click)="dataService.majVisible('non'); enCoursDeModif = 'visible'; modifTerminee = ''">
       Ne pas apparaître dans les personnes en ligne

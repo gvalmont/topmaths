@@ -52,9 +52,6 @@ export class ObjectifComponent implements OnInit {
     this.bonneReponse = false
     this.ancre = ''
     this.loaded = [false, new Date()]
-    dataService.profilModifie.subscribe(valeursModifiees => {
-      if (valeursModifiees.includes('scores')) this.modificationDesAttributs()
-    })
     setTimeout(() => this.confetti.stop(), 3000) // Sinon un reliquat reste apparent
   }
 
@@ -197,11 +194,6 @@ export class ObjectifComponent implements OnInit {
     }
     this.exercices = [] // Au cas où l'attribut ne serait pas réinitialisé lors d'un changement de référence
     let userId = ''
-    let i = 'i=0'
-    if (this.dataService.user.scores == 'actives') {
-      //userId = `&userId=VAL${this.dataService.user.identifiant.toUpperCase()}`
-      i = 'i=1'
-    }
     // Le nombre d'exercices varie selon la référence, on a donc quelque chose de dynamique
     for (const exercice of objectif.exercices) {
       if (exercice.slug != '') {
@@ -210,10 +202,10 @@ export class ObjectifComponent implements OnInit {
           couleur: '',
           slug: exercice.slug,
           graine: exercice.graine,
-          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},${i}&serie=${exercice.graine}&v=embed&p=1.5${userId}`,
+          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&serie=${exercice.graine}&v=embed&p=1.5${userId}`,
           score: exercice.score
         })
-        this.exercices[this.exercices.length - 1].lien = this.exercices[this.exercices.length - 1].lien.replace('&ex=', ',' + i + '&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
+        this.exercices[this.exercices.length - 1].lien = this.exercices[this.exercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
         if (exercice.slug.slice(0, 25) == 'https://mathsmentales.net') {
           this.exercices[this.exercices.length - 1].lien = exercice.slug + '&embed=' + this.dataService.origine
         } else if (exercice.slug.slice(0, 4) == 'http') {

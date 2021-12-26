@@ -40,6 +40,8 @@ export class LoginComponent {
    */
   login(identifiant: string) {
     if (this.inputOk(identifiant)) {
+      const bouton = <HTMLButtonElement> document.getElementById("loginButton")
+      if (bouton != null) bouton.disabled = true
       this.dataService.login(identifiant, true, true)
     } else {
       this.shake = true
