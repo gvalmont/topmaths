@@ -148,6 +148,7 @@ export class ModaleExercicesComponent implements OnInit {
    */
   fermerModale() {
     this.modaleFermee.emit(true)
+    if (this.modale.lastChild != null) this.modale.removeChild(this.modale.lastChild)
     this.modale.style.display = "none"
     this.loading = false
   }
