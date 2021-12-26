@@ -30,10 +30,10 @@ export class ObjectifComponent implements OnInit {
   presenceVideo: boolean
   dateDerniereReponse: Date
   exercicesDejaFaits: string[]
-  modaleExercicesUrl: string
+  modaleExercicesUrl: [string, Date]
   bonneReponse: boolean
   ancre: string
-  loading: boolean
+  loaded: [boolean, Date]
 
   constructor(public http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, public confetti: ConfettiService, public router: Router, private viewportScroller: ViewportScroller) {
     this.reference = ''
@@ -48,10 +48,10 @@ export class ObjectifComponent implements OnInit {
     this.exercicesDejaFaits = []
     this.presenceVideo = false
     this.dateDerniereReponse = new Date()
-    this.modaleExercicesUrl = ''
+    this.modaleExercicesUrl = ['', new Date()]
     this.bonneReponse = false
     this.ancre = ''
-    this.loading = false
+    this.loaded = [false, new Date()]
     dataService.profilModifie.subscribe(valeursModifiees => {
       if (valeursModifiees.includes('scores')) this.modificationDesAttributs()
     })
@@ -82,7 +82,7 @@ export class ObjectifComponent implements OnInit {
       if (dateNouvelleReponse.getTime() - this.dateDerniereReponse.getTime() > 200) {
         const url: string = event.data.url;
         if (typeof (url) != 'undefined') {
-          this.loading = false
+          this.loaded = [true, dateNouvelleReponse]
           // On cherche à quel exercice correspond ce message
           for (const exercice of this.exercices) {
             if (typeof (exercice.lienACopier) != 'undefined') {
@@ -262,8 +262,7 @@ export class ObjectifComponent implements OnInit {
    ouvrirModaleExercices(exercice: Exercice, numeroExercice: number) {
     const modaleExercices = document.getElementById("modaleExercices")
     if (modaleExercices != null && typeof (exercice.lienACopier) != 'undefined') {
-      this.loading = true
-      this.modaleExercicesUrl = exercice.lienACopier
+      this.modaleExercicesUrl = [exercice.lienACopier, new Date()]
       this.ancre = 'exercice0' + numeroExercice
       modaleExercices.style.display = "block"
     }

@@ -1,5 +1,5 @@
-<div id="modaleExercices" class="centre pleinEcran has-background-white cache">
-  <figure id="modal-back" class='is-clickable' (click)="fermerModale()">
+<div id="modaleExercices" [ngClass]="{'centre pleinEcran cache has-background-white':true}">
+  <figure id="modal-back" class="is-clickable" (click)="fermerModale()">
     <img src='/assets/img/cc0/backward-arrow-svgrepo-com.svg' />
   </figure>
   <figure id="modal-copy" class="is-clickable" (click)="copierLien()">
@@ -8,6 +8,11 @@
   <figure id="modal-cross" class="is-clickable" (click)="fermerModale()">
     <img src="assets/img/cc0/cross-svgrepo-com.svg" />
   </figure>
-  <iframe width="100%" height="100%" class="has-ratio" (load)="loaded()" [src]="url | safe" allowfullscreen></iframe>
 </div>
-<div id="loading" *ngIf="loading" class="centre pleinEcran has-background-white"><img class="is-inline-block" [src]="lienSpinner" /></div>
+<div id="loading" [ngClass]="{'cache' : !loading}" class="centre pleinEcran has-background-white"><img class="is-inline-block" [src]="lienSpinner" /></div>
+<figure [ngClass]="{'modal-back is-clickable' : true, 'cache' : !loading}" (click)="fermerModale()">
+  <img src='/assets/img/cc0/backward-arrow-svgrepo-com.svg' />
+</figure>
+<figure [ngClass]="{'modal-cross is-clickable' : true, 'cache' : !loading}" (click)="fermerModale()">
+  <img src="assets/img/cc0/cross-svgrepo-com.svg" />
+</figure>

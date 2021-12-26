@@ -256,30 +256,6 @@ button:hover>i {
   background-color: darkslategray;
 }
 
-#modal-back {
-  position: fixed;
-  left: 20px;
-  top: 35px;
-  width: 30px;
-  z-index: 300;
-}
-
-#modal-copy {
-  position: fixed;
-  right: 80px;
-  top: 35px;
-  width: 30px;
-  z-index: 300;
-}
-
-#modal-cross {
-  position: fixed;
-  right: 20px;
-  top: 35px;
-  width: 30px;
-  z-index: 300;
-}
-
 .moveUp {
   /* Start the shake animation and make the animation last for 0.5 seconds */
   animation: moveUp 2s;
