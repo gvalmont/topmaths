@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="box" *ngIf="calculsMentaux[0] != null && calculsMentaux[0].reference != ''; else divPasDeCalculMental">
-    <h2 class="title is-3">Calcul Mental</h2>
+    <h2 id="calculMental" class="title is-3">Calcul Mental</h2>
     <div *ngIf="presenceCalculMental">
       <div *ngFor="let calculMental of calculsMentaux; index as i">
         <p>Dans cette séquence, le calcul mental porte sur :</p>
@@ -27,8 +27,8 @@
         <div><br></div>
         <div *ngFor="let niveau of calculMental.niveaux; index as j">
           <div><br></div>
-          <h3 [id]="'exercice' + j + 1" class="title is-4 is-inline-block">
-            <a (click)="ouvrirModaleExercices(niveau, j + 1)">
+          <h3 class="title is-4 is-inline-block">
+            <a (click)="ouvrirModaleExercices(niveau.lienACopier, 'calculMental')">
               Niveau {{j + 1}}
               &nbsp;
               <i class='image is-24x24 is-inline-block'>
@@ -48,7 +48,7 @@
     </div>
   </ng-template>
   <div class="box" *ngIf="questionsFlash[0] != null && questionsFlash[0].slug != ''">
-    <h2 class="title is-3">Questions Flash</h2>
+    <h2 id="questionsFlash" class="title is-3">Questions Flash</h2>
     <p>Dans cette séquence, une question flash porte sur l’un des objectifs ci-dessus et les deux autres portent sur :</p>
     <div class="p-1">
       <div class="p-1" *ngFor="let questionFlash of questionsFlash; index as i">
@@ -63,12 +63,12 @@
       </div>
     </div>
     <div class="pt-5 pb-1">
-      <a [href]="lienQuestionsFlash" target="_blank" rel="noopener noreferrer">S'entraîner pour les Questions Flash</a>
+      <a (click)="ouvrirModaleExercices(lienQuestionsFlash, 'questionsFlash')">S'entraîner pour les Questions Flash</a>
     </div>
   </div>
   <div class="box">
-    <h2 class="title is-3">Évaluation</h2>
-    <a [href]="lienEval" target="_blank" rel="noopener noreferrer">S'entraîner pour l'évaluation</a>
+    <h2 id="Evaluation" class="title is-3">Évaluation</h2>
+    <a (click)="ouvrirModaleExercices(lienEval, 'Evaluation')">S'entraîner pour l'évaluation</a>
   </div>
   <div id="telechargements" class="box cache">
     <h2 class="title is-3">Téléchargements</h2>

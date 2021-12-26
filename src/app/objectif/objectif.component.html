@@ -20,11 +20,11 @@
   </div>
   <div><br><br></div>
   <div class="box">
-    <h2 id="test" class="title is-3">S'entraîner</h2>
+    <h2 id="Exercices" class="title is-3">S'entraîner</h2>
     <div><br></div>
     <div *ngFor="let exercice of exercices; index as i">
-      <h3 [id]="'exercice' + i + 1" class="title is-4 is-inline-block">
-        <a (click)="ouvrirModaleExercices(exercice, i + 1)">
+      <h3 class="title is-4 is-inline-block">
+        <a (click)="ouvrirModaleExercices(exercice.lienACopier, 'Exercices')">
           Niveau {{ i + 1 }} - {{ exercice.couleur }}
           &nbsp;
           <i class='image is-24x24 is-inline-block'>

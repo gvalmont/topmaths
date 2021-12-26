@@ -90,7 +90,7 @@ export class ModaleExercicesComponent implements OnInit {
 
         this.boutonRetour.style.left = '20px'
         this.boutonRetour.style.right = ''
-        this.boutonRetour.style.top = '35px'
+        this.boutonRetour.style.top = '0px'
         this.boutonRetour.style.width = '30px'
 
         this.boutonCopier.style.left = ''

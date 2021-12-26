@@ -214,13 +214,13 @@ export class SequenceComponent implements OnInit {
               this.lienQuestionsFlash = 'https://coopmaths.fr/mathalea.html?'
               for (const questionFlash of this.questionsFlash) {
                 if (questionFlash.slug != '') {
-                  this.lienQuestionsFlash = this.lienQuestionsFlash.concat('ex=', questionFlash.slug, '&')
+                  this.lienQuestionsFlash = this.lienQuestionsFlash.concat('ex=', questionFlash.slug, ',i=1&')
                 }
                 if (questionFlash.reference == JSONobjectif.reference) {
                   questionFlash.pageExiste = true
                 }
               }
-              this.lienQuestionsFlash = this.lienQuestionsFlash.concat('v=e')
+              this.lienQuestionsFlash = this.lienQuestionsFlash.concat('v=can&z=1.5')
               // On vérifie si la page existe pour les objectifs des calculs mentaux
               for (const calculMental of this.calculsMentaux) {
                 if (calculMental.reference == JSONobjectif.reference) {
@@ -236,11 +236,11 @@ export class SequenceComponent implements OnInit {
       for (const thisObjectif of this.objectifs) {
         for (const slug of thisObjectif.slugs) {
           if (slug.slice(0, 4) != 'http' && slug != '') {
-            this.lienEval = this.lienEval.concat('ex=', slug, '&')
+            this.lienEval = this.lienEval.concat('ex=', slug, ',i=1&')
           }
         }
       }
-      this.lienEval = this.lienEval.concat('v=e')
+      this.lienEval = this.lienEval.concat('v=can&z=1.5')
     }
     )
   }
@@ -346,14 +346,14 @@ export class SequenceComponent implements OnInit {
 
   /**
    * Paramètre la modale exercice avec l'url de l'exercice et l'ancre pour le retour puis l'affiche
-   * @param exercice pour récupérer son .lienACopier
-   * @param numeroExercice pour l'ancre de retour
+   * @param lien
+   * @param ancre
    */
-   ouvrirModaleExercices(niveau: NiveauCM, numeroExercice: number) {
+   ouvrirModaleExercices(lien: string | undefined, ancre: string) {
     const modaleExercices = document.getElementById("modaleExercices")
-    if (modaleExercices != null && typeof (niveau.lienACopier) != 'undefined') {
-      this.modaleExercicesUrl = [niveau.lienACopier, new Date()]
-      this.ancre = 'exercice0' + numeroExercice
+    if (modaleExercices != null && typeof(lien) != 'undefined') {
+      this.modaleExercicesUrl = [lien, new Date()]
+      this.ancre = ancre
       modaleExercices.style.display = "block"
     }
   }

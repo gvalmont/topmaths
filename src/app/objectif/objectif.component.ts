@@ -193,7 +193,6 @@ export class ObjectifComponent implements OnInit {
       }
     }
     this.exercices = [] // Au cas où l'attribut ne serait pas réinitialisé lors d'un changement de référence
-    let userId = ''
     // Le nombre d'exercices varie selon la référence, on a donc quelque chose de dynamique
     for (const exercice of objectif.exercices) {
       if (exercice.slug != '') {
@@ -202,12 +201,12 @@ export class ObjectifComponent implements OnInit {
           couleur: '',
           slug: exercice.slug,
           graine: exercice.graine,
-          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&serie=${exercice.graine}&v=embed&p=1.5${userId}`,
+          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&serie=${exercice.graine}&v=can&z=1.5`,
           score: exercice.score
         })
         this.exercices[this.exercices.length - 1].lien = this.exercices[this.exercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
         if (exercice.slug.slice(0, 25) == 'https://mathsmentales.net') {
-          this.exercices[this.exercices.length - 1].lien = exercice.slug + '&embed=' + this.dataService.origine
+          this.exercices[this.exercices.length - 1].lien = exercice.slug + '&can=' + this.dataService.origine
         } else if (exercice.slug.slice(0, 4) == 'http') {
           this.exercices[this.exercices.length - 1].lien = exercice.slug
         }
@@ -248,14 +247,14 @@ export class ObjectifComponent implements OnInit {
 
   /**
    * Paramètre la modale exercice avec l'url de l'exercice et l'ancre pour le retour puis l'affiche
-   * @param exercice pour récupérer son .lienACopier
-   * @param numeroExercice pour l'ancre de retour
+   * @param lien
+   * @param ancre
    */
-   ouvrirModaleExercices(exercice: Exercice, numeroExercice: number) {
+   ouvrirModaleExercices(lien: string | undefined, ancre: string) {
     const modaleExercices = document.getElementById("modaleExercices")
-    if (modaleExercices != null && typeof (exercice.lienACopier) != 'undefined') {
-      this.modaleExercicesUrl = [exercice.lienACopier, new Date()]
-      this.ancre = 'exercice0' + numeroExercice
+    if (modaleExercices != null && typeof (lien) != 'undefined') {
+      this.modaleExercicesUrl = [lien, new Date()]
+      this.ancre = ancre
       modaleExercices.style.display = "block"
     }
   }
