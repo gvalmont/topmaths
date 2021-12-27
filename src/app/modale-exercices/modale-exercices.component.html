@@ -1,6 +1,6 @@
 <div id="modaleExercices" [ngClass]="{'centre pleinEcran cache has-background-white':true}">
   <figure id="modal-back" class="is-clickable" (click)="fermerModale()">
-    <img src='/assets/img/cc0/backward-arrow-svgrepo-com.svg' />
+    <img src='/assets/img/cc0/left-arrow-back-svgrepo-com.svg' />
   </figure>
   <figure id="modal-copy" class="is-clickable" (click)="copierLien()">
     <img src="assets/img/cc0/copy-interface-symbol-svgrepo-com.svg" />
@@ -11,7 +11,7 @@
 </div>
 <div id="loading" [ngClass]="{'cache' : !loading}" class="centre pleinEcran has-background-white"><img class="is-inline-block" [src]="lienSpinner" /></div>
 <figure [ngClass]="{'modal-back is-clickable' : true, 'cache' : !loading}" (click)="fermerModale()">
-  <img src='/assets/img/cc0/backward-arrow-svgrepo-com.svg' />
+  <img src='/assets/img/cc0/left-arrow-back-svgrepo-com.svg' />
 </figure>
 <figure [ngClass]="{'modal-cross is-clickable' : true, 'cache' : !loading}" (click)="fermerModale()">
   <img src="assets/img/cc0/cross-svgrepo-com.svg" />

@@ -1,1 +1,34 @@
-<p>exercice-au-hasard works!</p>
+<div class="columns centre">
+  <div class="column is-one-fifth"></div>
+  <div class="column is-three-fifths">
+    <a [routerLink]="['/exercices-au-hasard']">
+      <button class="button is-large is-success is-outlined p-6">
+        <p class="enorme">Tranquille</p>
+        &nbsp;
+        <i class="image is-48x48 is-inline-block"><img src="assets/img/cc0/cocktail-svgrepo-com.svg" /></i>
+      </button>
+    </a>
+    <br>
+    <br>
+    <a [routerLink]="['/exercices-au-hasard']">
+      <button class="button is-large is-sponsor is-outlined p-6">
+        <p class="enorme">Vitesse</p>
+        &nbsp;
+        <i class="image is-48x48 is-inline-block"><img src="assets/img/cc0/speedometer-svgrepo-com.svg" /></i>
+      </button>
+    </a>
+    <br>
+    <br>
+    <a [routerLink]="['/exercices-au-hasard']">
+      <button class="button is-large is-link is-outlined p-6">
+        <p class="enorme">Performance</p>
+        &nbsp;
+        <i class="image is-48x48 is-inline-block"><img src="assets/img/cc0/arm-8506.svg" /></i>
+      </button>
+    </a>
+  </div>
+  <div class="column is-one-fifth">
+    <!-- Utilisateurs connectés -->
+    <app-whosonline></app-whosonline>
+  </div>
+</div>
