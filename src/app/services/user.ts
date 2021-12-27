@@ -6,7 +6,7 @@ export class User {
   public lastAction: string;
   public visible: string;
   public pseudo: string;
-  public score: string;
+  public score: number;
   public codeTrophees: string;
   public tropheesVisibles: string;
   public cleScore: string
@@ -14,7 +14,7 @@ export class User {
   public teamName: string
   public scoreEquipe: number
 
-  constructor(id: number, identifiant: string, codeAvatar: string, lastLogin: string, lastAction: string, visible: string, pseudo: string, score: string,
+  constructor(id: number, identifiant: string, codeAvatar: string, lastLogin: string, lastAction: string, visible: string, pseudo: string, score: number,
         codeTrophees: string, tropheesVisibles: string, cleScore: string, classement: number, teamName: string, scoreEquipe: number) {
     this.id = id
     this.identifiant = identifiant
@@ -36,14 +36,14 @@ export class UserSimplifie {
   public id: number
   public pseudo: string;
   public codeAvatar: string
-  public score: string
+  public score: number
   public lienTrophees: string
   public classement: number
   public teamName: string
   public scoreEquipe: number
   public styleAvatar?: string
 
-  constructor(id: number, codeAvatar: string, pseudo: string, score: string, lienTrophees: string, classement: number, teamName: string, scoreEquipe: number, styleAvatar?: string) {
+  constructor(id: number, codeAvatar: string, pseudo: string, score: number, lienTrophees: string, classement: number, teamName: string, scoreEquipe: number, styleAvatar?: string) {
     this.id = id
     this.pseudo = pseudo
     this.codeAvatar = codeAvatar

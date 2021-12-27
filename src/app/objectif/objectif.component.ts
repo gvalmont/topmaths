@@ -104,8 +104,8 @@ export class ObjectifComponent implements OnInit {
                   if (!this.exercicesDejaFaits.includes(stringExerciceDejaFait)) {
                     this.exercicesDejaFaits.push(stringExerciceDejaFait)
                     this.dateDerniereReponse = new Date()
-                    const majScore: string = (parseInt(exercice.score) * nbBonnesReponses).toString()
-                    if (parseInt(majScore) > 0) {
+                    const majScore: number = exercice.score * nbBonnesReponses
+                    if (majScore > 0) {
                       this.dataService.majScore(majScore, exercice.lienACopier)
                       this.messageScore = '+ ' + majScore
                       this.bonneReponse = true
@@ -202,7 +202,9 @@ export class ObjectifComponent implements OnInit {
           slug: exercice.slug,
           graine: exercice.graine,
           lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&serie=${exercice.graine}&v=can&z=1.5`,
-          score: exercice.score
+          score: exercice.score,
+          temps: exercice.temps,
+          isInteractif: exercice.isInteractif
         })
         this.exercices[this.exercices.length - 1].lien = this.exercices[this.exercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
         if (exercice.slug.slice(0, 25) == 'https://mathsmentales.net') {

@@ -67,15 +67,19 @@ export class Exercice {
   public slug: string
   public graine: string
   public lien: string
-  public score: string
+  public score: number
+  public temps: number
+  public isInteractif: boolean
   public lienACopier?: string
 
-  constructor(couleur: string, slug: string, graine: string, lien: string, score: string, lienACopier?: string) {
+  constructor(couleur: string, slug: string, graine: string, lien: string, score: number, temps: number, isInteractif: boolean, lienACopier?: string) {
     this.couleur = couleur
     this.slug = slug
     this.graine = graine
     this.lien = lien
     this.score = score
+    this.temps = temps
+    this.isInteractif = isInteractif
     this.lienACopier = lienACopier
   }
 }

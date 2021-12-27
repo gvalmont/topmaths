@@ -24,15 +24,21 @@
                 "exercices": [
                   {
                     "slug": "5C11,s=1,s2=false,s3=true,s4=true,n=1",
-                    "score": "0"
+                    "score": 5,
+                    "temps": 80,
+                    "isInteractif": false
                   },
                   {
                     "slug": "5C12-1,s=2,s2=false,s3=true,s4=true,n=1",
-                    "score": "20"
+                    "score": 10,
+                    "temps": 200,
+                    "isInteractif": true
                   },
                   {
                     "slug": "5C12-1,s=3,s2=false,s3=true,s4=true,n=1",
-                    "score": "30"
+                    "score": 15,
+                    "temps": 300,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -52,15 +58,21 @@
                 "exercices": [
                   {
                     "slug": "5C12,s=2,s2=false,s3=true,s4=true,n=1",
-                    "score": "10"
+                    "score": 5,
+                    "temps": 100,
+                    "isInteractif": true
                   },
                   {
                     "slug": "5C12,s=3,s2=false,s3=true,s4=true,n=1",
-                    "score": "20"
+                    "score": 10,
+                    "temps": 130,
+                    "isInteractif": true
                   },
                   {
                     "slug": "5C12,s=4,s2=false,s3=true,s4=true,n=1",
-                    "score": "30"
+                    "score": 15,
+                    "temps": 200,
+                    "isInteractif": true
                   }
                 ]
               }
@@ -85,7 +97,9 @@
                 "exercices": [
                   {
                     "slug": "5R10-0,s=2,n=1",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               },
@@ -104,12 +118,16 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "5R11,s=1,n=1",
-                    "score": "5"
+                    "slug": "5R11-2,s=1,n=1",
+                    "score": 10,
+                    "temps": 120,
+                    "isInteractif": true
                   },
                   {
-                    "slug": "5R11-2,s=1,n=1",
-                    "score": "20"
+                    "slug": "5R11,s=1,n=1",
+                    "score": 7,
+                    "temps": 300,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -129,11 +147,15 @@
                 "exercices": [
                   {
                     "slug": "5R12,s=1,s2=true",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   },
                   {
                     "slug": "5R12-2,s=1,s2=true",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               },
@@ -153,7 +175,9 @@
                 "exercices": [
                   {
                     "slug": "5R20,s=20,s2=false,s3=false,n=4",
-                    "score": "10"
+                    "score": 7,
+                    "temps": 300,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -173,15 +197,21 @@
                 "exercices": [
                   {
                     "slug": "5R21,s=20,s2=false,n=4,cd=1",
-                    "score": "10"
+                    "score": 10,
+                    "temps": 450,
+                    "isInteractif": true
                   },
                   {
                     "slug": "5R22-2,s=20,n=4",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   },
                   {
                     "slug": "5R22,s=20,s2=false,n=2",
-                    "score": "30"
+                    "score": 30,
+                    "temps": 600,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -201,7 +231,9 @@
                 "exercices": [
                   {
                     "slug": "5R20,s=20,s2=true,s3=false,n=4",
-                    "score": "10"
+                    "score": 5,
+                    "temps": 150,
+                    "isInteractif": false
                   }
                 ]
               }
@@ -237,11 +269,15 @@
                 "exercices": [
                   {
                     "slug": "5G20-0,s=1,s2=true,n=1",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   },
                   {
                     "slug": "5G20-2,s=false,n=1",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               }
@@ -271,7 +307,9 @@
                 "exercices": [
                   {
                     "slug": "6P10,s=1-2-3-4,n=3",
-                    "score": "10"
+                    "score": 8,
+                    "temps": 360,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -291,7 +329,9 @@
                 "exercices": [
                   {
                     "slug": "6P10,s=5,n=2",
-                    "score": "15"
+                    "score": 10,
+                    "temps": 400,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -311,11 +351,15 @@
                 "exercices": [
                   {
                     "slug": "6P11,s=true,n=1",
-                    "score": "20"
+                    "score": 20,
+                    "temps": 300,
+                    "isInteractif": true
                   },
                   {
                     "slug": "6P12,s=true,n=1",
-                    "score": "30"
+                    "score": 20,
+                    "temps": 300,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -335,11 +379,15 @@
                 "exercices": [
                   {
                     "slug": "6P11,s=false,n=1",
-                    "score": "15"
+                    "score": 20,
+                    "temps": 300,
+                    "isInteractif": true
                   },
                   {
                     "slug": "6P12,s=false,n=1",
-                    "score": "20"
+                    "score": 20,
+                    "temps": 300,
+                    "isInteractif": true
                   }
                 ]
               }
@@ -364,7 +412,9 @@
                 "exercices": [
                   {
                     "slug": "5S10,s=false,s2=4",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               },
@@ -384,7 +434,9 @@
                 "exercices": [
                   {
                     "slug": "5S11,s=3,s2=2",
-                    "score": "5"
+                    "score": 5,
+                    "temps": 300,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -416,11 +468,15 @@
                 "exercices": [
                   {
                     "slug": "5S12,s=3,s2=1,s3=3",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   },
                   {
                     "slug": "5S12,s=3,s2=1,s3=4",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               },
@@ -440,11 +496,15 @@
                 "exercices": [
                   {
                     "slug": "5S13,s=3,n=1",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   },
                   {
                     "slug": "5S13-1,s=1,video=https%3A%2F%2Fyoutu.be%2FGWDDay-mdVA",
-                    "score": "5"
+                    "score": 15,
+                    "temps": 900,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -464,11 +524,15 @@
                 "exercices": [
                   {
                     "slug": "5S14,s=1,n=1",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   },
                   {
                     "slug": "5S14,s=3,n=1",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               }
@@ -498,11 +562,15 @@
                 "exercices": [
                   {
                     "slug": "5G10-1,s=1,s2=1,n=1",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   },
                   {
                     "slug": "5G10-2,s=1,s2=1,n=1",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               },
@@ -522,11 +590,15 @@
                 "exercices": [
                   {
                     "slug": "5G13,s=1,s2=1,n=1",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   },
                   {
                     "slug": "5G13,s=1,s2=2,n=1",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               }
@@ -563,11 +635,15 @@
                 "exercices": [
                   {
                     "slug": "5G20-0,s=1,s2=true,n=1",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   },
                   {
                     "slug": "5G20-2,s=false,n=1",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               },
@@ -587,11 +663,15 @@
                 "exercices": [
                   {
                     "slug": "5G21-1,s=1,n=1",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   },
                   {
                     "slug": "5G21-1,s=2,n=1",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               },
@@ -617,7 +697,9 @@
                 "exercices": [
                   {
                     "slug": "5G22-1,s=3,s2=false,n=2",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               }
@@ -652,11 +734,15 @@
                 "exercices": [
                   {
                     "slug": "4C10-3,s=10,s2=false,n=2&ex=4C10-4,s=true,n=2",
-                    "score": "10"
+                    "score": 8,
+                    "temps": 300,
+                    "isInteractif": true
                   },
                   {
                     "slug": "4C10-1,s=3,n=2&ex=4C10-2,s=4,n=2",
-                    "score": "10"
+                    "score": 8,
+                    "temps": 300,
+                    "isInteractif": true
                   }
                 ]
               }
@@ -687,11 +773,15 @@
                 "exercices": [
                   {
                     "slug": "4C33-0,s=1,s2=1,n=4",
-                    "score": "10"
+                    "score": 10,
+                    "temps": 400,
+                    "isInteractif": true
                   },
                   {
                     "slug": "4C33-0,s=2,s2=1,n=4",
-                    "score": "10"
+                    "score": 10,
+                    "temps": 400,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -711,7 +801,9 @@
                 "exercices": [
                   {
                     "slug": "4C34,n=4,video=https%3A%2F%2Fyoutu.be%2F0G9xWLl-0zg",
-                    "score": "10"
+                    "score": 20,
+                    "temps": 700,
+                    "isInteractif": true
                   }
                 ]
               }
@@ -735,8 +827,10 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=1~q=1.~p=~t=20~n=8",
-                    "score": "2"
+                    "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=1~q=1.~p=~t=30~n=8",
+                    "score": 5,
+                    "temps": 270,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -756,11 +850,15 @@
                 "exercices": [
                   {
                     "slug": "4A11-0,s=3,s2=false,s3=false,s4=false,n=2,cd=1",
-                    "score": "20"
+                    "score": 20,
+                    "temps": 400,
+                    "isInteractif": true
                   },
                   {
-                    "slug": "4A11-1,s=false,n=2",
-                    "score": "30"
+                    "slug": "4A11-1,s=false,n=1",
+                    "score": 30,
+                    "temps": 600,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -780,11 +878,15 @@
                 "exercices": [
                   {
                     "slug": "4A12,s=1,n=1,cd=1",
-                    "score": "20"
+                    "score": 20,
+                    "temps": 300,
+                    "isInteractif": true
                   },
                   {
                     "slug": "4A12,s=2,n=1,cd=1",
-                    "score": "50"
+                    "score": 30,
+                    "temps": 450,
+                    "isInteractif": true
                   }
                 ]
               }
@@ -809,15 +911,21 @@
                 "exercices": [
                   {
                     "slug": "4L10,s=1,s2=true,n=2",
-                    "score": "10"
+                    "score": 10,
+                    "temps": 350,
+                    "isInteractif": true
                   },
                   {
                     "slug": "4L10,s=3,s2=true,n=2",
-                    "score": "15"
+                    "score": 15,
+                    "temps": 450,
+                    "isInteractif": true
                   },
                   {
                     "slug": "3L11,s=2,n=2",
-                    "score": "20"
+                    "score": 20,
+                    "temps": 550,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -837,15 +945,21 @@
                 "exercices": [
                   {
                     "slug": "4L11,s=1,n=2",
-                    "score": "15"
+                    "score": 15,
+                    "temps": 400,
+                    "isInteractif": true
                   },
                   {
                     "slug": "4L11,s=2,n=2",
-                    "score": "20"
+                    "score": 20,
+                    "temps": 500,
+                    "isInteractif": true
                   },
                   {
                     "slug": "4L11,s=3,n=2",
-                    "score": "25"
+                    "score": 25,
+                    "temps": 600,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -865,15 +979,21 @@
                 "exercices": [
                   {
                     "slug": "4L16,s2=false,s3=2,n=2",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   },
                   {
                     "slug": "4L16,s2=false,s3=3,n=2",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   },
                   {
                     "slug": "4L16,s2=false,s3=4,n=2",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               }
@@ -903,7 +1023,9 @@
                 "exercices": [
                   {
                     "slug": "4S11,s=2,n=2",
-                    "score": "15"
+                    "score": 15,
+                    "temps": 600,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -923,7 +1045,9 @@
                 "exercices": [
                   {
                     "slug": "4S10,s=3,s2=2,s3=1,n=1",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               }
@@ -965,15 +1089,21 @@
                 "exercices": [
                   {
                     "slug": "4G20-1,s=1,s2=3,n=1,video=M9sceJ8gzNc",
-                    "score": "5"
+                    "score": 10,
+                    "temps": 150,
+                    "isInteractif": true
                   },
                   {
                     "slug": "4G20,s2=1,n=1,video=M9sceJ8gzNc",
-                    "score": "15"
+                    "score": 20,
+                    "temps": 600,
+                    "isInteractif": true
                   },
                   {
                     "slug": "4G20,s2=2,n=1,video=M9sceJ8gzNc",
-                    "score": "20"
+                    "score": 30,
+                    "temps": 720,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -993,7 +1123,9 @@
                 "exercices": [
                   {
                     "slug": "4G22,n=1,s=1",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               },
@@ -1013,11 +1145,15 @@
                 "exercices": [
                   {
                     "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=yes,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND13~o=1~q=1.0,1~p=~t=15~n=8",
-                    "score": "3"
+                    "score": 3,
+                    "temps": 150,
+                    "isInteractif": true
                   },
                   {
                     "slug": "4G20-2,s=3,s2=1,n=2",
-                    "score": "10"
+                    "score": 5,
+                    "temps": 80,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -1037,11 +1173,15 @@
                 "exercices": [
                   {
                     "slug": "4G20-6,s=2,n=1",
-                    "score": "10"
+                    "score": 8,
+                    "temps": 250,
+                    "isInteractif": true
                   },
                   {
                     "slug": "4G20-6,s=1,n=3",
-                    "score": "10"
+                    "score": 10,
+                    "temps": 450,
+                    "isInteractif": true
                   }
                 ]
               }
@@ -1076,11 +1216,15 @@
                 "exercices": [
                   {
                     "slug": "3L10,n=2",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   },
                   {
                     "slug": "3L10-1,n=2",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               },
@@ -1100,7 +1244,9 @@
                 "exercices": [
                   {
                     "slug": "3L11-2,n=4",
-                    "score": "5"
+                    "score": 7,
+                    "temps": 350,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -1120,15 +1266,21 @@
                 "exercices": [
                   {
                     "slug": "3L11,s=1,n=2",
-                    "score": "10"
+                    "score": 8,
+                    "temps": 150,
+                    "isInteractif": true
                   },
                   {
                     "slug": "3L11,s=2,n=2",
-                    "score": "15"
+                    "score": 10,
+                    "temps": 200,
+                    "isInteractif": true
                   },
                   {
                     "slug": "3L11-1,s=3,n=2",
-                    "score": "20"
+                    "score": 20,
+                    "temps": 400,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -1148,15 +1300,21 @@
                 "exercices": [
                   {
                     "slug": "3L11-4,s=1,n=2",
-                    "score": "10"
+                    "score": 10,
+                    "temps": 200,
+                    "isInteractif": true
                   },
                   {
                     "slug": "3L11-4,s=2,n=2",
-                    "score": "15"
+                    "score": 15,
+                    "temps": 250,
+                    "isInteractif": true
                   },
                   {
                     "slug": "3L11-4,s=3,n=2",
-                    "score": "20"
+                    "score": 20,
+                    "temps": 300,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -1176,15 +1334,21 @@
                 "exercices": [
                   {
                     "slug": "2N41-6,s=1,n=3",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   },
                   {
                     "slug": "2N41-6,s=2,n=3",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   },
                   {
                     "slug": "3L12,s=2,n=3",
-                    "score": "10"
+                    "score": 10,
+                    "temps": 300,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -1204,7 +1368,9 @@
                 "exercices": [
                   {
                     "slug": "3L13-0,s=true,s2=4,n=5,cd=1",
-                    "score": "10"
+                    "score": 10,
+                    "temps": 600,
+                    "isInteractif": true
                   }
                 ]
               }
@@ -1234,7 +1400,9 @@
                 "exercices": [
                   {
                     "slug": "3F10-1,s=2,n=5,cd=0",
-                    "score": "10"
+                    "score": 8,
+                    "temps": 400,
+                    "isInteractif": false
                   }
                 ]
               },
@@ -1274,15 +1442,21 @@
                 "exercices": [
                   {
                     "slug": "3F10",
-                    "score": "5"
+                    "score": 10,
+                    "temps": 600,
+                    "isInteractif": true
                   },
                   {
                     "slug": "3F12-2,s=5,n=4",
-                    "score": "10"
+                    "score": 15,
+                    "temps": 500,
+                    "isInteractif": false
                   },
                   {
                     "slug": "3F12-4,s=3",
-                    "score": "15"
+                    "score": 8,
+                    "temps": 250,
+                    "isInteractif": false
                   }
                 ]
               },
@@ -1302,11 +1476,15 @@
                 "exercices": [
                   {
                     "slug": "3F10",
-                    "score": "5"
+                    "score": 10,
+                    "temps": 600,
+                    "isInteractif": true
                   },
                   {
                     "slug": "3F13-1",
-                    "score": "5"
+                    "score": 8,
+                    "temps": 300,
+                    "isInteractif": true
                   }
                 ]
               }
@@ -1331,11 +1509,15 @@
                 "exercices": [
                   {
                     "slug": "3S15,s=1,n=1",
-                    "score": "10"
+                    "score": 8,
+                    "temps": 80,
+                    "isInteractif": true
                   },
                   {
                     "slug": "3S15,s=2,n=1",
-                    "score": "15"
+                    "score": 15,
+                    "temps": 150,
+                    "isInteractif": true
                   }
                 ]
               }
@@ -1360,7 +1542,9 @@
                 "exercices": [
                   {
                     "slug": "3S20,s=1,n=1",
-                    "score": "0"
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               }
@@ -1390,11 +1574,15 @@
                 "exercices": [
                   {
                     "slug": "3G20,s=1,n=1,video=j_zZOpLLl9k,cd=1",
-                    "score": "10"
+                    "score": 20,
+                    "temps": 400,
+                    "isInteractif": true
                   },
                   {
                     "slug": "3G20,s=2,n=1,video=j_zZOpLLl9k,cd=1",
-                    "score": "15"
+                    "score": 20,
+                    "temps": 400,
+                    "isInteractif": true
                   }
                 ]
               }
@@ -1419,11 +1607,15 @@
                 "exercices": [
                   {
                     "slug": "3G30,s=true,cd=0",
-                    "score": "10"
+                    "score": 30,
+                    "temps": 300,
+                    "isInteractif": true
                   },
                   {
                     "slug": "3G30,s=false,cd=0",
-                    "score": "15"
+                    "score": 40,
+                    "temps": 400,
+                    "isInteractif": true
                   }
                 ]
               }

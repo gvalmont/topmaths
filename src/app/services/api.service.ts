@@ -70,7 +70,7 @@ export class ApiService {
       lastAction: '',
       visible: '',
       pseudo: '',
-      score: '0',
+      score: 0,
       codeTrophees: '',
       tropheesVisibles: '',
       cleScore: '',
@@ -147,7 +147,7 @@ export class ApiService {
           id: 1,
           codeAvatar: '#fff,1,2,3,4,5,#000',
           pseudo: 'lapin bleu',
-          score: '17',
+          score: 17,
           lienTrophees: 'tcqnfy',
           classement: 2,
           teamName: '',
@@ -156,7 +156,7 @@ export class ApiService {
           id: 2,
           codeAvatar: '#000,5,4,3,2,1,#fff',
           pseudo: 'anonyme',
-          score: '38',
+          score: 38,
           lienTrophees: 'tuoocj',
           classement: 1,
           teamName: '',
@@ -204,7 +204,7 @@ export class ApiService {
             id: 2,
             pseudo: 'anonyme',
             codeAvatar: '#fff,1,2,3,4,5,#000',
-            score: '38',
+            score: 38,
             lienTrophees: 'tuoocj',
             classement: 1,
             teamName: 'PUF',
@@ -214,7 +214,7 @@ export class ApiService {
             id: 2,
             pseudo: 'lapin bleu',
             codeAvatar: '#000,5,4,3,2,1,#fff',
-            score: '38',
+            score: 38,
             lienTrophees: 'tcqnfy',
             classement: 2,
             teamName: 'PUF',
@@ -279,7 +279,7 @@ export class ApiService {
           id: 1,
           codeAvatar: '#fff,1,2,3,4,5,#000',
           pseudo: 'lapin bleu',
-          score: '17',
+          score: 17,
           lienTrophees: 'tuoocj',
           classement: 2,
           teamName: '',
@@ -288,7 +288,7 @@ export class ApiService {
           id: 2,
           codeAvatar: '#000,5,4,3,2,1,#fff',
           pseudo: 'Pierre verte',
-          score: '38',
+          score: 38,
           lienTrophees: 'tuoocj',
           classement: 1,
           teamName: '',
@@ -375,7 +375,7 @@ export class ApiService {
         lastAction: '',
         visible: '',
         pseudo: 'Cerf sauvage',
-        score: '196',
+        score: 196,
         codeTrophees: 'tuoocj',
         tropheesVisibles: '',
         cleScore: 'abc',
@@ -471,7 +471,7 @@ export class ApiService {
         lastAction: '',
         visible: '',
         pseudo: this.pseudoAleatoire(),
-        score: '0',
+        score: 0,
         codeTrophees: '',
         tropheesVisibles: '',
         cleScore: '',
@@ -666,13 +666,13 @@ export class ApiService {
    * @param score à ajouter 
    * @param url de l'exercice en question
    */
-  majScore(score: string, url: string) {
+  majScore(score: number, url: string) {
     if (isDevMode()) {
       this.profilModifie.emit(['score'])
     } else {
       this.http.post<User[]>(this.baseUrl + `/majScore.php`, {
         identifiant: this.user.identifiant,
-        score: (parseInt(this.user.score) + parseInt(score)).toString(),
+        score: this.user.score + score,
         cleScore: this.user.cleScore,
         url: url,
         teamName: this.user.teamName
@@ -701,7 +701,7 @@ export class ApiService {
           id: 1,
           codeAvatar: this.avatarAleatoire(),
           pseudo: 'lapin bleu',
-          score: '17',
+          score: 17,
           lienTrophees: '',
           classement: 2,
           teamName: '',
@@ -710,7 +710,7 @@ export class ApiService {
           id: 2,
           codeAvatar: this.avatarAleatoire(),
           pseudo: 'Pierre verte',
-          score: '38',
+          score: 38,
           lienTrophees: '',
           classement: 1,
           teamName: '',
@@ -742,7 +742,7 @@ export class ApiService {
     if (isDevMode()) {
       this.deleteToken('identifiant')
       this.deleteToken('version')
-      this.user = new User(0, '', '', '', '', '', '', '', '', '', '', 0, '', 0)
+      this.user = new User(0, '', '', '', '', '', '', 0, '', '', '', 0, '', 0)
       this.isloggedIn = false
       this.profilModifie.emit([
         'identifiant',
@@ -760,7 +760,7 @@ export class ApiService {
         data => {
           this.deleteToken('identifiant')
           this.deleteToken('version')
-          this.user = new User(0, '', '', '', '', '', '', '', '', '', '', 0, '', 0)
+          this.user = new User(0, '', '', '', '', '', '', 0, '', '', '', 0, '', 0)
           this.isloggedIn = false
           this.profilModifie.emit([
             'identifiant',

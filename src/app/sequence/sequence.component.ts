@@ -42,7 +42,7 @@ export class SequenceComponent implements OnInit {
     this.numero = 0
     this.titre = ''
     this.objectifs = []
-    this.calculsMentaux = [new CalculMental('', '', [new NiveauCM('', '', '', '', '', 0)], false)]
+    this.calculsMentaux = [new CalculMental('', '', [new NiveauCM('', '', 0, '', '', 0)], false)]
     this.questionsFlash = []
     this.lienQuestionsFlash = ''
     this.lienEval = ''
@@ -113,8 +113,8 @@ export class SequenceComponent implements OnInit {
                       this.derniereUrl = niveau.lien
                       if (typeof (niveau.graine) != 'undefined') this.derniereGraine = niveau.graine
                       if (typeof (niveau.slider) != 'undefined') this.dernierSlider = niveau.slider
-                      const majScore: string = (parseInt(niveau.score) * nbBonnesReponses).toString()
-                      if (parseInt(majScore) > 0) {
+                      const majScore: number = niveau.score * nbBonnesReponses
+                      if (majScore > 0) {
                         this.dataService.majScore(majScore, niveau.lien)
                         this.messageScore = '+ ' + majScore
                         this.bonneReponse = true
