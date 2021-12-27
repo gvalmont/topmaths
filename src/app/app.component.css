@@ -1,13 +1,118 @@
 :root {
   --window-height: 200px;
   --foreground-transform: scale(1, 1);
-  --image-equipe:url(/assets/img/gvalmont/blank.svg);
-  --image-badge:url(/assets/img/gvalmont/blank.svg);
+  --image-equipe: url(/assets/img/gvalmont/blank.svg);
+  --image-badge: url(/assets/img/gvalmont/blank.svg);
+  --basetout: #feb60a;
+  --lighttout: hsl(48, 100%, 96%);
+  --base6e: #28a745;
+  --light6e: hsl(142, 52%, 96%);
+  --base5e: hsl(217, 71%, 53%);
+  --light5e: hsl(219, 70%, 96%);
+  --base4e: rgb(109 40 217);
+  --light4e: rgb(237 233 254);
+  --base3e: #e03286;
+  --light3e: rgb(252 231 243);
 }
 
 /* html {
   scroll-behavior: smooth;
 } */
+
+.title.is-tout, .title.is-6e, .title.is-5e, .title.is-4e, .title.is-3e {
+  border-radius: 50px 50px 0px 0px;
+  padding: 25px 50px 25px 50px;
+  margin-bottom: 0px;
+}
+
+.is-fin {
+  border-radius: 0px 0px 50px 50px;
+}
+
+.title.is-tout, .subtitle.is-tout, a.subtitle.is-tout {
+  background-color: var(--basetout);
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.title.is-6e, .subtitle.is-6e, a.subtitle.is-6e {
+  background-color: var(--base6e);
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.title.is-5e, .subtitle.is-5e, a.subtitle.is-5e {
+  background-color: var(--base5e);
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.title.is-4e, .subtitle.is-4e, a.subtitle.is-4e {
+  background-color: var(--base4e);
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.title.is-3e, .subtitle.is-3e, a.subtitle.is-3e {
+  background-color: var(--base3e);
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.is-tout :not(a), .is-6e :not(a), .is-5e :not(a), .is-4e :not(a), .is-3e :not(a) {
+  color: hsl(0, 0%, 21%)
+}
+
+.is-tout, .is-tout a, .tabs-menu .subtitle.is-tout:not(:hover):not(.is-active) {
+  background-color: var(--lighttout);
+  color: var(--basetout);
+}
+
+.is-6e, .is-6e a, .tabs-menu .subtitle.is-6e:not(:hover):not(.is-active) {
+  background-color: var(--light6e);
+  color: var(--base6e);
+}
+
+.is-5e, .is-5e a, .tabs-menu .subtitle.is-5e:not(:hover):not(.is-active) {
+  background-color: var(--light5e);
+  color: var(--base5e);
+}
+
+.is-4e, .is-4e a, .tabs-menu .subtitle.is-4e:not(:hover):not(.is-active) {
+  background-color: var(--light4e);
+  color: var(--base4e);
+}
+
+.is-3e, .is-3e a, .tabs-menu .subtitle.is-3e:not(:hover):not(.is-active) {
+  background-color: var(--light3e);
+  color: var(--base3e);
+}
+
+/* Couleur des icônes */
+.is-tout i {
+  filter: invert(76%) sepia(16%) saturate(6197%) hue-rotate(354deg) brightness(107%) contrast(99%);
+}
+
+.is-6e i {
+  filter: invert(52%) sepia(26%) saturate(1195%) hue-rotate(81deg) brightness(95%) contrast(94%);
+}
+
+.is-5e i {
+  filter: invert(35%) sepia(90%) saturate(2748%) hue-rotate(207deg) brightness(95%) contrast(81%);
+}
+
+.is-4e i {
+  filter: invert(22%) sepia(91%) saturate(2560%) hue-rotate(255deg) brightness(83%) contrast(110%);
+}
+
+.is-3e i {
+  filter: invert(24%) sepia(75%) saturate(2769%) hue-rotate(313deg) brightness(95%) contrast(83%);
+}
 
 .centre {
   text-align: center;
@@ -28,10 +133,6 @@
 
 .is-width-130 {
   width: 130px;
-}
-
-.is-selected {
-  border: 2px;border-style: solid;
 }
 
 .p-7 {
@@ -62,10 +163,6 @@
 
 .pleinEcran.is-unselectable {
   z-index: 150;
-}
-
-#tsparticles {
-  z-index: 200;
 }
 
 .avatar {

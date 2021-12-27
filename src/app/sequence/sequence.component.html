@@ -1,86 +1,89 @@
-<div class="container is-widescreen centre">
-  <div class="box">
-    <h1 [innerHTML]="titre" class="title is-2"></h1>
-  </div>
-  <div class="box">
-    <h2 class="title is-3">Objectifs</h2>
-    <p>Cette séquence a {{nombreObjectifs(objectifs.length)}} :</p>
-    <div class="p-1">
-      <div *ngFor="let objectif of objectifs" class="p-1">
-        <a [routerLink]="['/objectif',objectif.reference]">{{objectif.reference}} : {{objectif.titre}}</a>
-      </div>
-    </div>
-  </div>
-  <div class="box" *ngIf="calculsMentaux[0] != null && calculsMentaux[0].reference != ''; else divPasDeCalculMental">
-    <h2 id="calculMental" class="title is-3">Calcul Mental</h2>
-    <div *ngIf="presenceCalculMental">
-      <div *ngFor="let calculMental of calculsMentaux; index as i">
-        <p>Dans cette séquence, le calcul mental porte sur :</p>
-        <p *ngIf="calculMental.pageExiste">
-          <a [routerLink]="['/objectif', calculMental.reference]">
-            {{calculMental.reference}} : {{calculMental.titre}}
-          </a>
-        </p>
-        <p *ngIf="!calculMental.pageExiste">
-          {{calculMental.reference}} : {{calculMental.titre}}
-        </p>
-        <div><br></div>
-        <div *ngFor="let niveau of calculMental.niveaux; index as j">
-          <div><br></div>
-          <h3 class="title is-4 is-inline-block">
-            <a (click)="ouvrirModaleExercices(niveau.lienACopier, 'calculMental')">
-              Niveau {{j + 1}}
-              &nbsp;
-              <i class='image is-24x24 is-inline-block'>
-                <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
-              </i>
-            </a>
-          </h3>
-          <p>{{niveau.commentaire}}</p>
+<div class="columns centre">
+  <div class="column is-one-fifth"></div>
+  <div class="column is-three-fifths">
+    <h1 [class]="'title is-2 is-' + niveau" [innerHTML]="titre">}</h1>
+    <div [class]="'is-' + niveau">
+      <h2 [class]="'subtitle is-3 is-' + niveau">Objectifs</h2>
+      <p>Cette séquence a {{nombreObjectifs(objectifs.length)}} :</p>
+      <div class="p-1 pb-5">
+        <div *ngFor="let objectif of objectifs" class="p-1">
+          <a [routerLink]="['/objectif',objectif.reference]">{{objectif.reference}} : {{objectif.titre}}</a>
         </div>
       </div>
     </div>
-  </div>
-  <ng-template #divPasDeCalculMental>
-    <div *ngIf="calculsMentaux[0].niveaux[0].commentaire != ''" class="box">
-      <h2 class="title is-3">Calcul Mental</h2><br>
-      {{calculsMentaux[0].niveaux[0].commentaire}}
-    </div>
-  </ng-template>
-  <div class="box" *ngIf="questionsFlash[0] != null && questionsFlash[0].slug != ''">
-    <h2 id="questionsFlash" class="title is-3">Questions Flash</h2>
-    <p>Dans cette séquence, une question flash porte sur l’un des objectifs ci-dessus et les deux autres portent sur :</p>
-    <div class="p-1">
-      <div class="p-1" *ngFor="let questionFlash of questionsFlash; index as i">
-        <p *ngIf="questionFlash.pageExiste">
-          <a [routerLink]="['/objectif',questionFlash.reference]">{{questionFlash.reference}} :
-            {{questionFlash.titre}}
-          </a>
-        </p>
-        <p *ngIf="!questionFlash.pageExiste">
-          {{questionFlash.reference}} : {{questionFlash.titre}}
-        </p>
+    <div [class]="'is-' + niveau" *ngIf="calculsMentaux[0] != null && calculsMentaux[0].reference != ''; else divPasDeCalculMental">
+      <h2 id="calculMental" [class]="'subtitle is-3 is-' + niveau">Calcul Mental</h2>
+      <div *ngIf="presenceCalculMental" class='pb-5'>
+        <div *ngFor="let calculMental of calculsMentaux; index as i">
+          <p>Dans cette séquence, le calcul mental porte sur :</p>
+          <p *ngIf="calculMental.pageExiste">
+            <a [routerLink]="['/objectif', calculMental.reference]">
+              {{calculMental.reference}} : {{calculMental.titre}}
+            </a>
+          </p>
+          <p *ngIf="!calculMental.pageExiste">
+            {{calculMental.reference}} : {{calculMental.titre}}
+          </p>
+          <div><br></div>
+          <div *ngFor="let niveau of calculMental.niveaux; index as j">
+            <div><br></div>
+            <h3 [class]="'subtitle is-4 is-inline-block is-' + niveau">
+              <a (click)="ouvrirModaleExercices(niveau.lienACopier, 'calculMental')">
+                Niveau {{j + 1}}
+                &nbsp;
+                <i class='image is-24x24 is-inline-block'>
+                  <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
+                </i>
+              </a>
+            </h3>
+            <p>{{niveau.commentaire}}</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="pt-5 pb-1">
-      <a (click)="ouvrirModaleExercices(lienQuestionsFlash, 'questionsFlash')">S'entraîner pour les Questions Flash</a>
+    <ng-template #divPasDeCalculMental>
+      <div *ngIf="calculsMentaux[0].niveaux[0].commentaire != ''" [class]="'pb-5 is-' + niveau">
+        <h2 [class]="'subtitle is-3 is-' + niveau">Calcul Mental</h2><br>
+        <p>{{calculsMentaux[0].niveaux[0].commentaire}}</p>
+      </div>
+    </ng-template>
+    <div [class]="'pb-5 is-' + niveau" *ngIf="questionsFlash[0] != null && questionsFlash[0].slug != ''">
+      <h2 id="questionsFlash" [class]="'subtitle is-3 is-' + niveau">Questions Flash</h2>
+      <p>Dans cette séquence, une question flash porte sur l’un des objectifs ci-dessus et les deux autres portent sur :</p>
+      <div class="p-1">
+        <div class="p-1" *ngFor="let questionFlash of questionsFlash; index as i">
+          <p *ngIf="questionFlash.pageExiste">
+            <a [routerLink]="['/objectif',questionFlash.reference]">{{questionFlash.reference}} :
+              {{questionFlash.titre}}
+            </a>
+          </p>
+          <p *ngIf="!questionFlash.pageExiste">
+            {{questionFlash.reference}} : {{questionFlash.titre}}
+          </p>
+        </div>
+      </div>
+      <div class="pt-5 pb-1">
+        <a (click)="ouvrirModaleExercices(lienQuestionsFlash, 'questionsFlash')">S'entraîner pour les Questions Flash</a>
+      </div>
+    </div>
+    <div [class]="'pb-5 is-' + niveau">
+      <h2 id="Evaluation" [class]="'subtitle is-3 is-' + niveau">Évaluation</h2>
+      <a (click)="ouvrirModaleExercices(lienEval, 'Evaluation')">S'entraîner pour l'évaluation</a>
+    </div>
+    <div id="telechargements" [class]="'pb-5 cache is-' + niveau">
+      <h2 [class]="'subtitle is-3 is-' + niveau">Téléchargements</h2>
+      <div class="p-1">
+        <div id="lienCours" class="p-1 cache"></div>
+        <div id="lienResume" class="p-1 cache"></div>
+        <div id="lienMission" class="p-1 cache"></div>
+        <div id="lienAnki" class="p-1 cache"></div>
+      </div>
     </div>
   </div>
-  <div class="box">
-    <h2 id="Evaluation" class="title is-3">Évaluation</h2>
-    <a (click)="ouvrirModaleExercices(lienEval, 'Evaluation')">S'entraîner pour l'évaluation</a>
+  <div class="column is-one-fifth">
+    <!-- Utilisateurs connectés -->
+    <app-whosonline></app-whosonline>
   </div>
-  <div id="telechargements" class="box cache">
-    <h2 class="title is-3">Téléchargements</h2>
-    <div class="p-1">
-      <div id="lienCours" class="p-1 cache"></div>
-      <div id="lienResume" class="p-1 cache"></div>
-      <div id="lienMission" class="p-1 cache"></div>
-      <div id="lienAnki" class="p-1 cache"></div>
-    </div>
-  </div>
-  <!-- Utilisateurs connectés -->
-  <app-whosonline></app-whosonline>
 </div>
 <ng-particles [id]="confetti.id" [options]="confetti.particlesOptions" (particlesLoaded)="confetti.particlesLoaded($event)" (particlesInit)="confetti.particlesInit($event)"></ng-particles>
 <div id="tsparticles"></div>

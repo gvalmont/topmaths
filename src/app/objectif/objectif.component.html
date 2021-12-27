@@ -1,52 +1,53 @@
-<div class="container is-widescreen centre">
-  <div class="box">
-    <h1 class="title is-2">{{ titre }}</h1>
-  </div>
-  <div class="box" *ngIf="rappelDuCoursHTML != '' || rappelDuCoursImage != ''">
-    <h2 class="title is-3">Rappel du cours</h2>
-    <p class="has-text-left" [mathjax]="rappelDuCoursHTML"></p>
-    <p><img *ngIf="rappelDuCoursImage != ''" [src]="rappelDuCoursImage" /></p>
-  </div>
-  <div *ngIf="presenceVideo">
-    <h2 *ngIf="videos.length == 1; else plusieursVideos" class="title is-3">Vidéo d'explication</h2>
-    <ng-template #plusieursVideos>
-      <h2 class="title is-3">Vidéos d'explication</h2>
-    </ng-template>
-    <div *ngFor="let video of videos" class="box">
-      <h3 class="title is-4">{{video.titre}}</h3>
-      <div class="image is-16by9"><iframe class="has-ratio" [src]="video.lienVideo| safe"></iframe></div>
-      <p><u>Vidéo de <a [href]="video.lienAuteur" target="_blank" rel="noopener noreferrer">{{ video.auteur }}</a></u></p>
+<div class="columns centre">
+  <div class="column is-one-fifth"></div>
+  <div class="column is-three-fifths">
+    <h1 [class]="'title is-2 is-' + niveau">{{ titre }}</h1>
+    <div [class]="'is-' + niveau" *ngIf="rappelDuCoursHTML != '' || rappelDuCoursImage != ''">
+      <h2 [class]="'pb-5 subtitle is-3 is-' + niveau">Rappel du cours</h2>
+      <p class="has-text-centered pb-5" [mathjax]="rappelDuCoursHTML"><br><img *ngIf="rappelDuCoursImage != ''" [src]="rappelDuCoursImage" /></p>
     </div>
-  </div>
-  <div><br><br></div>
-  <div class="box">
-    <h2 id="Exercices" class="title is-3">S'entraîner</h2>
-    <div><br></div>
-    <div *ngFor="let exercice of exercices; index as i">
-      <h3 class="title is-4 is-inline-block">
-        <a (click)="ouvrirModaleExercices(exercice.lienACopier, 'Exercices')">
-          Niveau {{ i + 1 }} - {{ exercice.couleur }}
-          &nbsp;
-          <i class='image is-24x24 is-inline-block'>
-            <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
-          </i>
-        </a>
-      </h3>
+    <div [class]="'is-' + niveau" *ngIf="presenceVideo">
+      <h2 *ngIf="videos.length == 1; else plusieursVideos" [class]="'subtitle is-3 is-' + niveau">Vidéo d'explication</h2>
+      <ng-template #plusieursVideos>
+        <h2 [class]="'is-' + niveau">Vidéos d'explication</h2>
+      </ng-template>
+      <div class='pb-5' *ngFor="let video of videos">
+        <h3 class="title is-4">{{video.titre}}</h3>
+        <div class="image is-16by9"><iframe class="has-ratio" [src]="video.lienVideo| safe"></iframe></div>
+        <p><u>Vidéo de <a [href]="video.lienAuteur" target="_blank" rel="noopener noreferrer">{{ video.auteur }}</a></u></p>
+      </div>
+    </div>
+    <div [class]="'is-' + niveau">
+      <h2 id="Exercices" [class]="'subtitle is-3 is-' + niveau">S'entraîner</h2>
       <div><br></div>
+      <div *ngFor="let exercice of exercices; index as i">
+        <h3 class="title is-4 is-inline-block">
+          <a (click)="ouvrirModaleExercices(exercice.lienACopier, 'Exercices')">
+            Niveau {{ i + 1 }} - {{ exercice.couleur }}
+            &nbsp;
+            <i class='image is-24x24 is-inline-block'>
+              <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
+            </i>
+          </a>
+        </h3>
+        <div><br></div>
+      </div>
+    </div>
+    <span *ngIf="bonneReponse">
+      <p [ngClass]="{'pleinEcran is-unselectable gigantesque': true, 'moveUp': bonneReponse}">{{messageScore}}</p>
+    </span>
+    <div id='telechargements' [class]="'cache is-fin is-' + niveau">
+      <h2 [class]="'subtitle is-3 is-' + niveau">Téléchargements</h2>
+      <div class="p-1 pb-5">
+        <div id='lienFiche' class="p-1 cache"></div>
+        <div id='lienAnki' class="p-1 cache"></div>
+      </div>
     </div>
   </div>
-  <span *ngIf="bonneReponse">
-    <p [ngClass]="{'pleinEcran is-unselectable gigantesque': true, 'moveUp': bonneReponse}">{{messageScore}}</p>
-  </span>
-  <div id='telechargements' class="box cache">
-    <h2 class="title is-3">Téléchargements</h2>
-    <div class="p-1">
-      <div id='lienFiche' class="p-1 cache"></div>
-      <div id='lienAnki' class="p-1 cache"></div>
-    </div>
+  <div class="column is-one-fifth">
+    <!-- Utilisateurs connectés -->
+    <app-whosonline></app-whosonline>
   </div>
-  <!-- Utilisateurs connectés -->
-  <app-whosonline></app-whosonline>
 </div>
 <ng-particles [id]="confetti.id" [options]="confetti.particlesOptions" (particlesLoaded)="confetti.particlesLoaded($event)" (particlesInit)="confetti.particlesInit($event)"></ng-particles>
 <div id="tsparticles"></div>

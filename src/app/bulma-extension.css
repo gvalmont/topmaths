@@ -44,6 +44,14 @@ li:hover .is-sponsor {
   filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
 }
 
+/* Permet d'arrondir les menus */
+ul.tabs-menu.is-rounded .is-left-side {
+  border-radius: 25px 0px 0px 0px;
+}
+ul.tabs-menu.is-rounded .is-right-side {
+  border-radius: 0px 25px 0px 0px;
+}
+
 li.is-actif .is-warning {
   background-color: #ffe08a;
 }
@@ -84,7 +92,7 @@ li.is-actif .is-sponsor {
 ***** Colorisation des icones en général
 ****************************************************************************************************/
 /* Gris foncé par défaut */
-i, a:hover>i {
+i {
   filter: invert(26%) sepia(0%) saturate(3266%) hue-rotate(151deg) brightness(95%) contrast(83%);
 }
 
@@ -99,7 +107,12 @@ input:focus~.filter-grey {
 }
 
 /* Blanc lorsque l'icône est dans un bouton qu'on survole */
-button:hover>i {
+button.is-outlined:hover>i {
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+}
+
+/* Blanc pour les boutons qui ne sont pas outlined */
+button:not(.is-outlined)>i {
   filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
 }
 

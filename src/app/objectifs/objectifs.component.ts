@@ -82,6 +82,7 @@ export class ObjectifsComponent implements OnInit {
               }
             }
           }
+          this.lignes.push({ niveau: 'fin'})
         }
       }
     )

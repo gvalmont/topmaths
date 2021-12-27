@@ -75,6 +75,7 @@ export class SequencesComponent implements OnInit {
         for (const sequence of sequencesParticulieres) {
           this.lignesParticulieres.push({ niveau: 'Séquences particulières', reference: sequence.reference, titre: sequence.titre, numero: 0 })
         }
+        this.lignesParticulieres.push({ niveau: 'fin'})
       }
     )
     this.http.get<Niveau[]>('assets/data/sequences.json').subscribe(niveaux => {
@@ -83,6 +84,7 @@ export class SequencesComponent implements OnInit {
           for (const sequence of niveau.sequences) {
             this.lignes.push({ niveau: niveau.nom, reference: sequence.reference, titre: sequence.titre, numero: parseInt(sequence.reference.slice(3)) })
           }
+          this.lignes.push({ niveau: 'fin'})
         }
       }
     )

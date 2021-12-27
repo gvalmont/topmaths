@@ -34,6 +34,7 @@ export class ObjectifComponent implements OnInit {
   bonneReponse: boolean
   ancre: string
   loaded: [boolean, Date]
+  niveau: string
 
   constructor(public http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, public confetti: ConfettiService, public router: Router, private viewportScroller: ViewportScroller) {
     this.reference = ''
@@ -52,6 +53,7 @@ export class ObjectifComponent implements OnInit {
     this.bonneReponse = false
     this.ancre = ''
     this.loaded = [false, new Date()]
+    this.niveau = ''
     setTimeout(() => this.confetti.stop(), 3000) // Sinon un reliquat reste apparent
   }
 
@@ -151,6 +153,7 @@ export class ObjectifComponent implements OnInit {
             return sousTheme.objectifs.find(objectif => {
               // Une fois qu'on l'a trouvée, on modifie les attributs
               if (objectif.reference == this.reference) {
+                this.niveau = niveau.nom
                 this.recupereAttributsObjectif(objectif)
               }
               return objectif.reference == this.reference;

@@ -36,6 +36,7 @@ export class SequenceComponent implements OnInit {
   modaleExercicesUrl: [string, Date]
   bonneReponse: boolean
   ancre: string
+  niveau: string
 
   constructor(public http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, public confetti: ConfettiService, public router: Router, private viewportScroller: ViewportScroller) {
     this.reference = ''
@@ -60,6 +61,7 @@ export class SequenceComponent implements OnInit {
     this.modaleExercicesUrl = ['', new Date()]
     this.bonneReponse = false
     this.ancre = ''
+    this.niveau = ''
     setTimeout(() => this.confetti.stop(), 3000) // Sinon un reliquat reste apparent
   }
 
@@ -146,6 +148,7 @@ export class SequenceComponent implements OnInit {
       niveaux.find(niveau => {
         return niveau.sequences.find(sequence => {
           if (sequence.reference == this.reference) {
+            this.niveau = niveau.nom
             this.recupereAttributsSequence(niveau, sequence)
           }
           return sequence.reference == this.reference;
