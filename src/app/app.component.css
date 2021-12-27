@@ -25,6 +25,10 @@
   margin-bottom: 0px;
 }
 
+.subtitle.is-tout, .subtitle.is-6e, .subtitle.is-5e, .subtitle.is-4e, .subtitle.is-3e {
+  margin-bottom: 0px;
+}
+
 .is-fin {
   border-radius: 0px 0px 50px 50px;
 }

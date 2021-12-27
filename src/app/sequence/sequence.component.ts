@@ -36,6 +36,7 @@ export class SequenceComponent implements OnInit {
   modaleExercicesUrl: [string, Date]
   bonneReponse: boolean
   ancre: string
+  loaded: [boolean, Date]
   niveau: string
 
   constructor(public http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, public confetti: ConfettiService, public router: Router, private viewportScroller: ViewportScroller) {
@@ -61,6 +62,7 @@ export class SequenceComponent implements OnInit {
     this.modaleExercicesUrl = ['', new Date()]
     this.bonneReponse = false
     this.ancre = ''
+    this.loaded = [false, new Date()]
     this.niveau = ''
     setTimeout(() => this.confetti.stop(), 3000) // Sinon un reliquat reste apparent
   }
