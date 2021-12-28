@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { ConfettiService } from '../services/confetti.service';
+import { GlobalConstants } from '../services/global-constants';
 import { Niveau as NiveauObjectif } from '../services/objectifs';
 import { Niveau as NiveauSequence } from '../services/sequences';
 
@@ -144,7 +145,7 @@ export class ModaleExercicesComponent implements OnInit {
                 })
                 this.listeExercices[this.listeExercices.length - 1].lien = this.listeExercices[this.listeExercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
                 if (exercice.slug.slice(0, 25) == 'https://mathsmentales.net') {
-                  this.listeExercices[this.listeExercices.length - 1].lien = exercice.slug + '&embed=' + this.dataService.origine
+                  this.listeExercices[this.listeExercices.length - 1].lien = exercice.slug + '&embed=' + GlobalConstants.origine
                 } else if (exercice.slug.slice(0, 4) == 'http') {
                   this.listeExercices[this.listeExercices.length - 1].lien = exercice.slug
                 }
@@ -159,7 +160,7 @@ export class ModaleExercicesComponent implements OnInit {
             for (const calculMental of sequence.calculsMentaux) {
               for (const niveau of calculMental.niveaux) {
                 this.listeExercices.push({
-                  lien: niveau.lien + '&embed=' + this.dataService.origine,
+                  lien: niveau.lien + '&embed=' + GlobalConstants.origine,
                   score: niveau.score
                 })
               }

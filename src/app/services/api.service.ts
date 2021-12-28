@@ -5,6 +5,7 @@ import { User, UserSimplifie } from './user';
 import { Router } from '@angular/router';
 import { Trophee4e, Trophee5e } from './trophees';
 import { Equipe } from './equipe';
+import { GlobalConstants } from './global-constants';
 
 interface InfosEquipe {
   leader: number
@@ -32,9 +33,7 @@ interface Adjectif {
 })
 
 export class ApiService {
-  origine: string
   redirectUrl: string
-  baseUrl: string
   isloggedIn: boolean
   user: User
   onlineUsers: UserSimplifie[]
@@ -59,8 +58,6 @@ export class ApiService {
 
   @Output() profilModifie: EventEmitter<string[]> = new EventEmitter();
   constructor(private http: HttpClient, private router: Router) {
-    isDevMode() ? this.origine = 'http://localhost:4200' : this.origine = 'https://beta.topmaths.fr'
-    this.baseUrl = this.origine + "/api";
     this.redirectUrl = ''
     this.user = {
       id: 0,
@@ -174,12 +171,12 @@ export class ApiService {
         }
       ]
     } else {
-      this.http.get<UserSimplifie[]>(this.baseUrl + '/classementIndividuel.php').subscribe(usersSimplifies => {
+      this.http.get<UserSimplifie[]>(GlobalConstants.apiUrl + 'classementIndividuel.php').subscribe(usersSimplifies => {
         this.classementIndividuel = usersSimplifies
       }, error => {
         console.log(error)
       })
-      this.http.get<InfosEquipe[]>(this.baseUrl + '/classementEquipes.php').subscribe(equipes => {
+      this.http.get<InfosEquipe[]>(GlobalConstants.apiUrl + 'classementEquipes.php').subscribe(equipes => {
         this.classementEquipes = equipes
       }, error => {
         console.log(error)
@@ -223,7 +220,7 @@ export class ApiService {
         ]
       }
     } else {
-      this.http.post<InfosEquipe>(this.baseUrl + '/equipe.php', { teamName: teamName, identifiant: this.user.identifiant }).subscribe(equipe => {
+      this.http.post<InfosEquipe>(GlobalConstants.apiUrl + 'equipe.php', { teamName: teamName, identifiant: this.user.identifiant }).subscribe(equipe => {
         this.infosEquipe = equipe
       },
         error => {
@@ -233,7 +230,7 @@ export class ApiService {
   }
 
   rejoindreEquipe(codeEquipe: string) {
-    this.http.post<User[]>(this.baseUrl + '/rejoindreEquipe.php', { identifiant: this.user.identifiant, codeEquipe: codeEquipe }).subscribe(users => {
+    this.http.post<User[]>(GlobalConstants.apiUrl + 'rejoindreEquipe.php', { identifiant: this.user.identifiant, codeEquipe: codeEquipe }).subscribe(users => {
       if (users[0].identifiant == 'personne') {
         alert('Code incorrect')
       } else {
@@ -256,7 +253,7 @@ export class ApiService {
    * Fait quitter l'équipe
    */
   quitterEquipeSansConfirmation() {
-    this.http.post<User[]>(this.baseUrl + '/quitterEquipe.php', { identifiant: this.user.identifiant }).subscribe(users => {
+    this.http.post<User[]>(GlobalConstants.apiUrl + 'quitterEquipe.php', { identifiant: this.user.identifiant }).subscribe(users => {
       if (users[0].identifiant == 'personne') {
         alert("Une erreur s'est produite")
       } else {
@@ -296,7 +293,7 @@ export class ApiService {
         }
       ]
     } else {
-      this.http.get<UserSimplifie[]>(this.baseUrl + '/whosonline.php').subscribe(userSimplifies => {
+      this.http.get<UserSimplifie[]>(GlobalConstants.apiUrl + 'whosonline.php').subscribe(userSimplifies => {
         const infos = userSimplifies.pop() // Le dernier usersSimplifie n'en est pas un mais sert juste à récupérer des infos comme le nombre de personnes en ligne
         if (typeof (infos) != 'undefined') this.onlineNb = parseInt(infos.pseudo)
         this.onlineUsers = userSimplifies
@@ -398,8 +395,8 @@ export class ApiService {
         'tropheesVisibles'])
     } else {
       let loginPage: string
-      secure ? loginPage = '/login.php' : loginPage = '/autologin.php'
-      this.http.post<User[]>(this.baseUrl + loginPage, { identifiant: identifiant }).subscribe(users => {
+      secure ? loginPage = 'login.php' : loginPage = 'autologin.php'
+      this.http.post<User[]>(GlobalConstants.apiUrl + loginPage, { identifiant: identifiant }).subscribe(users => {
         if (users[0].identifiant == 'personne') {
           console.log('identifiant non trouvé, on en crée un nouveau')
           this.registration(identifiant)
@@ -436,17 +433,17 @@ export class ApiService {
    * @param secureIdentifiant 
    */
   secureLoginCheck(secureIdentifiant: string, donnees: object, origineDemande: string) {
-    this.http.post<User[]>(this.baseUrl + '/securelogin.php', { identifiant: this.user.identifiant, secureIdentifiant: secureIdentifiant }).subscribe(users => {
+    this.http.post<User[]>(GlobalConstants.apiUrl + 'securelogin.php', { identifiant: this.user.identifiant, secureIdentifiant: secureIdentifiant }).subscribe(users => {
       if (users[0].identifiant == 'personne') {
-        window.frames.postMessage({ retourSecureLogin: 'erreur', donnees: donnees, origineDemande: origineDemande }, this.origine)
+        window.frames.postMessage({ retourSecureLogin: 'erreur', donnees: donnees, origineDemande: origineDemande }, GlobalConstants.origine)
       } else if (users[0].identifiant == 'different') {
-        window.frames.postMessage({ retourSecureLogin: 'different', donnees: donnees, origineDemande: origineDemande }, this.origine)
+        window.frames.postMessage({ retourSecureLogin: 'different', donnees: donnees, origineDemande: origineDemande }, GlobalConstants.origine)
       } else {
-        window.frames.postMessage({ retourSecureLogin: secureIdentifiant, donnees: donnees, origineDemande: origineDemande }, this.origine)
+        window.frames.postMessage({ retourSecureLogin: secureIdentifiant, donnees: donnees, origineDemande: origineDemande }, GlobalConstants.origine)
       }
     },
       error => {
-        window.frames.postMessage({ retourSecureLogin: 'erreur', donnees: donnees, origineDemande: origineDemande }, this.origine)
+        window.frames.postMessage({ retourSecureLogin: 'erreur', donnees: donnees, origineDemande: origineDemande }, GlobalConstants.origine)
         this.erreurRegistration('secureLogin', error['message'])
         console.log(error)
       })
@@ -479,7 +476,7 @@ export class ApiService {
         teamName: '',
         scoreEquipe: 0
       }
-      this.http.post<User[]>(this.baseUrl + '/register.php', user).subscribe(users => {
+      this.http.post<User[]>(GlobalConstants.apiUrl + 'register.php', user).subscribe(users => {
         this.isloggedIn = true
         this.setToken('identifiant', users[0].identifiant);
         this.setToken('version', this.derniereVersionToken);
@@ -518,7 +515,7 @@ export class ApiService {
   creationModificationEquipe(creationOuModification: string, teamName: string, lienEmbleme: string,
     foregroundId: number, foregroundPrimaryColor: string, foregroundSecondaryColor: string,
     backgroundId: number, backgroundColor: string, identifiant: string) {
-    this.http.post<Equipe[]>(`${this.baseUrl}/${creationOuModification}Equipe.php`, {
+    this.http.post<Equipe[]>(`${GlobalConstants.apiUrl}${creationOuModification}Equipe.php`, {
       teamName: teamName, lienEmbleme: lienEmbleme, codeEquipe: this.infosEquipe.codeEquipe,
       foregroundId: foregroundId, foregroundPrimaryColor: foregroundPrimaryColor, foregroundSecondaryColor: foregroundSecondaryColor,
       backgroundId: backgroundId, backgroundColor: backgroundColor, leader: identifiant
@@ -526,7 +523,7 @@ export class ApiService {
       this.equipe = equipes[0]
       if (this.equipe.teamName == 'personne') console.log('Aucune équipe avec ce codeEquipe ?')
       else if (this.equipe.teamName == 'existe_deja') {
-        window.frames.postMessage({ retourCreationEquipe: 'existe_deja' }, this.origine)
+        window.frames.postMessage({ retourCreationEquipe: 'existe_deja' }, GlobalConstants.origine)
       } else {
         this.user.teamName = this.equipe.teamName
         this.router.navigate(['team', this.user.teamName])
@@ -543,7 +540,7 @@ export class ApiService {
    * dirige vers la page de modification de l'équipe
    */
   modifierEquipe() {
-    this.http.post<Equipe[]>(`${this.baseUrl}/getEquipe.php`, { codeEquipe: this.infosEquipe.codeEquipe, leader: this.user.id }).subscribe(equipes => {
+    this.http.post<Equipe[]>(`${GlobalConstants.apiUrl}getEquipe.php`, { codeEquipe: this.infosEquipe.codeEquipe, leader: this.user.id }).subscribe(equipes => {
       this.equipe = equipes[0]
       if (this.equipe.teamName == 'personne') {
         alert("Tu n'es pas le chef de cette équipe")
@@ -639,7 +636,7 @@ export class ApiService {
     if (isDevMode()) {
       this.profilModifie.emit(['lienAvatar'])
     } else {
-      this.http.post<User[]>(this.baseUrl + `/majAvatar.php`, { identifiant: this.user.identifiant, codeAvatar: this.user.codeAvatar, lienAvatar: lienAvatar }).subscribe(
+      this.http.post<User[]>(GlobalConstants.apiUrl + 'majAvatar.php', { identifiant: this.user.identifiant, codeAvatar: this.user.codeAvatar, lienAvatar: lienAvatar }).subscribe(
         users => {
           this.profilModifie.emit(['lienAvatar'])
         },
@@ -669,7 +666,7 @@ export class ApiService {
     if (isDevMode()) {
       this.profilModifie.emit(['score'])
     } else {
-      this.http.post<User[]>(this.baseUrl + `/majScore.php`, {
+      this.http.post<User[]>(GlobalConstants.apiUrl + 'majScore.php', {
         identifiant: this.user.identifiant,
         score: score,
         cleScore: this.user.cleScore,
@@ -717,7 +714,7 @@ export class ApiService {
       ]
     } else {
       if (typeof (this.user.identifiant) != 'undefined' && this.user.identifiant != '') {
-        this.http.post<UserSimplifie[]>(this.baseUrl + `/actionUtilisateur.php`, { identifiant: this.user.identifiant }).subscribe(userSimplifies => {
+        this.http.post<UserSimplifie[]>(GlobalConstants.apiUrl + 'actionUtilisateur.php', { identifiant: this.user.identifiant }).subscribe(userSimplifies => {
           const infos = userSimplifies.pop() // Le dernier usersSimplifie n'en est pas un mais sert juste à récupérer des infos comme le nombre de personnes en ligne
           if (typeof (infos) != 'undefined') this.onlineNb = parseInt(infos.pseudo)
           this.onlineUsers = userSimplifies
@@ -754,7 +751,7 @@ export class ApiService {
         'tropheesVisibles'])
       this.router.navigate(['accueil'])
     } else {
-      this.http.post(this.baseUrl + `/logout.php`, this.user).subscribe(
+      this.http.post(GlobalConstants.apiUrl + 'logout.php', this.user).subscribe(
         data => {
           this.deleteToken('identifiant')
           this.deleteToken('version')
@@ -808,7 +805,7 @@ export class ApiService {
    * @param message
    */
   envoiMailEval(codeTrophee: string, sujetEval: string) {
-    this.http.post<Message>(this.baseUrl + `/envoiMailEval.php`, { codeTrophee: codeTrophee, sujetEval: sujetEval }).pipe(first()).subscribe(
+    this.http.post<Message>(GlobalConstants.apiUrl + 'envoiMailEval.php', { codeTrophee: codeTrophee, sujetEval: sujetEval }).pipe(first()).subscribe(
       message => {
         if (message.message == 'mail envoye') {
           alert('Ton message a bien été envoyé !\nM. Valmont t\'enverra un message sur Pronote pour te dire quoi réviser.')
@@ -829,7 +826,7 @@ export class ApiService {
     if (isDevMode()) {
       this.profilModifie.emit(valeursModifiees)
     } else {
-      this.http.post<User[]>(this.baseUrl + `/majProfil.php`, this.user).subscribe(
+      this.http.post<User[]>(GlobalConstants.apiUrl + 'majProfil.php', this.user).subscribe(
         users => {
           this.profilModifie.emit(valeursModifiees)
         },
@@ -848,7 +845,7 @@ export class ApiService {
    * @param codeTrophees privé, remis par le professeur, permet de voir ses trophées, de le lier à son profil et de demander à refaire une évaluation
    */
   getTrophees(lienTrophees: string, codeTrophees: string) {
-    this.http.post<Trophee5e | Trophee4e>(this.baseUrl + `/trophees.php`, { lienTrophees: lienTrophees, codeTrophees: codeTrophees }).subscribe(
+    this.http.post<Trophee5e | Trophee4e>(GlobalConstants.apiUrl + 'trophees.php', { lienTrophees: lienTrophees, codeTrophees: codeTrophees }).subscribe(
       trophees => {
         if (codeTrophees != '' && lienTrophees == '') {
           this.majCodeTrophees(codeTrophees)
@@ -913,7 +910,7 @@ export class ApiService {
    * @param data données à transmettre
    */
   securelogin(data: object, origineDemande: string) {
-    const origine = this.origine
+    const origine = GlobalConstants.origine
     this.ecouteMessagesPost()
     this.div = document.createElement('div')
     this.div.id = 'modaleSecureLogin'

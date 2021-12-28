@@ -5,6 +5,7 @@ import { ApiService } from '../services/api.service';
 import { CalculMental, Niveau, NiveauCM, Objectif, QuestionFlash, Sequence } from '../services/sequences';
 import { Niveau as NiveauObjectif } from '../services/objectifs';
 import { ViewportScroller } from '@angular/common';
+import { GlobalConstants } from '../services/global-constants';
 
 
 @Component({
@@ -207,7 +208,7 @@ export class SequenceComponent implements OnInit {
       for (const niveau of calculMental.niveaux) {
         niveauxTemp.push({
           commentaire: niveau.commentaire,
-          lien: niveau.lien + '&embed=' + this.dataService.origine,
+          lien: niveau.lien + '&embed=' + GlobalConstants.origine,
           score: niveau.score,
           lienACopier: niveau.lien
         })

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
+import { GlobalConstants } from '../services/global-constants';
 import { Niveau, Objectif, Video, Exercice } from '../services/objectifs';
 
 @Component({
@@ -140,7 +141,7 @@ export class ObjectifComponent implements OnInit {
         })
         this.exercices[this.exercices.length - 1].lien = this.exercices[this.exercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
         if (exercice.slug.slice(0, 25) == 'https://mathsmentales.net') {
-          this.exercices[this.exercices.length - 1].lien = exercice.slug + '&embed=' + this.dataService.origine
+          this.exercices[this.exercices.length - 1].lien = exercice.slug + '&embed=' + GlobalConstants.origine
         } else if (exercice.slug.slice(0, 4) == 'http') {
           this.exercices[this.exercices.length - 1].lien = exercice.slug
         }
