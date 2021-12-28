@@ -28,7 +28,7 @@
           <div *ngFor="let niveau of calculMental.niveaux; index as j">
             <div><br></div>
             <h3 [class]="'subtitle is-4 is-inline-block is-' + niveau">
-              <a (click)="ouvrirModaleExercices(niveau.lienACopier, 'calculMental')">
+              <a (click)="ouvrirModaleExercices(niveau.lien, 'calculMental')">
                 Niveau {{j + 1}}
                 &nbsp;
                 <i class='image is-24x24 is-inline-block'>
@@ -85,6 +85,4 @@
     <app-whosonline></app-whosonline>
   </div>
 </div>
-<ng-particles [id]="confetti.id" [options]="confetti.particlesOptions" (particlesLoaded)="confetti.particlesLoaded($event)" (particlesInit)="confetti.particlesInit($event)"></ng-particles>
-<div id="tsparticles"></div>
-<app-modale-exercices [url]="modaleExercicesUrl" [loaded]="loaded" (modaleFermee)="scrollBack()"></app-modale-exercices>
+<app-modale-exercices [url]="modaleExercicesUrl" (modaleFermee)="scrollBack()"></app-modale-exercices>

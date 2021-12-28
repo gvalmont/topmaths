@@ -78,11 +78,7 @@ export class JeuxComponent implements OnInit {
 
   ngOnInit(): void {
     let modale = document.getElementById("myModal")
-    if (modale != null) {
-      this.modal = modale
-    } else {
-      console.log('élément HTML myModal n\'a pas été trouvé')
-    }
+    if (modale != null) this.modal = modale
     this.recuperationDesProjets()
     this.redimensionneLesCartes()
   }

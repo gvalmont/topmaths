@@ -9,10 +9,13 @@
     <img src="assets/img/cc0/cross-svgrepo-com.svg" />
   </figure>
 </div>
-<div id="loading" [ngClass]="{'cache' : !loading}" class="centre pleinEcran has-background-white"><img class="is-inline-block" [src]="lienSpinner" /></div>
-<figure [ngClass]="{'modal-back is-clickable' : true, 'cache' : !loading}" (click)="fermerModale()">
+<div id="loading" class="centre pleinEcran has-background-white cache"><img class="is-inline-block" [src]="lienSpinner" />
+<figure class='modal-back is-clickable' (click)="fermerModale()">
   <img src='/assets/img/cc0/left-arrow-back-svgrepo-com.svg' />
 </figure>
-<figure [ngClass]="{'modal-cross is-clickable' : true, 'cache' : !loading}" (click)="fermerModale()">
+<figure class='modal-cross is-clickable' (click)="fermerModale()">
   <img src="assets/img/cc0/cross-svgrepo-com.svg" />
 </figure>
+</div>
+<ng-particles [id]="confetti.id" [options]="confetti.particlesOptions" (particlesLoaded)="confetti.particlesLoaded($event)" (particlesInit)="confetti.particlesInit($event)"></ng-particles>
+<div id="tsparticles"></div>

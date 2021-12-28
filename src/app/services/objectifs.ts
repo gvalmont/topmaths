@@ -63,23 +63,21 @@ export class Video {
 }
 
 export class Exercice {
+  public id: number
   public couleur: string
   public slug: string
-  public graine: string
   public lien: string
   public score: number
   public temps: number
   public isInteractif: boolean
-  public lienACopier?: string
 
-  constructor(couleur: string, slug: string, graine: string, lien: string, score: number, temps: number, isInteractif: boolean, lienACopier?: string) {
+  constructor(id: number, couleur: string, slug: string, lien: string, score: number, temps: number, isInteractif: boolean) {
+    this.id = id
     this.couleur = couleur
     this.slug = slug
-    this.graine = graine
     this.lien = lien
     this.score = score
     this.temps = temps
     this.isInteractif = isInteractif
-    this.lienACopier = lienACopier
   }
 }

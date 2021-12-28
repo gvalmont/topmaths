@@ -46,17 +46,9 @@ export class TropheesComponent implements OnInit {
   ngOnInit(): void {
     this.observeChangementsDeRoute()
     let modale = document.getElementById("modaleRefaireEvaluation")
-    if (modale != null) {
-      this.modal = modale
-    } else {
-      console.log('élément HTML modaleRefaireEvaluation n\'a pas été trouvé')
-    }
+    if (modale != null) this.modal = modale
     modale = document.getElementById("modaleChoixCodeTrophee")
-    if (modale != null) {
-      this.modalChoix = modale
-    } else {
-      console.log('élément HTML modaleChoixCodeTrophee n\'a pas été trouvé')
-    }
+    if (modale != null) this.modalChoix = modale
     setTimeout(() => {
       this.timeoutExpire = true
     }, 3000);

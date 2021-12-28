@@ -154,17 +154,9 @@ export class ProfilComponent implements OnInit {
 
   ngOnInit(): void {
     let modale = document.getElementById("modalePseudo")
-    if (modale != null) {
-      this.modalePseudo = modale
-    } else {
-      console.log('modalePseudo non trouvée')
-    }
+    if (modale != null) this.modalePseudo = modale
     modale = document.getElementById("modaleConfirmation")
-    if (modale != null) {
-      this.modaleConfirmation = modale
-    } else {
-      console.log('modaleConfirmation non trouvée')
-    }
+    if (modale != null) this.modaleConfirmation = modale
   }
 
   voirPageEquipe(){

@@ -145,7 +145,7 @@ export class ApiService {
       this.classementIndividuel = [
         {
           id: 1,
-          codeAvatar: '#fff,1,2,3,4,5,#000',
+          codeAvatar: '',
           pseudo: 'lapin bleu',
           score: 17,
           lienTrophees: 'tcqnfy',
@@ -154,7 +154,7 @@ export class ApiService {
           scoreEquipe: 0
         }, {
           id: 2,
-          codeAvatar: '#000,5,4,3,2,1,#fff',
+          codeAvatar: '',
           pseudo: 'anonyme',
           score: 38,
           lienTrophees: 'tuoocj',
@@ -203,7 +203,7 @@ export class ApiService {
           {
             id: 2,
             pseudo: 'anonyme',
-            codeAvatar: '#fff,1,2,3,4,5,#000',
+            codeAvatar: '',
             score: 38,
             lienTrophees: 'tuoocj',
             classement: 1,
@@ -213,7 +213,7 @@ export class ApiService {
           {
             id: 2,
             pseudo: 'lapin bleu',
-            codeAvatar: '#000,5,4,3,2,1,#fff',
+            codeAvatar: '',
             score: 38,
             lienTrophees: 'tcqnfy',
             classement: 2,
@@ -277,7 +277,7 @@ export class ApiService {
       this.onlineUsers = [
         {
           id: 1,
-          codeAvatar: '#fff,1,2,3,4,5,#000',
+          codeAvatar: '',
           pseudo: 'lapin bleu',
           score: 17,
           lienTrophees: 'tuoocj',
@@ -286,7 +286,7 @@ export class ApiService {
           scoreEquipe: 0
         }, {
           id: 2,
-          codeAvatar: '#000,5,4,3,2,1,#fff',
+          codeAvatar: '',
           pseudo: 'Pierre verte',
           score: 38,
           lienTrophees: 'tuoocj',
@@ -641,7 +641,6 @@ export class ApiService {
     } else {
       this.http.post<User[]>(this.baseUrl + `/majAvatar.php`, { identifiant: this.user.identifiant, codeAvatar: this.user.codeAvatar, lienAvatar: lienAvatar }).subscribe(
         users => {
-          console.log(users[0])
           this.profilModifie.emit(['lienAvatar'])
         },
         error => {
@@ -672,13 +671,12 @@ export class ApiService {
     } else {
       this.http.post<User[]>(this.baseUrl + `/majScore.php`, {
         identifiant: this.user.identifiant,
-        score: this.user.score + score,
+        score: score,
         cleScore: this.user.cleScore,
         url: url,
         teamName: this.user.teamName
       }).subscribe(
         users => {
-          console.log(users[0])
           this.user.score = users[0].score
           this.user.cleScore = users[0].cleScore
           this.profilModifie.emit(['score'])
@@ -699,7 +697,7 @@ export class ApiService {
       this.onlineUsers = [
         {
           id: 1,
-          codeAvatar: this.avatarAleatoire(),
+          codeAvatar: '',
           pseudo: 'lapin bleu',
           score: 17,
           lienTrophees: '',
@@ -708,7 +706,7 @@ export class ApiService {
           scoreEquipe: 0
         }, {
           id: 2,
-          codeAvatar: this.avatarAleatoire(),
+          codeAvatar: '',
           pseudo: 'Pierre verte',
           score: 38,
           lienTrophees: '',
@@ -833,7 +831,6 @@ export class ApiService {
     } else {
       this.http.post<User[]>(this.baseUrl + `/majProfil.php`, this.user).subscribe(
         users => {
-          console.log(users[0])
           this.profilModifie.emit(valeursModifiees)
         },
         error => {

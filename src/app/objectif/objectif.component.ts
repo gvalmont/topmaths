@@ -1,17 +1,10 @@
 import { ViewportScroller } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
-import { ConfettiService } from '../services/confetti.service';
 import { Niveau, Objectif, Video, Exercice } from '../services/objectifs';
 
-interface ExerciceDejaFait {
-  url: string,
-  graine: string,
-  titre?: string,
-  slider?: number
-}
 @Component({
   selector: 'app-objectif',
   templateUrl: './objectif.component.html',
@@ -33,10 +26,9 @@ export class ObjectifComponent implements OnInit {
   modaleExercicesUrl: [string, Date]
   bonneReponse: boolean
   ancre: string
-  loaded: [boolean, Date]
   niveau: string
 
-  constructor(public http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, public confetti: ConfettiService, public router: Router, private viewportScroller: ViewportScroller) {
+  constructor(public http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, public router: Router, private viewportScroller: ViewportScroller) {
     this.reference = ''
     this.titre = ''
     this.rappelDuCoursHTML = ''
@@ -52,14 +44,11 @@ export class ObjectifComponent implements OnInit {
     this.modaleExercicesUrl = ['', new Date()]
     this.bonneReponse = false
     this.ancre = ''
-    this.loaded = [false, new Date()]
     this.niveau = ''
-    setTimeout(() => this.confetti.stop(), 3000) // Sinon un reliquat reste apparent
   }
 
   ngOnInit(): void {
     this.observeChangementsDeRoute()
-    this.ecouteMessagesPost()
   }
 
   /**
@@ -67,65 +56,6 @@ export class ObjectifComponent implements OnInit {
    */
   scrollBack(event: any): void {
     this.viewportScroller.scrollToAnchor(this.ancre)
-  }
-
-  /**
-   * Attend les messages contenant une url,
-   * vérifie dans les exercice.lienACopier s'il trouve une correspondance,
-   * vérifie si les points ont déjà été compabilisés pour cet exercice avec ces paramètres,
-   * lance this.dataService.majScore si ce n'est pas le cas
-   */
-  ecouteMessagesPost() {
-    window.addEventListener('message', (event) => {
-      const dateNouvelleReponse = new Date()
-      if (dateNouvelleReponse.getTime() - this.dateDerniereReponse.getTime() > 200) {
-        const url: string = event.data.url;
-        if (typeof (url) != 'undefined') {
-          this.loaded = [true, dateNouvelleReponse]
-          // On cherche à quel exercice correspond ce message
-          for (const exercice of this.exercices) {
-            if (typeof (exercice.lienACopier) != 'undefined') {
-              /* A décommenter pour débugger lorsqu'il n'y a pas de confettis et que le score ne se met pas à jour
-              console.log('lienACopier ' + exercice.lienACopier)
-              console.log('url ' + url) */
-              if (url.split('&serie=')[0].split(',i=')[0] == exercice.lienACopier.split('&serie=')[0].split(',i=')[0]) { // Lorsqu'un exercice n'est pas interactifReady, le ,i=0 est retiré de l'url
-                // On a trouvé à quel exercice correspond ce message
-                const nbBonnesReponses: number = event.data.nbBonnesReponses
-                const nbMauvaisesReponses: number = event.data.nbMauvaisesReponses
-                const titre: string = event.data.titre
-                const slider: number = event.data.slider
-                if (typeof (titre) != 'undefined' || typeof (slider) != 'undefined') {
-                  const exerciceDejaFait: ExerciceDejaFait = {
-                    url: exercice.lienACopier,
-                    graine: exercice.graine,
-                    titre: titre,
-                    slider: slider
-                  }
-                  const stringExerciceDejaFait: string = exerciceDejaFait.url + exerciceDejaFait.graine + exerciceDejaFait.titre + exerciceDejaFait.slider
-                  // On s'assure que les exercices soient différents pour ne pas ajouter plusieurs fois du score
-                  if (!this.exercicesDejaFaits.includes(stringExerciceDejaFait)) {
-                    this.exercicesDejaFaits.push(stringExerciceDejaFait)
-                    this.dateDerniereReponse = new Date()
-                    const majScore: number = exercice.score * nbBonnesReponses
-                    if (majScore > 0) {
-                      this.dataService.majScore(majScore, exercice.lienACopier)
-                      this.messageScore = '+ ' + majScore
-                      this.bonneReponse = true
-                      setTimeout(() => this.bonneReponse = false, 2000)
-                      if (nbMauvaisesReponses == 0) {
-                        this.confetti.lanceConfetti()
-                      }
-                    }
-                  }
-                }
-                exercice.graine = event.data.graine
-                exercice.lienACopier = url
-              }
-            }
-          }
-        }
-      }
-    })
   }
 
   /**
@@ -199,23 +129,21 @@ export class ObjectifComponent implements OnInit {
     // Le nombre d'exercices varie selon la référence, on a donc quelque chose de dynamique
     for (const exercice of objectif.exercices) {
       if (exercice.slug != '') {
-        exercice.graine = Math.random().toString(16).substr(2, 4)
         this.exercices.push({
+          id: exercice.id,
           couleur: '',
           slug: exercice.slug,
-          graine: exercice.graine,
-          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&serie=${exercice.graine}&v=can&z=1.5`,
+          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&v=can&z=1.5`,
           score: exercice.score,
           temps: exercice.temps,
           isInteractif: exercice.isInteractif
         })
         this.exercices[this.exercices.length - 1].lien = this.exercices[this.exercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
         if (exercice.slug.slice(0, 25) == 'https://mathsmentales.net') {
-          this.exercices[this.exercices.length - 1].lien = exercice.slug + '&can=' + this.dataService.origine
+          this.exercices[this.exercices.length - 1].lien = exercice.slug + '&embed=' + this.dataService.origine
         } else if (exercice.slug.slice(0, 4) == 'http') {
           this.exercices[this.exercices.length - 1].lien = exercice.slug
         }
-        this.exercices[this.exercices.length - 1].lienACopier = this.exercices[this.exercices.length - 1].lien
       }
       // On ajoute la couleur selon le nombre d'exercices
       this.exercices[this.exercices.length - 1].couleur = "Vert Foncé"
@@ -236,17 +164,6 @@ export class ObjectifComponent implements OnInit {
         default:
           break;
       }
-    }
-  }
-
-  /**
-   * Copie dans le presse papier le lien vers un exercice
-   * @param exercice 
-   */
-  copierLien(exercice: Exercice) {
-    if (typeof (exercice.lienACopier) != 'undefined') {
-      navigator.clipboard.writeText(exercice.lienACopier);
-      alert('Le lien vers l\'exercice a été copié')
     }
   }
 

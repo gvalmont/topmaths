@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
-import { ConfettiService } from '../services/confetti.service';
 import { CalculMental, Niveau, NiveauCM, Objectif, QuestionFlash, Sequence } from '../services/sequences';
 import { Niveau as NiveauObjectif } from '../services/objectifs';
 import { ViewportScroller } from '@angular/common';
@@ -36,15 +35,14 @@ export class SequenceComponent implements OnInit {
   modaleExercicesUrl: [string, Date]
   bonneReponse: boolean
   ancre: string
-  loaded: [boolean, Date]
   niveau: string
 
-  constructor(public http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, public confetti: ConfettiService, public router: Router, private viewportScroller: ViewportScroller) {
+  constructor(public http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, public router: Router, private viewportScroller: ViewportScroller) {
     this.reference = ''
     this.numero = 0
     this.titre = ''
     this.objectifs = []
-    this.calculsMentaux = [new CalculMental('', '', [new NiveauCM('', '', 0, '', '', 0)], false)]
+    this.calculsMentaux = [new CalculMental('', '', [new NiveauCM('', '', 0)], false)]
     this.questionsFlash = []
     this.lienQuestionsFlash = ''
     this.lienEval = ''
@@ -62,14 +60,11 @@ export class SequenceComponent implements OnInit {
     this.modaleExercicesUrl = ['', new Date()]
     this.bonneReponse = false
     this.ancre = ''
-    this.loaded = [false, new Date()]
     this.niveau = ''
-    setTimeout(() => this.confetti.stop(), 3000) // Sinon un reliquat reste apparent
   }
 
   ngOnInit(): void {
     this.observeChangementsDeRoute()
-    this.ecouteMessagesPost()
   }
 
   /**
@@ -87,56 +82,6 @@ export class SequenceComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.reference = params.ref
       this.modificationDesAttributs()
-    })
-  }
-
-  /**
-   * Attend les messages contenant une url,
-   * vérifie dans les calculMental.niveau.lien s'il trouve une correspondance,
-   * vérifie si les points ont déjà été compabilisés pour cet exercice avec ces paramètres,
-   * lance this.dataService.majScore si ce n'est pas le cas
-   */
-  ecouteMessagesPost() {
-    window.addEventListener('message', (event) => {
-      const dateNouvelleReponse = new Date()
-      if (dateNouvelleReponse.getTime() - this.dateDerniereReponse.getTime() > 200) {
-        const url: string = event.data.url;
-        if (typeof (url) != 'undefined') {
-          // On cherche à quel exercice correspond ce message
-          for (const calculMental of this.calculsMentaux) {
-            for (const niveau of calculMental.niveaux) {
-              if (typeof (niveau.lien) != 'undefined') {
-                if (url == niveau.lien) {
-                  // On a trouvé à quel exercice correspond ce message
-                  const nbBonnesReponses: number = event.data.nbBonnesReponses
-                  const nbMauvaisesReponses: number = event.data.nbMauvaisesReponses
-                  const slider: number = event.data.slider
-                  if (typeof (slider) != 'undefined') {
-                    // On s'assure que les exercices soient différents pour ne pas ajouter plusieurs fois du score
-                    if (this.derniereUrl != niveau.lien || this.derniereGraine != niveau.graine || this.dernierSlider != niveau.slider) {
-                      this.derniereUrl = niveau.lien
-                      if (typeof (niveau.graine) != 'undefined') this.derniereGraine = niveau.graine
-                      if (typeof (niveau.slider) != 'undefined') this.dernierSlider = niveau.slider
-                      const majScore: number = niveau.score * nbBonnesReponses
-                      if (majScore > 0) {
-                        this.dataService.majScore(majScore, niveau.lien)
-                        this.messageScore = '+ ' + majScore
-                        this.bonneReponse = true
-                        setTimeout(() => this.bonneReponse = false, 2000)
-                        if (nbMauvaisesReponses == 0) {
-                          this.confetti.lanceConfetti()
-                        }
-                      }
-                    }
-                  }
-                  niveau.graine = event.data.graine
-                  niveau.lienACopier = `${url.split(',a=')[0]},a=${niveau.graine}${url.split(',a=')[1]}`
-                }
-              }
-            }
-          }
-        }
-      }
     })
   }
 
