@@ -33,7 +33,7 @@ export class SequenceComponent implements OnInit {
   dernierSlider: number
   messageScore: string
   dateDerniereReponse: Date
-  modaleExercicesUrl: [string, Date]
+  infosModale: [string[], string, Date]
   bonneReponse: boolean
   ancre: string
   niveau: string
@@ -58,7 +58,7 @@ export class SequenceComponent implements OnInit {
     this.dernierSlider = 0
     this.messageScore = ''
     this.dateDerniereReponse = new Date()
-    this.modaleExercicesUrl = ['', new Date()]
+    this.infosModale = [[''], '', new Date()]
     this.bonneReponse = false
     this.ancre = ''
     this.niveau = ''
@@ -301,11 +301,9 @@ export class SequenceComponent implements OnInit {
    * @param ancre
    */
    ouvrirModaleExercices(lien: string | undefined, ancre: string) {
-    const modaleExercices = document.getElementById("modaleExercices")
-    if (modaleExercices != null && typeof(lien) != 'undefined') {
-      this.modaleExercicesUrl = [lien, new Date()]
+    if (typeof(lien) != 'undefined') {
+      this.infosModale = [[lien], '', new Date()]
       this.ancre = ancre
-      modaleExercices.style.display = "block"
     }
   }
 

@@ -18,6 +18,7 @@ import { CompetitionsComponent } from './competitions/competitions.component';
 import { EquipeModificationComponent } from './equipe/modification/equipe.modification.component';
 import { EquipePageComponent } from './equipe/page/equipe.page.component';
 import { AvatarComponent } from './avatar/avatar.component';
+import { TranquilleComponent } from './exercices-au-hasard/tranquille/tranquille.component';
 
 const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
@@ -40,6 +41,7 @@ const routes: Routes = [
   { path: 'classement', redirectTo: 'classement/individuel' },
   { path: 'revisions', component: RevisionsComponent },
   { path: 'exercices-au-hasard', component: ExercicesAuHasardComponent },
+  { path: 'exercices-au-hasard/tranquille', component: TranquilleComponent },
   { path: 'competitions', component: CompetitionsComponent },
   { path: 'team/admin/:ref', component: EquipeModificationComponent, canActivate: [AuthguardGuard]},
   { path: 'team/:teamName', component: EquipePageComponent},

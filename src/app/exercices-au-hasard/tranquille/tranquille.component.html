@@ -1,0 +1,24 @@
+<div class="columns centre">
+  <div class="column is-one-fifth"></div>
+  <div class="column is-three-fifths">
+    <div class="container is-max-desktop">
+      <button class="button is-large is-success p-6 is-unclickable">
+        <p class="enorme">Tranquille</p>
+        &nbsp;
+        <i class="image is-48x48 is-inline-block"><img src="assets/img/cc0/cocktail-svgrepo-com.svg" /></i>
+      </button>
+      <div><br></div>
+      <p id="descriptionTranquille" class="is-size-4">Des exercices au hasard<br>sans contrainte de temps<br>qui rapportent <b>le double de points</b>.
+        <br>Tranquille !</p><br><br>
+      <!-- <span class="px-4 subtitle is-6e is-rounded is-clickable" (click)="lancerTranquille('6e')">6ème</span>&nbsp; -->
+      <span class="px-4 subtitle is-5e is-rounded is-clickable" (click)="lancerTranquille('5e')">5ème</span>&nbsp;
+      <span class="px-4 subtitle is-4e is-rounded is-clickable" (click)="lancerTranquille('4e')">4ème</span>&nbsp;
+      <span class="px-4 subtitle is-3e is-rounded is-clickable" (click)="lancerTranquille('3e')">3ème</span>&nbsp;
+    </div>
+  </div>
+  <div class="column is-one-fifth">
+    <!-- Utilisateurs connectés -->
+    <app-whosonline></app-whosonline>
+  </div>
+</div>
+<app-modale-exercices [infosModale]="infosModale" (modaleFermee)="scrollBack()"></app-modale-exercices>

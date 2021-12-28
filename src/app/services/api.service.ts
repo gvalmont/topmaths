@@ -661,8 +661,9 @@ export class ApiService {
    * Met à jour le score de la base de données
    * @param score à ajouter 
    * @param url de l'exercice en question
+   * @param type de l'exercice '', 'tranquille', 'vitesse', 'performance' etc.
    */
-  majScore(score: number, url: string) {
+  majScore(score: number, url: string, type: string) {
     if (isDevMode()) {
       this.profilModifie.emit(['score'])
     } else {
@@ -671,6 +672,7 @@ export class ApiService {
         score: score,
         cleScore: this.user.cleScore,
         url: url,
+        type: type,
         teamName: this.user.teamName
       }).subscribe(
         users => {
