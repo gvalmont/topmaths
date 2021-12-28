@@ -7,10 +7,9 @@
       <p class="has-text-centered pb-5" [mathjax]="rappelDuCoursHTML"><br><img *ngIf="rappelDuCoursImage != ''" [src]="rappelDuCoursImage" /></p>
     </div>
     <div [class]="'is-' + niveau" *ngIf="presenceVideo">
-      <h2 *ngIf="videos.length == 1" [class]="'subtitle is-3 is-' + niveau">Vidéo d'explication</h2>
-      <h2 *ngIf="videos.length > 1" [class]="'pb-5 subtitle is-3 is-' + niveau">Vidéos d'explication</h2>
+      <h2 [class]="'subtitle is-3 is-' + niveau">Vidéo{{videos.length > 1 ? 's' : ''}} d'explication</h2>
       <div class='pb-5' *ngFor="let video of videos">
-        <h3 [class]="'subtitle is-4 is-' + niveau">{{video.titre}}</h3>
+        <h3 *ngIf="video.titre != ''" [class]="'subtitle is-4 is-' + niveau">{{video.titre}}</h3>
         <div class="image is-16by9"><iframe class="has-ratio" [src]="video.lienVideo| safe"></iframe></div>
         <p><u>Vidéo de <a [href]="video.lienAuteur" target="_blank" rel="noopener noreferrer">{{ video.auteur }}</a></u></p>
       </div>
