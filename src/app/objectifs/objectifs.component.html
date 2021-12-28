@@ -12,6 +12,7 @@
     </div>
     <div class="container is-max-desktop">
       <span *ngFor="let ligne of lignes; index as i">
+        <div *ngIf="ligne.niveau != null && ligne.niveau != 'fin' && ligne.theme == null && (filtre.niveau == null || filtre.niveau == 'tout' || filtre.niveau == ligne.niveau) && i > 0"><br></div>
         <h1 *ngIf="ligne.niveau != null && ligne.niveau != 'fin' && ligne.theme == null && (filtre.niveau == null || filtre.niveau == 'tout' || filtre.niveau == ligne.niveau)" [class]="'title is-3 p-2 is-' + ligne.niveau">{{ligne.niveau}}</h1>
         <h2 *ngIf="ligne.theme != null && ligne.niveau != 'fin' && ligne.sousTheme == null && (filtre.niveau == null || filtre.niveau == 'tout' || filtre.niveau == ligne.niveau) && (filtre.theme == null || filtre.theme == ligne.theme)" [class]="'subtitle is-4 pt-2 is-' + ligne.niveau">{{ligne.theme}}</h2>
         <h3 *ngIf="ligne.sousTheme != null && ligne.sousTheme != '' && ligne.niveau != 'fin' && ligne.reference == null && (filtre.niveau == null || filtre.niveau == 'tout' || filtre.niveau == ligne.niveau) && (filtre.theme == null || filtre.theme == ligne.theme) && (filtre.sousTheme == null || filtre.sousTheme == ligne.sousTheme)" [class]="'subtitle is-5 p-4 is-' + ligne.niveau">{{ligne.sousTheme}}</h3>
@@ -20,7 +21,6 @@
             {{ligne.reference}} : {{ligne.titre}}<br>
           </a>
         </p>
-        <p *ngIf="lignes[i].niveau != lignes[i + 1].niveau && lignes[i + 1].niveau != 'fin' && (filtre.niveau == null || filtre.niveau == 'tout' || filtre.niveau == ligne.niveau)"><br></p>
       </span>
     </div>
   </div>
