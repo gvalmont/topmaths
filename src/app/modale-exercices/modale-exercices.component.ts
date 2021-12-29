@@ -49,9 +49,9 @@ export class ModaleExercicesComponent implements OnInit {
       if (!changes.infosModale.isFirstChange()) {
         this.listeDesUrl = changes.infosModale.currentValue[0]
         this.set('type', [changes.infosModale.currentValue[1]])
-        if (this.listeDesUrl[0].toString().slice(0, 25) == 'https://mathsmentales.net') {
+        if (this.isMathsmentales(this.listeDesUrl[0].toString())) {
           this.site = 'mathsmentales'
-        } else if (this.listeDesUrl[0].toString().slice(0, 34) == 'https://coopmaths.fr/mathalea.html') {
+        } else if (this.isMathalea(this.listeDesUrl[0].toString())) {
           this.site = 'mathalea'
         }
         this.parametrage()
@@ -223,12 +223,15 @@ export class ModaleExercicesComponent implements OnInit {
     this.modale.style.display = 'block'
     this.positionneLesBoutons()
     if (this.getStr('type') == '') {
+      if (this.site == 'mathalea') this.displayLoadingScreen()
       this.set('coef', ['1'])
       this.ajouteIframe(this.infosModale[0][this.getNb('indiceExerciceActuel')])
     } else if (this.getStr('type') == 'tranquille') {
       this.set('coef', ['2'])
       this.creeListeIndicesExercices()
-      this.ajouteIframe(this.infosModale[0][this.getNbL('listeDesIndices')[this.getNb('indiceExerciceActuel')]])
+      const url = this.infosModale[0][this.getNbL('listeDesIndices')[this.getNb('indiceExerciceActuel')]]
+      if (this.isMathalea(url)) this.displayLoadingScreen()
+      this.ajouteIframe(url)
     }
   }
 
@@ -269,7 +272,6 @@ export class ModaleExercicesComponent implements OnInit {
     switch (this.site) {
       case 'mathalea':
         this.lienSpinner = '/assets/img/cc0/orange-spinner.svg'
-        this.displayLoadingScreen()
 
         this.boutonRetour.style.left = '20px'
         this.boutonRetour.style.right = ''
@@ -432,5 +434,13 @@ export class ModaleExercicesComponent implements OnInit {
     const str = sessionStorage.getItem('ME' + tag)
     if (str != null) return str.split('!')
     else return ['']
+  }
+
+  isMathalea(url: string) {
+    return url.slice(0, 34) == 'https://coopmaths.fr/mathalea.html'
+  }
+
+  isMathsmentales(url: string) {
+    return url.slice(0, 25) == 'https://mathsmentales.net'
   }
 }
