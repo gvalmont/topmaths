@@ -43,24 +43,24 @@ export class TranquilleComponent implements OnInit {
    */
   lancerTranquille(niveauChoisi: string) {
     let derniereSequence: number
-    switch (niveauChoisi) {
-      case '6e':
-        derniereSequence = GlobalConstants.derniereSequence6e
-        break;
-      case '5e':
-        derniereSequence = GlobalConstants.derniereSequence5e
-        break;
-      case '4e':
-        derniereSequence = GlobalConstants.derniereSequence4e
-        break;
-      case '3e':
-        derniereSequence = GlobalConstants.derniereSequence3e
-        break;
-    }
-    let listeReferences : string[] = []
+    let listeReferences: string[] = []
     this.http.get<NiveauSequence[]>('assets/data/sequences.json').subscribe(niveaux => {
       for (const niveau of niveaux) {
-        if (niveau.nom == niveauChoisi) {
+        if (niveau.nom == niveauChoisi || niveauChoisi == 'tout') {
+          switch (niveau.nom) {
+            case '6e':
+              derniereSequence = GlobalConstants.derniereSequence6e
+              break;
+            case '5e':
+              derniereSequence = GlobalConstants.derniereSequence5e
+              break;
+            case '4e':
+              derniereSequence = GlobalConstants.derniereSequence4e
+              break;
+            case '3e':
+              derniereSequence = GlobalConstants.derniereSequence3e
+              break;
+          }
           for (const sequence of niveau.sequences) {
             if (parseInt(sequence.reference.slice(3)) <= derniereSequence) {
               for (const objectif of sequence.objectifs) {

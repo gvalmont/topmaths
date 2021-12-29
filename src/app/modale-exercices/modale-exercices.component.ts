@@ -78,7 +78,7 @@ export class ModaleExercicesComponent implements OnInit {
         const indiceExerciceActuel = this.getNb('indiceExerciceActuel')
         const listeDesIndices = this.getNbL('listeDesIndices')
         const coef: number = this.getNb('coef')
-        const dateDerniereReponse : Date = new Date(this.getStr('dateDerniereReponse'))
+        const dateDerniereReponse: Date = new Date(this.getStr('dateDerniereReponse'))
         const dateNouvelleReponse = new Date()
         if (dateNouvelleReponse.getTime() - dateDerniereReponse.getTime() > 200) {
           const url: string = event.data.url;
@@ -108,7 +108,7 @@ export class ModaleExercicesComponent implements OnInit {
                     if (!exercicesDejaFaits.includes(stringExerciceDejaFait)) {
                       this.set('exercicesDejaFaits', [this.getStr('exercicesDejaFaits') + '!' + stringExerciceDejaFait])
                       this.set('urlDejaFaits', [this.getStr('urlDejaFaits') + '!' + url.split('&serie=')[0].split(',i=')[0]])
-                      this.set('dateDerniereReponse',[(new Date()).toString()])
+                      this.set('dateDerniereReponse', [(new Date()).toString()])
                       const majScore: number = exercice.score * nbBonnesReponses * coef
                       if (majScore > 0) {
                         this.dataService.majScore(majScore, exercice.lien, type)
@@ -219,7 +219,7 @@ export class ModaleExercicesComponent implements OnInit {
     this.set('indiceExerciceActuel', ['0'])
     this.set('urlDejaFaits', [''])
     this.set('exercicesDejaFaits', [''])
-    this.set('dateDerniereReponse',[(new Date()).toString()])
+    this.set('dateDerniereReponse', [(new Date()).toString()])
     this.modale.style.display = 'block'
     this.positionneLesBoutons()
     if (this.getStr('type') == '') {
@@ -312,24 +312,24 @@ export class ModaleExercicesComponent implements OnInit {
    * @param array 
    * @returns array mélangé
    */
-  shuffle (array: number[]) {
-  let currentIndex = array.length; let temporaryValue; let randomIndex
+  shuffle(array: number[]) {
+    let currentIndex = array.length; let temporaryValue; let randomIndex
 
-  // While there remain elements to shuffle...
-  const arrayBis = array.slice()
-  while (currentIndex !== 0) {
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex)
-    currentIndex -= 1
+    // While there remain elements to shuffle...
+    const arrayBis = array.slice()
+    while (currentIndex !== 0) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex)
+      currentIndex -= 1
 
-    // And swap it with the current element.
-    temporaryValue = arrayBis[currentIndex]
-    arrayBis[currentIndex] = arrayBis[randomIndex]
-    arrayBis[randomIndex] = temporaryValue
+      // And swap it with the current element.
+      temporaryValue = arrayBis[currentIndex]
+      arrayBis[currentIndex] = arrayBis[randomIndex]
+      arrayBis[randomIndex] = temporaryValue
+    }
+
+    return arrayBis
   }
-
-  return arrayBis
-}
 
   /**
    * Cache la modale
@@ -366,82 +366,71 @@ export class ModaleExercicesComponent implements OnInit {
   }
 
   /**
-   * Vérifie si le div correspondant au tag existe,
-   * le crée s'il n'existe pas,
-   * y inscrit les valeurs séparés par des '!' s'il y en a plusieurs
+   * inscrit dans le sessionStorage les valeurs séparés par des '!' s'il y en a plusieurs
    * @param tag nom de la "variable"
    * @param valeurs 
    */
   set(tag: string, valeurs: string[] | number[]) {
-    let div = document.getElementById('ME' + tag + 'Div')
-    if (div == null) {
-      div = document.createElement('div')
-      div.id = 'ME' + tag + 'Div'
-      div.className = 'cache'
-      document.body.appendChild(div)
-    }
-    div = document.getElementById('ME' + tag + 'Div')
-    if (div != null) {
-      if (valeurs.length == 1) {
-        div.innerText = valeurs[0].toString()
-      } else {
-        let str = ''
-        for (const valeur of valeurs) {
-          str += valeur + '!'
-        }
-        div.innerText = str.slice(0, str.length - 1)
+    let chaine: string
+    if (valeurs.length == 1) {
+      chaine = valeurs[0].toString()
+    } else {
+      let str = ''
+      for (const valeur of valeurs) {
+        str += valeur + '!'
       }
+      chaine = str.slice(0, str.length - 1)
     }
+    sessionStorage.setItem('ME' + tag, chaine)
   }
 
   /**
-   * Récupère un nombre d'un div
+   * Récupère un nombre du sessionStorage
    * @param tag nom de la "variable"
    * @returns 
    */
   getNb(tag: string) {
-    const div = document.getElementById('ME' + tag + 'Div')
-    if (div == null) return 0
-    else return parseInt(div.innerText)
+    const nb = sessionStorage.getItem('ME' + tag)
+    if (nb != null) return parseInt(nb)
+    else return 0
   }
 
   /**
-   * Récupère un nombre[] d'un div
+   * Récupère un nombre[] du sessionStorage
    * @param tag nom de la "variable"
    * @returns 
    */
   getNbL(tag: string) {
-    const div = document.getElementById('ME' + tag + 'Div')
-    if (div == null) return [0]
-    else {
-      const listeStr = div.innerText.split('!')
-      let listeNb : number[] = []
+    const item = sessionStorage.getItem('ME' + tag)
+    if (item != null) {
+      const listeStr = item.split('!')
+      let listeNb: number[] = []
       for (const str of listeStr) {
         listeNb.push(parseInt(str))
       }
       return listeNb
-    }
+    } else return [0]
   }
 
   /**
-   * Récupère un string d'un div
+   * Récupère un string du sessionStorage
    * @param tag nom de la "variable"
    * @returns 
    */
   getStr(tag: string) {
-    const div = document.getElementById('ME' + tag + 'Div')
-    if (div == null) return ''
-    else return div.innerText
+    const str = sessionStorage.getItem('ME' + tag)
+    if (str != null) return str
+    else return ''
   }
 
   /**
-   * Récupère un string[] d'un div
+   * Récupère un string[] du sessionStorage
    * @param tag nom de la "variable"
    * @returns 
    */
   getStrL(tag: string) {
-    const div = document.getElementById('ME' + tag + 'Div')
-    if (div == null) return ['']
-    else return div.innerText.split('!')
+    const str = sessionStorage.getItem('ME' + tag)
+    if (str != null) return str.split('!')
+    else return ['']
   }
 }
