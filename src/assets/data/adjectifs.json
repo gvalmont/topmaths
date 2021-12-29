@@ -220,6 +220,11 @@
     "Mpluriel":"imposants",
     "Fpluriel":"imposantes"
   }, {
+    "masculin":"musclé",
+    "feminin":"musclée",
+    "Mpluriel":"musclés",
+    "Fpluriel":"musclées"
+  }, {
     "masculin":"minuscule",
     "feminin":"minuscule",
     "Mpluriel":"minuscules",
@@ -304,5 +309,160 @@
     "feminin":"séduisante",
     "Mpluriel":"séduisants",
     "Fpluriel":"séduisantes"
+  }, {
+    "masculin":"de feu",
+    "feminin":"de feu",
+    "Mpluriel":"de feu",
+    "Fpluriel":"de feu"
+  }, {
+    "masculin":"mignon",
+    "feminin":"mignonne",
+    "Mpluriel":"mignons",
+    "Fpluriel":"mignonnes"
+  }, {
+    "masculin":"malade",
+    "feminin":"malade",
+    "Mpluriel":"malades",
+    "Fpluriel":"malades"
+  }, {
+    "masculin":"millénaire",
+    "feminin":"millénaire",
+    "Mpluriel":"millénaires",
+    "Fpluriel":"millénaires"
+  }, {
+    "masculin":"géant",
+    "feminin":"géante",
+    "Mpluriel":"géants",
+    "Fpluriel":"géantes"
+  }, {
+    "masculin":"jeune",
+    "feminin":"jeune",
+    "Mpluriel":"jeunes",
+    "Fpluriel":"jeunes"
+  }, {
+    "masculin":"facteur",
+    "feminin":"facteur",
+    "Mpluriel":"facteurs",
+    "Fpluriel":"facteurs"
+  }, {
+    "masculin":"des mers",
+    "feminin":"des mers",
+    "Mpluriel":"des mers",
+    "Fpluriel":"des mers"
+  }, {
+    "masculin":"de la forêt",
+    "feminin":"de la forêt",
+    "Mpluriel":"de la forêt",
+    "Fpluriel":"de la forêt"
+  }, {
+    "masculin":"amoché",
+    "feminin":"amochée",
+    "Mpluriel":"amochés",
+    "Fpluriel":"amochées"
+  }, {
+    "masculin":"incapable",
+    "feminin":"incapable",
+    "Mpluriel":"incapables",
+    "Fpluriel":"incapables"
+  }, {
+    "masculin":"incompétent",
+    "feminin":"incompétente",
+    "Mpluriel":"incompétents",
+    "Fpluriel":"incompétentes"
+  }, {
+    "masculin":"correct",
+    "feminin":"correcte",
+    "Mpluriel":"corrects",
+    "Fpluriel":"correctes"
+  }, {
+    "masculin":"inadmissible",
+    "feminin":"inadmissible",
+    "Mpluriel":"inadmissibles",
+    "Fpluriel":"inadmissibles"
+  }, {
+    "masculin":"de l'espace",
+    "feminin":"de l'espace",
+    "Mpluriel":"de l'espace",
+    "Fpluriel":"de l'espace"
+  }, {
+    "masculin":"du futur",
+    "feminin":"du futur",
+    "Mpluriel":"du futur",
+    "Fpluriel":"du futur"
+  }, {
+    "masculin":"des profondeurs",
+    "feminin":"des profondeurs",
+    "Mpluriel":"des profondeurs",
+    "Fpluriel":"des profondeurs"
+  }, {
+    "masculin":"du marais",
+    "feminin":"du marais",
+    "Mpluriel":"du marais",
+    "Fpluriel":"du marais"
+  }, {
+    "masculin":"royal",
+    "feminin":"royale",
+    "Mpluriel":"royaux",
+    "Fpluriel":"royales"
+  }, {
+    "masculin":"poilu",
+    "feminin":"poilue",
+    "Mpluriel":"poilus",
+    "Fpluriel":"poilues"
+  }, {
+    "masculin":"déménageur",
+    "feminin":"déménageur",
+    "Mpluriel":"déménageurs",
+    "Fpluriel":"déménageurs"
+  }, {
+    "masculin":"de Sandora",
+    "feminin":"de Sandora",
+    "Mpluriel":"de Sandora",
+    "Fpluriel":"de Sandora"
+  }, {
+    "masculin":"barboteur",
+    "feminin":"barboteur",
+    "Mpluriel":"barboteurs",
+    "Fpluriel":"barboteurs"
+  }, {
+    "masculin":"à Collerette",
+    "feminin":"à Collerette",
+    "Mpluriel":"à Collerette",
+    "Fpluriel":"à Collerette"
+  }, {
+    "masculin":"du Désert",
+    "feminin":"du Désert",
+    "Mpluriel":"du Désert",
+    "Fpluriel":"du Désert"
+  }, {
+    "masculin":"étoilé",
+    "feminin":"étoilé",
+    "Mpluriel":"étoilé",
+    "Fpluriel":"étoilé"
+  }, {
+    "masculin":"de Mer",
+    "feminin":"de Mer",
+    "Mpluriel":"de Mer",
+    "Fpluriel":"de Mer"
+  }, {
+    "masculin":"voyageur",
+    "feminin":"voyageuse",
+    "Mpluriel":"voyageurs",
+    "Fpluriel":"voyageuses"
+  }, {
+    "masculin":"des nuages",
+    "feminin":"des nuages",
+    "Mpluriel":"des nuages",
+    "Fpluriel":"des nuages"
+  }, {
+    "masculin":"express",
+    "feminin":"express",
+    "Mpluriel":"express",
+    "Fpluriel":"express"
+  }, {
+    "masculin":"céleste",
+    "feminin":"céleste",
+    "Mpluriel":"célestes",
+    "Fpluriel":"célestes"
   }
 ]
