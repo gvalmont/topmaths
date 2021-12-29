@@ -865,7 +865,7 @@ export class ApiService {
   getTrophees(lienTrophees: string, codeTrophees: string) {
     this.http.post<Trophee5e | Trophee4e>(GlobalConstants.apiUrl + 'trophees.php', { lienTrophees: lienTrophees, codeTrophees: codeTrophees }).subscribe(
       trophees => {
-        if (codeTrophees != '' && lienTrophees == '') {
+        if (codeTrophees != '' && lienTrophees == '' && trophees.peutDemanderEval != 'personne') {
           this.majCodeTrophees(codeTrophees)
         }
         this.trophees = trophees
