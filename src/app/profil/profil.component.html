@@ -20,7 +20,18 @@
     <div>
       <h2 class="title">Mon score : {{dataService.user.score}}</h2>
     </div>
+    <!-- Raccourcis -->
     <br>
+    <div *ngIf="dataService.user.derniereSequence != '' || dataService.user.dernierObjectif != ''">
+      <a *ngIf="dataService.user.derniereSequence != ''" [routerLink]="'/sequence/' + dataService.user.derniereSequence.split('!')[0]" routerLinkActive="active" >
+        <button [class]="'is-rounded px-4 subtitle is-' + dataService.user.derniereSequence.slice(1, 2) + 'e is-rounded is-clickable'"style="line-height: 2.1;"  [innerHTML]="dataService.user.derniereSequence.split('!')[1]"></button>
+      </a>
+      <br><br>
+      <a *ngIf="dataService.user.dernierObjectif != ''" [routerLink]="'/objectif/' + dataService.user.dernierObjectif.split('!')[0]" routerLinkActive="active" >
+        <button [class]="'is-rounded px-4 subtitle is-' + dataService.user.dernierObjectif.slice(0, 1) + 'e is-rounded is-clickable'"style="line-height: 2.1;"  [innerHTML]="dataService.user.dernierObjectif.split('!')[1]"></button>
+      </a>
+    </div>
+    <div *ngIf="dataService.user.derniereSequence != '' || dataService.user.dernierObjectif != ''"><br></div>
     <!-- Équipe -->
     <div *ngIf="dataService.user.teamName != ''">
       <a (click)="voirPageEquipe()">

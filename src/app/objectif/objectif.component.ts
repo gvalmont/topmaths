@@ -104,6 +104,8 @@ export class ObjectifComponent implements OnInit {
    */
   recupereAttributsObjectif(objectif: Objectif) {
     this.titre = `${objectif.reference} : ${objectif.titre}`
+    this.dataService.user.dernierObjectif = this.reference + '!' + this.titre
+    this.dataService.majProfil(['dernierObjectif'])
     this.rappelDuCoursHTML = objectif.rappelDuCoursHTML
     if (objectif.rappelDuCoursImage == '') {
       this.rappelDuCoursImage = '' // Au cas où l'attribut ne serait pas réinitialisé lors d'un changement de référence

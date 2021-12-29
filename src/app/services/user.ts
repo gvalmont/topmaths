@@ -13,9 +13,12 @@ export class User {
   public classement: number
   public teamName: string
   public scoreEquipe: number
+  public derniereSequence: string
+  public dernierObjectif: string
 
   constructor(id: number, identifiant: string, codeAvatar: string, lastLogin: string, lastAction: string, visible: string, pseudo: string, score: number,
-        codeTrophees: string, tropheesVisibles: string, cleScore: string, classement: number, teamName: string, scoreEquipe: number) {
+        codeTrophees: string, tropheesVisibles: string, cleScore: string, classement: number, teamName: string, scoreEquipe: number, derniereSequence: string,
+        dernierObjectif: string) {
     this.id = id
     this.identifiant = identifiant
     this.codeAvatar = codeAvatar
@@ -30,6 +33,8 @@ export class User {
     this.classement = classement
     this.teamName = teamName
     this.scoreEquipe = scoreEquipe
+    this.derniereSequence = derniereSequence
+    this.dernierObjectif = dernierObjectif
   }
 }
 export class UserSimplifie {

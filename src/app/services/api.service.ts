@@ -73,7 +73,9 @@ export class ApiService {
       cleScore: '',
       classement: 0,
       teamName: '',
-      scoreEquipe: 0
+      scoreEquipe: 0,
+      derniereSequence: '',
+      dernierObjectif: ''
     }
     this.infosEquipe = {
       leader: -1,
@@ -378,7 +380,9 @@ export class ApiService {
         cleScore: 'abc',
         classement: 9,
         teamName: 'PUF',
-        scoreEquipe: 0
+        scoreEquipe: 0,
+        derniereSequence: 'S4S5!Séquence 5 :<br>Théorème de Pythagore',
+        dernierObjectif: '4G20!4G20 : Calculer une longueur avec le théorème de Pythagore'
       }
       this.setToken('identifiant', this.user.identifiant)
       this.setToken('version', this.derniereVersionToken)
@@ -392,7 +396,9 @@ export class ApiService {
         'pseudo',
         'score',
         'codeTrophees',
-        'tropheesVisibles'])
+        'tropheesVisibles',
+        'derniereSequence',
+        'dernierObjectif'])
     } else {
       let loginPage: string
       secure ? loginPage = 'login.php' : loginPage = 'autologin.php'
@@ -414,7 +420,9 @@ export class ApiService {
             'pseudo',
             'score',
             'codeTrophees',
-            'tropheesVisibles'])
+            'tropheesVisibles',
+            'derniereSequence',
+            'dernierObjectif'])
           if (redirige) {
             const redirect = this.redirectUrl ? this.redirectUrl : 'profil';
             this.router.navigate([redirect]);
@@ -474,7 +482,9 @@ export class ApiService {
         cleScore: '',
         classement: 0,
         teamName: '',
-        scoreEquipe: 0
+        scoreEquipe: 0,
+        derniereSequence: '',
+        dernierObjectif: ''
       }
       this.http.post<User[]>(GlobalConstants.apiUrl + 'register.php', user).subscribe(users => {
         this.isloggedIn = true
@@ -490,7 +500,9 @@ export class ApiService {
           'pseudo',
           'score',
           'codeTrophees',
-          'tropheesVisibles'])
+          'tropheesVisibles',
+          'derniereSequence',
+          'dernierObjectif'])
         this.router.navigate(['profil'])
       }, error => {
         console.log(error)
@@ -739,7 +751,7 @@ export class ApiService {
     if (isDevMode()) {
       this.deleteToken('identifiant')
       this.deleteToken('version')
-      this.user = new User(0, '', '', '', '', '', '', 0, '', '', '', 0, '', 0)
+      this.user = new User(0, '', '', '', '', '', '', 0, '', '', '', 0, '', 0, '', '')
       this.isloggedIn = false
       this.profilModifie.emit([
         'identifiant',
@@ -750,14 +762,16 @@ export class ApiService {
         'pseudo',
         'score',
         'codeTrophees',
-        'tropheesVisibles'])
+        'tropheesVisibles',
+        'derniereSequence',
+        'dernierObjectif'])
       this.router.navigate(['accueil'])
     } else {
       this.http.post(GlobalConstants.apiUrl + 'logout.php', this.user).subscribe(
         data => {
           this.deleteToken('identifiant')
           this.deleteToken('version')
-          this.user = new User(0, '', '', '', '', '', '', 0, '', '', '', 0, '', 0)
+          this.user = new User(0, '', '', '', '', '', '', 0, '', '', '', 0, '', 0, '', '')
           this.isloggedIn = false
           this.profilModifie.emit([
             'identifiant',
@@ -768,7 +782,9 @@ export class ApiService {
             'pseudo',
             'score',
             'codeTrophees',
-            'tropheesVisibles'])
+            'tropheesVisibles',
+            'derniereSequence',
+            'dernierObjectif'])
           this.router.navigate(['accueil'])
         },
         error => {

@@ -113,6 +113,8 @@ export class SequenceComponent implements OnInit {
   recupereAttributsSequence(niveau: Niveau, sequence: Sequence) {
     this.numero = niveau.sequences.findIndex(sequence => { return sequence.reference == this.reference; }) + 1
     this.titre = `Séquence ${this.numero} :<br>${sequence.titre}`
+    this.dataService.user.derniereSequence = this.reference + '!' + this.titre
+    this.dataService.majProfil(['derniereSequence'])
     this.recupereObjectifsSequence(sequence)
     this.recupereQuestionsFlash(sequence)
     this.recupereCalculsMentaux(sequence)
