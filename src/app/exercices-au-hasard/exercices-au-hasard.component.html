@@ -1,34 +1,62 @@
 <div class="columns centre">
   <div class="column is-one-fifth"></div>
   <div class="column is-three-fifths">
-    <a [routerLink]="['/exercices-au-hasard/tranquille']">
-      <button class="button is-large is-success is-outlined p-6">
-        <p class="enorme">Tranquille</p>
-        &nbsp;
-        <i class="image is-48x48 is-inline-block"><img src="assets/img/cc0/cocktail-svgrepo-com.svg" /></i>
-      </button>
-    </a>
+    <div *ngIf="type != 'vitesse' && type != 'performance'" id='divtranquille'>
+      <a [routerLink]="['/exercices-au-hasard/tranquille']">
+        <button [ngClass]="{'button is-large is-success p-6': true, 'is-outlined' : type != 'tranquille'}">
+          <p class="enorme">Tranquille</p>
+          &nbsp;
+          <i class="image is-48x48 is-inline-block"><img src="assets/img/cc0/cocktail-svgrepo-com.svg" /></i>
+        </button>
+      </a>
+      <br>
+      <br>
+    </div>
+    <p *ngIf="type == 'tranquille'" class="is-size-4">Des exercices au hasard<br>sans contrainte de temps<br>qui rapportent <b>le double de points</b>.
+      <br>Tranquille !
+      <br>
+    </p>
+    <div *ngIf="type != 'tranquille' && type != 'performance'" id='divvitesse'>
+      <a [routerLink]="['/exercices-au-hasard/vitesse']">
+        <button [ngClass]="{'button is-large is-sponsor p-6': true, 'is-outlined' : type != 'vitesse'}">
+          <p class="enorme">Vitesse</p>
+          &nbsp;
+          <i class="image is-48x48 is-inline-block"><img src="assets/img/cc0/speedometer-svgrepo-com.svg" /></i>
+        </button>
+      </a>
+      <br>
+      <br>
+    </div>
+    <div *ngIf="type != 'tranquille' && type != 'vitesse'" id='divperformance'>
+      <a [routerLink]="['/exercices-au-hasard/performance']">
+        <button [ngClass]="{'button is-large is-link p-6': true, 'is-outlined' : type != 'performance'}">
+          <p class="enorme">Performance</p>
+          &nbsp;
+          <i class="image is-48x48 is-inline-block"><img src="assets/img/cc0/arm-8506.svg" /></i>
+        </button>
+      </a>
+      <br>
+      <br>
+    </div>
+    <p *ngIf="type == 'performance'" id="descriptionPerformance" class="is-size-4">Plus t'enchaînes les bonnes réponses, plus tu gagnes de points.<br>
+      Attention ! Si tu fais une erreur ou cliques sur "Nouvelles données",<br>
+      Tu recommences depuis le début !
+    </p>
     <br>
     <br>
-    <a [routerLink]="['/exercices-au-hasard']">
-      <button class="button is-large is-sponsor is-outlined p-6">
-        <p class="enorme">Vitesse</p>
-        &nbsp;
-        <i class="image is-48x48 is-inline-block"><img src="assets/img/cc0/speedometer-svgrepo-com.svg" /></i>
-      </button>
-    </a>
-    <br>
-    <br>
-    <a [routerLink]="['/exercices-au-hasard']">
-      <button class="button is-large is-link is-outlined p-6">
-        <p class="enorme">Performance</p>
-        &nbsp;
-        <i class="image is-48x48 is-inline-block"><img src="assets/img/cc0/arm-8506.svg" /></i>
-      </button>
-    </a>
+    <div *ngIf="type != '' && type != null" class="tabs is-large is-centered">
+      <ul class="tabs-menu is-not-menu">
+        <!-- <li class="px-2"><a class="px-4 subtitle is-6e is-rounded is-clickable" (click)="lancerTranquille('6e')">6ème</a></li> -->
+        <li class="px-2"><a class="px-4 subtitle is-5e is-rounded is-clickable" (click)="lancerExercices('5e')">5ème</a></li>
+        <li class="px-2"><a class="px-4 subtitle is-4e is-rounded is-clickable" (click)="lancerExercices('4e')">4ème</a></li>
+        <li class="px-2"><a class="px-4 subtitle is-3e is-rounded is-clickable" (click)="lancerExercices('3e')">3ème</a></li>
+        <li class="px-2"><a class="px-4 subtitle is-tout is-rounded is-clickable" (click)="lancerExercices('tout')">Tout</a></li>
+      </ul>
+    </div>
   </div>
   <div class="column is-one-fifth">
     <!-- Utilisateurs connectés -->
     <app-whosonline></app-whosonline>
   </div>
 </div>
+<app-modale-exercices [infosModale]="infosModale" (modaleFermee)="scrollBack()"></app-modale-exercices>

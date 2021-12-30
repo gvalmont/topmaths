@@ -87,10 +87,8 @@ export class ModaleExercicesComponent implements OnInit {
               if (type == '') {
                 this.hideLoadingScreen()
               } else if (type == 'tranquille') {
-                if (exercicesDejaFaits.length > 1 && urlDejaFaits.includes(url.split('&serie=')[0].split(',i=')[0])) {
-                  this.displayLoadingScreen()
-                  this.set('indiceExerciceActuel', [((indiceExerciceActuel + 1) % this.listeDesUrl.length).toString()])
-                  this.ajouteIframe(this.infosModale[0][listeDesIndices[indiceExerciceActuel]])
+                if (urlDejaFaits.includes(url.split('&serie=')[0].split(',i=')[0])) {
+                  this.exerciceSuivant()
                 } else {
                   this.hideLoadingScreen()
                 }
@@ -127,6 +125,11 @@ export class ModaleExercicesComponent implements OnInit {
                           this.confetti.lanceConfetti()
                         }
                       }
+                      if(type == 'tranquille') {
+                        if (url.slice(0, 25) == 'https://mathsmentales.net') {
+                          setTimeout(() => this.exerciceSuivant(), 3000)
+                        }
+                      }
                     }
                     if (url.slice(0, 25) == 'https://mathsmentales.net') {
                       exercice.lien = `${url.split(',a=')[0]},a=${graine}${url.split(',a=')[1]}`
@@ -142,6 +145,18 @@ export class ModaleExercicesComponent implements OnInit {
         }
       })
     }
+  }
+
+  /**
+   * Affiche l'exercice aléatoire suivant.
+   */
+  exerciceSuivant() {
+    const indiceExerciceActuel = this.getNb('indiceExerciceActuel')
+    const listeDesIndices = this.getNbL('listeDesIndices')
+    this.set('indiceExerciceActuel', [((indiceExerciceActuel + 1) % this.listeDesUrl.length).toString()])
+    const urlExerciceSuivant = this.infosModale[0][listeDesIndices[indiceExerciceActuel + 1]]
+    if (this.isMathalea(urlExerciceSuivant)) this.displayLoadingScreen()
+    this.ajouteIframe(urlExerciceSuivant)
   }
 
   /**
