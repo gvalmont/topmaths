@@ -24,7 +24,7 @@ export class ObjectifComponent implements OnInit {
   presenceVideo: boolean
   dateDerniereReponse: Date
   exercicesDejaFaits: string[]
-  infosModale: [string[], string, Date]
+  infosModale: [string[], string, Date, number[]]
   bonneReponse: boolean
   ancre: string
   niveau: string
@@ -42,7 +42,7 @@ export class ObjectifComponent implements OnInit {
     this.exercicesDejaFaits = []
     this.presenceVideo = false
     this.dateDerniereReponse = new Date()
-    this.infosModale = [[''], '', new Date()]
+    this.infosModale = [[], '', new Date(), []]
     this.bonneReponse = false
     this.ancre = ''
     this.niveau = ''
@@ -177,7 +177,7 @@ export class ObjectifComponent implements OnInit {
    */
    ouvrirModaleExercices(lien: string | undefined, ancre: string) {
     if (typeof (lien) != 'undefined') {
-      this.infosModale = [[lien], '', new Date()]
+      this.infosModale = [[lien], '', new Date(), []]
       this.ancre = ancre
     }
   }

@@ -17,25 +17,29 @@ interface Exercice {
   styleUrls: ['./modale-exercices.component.css']
 })
 export class ModaleExercicesComponent implements OnInit {
-  @Input() infosModale: [string[], string, Date]
+  @Input() infosModale: [string[], string, Date, number[]]
   @Output() modaleFermee = new EventEmitter<boolean>();
   modale!: HTMLElement
   modaleUrl!: HTMLElement
   boutonRetour!: HTMLElement
   boutonFermer!: HTMLElement
   boutonCopier!: HTMLElement
+  affCoef!: HTMLElement
   lienSpinner: string
   site: string
-  iframe!: HTMLIFrameElement
   listeExercices: Exercice[]
-  listeDesUrl: string[]
+  interval: any
 
   constructor(private http: HttpClient, private dataService: ApiService, public confetti: ConfettiService) {
-    this.infosModale = [[''], '', new Date()]
+    this.infosModale = [[], '', new Date(), []]
     this.lienSpinner = ''
     this.site = ''
     this.listeExercices = []
-    this.listeDesUrl = []
+    this.set('indiceExerciceActuel', ['0'])
+    this.set('urlDejaFaits', [''])
+    this.set('exercicesDejaFaits', [''])
+    this.set('dateDerniereReponse', [(new Date()).toString()])
+    this.set('coef', [1])
     setTimeout(() => this.confetti.stop(), 3000) // Sinon un reliquat reste apparent
   }
 
@@ -47,11 +51,12 @@ export class ModaleExercicesComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (typeof (changes.infosModale) != 'undefined') {
       if (!changes.infosModale.isFirstChange()) {
-        this.listeDesUrl = changes.infosModale.currentValue[0]
+        this.set('listeDesUrl', changes.infosModale.currentValue[0])
         this.set('type', [changes.infosModale.currentValue[1]])
-        if (this.isMathsmentales(this.listeDesUrl[0].toString())) {
+        this.set('listeDesTemps', changes.infosModale.currentValue[3])
+        if (this.isMathsmentales(this.getStrL('listeDesUrl')[0].toString())) {
           this.site = 'mathsmentales'
-        } else if (this.isMathalea(this.listeDesUrl[0].toString())) {
+        } else if (this.isMathalea(this.getStrL('listeDesUrl')[0].toString())) {
           this.site = 'mathalea'
         }
         this.parametrage()
@@ -92,6 +97,15 @@ export class ModaleExercicesComponent implements OnInit {
                 } else {
                   this.hideLoadingScreen()
                 }
+              } else if (type == 'performance') {
+                this.hideLoadingScreen()
+                clearInterval(this.interval)
+                this.startTimer()
+                if (urlDejaFaits.includes(url.split('&serie=')[0].split(',i=')[0])) {
+                  this.set('coef', [1])
+                } else {
+                  this.set('urlDejaFaits', [this.getStr('urlDejaFaits') + '!' + url.split('&serie=')[0].split(',i=')[0]])
+                }
               }
             } else if (event.data.nbBonnesReponses != null) {
               // On cherche à quel exercice correspond ce message
@@ -110,10 +124,7 @@ export class ModaleExercicesComponent implements OnInit {
                     const stringExerciceDejaFait: string = url + graine + titre + slider
                     // On s'assure que les exercices soient différents pour ne pas ajouter plusieurs fois du score
                     if (!exercicesDejaFaits.includes(stringExerciceDejaFait)) {
-                      this.set('exercicesDejaFaits', [this.getStr('exercicesDejaFaits') + '!' + stringExerciceDejaFait])
-                      this.set('urlDejaFaits', [this.getStr('urlDejaFaits') + '!' + url.split('&serie=')[0].split(',i=')[0]])
-                      this.set('dateDerniereReponse', [(new Date()).toString()])
-                      const majScore: number = exercice.score * nbBonnesReponses * coef
+                      const majScore: number = Math.ceil(exercice.score * nbBonnesReponses * coef)
                       if (majScore > 0) {
                         this.dataService.majScore(majScore, exercice.lien, type)
                         let divBonneReponse = document.createElement('div')
@@ -125,10 +136,28 @@ export class ModaleExercicesComponent implements OnInit {
                           this.confetti.lanceConfetti()
                         }
                       }
-                      if(type == 'tranquille') {
+                      if (type == '') {
+                        this.set('exercicesDejaFaits', [this.getStr('exercicesDejaFaits') + '!' + stringExerciceDejaFait])
+                        this.set('urlDejaFaits', [this.getStr('urlDejaFaits') + '!' + url.split('&serie=')[0].split(',i=')[0]])
+                        this.set('dateDerniereReponse', [(new Date()).toString()])
+                      } else if (type == 'tranquille') {
+                        this.set('exercicesDejaFaits', [this.getStr('exercicesDejaFaits') + '!' + stringExerciceDejaFait])
+                        this.set('urlDejaFaits', [this.getStr('urlDejaFaits') + '!' + url.split('&serie=')[0].split(',i=')[0]])
+                        this.set('dateDerniereReponse', [(new Date()).toString()])
                         if (url.slice(0, 25) == 'https://mathsmentales.net') {
                           setTimeout(() => this.exerciceSuivant(), 3000)
                         }
+                      } else if (type == 'performance') {
+                        this.set('exercicesDejaFaits', [this.getStr('exercicesDejaFaits') + '!' + stringExerciceDejaFait])
+                        this.set('dateDerniereReponse', [(new Date()).toString()])
+                        clearInterval(this.interval)
+                        if (nbMauvaisesReponses == 0) {
+                          const coef = this.getNb('coef')
+                          this.set('coef', [coef + 0.2])
+                        } else {
+                          this.set('coef', [1])
+                        }
+                        setTimeout(() => this.exerciceSuivant(), 3000)
                       }
                     }
                     if (url.slice(0, 25) == 'https://mathsmentales.net') {
@@ -153,10 +182,11 @@ export class ModaleExercicesComponent implements OnInit {
   exerciceSuivant() {
     const indiceExerciceActuel = this.getNb('indiceExerciceActuel')
     const listeDesIndices = this.getNbL('listeDesIndices')
-    this.set('indiceExerciceActuel', [((indiceExerciceActuel + 1) % this.listeDesUrl.length).toString()])
-    const urlExerciceSuivant = this.infosModale[0][listeDesIndices[indiceExerciceActuel + 1]]
+    this.set('indiceExerciceActuel', [((indiceExerciceActuel + 1) % this.getStrL('listeDesUrl').length).toString()])
+    const urlExerciceSuivant = this.getStrL('listeDesUrl')[listeDesIndices[indiceExerciceActuel + 1]]
     if (this.isMathalea(urlExerciceSuivant)) this.displayLoadingScreen()
     this.ajouteIframe(urlExerciceSuivant)
+    this.resetProgressBar()
   }
 
   /**
@@ -228,6 +258,17 @@ export class ModaleExercicesComponent implements OnInit {
     if (element != null) this.boutonCopier = element
     element = document.getElementById("modal-cross")
     if (element != null) this.boutonFermer = element
+    element = document.getElementById("aff-coef")
+    if (element != null) this.affCoef = element
+  }
+
+  resetProgressBar() {
+    const divTimeLeft = document.getElementById('timeLeft')
+    if (divTimeLeft != null) {
+      divTimeLeft.style.transition = ''
+      divTimeLeft.style.width = '100%'
+      divTimeLeft.style.transition = '2s'
+    }
   }
 
   /**
@@ -237,23 +278,26 @@ export class ModaleExercicesComponent implements OnInit {
    * Ajoute l'iframe de l'exercice
    */
   parametrage() {
-    this.set('indiceExerciceActuel', ['0'])
-    this.set('urlDejaFaits', [''])
-    this.set('exercicesDejaFaits', [''])
-    this.set('dateDerniereReponse', [(new Date()).toString()])
     this.modale.style.display = 'block'
-    this.positionneLesBoutons()
     if (this.getStr('type') == '') {
       if (this.site == 'mathalea') this.displayLoadingScreen()
-      this.set('coef', ['1'])
-      this.ajouteIframe(this.infosModale[0][this.getNb('indiceExerciceActuel')])
+      this.set('coef', [1])
+      const url = this.getStrL('listeDesUrl')[this.getNb('indiceExerciceActuel')]
+      this.ajouteIframe(url)
     } else if (this.getStr('type') == 'tranquille') {
-      this.set('coef', ['2'])
+      this.set('coef', [2])
       this.creeListeIndicesExercices()
-      const url = this.infosModale[0][this.getNbL('listeDesIndices')[this.getNb('indiceExerciceActuel')]]
+      const url = this.getStrL('listeDesUrl')[this.getNbL('listeDesIndices')[this.getNb('indiceExerciceActuel')]]
+      if (this.isMathalea(url)) this.displayLoadingScreen()
+      this.ajouteIframe(url)
+    } else if (this.getStr('type') == 'performance') {
+      this.set('coef', [1])
+      this.creeListeIndicesExercices()
+      const url = this.getStrL('listeDesUrl')[this.getNbL('listeDesIndices')[this.getNb('indiceExerciceActuel')]]
       if (this.isMathalea(url)) this.displayLoadingScreen()
       this.ajouteIframe(url)
     }
+    this.positionneLesBoutons()
   }
 
   /**
@@ -261,7 +305,7 @@ export class ModaleExercicesComponent implements OnInit {
    */
   creeListeIndicesExercices() {
     let liste = []
-    for (let i = 0; i < this.listeDesUrl.length; i++) {
+    for (let i = 0; i < this.getStrL('listeDesUrl').length; i++) {
       liste.push(i)
     }
     this.set('listeDesIndices', this.shuffle(liste))
@@ -272,24 +316,30 @@ export class ModaleExercicesComponent implements OnInit {
    * pour éviter des comportements bizarres si on charge plusieurs fois d'affilée la même page
    */
   ajouteIframe(url: string) {
-    this.iframe = document.createElement('iframe')
-    this.iframe.id = 'iframeExercice1'
-    this.iframe.width = '100%'
-    this.iframe.height = '100%'
-    this.iframe.className = 'has-ratio'
-    this.iframe.src = url
-
-    if (this.modale.lastChild != null) {
-      const iframe = document.getElementById('iframeExercice1')
-      if (iframe == null) this.modale.appendChild(this.iframe)
-      else this.modale.replaceChild(this.iframe, this.modale.lastChild)
+    const iframeActuel = document.getElementById('iframeExercice1');
+    let parent = <Node>this.modale // Pour le premier iframe
+    if (iframeActuel != null && iframeActuel.parentNode != null) {
+      parent = iframeActuel.parentNode // Pour tous les suivants car la référence this.modale n'est plus valide lorsque lancée depuis un ancien listener
+      parent.removeChild(iframeActuel);
     }
+    let nouvelIframe = document.createElement('iframe')
+    nouvelIframe.id = 'iframeExercice1'
+    nouvelIframe.width = '100%'
+    nouvelIframe.height = '100%'
+    nouvelIframe.className = 'has-ratio'
+    nouvelIframe.src = url
+    parent.appendChild(nouvelIframe)
   }
 
   /**
    * Positionne les boutons au bon endroit selon le site de l'exercice
    */
   positionneLesBoutons() {
+    if (this.getStr('type') == '' || this.getStr('type') == 'tranquille') {
+      this.affCoef.style.display = 'none'
+    } else {
+      this.affCoef.style.display = 'block'
+    }
     switch (this.site) {
       case 'mathalea':
         this.lienSpinner = '/assets/img/cc0/orange-spinner.svg'
@@ -328,6 +378,7 @@ export class ModaleExercicesComponent implements OnInit {
         this.boutonFermer.style.width = '30px'
         break;
     }
+    this.resetProgressBar()
   }
 
   /**
@@ -355,12 +406,59 @@ export class ModaleExercicesComponent implements OnInit {
   }
 
   /**
+   * Crée une progress bar
+   * le paramètre en fonction de la durée de l'exercice
+   * l'append au document (il ne réapparaît pas lorsqu'append à la modale)
+   */
+  startTimer() {
+    const indiceExerciceActuel = this.getNb('indiceExerciceActuel')
+    const listeDesIndices = this.getNbL('listeDesIndices')
+    const TIME_LIMIT = this.getNbL('listeDesTemps')[listeDesIndices[indiceExerciceActuel]]
+
+    let nouveauDivTimeLeft = document.createElement('div')
+    nouveauDivTimeLeft.id = 'divTimeLeft'
+    nouveauDivTimeLeft.style.width = '70%'
+    nouveauDivTimeLeft.style.backgroundColor = 'hsl(0, 0%, 86%)'
+    nouveauDivTimeLeft.style.height = '15px'
+    nouveauDivTimeLeft.style.position = 'fixed'
+    nouveauDivTimeLeft.style.left = '8%'
+    nouveauDivTimeLeft.style.top = '75px'
+    nouveauDivTimeLeft.style.borderRadius = '5000px'
+    nouveauDivTimeLeft.style.zIndex = '250'
+
+    let nouveauTimeLeft = document.createElement('div')
+    nouveauTimeLeft.id = 'timeLeft'
+    nouveauTimeLeft.style.width = '100%'
+    nouveauTimeLeft.style.height = '15px'
+    nouveauTimeLeft.style.backgroundColor = 'hsl(141, 71%, 48%)'
+    nouveauTimeLeft.style.transition = '2s'
+    nouveauTimeLeft.style.borderRadius = '5000px'
+
+    let timePassed = 2, timeLeft = 0 // Pour compenser la transition de 2s du css
+    this.interval = setInterval(() => {
+      timePassed = timePassed += 1;
+      timeLeft = TIME_LIMIT - timePassed;
+      nouveauTimeLeft.style.width = (Math.floor((timeLeft / TIME_LIMIT) * 1000) / 10).toString() + '%'
+    }, 1000);
+
+    nouveauDivTimeLeft.appendChild(nouveauTimeLeft)
+
+    const divActuel = document.getElementById('divTimeLeft')
+    if (divActuel != null) divActuel.remove()
+    document.body.appendChild(nouveauDivTimeLeft)
+  }
+
+  /**
    * Cache la modale
    */
   fermerModale() {
     this.modaleFermee.emit(true)
-    if (this.modale.lastChild != null) this.modale.removeChild(this.modale.lastChild)
+    const iframe = document.getElementById('iframeExercice1')
+    if (iframe != null && iframe.parentNode != null) iframe.parentNode.removeChild(iframe)
     this.modale.style.display = "none"
+    const divTimeLeft = document.getElementById('divTimeLeft')
+    if (divTimeLeft != null) divTimeLeft.remove()
+    clearInterval(this.interval)
     this.hideLoadingScreen()
   }
 
@@ -405,6 +503,15 @@ export class ModaleExercicesComponent implements OnInit {
       chaine = str.slice(0, str.length - 1)
     }
     sessionStorage.setItem('ME' + tag, chaine)
+    if (tag == 'coef') {
+      const divCoef = document.getElementById('aff-coef')
+      if (divCoef != null) {
+        divCoef.innerHTML = ('&times;' + valeurs[0].toString()).replace('.', ',')
+        divCoef.classList.add('booboom')
+        setTimeout(() => { divCoef.classList.remove('booboom') }, 1000);
+      }
+
+    }
   }
 
   /**
@@ -414,7 +521,7 @@ export class ModaleExercicesComponent implements OnInit {
    */
   getNb(tag: string) {
     const nb = sessionStorage.getItem('ME' + tag)
-    if (nb != null) return parseInt(nb)
+    if (nb != null) return parseFloat(nb)
     else return 0
   }
 

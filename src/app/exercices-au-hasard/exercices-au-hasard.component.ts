@@ -19,11 +19,11 @@ interface Exercice {
   styleUrls: ['./exercices-au-hasard.component.css']
 })
 export class ExercicesAuHasardComponent implements OnInit {
-  infosModale: [string[], string, Date]
+  infosModale: [string[], string, Date, number[]]
   type: string
 
   constructor(public http: HttpClient, private route: ActivatedRoute, private viewportScroller: ViewportScroller) {
-    this.infosModale = [[''], '', new Date()]
+    this.infosModale = [[], '', new Date(), []]
     this.type = ''
   }
 
@@ -32,10 +32,10 @@ export class ExercicesAuHasardComponent implements OnInit {
   }
 
   /**
-   * Scroll jusque la description au retour de la modale d'exercice
+   * Remonte jusqu'au menu au retour de la modale d'exercice
    */
   scrollBack() {
-    this.viewportScroller.scrollToAnchor('div' + this.type)
+    this.viewportScroller.scrollToPosition([0, 0])
   }
 
   /**
@@ -86,6 +86,7 @@ export class ExercicesAuHasardComponent implements OnInit {
       }
       let listeExercices: Exercice[] = []
       let listeDesUrl: string[] = []
+      let listeDesTemps: number[] = []
       this.http.get<NiveauObjectif[]>('assets/data/objectifs.json').subscribe(niveaux => {
         for (const niveau of niveaux) {
           for (const theme of niveau.themes) {
@@ -95,10 +96,12 @@ export class ExercicesAuHasardComponent implements OnInit {
                   if (reference == objectif.reference) {
                     for (const exercice of objectif.exercices) {
                       if (exercice.isInteractif) {
+                        let temps: string = ''
+                        if (this.type != '' && this.type != 'tranquille') temps = '&duree=' + exercice.temps / 2
                         listeExercices.push({
                           id: exercice.id,
                           slug: exercice.slug,
-                          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&v=can&z=1.5`,
+                          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&v=can&z=1.5${temps}`,
                           score: exercice.score
                         })
                         listeExercices[listeExercices.length - 1].lien = listeExercices[listeExercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
@@ -108,6 +111,7 @@ export class ExercicesAuHasardComponent implements OnInit {
                           listeExercices[listeExercices.length - 1].lien = exercice.slug
                         }
                         listeDesUrl.push(listeExercices[listeExercices.length - 1].lien)
+                        listeDesTemps.push(exercice.temps / 2)
                       }
                     }
                   }
@@ -125,7 +129,7 @@ export class ExercicesAuHasardComponent implements OnInit {
             listeDesId.push(exercice.id)
           }
         }
-        this.infosModale = [listeDesUrl, this.type, new Date()]
+        this.infosModale = [listeDesUrl, this.type, new Date(), listeDesTemps]
       })
     })
   }

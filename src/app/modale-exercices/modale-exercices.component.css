@@ -1,9 +1,17 @@
+#modaleExercices{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
 #loading > img {
 	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-  z-index: 250;
+  z-index: 200;
   max-width: 300px;
   max-height: 300px;
 }
@@ -13,7 +21,7 @@
   left: 20px;
   top: 0px;
   width: 30px;
-  z-index: 300;
+  z-index: 150;
 }
 
 #modal-copy, .modal-copy {
@@ -21,7 +29,7 @@
   right: 80px;
   top: 35px;
   width: 30px;
-  z-index: 300;
+  z-index: 150;
 }
 
 #modal-cross, .modal-cross {
@@ -29,5 +37,28 @@
   right: 20px;
   top: 35px;
   width: 30px;
-  z-index: 300;
+  z-index: 150;
+}
+
+#aff-coef {
+  position: fixed;
+  right: 140px;
+  top: 20px;
+  z-index: 150;
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.booboom {
+  animation: Booboom 0.3s;
+}
+
+@keyframes Booboom {
+  0%, 100% {
+    transform:  scale(1);
+  
+  }
+  50% {
+    transform:  scale(1.6);
+  }
 }
