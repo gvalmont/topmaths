@@ -84,10 +84,16 @@ export class ModaleExercicesComponent implements OnInit {
           const url: string = event.data.url;
           if (typeof (url) != 'undefined') {
             if (event.data.exercicesAffiches == true) {
-              this.hideLoadingScreen()
-              if (exercicesDejaFaits.length > 0 && type != '' && urlDejaFaits.includes(url.split('&serie=')[0].split(',i=')[0])) {
-                this.set('indiceExerciceActuel', [((indiceExerciceActuel + 1) % this.listeDesUrl.length).toString()])
-                this.ajouteIframe(this.infosModale[0][listeDesIndices[indiceExerciceActuel]])
+              if (type == '') {
+                this.hideLoadingScreen()
+              } else if (type == 'tranquille') {
+                if (exercicesDejaFaits.length > 1 && urlDejaFaits.includes(url.split('&serie=')[0].split(',i=')[0])) {
+                  this.displayLoadingScreen()
+                  this.set('indiceExerciceActuel', [((indiceExerciceActuel + 1) % this.listeDesUrl.length).toString()])
+                  this.ajouteIframe(this.infosModale[0][listeDesIndices[indiceExerciceActuel]])
+                } else {
+                  this.hideLoadingScreen()
+                }
               }
             } else if (event.data.nbBonnesReponses != null) {
               // On cherche à quel exercice correspond ce message
