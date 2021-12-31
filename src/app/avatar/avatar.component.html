@@ -91,12 +91,12 @@
     <!-- Boutons -->
     <div class="columns">
       <div class="column is-5 is-flex is-align-items-center is-justify-content-center">
-        <button (click)="fermerModaleConfirmation()" class="button is-danger">Annuler</button>
+        <button (click)="fermerModaleConfirmation(redirection)" class="button is-danger">Non</button>
       </div>
       <div class="column is-2 is-flex is-align-items-center is-justify-content-center">
       </div>
       <div class="column is-5 is-flex is-align-items-center is-justify-content-center">
-        <button (click)="majProfil()" class="button is-success">Enregistrer</button>
+        <button (click)="empecherNavigation = false; majProfil(redirection)" class="button is-success">Oui</button>
       </div>
     </div>
     <br>

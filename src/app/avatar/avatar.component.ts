@@ -48,9 +48,12 @@ export class AvatarComponent implements OnInit {
   hair: number
   panel!: HTMLElement
   svgDiv!: HTMLElement
+  event$: any
   ongletActif: string
   modaleConfirmation!: HTMLElement
   confirmationSvgDiv!: HTMLElement
+  empecherNavigation: boolean
+  redirection: string
 
   constructor(private http: HttpClient, public dataService: ApiService, private route: ActivatedRoute, private router: Router) {
     this.skinColor = 'rgba(243, 237, 232, 1)'
@@ -62,6 +65,8 @@ export class AvatarComponent implements OnInit {
     this.accessoires = [0]
     this.hair = 0
     this.ongletActif = 'couleur'
+    this.empecherNavigation = true
+    this.redirection = '/profil'
   }
 
   ngOnInit(): void {
@@ -69,12 +74,33 @@ export class AvatarComponent implements OnInit {
     if (div != null) this.panel = div
     div = document.getElementById('svgDiv')
     if (div != null) this.svgDiv = div
+    this.recupereOngletActif()
     this.recupereParametresActuels()
     this.initPage()
     div = document.getElementById("modaleConfirmation")
     if (div != null) this.modaleConfirmation = div
     div = document.getElementById("confirmationSvgDiv")
     if (div != null) this.confirmationSvgDiv = div
+  }
+
+  ngOnDestroy() {
+    this.event$.unsubscribe();
+  }
+
+  /**
+   * Récupère l'onglet actif à partir de l'url pour le mettre en surbrillance
+   */
+  recupereOngletActif() {
+    this.event$ = this.router.events.subscribe((event: NavigationEvent) => {
+      if (event instanceof NavigationStart) {
+        if (this.empecherNavigation) {
+          this.router.navigate(['/profil/avatar'])
+          this.redirection = event.url
+          this.afficherModaleConfirmation()
+          this.empecherNavigation = false
+        }
+      }
+    });
   }
 
   /**
@@ -334,10 +360,10 @@ export class AvatarComponent implements OnInit {
    * Envoie les données de l'avatar au controlleur de l'api
    * redirige vers le profil
    */
-  majProfil() {
+  majProfil(redirection: string = '/profil') {
     this.modaleConfirmation.style.display = 'none'
     this.dataService.majAvatar(this.lienImage(), `${this.skinColor}&${this.eyes}&${this.eyebrows}&${this.mouth}&${this.accessoiresId(this.accessoires)}&${this.hair}&${this.hairColor}`)
-    this.router.navigate(['/profil'])
+    this.router.navigate([redirection])
   }
 
   /**
@@ -362,9 +388,14 @@ export class AvatarComponent implements OnInit {
 
   /**
    * Ferme la modale de confirmation
+   * Si la modale s'est affichée lorsque l'utilisateur voulait quitter la page, redirige vers là où il voulait aller
    */
-  fermerModaleConfirmation() {
+  fermerModaleConfirmation(redirection?: string) {
     this.modaleConfirmation.style.display = 'none'
+    if (!this.empecherNavigation) {
+      if (redirection) this.router.navigate([redirection])
+      else this.empecherNavigation = true
+    }
   }
 
   /**
