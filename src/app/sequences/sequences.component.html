@@ -1,36 +1,7 @@
 <div class="columns centre">
   <div class="column is-one-fifth"></div>
   <div class="column is-three-fifths">
-    <div class="tabs is-medium is-centered">
-      <ul class="tabs-menu is-rounded">
-        <li><a [ngClass]="{'subtitle is-4 is-tout is-left-side': true, 'is-active': ongletActif == 'tout'}" [routerLink]="['/sequences/tout']">Tout</a></li>
-        <li><a [ngClass]="{'subtitle is-4 is-6e': true, 'is-active': ongletActif == '6e'}" [routerLink]="['/sequences/6e']">6e</a></li>
-        <li *ngFor="let ligne of lignes;">
-          <a *ngIf="ligne.niveau != null && ligne.niveau != 'fin' && ligne.reference == null" [routerLink]="['/sequences', ligne.niveau]" [ngClass]="{'is-active': ongletActif == ligne.niveau, 'subtitle is-4': true, 'is-6e': ligne.niveau == '6e', 'is-5e': ligne.niveau == '5e', 'is-4e': ligne.niveau == '4e', 'is-3e is-right-side': ligne.niveau == '3e'}">{{ligne.niveau}}</a>
-        </li>
-      </ul>
-    </div>
-    <div class="container is-max-desktop">
-      <!-- Séquences particulières -->
-      <span *ngFor="let ligne of lignesParticulieres; index as i">
-        <h1 *ngIf="ligne.niveau != null && ligne.niveau != 'fin' && ligne.reference == null" class="title is-3 p-2 is-tout">{{ligne.niveau}}</h1>
-        <p *ngIf="ligne.reference != null" [ngClass]="{'is-tout': true, 'is-fin': lignesParticulieres[i].niveau != lignesParticulieres[i + 1].niveau}">
-          <a routerLink="/sequence/{{ligne.reference}}" routerLinkActive="active">
-            {{ligne.numero == 0 ? '' : 'Séquence ' + ligne.numero + ' : '}}{{ligne.titre}}<br>
-          </a>
-        </p>
-      </span>
-      <!-- Séquences normales -->
-      <span *ngFor="let ligne of lignes; index as i">
-        <div *ngIf="ligne.niveau != null && ligne.niveau != 'fin' && ligne.reference == null && (filtre.niveau == null || filtre.niveau == 'tout' || filtre.niveau == ligne.niveau)"><br></div>
-        <h1 *ngIf="ligne.niveau != null && ligne.niveau != 'fin' && ligne.reference == null && (filtre.niveau == null || filtre.niveau == 'tout' || filtre.niveau == ligne.niveau)"[class]="'title is-3 p-2 is-' + ligne.niveau">{{ligne.niveau}}</h1>
-        <p *ngIf="ligne.reference != null && ligne.niveau != 'fin' && (filtre.niveau == null || filtre.niveau == 'tout' || filtre.niveau == ligne.niveau)" [ngClass]="{'p-1': true, 'is-fin': lignes[i].niveau != lignes[i + 1].niveau, 'is-6e': ligne.niveau == '6e', 'is-5e': ligne.niveau == '5e', 'is-4e': ligne.niveau == '4e', 'is-3e': ligne.niveau == '3e'}">
-          <a routerLink="/sequence/{{ligne.reference}}" routerLinkActive="active">
-            {{ligne.numero == 0 ? '' : 'Séquence ' + ligne.numero + ' : '}}{{ligne.titre}}<br>
-          </a>
-        </p>
-      </span>
-    </div>
+    <app-liste-sequences></app-liste-sequences>
   </div>
   <div class="column is-one-fifth">
     <!-- Utilisateurs connectés -->

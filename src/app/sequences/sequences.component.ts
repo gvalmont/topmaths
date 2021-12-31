@@ -37,7 +37,6 @@ export class SequencesComponent implements OnInit {
 
   ngOnInit(): void {
     this.recupereParametresUrl()
-    this.recupereContenuLignesAAfficher()
   }
 
   ngOnDestroy() {
@@ -62,31 +61,5 @@ export class SequencesComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.filtre.niveau = params.niveau
     })
-  }
-
-  /**
-   * Récupère les niveaux, thèmes, sous-thèmes et références de objectifs.json et les ajoute à this.lignes pour pouvoir les afficher
-   */
-  recupereContenuLignesAAfficher() {
-    this.lignes = [] // va contenir toutes les lignes à afficher.
-    this.lignesParticulieres = []
-    this.http.get<SequenceParticuliere[]>('assets/data/sequencesParticulieres.json').subscribe(sequencesParticulieres => {
-      this.lignesParticulieres.push({ niveau: 'Séquences particulières'})
-        for (const sequence of sequencesParticulieres) {
-          this.lignesParticulieres.push({ niveau: 'Séquences particulières', reference: sequence.reference, titre: sequence.titre, numero: 0 })
-        }
-        this.lignesParticulieres.push({ niveau: 'fin'})
-      }
-    )
-    this.http.get<Niveau[]>('assets/data/sequences.json').subscribe(niveaux => {
-        for (const niveau of niveaux) {
-          this.lignes.push({ niveau: niveau.nom })
-          for (const sequence of niveau.sequences) {
-            this.lignes.push({ niveau: niveau.nom, reference: sequence.reference, titre: sequence.titre, numero: parseInt(sequence.reference.slice(3)) })
-          }
-          this.lignes.push({ niveau: 'fin'})
-        }
-      }
-    )
   }
 }
