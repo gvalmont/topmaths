@@ -185,6 +185,14 @@ export class ListeSequencesComponent implements OnInit {
         if (chkbox != null && chkbox.checked === true) sequences.push(ligne.reference)
       }
     }
-    this.selection.emit({niveaux: niveaux, sequences: sequences})
+    if (niveaux.length + sequences.length == 0) {
+      alert('Il faut choisir au moins une séquence !')
+      if (boutonsEnvoi != null) {
+        for (const boutonEnvoi of boutonsEnvoi) {
+          boutonEnvoi.disabled = false
+        }
+      }
+    }
+    else this.selection.emit({niveaux: niveaux, sequences: sequences})
   }
 }
