@@ -48,7 +48,6 @@ export class AvatarComponent implements OnInit {
   hair: number
   panel!: HTMLElement
   svgDiv!: HTMLElement
-  event$: any
   ongletActif: string
   modaleConfirmation!: HTMLElement
   confirmationSvgDiv!: HTMLElement
@@ -70,38 +69,12 @@ export class AvatarComponent implements OnInit {
     if (div != null) this.panel = div
     div = document.getElementById('svgDiv')
     if (div != null) this.svgDiv = div
-    this.recupereOngletActif()
     this.recupereParametresActuels()
     this.initPage()
     div = document.getElementById("modaleConfirmation")
     if (div != null) this.modaleConfirmation = div
     div = document.getElementById("confirmationSvgDiv")
     if (div != null) this.confirmationSvgDiv = div
-  }
-
-  ngOnDestroy() {
-    this.event$.unsubscribe();
-  }
-
-  /**
-   * Récupère l'onglet actif à partir de l'url pour le mettre en surbrillance
-   */
-  recupereOngletActif() {
-    this.event$ = this.router.events.subscribe((event: NavigationEvent) => {
-      if (event instanceof NavigationStart) {
-        this.ongletActif = event.url.split('/')[3]
-        this.initPage()
-      }
-    });
-  }
-
-  /**
-   * Récupère le paramètre de l'avatar à modifier de l'url
-   */
-  recupereParametresUrl() {
-    this.route.params.subscribe(params => {
-      this.ongletActif = params.parametre
-    })
   }
 
   /**

@@ -849,7 +849,7 @@
                     "slug": "4C34,n=4,video=https%3A%2F%2Fyoutu.be%2F0G9xWLl-0zg",
                     "score": 20,
                     "temps": 700,
-                    "isInteractif": true
+                    "isInteractif": false
                   }
                 ]
               }
@@ -979,7 +979,7 @@
                     "slug": "3L11,s=2,n=2",
                     "score": 20,
                     "temps": 550,
-                    "isInteractif": true
+                    "isInteractif": false
                   }
                 ]
               },
@@ -1002,21 +1002,21 @@
                     "slug": "4L11,s=1,n=2",
                     "score": 15,
                     "temps": 400,
-                    "isInteractif": true
+                    "isInteractif": false
                   },
                   {
                     "id": 4015,
                     "slug": "4L11,s=2,n=2",
                     "score": 20,
                     "temps": 500,
-                    "isInteractif": true
+                    "isInteractif": false
                   },
                   {
                     "id": 4016,
                     "slug": "4L11,s=3,n=2",
                     "score": 25,
                     "temps": 600,
-                    "isInteractif": true
+                    "isInteractif": false
                   }
                 ]
               },
@@ -1316,10 +1316,10 @@
                 "exercices": [
                   {
                     "id": 3003,
-                    "slug": "3L11-2,n=4",
+                    "slug": "3L11-2,n=1",
                     "score": 7,
                     "temps": 350,
-                    "isInteractif": true
+                    "isInteractif": false
                   }
                 ]
               },
@@ -1342,21 +1342,21 @@
                     "slug": "3L11,s=1,n=2",
                     "score": 8,
                     "temps": 150,
-                    "isInteractif": true
+                    "isInteractif": false
                   },
                   {
                     "id": 3005,
                     "slug": "3L11,s=2,n=2",
                     "score": 10,
                     "temps": 200,
-                    "isInteractif": true
+                    "isInteractif": false
                   },
                   {
                     "id": 3006,
                     "slug": "3L11-1,s=3,n=2",
                     "score": 20,
                     "temps": 400,
-                    "isInteractif": true
+                    "isInteractif": false
                   }
                 ]
               },
@@ -1379,21 +1379,21 @@
                     "slug": "3L11-4,s=1,n=2",
                     "score": 10,
                     "temps": 200,
-                    "isInteractif": true
+                    "isInteractif": false
                   },
                   {
                     "id": 3008,
                     "slug": "3L11-4,s=2,n=2",
                     "score": 15,
                     "temps": 250,
-                    "isInteractif": true
+                    "isInteractif": false
                   },
                   {
                     "id": 3009,
                     "slug": "3L11-4,s=3,n=2",
                     "score": 20,
                     "temps": 300,
-                    "isInteractif": true
+                    "isInteractif": false
                   }
                 ]
               },
@@ -1430,7 +1430,7 @@
                     "slug": "3L12,s=2,n=3",
                     "score": 10,
                     "temps": 300,
-                    "isInteractif": true
+                    "isInteractif": false
                   }
                 ]
               },
@@ -1529,7 +1529,7 @@
                     "slug": "3F10",
                     "score": 10,
                     "temps": 600,
-                    "isInteractif": true
+                    "isInteractif": false
                   },
                   {
                     "id": 3016,
@@ -1566,14 +1566,14 @@
                     "slug": "3F10",
                     "score": 10,
                     "temps": 600,
-                    "isInteractif": true
+                    "isInteractif": false
                   },
                   {
                     "id": 3019,
                     "slug": "3F13-1",
                     "score": 8,
                     "temps": 300,
-                    "isInteractif": true
+                    "isInteractif": false
                   }
                 ]
               }

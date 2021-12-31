@@ -11,37 +11,37 @@
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'couleur'}">
-          <a [routerLink]="['/profil/avatar/couleur']">
+          <a (click)="ongletActif = 'couleur'; initPage()">
             <span class="image is-96x96"><div id="skinColorMenu"></div></span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'yeux'}">
-          <a [routerLink]="['/profil/avatar/yeux']">
+          <a (click)="ongletActif = 'yeux'; initPage()">
             <span class="image is-96x96"><div id="eyesMenu"></div></span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'sourcils'}">
-          <a [routerLink]="['/profil/avatar/sourcils']">
+          <a (click)="ongletActif = 'sourcils'; initPage()">
             <span class="image is-96x96"><div id="eyebrowsMenu"></div></span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'bouche'}">
-          <a [routerLink]="['/profil/avatar/bouche']">
+          <a (click)="ongletActif = 'bouche'; initPage()">
             <span class="image is-96x96"><div id="mouthMenu"></div></span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'accessoires'}">
-          <a [routerLink]="['/profil/avatar/accessoires']">
+          <a (click)="ongletActif = 'accessoires'; initPage()">
             <span class="image is-96x96"><div id="accessoiresMenu"></div></span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'cheveux'}">
-          <a [routerLink]="['/profil/avatar/cheveux']">
+          <a (click)="ongletActif = 'cheveux'; initPage()">
             <span class="image is-96x96"><div id="hairMenu"></div></span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'couleurCheveux'}">
-          <a [routerLink]="['/profil/avatar/couleurCheveux']">
+          <a (click)="ongletActif = 'couleurCheveux'; initPage()">
             <span class="image is-96x96"><div id="hairColorMenu"></div></span>
           </a>
         </li>
