@@ -72,29 +72,33 @@
   color: hsl(0, 0%, 21%)
 }
 
-.is-tout, .is-tout a, .tabs-menu .subtitle.is-tout:not(:hover):not(.is-active) {
+.is-tout, .is-tout:not(.title) a, .tabs-menu .subtitle.is-tout:not(:hover):not(.is-active) {
   background-color: var(--lighttout);
   color: var(--basetout);
 }
 
-.is-6e, .is-6e a, .tabs-menu .subtitle.is-6e:not(:hover):not(.is-active) {
+.is-6e, .is-6e:not(.title) a, .tabs-menu .subtitle.is-6e:not(:hover):not(.is-active) {
   background-color: var(--light6e);
   color: var(--base6e);
 }
 
-.is-5e, .is-5e a, .tabs-menu .subtitle.is-5e:not(:hover):not(.is-active) {
+.is-5e, .is-5e:not(.title) a, .tabs-menu .subtitle.is-5e:not(:hover):not(.is-active) {
   background-color: var(--light5e);
   color: var(--base5e);
 }
 
-.is-4e, .is-4e a, .tabs-menu .subtitle.is-4e:not(:hover):not(.is-active) {
+.is-4e, .is-4e:not(.title) a, .tabs-menu .subtitle.is-4e:not(:hover):not(.is-active) {
   background-color: var(--light4e);
   color: var(--base4e);
 }
 
-.is-3e, .is-3e a, .tabs-menu .subtitle.is-3e:not(:hover):not(.is-active) {
+.is-3e, .is-3e:not(.title) a, .tabs-menu .subtitle.is-3e:not(:hover):not(.is-active) {
   background-color: var(--light3e);
   color: var(--base3e);
+}
+
+.is-tout.title a, .is-6e.title a, .is-5e.title a, .is-4e.title a, .is-3e.title a {
+  color: white;
 }
 
 /* Couleur des icônes */

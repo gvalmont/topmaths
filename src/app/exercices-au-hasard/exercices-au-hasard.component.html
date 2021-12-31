@@ -1,7 +1,7 @@
 <div class="columns centre">
   <div class="column is-one-fifth"></div>
   <div class="column is-three-fifths">
-    <div *ngIf="type != 'vitesse' && type != 'performance'" id='divtranquille'>
+    <div *ngIf="type != 'vitesse' && type != 'performance'">
       <a [routerLink]="['/exercices-au-hasard/tranquille']">
         <button [ngClass]="{'button is-large is-success p-6': true, 'is-outlined' : type != 'tranquille'}">
           <p class="enorme">Tranquille</p>
@@ -16,7 +16,7 @@
       <br>Tranquille !
       <br>
     </p>
-    <div *ngIf="type != 'tranquille' && type != 'performance'" id='divvitesse'>
+    <div *ngIf="type != 'tranquille' && type != 'performance'">
       <a [routerLink]="['/exercices-au-hasard/vitesse']">
         <button [ngClass]="{'button is-large is-sponsor p-6': true, 'is-outlined' : type != 'vitesse'}">
           <p class="enorme">Vitesse</p>
@@ -27,11 +27,11 @@
       <br>
       <br>
     </div>
-    <p *ngIf="type == 'vitesse'" class="is-size-4">Plus tu vas vite,<br>plus tu gagnes de points<br>
+    <p *ngIf="type == 'vitesse'" class="is-size-4">Plus tu vas vite,<br>plus tu gagnes de points.<br>
       Jusqu'à <b>5 fois plus !</b>
       <br>
     </p>
-    <div *ngIf="type != 'tranquille' && type != 'vitesse'" id='divperformance'>
+    <div *ngIf="type != 'tranquille' && type != 'vitesse'">
       <a [routerLink]="['/exercices-au-hasard/performance']">
         <button [ngClass]="{'button is-large is-link p-6': true, 'is-outlined' : type != 'performance'}">
           <p class="enorme">Performance</p>
