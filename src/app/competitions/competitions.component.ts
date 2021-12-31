@@ -1,7 +1,7 @@
 import { ViewportScroller } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, isDevMode, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, isDevMode, OnDestroy, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, NavigationStart, Event as NavigationEvent } from '@angular/router';
 import { GlobalConstants } from 'src/app/services/global-constants';
 import { Niveau as NiveauObjectif } from 'src/app/services/objectifs';
 import { Niveau as NiveauSequence } from 'src/app/services/sequences';
@@ -28,19 +28,42 @@ interface Exercice {
   templateUrl: './competitions.component.html',
   styleUrls: ['./competitions.component.css']
 })
-export class CompetitionsComponent implements OnInit {
+export class CompetitionsComponent implements OnInit, OnDestroy {
   infosModale: [string[], string, Date, number[]]
   type: string
   organisation: boolean
+  event$: any
+  redirection: string
 
   constructor(public http: HttpClient, private route: ActivatedRoute, private router: Router, private dataService: ApiService, private viewportScroller: ViewportScroller) {
     this.infosModale = [[], '', new Date(), []]
     this.type = ''
     this.organisation = false
+    this.redirection = ''
   }
 
   ngOnInit(): void {
     this.observeChangementsDeRoute()
+    this.surveilleLaNavigation()
+  }
+
+  ngOnDestroy() {
+    this.event$.unsubscribe();
+  }
+
+  /**
+   * Surveille la navigation pour éventuellement la bloquer si l'utilisateur veut quitter la page sans enregistrer son avatar
+   */
+  surveilleLaNavigation() {
+    this.event$ = this.router.events.subscribe((event: NavigationEvent) => {
+      if (event instanceof NavigationStart) {
+        if (this.getB('organisationEnCours')) {
+          this.router.navigate(['/competitions'])
+          this.redirection = event.url
+          this.afficherModaleConfirmation()
+        }
+      }
+    });
   }
 
   /**
@@ -164,6 +187,7 @@ export class CompetitionsComponent implements OnInit {
   organiserCompetition(competition: Competition) {
     if (isDevMode()) {
       this.router.navigate(['competitions'])
+      this.set('organisationEnCours', ['true'])
       console.log(competition)
     } else {
       this.http.post(GlobalConstants.apiUrl + 'organiserCompetition.php', competition).subscribe(
@@ -174,4 +198,121 @@ export class CompetitionsComponent implements OnInit {
         });
     }
   }
+
+  annulerOrganisation(redirection?: string) {
+    if (isDevMode()) {
+      this.set('organisationEnCours', ['false'])
+      if (redirection) this.router.navigate([redirection])
+    } else {
+      this.http.post(GlobalConstants.apiUrl + 'annulerCompetition.php', this.dataService.user.identifiant).subscribe(
+        data => {
+          this.set('organisationEnCours', ['false'])
+          if (redirection) this.router.navigate([redirection])
+        },
+        error => {
+          console.log(error)
+        });
+    }
+  }
+
+  /**
+   * append une copie de l'avatar à la modale de confirmation et l'affiche
+   */
+  afficherModaleConfirmation() {
+    const modaleConfirmation = document.getElementById("modaleConfirmation")
+    if (modaleConfirmation != null) modaleConfirmation.style.display = 'block'
+  }
+
+  /**
+   * Ferme la modale de confirmation
+   * Si la modale s'est affichée lorsque l'utilisateur voulait quitter la page, redirige vers là où il voulait aller
+   */
+  fermerModaleConfirmation(redirection?: string) {
+    const modaleConfirmation = document.getElementById("modaleConfirmation")
+    if (modaleConfirmation != null) modaleConfirmation.style.display = 'none'
+    if (redirection) {
+      this.router.navigate([redirection])
+    }
+  }
+
+  /**
+   * inscrit dans le localStorage les valeurs séparés par des '!' s'il y en a plusieurs
+   * @param tag nom de la "variable"
+   * @param valeurs 
+   */
+  set(tag: string, valeurs: string[] | number[]) {
+    let chaine: string
+    if (valeurs.length == 1) {
+      chaine = valeurs[0].toString()
+    } else {
+      let str = ''
+      for (const valeur of valeurs) {
+        str += valeur + '!'
+      }
+      chaine = str.slice(0, str.length - 1)
+    }
+    localStorage.setItem('Competition' + tag, chaine)
+  }
+
+  /**
+   * Récupère un nombre du localStorage
+   * @param tag nom de la "variable"
+   * @returns 
+   */
+  getB(tag: string) {
+    const bool = localStorage.getItem('Competition' + tag)
+    if (bool != null && bool == 'true') return true
+    else return false
+  }
+
+  /**
+   * Récupère un nombre du localStorage
+   * @param tag nom de la "variable"
+   * @returns 
+   */
+  getNb(tag: string) {
+    const nb = localStorage.getItem('Competition' + tag)
+    if (nb != null) return parseFloat(nb)
+    else return 0
+  }
+
+  /**
+   * Récupère un nombre[] du localStorage
+   * @param tag nom de la "variable"
+   * @returns 
+   */
+  getNbL(tag: string) {
+    const item = localStorage.getItem('Competition' + tag)
+    if (item != null) {
+      const listeStr = item.split('!')
+      let listeNb: number[] = []
+      for (const str of listeStr) {
+        listeNb.push(parseInt(str))
+      }
+      return listeNb
+    } else return [0]
+  }
+
+  /**
+   * Récupère un string du localStorage
+   * @param tag nom de la "variable"
+   * @returns 
+   */
+  getStr(tag: string) {
+    const str = localStorage.getItem('Competition' + tag)
+    if (str != null) return str
+    else return ''
+  }
+
+  /**
+   * Récupère un string[] du localStorage
+   * @param tag nom de la "variable"
+   * @returns 
+   */
+  getStrL(tag: string) {
+    const str = localStorage.getItem('Competition' + tag)
+    if (str != null) return str.split('!')
+    else return ['']
+  }
+  
 }

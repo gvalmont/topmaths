@@ -74,7 +74,7 @@ export class AvatarComponent implements OnInit {
     if (div != null) this.panel = div
     div = document.getElementById('svgDiv')
     if (div != null) this.svgDiv = div
-    this.recupereOngletActif()
+    this.surveilleLaNavigation()
     this.recupereParametresActuels()
     this.initPage()
     div = document.getElementById("modaleConfirmation")
@@ -88,9 +88,9 @@ export class AvatarComponent implements OnInit {
   }
 
   /**
-   * Récupère l'onglet actif à partir de l'url pour le mettre en surbrillance
+   * Surveille la navigation pour éventuellement la bloquer si l'utilisateur veut quitter la page sans enregistrer son avatar
    */
-  recupereOngletActif() {
+  surveilleLaNavigation() {
     this.event$ = this.router.events.subscribe((event: NavigationEvent) => {
       if (event instanceof NavigationStart) {
         if (this.empecherNavigation) {

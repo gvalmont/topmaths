@@ -66,3 +66,31 @@
   </div>
 </div>
 <app-modale-exercices [infosModale]="infosModale" (modaleFermee)="scrollBack()"></app-modale-exercices>
+
+<!-- Modale de confirmation -->
+<div id="modaleConfirmation" class="modal centre">
+  <div class="modal-background" (click)="fermerModaleConfirmation()"></div>
+  <div><br><br><br></div>
+  <div class="modal-content has-background-white">
+    <br><br>
+    <!-- Texte -->
+    <p>
+      Si tu quittes la page, la compétition que tu es en train d'organiser sera annulée.<br>
+      Qu'est-ce que tu veux faire ?
+    </p>
+    <br>
+    <!-- Boutons -->
+    <div class="columns">
+      <div class="column is-5">
+        <button (click)="fermerModaleConfirmation()" class="button is-success is-large">Rester</button><br>Continuer d'organiser cette compétition et rester sur la page
+      </div>
+      <div class="column is-2">
+      </div>
+      <div class="column is-5">
+        <button (click)="annulerOrganisation(redirection)" class="button is-danger is-large">Partir</button><br>Annuler cette compétition et partir
+      </div>
+    </div>
+    <br>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="fermerModaleConfirmation()"></button>
+</div>
