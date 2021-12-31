@@ -27,6 +27,10 @@
       <br>
       <br>
     </div>
+    <p *ngIf="type == 'vitesse'" class="is-size-4">Plus tu vas vite,<br>plus tu gagnes de points<br>
+      Jusqu'à <b>5 fois plus !</b>
+      <br>
+    </p>
     <div *ngIf="type != 'tranquille' && type != 'vitesse'" id='divperformance'>
       <a [routerLink]="['/exercices-au-hasard/performance']">
         <button [ngClass]="{'button is-large is-link p-6': true, 'is-outlined' : type != 'performance'}">
@@ -38,7 +42,7 @@
       <br>
       <br>
     </div>
-    <p *ngIf="type == 'performance'" id="descriptionPerformance" class="is-size-4">Plus t'enchaînes les bonnes réponses, plus tu gagnes de points.<br>
+    <p *ngIf="type == 'performance'" class="is-size-4">Plus t'enchaînes les bonnes réponses, plus tu gagnes de points.<br>
       Attention ! Si tu fais une erreur ou cliques sur "Nouvelles données",<br>
       Tu recommences depuis le début !
     </p>

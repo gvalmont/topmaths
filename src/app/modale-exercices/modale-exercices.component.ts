@@ -82,7 +82,6 @@ export class ModaleExercicesComponent implements OnInit {
         const urlDejaFaits = this.getStrL('urlDejaFaits')
         const indiceExerciceActuel = this.getNb('indiceExerciceActuel')
         const listeDesIndices = this.getNbL('listeDesIndices')
-        const coef: number = this.getNb('coef')
         const dateDerniereReponse: Date = new Date(this.getStr('dateDerniereReponse'))
         const dateNouvelleReponse = new Date()
         if (dateNouvelleReponse.getTime() - dateDerniereReponse.getTime() > 200) {
@@ -96,6 +95,16 @@ export class ModaleExercicesComponent implements OnInit {
                   this.exerciceSuivant()
                 } else {
                   this.hideLoadingScreen()
+                }
+              } else if (type == 'vitesse') {
+                this.hideLoadingScreen()
+                clearInterval(this.interval)
+                this.startTimer()
+                if (urlDejaFaits.includes(url.split('&serie=')[0].split(',i=')[0])) {
+                  this.exerciceSuivant()
+                } else {
+                  this.set('coef', [5])
+                  this.set('urlDejaFaits', [this.getStr('urlDejaFaits') + '!' + url.split('&serie=')[0].split(',i=')[0]])
                 }
               } else if (type == 'performance') {
                 this.hideLoadingScreen()
@@ -124,6 +133,7 @@ export class ModaleExercicesComponent implements OnInit {
                     const stringExerciceDejaFait: string = url + graine + titre + slider
                     // On s'assure que les exercices soient différents pour ne pas ajouter plusieurs fois du score
                     if (!exercicesDejaFaits.includes(stringExerciceDejaFait)) {
+                      const coef: number = this.getNb('coef')
                       const majScore: number = Math.ceil(exercice.score * nbBonnesReponses * coef)
                       if (majScore > 0) {
                         this.dataService.majScore(majScore, exercice.lien, type)
@@ -147,6 +157,11 @@ export class ModaleExercicesComponent implements OnInit {
                         if (url.slice(0, 25) == 'https://mathsmentales.net') {
                           setTimeout(() => this.exerciceSuivant(), 3000)
                         }
+                      } else if (type == 'vitesse') {
+                        this.set('exercicesDejaFaits', [this.getStr('exercicesDejaFaits') + '!' + stringExerciceDejaFait])
+                        this.set('dateDerniereReponse', [(new Date()).toString()])
+                        clearInterval(this.interval)
+                        setTimeout(() => this.exerciceSuivant(), 3000)
                       } else if (type == 'performance') {
                         this.set('exercicesDejaFaits', [this.getStr('exercicesDejaFaits') + '!' + stringExerciceDejaFait])
                         this.set('dateDerniereReponse', [(new Date()).toString()])
@@ -290,6 +305,12 @@ export class ModaleExercicesComponent implements OnInit {
       const url = this.getStrL('listeDesUrl')[this.getNbL('listeDesIndices')[this.getNb('indiceExerciceActuel')]]
       if (this.isMathalea(url)) this.displayLoadingScreen()
       this.ajouteIframe(url)
+    } else if (this.getStr('type') == 'vitesse') {
+      this.set('coef', [5])
+      this.creeListeIndicesExercices()
+      const url = this.getStrL('listeDesUrl')[this.getNbL('listeDesIndices')[this.getNb('indiceExerciceActuel')]]
+      if (this.isMathalea(url)) this.displayLoadingScreen()
+      this.ajouteIframe(url)
     } else if (this.getStr('type') == 'performance') {
       this.set('coef', [1])
       this.creeListeIndicesExercices()
@@ -339,6 +360,7 @@ export class ModaleExercicesComponent implements OnInit {
       this.affCoef.style.display = 'none'
     } else {
       this.affCoef.style.display = 'block'
+      this.affCoef.style.color = 'black'
     }
     switch (this.site) {
       case 'mathalea':
@@ -434,11 +456,36 @@ export class ModaleExercicesComponent implements OnInit {
     nouveauTimeLeft.style.transition = '2s'
     nouveauTimeLeft.style.borderRadius = '5000px'
 
-    let timePassed = 2, timeLeft = 0 // Pour compenser la transition de 2s du css
+    let timePassed = 2, timeLeft = 0, pourcentRestant = 0, bool1 = false, bool2 = false, bool3 = false, bool4 = false // Pour compenser la transition de 2s du css
     this.interval = setInterval(() => {
       timePassed = timePassed += 1;
       timeLeft = TIME_LIMIT - timePassed;
-      nouveauTimeLeft.style.width = (Math.floor((timeLeft / TIME_LIMIT) * 1000) / 10).toString() + '%'
+      pourcentRestant = Math.floor((timeLeft / TIME_LIMIT) * 1000) / 10
+      if (this.getStr('type') == 'vitesse') {
+        const pourcentCorrige = Math.floor(((timeLeft + 2) / TIME_LIMIT) * 1000) / 10
+        if (!bool1) {
+          if (pourcentCorrige < 90) {
+            this.set('coef', [4])
+            bool1 = true
+          }
+        } else if (!bool2) {
+          if (pourcentCorrige < 80) {
+            this.set('coef', [3])
+            bool2 = true
+          }
+        } else if (!bool3) {
+          if (pourcentCorrige < 60) {
+            this.set('coef', [2])
+            bool3 = true
+          }
+        } else if (!bool4) {
+          if (pourcentCorrige < 40) {
+            this.set('coef', [1])
+            bool4 = true
+          }
+        }
+      }
+      nouveauTimeLeft.style.width = pourcentRestant.toString() + '%'
     }, 1000);
 
     nouveauDivTimeLeft.appendChild(nouveauTimeLeft)
@@ -468,6 +515,8 @@ export class ModaleExercicesComponent implements OnInit {
   hideLoadingScreen() {
     const loadingDiv = document.getElementById('loading')
     if (loadingDiv != null) loadingDiv.style.display = 'none'
+    const divTimeLeft = document.getElementById('divTimeLeft')
+    if (divTimeLeft != null) divTimeLeft.style.display = 'block'
   }
 
   /**
@@ -476,6 +525,8 @@ export class ModaleExercicesComponent implements OnInit {
   displayLoadingScreen() {
     const loadingDiv = document.getElementById('loading')
     if (loadingDiv != null) loadingDiv.style.display = 'block'
+    const divTimeLeft = document.getElementById('divTimeLeft')
+    if (divTimeLeft != null) divTimeLeft.style.display = 'none'
   }
 
   /**
@@ -506,6 +557,20 @@ export class ModaleExercicesComponent implements OnInit {
     if (tag == 'coef') {
       const divCoef = document.getElementById('aff-coef')
       if (divCoef != null) {
+        if (this.getStr('type') == 'vitesse') {
+          const coef = valeurs[0]
+          const timeLeft = document.getElementById('timeLeft')
+          if (timeLeft != null) {
+            let couleur = ''
+            if (coef == 5) couleur = 'hsl(204, 86%, 53%)'
+            else if (coef == 4) couleur = 'hsl(141, 71%, 48%)'
+            else if (coef == 3) couleur = 'hsl(171, 100%, 41%)'
+            else if (coef == 2) couleur = 'hsl(48, 100%, 67%)'
+            else if (coef == 1) couleur = 'hsl(0, 0%, 48%)'
+            timeLeft.style.backgroundColor = couleur
+            divCoef.style.color = couleur
+          }
+        }
         divCoef.innerHTML = ('&times;' + valeurs[0].toString()).replace('.', ',')
         divCoef.classList.add('booboom')
         setTimeout(() => { divCoef.classList.remove('booboom') }, 1000);
