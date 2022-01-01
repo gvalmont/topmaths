@@ -538,22 +538,12 @@ export class ModaleExercicesComponent implements OnInit {
   }
 
   /**
-   * inscrit dans le sessionStorage les valeurs séparés par des '!' s'il y en a plusieurs
+   * Préfixe le tag de 'ME' et inscrit dans le localStorage les valeurs séparés par des '!' s'il y en a plusieurs
    * @param tag nom de la "variable"
    * @param valeurs 
    */
   set(tag: string, valeurs: string[] | number[]) {
-    let chaine: string
-    if (valeurs.length == 1) {
-      chaine = valeurs[0].toString()
-    } else {
-      let str = ''
-      for (const valeur of valeurs) {
-        str += valeur + '!'
-      }
-      chaine = str.slice(0, str.length - 1)
-    }
-    sessionStorage.setItem('ME' + tag, chaine)
+    this.dataService.set('ME' + tag, valeurs)
     if (tag == 'coef') {
       const divCoef = document.getElementById('aff-coef')
       if (divCoef != null) {
@@ -580,53 +570,39 @@ export class ModaleExercicesComponent implements OnInit {
   }
 
   /**
-   * Récupère un nombre du sessionStorage
+   * Préfixe le tag de 'ME' et récupère un nombre du localStorage
    * @param tag nom de la "variable"
    * @returns 
    */
   getNb(tag: string) {
-    const nb = sessionStorage.getItem('ME' + tag)
-    if (nb != null) return parseFloat(nb)
-    else return 0
+    return this.dataService.getNb('ME' + tag)
   }
 
   /**
-   * Récupère un nombre[] du sessionStorage
+   * Préfixe le tag de 'ME' et récupère un nombre[] du localStorage
    * @param tag nom de la "variable"
    * @returns 
    */
   getNbL(tag: string) {
-    const item = sessionStorage.getItem('ME' + tag)
-    if (item != null) {
-      const listeStr = item.split('!')
-      let listeNb: number[] = []
-      for (const str of listeStr) {
-        listeNb.push(parseInt(str))
-      }
-      return listeNb
-    } else return [0]
+    return this.dataService.getNbL('ME' + tag)
   }
 
   /**
-   * Récupère un string du sessionStorage
+   * Préfixe le tag de 'ME' et récupère un string du localStorage
    * @param tag nom de la "variable"
    * @returns 
    */
   getStr(tag: string) {
-    const str = sessionStorage.getItem('ME' + tag)
-    if (str != null) return str
-    else return ''
+    return this.dataService.getStr('ME' + tag)
   }
 
   /**
-   * Récupère un string[] du sessionStorage
+   * Préfixe le tag de 'ME' et récupère un string[] du localStorage
    * @param tag nom de la "variable"
    * @returns 
    */
   getStrL(tag: string) {
-    const str = sessionStorage.getItem('ME' + tag)
-    if (str != null) return str.split('!')
-    else return ['']
+    return this.dataService.getStrL('ME' + tag)
   }
 
   isMathalea(url: string) {

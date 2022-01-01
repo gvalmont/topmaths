@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Trophee4e, Trophee5e } from './trophees';
 import { Equipe } from './equipe';
 import { GlobalConstants } from './global-constants';
+import { Competition } from '../competitions/competitions.component';
 
 interface InfosEquipe {
   leader: number
@@ -33,6 +34,9 @@ interface Adjectif {
 })
 
 export class ApiService {
+  @Output() profilModifie: EventEmitter<string[]> = new EventEmitter();
+  @Output() participationCompetition: EventEmitter<Competition> = new EventEmitter();
+
   redirectUrl: string
   isloggedIn: boolean
   user: User
@@ -56,7 +60,6 @@ export class ApiService {
   lienAvatar: string
   styleAvatar: string
 
-  @Output() profilModifie: EventEmitter<string[]> = new EventEmitter();
   constructor(private http: HttpClient, private router: Router) {
     this.redirectUrl = ''
     this.user = {
@@ -116,6 +119,9 @@ export class ApiService {
     this.surveilleModificationsDuProfil()
     this.ecouteMessagesPost()
     this.recupereDonneesPseudos() // En cas de création d'un nouveau compte
+    setTimeout(() => {
+      this.participationCompetition.emit(this.getCompet()) // On vérifie si on est en train de participer à une compétition
+    }, 0); // Pour le lancer une fois que app.component soit prêt à le recevoir
   }
 
   /**
@@ -1128,5 +1134,146 @@ export class ApiService {
     if (input.length > 5) errGrandNbChar = true
     if (!this.onlyLettersAndNumbers(input)) errSpChar = true
     return (!defaut && !errSpChar && !errPetitNbChar && !errGrandNbChar)
+  }
+
+  /**
+   * Ecrit la compétition à laquelle l'utilisateur participe actuellement dans le localStorage
+   * @param competition 
+   * @returns 
+   */
+  setCompet(competition: Competition) {
+    this.set('Competition' + 'compet' + 'Actuelle' + 'organisateur', [competition.organisateur])
+    this.set('Competition' + 'compet' + 'Actuelle' + 'type', [competition.type])
+    this.set('Competition' + 'compet' + 'Actuelle' + 'niveaux', competition.niveaux)
+    this.set('Competition' + 'compet' + 'Actuelle' + 'sequences', competition.sequences)
+    this.set('Competition' + 'compet' + 'Actuelle' + 'listeDesUrl', competition.listeDesUrl)
+    this.set('Competition' + 'compet' + 'Actuelle' + 'listeDesTemps', competition.listeDesTemps)
+    this.set('Competition' + 'compet' + 'Actuelle' + 'minParticipants', [competition.minParticipants])
+    this.set('Competition' + 'compet' + 'Actuelle' + 'maxParticipants', [competition.maxParticipants])
+    this.participationCompetition.emit(competition)
+    return competition
+  }
+
+  /**
+   * Récupère du localStorage la compétition à laquelle l'utilisateur participe actuellement
+   * @returns 
+   */
+  getCompet() {
+    if (isDevMode()) {
+      const competition: Competition = {
+        organisateur: this.getStr('Competition' + 'compet' + 'Actuelle' + 'organisateur'),
+        type: this.getStr('Competition' + 'compet' + 'Actuelle' + 'type'),
+        niveaux: this.getStrL('Competition' + 'compet' + 'Actuelle' + 'niveaux'),
+        sequences: this.getStrL('Competition' + 'compet' + 'Actuelle' + 'sequences'),
+        listeDesUrl: this.getStrL('Competition' + 'compet' + 'Actuelle' + 'listeDesUrl'),
+        listeDesTemps: this.getNbL('Competition' + 'compet' + 'Actuelle' + 'listeDesTemps'),
+        minParticipants: this.getNb('Competition' + 'compet' + 'Actuelle' + 'minParticipants'),
+        maxParticipants: this.getNb('Competition' + 'compet' + 'Actuelle' + 'maxParticipants'),
+        participants: [{
+          id: this.user.id,
+          pseudo: this.user.pseudo,
+          codeAvatar: this.user.codeAvatar,
+          score: this.user.score,
+          lienTrophees: '',
+          classement: this.user.classement,
+          teamName: this.user.teamName,
+          scoreEquipe: this.user.scoreEquipe
+        }]
+      }
+      return competition
+    } else {
+      const competition: Competition = {
+        organisateur: this.getStr('Competition' + 'compet' + 'Actuelle' + 'organisateur'),
+        type: this.getStr('Competition' + 'compet' + 'Actuelle' + 'type'),
+        niveaux: this.getStrL('Competition' + 'compet' + 'Actuelle' + 'niveaux'),
+        sequences: this.getStrL('Competition' + 'compet' + 'Actuelle' + 'sequences'),
+        listeDesUrl: this.getStrL('Competition' + 'compet' + 'Actuelle' + 'listeDesUrl'),
+        listeDesTemps: this.getNbL('Competition' + 'compet' + 'Actuelle' + 'listeDesTemps'),
+        minParticipants: this.getNb('Competition' + 'compet' + 'Actuelle' + 'minParticipants'),
+        maxParticipants: this.getNb('Competition' + 'compet' + 'Actuelle' + 'maxParticipants'),
+        participants: []
+      }
+      return competition
+    }
+  }
+
+  /**
+   * Ecrit dans le localStorage les valeurs séparés par des '!' s'il y en a plusieurs
+   * @param tag nom de la "variable"
+   * @param valeurs 
+   */
+  set(tag: string, valeurs: string[] | number[]) {
+    let chaine: string
+    if (valeurs.length == 1) {
+      chaine = valeurs[0].toString()
+    } else {
+      let str = ''
+      for (const valeur of valeurs) {
+        str += valeur + '!'
+      }
+      chaine = str.slice(0, str.length - 1)
+    }
+    localStorage.setItem(tag, chaine)
+  }
+
+  /**
+   * Récupère un nombre du localStorage
+   * @param tag nom de la "variable"
+   * @returns 
+   */
+  getB(tag: string) {
+    const bool = localStorage.getItem(tag)
+    if (bool != null && bool == 'true') return true
+    else return false
+  }
+
+  /**
+   * Récupère un nombre du localStorage
+   * @param tag nom de la "variable"
+   * @returns 
+   */
+  getNb(tag: string) {
+    const nb = localStorage.getItem(tag)
+    if (nb != null) return parseFloat(nb)
+    else return 0
+  }
+
+  /**
+   * Récupère un nombre[] du localStorage
+   * @param tag nom de la "variable"
+   * @returns 
+   */
+  getNbL(tag: string) {
+    const item = localStorage.getItem(tag)
+    if (item != null) {
+      const listeStr = item.split('!')
+      let listeNb: number[] = []
+      for (const str of listeStr) {
+        listeNb.push(parseInt(str))
+      }
+      return listeNb
+    } else return [0]
+  }
+
+  /**
+   * Récupère un string du localStorage
+   * @param tag nom de la "variable"
+   * @returns 
+   */
+  getStr(tag: string) {
+    const str = localStorage.getItem(tag)
+    if (str != null) return str
+    else return ''
+  }
+
+  /**
+   * Récupère un string[] du localStorage
+   * @param tag nom de la "variable"
+   * @returns 
+   */
+  getStrL(tag: string) {
+    const str = localStorage.getItem(tag)
+    if (str != null) return str.split('!')
+    else return ['']
   }
 }
