@@ -1,5 +1,6 @@
 import { Component, isDevMode, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Router, NavigationStart, Event as NavigationEvent } from '@angular/router';
+import { Competition } from './competitions/competitions.component';
 import { ApiService } from './services/api.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { ApiService } from './services/api.service';
 export class AppComponent implements OnDestroy {
   ongletActif: string
   event$: any
+  competition: Competition
 
   constructor(private router: Router, public dataService: ApiService) {
     this.redirectionHTTPS()
@@ -18,6 +20,8 @@ export class AppComponent implements OnDestroy {
     this.recupereOngletActif()
     this.recupereProfil()
     this.observeChangementsDeRoute()
+    this.competition = { organisateur: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+    this.observeParticipationCompetitions()
   }
 
   ngOnDestroy() {
@@ -39,6 +43,15 @@ export class AppComponent implements OnDestroy {
         }
       }
     });
+  }
+
+  /**
+   * Surveille la participation à une compétition pour afficher une icone dans le bandeau principal
+   */
+  observeParticipationCompetitions() {
+    this.dataService.participationCompetition.subscribe(competition => {
+      this.competition = competition
+    })
   }
 
   /**
