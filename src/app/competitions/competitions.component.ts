@@ -255,6 +255,10 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     }
   }
 
+  lancerCompetition() {
+    
+  }
+
   /**
    * Récupère la liste des compétitions en cours et la stocke dans la variable this.competitionsEnCours
    */

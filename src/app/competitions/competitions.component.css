@@ -21,8 +21,11 @@
   border-radius: 5000px;
 }
 
-.container-competition {
+.container-competition.is-small {
   width: 300px;
+}
+
+.container-competition {
   line-height: 50px;
   margin:auto;
   border-radius: 0px 0px 20px 20px;

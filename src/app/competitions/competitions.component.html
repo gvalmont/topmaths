@@ -10,7 +10,7 @@
           <div [class]="'titre ' + competitionEnCours.type">
             {{competitionEnCours.type == 'bestOf10' ? 'Best of 10' : competitionEnCours.type == 'battleRoyale' ? 'Battle Royale' : ''}}
           </div>
-          <div [class]="'container-competition ' + competitionEnCours.type">
+          <div [class]="'container-competition is-small ' + competitionEnCours.type">
             <div class="is-flex is-align-items-center is-justify-content-center">
               <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(competitionEnCours.participants[0])"></figure>
               <span>{{ competitionEnCours.participants[0].pseudo }} &nbsp; &nbsp;</span>
@@ -42,11 +42,45 @@
         <br>
       </div>
       <br>
-      <div id="divCompetitionActuelle">
-        <button *ngIf="competitionActuelle.organisateur == ''" [routerLink]="['/competitions/organiser']" class="button is-link">Organiser une compétition</button>
-        <div *ngIf="competitionActuelle.organisateur != ''">
-          <br><br>
-          <button class="button is-danger" (click)="annulerOrganisation()">Annuler la compétition</button>
+      <button *ngIf="competitionActuelle.organisateur == ''" [routerLink]="['/competitions/organiser']" class="button is-link">Organiser une compétition</button>
+      <div id="divCompetitionActuelle" *ngIf="competitionActuelle.organisateur != ''">
+        <div [ngClass]="{'title is-2 has-text-white': true, 'has-background-link': competitionActuelle.type == 'bestOf10', 'has-background-danger': competitionActuelle.type == 'battleRoyale'}">
+          {{competitionActuelle.type == 'bestOf10' ? 'Best of 10' : competitionActuelle.type == 'battleRoyale' ? 'Battle Royale' : ''}}
+        </div>
+        <div [class]="'container-competition ' + competitionActuelle.type">
+          <div class="is-flex is-align-items-center is-justify-content-center">
+            <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(competitionActuelle.participants[0])"></figure>
+            <span>{{ competitionActuelle.participants[0].pseudo }} &nbsp; &nbsp;</span>
+            <i class="image is-48x48 is-inline-block"><img [src]="'assets/img/cc0/' + competitionActuelle.type + '-svgrepo-com.svg'" /></i>
+            <span>{{competitionActuelle.participants.length}} / {{competitionActuelle.maxParticipants}}</span>
+          </div>
+          <span *ngIf="competitionActuelle.niveaux[0] != ''">
+            <span *ngFor="let niveau of competitionActuelle.niveaux">
+              <span style="word-break: keep-all" [ngClass]="'hovertext px-4 subtitle is-rounded is-' + niveau" data-hover='Toutes les séquences de ce niveau'>{{ niveau }}</span>
+            </span>
+          </span>
+          <span *ngIf="competitionActuelle.niveaux[0] != ''">
+            <span style="word-break: keep-all" class="px-4 py-2 subtitle is-rounded bonus hovertext" data-hover="Les points de cette compétition sont doublés !">x2</span>
+          </span>
+          <span *ngIf="competitionActuelle.sequences[0] != ''">
+            <span *ngFor="let sequence of competitionActuelle.sequences; index as i">
+              <span style="word-break: keep-all" [ngClass]="'hovertext px-4 subtitle is-6 is-rounded is-' + sequence.slice(1, 2) + 'e'" data-hover='Juste ces séquences'>{{ sequence.slice(2) }}<span *ngIf="competitionActuelle.niveaux[0] == '' ? (i + 1) % 5 == 0 :((competitionActuelle.niveaux.length + i + 2) % 5 == 0)">
+                  <br>
+                </span>
+              </span>
+            </span>
+          </span>
+          <h1 class="title is-4">Liste des participants</h1>
+          <div *ngFor="let participant of competitionActuelle.participants">
+            <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(participant)"></figure>
+            <span>{{ participant.pseudo }} &nbsp; &nbsp;</span>
+          </div>
+          <div *ngIf="competitionActuelle.participants[0].id == dataService.user.id">
+            <br><br>
+            <button class="button is-danger" (click)="annulerOrganisation()">Annuler la compétition</button>
+            &nbsp; &nbsp;
+            <button class="button is-success" (click)="lancerCompetition()">Lancer la compétition</button>
+          </div>
         </div>
       </div>
     </div>
