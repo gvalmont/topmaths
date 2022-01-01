@@ -1,3 +1,65 @@
+.title {
+  border-radius: 50px 50px 0px 0px;
+  padding: 25px 50px 25px 50px;
+  margin-bottom: 0px;
+}
+
+.bas-arrondi {
+  border-radius: 0px 0px 50px 50px;
+}
+
 .subtitle.is-rounded {
   border-radius: 25px;
+}
+
+.bonus {
+  color: red;
+  background-color: white;
+  border-style: solid;
+  border-color: red;
+  border-width: 2px;
+  border-radius: 5000px;
+}
+
+.container-competition {
+  width: 300px;
+  line-height: 50px;
+  margin:auto;
+  border-radius: 0px 0px 20px 20px;
+  padding-bottom: 15px;
+}
+
+.titre {
+  width: 300px;
+  line-height: 40px;
+  margin:auto;
+  border-radius: 20px 20px 0px 0px;
+  color: white;
+  font-size: x-large;
+}
+
+.bestOf10, .battleRoyale {
+  background-color: white;
+  border-style: solid;
+  border-width: 2px;
+}
+
+.bestOf10 {
+  border-color:  #485fc7;
+}
+.bestOf10.titre {
+  background-color:  #485fc7;
+}
+.bestOf10 i {
+  filter: invert(29%) sepia(98%) saturate(796%) hue-rotate(203deg) brightness(101%) contrast(88%);
+}
+
+.battleRoyale {
+  border-color:  #f04767;
+}
+.battleRoyale.titre {
+  background-color:  #f04767;
+}
+.battleRoyale i {
+  filter: invert(37%) sepia(22%) saturate(2463%) hue-rotate(306deg) brightness(107%) contrast(100%);
 }

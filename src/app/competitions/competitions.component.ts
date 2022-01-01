@@ -1,19 +1,23 @@
 import { ViewportScroller } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, isDevMode, OnDestroy, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationStart, Event as NavigationEvent } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { GlobalConstants } from 'src/app/services/global-constants';
 import { Niveau as NiveauObjectif } from 'src/app/services/objectifs';
 import { Niveau as NiveauSequence } from 'src/app/services/sequences';
 import { ApiService } from '../services/api.service';
+import { UserSimplifie } from '../services/user';
 
-interface Competition {
+export interface Competition {
   organisateur: string
   type: string
   niveaux: string[]
   sequences: string[]
   listeDesUrl: string[]
   listeDesTemps: number[]
+  minParticipants: number
+  maxParticipants: number
+  participants: UserSimplifie[]
 }
 
 interface Exercice {
@@ -34,36 +38,37 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   organisation: boolean
   event$: any
   redirection: string
+  interval: any
+  competitionsEnCours: Competition[]
+  enCoursDeMaj: boolean
+  reactiveBoutonsEnvoi: Date
+  competitionActuelle: Competition
 
-  constructor(public http: HttpClient, private route: ActivatedRoute, private router: Router, private dataService: ApiService, private viewportScroller: ViewportScroller) {
+  constructor(public http: HttpClient, private route: ActivatedRoute, private router: Router, public dataService: ApiService, private viewportScroller: ViewportScroller) {
     this.infosModale = [[], '', new Date(), []]
     this.type = ''
     this.organisation = false
     this.redirection = ''
+    this.reactiveBoutonsEnvoi = new Date()
+    this.competitionActuelle = this.dataService.getCompet()
+    this.competitionsEnCours = []
+    this.enCoursDeMaj = false
+    this.getCompetitionsEnCours()
+    this.interval = setInterval(() => {
+      this.enCoursDeMaj = true
+      //this.getCompetitionsEnCours()
+      setTimeout(() => {
+        this.enCoursDeMaj = false
+      }, 500);
+    }, 5000);
   }
 
   ngOnInit(): void {
     this.observeChangementsDeRoute()
-    this.surveilleLaNavigation()
   }
 
-  ngOnDestroy() {
-    this.event$.unsubscribe();
-  }
-
-  /**
-   * Surveille la navigation pour éventuellement la bloquer si l'utilisateur veut quitter la page sans enregistrer son avatar
-   */
-  surveilleLaNavigation() {
-    this.event$ = this.router.events.subscribe((event: NavigationEvent) => {
-      if (event instanceof NavigationStart) {
-        if (this.getB('organisationEnCours')) {
-          this.router.navigate(['/competitions'])
-          this.redirection = event.url
-          this.afficherModaleConfirmation()
-        }
-      }
-    });
+  ngOnDestroy(): void {
+    clearInterval(this.interval)
   }
 
   /**
@@ -75,7 +80,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
 
   /**
    * Observe les changements de route,
-   * modifie ensuite les paramètres selon la référence
+   * modifie en fonction les booléens qui déterminent l'agencement de la page
    */
   observeChangementsDeRoute() {
     this.route.params.subscribe(params => {
@@ -85,11 +90,13 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Récupère la dernière séquence du niveau choisi
-   * Récupère la liste de tous les exercices depuis le début de l'année jusque cette séquence
-   * En devMode, vérifie qu'il n'y a pas de doublon au niveau des id
-   * Lance la modale exercices
-   * @param niveauChoisi 
+   * Récupère les références liées aux niveaux et aux séquences sélectionnés
+   * Récupère les url et les temps des exercices liés à ces références
+   * Détermine le minimum et le maximum de participants selon le type de compétition en cours d'organisation
+   * Vérifie s'il y a suffisamment d'exercices :
+   * si oui, lance l'organisation de la compétition
+   * si non, alerte l'utilisateur et réactive les boutons d'envoi de la liste des séquences
+   * @param selection de niveaux et de séquences 
    */
   recupererExercices(selection: { niveaux: string[], sequences: string[] }) {
     let derniereSequence: number
@@ -163,32 +170,57 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
             }
           }
         }
-        if (isDevMode()) {
-          let listeDesId: number[] = []
-          for (const exercice of listeExercices) {
-            for (const id of listeDesId) {
-              if (exercice.id == id) alert('id ' + id + ' trouvé 2 fois !')
-            }
-            listeDesId.push(exercice.id)
-          }
+        let minParticipants = 0, maxParticipants = 0
+        switch (this.type) {
+          case 'bestOf10':
+            minParticipants = 2
+            maxParticipants = 32
+            break;
+          case 'battleRoyale':
+            minParticipants = 2
+            maxParticipants = 100
+            break;
         }
-        this.organiserCompetition({
-          organisateur: this.dataService.user.identifiant,
-          type: this.type,
-          niveaux: selection.niveaux,
-          sequences: selection.sequences,
-          listeDesUrl: listeDesUrl,
-          listeDesTemps: listeDesTemps
-        })
+        if (listeDesUrl.length <= 0) {
+          alert("Il n'y a pas assez d'exercices !")
+          this.reactiveBoutonsEnvoi = new Date()
+        } else {
+          this.organiserCompetition({
+            organisateur: this.dataService.user.pseudo,
+            type: this.type,
+            niveaux: selection.niveaux,
+            sequences: selection.sequences,
+            listeDesUrl: listeDesUrl,
+            listeDesTemps: listeDesTemps,
+            minParticipants: minParticipants,
+            maxParticipants: maxParticipants,
+            participants: [{
+              id: this.dataService.user.id,
+              pseudo: this.dataService.user.pseudo,
+              codeAvatar: this.dataService.user.codeAvatar,
+              score: this.dataService.user.score,
+              lienTrophees: '',
+              classement: this.dataService.user.classement,
+              teamName: this.dataService.user.teamName,
+              scoreEquipe: this.dataService.user.scoreEquipe
+            }]
+          })
+        }
       })
     })
   }
 
+  /**
+   * Ecrit la compétition passée en paramètre dans le localStorage et dans la variable this.competitionActuelle
+   * Déplace l'utilisateur vers la page Competitions
+   * Ecrit dans le localStore que l'utilisateur est en train d'organiser une compétition
+   * @param competition 
+   */
   organiserCompetition(competition: Competition) {
     if (isDevMode()) {
-      this.router.navigate(['competitions'])
+      this.competitionActuelle = this.dataService.setCompet(competition)
+      this.router.navigate(['/competitions'])
       this.set('organisationEnCours', ['true'])
-      console.log(competition)
     } else {
       this.http.post(GlobalConstants.apiUrl + 'organiserCompetition.php', competition).subscribe(
         data => {
@@ -199,10 +231,18 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Efface la compétition actuelle de la variable this.competitionActuelle et du localStorage
+   * Ecrit dans le localStorage que l'utilisateur n'est pas en train d'organiser une compétition
+   * Si l'utilisateur était en train de se déplacer, le déplace vers là où il voulait aller
+   * Sinon, le déplace vers la page Compétitions
+   * @param redirection 
+   */
   annulerOrganisation(redirection?: string) {
     if (isDevMode()) {
+      this.competitionActuelle = this.dataService.setCompet({ organisateur: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] })
       this.set('organisationEnCours', ['false'])
-      if (redirection) this.router.navigate([redirection])
+      if (redirection) this.router.navigate([redirection]); else this.router.navigate(['/competitions'])
     } else {
       this.http.post(GlobalConstants.apiUrl + 'annulerCompetition.php', this.dataService.user.identifiant).subscribe(
         data => {
@@ -216,16 +256,46 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * append une copie de l'avatar à la modale de confirmation et l'affiche
+   * Récupère la liste des compétitions en cours et la stocke dans la variable this.competitionsEnCours
+   */
+  getCompetitionsEnCours() {
+    if (isDevMode()) {
+      this.competitionsEnCours = []
+      this.competitionsEnCours.push({ "organisateur": "Cerf sauvage", "type": "bestOf10", "niveaux": ["5e"], "sequences": ["S4S3", "S4S5"], "listeDesUrl": [], "listeDesTemps": [], "minParticipants": 2, "maxParticipants": 2, "participants": [{ "id": 0, "pseudo": "Cerf sauvage", "codeAvatar": "", "score": 196, "lienTrophees": "", "classement": 9, "teamName": "PUF", "scoreEquipe": 0 }] })
+      this.competitionsEnCours.push(this.dataService.getCompet())
+    } else {
+      this.http.post(GlobalConstants.apiUrl + 'annulerCompetition.php', this.dataService.user.identifiant).subscribe(
+        data => {
+        },
+        error => {
+          console.log(error)
+        });
+    }
+  }
+
+  /**
+   * Modifie les textes de la modale de confirmation en fonction de la situation et l'affiche
    */
   afficherModaleConfirmation() {
     const modaleConfirmation = document.getElementById("modaleConfirmation")
-    if (modaleConfirmation != null) modaleConfirmation.style.display = 'block'
+    if (modaleConfirmation != null) {
+      const texteModale = document.getElementById('texteModale')
+      const boutonRester = document.getElementById('boutonRester')
+      const boutonPartir = document.getElementById('boutonPartir')
+      if (texteModale != null && boutonRester != null && boutonPartir != null) {
+        if (this.getB('organisationEnCours')) {
+          texteModale.innerText = "Si tu veux rejoindre cette compétition, tu dois d'abord annuler celle que tu es en train d'organiser."
+          boutonRester.innerText = "Continuer d'organiser"
+          boutonPartir.innerText = "Arrêter d'organiser"
+        }
+      }
+      modaleConfirmation.style.display = 'block'
+    }
   }
 
   /**
    * Ferme la modale de confirmation
-   * Si la modale s'est affichée lorsque l'utilisateur voulait quitter la page, redirige vers là où il voulait aller
+   * Si la modale s'est affichée lorsque l'utilisateur voulait aller quelque part, le déplace vers là où il voulait aller
    */
   fermerModaleConfirmation(redirection?: string) {
     const modaleConfirmation = document.getElementById("modaleConfirmation")
@@ -236,83 +306,57 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * inscrit dans le localStorage les valeurs séparés par des '!' s'il y en a plusieurs
+   * Préfixe le tag de 'Competition' et ecrit dans le localStorage
    * @param tag nom de la "variable"
    * @param valeurs 
    */
   set(tag: string, valeurs: string[] | number[]) {
-    let chaine: string
-    if (valeurs.length == 1) {
-      chaine = valeurs[0].toString()
-    } else {
-      let str = ''
-      for (const valeur of valeurs) {
-        str += valeur + '!'
-      }
-      chaine = str.slice(0, str.length - 1)
-    }
-    localStorage.setItem('Competition' + tag, chaine)
+    this.dataService.set('Competition' + tag, valeurs)
   }
 
   /**
-   * Récupère un nombre du localStorage
+   * Préfixe le tag de 'Competition' et récupère un nombre du localStorage
    * @param tag nom de la "variable"
    * @returns 
    */
   getB(tag: string) {
-    const bool = localStorage.getItem('Competition' + tag)
-    if (bool != null && bool == 'true') return true
-    else return false
+    return this.dataService.getB('Competition' + tag)
   }
 
   /**
-   * Récupère un nombre du localStorage
+   * Préfixe le tag de 'Competition' et récupère un nombre du localStorage
    * @param tag nom de la "variable"
    * @returns 
    */
   getNb(tag: string) {
-    const nb = localStorage.getItem('Competition' + tag)
-    if (nb != null) return parseFloat(nb)
-    else return 0
+    return this.dataService.getNb('Competition' + tag)
   }
 
   /**
-   * Récupère un nombre[] du localStorage
+   * Préfixe le tag de 'Competition' et récupère un nombre[] du localStorage
    * @param tag nom de la "variable"
    * @returns 
    */
   getNbL(tag: string) {
-    const item = localStorage.getItem('Competition' + tag)
-    if (item != null) {
-      const listeStr = item.split('!')
-      let listeNb: number[] = []
-      for (const str of listeStr) {
-        listeNb.push(parseInt(str))
-      }
-      return listeNb
-    } else return [0]
+    return this.dataService.getNbL('Competition' + tag)
   }
 
   /**
-   * Récupère un string du localStorage
+   * Préfixe le tag de 'Competition' et récupère un string du localStorage
    * @param tag nom de la "variable"
    * @returns 
    */
   getStr(tag: string) {
-    const str = localStorage.getItem('Competition' + tag)
-    if (str != null) return str
-    else return ''
+    return this.dataService.getStr('Competition' + tag)
   }
 
   /**
-   * Récupère un string[] du localStorage
+   * Préfixe le tag de 'Competition' et récupère un string[] du localStorage
    * @param tag nom de la "variable"
    * @returns 
    */
   getStrL(tag: string) {
-    const str = localStorage.getItem('Competition' + tag)
-    if (str != null) return str.split('!')
-    else return ['']
+    return this.dataService.getStrL('Competition' + tag)
   }
-  
+
 }
