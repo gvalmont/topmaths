@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { GlobalConstants } from 'src/app/services/global-constants';
 import { Niveau, SequenceParticuliere } from '../../services/sequences';
 
@@ -23,6 +22,7 @@ interface Ligne {
 })
 export class ListeSequencesComponent implements OnInit {
   @Input() modeSelection: boolean
+  @Input() reactiveBoutonsEnvoi!: Date
   @Output() selection = new EventEmitter<{niveaux: string[], sequences: string[]}>();
   lignes: Ligne[]
   lignesParticulieres: Ligne[]
@@ -30,7 +30,7 @@ export class ListeSequencesComponent implements OnInit {
   event$: any
   ongletActif: string
 
-  constructor(public http: HttpClient, private route: ActivatedRoute, private router: Router) {
+  constructor(public http: HttpClient) {
     this.modeSelection = false
     this.lignes = []
     this.lignesParticulieres = []
@@ -40,6 +40,17 @@ export class ListeSequencesComponent implements OnInit {
 
   ngOnInit(): void {
     this.recupereContenuLignesAAfficher()
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.reactiveBoutonsEnvoi) {
+      const boutonsEnvoi = <HTMLButtonElement[]><unknown> document.getElementsByClassName('boutonEnvoi')
+      if (boutonsEnvoi != null) {
+        for (const boutonEnvoi of boutonsEnvoi) {
+          boutonEnvoi.disabled = false
+        }
+      }
+    }
   }
 
 
