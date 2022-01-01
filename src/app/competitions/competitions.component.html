@@ -19,17 +19,18 @@
             </div>
             <span *ngIf="competitionEnCours.niveaux[0] != ''">
               <span *ngFor="let niveau of competitionEnCours.niveaux">
-                <span style="word-break: keep-all" [ngClass]="'hovertext px-4 subtitle is-rounded is-' + niveau" data-hover='Toutes les séquences de ce niveau'>{{ niveau }}</span>
+                <span style="word-break: keep-all" [ngClass]="'dropdown px-4 subtitle is-rounded is-' + niveau">{{ niveau }}<div class="dropdown-content">Toutes les séquences de {{niveau}}</div></span>
               </span>
             </span>
             <span *ngIf="competitionEnCours.niveaux[0] != ''">
-              <span style="word-break: keep-all" class="px-4 py-2 subtitle is-rounded bonus hovertext" data-hover="Les points de cette compétition sont doublés !">x2</span>
+              <span style="word-break: keep-all" class="px-4 py-2 subtitle is-rounded bonus dropdown">x2<div class="dropdown-content">Les points de cette compétition sont doublés !</div></span>
             </span>
             <span *ngIf="competitionEnCours.sequences[0] != ''">
               <span *ngFor="let sequence of competitionEnCours.sequences; index as i">
-                <span style="word-break: keep-all" [ngClass]="'hovertext px-4 subtitle is-6 is-rounded is-' + sequence.slice(1, 2) + 'e'" data-hover='Juste ces séquences'>{{ sequence.slice(2) }}<span *ngIf="competitionEnCours.niveaux[0] == '' ? (i + 1) % 5 == 0 :((competitionEnCours.niveaux.length + i + 2) % 5 == 0)">
+                <span style="word-break: keep-all" [ngClass]="'dropdown px-4 subtitle is-6 is-rounded is-' + sequence.slice(1, 2) + 'e'">{{ sequence.slice(2) }}<span *ngIf="competitionEnCours.niveaux[0] == '' ? (i + 1) % 5 == 0 :((competitionEnCours.niveaux.length + i + 2) % 5 == 0)">
                     <br>
-                  </span>
+                </span>
+                <div class="dropdown-content">Séquence {{ sequence.slice(3) }} de {{sequence.slice(1, 2)}}e</div>
                 </span>
               </span>
             </span>
@@ -56,17 +57,18 @@
           </div>
           <span *ngIf="competitionActuelle.niveaux[0] != ''">
             <span *ngFor="let niveau of competitionActuelle.niveaux">
-              <span style="word-break: keep-all" [ngClass]="'hovertext px-4 subtitle is-rounded is-' + niveau" data-hover='Toutes les séquences de ce niveau'>{{ niveau }}</span>
+              <span style="word-break: keep-all" [ngClass]="'dropdown px-4 subtitle is-rounded is-' + niveau">{{ niveau }}<div class="dropdown-content">Toutes les séquences de {{niveau}}</div></span>
             </span>
           </span>
           <span *ngIf="competitionActuelle.niveaux[0] != ''">
-            <span style="word-break: keep-all" class="px-4 py-2 subtitle is-rounded bonus hovertext" data-hover="Les points de cette compétition sont doublés !">x2</span>
+            <span style="word-break: keep-all" class="px-4 py-2 subtitle is-rounded bonus dropdown">x2<div class="dropdown-content">Les points de cette compétition sont doublés !</div></span>
           </span>
           <span *ngIf="competitionActuelle.sequences[0] != ''">
             <span *ngFor="let sequence of competitionActuelle.sequences; index as i">
-              <span style="word-break: keep-all" [ngClass]="'hovertext px-4 subtitle is-6 is-rounded is-' + sequence.slice(1, 2) + 'e'" data-hover='Juste ces séquences'>{{ sequence.slice(2) }}<span *ngIf="competitionActuelle.niveaux[0] == '' ? (i + 1) % 5 == 0 :((competitionActuelle.niveaux.length + i + 2) % 5 == 0)">
+              <span style="word-break: keep-all" [ngClass]="'dropdown px-4 subtitle is-6 is-rounded is-' + sequence.slice(1, 2) + 'e'">{{ sequence.slice(2) }}<span *ngIf="competitionActuelle.niveaux[0] == '' ? (i + 1) % 5 == 0 :((competitionActuelle.niveaux.length + i + 2) % 5 == 0)">
                   <br>
-                </span>
+              </span>
+              <div class="dropdown-content">Séquence {{ sequence.slice(3) }} de {{sequence.slice(1, 2)}}e</div>
               </span>
             </span>
           </span>
