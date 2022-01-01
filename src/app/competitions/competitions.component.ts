@@ -38,11 +38,13 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   organisation: boolean
   event$: any
   redirection: string
-  interval: any
+  actualisationCompetitionsEnCours: any
   competitionsEnCours: Competition[]
   enCoursDeMaj: boolean
   reactiveBoutonsEnvoi: Date
   competitionActuelle: Competition
+  troisPetitsPoints: string
+  intervalTroisPetitsPoints: any
 
   constructor(public http: HttpClient, private route: ActivatedRoute, private router: Router, public dataService: ApiService, private viewportScroller: ViewportScroller) {
     this.infosModale = [[], '', new Date(), []]
@@ -53,22 +55,69 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     this.competitionActuelle = this.dataService.getCompet()
     this.competitionsEnCours = []
     this.enCoursDeMaj = false
+    this.troisPetitsPoints = '...'
+    this.lanceAnimationTroisPetitsPoints()
     this.getCompetitionsEnCours()
-    this.interval = setInterval(() => {
+    this.lanceActualisationCompetitionsEnCours()
+  }
+
+  ngOnInit(): void {
+    this.observeChangementsDeRoute()
+    setTimeout(() => {
+      if (this.competitionActuelle.organisateur != '') this.toggleCompetitionsEnCours()
+    }, 0);
+  }
+
+  ngOnDestroy(): void {
+    this.arreteActualisationCompetitionsEnCours()
+    this.arreteAnimationTroisPetitsPoints()
+
+  }
+
+  /**
+   * Lance l'interval qui gère l'actualisation des compétitions en cours
+   */
+  lanceActualisationCompetitionsEnCours() {
+    this.actualisationCompetitionsEnCours = setInterval(() => {
       this.enCoursDeMaj = true
       //this.getCompetitionsEnCours()
       setTimeout(() => {
         this.enCoursDeMaj = false
       }, 500);
-    }, 5000);
+    }, 3000);
   }
 
-  ngOnInit(): void {
-    this.observeChangementsDeRoute()
+  /**
+   * Arrête l'interval qui gère l'actualisation des compétitions en cours
+   */
+  arreteActualisationCompetitionsEnCours() {
+    clearInterval(this.actualisationCompetitionsEnCours)
   }
 
-  ngOnDestroy(): void {
-    clearInterval(this.interval)
+  /**
+   * Lance l'interval qui anime les trois petits points
+   */
+  lanceAnimationTroisPetitsPoints() {
+    this.intervalTroisPetitsPoints = setInterval(() => {
+      switch (this.troisPetitsPoints) {
+        case '.':
+          this.troisPetitsPoints = '..'
+          break;
+        case '..':
+          this.troisPetitsPoints = '...'
+          break;
+        case '...':
+          this.troisPetitsPoints = '.'
+          break;
+      }
+    }, 500);
+  }
+
+  /**
+   * Arrête l'interval qui anime les trois petits points
+   */
+  arreteAnimationTroisPetitsPoints() {
+    clearInterval(this.intervalTroisPetitsPoints)
   }
 
   /**
@@ -256,7 +305,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   }
 
   lancerCompetition() {
-    
+
   }
 
   /**
@@ -274,6 +323,26 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
         error => {
           console.log(error)
         });
+    }
+  }
+
+  /**
+   * Cache ou affiche les compétitions en cours
+   * Lorsque les compétitions sont cachées, leur actualisation est interrompue
+   */
+  toggleCompetitionsEnCours() {
+    const divCompetitionsEnCours = document.getElementById('divCompetitionsEnCours')
+    const titreCompetitionsEnCours = document.getElementById('titreCompetitionsEnCours')
+    if (divCompetitionsEnCours != null && titreCompetitionsEnCours != null) {
+      if (divCompetitionsEnCours.style.display == 'none') {
+        divCompetitionsEnCours.style.display = 'block'
+        titreCompetitionsEnCours.classList.remove('tout-rond')
+        this.lanceActualisationCompetitionsEnCours()
+      } else {
+        divCompetitionsEnCours.style.display = 'none'
+        titreCompetitionsEnCours.classList.add('tout-rond')
+        this.arreteActualisationCompetitionsEnCours()
+      }
     }
   }
 

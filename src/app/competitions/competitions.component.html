@@ -2,10 +2,10 @@
   <div class="column is-one-fifth"></div>
   <div class="column is-three-fifths">
     <div *ngIf="!organisation">
-      <h1 class='title is-2 has-text-white has-background-primary is-rounded p-5'>Compétitions en cours</h1>
+      <h1 id="titreCompetitionsEnCours" (click)="toggleCompetitionsEnCours()" class='title is-2 has-text-white has-background-primary is-rounded p-5 is-clickable'>Compétitions en cours</h1>
       <div id="divCompetitionsEnCours" class="has-background-primary-light bas-arrondi">
         <br>
-        <p *ngIf="competitionsEnCours.length == 0">Pas de compétition en ce moment...</p>
+        <p *ngIf="competitionsEnCours.length == 0">Pas de compétition en ce moment<figure class="image is-32x32 is-inline-block has-text-left">{{troisPetitsPoints}}</figure></p>
         <div *ngFor="let competitionEnCours of competitionsEnCours">
           <div [class]="'titre ' + competitionEnCours.type">
             {{competitionEnCours.type == 'bestOf10' ? 'Best of 10' : competitionEnCours.type == 'battleRoyale' ? 'Battle Royale' : ''}}
@@ -46,7 +46,7 @@
       <button *ngIf="competitionActuelle.organisateur == ''" [routerLink]="['/competitions/organiser']" class="button is-link">Organiser une compétition</button>
       <div id="divCompetitionActuelle" *ngIf="competitionActuelle.organisateur != ''">
         <div [ngClass]="{'title is-2 has-text-white': true, 'has-background-link': competitionActuelle.type == 'bestOf10', 'has-background-danger': competitionActuelle.type == 'battleRoyale'}">
-          {{competitionActuelle.type == 'bestOf10' ? 'Best of 10' : competitionActuelle.type == 'battleRoyale' ? 'Battle Royale' : ''}}
+          {{competitionActuelle.type == 'bestOf10' ? 'Best of 10' : competitionActuelle.type == 'battleRoyale' ? 'Battle Royale' : ''}}<figure class="image is-32x32 is-inline-block has-text-left">{{troisPetitsPoints}}</figure>
         </div>
         <div [class]="'container-competition ' + competitionActuelle.type">
           <div class="is-flex is-align-items-center is-justify-content-center">
