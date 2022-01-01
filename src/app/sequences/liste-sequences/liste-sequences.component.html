@@ -1,5 +1,7 @@
-<button class='button is-success is-large is-rounded boutonEnvoi' (click)="envoiSelection()">C'est parti !</button>
-<br><br>
+<div *ngIf="modeSelection">
+  <button class='button is-success is-large is-rounded boutonEnvoi' (click)="envoiSelection()">C'est parti !</button>
+  <br><br>
+</div>
 <div class="tabs is-medium is-centered">
   <ul class="tabs-menu is-rounded">
     <li><a [ngClass]="{'subtitle is-4 is-tout is-left-side': true, 'is-active': ongletActif == 'tout'}" (click)="ongletActif = 'tout'; filtre.niveau = 'tout'">Tout</a></li>
@@ -45,6 +47,8 @@
     </p>
   </span>
 </div>
-<br>
-<button class='button is-success is-large is-rounded boutonEnvoi' (click)="envoiSelection()">C'est parti !</button>
+<div *ngIf="modeSelection">
+  <br>
+  <button class='button is-success is-large is-rounded boutonEnvoi' (click)="envoiSelection()">C'est parti !</button>
+</div>
 <div id='divBonus'></div>
