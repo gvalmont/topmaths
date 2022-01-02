@@ -20,7 +20,7 @@ export class AppComponent implements OnDestroy {
     this.recupereOngletActif()
     this.recupereProfil()
     this.observeChangementsDeRoute()
-    this.competition = { organisateur: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+    this.competition = { type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
     this.observeParticipationCompetitions()
   }
 
