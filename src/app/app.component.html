@@ -46,7 +46,7 @@
         <i class="image is-48x48"><img src="assets/img/gvalmont/user-regular.svg" /></i>
       </a>
     </li>
-    <li *ngIf="competition.type != ''">
+    <li *ngIf="competition != null && competition.type != ''">
       <a routerLink="/competitions" routerLinkActive="active" [class]="competition.type">
         <i class="image is-48x48"><img [src]="'assets/img/cc0/' + competition.type + '-svgrepo-com.svg'" /></i>
         {{competition.participants.length + ' / ' + competition.maxParticipants}}

@@ -9,6 +9,8 @@ import { ApiService } from '../services/api.service';
 import { UserSimplifie } from '../services/user';
 
 export interface Competition {
+  id?: number
+  dateCreation?: string
   organisateur: string
   type: string
   niveaux: string[]
@@ -52,7 +54,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     this.organisation = false
     this.redirection = ''
     this.reactiveBoutonsEnvoi = new Date()
-    this.competitionActuelle = this.dataService.getCompet()
+    this.competitionActuelle = this.dataService.get('competitionActuelle')
     this.competitionsEnCours = []
     this.enCoursDeMaj = false
     this.troisPetitsPoints = '...'
@@ -64,7 +66,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.observeChangementsDeRoute()
     setTimeout(() => {
-      if (this.competitionActuelle.organisateur != '') this.toggleCompetitionsEnCours()
+      if (this.competitionActuelle != null && this.competitionActuelle.organisateur != '') this.toggleCompetitionsEnCours()
     }, 0);
   }
 
@@ -267,7 +269,8 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    */
   organiserCompetition(competition: Competition) {
     if (isDevMode()) {
-      this.competitionActuelle = this.dataService.setCompet(competition)
+      this.competitionActuelle = competition
+      this.dataService.set('competitionActuelle', competition)
       this.router.navigate(['/competitions'])
       this.set('organisationEnCours', ['true'])
     } else {
@@ -289,7 +292,8 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    */
   annulerOrganisation(redirection?: string) {
     if (isDevMode()) {
-      this.competitionActuelle = this.dataService.setCompet({ organisateur: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] })
+      this.competitionActuelle = { organisateur: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+      this.dataService.set('competitionActuelle', this.competitionActuelle)
       this.set('organisationEnCours', ['false'])
       if (redirection) this.router.navigate([redirection]); else this.router.navigate(['/competitions'])
     } else {
@@ -315,7 +319,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     if (isDevMode()) {
       this.competitionsEnCours = []
       this.competitionsEnCours.push({ "organisateur": "Cerf sauvage", "type": "bestOf10", "niveaux": ["5e"], "sequences": ["S4S3", "S4S5"], "listeDesUrl": [], "listeDesTemps": [], "minParticipants": 2, "maxParticipants": 2, "participants": [{ "id": 0, "pseudo": "Cerf sauvage", "codeAvatar": "", "score": 196, "lienTrophees": "", "classement": 9, "teamName": "PUF", "scoreEquipe": 0 }] })
-      this.competitionsEnCours.push(this.dataService.getCompet())
+      if (typeof(this.dataService.get('competitionActuelle')) != 'undefined') this.competitionsEnCours.push(this.dataService.get('competitionActuelle'))
     } else {
       this.http.post(GlobalConstants.apiUrl + 'annulerCompetition.php', this.dataService.user.identifiant).subscribe(
         data => {
@@ -356,7 +360,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
       const boutonRester = document.getElementById('boutonRester')
       const boutonPartir = document.getElementById('boutonPartir')
       if (texteModale != null && boutonRester != null && boutonPartir != null) {
-        if (this.getB('organisationEnCours')) {
+        if (this.get('organisationEnCours')) {
           texteModale.innerText = "Si tu veux rejoindre cette compétition, tu dois d'abord annuler celle que tu es en train d'organiser."
           boutonRester.innerText = "Continuer d'organiser"
           boutonPartir.innerText = "Arrêter d'organiser"
@@ -383,8 +387,8 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    * @param tag nom de la "variable"
    * @param valeurs 
    */
-  set(tag: string, valeurs: string[] | number[]) {
-    this.dataService.set('Competition' + tag, valeurs)
+  set(tag: string, objet: any) {
+    this.dataService.set('Competition' + tag, objet)
   }
 
   /**
@@ -392,44 +396,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    * @param tag nom de la "variable"
    * @returns 
    */
-  getB(tag: string) {
-    return this.dataService.getB('Competition' + tag)
+  get(tag: string) {
+    return this.dataService.get('Competition' + tag)
   }
-
-  /**
-   * Préfixe le tag de 'Competition' et récupère un nombre du localStorage
-   * @param tag nom de la "variable"
-   * @returns 
-   */
-  getNb(tag: string) {
-    return this.dataService.getNb('Competition' + tag)
-  }
-
-  /**
-   * Préfixe le tag de 'Competition' et récupère un nombre[] du localStorage
-   * @param tag nom de la "variable"
-   * @returns 
-   */
-  getNbL(tag: string) {
-    return this.dataService.getNbL('Competition' + tag)
-  }
-
-  /**
-   * Préfixe le tag de 'Competition' et récupère un string du localStorage
-   * @param tag nom de la "variable"
-   * @returns 
-   */
-  getStr(tag: string) {
-    return this.dataService.getStr('Competition' + tag)
-  }
-
-  /**
-   * Préfixe le tag de 'Competition' et récupère un string[] du localStorage
-   * @param tag nom de la "variable"
-   * @returns 
-   */
-  getStrL(tag: string) {
-    return this.dataService.getStrL('Competition' + tag)
-  }
-
 }

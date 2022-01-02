@@ -35,11 +35,11 @@ export class ModaleExercicesComponent implements OnInit {
     this.lienSpinner = ''
     this.site = ''
     this.listeExercices = []
-    this.set('indiceExerciceActuel', ['0'])
+    this.set('indiceExerciceActuel', 0)
     this.set('urlDejaFaits', [''])
     this.set('exercicesDejaFaits', [''])
-    this.set('dateDerniereReponse', [(new Date()).toString()])
-    this.set('coef', [1])
+    this.set('dateDerniereReponse', new Date())
+    this.set('coef', 1)
     setTimeout(() => this.confetti.stop(), 3000) // Sinon un reliquat reste apparent
   }
 
@@ -52,11 +52,11 @@ export class ModaleExercicesComponent implements OnInit {
     if (typeof (changes.infosModale) != 'undefined') {
       if (!changes.infosModale.isFirstChange()) {
         this.set('listeDesUrl', changes.infosModale.currentValue[0])
-        this.set('type', [changes.infosModale.currentValue[1]])
+        this.set('type', changes.infosModale.currentValue[1])
         this.set('listeDesTemps', changes.infosModale.currentValue[3])
-        if (this.isMathsmentales(this.getStrL('listeDesUrl')[0].toString())) {
+        if (this.isMathsmentales(this.get('listeDesUrl')[0])) {
           this.site = 'mathsmentales'
-        } else if (this.isMathalea(this.getStrL('listeDesUrl')[0].toString())) {
+        } else if (this.isMathalea(this.get('listeDesUrl')[0])) {
           this.site = 'mathalea'
         }
         this.parametrage()
@@ -77,12 +77,10 @@ export class ModaleExercicesComponent implements OnInit {
       divListener.id = 'modaleExercicesListener'
       document.body.appendChild(divListener)
       window.addEventListener('message', (event) => {
-        const exercicesDejaFaits = this.getStrL('exercicesDejaFaits')
-        const type = this.getStr('type')
-        const urlDejaFaits = this.getStrL('urlDejaFaits')
-        const indiceExerciceActuel = this.getNb('indiceExerciceActuel')
-        const listeDesIndices = this.getNbL('listeDesIndices')
-        const dateDerniereReponse: Date = new Date(this.getStr('dateDerniereReponse'))
+        const exercicesDejaFaits = this.get('exercicesDejaFaits')
+        const type = this.get('type')
+        const urlDejaFaits = this.get('urlDejaFaits')
+        const dateDerniereReponse: Date = new Date(this.get('dateDerniereReponse'))
         const dateNouvelleReponse = new Date()
         if (dateNouvelleReponse.getTime() - dateDerniereReponse.getTime() > 200) {
           const url: string = event.data.url;
@@ -103,17 +101,19 @@ export class ModaleExercicesComponent implements OnInit {
                 if (urlDejaFaits.includes(url.split('&serie=')[0].split(',i=')[0])) {
                   this.exerciceSuivant()
                 } else {
-                  this.set('coef', [5])
-                  this.set('urlDejaFaits', [this.getStr('urlDejaFaits') + '!' + url.split('&serie=')[0].split(',i=')[0]])
+                  this.set('coef', 5)
+                  urlDejaFaits.push(url.split('&serie=')[0].split(',i=')[0])
+                  this.set('urlDejaFaits', urlDejaFaits)
                 }
               } else if (type == 'performance') {
                 this.hideLoadingScreen()
                 clearInterval(this.interval)
                 this.startTimer()
                 if (urlDejaFaits.includes(url.split('&serie=')[0].split(',i=')[0])) {
-                  this.set('coef', [1])
+                  this.set('coef', 1)
                 } else {
-                  this.set('urlDejaFaits', [this.getStr('urlDejaFaits') + '!' + url.split('&serie=')[0].split(',i=')[0]])
+                  urlDejaFaits.push(url.split('&serie=')[0].split(',i=')[0])
+                  this.set('urlDejaFaits', urlDejaFaits)
                 }
               }
             } else if (event.data.nbBonnesReponses != null) {
@@ -133,7 +133,7 @@ export class ModaleExercicesComponent implements OnInit {
                     const stringExerciceDejaFait: string = url + graine + titre + slider
                     // On s'assure que les exercices soient différents pour ne pas ajouter plusieurs fois du score
                     if (!exercicesDejaFaits.includes(stringExerciceDejaFait)) {
-                      const coef: number = this.getNb('coef')
+                      const coef: number = this.get('coef')
                       const majScore: number = Math.ceil(exercice.score * nbBonnesReponses * coef)
                       if (majScore > 0) {
                         this.dataService.majScore(majScore, exercice.lien, type)
@@ -146,34 +146,30 @@ export class ModaleExercicesComponent implements OnInit {
                           this.confetti.lanceConfetti()
                         }
                       }
+                      exercicesDejaFaits.push(stringExerciceDejaFait)
                       if (type == '') {
-                        this.set('exercicesDejaFaits', [this.getStr('exercicesDejaFaits') + '!' + stringExerciceDejaFait])
-                        this.set('urlDejaFaits', [this.getStr('urlDejaFaits') + '!' + url.split('&serie=')[0].split(',i=')[0]])
-                        this.set('dateDerniereReponse', [(new Date()).toString()])
+                        urlDejaFaits.push(url.split('&serie=')[0].split(',i=')[0])
                       } else if (type == 'tranquille') {
-                        this.set('exercicesDejaFaits', [this.getStr('exercicesDejaFaits') + '!' + stringExerciceDejaFait])
-                        this.set('urlDejaFaits', [this.getStr('urlDejaFaits') + '!' + url.split('&serie=')[0].split(',i=')[0]])
-                        this.set('dateDerniereReponse', [(new Date()).toString()])
+                        urlDejaFaits.push(url.split('&serie=')[0].split(',i=')[0])
                         if (url.slice(0, 25) == 'https://mathsmentales.net') {
                           setTimeout(() => this.exerciceSuivant(), 3000)
                         }
                       } else if (type == 'vitesse') {
-                        this.set('exercicesDejaFaits', [this.getStr('exercicesDejaFaits') + '!' + stringExerciceDejaFait])
-                        this.set('dateDerniereReponse', [(new Date()).toString()])
                         clearInterval(this.interval)
                         setTimeout(() => this.exerciceSuivant(), 3000)
                       } else if (type == 'performance') {
-                        this.set('exercicesDejaFaits', [this.getStr('exercicesDejaFaits') + '!' + stringExerciceDejaFait])
-                        this.set('dateDerniereReponse', [(new Date()).toString()])
                         clearInterval(this.interval)
                         if (nbMauvaisesReponses == 0) {
-                          const coef = this.getNb('coef')
-                          this.set('coef', [(coef * 10 + 2) / 10])
+                          const coef = this.get('coef')
+                          this.set('coef', (coef * 10 + 2) / 10)
                         } else {
-                          this.set('coef', [1])
+                          this.set('coef', 1)
                         }
                         setTimeout(() => this.exerciceSuivant(), 3000)
                       }
+                      this.set('exercicesDejaFaits', exercicesDejaFaits)
+                      this.set('urlDejaFaits', urlDejaFaits)
+                      this.set('dateDerniereReponse', new Date())
                     }
                     if (url.slice(0, 25) == 'https://mathsmentales.net') {
                       exercice.lien = `${url.split(',a=')[0]},a=${graine}${url.split(',a=')[1]}`
@@ -195,10 +191,10 @@ export class ModaleExercicesComponent implements OnInit {
    * Affiche l'exercice aléatoire suivant.
    */
   exerciceSuivant() {
-    const indiceExerciceActuel = this.getNb('indiceExerciceActuel')
-    const listeDesIndices = this.getNbL('listeDesIndices')
-    this.set('indiceExerciceActuel', [((indiceExerciceActuel + 1) % this.getStrL('listeDesUrl').length).toString()])
-    const urlExerciceSuivant = this.getStrL('listeDesUrl')[listeDesIndices[indiceExerciceActuel + 1]]
+    const indiceExerciceActuel = this.get('indiceExerciceActuel')
+    const listeDesIndices = this.get('listeDesIndices')
+    this.set('indiceExerciceActuel', (indiceExerciceActuel + 1) % this.get('listeDesUrl').length)
+    const urlExerciceSuivant = this.get('listeDesUrl')[listeDesIndices[indiceExerciceActuel + 1]]
     if (this.isMathalea(urlExerciceSuivant)) this.displayLoadingScreen()
     this.ajouteIframe(urlExerciceSuivant)
     this.resetProgressBar()
@@ -294,27 +290,27 @@ export class ModaleExercicesComponent implements OnInit {
    */
   parametrage() {
     this.modale.style.display = 'block'
-    if (this.getStr('type') == '') {
+    if (this.get('type') == '') {
       if (this.site == 'mathalea') this.displayLoadingScreen()
-      this.set('coef', [1])
-      const url = this.getStrL('listeDesUrl')[this.getNb('indiceExerciceActuel')]
+      this.set('coef', 1)
+      const url = this.get('listeDesUrl')[this.get('indiceExerciceActuel')]
       this.ajouteIframe(url)
-    } else if (this.getStr('type') == 'tranquille') {
-      this.set('coef', [2])
+    } else if (this.get('type') == 'tranquille') {
+      this.set('coef', 2)
       this.creeListeIndicesExercices()
-      const url = this.getStrL('listeDesUrl')[this.getNbL('listeDesIndices')[this.getNb('indiceExerciceActuel')]]
+      const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
       if (this.isMathalea(url)) this.displayLoadingScreen()
       this.ajouteIframe(url)
-    } else if (this.getStr('type') == 'vitesse') {
-      this.set('coef', [5])
+    } else if (this.get('type') == 'vitesse') {
+      this.set('coef', 5)
       this.creeListeIndicesExercices()
-      const url = this.getStrL('listeDesUrl')[this.getNbL('listeDesIndices')[this.getNb('indiceExerciceActuel')]]
+      const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
       if (this.isMathalea(url)) this.displayLoadingScreen()
       this.ajouteIframe(url)
-    } else if (this.getStr('type') == 'performance') {
-      this.set('coef', [1])
+    } else if (this.get('type') == 'performance') {
+      this.set('coef', 1)
       this.creeListeIndicesExercices()
-      const url = this.getStrL('listeDesUrl')[this.getNbL('listeDesIndices')[this.getNb('indiceExerciceActuel')]]
+      const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
       if (this.isMathalea(url)) this.displayLoadingScreen()
       this.ajouteIframe(url)
     }
@@ -326,7 +322,7 @@ export class ModaleExercicesComponent implements OnInit {
    */
   creeListeIndicesExercices() {
     let liste = []
-    for (let i = 0; i < this.getStrL('listeDesUrl').length; i++) {
+    for (let i = 0; i < this.get('listeDesUrl').length; i++) {
       liste.push(i)
     }
     this.set('listeDesIndices', this.shuffle(liste))
@@ -356,7 +352,7 @@ export class ModaleExercicesComponent implements OnInit {
    * Positionne les boutons au bon endroit selon le site de l'exercice
    */
   positionneLesBoutons() {
-    if (this.getStr('type') == '' || this.getStr('type') == 'tranquille') {
+    if (this.get('type') == '' || this.get('type') == 'tranquille') {
       this.affCoef.style.display = 'none'
     } else {
       this.affCoef.style.display = 'block'
@@ -433,9 +429,9 @@ export class ModaleExercicesComponent implements OnInit {
    * l'append au document (il ne réapparaît pas lorsqu'append à la modale)
    */
   startTimer() {
-    const indiceExerciceActuel = this.getNb('indiceExerciceActuel')
-    const listeDesIndices = this.getNbL('listeDesIndices')
-    const TIME_LIMIT = this.getNbL('listeDesTemps')[listeDesIndices[indiceExerciceActuel]]
+    const indiceExerciceActuel = this.get('indiceExerciceActuel')
+    const listeDesIndices = this.get('listeDesIndices')
+    const TIME_LIMIT = this.get('listeDesTemps')[listeDesIndices[indiceExerciceActuel]]
 
     let nouveauDivTimeLeft = document.createElement('div')
     nouveauDivTimeLeft.id = 'divTimeLeft'
@@ -461,26 +457,26 @@ export class ModaleExercicesComponent implements OnInit {
       timePassed = timePassed += 1;
       timeLeft = TIME_LIMIT - timePassed;
       pourcentRestant = Math.floor((timeLeft / TIME_LIMIT) * 1000) / 10
-      if (this.getStr('type') == 'vitesse') {
+      if (this.get('type') == 'vitesse') {
         const pourcentCorrige = Math.floor(((timeLeft + 2) / TIME_LIMIT) * 1000) / 10
         if (!bool1) {
           if (pourcentCorrige < 90) {
-            this.set('coef', [4])
+            this.set('coef', 4)
             bool1 = true
           }
         } else if (!bool2) {
           if (pourcentCorrige < 80) {
-            this.set('coef', [3])
+            this.set('coef', 3)
             bool2 = true
           }
         } else if (!bool3) {
           if (pourcentCorrige < 60) {
-            this.set('coef', [2])
+            this.set('coef', 2)
             bool3 = true
           }
         } else if (!bool4) {
           if (pourcentCorrige < 40) {
-            this.set('coef', [1])
+            this.set('coef', 1)
             bool4 = true
           }
         }
@@ -533,7 +529,7 @@ export class ModaleExercicesComponent implements OnInit {
    * Copie dans le presse papier le lien vers un exercice
    */
   copierLien() {
-    navigator.clipboard.writeText(this.infosModale[0][this.getNbL('listeDesIndices')[this.getNb('indiceExerciceActuel')]]);
+    navigator.clipboard.writeText(this.infosModale[0][this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]);
     alert('Le lien vers l\'exercice a été copié')
   }
 
@@ -542,13 +538,13 @@ export class ModaleExercicesComponent implements OnInit {
    * @param tag nom de la "variable"
    * @param valeurs 
    */
-  set(tag: string, valeurs: string[] | number[]) {
-    this.dataService.set('ME' + tag, valeurs)
+  set(tag: string, objet: any) {
+    this.dataService.set('ME' + tag, objet)
     if (tag == 'coef') {
       const divCoef = document.getElementById('aff-coef')
       if (divCoef != null) {
-        if (this.getStr('type') == 'vitesse') {
-          const coef = valeurs[0]
+        if (this.get('type') == 'vitesse') {
+          const coef = objet
           const timeLeft = document.getElementById('timeLeft')
           if (timeLeft != null) {
             let couleur = ''
@@ -561,7 +557,7 @@ export class ModaleExercicesComponent implements OnInit {
             divCoef.style.color = couleur
           }
         }
-        divCoef.innerHTML = ('&times;' + valeurs[0].toString()).replace('.', ',')
+        divCoef.innerHTML = ('&times;' + objet.toString()).replace('.', ',')
         divCoef.classList.add('booboom')
         setTimeout(() => { divCoef.classList.remove('booboom') }, 1000);
       }
@@ -574,35 +570,8 @@ export class ModaleExercicesComponent implements OnInit {
    * @param tag nom de la "variable"
    * @returns 
    */
-  getNb(tag: string) {
-    return this.dataService.getNb('ME' + tag)
-  }
-
-  /**
-   * Préfixe le tag de 'ME' et récupère un nombre[] du localStorage
-   * @param tag nom de la "variable"
-   * @returns 
-   */
-  getNbL(tag: string) {
-    return this.dataService.getNbL('ME' + tag)
-  }
-
-  /**
-   * Préfixe le tag de 'ME' et récupère un string du localStorage
-   * @param tag nom de la "variable"
-   * @returns 
-   */
-  getStr(tag: string) {
-    return this.dataService.getStr('ME' + tag)
-  }
-
-  /**
-   * Préfixe le tag de 'ME' et récupère un string[] du localStorage
-   * @param tag nom de la "variable"
-   * @returns 
-   */
-  getStrL(tag: string) {
-    return this.dataService.getStrL('ME' + tag)
+  get(tag: string) {
+    return this.dataService.get('ME' + tag)
   }
 
   isMathalea(url: string) {
