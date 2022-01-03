@@ -8,6 +8,10 @@ import { Niveau as NiveauSequence } from 'src/app/services/sequences';
 import { ApiService } from '../services/api.service';
 import { UserSimplifie } from '../services/user';
 
+interface Reponse {
+  reponse: string
+}
+
 export interface Competition {
   id?: number
   dateCreation?: string
@@ -53,7 +57,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     this.organisation = false
     this.redirection = ''
     this.reactiveBoutonsEnvoi = new Date()
-    this.competitionActuelle = this.dataService.get('competitionActuelle')
+    this.competitionActuelle = this.get('competitionActuelle')
     this.competitionsEnCours = []
     this.enCoursDeMaj = false
     this.troisPetitsPoints = '...'
@@ -79,12 +83,9 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    * Lance l'interval qui gère l'actualisation des compétitions en cours
    */
   lanceActualisationCompetitionsEnCours() {
+    this.getCompetitionsEnCours()
     this.actualisationCompetitionsEnCours = setInterval(() => {
-      this.enCoursDeMaj = true
-      //this.getCompetitionsEnCours()
-      setTimeout(() => {
-        this.enCoursDeMaj = false
-      }, 500);
+      this.getCompetitionsEnCours()
     }, 3000);
   }
 
@@ -268,7 +269,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   organiserCompetition(competition: Competition) {
     if (isDevMode()) {
       this.competitionActuelle = competition
-      this.dataService.set('competitionActuelle', competition)
+      this.set('competitionActuelle', competition)
       this.router.navigate(['/competitions'])
       this.set('organisationEnCours', 'true')
     } else {
@@ -284,7 +285,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
         participants: competition.participants
       })).subscribe(competitions => {
         this.competitionActuelle = competitions[0]
-        this.dataService.set('competitionActuelle', this.competitionActuelle)
+        this.set('competitionActuelle', this.competitionActuelle)
         this.router.navigate(['/competitions'])
         this.set('organisationEnCours', 'true')
       },
@@ -304,14 +305,18 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   annulerOrganisation(redirection?: string) {
     if (isDevMode()) {
       this.competitionActuelle = { type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
-      this.dataService.set('competitionActuelle', this.competitionActuelle)
+      this.set('competitionActuelle', this.competitionActuelle)
       this.set('organisationEnCours', 'false')
       if (redirection) this.router.navigate([redirection]); else this.router.navigate(['/competitions'])
     } else {
-      this.http.post(GlobalConstants.apiUrl + 'annulerCompetition.php', this.dataService.user.identifiant).subscribe(
+      this.http.post<Reponse>(GlobalConstants.apiUrl + 'annulerCompetition.php', { identifiant: this.dataService.user.identifiant, id: this.competitionActuelle.id }).subscribe(
         data => {
-          this.set('organisationEnCours', 'false')
-          if (redirection) this.router.navigate([redirection])
+          if (data.reponse == "OK") {
+            this.competitionActuelle = { type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+            this.set('competitionActuelle', this.competitionActuelle)
+            this.set('organisationEnCours', 'false')
+            if (redirection) this.router.navigate([redirection])
+          }
         },
         error => {
           console.log(error)
@@ -330,11 +335,13 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     if (isDevMode()) {
       this.competitionsEnCours = []
       this.competitionsEnCours.push({ "type": "bestOf10", "niveaux": ["5e"], "sequences": ["S4S3", "S4S5"], "listeDesUrl": [], "listeDesTemps": [], "minParticipants": 2, "maxParticipants": 2, "participants": [{ "id": 0, "pseudo": "Cerf sauvage", "codeAvatar": "", "score": 196, "lienTrophees": "", "classement": 9, "teamName": "PUF", "scoreEquipe": 0 }] })
-      if (typeof (this.dataService.get('competitionActuelle')) != 'undefined') this.competitionsEnCours.push(this.dataService.get('competitionActuelle'))
+      if (typeof (this.get('competitionActuelle')) != 'undefined') this.competitionsEnCours.push(this.get('competitionActuelle'))
     } else {
-      this.http.post(GlobalConstants.apiUrl + 'getCompetitions.php', this.dataService.user.identifiant).subscribe(
-        data => {
-        },
+      this.enCoursDeMaj = true
+      this.http.get<Competition[]>(GlobalConstants.apiUrl + 'getCompetitionsEnCours.php').subscribe(competitions => {
+        this.competitionsEnCours = competitions
+        this.enCoursDeMaj = false
+      },
         error => {
           console.log(error)
         });
