@@ -5,37 +5,42 @@
       <h1 id="titreCompetitionsEnCours" (click)="toggleCompetitionsEnCours()" class='title is-2 has-text-white has-background-primary is-rounded p-5 is-clickable'>Compétitions en cours</h1>
       <div id="divCompetitionsEnCours" class="has-background-primary-light bas-arrondi">
         <br>
-        <p *ngIf="competitionsEnCours.length == 0">Pas de compétition en ce moment<figure class="image is-32x32 is-inline-block has-text-left">{{troisPetitsPoints}}</figure></p>
-        <div *ngFor="let competitionEnCours of competitionsEnCours">
-          <div [class]="'titre ' + competitionEnCours.type">
-            {{competitionEnCours.type == 'bestOf10' ? 'Best of 10' : competitionEnCours.type == 'battleRoyale' ? 'Battle Royale' : ''}}
-          </div>
-          <div [class]="'container-competition is-small ' + competitionEnCours.type">
-            <div class="is-flex is-align-items-center is-justify-content-center">
-              <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(competitionEnCours.participants[0])"></figure>
-              <span>{{ competitionEnCours.participants[0].pseudo }} &nbsp; &nbsp;</span>
-              <i class="image is-48x48 is-inline-block"><img [src]="'assets/img/cc0/' + competitionEnCours.type + '-svgrepo-com.svg'" /></i>
-              <span>{{competitionEnCours.participants.length}} / {{competitionEnCours.maxParticipants}}</span>
+        <p *ngIf="competitionsEnCours[0] == null || (competitionsEnCours[0] != null && competitionsEnCours[0].participants.length == 0)">
+          Pas de compétition en ce moment
+        <figure class="image is-32x32 is-inline-block has-text-left">{{troisPetitsPoints}}</figure>
+        </p>
+        <div *ngIf="competitionsEnCours[0] != null && competitionsEnCours[0].participants.length > 0">
+          <div *ngFor="let competitionEnCours of competitionsEnCours">
+            <div [class]="'titre ' + competitionEnCours.type">
+              {{competitionEnCours.type == 'bestOf10' ? 'Best of 10' : competitionEnCours.type == 'battleRoyale' ? 'Battle Royale' : ''}}
             </div>
-            <span *ngIf="competitionEnCours.niveaux[0] != ''">
-              <span *ngFor="let niveau of competitionEnCours.niveaux">
-                <span style="word-break: keep-all" [ngClass]="'dropdown px-4 subtitle is-rounded is-' + niveau">{{ niveau }}<div class="dropdown-content">Toutes les séquences de {{niveau}}</div></span>
-              </span>
-            </span>
-            <span *ngIf="competitionEnCours.niveaux[0] != ''">
-              <span style="word-break: keep-all" class="px-4 py-2 subtitle is-rounded bonus dropdown">x2<div class="dropdown-content">Les points de cette compétition sont doublés !</div></span>
-            </span>
-            <span *ngIf="competitionEnCours.sequences[0] != ''">
-              <span *ngFor="let sequence of competitionEnCours.sequences; index as i">
-                <span style="word-break: keep-all" [ngClass]="'dropdown px-4 subtitle is-6 is-rounded is-' + sequence.slice(1, 2) + 'e'">{{ sequence.slice(2) }}<span *ngIf="competitionEnCours.niveaux[0] == '' ? (i + 1) % 5 == 0 :((competitionEnCours.niveaux.length + i + 2) % 5 == 0)">
-                    <br>
-                </span>
-                <div class="dropdown-content">Séquence {{ sequence.slice(3) }} de {{sequence.slice(1, 2)}}e</div>
+            <div [class]="'container-competition is-small ' + competitionEnCours.type">
+              <div class="is-flex is-align-items-center is-justify-content-center">
+                <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(competitionEnCours.participants[0])"></figure>
+                <span>{{ competitionEnCours.participants[0].pseudo }} &nbsp; &nbsp;</span>
+                <i class="image is-48x48 is-inline-block"><img [src]="'assets/img/cc0/' + competitionEnCours.type + '-svgrepo-com.svg'" /></i>
+                <span>{{competitionEnCours.participants.length}} / {{competitionEnCours.maxParticipants}}</span>
+              </div>
+              <span *ngIf="competitionEnCours.niveaux[0] != ''">
+                <span *ngFor="let niveau of competitionEnCours.niveaux">
+                  <span style="word-break: keep-all" [ngClass]="'dropdown px-4 subtitle is-rounded is-' + niveau">{{ niveau }}<div class="dropdown-content">Toutes les séquences de {{niveau}}</div></span>
                 </span>
               </span>
-            </span>
+              <span *ngIf="competitionEnCours.niveaux[0] != ''">
+                <span style="word-break: keep-all" class="px-4 py-2 subtitle is-rounded bonus dropdown">x2<div class="dropdown-content">Les points de cette compétition sont doublés !</div></span>
+              </span>
+              <span *ngIf="competitionEnCours.sequences[0] != ''">
+                <span *ngFor="let sequence of competitionEnCours.sequences; index as i">
+                  <span style="word-break: keep-all" [ngClass]="'dropdown px-4 subtitle is-6 is-rounded is-' + sequence.slice(1, 2) + 'e'">{{ sequence.slice(2) }}<span *ngIf="competitionEnCours.niveaux[0] == '' ? (i + 1) % 5 == 0 :((competitionEnCours.niveaux.length + i + 2) % 5 == 0)">
+                      <br>
+                    </span>
+                    <div class="dropdown-content">Séquence {{ sequence.slice(3) }} de {{sequence.slice(1, 2)}}e</div>
+                  </span>
+                </span>
+              </span>
+            </div>
+            <br>
           </div>
-          <br>
         </div>
         <figure class="image is-64x64 is-inline-block">
           <img *ngIf="enCoursDeMaj" [src]="'assets/img/cc0/primary-spinner.svg'">
@@ -67,8 +72,8 @@
             <span *ngFor="let sequence of competitionActuelle.sequences; index as i">
               <span style="word-break: keep-all" [ngClass]="'dropdown px-4 subtitle is-6 is-rounded is-' + sequence.slice(1, 2) + 'e'">{{ sequence.slice(2) }}<span *ngIf="competitionActuelle.niveaux[0] == '' ? (i + 1) % 5 == 0 :((competitionActuelle.niveaux.length + i + 2) % 5 == 0)">
                   <br>
-              </span>
-              <div class="dropdown-content">Séquence {{ sequence.slice(3) }} de {{sequence.slice(1, 2)}}e</div>
+                </span>
+                <div class="dropdown-content">Séquence {{ sequence.slice(3) }} de {{sequence.slice(1, 2)}}e</div>
               </span>
             </span>
           </span>
@@ -150,7 +155,7 @@
       <div class="column is-2">
       </div>
       <div class="column is-5">
-        <button id='boutonPartir' (click)="annulerOrganisation(redirection)" class="button is-danger is-large">Partir</button>
+        <button id='boutonPartir' (click)="annulerOrganisation()" class="button is-danger is-large">Partir</button>
       </div>
     </div>
     <br>

@@ -14,7 +14,7 @@ interface Reponse {
 
 export interface Competition {
   id?: number
-  dateCreation?: string
+  dernierSignal?: string
   type: string
   niveaux: string[]
   sequences: string[]
@@ -44,12 +44,12 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   event$: any
   redirection: string
   actualisationCompetitionsEnCours: any
+  intervalTroisPetitsPoints: any
   competitionsEnCours: Competition[]
   enCoursDeMaj: boolean
   reactiveBoutonsEnvoi: Date
-  competitionActuelle: Competition
+  competitionActuelle!: Competition
   troisPetitsPoints: string
-  intervalTroisPetitsPoints: any
 
   constructor(public http: HttpClient, private route: ActivatedRoute, private router: Router, public dataService: ApiService, private viewportScroller: ViewportScroller) {
     this.infosModale = [[], '', new Date(), []]
@@ -57,13 +57,14 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     this.organisation = false
     this.redirection = ''
     this.reactiveBoutonsEnvoi = new Date()
-    this.competitionActuelle = this.get('competitionActuelle')
     this.competitionsEnCours = []
     this.enCoursDeMaj = false
     this.troisPetitsPoints = '...'
     this.lanceAnimationTroisPetitsPoints()
-    this.getCompetitionsEnCours()
     this.lanceActualisationCompetitionsEnCours()
+    setTimeout(() => {
+      this.verifieOrganisationCompetitionEnCours()
+    }, 1); // Pour passer après api.service qui vérifie si la compétition est toujours d'actualité
   }
 
   ngOnInit(): void {
@@ -77,6 +78,52 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     this.arreteActualisationCompetitionsEnCours()
     this.arreteAnimationTroisPetitsPoints()
 
+  }
+
+  /**
+   * Ecoute les messages concernant l'organisateur de la compétition en cours pour agir en conséquence
+   */
+  ecouteInformationsOrganisateurCompetition() {
+    if (!this.get('presenceInformationOrganisateurCompetitionSubscription')) {
+      this.lancePingCompetitionActuelle()
+      this.set('presenceInformationOrganisateurCompetitionSubscription', true)
+      this.dataService.informationOrganisateurCompetition.subscribe(information => {
+        if (information == 'presenceOrganisateurOk') {
+          if (this.dataService.get('CompetitionorganisationEnCours') && this.dataService.competitionActuelleToujoursEnCours()) {
+            this.lancePingCompetitionActuelle()
+          } else {
+            this.annulerOrganisation()
+          }
+        }
+      })
+    }
+  }
+
+  /**
+   * Récupère la compétition actuelle
+   * Vérifie si l'utilisateur en est l'organisateur
+   * Si oui, lance le listener approprié
+   */
+  verifieOrganisationCompetitionEnCours() {
+    this.competitionActuelle = this.get('competitionActuelle')
+    if (this.competitionActuelle.participants[0] != null && this.competitionActuelle.participants[0].id == this.dataService.user.id) {
+      this.set('organisationEnCours', true)
+      this.ecouteInformationsOrganisateurCompetition()
+    } else {
+      this.set('organisationEnCours', false)
+    }
+  }
+
+  /**
+   * Lance le timeout qui assure que l'organisateur d'une compétition n'est pas afk
+   */
+  lancePingCompetitionActuelle() {
+    this.pingCompetition()
+    setTimeout(() => {
+      if (this.dataService.get('CompetitionorganisationEnCours') && this.dataService.competitionActuelleToujoursEnCours()) {
+        this.dataService.informationOrganisateurCompetition.emit('checkPresenceOrganisateur')
+      }
+    }, 270000); // Ce qui lui laisse 30 secondes pour répondre avant que la compétition ne soit désactivée
   }
 
   /**
@@ -272,8 +319,9 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
       this.set('competitionActuelle', competition)
       this.router.navigate(['/competitions'])
       this.set('organisationEnCours', 'true')
+      this.dataService.participationCompetition.emit(this.competitionActuelle)
     } else {
-      this.http.post<Competition[]>(GlobalConstants.apiUrl + 'organiserCompetition.php', JSON.stringify({
+      this.http.post<Competition>(GlobalConstants.apiUrl + 'organiserCompetition.php', JSON.stringify({
         identifiant: this.dataService.user.identifiant,
         type: competition.type,
         niveaux: competition.niveaux,
@@ -283,8 +331,8 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
         minParticipants: competition.minParticipants,
         maxParticipants: competition.maxParticipants,
         participants: competition.participants
-      })).subscribe(competitions => {
-        this.competitionActuelle = competitions[0]
+      })).subscribe(competition => {
+        this.competitionActuelle = competition
         this.set('competitionActuelle', this.competitionActuelle)
         this.router.navigate(['/competitions'])
         this.set('organisationEnCours', 'true')
@@ -302,12 +350,13 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    * Sinon, le déplace vers la page Compétitions
    * @param redirection 
    */
-  annulerOrganisation(redirection?: string) {
+  annulerOrganisation() {
     if (isDevMode()) {
       this.competitionActuelle = { type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
       this.set('competitionActuelle', this.competitionActuelle)
       this.set('organisationEnCours', 'false')
-      if (redirection) this.router.navigate([redirection]); else this.router.navigate(['/competitions'])
+      this.dataService.participationCompetition.emit(this.competitionActuelle)
+      window.location.href = GlobalConstants.origine
     } else {
       this.http.post<Reponse>(GlobalConstants.apiUrl + 'annulerCompetition.php', { identifiant: this.dataService.user.identifiant, id: this.competitionActuelle.id }).subscribe(
         data => {
@@ -315,13 +364,30 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
             this.competitionActuelle = { type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
             this.set('competitionActuelle', this.competitionActuelle)
             this.set('organisationEnCours', 'false')
-            if (redirection) this.router.navigate([redirection])
+            this.dataService.participationCompetition.emit(this.competitionActuelle)
+            window.location.href = GlobalConstants.origine // En attendant que j'arrive à unsubscribe correctement sans passer par le onDestroy
           }
         },
         error => {
           console.log(error)
         });
     }
+  }
+
+  /**
+   * Signale au serveur que l'organisateur d'une compétition n'est pas afk
+   */
+  pingCompetition() {
+    console.log('ping')
+    this.http.post<string>(GlobalConstants.apiUrl + 'pingCompetition.php', { identifiant: this.dataService.user.identifiant, id: this.competitionActuelle.id }).subscribe(
+      dernierSignal => {
+        this.competitionActuelle.dernierSignal = dernierSignal
+        this.set('competitionActuelle', this.competitionActuelle)
+        this.dataService.participationCompetition.emit(this.competitionActuelle)
+      },
+      error => {
+        console.log(error)
+      });
   }
 
   lancerCompetition() {
