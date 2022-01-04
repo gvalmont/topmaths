@@ -1,6 +1,7 @@
 <div class="columns centre">
   <div class="column is-one-fifth"></div>
   <div class="column is-three-fifths">
+    <!-- Affichage des compétitions en cours -->
     <div *ngIf="!organisation">
       <h1 id="titreCompetitionsEnCours" (click)="toggleCompetitionsEnCours()" class='title is-2 has-text-white has-background-primary is-rounded p-5 is-clickable'>Compétitions en cours</h1>
       <div id="divCompetitionsEnCours" class="has-background-primary-light bas-arrondi">
@@ -49,6 +50,7 @@
       </div>
       <br>
       <button *ngIf="!participationEnCours" [routerLink]="['/competitions/organiser']" class="button is-link">Organiser une compétition</button>
+      <!-- Affichage de la compétition actuelle -->
       <div id="divCompetitionActuelle" *ngIf="participationEnCours">
         <div [ngClass]="{'title is-2 has-text-white': true, 'has-background-link': competitionActuelle.type == 'bestOf10', 'has-background-danger': competitionActuelle.type == 'battleRoyale'}">
           {{competitionActuelle.type == 'bestOf10' ? 'Best of 10' : competitionActuelle.type == 'battleRoyale' ? 'Battle Royale' : ''}}<figure class="image is-48x48 is-inline-block has-text-left">{{troisPetitsPoints}}</figure>
@@ -82,8 +84,9 @@
             <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(participant)"></figure>
             <span>{{ participant.pseudo }} &nbsp; &nbsp;</span>
           </div>
+          <br>
+          <button *ngIf="competitionActuelle.profilOrganisateur.id != dataService.user.id" class="button is-danger" (click)="quitterCompetition()">Quitter la compétition</button>
           <div *ngIf="competitionActuelle.profilOrganisateur.id == dataService.user.id">
-            <br><br>
             <button class="button is-danger" (click)="annulerCompetition(true)">Annuler la compétition</button>
             &nbsp; &nbsp;
             <button class="button is-success" (click)="lancerCompetition()">Lancer la compétition</button>
@@ -91,6 +94,7 @@
         </div>
       </div>
     </div>
+    <!-- Organisation d'une nouvelle compétition -->
     <div id="divOrganisation" *ngIf="organisation">
       <h1 class='title is-2'>Organiser une compétition</h1>
       <div *ngIf="type != 'battleRoyale'">

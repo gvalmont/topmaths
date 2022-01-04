@@ -468,6 +468,23 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Quitte la compétition actuelle
+   */
+  quitterCompetition() {
+    this.http.post<Reponse>(GlobalConstants.apiUrl + 'quitterCompetition.php', { identifiant: this.dataService.user.identifiant }).subscribe(
+      data => {
+        const competitionActuelle = { id: 0, profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+        this.set('competitionActuelle', competitionActuelle)
+        this.participationEnCours = false
+        this.arreteActualisationCompetitionActuelle()
+        this.dataService.participationCompetition.emit(competitionActuelle)
+      },
+      error => {
+        console.log(error)
+      });
+  }
+
+  /**
    * Signale au serveur que l'organisateur d'une compétition n'est pas afk
    */
   pingCompetition() {
@@ -505,7 +522,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
         this.dataService.participationCompetition.emit(competition)
         this.router.navigateByUrl('/accueil', { skipLocationChange: true }).then(() => {
           this.router.navigate(['/competitions']);
-      }); 
+        });
       },
         error => {
           console.log(error)
