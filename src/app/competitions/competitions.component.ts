@@ -14,6 +14,7 @@ interface Reponse {
 
 export interface Competition {
   id: number
+  profilOrganisateur: UserSimplifie
   dernierSignal: string
   type: string
   niveaux: string[]
@@ -23,6 +24,17 @@ export interface Competition {
   minParticipants: number
   maxParticipants: number
   participants: UserSimplifie[]
+}
+
+export interface CompetitionSimplifiee {
+  id: number
+  profilOrganisateur: UserSimplifie
+  type: string
+  niveaux: string[]
+  sequences: string[]
+  minParticipants: number
+  maxParticipants: number
+  nbParticipants: number
 }
 
 interface Exercice {
@@ -44,12 +56,15 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   event$: any
   redirection: string
   actualisationCompetitionsEnCours: any
+  actualisationCompetitionActuelle: any
   intervalTroisPetitsPoints: any
-  competitionsEnCours: Competition[]
+  competitionsEnCours: CompetitionSimplifiee[]
   enCoursDeMaj: boolean
+  enCoursDeMajCompetitionActuelle: boolean
   reactiveBoutonsEnvoi: Date
   troisPetitsPoints: string
   competitionActuelle: Competition
+  participationEnCours: boolean
 
   constructor(public http: HttpClient, private route: ActivatedRoute, private router: Router, public dataService: ApiService, private viewportScroller: ViewportScroller) {
     this.infosModale = [[], '', new Date(), []]
@@ -59,12 +74,14 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     this.reactiveBoutonsEnvoi = new Date()
     this.competitionsEnCours = []
     this.enCoursDeMaj = false
+    this.enCoursDeMajCompetitionActuelle = false
+    this.participationEnCours = false
     this.troisPetitsPoints = '...'
-    this.competitionActuelle = { id: 0, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+    this.competitionActuelle = { id: 0, profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
     this.lanceAnimationTroisPetitsPoints()
     this.lanceActualisationCompetitionsEnCours()
     setTimeout(() => {
-      this.verifieOrganisationCompetitionEnCours()
+      this.verifieCompetitionEnCours()
     }, 1); // Pour passer après api.service qui vérifie si la compétition est toujours d'actualité
   }
 
@@ -81,7 +98,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.arreteActualisationCompetitionsEnCours()
     this.arreteAnimationTroisPetitsPoints()
-
+    this.arreteActualisationCompetitionActuelle()
   }
 
   /**
@@ -102,10 +119,10 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
             if (this.dataService.get('CompetitionorganisationEnCours') && this.dataService.competitionActuelleToujoursEnCours()) {
               this.lancePingCompetitionActuelle()
             } else {
-              this.annulerOrganisation(true, '/accueil')
+              this.annulerCompetition(true, '/accueil')
             }
           } else if (informationOrganisateurCompetition == 'presenceOrganisateurKO') {
-            this.annulerOrganisation(false)
+            this.annulerCompetition(false)
           }
         }
       })
@@ -125,11 +142,13 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    * Récupère la compétition actuelle
    * Vérifie si elle est toujours d'actualité
    * Si ce n'est pas le cas, annule la compétition en local
-   * Si c'est le cas, vérifie si l'utilisateur en est l'organisateur
-   * Si oui, lance le listener approprié
+   * Si c'est le cas, vérifie si l'utilisateur en est l'organisateur ou un participant
+   * Lance le listener approprié
    */
-  verifieOrganisationCompetitionEnCours() {
+  verifieCompetitionEnCours() {
     if (this.dataService.competitionActuelleToujoursEnCours()) { // Si on participe à une compétition
+      this.participationEnCours = true
+      this.lanceActualisationCompetitionActuelle()
       const competitionActuelle = this.get('competitionActuelle')
       this.competitionActuelle = competitionActuelle
       if (competitionActuelle.participants[0] != null && competitionActuelle.participants[0].id == this.dataService.user.id) { // Si on est le chef
@@ -142,7 +161,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
         this.set('organisationEnCours', false)
       }
     } else {
-      this.annulerOrganisation(false)
+      this.annulerCompetition(false)
     }
   }
 
@@ -160,6 +179,16 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Lance l'interval qui gère l'actualisation de la compétition actuelle
+   */
+  lanceActualisationCompetitionActuelle() {
+    this.getCompetitionActuelle()
+    this.actualisationCompetitionActuelle = setInterval(() => {
+      this.getCompetitionActuelle()
+    }, 3000);
+  }
+
+  /**
    * Lance l'interval qui gère l'actualisation des compétitions en cours
    */
   lanceActualisationCompetitionsEnCours() {
@@ -174,6 +203,13 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    */
   arreteActualisationCompetitionsEnCours() {
     clearInterval(this.actualisationCompetitionsEnCours)
+  }
+
+  /**
+   * Arrête l'interval qui gère l'actualisation de la compétition actuelle
+   */
+  arreteActualisationCompetitionActuelle() {
+    clearInterval(this.actualisationCompetitionActuelle)
   }
 
   /**
@@ -316,8 +352,19 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
           alert("Il n'y a pas assez d'exercices !")
           this.reactiveBoutonsEnvoi = new Date()
         } else {
+          const profilOrganisateur: UserSimplifie = {
+            id: this.dataService.user.id,
+            pseudo: this.dataService.user.pseudo,
+            codeAvatar: this.dataService.user.codeAvatar,
+            score: this.dataService.user.score,
+            lienTrophees: '',
+            classement: this.dataService.user.classement,
+            teamName: this.dataService.user.teamName,
+            scoreEquipe: this.dataService.user.scoreEquipe
+          }
           this.organiserCompetition({
             id: 0,
+            profilOrganisateur: profilOrganisateur,
             dernierSignal: '',
             type: this.type,
             niveaux: selection.niveaux,
@@ -357,7 +404,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     } else {
       this.http.post<Competition>(GlobalConstants.apiUrl + 'organiserCompetition.php', JSON.stringify({
         identifiant: this.dataService.user.identifiant,
-        organisateurId: this.dataService.user.id,
+        profilOrganisateur: competition.profilOrganisateur,
         type: competition.type,
         niveaux: competition.niveaux,
         sequences: competition.sequences,
@@ -365,16 +412,17 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
         listeDesTemps: competition.listeDesTemps,
         minParticipants: competition.minParticipants,
         maxParticipants: competition.maxParticipants,
-        participants: competition.participants
       })).subscribe(competition => {
         if (competition.id == 0) {
           alert("Tu fais déjà partie d'une compétition.\nTu dois d'abord la quitter si tu veux en organiser une autre")
           this.router.navigate(['/competitions'])
         } else {
-          this.set('competitionActuelle', competition)
+          let cpt = competition
+          cpt.participants = [<UserSimplifie><unknown>this.dataService.user]
+          this.set('competitionActuelle', cpt)
           this.router.navigate(['/competitions'])
           this.set('organisationEnCours', 'true')
-          this.dataService.participationCompetition.emit(competition)
+          this.dataService.participationCompetition.emit(cpt)
         }
       },
         error => {
@@ -390,21 +438,25 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    * Sinon, le déplace vers la page Compétitions
    * @param redirection 
    */
-  annulerOrganisation(enLigne: boolean, redirection?: string) {
+  annulerCompetition(enLigne: boolean, redirection?: string) {
     this.set('enTrainDePingCompetitionActuelle', false)
     if (isDevMode() || !enLigne) {
-      const competitionActuelle = { id: 0, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+      const competitionActuelle = { id: 0, profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
       this.set('competitionActuelle', competitionActuelle)
       this.set('organisationEnCours', false)
+      this.participationEnCours = false
+      this.arreteActualisationCompetitionActuelle()
       this.dataService.participationCompetition.emit(competitionActuelle)
       if (redirection) this.router.navigate([redirection])
     } else {
       this.http.post<Reponse>(GlobalConstants.apiUrl + 'annulerCompetition.php', { identifiant: this.dataService.user.identifiant, id: this.get('competitionActuelle').id }).subscribe(
         data => {
           if (data.reponse == "OK") {
-            const competitionActuelle = { id: 0, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+            const competitionActuelle = { id: 0, profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
             this.set('competitionActuelle', competitionActuelle)
             this.set('organisationEnCours', false)
+            this.participationEnCours = false
+            this.arreteActualisationCompetitionActuelle()
             this.dataService.participationCompetition.emit(competitionActuelle)
             redirection ? this.router.navigate([redirection]) : this.router.navigate(['/competitions'])
           }
@@ -420,13 +472,41 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    */
   pingCompetition() {
     if (this.dataService.competitionActuelleToujoursEnCours()) {
-      const competitionActuelle = this.get('competitionActuelle')
-      this.http.post<string>(GlobalConstants.apiUrl + 'pingCompetition.php', { identifiant: this.dataService.user.identifiant, id: competitionActuelle.id }).subscribe(
-        dernierSignal => {
+      const competitionActuelle = <Competition>this.get('competitionActuelle')
+      if (competitionActuelle.profilOrganisateur.id == this.dataService.user.id) {
+        this.http.post<string>(GlobalConstants.apiUrl + 'pingCompetition.php', {
+          identifiant: this.dataService.user.identifiant,
+          id: competitionActuelle.id
+        }).subscribe(dernierSignal => {
           competitionActuelle.dernierSignal = dernierSignal
           this.set('competitionActuelle', competitionActuelle)
           this.dataService.participationCompetition.emit(competitionActuelle)
         },
+          error => {
+            console.log(error)
+          });
+      }
+    }
+  }
+
+  /**
+   * Ajoute l'utilisateur à la liste des participants d'une compétition
+   * @param competition 
+   */
+  rejoindreCompetition(id: number) {
+    if (this.get('organisationEnCours')) {
+      alert("Tu es en train d'organiser une compétition,\ntu dois d'abord l'annuler si tu veux en rejoindre une autre")
+    } else {
+      this.http.post<Competition>(GlobalConstants.apiUrl + 'rejoindreCompetition.php', {
+        identifiant: this.dataService.user.identifiant,
+        id: id
+      }).subscribe(competition => {
+        this.set('competitionActuelle', competition)
+        this.dataService.participationCompetition.emit(competition)
+        this.router.navigateByUrl('/accueil', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/competitions']);
+      }); 
+      },
         error => {
           console.log(error)
         });
@@ -443,11 +523,10 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   getCompetitionsEnCours() {
     if (isDevMode()) {
       this.competitionsEnCours = []
-      this.competitionsEnCours.push({"id": 1, "dernierSignal": '', "type": "bestOf10", "niveaux": ["5e"], "sequences": ["S4S3", "S4S5"], "listeDesUrl": [], "listeDesTemps": [], "minParticipants": 2, "maxParticipants": 2, "participants": [{ "id": 0, "pseudo": "Cerf sauvage", "codeAvatar": "", "score": 196, "lienTrophees": "", "classement": 9, "teamName": "PUF", "scoreEquipe": 0 }] })
       if (typeof (this.get('competitionActuelle')) != 'undefined') this.competitionsEnCours.push(this.get('competitionActuelle'))
     } else {
       this.enCoursDeMaj = true
-      this.http.get<Competition[]>(GlobalConstants.apiUrl + 'getCompetitionsEnCours.php').subscribe(competitions => {
+      this.http.get<CompetitionSimplifiee[]>(GlobalConstants.apiUrl + 'getCompetitionsEnCours.php').subscribe(competitions => {
         this.competitionsEnCours = competitions
         this.enCoursDeMaj = false
       },
@@ -455,6 +534,27 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
           console.log(error)
         });
     }
+  }
+
+  /**
+   * Récupère les informations sur la compétition actuelle
+   */
+  getCompetitionActuelle() {
+    this.enCoursDeMajCompetitionActuelle = true
+    this.http.post<Competition>(GlobalConstants.apiUrl + 'getCompetition.php', { id: this.get('competitionActuelle').id }).subscribe(
+      competition => {
+        this.enCoursDeMajCompetitionActuelle = false
+        this.set('competitionActuelle', competition)
+        if (!this.dataService.competitionActuelleToujoursEnCours()) {
+          alert("Cette compétition a été annulée")
+          this.annulerCompetition(false)
+        } else {
+          this.dataService.participationCompetition.emit(competition)
+        }
+      },
+      error => {
+        console.log(error)
+      });
   }
 
   /**

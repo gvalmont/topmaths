@@ -134,7 +134,7 @@ export class ApiService {
    */
   competitionActuelleToujoursEnCours() {
     const competitionActuelle = <Competition>this.get('CompetitioncompetitionActuelle')
-    if (competitionActuelle != null && competitionActuelle.dernierSignal != null) { // On vérifie si on est en train de participer à une compétition
+    if (competitionActuelle != null && competitionActuelle.dernierSignal != null && competitionActuelle.dernierSignal != '') { // On vérifie si on est en train de participer à une compétition
       let date = new Date(competitionActuelle.dernierSignal);
       date.setMinutes(date.getMinutes() - date.getTimezoneOffset() - 60); //Le serveur mysql semble être en UTC + 1
       if ((new Date()).getTime() - date.getTime() < 300000) {
