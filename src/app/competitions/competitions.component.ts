@@ -413,16 +413,18 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    * Signale au serveur que l'organisateur d'une compétition n'est pas afk
    */
   pingCompetition() {
-    const competitionActuelle = this.get('competitionActuelle')
-    this.http.post<string>(GlobalConstants.apiUrl + 'pingCompetition.php', { identifiant: this.dataService.user.identifiant, id: competitionActuelle.id }).subscribe(
-      dernierSignal => {
-        competitionActuelle.dernierSignal = dernierSignal
-        this.set('competitionActuelle', competitionActuelle)
-        this.dataService.participationCompetition.emit(competitionActuelle)
-      },
-      error => {
-        console.log(error)
-      });
+    if (this.dataService.competitionActuelleToujoursEnCours()) {
+      const competitionActuelle = this.get('competitionActuelle')
+      this.http.post<string>(GlobalConstants.apiUrl + 'pingCompetition.php', { identifiant: this.dataService.user.identifiant, id: competitionActuelle.id }).subscribe(
+        dernierSignal => {
+          competitionActuelle.dernierSignal = dernierSignal
+          this.set('competitionActuelle', competitionActuelle)
+          this.dataService.participationCompetition.emit(competitionActuelle)
+        },
+        error => {
+          console.log(error)
+        });
+    }
   }
 
   lancerCompetition() {
