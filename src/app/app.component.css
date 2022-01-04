@@ -234,6 +234,20 @@
   filter: invert(37%) sepia(22%) saturate(2463%) hue-rotate(306deg) brightness(107%) contrast(100%);
 }
 
+.booboom {
+  animation: Booboom 0.3s;
+}
+
+@keyframes Booboom {
+  0%, 100% {
+    transform:  scale(1);
+  
+  }
+  50% {
+    transform:  scale(1.6);
+  }
+}
+
 .moveUp {
   /* Start the shake animation and make the animation last for 0.5 seconds */
   animation: moveUp 2s;

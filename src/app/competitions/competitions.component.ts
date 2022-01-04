@@ -555,6 +555,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
 
   /**
    * Récupère les informations sur la compétition actuelle
+   * Met à jour le coef affiché
    */
   getCompetitionActuelle() {
     this.enCoursDeMajCompetitionActuelle = true
@@ -567,6 +568,20 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
           this.annulerCompetition(false)
         } else {
           this.dataService.participationCompetition.emit(competition)
+          const divCoef = document.getElementById("coef-competitionActuelle")
+          if (divCoef != null) {
+            let facteurType, facteurNiveaux
+            competition.type == 'battleRoyale' ? facteurType = 2 : facteurType = 1
+            competition.niveaux.length > 0 ? facteurNiveaux = 2 : facteurNiveaux = 1
+            const facteurParticipants = 0.1 * competition.participants.length
+            const coef = (1 + facteurParticipants * facteurType) * facteurNiveaux
+            const texte = ('×' + coef.toString()).replace('.', ',')
+            if (divCoef.innerHTML != texte) {
+              divCoef.innerHTML = texte
+              divCoef.classList.add('booboom')
+              setTimeout(() => { divCoef.classList.remove('booboom') }, 1000);
+            }
+          }
         }
       },
       error => {

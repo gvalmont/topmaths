@@ -48,17 +48,3 @@
   font-size: 40px;
   font-weight: 600;
 }
-
-.booboom {
-  animation: Booboom 0.3s;
-}
-
-@keyframes Booboom {
-  0%, 100% {
-    transform:  scale(1);
-  
-  }
-  50% {
-    transform:  scale(1.6);
-  }
-}
