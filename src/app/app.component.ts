@@ -23,7 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.recupereOngletActif()
     this.recupereProfil()
     this.observeChangementsDeRoute()
-    this.competition = { type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+    this.competition = { id: 0, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
     this.observeParticipationCompetitions()
   }
 
@@ -39,7 +39,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   /**
    * Attend les messages contenant une demande de vérification de présence de l'organisateur d'une compétition
-   * Lorsqu'on le reçoit, on vérifie si l'id de la compétition correspond toujours à la compétition actuelle
+   * Lorsqu'on le reçoit, on vérifie si l'id de la compétition correspond toujours à la compétition actuelle et si elle est toujours d'actualité
+   * Si ce n'est pas le cas, envoie un message signalant que l'organisateur est afk
    * Si c'est le cas, on vérifie si l'utilisateur a effectué une action entre temps
    * si oui, envoie un message signalant sa présence
    * si non, affiche la modale pour lui demander de signaler sa présence
@@ -53,8 +54,9 @@ export class AppComponent implements OnInit, OnDestroy {
       window.addEventListener('message', (event) => {
         const informationOrganisateurCompetition = event.data.informationOrganisateurCompetition
         const competitionId = event.data.competitionId
+        const competitionActuelle = this.dataService.get('CompetitioncompetitionActuelle')
         if (informationOrganisateurCompetition != null) {
-          if (informationOrganisateurCompetition == 'checkPresenceOrganisateur' && this.dataService.get('CompetitioncompetitionActuelle').id == competitionId) {
+          if (informationOrganisateurCompetition == 'checkPresenceOrganisateur' && competitionActuelle.id == competitionId) {
             if (this.dataService.get('CompetitionorganisationEnCours') && this.dataService.competitionActuelleToujoursEnCours()) {
               if (this.dataService.get('CompetitionautoCheckPresenceOrganisateur')) {
                 this.cacherModale()
@@ -65,6 +67,8 @@ export class AppComponent implements OnInit, OnDestroy {
                   modale.style.display = 'block'
                 }
               }
+            } else {
+              window.frames.postMessage({ informationOrganisateurCompetition: 'presenceOrganisateurKO' }, GlobalConstants.origine)
             }
           }
         }
@@ -73,8 +77,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Observe les changements de route,
-   * met ensuite à jour le lastAction
+   * À chaque changement de route :
+   * met à jour le lastAction
+   * s'il y a une icône de compétition dans le menu, vérifie si elle est toujours d'actualité
    */
   observeChangementsDeRoute() {
     this.event$ = this.router.events.subscribe((event: NavigationEvent) => {
@@ -84,6 +89,14 @@ export class AppComponent implements OnInit, OnDestroy {
           this.dataService.majLastAction() // le whosOnline est compris dans le majLastAction
         } else {
           this.dataService.recupWhosOnline()
+        }
+        if (this.competition != null && this.competition.type != '') {
+          if (!this.dataService.competitionActuelleToujoursEnCours()) {
+            const competitionActuelle = { id: 0, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+            this.dataService.set('CompetitioncompetitionActuelle', competitionActuelle)
+            this.dataService.set('CompetitionorganisationEnCours', false)
+            this.dataService.participationCompetition.emit(competitionActuelle)
+          }
         }
       }
     });
@@ -157,7 +170,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * Envoie un message signalant que l'organisateur d'une compétition n'est pas afk
    */
   cacherModale() {
-    window.frames.postMessage({ informationOrganisateurCompetition: 'presenceOrganisateurOk' }, GlobalConstants.origine)
+    window.frames.postMessage({ informationOrganisateurCompetition: 'presenceOrganisateurOK' }, GlobalConstants.origine)
     this.modaleInformationsCompetitions.style.display = 'none'
   }
 }

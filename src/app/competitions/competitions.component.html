@@ -84,7 +84,7 @@
           </div>
           <div *ngIf="competitionActuelle.participants[0].id == dataService.user.id">
             <br><br>
-            <button class="button is-danger" (click)="annulerOrganisation()">Annuler la compétition</button>
+            <button class="button is-danger" (click)="annulerOrganisation(true)">Annuler la compétition</button>
             &nbsp; &nbsp;
             <button class="button is-success" (click)="lancerCompetition()">Lancer la compétition</button>
           </div>
@@ -155,7 +155,7 @@
       <div class="column is-2">
       </div>
       <div class="column is-5">
-        <button id='boutonPartir' (click)="annulerOrganisation()" class="button is-danger is-large">Partir</button>
+        <button id='boutonPartir' (click)="annulerOrganisation(true)" class="button is-danger is-large">Partir</button>
       </div>
     </div>
     <br>
