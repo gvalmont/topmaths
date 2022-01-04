@@ -36,7 +36,6 @@ interface Adjectif {
 export class ApiService {
   @Output() profilModifie: EventEmitter<string[]> = new EventEmitter();
   @Output() participationCompetition: EventEmitter<Competition> = new EventEmitter();
-  @Output() informationOrganisateurCompetition: EventEmitter<string> = new EventEmitter();
 
   redirectUrl: string
   isloggedIn: boolean

@@ -51,7 +51,7 @@
       <button *ngIf="competitionActuelle == null || (competitionActuelle!= null && this.competitionActuelle.participants.length == 0)" [routerLink]="['/competitions/organiser']" class="button is-link">Organiser une compétition</button>
       <div id="divCompetitionActuelle" *ngIf="competitionActuelle != null && this.competitionActuelle.participants.length > 0">
         <div [ngClass]="{'title is-2 has-text-white': true, 'has-background-link': competitionActuelle.type == 'bestOf10', 'has-background-danger': competitionActuelle.type == 'battleRoyale'}">
-          {{competitionActuelle.type == 'bestOf10' ? 'Best of 10' : competitionActuelle.type == 'battleRoyale' ? 'Battle Royale' : ''}}<figure class="image is-32x32 is-inline-block has-text-left">{{troisPetitsPoints}}</figure>
+          {{competitionActuelle.type == 'bestOf10' ? 'Best of 10' : competitionActuelle.type == 'battleRoyale' ? 'Battle Royale' : ''}}<figure class="image is-48x48 is-inline-block has-text-left">{{troisPetitsPoints}}</figure>
         </div>
         <div [class]="'container-competition ' + competitionActuelle.type">
           <div class="is-flex is-align-items-center is-justify-content-center">
