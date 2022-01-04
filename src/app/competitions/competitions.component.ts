@@ -357,6 +357,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     } else {
       this.http.post<Competition>(GlobalConstants.apiUrl + 'organiserCompetition.php', JSON.stringify({
         identifiant: this.dataService.user.identifiant,
+        organisateurId: this.dataService.user.id,
         type: competition.type,
         niveaux: competition.niveaux,
         sequences: competition.sequences,
@@ -366,10 +367,15 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
         maxParticipants: competition.maxParticipants,
         participants: competition.participants
       })).subscribe(competition => {
-        this.set('competitionActuelle', competition)
-        this.router.navigate(['/competitions'])
-        this.set('organisationEnCours', 'true')
-        this.dataService.participationCompetition.emit(competition)
+        if (competition.id == 0) {
+          alert("Tu fais déjà partie d'une compétition.\nTu dois d'abord la quitter si tu veux en organiser une autre")
+          this.router.navigate(['/competitions'])
+        } else {
+          this.set('competitionActuelle', competition)
+          this.router.navigate(['/competitions'])
+          this.set('organisationEnCours', 'true')
+          this.dataService.participationCompetition.emit(competition)
+        }
       },
         error => {
           console.log(error)
