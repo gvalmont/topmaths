@@ -170,7 +170,11 @@ export class AppComponent implements OnInit, OnDestroy {
    * Envoie un message signalant que l'organisateur d'une compétition n'est pas afk
    */
   cacherModale() {
-    window.frames.postMessage({ informationOrganisateurCompetition: 'presenceOrganisateurOK' }, GlobalConstants.origine)
+    if (this.dataService.competitionActuelleToujoursEnCours()) {
+      window.frames.postMessage({ informationOrganisateurCompetition: 'presenceOrganisateurOK' }, GlobalConstants.origine)
+    } else {
+      window.frames.postMessage({ informationOrganisateurCompetition: 'presenceOrganisateurKO' }, GlobalConstants.origine)
+    }
     this.modaleInformationsCompetitions.style.display = 'none'
   }
 }

@@ -67,6 +67,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   troisPetitsPoints: string
   competitionActuelle: Competition
   participationEnCours: boolean
+  appelDePreparationLance: boolean
 
   constructor(public http: HttpClient, private route: ActivatedRoute, private router: Router, public dataService: ApiService, private viewportScroller: ViewportScroller) {
     this.infosModale = [[], '', new Date(), []]
@@ -79,6 +80,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     this.enCoursDeMajCompetitionActuelle = false
     this.participationEnCours = false
     this.troisPetitsPoints = '...'
+    this.appelDePreparationLance = false
     this.competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
     this.lanceAnimationTroisPetitsPoints()
     this.lanceActualisationCompetitionsEnCours()
@@ -521,6 +523,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
         identifiant: this.dataService.user.identifiant,
         id: id
       }).subscribe(competition => {
+        this.appelDePreparationLance = false
         this.set('competitionActuelle', competition)
         this.dataService.participationCompetition.emit(competition)
         this.router.navigateByUrl('/accueil', { skipLocationChange: true }).then(() => {
@@ -533,6 +536,9 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Fixe le statut de la compétition à "preparation"
+   */
   lancerCompetition() {
     this.http.post<Reponse>(GlobalConstants.apiUrl + 'lancerCompetition.php', { identifiant: this.dataService.user.identifiant, id: this.get('competitionActuelle').id }).subscribe(
       data => {
@@ -576,25 +582,59 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
           this.annulerCompetition(false)
         } else {
           this.dataService.participationCompetition.emit(competition)
-          const divCoef = document.getElementById("coef-competitionActuelle")
-          if (divCoef != null) {
-            let facteurType, facteurNiveaux
-            competition.type == 'battleRoyale' ? facteurType = 2 : facteurType = 1
-            competition.niveaux.length > 0 ? facteurNiveaux = 2 : facteurNiveaux = 1
-            const facteurParticipants = 0.1 * competition.participants.length
-            const coef = (1 + facteurParticipants * facteurType) * facteurNiveaux
-            const texte = ('×' + coef.toString()).replace('.', ',')
-            if (divCoef.innerHTML != texte) {
-              divCoef.innerHTML = texte
-              divCoef.classList.add('booboom')
-              setTimeout(() => { divCoef.classList.remove('booboom') }, 1000);
-            }
+          this.majCoefCompetitionActuelle(competition)
+          if (competition.statut == 'preparation' && !this.appelDePreparationLance) {
+            this.lancerAppelDePreparation()
+            this.appelDePreparationLance = true
           }
         }
       },
       error => {
         console.log(error)
       });
+  }
+
+  /**
+   * Affiche la modale demandant à l'utilisateur s'il est toujours là
+   */
+  lancerAppelDePreparation() {
+    const modaleConfirmation = document.getElementById("modaleConfirmation")
+    if (modaleConfirmation != null) modaleConfirmation.style.display = 'block'
+  }
+
+  /**
+   * Cache la modale demandant à l'utilisateur s'il est toujours là
+   */
+  repondreAppelDePreparation() {
+    const modaleConfirmation = document.getElementById("modaleConfirmation")
+    if (modaleConfirmation != null) modaleConfirmation.style.display = 'none'
+    this.http.post<Reponse>(GlobalConstants.apiUrl + 'aReponduOK.php', { identifiant: this.dataService.user.identifiant, id: this.get('competitionActuelle').id }).subscribe(
+      data => {
+      },
+      error => {
+        console.log(error)
+      });
+  }
+
+  /**
+   * Met à jour le coefficient de la compétition affiché dans les infos sur la compétition actuelle
+   * @param competition actuelle
+   */
+  majCoefCompetitionActuelle(competition: Competition) {
+    const divCoef = document.getElementById("coef-competitionActuelle")
+    if (divCoef != null) {
+      let facteurType, facteurNiveaux
+      competition.type == 'battleRoyale' ? facteurType = 2 : facteurType = 1
+      competition.niveaux.length > 0 ? facteurNiveaux = 2 : facteurNiveaux = 1
+      const facteurParticipants = 0.1 * competition.participants.length
+      const coef = (1 + facteurParticipants * facteurType) * facteurNiveaux
+      const texte = ('×' + coef.toString()).replace('.', ',')
+      if (divCoef.innerHTML != texte) {
+        divCoef.innerHTML = texte
+        divCoef.classList.add('booboom')
+        setTimeout(() => { divCoef.classList.remove('booboom') }, 1000);
+      }
+    }
   }
 
   /**
@@ -614,38 +654,6 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
         titreCompetitionsEnCours.classList.add('tout-rond')
         this.arreteActualisationCompetitionsEnCours()
       }
-    }
-  }
-
-  /**
-   * Modifie les textes de la modale de confirmation en fonction de la situation et l'affiche
-   */
-  afficherModaleConfirmation() {
-    const modaleConfirmation = document.getElementById("modaleConfirmation")
-    if (modaleConfirmation != null) {
-      const texteModale = document.getElementById('texteModale')
-      const boutonRester = document.getElementById('boutonRester')
-      const boutonPartir = document.getElementById('boutonPartir')
-      if (texteModale != null && boutonRester != null && boutonPartir != null) {
-        if (this.get('organisationEnCours')) {
-          texteModale.innerText = "Si tu veux rejoindre cette compétition, tu dois d'abord annuler celle que tu es en train d'organiser."
-          boutonRester.innerText = "Continuer d'organiser"
-          boutonPartir.innerText = "Arrêter d'organiser"
-        }
-      }
-      modaleConfirmation.style.display = 'block'
-    }
-  }
-
-  /**
-   * Ferme la modale de confirmation
-   * Si la modale s'est affichée lorsque l'utilisateur voulait aller quelque part, le déplace vers là où il voulait aller
-   */
-  fermerModaleConfirmation(redirection?: string) {
-    const modaleConfirmation = document.getElementById("modaleConfirmation")
-    if (modaleConfirmation != null) modaleConfirmation.style.display = 'none'
-    if (redirection) {
-      this.router.navigate([redirection])
     }
   }
 

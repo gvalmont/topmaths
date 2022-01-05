@@ -150,27 +150,20 @@
 <app-modale-exercices [infosModale]="infosModale" (modaleFermee)="scrollBack()"></app-modale-exercices>
 
 <!-- Modale de confirmation -->
-<div id="modaleConfirmation" class="modal centre">
-  <div class="modal-background" (click)="fermerModaleConfirmation()"></div>
+<div id="modaleConfirmation" class="modal centre" (click)="repondreAppelDePreparation()">
+  <div class="modal-background"></div>
   <div><br><br><br></div>
   <div class="modal-content has-background-white">
     <br><br>
     <!-- Texte -->
-    <p id='texteModale'>
+    <p>
+      La compétition va démarrer !<br>
+      Tu es toujours là ?
     </p>
     <br>
-    <!-- Boutons -->
-    <div class="columns">
-      <div class="column is-5">
-        <button id='boutonRester' (click)="fermerModaleConfirmation()" class="button is-success is-large">Rester</button>
-      </div>
-      <div class="column is-2">
-      </div>
-      <div class="column is-5">
-        <button id='boutonPartir' (click)="annulerCompetition(true)" class="button is-danger is-large">Partir</button>
-      </div>
-    </div>
+    <!-- Bouton -->
+    <button class="button is-success is-large">Oui</button>
     <br>
   </div>
-  <button class="modal-close is-large" aria-label="close" (click)="fermerModaleConfirmation()"></button>
+  <button class="modal-close is-large" aria-label="close"></button>
 </div>
