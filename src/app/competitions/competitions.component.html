@@ -22,7 +22,7 @@
               </i>
             </div>
             <div [class]="'container-competition is-small is-clickable ' + competitionEnCours.type" (click)="rejoindreCompetition(competitionEnCours.id)">
-              <div class="is-flex is-align-items-center is-justify-content-center">
+              <div class="is-flex is-align-items-center is-justify-content-center" style="line-height: normal;">
                 <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(competitionEnCours.profilOrganisateur)"></figure>
                 <span>{{ competitionEnCours.profilOrganisateur.pseudo }}</span>
                 <i class="image is-48x48 is-inline-block"><img [src]="'assets/img/cc0/' + competitionEnCours.type + '-svgrepo-com.svg'" /></i>
@@ -95,9 +95,9 @@
           <br>
           <button *ngIf="competitionActuelle.profilOrganisateur.id != dataService.user.id" class="button is-danger" (click)="quitterCompetition()">Quitter la compétition</button>
           <div *ngIf="competitionActuelle.profilOrganisateur.id == dataService.user.id">
-            <button class="button is-danger" (click)="annulerCompetition(true)">Annuler la compétition</button>
+            <button id='boutonAnnulerCompetition' class="button is-danger" (click)="annulerCompetition(true)">Annuler la compétition</button>
             &nbsp; &nbsp;
-            <button class="button is-success" (click)="lancerCompetition()">Lancer la compétition</button>
+            <button id='boutonLancerCompetition' class="button is-success" (click)="lancerCompetition()">Lancer la compétition</button>
           </div>
         </div>
       </div>
@@ -163,7 +163,7 @@
     <br>
     <!-- Bouton -->
     <button class="button is-success is-large">Oui</button>
-    <br>
+    <div><br><br></div>
   </div>
   <button class="modal-close is-large" aria-label="close"></button>
 </div>

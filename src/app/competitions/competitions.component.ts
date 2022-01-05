@@ -25,6 +25,9 @@ export interface Competition {
   minParticipants: number
   maxParticipants: number
   participants: UserSimplifie[]
+  coef?: number
+  url?: string
+  temps?: number
 }
 
 export interface CompetitionSimplifiee {
@@ -540,12 +543,20 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    * Fixe le statut de la compétition à "preparation"
    */
   lancerCompetition() {
-    this.http.post<Reponse>(GlobalConstants.apiUrl + 'lancerCompetition.php', { identifiant: this.dataService.user.identifiant, id: this.get('competitionActuelle').id }).subscribe(
-      data => {
-      },
-      error => {
-        console.log(error)
-      });
+    if (this.get('competitionActuelle').participants.length < 2) {
+      alert('Il faut au moins 2 personnes pour lancer une compétition !')
+    } else {
+      const boutonLancerCompetition = <HTMLButtonElement> document.getElementById('boutonLancerCompetition')
+      if (boutonLancerCompetition != null) boutonLancerCompetition.disabled = true
+      const boutonAnnulerCompetition = <HTMLButtonElement> document.getElementById('boutonAnnulerCompetition')
+      if (boutonAnnulerCompetition != null) boutonAnnulerCompetition.disabled = true
+      this.http.post<Reponse>(GlobalConstants.apiUrl + 'lancerCompetition.php', { identifiant: this.dataService.user.identifiant, id: this.get('competitionActuelle').id }).subscribe(
+        data => {
+        },
+        error => {
+          console.log(error)
+        });
+    }
   }
 
   /**
@@ -604,12 +615,26 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
 
   /**
    * Cache la modale demandant à l'utilisateur s'il est toujours là
+   * Répond que l'utilisateur n'est pas afk
    */
   repondreAppelDePreparation() {
     const modaleConfirmation = document.getElementById("modaleConfirmation")
     if (modaleConfirmation != null) modaleConfirmation.style.display = 'none'
-    this.http.post<Reponse>(GlobalConstants.apiUrl + 'aReponduOK.php', { identifiant: this.dataService.user.identifiant, id: this.get('competitionActuelle').id }).subscribe(
-      data => {
+    this.repondre('OK')
+  }
+
+  /**
+   * Signale au serveur qu'on a répondu à une question
+   * @param reponse 
+   */
+  repondre(reponse: string) {
+    const competition = <Competition>this.get('competitionActuelle')
+    this.http.post<Reponse>(GlobalConstants.apiUrl + 'aRepondu.php', {
+      identifiant: this.dataService.user.identifiant,
+      id: competition.id,
+      statut: competition.statut,
+      reponse: reponse
+    }).subscribe(data => {
       },
       error => {
         console.log(error)
