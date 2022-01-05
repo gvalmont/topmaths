@@ -23,7 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.recupereOngletActif()
     this.recupereProfil()
     this.observeChangementsDeRoute()
-    this.competition = { id: 0, profilOrganisateur: {id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: ''}, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+    this.competition = { id: 0, statut: '', profilOrganisateur: {id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: ''}, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
     this.observeParticipationCompetitions()
   }
 
@@ -55,7 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
         const informationOrganisateurCompetition = event.data.informationOrganisateurCompetition
         const competitionId = event.data.competitionId
         const competitionActuelle = this.dataService.get('CompetitioncompetitionActuelle')
-        if (informationOrganisateurCompetition != null) {
+        if (informationOrganisateurCompetition != null && this.competition.statut == 'recrutement') {
           if (informationOrganisateurCompetition == 'checkPresenceOrganisateur' && competitionActuelle.id == competitionId) {
             if (this.dataService.get('CompetitionorganisationEnCours') && this.dataService.competitionActuelleToujoursEnCours()) {
               if (this.dataService.get('CompetitionautoCheckPresenceOrganisateur')) {
@@ -92,7 +92,7 @@ export class AppComponent implements OnInit, OnDestroy {
         }
         if (this.competition != null && this.competition.type != '') {
           if (!this.dataService.competitionActuelleToujoursEnCours()) {
-            const competitionActuelle = { id: 0, profilOrganisateur: {id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: ''}, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+            const competitionActuelle = { id: 0, statut: '', profilOrganisateur: {id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: ''}, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
             this.dataService.set('CompetitioncompetitionActuelle', competitionActuelle)
             this.dataService.set('CompetitionorganisationEnCours', false)
             this.dataService.participationCompetition.emit(competitionActuelle)

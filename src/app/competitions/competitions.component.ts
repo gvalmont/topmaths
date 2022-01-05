@@ -14,6 +14,7 @@ interface Reponse {
 
 export interface Competition {
   id: number
+  statut: string
   profilOrganisateur: UserSimplifie
   dernierSignal: string
   type: string
@@ -28,6 +29,7 @@ export interface Competition {
 
 export interface CompetitionSimplifiee {
   id: number
+  statut: string
   profilOrganisateur: UserSimplifie
   type: string
   niveaux: string[]
@@ -77,7 +79,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     this.enCoursDeMajCompetitionActuelle = false
     this.participationEnCours = false
     this.troisPetitsPoints = '...'
-    this.competitionActuelle = { id: 0, profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+    this.competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
     this.lanceAnimationTroisPetitsPoints()
     this.lanceActualisationCompetitionsEnCours()
     setTimeout(() => {
@@ -364,6 +366,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
           }
           this.organiserCompetition({
             id: 0,
+            statut: '',
             profilOrganisateur: profilOrganisateur,
             dernierSignal: '',
             type: this.type,
@@ -441,7 +444,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   annulerCompetition(enLigne: boolean, redirection?: string) {
     this.set('enTrainDePingCompetitionActuelle', false)
     if (isDevMode() || !enLigne) {
-      const competitionActuelle = { id: 0, profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+      const competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
       this.set('competitionActuelle', competitionActuelle)
       this.set('organisationEnCours', false)
       this.participationEnCours = false
@@ -452,7 +455,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
       this.http.post<Reponse>(GlobalConstants.apiUrl + 'annulerCompetition.php', { identifiant: this.dataService.user.identifiant, id: this.get('competitionActuelle').id }).subscribe(
         data => {
           if (data.reponse == "OK") {
-            const competitionActuelle = { id: 0, profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+            const competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
             this.set('competitionActuelle', competitionActuelle)
             this.set('organisationEnCours', false)
             this.participationEnCours = false
@@ -473,7 +476,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   quitterCompetition() {
     this.http.post<Reponse>(GlobalConstants.apiUrl + 'quitterCompetition.php', { identifiant: this.dataService.user.identifiant }).subscribe(
       data => {
-        const competitionActuelle = { id: 0, profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+        const competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
         this.set('competitionActuelle', competitionActuelle)
         this.participationEnCours = false
         this.arreteActualisationCompetitionActuelle()
@@ -531,7 +534,12 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   }
 
   lancerCompetition() {
-
+    this.http.post<Reponse>(GlobalConstants.apiUrl + 'lancerCompetition.php', { identifiant: this.dataService.user.identifiant, id: this.get('competitionActuelle').id }).subscribe(
+      data => {
+      },
+      error => {
+        console.log(error)
+      });
   }
 
   /**

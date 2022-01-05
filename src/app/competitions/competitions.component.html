@@ -12,8 +12,14 @@
         </p>
         <div *ngIf="competitionsEnCours[0] != null && competitionsEnCours[0].nbParticipants > 0">
           <div *ngFor="let competitionEnCours of competitionsEnCours">
-            <div [class]="'titre is-clickable ' + competitionEnCours.type" (click)="rejoindreCompetition(competitionEnCours.id)">
-              {{competitionEnCours.type == 'bestOf10' ? 'Best of 10' : competitionEnCours.type == 'battleRoyale' ? 'Battle Royale' : ''}}
+            <div [class]="'titre is-clickable is-flex is-align-items-center is-justify-content-center ' + competitionEnCours.type" (click)="rejoindreCompetition(competitionEnCours.id)">
+              <p>{{competitionEnCours.type == 'bestOf10' ? 'Best of 10' : competitionEnCours.type == 'battleRoyale' ? 'Battle Royale' : ''}}</p>
+              <p>&nbsp; &nbsp;</p>
+              <i class="image is-white is-24x24 is-inline-block">
+                <img *ngIf="competitionEnCours.statut == 'recrutement' || competitionEnCours.statut == 'preparation'" [src]="'assets/img/cc0/hourglass-svgrepo-com.svg'" />
+                <img *ngIf="competitionEnCours.statut != 'recrutement' && competitionEnCours.statut != 'preparation' && competitionEnCours.type == 'bestOf10'" [src]="'assets/img/cc0/gears-configuration-tool-svgrepo-com.svg'" />
+                <img *ngIf="competitionEnCours.statut != 'recrutement' && competitionEnCours.statut != 'preparation' && competitionEnCours.type == 'battleRoyale'" [src]="'assets/img/cc0/padlock-svgrepo-com.svg'" />
+              </i>
             </div>
             <div [class]="'container-competition is-small is-clickable ' + competitionEnCours.type" (click)="rejoindreCompetition(competitionEnCours.id)">
               <div class="is-flex is-align-items-center is-justify-content-center">
