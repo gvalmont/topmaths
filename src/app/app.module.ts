@@ -30,6 +30,7 @@ import { EquipePageComponent } from './equipe/page/equipe.page.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { ModaleExercicesComponent } from './modale-exercices/modale-exercices.component';
 import { ListeSequencesComponent } from './sequences/liste-sequences/liste-sequences.component';
+import { CompetitionActuelleComponent } from './competitions/competition-actuelle/competition-actuelle.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { ListeSequencesComponent } from './sequences/liste-sequences/liste-seque
     EquipePageComponent,
     AvatarComponent,
     ModaleExercicesComponent,
-    ListeSequencesComponent
+    ListeSequencesComponent,
+    CompetitionActuelleComponent
   ],
   imports: [
     BrowserModule,

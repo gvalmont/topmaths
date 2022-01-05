@@ -1,0 +1,32 @@
+<div [class]="'container-competition ' + competitionActuelle.type">
+  <div class="is-flex is-align-items-center is-justify-content-center">
+    <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(competitionActuelle.profilOrganisateur)"></figure>
+    <span>{{ competitionActuelle.profilOrganisateur.pseudo }}</span>
+    <i class="image is-48x48 is-inline-block"><img *ngIf="competitionActuelle.type != ''" [src]="'assets/img/cc0/' + competitionActuelle.type + '-svgrepo-com.svg'" /></i>
+    <span>{{competitionActuelle.participants.length}} / {{competitionActuelle.maxParticipants}}</span>
+    &nbsp;&nbsp;<div class="dropdown is-size-3 has-text-weight-bold" id="coef-competitionActuelle"></div>
+    <div class="dropdown-content">Plus il y a de monde, plus vous gagnez de points !</div>
+  </div>
+  <span *ngIf="competitionActuelle.niveaux[0] != ''">
+    <span *ngFor="let niveau of competitionActuelle.niveaux">
+      <span style="word-break: keep-all" [ngClass]="'dropdown px-4 subtitle is-rounded is-' + niveau">{{ niveau }}<div class="dropdown-content">Toutes les séquences de {{niveau}}</div></span>
+    </span>
+  </span>
+  <span *ngIf="competitionActuelle.niveaux[0] != ''">
+    <span style="word-break: keep-all" class="px-4 py-2 subtitle is-rounded bonus dropdown">x2<div class="dropdown-content">Les points de cette compétition sont doublés !</div></span>
+  </span>
+  <span *ngIf="competitionActuelle.sequences[0] != ''">
+    <span *ngFor="let sequence of competitionActuelle.sequences; index as i">
+      <span style="word-break: keep-all" [ngClass]="'dropdown px-4 subtitle is-6 is-rounded is-' + sequence.slice(1, 2) + 'e'">{{ sequence.slice(2) }}<span *ngIf="competitionActuelle.niveaux[0] == '' ? (i + 1) % 5 == 0 :((competitionActuelle.niveaux.length + i + 2) % 5 == 0)">
+          <br>
+        </span>
+        <div class="dropdown-content">Séquence {{ sequence.slice(3) }} de {{sequence.slice(1, 2)}}e</div>
+      </span>
+    </span>
+  </span>
+  <h1 class="title is-4">Liste des participants</h1>
+  <div *ngFor="let participant of competitionActuelle.participants">
+    <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(participant)"></figure>
+    <span>{{ participant.pseudo }} &nbsp; &nbsp;</span>
+  </div>
+</div>

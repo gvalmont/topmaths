@@ -78,7 +78,8 @@ export class ApiService {
       teamName: '',
       scoreEquipe: 0,
       derniereSequence: '',
-      dernierObjectif: ''
+      dernierObjectif: '',
+      question: 0
     }
     this.infosEquipe = {
       leader: -1,
@@ -120,7 +121,7 @@ export class ApiService {
     this.ecouteMessagesPost()
     this.recupereDonneesPseudos() // En cas de création d'un nouveau compte
     setTimeout(() => {
-      if (this.competitionActuelleToujoursEnCours()) { // On vérifie si elle est toujours d'actualité
+      if (this.competitionActuelleToujoursEnCours() || isDevMode()) { // On vérifie si elle est toujours d'actualité
         this.participationCompetition.emit(this.get('CompetitioncompetitionActuelle'))
       } else {
         this.set('CompetitioncompetitionActuelle', { type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] })
@@ -411,7 +412,8 @@ export class ApiService {
         teamName: 'PUF',
         scoreEquipe: 0,
         derniereSequence: 'S4S5!Séquence 5 :<br>Théorème de Pythagore',
-        dernierObjectif: '4G20!4G20 : Calculer une longueur avec le théorème de Pythagore'
+        dernierObjectif: '4G20!4G20 : Calculer une longueur avec le théorème de Pythagore',
+        question: 0
       }
       this.setToken('identifiant', this.user.identifiant)
       this.setToken('version', this.derniereVersionToken)
@@ -513,7 +515,8 @@ export class ApiService {
         teamName: '',
         scoreEquipe: 0,
         derniereSequence: '',
-        dernierObjectif: ''
+        dernierObjectif: '',
+        question: 0
       }
       this.http.post<User[]>(GlobalConstants.apiUrl + 'register.php', user).subscribe(users => {
         this.isloggedIn = true
@@ -784,7 +787,7 @@ export class ApiService {
     if (isDevMode()) {
       this.deleteToken('identifiant')
       this.deleteToken('version')
-      this.user = new User(0, '', '', '', '', '', '', 0, '', '', '', 0, '', 0, '', '')
+      this.user = new User(0, '', '', '', '', '', '', 0, '', '', '', 0, '', 0, '', '', 0)
       this.isloggedIn = false
       this.profilModifie.emit([
         'identifiant',
@@ -804,7 +807,7 @@ export class ApiService {
         data => {
           this.deleteToken('identifiant')
           this.deleteToken('version')
-          this.user = new User(0, '', '', '', '', '', '', 0, '', '', '', 0, '', 0, '', '')
+          this.user = new User(0, '', '', '', '', '', '', 0, '', '', '', 0, '', 0, '', '', 0)
           this.isloggedIn = false
           this.profilModifie.emit([
             'identifiant',

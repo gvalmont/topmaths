@@ -55,7 +55,7 @@ interface Exercice {
   styleUrls: ['./competitions.component.css']
 })
 export class CompetitionsComponent implements OnInit, OnDestroy {
-  infosModale: [string[], string, Date, number[]]
+  infosModale: [string[], string, Date, number[], number]
   type: string
   organisation: boolean
   event$: any
@@ -73,7 +73,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   appelDePreparationLance: boolean
 
   constructor(public http: HttpClient, private route: ActivatedRoute, private router: Router, public dataService: ApiService, private viewportScroller: ViewportScroller) {
-    this.infosModale = [[], '', new Date(), []]
+    this.infosModale = [[], '', new Date(), [], 0]
     this.type = ''
     this.organisation = false
     this.redirection = ''
@@ -84,7 +84,12 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     this.participationEnCours = false
     this.troisPetitsPoints = '...'
     this.appelDePreparationLance = false
-    this.competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+    if (isDevMode()) {
+      this.competitionActuelle = {listeDesTemps: [], listeDesUrl: [],"id":168,"statut":"2","profilOrganisateur":{id:0,"pseudo":"Moule parfaite","codeAvatar":"rgba(242, 211, 177, 1)&2&9&27&5&23&rgba(62, 172, 44, 1)","score":682,"lienTrophees":"","classement":23,"teamName":"RIO","scoreEquipe":578},"type":"bestOf10","dernierSignal":"2022-01-05 15:17:10","niveaux":["5e"],"sequences":[],"minParticipants":2,"maxParticipants":32,"participants":[{"id":1,"pseudo":"Manchot incomp\u00e9tent","codeAvatar":"rgba(242, 211, 177, 1)&23&0&8&4&25&rgba(172, 101, 17, 1)","score":6399,"lienTrophees":"","classement":6,"teamName":"AMG","aRepondu":1433, scoreEquipe: 0},{"id":2,"pseudo":"Moule parfaite","codeAvatar":"rgba(242, 211, 177, 1)&2&9&27&5&23&rgba(62, 172, 44, 1)","score":778,"lienTrophees":"","classement":22,"teamName":"RIO","aRepondu":1369, scoreEquipe: 0}],"coef":2.4,"url":"https:\/\/coopmaths.fr\/mathalea.html?ex=6P11,s=false,n=1,i=1&v=can&z=1.5&duree=150&serie=krzp","temps":150}
+      this.set('competitionActuelle', this.competitionActuelle)
+    } else {
+      this.competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+    }
     this.lanceAnimationTroisPetitsPoints()
     this.lanceActualisationCompetitionsEnCours()
     setTimeout(() => {
@@ -126,7 +131,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
             if (this.dataService.get('CompetitionorganisationEnCours') && this.dataService.competitionActuelleToujoursEnCours()) {
               this.lancePingCompetitionActuelle()
             } else {
-              this.annulerCompetition(true, '/accueil')
+              this.annulerCompetition(true)
             }
           } else if (informationOrganisateurCompetition == 'presenceOrganisateurKO') {
             this.annulerCompetition(false)
@@ -153,12 +158,12 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    * Lance le listener approprié
    */
   verifieCompetitionEnCours() {
-    if (this.dataService.competitionActuelleToujoursEnCours()) { // Si on participe à une compétition
+    const competitionActuelle = <Competition>this.get('competitionActuelle')
+    if (this.dataService.competitionActuelleToujoursEnCours() || isDevMode()) { // Si on participe à une compétition
       this.participationEnCours = true
       this.lanceActualisationCompetitionActuelle()
-      const competitionActuelle = this.get('competitionActuelle')
       this.competitionActuelle = competitionActuelle
-      if (competitionActuelle.participants[0] != null && competitionActuelle.participants[0].id == this.dataService.user.id) { // Si on est le chef
+      if (competitionActuelle.profilOrganisateur != null && competitionActuelle.profilOrganisateur.id == this.dataService.user.id) { // Si on est le chef
         this.set('organisationEnCours', true)
         if (!this.get('enTrainDePingCompetitionActuelle')) {
           this.set('enTrainDePingCompetitionActuelle', true)
@@ -168,7 +173,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
         this.set('organisationEnCours', false)
       }
     } else {
-      this.annulerCompetition(false)
+      if (competitionActuelle != null && competitionActuelle.type != '') this.annulerCompetition(false)
     }
   }
 
@@ -176,33 +181,39 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    * Lance le timeout qui assure que l'organisateur d'une compétition n'est pas afk
    */
   lancePingCompetitionActuelle() {
-    const competitionId = this.get('competitionActuelle').id
-    this.pingCompetition()
-    setTimeout(() => {
-      if (this.dataService.get('CompetitionorganisationEnCours') && this.dataService.competitionActuelleToujoursEnCours()) {
-        window.frames.postMessage({ informationOrganisateurCompetition: 'checkPresenceOrganisateur', competitionId: competitionId }, GlobalConstants.origine)
-      }
-    }, 270000); // Ce qui lui laisse 30 secondes pour répondre avant que la compétition ne soit désactivée
+    const competition = <Competition>this.get('competitionActuelle')
+    if (competition.statut == 'recrutement') {
+      this.pingCompetition()
+      setTimeout(() => {
+        if (this.dataService.get('CompetitionorganisationEnCours') && this.dataService.competitionActuelleToujoursEnCours() && competition.statut == 'recrutement') {
+          window.frames.postMessage({ informationOrganisateurCompetition: 'checkPresenceOrganisateur', competitionId: competition.id }, GlobalConstants.origine)
+        }
+      }, 270000); // Ce qui lui laisse 30 secondes pour répondre avant que la compétition ne soit désactivée
+    }
   }
 
   /**
    * Lance l'interval qui gère l'actualisation de la compétition actuelle
    */
   lanceActualisationCompetitionActuelle() {
-    this.getCompetitionActuelle()
-    this.actualisationCompetitionActuelle = setInterval(() => {
+    if (!isDevMode()) {
       this.getCompetitionActuelle()
-    }, 3000);
+      this.actualisationCompetitionActuelle = setInterval(() => {
+        this.getCompetitionActuelle()
+      }, 3000);
+    }
   }
 
   /**
    * Lance l'interval qui gère l'actualisation des compétitions en cours
    */
   lanceActualisationCompetitionsEnCours() {
-    this.getCompetitionsEnCours()
-    this.actualisationCompetitionsEnCours = setInterval(() => {
+    if (!isDevMode()) {
       this.getCompetitionsEnCours()
-    }, 3000);
+      this.actualisationCompetitionsEnCours = setInterval(() => {
+        this.getCompetitionsEnCours()
+      }, 3000);
+    }
   }
 
   /**
@@ -243,13 +254,6 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    */
   arreteAnimationTroisPetitsPoints() {
     clearInterval(this.intervalTroisPetitsPoints)
-  }
-
-  /**
-   * Remonte jusqu'au menu au retour de la modale d'exercice
-   */
-  scrollBack() {
-    this.viewportScroller.scrollToPosition([0, 0])
   }
 
   /**
@@ -405,7 +409,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    */
   organiserCompetition(competition: Competition) {
     if (isDevMode()) {
-      this.set('competitionActuelle', competition)
+      this.set('competitionActuelle', {"id":"168","statut":"2","profilOrganisateur":{"id":"1","pseudo":"Moule parfaite","codeAvatar":"rgba(242, 211, 177, 1)&2&9&27&5&23&rgba(62, 172, 44, 1)","score":"682","lienTrophees":"","classement":"23","teamName":"RIO","scoreEquipe":"578"},"type":"bestOf10","dernierSignal":"2022-01-05 15:17:10","niveaux":["5e"],"sequences":[],"minParticipants":"2","maxParticipants":"32","participants":[{"id":"1","pseudo":"Manchot incomp\u00e9tent","codeAvatar":"rgba(242, 211, 177, 1)&23&0&8&4&25&rgba(172, 101, 17, 1)","score":"6399","lienTrophees":"","classement":"6","teamName":"AMG","aRepondu":"1433"},{"id":"2","pseudo":"Moule parfaite","codeAvatar":"rgba(242, 211, 177, 1)&2&9&27&5&23&rgba(62, 172, 44, 1)","score":"778","lienTrophees":"","classement":"22","teamName":"RIO","aRepondu":"1369"}],"coef":2.4,"url":"https:\/\/coopmaths.fr\/mathalea.html?ex=6P11,s=false,n=1,i=1&v=can&z=1.5&duree=150&serie=krzp","temps":"150","question":"1"})
       this.router.navigate(['/competitions'])
       this.set('organisationEnCours', 'true')
       this.dataService.participationCompetition.emit(competition)
@@ -446,7 +450,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    * Sinon, le déplace vers la page Compétitions
    * @param redirection 
    */
-  annulerCompetition(enLigne: boolean, redirection?: string) {
+  annulerCompetition(enLigne: boolean) {
     this.set('enTrainDePingCompetitionActuelle', false)
     if (isDevMode() || !enLigne) {
       const competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
@@ -455,7 +459,9 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
       this.participationEnCours = false
       this.arreteActualisationCompetitionActuelle()
       this.dataService.participationCompetition.emit(competitionActuelle)
-      if (redirection) this.router.navigate([redirection])
+      this.router.navigateByUrl('/accueil', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/competitions']);
+      });
     } else {
       this.http.post<Reponse>(GlobalConstants.apiUrl + 'annulerCompetition.php', { identifiant: this.dataService.user.identifiant, id: this.get('competitionActuelle').id }).subscribe(
         data => {
@@ -466,7 +472,9 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
             this.participationEnCours = false
             this.arreteActualisationCompetitionActuelle()
             this.dataService.participationCompetition.emit(competitionActuelle)
-            redirection ? this.router.navigate([redirection]) : this.router.navigate(['/competitions'])
+            this.router.navigateByUrl('/accueil', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/competitions']);
+            });
           }
         },
         error => {
@@ -546,9 +554,9 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     if (this.get('competitionActuelle').participants.length < 2) {
       alert('Il faut au moins 2 personnes pour lancer une compétition !')
     } else {
-      const boutonLancerCompetition = <HTMLButtonElement> document.getElementById('boutonLancerCompetition')
+      const boutonLancerCompetition = <HTMLButtonElement>document.getElementById('boutonLancerCompetition')
       if (boutonLancerCompetition != null) boutonLancerCompetition.disabled = true
-      const boutonAnnulerCompetition = <HTMLButtonElement> document.getElementById('boutonAnnulerCompetition')
+      const boutonAnnulerCompetition = <HTMLButtonElement>document.getElementById('boutonAnnulerCompetition')
       if (boutonAnnulerCompetition != null) boutonAnnulerCompetition.disabled = true
       this.http.post<Reponse>(GlobalConstants.apiUrl + 'lancerCompetition.php', { identifiant: this.dataService.user.identifiant, id: this.get('competitionActuelle').id }).subscribe(
         data => {
@@ -569,7 +577,11 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     } else {
       this.enCoursDeMaj = true
       this.http.get<CompetitionSimplifiee[]>(GlobalConstants.apiUrl + 'getCompetitionsEnCours.php').subscribe(competitions => {
-        this.competitionsEnCours = competitions
+        if (competitions[0].id == 0) {
+          this.competitionsEnCours = []
+        } else {
+          this.competitionsEnCours = competitions
+        }
         this.enCoursDeMaj = false
       },
         error => {
@@ -593,10 +605,21 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
           this.annulerCompetition(false)
         } else {
           this.dataService.participationCompetition.emit(competition)
-          this.majCoefCompetitionActuelle(competition)
-          if (competition.statut == 'preparation' && !this.appelDePreparationLance) {
-            this.lancerAppelDePreparation()
-            this.appelDePreparationLance = true
+          // La modale exercices fonctionne lorsqu'on vient d'actualiser mais pas si on s'est déplacé.
+          // En attendant que je trouve mieux, je force l'actualisation de la page
+          if (parseInt(competition.statut) > 0 && this.dataService.get('premiereNavigation')) {
+            window.location.href = GlobalConstants.origine + '/#/competitions'
+          }
+          if (parseInt(competition.statut) > this.dataService.user.question) { // Si une nouvelle question est disponible
+            this.dataService.user.question = parseInt(competition.statut)
+            this.arreteActualisationCompetitionsEnCours()
+            this.ouvrirModaleExercices()
+          } else {
+            this.majCoefCompetitionActuelle(competition)
+            if (competition.statut == 'preparation' && !this.appelDePreparationLance) {
+              this.lancerAppelDePreparation()
+              this.appelDePreparationLance = true
+            }
           }
         }
       },
@@ -620,14 +643,14 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   repondreAppelDePreparation() {
     const modaleConfirmation = document.getElementById("modaleConfirmation")
     if (modaleConfirmation != null) modaleConfirmation.style.display = 'none'
-    this.repondre('OK')
+    this.repondre(1)
   }
 
   /**
    * Signale au serveur qu'on a répondu à une question
    * @param reponse 
    */
-  repondre(reponse: string) {
+  repondre(reponse: number) {
     const competition = <Competition>this.get('competitionActuelle')
     this.http.post<Reponse>(GlobalConstants.apiUrl + 'aRepondu.php', {
       identifiant: this.dataService.user.identifiant,
@@ -635,10 +658,59 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
       statut: competition.statut,
       reponse: reponse
     }).subscribe(data => {
-      },
+    },
       error => {
         console.log(error)
       });
+  }
+
+  /**
+   * Vérifie si on a déjà répondu à la question
+   * Si oui, ouvre le lobby
+   * Si non, ouvre la modale exercices
+   */
+  ouvrirModaleExercices() {
+    this.http.post<boolean>(GlobalConstants.apiUrl + 'aDejaRepondu.php', { identifiant: this.dataService.user.identifiant }).subscribe(dejaRepondu => {
+      if (dejaRepondu) {
+        this.ouvrirLobby()
+      } else {
+        this.fermerLobby()
+        const competition = <Competition>this.get('competitionActuelle')
+        if (competition.url != null && competition.temps != null && competition.coef != null) {
+          this.infosModale = [[competition.url], competition.type, new Date(), [competition.temps], competition.coef]
+        }
+      }
+    },
+      error => {
+        console.log(error)
+      });
+  }
+
+  /**
+   * Affiche le lobby
+   */
+  ouvrirLobby() {
+    const lobby = document.getElementById('lobby')
+    if (lobby != null) lobby.style.display = 'block'
+  }
+
+  /**
+   * Cache le lobby
+   */
+  fermerLobby() {
+    const lobby = document.getElementById('lobby')
+    if (lobby != null) lobby.style.display = 'none'
+  }
+
+  /**
+   * Au retour de la modale exercices,
+   * renvoie le nombre de points au serveur
+   * ouvre le lobby
+   * @param valeur 
+   */
+  modalefermee(valeur: number) {
+    this.repondre(valeur)
+    this.ouvrirLobby()
   }
 
   /**

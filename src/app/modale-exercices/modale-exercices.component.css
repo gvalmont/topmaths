@@ -6,6 +6,7 @@
   height: 100%;
   z-index: 100;
 }
+
 #loading > img {
 	position: fixed;
 	top: 50%;

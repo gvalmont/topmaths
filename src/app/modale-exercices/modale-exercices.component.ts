@@ -17,8 +17,8 @@ interface Exercice {
   styleUrls: ['./modale-exercices.component.css']
 })
 export class ModaleExercicesComponent implements OnInit {
-  @Input() infosModale: [string[], string, Date, number[]]
-  @Output() modaleFermee = new EventEmitter<boolean>();
+  @Input() infosModale: [string[], string, Date, number[], number?] // liste des url, type d'exercice, date, liste des temps, coef?
+  @Output() modaleFermee = new EventEmitter<number>();
   modale!: HTMLElement
   modaleUrl!: HTMLElement
   boutonRetour!: HTMLElement
@@ -54,6 +54,7 @@ export class ModaleExercicesComponent implements OnInit {
         this.set('listeDesUrl', changes.infosModale.currentValue[0])
         this.set('type', changes.infosModale.currentValue[1])
         this.set('listeDesTemps', changes.infosModale.currentValue[3])
+        if (changes.infosModale.currentValue[4] != null) this.set('coef', changes.infosModale.currentValue[4])
         if (this.isMathsmentales(this.get('listeDesUrl')[0])) {
           this.site = 'mathsmentales'
         } else if (this.isMathalea(this.get('listeDesUrl')[0])) {
@@ -115,6 +116,17 @@ export class ModaleExercicesComponent implements OnInit {
                   urlDejaFaits.push(url.split('&serie=')[0].split(',i=')[0])
                   this.set('urlDejaFaits', urlDejaFaits)
                 }
+              } else if (type == 'bestOf10' || type == 'battleRoyale') {
+                this.hideLoadingScreen()
+                clearInterval(this.interval)
+                this.startTimer()
+                this.set('dateDebutExercice', new Date())
+                if (urlDejaFaits.includes(url.split('&serie=')[0].split(',i=')[0])) {
+                  this.fermerModale(1)
+                } else {
+                  urlDejaFaits.push(url.split('&serie=')[0].split(',i=')[0])
+                  this.set('urlDejaFaits', urlDejaFaits)
+                }
               }
             } else if (event.data.nbBonnesReponses != null) {
               // On cherche à quel exercice correspond ce message
@@ -166,6 +178,16 @@ export class ModaleExercicesComponent implements OnInit {
                           this.set('coef', 1)
                         }
                         setTimeout(() => this.exerciceSuivant(), 3000)
+                      } else if (type == 'bestOf10' || type == 'battleRoyale') {
+                        clearInterval(this.interval)
+                        const tempsDisponible = this.get('tempsDisponible') * 1000
+                        const tempsMis = (new Date()).getTime() - (new Date(this.get('dateDebutExercice'))).getTime()
+                        const tempsRestant = tempsDisponible - tempsMis
+                        const points = 1 + nbBonnesReponses * tempsRestant / 100
+                        setTimeout(() => {
+                          this.modaleFermee.emit(points)
+                          this.fermerModale(points)
+                        }, 3000)
                       }
                       this.set('exercicesDejaFaits', exercicesDejaFaits)
                       this.set('urlDejaFaits', urlDejaFaits)
@@ -290,25 +312,31 @@ export class ModaleExercicesComponent implements OnInit {
    */
   parametrage() {
     this.modale.style.display = 'block'
-    if (this.get('type') == '') {
+    const type = this.get('type')
+    if (type == '') {
       if (this.site == 'mathalea') this.displayLoadingScreen()
       this.set('coef', 1)
       const url = this.get('listeDesUrl')[this.get('indiceExerciceActuel')]
       this.ajouteIframe(url)
-    } else if (this.get('type') == 'tranquille') {
+    } else if (type == 'tranquille') {
       this.set('coef', 2)
       this.creeListeIndicesExercices()
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
       if (this.isMathalea(url)) this.displayLoadingScreen()
       this.ajouteIframe(url)
-    } else if (this.get('type') == 'vitesse') {
+    } else if (type == 'vitesse') {
       this.set('coef', 5)
       this.creeListeIndicesExercices()
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
       if (this.isMathalea(url)) this.displayLoadingScreen()
       this.ajouteIframe(url)
-    } else if (this.get('type') == 'performance') {
+    } else if (type == 'performance') {
       this.set('coef', 1)
+      this.creeListeIndicesExercices()
+      const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
+      if (this.isMathalea(url)) this.displayLoadingScreen()
+      this.ajouteIframe(url)
+    } else if (type == 'bestOf10' || type == 'battleRoyale') {
       this.creeListeIndicesExercices()
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
       if (this.isMathalea(url)) this.displayLoadingScreen()
@@ -432,6 +460,7 @@ export class ModaleExercicesComponent implements OnInit {
     const indiceExerciceActuel = this.get('indiceExerciceActuel')
     const listeDesIndices = this.get('listeDesIndices')
     const TIME_LIMIT = this.get('listeDesTemps')[listeDesIndices[indiceExerciceActuel]]
+    this.set('tempsDisponible', TIME_LIMIT)
 
     let nouveauDivTimeLeft = document.createElement('div')
     nouveauDivTimeLeft.id = 'divTimeLeft'
@@ -494,8 +523,8 @@ export class ModaleExercicesComponent implements OnInit {
   /**
    * Cache la modale
    */
-  fermerModale() {
-    this.modaleFermee.emit(true)
+  fermerModale(valeur?: number) {
+    this.modaleFermee.emit(valeur)
     const iframe = document.getElementById('iframeExercice1')
     if (iframe != null && iframe.parentNode != null) iframe.parentNode.removeChild(iframe)
     this.modale.style.display = "none"

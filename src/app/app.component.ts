@@ -19,6 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private router: Router, public dataService: ApiService) {
     this.redirectionHTTPS()
     this.dataService.set('CompetitionenTrainDePingCompetitionActuelle', false)
+    this.dataService.set('premiereNavigation', null)
     this.ongletActif = 'accueil'
     this.recupereOngletActif()
     this.recupereProfil()
@@ -84,6 +85,11 @@ export class AppComponent implements OnInit, OnDestroy {
   observeChangementsDeRoute() {
     this.event$ = this.router.events.subscribe((event: NavigationEvent) => {
       if (event instanceof NavigationStart) {
+        if (this.dataService.get('premiereNavigation') == null) {
+          this.dataService.set('premiereNavigation', false)
+        } else if (this.dataService.get('premiereNavigation') == false) {
+          this.dataService.set('premiereNavigation', true)
+        }
         this.majPseudoClique()
         if (this.dataService.isloggedIn) {
           this.dataService.majLastAction() // le whosOnline est compris dans le majLastAction

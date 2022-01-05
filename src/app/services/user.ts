@@ -15,10 +15,11 @@ export class User {
   public scoreEquipe: number
   public derniereSequence: string
   public dernierObjectif: string
+  public question: number
 
   constructor(id: number, identifiant: string, codeAvatar: string, lastLogin: string, lastAction: string, visible: string, pseudo: string, score: number,
         codeTrophees: string, tropheesVisibles: string, cleScore: string, classement: number, teamName: string, scoreEquipe: number, derniereSequence: string,
-        dernierObjectif: string) {
+        dernierObjectif: string, question: number) {
     this.id = id
     this.identifiant = identifiant
     this.codeAvatar = codeAvatar
@@ -35,6 +36,7 @@ export class User {
     this.scoreEquipe = scoreEquipe
     this.derniereSequence = derniereSequence
     this.dernierObjectif = dernierObjectif
+    this.question = question
   }
 }
 export class UserSimplifie {
@@ -47,9 +49,9 @@ export class UserSimplifie {
   public teamName: string
   public scoreEquipe: number
   public styleAvatar?: string
-  public aRepondu?: string
+  public aRepondu?: number
 
-  constructor(id: number, codeAvatar: string, pseudo: string, score: number, lienTrophees: string, classement: number, teamName: string, scoreEquipe: number, styleAvatar?: string, aRepondu?: string) {
+  constructor(id: number, codeAvatar: string, pseudo: string, score: number, lienTrophees: string, classement: number, teamName: string, scoreEquipe: number, styleAvatar?: string, aRepondu?: number) {
     this.id = id
     this.pseudo = pseudo
     this.codeAvatar = codeAvatar
