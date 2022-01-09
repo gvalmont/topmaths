@@ -24,7 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.recupereOngletActif()
     this.recupereProfil()
     this.observeChangementsDeRoute()
-    this.competition = { id: 0, statut: '', profilOrganisateur: {id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: ''}, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+    this.competition = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [], coef: 0, url: '', temps: 0, question: 0 }
     this.observeParticipationCompetitions()
   }
 
@@ -98,7 +98,7 @@ export class AppComponent implements OnInit, OnDestroy {
         }
         if (this.competition != null && this.competition.type != '') {
           if (!this.dataService.competitionActuelleToujoursEnCours()) {
-            const competitionActuelle = { id: 0, statut: '', profilOrganisateur: {id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: ''}, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] }
+            const competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [], coef: 0, url: '', temps: 0, question: 0 }
             this.dataService.set('CompetitioncompetitionActuelle', competitionActuelle)
             this.dataService.set('CompetitionorganisationEnCours', false)
             this.dataService.participationCompetition.emit(competitionActuelle)
