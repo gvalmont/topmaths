@@ -143,20 +143,78 @@
 
 <!-- Lobby -->
 <div id="lobby" [ngClass]="{'centre cache has-background-white':true}">
-  <div [ngClass]="{'title is-2 has-text-white is-flex is-justify-content-space-between': true, 'has-background-link': competitionActuelle.type == 'bestOf10', 'has-background-danger': competitionActuelle.type == 'battleRoyale'}">
-    <div>
-      <i class="image is-white is-48x48 is-clickable" (click)="fermerLobby()">
-        <img src='/assets/img/cc0/left-arrow-back-svgrepo-com.svg' />
-      </i>
+  <div style="margin: 2%; width: 96%;">
+    <div [ngClass]="{'title is-2 has-text-white is-flex is-justify-content-space-between': true, 'has-background-link': competitionActuelle.type == 'bestOf10', 'has-background-danger': competitionActuelle.type == 'battleRoyale'}">
+      <div>
+        <i class="image is-white is-48x48 is-clickable" (click)="fermerLobby()">
+          <img src='/assets/img/cc0/left-arrow-back-svgrepo-com.svg' />
+        </i>
+      </div>
+      <div>
+        {{competitionActuelle.type == 'bestOf10' ? 'Best of 10' : competitionActuelle.type == 'battleRoyale' ? 'Battle Royale' : ''}}<figure *ngIf="!afficheFin" class="image is-48x48 is-inline-block has-text-left">{{troisPetitsPoints}}</figure>
+      </div>
+      <div>
+        <i class="image is-white is-48x48 is-clickable" (click)="fermerLobby()">
+          <img src='assets/img/cc0/cross-svgrepo-com.svg' />
+        </i>
+      </div>
     </div>
-    <div>
-      {{competitionActuelle.type == 'bestOf10' ? 'Best of 10' : competitionActuelle.type == 'battleRoyale' ? 'Battle Royale' : ''}}<figure class="image is-48x48 is-inline-block has-text-left">{{troisPetitsPoints}}</figure>
+    <!-- Classement -->
+    <div *ngIf="classementAffiche" [class]="'is-size-5 container-competition ' + competitionActuelle.type">
+      <div *ngFor="let participant of competitionActuelle.participants; index as i" class="is-flex is-align-items-center is-justify-content-space-between" style="max-width: 600px; margin: auto;">
+        <span class="is-size-3 has-text-weight-semibold" style="width: 40px;">{{ i + 1 }}</span>
+        <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(participant)"></figure>
+        <span style="width: 250px;">{{ participant.pseudo }}
+          <figure *ngIf="participant.flamme == 0" class="image is-24x24 is-inline-block"></figure>
+          <figure *ngIf="participant.flamme == 1" class="image is-24x24 is-inline-block"><img src="/assets/img/cc0/hot-flame-svgrepo-com.svg" /></figure>
+        </span>
+        <span *ngIf="participant.points != null" class="has-text-weight-semibold" style="width: 80px;">{{ participant.points }}</span>
+      </div>
     </div>
-    <div>
-      <i class="image is-white is-48x48 is-clickable" (click)="fermerLobby()">
-        <img src='assets/img/cc0/cross-svgrepo-com.svg' />
-      </i>
+    <!-- Fin -->
+    <div [ngClass]="{'cache': !afficheFin}">
+      <div id="podium-box" [class]="'container-competition ' + competitionActuelle.type" style="height: 300px">
+        <div class="step-container">
+          <div id="deuxieme">
+            <div *ngIf="competitionActuelle.participants[1] == null"></div>
+            <div *ngIf="competitionActuelle.participants[1] != null">
+              <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(competitionActuelle.participants[1])"></figure>
+              <span style="width: 250px;">{{ competitionActuelle.participants[1].pseudo }}</span>
+            </div>
+          </div>
+          <div id="second-step" class="podium-number">
+            2
+          </div>
+        </div>
+        <div class="step-container">
+          <div id="premier">
+            <div *ngIf="competitionActuelle.participants[0] == null"></div>
+            <div *ngIf="competitionActuelle.participants[0] != null">
+              <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(competitionActuelle.participants[0])"></figure>
+              <span style="width: 250px;">{{ competitionActuelle.participants[0].pseudo }}</span>
+            </div>
+          </div>
+          <div id="first-step" class="podium-number">
+            1
+          </div>
+        </div>
+        <div class="step-container">
+          <div id="troisieme">
+            <div *ngIf="competitionActuelle.participants[3] == null"></div>
+            <div *ngIf="competitionActuelle.participants[3] != null">
+              <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(competitionActuelle.participants[3])"></figure>
+              <span style="width: 250px;">{{ competitionActuelle.participants[3].pseudo }}</span>
+            </div>
+          </div>
+          <div id="third-step" class="podium-number">
+            3
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Lobby -->
+    <div *ngIf="!classementAffiche && !afficheFin">
+      <app-competition-actuelle [competitionActuelle]="competitionActuelle" [troisPetitsPoints]="troisPetitsPoints" [details]="true"></app-competition-actuelle>
     </div>
   </div>
-  <app-competition-actuelle [competitionActuelle]="competitionActuelle" [troisPetitsPoints]="troisPetitsPoints"></app-competition-actuelle>
 </div>

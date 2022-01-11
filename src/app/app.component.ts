@@ -18,6 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router, public dataService: ApiService) {
     this.redirectionHTTPS()
+    this.dataService.set('CompetitionorganisationEnCours', false)
     this.dataService.set('CompetitionenTrainDePingCompetitionActuelle', false)
     this.dataService.set('premiereNavigation', null)
     this.ongletActif = 'accueil'

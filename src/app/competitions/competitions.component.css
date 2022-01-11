@@ -43,6 +43,8 @@
   margin:auto;
   border-radius: 0px 0px 20px 20px;
   padding-bottom: 15px;
+  overflow: auto;
+  max-height: calc(100vh - 130px);
 }
 
 .titre {
@@ -63,7 +65,7 @@
 .bestOf10 {
   border-color:  #485fc7;
 }
-.bestOf10.titre {
+.bestOf10.titre, .bestOf10 .podium-number {
   background-color:  #485fc7;
 }
 .bestOf10 i {
@@ -73,9 +75,61 @@
 .battleRoyale {
   border-color:  #f04767;
 }
-.battleRoyale.titre {
+.battleRoyale.titre, .battleRoyale .podium-number {
   background-color:  #f04767;
 }
 .battleRoyale i {
   filter: invert(37%) sepia(22%) saturate(2463%) hue-rotate(306deg) brightness(107%) contrast(100%);
+}
+
+#podium-box {
+  margin: 0 auto;
+  display: flex;
+  border-radius: 0px 0px 20px 20px;
+}
+
+.podium-number {
+  padding-top: 0.5rem;
+  font-weight: bold;
+  font-size: 4em;
+  color: white;
+}
+
+.step-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.step-container>div:first-child {
+  margin-top: auto;
+  text-align: center;
+  line-height: normal;
+}
+
+#first-step {
+  height: 50%;
+}
+
+#second-step {
+  height: 35%;
+}
+
+#third-step {
+  height: 30%;
+}
+
+#premier, #deuxieme, #troisieme {
+  transform: scale(0);
+}
+
+.pop {
+  animation: pop 3s linear 1;
+}
+
+@keyframes pop{
+  0%  {transform: scale(0);}
+  80%  {transform: scale(0.8);}
+  90%  {transform: scale(1.2);}
+  100%  {transform: scale(1);}
 }

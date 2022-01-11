@@ -13,7 +13,7 @@
     </span>
   </span>
   <span *ngIf="competitionActuelle.niveaux[0] != ''">
-    <span style="word-break: keep-all" class="px-4 py-2 subtitle is-rounded bonus dropdown">x2<div class="dropdown-content">Les points de cette compétition sont doublés !</div></span>
+    <span style="word-break: keep-all" class="px-4 py-2 subtitle is-rounded bonus dropdown">×2<div class="dropdown-content">Les points de cette compétition sont doublés !</div></span>
   </span>
   <span *ngIf="competitionActuelle.sequences[0] != ''">
     <span *ngFor="let sequence of competitionActuelle.sequences; index as i">
@@ -24,9 +24,24 @@
       </span>
     </span>
   </span>
-  <h1 class="title is-4">Liste des participants</h1>
-  <div *ngFor="let participant of competitionActuelle.participants">
-    <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(participant)"></figure>
+  <div *ngIf="details && competitionActuelle.question > 0">
+    <div class="is-flex is-justify-content-space-between mx-2">
+      <div style="width: 50px;"></div>
+      <div class="is-size-4 has-text-weight-semibold">Question {{competitionActuelle.question}}</div>
+      <div *ngIf="!details" style="width: 50px;"></div>
+      <div *ngIf="details" class="is-size-4 has-text-weight-semibold" style="width: 50px;">{{ tempsRestant }}</div>
+    </div>
+    <div>
+      <figure style="overflow: hidden; margin: 0;">
+        <iframe style="margin: -30px 0 0;" width="640" height="250" [src]="competitionActuelle.url.split(',i=')[0] + ',i=0&v=recto&z=1&serie=' + competitionActuelle.url.split('&serie=')[1] | safe"></iframe>
+      </figure>
+    </div>
+  </div>
+  <h1 class="is-size-4 has-text-weight-semibold">Participants</h1>
+  <div *ngFor="let participant of competitionActuelle.participants" style="line-height: normal;">
+    <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(participant)"></figure> &nbsp;
     <span>{{ participant.pseudo }} &nbsp; &nbsp;</span>
+    <figure *ngIf="details && participant.aRepondu != null" [ngClass]="{'image is-24x24 is-inline-block': true, 'has-background-danger': participant.aRepondu == 1, 'has-background-success': participant.aRepondu > 1 }" style="border-radius: 500px;"></figure>
+    <div *ngIf="details && participant.points != null" class="is-size-5 has-text-weight-semibold">{{ participant.points }}</div>
   </div>
 </div>

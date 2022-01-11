@@ -50,8 +50,10 @@ export class UserSimplifie {
   public scoreEquipe: number
   public styleAvatar?: string
   public aRepondu?: number
+  public points?: number
+  public flamme?: number
 
-  constructor(id: number, codeAvatar: string, pseudo: string, score: number, lienTrophees: string, classement: number, teamName: string, scoreEquipe: number, styleAvatar?: string, aRepondu?: number) {
+  constructor(id: number, codeAvatar: string, pseudo: string, score: number, lienTrophees: string, classement: number, teamName: string, scoreEquipe: number, styleAvatar?: string, aRepondu?: number, points?: number) {
     this.id = id
     this.pseudo = pseudo
     this.codeAvatar = codeAvatar
@@ -62,5 +64,6 @@ export class UserSimplifie {
     this.teamName = teamName
     this.scoreEquipe = scoreEquipe
     this.aRepondu = aRepondu
+    this.points = points
   }
 }

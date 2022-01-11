@@ -73,6 +73,8 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   participationEnCours: boolean
   appelDePreparationLance: boolean
   modaleExercicesOuverte: boolean
+  classementAffiche: boolean
+  afficheFin: boolean
 
   constructor(public http: HttpClient, private route: ActivatedRoute, private router: Router, public dataService: ApiService, private viewportScroller: ViewportScroller) {
     this.infosModale = [[], '', new Date(), [], 0]
@@ -87,12 +89,9 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     this.troisPetitsPoints = '...'
     this.appelDePreparationLance = false
     this.modaleExercicesOuverte = false
-    if (isDevMode()) {
-      this.competitionActuelle = {listeDesTemps: [], listeDesUrl: [],"id":168,"statut":"2","profilOrganisateur":{id:0,"pseudo":"Moule parfaite","codeAvatar":"rgba(242, 211, 177, 1)&2&9&27&5&23&rgba(62, 172, 44, 1)","score":682,"lienTrophees":"","classement":23,"teamName":"RIO","scoreEquipe":578},"type":"bestOf10","dernierSignal":"2022-01-05 15:17:10","niveaux":["5e"],"sequences":[],"minParticipants":2,"maxParticipants":32,"participants":[{"id":1,"pseudo":"Manchot incomp\u00e9tent","codeAvatar":"rgba(242, 211, 177, 1)&23&0&8&4&25&rgba(172, 101, 17, 1)","score":6399,"lienTrophees":"","classement":6,"teamName":"AMG","aRepondu":1433, scoreEquipe: 0},{"id":2,"pseudo":"Moule parfaite","codeAvatar":"rgba(242, 211, 177, 1)&2&9&27&5&23&rgba(62, 172, 44, 1)","score":778,"lienTrophees":"","classement":22,"teamName":"RIO","aRepondu":1369, scoreEquipe: 0}],"coef":2.4,"url":"https:\/\/coopmaths.fr\/mathalea.html?ex=6P11,s=false,n=1,i=1&v=can&z=1.5&duree=150&serie=krzp","temps":150, "question": 1}
-      this.set('competitionActuelle', this.competitionActuelle)
-    } else {
-      this.competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [], coef: 0, url: '', temps: 0, question: 0 }
-    }
+    this.classementAffiche = false
+    this.competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '', aRepondu: 0 }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [], coef: 0, url: '', temps: 0, question: 0 }
+    this.afficheFin = false
     this.lanceAnimationTroisPetitsPoints()
     this.lanceActualisationCompetitionsEnCours()
     setTimeout(() => {
@@ -101,6 +100,11 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if (isDevMode()) {
+      this.competitionActuelle = { listeDesTemps: [], listeDesUrl: [], "id": 168, "statut": "2", "profilOrganisateur": { id: 0, "pseudo": "Moule parfaite", "codeAvatar": "rgba(242, 211, 177, 1)&2&9&27&5&23&rgba(62, 172, 44, 1)", "score": 682, "lienTrophees": "", "classement": 23, "teamName": "RIO", "scoreEquipe": 578, aRepondu: 0 }, "type": "bestOf10", "dernierSignal": "2022-01-11 07:17:10", "niveaux": ["5e"], "sequences": [], "minParticipants": 2, "maxParticipants": 32, "participants": [{ "id": 1, "pseudo": "Manchot incomp\u00e9tent", "codeAvatar": "rgba(242, 211, 177, 1)&23&0&8&4&25&rgba(172, 101, 17, 1)", "score": 6399, "lienTrophees": "", "classement": 6, "teamName": "AMG", "aRepondu": 1, scoreEquipe: 0 }, { "id": 2, "pseudo": "Moule parfaite", "codeAvatar": "rgba(242, 211, 177, 1)&2&9&27&5&23&rgba(62, 172, 44, 1)", "score": 778, "lienTrophees": "", "classement": 22, "teamName": "RIO", "aRepondu": 0, scoreEquipe: 0, points: 2743 }], "coef": 2.4, "url": "https:\/\/coopmaths.fr\/mathalea.html?ex=6P11,s=false,n=1,i=1&v=can&z=1.5&duree=150&serie=krzp", "temps": 150, "question": 1 }
+      this.set('competitionActuelle', this.competitionActuelle)
+      this.ouvrirLobby()
+    }
     this.observeChangementsDeRoute()
     this.observeParticipationCompetitions()
     this.ecouteMessagesPost()
@@ -166,7 +170,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
       this.participationEnCours = true
       this.lanceActualisationCompetitionActuelle()
       this.competitionActuelle = competitionActuelle
-      if (competitionActuelle.profilOrganisateur != null && competitionActuelle.profilOrganisateur.id == this.dataService.user.id) { // Si on est le chef
+      if (competitionActuelle.profilOrganisateur != null && competitionActuelle.profilOrganisateur.id == this.dataService.user.id && competitionActuelle.statut == "recrutement") { // Si on est le chef
         this.set('organisationEnCours', true)
         if (!this.get('enTrainDePingCompetitionActuelle')) {
           this.set('enTrainDePingCompetitionActuelle', true)
@@ -374,7 +378,8 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
             lienTrophees: '',
             classement: this.dataService.user.classement,
             teamName: this.dataService.user.teamName,
-            scoreEquipe: this.dataService.user.scoreEquipe
+            scoreEquipe: this.dataService.user.scoreEquipe,
+            aRepondu: 0
           }
           this.organiserCompetition({
             id: 0,
@@ -396,7 +401,8 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
               lienTrophees: '',
               classement: this.dataService.user.classement,
               teamName: this.dataService.user.teamName,
-              scoreEquipe: this.dataService.user.scoreEquipe
+              scoreEquipe: this.dataService.user.scoreEquipe,
+              aRepondu: 0
             }],
             coef: 0,
             url: '',
@@ -416,7 +422,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    */
   organiserCompetition(competition: Competition) {
     if (isDevMode()) {
-      this.set('competitionActuelle', {"id":"168","statut":"2","profilOrganisateur":{"id":"1","pseudo":"Moule parfaite","codeAvatar":"rgba(242, 211, 177, 1)&2&9&27&5&23&rgba(62, 172, 44, 1)","score":"682","lienTrophees":"","classement":"23","teamName":"RIO","scoreEquipe":"578"},"type":"bestOf10","dernierSignal":"2022-01-05 15:17:10","niveaux":["5e"],"sequences":[],"minParticipants":"2","maxParticipants":"32","participants":[{"id":"1","pseudo":"Manchot incomp\u00e9tent","codeAvatar":"rgba(242, 211, 177, 1)&23&0&8&4&25&rgba(172, 101, 17, 1)","score":"6399","lienTrophees":"","classement":"6","teamName":"AMG","aRepondu":"1433"},{"id":"2","pseudo":"Moule parfaite","codeAvatar":"rgba(242, 211, 177, 1)&2&9&27&5&23&rgba(62, 172, 44, 1)","score":"778","lienTrophees":"","classement":"22","teamName":"RIO","aRepondu":"1369"}],"coef":2.4,"url":"https:\/\/coopmaths.fr\/mathalea.html?ex=6P11,s=false,n=1,i=1&v=can&z=1.5&duree=150&serie=krzp","temps":"150","question":"1"})
+      this.set('competitionActuelle', { "id": "168", "statut": "recrutement", "profilOrganisateur": { "id": "0", "pseudo": "Moule parfaite", "codeAvatar": "rgba(242, 211, 177, 1)&2&9&27&5&23&rgba(62, 172, 44, 1)", "score": "682", "lienTrophees": "", "classement": "23", "teamName": "RIO", "scoreEquipe": "578" }, "type": "bestOf10", "dernierSignal": "2022-01-05 15:17:10", "niveaux": ["5e"], "sequences": [], "minParticipants": "2", "maxParticipants": "32", "participants": [{ "id": "1", "pseudo": "Manchot incomp\u00e9tent", "codeAvatar": "rgba(242, 211, 177, 1)&23&0&8&4&25&rgba(172, 101, 17, 1)", "score": "6399", "lienTrophees": "", "classement": "6", "teamName": "AMG", "aRepondu": "1433" }, { "id": "2", "pseudo": "Moule parfaite", "codeAvatar": "rgba(242, 211, 177, 1)&2&9&27&5&23&rgba(62, 172, 44, 1)", "score": "778", "lienTrophees": "", "classement": "22", "teamName": "RIO", "aRepondu": "1369" }], "coef": 2.4, "url": "https:\/\/coopmaths.fr\/mathalea.html?ex=6P11,s=false,n=1,i=1&v=can&z=1.5&duree=150&serie=krzp", "temps": "150", "question": "1" })
       this.router.navigate(['/competitions'])
       this.set('organisationEnCours', 'true')
       this.dataService.participationCompetition.emit(competition)
@@ -460,7 +466,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   annulerCompetition(enLigne: boolean) {
     this.set('enTrainDePingCompetitionActuelle', false)
     if (isDevMode() || !enLigne) {
-      const competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [], coef: 0, url: '', temps: 0, question: 0 }
+      const competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '', aRepondu: 0 }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [], coef: 0, url: '', temps: 0, question: 0 }
       this.set('competitionActuelle', competitionActuelle)
       this.set('organisationEnCours', false)
       this.participationEnCours = false
@@ -473,7 +479,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
       this.http.post<Reponse>(GlobalConstants.apiUrl + 'annulerCompetition.php', { identifiant: this.dataService.user.identifiant, id: this.get('competitionActuelle').id }).subscribe(
         data => {
           if (data.reponse == "OK") {
-            const competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [], coef: 0, url: '', temps: 0, question: 0 }
+            const competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '', aRepondu: 0 }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [], coef: 0, url: '', temps: 0, question: 0 }
             this.set('competitionActuelle', competitionActuelle)
             this.set('organisationEnCours', false)
             this.participationEnCours = false
@@ -494,17 +500,25 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    * Quitte la compétition actuelle
    */
   quitterCompetition() {
-    this.http.post<Reponse>(GlobalConstants.apiUrl + 'quitterCompetition.php', { identifiant: this.dataService.user.identifiant }).subscribe(
-      data => {
-        const competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [], coef: 0, url: '', temps: 0, question: 0 }
-        this.set('competitionActuelle', competitionActuelle)
-        this.participationEnCours = false
-        this.arreteActualisationCompetitionActuelle()
-        this.dataService.participationCompetition.emit(competitionActuelle)
-      },
-      error => {
-        console.log(error)
-      });
+    if (isDevMode()) {
+      const competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '', aRepondu: 0 }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [], coef: 0, url: '', temps: 0, question: 0 }
+      this.set('competitionActuelle', competitionActuelle)
+      this.participationEnCours = false
+      this.arreteActualisationCompetitionActuelle()
+      this.dataService.participationCompetition.emit(competitionActuelle)
+    } else {
+      this.http.post<Reponse>(GlobalConstants.apiUrl + 'quitterCompetition.php', { identifiant: this.dataService.user.identifiant }).subscribe(
+        data => {
+          const competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '', aRepondu: 0 }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [], coef: 0, url: '', temps: 0, question: 0 }
+          this.set('competitionActuelle', competitionActuelle)
+          this.participationEnCours = false
+          this.arreteActualisationCompetitionActuelle()
+          this.dataService.participationCompetition.emit(competitionActuelle)
+        },
+        error => {
+          console.log(error)
+        });
+    }
   }
 
   /**
@@ -608,6 +622,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
       competition => {
         this.enCoursDeMajCompetitionActuelle = false
         this.set('competitionActuelle', competition)
+        this.competitionActuelle = competition
         if (!this.dataService.competitionActuelleToujoursEnCours()) {
           alert("Cette compétition a été annulée")
           this.annulerCompetition(false)
@@ -618,11 +633,28 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
           if (parseInt(competition.statut) > 0 && this.dataService.get('premiereNavigation')) {
             window.location.href = GlobalConstants.origine + '/#/competitions'
           }
-          if (parseInt(competition.statut) > 0 && competition.question >= this.dataService.user.question && !this.modaleExercicesOuverte) { // Si une nouvelle question est disponible
-            this.modaleExercicesOuverte = true
-            this.dataService.user.question = competition.question
+          if (parseInt(competition.statut) > 0 && competition.question >= this.dataService.user.question && !this.modaleExercicesOuverte && !this.classementAffiche) { // Si une nouvelle question est disponible
             this.arreteActualisationCompetitionsEnCours()
-            this.ouvrirModaleExercices()
+            if (competition.question == 1) {
+              this.dataService.user.question = competition.question
+              this.modaleExercicesOuverte = true
+              this.ouvrirModaleExercices()
+            } else if (competition.question >= 2 && !this.classementAffiche && competition.question > this.dataService.user.question) {
+              this.dataService.user.question = competition.question
+              this.classementAffiche = true
+              let classement = competition.participants
+              setTimeout(() => {
+                this.classementAffiche = false
+                this.modaleExercicesOuverte = true
+                this.ouvrirModaleExercices()
+              }, 5000);
+            } else {
+              this.dataService.user.question = competition.question
+              this.modaleExercicesOuverte = true
+              this.ouvrirModaleExercices()
+            }
+          } else if (competition.statut == "fin") {
+            this.finCompetition()
           } else {
             this.majCoefCompetitionActuelle(competition)
             if (competition.statut == 'preparation' && !this.appelDePreparationLance) {
@@ -635,6 +667,34 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
       error => {
         console.log(error)
       });
+  }
+
+  /**
+   * Affiche le podium et l'anime
+   */
+  finCompetition() {
+    this.arreteActualisationCompetitionActuelle()
+    this.afficheFin = true
+    const premier = document.getElementById("premier")
+    const deuxieme = document.getElementById("deuxieme")
+    const troisieme = document.getElementById("troisieme")
+    if (premier != null && deuxieme != null && troisieme != null) {
+      troisieme.classList.add('pop')
+      troisieme.style.transform = "scale(1)"
+      setTimeout(() => {
+        troisieme.classList.remove('pop')
+        deuxieme.classList.add('pop')
+        deuxieme.style.transform = "scale(1)"
+        setTimeout(() => {
+          deuxieme.classList.remove('pop')
+          premier.classList.add('pop')
+          premier.style.transform = "scale(1)"
+          setTimeout(() => {
+            premier.classList.remove('pop')
+          }, 3500);
+        }, 3500);
+      }, 3500);
+    }
   }
 
   /**
@@ -687,7 +747,13 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
         this.fermerLobby()
         const competition = <Competition>this.get('competitionActuelle')
         if (competition.url != null && competition.temps != null && competition.coef != null) {
-          this.infosModale = [[competition.url], competition.type, new Date(), [competition.temps], competition.coef]
+          let dernierSignal = new Date(competition.dernierSignal);
+          dernierSignal.setMinutes(dernierSignal.getMinutes() - dernierSignal.getTimezoneOffset() - 60); //Le serveur mysql semble être en UTC + 1
+          const dateFin = dernierSignal.getTime() + competition.temps * 1000
+          const now = new Date()
+          const tempsRestant = Math.max(0, Math.floor(((dateFin - now.getTime()) / 1000)))
+          const url = competition.url.split('&duree=')[0] + '&duree=' + tempsRestant.toString() + '&serie=' + competition.url.split('&serie=')[1]
+          this.infosModale = [[url], competition.type, new Date(), [tempsRestant], competition.coef]
         }
       }
     },
@@ -708,6 +774,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    * Cache le lobby
    */
   fermerLobby() {
+    if (this.competitionActuelle.statut == 'fin') this.quitterCompetition()
     const lobby = document.getElementById('lobby')
     if (lobby != null) lobby.style.display = 'none'
   }
