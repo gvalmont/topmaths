@@ -547,13 +547,17 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    * Ajoute l'utilisateur à la liste des participants d'une compétition
    * @param competition 
    */
-  rejoindreCompetition(id: number) {
+  rejoindreCompetition(competition: CompetitionSimplifiee) {
     if (this.get('organisationEnCours')) {
       alert("Tu es en train d'organiser une compétition,\ntu dois d'abord l'annuler si tu veux en rejoindre une autre")
+    } else if (competition.statut == 'fin') {
+      alert('Cette compétition est déjà terminée !')
+    } else if (competition.type == 'battleRoyale' && competition.statut != 'recrutement' && competition.statut != 'preparation') {
+      alert('Tu ne peux pas rejoindre un Battle Royale qui est déjà lancé !')
     } else {
       this.http.post<Competition>(GlobalConstants.apiUrl + 'rejoindreCompetition.php', {
         identifiant: this.dataService.user.identifiant,
-        id: id
+        id: competition.id
       }).subscribe(competition => {
         this.appelDePreparationLance = false
         this.set('competitionActuelle', competition)
