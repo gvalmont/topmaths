@@ -24,6 +24,7 @@ export class ModaleExercicesComponent implements OnInit {
   boutonRetour!: HTMLElement
   boutonFermer!: HTMLElement
   boutonCopier!: HTMLElement
+  confirmationModale!: HTMLElement
   affCoef!: HTMLElement
   lienSpinner: string
   site: string
@@ -293,6 +294,8 @@ export class ModaleExercicesComponent implements OnInit {
     if (element != null) this.boutonFermer = element
     element = document.getElementById("aff-coef")
     if (element != null) this.affCoef = element
+    element = document.getElementById("confirmationModaleExercices")
+    if (element != null) this.confirmationModale = element
   }
 
   resetProgressBar() {
@@ -314,29 +317,39 @@ export class ModaleExercicesComponent implements OnInit {
     this.modale.style.display = 'block'
     const type = this.get('type')
     if (type == '') {
+      this.boutonRetour.style.display = 'block'
+      this.boutonCopier.style.display = 'block'
       if (this.site == 'mathalea') this.displayLoadingScreen()
       this.set('coef', 1)
       const url = this.get('listeDesUrl')[this.get('indiceExerciceActuel')]
       this.ajouteIframe(url)
     } else if (type == 'tranquille') {
+      this.boutonRetour.style.display = 'block'
+      this.boutonCopier.style.display = 'none'
       this.set('coef', 2)
       this.creeListeIndicesExercices()
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
       if (this.isMathalea(url)) this.displayLoadingScreen()
       this.ajouteIframe(url)
     } else if (type == 'vitesse') {
+      this.boutonRetour.style.display = 'block'
+      this.boutonCopier.style.display = 'none'
       this.set('coef', 5)
       this.creeListeIndicesExercices()
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
       if (this.isMathalea(url)) this.displayLoadingScreen()
       this.ajouteIframe(url)
     } else if (type == 'performance') {
+      this.boutonRetour.style.display = 'block'
+      this.boutonCopier.style.display = 'none'
       this.set('coef', 1)
       this.creeListeIndicesExercices()
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
       if (this.isMathalea(url)) this.displayLoadingScreen()
       this.ajouteIframe(url)
     } else if (type == 'bestOf10' || type == 'battleRoyale') {
+      this.boutonRetour.style.display = 'none'
+      this.boutonCopier.style.display = 'none'
       this.creeListeIndicesExercices()
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
       if (this.isMathalea(url)) this.displayLoadingScreen()
@@ -521,17 +534,45 @@ export class ModaleExercicesComponent implements OnInit {
   }
 
   /**
+   * Si c'est une compétition, demande une confirmation
+   * Sinon, ferme directement la modale exercices
+   */
+  boutonFermerModale() {
+    const type = this.get('type')
+    if (type == 'bestOf10' || type == 'battleRoyale') {
+      this.afficherConfirmation()
+    } else {
+      this.fermerModale()
+    }
+  }
+
+  /**
    * Cache la modale
    */
   fermerModale(valeur?: number) {
     this.modaleFermee.emit(valeur)
     const iframe = document.getElementById('iframeExercice1')
     if (iframe != null && iframe.parentNode != null) iframe.parentNode.removeChild(iframe)
+    this.confirmationModale.style.display = "none"
     this.modale.style.display = "none"
     const divTimeLeft = document.getElementById('divTimeLeft')
     if (divTimeLeft != null) divTimeLeft.remove()
     clearInterval(this.interval)
     this.hideLoadingScreen()
+  }
+
+  /**
+   * Affiche la confirmation avant de fermer la modale exercices
+   */
+  afficherConfirmation() {
+    this.confirmationModale.style.display = "block"
+  }
+
+  /**
+   * Cache la confirmation
+   */
+  cacherConfirmation() {
+    this.confirmationModale.style.display = "none"
   }
 
   /**
