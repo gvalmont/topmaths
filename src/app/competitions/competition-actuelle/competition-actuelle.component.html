@@ -3,7 +3,7 @@
     <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(competitionActuelle.profilOrganisateur)"></figure>
     <span>{{ competitionActuelle.profilOrganisateur.pseudo }}</span>
     <i class="image is-48x48 is-inline-block"><img *ngIf="competitionActuelle.type != ''" [src]="'assets/img/cc0/' + competitionActuelle.type + '-svgrepo-com.svg'" /></i>
-    <span>{{competitionActuelle.participants.length}} / {{competitionActuelle.maxParticipants}}</span>
+    <span class="colore">{{competitionActuelle.participants.length}}</span><i class="image is-24x24"><img [src]="'assets/img/reshot/user-3294.svg'" /></i>
     &nbsp;&nbsp;<div class="dropdown is-size-3 has-text-weight-bold" id="coef-competitionActuelle"></div>
     <div class="dropdown-content">Plus il y a de monde, plus vous gagnez de points !</div>
   </div>

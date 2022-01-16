@@ -49,7 +49,7 @@
     <li *ngIf="competition != null && competition.type != ''">
       <a routerLink="/competitions" routerLinkActive="active" [class]="competition.type">
         <i class="image is-48x48"><img [src]="'assets/img/cc0/' + competition.type + '-svgrepo-com.svg'" /></i>
-        {{competition.participants.length + ' / ' + competition.maxParticipants}}
+        <span class="colore">{{competition.participants.length}}</span><i class="image is-24x24"><img [src]="'assets/img/reshot/user-3294.svg'" /></i>
       </a>
     </li>
   </ul>
