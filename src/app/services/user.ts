@@ -52,6 +52,7 @@ export class UserSimplifie {
   public aRepondu?: number
   public points?: number
   public flamme?: number
+  public question?: number
 
   constructor(id: number, codeAvatar: string, pseudo: string, score: number, lienTrophees: string, classement: number, teamName: string, scoreEquipe: number, styleAvatar?: string, aRepondu?: number, points?: number) {
     this.id = id

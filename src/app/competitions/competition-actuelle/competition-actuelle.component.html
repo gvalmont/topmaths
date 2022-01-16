@@ -42,6 +42,7 @@
     <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(participant)"></figure> &nbsp;
     <span>{{ participant.pseudo }} &nbsp; &nbsp;</span>
     <figure *ngIf="details && participant.aRepondu != null" [ngClass]="{'image is-24x24 is-inline-block': true, 'has-background-danger': participant.aRepondu == 1, 'has-background-success': participant.aRepondu > 1 }" style="border-radius: 500px;"></figure>
+    <i *ngIf="details && participant.question == 999" class="image is-24x24 is-inline-block is-danger"><img src="assets/img/cc0/cross-svgrepo-com.svg" /></i>
     <div *ngIf="details && participant.points != null" class="is-size-5 has-text-weight-semibold">{{ participant.points }}</div>
   </div>
 </div>
