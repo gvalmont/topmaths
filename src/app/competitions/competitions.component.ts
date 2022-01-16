@@ -554,6 +554,9 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
       alert('Cette compétition est déjà terminée !')
     } else if (competition.type == 'battleRoyale' && competition.statut != 'recrutement' && competition.statut != 'preparation') {
       alert('Tu ne peux pas rejoindre un Battle Royale qui est déjà lancé !')
+    } else if (this.dataService.user.identifiant == '') {
+      alert("Tu dois d'abord te connecter si tu veux rejoindre une compétition !")
+      this.router.navigate(['/login'])
     } else {
       this.http.post<Competition>(GlobalConstants.apiUrl + 'rejoindreCompetition.php', {
         identifiant: this.dataService.user.identifiant,
