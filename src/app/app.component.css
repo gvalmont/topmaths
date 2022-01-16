@@ -15,7 +15,7 @@
   --light3e: rgb(252 231 243);
 }
 
-#modaleInformationsCompetitions, #confirmationModaleExercices {
+#modaleInformationsCompetitions, #confirmationModaleExercices, #confirmationQuitterCompetition {
   position: fixed;
   top: 0;
   left: 0;

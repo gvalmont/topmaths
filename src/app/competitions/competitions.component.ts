@@ -76,6 +76,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   classementAffiche: boolean
   afficheFin: boolean
   dernierClassementAffiche: number
+  modaleConfirmationQuitterCompetition!: HTMLElement
 
   constructor(public http: HttpClient, private route: ActivatedRoute, private router: Router, public dataService: ApiService, private viewportScroller: ViewportScroller) {
     this.infosModale = [[], '', new Date(), [], 0]
@@ -499,9 +500,29 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Affiche la modale de confirmation avant de quitter la compétition
+   */
+  afficherModaleConfirmation() {
+    const modaleConfirmation = document.getElementById('confirmationQuitterCompetition')
+    if (modaleConfirmation != null) modaleConfirmation.style.display = 'block'
+  }
+
+
+  /**
+   * Cache la modale de confirmation avant de quitter la compétition
+   */
+  cacherModaleConfirmation() {
+    const modaleConfirmation = document.getElementById('confirmationQuitterCompetition')
+    if (modaleConfirmation != null) modaleConfirmation.style.display = 'none'
+  }
+
+  /**
    * Quitte la compétition actuelle
    */
   quitterCompetition() {
+    const lobby = document.getElementById('lobby')
+    if (lobby != null) lobby.style.display = 'none'
+    this.cacherModaleConfirmation()
     if (isDevMode()) {
       const competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '', aRepondu: 0 }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [], coef: 0, url: '', temps: 0, question: 0 }
       this.set('competitionActuelle', competitionActuelle)
@@ -647,7 +668,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
             this.classementAffiche = true
             setTimeout(() => {
               this.classementAffiche = false
-            }, 5000);
+            }, 5500);
           }
           if (parseInt(retour.competition.statut) > 0 && retour.competition.question >= retour.question && !this.modaleExercicesOuverte && !this.classementAffiche) { // Si une nouvelle question est disponible
             this.arreteActualisationCompetitionsEnCours()
@@ -749,7 +770,6 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
         this.modaleExercicesOuverte = false
         this.ouvrirLobby()
       } else {
-        this.fermerLobby()
         const competition = <Competition>this.get('competitionActuelle')
         if (competition.url != null && competition.temps != null && competition.coef != null) {
           let dernierSignal = new Date(competition.dernierSignal);
@@ -776,12 +796,15 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Cache le lobby
+   * Si la compétition est terminée, quitte la compétition et cache le lobby
+   * Sinon, affiche la modale de confirmation avant de le faire
    */
   fermerLobby() {
-    if (this.competitionActuelle.statut == 'fin') this.quitterCompetition()
-    const lobby = document.getElementById('lobby')
-    if (lobby != null) lobby.style.display = 'none'
+    if (this.competitionActuelle.statut == 'fin') {
+      this.quitterCompetition()
+    } else {
+      this.afficherModaleConfirmation()
+    }
   }
 
   /**

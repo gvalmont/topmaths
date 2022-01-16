@@ -147,11 +147,7 @@
 <div id="lobby" [ngClass]="{'centre cache has-background-white':true}">
   <div style="margin: 2%; width: 96%;">
     <div [ngClass]="{'title is-2 has-text-white is-flex is-justify-content-space-between': true, 'has-background-link': competitionActuelle.type == 'bestOf10', 'has-background-danger': competitionActuelle.type == 'battleRoyale'}">
-      <div>
-        <i class="image is-white is-48x48 is-clickable" (click)="fermerLobby()">
-          <img src='/assets/img/cc0/left-arrow-back-svgrepo-com.svg' />
-        </i>
-      </div>
+      <div><i class="image is-48x48"></i></div>
       <div>
         {{competitionActuelle.type == 'bestOf10' ? 'Best of 10' : competitionActuelle.type == 'battleRoyale' ? 'Battle Royale' : ''}}<figure *ngIf="!afficheFin" class="image is-48x48 is-inline-block has-text-left">{{troisPetitsPoints}}</figure>
       </div>
@@ -218,5 +214,15 @@
     <div *ngIf="!classementAffiche && !afficheFin">
       <app-competition-actuelle [competitionActuelle]="competitionActuelle" [troisPetitsPoints]="troisPetitsPoints" [details]="true"></app-competition-actuelle>
     </div>
+  </div>
+</div>
+<div id="confirmationQuitterCompetition" class="centre cache">
+  <div><br><br></div>
+  <div class="container has-background-white is-size-3">
+    <div><br><br></div>
+    <p>Tu veux quitter la compétition ?</p>
+    <div><br></div>
+    <button class="button is-danger" (click)="cacherModaleConfirmation()">Annuler</button> &nbsp; &nbsp; <button class="button is-success" (click)="quitterCompetition()">Quitter</button>
+    <div><br><br></div>
   </div>
 </div>
