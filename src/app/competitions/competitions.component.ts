@@ -625,46 +625,42 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    */
   getCompetitionActuelle() {
     this.enCoursDeMajCompetitionActuelle = true
-    this.http.post<Competition>(GlobalConstants.apiUrl + 'getCompetition.php', { id: this.get('competitionActuelle').id }).subscribe(
-      competition => {
+    this.http.post<{question: number, competition: Competition}>(GlobalConstants.apiUrl + 'getCompetition.php', { identifiant: this.dataService.user.identifiant, id: this.get('competitionActuelle').id }).subscribe(
+      retour => {
         this.enCoursDeMajCompetitionActuelle = false
-        this.set('competitionActuelle', competition)
-        this.competitionActuelle = competition
+        this.set('competitionActuelle', retour.competition)
+        this.competitionActuelle = retour.competition
         if (!this.dataService.competitionActuelleToujoursEnCours()) {
           alert("Cette compétition a été annulée")
           this.annulerCompetition(false)
         } else {
-          this.dataService.participationCompetition.emit(competition)
+          this.dataService.participationCompetition.emit(retour.competition)
           // La modale exercices fonctionne lorsqu'on vient d'actualiser mais pas si on s'est déplacé.
           // En attendant que je trouve mieux, je force l'actualisation de la page
-          if (parseInt(competition.statut) > 0 && this.dataService.get('premiereNavigation')) {
+          if (parseInt(retour.competition.statut) > 0 && this.dataService.get('premiereNavigation')) {
             window.location.href = GlobalConstants.origine + '/#/competitions'
           }
-          if (parseInt(competition.statut) > 0 && competition.question >= this.dataService.user.question && !this.modaleExercicesOuverte && !this.classementAffiche) { // Si une nouvelle question est disponible
+          if (parseInt(retour.competition.statut) > 0 && retour.competition.question >= retour.question && !this.modaleExercicesOuverte && !this.classementAffiche) { // Si une nouvelle question est disponible
             this.arreteActualisationCompetitionsEnCours()
-            if (competition.question == 1) {
-              this.dataService.user.question = competition.question
+            if (retour.competition.question == 1) {
               this.modaleExercicesOuverte = true
               this.ouvrirModaleExercices()
-            } else if (competition.question >= 2 && !this.classementAffiche && competition.question > this.dataService.user.question) {
-              this.dataService.user.question = competition.question
+            } else if (retour.competition.question >= 2 && !this.classementAffiche && retour.competition.question > retour.question) {
               this.classementAffiche = true
-              let classement = competition.participants
               setTimeout(() => {
                 this.classementAffiche = false
                 this.modaleExercicesOuverte = true
                 this.ouvrirModaleExercices()
               }, 5000);
             } else {
-              this.dataService.user.question = competition.question
               this.modaleExercicesOuverte = true
               this.ouvrirModaleExercices()
             }
-          } else if (competition.statut == "fin") {
+          } else if (retour.competition.statut == "fin") {
             this.finCompetition()
           } else {
-            this.majCoefCompetitionActuelle(competition)
-            if (competition.statut == 'preparation' && !this.appelDePreparationLance) {
+            this.majCoefCompetitionActuelle(retour.competition)
+            if (retour.competition.statut == 'preparation' && !this.appelDePreparationLance) {
               this.lancerAppelDePreparation()
               this.appelDePreparationLance = true
             }
