@@ -75,6 +75,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   modaleExercicesOuverte: boolean
   classementAffiche: boolean
   afficheFin: boolean
+  dernierClassementAffiche: number
 
   constructor(public http: HttpClient, private route: ActivatedRoute, private router: Router, public dataService: ApiService, private viewportScroller: ViewportScroller) {
     this.infosModale = [[], '', new Date(), [], 0]
@@ -92,6 +93,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     this.classementAffiche = false
     this.competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '', aRepondu: 0 }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [], coef: 0, url: '', temps: 0, question: 0 }
     this.afficheFin = false
+    this.dernierClassementAffiche = 0
     this.lanceAnimationTroisPetitsPoints()
     this.lanceActualisationCompetitionsEnCours()
     setTimeout(() => {
@@ -640,18 +642,18 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
           if (parseInt(retour.competition.statut) > 0 && this.dataService.get('premiereNavigation')) {
             window.location.href = GlobalConstants.origine + '/#/competitions'
           }
+          if (retour.competition.question >= 2 && !this.classementAffiche && retour.competition.question > this.dernierClassementAffiche) {
+            this.dernierClassementAffiche = retour.competition.question
+            this.classementAffiche = true
+            setTimeout(() => {
+              this.classementAffiche = false
+            }, 5000);
+          }
           if (parseInt(retour.competition.statut) > 0 && retour.competition.question >= retour.question && !this.modaleExercicesOuverte && !this.classementAffiche) { // Si une nouvelle question est disponible
             this.arreteActualisationCompetitionsEnCours()
             if (retour.competition.question == 1) {
               this.modaleExercicesOuverte = true
               this.ouvrirModaleExercices()
-            } else if (retour.competition.question >= 2 && !this.classementAffiche && retour.competition.question > retour.question) {
-              this.classementAffiche = true
-              setTimeout(() => {
-                this.classementAffiche = false
-                this.modaleExercicesOuverte = true
-                this.ouvrirModaleExercices()
-              }, 5000);
             } else {
               this.modaleExercicesOuverte = true
               this.ouvrirModaleExercices()
