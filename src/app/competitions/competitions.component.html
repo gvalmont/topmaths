@@ -27,7 +27,7 @@
                   <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(competitionEnCours.profilOrganisateur)"></figure>
                   <span>{{ competitionEnCours.profilOrganisateur.pseudo }}</span>
                   <i class="image is-48x48 is-inline-block"><img *ngIf="competitionEnCours.type != ''" [src]="'assets/img/cc0/' + competitionEnCours.type + '-svgrepo-com.svg'" /></i>
-                  <span>{{competitionEnCours.nbParticipants}} / {{competitionEnCours.maxParticipants}}</span>
+                  <span class="colore">{{competitionEnCours.nbParticipants}}</span><i class="image is-24x24"><img [src]="'assets/img/reshot/user-3294.svg'" /></i>
                 </div>
                 <span *ngIf="competitionEnCours.niveaux[0] != ''">
                   <span *ngFor="let niveau of competitionEnCours.niveaux">
