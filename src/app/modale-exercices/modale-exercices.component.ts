@@ -185,10 +185,8 @@ export class ModaleExercicesComponent implements OnInit {
                         const tempsMis = (new Date()).getTime() - (new Date(this.get('dateDebutExercice'))).getTime()
                         const tempsRestant = tempsDisponible - tempsMis
                         const points = 1 + nbBonnesReponses * tempsRestant / 100
-                        setTimeout(() => {
-                          this.modaleFermee.emit(points)
-                          this.fermerModale(points)
-                        }, 3000)
+                        this.modaleFermee.emit(points)
+                        this.fermerModale(points)
                       }
                       this.set('exercicesDejaFaits', exercicesDejaFaits)
                       this.set('urlDejaFaits', urlDejaFaits)
