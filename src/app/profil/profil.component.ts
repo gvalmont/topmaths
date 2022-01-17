@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
-import { Options } from '@angular-slider/ngx-slider';
 import { ApiService } from '../services/api.service';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-interface Slider {
-  value: number,
-  options: Options
-}
 
 @Component({
   selector: 'app-profil',
@@ -31,13 +26,6 @@ export class ProfilComponent implements OnInit {
   errCodeIncorrectE: boolean
   shakeE: boolean
   pseudo: string
-  yeux: Slider
-  sourcils: Slider
-  bouche: Slider
-  accessoire: Slider
-  cheveux: Slider
-  couleurPeau: Slider
-  couleurCheveux: Slider
   modaleAvatar!: HTMLElement
   derniereConnexion: string
   modalePseudo!: HTMLElement
@@ -66,76 +54,6 @@ export class ProfilComponent implements OnInit {
     this.errCodeIncorrectE = false
     this.shakeE = false
     this.surveilleChampE()
-    this.yeux = {
-      value: 1,
-      options: {
-        floor: 1,
-        ceil: 26,
-        hidePointerLabels: true,
-        hideLimitLabels: true,
-        showTicks: true
-      }
-    }
-    this.sourcils = {
-      value: 1,
-      options: {
-        floor: 1,
-        ceil: 10,
-        hidePointerLabels: true,
-        hideLimitLabels: true,
-        showTicks: true
-      }
-    }
-    this.bouche = {
-      value: 1,
-      options: {
-        floor: 1,
-        ceil: 30,
-        hidePointerLabels: true,
-        hideLimitLabels: true,
-        showTicks: true
-      }
-    }
-    this.accessoire = {
-      value: 1,
-      options: {
-        floor: 1,
-        ceil: 7,
-        hidePointerLabels: true,
-        hideLimitLabels: true,
-        showTicks: true
-      }
-    }
-    this.cheveux = {
-      value: 1,
-      options: {
-        floor: 1,
-        ceil: 32,
-        hidePointerLabels: true,
-        hideLimitLabels: true,
-        showTicks: true
-      }
-    }
-    this.couleurPeau = {
-      value: 1,
-      options: {
-        floor: 1,
-        ceil: 5,
-        hidePointerLabels: true,
-        hideLimitLabels: true,
-        showTicks: true
-      }
-    }
-    this.couleurCheveux = {
-      value: 1,
-      options: {
-        floor: 1,
-        ceil: 14,
-        hidePointerLabels: true,
-        hideLimitLabels: true,
-        showTicks: true
-      }
-    }
     this.pseudo = dataService.user.pseudo
     this.derniereConnexion = this.dateDeDerniereConnexion()
     this.enCoursDeModif = ''

@@ -14,7 +14,6 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfilComponent } from './profil/profil.component';
-import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { WhosonlineComponent } from './whosonline/whosonline.component';
 import { ClassementComponent } from './classement/classement.component';
 import { NgParticlesModule } from "ng-particles";
@@ -64,7 +63,6 @@ import { CompetitionActuelleComponent } from './competitions/competition-actuell
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxSliderModule,
     NgParticlesModule,
     MathjaxModule.forRoot({
       "config": {

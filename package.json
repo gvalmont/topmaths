@@ -11,7 +11,6 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-slider/ngx-slider": "^2.0.3",
     "@angular/animations": "^13.1.1",
     "@angular/common": "^13.1.1",
     "@angular/compiler": "^13.1.1",
@@ -20,9 +19,6 @@
     "@angular/platform-browser": "^13.1.1",
     "@angular/platform-browser-dynamic": "^13.1.1",
     "@angular/router": "^13.1.1",
-    "@dicebear/adventurer": "^4.10.2",
-    "@dicebear/avatars": "^4.10.2",
-    "bulma": "^0.9.3",
     "mathjax-angular": "^1.4.2",
     "ng-particles": "^2.20.3",
     "ngx-color-picker": "^11.0.0",
