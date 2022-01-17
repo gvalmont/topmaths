@@ -584,19 +584,23 @@ export class ApiService {
    * dirige vers la page de modification de l'équipe
    */
   modifierEquipe() {
-    this.http.post<Equipe[]>(`${GlobalConstants.apiUrl}getEquipe.php`, { codeEquipe: this.infosEquipe.codeEquipe, leader: this.user.id }).subscribe(equipes => {
-      this.equipe = equipes[0]
-      if (this.equipe.teamName == 'personne') {
-        alert("Tu n'es pas le chef de cette équipe")
-        this.router.navigate(['accueil'])
-      }
-      else {
-        this.router.navigate(['team', 'admin', 'modification'])
-      }
-    }, error => {
-      this.erreurRegistration('modifierEquipe', error['message'])
-      console.log(error)
-    });
+    if (isDevMode()) {
+      this.router.navigate(['team', 'admin', 'modification'])
+    } else {
+      this.http.post<Equipe[]>(`${GlobalConstants.apiUrl}getEquipe.php`, { codeEquipe: this.infosEquipe.codeEquipe, leader: this.user.id }).subscribe(equipes => {
+        this.equipe = equipes[0]
+        if (this.equipe.teamName == 'personne') {
+          alert("Tu n'es pas le chef de cette équipe")
+          this.router.navigate(['accueil'])
+        }
+        else {
+          this.router.navigate(['team', 'admin', 'modification'])
+        }
+      }, error => {
+        this.erreurRegistration('modifierEquipe', error['message'])
+        console.log(error)
+      });
+    }
   }
 
   /**

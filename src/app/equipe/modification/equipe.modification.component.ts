@@ -76,11 +76,13 @@ export class EquipeModificationComponent implements OnInit {
   shake: boolean
   teamName: string
   dateDerniereReponse: Date
+  maxEmblemeId: number
 
   constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, public dataService: ApiService) {
+    this.maxEmblemeId = 43
     this.emblemBackgroundDefs = []
     this.emblemDefs = []
-    this.foregroundId = Math.floor(Math.random() * 243 + 1)
+    this.foregroundId = Math.floor(Math.random() * this.maxEmblemeId + 1)
     this.backgroundId = Math.floor(Math.random() * 27 + 2)
     this.backgroundColor = '#00FF00'
     this.foregroundPrimaryColor = '#0000FF'
@@ -279,7 +281,7 @@ export class EquipeModificationComponent implements OnInit {
         this.initEmbleme()
         break;
       case 'foregroundId':
-        this.foregroundId = Math.floor(Math.random() * 243 + 1)
+        this.foregroundId = Math.floor(Math.random() * this.maxEmblemeId + 1)
         this.initEmbleme()
         break;
       case 'tout':
@@ -287,7 +289,7 @@ export class EquipeModificationComponent implements OnInit {
         this.majForegroundSecondaryColor(this.couleurAleatoire())
         this.majBackgroundColor(this.couleurAleatoire())
         this.backgroundId = Math.floor(Math.random() * 27 + 2)
-        this.foregroundId = Math.floor(Math.random() * 243 + 1)
+        this.foregroundId = Math.floor(Math.random() * this.maxEmblemeId + 1)
         this.initEmbleme()
         break;
     }
@@ -351,7 +353,7 @@ export class EquipeModificationComponent implements OnInit {
   initforegrounds() {
     const foregrounds = document.getElementById("foregrounds")
     if (foregrounds != null) this.foregrounds = foregrounds
-    for (let i = 1; i < 243; i++) {
+    for (let i = 1; i < this.maxEmblemeId; i++) {
       const foregroundId = i
       this.createEmblemImage({
         emblem: {
@@ -566,7 +568,7 @@ export class EquipeModificationComponent implements OnInit {
    */
   couleurAleatoire() {
     const o = Math.round, r = Math.random, s = 255
-    return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')'
+    return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + ((r() * 0.2) + 0.8).toFixed(1) + ')'
   }
 
   /**
