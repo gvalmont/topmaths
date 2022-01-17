@@ -344,7 +344,11 @@ export class ApiService {
   getLienAvatar(user: User | UserSimplifie) {
     let lienAvatar: string
     if (user.pseudo == 'anonyme' || user.codeAvatar == '') {
-      lienAvatar = 'assets/img/reshot/user-3294.svg'
+      if (user.lienAvatar != null && user.lienAvatar != '') {
+        lienAvatar = user.lienAvatar
+      } else {
+        lienAvatar = 'assets/img/reshot/user-3294.svg'
+      }
     } else {
       lienAvatar = `/avatars/${user.id}.svg?${user.codeAvatar}`
       lienAvatar = lienAvatar.replace(/-/g, '')

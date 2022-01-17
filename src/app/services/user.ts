@@ -16,6 +16,7 @@ export class User {
   public derniereSequence: string
   public dernierObjectif: string
   public question: number
+  public lienAvatar?: string
 
   constructor(id: number, identifiant: string, codeAvatar: string, lastLogin: string, lastAction: string, visible: string, pseudo: string, score: number,
         codeTrophees: string, tropheesVisibles: string, cleScore: string, classement: number, teamName: string, scoreEquipe: number, derniereSequence: string,
@@ -48,6 +49,7 @@ export class UserSimplifie {
   public classement: number
   public teamName: string
   public scoreEquipe: number
+  public lienAvatar?: string
   public styleAvatar?: string
   public aRepondu?: number
   public points?: number
