@@ -653,7 +653,9 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
         this.enCoursDeMajCompetitionActuelle = false
         this.set('competitionActuelle', retour.competition)
         this.competitionActuelle = retour.competition
-        if (!this.dataService.competitionActuelleToujoursEnCours()) {
+        if (retour.competition.statut == "fin") {
+          this.finCompetition()
+        } else if (!this.dataService.competitionActuelleToujoursEnCours()) {
           alert("Cette compétition a été annulée")
           this.annulerCompetition(false)
         } else {
@@ -679,8 +681,6 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
               this.modaleExercicesOuverte = true
               this.ouvrirModaleExercices()
             }
-          } else if (retour.competition.statut == "fin") {
-            this.finCompetition()
           } else {
             this.majCoefCompetitionActuelle(retour.competition)
             if (retour.competition.statut == 'preparation' && !this.appelDePreparationLance) {
