@@ -24,6 +24,7 @@ export class ModaleExercicesComponent implements OnInit {
   boutonRetour!: HTMLElement
   boutonFermer!: HTMLElement
   boutonCopier!: HTMLElement
+  boutonCopierLoading!: HTMLElement
   confirmationModale!: HTMLElement
   affCoef!: HTMLElement
   lienSpinner: string
@@ -294,6 +295,8 @@ export class ModaleExercicesComponent implements OnInit {
     if (element != null) this.affCoef = element
     element = document.getElementById("confirmationModaleExercices")
     if (element != null) this.confirmationModale = element
+    element = document.getElementById("boutonCopierLoading")
+    if (element != null) this.boutonCopierLoading = element
   }
 
   resetProgressBar() {
@@ -317,6 +320,7 @@ export class ModaleExercicesComponent implements OnInit {
     if (type == '') {
       this.boutonRetour.style.display = 'block'
       this.boutonCopier.style.display = 'block'
+      this.boutonCopierLoading.style.display = 'block'
       if (this.site == 'mathalea') this.displayLoadingScreen()
       this.set('coef', 1)
       const url = this.get('listeDesUrl')[this.get('indiceExerciceActuel')]
@@ -324,6 +328,7 @@ export class ModaleExercicesComponent implements OnInit {
     } else if (type == 'tranquille') {
       this.boutonRetour.style.display = 'block'
       this.boutonCopier.style.display = 'none'
+      this.boutonCopierLoading.style.display = 'none'
       this.set('coef', 2)
       this.creeListeIndicesExercices()
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
@@ -332,6 +337,7 @@ export class ModaleExercicesComponent implements OnInit {
     } else if (type == 'vitesse') {
       this.boutonRetour.style.display = 'block'
       this.boutonCopier.style.display = 'none'
+      this.boutonCopierLoading.style.display = 'none'
       this.set('coef', 5)
       this.creeListeIndicesExercices()
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
@@ -340,6 +346,7 @@ export class ModaleExercicesComponent implements OnInit {
     } else if (type == 'performance') {
       this.boutonRetour.style.display = 'block'
       this.boutonCopier.style.display = 'none'
+      this.boutonCopierLoading.style.display = 'none'
       this.set('coef', 1)
       this.creeListeIndicesExercices()
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
@@ -348,6 +355,7 @@ export class ModaleExercicesComponent implements OnInit {
     } else if (type == 'bestOf10' || type == 'battleRoyale') {
       this.boutonRetour.style.display = 'none'
       this.boutonCopier.style.display = 'none'
+      this.boutonCopierLoading.style.display = 'none'
       this.creeListeIndicesExercices()
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
       if (this.isMathalea(url)) this.displayLoadingScreen()
