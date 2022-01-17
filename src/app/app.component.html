@@ -80,3 +80,17 @@
     <div><br><br></div>
   </div>
 </div>
+
+<!-- Modale d'appel de préparation -->
+<div id="modalePreparation" class="modal">
+  <div class="modal-background" (click)="cacherModalePreparation()"></div>
+  <div class="modal-content centre">
+    <div><br><br><br></div>
+    <div class="has-background-white p-6">
+      La compétition va commencer, est-ce que tu veux y aller ?
+      <div><br></div>
+      <button class="button is-danger" (click)="cacherModalePreparation()">Non</button> &nbsp; &nbsp; <button id='boutonAller' class="button is-success" (click)="allerCompetition()">Oui</button>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="cacherModalePreparation()"></button>
+</div>

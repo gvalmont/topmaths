@@ -67,7 +67,12 @@
           </div>
         </div>
         <!-- Contenu -->
-        <app-competition-actuelle [competitionActuelle]="competitionActuelle" [troisPetitsPoints]="troisPetitsPoints" (fermerLobby)="fermerLobby()"></app-competition-actuelle>
+        <div *ngIf="competitionActuelle.statut == 'preparation' || competitionActuelle.statut == 'recrutement'">
+          <app-competition-actuelle [competitionActuelle]="competitionActuelle" [troisPetitsPoints]="troisPetitsPoints" (fermerLobby)="fermerLobby()"></app-competition-actuelle>
+        </div>
+        <div *ngIf="competitionActuelle.statut != 'preparation' && competitionActuelle.statut != 'recrutement'">
+          La compétition a déjà commencé.
+        </div>
         <br>
         <button *ngIf="competitionActuelle.profilOrganisateur.id != dataService.user.id || competitionActuelle.statut != 'recrutement'" class="button is-danger" (click)="quitterCompetition()">Quitter la compétition</button>
         <div *ngIf="competitionActuelle.profilOrganisateur.id == dataService.user.id && competitionActuelle.statut == 'recrutement'">

@@ -60,7 +60,7 @@ export class ApiService {
   lienAvatar: string
   styleAvatar: string
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(public http: HttpClient, private router: Router) {
     this.redirectUrl = ''
     this.user = {
       id: 0,
@@ -736,14 +736,6 @@ export class ApiService {
    * Si l'utilisateur est actuellement organisateur d'une compétition, autoCheck sa présence
    */
   majLastAction() {
-    if (this.get('CompetitionorganisationEnCours') && this.competitionActuelleToujoursEnCours()) {
-      this.set('CompetitionautoCheckPresenceOrganisateur', true)
-      this.http.post<{question: number, competition: Competition}>(GlobalConstants.apiUrl + 'getCompetition.php', { identifiant: this.user.identifiant, id: this.get('CompetitioncompetitionActuelle').id }).subscribe(
-        retour => {
-          this.set('competitionActuelle', retour.competition)
-          this.participationCompetition.emit(retour.competition)
-        })
-    }
     if (isDevMode()) {
       this.onlineNb = 2
       this.onlineUsers = [

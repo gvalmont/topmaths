@@ -475,7 +475,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
       this.participationEnCours = false
       this.arreteActualisationCompetitionActuelle()
       this.dataService.participationCompetition.emit(competitionActuelle)
-      this.router.navigateByUrl('/accueil', { skipLocationChange: true }).then(() => {
+      this.router.navigateByUrl('/accueil/dummy', { skipLocationChange: true }).then(() => {
         this.router.navigate(['/competitions']);
       });
     } else {
@@ -488,7 +488,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
             this.participationEnCours = false
             this.arreteActualisationCompetitionActuelle()
             this.dataService.participationCompetition.emit(competitionActuelle)
-            this.router.navigateByUrl('/accueil', { skipLocationChange: true }).then(() => {
+            this.router.navigateByUrl('/accueil/dummy', { skipLocationChange: true }).then(() => {
               this.router.navigate(['/competitions']);
             });
           }
@@ -588,7 +588,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
         this.appelDePreparationLance = false
         this.set('competitionActuelle', competition)
         this.dataService.participationCompetition.emit(competition)
-        this.router.navigateByUrl('/accueil', { skipLocationChange: true }).then(() => {
+        this.router.navigateByUrl('/accueil/dummy', { skipLocationChange: true }).then(() => {
           this.router.navigate(['/competitions']);
         });
       },

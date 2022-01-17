@@ -86,27 +86,69 @@ export class AppComponent implements OnInit, OnDestroy {
   observeChangementsDeRoute() {
     this.event$ = this.router.events.subscribe((event: NavigationEvent) => {
       if (event instanceof NavigationStart) {
-        if (this.dataService.get('premiereNavigation') == null) {
-          this.dataService.set('premiereNavigation', false)
-        } else if (this.dataService.get('premiereNavigation') == false) {
-          this.dataService.set('premiereNavigation', true)
-        }
-        this.majPseudoClique()
-        if (this.dataService.isloggedIn) {
-          this.dataService.majLastAction() // le whosOnline est compris dans le majLastAction
-        } else {
-          this.dataService.recupWhosOnline()
-        }
-        if (this.competition != null && this.competition.type != '') {
-          if (!this.dataService.competitionActuelleToujoursEnCours()) {
-            const competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [], coef: 0, url: '', temps: 0, question: 0 }
-            this.dataService.set('CompetitioncompetitionActuelle', competitionActuelle)
-            this.dataService.set('CompetitionorganisationEnCours', false)
-            this.dataService.participationCompetition.emit(competitionActuelle)
+        if (event.url != '/accueil/dummy') { // Adresse de transition si je veux faire un aller retour pour reload une page
+          this.majPremiereNavigation()
+          this.majPseudoClique()
+          if (this.dataService.isloggedIn) {
+            this.dataService.majLastAction() // le whosOnline est compris dans le majLastAction
+            if (this.competition != null && this.competition.type != '' && event.url != '/competitions') {
+              if (this.dataService.competitionActuelleToujoursEnCours() && (this.competition.statut == 'recrutement' || this.competition.statut == 'preparation')) {
+                this.majCompetitionActuelle()
+              } else {
+                this.resetCompetitionActuelle()
+              }
+            }
+          } else {
+            this.dataService.recupWhosOnline()
           }
         }
       }
     });
+  }
+
+  /**
+   * Met à jour le token de premiereNavigation qui sert à déterminer si l'utilisateur est toujours sur sa landing page ou pas
+   */
+  majPremiereNavigation() {
+    if (this.dataService.get('premiereNavigation') == null) {
+      this.dataService.set('premiereNavigation', false)
+    } else if (this.dataService.get('premiereNavigation') == false) {
+      this.dataService.set('premiereNavigation', true)
+    }
+  }
+
+  /**
+   * Récupère les infos de la compétition actuelle la met à jour
+   * Si l'utilisateur est organisateur de compétition, auto-check sa présence
+   */
+  majCompetitionActuelle() {
+    this.dataService.http.post<{ question: number, competition: Competition }>(GlobalConstants.apiUrl + 'getCompetition.php', { identifiant: this.dataService.user.identifiant, id: this.dataService.get('CompetitioncompetitionActuelle').id }).subscribe(
+      retour => {
+        this.dataService.set('CompetitioncompetitionActuelle', retour.competition)
+        if (this.dataService.competitionActuelleToujoursEnCours() && (retour.competition.statut == 'recrutement' || retour.competition.statut == 'preparation')) {
+          this.dataService.participationCompetition.emit(retour.competition)
+          if (retour.competition.statut == 'preparation') {
+            this.afficherModalePreparation()
+          }
+        } else {
+          this.competition = retour.competition
+          this.resetCompetitionActuelle()
+        }
+      })
+    if (this.dataService.get('CompetitionorganisationEnCours')) {
+      this.dataService.set('CompetitionautoCheckPresenceOrganisateur', true)
+    }
+  }
+
+  /**
+   * Réinitialise la compétition actuelle
+   */
+  resetCompetitionActuelle() {
+    if (this.competition.statut == 'recrutement' || this.competition.statut == 'preparation') alert("La compétition en cours a été annulée")
+    const competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [], coef: 0, url: '', temps: 0, question: 0 }
+    this.dataService.set('CompetitioncompetitionActuelle', competitionActuelle)
+    this.dataService.set('CompetitionorganisationEnCours', false)
+    this.dataService.participationCompetition.emit(competitionActuelle)
   }
 
   /**
@@ -183,5 +225,46 @@ export class AppComponent implements OnInit, OnDestroy {
       window.frames.postMessage({ informationOrganisateurCompetition: 'presenceOrganisateurKO' }, GlobalConstants.origine)
     }
     this.modaleInformationsCompetitions.style.display = 'none'
+  }
+
+  /**
+   * Affiche la modale qui prévient d'un appel de préparation pour une compétition
+   */
+  afficherModalePreparation() {
+    const modalePreparation = document.getElementById('modalePreparation')
+    if (modalePreparation != null) modalePreparation.style.display = 'block'
+  }
+
+  /**
+   * Cache la modale qui prévient d'un appel de préparation pour une compétition
+   */
+  cacherModalePreparation() {
+    const modalePreparation = document.getElementById('modalePreparation')
+    if (modalePreparation != null) modalePreparation.style.display = 'none'
+  }
+
+  /**
+   * Vérifie si la compétition est toujours en cours d'appel de préparation
+   * Si oui, déplace l'utilisateur vers l'onglet compétitions
+   * Sinon, le prévient que la compétition a déjà commencé et reset la compétition actuelle
+   */
+  allerCompetition() {
+    const boutonAller = <HTMLButtonElement> document.getElementById('boutonAller')
+    if (boutonAller != null) {
+      boutonAller.disabled = true
+      this.dataService.http.post<{ question: number, competition: Competition }>(GlobalConstants.apiUrl + 'getCompetition.php', { identifiant: this.dataService.user.identifiant, id: this.dataService.get('CompetitioncompetitionActuelle').id }).subscribe(
+        retour => {
+          boutonAller.disabled = false
+          if (this.dataService.competitionActuelleToujoursEnCours() && (retour.competition.statut == 'recrutement' || retour.competition.statut == 'preparation')) {
+            this.cacherModalePreparation()
+            this.router.navigate(['/competitions'])
+          } else {
+            alert('La compétition a déjà commencé')
+            this.competition = retour.competition
+            this.resetCompetitionActuelle()
+            this.cacherModalePreparation()
+          }
+        })
+    }
   }
 }
