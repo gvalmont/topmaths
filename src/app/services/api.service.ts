@@ -738,6 +738,11 @@ export class ApiService {
   majLastAction() {
     if (this.get('CompetitionorganisationEnCours') && this.competitionActuelleToujoursEnCours()) {
       this.set('CompetitionautoCheckPresenceOrganisateur', true)
+      this.http.post<{question: number, competition: Competition}>(GlobalConstants.apiUrl + 'getCompetition.php', { identifiant: this.user.identifiant, id: this.get('CompetitioncompetitionActuelle').id }).subscribe(
+        retour => {
+          this.set('competitionActuelle', retour.competition)
+          this.participationCompetition.emit(retour.competition)
+        })
     }
     if (isDevMode()) {
       this.onlineNb = 2
