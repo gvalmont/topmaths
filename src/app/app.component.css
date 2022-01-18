@@ -186,9 +186,10 @@
   display: none;
 }
 
-.MathJax {
-  font-size: 1.8em;
-  line-height: 2;
+.liste {
+  text-align: left;
+  margin-left: 15%;
+  margin-right: 15%;
 }
 
 .pleinEcran {

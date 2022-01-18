@@ -469,7 +469,7 @@
               {
                 "reference": "5S12",
                 "titre": "Représenter sur papier ou à l’aide d’un tableur-grapheur, des données sous la forme d’un graphique ou d’un diagramme en bâtons",
-                "rappelDuCoursHTML": "<p>Dans un diagramme en bâtons, chaque bâton représente une donnée.<br>La hauteur du bâton correspond à la valeur de cette donnée qu'on peut lire sur l'axe vertical.</p>",
+                "rappelDuCoursHTML": "",
                 "rappelDuCoursImage": "5S12-RDC.png",
                 "videos": [
                   {
@@ -511,8 +511,8 @@
               {
                 "reference": "5S13",
                 "titre": "Calculer des effectifs et des fréquences",
-                "rappelDuCoursHTML": "",
-                "rappelDuCoursImage": "5S13-RDC.png",
+                "rappelDuCoursHTML": "Dans une série de données : <ul class='liste'><li>- l'<strong>effectif</strong> d'une valeur est le nombre de fois où cette valeur apparaît dans la série ;</li><li>- l'<strong>effectif total</strong> est le nombre total de valeurs de la série ;</li><li>- la <strong>fréquence</strong> d'une valeur est le quotient $\\cfrac{\\text{effectif de la valeur}}{\\text{effectif total}}$.</li></ul>",
+                "rappelDuCoursImage": "",
                 "videos": [
                   {
                     "titre": "",
@@ -1198,8 +1198,8 @@
               {
                 "reference": "4G23",
                 "titre": "Connaître la définition de la racine carrée d’un nombre positif",
-                "rappelDuCoursHTML": "",
-                "rappelDuCoursImage": "4G23-RDC.png",
+                "rappelDuCoursHTML": "$a$ désigne un nombre positif.<br>La carré de $a$ est le produit de $a$ par lui-même ($a \\times a$). Il est noté $a^2$.<br>La racine carrée de $a$ est le nombre positif dont le carré est $a$.<br>Ce nombre est noté $\\sqrt{a}$ et $(\\sqrt{a})^2=a$",
+                "rappelDuCoursImage": "",
                 "videos": [
                   {
                     "titre": "",

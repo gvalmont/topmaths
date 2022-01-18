@@ -73,7 +73,9 @@ import { CompetitionActuelleComponent } from './competitions/competition-actuell
           "inlineMath": [["$", "$"]],
           "packages": ["base", "require", "ams"]
         },
-        "svg": { "fontCache": "global" }
+        "svg": {
+          "fontCache": "global"
+        }
       },
       "src": "https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/startup.js"
     }),
