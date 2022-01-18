@@ -101,7 +101,7 @@ export class ExercicesAuHasardComponent implements OnInit {
                         listeExercices.push({
                           id: exercice.id,
                           slug: exercice.slug,
-                          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&v=can&z=1.5${temps}`,
+                          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&v=eval&z=1.5${temps}`,
                           score: exercice.score
                         })
                         listeExercices[listeExercices.length - 1].lien = listeExercices[listeExercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug

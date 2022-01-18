@@ -235,7 +235,7 @@ export class ModaleExercicesComponent implements OnInit {
             for (const objectif of sousTheme.objectifs) {
               for (const exercice of objectif.exercices) {
                 this.listeExercices.push({
-                  lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&v=can&z=1.5`,
+                  lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&v=eval&z=1.5`,
                   score: exercice.score
                 })
                 this.listeExercices[this.listeExercices.length - 1].lien = this.listeExercices[this.listeExercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug

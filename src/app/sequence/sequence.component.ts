@@ -173,7 +173,7 @@ export class SequenceComponent implements OnInit {
                   questionFlash.pageExiste = true
                 }
               }
-              this.lienQuestionsFlash = this.lienQuestionsFlash.concat('v=can&z=1.5')
+              this.lienQuestionsFlash = this.lienQuestionsFlash.concat('v=eval&z=1.5')
               // On vérifie si la page existe pour les objectifs des calculs mentaux
               for (const calculMental of this.calculsMentaux) {
                 if (calculMental.reference == JSONobjectif.reference) {
@@ -193,7 +193,7 @@ export class SequenceComponent implements OnInit {
           }
         }
       }
-      this.lienEval = this.lienEval.concat('v=can&z=1.5')
+      this.lienEval = this.lienEval.concat('v=eval&z=1.5')
     }
     )
   }
