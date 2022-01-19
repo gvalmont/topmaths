@@ -2,6 +2,66 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/gvalmont/topmaths/compare/v0.0.4...v0.0.5) (2022-01-19)
+
+
+### Features
+
+* Ajout d'écrans de chargement pendant le chargement des exercices ([4488243](https://github.com/gvalmont/topmaths/commit/4488243fb261eabfbe55a8bc85c886a8f6820066))
+* Ajout d'un badge indiquant le classement individuel ([15ca37a](https://github.com/gvalmont/topmaths/commit/15ca37a362589125f96e1ade16200f1666ce4cfd))
+* Ajout d'une indication visuelle lorsqu'un paramètre du profil est en cours de modification ([8fbf1cc](https://github.com/gvalmont/topmaths/commit/8fbf1cc691aaaedefb3b7e395a8b6b740a01da1d))
+* Ajout de la partie Compétitions ([a9a70d5](https://github.com/gvalmont/topmaths/commit/a9a70d5bdb62fbfe755d3fa825843d9c850aa341))
+* Ajout de la possibilité de demander à se reconnecter pour sécuriser une action ([e4fd51f](https://github.com/gvalmont/topmaths/commit/e4fd51fd65a481631e81408f308b6609a9ba3364))
+* Ajout de nombreuses possibilités de pseudos ([bbd189c](https://github.com/gvalmont/topmaths/commit/bbd189cb4eb347338523607392a442e0a0d5413d))
+* Ajout de S3S6 et S3S7 ([a586965](https://github.com/gvalmont/topmaths/commit/a5869653cb0ad2c2b138db7375791ba3af6fba94))
+* Ajout des cours et résumés des Séquences 1 et 2 de 3ème ([b0bdbce](https://github.com/gvalmont/topmaths/commit/b0bdbce52863eb43fc968f02ccec092f397d0e08))
+* Ajout des modes compétitifs Best Of 10 et Battle Royale ([0fb45d3](https://github.com/gvalmont/topmaths/commit/0fb45d355c42a00fc1ec4ab550a0045280c1c1da))
+* Ajout du classement des équipes ([20a39b6](https://github.com/gvalmont/topmaths/commit/20a39b69c4e1f7aa56abd21eefa707e44b68d8d4))
+* Ajout du mode Performance aux exercices aléatoires ([ca8b326](https://github.com/gvalmont/topmaths/commit/ca8b3269ba50d7ca9812e9d055d3ceef9caa5292))
+* Ajout du mode Vitesse aux exercices au hasard ([b395297](https://github.com/gvalmont/topmaths/commit/b395297ac734078ce293f101f5661634d4709634))
+* Ajustement des scores de nombreux calculs mentaux ([a93402e](https://github.com/gvalmont/topmaths/commit/a93402e64ba7cbb304b50e9aa3094813ed5ba8b1))
+* Ajustement des scores de nombreux exercices ([cd307ba](https://github.com/gvalmont/topmaths/commit/cd307ba10820978e212c9a9c18f06a2b19ae4723))
+* Ajustement des scores des exercices de 4A10 qui donnaient beaucoup trop de points ([428d1b3](https://github.com/gvalmont/topmaths/commit/428d1b3cd1485b284a47a86ad8fad20c393a5ca1))
+* Il n'y a plus de paramètre scores, maintenant ils sont toujours activés ([489022e](https://github.com/gvalmont/topmaths/commit/489022e231dcc8a5477a7ec476d4439b36001c7f))
+* Il y a maintenant un mode "tranquille" où on peut faire un exercice au hasard où les points sont doublés ! ([974f308](https://github.com/gvalmont/topmaths/commit/974f30800431c74c4d2605838b5b10064d7a4e06))
+* L'emblème de l'équipe s'affiche maintenant à côté des avatars ([cbcfeb5](https://github.com/gvalmont/topmaths/commit/cbcfeb5c00e99aeaabbc9f81b402f47dc1495563))
+* L'exercice de 4A10 est maintenant un calcul mental ([fcdfda8](https://github.com/gvalmont/topmaths/commit/fcdfda8542d5dcd3c68922ba7963152a845569a0))
+* L'onglet actif est maintenant mis en évidence ([76c55d9](https://github.com/gvalmont/topmaths/commit/76c55d90ddb542d60ba5f66e2ffe07908d00c5b4))
+* L'utilisateur n'est plus identifié sur coopmaths pour que son identifiant n'apparaisse plus sur son écran ([ce042f0](https://github.com/gvalmont/topmaths/commit/ce042f019f4d20f06c8a5481a096c33f75579cd8))
+* Le bouton pour accéder au profil est maintenant au milieu avec les autres boutons ([ca69487](https://github.com/gvalmont/topmaths/commit/ca694872fc742455974cab12ccb551cd237427f5))
+* Les boutons servant à montrer ou à cacher ses trophées aux autres utilisateurs sont cachés s'il n'y a pas de lien vers les trophées ([a36037d](https://github.com/gvalmont/topmaths/commit/a36037d939a0e78db2747fffd7ab2cf99df89c64))
+* Les exercices ont une nouvelle apparence plus sympa ([b2e2f53](https://github.com/gvalmont/topmaths/commit/b2e2f53402930f5da09191105910f80e5f1f7054))
+* Les exercices sont maintenant en plein écran ! ([bf7dc18](https://github.com/gvalmont/topmaths/commit/bf7dc18e38dbb142ca1962831dc833b3f433b49e))
+* Mise en couleur des pages objectifs et séquences ([9901bcd](https://github.com/gvalmont/topmaths/commit/9901bcd3a2d0fe33e93015d77b770f5c43f26ed5))
+* On attend maintenant 3 secondes avant d'affichier "Cette page n'est plus disponible" sur la liste des trophées ([a30a552](https://github.com/gvalmont/topmaths/commit/a30a55221471268ec4fb42227115c1c817026e72))
+* On peut maintenant choisir de montrer ou de cacher son identifiant (caché par défaut) ([023d64b](https://github.com/gvalmont/topmaths/commit/023d64b46045de857d5e4906572899fd2ac7ee73))
+* On peut maintenant former des équipes ! ([e84a240](https://github.com/gvalmont/topmaths/commit/e84a2404fad7aa08318522c696355e6b1c2171df))
+* On peut maintenant rejoindre une équipe à l'aide d'un code ([5e34e0f](https://github.com/gvalmont/topmaths/commit/5e34e0f6ec3334a963ca9a9fd334c8df3090e404))
+* Refonte de l'interface de création d'avatar et les avatars sont maintenant générés ici au lieu d'être récupérés de dicebear ([fda6489](https://github.com/gvalmont/topmaths/commit/fda6489ab9894e28aaf1146b29ea42357346a985))
+* Refonte graphique du bandeau supérieur et de l'accueil ([fcb5cb4](https://github.com/gvalmont/topmaths/commit/fcb5cb4fba39809b00453926fd8ff15ae3c8a388))
+* Un badge avec le classement s'affiche maintenant avec chaque avatar ([9ab3332](https://github.com/gvalmont/topmaths/commit/9ab33320b6abf96d78644963f6ec7d92fa1add5c))
+* Un raccourci vers la dernière page de séquence et la dernière page objectif est maintenant disponible dans le profil ([316c22f](https://github.com/gvalmont/topmaths/commit/316c22f4c9d997cb293227a4fd8fa34386686c51))
+* Une modale de confirmation s'affiche maintenant lorsqu'on veut quitter la page de création d'avatar ([d8db887](https://github.com/gvalmont/topmaths/commit/d8db88776695e610d5d8f58db035b16a3c8284b9))
+
+
+### Bug Fixes
+
+* Correction d'un bug qui demandait de se connecter lorsqu'on arrivait sur le site par la page profil ([2786db1](https://github.com/gvalmont/topmaths/commit/2786db130789531187e1a5a29f7fe47bcab3b995))
+* Correction d'un bug qui empêchait de gagner des points sur le calcul mental ([4c2d4d7](https://github.com/gvalmont/topmaths/commit/4c2d4d7c9aad42dc71f0940a8c49b21990d5a876))
+* Correction d'un bug qui empêchait de pouvoir demander à refaire une évaluation spécial (comme le brevet de tuteur) ([1d90cea](https://github.com/gvalmont/topmaths/commit/1d90cea8698aefd4b45aa250b9dd1ba735485844))
+* Correction d'un bug qui empêchait se se créer un nouveau compte ([1decba8](https://github.com/gvalmont/topmaths/commit/1decba898b1fa14daa80ce46fab011e2ba710cdd))
+* Correction d'un bug qui faisait qu'on pouvait ajouter n'importe quel code comme code trophées ([1e8559f](https://github.com/gvalmont/topmaths/commit/1e8559fd0a9326efb18f2faf9be7c20887bfeb2b))
+* Correction d'un bug qui faisait que le message d'absence de calcul mental de S5S4 ne s'affichait pas ([7f23d8e](https://github.com/gvalmont/topmaths/commit/7f23d8ed4ba4833fc24c5ca4ea63c6198753cce2))
+* Correction d'un bug qui faisait que les séances particulières n'apparaissaient pas toujours du premier coup ([41306ca](https://github.com/gvalmont/topmaths/commit/41306caf8648a11075adeb1cad9a71dffab4e3dc))
+* Correction d'un bug qui permettait d'obtenir plusieurs fois les points pour une même question ([3d44dc2](https://github.com/gvalmont/topmaths/commit/3d44dc2975ff623424e944b315fdc90be0707afb))
+* hotfix : Il était possible de gagner des points très facilement à l'aide d'exercices qui n'étaient pas encore interactifs ([20d5291](https://github.com/gvalmont/topmaths/commit/20d529171d22aa0f45e28a127b3a5ddaaa5bc7f9))
+* L'espace est maintenant régulier entre les liens des fichiers à télécharger lorsqu'ils ne sont pas tous disponibles ([68a2a43](https://github.com/gvalmont/topmaths/commit/68a2a435e4b7cf1e18247191bac6e38834fd8195))
+* Le premier exercice de 4A11 ne donnait pas de point ([2266c90](https://github.com/gvalmont/topmaths/commit/2266c90af6328dc3305f2f6a194e572ac93763f4))
+* Maintenant on ne peut plus récupérer l'identifiant de quelqu'un qui a oublié de se déconnecter ([3b3d063](https://github.com/gvalmont/topmaths/commit/3b3d063ecf03d8e6c7a76eb5d7f68ca24a764278))
+* Maintenant, les calculs mentaux rapportent des points aussi sur les pages objectifs ([2249ce4](https://github.com/gvalmont/topmaths/commit/2249ce4a4ab3316ad05516de19a06c2cc05b1a85))
+* Maintenant, les liens de téléchargement ne s'affichent que si les fichiers sont disponibles ([646e329](https://github.com/gvalmont/topmaths/commit/646e329883b625ba47fcb65b79dafa3c146811b2))
+* Quelques paramètres restaient lorsqu'on se déconnectait, ce n'est plus le cas ([ae5ca15](https://github.com/gvalmont/topmaths/commit/ae5ca15854d09b20c996d3e7c6620a321326dd5d))
+
 ### [0.0.4](https://github.com/gvalmont/topmaths/compare/v0.0.3...v0.0.4) (2021-11-28)
 
 
