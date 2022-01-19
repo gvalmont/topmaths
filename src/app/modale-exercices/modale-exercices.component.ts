@@ -88,7 +88,7 @@ export class ModaleExercicesComponent implements OnInit {
         if (dateNouvelleReponse.getTime() - dateDerniereReponse.getTime() > 200) {
           const url: string = event.data.url;
           if (typeof (url) != 'undefined') {
-            if (event.data.exercicesAffiches == true) {
+            if (event.data.exercicesAffiches == true || event.data.ready == 'ok') {
               if (type == '') {
                 this.hideLoadingScreen()
               } else if (type == 'tranquille') {
@@ -217,7 +217,7 @@ export class ModaleExercicesComponent implements OnInit {
     const listeDesIndices = this.get('listeDesIndices')
     this.set('indiceExerciceActuel', (indiceExerciceActuel + 1) % this.get('listeDesUrl').length)
     const urlExerciceSuivant = this.get('listeDesUrl')[listeDesIndices[indiceExerciceActuel + 1]]
-    if (this.isMathalea(urlExerciceSuivant)) this.displayLoadingScreen()
+    this.displayLoadingScreen()
     this.ajouteIframe(urlExerciceSuivant)
     this.resetProgressBar()
   }
@@ -317,11 +317,11 @@ export class ModaleExercicesComponent implements OnInit {
   parametrage() {
     this.modale.style.display = 'block'
     const type = this.get('type')
+    this.displayLoadingScreen()
     if (type == '') {
       this.boutonRetour.style.display = 'block'
       this.boutonCopier.style.display = 'block'
       this.boutonCopierLoading.style.display = 'block'
-      if (this.site == 'mathalea') this.displayLoadingScreen()
       this.set('coef', 1)
       const url = this.get('listeDesUrl')[this.get('indiceExerciceActuel')]
       this.ajouteIframe(url)
@@ -332,7 +332,6 @@ export class ModaleExercicesComponent implements OnInit {
       this.set('coef', 2)
       this.creeListeIndicesExercices()
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
-      if (this.isMathalea(url)) this.displayLoadingScreen()
       this.ajouteIframe(url)
     } else if (type == 'vitesse') {
       this.boutonRetour.style.display = 'block'
@@ -341,7 +340,6 @@ export class ModaleExercicesComponent implements OnInit {
       this.set('coef', 5)
       this.creeListeIndicesExercices()
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
-      if (this.isMathalea(url)) this.displayLoadingScreen()
       this.ajouteIframe(url)
     } else if (type == 'performance') {
       this.boutonRetour.style.display = 'block'
@@ -350,7 +348,6 @@ export class ModaleExercicesComponent implements OnInit {
       this.set('coef', 1)
       this.creeListeIndicesExercices()
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
-      if (this.isMathalea(url)) this.displayLoadingScreen()
       this.ajouteIframe(url)
     } else if (type == 'bestOf10' || type == 'battleRoyale') {
       this.boutonRetour.style.display = 'none'
@@ -358,7 +355,6 @@ export class ModaleExercicesComponent implements OnInit {
       this.boutonCopierLoading.style.display = 'none'
       this.creeListeIndicesExercices()
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
-      if (this.isMathalea(url)) this.displayLoadingScreen()
       this.ajouteIframe(url)
     }
     this.positionneLesBoutons()
