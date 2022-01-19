@@ -175,7 +175,7 @@ export class ModaleExercicesComponent implements OnInit {
                         clearInterval(this.interval)
                         if (nbMauvaisesReponses == 0) {
                           const coef = this.get('coef')
-                          this.set('coef', (coef * 10 + 2) / 10)
+                          this.set('coef', (coef * 10 + 5) / 10)
                         } else {
                           this.set('coef', 1)
                         }
