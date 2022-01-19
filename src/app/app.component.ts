@@ -178,8 +178,15 @@ export class AppComponent implements OnInit, OnDestroy {
    * Redirige vers une version sécurisée du site si on n'est pas en mode développement
    */
   redirectionHTTPS() {
-    if (!isDevMode() && window.location.protocol == 'http:') {
-      window.location.href = window.location.href.replace('http:', 'https:');
+    if (!isDevMode()) {
+      let location = window.location.href
+      if (location.slice(0,5) == 'http:') {
+        location = location.replace('http:', 'https:')
+      }
+      if (location.slice(0, 23) == 'https://www.topmaths.fr') {
+        location = location.replace('https://www.topmaths.fr', 'https://topmaths.fr')
+      }
+      if (location != window.location.href) window.location.href = location
     }
   }
 
