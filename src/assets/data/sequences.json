@@ -833,6 +833,135 @@
             "slug": ""
           }
         ]
+      },
+      {
+        "reference": "S3S9",
+        "titre": "Statistiques 2",
+        "objectifs": [
+          {
+            "reference": "3S10"
+          },
+          {
+            "reference": "5S13"
+          },
+          {
+            "reference": "3P10"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3N11",
+            "titre": "Calculer avec des nombres rationnels relatifs",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=40~n=2_i=5NC8~o=3~q=3.0,1~p=~t=45~n=2_i=4NC3~o=0~q=0.~p=~t=25~n=2_i=4NC4~o=0~q=0.0~p=~t=50~n=2",
+                "score": "8"
+              },
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=5~q=5.0,1~p=~t=40~n=2_i=5NC8~o=6~q=6.0,1~p=~t=45~n=2_i=4NC3~o=1~q=0.-1.~p=~t=25~n=2_i=4NC4~o=1~q=1.0~p=~t=50~n=2",
+                "score": "10"
+              },
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=7~q=6.-7.~p=~t=60~n=2_i=5NC8~o=7~q=7.~p=~t=60~n=2_i=4NC3~o=1~q=0.-1.~p=~t=15~n=2_i=4NC4~o=1~q=1.0~p=~t=35~n=2",
+                "score": "12"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G33",
+            "titre": "Reconnaître des triangles égaux : une définition et une propriété caractéristique",
+            "slug": "5G24-2,s=1,n=4"
+          },
+          {
+            "reference": "3G30",
+            "titre": "Déterminer une longueur à l’aide des lignes trigonométriques",
+            "slug": "3G30,s=true,cd=0"
+          }
+        ]
+      },
+      {
+        "reference": "S3S10",
+        "titre": "Proportionnalité en géométrie 2",
+        "objectifs": [
+          {
+            "reference": "3G23"
+          },
+          {
+            "reference": "3P14"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3A10",
+            "titre": "Reconnaître un nombre premier",
+            "niveaux": [
+              {
+                "commentaire": "inférieur à 30",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=15~n=8",
+                "score": "3"
+              },
+              {
+                "commentaire": "inférieur à 100",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5ND5~o=1~q=1.~p=~t=20~n=8",
+                "score": "4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "3P10",
+            "titre": "Utiliser le lien entre pourcentage d’évolution et coefficient multiplicateur",
+            "slug": "can2C10,n=1"
+          },
+          {
+            "reference": "3G20",
+            "titre": "Calculer une longueur avec le théorème de Thalès",
+            "slug": "3G20,s=2,n=1,video=j_zZOpLLl9k,cd=0"
+          }
+        ]
+      },
+      {
+        "reference": "S3S11",
+        "titre": "Nombres premiers",
+        "objectifs": [
+          {
+            "reference": "4A11"
+          },
+          {
+            "reference": "4A12"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3L11",
+            "titre": "Développer, factoriser",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=4NE4~o=4~q=4.~p=~t=50~n=3_i=4NE5~o=1,2,3~q=0.-1.-2.-3.~p=~t=50~n=3_i=3ND1~o=2~q=2.0,1~p=~t=50~n=1_i=3ND2~o=2~q=2.0,1,2,3~p=~t=50~n=1",
+                "score": "10"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "3G23",
+            "titre": "Reconnaître des triangles semblables : une définition et une propriété caractéristique",
+            "slug": ""
+          },
+          {
+            "reference": "3L13",
+            "titre": "Résoudre algébriquement des équations du 1er degré",
+            "slug": "can4L03,s=false,s2=3,n=1,cd=0"
+          }
+        ]
       }
     ]
   }

@@ -516,9 +516,9 @@
                 "videos": [
                   {
                     "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=4u1DAOPdKV0&vignette=https://i.ytimg.com/vi/4u1DAOPdKV0/hqdefault.jpg&debut=0&fin=351&largeur=200&hauteur=113",
-                    "auteur": "Maths&Méthodes",
-                    "lienAuteur": "https://www.youtube.com/channel/UCb9LSmnMAXQ6LtggV7pD_xw"
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=uFuFRUt4HRQ&vignette=https://i.ytimg.com/vi/uFuFRUt4HRQ/hqdefault.jpg&debut=0&fin=408&largeur=200&hauteur=150",
+                    "auteur": "mathsgrossard",
+                    "lienAuteur": "https://www.youtube.com/channel/UCZ11JDci6xQkBxBC0vg1QBw"
                   }
                 ],
                 "exercices": [
@@ -1583,6 +1583,22 @@
             "nom": "Statistiques",
             "objectifs": [
               {
+                "reference": "3S10",
+                "titre": "Lire, interpréter et représenter des données sous forme d’histogrammes pour des classes de même amplitude",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=BJMLHFmTMcE&vignette=https://i.ytimg.com/vi/BJMLHFmTMcE/hqdefault.jpg&debut=0&fin=403&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                ]
+              },
+              {
                 "reference": "3S11",
                 "titre": "Calculer et interpréter l'étendue d'une série de données",
                 "rappelDuCoursHTML": "",
@@ -1610,6 +1626,64 @@
                     "temps": 150,
                     "isInteractif": true
                   }
+                ]
+              }
+            ]
+          },
+          {
+            "nom": "Proportionnalité",
+            "objectifs": [
+              {
+                "reference": "3P10",
+                "titre": "Utiliser le lien entre pourcentage d’évolution et coefficient multiplicateur",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Calculer un coefficient multiplicateur",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=-5QmcMuzy5I&vignette=https://i.ytimg.com/vi/-5QmcMuzy5I/hqdefault.jpg&debut=0&fin=380&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Utiliser un coefficient multiplicateur",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=ehRRTacoo_0&vignette=https://i.ytimg.com/vi/ehRRTacoo_0/hqdefault.jpg&debut=0&fin=645&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 3027,
+                    "slug": "can2C10,n=1",
+                    "score": 4,
+                    "temps": 70,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 3028,
+                    "slug": "can2C11,n=1",
+                    "score": 6,
+                    "temps": 70,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 3029,
+                    "slug": "can5P01,n=1",
+                    "score": 8,
+                    "temps": 100,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "3P14",
+                "titre": "Résoudre des problèmes en utilisant la proportionnalité dans le cadre de la géométrie",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                ],
+                "exercices": [
                 ]
               }
             ]
@@ -1678,6 +1752,28 @@
                     "temps": 400,
                     "isInteractif": true
                   }
+                ]
+              },
+              {
+                "reference": "3G23",
+                "titre": "Connaître et utiliser une définition et une propriété caractéristique des triangles semblables",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Cours",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=38DTCmRRvUs&vignette=https://i.ytimg.com/vi/38DTCmRRvUs/hqdefault.jpg&debut=0&fin=381&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Exercice",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Z-G-9Q9Vezc&vignette=https://i.ytimg.com/vi/Z-G-9Q9Vezc/hqdefault.jpg&debut=0&fin=336&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
                 ]
               }
             ]
