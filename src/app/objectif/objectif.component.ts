@@ -228,8 +228,12 @@ export class ObjectifComponent implements OnInit {
           div.innerHTML = `<a href=${urlToFile}>Télécharger ${description}</a>`
           div.style.display = 'block'
         }
-        const telechargements = document.getElementById('telechargements')
-        if (telechargements != null) telechargements.style.display = 'block'
+        const divTelechargements = document.getElementById('divTelechargements')
+        const divExercices = document.getElementById('divExercices')
+        if (divTelechargements != null && divExercices != null) {
+          divTelechargements.style.display = 'block'
+          divExercices.classList.remove('is-fin')
+        }
       }
     };
     xhttp.open("HEAD", urlToFile, true);

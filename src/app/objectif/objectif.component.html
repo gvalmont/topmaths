@@ -16,8 +16,8 @@
         <p><u>Vidéo de <a [href]="video.lienAuteur" target="_blank" rel="noopener noreferrer">{{ video.auteur }}</a></u></p>
       </div>
     </div>
-    <div [class]="'is-' + niveau">
-      <h2 id="Exercices" [class]="'subtitle is-3 is-' + niveau">S'entraîner</h2>
+    <div id="divExercices" *ngIf="exercices.length > 0" [class]="'is-fin is-' + niveau">
+      <h2 [class]="'subtitle is-3 is-' + niveau">S'entraîner</h2>
       <div><br></div>
       <div *ngFor="let exercice of exercices; index as i">
         <h3 class="title is-4 is-inline-block">
@@ -32,7 +32,7 @@
         <div><br></div>
       </div>
     </div>
-    <div id='telechargements' [class]="'cache is-fin is-' + niveau">
+    <div id='divTelechargements' [class]="'cache is-fin is-' + niveau">
       <h2 [class]="'subtitle is-3 is-' + niveau">Téléchargements</h2>
       <div class="p-1 pb-5">
         <div id='lienFiche' class="p-1 cache"></div>

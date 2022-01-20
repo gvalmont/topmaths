@@ -343,8 +343,12 @@ export class SequenceComponent implements OnInit {
           div.innerHTML = `<a href=${urlToFile}>Télécharger ${description}</a>`
           div.style.display = 'block'
         }
-        const telechargements = document.getElementById('telechargements')
-        if (telechargements != null) telechargements.style.display = 'block'
+        const divTelechargements = document.getElementById('divTelechargements')
+        const divEvaluation = document.getElementById('divEvaluation')
+        if (divTelechargements != null && divEvaluation != null) {
+          divTelechargements.style.display = 'block'
+          divEvaluation.classList.remove('is-fin')
+        }
       }
     };
     xhttp.open("HEAD", urlToFile, true);

@@ -24,19 +24,17 @@
           <p *ngIf="!calculMental.pageExiste">
             {{calculMental.reference}} : {{calculMental.titre}}
           </p>
-          <div><br></div>
           <div *ngFor="let niveau of calculMental.niveaux; index as j">
             <div><br></div>
-            <h3 [class]="'subtitle is-4 is-inline-block is-' + niveau">
+            <h3 [class]="'subtitle is-4 is-inline-block'">
               <a (click)="ouvrirModaleExercices(niveau.lien, 'calculMental')">
-                Niveau {{j + 1}}
+                {{niveau.commentaire == '' ? 'Niveau ' + (j + 1) : niveau.commentaire }}
                 &nbsp;
                 <i class='image is-24x24 is-inline-block'>
                   <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
                 </i>
               </a>
             </h3>
-            <p>{{niveau.commentaire}}</p>
           </div>
         </div>
       </div>
@@ -66,11 +64,11 @@
         <a (click)="ouvrirModaleExercices(lienQuestionsFlash, 'questionsFlash')">S'entraîner pour les Questions Flash</a>
       </div>
     </div>
-    <div [class]="'pb-5 is-' + niveau">
+    <div id="divEvaluation" [class]="'is-fin pb-5 is-' + niveau">
       <h2 id="Evaluation" [class]="'subtitle is-3 is-' + niveau">Évaluation</h2>
       <a (click)="ouvrirModaleExercices(lienEval, 'Evaluation')">S'entraîner pour l'évaluation</a>
     </div>
-    <div id="telechargements" [class]="'pb-5 cache is-' + niveau">
+    <div id="divTelechargements" [class]="'pb-5 cache is-fin is-' + niveau">
       <h2 [class]="'subtitle is-3 is-' + niveau">Téléchargements</h2>
       <div class="p-1">
         <div id="lienCours" class="p-1 cache"></div>
