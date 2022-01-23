@@ -89,13 +89,9 @@
         "titre": "Proportionnalité",
         "objectifs": [
           {
-            "reference": "5P10_Nv1"
+            "reference": "5P10"
           }, {
-            "reference": "5P11_Nv1"
-          }, {
-            "reference": "5P10_Nv2"
-          }, {
-            "reference": "5P11_Nv2"
+            "reference": "5P11"
           }
         ],
         "calculsMentaux": [
@@ -194,7 +190,7 @@
             "slug": "5G21-1,s=1,n=1"
           },
           {
-            "reference": "5P11_Nv1",
+            "reference": "5P11",
             "titre": "Résoudre des problèmes de proportionnalité avec des procédures variées (additivité, homogénéité, passage à l’unité, coefficient de proportionnalité)",
             "slug": "6P12,s=true,n=1"
           }
@@ -520,10 +516,13 @@
         "titre": "Proportionnalité et représentation graphique",
         "objectifs": [
           {
-            "reference": "4P11"
+            "reference": "5P10"
           },
           {
             "reference": "4P10"
+          },
+          {
+            "reference": "4P11"
           }
         ],
         "calculsMentaux": [
