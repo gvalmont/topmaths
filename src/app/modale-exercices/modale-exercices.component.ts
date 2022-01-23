@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, isDevMode, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { ConfettiService } from '../services/confetti.service';
 import { GlobalConstants } from '../services/global-constants';
@@ -217,7 +217,7 @@ export class ModaleExercicesComponent implements OnInit {
     const listeDesIndices = this.get('listeDesIndices')
     this.set('indiceExerciceActuel', (indiceExerciceActuel + 1) % this.get('listeDesUrl').length)
     const urlExerciceSuivant = this.get('listeDesUrl')[listeDesIndices[indiceExerciceActuel + 1]]
-    this.displayLoadingScreen()
+    if (!isDevMode()) this.displayLoadingScreen()
     this.ajouteIframe(urlExerciceSuivant)
     this.resetProgressBar()
   }
@@ -317,7 +317,7 @@ export class ModaleExercicesComponent implements OnInit {
   parametrage() {
     this.modale.style.display = 'block'
     const type = this.get('type')
-    this.displayLoadingScreen()
+    if (!isDevMode()) this.displayLoadingScreen()
     if (type == '') {
       this.boutonRetour.style.display = 'block'
       this.boutonCopier.style.display = 'block'

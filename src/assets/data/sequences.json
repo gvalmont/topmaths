@@ -516,6 +516,52 @@
           }
         ]
       }, {
+        "reference": "S4S7",
+        "titre": "Proportionnalité et représentation graphique",
+        "objectifs": [
+          {
+            "reference": "4P11"
+          },
+          {
+            "reference": "4P10"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4L10",
+            "titre": "Développer un produit ou réduire une expression littérale",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=40~n=4",
+                "score": "6"
+              },
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=4",
+                "score": "8"
+              },
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=2_i=4NE1~o=0,2~q=0.0,1,2,3-2.0,1,2,3~p=~t=40~n=2",
+                "score": "10"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4C33",
+            "titre": "Utiliser les puissances d’exposants strictement positifs d’un nombre pour simplifier l’écriture des produits",
+            "slug": "4C33-0,s=2,s2=1,n=4"
+          },
+          {
+            "reference": "4L11",
+            "titre": "Utiliser la propriété de distributivité simple pour factoriser une somme.",
+            "slug": "4L11,s=2,n=2"
+          }
+        ]
+      }, {
         "reference": "S4S11",
         "titre": "Nombres premiers",
         "objectifs": [
@@ -940,11 +986,22 @@
         "calculsMentaux": [
           {
             "reference": "3L11",
-            "titre": "Développer, factoriser",
+            "titre": "Développer",
             "niveaux": [
               {
                 "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=4NE4~o=4~q=4.~p=~t=50~n=3_i=4NE5~o=1,2,3~q=0.-1.-2.-3.~p=~t=50~n=3_i=3ND1~o=2~q=2.0,1~p=~t=50~n=1_i=3ND2~o=2~q=2.0,1,2,3~p=~t=50~n=1",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=4NE4~o=4~q=4.~p=~t=50~n=3_i=3ND2~o=2~q=2.0,1,2,3~p=~t=50~n=1",
+                "score": "10"
+              }
+            ]
+          },
+          {
+            "reference": "3L12",
+            "titre": "Factoriser",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=4NE5~o=1,2,3~q=0.-1.-2.-3.~p=~t=50~n=3_i=3ND1~o=2~q=2.0,1~p=~t=50~n=1",
                 "score": "10"
               }
             ]

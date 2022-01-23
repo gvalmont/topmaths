@@ -53,9 +53,9 @@
                 "videos": [
                   {
                     "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=OUMnDWhgf5w&vignette=https://i.ytimg.com/vi/OUMnDWhgf5w/hqdefault.jpg&debut=0&fin=258&largeur=200&hauteur=113",
-                    "auteur": "Khan Academy",
-                    "lienAuteur": "http://www.khanacademy.org"
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=2s2HSdtzBzg&vignette=https://i.ytimg.com/vi/2s2HSdtzBzg/hqdefault.jpg&debut=0&fin=203&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
                   }
                 ],
                 "exercices": [
@@ -1110,6 +1110,78 @@
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nom": "Proportionnalité",
+            "objectifs": [
+              {
+                "reference": "4P10",
+                "titre": "Reconnaître sur un graphique une situation de proportionnalité ou de non proportionnalité",
+                "rappelDuCoursHTML": "La représentation graphique d'une situation de proportionnalité est une droite qui passe par <i>l'origine.<br>L'origine du repère est le point de coordonnées (0 ; 0). C'est là où les axes se croisent</i>",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Lt3b32bYm1M&vignette=https://i.ytimg.com/vi/Lt3b32bYm1M/hqdefault.jpg&debut=0&fin=350&largeur=200&hauteur=150",
+                    "auteur": "Noelle Barny",
+                    "lienAuteur": "https://www.youtube.com/channel/UC9_mMk5yn9L2NPKXnqodaaA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4030,
+                    "slug": "can4P05,n=1",
+                    "score": 5,
+                    "temps": 50,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4031,
+                    "slug": "4P10-1,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "4P11",
+                "titre": "Calculer une quatrième proportionnelle par la procédure de son choix",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "regle-de-trois.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=gEawD_zsAGI&vignette=https://i.ytimg.com/vi/gEawD_zsAGI/hqdefault.jpg&debut=0&fin=344&largeur=200&hauteur=113",
+                    "auteur": "Fabien Olicard",
+                    "lienAuteur": "https://www.youtube.com/channel/UCTafEJoRl5myC8A50plIrng"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4032,
+                    "slug": "can4P03,n=1",
+                    "score": 10,
+                    "temps": 100,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4033,
+                    "slug": "6P11,s=false,n=1",
+                    "score": 20,
+                    "temps": 200,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4034,
+                    "slug": "6P11-2,s=3,n=1",
+                    "score": 25,
+                    "temps": 250,
+                    "isInteractif": true
                   }
                 ]
               }
