@@ -90,6 +90,7 @@ export class ModaleExercicesComponent implements OnInit {
           if (typeof (url) != 'undefined') {
             if (event.data.exercicesAffiches == true || event.data.ready == 'ok') {
               if (type == '') {
+                this.set('lienACopier', url)
                 this.hideLoadingScreen()
               } else if (type == 'tranquille') {
                 if (urlDejaFaits.includes(url.split('&serie=')[0].split(',i=')[0])) {
@@ -323,6 +324,7 @@ export class ModaleExercicesComponent implements OnInit {
       this.boutonCopier.style.display = 'block'
       this.boutonCopierLoading.style.display = 'block'
       this.set('coef', 1)
+      this.creeListeIndicesExercices()
       const url = this.get('listeDesUrl')[this.get('indiceExerciceActuel')]
       this.ajouteIframe(url)
     } else if (type == 'tranquille') {
@@ -357,6 +359,7 @@ export class ModaleExercicesComponent implements OnInit {
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
       this.ajouteIframe(url)
     }
+    this.set('lienACopier', this.infosModale[0][this.get('listeDesIndices')[this.get('indiceExerciceActuel')]])
     this.positionneLesBoutons()
   }
 
@@ -601,7 +604,7 @@ export class ModaleExercicesComponent implements OnInit {
    * Copie dans le presse papier le lien vers un exercice
    */
   copierLien() {
-    navigator.clipboard.writeText(this.infosModale[0][this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]);
+    navigator.clipboard.writeText(this.get('lienACopier'));
     alert('Le lien vers l\'exercice a été copié')
   }
 

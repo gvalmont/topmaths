@@ -136,7 +136,7 @@ export class ObjectifComponent implements OnInit {
           id: exercice.id,
           couleur: '',
           slug: exercice.slug,
-          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&v=eval&z=1.5`,
+          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&serie=${Math.random().toString(16).substr(2, 4)}&v=eval&z=1.5`,
           score: exercice.score,
           temps: exercice.temps,
           isInteractif: exercice.isInteractif
