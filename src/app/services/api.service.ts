@@ -343,7 +343,9 @@ export class ApiService {
    */
   getLienAvatar(user: User | UserSimplifie) {
     let lienAvatar: string
-    if (user.pseudo == 'anonyme' || user.codeAvatar == '') {
+    if (user.pseudo == 'anonyme') {
+      lienAvatar = 'assets/img/reshot/user-3294.svg'
+    } else if (user.codeAvatar == '') {
       if (user.lienAvatar != null && user.lienAvatar != '') {
         lienAvatar = user.lienAvatar
       } else {
