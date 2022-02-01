@@ -343,7 +343,9 @@ export class ApiService {
    */
   getLienAvatar(user: User | UserSimplifie) {
     let lienAvatar: string
-    if (user.pseudo == 'anonyme' || user.codeAvatar == '') {
+    if (user.pseudo == 'anonyme') {
+      lienAvatar = 'assets/img/reshot/user-3294.svg'
+    } else if (user.codeAvatar == null || user.codeAvatar == '') {
       if (user.lienAvatar != null && user.lienAvatar != '') {
         lienAvatar = user.lienAvatar
       } else {
@@ -366,7 +368,12 @@ export class ApiService {
    */
   getStyleAvatar(user: User | UserSimplifie) {
     const lienEquipe = `/team_emblems/${user.teamName}.svg`
-    const lienBadge = `/assets/img/gvalmont/top${this.top(user.classement)}.svg`
+    let lienBadge: string
+    if (user.score > 0) {
+      lienBadge = `/assets/img/gvalmont/top${this.top(user.classement)}.svg`
+    } else {
+      lienBadge = `/assets/img/gvalmont/top0.svg`
+    }
     let style = `--image-avatar:url('${this.getLienAvatar(user)}');`
     if (user.teamName != '') style += `--image-equipe:url('${lienEquipe}');`
     if (user.classement <= 50) style += `--image-badge:url('${lienBadge}');`
