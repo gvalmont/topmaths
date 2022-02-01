@@ -7,47 +7,65 @@
       <ul>
         <li>
           <a (click)="avatarAleatoire()">
-            <span class="image is-96x96"><div id="avatarAleatoireMenu"></div></span>
+            <span class="image is-96x96">
+              <div id="avatarAleatoireMenu"></div>
+            </span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'couleur'}">
           <a (click)="ongletActif = 'couleur'; initPage()">
-            <span class="image is-96x96"><div id="skinColorMenu"></div></span>
+            <span class="image is-96x96">
+              <div id="skinColorMenu"></div>
+            </span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'yeux'}">
           <a (click)="ongletActif = 'yeux'; initPage()">
-            <span class="image is-96x96"><div id="eyesMenu"></div></span>
+            <span class="image is-96x96">
+              <div id="eyesMenu"></div>
+            </span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'sourcils'}">
           <a (click)="ongletActif = 'sourcils'; initPage()">
-            <span class="image is-96x96"><div id="eyebrowsMenu"></div></span>
+            <span class="image is-96x96">
+              <div id="eyebrowsMenu"></div>
+            </span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'bouche'}">
           <a (click)="ongletActif = 'bouche'; initPage()">
-            <span class="image is-96x96"><div id="mouthMenu"></div></span>
+            <span class="image is-96x96">
+              <div id="mouthMenu"></div>
+            </span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'accessoires'}">
           <a (click)="ongletActif = 'accessoires'; initPage()">
-            <span class="image is-96x96"><div id="accessoiresMenu"></div></span>
+            <span class="image is-96x96">
+              <div id="accessoiresMenu"></div>
+            </span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'cheveux'}">
           <a (click)="ongletActif = 'cheveux'; initPage()">
-            <span class="image is-96x96"><div id="hairMenu"></div></span>
+            <span class="image is-96x96">
+              <div id="hairMenu"></div>
+            </span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'couleurCheveux'}">
           <a (click)="ongletActif = 'couleurCheveux'; initPage()">
-            <span class="image is-96x96"><div id="hairColorMenu"></div></span>
+            <span class="image is-96x96">
+              <div id="hairColorMenu"></div>
+            </span>
           </a>
         </li>
         <li>
           <a (click)="afficherModaleConfirmation()">
-            <span class="image is-96x96"><div id="enregistrerAvatarMenu"></div></span>
+            <span class="image is-96x96">
+              <div id="enregistrerAvatarMenu"></div>
+            </span>
           </a>
         </li>
       </ul>
@@ -87,18 +105,10 @@
     <p>
       Enregistrer cet avatar ?
     </p>
-    <br>
     <!-- Boutons -->
-    <div class="columns">
-      <div class="column is-5 is-flex is-align-items-center is-justify-content-center">
-        <button (click)="fermerModaleConfirmation(redirection)" class="button is-danger">Non</button>
-      </div>
-      <div class="column is-2 is-flex is-align-items-center is-justify-content-center">
-      </div>
-      <div class="column is-5 is-flex is-align-items-center is-justify-content-center">
-        <button (click)="empecherNavigation = false; majProfil(redirection)" class="button is-success">Oui</button>
-      </div>
-    </div>
+    <button (click)="fermerModaleConfirmation(redirection)" class="button is-danger">Non</button>
+    &nbsp; &nbsp;
+    <button (click)="empecherNavigation = false; majProfil(redirection)" class="button is-success">Oui</button>
     <br>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="fermerModaleConfirmation()"></button>
