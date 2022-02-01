@@ -159,7 +159,17 @@ export class EquipeModificationComponent implements OnInit {
     if (this.teamName.length < 3 && this.teamName.length != 0) this.errPetitNbChar = true
     if (this.teamName.length > 3) this.errGrandNbChar = true
     if (!this.dataService.onlyLettersAndNumbers(this.teamName)) this.errSpChar = true
-    const listeDesNomsInterdits = ['6KB', 'KBO', 'KB0', 'BIT', 'CAB', 'PEN', 'PUT', 'SLP', '666']
+    const listeDesNomsInterdits = [
+      '666', '6KB',
+      'BIT',
+      'CAB', 'CON', 'C0N', 'CNR', 'CUL',
+      'FDP',
+      'KBO', 'KB0',
+      'MR2', 'MRD',
+      'NIK', 'NTM',
+      'PEN', 'PRN', 'PUT', 'PTN',
+      'SEX', 'SLP', 'SXX',
+      'XXX']
     if (listeDesNomsInterdits.includes(this.teamName.toUpperCase())) this.errNomInterdit = true
     return (!this.defaut && !this.errSpChar && !this.errPetitNbChar && !this.errGrandNbChar && !this.errNomInterdit)
   }
