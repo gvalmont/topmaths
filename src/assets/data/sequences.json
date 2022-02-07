@@ -561,6 +561,39 @@
           }
         ]
       }, {
+        "reference": "S4S8",
+        "titre": "Triangles égaux",
+        "objectifs": [
+          {
+            "reference": "4G33"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4C21",
+            "titre": "Additionner ou soustraire des nombres relatifs en écriture fractionnaire",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=25~n=4_i=5NC8~o=3~q=3.0,1~p=~t=25~n=4",
+                "score": "8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4P10",
+            "titre": "Reconnaître sur un graphique une situation de proportionnalité ou de non proportionnalité",
+            "slug": "can4P05,n=1"
+          },
+          {
+            "reference": "4C20",
+            "titre": "Comparer des nombres rationnels (positifs ou négatifs)",
+            "slug": "5N14,s=11,s2=true,n=1,i=0"
+          }
+        ]
+      }, {
         "reference": "S4S11",
         "titre": "Nombres premiers",
         "objectifs": [

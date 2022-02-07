@@ -9,7 +9,7 @@ import { Niveau, Objectif, Video, Exercice } from '../services/objectifs';
 @Component({
   selector: 'app-objectif',
   templateUrl: './objectif.component.html',
-  styleUrls: []
+  styleUrls: ['./objectif.component.css']
 })
 export class ObjectifComponent implements OnInit {
   reference: string

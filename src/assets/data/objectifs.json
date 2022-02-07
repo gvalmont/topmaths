@@ -1295,6 +1295,34 @@
                 ]
               }
             ]
+          },
+          {
+            "nom": "Théorème de Thalès",
+            "objectifs": [
+              {
+                "reference": "4G33",
+                "titre": "Connaître et utiliser une définition et une propriété caractéristique des triangles égaux",
+                "rappelDuCoursHTML": "Deux triangles sont <b><i>égaux</i></b> lorsqu’ils ont <i>leurs trois côtés deux à deux de même longueur</i>.<br><br>Pour montrer que des triangles sont égaux, on n’a pas forcément besoin de vérifier les trois côtés.<br>On peut aussi vérifier, au choix :<br>- <i>un côté entre deux angles</i><br>ou<br>- <i>un angle entre deux côtés</i>",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=u1rqg_5pL1s&vignette=https://i.ytimg.com/vi/u1rqg_5pL1s/hqdefault.jpg&debut=0&fin=134&largeur=200&hauteur=113",
+                    "auteur": "Mate tes Maths",
+                    "lienAuteur": "https://www.youtube.com/channel/UCedwzeKX8pd-l57Bs3pcy3Q"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4035,
+                    "slug": "5G24-2,s=1,n=4",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              }
+            ]
           }
         ]
       }
