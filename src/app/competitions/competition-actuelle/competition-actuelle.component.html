@@ -39,6 +39,9 @@
       </div>
     </div>
     <div id="divParticipants" class="is-justify-content-center" style="width: 300px;">
+      <button *ngIf="organisationEnCours && !organiserSansParticiper" class="button is-info is-outlined" (click)="organiserSansParticiper = true; set('organiserSansParticiper', true)">Organiser sans participer</button>
+      <button *ngIf="organisationEnCours && organiserSansParticiper" class="button is-info" (click)="organiserSansParticiper = false; set('organiserSansParticiper', false)">Tu organises la compétition sans y participer</button>
+      <button *ngIf="details && organiserSansParticiper" id="boutonPasserQuestion" class="button is-warning" (click)="PasserQuestion()">Question suivante</button>
       <h1 class="is-size-4 has-text-weight-semibold">Participants</h1>
       <div *ngFor="let participant of competitionActuelle.participants" style="line-height: normal;">
         <div class="is-flex is-justify-content-center is-align-items-center">

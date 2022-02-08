@@ -68,7 +68,7 @@
         </div>
         <!-- Contenu -->
         <div *ngIf="competitionActuelle.statut == 'preparation' || competitionActuelle.statut == 'recrutement'">
-          <app-competition-actuelle [competitionActuelle]="competitionActuelle" [troisPetitsPoints]="troisPetitsPoints" (fermerLobby)="fermerLobby()"></app-competition-actuelle>
+          <app-competition-actuelle [nouvelAffichage]="nouvelAffichage" [competitionActuelle]="competitionActuelle" [troisPetitsPoints]="troisPetitsPoints" (fermerLobby)="fermerLobby()"></app-competition-actuelle>
         </div>
         <div *ngIf="competitionActuelle.statut != 'preparation' && competitionActuelle.statut != 'recrutement'">
           La compétition a déjà commencé.
@@ -162,7 +162,7 @@
         </i>
       </div>
     </div>
-    <!-- Classement -->
+    <!-- Classement intermédiaire -->
     <div *ngIf="classementAffiche" [class]="'is-size-5 container-competition ' + competitionActuelle.type">
       <div *ngFor="let participant of competitionActuelle.participants; index as i" class="is-flex is-align-items-center is-justify-content-space-between" style="max-width: 600px; margin: auto;">
         <span class="is-size-3 has-text-weight-semibold" style="width: 40px;">{{ i + 1 }}</span>
@@ -174,7 +174,7 @@
         <span *ngIf="participant.points != null" class="has-text-weight-semibold" style="width: 80px;">{{ participant.points }}</span>
       </div>
     </div>
-    <!-- Fin -->
+    <!-- Classement final -->
     <div [ngClass]="{'cache': !afficheFin}">
       <div id="podium-box" [class]="'container-competition ' + competitionActuelle.type" style="height: 300px">
         <div class="step-container">
@@ -217,7 +217,7 @@
     </div>
     <!-- Lobby -->
     <div *ngIf="!classementAffiche && !afficheFin">
-      <app-competition-actuelle [competitionActuelle]="competitionActuelle" [troisPetitsPoints]="troisPetitsPoints" [details]="true"></app-competition-actuelle>
+      <app-competition-actuelle [nouvelAffichage]="nouvelAffichage" [competitionActuelle]="competitionActuelle" [troisPetitsPoints]="troisPetitsPoints" [details]="true" (questionSuivante)="repondre(1)"></app-competition-actuelle>
     </div>
   </div>
 </div>

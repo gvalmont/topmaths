@@ -77,6 +77,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
   afficheFin: boolean
   dernierClassementAffiche: number
   modaleConfirmationQuitterCompetition!: HTMLElement
+  nouvelAffichage: Date
 
   constructor(public http: HttpClient, private route: ActivatedRoute, private router: Router, public dataService: ApiService, private viewportScroller: ViewportScroller) {
     this.infosModale = [[], '', new Date(), [], 0]
@@ -95,6 +96,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
     this.competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '', aRepondu: 0 }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [], coef: 0, url: '', temps: 0, question: 0 }
     this.afficheFin = false
     this.dernierClassementAffiche = 0
+    this.nouvelAffichage = new Date()
     this.lanceAnimationTroisPetitsPoints()
     this.lanceActualisationCompetitionsEnCours()
     setTimeout(() => {
@@ -175,6 +177,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
       this.competitionActuelle = competitionActuelle
       if (competitionActuelle.profilOrganisateur != null && competitionActuelle.profilOrganisateur.id == this.dataService.user.id && competitionActuelle.statut == "recrutement") { // Si on est le chef
         this.set('organisationEnCours', true)
+        this.nouvelAffichage = new Date()
         if (!this.get('enTrainDePingCompetitionActuelle')) {
           this.set('enTrainDePingCompetitionActuelle', true)
           this.lancePingCompetitionActuelle()
@@ -445,6 +448,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
           alert("Tu fais déjà partie d'une compétition.\nTu dois d'abord la quitter si tu veux en organiser une autre")
           this.router.navigate(['/competitions'])
         } else {
+          this.set('organiserSansParticiper', false)
           let cpt = competition
           cpt.participants = [<UserSimplifie><unknown>this.dataService.user]
           this.set('competitionActuelle', cpt)
@@ -587,6 +591,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
       }).subscribe(competition => {
         this.appelDePreparationLance = false
         this.set('competitionActuelle', competition)
+        this.set('organiserSansParticiper', false)
         this.dataService.participationCompetition.emit(competition)
         this.router.navigateByUrl('/accueil/dummy', { skipLocationChange: true }).then(() => {
           this.router.navigate(['/competitions']);
@@ -766,7 +771,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    */
   ouvrirModaleExercices() {
     this.http.post<boolean>(GlobalConstants.apiUrl + 'aDejaRepondu.php', { identifiant: this.dataService.user.identifiant }).subscribe(dejaRepondu => {
-      if (dejaRepondu) {
+      if (dejaRepondu || this.get("organiserSansParticiper")) {
         this.modaleExercicesOuverte = false
         this.ouvrirLobby()
       } else {
@@ -791,6 +796,7 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
    * Affiche le lobby
    */
   ouvrirLobby() {
+    this.nouvelAffichage = new Date()
     const lobby = document.getElementById('lobby')
     if (lobby != null) lobby.style.display = 'block'
   }

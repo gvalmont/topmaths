@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Competition } from '../competitions.component';
 
@@ -11,12 +11,16 @@ export class CompetitionActuelleComponent implements OnInit, OnDestroy {
   @Input() competitionActuelle: Competition
   @Input() troisPetitsPoints: string
   @Input() details: boolean
-  @Output() fermerLobby = new EventEmitter<boolean>();
+  @Input() nouvelAffichage: Date
+  @Output() fermerLobby = new EventEmitter<boolean>()
+  @Output() questionSuivante = new EventEmitter<boolean>()
   dateInterval: any
   tempsRestant: string
   largeurPreview: number
   hauteurPreview: number
   isMobile: boolean
+  organiserSansParticiper: boolean
+  organisationEnCours: boolean
 
   constructor(public dataService: ApiService) {
     this.competitionActuelle = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '', aRepondu: 0 }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [], coef: 0, url: '', temps: 0, question: 0 }
@@ -26,6 +30,9 @@ export class CompetitionActuelleComponent implements OnInit, OnDestroy {
     this.largeurPreview = 640
     this.hauteurPreview = 300
     this.isMobile = true
+    this.nouvelAffichage = new Date()
+    this.organiserSansParticiper = false
+    this.organisationEnCours = false
   }
 
   ngOnInit(): void {
@@ -35,6 +42,17 @@ export class CompetitionActuelleComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (typeof (changes.nouvelAffichage) != 'undefined') {
+      const bouton = <HTMLButtonElement>document.getElementById("boutonPasserQuestion")
+      if (bouton != null) bouton.disabled = false
+      const organiserSansParticiper = this.get('organiserSansParticiper')
+      organiserSansParticiper ? this.organiserSansParticiper = organiserSansParticiper : this.organiserSansParticiper = false
+      const organisationEnCours = this.get('organisationEnCours')
+      organisationEnCours ? this.organisationEnCours = organisationEnCours : this.organisationEnCours = false
+    }
+  }
+  
   ngOnDestroy(): void {
     clearInterval(this.dateInterval)
   }
@@ -88,5 +106,32 @@ export class CompetitionActuelleComponent implements OnInit, OnDestroy {
     } else {
       return 300
     }
+  }
+
+  /**
+   * Fire l'event pour passer à la question suivante (en faisant répondre faux à l'utilisateur actuel, passer à la question suivante nécessite donc que les autres utilisateurs aient déjà répondu)
+   */
+  PasserQuestion() {
+    const bouton = <HTMLButtonElement>document.getElementById("boutonPasserQuestion")
+    if (bouton != null) bouton.disabled = true
+    this.questionSuivante.emit(true)
+  }
+
+  /**
+   * Préfixe le tag de 'Competition' et ecrit dans le localStorage
+   * @param tag nom de la "variable"
+   * @param valeurs 
+   */
+  set(tag: string, objet: any) {
+    this.dataService.set('Competition' + tag, objet)
+  }
+
+  /**
+   * Préfixe le tag de 'Competition' et récupère un nombre du localStorage
+   * @param tag nom de la "variable"
+   * @returns 
+   */
+  get(tag: string) {
+    return this.dataService.get('Competition' + tag)
   }
 }
