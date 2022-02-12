@@ -173,7 +173,7 @@
               {
                 "reference": "5R20",
                 "titre": "Additionner des nombres relatifs",
-                "rappelDuCoursHTML": "+7 + (+4) = 7 + 4;<br>+7 + (–4) = 7 – 4;<br>–7 + (+4) = –7 + 4;<br>–7 + (–4) = –7 – 4.<br>Dans une somme de relatifs, il est plus simple de supprimer les parenthèses et les signes + d’addition afin de pouvoir calculer comme dans les programmes de calc",
+                "rappelDuCoursHTML": "+7 + (+4) = 7 + 4;<br>+7 + (–4) = 7 – 4;<br>–7 + (+4) = –7 + 4;<br>–7 + (–4) = –7 – 4.<br>Dans une somme de relatifs, il est plus simple de supprimer les parenthèses et les signes + d’addition afin de pouvoir calculer comme dans les programmes de calcul.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -576,6 +576,36 @@
                 ]
               },
               {
+                "reference": "5G11",
+                "titre": "Transformer une figure par symétrie centrale",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "methode_construction_symetrie_centrale.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=gQZIWxzOfaE&vignette=https://i.ytimg.com/vi/gQZIWxzOfaE/hqdefault.jpg&debut=0&fin=252&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5042,
+                    "slug": "5G11-2,s=5,s2=1,s3=1,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 5043,
+                    "slug": "5G11-2,s=5,s2=3,s3=4,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
                 "reference": "5G13-1",
                 "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles",
                 "rappelDuCoursHTML": "La symétrie par rapport à une droite <strong>conserve</strong> le <strong>parallélisme</strong>, les <strong>longueurs</strong>, et les <strong>angles</strong>.",
@@ -599,6 +629,29 @@
                   {
                     "id": 5036,
                     "slug": "5G13,s=1,s2=2,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "5G13-2",
+                "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles",
+                "rappelDuCoursHTML": "La symétrie centrale <i>conserve</i> le <i>parallélisme</i>, les <i>longueurs</i> et les <i>angles</i> :<br><ul><li>Si des droites sont <i>parallèles</i>, leurs symétriques seront aussi <i>parallèles</i> ;</li><li>Si des segments ont une certaine <i>longueur</i>, leurs symétriques auront la même <i>longueur</i> ;</li><li>Si des angles ont une certaine <i>mesure</i>, leurs symétriques auront la même <i>mesure</i>.</li></ul>",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=p8YGpKEKLvU&vignette=https://i.ytimg.com/vi/p8YGpKEKLvU/hqdefault.jpg&debut=0&fin=189&largeur=200&hauteur=113",
+                    "auteur": "M comme Math(s)",
+                    "lienAuteur": "https://www.youtube.com/channel/UC_-Qld4PgyLveDKXEN_0Fig"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5044,
+                    "slug": "5G13,s=2,s2=3,n=2",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
