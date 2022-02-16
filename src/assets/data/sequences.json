@@ -250,17 +250,21 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "4C11",
-            "titre": "Calculer avec des nombres relatifs",
+            "reference": "5N10",
+            "titre": "Utiliser les écritures décimales et fractionnaires et passer de l’une à l’autre.",
             "niveaux": [
               {
                 "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB1~o=~q=~p=~t=20~n=8",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB1~o=1~q=1.-.~p=~t=20~n=8",
                 "score": "3"
               }, {
                 "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB1~o=~q=~p=~t=10~n=16",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB1~o=0~q=0.-1.-.~p=~t=40~n=4",
                 "score": "4"
+              }, {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB1~o=0~q=0.-1.-2.-.~p=~t=30~n=4_i=6NB1~o=1,2~q=0.-1.-2.-.~p=~t=15~n=4",
+                "score": "5"
               }
             ]
           }
