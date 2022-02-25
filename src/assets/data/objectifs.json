@@ -220,13 +220,6 @@
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
-                  },
-                  {
-                    "id": 5015,
-                    "slug": "5R22,s=20,s2=false,n=2",
-                    "score": 30,
-                    "temps": 600,
-                    "isInteractif": true
                   }
                 ]
               },
