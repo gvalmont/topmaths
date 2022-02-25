@@ -680,6 +680,44 @@
             "slug": "5P12,s=2,n=1,cd=1"
           }
         ]
+      }, {
+        "reference": "S4S10",
+        "titre": "Calcul littéral 2",
+        "objectifs": [
+          {
+            "reference": "4L12"
+          }, {
+            "reference": "4L14"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4A10",
+            "titre": "Reconnaître des nombres premiers inférieurs à 100",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=1~q=1.~p=~t=15~n=8",
+                "score": "5"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G20",
+            "titre": "Écrire l'égalité de Pythagore",
+            "slug": "4G20-1,s=1,n=1"
+          }, {
+            "reference": "4G20",
+            "titre": "Calculer une longueur avec le théorème de Pythagore",
+            "slug": "4G20,n=1,s2=1"
+          }, {
+            "reference": "4C33",
+            "titre": "Utiliser les puissances d’exposants strictement positifs d’un nombre pour simplifier l’écriture des produits",
+            "slug": "https://coopmaths.fr/mathalea.html?ex=4C33-0,s=2,s2=1,n=4,i=1&serie=8f21&v=eval&z=1.5"
+          }
+        ]
       }
     ]
   }, {

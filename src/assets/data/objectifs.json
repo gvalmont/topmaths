@@ -1041,6 +1041,66 @@
                 ]
               },
               {
+                "reference": "4L12",
+                "titre": "Démontrer l'équivalence de deux programmes de calcul",
+                "rappelDuCoursHTML": "Deux programmes de calcul sont <i>équivalents</i> s’ils se traduisent par la même expression littérale.<br><br>Pour vérifier si deux programmes de calcul sont équivalents, on choisit une lettre comme nombre de départ, on fait les calculs, on simplifie l’écriture et on vérifie si on obtient la même expression.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=-iw4OkMhgCA&vignette=https://i.ytimg.com/vi/-iw4OkMhgCA/hqdefault.jpg&debut=0&fin=446&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4036,
+                    "slug": "4L12,n=1,video=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D-iw4OkMhgCA",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "4L14",
+                "titre": "Vérifier si un nombre est solution d’une équation",
+                "rappelDuCoursHTML": "Pour vérifier si un nombre est solution d'une équation, on remplace l'inconnue ($x$ en général) par le nombre qu'on veut tester et on vérifie si les deux membres de l'égalité sont égaux.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=PLuSPM6rJKI&vignette=https://i.ytimg.com/vi/PLuSPM6rJKI/hqdefault.jpg&debut=0&fin=290&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4037,
+                    "slug": "ex=5L14-5,n=2",
+                    "score": 5,
+                    "temps": 50,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4038,
+                    "slug": "4L14-0,s=1,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 4039,
+                    "slug": "4L14-0,s=1,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
                 "reference": "4L16",
                 "titre": "Identifier la structure d’une expression littérale",
                 "rappelDuCoursHTML": "<p>La <strong>somme</strong> est le résultat d’une <strong>addition</strong>.<br>La <strong>différence</strong> est le résultat d’une <strong>soustraction</strong>.<br>Le <strong>produit</strong> est le résultat d’une <strong>multiplication</strong>.<br>Le <strong>quotient</strong> est le résultat d’une <strong>division</strong>.</p><p>La <strong>structure d’une expression</strong> est déterminée par l’<strong>opération</strong> qu’on réaliserait <strong>en dernier</strong> si on voulait faire les calculs.</p><p>Si vous ne savez plus dans quel ordre on fait les calculs, vous pouvez aller voir <a href='#/objectif/5C12'>5C12 – Effectuer un enchaînement d’opérations en respectant les priorités opératoires.</a> et <a href='#/objectif/5C11'>5C11 – Traduire un enchaînement d’opérations à l’aide d’une expression avec des parenthèses.</a></p>",
