@@ -1162,6 +1162,43 @@
             "slug": "4A11-0,s=3,s2=false,s3=false,s4=false,n=1"
           }
         ]
+      },
+      {
+        "reference": "S3S13",
+        "titre": "Fractions",
+        "objectifs": [
+          {
+            "reference": "3N11"
+          },
+          {
+            "reference": "3A11"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4A11",
+            "titre": "Décomposer un nombre entier en produit de facteurs premiers",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND1~o=1~q=1.~p=~t=24~n=8",
+                "score": "5"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G20",
+            "titre": "Calculer une longueur avec le théorème de Pythagore",
+            "slug": "4G20,s2=3,n=1,video=M9sceJ8gzNc"
+          },
+          {
+            "reference": "3L12",
+            "titre": "Factoriser",
+            "slug": "3L11-6,s=2,n=1,cd=1"
+          }
+        ]
       }
     ]
   }
