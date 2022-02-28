@@ -1128,6 +1128,77 @@
             "slug": "can4L03,s=false,s2=3,n=1,cd=0"
           }
         ]
+      },
+      {
+        "reference": "S3S12",
+        "titre": "Trigonométrie 2",
+        "objectifs": [
+          {
+            "reference": "3G31"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3F12",
+            "titre": "Déterminer l’image d’un nombre par une fonction à partir de tous les modes de représentation, un antécédent à partir d’une représentation graphique ou d’un tableau de valeurs",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=3DD2~o=0,1~q=0.0,1,2-1.0,1,2~p=~t=12~n=8",
+                "score": "2"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "3S20",
+            "titre": "Calculer des probabilités pour des expériences aléatoires simples à une ou deux épreuves à partir de dénombrements.",
+            "slug": "3S20,s=1,n=1"
+          },
+          {
+            "reference": "4A11",
+            "titre": "Décomposer un nombre entier en produit de facteurs premiers",
+            "slug": "4A11-0,s=3,s2=false,s3=false,s4=false,n=1"
+          }
+        ]
+      },
+      {
+        "reference": "S3S13",
+        "titre": "Fractions",
+        "objectifs": [
+          {
+            "reference": "3N11"
+          },
+          {
+            "reference": "3A11"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4A11",
+            "titre": "Décomposer un nombre entier en produit de facteurs premiers",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND1~o=1~q=1.~p=~t=24~n=8",
+                "score": "5"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G20",
+            "titre": "Calculer une longueur avec le théorème de Pythagore",
+            "slug": "4G20,s2=3,n=1,video=M9sceJ8gzNc"
+          },
+          {
+            "reference": "3L12",
+            "titre": "Factoriser",
+            "slug": "3L11-6,s=2,n=1,cd=1"
+          }
+        ]
       }
     ]
   }

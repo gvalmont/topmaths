@@ -1637,6 +1637,83 @@
                 ]
               }
             ]
+          },
+          {
+            "nom": "Arithmétique",
+            "objectifs": [
+              {
+                "reference": "3A11",
+                "titre": "Simplifier une fraction pour la rendre irréductible",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=qZaTliAWkA0&vignette=https://i.ytimg.com/vi/qZaTliAWkA0/hqdefault.jpg&debut=0&fin=416&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 3033,
+                    "slug": "3A12,s=true,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 3034,
+                    "slug": "3A12,s=false,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nom": "Nombres et calculs",
+            "objectifs": [
+              {
+                "reference": "3N11",
+                "titre": "Calculer avec les nombres rationnels, notamment dans le cadre de résolution de problèmes",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Z86gfJOKgBg&vignette=https://i.ytimg.com/vi/Z86gfJOKgBg/hqdefault.jpg&debut=0&fin=409&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 3035,
+                    "slug": "4C23-1,s=1,s2=true,n=2,cd=1",
+                    "score": 15,
+                    "temps": 150,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 3036,
+                    "slug": "4C23-1,s=3,s2=true,n=2,cd=1",
+                    "score": 20,
+                    "temps": 200,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 3037,
+                    "slug": "4C23-1,s=4,s2=true,n=2,cd=1",
+                    "score": 25,
+                    "temps": 250,
+                    "isInteractif": true
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -1654,9 +1731,9 @@
                 "videos": [
                   {
                     "titre": "",
-                    "slug": "",
-                    "auteur": "",
-                    "lienAuteur": ""
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=7OlnI4rj8cM&vignette=https://i.ytimg.com/vi/7OlnI4rj8cM/hqdefault.jpg&debut=0&fin=206&largeur=200&hauteur=113",
+                    "auteur": "rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
                   }
                 ],
                 "exercices": [
@@ -1911,9 +1988,9 @@
                 "videos": [
                   {
                     "titre": "",
-                    "slug": "",
-                    "auteur": "",
-                    "lienAuteur": ""
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=P3pKzIlPqTU&vignette=https://i.ytimg.com/vi/P3pKzIlPqTU/hqdefault.jpg&debut=0&fin=184&largeur=200&hauteur=113",
+                    "auteur": "rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
                   }
                 ],
                 "exercices": [
@@ -1987,6 +2064,43 @@
                     "score": 40,
                     "temps": 400,
                     "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "3G31",
+                "titre": "Calculer la mesure d’un angle dans un triangle rectangle",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=PYRMUqSeNEc&vignette=https://i.ytimg.com/vi/PYRMUqSeNEc/hqdefault.jpg&debut=0&fin=218&largeur=200&hauteur=113",
+                    "auteur": "rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 3030,
+                    "slug": "3G31,s=true,cd=0",
+                    "score": 30,
+                    "temps": 300,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 3031,
+                    "slug": "3G31,s=false,cd=0",
+                    "score": 35,
+                    "temps": 350,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 3032,
+                    "slug": "3G31-1,s=false,cd=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               }
