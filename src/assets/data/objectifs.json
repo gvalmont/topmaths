@@ -576,6 +576,12 @@
                 "videos": [
                   {
                     "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=lFvWjCLL0Ak&vignette=https://i.ytimg.com/vi/lFvWjCLL0Ak/hqdefault.jpg&debut=0&fin=54&largeur=200&hauteur=150",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
+                  },
+                  {
+                    "titre": "",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=gQZIWxzOfaE&vignette=https://i.ytimg.com/vi/gQZIWxzOfaE/hqdefault.jpg&debut=0&fin=252&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
