@@ -485,9 +485,9 @@
                   {
                     "id": 5029,
                     "slug": "5S13,s=3,n=1",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
+                    "score": 10,
+                    "temps": 200,
+                    "isInteractif": true
                   },
                   {
                     "id": 5030,
@@ -515,16 +515,16 @@
                   {
                     "id": 5031,
                     "slug": "5S14,s=1,n=1",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
+                    "score": 20,
+                    "temps": 300,
+                    "isInteractif": true
                   },
                   {
                     "id": 5032,
                     "slug": "5S14,s=3,n=1",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
+                    "score": 30,
+                    "temps": 600,
+                    "isInteractif": true
                   }
                 ]
               }
