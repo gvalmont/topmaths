@@ -281,7 +281,8 @@
             "slug": "5S13,s=3,n=1;5S13-1,s=1"
           }
         ]
-      }, {
+      },
+      {
         "reference": "S5S8",
         "titre": "Symétrie centrale",
         "objectifs": [
@@ -314,6 +315,46 @@
             "reference": "5N10",
             "titre": "Passer de l'écriture fractionnaire à l'écriture décimale",
             "slug": "can6C22,n=1"
+          }
+        ]
+      },
+      {
+        "reference": "S5S11",
+        "titre": "Fractions 1",
+        "objectifs": [
+          {
+            "reference": "5N10"
+          },
+          {
+            "reference": "5N11"
+          },
+          {
+            "reference": "5N12"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5R22",
+            "titre": "Effectuer une somme algébrique",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
+                "score": "3"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5G12",
+            "titre": "Identifier des symétries dans des frises, des pavages, des rosaces",
+            "slug": "4G12-1,s=1,n=1"
+          },
+          {
+            "reference": "5M12",
+            "titre": "Effectuer des conversions d’unités de longueurs",
+            "slug": "6M12,s=4,s2=false,n=1"
           }
         ]
       }

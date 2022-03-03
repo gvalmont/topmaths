@@ -88,6 +88,29 @@
             "nom": "Fractions",
             "objectifs": [
               {
+                "reference": "5N10",
+                "titre": "Utiliser les écritures décimales et fractionnaires et passer de l’une à l’autre",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=n_x3EAigoB0&vignette=https://i.ytimg.com/vi/n_x3EAigoB0/hqdefault.jpg&debut=0&fin=476&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 0,
+                    "slug": "",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
                 "reference": "5N12",
                 "titre": "Décomposer une fraction sous la forme d’une somme (ou d’une différence) d’un entier et d’une fraction",
                 "rappelDuCoursHTML": "$\\cfrac{20}{3}=\\cfrac{18}{3} + \\cfrac{2}{3} = 6 \\times \\cfrac{3}{3} + \\cfrac{2}{3} = 6 \\times 1 + \\cfrac{2}{3} = 6 + \\cfrac{2}{3}$",
