@@ -85,6 +85,48 @@
             ]
           },
           {
+            "nom": "Fractions",
+            "objectifs": [
+              {
+                "reference": "5N12",
+                "titre": "Décomposer une fraction sous la forme d’une somme (ou d’une différence) d’un entier et d’une fraction",
+                "rappelDuCoursHTML": "$\\cfrac{20}{3}=\\cfrac{18}{3} + \\cfrac{2}{3} = 6 \\times \\cfrac{3}{3} + \\cfrac{2}{3} = 6 \\times 1 + \\cfrac{2}{3} = 6 + \\cfrac{2}{3}$",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=6EdYRXY8620&vignette=https://i.ytimg.com/vi/6EdYRXY8620/hqdefault.jpg&debut=0&fin=155&largeur=200&hauteur=113",
+                    "auteur": "La classe de Mallory",
+                    "lienAuteur": "https://www.youtube.com/channel/UC9tH3DtBcT2mlEz5FbuRX6A"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5045,
+                    "slug": "6N20,s=false,n=3",
+                    "score": 4,
+                    "temps": 120,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5046,
+                    "slug": "6N20-2,n=3",
+                    "score": 8,
+                    "temps": 240,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5047,
+                    "slug": "6N23-2,s=1",
+                    "score": 8,
+                    "temps": 240,
+                    "isInteractif": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "nom": "Nombres Relatifs",
             "objectifs": [
               {
