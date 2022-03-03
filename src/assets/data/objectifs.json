@@ -85,6 +85,71 @@
             ]
           },
           {
+            "nom": "Arithmétique",
+            "objectifs": [
+              {
+                "reference": "5A10",
+                "titre": "Déterminer si un nombre entier est ou n’est pas multiple ou diviseur d’un autre nombre entier",
+                "rappelDuCoursHTML": "Quand on <i><b>multiplie</b></i> un nombre, on obtient un <i><b>multiple</b></i>.<br>Quand on <i><b>divise</b></i> un nombre, on obtient un <i><b>diviseur</b></i>.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=-5nTo2PjtKk&vignette=https://i.ytimg.com/vi/-5nTo2PjtKk/hqdefault.jpg&debut=0&fin=121&largeur=200&hauteur=113",
+                    "auteur": "Kristen Montrésor maths channel",
+                    "lienAuteur": "https://www.youtube.com/channel/UChaDNOEhkrQprL-wfMC1dWQ"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5048,
+                    "slug": "6C10-5,s=4,s2=10,s3=6,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 5049,
+                    "slug": "6N43-4,n=4",
+                    "score": 6,
+                    "temps": 240,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "5A11",
+                "titre": "Utiliser les critères de divisibilité par 2, 3, 5, 9, 10",
+                "rappelDuCoursHTML": "Un nombre est divisible :<ul><li>par <i><b>2</b></i> lorsque <i><b>son chiffre des unités est 0, 2, 4, 6 ou 8</b></i></li><li>par <i><b>5</b></i> lorsque <i><b>son chiffre des unités est 0 ou 5</b></i></li><li>par <i><b>10</b></i> lorsque <i><b>son chiffre des unités est 0</b></i></li><li>par <i><b>3</b></i> lorsque <i><b>la somme de ses chiffres est divisible par 3</b></i></li><li>par <i><b>9</b></i> lorsque <i><b>la somme de ses chiffres est divisible par 9</b></i></li></ul>",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=JNPT_Nsf9yE&vignette=https://i.ytimg.com/vi/JNPT_Nsf9yE/hqdefault.jpg&debut=0&fin=203&largeur=200&hauteur=113",
+                    "auteur": "La classe de Mallory",
+                    "lienAuteur": "https://www.youtube.com/channel/UC9tH3DtBcT2mlEz5FbuRX6A"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5050,
+                    "slug": "5A11-2,s=6,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 5051,
+                    "slug": "5A11,s=false,n=4",
+                    "score": 6,
+                    "temps": 240,
+                    "isInteractif": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "nom": "Fractions",
             "objectifs": [
               {

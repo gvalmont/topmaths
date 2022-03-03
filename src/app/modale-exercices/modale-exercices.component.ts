@@ -136,7 +136,7 @@ export class ModaleExercicesComponent implements OnInit {
               for (const exercice of this.listeExercices) {
                 if (typeof (exercice.lien) != 'undefined') {
                   // A décommenter pour débugger lorsqu'il n'y a pas de confettis et que le score ne se met pas à jour
-                  // console.log('lienACopier ' + exercice.lienACopier)
+                  // console.log('lienACopier ' + exercice.lien)
                   // console.log('url ' + url)
                   if (url.split('&serie=')[0].split(',i=')[0] == exercice.lien.split('&serie=')[0].split(',i=')[0]) { // Lorsqu'un exercice n'est pas interactifReady, le ,i=0 est retiré de l'url
                     // On a trouvé à quel exercice correspond ce message
