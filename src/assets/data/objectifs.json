@@ -1323,6 +1323,12 @@
                 "rappelDuCoursImage": "4G20-RDC.png",
                 "videos": [
                   {
+                    "titre": "Résumé",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Jv__hIb6Zi4&vignette=https://i.ytimg.com/vi/Jv__hIb6Zi4/hqdefault.jpg&debut=0&fin=185&largeur=200&hauteur=113",
+                    "auteur": "Rapématiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
                     "titre": "Niveau 1 - Jaune",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=h4sXOrqGhRE&vignette=https://i.ytimg.com/vi/h4sXOrqGhRE/hqdefault.jpg&debut=0&fin=237&largeur=200&hauteur=113",
                     "auteur": "*Mme Maths*",
