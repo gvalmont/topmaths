@@ -944,8 +944,80 @@
             "nom": "Puissances",
             "objectifs": [
               {
+                "reference": "4C30",
+                "titre": "Utiliser les puissances de 10 d’exposant positif ou négatif",
+                "rappelDuCoursHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='#/objectif/4C33' title='Les puissances, c’est quoi ?'>4C33</a> et <a href='#/objectif/4C37' title='Puissances positives et négatives'>4C37</a>.<br><br><center> $ 10^n = \\underbrace{10 \\times 10 \\times 10 \\times ... \\times 10}_{\\text{Le } 10 \\text{ apparaît } n \\text{ fois}} = {1}\\underbrace{00 ... 0}_{\\text{Il y a } n \\text{ zéros}} $ </center><br><center> $ 10^{-n} = \\cfrac{1}{\\underbrace{10 \\times 10 \\times 10 \\times ... \\times 10}_{\\text{Le } 10 \\text{ apparaît } n \\text{ fois}}} = \\underbrace{0,00 ... 0}_{\\text{Il y a } n \\text{ zéros}}1 $ </center>",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Résumé",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=pny7jmde0jc&vignette=https://i.ytimg.com/vi/pny7jmde0jc/hqdefault.jpg&debut=0&fin=193&largeur=200&hauteur=150",
+                    "auteur": "Matich Fastich",
+                    "lienAuteur": "https://www.youtube.com/channel/UCcPFyq0PJn0NHlreVBkyZsA"
+                  },
+                  {
+                    "titre": "Niveau 1 - Vert Clair",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=D5Fe9Fv6CqQ&vignette=https://i.ytimg.com/vi/D5Fe9Fv6CqQ/hqdefault.jpg&debut=0&fin=358&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Niveau 2 - Vert Foncé",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=vRPOgw3Sfnk&vignette=https://i.ytimg.com/vi/vRPOgw3Sfnk/hqdefault.jpg&debut=0&fin=377&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4041,
+                    "slug": "4C30-2,s=3,n=4",
+                    "score": 10,
+                    "temps": 400,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4042,
+                    "slug": "4C32-0,n=4",
+                    "score": 15,
+                    "temps": 600,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "4C32",
+                "titre": "Associer dans le cas des nombres décimaux, écriture décimale, écriture fractionnaire et notation scientifique",
+                "rappelDuCoursHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='#/objectif/4C33' title='Les puissances, c’est quoi ?'>4C33</a>, <a href='#/objectif/4C37' title='Puissances positives et négatives'>4C37</a> et <a href='#/objectif/4C30' title='Les puissances de 10'>4C30</a>.<br><br>L'<i>écriture scientifique</i> d'un nombre est de la forme :<br> $a,... \\times 10^n$ avec $1 \\leqslant a \\leqslant 9$.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=cgw0QhC8XVM&vignette=https://i.ytimg.com/vi/cgw0QhC8XVM/hqdefault.jpg&debut=0&fin=386&largeur=200&hauteur=113",
+                    "auteur": "Mathrix",
+                    "lienAuteur": "https://www.youtube.com/channel/UCdH4RLzP9UIxV299clvj1rg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4043,
+                    "slug": "4C32,s=1,s2=3,n=4",
+                    "score": 10,
+                    "temps": 400,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4044,
+                    "slug": "4C32,s=2,s2=3,n=4",
+                    "score": 10,
+                    "temps": 400,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
                 "reference": "4C33",
-                "titre": "Utiliser les puissances d’exposants strictement positifs d’un nombre pour simplifier l’écriture des produits",
+                "titre": "Utiliser les puissances d’exposant strictement positif d’un nombre pour simplifier l’écriture des produits",
                 "rappelDuCoursHTML": "<center> $ a^n = \\underbrace{a \\times a \\times a \\times ... \\times a}_{\\text{Le } a \\text{ apparaît } n \\text{ fois}} $ </center>",
                 "rappelDuCoursImage": "",
                 "videos": [
@@ -999,6 +1071,29 @@
                     "score": 20,
                     "temps": 700,
                     "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "4C37",
+                "titre": "Utiliser les puissances d’exposant relatif",
+                "rappelDuCoursHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='#/objectif/4C33'>4C33</a><br><br><center> $ a^{-n} = \\cfrac{1}{a^n} = \\cfrac{1}{\\underbrace{a \\times a \\times a \\times ... \\times a}_{\\text{Le } a \\text{ apparaît } n \\text{ fois}}} $ </center>",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=5miQxq30zhY&vignette=https://i.ytimg.com/vi/5miQxq30zhY/hqdefault.jpg&debut=0&fin=293&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4040,
+                    "slug": "4C33-0,s=3,s2=3,n=8",
+                    "score": 10,
+                    "temps": 800,
+                    "isInteractif": true
                   }
                 ]
               }
@@ -1812,6 +1907,43 @@
           {
             "nom": "Nombres et calculs",
             "objectifs": [
+              {
+                "reference": "3N10",
+                "titre": "Utiliser les puissances d’exposants positifs ou négatifs pour simplifier l’écriture des produits",
+                "rappelDuCoursHTML": "Si vous avez oublié ce que sont les puissances, vous pouvez commencer par aller voir <a href='#/objectif/4C33'>4C33</a>.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Z86gfJOKgBg&vignette=https://i.ytimg.com/vi/Z86gfJOKgBg/hqdefault.jpg&debut=0&fin=409&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 3035,
+                    "slug": "4C23-1,s=1,s2=true,n=2,cd=1",
+                    "score": 15,
+                    "temps": 150,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 3036,
+                    "slug": "4C23-1,s=3,s2=true,n=2,cd=1",
+                    "score": 20,
+                    "temps": 200,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 3037,
+                    "slug": "4C23-1,s=4,s2=true,n=2,cd=1",
+                    "score": 25,
+                    "temps": 250,
+                    "isInteractif": true
+                  }
+                ]
+              },
               {
                 "reference": "3N11",
                 "titre": "Calculer avec les nombres rationnels, notamment dans le cadre de résolution de problèmes",

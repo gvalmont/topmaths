@@ -839,7 +839,7 @@
           {
             "reference": "4C33",
             "titre": "Utiliser les puissances d’exposants strictement positifs d’un nombre pour simplifier l’écriture des produits",
-            "slug": "https://coopmaths.fr/mathalea.html?ex=4C33-0,s=2,s2=1,n=4,i=1&serie=8f21&v=eval&z=1.5"
+            "slug": "4C33-0,s=2,s2=1,n=4"
           }
         ]
       }
@@ -1356,6 +1356,43 @@
             "reference": "",
             "titre": "",
             "slug": ""
+          }
+        ]
+      },
+      {
+        "reference": "S3S15",
+        "titre": "Puissances",
+        "objectifs": [
+          {
+            "reference": "4C37"
+          },
+          {
+            "reference": "4C32"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3A11",
+            "titre": "Simplifier une fraction pour la rendre irréductible",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB5~o=1~q=1.~p=~t=18~n=8",
+                "score": "4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "3G20",
+            "titre": "Calculer une longueur avec le théorème de Thalès",
+            "slug": "3G20,s=2,n=1,video=j_zZOpLLl9k,cd=1"
+          },
+          {
+            "reference": "3L13",
+            "titre": "Résoudre algébriquement des équations du 1er degré",
+            "slug": "3L13-0,s=true,s2=4,n=1,cd=1"
           }
         ]
       }
