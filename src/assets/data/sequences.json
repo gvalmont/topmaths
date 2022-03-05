@@ -90,7 +90,8 @@
         "objectifs": [
           {
             "reference": "5P10"
-          }, {
+          },
+          {
             "reference": "5P11"
           }
         ],
@@ -126,9 +127,11 @@
         "objectifs": [
           {
             "reference": "5G20"
-          }, {
+          },
+          {
             "reference": "5G21"
-          }, {
+          },
+          {
             "reference": "5I13"
           }
         ],
@@ -156,17 +159,21 @@
             "slug": "5G13,s=1,s2=1,n=1"
           }
         ]
-      }, {
+      },
+      {
         "reference": "S5S5",
         "titre": "Programmes de calcul « somme et différence »",
         "objectifs": [
           {
             "reference": "5R10"
-          }, {
+          },
+          {
             "reference": "5R11"
-          }, {
+          },
+          {
             "reference": "5R22"
-          }, {
+          },
+          {
             "reference": "5R20"
           }
         ],
@@ -195,17 +202,21 @@
             "slug": "6P12,s=true,n=1"
           }
         ]
-      }, {
+      },
+      {
         "reference": "S5S6",
         "titre": "Représentation de données",
         "objectifs": [
           {
             "reference": "5S10"
-          }, {
+          },
+          {
             "reference": "5S11"
-          }, {
+          },
+          {
             "reference": "5S12"
-          }, {
+          },
+          {
             "reference": "5S13"
           }
         ],
@@ -218,7 +229,8 @@
                 "commentaire": "",
                 "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=10~n=8",
                 "score": "3"
-              }, {
+              },
+              {
                 "commentaire": "",
                 "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=0~q=0.~p=~t=10~n=8",
                 "score": "5"
@@ -238,13 +250,15 @@
             "slug": "5G20-0,s=1,s2=true,n=1"
           }
         ]
-      }, {
+      },
+      {
         "reference": "S5S7",
         "titre": "Programmes de calcul « somme et différence » (2ème partie)",
         "objectifs": [
           {
             "reference": "5R21"
-          }, {
+          },
+          {
             "reference": "5R12"
           }
         ],
@@ -257,11 +271,13 @@
                 "commentaire": "",
                 "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB1~o=1~q=1.-.~p=~t=20~n=8",
                 "score": "3"
-              }, {
+              },
+              {
                 "commentaire": "",
                 "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB1~o=0~q=0.-1.-.~p=~t=40~n=4",
                 "score": "4"
-              }, {
+              },
+              {
                 "commentaire": "",
                 "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=6NB1~o=0~q=0.-1.-2.-.~p=~t=30~n=4_i=6NB1~o=1,2~q=0.-1.-2.-.~p=~t=15~n=4",
                 "score": "5"
@@ -288,7 +304,8 @@
         "objectifs": [
           {
             "reference": "5G11"
-          }, {
+          },
+          {
             "reference": "5G13-2"
           }
         ],
@@ -396,7 +413,8 @@
         ]
       }
     ]
-  }, {
+  },
+  {
     "nom": "4e",
     "sequences": [
       {
@@ -422,7 +440,8 @@
                 "commentaire": "",
                 "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
                 "score": "3"
-              }, {
+              },
+              {
                 "commentaire": "",
                 "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=4~q=1.-2.-4.~p=~t=35~n=4",
                 "score": "6"
@@ -442,7 +461,8 @@
             "slug": "4L10-1,s=false,n=1"
           }
         ]
-      }, {
+      },
+      {
         "reference": "S4S2",
         "titre": "Multiplication et division de nombres relatifs",
         "objectifs": [
@@ -475,13 +495,15 @@
             "slug": "4C21,s=1,s2=false,n=1&ex=4C21,s=2,s2=false,n=1"
           }
         ]
-      }, {
+      },
+      {
         "reference": "S4S3",
         "titre": "Racine carrée",
         "objectifs": [
           {
             "reference": "4G23"
-          }, {
+          },
+          {
             "reference": "4G24"
           }
         ],
@@ -510,15 +532,18 @@
             "slug": "4S11,s=2,n=1"
           }
         ]
-      }, {
+      },
+      {
         "reference": "S4S4",
         "titre": "Calcul littéral (1ère partie)",
         "objectifs": [
           {
             "reference": "4L16"
-          }, {
+          },
+          {
             "reference": "4L10"
-          }, {
+          },
+          {
             "reference": "4L11"
           }
         ],
@@ -547,13 +572,15 @@
             "slug": "4G20-6,s=2,n=1"
           }
         ]
-      }, {
+      },
+      {
         "reference": "S4S5",
         "titre": "Théorème de Pythagore",
         "objectifs": [
           {
             "reference": "4G20"
-          }, {
+          },
+          {
             "reference": "4G22"
           }
         ],
@@ -582,13 +609,15 @@
             "slug": "4L11,s=2,n=1"
           }
         ]
-      }, {
+      },
+      {
         "reference": "S4S6",
         "titre": "Puissances 1",
         "objectifs": [
           {
             "reference": "4C33"
-          }, {
+          },
+          {
             "reference": "4C34"
           }
         ],
@@ -601,7 +630,8 @@
                 "commentaire": "",
                 "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=25~n=4_i=5NC8~o=3~q=3.0,1~p=~t=25~n=4",
                 "score": "8"
-              }, {
+              },
+              {
                 "commentaire": "",
                 "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC8~o=5~q=5.0,1~p=~t=25~n=4_i=5NC7~o=4~q=4.0,1~p=~t=25~n=4",
                 "score": "12"
@@ -614,21 +644,25 @@
             "reference": "4G20",
             "titre": "Écrire l'égalité de Pythagore",
             "slug": "4G20-1,s=1,n=1"
-          }, {
+          },
+          {
             "reference": "4G20",
             "titre": "Calculer une longueur avec le théorème de Pythagore",
             "slug": "4G20,n=1,s2=1"
-          }, {
+          },
+          {
             "reference": "5P12",
             "titre": "Partager une quantité en deux parts selon un ratio donné",
             "slug": "5P12,s=1,n=1,cd=1"
-          }, {
+          },
+          {
             "reference": "5P12",
             "titre": "Partager une quantité en trois parts selon un ratio donné",
             "slug": "5P12,s=2,n=1,cd=1"
           }
         ]
-      }, {
+      },
+      {
         "reference": "S4S7",
         "titre": "Proportionnalité et représentation graphique",
         "objectifs": [
@@ -677,7 +711,8 @@
             "slug": "4L11,s=2,n=2"
           }
         ]
-      }, {
+      },
+      {
         "reference": "S4S8",
         "titre": "Triangles égaux",
         "objectifs": [
@@ -710,15 +745,18 @@
             "slug": "5N14,s=11,s2=true,n=1,i=0"
           }
         ]
-      }, {
+      },
+      {
         "reference": "S4S9",
         "titre": "Nombres premiers",
         "objectifs": [
           {
             "reference": "4A10"
-          }, {
+          },
+          {
             "reference": "4A11"
-          }, {
+          },
+          {
             "reference": "4A12"
           }
         ],
@@ -731,7 +769,8 @@
                 "commentaire": "",
                 "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=25~n=4_i=5NC8~o=3~q=3.0,1~p=~t=25~n=4",
                 "score": "8"
-              }, {
+              },
+              {
                 "commentaire": "",
                 "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC8~o=5~q=5.0,1~p=~t=25~n=4_i=5NC7~o=4~q=4.0,1~p=~t=25~n=4",
                 "score": "12"
@@ -744,27 +783,32 @@
             "reference": "4G20",
             "titre": "Écrire l'égalité de Pythagore",
             "slug": "4G20-1,s=1,n=1"
-          }, {
+          },
+          {
             "reference": "4G20",
             "titre": "Calculer une longueur avec le théorème de Pythagore",
             "slug": "4G20,n=1,s2=1"
-          }, {
+          },
+          {
             "reference": "5P12",
             "titre": "Partager une quantité en deux parts selon un ratio donné",
             "slug": "5P12,s=1,n=1,cd=1"
-          }, {
+          },
+          {
             "reference": "5P12",
             "titre": "Partager une quantité en trois parts selon un ratio donné",
             "slug": "5P12,s=2,n=1,cd=1"
           }
         ]
-      }, {
+      },
+      {
         "reference": "S4S10",
         "titre": "Calcul littéral 2",
         "objectifs": [
           {
             "reference": "4L12"
-          }, {
+          },
+          {
             "reference": "4L14"
           }
         ],
@@ -786,11 +830,13 @@
             "reference": "4G20",
             "titre": "Écrire l'égalité de Pythagore",
             "slug": "4G20-1,s=1,n=1"
-          }, {
+          },
+          {
             "reference": "4G20",
             "titre": "Calculer une longueur avec le théorème de Pythagore",
             "slug": "4G20,n=1,s2=1"
-          }, {
+          },
+          {
             "reference": "4C33",
             "titre": "Utiliser les puissances d’exposants strictement positifs d’un nombre pour simplifier l’écriture des produits",
             "slug": "https://coopmaths.fr/mathalea.html?ex=4C33-0,s=2,s2=1,n=4,i=1&serie=8f21&v=eval&z=1.5"
@@ -798,7 +844,8 @@
         ]
       }
     ]
-  }, {
+  },
+  {
     "nom": "3e",
     "sequences": [
       {
@@ -1275,6 +1322,40 @@
             "reference": "3L12",
             "titre": "Factoriser",
             "slug": "3L11-6,s=2,n=1,cd=1"
+          }
+        ]
+      },
+      {
+        "reference": "S3S14",
+        "titre": "Statistiques et probabilités",
+        "objectifs": [
+          {
+            "reference": "3S21"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "",
+            "titre": "",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "",
+                "score": ""
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "",
+            "titre": "",
+            "slug": ""
+          },
+          {
+            "reference": "",
+            "titre": "",
+            "slug": ""
           }
         ]
       }
