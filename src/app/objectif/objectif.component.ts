@@ -136,7 +136,7 @@ export class ObjectifComponent implements OnInit {
           id: exercice.id,
           couleur: '',
           slug: exercice.slug,
-          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&serie=${Math.random().toString(16).substr(2, 4)}&v=eval&z=1.5`,
+          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&serie=&v=eval&z=1.5`,
           score: exercice.score,
           temps: exercice.temps,
           isInteractif: exercice.isInteractif
@@ -171,13 +171,22 @@ export class ObjectifComponent implements OnInit {
   }
 
   /**
+   * Change la série d'un lien de mathalea
+   * @param lien url de mathalea pour laquelle on veut changer la série
+   * @returns url avec la série modifiée
+   */
+  changeSerie(lien: string) {
+    return lien.split('&serie=')[0] + '&serie=' + Math.random().toString(16).slice(2, 6) + lien.split('&serie=')[1]
+  }
+
+  /**
    * Paramètre la modale exercice avec l'url de l'exercice et l'ancre pour le retour puis l'affiche
    * @param lien
    * @param ancre
    */
    ouvrirModaleExercices(lien: string | undefined, ancre: string) {
     if (typeof (lien) != 'undefined') {
-      this.infosModale = [[lien], '', new Date(), []]
+      this.infosModale = [[this.changeSerie(lien)], '', new Date(), []]
       this.ancre = ancre
     }
   }
