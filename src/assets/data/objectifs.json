@@ -719,13 +719,6 @@
                 ],
                 "exercices": [
                   {
-                    "id": 5042,
-                    "slug": "5G11-2,s=5,s2=1,s3=1,n=1",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
-                  },
-                  {
                     "id": 5043,
                     "slug": "5G11-2,s=5,s2=3,s3=4,n=1",
                     "score": 0,
