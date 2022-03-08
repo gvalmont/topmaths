@@ -103,15 +103,8 @@
                 "exercices": [
                   {
                     "id": 5048,
-                    "slug": "6C10-5,s=4,s2=10,s3=6,n=2",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
-                  },
-                  {
-                    "id": 5049,
-                    "slug": "6N43-4,n=4",
-                    "score": 6,
+                    "slug": "6N43-3,s=1,n=8",
+                    "score": 3,
                     "temps": 240,
                     "isInteractif": true
                   }
@@ -132,17 +125,10 @@
                 ],
                 "exercices": [
                   {
-                    "id": 5050,
-                    "slug": "5A11-2,s=6,n=2",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
-                  },
-                  {
-                    "id": 5051,
-                    "slug": "5A11,s=false,n=4",
+                    "id": 5049,
+                    "slug": "5A11,s=false,n=8",
                     "score": 6,
-                    "temps": 240,
+                    "temps": 480,
                     "isInteractif": true
                   }
                 ]
