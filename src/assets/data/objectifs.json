@@ -103,7 +103,7 @@
                 "exercices": [
                   {
                     "id": 5048,
-                    "slug": "6N43-3,s=1,n=8",
+                    "slug": "6N43-3,s=1,s2=NaN,n=8",
                     "score": 3,
                     "temps": 240,
                     "isInteractif": true
