@@ -408,7 +408,7 @@ export class ApiService {
   login(identifiant: string, secure: boolean, redirige?: boolean) {
     if (isDevMode()) {
       this.user = {
-        id: 0,
+        id: 1,
         identifiant: 'X',
         codeAvatar: '',
         lastLogin: '',

@@ -151,12 +151,14 @@ export class ModaleExercicesComponent implements OnInit {
                       const coef: number = this.get('coef')
                       const majScore: number = Math.ceil(exercice.score * nbBonnesReponses * coef)
                       if (majScore > 0) {
-                        this.dataService.majScore(majScore, exercice.lien, type)
-                        let divBonneReponse = document.createElement('div')
-                        divBonneReponse.className = 'pleinEcran is-unselectable gigantesque moveUp centre'
-                        divBonneReponse.innerText = '+ ' + majScore
-                        document.body.appendChild(divBonneReponse);
-                        setTimeout(() => divBonneReponse.parentNode?.removeChild(divBonneReponse), 2000)
+                        if (this.dataService.user.id !== 0) { // Si l'utilisateur est connecté, affiche le gain de score
+                          this.dataService.majScore(majScore, exercice.lien, type)
+                          let divBonneReponse = document.createElement('div')
+                          divBonneReponse.className = 'pleinEcran is-unselectable gigantesque moveUp centre'
+                          divBonneReponse.innerText = '+ ' + majScore
+                          document.body.appendChild(divBonneReponse);
+                          setTimeout(() => divBonneReponse.parentNode?.removeChild(divBonneReponse), 2000)
+                        }
                         if (nbMauvaisesReponses == 0) {
                           this.confetti.lanceConfetti()
                         }
