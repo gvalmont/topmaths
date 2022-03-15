@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import { GlobalConstants } from '../services/global-constants';
 import { Niveau, Objectif, Video, Exercice } from '../services/objectifs';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-objectif',
@@ -29,7 +30,7 @@ export class ObjectifComponent implements OnInit {
   ancre: string
   niveau: string
 
-  constructor(public http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, public router: Router, private viewportScroller: ViewportScroller) {
+  constructor(public http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
     this.reference = ''
     this.titre = ''
     this.rappelDuCoursHTML = ''
@@ -104,6 +105,7 @@ export class ObjectifComponent implements OnInit {
    */
   recupereAttributsObjectif(objectif: Objectif) {
     this.titre = `${objectif.reference} : ${objectif.titre}`
+    this.titleService.setTitle(this.titre)
     this.dataService.user.dernierObjectif = this.reference + '!' + this.titre
     this.dataService.majProfil(['dernierObjectif'])
     this.rappelDuCoursHTML = objectif.rappelDuCoursHTML

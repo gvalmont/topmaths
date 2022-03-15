@@ -1,8 +1,10 @@
 import { Component, isDevMode, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router, NavigationStart, Event as NavigationEvent } from '@angular/router';
+import { Router, NavigationStart, Event as NavigationEvent, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Competition } from './competitions/competitions.component';
 import { ApiService } from './services/api.service';
 import { GlobalConstants } from './services/global-constants';
+import { Title } from '@angular/platform-browser';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +17,11 @@ export class AppComponent implements OnInit, OnDestroy {
   event$: any
   competition: Competition
   modaleInformationsCompetitions!: HTMLElement
+  title: string
 
-  constructor(private router: Router, public dataService: ApiService) {
+  constructor(private router: Router, public dataService: ApiService, private activatedRoute: ActivatedRoute, private titleService: Title) {
     this.redirectionHTTPS()
+    this.title = 'topmaths.fr - les maths au TOP !'
     this.dataService.set('CompetitionorganisationEnCours', false)
     this.dataService.set('CompetitionenTrainDePingCompetitionActuelle', false)
     this.dataService.set('premiereNavigation', null)
@@ -25,6 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.recupereOngletActif()
     this.recupereProfil()
     this.observeChangementsDeRoute()
+    this.mettreAJourLeTitreDeLaPage()
     this.competition = { id: 0, statut: '', profilOrganisateur: { id: 0, pseudo: '', codeAvatar: '', lienTrophees: '', score: 0, classement: 0, scoreEquipe: 0, teamName: '' }, dernierSignal: '', type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [], coef: 0, url: '', temps: 0, question: 0 }
     this.observeParticipationCompetitions()
   }
@@ -105,6 +110,24 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  mettreAJourLeTitreDeLaPage() {
+  // Fonction de https://blog.bitsrc.io/dynamic-page-titles-in-angular-98ce20b5c334
+    const appTitle = this.titleService.getTitle();
+    this.router
+      .events.pipe(
+        filter(event => event instanceof NavigationEnd),
+        map(() => {
+          const child = this.activatedRoute.firstChild;
+          if (child != null && child.snapshot.data['title']) { // Ce data['title'] est défini dans le app-routing.module.ts
+            return child.snapshot.data['title'];
+          }
+          return appTitle;
+        })
+      ).subscribe((ttl: string) => {
+        this.titleService.setTitle(ttl);
+      });
+    }
 
   /**
    * Met à jour le token de premiereNavigation qui sert à déterminer si l'utilisateur est toujours sur sa landing page ou pas

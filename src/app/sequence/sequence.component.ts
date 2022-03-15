@@ -6,6 +6,7 @@ import { CalculMental, Niveau, NiveauCM, Objectif, QuestionFlash, Sequence } fro
 import { Niveau as NiveauObjectif } from '../services/objectifs';
 import { ViewportScroller } from '@angular/common';
 import { GlobalConstants } from '../services/global-constants';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class SequenceComponent implements OnInit {
   ancre: string
   niveau: string
 
-  constructor(public http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, public router: Router, private viewportScroller: ViewportScroller) {
+  constructor(public http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
     this.reference = ''
     this.numero = 0
     this.titre = ''
@@ -113,6 +114,7 @@ export class SequenceComponent implements OnInit {
   recupereAttributsSequence(niveau: Niveau, sequence: Sequence) {
     this.numero = niveau.sequences.findIndex(sequence => { return sequence.reference == this.reference; }) + 1
     this.titre = `Séquence ${this.numero} :<br>${sequence.titre}`
+    this.titleService.setTitle(this.titre.replace('<br>', ' '))
     this.dataService.user.derniereSequence = this.reference + '!' + this.titre
     this.dataService.majProfil(['derniereSequence'])
     this.recupereObjectifsSequence(sequence)
