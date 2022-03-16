@@ -490,6 +490,22 @@
                     "isInteractif": true
                   }
                 ]
+              },
+              {
+                "reference": "5P13",
+                "titre": "Utiliser l’échelle d’une carte",
+                "rappelDuCoursHTML": "Une échelle de $\\cfrac{1}{\\text{1 000 000}}$ signifie que 1 unité sur la carte correspond à 1 000 000 unités dans la réalité.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=VvaCZM0I2-E&vignette=https://i.ytimg.com/vi/VvaCZM0I2-E/hqdefault.jpg&debut=0&fin=80&largeur=200&hauteur=113",
+                    "auteur": " Christophe Gombert",
+                    "lienAuteur": "https://www.youtube.com/channel/UCuvHpNCqGDTFaEvO4c0nhZQ"
+                  }
+                ],
+                "exercices": [
+                ]
               }
             ]
           },
@@ -640,6 +656,53 @@
                     "slug": "5S14,s=3,n=1",
                     "score": 30,
                     "temps": 600,
+                    "isInteractif": true
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nom": "Grandeurs et mesures",
+        "sousThemes": [
+          {
+            "nom": "Périmètre et aire",
+            "objectifs": [
+              {
+                "reference": "5M12",
+                "titre": "Effectuer des conversions d’unités de longueurs",
+                "rappelDuCoursHTML": "Utilise le tableau ci-dessous ou fais-en un sur ta feuille pour t'aider à convertir !<br><iframe width='800px' height='350px' src='https://sesaprof.sesamath.net/doc/outils_tableaux/minified/unites_longueur.html'></iframe>",
+                "rappelDuCoursImage": "utiliser-convertisseur-de-longueurs.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=drCAik_P1fE&vignette=https://i.ytimg.com/vi/drCAik_P1fE/hqdefault.jpg&debut=0&fin=359&largeur=200&hauteur=150",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5050,
+                    "slug": "6M12,s=3,s2=false,n=2",
+                    "score": 15,
+                    "temps": 300,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5051,
+                    "slug": "6M12,s=3,s2=true,n=2",
+                    "score": 20,
+                    "temps": 400,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5052,
+                    "slug": "6M12,s=4,s2=true,n=2",
+                    "score": 25,
+                    "temps": 500,
                     "isInteractif": true
                   }
                 ]

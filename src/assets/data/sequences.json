@@ -373,6 +373,43 @@
         ]
       },
       {
+        "reference": "S5S10",
+        "titre": "Échelles",
+        "objectifs": [
+          {
+            "reference": "5M12"
+          },
+          {
+            "reference": "5P13"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5C12",
+            "titre": "Effectuer un enchaînement d’opérations en respectant les priorités opératoires",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=6,7,3,2~q=2.0,1,2,3,4,5-3.0,1,2,3,4,5-6.0,1,2,3,4,5-7.0,1,2,3,4,5~p=~t=32~n=4",
+                "score": "5"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5C10",
+            "titre": "Calculer le quotient et le reste dans une division euclidienne",
+            "slug": "6C11,s=2,n=1"
+          },
+          {
+            "reference": "5A10",
+            "titre": "Déterminer si un nombre entier est ou n’est pas multiple ou diviseur d’un autre nombre entier",
+            "slug": "6N43-3,s=1,n=1"
+          }
+        ]
+      },
+      {
         "reference": "S5S11",
         "titre": "Fractions 1",
         "objectifs": [
