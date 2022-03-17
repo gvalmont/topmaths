@@ -153,11 +153,55 @@
                 ],
                 "exercices": [
                   {
-                    "id": 0,
-                    "slug": "",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
+                    "id": 5053,
+                    "slug": "5N10,s=3,s2=true,n=4",
+                    "score": 5,
+                    "temps": 200,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5054,
+                    "slug": "5N10,s=3,s2=false,n=4",
+                    "score": 7,
+                    "temps": 280,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "5N11",
+                "titre": "Relier fractions, proportions et pourcentages",
+                "rappelDuCoursHTML": "Au lieu d'écrire \"sur 100\", on peut écrire \"%\".<br><br>Par exemple : $\\cfrac{35}{100} = 35 \\text{%}$<br><br>On peut alors passer de l'écriture décimale à l'écriture en pourcentage en multipliant par 100.<br><br>Par exemple : $0{,}513 = 51{,}3 \\text{%}$<br><br>(car $0{,}513 = \\cfrac{0{,}513 \\times 100}{100} = \\cfrac{51{,}3}{100} = 51{,}3 \\text{%}$)",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Q9Qg8wOaM64&vignette=https://i.ytimg.com/vi/Q9Qg8wOaM64/hqdefault.jpg&debut=0&fin=144&largeur=200&hauteur=150",
+                    "auteur": " Genevieve Beaudet",
+                    "lienAuteur": "https://www.youtube.com/channel/UCTkDV8ARPyfjFcwYFoLZuMg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5055,
+                    "slug": "5N11-3,s=2,n=2",
+                    "score": 2,
+                    "temps": 40,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5056,
+                    "slug": "5N11-3,s=1,n=2",
+                    "score": 6,
+                    "temps": 120,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5057,
+                    "slug": "5N11-4,s=2,n=2",
+                    "score": 6,
+                    "temps": 120,
+                    "isInteractif": true
                   }
                 ]
               },
@@ -177,23 +221,9 @@
                 "exercices": [
                   {
                     "id": 5045,
-                    "slug": "6N20,s=false,n=3",
-                    "score": 4,
-                    "temps": 120,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5046,
-                    "slug": "6N20-2,n=3",
-                    "score": 8,
-                    "temps": 240,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5047,
-                    "slug": "6N23-2,s=1",
-                    "score": 8,
-                    "temps": 240,
+                    "slug": "6N20,s=false,n=4",
+                    "score": 5,
+                    "temps": 200,
                     "isInteractif": true
                   }
                 ]

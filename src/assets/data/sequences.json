@@ -438,9 +438,9 @@
         ],
         "questionsFlash": [
           {
-            "reference": "5G12",
-            "titre": "Identifier des symétries dans des frises, des pavages, des rosaces",
-            "slug": "4G12-1,s=1,n=1"
+            "reference": "5P11",
+            "titre": "Résoudre des problèmes de proportionnalité avec des procédures variées (additivité, homogénéité, passage à l’unité, coefficient de proportionnalité)",
+            "slug": "6P12,s=false,n=1"
           },
           {
             "reference": "5M12",
