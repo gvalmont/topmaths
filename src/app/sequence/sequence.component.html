@@ -26,10 +26,9 @@
           </p>
           <div *ngFor="let niveau of calculMental.niveaux; index as j">
             <div><br></div>
-            <p [mathjax]="niveau.commentaire" class="is-size-5"></p>
             <h3 [class]="'subtitle is-4 is-inline-block'">
-              <a *ngIf="niveau.commentaire == ''" (click)="ouvrirModaleExercices(niveau.lien, 'calculMental')">
-                {{'Niveau ' + (j + 1)}}
+              <a (click)="ouvrirModaleExercices(niveau.lien, 'calculMental')">
+                {{niveau.commentaire == '' ? 'Niveau ' + (j + 1) : niveau.commentaire }}
                 &nbsp;
                 <i class='image is-24x24 is-inline-block'>
                   <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
