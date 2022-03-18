@@ -879,6 +879,54 @@
             "slug": "4C33-0,s=2,s2=1,n=4"
           }
         ]
+      },
+      {
+        "reference": "S4S11",
+        "titre": "Fractions",
+        "objectifs": [
+          {
+            "reference": "4C24"
+          },
+          {
+            "reference": "4C22-1"
+          },
+          {
+            "reference": "4C22-2"
+          },
+          {
+            "reference": "4C23"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4L10",
+            "titre": "Développer un produit ou réduire une expression littérale",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=32~n=4",
+                "score": "6"
+              },
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=32~n=4",
+                "score": "8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4S22",
+            "titre": "Calculer des probabilités",
+            "slug": "can3S01,n=1"
+          },
+          {
+            "reference": "4L12",
+            "titre": "Démontrer l’équivalence de deux programmes de calcul",
+            "slug": "4L12,n=1,video=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D-iw4OkMhgCA"
+          }
+        ]
       }
     ]
   },

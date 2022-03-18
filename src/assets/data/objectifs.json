@@ -1013,6 +1013,157 @@
             ]
           },
           {
+            "nom": "Fractions",
+            "objectifs": [
+              {
+                "reference": "4C22-1",
+                "titre": "Multiplier des nombres relatifs en écriture fractionnaire",
+                "rappelDuCoursHTML": "Pour multiplier des fractions, on multiplie les numérateurs entre eux et les dénominateurs entre eux :<br><br> $\\cfrac{a}{b} \\times \\cfrac{c}{d} = \\cfrac{a \\times c}{b \\times d}$ ou avec des chiffres $\\cfrac{2}{3} \\times \\cfrac{4}{5} = \\cfrac{2 \\times 4}{3 \\times 5} = \\cfrac{8}{15}$",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Niveau 1 - Jaune",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=j27kXXrw3Xk&vignette=https://i.ytimg.com/vi/j27kXXrw3Xk/hqdefault.jpg&debut=0&fin=297&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Niveau 2 - Vert Clair",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=gReBtrld7xU&vignette=https://i.ytimg.com/vi/gReBtrld7xU/hqdefault.jpg&debut=0&fin=311&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Niveau 3 - Vert Foncé",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=9nwZMLmoag8&vignette=https://i.ytimg.com/vi/9nwZMLmoag8/hqdefault.jpg&debut=0&fin=564&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4045,
+                    "slug": "4C22,s=1,s2=false,n=3",
+                    "score": 6,
+                    "temps": 180,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4046,
+                    "slug": "4C22,s=1,s2=true,n=3",
+                    "score": 8,
+                    "temps": 240,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4047,
+                    "slug": "4C22,s=3,s2=true,n=3",
+                    "score": 10,
+                    "temps": 300,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "4C22-2",
+                "titre": "Diviser des nombres relatifs en écriture fractionnaire",
+                "rappelDuCoursHTML": "Pour <i><b>diviser</b></i> par une fraction, on <i><b>multiplie par son inverse</i></b>.<br>L'<i><b>inverse</b></i> d'une fraction c'est la même fraction, mais retournée !<br><br> $\\require{color} \\cfrac{a}{b} {\\color{red} \\div \\cfrac{c}{d}} = \\cfrac{a}{b} {\\color{red} \\times \\cfrac{d}{c}} = \\cfrac{a \\times d}{b \\times c}$ ou avec des chiffres $\\cfrac{2}{3} {\\color{red} \\div \\cfrac{4}{5}} = \\cfrac{2}{3} {\\color{red} \\times \\cfrac{5}{4}} = \\cfrac{2 \\times 5}{3 \\times 4} = \\cfrac{10}{12}$",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Sr2eUlb04iM&vignette=https://i.ytimg.com/vi/Sr2eUlb04iM/hqdefault.jpg&debut=0&fin=275&largeur=200&hauteur=113",
+                    "auteur": "Hedacademy",
+                    "lienAuteur": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4048,
+                    "slug": "4C22-1,s=3,n=3",
+                    "score": 3,
+                    "temps": 90,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4049,
+                    "slug": "4C22-2,s=1,n=3",
+                    "score": 10,
+                    "temps": 300,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4050,
+                    "slug": "4C22-2,s=2,n=3",
+                    "score": 12,
+                    "temps": 360,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "4C23",
+                "titre": "Effectuer un calcul avec des nombres relatifs et fractionnaires",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=ivedi7n0hMI&vignette=https://i.ytimg.com/vi/ivedi7n0hMI/hqdefault.jpg&debut=0&fin=522&largeur=200&hauteur=113",
+                    "auteur": "Hedacademy",
+                    "lienAuteur": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4048,
+                    "slug": "4C23-1,s=1,s2=true,n=4,cd=1",
+                    "score": 30,
+                    "temps": 1200,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "4C24",
+                "titre": "Utiliser les nombres premiers pour simplifier des fractions",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=HkqUaPYgwQM&vignette=https://i.ytimg.com/vi/HkqUaPYgwQM/hqdefault.jpg&debut=0&fin=335&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4051,
+                    "slug": "4C24,s=1,n=2",
+                    "score": 3,
+                    "temps": 60,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4052,
+                    "slug": "4C24,s=2,n=2",
+                    "score": 5,
+                    "temps": 100,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4053,
+                    "slug": "4C24,s=3,n=2",
+                    "score": 7,
+                    "temps": 140,
+                    "isInteractif": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "nom": "Puissances",
             "objectifs": [
               {
