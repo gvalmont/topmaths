@@ -2089,6 +2089,73 @@
                     "isInteractif": true
                   }
                 ]
+              },
+              {
+                "reference": "3L14",
+                "titre": "Résoudre algébriquement des équations produit nul",
+                "rappelDuCoursHTML": "Si $ \\require{color} {\\color{red}A} \\times {\\color{green}B} = 0$, alors ${\\color{red}A} = 0$ ou ${\\color{green}B} = 0$.<br><br>Par exemple si ${\\color{red}(3x + 12)}{\\color{green}(4x - 2)} = 0$, alors ${\\color{red}3x + 12} = 0$ ou ${\\color{green}4x - 2} = 0$.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=KoMyPeLRTWg&vignette=https://i.ytimg.com/vi/KoMyPeLRTWg/hqdefault.jpg&debut=0&fin=415&largeur=200&hauteur=113",
+                    "auteur": "Hedacademy",
+                    "lienAuteur": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 3041,
+                    "slug": "3L14,s=1,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 3042,
+                    "slug": "3L14,s=2,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 3043,
+                    "slug": "3L14,s=3,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "3L15",
+                "titre": "Résoudre des équations de la forme x² = a",
+                "rappelDuCoursHTML": "L’équation $x^2 = a$ admet exactement deux solutions qui sont $x = \\sqrt{a}$ et $x = - \\sqrt{a}$",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "(au collège on ne fait que le a)",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=ef15aeQRs6w&vignette=https://i.ytimg.com/vi/ef15aeQRs6w/hqdefault.jpg&debut=0&fin=393&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 3044,
+                    "slug": "3L15-1,s=3,n=2",
+                    "score": 3,
+                    "temps": 400,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 3045,
+                    "slug": "3L15-1,s=2,n=2",
+                    "score": 6,
+                    "temps": 400,
+                    "isInteractif": true
+                  }
+                ]
               }
             ]
           },
@@ -2182,21 +2249,21 @@
                 ],
                 "exercices": [
                   {
-                    "id": 3035,
+                    "id": 3038,
                     "slug": "4C23-1,s=1,s2=true,n=2,cd=1",
                     "score": 15,
                     "temps": 150,
                     "isInteractif": true
                   },
                   {
-                    "id": 3036,
+                    "id": 3039,
                     "slug": "4C23-1,s=3,s2=true,n=2,cd=1",
                     "score": 20,
                     "temps": 200,
                     "isInteractif": true
                   },
                   {
-                    "id": 3037,
+                    "id": 3040,
                     "slug": "4C23-1,s=4,s2=true,n=2,cd=1",
                     "score": 25,
                     "temps": 250,
