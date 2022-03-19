@@ -2556,6 +2556,109 @@
         "nom": "Géométrie",
         "sousThemes": [
           {
+            "nom": "Homothétie et rotation",
+            "objectifs": [
+              {
+                "reference": "3G10",
+                "titre": "Transformer une figure par rotation et comprendre l’effet d’une rotation",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "methode_rotation.png",
+                "videos": [
+                  {
+                    "titre": "Construire l'image d'un point",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=xd_-KzMmjwI&vignette=https://i.ytimg.com/vi/xd_-KzMmjwI/hqdefault.jpg&debut=0&fin=386&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Construire l'image d'une figure",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=_lr-qTQVtCg&vignette=https://i.ytimg.com/vi/_lr-qTQVtCg/hqdefault.jpg&debut=0&fin=358&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 3046,
+                    "slug": "3G10-3,s=3",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "3G11",
+                "titre": "Transformer une figure par homothétie et comprendre l’effet d’une homothétie",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "methode_homothetie.png",
+                "videos": [
+                  {
+                    "titre": "Construire l'image d'un point",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=BNgjzubShAo&vignette=https://i.ytimg.com/vi/BNgjzubShAo/hqdefault.jpg&debut=0&fin=415&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Construire l'image d'une figure",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=4H0YCqT93PE&vignette=https://i.ytimg.com/vi/4H0YCqT93PE/hqdefault.jpg&debut=0&fin=253&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Construire l'image d'un cercle",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=n_jsy-104iU&vignette=https://i.ytimg.com/vi/n_jsy-104iU/hqdefault.jpg&debut=0&fin=469&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 3047,
+                    "slug": "3G11,s=3",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "3G12",
+                "titre": "Identifier des rotations et des homothéties dans des frises, des pavages et des rosaces",
+                "rappelDuCoursHTML": "Une <b><i>frise</i></b> est constituée d’un motif de base qui est reproduit plusieurs fois dans une seule direction par translation.<br>Un <b><i>pavage</i></b> est constitué d’un motif qui est reproduit dans deux directions par des translations et qui  recouvre le plan sans trou ni recouvrement.<br>Une <b><i>rosace</i></b> est constituée d’un motif qui est reproduit plusieurs fois par rotation.",
+                "rappelDuCoursImage": "exemple_frise_pavage_rosace.png",
+                "videos": [
+                ],
+                "exercices": [
+                  {
+                    "id": 3048,
+                    "slug": "3G12,s=1,s2=false,s3=7,n=3",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "3G13",
+                "titre": "Mobiliser les connaissances des figures, des configurations, de la rotation et de l’homothétie pour déterminer des grandeurs géométriques",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                ],
+                "exercices": [
+                  {
+                    "id": 3049,
+                    "slug": "3G13,s=all,s2=3,s3=1,s4=true,n=3,cd=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "nom": "Théorème de Thalès",
             "objectifs": [
               {
