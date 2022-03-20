@@ -2831,6 +2831,43 @@
                 ]
               },
               {
+                "reference": "3G21",
+                "titre": "Démontrer que des droites sont parallèles avec le théorème de Thalès",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=3oI2MR90UAE&vignette=https://i.ytimg.com/vi/3oI2MR90UAE/hqdefault.jpg&debut=0&fin=183&largeur=200&hauteur=113",
+                    "auteur": "rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 3056,
+                    "slug": "3G21,s=1,s2=1,s3=3",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 3057,
+                    "slug": "3G21,s=1,s2=3,s3=3",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 3058,
+                    "slug": "3G21,s=1,s2=3,s3=3",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
                 "reference": "3G23",
                 "titre": "Connaître et utiliser une définition et une propriété caractéristique des triangles semblables",
                 "rappelDuCoursHTML": "",
