@@ -1131,7 +1131,13 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "",
+                    "titre": "Comment simplifier des fractions (rappel)",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=7vkgbr-7vws&vignette=https://i.ytimg.com/vi/7vkgbr-7vws/hqdefault.jpg&debut=0&fin=98&largeur=200&hauteur=113",
+                    "auteur": "Rapématiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
+                    "titre": "Nouvelle méthode (avec les nombres premiers)",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=HkqUaPYgwQM&vignette=https://i.ytimg.com/vi/HkqUaPYgwQM/hqdefault.jpg&debut=0&fin=335&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
