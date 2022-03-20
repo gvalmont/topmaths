@@ -2400,6 +2400,139 @@
             ]
           },
           {
+            "nom": "Fonctions affines et linéaires",
+            "objectifs": [
+              {
+                "reference": "3F20-1",
+                "titre": "Représenter graphiquement une fonction linéaire",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=vE392v5-DWk&vignette=https://i.ytimg.com/vi/vE392v5-DWk/hqdefault.jpg&debut=0&fin=290&largeur=200&hauteur=150",
+                    "auteur": "Mme LABASSI",
+                    "lienAuteur": "https://www.youtube.com/channel/UCKBe8LjK0lStt4doSADrDBg"
+                  }
+                ],
+                "exercices": [
+                ]
+              },
+              {
+                "reference": "3F20-2",
+                "titre": "Représenter graphiquement une fonction affine",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Avec des coefficients entiers",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=OQ37ZFZnqZg&vignette=https://i.ytimg.com/vi/OQ37ZFZnqZg/hqdefault.jpg&debut=0&fin=403&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Avec un coefficient directeur fractionnaire",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=q68CLk2CNik&vignette=https://i.ytimg.com/vi/q68CLk2CNik/hqdefault.jpg&debut=0&fin=418&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                ]
+              },
+              {
+                "reference": "3F21-1",
+                "titre": "Interpréter les paramètres d’une fonction linéaire suivant l’allure de sa courbe représentative",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=E0NTyDRqWfM&vignette=https://i.ytimg.com/vi/E0NTyDRqWfM/hqdefault.jpg&debut=0&fin=716&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 3050,
+                    "slug": "3F21,s=1,s2=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 3051,
+                    "slug": "3F21,s=2,s2=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 3052,
+                    "slug": "3F21,s=3,s2=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "3F21-2",
+                "titre": "Interpréter les paramètres d’une fonction affine suivant l’allure de sa courbe représentative",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=E0NTyDRqWfM&vignette=https://i.ytimg.com/vi/E0NTyDRqWfM/hqdefault.jpg&debut=0&fin=716&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 3053,
+                    "slug": "3F21-1,s=1,s2=2",
+                    "score": 5,
+                    "temps": 100,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 3054,
+                    "slug": "3F21-1,s=2,s2=2",
+                    "score": 7,
+                    "temps": 140,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 3055,
+                    "slug": "3F21-1,s=3,s2=2",
+                    "score": 9,
+                    "temps": 180,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "3F22",
+                "titre": "Modéliser une situation de proportionnalité à l’aide d’une fonction linéaire",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=y7cqgq1lDos&vignette=https://i.ytimg.com/vi/y7cqgq1lDos/hqdefault.jpg&debut=0&fin=352&largeur=200&hauteur=113",
+                    "auteur": " Alpha Omega Cours - Maths",
+                    "lienAuteur": "https://www.youtube.com/channel/UC03wsBtWPczoiwthZx4uH9g"
+                  }
+                ],
+                "exercices": [
+                ]
+              }
+            ]
+          },
+          {
             "nom": "Statistiques",
             "objectifs": [
               {
