@@ -42,7 +42,7 @@
     <ng-template #divPasDeCalculMental>
       <div *ngIf="calculsMentaux[0].niveaux[0].commentaire != ''" [class]="'pb-5 is-' + niveau">
         <h2 [class]="'subtitle is-3 is-' + niveau">Calcul Mental</h2><br>
-        <p>{{calculsMentaux[0].niveaux[0].commentaire}}</p>
+        <p [mathjax]="calculsMentaux[0].niveaux[0].commentaire" class="is-size-5"></p>
       </div>
     </ng-template>
     <div [class]="'pb-5 is-' + niveau" *ngIf="questionsFlash[0] != null && questionsFlash[0].slug != ''">
