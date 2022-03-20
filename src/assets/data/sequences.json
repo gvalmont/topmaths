@@ -1627,6 +1627,33 @@
       },
       {
         "reference": "S3S21",
+        "titre": "Sphère et boule",
+        "objectifs": [
+          {
+            "reference": "3G40"
+          },
+          {
+            "reference": "3G42"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "",
+            "titre": "",
+            "niveaux": [
+              {
+                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2019_03_caledonie_7,i=1&ex=dnb_2019_06_ameriquenord_2,i=1&ex=dnb_2019_11_ameriquesud_1,i=1&ex=dnb_2021_06_asie_4,i=1&ex=dnb_2021_11_ameriquesud_1,i=1&ex=dnb_2021_09_metropole_1,i=1&ex=dnb_2019_03_caledonie_1,i=1&ex=dnb_2019_06_etrangers_1,i=1&ex=dnb_2019_07_polynesie_1,i=1&ex=dnb_2019_09_polynesie_1,i=1&ex=dnb_2019_12_caledonie_1,i=1&ex=dnb_2020_09_antillesguyanne_2,i=1&ex=dnb_2020_09_metropole_1,i=1&ex=dnb_2020_12_caledonie_1,i=1&ex=dnb_2021_06_asie_1,i=1&ex=dnb_2021_06_metropole_3,i=1&serie=kkRf&v=eval&z=1'>QCM ou Vrai-Faux tombés ces 3 dernières années !</a>",
+                "lien": "",
+                "score": ""
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+        ]
+      },
+      {
+        "reference": "S3S22",
         "titre": "Proportionnalité en géométrie 4",
         "objectifs": [
           {
@@ -1653,7 +1680,7 @@
         ]
       },
       {
-        "reference": "S3S22",
+        "reference": "S3S23",
         "titre": "Grandeurs composées",
         "objectifs": [
           {
@@ -1683,17 +1710,11 @@
         ]
       },
       {
-        "reference": "S3S23",
+        "reference": "S3S24",
         "titre": "Solides et sections planes",
         "objectifs": [
           {
             "reference": "3G41"
-          },
-          {
-            "reference": "3G40"
-          },
-          {
-            "reference": "3G42"
           },
           {
             "reference": "3G43"
