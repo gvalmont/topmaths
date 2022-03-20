@@ -2678,6 +2678,44 @@
                 ]
               },
               {
+                "reference": "3P11",
+                "titre": "Mener des calculs sur des grandeurs simples ou composées et exprimer les résultats dans les unités adaptées",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [],
+                "exercices": []
+              },
+              {
+                "reference": "3P12",
+                "titre": "Résoudre des problèmes utilisant les conversions d’unités sur des grandeurs composées",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Utiliser un coefficient multiplicateur",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=5LaL_SJVLoI&vignette=https://i.ytimg.com/vi/5LaL_SJVLoI/hqdefault.jpg&debut=0&fin=543&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }],
+                "exercices": [
+                  {
+                    "id": 3060,
+                    "slug": "ex=4P10,s=false",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "3P13",
+                "titre": "Vérifier la cohérence des résultats du point de vue des unités pour les calculs de grandeurs simples ou composées",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [],
+                "exercices": []
+              },
+              {
                 "reference": "3P14",
                 "titre": "Résoudre des problèmes en utilisant la proportionnalité dans le cadre de la géométrie",
                 "rappelDuCoursHTML": "",
