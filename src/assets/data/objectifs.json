@@ -2396,6 +2396,32 @@
                     "isInteractif": false
                   }
                 ]
+              },
+              {
+                "reference": "3F14",
+                "titre": "Modéliser un phénomène continu par une fonction",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Attention ! y = mx + p est une autre façon de noter f(x) = ab + b",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=dZdrOor_HAA&vignette=https://i.ytimg.com/vi/dZdrOor_HAA/hqdefault.jpg&debut=0&fin=796&largeur=200&hauteur=113",
+                    "auteur": "KhanAcademyFrancophone",
+                    "lienAuteur": "https://www.youtube.com/channel/UCxJOha9_0qZHuGf1d4imhyQ"
+                  }
+                ],
+                "exercices": [
+                ]
+              },
+              {
+                "reference": "3F15",
+                "titre": "Résoudre des problèmes modélisés par des fonctions en utilisant un ou plusieurs modes de représentation",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                ],
+                "exercices": [
+                ]
               }
             ]
           },
@@ -2523,11 +2549,34 @@
                   {
                     "titre": "",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=y7cqgq1lDos&vignette=https://i.ytimg.com/vi/y7cqgq1lDos/hqdefault.jpg&debut=0&fin=352&largeur=200&hauteur=113",
-                    "auteur": " Alpha Omega Cours - Maths",
+                    "auteur": "Alpha Omega Cours - Maths",
                     "lienAuteur": "https://www.youtube.com/channel/UC03wsBtWPczoiwthZx4uH9g"
                   }
                 ],
                 "exercices": [
+                ]
+              },
+              {
+                "reference": "3F23",
+                "titre": "Déterminer de manière algébrique l’antécédent par une fonction",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=0NakIDu5dQU&vignette=https://i.ytimg.com/vi/0NakIDu5dQU/hqdefault.jpg&debut=0&fin=324&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 3059,
+                    "slug": "3F10-2,s=2,s2=2,n=3,cd=1",
+                    "score": 12,
+                    "temps": 360,
+                    "isInteractif": true
+                  }
                 ]
               }
             ]
