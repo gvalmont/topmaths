@@ -3048,6 +3048,115 @@
                 ]
               }
             ]
+          },
+          {
+            "nom": "Espace",
+            "objectifs": [
+              {
+                "reference": "3G40",
+                "titre": "Se repérer sur une sphère (latitude, longitude)",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=cNi_4U6tFWQ&vignette=https://i.ytimg.com/vi/cNi_4U6tFWQ/hqdefault.jpg&debut=0&fin=586&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 3061,
+                    "slug": "3G40,s=3,n=4",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "3G41",
+                "titre": "Construire et mettre en relation différentes représentations des solides étudiés au cours du cycle (représentations en perspective cavalière, vues de face, de dessus, en coupe, patrons) et leurs sections planes",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Résumé",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=8uLVp6lEiEE&vignette=https://i.ytimg.com/vi/8uLVp6lEiEE/hqdefault.jpg&debut=0&fin=304&largeur=200&hauteur=113",
+                    "auteur": "Grégory MALLET",
+                    "lienAuteur": "https://www.youtube.com/channel/UCULtTY99QXqdYVidEksLx_g"
+                  },
+                  {
+                    "titre": "Pavé Droit détaillé",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Ty841PE8T5I&vignette=https://i.ytimg.com/vi/Ty841PE8T5I/hqdefault.jpg&debut=0&fin=462&largeur=200&hauteur=113",
+                    "auteur": "Maths Mon Collège",
+                    "lienAuteur": "https://www.youtube.com/channel/UCMrNKnPlVxKIfijG2w_ylgg"
+                  },
+                  {
+                    "titre": "Cylindre de révolution détaillé",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=7urM6ewSytY&vignette=https://i.ytimg.com/vi/7urM6ewSytY/hqdefault.jpg&debut=0&fin=219&largeur=200&hauteur=113",
+                    "auteur": "Maths Mon Collège",
+                    "lienAuteur": "https://www.youtube.com/channel/UCMrNKnPlVxKIfijG2w_ylgg"
+                  }
+                ],
+                "exercices": [
+                ]
+              },
+              {
+                "reference": "3G42",
+                "titre": "Calculer le volume d’une boule",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Résumé",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=pxbelimaItQ&vignette=https://i.ytimg.com/vi/pxbelimaItQ/hqdefault.jpg&debut=0&fin=241&largeur=200&hauteur=113",
+                    "auteur": "Paul Olivier",
+                    "lienAuteur": "https://www.youtube.com/channel/UCp0jxeetANhaifijiK7nkoA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 3062,
+                    "slug": "3G42,s=4,n=4,video=YQF7CBY-uEk",
+                    "score": 20,
+                    "temps": 1200,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "3G43",
+                "titre": "Calculer les volumes d’assemblages de solides étudiés au cours du cycle",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=_EEcEBjns0c&vignette=https://i.ytimg.com/vi/_EEcEBjns0c/hqdefault.jpg&debut=0&fin=396&largeur=200&hauteur=150",
+                    "auteur": "Philippe Maury",
+                    "lienAuteur": "https://www.youtube.com/channel/UCgayh0DPEKGm1ilmqwkJrcA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 3063,
+                    "slug": "3G43,s=1,s3=2,n=4",
+                    "score": 20,
+                    "temps": 1200,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 3064,
+                    "slug": "3G43,s=2,s3=2,n=4",
+                    "score": 25,
+                    "temps": 1200,
+                    "isInteractif": false
+                  }
+                ]
+              }
+            ]
           }
         ]
       }
