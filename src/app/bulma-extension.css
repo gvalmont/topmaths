@@ -49,6 +49,10 @@ li:hover .is-sponsor {
   background-color: #ea4aaa;
 }
 
+li:hover .is-fuchsia {
+  background-color: #D946EF;
+}
+
 /* Met en évidence l'onglet actif */
 .is-actif>.tabs-menu-link i {
   filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
@@ -92,6 +96,10 @@ li.is-actif .is-orange {
 
 li.is-actif .is-sponsor {
   background-color: #ea4aaa;
+}
+
+li.is-actif .is-fuchsia {
+  background-color: #D946EF;
 }
 
 .tabs a:hover {
@@ -161,6 +169,10 @@ button:not(.is-outlined)>i {
 
 .is-orange i {
   filter: invert(80%) sepia(16%) saturate(1434%) hue-rotate(326deg) brightness(103%) contrast(98%);
+}
+
+.is-fuchsia i {
+  filter: invert(37%) sepia(63%) saturate(4365%) hue-rotate(272deg) brightness(104%) contrast(88%);
 }
 
 .button.is-sponsor {
@@ -277,6 +289,125 @@ button:not(.is-outlined)>i {
 }
 
 .button.is-sponsor.is-light.is-active, .button.is-sponsor.is-light:active {
+  background-color: #fad6ec;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-fuchsia {
+  background-color: #D946EF;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-fuchsia.is-hovered, .button.is-fuchsia:hover {
+  background-color: #e93fa5;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-fuchsia.is-focused, .button.is-fuchsia:focus {
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-fuchsia.is-focused:not(:active), .button.is-fuchsia:focus:not(:active) {
+  box-shadow: 0 0 0 .125em rgba(234, 74, 170, .25)
+}
+
+.button.is-fuchsia.is-active, .button.is-fuchsia:active {
+  background-color: #e7339f;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-fuchsia[disabled], fieldset[disabled] .button.is-fuchsia {
+  background-color: #D946EF;
+  border-color: transparent;
+  box-shadow: none
+}
+
+.button.is-fuchsia.is-inverted {
+  background-color: #fff;
+  color: #D946EF
+}
+
+.button.is-fuchsia.is-inverted.is-hovered, .button.is-fuchsia.is-inverted:hover {
+  background-color: #f2f2f2
+}
+
+.button.is-fuchsia.is-inverted[disabled], fieldset[disabled] .button.is-fuchsia.is-inverted {
+  background-color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  color: #D946EF
+}
+
+.button.is-fuchsia.is-loading::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-fuchsia.is-outlined {
+  background-color: transparent;
+  border-color: #D946EF;
+  color: #D946EF
+}
+
+.button.is-fuchsia.is-outlined.is-focused, .button.is-fuchsia.is-outlined.is-hovered, .button.is-fuchsia.is-outlined:focus, .button.is-fuchsia.is-outlined:hover {
+  background-color: #D946EF;
+  border-color: #D946EF;
+  color: #fff
+}
+
+.button.is-fuchsia.is-outlined.is-loading::after {
+  border-color: transparent transparent #D946EF #D946EF !important
+}
+
+.button.is-fuchsia.is-outlined.is-loading.is-focused::after, .button.is-fuchsia.is-outlined.is-loading.is-hovered::after, .button.is-fuchsia.is-outlined.is-loading:focus::after, .button.is-fuchsia.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-fuchsia.is-outlined[disabled], fieldset[disabled] .button.is-fuchsia.is-outlined {
+  background-color: transparent;
+  border-color: #D946EF;
+  box-shadow: none;
+  color: #D946EF
+}
+
+.button.is-fuchsia.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff
+}
+
+.button.is-fuchsia.is-inverted.is-outlined.is-focused, .button.is-fuchsia.is-inverted.is-outlined.is-hovered, .button.is-fuchsia.is-inverted.is-outlined:focus, .button.is-fuchsia.is-inverted.is-outlined:hover {
+  background-color: #fff;
+  color: #D946EF
+}
+
+.button.is-fuchsia.is-inverted.is-outlined.is-loading.is-focused::after, .button.is-fuchsia.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-fuchsia.is-inverted.is-outlined.is-loading:focus::after, .button.is-fuchsia.is-inverted.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #D946EF #D946EF !important
+}
+
+.button.is-fuchsia.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-fuchsia.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  box-shadow: none;
+  color: #fff
+}
+
+.button.is-fuchsia.is-light {
+  background-color: #fdedf6;
+  color: #c0167c
+}
+
+.button.is-fuchsia.is-light.is-hovered, .button.is-fuchsia.is-light:hover {
+  background-color: #fce1f1;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-fuchsia.is-light.is-active, .button.is-fuchsia.is-light:active {
   background-color: #fad6ec;
   border-color: transparent;
   color: #c0167c

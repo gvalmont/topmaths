@@ -16,6 +16,11 @@
         <i class="image is-48x48"><img src="assets/img/cc0/guest-book-svgrepo-com.svg" /></i>
       </a>
     </li>
+    <li [ngClass]="{'is-actif': ongletActif == 'modules' || ongletActif == 'module'}">
+      <a routerLink="/modules/tout" routerLinkActive="active" class="tabs-menu-link is-fuchsia">
+        <i class="image is-48x48"><img src="assets/img/gvalmont/modules-regular.svg" /></i>
+      </a>
+    </li>
     <li [ngClass]="{'is-actif': ongletActif == 'exercices-au-hasard'}">
       <a routerLink="/exercices-au-hasard" routerLinkActive="active" class="tabs-menu-link is-sponsor">
         <i class="image is-48x48"><img src="assets/img/cc0/dice-svgrepo-com.svg" /></i>
