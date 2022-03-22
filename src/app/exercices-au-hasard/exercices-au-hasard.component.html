@@ -1,6 +1,7 @@
 <div class="columns centre">
   <div class="column is-one-fifth"></div>
   <div class="column is-three-fifths">
+    <p>Le moyen le plus efficace de gagner des points !</p><br>
     <div *ngIf="type != 'vitesse' && type != 'performance'">
       <a [routerLink]="['/exercices-au-hasard/tranquille']">
         <button [ngClass]="{'button is-large is-success p-6': true, 'is-outlined' : type != 'tranquille'}">

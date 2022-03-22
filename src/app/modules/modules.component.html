@@ -1,1 +1,21 @@
-<p>modules works!</p>
+<div class="columns centre">
+  <div class="column is-one-fifth"></div>
+  <div class="column is-three-fifths">
+    <p>Les modules sont choisis par les élèves et réalisés pendant les heures de travail en autonomie.</p>
+    <br>
+    <p>Design en construction ! En attendant voici quand même la liste des modules disponibles</p>
+    <br>
+    <div *ngFor="let ligne of lignes; index as i">
+      <div class="p-2 dropdown">
+        <a routerLink="/module/{{ligne.reference}}" routerLinkActive="active">
+          {{ligne.reference}} : {{ligne.titre}}<br>
+        </a>
+      <div class="dropdown-content" [mathjax]="ligne.description"></div>
+      </div>
+    </div>
+  </div>
+  <div class="column is-one-fifth">
+    <!-- Utilisateurs connectés -->
+    <app-whosonline></app-whosonline>
+  </div>
+</div>

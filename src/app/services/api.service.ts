@@ -78,6 +78,7 @@ export class ApiService {
       teamName: '',
       scoreEquipe: 0,
       derniereSequence: '',
+      dernierModule: '',
       dernierObjectif: '',
       question: 0
     }
@@ -423,6 +424,7 @@ export class ApiService {
         teamName: 'PUF',
         scoreEquipe: 0,
         derniereSequence: 'S4S5!Séquence 5 :<br>Théorème de Pythagore',
+        dernierModule: '',
         dernierObjectif: '4G20!4G20 : Calculer une longueur avec le théorème de Pythagore',
         question: 0
       }
@@ -440,6 +442,7 @@ export class ApiService {
         'codeTrophees',
         'tropheesVisibles',
         'derniereSequence',
+        'dernierModule',
         'dernierObjectif'])
     } else {
       let loginPage: string
@@ -463,6 +466,7 @@ export class ApiService {
             'score',
             'codeTrophees',
             'tropheesVisibles',
+            'dernierModule',
             'derniereSequence',
             'dernierObjectif'])
           if (redirige) {
@@ -526,6 +530,7 @@ export class ApiService {
         teamName: '',
         scoreEquipe: 0,
         derniereSequence: '',
+        dernierModule: '',
         dernierObjectif: '',
         question: 0
       }
@@ -545,6 +550,7 @@ export class ApiService {
           'codeTrophees',
           'tropheesVisibles',
           'derniereSequence',
+          'dernierModule',
           'dernierObjectif'])
         this.router.navigate(['profil'])
       }, error => {
@@ -799,7 +805,7 @@ export class ApiService {
     if (isDevMode()) {
       this.deleteToken('identifiant')
       this.deleteToken('version')
-      this.user = new User(0, '', '', '', '', '', '', 0, '', '', '', 0, '', 0, '', '', 0)
+      this.user = new User(0, '', '', '', '', '', '', 0, '', '', '', 0, '', 0, '', '', '', 0)
       this.isloggedIn = false
       this.profilModifie.emit([
         'identifiant',
@@ -812,6 +818,7 @@ export class ApiService {
         'codeTrophees',
         'tropheesVisibles',
         'derniereSequence',
+        'dernierModule',
         'dernierObjectif'])
       this.router.navigate(['accueil'])
     } else {
@@ -819,7 +826,7 @@ export class ApiService {
         data => {
           this.deleteToken('identifiant')
           this.deleteToken('version')
-          this.user = new User(0, '', '', '', '', '', '', 0, '', '', '', 0, '', 0, '', '', 0)
+          this.user = new User(0, '', '', '', '', '', '', 0, '', '', '', 0, '', 0, '', '', '', 0)
           this.isloggedIn = false
           this.profilModifie.emit([
             'identifiant',
