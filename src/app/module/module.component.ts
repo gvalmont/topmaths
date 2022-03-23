@@ -14,6 +14,8 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./module.component.css']
 })
 export class ModuleComponent implements OnInit {
+  categorieA = 'avancé'
+  categorieB = 'de base'
   niveau: string
   categorie: string
   reference: string
@@ -95,11 +97,11 @@ export class ModuleComponent implements OnInit {
     this.http.get<Niveau[]>('assets/data/modules.json').subscribe(niveaux => {
       for (const niveau of niveaux) {
         if (niveau.nom === nomNiveau) {
-          for (const categorie of niveau.categories) {
-            for (const module of categorie.modules) {
+            for (const module of niveau.modules) {
               if (module.reference === this.reference) {
                 this.niveau = niveau.nom
-                this.categorie = categorie.nom
+                if (this.reference.slice(-1) === 'A') this.categorie = this.categorieA
+                else if (this.reference.slice(-1) === 'B') this.categorie = this.categorieB
                 this.description = module.description
                 this.recupereAttributsModule(niveau, module)
                 sortir = true
@@ -108,8 +110,6 @@ export class ModuleComponent implements OnInit {
             }
             if (sortir) break
           }
-          if (sortir) break
-        }
         if (sortir) break
       }
     })

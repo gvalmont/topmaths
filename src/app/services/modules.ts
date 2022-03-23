@@ -1,15 +1,5 @@
 export class Niveau {
   public nom: string
-  public categories: Categorie[]
-
-  constructor (nom: string, categories: Categorie[]) {
-    this.nom = nom
-    this.categories = categories
-  }
-}
-
-export class Categorie {
-  public nom: string
   public modules: Module[]
 
   constructor (nom: string, modules: Module[]) {

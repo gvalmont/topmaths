@@ -6,9 +6,12 @@
     <p>Design en construction ! En attendant voici quand même la liste des modules disponibles</p>
     <br>
     <div *ngFor="let ligne of lignes; index as i">
-      <div class="p-2 dropdown">
+      <div class="p-2 dropdown" *ngIf="ligne.niveau !== ''">
+        <h1 class="title is-3">{{ ligne.niveau }}</h1>
+      </div>
+      <div class="p-2 dropdown" *ngIf="ligne.niveau === ''">
         <a routerLink="/module/{{ligne.reference}}" routerLinkActive="active">
-          {{ligne.reference}} : {{ligne.titre}}<br>
+          {{ligne.reference.slice(2)}} : {{ligne.titre}}<br>
         </a>
       <div class="dropdown-content" [mathjax]="ligne.description"></div>
       </div>

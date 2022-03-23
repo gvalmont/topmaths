@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Niveau } from '../services/modules';
 
 interface Ligne {
+  niveau: string
   reference: string
   titre: string
   description: string
@@ -28,14 +29,19 @@ export class ModulesComponent implements OnInit {
     this.http.get<Niveau[]>('assets/data/modules.json').subscribe(niveaux => {
       this.lignes = []
       for (const niveau of niveaux) {
-        for (const categorie of niveau.categories) {
-          for (const module of categorie.modules) {
+        this.lignes.push({
+          niveau: niveau.nom,
+          reference: '',
+          titre: '',
+          description: ''
+        })
+          for (const module of niveau.modules) {
             this.lignes.push({
+              niveau: '',
               reference: module.reference,
               titre: module.titre,
               description: module.description
             })
-          }
         }
       }
     })
