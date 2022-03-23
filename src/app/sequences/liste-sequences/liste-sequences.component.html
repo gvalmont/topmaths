@@ -16,7 +16,7 @@
   <div *ngIf="!modeSelection">
     <span *ngFor="let ligne of lignesParticulieres; index as i">
       <h1 *ngIf="ligne.niveau != null && ligne.niveau != 'fin' && ligne.reference == null" class="title is-3 p-2 is-tout">{{ligne.niveau}}</h1>
-      <p *ngIf="ligne.reference != null" [ngClass]="{'is-tout': true, 'is-fin': lignesParticulieres[i].niveau != lignesParticulieres[i + 1].niveau}">
+      <p *ngIf="ligne.reference != null" [ngClass]="{'is-tout is-size-5': true, 'is-fin': lignesParticulieres[i].niveau != lignesParticulieres[i + 1].niveau}">
         <a routerLink="/sequence/{{ligne.reference}}" routerLinkActive="active">
           {{ligne.numero == 0 ? '' : 'Séquence ' + ligne.numero + ' : '}}{{ligne.titre}}<br>
         </a>
@@ -35,7 +35,7 @@
       </a>
       <input *ngIf="modeSelection" type="checkbox" (change)="coche(ligne.niveau)" [id]="ligne.niveau" class='choix'>
     </h1>
-    <p *ngIf="ligne.reference != null && ligne.niveau != 'fin' && (filtre.niveau == null || filtre.niveau == 'tout' || filtre.niveau == ligne.niveau)" [ngClass]="{'p-1': true, 'is-fin': lignes[i].niveau != lignes[i + 1].niveau, 'is-6e': ligne.niveau == '6e', 'is-5e': ligne.niveau == '5e', 'is-4e': ligne.niveau == '4e', 'is-3e': ligne.niveau == '3e'}">
+    <p *ngIf="ligne.reference != null && ligne.niveau != 'fin' && (filtre.niveau == null || filtre.niveau == 'tout' || filtre.niveau == ligne.niveau)" [ngClass]="{'p-1 is-size-5': true, 'is-fin': lignes[i].niveau != lignes[i + 1].niveau, 'is-6e': ligne.niveau == '6e', 'is-5e': ligne.niveau == '5e', 'is-4e': ligne.niveau == '4e', 'is-3e': ligne.niveau == '3e'}">
       <a *ngIf="!modeSelection" routerLink="/sequence/{{ligne.reference}}" routerLinkActive="active">
         {{ligne.numero == 0 ? '' : 'Séquence ' + ligne.numero + ' : '}}{{ligne.titre}}
       </a>
