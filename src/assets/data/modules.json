@@ -1,0 +1,71 @@
+[
+  {
+    "nom": "5e",
+    "modules": [
+      {
+        "reference": "5M1A",
+        "titre": "Échelles",
+        "description": "1cm sur la carte correspond à combien de km dans la réalité ?<br>Dans ce module, tu vas apprendre à lire l'échelle d'une carte !",
+        "prerequis": [],
+        "objectifs": [
+          "5M12",
+          "5P13"
+        ]
+      },
+      {
+        "reference": "5M1B",
+        "titre": "Écritures de fractions",
+        "description": "$\\cfrac{1}{2} = 0,5$ ok, mais $\\cfrac{24}{5}$ ça fait combien ?<br>Et $\\cfrac{17}{8}$ ?<br>Dans ce module tu vas apprendre comment passer d'une fraction à une écriture décimale (avec une virgule) et à faire l'inverse.",
+        "prerequis": [],
+        "objectifs": [
+          "5N12",
+          "5N10"
+        ]
+      }
+    ]
+  },
+  {
+    "nom": "4e",
+    "modules": [
+      {
+        "reference": "4M1A",
+        "titre": "Équivalence de deux programmes de calcul",
+        "description": "Des fois deux programmes de calcul donnent le même résultat. Coïncidence ou pas ?<br>Dans ce module tu vas apprendre à le vérifier !",
+        "prerequis": [],
+        "objectifs": [
+          "4L12"
+        ]
+      },
+      {
+        "reference": "4M1B",
+        "titre": "Solution d'une équation",
+        "description": "C'est quoi la solution d'une équation ? D'ailleurs, c'est quoi une équation ? Tu trouveras les réponses dans ce module !",
+        "prerequis": [],
+        "objectifs": [
+          "4L14"
+        ]
+      },
+      {
+        "reference": "4M2A",
+        "titre": "Multiplication et division de fractions",
+        "description": "$\\cfrac{7}{4} \\times \\cfrac{8}{3} = ?$ et $\\cfrac{11}{6} \\div \\cfrac{25}{8} = ?$<br>Dans ce module tu vas apprendre à multiplier et à diviser par une fraction !",
+        "prerequis": [],
+        "objectifs": [
+          "4C22-1",
+          "4C22-2"
+        ]
+      },
+      {
+        "reference": "4M2A-2",
+        "titre": "Calculer avec des fractions",
+        "description": "Dans ce module, tu apprendras à faire des calculs comme :<br> $\\cfrac{-6}{7} + \\cfrac{-3}{-4} \\times \\cfrac{-7}{5}$",
+        "prerequis": [
+          "4MB1"
+        ],
+        "objectifs": [
+          "4C23"
+        ]
+      }
+    ]
+  }
+]

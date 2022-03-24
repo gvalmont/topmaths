@@ -100,8 +100,8 @@ export class ModuleComponent implements OnInit {
             for (const module of niveau.modules) {
               if (module.reference === this.reference) {
                 this.niveau = niveau.nom
-                if (this.reference.slice(-1) === 'A') this.categorie = this.categorieA
-                else if (this.reference.slice(-1) === 'B') this.categorie = this.categorieB
+                if (this.reference.slice(-1) === 'A' || this.reference.slice(-1) === 'B') this.categorie = this.categorieB
+                else this.categorie = this.categorieA
                 this.description = module.description
                 this.recupereAttributsModule(niveau, module)
                 sortir = true
