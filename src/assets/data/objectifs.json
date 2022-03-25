@@ -966,6 +966,96 @@
                 ]
               }
             ]
+          },
+          {
+            "nom": "Angles",
+            "objectifs": [
+              {
+                "reference": "5G30-1",
+                "titre": "Reconnaître des angles opposés par le sommet, supplémentaires, correspondants, alternes-internes",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "Angles.png",
+                "videos": [
+                  {
+                    "titre": "Angles adjacents, complémentaires, supplémentaires et opposés par le sommet",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=W4LJSSMcMcw&vignette=https://i.ytimg.com/vi/W4LJSSMcMcw/hqdefault.jpg&debut=0&fin=407&largeur=200&hauteur=113",
+                    "auteur": "Les RochDur",
+                    "lienAuteur": "https://www.youtube.com/channel/UC-cKCYnQREQVaAHb-y2bUQg"
+                  },
+                  {
+                    "titre": "Angles correspondants",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=ErUq2wdA_PE&vignette=https://i.ytimg.com/vi/ErUq2wdA_PE/hqdefault.jpg&debut=0&fin=529&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Angles alternes-internes",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=c8CuPY-KaNM&vignette=https://i.ytimg.com/vi/c8CuPY-KaNM/hqdefault.jpg&debut=0&fin=534&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5058,
+                    "slug": "5G30-2,s=1,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 5059,
+                    "slug": "5G30-2,s=4,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 5060,
+                    "slug": "5G30-2,s=5,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "5G30-2",
+                "titre": "Utiliser les propriétés des angles opposés par le sommet, supplémentaires, correspondants, alternes-internes",
+                "rappelDuCoursHTML": "Si les droites sont parallèles, alors les angles alternes-internes ont la même mesure.<br>Si les angles alternes-internes ont la même mesure, alors les droites sont parallèles.<br>C'est pareil pour les angles correspondants.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Utiliser les angles alternes-internes",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=v7XmtQhOP9I&vignette=https://i.ytimg.com/vi/v7XmtQhOP9I/hqdefault.jpg&debut=0&fin=408&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Utiliser les angles correspondants",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=FJVt0P83iCQ&vignette=https://i.ytimg.com/vi/FJVt0P83iCQ/hqdefault.jpg&debut=0&fin=370&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5061,
+                    "slug": "5G30-2,s=3,n=1&ex=5G30-2,s=2,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 5062,
+                    "slug": "5G30-2,s=7,n=1&ex=5G30-2,s=6,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              }
+            ]
           }
         ]
       }

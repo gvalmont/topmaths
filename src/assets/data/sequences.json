@@ -448,6 +448,43 @@
             "slug": "6M12,s=4,s2=false,n=1"
           }
         ]
+      },
+      {
+        "reference": "S5S12",
+        "titre": "Angles",
+        "objectifs": [
+          {
+            "reference": "5G30-1"
+          },
+          {
+            "reference": "5G30-2"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5C12",
+            "titre": "Effectuer un enchaînement d’opérations en respectant les priorités opératoires",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=6,7,3,2~q=2.0,1,2,3,4,5-3.0,1,2,3,4,5-6.0,1,2,3,4,5-7.0,1,2,3,4,5~p=~t=32~n=4",
+                "score": "5"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5N12",
+            "titre": "Décomposer une fraction sous la forme d’une somme (ou d’une différence) d’un entier et d’une fraction",
+            "slug": "6N20,s=false,n=1"
+          },
+          {
+            "reference": "5M12",
+            "titre": "Effectuer des conversions d’unités de longueurs",
+            "slug": "6M12,s=4,s2=false,n=1"
+          }
+        ]
       }
     ]
   },
