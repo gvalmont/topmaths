@@ -50,7 +50,7 @@ li:hover .is-sponsor {
 }
 
 li:hover .is-fuchsia {
-  background-color: #C026D3;
+  background-color: #c75ad5;
 }
 
 /* Met en évidence l'onglet actif */
@@ -99,7 +99,7 @@ li.is-actif .is-sponsor {
 }
 
 li.is-actif .is-fuchsia {
-  background-color: #C026D3;
+  background-color: #c75ad5;
 }
 
 .tabs a:hover {
@@ -295,7 +295,7 @@ button:not(.is-outlined)>i {
 }
 
 .button.is-fuchsia {
-  background-color: #C026D3;
+  background-color: #c75ad5;
   border-color: transparent;
   color: #fff
 }
@@ -322,14 +322,14 @@ button:not(.is-outlined)>i {
 }
 
 .button.is-fuchsia[disabled], fieldset[disabled] .button.is-fuchsia {
-  background-color: #C026D3;
+  background-color: #c75ad5;
   border-color: transparent;
   box-shadow: none
 }
 
 .button.is-fuchsia.is-inverted {
   background-color: #fff;
-  color: #C026D3
+  color: #c75ad5
 }
 
 .button.is-fuchsia.is-inverted.is-hovered, .button.is-fuchsia.is-inverted:hover {
@@ -340,7 +340,7 @@ button:not(.is-outlined)>i {
   background-color: #fff;
   border-color: transparent;
   box-shadow: none;
-  color: #C026D3
+  color: #c75ad5
 }
 
 .button.is-fuchsia.is-loading::after {
@@ -349,18 +349,18 @@ button:not(.is-outlined)>i {
 
 .button.is-fuchsia.is-outlined {
   background-color: transparent;
-  border-color: #C026D3;
-  color: #C026D3
+  border-color: #c75ad5;
+  color: #c75ad5
 }
 
 .button.is-fuchsia.is-outlined.is-focused, .button.is-fuchsia.is-outlined.is-hovered, .button.is-fuchsia.is-outlined:focus, .button.is-fuchsia.is-outlined:hover {
-  background-color: #C026D3;
-  border-color: #C026D3;
+  background-color: #c75ad5;
+  border-color: #c75ad5;
   color: #fff
 }
 
 .button.is-fuchsia.is-outlined.is-loading::after {
-  border-color: transparent transparent #C026D3 #C026D3 !important
+  border-color: transparent transparent #c75ad5 #c75ad5 !important
 }
 
 .button.is-fuchsia.is-outlined.is-loading.is-focused::after, .button.is-fuchsia.is-outlined.is-loading.is-hovered::after, .button.is-fuchsia.is-outlined.is-loading:focus::after, .button.is-fuchsia.is-outlined.is-loading:hover::after {
@@ -369,9 +369,9 @@ button:not(.is-outlined)>i {
 
 .button.is-fuchsia.is-outlined[disabled], fieldset[disabled] .button.is-fuchsia.is-outlined {
   background-color: transparent;
-  border-color: #C026D3;
+  border-color: #c75ad5;
   box-shadow: none;
-  color: #C026D3
+  color: #c75ad5
 }
 
 .button.is-fuchsia.is-inverted.is-outlined {
@@ -382,11 +382,11 @@ button:not(.is-outlined)>i {
 
 .button.is-fuchsia.is-inverted.is-outlined.is-focused, .button.is-fuchsia.is-inverted.is-outlined.is-hovered, .button.is-fuchsia.is-inverted.is-outlined:focus, .button.is-fuchsia.is-inverted.is-outlined:hover {
   background-color: #fff;
-  color: #C026D3
+  color: #c75ad5
 }
 
 .button.is-fuchsia.is-inverted.is-outlined.is-loading.is-focused::after, .button.is-fuchsia.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-fuchsia.is-inverted.is-outlined.is-loading:focus::after, .button.is-fuchsia.is-inverted.is-outlined.is-loading:hover::after {
-  border-color: transparent transparent #C026D3 #C026D3 !important
+  border-color: transparent transparent #c75ad5 #c75ad5 !important
 }
 
 .button.is-fuchsia.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-fuchsia.is-inverted.is-outlined {
