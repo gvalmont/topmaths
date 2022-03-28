@@ -132,6 +132,29 @@
                     "isInteractif": true
                   }
                 ]
+              },
+              {
+                "reference": "5A12",
+                "titre": "Déterminer les nombres premiers inférieurs ou égaux à 30",
+                "rappelDuCoursHTML": "Un <b><i>nombre premier</i></b> est un nombre qui possède exactement deux diviseurs : 1 et lui-même.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=g9PLLhnCv88&vignette=https://i.ytimg.com/vi/g9PLLhnCv88/hqdefault.jpg&debut=0&fin=802&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5063,
+                    "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=18~n=8",
+                    "score": 2,
+                    "temps": 160,
+                    "isInteractif": true
+                  }
+                ]
               }
             ]
           },
