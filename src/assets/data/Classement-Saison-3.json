@@ -1,0 +1,592 @@
+[
+  {
+    "id": "352",
+    "pseudo": "Kraken g\u00e9ant",
+    "codeAvatar": "rgba(236, 173, 128, 1)&19&1&8&0&6&rgba(219, 163, 190, 1)",
+    "score": "61958",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 1,
+    "teamName": "PPL"
+  },
+  {
+    "id": "43",
+    "pseudo": "Poule minuscule",
+    "codeAvatar": "",
+    "score": "47323",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant26&eyebrows=variant10&mouth=variant30&accessoires=birthmark&accessoiresProbability=100&hair=short12&skinColor=variant04&hairColor=blue",
+    "lienTrophees": "",
+    "classement": 2,
+    "teamName": "FBI"
+  },
+  {
+    "id": "173",
+    "pseudo": "Louve amoureuse",
+    "codeAvatar": "",
+    "score": "5492",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant19&eyebrows=variant02&mouth=variant01&accessoires=sunglasses&accessoiresProbability=100&hair=long06&skinColor=variant01&hairColor=red01",
+    "lienTrophees": "",
+    "classement": 3,
+    "teamName": "LLM"
+  },
+  {
+    "id": "63",
+    "pseudo": "H\u00e9ron \u00e9pique",
+    "codeAvatar": "rgba(242, 211, 177, 1)&19&7&20&0&10&rgba(86, 35, 6, 1)",
+    "score": "3769",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant13&eyebrows=variant08&mouth=variant02&accessoires=sunglasses&accessoiresProbability=100&hair=short11&skinColor=variant02&hairColor=red01",
+    "lienTrophees": "",
+    "classement": 4,
+    "teamName": ""
+  },
+  {
+    "id": "12",
+    "pseudo": "Pingouin tranquille",
+    "codeAvatar": "rgba(236, 173, 128, 1)&19&1&0&4&6&rgba(219, 163, 190, 1)",
+    "score": "3479",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant11&eyebrows=variant07&mouth=variant10&accessoires=mustache&accessoiresProbability=100&hair=short07&skinColor=variant03&hairColor=blue",
+    "lienTrophees": "",
+    "classement": 5,
+    "teamName": "PPL"
+  },
+  {
+    "id": "69",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "3382",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant08&eyebrows=variant01&mouth=variant28&accessoires=sunglasses&accessoiresProbability=100&hair=short05&skinColor=variant03&hairColor=brown02",
+    "lienTrophees": "",
+    "classement": 6,
+    "teamName": "FBI"
+  },
+  {
+    "id": "357",
+    "pseudo": "Kangourou poilu",
+    "codeAvatar": "rgba(242, 211, 177, 1)&7&1&1&4&6&rgba(219, 163, 190, 1)",
+    "score": "1768",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 7,
+    "teamName": "PPL"
+  },
+  {
+    "id": "37",
+    "pseudo": "Kurama vif",
+    "codeAvatar": "rgba(158, 86, 34, 1)&13&6&14&4&21&rgba(14, 14, 14, 1)",
+    "score": "1426",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant01&eyebrows=variant01&mouth=variant01&accessoires=sunglasses&accessoiresProbability=0&hair=long01&skinColor=variant01&hairColor=red01",
+    "lienTrophees": "",
+    "classement": 8,
+    "teamName": ""
+  },
+  {
+    "id": "1",
+    "pseudo": "Ours imposant",
+    "codeAvatar": "rgba(236, 173, 128, 1)&2&4&21&0&7&rgba(172, 101, 17, 1)",
+    "score": "1410",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant25&eyebrows=variant07&mouth=variant21&accessoires=mustache&accessoiresProbability=100&hair=long06&skinColor=variant04&hairColor=blonde02",
+    "lienTrophees": "dunovw",
+    "classement": 9,
+    "teamName": ""
+  },
+  {
+    "id": "77",
+    "pseudo": "Kurama fourbe",
+    "codeAvatar": "rgba(243, 237, 232, 1)&2&0&0&0&5&rgba(171, 42, 24, 1)",
+    "score": "1383",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant26&eyebrows=variant01&mouth=variant01&accessoires=sunglasses&accessoiresProbability=0&hair=long20&skinColor=variant01&hairColor=red01",
+    "lienTrophees": "",
+    "classement": 10,
+    "teamName": "FBI"
+  },
+  {
+    "id": "302",
+    "pseudo": "Phoenix tranquille",
+    "codeAvatar": "rgba(236, 173, 128, 1)&23&9&1&0&7&rgba(14, 14, 14, 1)",
+    "score": "1352",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 11,
+    "teamName": "BTS"
+  },
+  {
+    "id": "154",
+    "pseudo": "Scorpion intr\u00e9pide",
+    "codeAvatar": "rgba(236, 173, 128, 1)&18&3&9&1&6&rgba(89, 36, 84, 1)",
+    "score": "1222",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant08&eyebrows=variant09&mouth=variant26&accessoires=sunglasses&accessoiresProbability=0&hair=short09&skinColor=variant03&hairColor=black",
+    "lienTrophees": "",
+    "classement": 12,
+    "teamName": "LLM"
+  },
+  {
+    "id": "365",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "1114",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 13,
+    "teamName": ""
+  },
+  {
+    "id": "368",
+    "pseudo": "Araign\u00e9e du futur",
+    "codeAvatar": "rgba(242, 211, 177, 1)&20&8&22&0&20&rgba(86, 35, 6, 1)",
+    "score": "914",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 14,
+    "teamName": ""
+  },
+  {
+    "id": "48",
+    "pseudo": "Matatabi gigantesque",
+    "codeAvatar": "rgba(242, 211, 177, 1)&0&7&22&1&5&rgba(89, 36, 84, 1)",
+    "score": "866",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant12&eyebrows=variant09&mouth=variant23&accessoires=sunglasses&accessoiresProbability=100&hair=short08&skinColor=variant02&hairColor=purple",
+    "lienTrophees": "",
+    "classement": 15,
+    "teamName": "LLM"
+  },
+  {
+    "id": "360",
+    "pseudo": "Hippocampe s\u00e9rieux",
+    "codeAvatar": "rgba(236, 173, 128, 1)&22&5&0&1&23&rgba(86, 35, 6, 1)",
+    "score": "672",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 16,
+    "teamName": ""
+  },
+  {
+    "id": "62",
+    "pseudo": "Chat sauvage",
+    "codeAvatar": "rgba(236, 173, 128, 1)&0&0&9&0&15&rgba(62, 172, 44, 1)",
+    "score": "595",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant01&eyebrows=variant08&mouth=variant10&accessoires=sunglasses&accessoiresProbability=0&hair=short11&skinColor=variant03&hairColor=red01",
+    "lienTrophees": "acbgnv",
+    "classement": 17,
+    "teamName": "LLM"
+  },
+  {
+    "id": "6",
+    "pseudo": "Chouette fid\u00e8le",
+    "codeAvatar": "",
+    "score": "558",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant21&eyebrows=variant06&mouth=variant27&accessoires=sunglasses&accessoiresProbability=100&hair=long09&skinColor=variant03&hairColor=brown02",
+    "lienTrophees": "",
+    "classement": 18,
+    "teamName": ""
+  },
+  {
+    "id": "299",
+    "pseudo": "Lionne vive",
+    "codeAvatar": "rgba(236, 173, 128, 1)&0&9&25&6&24&rgba(86, 35, 6, 1)",
+    "score": "490",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 19,
+    "teamName": ""
+  },
+  {
+    "id": "370",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "450",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 20,
+    "teamName": "RBI"
+  },
+  {
+    "id": "44",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "440",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant24&eyebrows=variant06&mouth=variant22&accessoires=sunglasses&accessoiresProbability=0&hair=long14&skinColor=variant04&hairColor=black",
+    "lienTrophees": "",
+    "classement": 21,
+    "teamName": ""
+  },
+  {
+    "id": "297",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "400",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 22,
+    "teamName": ""
+  },
+  {
+    "id": "166",
+    "pseudo": "Louve s\u00e9rieuse",
+    "codeAvatar": "rgba(118, 57, 0, 1)&13&6&14&5&11&rgba(89, 36, 84, 1)",
+    "score": "397",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant21&eyebrows=variant08&mouth=variant27&accessoires=glasses&accessoiresProbability=100&hair=long19&skinColor=variant04&hairColor=brown02",
+    "lienTrophees": "",
+    "classement": 23,
+    "teamName": ""
+  },
+  {
+    "id": "18",
+    "pseudo": "Ours l\u00e9gendaire",
+    "codeAvatar": "",
+    "score": "362",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant20&eyebrows=variant02&mouth=variant01&accessoires=sunglasses&accessoiresProbability=0&hair=short04&skinColor=variant01&hairColor=gray",
+    "lienTrophees": "",
+    "classement": 24,
+    "teamName": "KGB"
+  },
+  {
+    "id": "235",
+    "pseudo": "Scorpion l\u00e9gendaire",
+    "codeAvatar": "rgba(236, 173, 128, 1)&2&1&1&6&14&rgba(62, 172, 44, 1)",
+    "score": "325",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/susu.svg",
+    "lienTrophees": "",
+    "classement": 25,
+    "teamName": ""
+  },
+  {
+    "id": "372",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "280",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 26,
+    "teamName": ""
+  },
+  {
+    "id": "164",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "253",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant23&eyebrows=variant06&mouth=variant17&accessoires=blush&accessoiresProbability=100&hair=short11&skinColor=variant02&hairColor=red01",
+    "lienTrophees": "",
+    "classement": 27,
+    "teamName": ""
+  },
+  {
+    "id": "81",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "204",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/lekur.svg",
+    "lienTrophees": "",
+    "classement": 28,
+    "teamName": ""
+  },
+  {
+    "id": "157",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "204",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/lmao.svg",
+    "lienTrophees": "",
+    "classement": 29,
+    "teamName": ""
+  },
+  {
+    "id": "390",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "185",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 30,
+    "teamName": ""
+  },
+  {
+    "id": "158",
+    "pseudo": "Lionne gentille",
+    "codeAvatar": "rgba(236, 173, 128, 1)&1&9&1&0&24&rgba(86, 35, 6, 1)",
+    "score": "182",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant03&eyebrows=variant03&mouth=variant01&accessoires=sunglasses&accessoiresProbability=0&hair=long18&skinColor=variant03&hairColor=black",
+    "lienTrophees": "",
+    "classement": 31,
+    "teamName": ""
+  },
+  {
+    "id": "53",
+    "pseudo": "Dragon des profondeurs",
+    "codeAvatar": "rgba(242, 211, 177, 1)&23&1&1&2&10&rgba(14, 14, 14, 1)",
+    "score": "150",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant13&eyebrows=variant08&mouth=variant23&accessoires=glasses&accessoiresProbability=100&hair=short11&skinColor=variant04&hairColor=black",
+    "lienTrophees": "",
+    "classement": 32,
+    "teamName": "FBI"
+  },
+  {
+    "id": "353",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "137",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 33,
+    "teamName": ""
+  },
+  {
+    "id": "362",
+    "pseudo": "Ours rouge",
+    "codeAvatar": "rgba(243, 237, 232, 1)&10&1&0&1&3&rgba(175, 175, 175, 1)",
+    "score": "120",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 34,
+    "teamName": "KGB"
+  },
+  {
+    "id": "366",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "100",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 35,
+    "teamName": ""
+  },
+  {
+    "id": "377",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "98",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 36,
+    "teamName": ""
+  },
+  {
+    "id": "381",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "90",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 37,
+    "teamName": ""
+  },
+  {
+    "id": "49",
+    "pseudo": "Sauterelle joyeuse",
+    "codeAvatar": "rgba(243, 237, 232, 1)&0&2&0&6&23&rgba(14, 14, 14, 1)",
+    "score": "85",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/isi08.svg",
+    "lienTrophees": "",
+    "classement": 38,
+    "teamName": ""
+  },
+  {
+    "id": "159",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "80",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/5emus.svg",
+    "lienTrophees": "",
+    "classement": 39,
+    "teamName": ""
+  },
+  {
+    "id": "240",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "80",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant01&eyebrows=variant08&mouth=variant22&accessoires=blush&accessoiresProbability=100&hair=short06&skinColor=variant01&hairColor=green",
+    "lienTrophees": "",
+    "classement": 40,
+    "teamName": ""
+  },
+  {
+    "id": "385",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "75",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 41,
+    "teamName": ""
+  },
+  {
+    "id": "361",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "67",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 42,
+    "teamName": ""
+  },
+  {
+    "id": "307",
+    "pseudo": "Kurama sauvage",
+    "codeAvatar": "rgba(236, 173, 128, 1)&3&7&11&0&13&rgba(185, 160, 95, 1)",
+    "score": "66",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 43,
+    "teamName": "438"
+  },
+  {
+    "id": "243",
+    "pseudo": "Bison tranquille",
+    "codeAvatar": "",
+    "score": "62",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/9a32.svg",
+    "lienTrophees": "",
+    "classement": 44,
+    "teamName": ""
+  },
+  {
+    "id": "378",
+    "pseudo": "Ange g\u00e9n\u00e9reux",
+    "codeAvatar": "rgba(242, 211, 177, 1)&0&0&0&0&15&rgba(133, 194, 198, 1)",
+    "score": "60",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 45,
+    "teamName": "REN"
+  },
+  {
+    "id": "33",
+    "pseudo": "Corbeau calme",
+    "codeAvatar": "rgba(242, 211, 177, 1)&0&6&0&0&34&rgba(106, 78, 53, 1)",
+    "score": "57",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant24&eyebrows=variant07&mouth=variant19&accessoires=sunglasses&accessoiresProbability=0&hair=short02&skinColor=variant02&hairColor=blonde03",
+    "lienTrophees": "",
+    "classement": 46,
+    "teamName": "RBI"
+  },
+  {
+    "id": "359",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "50",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 47,
+    "teamName": ""
+  },
+  {
+    "id": "367",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "45",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 48,
+    "teamName": ""
+  },
+  {
+    "id": "230",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "45",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/NMDK.svg",
+    "lienTrophees": "",
+    "classement": 49,
+    "teamName": ""
+  },
+  {
+    "id": "4",
+    "pseudo": "Pie rageuse",
+    "codeAvatar": "rgba(243, 237, 232, 1)&0&9&17&1&6&rgba(86, 35, 6, 1)",
+    "score": "44",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant19&eyebrows=variant08&mouth=variant28&accessoires=sunglasses&accessoiresProbability=100&hair=long05&skinColor=variant02&hairColor=red03",
+    "lienTrophees": "",
+    "classement": 50,
+    "teamName": ""
+  },
+  {
+    "id": "2",
+    "pseudo": "Moule parfaite",
+    "codeAvatar": "rgba(242, 211, 177, 1)&2&9&27&5&23&rgba(62, 172, 44, 1)",
+    "score": "36",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant10&eyebrows=variant06&mouth=variant16&accessoires=blush&accessoiresProbability=100&hair=long08&skinColor=variant03&hairColor=green",
+    "lienTrophees": "",
+    "classement": 51,
+    "teamName": ""
+  },
+  {
+    "id": "373",
+    "pseudo": "Cam\u00e9l\u00e9on amoureux",
+    "codeAvatar": "rgba(243, 237, 232, 1)&2&2&1&1&5&rgba(14, 14, 14, 1)",
+    "score": "32",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 52,
+    "teamName": "RBI"
+  },
+  {
+    "id": "14",
+    "pseudo": "Lionne fourbe",
+    "codeAvatar": "rgba(118, 57, 0, 1)&0&0&0&0&0&rgba(172, 101, 17, 1)",
+    "score": "30",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant12&eyebrows=variant03&mouth=variant12&accessoires=sunglasses&accessoiresProbability=0&hair=long09&skinColor=variant03&hairColor=black",
+    "lienTrophees": "axxfts",
+    "classement": 53,
+    "teamName": ""
+  },
+  {
+    "id": "383",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "30",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 54,
+    "teamName": ""
+  },
+  {
+    "id": "205",
+    "pseudo": "Puma joyeux",
+    "codeAvatar": "rgba(236, 173, 128, 1)&22&2&18&0&5&rgba(14, 14, 14, 1)",
+    "score": "27",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant23&eyebrows=variant06&mouth=variant10&accessoires=birthmark&accessoiresProbability=100&hair=short11&skinColor=variant03&hairColor=red01",
+    "lienTrophees": "",
+    "classement": 55,
+    "teamName": ""
+  },
+  {
+    "id": "195",
+    "pseudo": "Panth\u00e8re immense",
+    "codeAvatar": "rgba(242, 211, 177, 1)&0&9&0&0&24&rgba(106, 78, 53, 1)",
+    "score": "21",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant21&eyebrows=variant09&mouth=variant27&accessoires=sunglasses&accessoiresProbability=0&hair=long01&skinColor=variant03&hairColor=black",
+    "lienTrophees": "duocek",
+    "classement": 56,
+    "teamName": ""
+  },
+  {
+    "id": "21",
+    "pseudo": "Ky\u016bbi tranquille",
+    "codeAvatar": "rgba(236, 173, 128, 1)&23&9&1&6&7&rgba(14, 14, 14, 1)",
+    "score": "20",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant21&eyebrows=variant06&mouth=variant28&accessoires=sunglasses&accessoiresProbability=0&hair=short04&skinColor=variant03&hairColor=brown02",
+    "lienTrophees": "",
+    "classement": 57,
+    "teamName": "BTS"
+  },
+  {
+    "id": "162",
+    "pseudo": "Coccinelle fid\u00e8le",
+    "codeAvatar": "",
+    "score": "20",
+    "lienAvatar": "https:\/\/avatars.dicebear.com\/api\/adventurer\/topmaths.svg?scale=90&eyes=variant22&eyebrows=variant09&mouth=variant17&accessoires=blush&accessoiresProbability=100&hair=long16&skinColor=variant02&hairColor=purple",
+    "lienTrophees": "",
+    "classement": 58,
+    "teamName": ""
+  },
+  {
+    "id": "397",
+    "pseudo": "anonyme",
+    "codeAvatar": "",
+    "score": "10",
+    "lienAvatar": "",
+    "lienTrophees": "",
+    "classement": 59,
+    "teamName": ""
+  }
+]
