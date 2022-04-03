@@ -1030,6 +1030,51 @@
             "slug": "4L12,n=1,video=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D-iw4OkMhgCA"
           }
         ]
+      },
+      {
+        "reference": "S4S12",
+        "titre": "Probabilités",
+        "objectifs": [
+          {
+            "reference": "4S20"
+          },
+          {
+            "reference": "4S21"
+          },
+          {
+            "reference": "4S22"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4C23",
+            "titre": "Effectuer un calcul avec des nombres relatifs et fractionnaires",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4",
+                "score": "3"
+              },
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
+                "score": "5"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4A11",
+            "titre": "Décomposer un nombre entier en produit de facteurs premiers",
+            "slug": "4A11-0,s=3,s2=false,s3=false,s4=false,n=1,cd=1"
+          },
+          {
+            "reference": "4L14",
+            "titre": "Tester si un nombre est solution d’une équation",
+            "slug": "4L14-0,s=1,n=1"
+          }
+        ]
       }
     ]
   },

@@ -1781,6 +1781,29 @@
             "nom": "Statistiques",
             "objectifs": [
               {
+                "reference": "4S10",
+                "titre": "Représenter des données sous forme de diagramme circulaire",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "4S10-RDC.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=DI1hBhEekZ0&vignette=https://i.ytimg.com/vi/DI1hBhEekZ0/hqdefault.jpg&debut=0&fin=221&largeur=200&hauteur=113",
+                    "auteur": "Mate tes Maths",
+                    "lienAuteur": "https://www.youtube.com/channel/UCedwzeKX8pd-l57Bs3pcy3Q"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4021,
+                    "slug": "4S10,s=3,s2=2,s3=1,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
                 "reference": "4S11",
                 "titre": "Calculer la médiane d’une série de données de petit effectif total",
                 "rappelDuCoursHTML": "<p>Pour calculer une <strong>médiane</strong> :</p><ul><li><strong>on commence par ranger les valeurs dans l'ordre croissant</strong>, puis on distingue deux cas :<ul><li>Si l'effectif total est <strong>impair</strong><ul><li>La médiane est le <strong>nombre du milieu</strong></li></ul></li></ul><ul><li>Si l'effectif total est <strong>pair</strong><ul><li>La médiane est la <strong>moyenne des deux nombres du milieu</strong></li></ul></li></ul></li></ul>",
@@ -1804,22 +1827,74 @@
                 ]
               },
               {
-                "reference": "4S10",
-                "titre": "Représenter des données sous forme de diagramme circulaire",
-                "rappelDuCoursHTML": "",
-                "rappelDuCoursImage": "4S10-RDC.png",
+                "reference": "4S20",
+                "titre": "Utiliser le vocabulaire des probabilités",
+                "rappelDuCoursHTML": "Une <b><i>expérience aléatoire</b></i> est une expérience qui dépend du hasard : on ne peut pas prévoir à l’avance le résultat.<br>Les <b><i>issues</b></i> d’une expérience aléatoire sont les différents résultats possibles de cette expérience.<br>La <b><i>probabilité</b></i> d’une issue peut s’interpréter comme la « proportion de chance » d’obtenir cette issue.<br>Un <b><i>événement</b></i> est constitué d’issues.<br>On dit qu’un événement est réalisé lorsqu’on a obtenu l’une de ses issues.<br>On dit qu’un événement est <b><i>impossible</b></i> s’il ne peut pas se produire.<br>On dit qu’un événement est <b><i>certain</b></i> s’il se produit toujours.",
+                "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=DI1hBhEekZ0&vignette=https://i.ytimg.com/vi/DI1hBhEekZ0/hqdefault.jpg&debut=0&fin=221&largeur=200&hauteur=113",
-                    "auteur": "Mate tes Maths",
-                    "lienAuteur": "https://www.youtube.com/channel/UCedwzeKX8pd-l57Bs3pcy3Q"
+                    "titre": "Découverte du vocabulaire",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=P_7uC_ZuUvg&vignette=https://i.ytimg.com/vi/P_7uC_ZuUvg/hqdefault.jpg&debut=0&fin=225&largeur=200&hauteur=113",
+                    "auteur": "*Mme Maths*",
+                    "lienAuteur": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
+                  },
+                  {
+                    "titre": "Événement contraire",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=DWwDpoY4euM&vignette=https://i.ytimg.com/vi/DWwDpoY4euM/hqdefault.jpg&debut=0&fin=165&largeur=200&hauteur=113",
+                    "auteur": "*Mme Maths*",
+                    "lienAuteur": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
                   }
                 ],
                 "exercices": [
                   {
-                    "id": 4021,
-                    "slug": "4S10,s=3,s2=2,s3=1,n=1",
+                    "id": 4054,
+                    "slug": "4S20,s=3,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "4S21",
+                "titre": "Reconnaître des événements contraires et s’en servir pour calculer des probabilités",
+                "rappelDuCoursHTML": "La somme des probabilités d’un événement et de son contraire vaut 1 : $P(A) + P( \\overline{A} ) = 1$<br>On peut donc en déduire que la probabilité de son contraire est 1 $-$ sa probabilité : $P( \\overline{A} ) = 1 - P(A)$",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=DWwDpoY4euM&vignette=https://i.ytimg.com/vi/DWwDpoY4euM/hqdefault.jpg&debut=0&fin=165&largeur=200&hauteur=113",
+                    "auteur": "*Mme Maths*",
+                    "lienAuteur": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4055,
+                    "slug": "can3S02,n=1",
+                    "score": 5,
+                    "temps": 50,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "4S22",
+                "titre": "Calculer des probabilités",
+                "rappelDuCoursHTML": "$\\text{Probabilité} = \\cfrac{\\text{Nombre de cas favorables}}{\\text{Nombre de cas possibles}}$",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=XTlxQPG5ehc&vignette=https://i.ytimg.com/vi/XTlxQPG5ehc/hqdefault.jpg&debut=0&fin=479&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4056,
+                    "slug": "5S21,s=1,n=1",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
