@@ -517,6 +517,40 @@
             "slug": "5G30-2,s=4,n=2"
           }
         ]
+      },
+      {
+        "reference": "S5S14",
+        "titre": "Somme des angles d'un triangle",
+        "objectifs": [
+          {
+            "reference": "5G31"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N13",
+            "titre": "Reconnaître et produire des fractions égales",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB6~o=1,0~q=0.-1.~p=~t=20~n=8",
+                "score": "2"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5A13",
+            "titre": "Décomposer un nombre entier strictement positif en produit de facteurs premiers inférieurs à 30",
+            "slug": "5A13,s=2,s2=false,s3=false,s4=false,n=1,cd=1"
+          },
+          {
+            "reference": "5P11",
+            "titre": "Résoudre des problèmes de proportionnalité avec des procédures variées",
+            "slug": "6P11,s=false,n=1"
+          }
+        ]
       }
     ]
   },
