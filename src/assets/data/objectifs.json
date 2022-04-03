@@ -159,7 +159,7 @@
               {
                 "reference": "5A13",
                 "titre": "Décomposer un nombre en produit de facteurs premiers inférieurs à 30",
-                "rappelDuCoursHTML": "Un <b><i>nombre premier</i></b> est un nombre qui possède exactement deux diviseurs : 1 et lui-même.",
+                "rappelDuCoursHTML": "Pour décomposer un nombre en un produit de facteurs premiers, on le divise autant que possible par des nombres premiers.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
