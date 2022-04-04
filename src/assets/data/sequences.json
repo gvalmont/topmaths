@@ -1075,6 +1075,48 @@
             "slug": "4L14-0,s=1,n=1"
           }
         ]
+      },
+      {
+        "reference": "S4S13",
+        "titre": "Calcul littéral 3",
+        "objectifs": [
+          {
+            "reference": "4L20"
+          },
+          {
+            "reference": "4L13"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4L10",
+            "titre": "Développer un produit ou réduire une expression littérale",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=32~n=4",
+                "score": "6"
+              },
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=32~n=4",
+                "score": "8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4S20",
+            "titre": "Utiliser le vocabulaire des probabilités",
+            "slug": "4S20,s=3,n=1"
+          },
+          {
+            "reference": "4S21",
+            "titre": "Reconnaître des événements contraires et s’en servir pour calculer des probabilités",
+            "slug": "can3S02,n=1"
+          }
+        ]
       }
     ]
   },
