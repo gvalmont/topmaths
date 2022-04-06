@@ -1202,6 +1202,12 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
+                    "titre": "Résumé",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=RfNRleqXUZs&vignette=https://i.ytimg.com/vi/RfNRleqXUZs/hqdefault.jpg&debut=0&fin=141&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
                     "titre": "Niveau 1 - Jaune",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=j27kXXrw3Xk&vignette=https://i.ytimg.com/vi/j27kXXrw3Xk/hqdefault.jpg&debut=0&fin=297&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
@@ -1251,7 +1257,13 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "",
+                    "titre": "Résumé",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=RfNRleqXUZs&vignette=https://i.ytimg.com/vi/RfNRleqXUZs/hqdefault.jpg&debut=0&fin=141&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
+                    "titre": "En détail",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Sr2eUlb04iM&vignette=https://i.ytimg.com/vi/Sr2eUlb04iM/hqdefault.jpg&debut=0&fin=275&largeur=200&hauteur=113",
                     "auteur": "Hedacademy",
                     "lienAuteur": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
