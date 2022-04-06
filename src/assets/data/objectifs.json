@@ -1300,7 +1300,13 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "",
+                    "titre": "Résumé",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=RfNRleqXUZs&vignette=https://i.ytimg.com/vi/RfNRleqXUZs/hqdefault.jpg&debut=0&fin=141&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
+                    "titre": "En détail",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=ivedi7n0hMI&vignette=https://i.ytimg.com/vi/ivedi7n0hMI/hqdefault.jpg&debut=0&fin=522&largeur=200&hauteur=113",
                     "auteur": "Hedacademy",
                     "lienAuteur": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
