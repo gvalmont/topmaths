@@ -453,6 +453,85 @@
                 ]
               }
             ]
+          },
+          {
+            "nom": "Calcul littéral",
+            "objectifs": [
+              {
+                "reference": "5L13",
+                "titre": "Réduire une expression littérale",
+                "rappelDuCoursHTML": "$2$ <img src='https://freesvg.org/img/taco.png' width='20px'/> $+ 3$ <img src='https://freesvg.org/img/taco.png' width='20px'/> $= 5$ <img src='https://freesvg.org/img/taco.png' width='20px'/> <br> $2t + 3t = 5t$ <br><br> $3$ <img src='https://freesvg.org/img/taco.png' width='20px'/> $+ 4$ <img src='https://cdn.pixabay.com/photo/2021/07/26/16/14/burger-6494672_960_720.png' width='20px'/> $=3$ <img src='https://freesvg.org/img/taco.png' width='20px'/> $+ 4$ <img src='https://cdn.pixabay.com/photo/2021/07/26/16/14/burger-6494672_960_720.png' width='20px'/> <br> $3t + 4h = 3t + 4h$",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=yg4NQylKmTc&vignette=https://i.ytimg.com/vi/yg4NQylKmTc/hqdefault.jpg&debut=0&fin=561&largeur=200&hauteur=113",
+                    "auteur": "Hedacademy",
+                    "lienAuteur": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5069,
+                    "slug": "5L12-2,s=9,s2=false,s3=6-7-8-9,n=3",
+                    "score": 4,
+                    "temps": 120,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5069,
+                    "slug": "5L12-2,s=9,s2=false,s3=1-2-3-4,n=3",
+                    "score": 8,
+                    "temps": 240,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5069,
+                    "slug": "5L12-2,s=9,s2=true,s3=1-2-3-4,n=3",
+                    "score": 12,
+                    "temps": 360,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "5L16",
+                "titre": "Simplifier l’écriture d’une expression littérale",
+                "rappelDuCoursHTML": "On n'est pas obligé d'écrire le $\\times$ lorsqu'il est devant une lettre ou une parenthèse :<br> $3 \\times x = 3x$ <br> $7 \\times (2 + x) = 7(2 + x)$ <br> Mais $x \\times 5 \\not = x5$ parce que le $\\times$ est devant un chiffre (pas une lettre ni une parenthèse).<br>De plus : <br> $a^2 = a \\times a$ <br> $a^3 = a \\times a \\times a$",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=3E7skxYLTCw&vignette=https://i.ytimg.com/vi/3E7skxYLTCw/hqdefault.jpg&debut=0&fin=267&largeur=200&hauteur=113",
+                    "auteur": "*Mme Maths*",
+                    "lienAuteur": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5070,
+                    "slug": "5L16,s=1,n=3",
+                    "score": 4,
+                    "temps": 120,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5071,
+                    "slug": "5L16,s=2,n=3",
+                    "score": 8,
+                    "temps": 240,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5072,
+                    "slug": "5L16,s=3,n=3",
+                    "score": 12,
+                    "temps": 360,
+                    "isInteractif": true
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -1131,14 +1210,14 @@
                 "exercices": [
                   {
                     "id": 5067,
-                    "slug": "5G31,s=1,n=3,cd=3",
+                    "slug": "5G31,s=1,n=3,cd=1",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
                   },
                   {
                     "id": 5068,
-                    "slug": "5G31,s=2,n=2,cd=3",
+                    "slug": "5G31,s=2,n=2,cd=1",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false

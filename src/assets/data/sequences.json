@@ -551,6 +551,43 @@
             "slug": "6P11,s=false,n=1"
           }
         ]
+      },
+      {
+        "reference": "S5S15",
+        "titre": "Calcul littéral 1",
+        "objectifs": [
+          {
+            "reference": "5L16"
+          },
+          {
+            "reference": "5L13"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5A11",
+            "titre": "Utiliser les critères de divisibilité",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND2~o=~q=~p=~t=20~n=8",
+                "score": "3"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5R12",
+            "titre": "Repérage dans le plan",
+            "slug": "5R12-2,s=1,s2=true"
+          },
+          {
+            "reference": "5G31",
+            "titre": "Connaître et utiliser la somme des angles d’un triangle",
+            "slug": "5G31,s=1,n=1,cd=1"
+          }
+        ]
       }
     ]
   },
