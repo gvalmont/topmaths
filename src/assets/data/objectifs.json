@@ -1293,13 +1293,13 @@
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
-                    "titre": "Niveau 2 - Vert Clair",
+                    "titre": "Niveau 1 - Vert Clair",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=gReBtrld7xU&vignette=https://i.ytimg.com/vi/gReBtrld7xU/hqdefault.jpg&debut=0&fin=311&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
-                    "titre": "Niveau 3 - Vert Foncé",
+                    "titre": "Niveau 2 - Vert Foncé",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=9nwZMLmoag8&vignette=https://i.ytimg.com/vi/9nwZMLmoag8/hqdefault.jpg&debut=0&fin=564&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
@@ -1308,23 +1308,16 @@
                 "exercices": [
                   {
                     "id": 4045,
-                    "slug": "4C22,s=1,s2=false,n=3",
+                    "slug": "4C22,s=1,s2=false,s3=false,n=3",
                     "score": 6,
                     "temps": 180,
                     "isInteractif": true
                   },
                   {
                     "id": 4046,
-                    "slug": "4C22,s=1,s2=true,n=3",
+                    "slug": "4C22,s=3,s2=false,s3=false,n=3",
                     "score": 8,
                     "temps": 240,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 4047,
-                    "slug": "4C22,s=3,s2=true,n=3",
-                    "score": 10,
-                    "temps": 300,
                     "isInteractif": true
                   }
                 ]
