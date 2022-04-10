@@ -287,6 +287,72 @@
                     "isInteractif": true
                   }
                 ]
+              },
+              {
+                "reference": "5N13",
+                "titre": "Reconnaître et produire des fractions égales",
+                "rappelDuCoursHTML": "$\\require{color} \\cfrac{a}{b} = \\cfrac{a {\\color{red} \\times k}}{b {\\color{red} \\times k}}$",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=dkE_zaRIeKY&vignette=https://i.ytimg.com/vi/dkE_zaRIeKY/hqdefault.jpg&debut=0&fin=474&largeur=200&hauteur=113",
+                    "auteur": "Maths&Methodes",
+                    "lienAuteur": "https://www.youtube.com/channel/UCb9LSmnMAXQ6LtggV7pD_xw"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5073,
+                    "slug": "6N41,s=11,s2=3,n=4",
+                    "score": 4,
+                    "temps": 160,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5074,
+                    "slug": "6N41-1,s=13,s2=6",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "5N14",
+                "titre": "Comparer, ranger et encadrer des fractions dont les dénominateurs sont égaux ou multiples l’un de l’autre",
+                "rappelDuCoursHTML": "Pour comparer deux fractions :<br>- on commence par les mettre sur le même dénominateur ;<br>- puis on compare les numérateurs.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Comparer (Niveau 1)",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=MVnogrTAGy0&vignette=https://i.ytimg.com/vi/MVnogrTAGy0/hqdefault.jpg&debut=0&fin=362&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Ranger (Niveau 2)",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=zzRX2N3o6xM&vignette=https://i.ytimg.com/vi/zzRX2N3o6xM/hqdefault.jpg&debut=0&fin=254&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5075,
+                    "slug": "5N14,s=11,s2=false,n=2",
+                    "score": 10,
+                    "temps": 400,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5076,
+                    "slug": "5N14-2,s=false,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
               }
             ]
           },
@@ -1910,7 +1976,13 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "",
+                    "titre": "Résumé",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Y9lF-ReyeXU&vignette=https://i.ytimg.com/vi/Y9lF-ReyeXU/hqdefault.jpg&debut=0&fin=183&largeur=200&hauteur=113",
+                    "auteur": "Rapématiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
+                    "titre": "En détail",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=uV_EmbYu9_E&vignette=https://i.ytimg.com/vi/uV_EmbYu9_E/hqdefault.jpg&debut=0&fin=658&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"

@@ -588,6 +588,43 @@
             "slug": "5G31,s=1,n=1,cd=1"
           }
         ]
+      },
+      {
+        "reference": "S5S16",
+        "titre": "Fractions 2",
+        "objectifs": [
+          {
+            "reference": "5N13"
+          },
+          {
+            "reference": "5N14"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5A12",
+            "titre": "Utiliser les critères de divisibilité",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=18~n=8",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5L16",
+            "titre": "Simplifier l’écriture d’une expression littérale",
+            "slug": "5L16,s=3,n=1"
+          },
+          {
+            "reference": "5G12",
+            "titre": "Identifier des symétries dans des frises, des pavages, des rosaces",
+            "slug": "6G25-3,s=1,s2=false,s3=7,n=1,cd=1&ex=5G12,s=1,s2=false,s3=7,n=1,cd=1"
+          }
+        ]
       }
     ]
   },
