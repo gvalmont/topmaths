@@ -2207,6 +2207,59 @@
                     "isInteractif": true
                   }
                 ]
+              },
+              {
+                "reference": "4P14",
+                "titre": "Construire un agrandissement ou une réduction d’une figure donnée",
+                "rappelDuCoursHTML": "Pour construire un agrandissement ou une réduction de rapport $k$ d'une figure donnée, on reproduit la même figure mais en multipliant les longueurs par $k$.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=YpvIvTScQsw&vignette=https://i.ytimg.com/vi/YpvIvTScQsw/hqdefault.jpg&debut=0&fin=406&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4062,
+                    "slug": "6P14,s=7,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "4P15",
+                "titre": "Utiliser un rapport d’agrandissement ou de réduction pour calculer, des longueurs, des aires, des volumes",
+                "rappelDuCoursHTML": "Dans un agrandissement ou une réduction de rapport $k$ :<br>- les longueurs sont multipliées par $k$ ;<br>- les aires sont multipliées par $k^2$ ;<br>- les volumes sont multipliés par $k^3$.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Z4EObILooJk&vignette=https://i.ytimg.com/vi/Z4EObILooJk/hqdefault.jpg&debut=0&fin=289&largeur=200&hauteur=113",
+                    "auteur": "mathsguyon",
+                    "lienAuteur": "https://www.youtube.com/channel/UC8abtgwpiP8-L6EfRkyaItg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4063,
+                    "slug": "can3G01,n=2",
+                    "score": 10,
+                    "temps": 100,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4064,
+                    "slug": "3G22-1,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
               }
             ]
           }
