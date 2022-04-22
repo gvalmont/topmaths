@@ -32,6 +32,7 @@ import { ListeSequencesComponent } from './sequences/liste-sequences/liste-seque
 import { CompetitionActuelleComponent } from './competitions/competition-actuelle/competition-actuelle.component';
 import { ModulesComponent } from './modules/modules.component';
 import { ModuleComponent } from './module/module.component';
+import { MathadorComponent } from './mathador/mathador.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ModuleComponent } from './module/module.component';
     ListeSequencesComponent,
     CompetitionActuelleComponent,
     ModulesComponent,
-    ModuleComponent
+    ModuleComponent,
+    MathadorComponent
   ],
   imports: [
     BrowserModule,

@@ -21,6 +21,7 @@ import { CompetitionsComponent } from './competitions/competitions.component';
 import { EquipeModificationComponent } from './equipe/modification/equipe.modification.component';
 import { EquipePageComponent } from './equipe/page/equipe.page.component';
 import { AvatarComponent } from './avatar/avatar.component';
+import { MathadorComponent } from './mathador/mathador.component';
 
 const routes: Routes = [
   { path: 'accueil', component: AccueilComponent, data: {title: 'topmaths.fr - les maths au TOP !'} },
@@ -51,6 +52,7 @@ const routes: Routes = [
   { path: 'competitions', component: CompetitionsComponent, data: {title: 'topmaths.fr - Compétitions'} },
   { path: 'team/admin/:ref', component: EquipeModificationComponent, canActivate: [AuthguardGuard, TimeguardGuard], data: {title: 'topmaths.fr - Modification de l\'équipe'}},
   { path: 'team/:teamName', canActivate: [TimeguardGuard], component: EquipePageComponent},
+  { path: 'mathador', component: MathadorComponent },
   { path: '', component: AccueilComponent },
   { path: ':ref', component: ObjectifComponent },
   { path: '**', component: AccueilComponent }
