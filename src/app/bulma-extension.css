@@ -53,6 +53,10 @@ li:hover .is-fuchsia {
   background-color: #c75ad5;
 }
 
+li:hover .is-green {
+  background-color: #16A34A;
+}
+
 /* Met en évidence l'onglet actif */
 .is-actif>.tabs-menu-link i {
   filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
@@ -100,6 +104,10 @@ li.is-actif .is-sponsor {
 
 li.is-actif .is-fuchsia {
   background-color: #c75ad5;
+}
+
+li.is-actif .is-green {
+  background-color: #16A34A;
 }
 
 .tabs a:hover {
@@ -173,6 +181,10 @@ button:not(.is-outlined)>i {
 
 .is-fuchsia i {
   filter: invert(66%) sepia(95%) saturate(7499%) hue-rotate(280deg) brightness(89%) contrast(100%);
+}
+
+.is-green i {
+  filter: invert(43%) sepia(81%) saturate(478%) hue-rotate(89deg) brightness(98%) contrast(91%);
 }
 
 .button.is-sponsor {
@@ -408,6 +420,244 @@ button:not(.is-outlined)>i {
 }
 
 .button.is-fuchsia.is-light.is-active, .button.is-fuchsia.is-light:active {
+  background-color: #fad6ec;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-green {
+  background-color: #16A34A;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-green.is-hovered, .button.is-green:hover {
+  background-color: #e93fa5;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-green.is-focused, .button.is-green:focus {
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-green.is-focused:not(:active), .button.is-green:focus:not(:active) {
+  box-shadow: 0 0 0 .125em rgba(234, 74, 170, .25)
+}
+
+.button.is-green.is-active, .button.is-green:active {
+  background-color: #e7339f;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-green[disabled], fieldset[disabled] .button.is-green {
+  background-color: #16A34A;
+  border-color: transparent;
+  box-shadow: none
+}
+
+.button.is-green.is-inverted {
+  background-color: #fff;
+  color: #16A34A
+}
+
+.button.is-green.is-inverted.is-hovered, .button.is-green.is-inverted:hover {
+  background-color: #f2f2f2
+}
+
+.button.is-green.is-inverted[disabled], fieldset[disabled] .button.is-green.is-inverted {
+  background-color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  color: #16A34A
+}
+
+.button.is-green.is-loading::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-green.is-outlined {
+  background-color: transparent;
+  border-color: #16A34A;
+  color: #16A34A
+}
+
+.button.is-green.is-outlined.is-focused, .button.is-green.is-outlined.is-hovered, .button.is-green.is-outlined:focus, .button.is-green.is-outlined:hover {
+  background-color: #16A34A;
+  border-color: #16A34A;
+  color: #fff
+}
+
+.button.is-green.is-outlined.is-loading::after {
+  border-color: transparent transparent #16A34A #16A34A !important
+}
+
+.button.is-green.is-outlined.is-loading.is-focused::after, .button.is-green.is-outlined.is-loading.is-hovered::after, .button.is-green.is-outlined.is-loading:focus::after, .button.is-green.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-green.is-outlined[disabled], fieldset[disabled] .button.is-green.is-outlined {
+  background-color: transparent;
+  border-color: #16A34A;
+  box-shadow: none;
+  color: #16A34A
+}
+
+.button.is-green.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff
+}
+
+.button.is-green.is-inverted.is-outlined.is-focused, .button.is-green.is-inverted.is-outlined.is-hovered, .button.is-green.is-inverted.is-outlined:focus, .button.is-green.is-inverted.is-outlined:hover {
+  background-color: #fff;
+  color: #16A34A
+}
+
+.button.is-green.is-inverted.is-outlined.is-loading.is-focused::after, .button.is-green.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-green.is-inverted.is-outlined.is-loading:focus::after, .button.is-green.is-inverted.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #16A34A #16A34A !important
+}
+
+.button.is-green.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-green.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  box-shadow: none;
+  color: #fff
+}
+
+.button.is-green.is-light {
+  background-color: #fdedf6;
+  color: #c0167c
+}
+
+.button.is-green.is-light.is-hovered, .button.is-green.is-light:hover {
+  background-color: #fce1f1;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-green.is-light.is-active, .button.is-green.is-light:active {
+  background-color: #fad6ec;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-violet {
+  background-color: #5B21B6;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-violet.is-hovered, .button.is-violet:hover {
+  background-color: #e93fa5;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-violet.is-focused, .button.is-violet:focus {
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-violet.is-focused:not(:active), .button.is-violet:focus:not(:active) {
+  box-shadow: 0 0 0 .125em rgba(234, 74, 170, .25)
+}
+
+.button.is-violet.is-active, .button.is-violet:active {
+  background-color: #e7339f;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-violet[disabled], fieldset[disabled] .button.is-violet {
+  background-color: #5B21B6;
+  border-color: transparent;
+  box-shadow: none
+}
+
+.button.is-violet.is-inverted {
+  background-color: #fff;
+  color: #5B21B6
+}
+
+.button.is-violet.is-inverted.is-hovered, .button.is-violet.is-inverted:hover {
+  background-color: #f2f2f2
+}
+
+.button.is-violet.is-inverted[disabled], fieldset[disabled] .button.is-violet.is-inverted {
+  background-color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  color: #5B21B6
+}
+
+.button.is-violet.is-loading::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-violet.is-outlined {
+  background-color: transparent;
+  border-color: #5B21B6;
+  color: #5B21B6
+}
+
+.button.is-violet.is-outlined.is-focused, .button.is-violet.is-outlined.is-hovered, .button.is-violet.is-outlined:focus, .button.is-violet.is-outlined:hover {
+  background-color: #5B21B6;
+  border-color: #5B21B6;
+  color: #fff
+}
+
+.button.is-violet.is-outlined.is-loading::after {
+  border-color: transparent transparent #5B21B6 #5B21B6 !important
+}
+
+.button.is-violet.is-outlined.is-loading.is-focused::after, .button.is-violet.is-outlined.is-loading.is-hovered::after, .button.is-violet.is-outlined.is-loading:focus::after, .button.is-violet.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-violet.is-outlined[disabled], fieldset[disabled] .button.is-violet.is-outlined {
+  background-color: transparent;
+  border-color: #5B21B6;
+  box-shadow: none;
+  color: #5B21B6
+}
+
+.button.is-violet.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff
+}
+
+.button.is-violet.is-inverted.is-outlined.is-focused, .button.is-violet.is-inverted.is-outlined.is-hovered, .button.is-violet.is-inverted.is-outlined:focus, .button.is-violet.is-inverted.is-outlined:hover {
+  background-color: #fff;
+  color: #5B21B6
+}
+
+.button.is-violet.is-inverted.is-outlined.is-loading.is-focused::after, .button.is-violet.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-violet.is-inverted.is-outlined.is-loading:focus::after, .button.is-violet.is-inverted.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #5B21B6 #5B21B6 !important
+}
+
+.button.is-violet.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-violet.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  box-shadow: none;
+  color: #fff
+}
+
+.button.is-violet.is-light {
+  background-color: #fdedf6;
+  color: #c0167c
+}
+
+.button.is-violet.is-light.is-hovered, .button.is-violet.is-light:hover {
+  background-color: #fce1f1;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-violet.is-light.is-active, .button.is-violet.is-light:active {
   background-color: #fad6ec;
   border-color: transparent;
   color: #c0167c

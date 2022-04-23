@@ -1,9 +1,11 @@
 <div class="columns centre">
   <div class="column is-one-fifth"></div>
   <div class="column is-three-fifths">
-    Trouver {{ cible }}
-    <br>
-    En utilisant {{ a }}, {{ b }}, {{ c }}, {{ d }} et {{ e }}
+    <a [routerLink]="['/outils/mathador']">
+      <button class="button is-large is-violet is-outlined p-6">
+        <p class="enorme">Mathador</p>
+      </button>
+    </a>
   </div>
   <div class="column is-one-fifth">
     <!-- Utilisateurs connectés -->
