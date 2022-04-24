@@ -21,6 +21,7 @@ export class TimeguardGuard implements CanActivate {
    * @returns true s'il peut l'emprunter, false sinon
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    return true // timeguard désactivé
     if (this.estPendantLesVacances()) return true
     if (this.estPendantLesCours()) {
       alert('Tu n\'as pas le droit d\'accéder à cette page pendant les cours !')
