@@ -120,7 +120,17 @@ export class ObjectifComponent implements OnInit {
       if (video.slug != '') {
         this.presenceVideo = true
         let lienVideo: string
-        video.slug.slice(0, 4) === 'http' ? lienVideo = video.slug : lienVideo = "https://www.youtube.com/embed/" + video.slug
+        if (video.slug.slice(0, 4) === 'http') {
+          lienVideo = video.slug
+          if (lienVideo.slice(0, 22) === 'https://ladigitale.dev') {
+            // Les anciens liens Digiplay ne comportent pas l'api qui semble être maintenant nécessaire pour avoir accès aux vidéos
+            if (lienVideo.indexOf('&api') === -1) {
+              lienVideo = lienVideo + '&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg'
+            }
+          }
+        } else {
+          lienVideo = "https://www.youtube.com/embed/" + video.slug
+        }
         this.videos.push({
           titre: video.titre,
           slug: video.slug,
