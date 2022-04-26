@@ -3476,21 +3476,21 @@
                 "exercices": [
                   {
                     "id": 3056,
-                    "slug": "3G21,s=1,s2=1,s3=3",
+                    "slug": "3G21,s=1,s2=3,s3=3",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
                   },
                   {
                     "id": 3057,
-                    "slug": "3G21,s=1,s2=3,s3=3",
+                    "slug": "3G21,s=2,s2=3,s3=3",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
                   },
                   {
                     "id": 3058,
-                    "slug": "3G21,s=1,s2=3,s3=3",
+                    "slug": "3G21,s=3,s2=3,s3=3",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
