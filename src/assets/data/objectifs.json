@@ -1374,16 +1374,16 @@
                 "exercices": [
                   {
                     "id": 4045,
-                    "slug": "4C22,s=1,s2=false,s3=false,n=3",
+                    "slug": "4C22,s=1,s2=false,s3=false,n=2",
                     "score": 6,
-                    "temps": 180,
+                    "temps": 120,
                     "isInteractif": true
                   },
                   {
                     "id": 4046,
-                    "slug": "4C22,s=3,s2=false,s3=false,n=3",
+                    "slug": "4C22,s=3,s2=false,s3=false,n=1",
                     "score": 8,
-                    "temps": 240,
+                    "temps": 800,
                     "isInteractif": true
                   }
                 ]
@@ -1410,23 +1410,23 @@
                 "exercices": [
                   {
                     "id": 4048,
-                    "slug": "4C22-1,s=3,n=3",
+                    "slug": "4C22-1,s=3,n=2",
                     "score": 3,
-                    "temps": 90,
+                    "temps": 60,
                     "isInteractif": true
                   },
                   {
                     "id": 4049,
-                    "slug": "4C22-2,s=1,n=3",
+                    "slug": "4C22-2,s=1,n=2",
                     "score": 10,
-                    "temps": 300,
+                    "temps": 200,
                     "isInteractif": true
                   },
                   {
                     "id": 4050,
-                    "slug": "4C22-2,s=2,n=3",
+                    "slug": "4C22-2,s=2,n=2",
                     "score": 12,
-                    "temps": 360,
+                    "temps": 240,
                     "isInteractif": true
                   }
                 ]
