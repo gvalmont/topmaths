@@ -164,6 +164,12 @@
                 "videos": [
                   {
                     "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=46nTro76sFg&vignette=https://i.ytimg.com/vi/46nTro76sFg/hqdefault.jpg&debut=0&fin=210&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
+                    "titre": "",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=BlGaIqNz_pk&vignette=https://i.ytimg.com/vi/BlGaIqNz_pk/hqdefault.jpg&debut=0&fin=370&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
@@ -1267,7 +1273,13 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "",
+                    "titre": "Résumé",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=7CZrbIkWUc4&vignette=https://i.ytimg.com/vi/7CZrbIkWUc4/hqdefault.jpg&debut=0&fin=76&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
+                    "titre": "En détail",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=_QIj_-2EzJA&vignette=https://i.ytimg.com/vi/_QIj_-2EzJA/hqdefault.jpg&debut=0&fin=272&largeur=200&hauteur=113",
                     "auteur": "Maths&Methodes",
                     "lienAuteur": "https://www.youtube.com/channel/UCb9LSmnMAXQ6LtggV7pD_xw"
@@ -1376,7 +1388,13 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "",
+                    "titre": "Résumé",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=uSUkEi_Vqgk&vignette=https://i.ytimg.com/vi/uSUkEi_Vqgk/hqdefault.jpg&debut=0&fin=204&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
+                    "titre": "En détail",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=-RHuYaV5eSI&vignette=https://i.ytimg.com/vi/-RHuYaV5eSI/hqdefault.jpg&debut=0&fin=353&largeur=200&hauteur=113",
                     "auteur": "Mathrix",
                     "lienAuteur": "https://www.youtube.com/channel/UCdH4RLzP9UIxV299clvj1rg"
@@ -1760,6 +1778,12 @@
                 "rappelDuCoursHTML": "Pour décomposer un nombre en un produit de facteurs premiers, on le divise autant que possible par des nombres premiers",
                 "rappelDuCoursImage": "",
                 "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=46nTro76sFg&vignette=https://i.ytimg.com/vi/46nTro76sFg/hqdefault.jpg&debut=0&fin=210&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
                   {
                     "titre": "",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=RBE2wPIKagI&vignette=https://i.ytimg.com/vi/RBE2wPIKagI/hqdefault.jpg&debut=0&fin=541&largeur=200&hauteur=113",
