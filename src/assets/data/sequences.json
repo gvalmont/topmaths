@@ -625,6 +625,43 @@
             "slug": "6G25-3,s=1,s2=false,s3=7,n=1,cd=1&ex=5G12,s=1,s2=false,s3=7,n=1,cd=1"
           }
         ]
+      },
+      {
+        "reference": "S5S17",
+        "titre": "Parallélogrammes 1",
+        "objectifs": [
+          {
+            "reference": "5G40"
+          },
+          {
+            "reference": "5G42"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N13",
+            "titre": "Produire des fractions égales",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB6~o=0,1~q=0.-1.~p=~t=18~n=8",
+                "score": 3
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5N14",
+            "titre": "Comparer des fractions dont les dénominateurs sont égaux ou multiples l’un de l’autre",
+            "slug": "5N14,s=11,s2=false,n=2"
+          },
+          {
+            "reference": "5N14",
+            "titre": "Ranger des fractions dont les dénominateurs sont égaux ou multiples l’un de l’autre",
+            "slug": "5N14-2,s=false,n=1"
+          }
+        ]
       }
     ]
   },
