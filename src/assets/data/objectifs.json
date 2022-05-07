@@ -359,6 +359,92 @@
                     "isInteractif": false
                   }
                 ]
+              },
+              {
+                "reference": "5N20",
+                "titre": "Additionner ou soustraire des fractions dont les dénominateurs sont égaux ou multiples l’un de l’autre",
+                "rappelDuCoursHTML": "Pour additionner ou soustraire deux fractions :<br>- on commence par les mettre sur le même dénominateur ;<br>- puis on additionne ou on soustrait les numérateurs.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=TTLRP1Yd4Wk&vignette=https://i.ytimg.com/vi/TTLRP1Yd4Wk/hqdefault.jpg&debut=0&fin=184&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
+                    "titre": "En détail",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=lGShZVQlXMQ&vignette=https://i.ytimg.com/vi/lGShZVQlXMQ/hqdefault.jpg&debut=0&fin=393&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5080,
+                    "slug": "6C23,s=4,n=2",
+                    "score": 5,
+                    "temps": 100,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5076,
+                    "slug": "5N20,s=11,s2=3,s3=false,n=2",
+                    "score": 10,
+                    "temps": 200,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5076,
+                    "slug": "5N20,s=11,s2=3,s3=true,n=2",
+                    "score": 15,
+                    "temps": 300,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "5N21",
+                "titre": "Utiliser les nombres premiers pour simplifier des fractions",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Comment simplifier des fractions (rappel)",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=7vkgbr-7vws&vignette=https://i.ytimg.com/vi/7vkgbr-7vws/hqdefault.jpg&debut=0&fin=98&largeur=200&hauteur=113",
+                    "auteur": "Rapématiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
+                    "titre": "Nouvelle méthode (avec les nombres premiers)",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=HkqUaPYgwQM&vignette=https://i.ytimg.com/vi/HkqUaPYgwQM/hqdefault.jpg&debut=0&fin=335&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4051,
+                    "slug": "4C24,s=1,n=2",
+                    "score": 3,
+                    "temps": 60,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4052,
+                    "slug": "4C24,s=2,n=2",
+                    "score": 5,
+                    "temps": 100,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4053,
+                    "slug": "4C24,s=3,n=2",
+                    "score": 7,
+                    "temps": 140,
+                    "isInteractif": true
+                  }
+                ]
               }
             ]
           },
@@ -1273,7 +1359,7 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "Résumé",
+                    "titre": "Résumé musical",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=7CZrbIkWUc4&vignette=https://i.ytimg.com/vi/7CZrbIkWUc4/hqdefault.jpg&debut=0&fin=76&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
                     "auteur": "Rapémathiques",
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
@@ -1388,7 +1474,7 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "Résumé",
+                    "titre": "Résumé musical",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=uSUkEi_Vqgk&vignette=https://i.ytimg.com/vi/uSUkEi_Vqgk/hqdefault.jpg&debut=0&fin=204&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
                     "auteur": "Rapémathiques",
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
@@ -1429,7 +1515,7 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "Résumé",
+                    "titre": "Résumé musical",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=RfNRleqXUZs&vignette=https://i.ytimg.com/vi/RfNRleqXUZs/hqdefault.jpg&debut=0&fin=141&largeur=200&hauteur=113",
                     "auteur": "Rapémathiques",
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
@@ -1477,7 +1563,7 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "Résumé",
+                    "titre": "Résumé musical",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=RfNRleqXUZs&vignette=https://i.ytimg.com/vi/RfNRleqXUZs/hqdefault.jpg&debut=0&fin=141&largeur=200&hauteur=113",
                     "auteur": "Rapémathiques",
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
@@ -1520,7 +1606,7 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "Résumé",
+                    "titre": "Résumé musical",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=RfNRleqXUZs&vignette=https://i.ytimg.com/vi/RfNRleqXUZs/hqdefault.jpg&debut=0&fin=141&largeur=200&hauteur=113",
                     "auteur": "Rapémathiques",
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
@@ -1541,49 +1627,6 @@
                     "isInteractif": true
                   }
                 ]
-              },
-              {
-                "reference": "4C24",
-                "titre": "Utiliser les nombres premiers pour simplifier des fractions",
-                "rappelDuCoursHTML": "",
-                "rappelDuCoursImage": "",
-                "videos": [
-                  {
-                    "titre": "Comment simplifier des fractions (rappel)",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=7vkgbr-7vws&vignette=https://i.ytimg.com/vi/7vkgbr-7vws/hqdefault.jpg&debut=0&fin=98&largeur=200&hauteur=113",
-                    "auteur": "Rapématiques",
-                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
-                  },
-                  {
-                    "titre": "Nouvelle méthode (avec les nombres premiers)",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=HkqUaPYgwQM&vignette=https://i.ytimg.com/vi/HkqUaPYgwQM/hqdefault.jpg&debut=0&fin=335&largeur=200&hauteur=113",
-                    "auteur": "Yvan Monka",
-                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 4051,
-                    "slug": "4C24,s=1,n=2",
-                    "score": 3,
-                    "temps": 60,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 4052,
-                    "slug": "4C24,s=2,n=2",
-                    "score": 5,
-                    "temps": 100,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 4053,
-                    "slug": "4C24,s=3,n=2",
-                    "score": 7,
-                    "temps": 140,
-                    "isInteractif": true
-                  }
-                ]
               }
             ]
           },
@@ -1597,7 +1640,7 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "Résumé",
+                    "titre": "Résumé musical",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=pny7jmde0jc&vignette=https://i.ytimg.com/vi/pny7jmde0jc/hqdefault.jpg&debut=0&fin=193&largeur=200&hauteur=150",
                     "auteur": "Matich Fastich",
                     "lienAuteur": "https://www.youtube.com/channel/UCcPFyq0PJn0NHlreVBkyZsA"
@@ -2064,7 +2107,7 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "Résumé",
+                    "titre": "Résumé musical",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Y9lF-ReyeXU&vignette=https://i.ytimg.com/vi/Y9lF-ReyeXU/hqdefault.jpg&debut=0&fin=183&largeur=200&hauteur=113",
                     "auteur": "Rapématiques",
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
@@ -2366,7 +2409,7 @@
                 "rappelDuCoursImage": "4G20-RDC.png",
                 "videos": [
                   {
-                    "titre": "Résumé",
+                    "titre": "Résumé musical",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Jv__hIb6Zi4&vignette=https://i.ytimg.com/vi/Jv__hIb6Zi4/hqdefault.jpg&debut=0&fin=185&largeur=200&hauteur=113",
                     "auteur": "Rapématiques",
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
@@ -3713,7 +3756,7 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "Résumé",
+                    "titre": "Résumé musical",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=8uLVp6lEiEE&vignette=https://i.ytimg.com/vi/8uLVp6lEiEE/hqdefault.jpg&debut=0&fin=304&largeur=200&hauteur=113",
                     "auteur": "Grégory MALLET",
                     "lienAuteur": "https://www.youtube.com/channel/UCULtTY99QXqdYVidEksLx_g"
@@ -3741,7 +3784,7 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "Résumé",
+                    "titre": "Résumé musical",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=pxbelimaItQ&vignette=https://i.ytimg.com/vi/pxbelimaItQ/hqdefault.jpg&debut=0&fin=241&largeur=200&hauteur=113",
                     "auteur": "Paul Olivier",
                     "lienAuteur": "https://www.youtube.com/channel/UCp0jxeetANhaifijiK7nkoA"

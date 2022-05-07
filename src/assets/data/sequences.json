@@ -662,6 +662,43 @@
             "slug": "5N14-2,s=false,n=1"
           }
         ]
+      },
+      {
+        "reference": "S5S18",
+        "titre": "Fractions 3",
+        "objectifs": [
+          {
+            "reference": "5N20"
+          },
+          {
+            "reference": "5N21"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5L13",
+            "titre": "Réduire une expression littérale",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4",
+                "score": 4
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5G42",
+            "titre": "Connaître et utiliser les propriétés des parallélogrammes",
+            "slug": "5G40-2"
+          },
+          {
+            "reference": "5M10",
+            "titre": "Calculer l’aire des figures usuelles (carré, rectangle, triangle rectangle)",
+            "slug": "6M11"
+          }
+        ]
       }
     ]
   },
@@ -1099,7 +1136,7 @@
         "titre": "Fractions",
         "objectifs": [
           {
-            "reference": "4C24"
+            "reference": "5N21"
           },
           {
             "reference": "4C22-1"
