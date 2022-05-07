@@ -17,14 +17,6 @@
   max-height: 300px;
 }
 
-#modal-back, .modal-back {
-  position: fixed;
-  left: 20px;
-  top: 0px;
-  width: 30px;
-  z-index: 150;
-}
-
 #modal-copy, .modal-copy {
   position: fixed;
   right: 80px;

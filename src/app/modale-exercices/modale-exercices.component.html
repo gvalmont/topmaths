@@ -1,7 +1,4 @@
 <div id="modaleExercices" [ngClass]="{'centre cache has-background-white':true}">
-  <figure id="modal-back" class="is-clickable" (click)="boutonFermerModale()">
-    <img src='/assets/img/cc0/left-arrow-back-svgrepo-com.svg' />
-  </figure>
   <figure id="modal-copy" class="is-clickable" (click)="copierLien()">
     <img src="assets/img/cc0/copy-interface-symbol-svgrepo-com.svg" />
   </figure>
@@ -12,9 +9,6 @@
   </figure>
 </div>
 <div id="loading" class="centre pleinEcran has-background-white cache"><img class="is-inline-block" [src]="lienSpinner" />
-  <figure class='modal-back is-clickable' (click)="fermerModale(1)">
-    <img src='/assets/img/cc0/left-arrow-back-svgrepo-com.svg' />
-  </figure>
   <figure id="boutonCopierLoading" class="modal-copy is-clickable" (click)="copierLien()">
     <img src="assets/img/cc0/copy-interface-symbol-svgrepo-com.svg" />
   </figure>

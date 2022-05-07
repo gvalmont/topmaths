@@ -21,7 +21,6 @@ export class ModaleExercicesComponent implements OnInit {
   @Output() modaleFermee = new EventEmitter<number>();
   modale!: HTMLElement
   modaleUrl!: HTMLElement
-  boutonRetour!: HTMLElement
   boutonFermer!: HTMLElement
   boutonCopier!: HTMLElement
   boutonCopierLoading!: HTMLElement
@@ -288,8 +287,6 @@ export class ModaleExercicesComponent implements OnInit {
     if (element != null) this.modale = element
     element = document.getElementById("modaleExercicesUrl")
     if (element != null) this.modaleUrl = element
-    element = document.getElementById("modal-back")
-    if (element != null) this.boutonRetour = element
     element = document.getElementById("modal-copy")
     if (element != null) this.boutonCopier = element
     element = document.getElementById("modal-cross")
@@ -322,7 +319,6 @@ export class ModaleExercicesComponent implements OnInit {
     const type = this.get('type')
     if (!isDevMode()) this.displayLoadingScreen()
     if (type == '') {
-      this.boutonRetour.style.display = 'block'
       this.boutonCopier.style.display = 'block'
       this.boutonCopierLoading.style.display = 'block'
       this.set('coef', 1)
@@ -330,7 +326,6 @@ export class ModaleExercicesComponent implements OnInit {
       const url = this.get('listeDesUrl')[this.get('indiceExerciceActuel')]
       this.ajouteIframe(url)
     } else if (type == 'tranquille') {
-      this.boutonRetour.style.display = 'block'
       this.boutonCopier.style.display = 'none'
       this.boutonCopierLoading.style.display = 'none'
       this.set('coef', 2)
@@ -338,7 +333,6 @@ export class ModaleExercicesComponent implements OnInit {
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
       this.ajouteIframe(url)
     } else if (type == 'vitesse') {
-      this.boutonRetour.style.display = 'block'
       this.boutonCopier.style.display = 'none'
       this.boutonCopierLoading.style.display = 'none'
       this.set('coef', 5)
@@ -346,7 +340,6 @@ export class ModaleExercicesComponent implements OnInit {
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
       this.ajouteIframe(url)
     } else if (type == 'performance') {
-      this.boutonRetour.style.display = 'block'
       this.boutonCopier.style.display = 'none'
       this.boutonCopierLoading.style.display = 'none'
       this.set('coef', 1)
@@ -354,7 +347,6 @@ export class ModaleExercicesComponent implements OnInit {
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
       this.ajouteIframe(url)
     } else if (type == 'bestOf10' || type == 'battleRoyale') {
-      this.boutonRetour.style.display = 'none'
       this.boutonCopier.style.display = 'none'
       this.boutonCopierLoading.style.display = 'none'
       this.creeListeIndicesExercices()
@@ -410,11 +402,6 @@ export class ModaleExercicesComponent implements OnInit {
       case 'mathalea':
         this.lienSpinner = '/assets/img/cc0/orange-spinner.svg'
 
-        this.boutonRetour.style.left = '20px'
-        this.boutonRetour.style.right = ''
-        this.boutonRetour.style.top = '0px'
-        this.boutonRetour.style.width = '30px'
-
         this.boutonCopier.style.left = ''
         this.boutonCopier.style.right = '80px'
         this.boutonCopier.style.top = '35px'
@@ -427,11 +414,6 @@ export class ModaleExercicesComponent implements OnInit {
         break;
       case 'mathsmentales':
         this.lienSpinner = '/assets/img/cc0/blue-spinner.svg'
-
-        this.boutonRetour.style.left = '20px'
-        this.boutonRetour.style.right = ''
-        this.boutonRetour.style.top = '80px'
-        this.boutonRetour.style.width = '30px'
 
         this.boutonCopier.style.left = ''
         this.boutonCopier.style.right = '80px'
