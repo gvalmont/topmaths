@@ -388,14 +388,14 @@
                     "isInteractif": true
                   },
                   {
-                    "id": 5076,
+                    "id": 5081,
                     "slug": "5N20,s=11,s2=3,s3=false,n=2",
                     "score": 10,
                     "temps": 200,
                     "isInteractif": true
                   },
                   {
-                    "id": 5076,
+                    "id": 5082,
                     "slug": "5N20,s=11,s2=3,s3=true,n=2",
                     "score": 15,
                     "temps": 300,
@@ -424,21 +424,21 @@
                 ],
                 "exercices": [
                   {
-                    "id": 4051,
+                    "id": 5083,
                     "slug": "4C24,s=1,n=2",
                     "score": 3,
                     "temps": 60,
                     "isInteractif": true
                   },
                   {
-                    "id": 4052,
+                    "id": 5084,
                     "slug": "4C24,s=2,n=2",
                     "score": 5,
                     "temps": 100,
                     "isInteractif": true
                   },
                   {
-                    "id": 4053,
+                    "id": 5085,
                     "slug": "4C24,s=3,n=2",
                     "score": 7,
                     "temps": 140,
@@ -998,6 +998,104 @@
             "nom": "Périmètre et aire",
             "objectifs": [
               {
+                "reference": "5M10",
+                "titre": "Calculer l’aire des figures usuelles",
+                "rappelDuCoursHTML": "$\\mathcal{A}_{\\text{carré}}=c \\times c $ <br> $\\mathcal{A}_{\\text{rectangle}}=L \\times l $ <br> $ \\mathcal{A}_{\\text{triangle rectangle}}=a \\times b \\div 2 $ <br> $ \\mathcal{A}_{\\text{parallélogramme}}=base \\times hauteur $ <br> $ \\mathcal{A}_{\\text{disque}}= \\pi r^2$",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=EBxKL3W4oaA&vignette=https://i.ytimg.com/vi/EBxKL3W4oaA/hqdefault.jpg&debut=0&fin=359&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Maths Collège",
+                    "lienAuteur": "https://www.youtube.com/channel/UC7DMcuwXm48dk6l8nObI9vg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5086,
+                    "slug": "6M11",
+                    "score": 8,
+                    "temps": 240,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5087,
+                    "slug": "6M22-1,s=2,s2=true,n=1",
+                    "score": 12,
+                    "temps": 120,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5088,
+                    "slug": "6M20,n=2,cd=1",
+                    "score": 15,
+                    "temps": 150,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5089,
+                    "slug": "5M10,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "5M11",
+                "titre": "Calculer le périmètre et l’aire d’un assemblage de figures",
+                "rappelDuCoursHTML": "Le <b><i>périmètre</i></b> est la longueur du contour : pour le trouver on fait le tour de la figure en ajoutant toutes les longueurs.<br>L'<b><i>aire</i></b> est la mesure de la surface (à l'intérieur) : pour la trouver, on découpe la figure en figures dont on connaît la formule et on utilise les formules présentées dans <a href='#/objectif/5M10' title='Calculer l’aire des figures usuelles'>5M10</a><br><br><i>Remarque : Si on a besoin de calculer le périmètre d'une figure qui comporte des arcs de cercle, il faudra aussi connaître la formule qui sert à calculer le périmètre d'un cercle (qu'on appelle sa circonférence) qui est : $\\mathcal{P} =2 \\pi r$",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Périmètre 1",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=wNk5XKwEZDw&vignette=https://i.ytimg.com/vi/wNk5XKwEZDw/hqdefault.jpg&debut=0&fin=208&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Aire 1",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=bMSrZjOBwcA&vignette=https://i.ytimg.com/vi/bMSrZjOBwcA/hqdefault.jpg&debut=0&fin=558&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Périmètre 2",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=wm0pfj3U3LI&vignette=https://i.ytimg.com/vi/wm0pfj3U3LI/hqdefault.jpg&debut=0&fin=329&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Aire 2",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=BfOFFFCm5n4&vignette=https://i.ytimg.com/vi/BfOFFFCm5n4/hqdefault.jpg&debut=0&fin=401&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Aire 3",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=vof06TmPcQk&vignette=https://i.ytimg.com/vi/vof06TmPcQk/hqdefault.jpg&debut=0&fin=379&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5090,
+                    "slug": "6M22-2,s=3",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 5091,
+                    "slug": "6M11-2,n=1",
+                    "score": 15,
+                    "temps": 600,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
                 "reference": "5M12",
                 "titre": "Effectuer des conversions d’unités de longueurs",
                 "rappelDuCoursHTML": "Utilise le tableau ci-dessous ou fais-en un sur ta feuille pour t'aider à convertir !<br><iframe width='800px' height='350px' src='https://sesaprof.sesamath.net/doc/outils_tableaux/minified/unites_longueur.html'></iframe>",
@@ -1030,6 +1128,50 @@
                     "slug": "6M12,s=4,s2=true,n=2",
                     "score": 25,
                     "temps": 500,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "5M13",
+                "titre": "Effectuer des conversions d’unités d'aires",
+                "rappelDuCoursHTML": "Utilise le tableau ci-dessous ou fais-en un sur ta feuille pour t'aider à convertir !<br><iframe width='1000px' height='360px' src='https://sesaprof.sesamath.net/doc/outils_tableaux/minified/unites_aire_agraire.html'></iframe>",
+                "rappelDuCoursImage": "utiliser-convertisseur-de-longueurs.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=vZew5Ia03FY&vignette=https://i.ytimg.com/vi/vZew5Ia03FY/hqdefault.jpg&debut=0&fin=404&largeur=200&hauteur=150&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5092,
+                    "slug": "6M23,s=3,s2=false,s3=1,n=1",
+                    "score": 7,
+                    "temps": 70,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5093,
+                    "slug": "6M23,s=3,s2=true,s3=1,n=1",
+                    "score": 13,
+                    "temps": 130,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5094,
+                    "slug": "6M23,s=4,s2=true,s3=1,n=1",
+                    "score": 16,
+                    "temps": 160,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5095,
+                    "slug": "6M23,s=5,s2=true,s3=1,n=1",
+                    "score": 20,
+                    "temps": 200,
                     "isInteractif": true
                   }
                 ]

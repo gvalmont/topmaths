@@ -699,6 +699,56 @@
             "slug": "6M11"
           }
         ]
+      },
+      {
+        "reference": "S5S19",
+        "titre": "Aires",
+        "objectifs": [
+          {
+            "reference": "5M10"
+          },
+          {
+            "reference": "5M11"
+          },
+          {
+            "reference": "5M13"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N20",
+            "titre": "Additionner ou soustraire des fractions dont les dénominateurs sont multiples l’un de l’autre",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=30~n=2_i=5NC8~o=1~q=1.~p=~t=30~n=2",
+                "score": 6
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5N21",
+            "titre": "Utiliser la décomposition en facteurs premiers inférieurs à 30 pour produire des fractions égales (simplification ou mise au même dénominateur)",
+            "slug": "4C24,s=2,n=1"
+          },
+          {
+            "reference": "5G30-1",
+            "titre": "Reconnaître des angles alternes-internes et des angles correspondants",
+            "slug": "5G30-2,s=4,n=1"
+          },
+          {
+            "reference": "5G30-2",
+            "titre": "Utiliser des angles alternes-internes et des angles correspondants",
+            "slug": "5G30-2,s=3,n=1"
+          },
+          {
+            "reference": "5G30-2",
+            "titre": "Montrer que des droites sont parallèles",
+            "slug": "ex=5G30-2,s=2,n=1"
+          }
+        ]
       }
     ]
   },
