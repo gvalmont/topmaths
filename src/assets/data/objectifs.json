@@ -1557,7 +1557,7 @@
                 "exercices": [
                   {
                     "id": 5077,
-                    "slug": "5G40,s=5,cd=1",
+                    "slug": "5G40,s=5,n=3,cd=1",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
@@ -1579,15 +1579,15 @@
                 ],
                 "exercices": [
                   {
-                    "id": 5078,
-                    "slug": "5G40-2",
+                    "id": 5079,
+                    "slug": "5G40-1,n=4",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
                   },
                   {
-                    "id": 5079,
-                    "slug": "5G40-1",
+                    "id": 5078,
+                    "slug": "5G40-2,n=2",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
