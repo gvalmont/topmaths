@@ -1000,8 +1000,8 @@
               {
                 "reference": "5M10",
                 "titre": "Calculer l’aire des figures usuelles",
-                "rappelDuCoursHTML": "$\\mathcal{A}_{\\text{carré}}=c \\times c $ <br> $\\mathcal{A}_{\\text{rectangle}}=L \\times l $ <br> $ \\mathcal{A}_{\\text{triangle rectangle}}=a \\times b \\div 2 $ <br> $ \\mathcal{A}_{\\text{parallélogramme}}=base \\times hauteur $ <br> $ \\mathcal{A}_{\\text{disque}}= \\pi r^2$",
-                "rappelDuCoursImage": "",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "RDC_S5S19.png",
                 "videos": [
                   {
                     "titre": "",
