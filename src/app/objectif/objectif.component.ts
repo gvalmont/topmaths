@@ -146,7 +146,6 @@ export class ObjectifComponent implements OnInit {
       if (exercice.slug != '') {
         this.exercices.push({
           id: exercice.id,
-          couleur: '',
           slug: exercice.slug,
           lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&serie=&v=eval&z=1.5`,
           score: exercice.score,
@@ -159,25 +158,6 @@ export class ObjectifComponent implements OnInit {
         } else if (exercice.slug.slice(0, 4) == 'http') {
           this.exercices[this.exercices.length - 1].lien = exercice.slug
         }
-      }
-      // On ajoute la couleur selon le nombre d'exercices
-      this.exercices[this.exercices.length - 1].couleur = "Vert Foncé"
-      switch (this.exercices.length) {
-        case 1:
-          this.exercices[0].couleur = 'Vert Foncé'
-          break;
-        case 2:
-          this.exercices[0].couleur = 'Vert Clair'
-          this.exercices[1].couleur = 'Vert Foncé'
-          break;
-        case 3:
-          this.exercices[0].couleur = 'Jaune'
-          this.exercices[1].couleur = 'Vert Clair'
-          this.exercices[2].couleur = 'Vert Foncé'
-          break;
-
-        default:
-          break;
       }
     }
   }

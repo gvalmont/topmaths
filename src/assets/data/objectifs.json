@@ -706,13 +706,13 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "Niveau 1 - Vert Clair",
+                    "titre": "Niveau 1",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=ptMRvQozNv8&vignette=https://i.ytimg.com/vi/ptMRvQozNv8/hqdefault.jpg&debut=0&fin=238&largeur=200&hauteur=150",
                     "auteur": "jean-yves Labouche",
                     "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
                   },
                   {
-                    "titre": "Niveau 2 - Vert Foncé",
+                    "titre": "Niveau 2",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=9vGH_inS8aQ&vignette=https://i.ytimg.com/vi/9vGH_inS8aQ/hqdefault.jpg&debut=0&fin=494&largeur=200&hauteur=113",
                     "auteur": "MINUTESMATHS",
                     "lienAuteur": "https://www.youtube.com/channel/UCsD5NwzkIrKs-ySUmeSsEwg"
@@ -1310,13 +1310,13 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "Niveau 1 - Vert Clair",
+                    "titre": "Niveau 1",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=-7UGauYeTdk&vignette=https://i.ytimg.com/vi/-7UGauYeTdk/hqdefault.jpg&debut=0&fin=159&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
-                    "titre": "Niveau 2 - Vert Foncé",
+                    "titre": "Niveau 2",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=6mFBqacFzws&vignette=https://i.ytimg.com/vi/6mFBqacFzws/hqdefault.jpg&debut=0&fin=223&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
@@ -1663,19 +1663,19 @@
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
                   },
                   {
-                    "titre": "Niveau 1 - Jaune",
+                    "titre": "Niveau 1",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=j27kXXrw3Xk&vignette=https://i.ytimg.com/vi/j27kXXrw3Xk/hqdefault.jpg&debut=0&fin=297&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
-                    "titre": "Niveau 1 - Vert Clair",
+                    "titre": "Niveau 1",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=gReBtrld7xU&vignette=https://i.ytimg.com/vi/gReBtrld7xU/hqdefault.jpg&debut=0&fin=311&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
-                    "titre": "Niveau 2 - Vert Foncé",
+                    "titre": "Niveau 2",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=9nwZMLmoag8&vignette=https://i.ytimg.com/vi/9nwZMLmoag8/hqdefault.jpg&debut=0&fin=564&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
@@ -1788,13 +1788,13 @@
                     "lienAuteur": "https://www.youtube.com/channel/UCcPFyq0PJn0NHlreVBkyZsA"
                   },
                   {
-                    "titre": "Niveau 1 - Vert Clair",
+                    "titre": "Niveau 1",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=D5Fe9Fv6CqQ&vignette=https://i.ytimg.com/vi/D5Fe9Fv6CqQ/hqdefault.jpg&debut=0&fin=358&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
-                    "titre": "Niveau 2 - Vert Foncé",
+                    "titre": "Niveau 2",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=vRPOgw3Sfnk&vignette=https://i.ytimg.com/vi/vRPOgw3Sfnk/hqdefault.jpg&debut=0&fin=377&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
@@ -2557,19 +2557,19 @@
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
                   },
                   {
-                    "titre": "Niveau 1 - Jaune",
+                    "titre": "Niveau 1",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=h4sXOrqGhRE&vignette=https://i.ytimg.com/vi/h4sXOrqGhRE/hqdefault.jpg&debut=0&fin=237&largeur=200&hauteur=113",
                     "auteur": "*Mme Maths*",
                     "lienAuteur": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
                   },
                   {
-                    "titre": "Niveau 2 - Vert Clair",
+                    "titre": "Niveau 2",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=589aaCn3uIE&vignette=https://i.ytimg.com/vi/589aaCn3uIE/hqdefault.jpg&debut=0&fin=242&largeur=200&hauteur=113",
                     "auteur": "*Mme Maths*",
                     "lienAuteur": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
                   },
                   {
-                    "titre": "Niveau 3 - Vert Foncé",
+                    "titre": "Niveau 3",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=T04UI5tw3Ds&vignette=https://i.ytimg.com/vi/T04UI5tw3Ds/hqdefault.jpg&debut=0&fin=287&largeur=200&hauteur=113",
                     "auteur": "*Mme Maths*",
                     "lienAuteur": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"

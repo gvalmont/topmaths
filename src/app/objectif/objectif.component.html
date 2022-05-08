@@ -22,7 +22,7 @@
       <div *ngFor="let exercice of exercices; index as i">
         <h3 class="title is-4 is-inline-block">
           <a (click)="ouvrirModaleExercices(exercice.lien, 'Exercices')">
-            Niveau {{ i + 1 }} - {{ exercice.couleur }}
+            Exercices de niveau {{ i + 1 }}
             &nbsp;
             <i class='image is-24x24 is-inline-block'>
               <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
