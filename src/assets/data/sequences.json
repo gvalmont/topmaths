@@ -749,6 +749,45 @@
             "slug": "ex=5G30-2,s=2,n=1"
           }
         ]
+      },
+      {
+        "reference": "S5S20",
+        "titre": "Parallélogrammes 2",
+        "objectifs": [
+          {
+            "reference": "5G41"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5R22",
+            "titre": "Effectuer une somme algébrique",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
+                "score": 3
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5M13",
+            "titre": "Effectuer des conversions d’unités d’aires",
+            "slug": "6M23,s=3,s2=true,s3=1,n=1"
+          },
+          {
+            "reference": "5M10",
+            "titre": "Calculer l’aire d'un triangle",
+            "slug": "6M20,n=2,cd=1"
+          },
+          {
+            "reference": "5M10",
+            "titre": "Calculer l’aire d'un parallélogramme",
+            "slug": "5M10,n=1"
+          }
+        ]
       }
     ]
   },
