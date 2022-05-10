@@ -788,6 +788,40 @@
             "slug": "5M10,n=1"
           }
         ]
+      },
+      {
+        "reference": "S5S21",
+        "titre": "Ratios",
+        "objectifs": [
+          {
+            "reference": "5P12"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5L13",
+            "titre": "Réduire une expression littérale",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4",
+                "score": 4
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5N21",
+            "titre": "Utiliser la décomposition en facteurs premiers inférieurs à 30 pour produire des fractions égales",
+            "slug": "4C24,s=2,n=1"
+          },
+          {
+            "reference": "5G31",
+            "titre": "Connaître et utiliser la somme des angles d’un triangle",
+            "slug": "5G31,s=1,n=1,cd=1"
+          }
+        ]
       }
     ]
   },
