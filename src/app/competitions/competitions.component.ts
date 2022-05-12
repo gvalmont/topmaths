@@ -7,6 +7,7 @@ import { Niveau as NiveauObjectif } from 'src/app/services/objectifs';
 import { Niveau as NiveauSequence } from 'src/app/services/sequences';
 import { ApiService } from '../services/api.service';
 import { UserSimplifie } from '../services/user';
+import { estHeureEte } from '../services/outils';
 
 interface Reponse {
   reponse: string
@@ -779,8 +780,9 @@ export class CompetitionsComponent implements OnInit, OnDestroy {
         if (competition.url != null && competition.temps != null && competition.coef != null) {
           let dernierSignal = new Date(competition.dernierSignal);
           dernierSignal.setMinutes(dernierSignal.getMinutes() - dernierSignal.getTimezoneOffset() - 60); //Le serveur mysql semble être en UTC + 1
-          const dateFin = dernierSignal.getTime() + competition.temps * 1000
+          let dateFin = dernierSignal.getTime() + competition.temps * 1000
           const now = new Date()
+          if (estHeureEte()) dateFin -= 3600 * 1000
           const tempsRestant = Math.max(0, Math.floor(((dateFin - now.getTime()) / 1000)))
           const url = competition.url.split('&duree=')[0] + '&duree=' + tempsRestant.toString() + '&serie=' + competition.url.split('&serie=')[1]
           this.infosModale = [[url], competition.type, new Date(), [tempsRestant], competition.coef]

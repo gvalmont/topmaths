@@ -1,6 +1,7 @@
 import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Competition } from '../competitions.component';
+import { estHeureEte } from '../../services/outils';
 
 @Component({
   selector: 'app-competition-actuelle',
@@ -64,8 +65,9 @@ export class CompetitionActuelleComponent implements OnInit, OnDestroy {
     let dernierSignal = new Date(this.competitionActuelle.dernierSignal);
     dernierSignal.setMinutes(dernierSignal.getMinutes() - dernierSignal.getTimezoneOffset() - 60); //Le serveur mysql semble être en UTC + 1
 
-    const dateFin = dernierSignal.getTime() + this.competitionActuelle.temps * 1000 + 30 * 1000
-
+    let dateFin = dernierSignal.getTime() + this.competitionActuelle.temps * 1000 + 30 * 1000
+    if (estHeureEte()) dateFin -= 3600 * 1000
+    
     const now = new Date()
     this.tempsRestant = Math.max(0, Math.floor(((dateFin - now.getTime()) / 1000))).toString()
   }

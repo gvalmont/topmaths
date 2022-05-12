@@ -71,7 +71,7 @@ export class TimeguardGuard implements CanActivate {
     const heureFinMercredi = 12
     const date = new Date()
     const jourActuel = date.getDay()
-    const heureActuelle = date.getHours() + date.getMinutes()/60
+    const heureActuelle = date.getHours() + date.getMinutes() / 60
     if ((jourActuel === 1 || jourActuel === 2 || jourActuel === 4 || jourActuel === 5) && (heureDebutLundiMardiJeudiVendredi < heureActuelle && heureActuelle < heureFinLundiMardiJeudiVendredi)) {
       return true
     } else if ((jourActuel === 3) && (heureDebutMercredi < heureActuelle && heureActuelle < heureFinMercredi)) {
@@ -80,7 +80,7 @@ export class TimeguardGuard implements CanActivate {
       return false
     }
   }
-  
+
   vacances: Vacance[] = [
     {
       annee: 2022,
