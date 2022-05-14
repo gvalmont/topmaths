@@ -603,7 +603,7 @@
         "calculsMentaux": [
           {
             "reference": "5A12",
-            "titre": "Utiliser les critères de divisibilité",
+            "titre": "Déterminer les nombres premiers inférieurs ou égaux à 30",
             "niveaux": [
               {
                 "commentaire": "",
@@ -892,6 +892,43 @@
           {
             "reference": "5N21",
             "titre": "Simplifier des fractions à l'aide de la décomposition en produit de facteurs premiers",
+            "slug": "4C24,s=2,n=1"
+          }
+        ]
+      },
+      {
+        "reference": "S5S24",
+        "titre": "Calcul littéral 3",
+        "objectifs": [
+          {
+            "reference": "5L14"
+          },
+          {
+            "reference": "5L15"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5A12",
+            "titre": "Déterminer les nombres premiers inférieurs ou égaux à 30",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=18~n=8",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5M13",
+            "titre": "Effectuer des conversions d’unités d’aires",
+            "slug": "6M23,s=3,s2=true,s3=1,n=1"
+          },
+          {
+            "reference": "5S14",
+            "titre": "Calculer et interpréter la moyenne d’une série de données",
             "slug": "4C24,s=2,n=1"
           }
         ]

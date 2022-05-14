@@ -703,6 +703,93 @@
                 ]
               },
               {
+                "reference": "5L14",
+                "titre": "Calculer la valeur d’une expression littérale",
+                "rappelDuCoursHTML": "Pour calculer la valeur d'une expression littérale, on commence par la recopier en remplaçant les lettres par les valeurs données dans l'énoncé puis on calcule.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=8S1LMsmz7Mo&vignette=https://i.ytimg.com/vi/8S1LMsmz7Mo/hqdefault.jpg&debut=0&fin=208&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "*Mme Maths*",
+                    "lienAuteur": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
+                  },
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=8cBU3mKvTcY&vignette=https://i.ytimg.com/vi/8cBU3mKvTcY/hqdefault.jpg&debut=0&fin=352&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Maths&Methodes",
+                    "lienAuteur": "https://www.youtube.com/channel/UCb9LSmnMAXQ6LtggV7pD_xw"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5104,
+                    "slug": "5L14-5,n=2",
+                    "score": 8,
+                    "temps": 160,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5105,
+                    "slug": "5L14-2,s=1,n=2",
+                    "score": 10,
+                    "temps": 200,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5106,
+                    "slug": "5L14,n=2",
+                    "score": 15,
+                    "temps": 300,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "5L15",
+                "titre": "Tester une égalité",
+                "rappelDuCoursHTML": "Pour tester une égalité :<br>- on calcule la valeur du <i>membre de gauche</i> en remplaçant la lettre par la valeur donnée dans l'énoncé ;<br>- on calcule la valeur du <i>membre de droite</i> en remplaçant la lettre par la valeur donnée dans l'énoncé ;<br>- si on obtient le même résultat, l'égalité est vraie ; sinon, elle est fausse.<br><br><p class='is-size-6'><i>membre de gauche</i> = tout ce qui est à gauche du signe égal<br><i>membre de droite</i> = tout ce qui est à droite du signe égal.</p><p class='is-size-6 has-text-danger'>Attention à bien séparer les calculs du membre de gauche des calculs du membre de droite !</p>",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=l00ve_5RCX4&vignette=https://i.ytimg.com/vi/l00ve_5RCX4/hqdefault.jpg&debut=0&fin=325&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "*Mme Maths*",
+                    "lienAuteur": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5107,
+                    "slug": "5L15,s=1,s2=false,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 5108,
+                    "slug": "5L15,s=2,s2=false,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 5109,
+                    "slug": "5L15,s=1,s2=true,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 5110,
+                    "slug": "5L15,s=2,s2=true,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
                 "reference": "5L16",
                 "titre": "Simplifier l’écriture d’une expression littérale",
                 "rappelDuCoursHTML": "On n'est pas obligé d'écrire le $\\times$ lorsqu'il est devant une lettre ou une parenthèse :<br> $3 \\times x = 3x$ <br> $7 \\times (2 + x) = 7(2 + x)$ <br> Mais $x \\times 5 \\not = x5$ parce que le $\\times$ est devant un chiffre (pas une lettre ni une parenthèse).<br>De plus : <br> $a^2 = a \\times a$ <br> $a^3 = a \\times a \\times a$",
