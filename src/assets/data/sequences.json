@@ -932,6 +932,48 @@
             "slug": "4C24,s=2,n=1"
           }
         ]
+      },
+      {
+        "reference": "S5S25",
+        "titre": "Durées, horaires",
+        "objectifs": [
+          {
+            "reference": "5M30"
+          },
+          {
+            "reference": "5M31"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5R22",
+            "titre": "Effectuer une somme algébrique",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
+                "score": 3
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5L15",
+            "titre": "Tester une égalité",
+            "slug": "5L15,s=1,s2=false,n=1"
+          },
+          {
+            "reference": "5P12",
+            "titre": "Partager une quantité en deux parts selon un ratio donné",
+            "slug": "5P12,s=1,n=1,cd=1"
+          },
+          {
+            "reference": "5P12",
+            "titre": "Partager une quantité en trois parts selon un ratio donné",
+            "slug": "5P12,s=2,n=1,cd=1"
+          }
+        ]
       }
     ]
   },

@@ -1351,6 +1351,71 @@
                 ]
               }
             ]
+          },
+          {
+            "nom": "Durées",
+            "objectifs": [
+              {
+                "reference": "5M30",
+                "titre": "Convertir des durées",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "5M30-RDC.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=9IIcLRhI-Qs&vignette=https://i.ytimg.com/vi/9IIcLRhI-Qs/hqdefault.jpg&debut=0&fin=283&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "jaicompris Maths",
+                    "lienAuteur": "https://www.youtube.com/channel/UCo-O74A4qVz6nq5cfCIee6w"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5111,
+                    "slug": "6D10,s=1,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 5112,
+                    "slug": "6D13,s=3,n=2,cd=1",
+                    "score": 12,
+                    "temps": 240,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "5M31",
+                "titre": "Effectuer des calculs de durées et d’horaires",
+                "rappelDuCoursHTML": "Pour calculer des durées ou des horaires on fait attention à calculer les minutes avec les minutes et les heures avec les heures.<br>S'il y a un souci, on peut utiliser le fait que 60 min = 1 h :<br>- si le résultat d'une addition dépasse les 60 minutes, on enlève 60 min et on rajoute 1h ;<br>- si on veut faire une soustraction mais qu'on n'a pas assez de minutes, on ajoute 60 min et on enlève 1h.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=frnQXnbL6yo&vignette=https://i.ytimg.com/vi/frnQXnbL6yo/hqdefault.jpg&debut=0&fin=299&largeur=200&hauteur=150&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5113,
+                    "slug": "6D11,s=1,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 5114,
+                    "slug": "6D12,s=4,n=3",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
