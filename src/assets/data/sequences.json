@@ -861,6 +861,40 @@
             "slug": "5N11-4,s=2,n=1"
           }
         ]
+      },
+      {
+        "reference": "S5S23",
+        "titre": "Moyennes",
+        "objectifs": [
+          {
+            "reference": "5S14"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5L13",
+            "titre": "Réduire une expression littérale",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4",
+                "score": 4
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5L10",
+            "titre": "Produire une expression littérale pour traduire un programme de calcul",
+            "slug": "5L10-2,s=false,n=1"
+          },
+          {
+            "reference": "5N21",
+            "titre": "Simplifier des fractions à l'aide de la décomposition en produit de facteurs premiers",
+            "slug": "4C24,s=2,n=1"
+          }
+        ]
       }
     ]
   },
