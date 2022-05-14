@@ -974,6 +974,48 @@
             "slug": "5P12,s=2,n=1,cd=1"
           }
         ]
+      },
+      {
+        "reference": "S5S26",
+        "titre": "Probabilités",
+        "objectifs": [
+          {
+            "reference": "5S20"
+          },
+          {
+            "reference": "5S21"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5L13",
+            "titre": "Réduire une expression littérale",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4",
+                "score": 4
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5G50",
+            "titre": "Reconnaître des solides (pavé droit, cube, cylindre, prisme droit, pyramide, cône, boule) à partir d’un objet réel, d’une image, d’une représentation en perspective cavalière",
+            "slug": ""
+          },
+          {
+            "reference": "5M10",
+            "titre": "Calculer l'aire d'un triangle quelconque",
+            "slug": "6M20,n=2,cd=1"
+          },
+          {
+            "reference": "5M10",
+            "titre": "Calculer l'aire d'un parallélogramme",
+            "slug": "5M10,n=1"
+          }
+        ]
       }
     ]
   },

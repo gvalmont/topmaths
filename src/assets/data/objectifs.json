@@ -1162,6 +1162,57 @@
                 ]
               }
             ]
+          },
+          {
+            "nom": "Probabilités",
+            "objectifs": [
+              {
+                "reference": "5S20",
+                "titre": "Placer un événement sur une échelle de probabilités",
+                "rappelDuCoursHTML": "Pour dire à quel point on estime qu'un phénomène a des chances de se produire ou pas on peut les placer sur ce qu'on appelle une échelle de probabilité.<br>Tout à gauche il y a les phénomènes qu'on pense impossibles et tout à droite les phénomènes dont on pense qu'ils vont se réaliser à coup sûr (on dit qu'ils sont certains) avec un dégradé entre les deux.",
+                "rappelDuCoursImage": "Echelle-de-probabilite.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=und3LhXPAPQ&vignette=https://i.ytimg.com/vi/und3LhXPAPQ/hqdefault.jpg&debut=0&fin=44&largeur=200&hauteur=150&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Toussaint Jean-Charles",
+                    "lienAuteur": "https://www.youtube.com/channel/UC8JZjfitt39IiBLKdRm4xKw"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5115,
+                    "slug": "5S20,s=true",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "5S21",
+                "titre": "Calculer des probabilités dans des situations simples d’équiprobabilité",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=XTlxQPG5ehc&vignette=https://i.ytimg.com/vi/XTlxQPG5ehc/hqdefault.jpg&debut=0&fin=479&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5116,
+                    "slug": "5S21,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
