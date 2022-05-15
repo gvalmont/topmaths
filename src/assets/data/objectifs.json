@@ -1404,6 +1404,143 @@
             ]
           },
           {
+            "nom": "Volumes",
+            "objectifs": [
+              {
+                "reference": "5M20",
+                "titre": "Calculer le volume d’un pavé droit, d’un prisme droit, d’un cylindre",
+                "rappelDuCoursHTML": "$\\mathcal{V}_{\\text{pavé droit}} = L \\times l \\times h$ <br> $\\mathcal{V}_{\\text{prisme}} = \\mathcal{A}_{\\text{base}} \\times h$ <br> $\\mathcal{V}_{\\text{cylindre}} = \\mathcal{A}_{\\text{base}} \\times h = \\pi r^2 h$",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Volume d'un pavé droit",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=JqS7YBLtksw&vignette=https://i.ytimg.com/vi/JqS7YBLtksw/hqdefault.jpg&debut=0&fin=303&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Volume d'un prisme",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=lsAWODx566E&vignette=https://i.ytimg.com/vi/lsAWODx566E/hqdefault.jpg&debut=0&fin=423&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Volume d'un cylindre",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=eJ8BSaTIpYU&vignette=https://i.ytimg.com/vi/eJ8BSaTIpYU/hqdefault.jpg&debut=0&fin=287&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5118,
+                    "slug": "5M20,s=1,s3=2,s4=8,n=4",
+                    "score": 30,
+                    "temps": 1200,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5119,
+                    "slug": "5M20,s=2,s3=2,s4=8,n=4",
+                    "score": 35,
+                    "temps": 1400,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "5M21",
+                "titre": "Calculer le volume d’un assemblage de pavés, prismes et/ou cylindres",
+                "rappelDuCoursHTML": "Pour calculer le volume d'un solide quelconque, on le découpe en solides dont on connaît la formule.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=eL0be1Bu6EI&vignette=https://i.ytimg.com/vi/eL0be1Bu6EI/hqdefault.jpg&debut=0&fin=125&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "M. MULLER",
+                    "lienAuteur": "https://www.youtube.com/channel/UCReQr9ZV7z1DAsI3bAQgMbQ"
+                  }
+                ],
+                "exercices": [
+                ]
+              },
+              {
+                "reference": "5M22",
+                "titre": "Convertir des unités de volumes",
+                "rappelDuCoursHTML": "Utilise le tableau ci-dessous ou fais-en un sur ta feuille pour t'aider à convertir !<br><iframe width='1100px' height='340px' src='https://sesaprof.sesamath.net/doc/outils_tableaux/minified/unites_volume.html'></iframe>",
+                "rappelDuCoursImage": "utiliser-convertisseur-de-longueurs.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=WYY360nR14A&vignette=https://i.ytimg.com/vi/WYY360nR14A/hqdefault.jpg&debut=0&fin=470&largeur=200&hauteur=150&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5120,
+                    "slug": "6M31,s=1,s2=false,s3=2,n=2",
+                    "score": 10,
+                    "temps": 200,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5121,
+                    "slug": "6M31,s=1,s2=true,s3=2,n=2",
+                    "score": 15,
+                    "temps": 300,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5122,
+                    "slug": "6M31,s=2,s2=true,s3=2,n=2",
+                    "score": 20,
+                    "temps": 400,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5123,
+                    "slug": "6M31,s=4,s2=true,s3=2,n=2",
+                    "score": 25,
+                    "temps": 500,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "5M23",
+                "titre": "Convertir des unités de volumes et de contenances",
+                "rappelDuCoursHTML": "Utilise le tableau ci-dessous ou fais-en un sur ta feuille pour t'aider à convertir !<br><iframe width='1200px' height='360px' src='https://sesaprof.sesamath.net/doc/outils_tableaux/minified/unites_volume_capacite.html'></iframe>",
+                "rappelDuCoursImage": "utiliser-convertisseur-de-longueurs.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=WYY360nR14A&vignette=https://i.ytimg.com/vi/WYY360nR14A/hqdefault.jpg&debut=0&fin=470&largeur=200&hauteur=150&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5124,
+                    "slug": "6M31-2,s=3,s2=false,n=2",
+                    "score": 10,
+                    "temps": 200,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5125,
+                    "slug": "6M31-2,s=3,s2=true,n=2",
+                    "score": 12,
+                    "temps": 240,
+                    "isInteractif": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "nom": "Durées",
             "objectifs": [
               {

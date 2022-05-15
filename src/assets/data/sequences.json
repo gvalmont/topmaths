@@ -1053,6 +1053,54 @@
             "slug": "6M31,s=1,s2=false,s3=1,n=1,i=1"
           }
         ]
+      },
+      {
+        "reference": "S5S28",
+        "titre": "Volumes",
+        "objectifs": [
+          {
+            "reference": "5M22"
+          },
+          {
+            "reference": "5M23"
+          },
+          {
+            "reference": "5M20"
+          },
+          {
+            "reference": "5M21"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5L13",
+            "titre": "Réduire une expression littérale",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4",
+                "score": 4
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5S14",
+            "titre": "Calculer et interpréter la moyenne d’une série de données",
+            "slug": "5S14,s=1,n=1&ex=5S14,s=3,n=1"
+          },
+          {
+            "reference": "5M30",
+            "titre": "Effectuer des conversions d’unités de durées - Niveau 1",
+            "slug": "6D10,s=1,n=2"
+          },
+          {
+            "reference": "5M30",
+            "titre": "Effectuer des conversions d’unités de durées - Niveau 2",
+            "slug": "6D13,s=3,n=2,cd=1"
+          }
+        ]
       }
     ]
   },
