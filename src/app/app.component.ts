@@ -5,6 +5,7 @@ import { ApiService } from './services/api.service';
 import { GlobalConstants } from './services/global-constants';
 import { Title } from '@angular/platform-browser';
 import { filter, map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
   modaleInformationsCompetitions!: HTMLElement
   title: string
 
-  constructor(private router: Router, public dataService: ApiService, private activatedRoute: ActivatedRoute, private titleService: Title) {
+  constructor(private http: HttpClient, private router: Router, public dataService: ApiService, private activatedRoute: ActivatedRoute, private titleService: Title) {
     this.redirectionHTTPS()
     this.title = 'topmaths.fr - les maths au TOP !'
     this.dataService.set('CompetitionorganisationEnCours', false)
@@ -38,6 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.ecouteMessagesPost()
     const modale = document.getElementById('modaleInformationsCompetitions')
     if (modale != null) this.modaleInformationsCompetitions = modale
+    this.chargeLesDonnees()
   }
 
   ngOnDestroy() {
@@ -81,6 +83,14 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       })
     }
+  }
+
+  /**
+   * Lance le téléchargement de sequences.json et de objectifs.json pour les mettre en cache
+   */
+  chargeLesDonnees() {
+    this.http.get('assets/data/objectifs.json').subscribe()
+    this.http.get('assets/data/sequences.json').subscribe()
   }
 
   /**
