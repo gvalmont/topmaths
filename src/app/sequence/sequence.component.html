@@ -61,12 +61,24 @@
         </div>
       </div>
       <div class="pt-5 pb-1">
-        <a (click)="ouvrirModaleExercices(lienQuestionsFlash, 'questionsFlash')">S'entraîner pour les Questions Flash</a>
+        <a (click)="ouvrirModaleExercices(lienQuestionsFlash, 'questionsFlash')" class="is-size-5">S'entraîner pour les Questions Flash
+          &nbsp;
+          <i class='image is-24x24 is-inline-block'>
+            <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
+          </i>
+        </a>
       </div>
     </div>
     <div id="divEvaluation" [class]="'is-fin pb-5 is-' + niveau">
       <h2 id="Evaluation" [class]="'subtitle is-3 is-' + niveau">Évaluation</h2>
-      <a (click)="ouvrirModaleExercices(lienEval, 'Evaluation')">S'entraîner pour l'évaluation</a>
+      <br>
+      <a (click)="ouvrirModaleExercices(lienEval, 'Evaluation')" class="is-size-5">
+        S'entraîner pour l'évaluation
+        &nbsp;
+        <i class='image is-24x24 is-inline-block'>
+          <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
+        </i>
+      </a>
     </div>
     <div id="divTelechargements" [class]="'pb-5 cache is-fin is-' + niveau">
       <h2 [class]="'subtitle is-3 is-' + niveau">Téléchargements</h2>
