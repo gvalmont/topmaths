@@ -72,7 +72,7 @@ export class SequenceComponent implements OnInit {
   /**
    * Scroll vers l'ancre de l'exercice qui a été cliqué pour ouvrir la modale exercices
    */
-   scrollBack(): void {
+  scrollBack(): void {
     this.viewportScroller.scrollToAnchor(this.ancre)
   }
 
@@ -304,8 +304,8 @@ export class SequenceComponent implements OnInit {
    * @param lien
    * @param ancre
    */
-   ouvrirModaleExercices(lien: string | undefined, ancre: string) {
-    if (typeof(lien) != 'undefined') {
+  ouvrirModaleExercices(lien: string | undefined, ancre: string) {
+    if (typeof (lien) != 'undefined') {
       this.infosModale = [[lien], '', new Date(), []]
       this.ancre = ancre
     }
@@ -321,7 +321,7 @@ export class SequenceComponent implements OnInit {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        let divId = '', description
+        let divId = '', description, lienIcone = '/assets/img/cc0/pdf-file-format-symbol-svgrepo-com.svg'
         switch (type) {
           case 'cours':
             divId = 'lienCours'
@@ -338,11 +338,24 @@ export class SequenceComponent implements OnInit {
           case 'anki':
             divId = 'lienAnki'
             description = 'le paquet Anki de la séquence'
+            lienIcone = ''
             break
         }
         const div = document.getElementById(divId)
         if (div != null) {
-          div.innerHTML = `<a href=${urlToFile}>Télécharger ${description}</a>`
+          let texte = `<a href=${urlToFile}>
+          Télécharger ${description}`
+          if (lienIcone !== '') {
+            texte += `
+            &nbsp;
+            <i class='image is-24x24 is-inline-block'>
+              <img src='${lienIcone}' />
+            </i>
+          </a>`
+          } else {
+            texte += '</a>'
+          }
+          div.innerHTML = texte
           div.style.display = 'block'
         }
         const divTelechargements = document.getElementById('divTelechargements')
