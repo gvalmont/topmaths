@@ -34,6 +34,7 @@ import { ModulesComponent } from './modules/modules.component';
 import { ModuleComponent } from './module/module.component';
 import { MathadorComponent } from './outils/mathador/mathador.component';
 import { OutilsComponent } from './outils/outils.component';
+import { BoutonImprimerComponent } from './mini-components/bouton-imprimer/bouton-imprimer.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { OutilsComponent } from './outils/outils.component';
     ModulesComponent,
     ModuleComponent,
     MathadorComponent,
-    OutilsComponent
+    OutilsComponent,
+    BoutonImprimerComponent
   ],
   imports: [
     BrowserModule,

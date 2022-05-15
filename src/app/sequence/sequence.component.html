@@ -67,6 +67,8 @@
             <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
           </i>
         </a>
+        &nbsp;
+        <app-bouton-imprimer [lien]="lienQuestionsFlash"></app-bouton-imprimer>
       </div>
     </div>
     <div id="divEvaluation" [class]="'is-fin pb-5 is-' + niveau">
@@ -79,6 +81,8 @@
           <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
         </i>
       </a>
+      &nbsp;
+      <app-bouton-imprimer [lien]="lienEval"></app-bouton-imprimer>
     </div>
     <div id="divTelechargements" [class]="'pb-5 cache is-fin is-' + niveau">
       <h2 [class]="'subtitle is-3 is-' + niveau">Téléchargements</h2>
