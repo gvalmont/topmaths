@@ -1908,6 +1908,74 @@
                 ]
               }
             ]
+          },
+          {
+            "nom": "Espace",
+            "objectifs": [
+              {
+                "reference": "5G50",
+                "titre": "Reconnaître des solides à partir d’un objet réel, d’une image, d’une représentation en perspective cavalière",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "Solides-usuels.png",
+                "videos": [
+                  {
+                    "titre": "Présentation des solides",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=SYBogG4e43E&vignette=https://i.ytimg.com/vi/SYBogG4e43E/hqdefault.jpg&debut=0&fin=257&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Loïc Cadoret",
+                    "lienAuteur": "https://www.youtube.com/channel/UCDsagbCc_MHFdJZLDwsjwzA"
+                  },
+                  {
+                    "titre": "Vue en 3D",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=muK4M7_ej58&vignette=https://i.ytimg.com/vi/muK4M7_ej58/hqdefault.jpg&debut=0&fin=232&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Le prof de maths sciences",
+                    "lienAuteur": "https://www.youtube.com/channel/UCfRhflEKujHRHkYVkX4ZGBg"
+                  }
+                ],
+                "exercices": [
+                ]
+              },
+              {
+                "reference": "5G51",
+                "titre": "Construire et mettre en relation une représentation en perspective cavalière et un patron d’un pavé droit et d’un cylindre",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Représenter un pavé droit en perspective cavalière",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=RNWuANuhRig&vignette=https://i.ytimg.com/vi/RNWuANuhRig/hqdefault.jpg&debut=0&fin=262&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Maths et Jeux",
+                    "lienAuteur": "https://www.youtube.com/channel/UCj5z973uER7e6ppaAEvYMHQ"
+                  },
+                  {
+                    "titre": "Représenter un cylindre en perspective cavalière",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=7MVNeG-UpiI&vignette=https://i.ytimg.com/vi/7MVNeG-UpiI/hqdefault.jpg&debut=0&fin=107&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Maths et Jeux",
+                    "lienAuteur": "https://www.youtube.com/channel/UCj5z973uER7e6ppaAEvYMHQ"
+                  },
+                  {
+                    "titre": "Construire un patron d'un pavé droit",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=WhwYCIcA220&vignette=https://i.ytimg.com/vi/WhwYCIcA220/hqdefault.jpg&debut=0&fin=751&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Construire un patron d'un cylindre",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=oRIISSBmdoI&vignette=https://i.ytimg.com/vi/oRIISSBmdoI/hqdefault.jpg&debut=0&fin=563&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5117,
+                    "slug": "6G41,s=2,s2=1,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              }
+            ]
           }
         ]
       }

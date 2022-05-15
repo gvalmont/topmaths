@@ -1016,6 +1016,43 @@
             "slug": "5M10,n=1"
           }
         ]
+      },
+      {
+        "reference": "S5S27",
+        "titre": "Solides",
+        "objectifs": [
+          {
+            "reference": "5G50"
+          },
+          {
+            "reference": "5G51"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5A11",
+            "titre": "Utiliser les critères de divisibilité",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND2~o=~q=~p=~t=20~n=8",
+                "score": 3
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5S21",
+            "titre": "Calculer des probabilités dans des situations simples d’équiprobabilité",
+            "slug": "5S21,n=1"
+          },
+          {
+            "reference": "5M22",
+            "titre": "Effectuer des conversions d’unités de volumes",
+            "slug": "6M31,s=1,s2=false,s3=1,n=1,i=1"
+          }
+        ]
       }
     ]
   },
