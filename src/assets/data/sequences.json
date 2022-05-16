@@ -730,7 +730,7 @@
         "questionsFlash": [
           {
             "reference": "5N21",
-            "titre": "Utiliser la décomposition en facteurs premiers inférieurs à 30 pour produire des fractions égales (simplification ou mise au même dénominateur)",
+            "titre": "Simplifier des fractions à l'aide de la décomposition en produit de facteurs premiers",
             "slug": "4C24,s=2,n=1"
           },
           {
@@ -813,7 +813,7 @@
         "questionsFlash": [
           {
             "reference": "5N21",
-            "titre": "Utiliser la décomposition en facteurs premiers inférieurs à 30 pour produire des fractions égales",
+            "titre": "Simplifier des fractions à l'aide de la décomposition en produit de facteurs premiers",
             "slug": "4C24,s=2,n=1"
           },
           {
@@ -929,7 +929,12 @@
           {
             "reference": "5S14",
             "titre": "Calculer et interpréter la moyenne d’une série de données",
-            "slug": "4C24,s=2,n=1"
+            "slug": "5S14,s=1,n=1"
+          },
+          {
+            "reference": "5S14",
+            "titre": "Calculer et interpréter la moyenne d’une série de données",
+            "slug": "ex=5S14,s=3,n=1"
           }
         ]
       },
@@ -1088,7 +1093,12 @@
           {
             "reference": "5S14",
             "titre": "Calculer et interpréter la moyenne d’une série de données",
-            "slug": "5S14,s=1,n=1&ex=5S14,s=3,n=1"
+            "slug": "5S14,s=1,n=1"
+          },
+          {
+            "reference": "5S14",
+            "titre": "Calculer et interpréter la moyenne d’une série de données",
+            "slug": "ex=5S14,s=3,n=1"
           },
           {
             "reference": "5M30",
@@ -1214,7 +1224,12 @@
           {
             "reference": "5S14",
             "titre": "Calculer et interpréter la moyenne d’une série de données",
-            "slug": "5S14,s=1,n=1&ex=5S14,s=3,n=1"
+            "slug": "5S14,s=1,n=1"
+          },
+          {
+            "reference": "5S14",
+            "titre": "Calculer et interpréter la moyenne d’une série de données",
+            "slug": "ex=5S14,s=3,n=1"
           },
           {
             "reference": "4S11",
@@ -1709,6 +1724,40 @@
             "slug": "4L13-1,s=1,n=1"
           }
         ]
+      },
+      {
+        "reference": "S4S15",
+        "titre": "Théorème de Thalès",
+        "objectifs": [
+          {
+            "reference": "4G30"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4L11",
+            "titre": "Utiliser la propriété de distributivité simple pour factoriser une somme",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4",
+                "score": 10
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4P15",
+            "titre": "Utiliser un rapport d’agrandissement ou de réduction pour calculer, des longueurs, des aires, des volumes",
+            "slug": "can3G01,n=2"
+          },
+          {
+            "reference": "5N21",
+            "titre": "Simplifier des fractions à l'aide de la décomposition en produit de facteurs premiers",
+            "slug": "4C24,s=2,n=1"
+          }
+        ]
       }
     ]
   },
@@ -1801,7 +1850,7 @@
         "titre": "Proportionnalité en géométrie 1",
         "objectifs": [
           {
-            "reference": "3G20"
+            "reference": "4G30"
           }
         ],
         "calculsMentaux": [
@@ -2042,7 +2091,7 @@
             "slug": "can2C10,n=1"
           },
           {
-            "reference": "3G20",
+            "reference": "4G30",
             "titre": "Calculer une longueur avec le théorème de Thalès",
             "slug": "3G20,s=2,n=1,video=j_zZOpLLl9k,cd=0"
           }
@@ -2222,7 +2271,7 @@
         ],
         "questionsFlash": [
           {
-            "reference": "3G20",
+            "reference": "4G30",
             "titre": "Calculer une longueur avec le théorème de Thalès",
             "slug": "3G20,s=2,n=1,video=j_zZOpLLl9k,cd=1"
           },
