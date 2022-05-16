@@ -2300,7 +2300,7 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "Résumé musical",
+                    "titre": "Résumé",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=pny7jmde0jc&vignette=https://i.ytimg.com/vi/pny7jmde0jc/hqdefault.jpg&debut=0&fin=193&largeur=200&hauteur=150",
                     "auteur": "Matich Fastich",
                     "lienAuteur": "https://www.youtube.com/channel/UCcPFyq0PJn0NHlreVBkyZsA"
@@ -2332,6 +2332,43 @@
                     "score": 15,
                     "temps": 600,
                     "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "4C31",
+                "titre": "Utiliser les préfixes de nano à tera",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "prefixes-nano-tera.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=jmK0DzJLL_M&vignette=https://i.ytimg.com/vi/jmK0DzJLL_M/hqdefault.jpg&debut=0&fin=437&largeur=200&hauteur=150&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4068,
+                    "slug": "4C30-4,s=1,n=3",
+                    "score": 5,
+                    "temps": 150,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4069,
+                    "slug": "4C30-4,s=2,n=3",
+                    "score": 6,
+                    "temps": 180,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4070,
+                    "slug": "4C32-2,n=10",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               },

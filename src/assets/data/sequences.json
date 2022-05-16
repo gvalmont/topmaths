@@ -1758,6 +1758,53 @@
             "slug": "4C24,s=2,n=1"
           }
         ]
+      },
+      {
+        "reference": "S4S16",
+        "titre": "Puissances 2",
+        "objectifs": [
+          {
+            "reference": "4C30"
+          },
+          {
+            "reference": "4C31"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4C23",
+            "titre": "Effectuer un calcul avec des nombres relatifs et fractionnaires",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4",
+                "score": 3
+              },
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
+                "score": 5
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G30",
+            "titre": "Calculer une longueur à l'aide du théorème de Thalès",
+            "slug": "can4G06,n=1"
+          },
+          {
+            "reference": "4G30",
+            "titre": "Calculer une longueur à l'aide du théorème de Thalès",
+            "slug": "can3G03,n=1"
+          },
+          {
+            "reference": "4L20",
+            "titre": "Simplifier des fractions à l'aide de la décomposition en produit de facteurs premiers",
+            "slug": "4C24,s=2,n=1"
+          }
+        ]
       }
     ]
   },
