@@ -13,9 +13,9 @@
     </div>
     <div [class]="'is-' + niveau" *ngIf="calculsMentaux[0] != null && calculsMentaux[0].reference != ''; else divPasDeCalculMental">
       <h2 id="calculMental" [class]="'subtitle is-3 is-' + niveau">Calcul Mental</h2>
-      <div *ngIf="presenceCalculMental" class='pb-5'>
-        <div *ngFor="let calculMental of calculsMentaux; index as i">
-          <p>Dans cette séquence, le calcul mental porte sur :</p>
+      <div *ngIf="presenceCalculMental">
+        <p>Dans cette séquence, le calcul mental porte sur :</p>
+        <div *ngFor="let calculMental of calculsMentaux; index as i" class='pb-5'>
           <p *ngIf="calculMental.pageExiste">
             <a [routerLink]="['/objectif', calculMental.reference]">
               {{calculMental.reference}} : {{calculMental.titre}}

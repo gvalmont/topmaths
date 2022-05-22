@@ -17,6 +17,7 @@ export class ObjectifComponent implements OnInit {
   titre: string
   rappelDuCoursHTML: string
   rappelDuCoursImage: string
+  rappelDuCoursInstrumenpoche: string
   videos: Video[]
   exercices: Exercice[]
   lienFiche: string
@@ -35,6 +36,7 @@ export class ObjectifComponent implements OnInit {
     this.titre = ''
     this.rappelDuCoursHTML = ''
     this.rappelDuCoursImage = ''
+    this.rappelDuCoursInstrumenpoche = ''
     this.videos = []
     this.exercices = []
     this.lienFiche = ''
@@ -113,6 +115,11 @@ export class ObjectifComponent implements OnInit {
       this.rappelDuCoursImage = '' // Au cas où l'attribut ne serait pas réinitialisé lors d'un changement de référence
     } else {
       this.rappelDuCoursImage = '../assets/img/' + objectif.rappelDuCoursImage
+    }
+    if (objectif.rappelDuCoursInstrumenpoche == '' || typeof objectif.rappelDuCoursInstrumenpoche == 'undefined') {
+      this.rappelDuCoursInstrumenpoche = ''
+    } else {
+      this.rappelDuCoursInstrumenpoche = objectif.rappelDuCoursInstrumenpoche
     }
     this.videos = [] // Au cas où l'attribut ne serait pas réinitialisé lors d'un changement de référence
     // Le nombre de vidéos varie selon la référence, on a donc quelque chose de dynamique

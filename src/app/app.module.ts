@@ -35,6 +35,7 @@ import { ModuleComponent } from './module/module.component';
 import { MathadorComponent } from './outils/mathador/mathador.component';
 import { OutilsComponent } from './outils/outils.component';
 import { BoutonImprimerComponent } from './mini-components/bouton-imprimer/bouton-imprimer.component';
+import { AnimationInstrumenpocheComponent } from './mini-components/animation-instrumenpoche/animation-instrumenpoche.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { BoutonImprimerComponent } from './mini-components/bouton-imprimer/bouto
     ModuleComponent,
     MathadorComponent,
     OutilsComponent,
-    BoutonImprimerComponent
+    BoutonImprimerComponent,
+    AnimationInstrumenpocheComponent
   ],
   imports: [
     BrowserModule,

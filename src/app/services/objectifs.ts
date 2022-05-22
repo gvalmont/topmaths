@@ -33,14 +33,16 @@ export class Objectif {
   public titre: string
   public rappelDuCoursHTML: string
   public rappelDuCoursImage: string
+  public rappelDuCoursInstrumenpoche: string
   public videos: Video[]
   public exercices: Exercice[]
 
-  constructor(reference: string, titre: string, rappelDuCoursHTML: string, rappelDuCoursImage: string, videos: Video[], exercices: Exercice[]) {
+  constructor(reference: string, titre: string, rappelDuCoursHTML: string, rappelDuCoursImage: string, rappelDuCoursInstrumenpoche: string, videos: Video[], exercices: Exercice[]) {
     this.reference = reference
     this.titre = titre
     this.rappelDuCoursHTML = rappelDuCoursHTML
     this.rappelDuCoursImage = rappelDuCoursImage
+    this.rappelDuCoursInstrumenpoche = rappelDuCoursInstrumenpoche
     this.videos = videos
     this.exercices = exercices
   }

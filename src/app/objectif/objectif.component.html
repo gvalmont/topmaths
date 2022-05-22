@@ -2,10 +2,12 @@
   <div class="column is-one-fifth"></div>
   <div class="column is-three-fifths">
     <h1 [class]="'title is-2 is-' + niveau">{{ titre }}</h1>
-    <div [class]="'is-' + niveau" *ngIf="rappelDuCoursHTML != '' || rappelDuCoursImage != ''">
+    <div [class]="'is-' + niveau" *ngIf="rappelDuCoursHTML != '' || rappelDuCoursImage != '' || rappelDuCoursInstrumenpoche != ''">
       <h2 [class]="'mb-5 pb-5 subtitle is-3 is-' + niveau">Rappel du cours</h2>
       <div class="has-text-centered pb-5">
-        <p [mathjax]="rappelDuCoursHTML" class="is-size-5"></p><br><img *ngIf="rappelDuCoursImage != ''" [src]="rappelDuCoursImage" />
+        <p [mathjax]="rappelDuCoursHTML" class="is-size-5"></p>
+        <img *ngIf="rappelDuCoursImage != ''" [src]="rappelDuCoursImage" />
+        <app-animation-instrumenpoche *ngIf="rappelDuCoursInstrumenpoche != ''" [nomAnimation]="rappelDuCoursInstrumenpoche" class="centre" ></app-animation-instrumenpoche>
       </div>
     </div>
     <div [class]="'is-' + niveau" *ngIf="presenceVideo">
