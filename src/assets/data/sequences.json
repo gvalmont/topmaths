@@ -1915,6 +1915,61 @@
             "slug": "5P12,s=2,n=1,cd=1"
           }
         ]
+      },
+      {
+        "reference": "S4S19",
+        "titre": "Repérage dans un pavé droit",
+        "objectifs": [
+          {
+            "reference": "4G52"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4L10",
+            "titre": "Développer un produit ou réduire une expression littérale",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=40~n=4",
+                "score": 6
+              },
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=4",
+                "score": 8
+              },
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=2_i=4NE1~o=0,2~q=0.0,1,2,3-2.0,1,2,3~p=~t=40~n=2",
+                "score": 10
+              }
+            ]
+          },
+          {
+            "reference": "4L11",
+            "titre": "Utiliser la propriété de distributivité simple pour factoriser une somme",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4",
+                "score": 10
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G20",
+            "titre": "Calculer une longueur avec le théorème de Pythagore",
+            "slug": "4G20,s2=3,n=1,video=M9sceJ8gzNc"
+          },
+          {
+            "reference": "4C32",
+            "titre": "Associer dans le cas des nombres décimaux, écriture décimale, écriture fractionnaire et notation scientifique",
+            "slug": "4C32,s=1,s2=3,n=1"
+          }
+        ]
       }
     ]
   },
