@@ -925,7 +925,13 @@
                 "rappelDuCoursImage": "schema-proportionnalite.png",
                 "videos": [
                   {
-                    "titre": "",
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=8oqdLF3AN0w&vignette=https://i.ytimg.com/vi/8oqdLF3AN0w/hqdefault.jpg&debut=0&fin=121&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
+                    "titre": "En détail",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=r4CYLxVhnhE&vignette=https://i.ytimg.com/vi/r4CYLxVhnhE/hqdefault.jpg&debut=0&fin=257&largeur=200&hauteur=113",
                     "auteur": "Maths en pause",
                     "lienAuteur": "https://www.youtube.com/channel/UCA4wk8mKv6tiOwAcOBRo9rA"
