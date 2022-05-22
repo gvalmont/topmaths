@@ -3430,16 +3430,16 @@
                   {
                     "id": 4076,
                     "slug": "4G31,s=1,s2=3,s3=3",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
+                    "score": 20,
+                    "temps": 200,
+                    "isInteractif": true
                   },
                   {
                     "id": 4077,
                     "slug": "4G31,s=2,s2=3,s3=3",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
+                    "score": 25,
+                    "temps": 250,
+                    "isInteractif": true
                   }
                 ]
               },
