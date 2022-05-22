@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<INSTRUMENPOCHE version="2" >
+<action abscisse="363" ordonnee="491" id="2" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$D$" id="2" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="360" ordonnee="491" couleur="black" id="1" mouvement="creer" objet="point" tempo="0.001" />
+<action abscisse="494" ordonnee="385" id="4" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$A$" id="4" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="491" ordonnee="385" couleur="black" id="3" mouvement="creer" objet="point" tempo="0.001" />
+<action abscisse="409" ordonnee="323" id="6" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$J$" id="6" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="406" ordonnee="323" couleur="black" id="5" mouvement="creer" objet="point" tempo="0.001" />
+<action abscisse="464" ordonnee="160" id="8" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$E$" id="8" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="461" ordonnee="160" couleur="black" id="7" mouvement="creer" objet="point" tempo="0.001" />
+<action abscisse="194" ordonnee="115" id="10" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$Z$" id="10" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="191" ordonnee="115" couleur="black" id="9" mouvement="creer" objet="point" tempo="0.001" />
+<action objet="crayon" mouvement="translation" abscisse="461" ordonnee="160" tempo="0" vitesse="10000" />
+<action abscisse="191" ordonnee="115" epaisseur="2" couleur="black" mouvement="tracer" objet="crayon" tempo="0" vitesse="10000"    id="11" />
+<action objet="crayon" mouvement="translation" abscisse="360" ordonnee="491" tempo="0" vitesse="10000" />
+<action abscisse="491" ordonnee="385" epaisseur="2" couleur="black" mouvement="tracer" objet="crayon" tempo="0" vitesse="10000"    id="12" />
+<action objet="crayon" mouvement="translation" abscisse="360" ordonnee="491" tempo="0" vitesse="10000" />
+<action abscisse="406" ordonnee="323" epaisseur="2" couleur="black" mouvement="tracer" objet="crayon" tempo="0" vitesse="10000"    id="13" />
+<action objet="crayon" mouvement="translation" abscisse="491" ordonnee="385" tempo="0" vitesse="10000" />
+<action abscisse="406" ordonnee="323" epaisseur="2" couleur="black" mouvement="tracer" objet="crayon" tempo="0" vitesse="10000"    id="14" />
+<action objet="equerre" mouvement="translation" abscisse="290" ordonnee="131" tempo="0.5" vitesse="10" />
+<action objet="equerre" mouvement="montrer" abscisse="290" ordonnee="131" tempo="0.5" />
+<action objet="equerre" mouvement="rotation" angle="99.46" tempo="0.5" sens="5" />
+<action objet="regle" mouvement="translation" abscisse="290" ordonnee="131" tempo="0.5" vitesse="10" />
+<action objet="regle" mouvement="montrer" abscisse="290" ordonnee="131" tempo="0.5" />
+<action objet="regle" mouvement="rotation" angle="99.46" tempo="0.5" sens="5" />
+<action objet="regle" mouvement="translation" abscisse="293" ordonnee="113" tempo="0.5" vitesse="10" />
+<action objet="equerre" mouvement="masquer" tempo="0.5" />
+<action objet="crayon" mouvement="translation" abscisse="231" ordonnee="488" tempo="0.5" vitesse="10" />
+<action objet="crayon" mouvement="montrer" abscisse="231" ordonnee="488" tempo="0.5" />
+<action objet="crayon" mouvement="translation" abscisse="293" ordonnee="113" tempo="0.5" vitesse="10" />
+<action objet="crayon" mouvement="translation" abscisse="231" ordonnee="488" tempo="0" vitesse="10000" />
+<action abscisse="293" ordonnee="113" epaisseur="2" couleur="red" mouvement="tracer" objet="crayon" tempo="0" vitesse="10000"  pointille="tiret"  id="15" />
+<action objet="crayon" mouvement="translation" abscisse="292" ordonnee="123" tempo="0" vitesse="10" />
+<action abscisse="301" ordonnee="124" epaisseur="2" couleur="#f15929" mouvement="tracer" objet="crayon" tempo="0" vitesse="10"  pointille="tiret"  id="16" />
+<action abscisse="299" ordonnee="133" epaisseur="2" couleur="#f15929" mouvement="tracer" objet="crayon" tempo="0.5" vitesse="10"  pointille="tiret"  id="17" />
+<action objet="crayon" mouvement="masquer" tempo="0.5" />
+<action objet="equerre" mouvement="montrer" abscisse="290" ordonnee="131" tempo="0.5" />
+<action objet="equerre" mouvement="translation" abscisse="262" ordonnee="299" tempo="0.5" vitesse="10" />
+<action objet="crayon" mouvement="montrer" abscisse="299" ordonnee="133" tempo="0.5" />
+<action objet="crayon" mouvement="translation" abscisse="262" ordonnee="299" tempo="0.5" vitesse="10" />
+<action objet="crayon" mouvement="translation" abscisse="406" ordonnee="323" tempo="0.5" vitesse="10" />
+<action abscisse="262" ordonnee="299" epaisseur="2" couleur="red" mouvement="tracer" objet="crayon" tempo="0" vitesse="10000"  pointille="tiret"  id="18" />
+<action objet="crayon" mouvement="translation" abscisse="264" ordonnee="290" tempo="0" vitesse="10" />
+<action abscisse="273" ordonnee="291" epaisseur="2" couleur="#f15929" mouvement="tracer" objet="crayon" tempo="0" vitesse="10"  pointille="tiret"  id="19" />
+<action abscisse="271" ordonnee="300" epaisseur="2" couleur="#f15929" mouvement="tracer" objet="crayon" tempo="0.5" vitesse="10"  pointille="tiret"  id="20" />
+<action objet="crayon" mouvement="masquer" tempo="0.5" />
+<action objet="equerre" mouvement="translation" abscisse="255" ordonnee="346" tempo="0.5" vitesse="10" />
+<action objet="crayon" mouvement="montrer" abscisse="271" ordonnee="300" tempo="0.5" />
+<action objet="crayon" mouvement="translation" abscisse="255" ordonnee="346" tempo="0.5" vitesse="10" />
+<action objet="crayon" mouvement="translation" abscisse="491" ordonnee="385" tempo="0.5" vitesse="10" />
+<action abscisse="255" ordonnee="346" epaisseur="2" couleur="red" mouvement="tracer" objet="crayon" tempo="0" vitesse="10000"  pointille="tiret"  id="21" />
+<action objet="crayon" mouvement="translation" abscisse="256" ordonnee="337" tempo="0" vitesse="10" />
+<action abscisse="265" ordonnee="338" epaisseur="2" couleur="#f15929" mouvement="tracer" objet="crayon" tempo="0" vitesse="10"  pointille="tiret"  id="22" />
+<action abscisse="263" ordonnee="347" epaisseur="2" couleur="#f15929" mouvement="tracer" objet="crayon" tempo="0.5" vitesse="10"  pointille="tiret"  id="23" />
+<action objet="crayon" mouvement="masquer" tempo="0.5" />
+<action objet="equerre" mouvement="translation" abscisse="234" ordonnee="470" tempo="0.5" vitesse="10" />
+<action objet="crayon" mouvement="montrer" abscisse="263" ordonnee="347" tempo="0.5" />
+<action objet="crayon" mouvement="translation" abscisse="234" ordonnee="470" tempo="0.5" vitesse="10" />
+<action objet="crayon" mouvement="translation" abscisse="360" ordonnee="491" tempo="0.5" vitesse="10" />
+<action abscisse="234" ordonnee="470" epaisseur="2" couleur="red" mouvement="tracer" objet="crayon" tempo="0" vitesse="10000"  pointille="tiret"  id="24" />
+<action objet="crayon" mouvement="translation" abscisse="235" ordonnee="461" tempo="0" vitesse="10" />
+<action abscisse="244" ordonnee="462" epaisseur="2" couleur="#f15929" mouvement="tracer" objet="crayon" tempo="0" vitesse="10"  pointille="tiret"  id="25" />
+<action abscisse="243" ordonnee="471" epaisseur="2" couleur="#f15929" mouvement="tracer" objet="crayon" tempo="0.5" vitesse="10"  pointille="tiret"  id="26" />
+<action objet="equerre" mouvement="masquer" tempo="0.5" />
+<action objet="regle" mouvement="translation" abscisse="-34" ordonnee="249" tempo="0.5" vitesse="10" />
+<action objet="regle" mouvement="rotation" angle="9.46" tempo="0.5" sens="5" />
+<action objet="crayon" mouvement="translation" abscisse="351" ordonnee="314" tempo="0.5" vitesse="10" />
+<action abscisse="-34" ordonnee="249" epaisseur="2" couleur="red" mouvement="tracer" objet="crayon" tempo="0.5" vitesse="10"  pointille="tiret"  id="27" />
+<action objet="regle" mouvement="translation" abscisse="-41" ordonnee="296" tempo="0.5" vitesse="10" />
+<action objet="regle" mouvement="rotation" angle="9.46" tempo="0.5" sens="5" />
+<action objet="crayon" mouvement="translation" abscisse="-41" ordonnee="296" tempo="0.5" vitesse="10" />
+<action abscisse="343" ordonnee="360" epaisseur="2" couleur="red" mouvement="tracer" objet="crayon" tempo="0.5" vitesse="10"  pointille="tiret"  id="28" />
+<action objet="regle" mouvement="translation" abscisse="-62" ordonnee="420" tempo="0.5" vitesse="10" />
+<action objet="regle" mouvement="rotation" angle="9.46" tempo="0.5" sens="5" />
+<action objet="crayon" mouvement="translation" abscisse="323" ordonnee="484" tempo="0.5" vitesse="10" />
+<action abscisse="-62" ordonnee="420" epaisseur="2" couleur="red" mouvement="tracer" objet="crayon" tempo="0.5" vitesse="10"  pointille="tiret"  id="29" />
+<action objet="regle" mouvement="masquer" tempo="0.5" />
+<action objet="compas" mouvement="montrer" abscisse="360" ordonnee="251" tempo="0.5" />
+<action objet="compas" mouvement="translation" abscisse="461" ordonnee="160" tempo="0.5" vitesse="10" />
+<action objet="compas" mouvement="rotation" angle="-170.54" tempo="0.5" sens="5" />
+<action ecart="273.7" mouvement="ecarter" objet="compas" tempo="0.5" vitesse="10" />
+<action objet="compas" mouvement="translation" abscisse="406" ordonnee="323" tempo="0.5" vitesse="10" />
+<action sens="5" angle="-160.54" mouvement="rotation" objet="compas" tempo="0.5" />
+<action mouvement="lever" objet="compas" />
+<action sens="5" angle="-160.54" mouvement="rotation" objet="compas" />
+<action couleur="forestgreen" epaisseur="2" sens="5" debut="-160.54" fin="-180.54" mouvement="tracer" objet="compas"  pointille="tiret" id="30" />
+<action mouvement="coucher" objet="compas" tempo="0.5" />
+<action objet="compas" mouvement="translation" abscisse="491" ordonnee="385" tempo="0.5" vitesse="10" />
+<action sens="5" angle="-180.54" mouvement="rotation" objet="compas" tempo="0.5" />
+<action mouvement="lever" objet="compas" />
+<action sens="5" angle="-180.54" mouvement="rotation" objet="compas" />
+<action couleur="forestgreen" epaisseur="2" sens="-5" debut="-180.54" fin="-160.54" mouvement="tracer" objet="compas"  pointille="tiret" id="31" />
+<action mouvement="coucher" objet="compas" tempo="0.5" />
+<action objet="compas" mouvement="translation" abscisse="360" ordonnee="491" tempo="0.5" vitesse="10" />
+<action sens="5" angle="-160.54" mouvement="rotation" objet="compas" tempo="0.5" />
+<action mouvement="lever" objet="compas" />
+<action sens="5" angle="-160.54" mouvement="rotation" objet="compas" />
+<action couleur="forestgreen" epaisseur="2" sens="5" debut="-160.54" fin="-180.54" mouvement="tracer" objet="compas"  pointille="tiret" id="32" />
+<action mouvement="coucher" objet="compas" tempo="0.5" />
+<action objet="compas" mouvement="masquer" tempo="0.5" />
+<action abscisse="139" ordonnee="278" id="34" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$J'$" id="34" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="136" ordonnee="278" couleur="black" id="33" mouvement="creer" objet="point" tempo="0.5" />
+<action abscisse="224" ordonnee="340" id="36" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$A'$" id="36" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="221" ordonnee="340" couleur="black" id="35" mouvement="creer" objet="point" tempo="0.5" />
+<action abscisse="93" ordonnee="446" id="38" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$D'$" id="38" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="90" ordonnee="446" couleur="black" id="37" mouvement="creer" objet="point" tempo="0.5" />
+<action objet="regle" mouvement="montrer" abscisse="-62" ordonnee="420" tempo="0.5" />
+<action objet="regle" mouvement="translation" abscisse="136" ordonnee="278" tempo="0.5" vitesse="10" />
+<action objet="regle" mouvement="rotation" angle="36.27" tempo="0.5" sens="5" />
+<action objet="crayon" mouvement="translation" abscisse="136" ordonnee="278" tempo="0.5" vitesse="10" />
+<action abscisse="221" ordonnee="340" epaisseur="2" couleur="black" mouvement="tracer" objet="crayon" tempo="0.5" vitesse="10"    id="39" />
+<action objet="regle" mouvement="translation" abscisse="90" ordonnee="446" tempo="0.5" vitesse="10" />
+<action objet="regle" mouvement="rotation" angle="-39" tempo="0.5" sens="5" />
+<action abscisse="90" ordonnee="446" epaisseur="2" couleur="black" mouvement="tracer" objet="crayon" tempo="0.5" vitesse="10"    id="40" />
+<action objet="regle" mouvement="rotation" angle="-74.7" tempo="0.5" sens="5" />
+<action abscisse="136" ordonnee="278" epaisseur="2" couleur="black" mouvement="tracer" objet="crayon" tempo="0.5" vitesse="10"    id="41" />
+<action objet="regle" mouvement="masquer" tempo="0.5" />
+<action objet="crayon" mouvement="masquer" tempo="0.5" />
+</INSTRUMENPOCHE>

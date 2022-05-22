@@ -3097,6 +3097,87 @@
         "nom": "Espace et géométrie",
         "sousThemes": [
           {
+            "nom": "Translation",
+            "objectifs": [
+              {
+                "reference": "4G10",
+                "titre": "Transformer une figure par translation",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "rappelDuCoursInstrumenpoche": "image-figure-translation",
+                "videos": [
+                  {
+                    "titre": "Image d'un point",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=YzG5ZP9Kp6k&vignette=https://i.ytimg.com/vi/YzG5ZP9Kp6k/hqdefault.jpg&debut=0&fin=221&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Image d'une figure",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=chYUBSVEoFo&vignette=https://i.ytimg.com/vi/chYUBSVEoFo/hqdefault.jpg&debut=0&fin=317&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4071,
+                    "slug": "4G10-2,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "4G11",
+                "titre": "Identifier des translations dans des frises et des pavages",
+                "rappelDuCoursHTML": "L'image d'une figure par une translation c'est la même figure, qu'on a déplacée un peu plus loin.<br>(On l'a déplacée sans la faire tourner, on l'a juste faite glisser)",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=b_22mF3ZbwI&vignette=https://i.ytimg.com/vi/b_22mF3ZbwI/hqdefault.jpg&debut=0&fin=357&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4072,
+                    "slug": "4G11-1,s=3",
+                    "score": 25,
+                    "temps": 750,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "4G12",
+                "titre": "Comprendre et utiliser l’effet d’une translation : conservation du parallélisme, des longueurs, des aires et des angles",
+                "rappelDuCoursHTML": "<i>La translation conserve le parallélisme, les longueurs, les aires et les angles</i><br>Autrement dit, si on compare une figure avec son image par une translation :<ul><li>les droites qui étaient parallèles sont toujours parallèles ;</li><li>les segments translatés ont la même longueur que les segments originaux ;</li><li>la figure originale et son image ont la même aire ;</li><li>les angles translatés ont la même mesure que les angles originaux.</li>",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=OX88gEucBY8&vignette=https://i.ytimg.com/vi/OX88gEucBY8/hqdefault.jpg&debut=0&fin=496&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4073,
+                    "slug": "4G12-2,s=4,s2=3,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "nom": "Théorème de Pythagore",
             "objectifs": [
               {
