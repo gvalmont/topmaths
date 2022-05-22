@@ -2381,7 +2381,7 @@
               {
                 "reference": "4C32",
                 "titre": "Associer dans le cas des nombres décimaux, écriture décimale, écriture fractionnaire et notation scientifique",
-                "rappelDuCoursHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='#/objectif/4C33' title='Les puissances, c’est quoi ?'>4C33</a>, <a href='#/objectif/4C37' title='Puissances positives et négatives'>4C37</a> et <a href='#/objectif/4C30' title='Les puissances de 10'>4C30</a>.<br><br>L'<i>écriture scientifique</i> d'un nombre est de la forme :<br> $a,... \\times 10^n$ avec $1 \\leqslant a \\leqslant 9$.",
+                "rappelDuCoursHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='#/objectif/4C33' title='Les puissances, c’est quoi ?'>4C33</a>, <a href='#/objectif/4C37' title='Puissances positives et négatives'>4C37</a> et <a href='#/objectif/4C30' title='Les puissances de 10'>4C30</a>.<br><br>La <i>notation scientifique</i> d'un nombre est de la forme :<br> $a,... \\times 10^n$ avec $a$ qui est un chiffre entre 1 et 9.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {

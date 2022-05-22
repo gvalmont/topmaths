@@ -1871,6 +1871,50 @@
             "slug": "can3S02,n=1"
           }
         ]
+      },
+      {
+        "reference": "S4S18",
+        "titre": "Notation scientifique",
+        "objectifs": [
+          {
+            "reference": "4C32"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4C23",
+            "titre": "Effectuer un calcul avec des nombres relatifs et fractionnaires",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4",
+                "score": 3
+              },
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
+                "score": 5
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G11",
+            "titre": "Identifier des translations dans des frises et des pavages",
+            "slug": "4G11-1,s=3"
+          },
+          {
+            "reference": "5P12",
+            "titre": "Partager une quantité en deux parts selon un ratio donné",
+            "slug": "5P12,s=1,n=1,cd=1"
+          },
+          {
+            "reference": "5P12",
+            "titre": "Partager une quantité en trois parts selon un ratio donné",
+            "slug": "5P12,s=2,n=1,cd=1"
+          }
+        ]
       }
     ]
   },
