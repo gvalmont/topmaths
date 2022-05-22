@@ -1970,6 +1970,48 @@
             "slug": "4C32,s=1,s2=3,n=1"
           }
         ]
+      },
+      {
+        "reference": "S4S20",
+        "titre": "Réciproques et contraposées",
+        "objectifs": [
+          {
+            "reference": "4G21"
+          },
+          {
+            "reference": "4G31"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4C23",
+            "titre": "Effectuer un calcul avec des nombres relatifs et fractionnaires",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4",
+                "score": 3
+              },
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
+                "score": 5
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G52",
+            "titre": "Se repérer dans un pavé droit et utiliser le vocabulaire du repérage : abscisse, ordonnée, altitude",
+            "slug": "4G52,s=2"
+          },
+          {
+            "reference": "4L13",
+            "titre": "Introduire une lettre pour désigner une valeur inconnue et met un problème en équation",
+            "slug": "4L13-0,s=1,n=1"
+          }
+        ]
       }
     ]
   },

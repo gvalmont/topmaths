@@ -3242,6 +3242,41 @@
                 ]
               },
               {
+                "reference": "4G21",
+                "titre": "Démontrer qu’un triangle est rectangle ou non à l’aide du théorème de Pythagore",
+                "rappelDuCoursHTML": "<b><i>Réciproque du théorème de Pythagore :</i></b><br>Si le carré du plus grand côté d’un triangle est égal à la somme des carrés des deux autres côtés, alors ce triangle est rectangle.<br><br><b><i>Contraposée du théorème de Pythagore :</i></b><br>Si le carré du plus grand côté d’un triangle n'est <i>pas</i> égal à la somme des carrés des deux autres côtés, alors ce triangle n'est <i>pas</i> rectangle.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=F-jkF9xars4&vignette=https://i.ytimg.com/vi/F-jkF9xars4/hqdefault.jpg&debut=0&fin=130&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
+                    "titre": "Réciproque",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=DCc8eCh-2p8&vignette=https://i.ytimg.com/vi/DCc8eCh-2p8/hqdefault.jpg&debut=0&fin=333&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Mathrix",
+                    "lienAuteur": "https://www.youtube.com/c/Mathrix"
+                  },
+                  {
+                    "titre": "Contraposée",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=M0-FRaBZq8U&vignette=https://i.ytimg.com/vi/M0-FRaBZq8U/hqdefault.jpg&debut=0&fin=250&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Hedacademy",
+                    "lienAuteur": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4075,
+                    "slug": "4G21,s=3,n=2",
+                    "score": 20,
+                    "temps": 200,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
                 "reference": "4G22",
                 "titre": "Résoudre un problème géométrique en ayant recours au théorème de Pythagore",
                 "rappelDuCoursHTML": "<a href='#/objectif/4G20'>4G20 : Calculer une longueur avec le théorème de Pythagore</a>",
@@ -3366,6 +3401,42 @@
                   {
                     "id": 4067,
                     "slug": "3G20-1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "4G31",
+                "titre": "Démontrer que des droites sont parallèles avec le théorème de Thalès",
+                "rappelDuCoursHTML": "<b><i>Réciproque du théorème de Thalès :</i></b><br>Si le carré du plus grand côté d’un triangle est égal à la somme des carrés des deux autres côtés, alors ce triangle est rectangle.<br><br><b><i>Contraposée du théorème de Pythagore :</i></b><br>Si le carré du plus grand côté d’un triangle n'est <i>pas</i> égal à la somme des carrés des deux autres côtés, alors ce triangle n'est <i>pas</i> rectangle.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Réciproque",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=OaladmqeJ40&vignette=https://i.ytimg.com/vi/OaladmqeJ40/hqdefault.jpg&debut=0&fin=510&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Hedacademy",
+                    "lienAuteur": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
+                  },
+                  {
+                    "titre": "Contraposée",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=fv9pK3hX6b8&vignette=https://i.ytimg.com/vi/fv9pK3hX6b8/hqdefault.jpg&debut=0&fin=460&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Hedacademy",
+                    "lienAuteur": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4076,
+                    "slug": "4G31,s=1,s2=3,s3=3",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 4077,
+                    "slug": "4G31,s=2,s2=3,s3=3",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
