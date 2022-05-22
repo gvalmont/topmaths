@@ -122,7 +122,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   mettreAJourLeTitreDeLaPage() {
-  // Fonction de https://blog.bitsrc.io/dynamic-page-titles-in-angular-98ce20b5c334
+    // Fonction de https://blog.bitsrc.io/dynamic-page-titles-in-angular-98ce20b5c334
     const appTitle = this.titleService.getTitle();
     this.router
       .events.pipe(
@@ -137,7 +137,7 @@ export class AppComponent implements OnInit, OnDestroy {
       ).subscribe((ttl: string) => {
         this.titleService.setTitle(ttl);
       });
-    }
+  }
 
   /**
    * Met à jour le token de premiereNavigation qui sert à déterminer si l'utilisateur est toujours sur sa landing page ou pas
@@ -213,7 +213,7 @@ export class AppComponent implements OnInit, OnDestroy {
   redirectionHTTPS() {
     if (!isDevMode()) {
       let location = window.location.href
-      if (location.slice(0,5) == 'http:') {
+      if (location.slice(0, 5) == 'http:') {
         location = location.replace('http:', 'https:')
       }
       if (location.slice(0, 23) == 'https://www.topmaths.fr') {
@@ -291,7 +291,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * Sinon, le prévient que la compétition a déjà commencé et reset la compétition actuelle
    */
   allerCompetition() {
-    const boutonAller = <HTMLButtonElement> document.getElementById('boutonAller')
+    const boutonAller = <HTMLButtonElement>document.getElementById('boutonAller')
     if (boutonAller != null) {
       boutonAller.disabled = true
       this.dataService.http.post<{ question: number, competition: Competition }>(GlobalConstants.apiUrl + 'getCompetition.php', { identifiant: this.dataService.user.identifiant, id: this.dataService.get('CompetitioncompetitionActuelle').id }).subscribe(
