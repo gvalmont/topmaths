@@ -3409,8 +3409,8 @@
               },
               {
                 "reference": "4G31",
-                "titre": "Démontrer que des droites sont parallèles avec le théorème de Thalès",
-                "rappelDuCoursHTML": "<b><i>Réciproque du théorème de Thalès :</i></b><br>Si le carré du plus grand côté d’un triangle est égal à la somme des carrés des deux autres côtés, alors ce triangle est rectangle.<br><br><b><i>Contraposée du théorème de Pythagore :</i></b><br>Si le carré du plus grand côté d’un triangle n'est <i>pas</i> égal à la somme des carrés des deux autres côtés, alors ce triangle n'est <i>pas</i> rectangle.",
+                "titre": "Démontrer que des droites sont parallèles ou non avec le théorème de Thalès",
+                "rappelDuCoursHTML": "<b><i>Réciproque du théorème de Thalès :</i></b><br>Dans le cas où les droites $(BM)$ et $(CN)$ sont sécantes en $A$,<br>si $\\cfrac{AB}{AM}=\\cfrac{AC}{AN}=\\cfrac{BC}{MN}$, alors les droites $(BC)$ et $(MN)$ sont parallèles.<br><br><b><i>Contraposée du théorème de Thalès :</i></b><br>Dans le cas où les droites $(BM)$ et $(CN)$ sont sécantes en $A$,<br>si $\\cfrac{AB}{AM}\\not=\\cfrac{AC}{AN}\\not=\\cfrac{BC}{MN}$, alors les droites $(BC)$ et $(MN)$ ne sont <i>pas</i> parallèles.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
