@@ -3136,6 +3136,78 @@
                 ]
               }
             ]
+          },
+          {
+            "nom": "Fonctions",
+            "objectifs": [
+              {
+                "reference": "4F10",
+                "titre": "Produire une formule littérale représentant la dépendance de deux grandeurs",
+                "rappelDuCoursHTML": "Vous trouverez plusieurs vidéos ci-dessous.<br>Vous pouvez aussi revoir <a href='#/objectif/5L10'>5L10 : Produire une expression littérale pour élaborer une formule ou traduire un programme de calcul</a>.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Un premier exemple",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=20-ZHBgiIa0&vignette=https://i.ytimg.com/vi/20-ZHBgiIa0/hqdefault.jpg&debut=0&fin=158&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "REROLLE Aime.les.maths",
+                    "lienAuteur": "https://www.youtube.com/c/REROLLEAimelesmaths"
+                  },
+                  {
+                    "titre": "Un deuxième exemple",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=mFNtcd9FDvc&vignette=https://i.ytimg.com/vi/mFNtcd9FDvc/hqdefault.jpg&debut=0&fin=302&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "KhanAcademyFrancophone",
+                    "lienAuteur": "https://www.youtube.com/c/KhanAcademyFrancais"
+                  },
+                  {
+                    "titre": "D'autre exemples",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=IWLsBdZr4Bc&vignette=https://i.ytimg.com/vi/IWLsBdZr4Bc/hqdefault.jpg&debut=0&fin=712&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Fatima-Zohra B Maths",
+                    "lienAuteur": "https://www.youtube.com/channel/UCbwDhmflS7WO2KWvexucY4A"
+                  }
+                ],
+                "exercices": [
+                ]
+              },
+              {
+                "reference": "4F11",
+                "titre": "Représenter la dépendance de deux grandeurs par un graphique",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Un exemple",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Ta0fHOtLJKw&vignette=https://i.ytimg.com/vi/Ta0fHOtLJKw/hqdefault.jpg&debut=0&fin=511&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                ]
+              },
+              {
+                "reference": "4F12",
+                "titre": "Lire et interpréter différentes valeurs sur l’axe des abscisses ou l’axe des ordonnées",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=xbtke1wOkFw&vignette=https://i.ytimg.com/vi/xbtke1wOkFw/hqdefault.jpg&debut=0&fin=313&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "La Mathr'X",
+                    "lienAuteur": "https://www.youtube.com/channel/UC0ivQztwyauz70OESmUeYKg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4080,
+                    "slug": "4F12,s=4",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              }
+            ]
           }
         ]
       },

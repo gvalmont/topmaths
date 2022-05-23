@@ -2070,6 +2070,51 @@
             "slug": "4G11-1,s=3"
           }
         ]
+      },
+      {
+        "reference": "S4S22",
+        "titre": "Dépendance entre deux grandeurs",
+        "objectifs": [
+          {
+            "reference": "4F10"
+          },
+          {
+            "reference": "4F11"
+          },
+          {
+            "reference": "4F12"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4C23",
+            "titre": "Effectuer un calcul avec des nombres relatifs et fractionnaires",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4",
+                "score": 3
+              },
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
+                "score": 5
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4P16",
+            "titre": "Effectuer des conversions d’unités sur des grandeurs composées",
+            "slug": ""
+          },
+          {
+            "reference": "4G31",
+            "titre": "Démontrer que des droites sont parallèles ou non avec le théorème de Thalès",
+            "slug": "4L13-0,s=1,n=1"
+          }
+        ]
       }
     ]
   },
