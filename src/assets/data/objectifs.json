@@ -3577,27 +3577,32 @@
                     "isInteractif": false
                   }
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "nom": "Cosinus d'un angle",
+            "objectifs": [
               {
-                "reference": "4G52",
-                "titre": "Se repérer dans un pavé droit et utiliser le vocabulaire du repérage : abscisse, ordonnée, altitude",
-                "rappelDuCoursHTML": "Dans le plan, on peut repérer un point à l'aide de deux coordonnées : son <span style='color :green;'>abscisse</span> et son <span style='color :red;'>ordonnée</span>.<br>Dans l'espace, on a besoin d'une troisième coordonnée qu'on appellera son <span style='color :blue;'>altitude</span>.<br>Dans l'espace, un point se repère donc grâce à trois coordonnées (<span style='color :green;'>abscisse</span> ; <span style='color :red;'>ordonnée</span> ; <span style='color :blue;'>altitude</span>) toujours dans cet ordre.<br><br>On peut par exemple utiliser le repère (O ; <span style='color :green;'>I</span> ; <span style='color :red;'>J</span> ; <span style='color :blue;'>K</span>) où :<ul><li>le point O est l'<i>origine</i> du repère, ses cordonnées sont (<span style='color :green;'>0</span> ; <span style='color :red;'>0</span> ; <span style='color :blue;'>0</span>) ;</li><li>le point <span style='color :green;'>I</span> donne la direction des <span style='color :green;'>abscisses</span>, ses coordonnées sont (<span style='color :green;'>1</span> ; <span style='color :red;'>0</span> ; <span style='color :blue;'>0</span>) ;</li><li>le point <span style='color :red;'>J</span> donne la direction des <span style='color :red;'>ordonnées</span>, ses coordonnées sont (<span style='color :green;'>0</span> ; <span style='color :red;'>1</span> ; <span style='color :blue;'>0</span>) ;</li><li>le point <span style='color :blue;'>K</span> donne la direction des <span style='color :blue;'>altitudes</span>, ses coordonnées sont (<span style='color :green;'>0</span> ; <span style='color :red;'>0</span> ; <span style='color :blue;'>1</span>) ;</li></ul>",
-                "rappelDuCoursImage": "Repere_OIJK.png",
+                "reference": "4G40",
+                "titre": "Savoir calculer une longueur avec le cosinus d'un angle",
+                "rappelDuCoursHTML": "$\\require{color} \\text{cos (angle)} = \\cfrac{\\color{green}\\text{Adjacent}}{\\color{red}\\text{Hypothénuse}}$",
+                "rappelDuCoursImage": "",
                 "videos": [
                   {
                     "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=OTUHNsf1Gek&vignette=https://i.ytimg.com/vi/OTUHNsf1Gek/hqdefault.jpg&debut=0&fin=625&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=8MQ0ecvoSOc&vignette=https://i.ytimg.com/vi/8MQ0ecvoSOc/hqdefault.jpg&debut=0&fin=578&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
                 "exercices": [
                   {
-                    "id": 4074,
-                    "slug": "4G52,s=2",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
+                    "id": 4084,
+                    "slug": "4G40,s=1,n=2,cd=1",
+                    "score": 30,
+                    "temps": 600,
+                    "isInteractif": true
                   }
                 ]
               }
@@ -3655,6 +3660,29 @@
                   }
                 ],
                 "exercices": [
+                ]
+              },
+              {
+                "reference": "4G52",
+                "titre": "Se repérer dans un pavé droit et utiliser le vocabulaire du repérage : abscisse, ordonnée, altitude",
+                "rappelDuCoursHTML": "Dans le plan, on peut repérer un point à l'aide de deux coordonnées : son <span style='color :green;'>abscisse</span> et son <span style='color :red;'>ordonnée</span>.<br>Dans l'espace, on a besoin d'une troisième coordonnée qu'on appellera son <span style='color :blue;'>altitude</span>.<br>Dans l'espace, un point se repère donc grâce à trois coordonnées (<span style='color :green;'>abscisse</span> ; <span style='color :red;'>ordonnée</span> ; <span style='color :blue;'>altitude</span>) toujours dans cet ordre.<br><br>On peut par exemple utiliser le repère (O ; <span style='color :green;'>I</span> ; <span style='color :red;'>J</span> ; <span style='color :blue;'>K</span>) où :<ul><li>le point O est l'<i>origine</i> du repère, ses cordonnées sont (<span style='color :green;'>0</span> ; <span style='color :red;'>0</span> ; <span style='color :blue;'>0</span>) ;</li><li>le point <span style='color :green;'>I</span> donne la direction des <span style='color :green;'>abscisses</span>, ses coordonnées sont (<span style='color :green;'>1</span> ; <span style='color :red;'>0</span> ; <span style='color :blue;'>0</span>) ;</li><li>le point <span style='color :red;'>J</span> donne la direction des <span style='color :red;'>ordonnées</span>, ses coordonnées sont (<span style='color :green;'>0</span> ; <span style='color :red;'>1</span> ; <span style='color :blue;'>0</span>) ;</li><li>le point <span style='color :blue;'>K</span> donne la direction des <span style='color :blue;'>altitudes</span>, ses coordonnées sont (<span style='color :green;'>0</span> ; <span style='color :red;'>0</span> ; <span style='color :blue;'>1</span>) ;</li></ul>",
+                "rappelDuCoursImage": "Repere_OIJK.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=OTUHNsf1Gek&vignette=https://i.ytimg.com/vi/OTUHNsf1Gek/hqdefault.jpg&debut=0&fin=625&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4074,
+                    "slug": "4G52,s=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
                 ]
               },
               {
