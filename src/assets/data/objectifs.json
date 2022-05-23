@@ -2468,6 +2468,23 @@
                 ]
               },
               {
+                "reference": "4C36",
+                "titre": "Utiliser les ordres de grandeur pour vérifier ses résultats",
+                "rappelDuCoursHTML": "Après avoir résolu un problème, c’est toujours une bonne idée de vérifier si le résultat qu’on a trouvé est cohérent, s’il est plausible ou si ce n’est pas le cas.<br>Ça nous permet de tout de suite remarquer qu’on a fait une erreur et de pouvoir tout de suite se corriger.<br>Pour y arriver, il faut avoir une idée de « à quel point c’est grand » ou « à quel point c’est petit ».<br>Voici des tableaux avec différents « ordres de grandeur » qui pourront servir de base.",
+                "rappelDuCoursImage": "Ordres-de-grandeur.png",
+                "videos": [
+                ],
+                "exercices": [
+                  {
+                    "id": 4079,
+                    "slug": "4C36,n=4",
+                    "score": 5,
+                    "temps": 200,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
                 "reference": "4C37",
                 "titre": "Utiliser les puissances d’exposant relatif",
                 "rappelDuCoursHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='#/objectif/4C33'>4C33</a><br><br><center> $ a^{-n} = \\cfrac{1}{a^n} = \\cfrac{1}{\\underbrace{a \\times a \\times a \\times ... \\times a}_{\\text{Le } a \\text{ apparaît } n \\text{ fois}}} $ </center>",
@@ -3092,6 +3109,29 @@
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "4P16",
+                "titre": "Effectuer des conversions d’unités sur des grandeurs composées",
+                "rappelDuCoursHTML": "Une <b><i>grandeur composée</i></b> est une grandeur obtenue en multipliant ou en divisant deux grandeurs.<br><br><i>Exemple :</i><br> $\\text{Vitesse}=\\cfrac{\\text{Distance}}{\\text{Temps}}$ <br>Pour obtenir la vitesse, on divise deux grandeurs (distance et temps).<br>La vitesse est donc une grandeur composée.<br><br>Pour convertir les unités d'une grandeur composée, on convertit séparément les unités des grandeurs qui la composent.<br><br><i>Exemple :</i><br>Pour convertir en m/s une vitesse qui est donnée en km/h, on convertit les km en m, les h en s et on recalcule la vitesse.<br> $90~\\text{km/h} = \\cfrac{90~\\text{km}}{1~\\text{h}} = \\cfrac{90~000~\\text{m}}{3~600~\\text{s}} = 25~\\text{m/s}$",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=5LaL_SJVLoI&vignette=https://i.ytimg.com/vi/5LaL_SJVLoI/hqdefault.jpg&debut=0&fin=542&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4078,
+                    "slug": "4P16,s=8,n=3",
+                    "score": 20,
+                    "temps": 200,
+                    "isInteractif": true
                   }
                 ]
               }
