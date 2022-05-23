@@ -3602,6 +3602,98 @@
                 ]
               }
             ]
+          },
+          {
+            "nom": "Espace",
+            "objectifs": [
+              {
+                "reference": "4G50",
+                "titre": "Construire et mettre en relation une représentation en perspective cavalière et un patron d’une pyramide",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Pyramide en perspective cavalière",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=mwSm3aHL9PA&vignette=https://i.ytimg.com/vi/mwSm3aHL9PA/hqdefault.jpg&debut=0&fin=258&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Amaury ADON",
+                    "lienAuteur": "https://www.youtube.com/c/AmauryADON"
+                  },
+                  {
+                    "titre": "Patron d'une pyramide",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=GXkxA__A44A&vignette=https://i.ytimg.com/vi/GXkxA__A44A/hqdefault.jpg&debut=0&fin=683&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4081,
+                    "slug": "4G51,s=6,s2=1,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "4G51",
+                "titre": "Construire et mettre en relation une représentation en perspective cavalière et un patron d’une cône",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Cône en perspective cavalière",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=gAaye2-x8tg&vignette=https://i.ytimg.com/vi/gAaye2-x8tg/hqdefault.jpg&debut=0&fin=287&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Amaury ADON",
+                    "lienAuteur": "https://www.youtube.com/c/AmauryADON"
+                  },
+                  {
+                    "titre": "Patron d'un cône",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=hepr9p3Svbw&vignette=https://i.ytimg.com/vi/hepr9p3Svbw/hqdefault.jpg&debut=0&fin=959&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                ]
+              },
+              {
+                "reference": "4G53",
+                "titre": "Calculer le volume d’une pyramide, d’un cône",
+                "rappelDuCoursHTML": "$\\mathcal{V}_{\\text{pyramide}} = \\cfrac13\\mathcal{A}_\\text{Base} \\times \\text{hauteur}$ <br> $\\mathcal{V}_{\\text{cône}} = \\cfrac13\\mathcal{A}_\\text{Base} \\times \\text{hauteur}  = \\cfrac13 \\pi r^2 \\times \\text{hauteur}$",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Volume d'une pyramide",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=KKon_cIVd9k&vignette=https://i.ytimg.com/vi/KKon_cIVd9k/hqdefault.jpg&debut=0&fin=412&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  },
+                  {
+                    "titre": "Volume d'un cône",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=kMssaNRPXz8&vignette=https://i.ytimg.com/vi/kMssaNRPXz8/hqdefault.jpg&debut=0&fin=616&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 4082,
+                    "slug": "4G53,s=1,s3=2,s4=5-6,n=2",
+                    "score": 25,
+                    "temps": 500,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4083,
+                    "slug": "4G53,s=2,s2=true,s3=2,s4=5-6,n=2",
+                    "score": 30,
+                    "temps": 600,
+                    "isInteractif": true
+                  }
+                ]
+              }
+            ]
           }
         ]
       }
