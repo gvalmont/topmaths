@@ -1,0 +1,9 @@
+# Turn on the rewrite engine
+RewriteEngine On
+
+# Force HTTPS
+RewriteCond %{https} off
+RewriteRule ^(.*)$ https://topmaths.fr/$1 [R=301,L]
+
+# Redirige le spinner des anciennes cartes de Anki vers la nouvelle adresse
+Redirect 301 "/wp-content/images/Loading.gif" "/assets/img/cc0/orange-spinner-small.svg"
