@@ -4,6 +4,7 @@ import { ApiService } from '../services/api.service';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { estHeureEte } from '../services/outils'
 
 @Component({
   selector: 'app-profil',
@@ -93,6 +94,7 @@ export class ProfilComponent implements OnInit {
   dateDeDerniereConnexion() {
     let date = new Date(this.dataService.user.lastLogin);
     date.setMinutes(date.getMinutes() - date.getTimezoneOffset() - 60); //Le serveur mysql est en UTC + 1 ?
+    if (estHeureEte()) date.setMinutes(date.getMinutes() - 60)
     const jour = new Array(7);
     jour[0] = 'Dimanche'
     jour[1] = 'Lundi'
