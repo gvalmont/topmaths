@@ -1,31 +1,35 @@
 <div class="container is-max-desktop centre">
-  <a (click)="lancerExercices('5e')">
-    <button class="button is-large is-5e is-outlined p-6" style="width: 300px; font-size: xx-large">
-      5ème
-    </button>
-  </a>
-  <br>
-  <br>
-  <a (click)="lancerExercices('4e')">
-    <button class="button is-large is-4e is-outlined p-6" style="width: 300px; font-size: xx-large">
-      4ème
-    </button>
-  </a>
-  <br>
-  <br>
-  <a (click)="lancerExercices('3e')">
-    <button class="button is-large is-3e is-outlined p-6" style="width: 300px; font-size: xx-large">
-      3ème
-    </button>
-  </a>
-  <br>
-  <br>
-  <a (click)="lancerExercices('tout')">
-    <button class="button is-large is-tout is-outlined p-6" style="width: 300px; font-size: xx-large">
-      Tout
-    </button>
-  </a>
-  <br>
-  <br>
+  <h1 style="border-radius: 50px 50px 0px 0px; padding: 5px 50px 5px 50px; margin-bottom: 0px; background-color: #ea4aaa; color: white; font-size: xx-large; font-weight: 600;">Exercices au hasard</h1>
+  <div style="background-color: #faf0f0; border-radius: 0px 0px 50px 50px; ">
+    <br>
+    <a (click)="lancerExercices('5e')">
+      <button class="button is-large is-5e is-outlined p-6" style="width: 300px; font-size: xx-large;">
+        5ème
+      </button>
+    </a>
+    <br>
+    <br>
+    <a (click)="lancerExercices('4e')">
+      <button class="button is-large is-4e is-outlined p-6" style="width: 300px; font-size: xx-large">
+        4ème
+      </button>
+    </a>
+    <br>
+    <br>
+    <a (click)="lancerExercices('3e')">
+      <button class="button is-large is-3e is-outlined p-6" style="width: 300px; font-size: xx-large">
+        3ème
+      </button>
+    </a>
+    <br>
+    <br>
+    <a (click)="lancerExercices('tout')">
+      <button class="button is-large is-tout is-outlined p-6" style="width: 300px; font-size: xx-large">
+        Tout
+      </button>
+    </a>
+    <br>
+    <br>
+  </div>
 </div>
 <app-modale-exercices [infosModale]="infosModale" (modaleFermee)="scrollBack()"></app-modale-exercices>
