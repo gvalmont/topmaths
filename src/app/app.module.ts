@@ -18,14 +18,12 @@ import { MathjaxModule } from 'mathjax-angular';
 import { SPS1Component } from './sequencesParticulieres/sps1/sps1.component';
 import { RevisionsComponent } from './revisions/revisions.component';
 import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-hasard.component';
-import { CompetitionsComponent } from './competitions/competitions.component';
 import { EquipeModificationComponent } from './equipe/modification/equipe.modification.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { EquipePageComponent } from './equipe/page/equipe.page.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { ModaleExercicesComponent } from './modale-exercices/modale-exercices.component';
 import { ListeSequencesComponent } from './sequences/liste-sequences/liste-sequences.component';
-import { CompetitionActuelleComponent } from './competitions/competition-actuelle/competition-actuelle.component';
 import { MathadorComponent } from './outils/mathador/mathador.component';
 import { OutilsComponent } from './outils/outils.component';
 import { BoutonImprimerComponent } from './mini-components/bouton-imprimer/bouton-imprimer.component';
@@ -45,13 +43,11 @@ import { AnimationInstrumenpocheComponent } from './mini-components/animation-in
     SPS1Component,
     RevisionsComponent,
     ExercicesAuHasardComponent,
-    CompetitionsComponent,
     EquipeModificationComponent,
     EquipePageComponent,
     AvatarComponent,
     ModaleExercicesComponent,
     ListeSequencesComponent,
-    CompetitionActuelleComponent,
     MathadorComponent,
     OutilsComponent,
     BoutonImprimerComponent,

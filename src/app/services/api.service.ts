@@ -5,7 +5,6 @@ import { User, UserSimplifie } from './user';
 import { Router } from '@angular/router';
 import { Equipe } from './equipe';
 import { GlobalConstants } from './global-constants';
-import { Competition } from '../competitions/competitions.component';
 
 interface InfosEquipe {
   leader: number
@@ -34,7 +33,6 @@ interface Adjectif {
 
 export class ApiService {
   @Output() profilModifie: EventEmitter<string[]> = new EventEmitter();
-  @Output() participationCompetition: EventEmitter<Competition> = new EventEmitter();
 
   redirectUrl: string
   isloggedIn: boolean
@@ -103,32 +101,6 @@ export class ApiService {
     this.surveilleModificationsDuProfil()
     this.ecouteMessagesPost()
     this.recupereDonneesPseudos() // En cas de création d'un nouveau compte
-    setTimeout(() => {
-      if (this.competitionActuelleToujoursEnCours() || isDevMode()) { // On vérifie si elle est toujours d'actualité
-        this.participationCompetition.emit(this.get('CompetitioncompetitionActuelle'))
-      } else {
-        this.set('CompetitioncompetitionActuelle', { type: '', niveaux: [], sequences: [], listeDesUrl: [], listeDesTemps: [], minParticipants: 0, maxParticipants: 0, participants: [] })
-      }
-    }, 0); // Pour le lancer une fois que app.component soit prêt à le recevoir
-  }
-
-  /**
-   * Vérifie si la dernière compétition où l'utilisateur s'est inscrit est toujours d'actualité
-   * @returns true si c'est le cas
-   */
-  competitionActuelleToujoursEnCours() {
-    const competitionActuelle = <Competition>this.get('CompetitioncompetitionActuelle')
-    if (competitionActuelle != null && competitionActuelle.dernierSignal != null && competitionActuelle.dernierSignal != '') { // On vérifie si on est en train de participer à une compétition
-      let date = new Date(competitionActuelle.dernierSignal);
-      date.setMinutes(date.getMinutes() - date.getTimezoneOffset() - 60); //Le serveur mysql semble être en UTC + 1
-      if ((new Date()).getTime() - date.getTime() < 300000) {
-        return true
-      } else {
-        return false
-      }
-    } else {
-      return false
-    }
   }
 
   /**
