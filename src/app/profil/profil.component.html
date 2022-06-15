@@ -87,96 +87,14 @@
       </div>
     </div>
   </div>
-  <!-- Trophées -->
-  <div *ngIf="dataService.user.codeTrophees != ''">
-    <a (click)="voirTropheesPerso()">
-      <button class="button is-success is-large">Lien vers les trophées</button>
-    </a>
-  </div>
   <!-- Paramètres -->
   <br><br>
-  <!-- Trophées -->
-  <div *ngIf="dataService.user.codeTrophees != ''">
-    <button *ngIf="dataService.user.tropheesVisibles == 'oui'" type="submit" class="button is-danger is-outlined" (click)="dataService.majTropheesVisibles('non'); enCoursDeModif = 'trophees'; modifTerminee = ''">
-      Cacher ses trophées aux autres utilisateurs
-    </button>
-    <button *ngIf="dataService.user.tropheesVisibles != 'oui'" class="button is-danger">
-      Tes trophées sont cachés aux autres utilisateurs
-    </button>
-    &nbsp;
-    <button *ngIf="dataService.user.tropheesVisibles != 'oui'" type="submit" class="button is-success is-outlined" (click)="dataService.majTropheesVisibles('oui'); enCoursDeModif = 'trophees'; modifTerminee = ''">
-      Montrer ses trophées aux autres utilisateurs
-    </button>
-    <button *ngIf="dataService.user.tropheesVisibles == 'oui'" class="button is-success">
-      Tes trophées sont visibles par les autres utilisateurs
-    </button>
-    &nbsp;
-    <figure *ngIf="enCoursDeModif == 'trophees'" class="image is-32x32 is-inline-block">
-      <img [src]="'assets/img/Loading.gif'">
-    </figure>
-    <i *ngIf="modifTerminee == 'trophees'" class="image is-32x32 is-inline-block">
-      <img src="assets/img/cc0/check-svgrepo-com.svg" />
-    </i>
-  </div>
-  <div *ngIf="dataService.user.codeTrophees != ''"><br></div>
-  <!-- Créer le lien vers les trophées -->
-  <div class="columns is-centered">
-    <div class="column is-narrow">
-      <div *ngIf="dataService.user.codeTrophees == ''" class="dropdown is-hoverable">
-        <div class="dropdown-trigger">
-          <!-- Champ de connexion -->
-          <form [formGroup]="angForm" (ngSubmit)="lierTrophees(angForm.value.codeTrophee)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-            <div class="field is-inline-block">
-              <div [ngClass]="{'control has-icons-left has-icons-right': true, 'shake': shake}">
-                <!-- Champ en lui-même -->
-                <input [ngClass]="{'input': true, 'is-success': (!errPetitNbChar && !errGrandNbChar && !errSpChar && !defaut && !errCodeIncorrect), 'is-danger': (errPetitNbChar || errGrandNbChar || errSpChar || errCodeIncorrect)}" type="codeTrophee" name="codeTrophee" formControlName="codeTrophee" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="form-control input-sm" placeholder="Code Trophées" size="5">
-                <!-- icônes de part et d'autre du champ -->
-                <span class="icon is-small is-left filter-grey">
-                  <i class="image is-24x24"><img src="assets/img/cc0/trophy-svgrepo-com.svg" /></i>
-                </span>
-                <span *ngIf="(!errPetitNbChar && !errGrandNbChar && !errSpChar && !defaut)" class="icon is-small is-right filter-grey">
-                  <i class="image is-24x24"><img src="assets/img/cc0/check-svgrepo-com.svg" /></i>
-                </span>
-                <span *ngIf="(errPetitNbChar || errGrandNbChar || errSpChar)" class="icon is-small is-right filter-grey">
-                  <i class="image is-24x24"><img src="assets/img/cc0/warning-exclamation-sign-in-filled-triangle-svgrepo-com.svg" /></i>
-                </span>
-              </div>
-            </div>
-            &nbsp;
-            <!-- Bouton d'envoi -->
-            <button type="submit" class="button is-success is-inline-block">Créer le lien</button>
-            <!-- Indications sous le champ -->
-            <div *ngIf="(!errPetitNbChar && !errGrandNbChar && !errSpChar && !defaut && !errCodeIncorrect)" class="has-text-success">Ça a l'air bon !</div>
-            <div *ngIf="errPetitNbChar" class="has-text-danger">C'est trop court !</div>
-            <div *ngIf="errGrandNbChar" class="has-text-danger">C'est trop long !</div>
-            <div *ngIf="errSpChar" class="has-text-danger">Il ne faut que des lettres en minuscule !</div>
-            <div *ngIf="errCodeIncorrect" class="has-text-danger">Code incorrect</div>
-          </form>
-        </div>
-        <div class="dropdown-menu">
-          <div class="dropdown-content">
-            <div class="dropdown-item is-size-6">
-              <p>Si tu es un élève d'une 5ème ou d'une 4ème de M. Valmont,
-                il t'a donné un code permettant d'accéder à ta liste de trophées.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
   <!-- Quitter l'équipe -->
   <div *ngIf="dataService.user.teamName != ''">
     <br>
     <button (click)="quitterEquipe()" class="button is-danger">Quitter la TEAM {{ dataService.user.teamName }}</button>
     <br>
   </div>
-  <!-- Supprimer le lienTrophees -->
-  <div *ngIf="dataService.user.codeTrophees != ''">
-    <br>
-    <button (click)="supprimerLienTrophees()" class="button is-danger">Supprimer le lien vers les trophées</button>
-    <br>
-  </div>
-  <br><br>
   <!-- Déconnexion -->
   <div *ngIf="dataService.user.lastLogin != '' && derniereConnexion != 'undefined NaN undefined NaN à NaNhNaNmin'">
     <p class="has-text-grey is-size-6">Quelqu'un s'est connecté sur ce compte le {{derniereConnexion}}.<br>

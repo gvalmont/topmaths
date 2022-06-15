@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./profil.component.css']
 })
 export class ProfilComponent implements OnInit {
-  angForm: FormGroup
   defaut: boolean
   errGrandNbChar: boolean
   errPetitNbChar: boolean
@@ -34,16 +33,12 @@ export class ProfilComponent implements OnInit {
   modifTerminee: string
 
   constructor(private fb: FormBuilder, public http: HttpClient, public appComponent: AppComponent, public dataService: ApiService, private router: Router) {
-    this.angForm = this.fb.group({
-      codeTrophee: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]]
-    });
     this.defaut = true
     this.errGrandNbChar = false
     this.errPetitNbChar = false
     this.errSpChar = false
     this.errCodeIncorrect = false
     this.shake = false
-    this.surveilleChamp()
     this.angFormE = this.fb.group({
       codeEquipe: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]]
     });
@@ -58,16 +53,6 @@ export class ProfilComponent implements OnInit {
     this.derniereConnexion = this.dateDeDerniereConnexion()
     this.enCoursDeModif = ''
     this.modifTerminee = ''
-    this.dataService.profilModifie.subscribe(valeursModifiees => {
-      if (valeursModifiees.includes('tropheesVisibles')) {
-        this.modifTerminee = this.enCoursDeModif
-        this.enCoursDeModif = ''
-      }
-      if (valeursModifiees.includes('codeTrophees')) {
-        this.shake = false
-        this.errCodeIncorrect = false
-      }
-    })
   }
 
   ngOnInit(): void {
@@ -164,25 +149,6 @@ export class ProfilComponent implements OnInit {
   }
 
   /**
-   * Surveille le champ de lien trophées,
-   * actualise les booléens sur lesquels s'appuie le formatage du champ
-   */
-  surveilleChamp() {
-    this.angForm.valueChanges.subscribe(x => {
-      const str = x.codeTrophee
-      this.defaut = true
-      this.errSpChar = false
-      this.errPetitNbChar = false
-      this.errGrandNbChar = false
-      this.errCodeIncorrect = false
-      if (str.length != 0) this.defaut = false
-      if (str.length < 6 && str.length != 0) this.errPetitNbChar = true
-      if (str.length > 6) this.errGrandNbChar = true
-      if (!/^[a-z]*$/.test(str)) this.errSpChar = true
-    })
-  }
-
-  /**
    * Surveille le champ pour rejoindre une équipe,
    * actualise les booléens sur lesquels s'appuie le formatage du champ
    */
@@ -199,39 +165,6 @@ export class ProfilComponent implements OnInit {
       if (str.length > 5) this.errGrandNbCharE = true
       if (!/^[a-z]*$/.test(str)) this.errSpCharE = true
     })
-  }
-
-  /**
-   * Vérifie si le codeTrophee saisi se trouve dans les trophees.json
-   * Met à jour le codeTrophees dans le profil local et de la bdd si c'est le cas
-   * Affiche un message d'erreur sinon
-   * @param codeTrophee 
-   */
-  lierTrophees(codeTrophee: string) {
-    this.shake = true
-    this.errCodeIncorrect = true
-    this.dataService.user.codeTrophees = ''
-    this.dataService.getTrophees('', codeTrophee)
-    setTimeout(() => {
-      this.shake = false
-    }, 1000);
-  }
-
-  /**
-   * Supprime le codeTrophees local et de la bdd
-   */
-  supprimerLienTrophees() {
-    this.dataService.user.codeTrophees = ''
-    this.dataService.majCodeTrophees('')
-  }
-
-  /**
-   * Envoie l'utilisateur sur la page de trophées et indique que ce sont les trophées de user.pseudo
-   * @param user 
-   */
-  voirTropheesPerso() {
-    this.dataService.pseudoClique = this.dataService.user.pseudo
-    this.router.navigate(['trophees', this.dataService.user.codeTrophees])
   }
 
   /**

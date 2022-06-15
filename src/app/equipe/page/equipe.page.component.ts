@@ -28,14 +28,4 @@ export class EquipePageComponent implements OnInit {
       if (typeof(params.teamName) != 'undefined' && params.teamName != '') this.dataService.recupInfosEquipe(params.teamName)
     })
   }
-  
-  /**
-   * Envoie l'utilisateur sur la page de trophées et indique que ce sont les trophées de user.pseudo
-   * @param user
-   */
-   voirTropheesPerso(user: UserSimplifie) {
-    this.dataService.pseudoClique = user.pseudo
-    this.dataService.lienTropheesClique = user.lienTrophees
-    this.router.navigate(['trophees', 'autre'])
-  }
 }

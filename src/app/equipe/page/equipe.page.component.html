@@ -28,19 +28,7 @@
         <!-- Pseudo -->
         <div class="column is-two-fifths">
           <div *ngIf="membre.pseudo != 'anonyme'" class="is-inline-block">
-            <div *ngIf="membre.lienTrophees != ''" class="dropdown is-right is-hoverable is-inline-block">
-              <div class="dropdown-trigger">
-                <a (click)="voirTropheesPerso(membre)">{{membre.pseudo}}</a>
-              </div>
-              <div class="dropdown-menu">
-                <div class="dropdown-content">
-                  <div class="dropdown-item">
-                    <p>Afficher ses trophées</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div *ngIf="membre.lienTrophees == ''" class="is-inline-block">{{membre.pseudo}}</div>
+            <div class="is-inline-block">{{membre.pseudo}}</div>
           </div>
           <div *ngIf="membre.pseudo == 'anonyme'" class="is-inline-block">
             < anonyme >

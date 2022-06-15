@@ -17,7 +17,6 @@ import { ProfilComponent } from './profil/profil.component';
 import { NgParticlesModule } from "ng-particles";
 import { MathjaxModule } from 'mathjax-angular';
 import { SPS1Component } from './sequencesParticulieres/sps1/sps1.component';
-import { TropheesComponent } from './trophees/trophees.component';
 import { RevisionsComponent } from './revisions/revisions.component';
 import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-hasard.component';
 import { CompetitionsComponent } from './competitions/competitions.component';
@@ -46,7 +45,6 @@ import { AnimationInstrumenpocheComponent } from './mini-components/animation-in
     LoginComponent,
     ProfilComponent,
     SPS1Component,
-    TropheesComponent,
     RevisionsComponent,
     ExercicesAuHasardComponent,
     CompetitionsComponent,

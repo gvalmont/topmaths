@@ -3,7 +3,6 @@ import { first } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { User, UserSimplifie } from './user';
 import { Router } from '@angular/router';
-import { Trophee4e, Trophee5e } from './trophees';
 import { Equipe } from './equipe';
 import { GlobalConstants } from './global-constants';
 import { Competition } from '../competitions/competitions.component';
@@ -46,8 +45,6 @@ export class ApiService {
   listeAdjectifs: Adjectif[]
   pseudoClique: string
   ancienPseudoClique: string
-  lienTropheesClique: string
-  trophees!: Trophee5e | Trophee4e
   derniereVersionToken: string
   equipe: Equipe
   infosEquipe: InfosEquipe
@@ -63,11 +60,8 @@ export class ApiService {
       identifiant: '',
       codeAvatar: '',
       lastLogin: '',
-      lastAction: '',
       pseudo: '',
       score: 0,
-      codeTrophees: '',
-      tropheesVisibles: '',
       cleScore: '',
       teamName: '',
       scoreEquipe: 0,
@@ -86,7 +80,6 @@ export class ApiService {
     this.feminin = false
     this.pseudoClique = ''
     this.ancienPseudoClique = ''
-    this.lienTropheesClique = ''
     this.listeMasculins = []
     this.listeFeminins = []
     this.listeAdjectifs = []
@@ -170,7 +163,6 @@ export class ApiService {
             pseudo: 'anonyme',
             codeAvatar: '',
             score: 38,
-            lienTrophees: 'tuoocj',
             teamName: 'PUF',
             scoreEquipe: 28,
           },
@@ -179,7 +171,6 @@ export class ApiService {
             pseudo: 'lapin bleu',
             codeAvatar: '',
             score: 38,
-            lienTrophees: 'tcqnfy',
             teamName: 'PUF',
             scoreEquipe: 23,
           }
@@ -288,11 +279,8 @@ export class ApiService {
         identifiant: 'X',
         codeAvatar: '',
         lastLogin: '',
-        lastAction: '',
         pseudo: 'Cerf sauvage',
         score: 196,
-        codeTrophees: 'tuoocj',
-        tropheesVisibles: '',
         cleScore: 'abc',
         teamName: 'PUF',
         scoreEquipe: 0,
@@ -310,8 +298,6 @@ export class ApiService {
         'lastAction',
         'pseudo',
         'score',
-        'codeTrophees',
-        'tropheesVisibles',
         'derniereSequence',
         'dernierObjectif'])
     } else {
@@ -333,8 +319,6 @@ export class ApiService {
             'lastAction',
             'pseudo',
             'score',
-            'codeTrophees',
-            'tropheesVisibles',
             'derniereSequence',
             'dernierObjectif'])
           if (redirige) {
@@ -387,11 +371,8 @@ export class ApiService {
         identifiant: identifiant,
         codeAvatar: '',
         lastLogin: '',
-        lastAction: '',
         pseudo: this.pseudoAleatoire(),
         score: 0,
-        codeTrophees: '',
-        tropheesVisibles: '',
         cleScore: '',
         teamName: '',
         scoreEquipe: 0,
@@ -411,8 +392,6 @@ export class ApiService {
           'lastAction',
           'pseudo',
           'score',
-          'codeTrophees',
-          'tropheesVisibles',
           'derniereSequence',
           'dernierObjectif'])
         this.router.navigate(['profil'])
@@ -624,7 +603,7 @@ export class ApiService {
   logout() {
     this.deleteToken('identifiant')
     this.deleteToken('version')
-    this.user = new User(0, '', '', '', '', '', 0, '', '', '', '', 0, '', '', 0)
+    this.user = new User(0, '', '', '', '', 0, '', '', 0, '', '', 0)
     this.isloggedIn = false
     this.profilModifie.emit([
       'identifiant',
@@ -633,47 +612,9 @@ export class ApiService {
       'lastAction',
       'pseudo',
       'score',
-      'codeTrophees',
-      'tropheesVisibles',
       'derniereSequence',
       'dernierObjectif'])
     this.router.navigate(['accueil'])
-  }
-
-  /**
-   * @param tropheesVisibles peut être 'oui' ou 'non'
-   */
-  majTropheesVisibles(tropheesVisibles: string) {
-    this.user.tropheesVisibles = tropheesVisibles
-    this.majProfil(['tropheesVisibles'])
-  }
-
-  /**
-   * Met à jour le codeTrophees du profil local et de celui de la bdd
-   * @param codeTrophees
-   */
-  majCodeTrophees(codeTrophees: string) {
-    this.user.codeTrophees = codeTrophees
-    this.majProfil(['codeTrophees'])
-  }
-
-  /**
-   * Envoie un mail au propriétaire du site
-   * @param message
-   */
-  envoiMailEval(codeTrophee: string, sujetEval: string) {
-    this.http.post<Message>(GlobalConstants.apiUrl + 'envoiMailEval.php', { codeTrophee: codeTrophee, sujetEval: sujetEval }).pipe(first()).subscribe(
-      message => {
-        if (message.message == 'mail envoye') {
-          alert('Ton message a bien été envoyé !\nM. Valmont t\'enverra un message sur Pronote pour te dire quoi réviser.')
-        } else {
-          alert('Il semble que le mail ait été envoyé')
-        }
-      },
-      error => {
-        alert('Une erreur s\'est produite')
-        console.log(error)
-      });
   }
 
   /**
@@ -691,28 +632,6 @@ export class ApiService {
           console.log(error)
         });
     }
-  }
-
-  /**
-   * On renseigne soit le lienTrophees, soit le codeTrophees
-   * Renvoie la liste des trophées
-   * Si on passe par le lienTrophees, ne permet pas de demander à refaire une évaluation
-   * Si on passe par le codeTrophees, permet de demander à refaire une évaluation
-   * @param lienTrophees public, affiché dans le classement et la liste des personnes en ligne
-   * @param codeTrophees privé, remis par le professeur, permet de voir ses trophées, de le lier à son profil et de demander à refaire une évaluation
-   */
-  getTrophees(lienTrophees: string, codeTrophees: string) {
-    this.http.post<Trophee5e | Trophee4e>(GlobalConstants.apiUrl + 'trophees.php', { lienTrophees: lienTrophees, codeTrophees: codeTrophees }).subscribe(
-      trophees => {
-        if (codeTrophees != '' && lienTrophees == '' && trophees.peutDemanderEval != 'personne') {
-          this.majCodeTrophees(codeTrophees)
-        }
-        this.trophees = trophees
-        this.profilModifie.emit(['trophees'])
-      },
-      error => {
-        console.log(error)
-      })
   }
 
   /**

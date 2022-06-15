@@ -3,11 +3,8 @@ export class User {
   public identifiant: string;
   public codeAvatar: string;
   public lastLogin: string;
-  public lastAction: string;
   public pseudo: string;
   public score: number;
-  public codeTrophees: string;
-  public tropheesVisibles: string;
   public cleScore: string
   public teamName: string
   public scoreEquipe: number
@@ -16,18 +13,14 @@ export class User {
   public question: number
   public lienAvatar?: string
 
-  constructor(id: number, identifiant: string, codeAvatar: string, lastLogin: string, lastAction: string, pseudo: string, score: number,
-        codeTrophees: string, tropheesVisibles: string, cleScore: string, teamName: string, scoreEquipe: number, derniereSequence: string,
-        dernierObjectif: string, question: number) {
+  constructor(id: number, identifiant: string, codeAvatar: string, lastLogin: string, pseudo: string, score: number,
+        cleScore: string, teamName: string, scoreEquipe: number, derniereSequence: string, dernierObjectif: string, question: number) {
     this.id = id
     this.identifiant = identifiant
     this.codeAvatar = codeAvatar
     this.lastLogin = lastLogin
-    this.lastAction = lastAction
     this.pseudo = pseudo
     this.score = score
-    this.codeTrophees = codeTrophees
-    this.tropheesVisibles = tropheesVisibles
     this.cleScore = cleScore
     this.teamName = teamName
     this.scoreEquipe = scoreEquipe
@@ -41,7 +34,6 @@ export class UserSimplifie {
   public pseudo: string;
   public codeAvatar: string
   public score: number
-  public lienTrophees: string
   public teamName: string
   public scoreEquipe: number
   public lienAvatar?: string
@@ -51,12 +43,12 @@ export class UserSimplifie {
   public flamme?: number
   public question?: number
 
-  constructor(id: number, codeAvatar: string, pseudo: string, score: number, lienTrophees: string, teamName: string, scoreEquipe: number, styleAvatar?: string, aRepondu?: number, points?: number) {
+  constructor(id: number, codeAvatar: string, pseudo: string, score: number, teamName: string, scoreEquipe: number,
+    styleAvatar?: string, aRepondu?: number, points?: number) {
     this.id = id
     this.pseudo = pseudo
     this.codeAvatar = codeAvatar
     this.score = score
-    this.lienTrophees = lienTrophees
     this.styleAvatar = styleAvatar
     this.teamName = teamName
     this.scoreEquipe = scoreEquipe
