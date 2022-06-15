@@ -223,10 +223,6 @@
   overflow: scroll;
 }
 
-#modaleSecureLogin {
-  background-color: darkslategray;
-}
-
 .booboom {
   animation: Booboom 0.3s;
 }
