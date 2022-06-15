@@ -9,7 +9,6 @@ import { SafePipe } from './services/safe.pipe';
 import { ObjectifsComponent } from './objectifs/objectifs.component';
 import { SequencesComponent } from './sequences/sequences.component';
 import { SequenceComponent } from './sequence/sequence.component';
-import { JeuxComponent } from './jeux/jeux.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -41,7 +40,6 @@ import { AnimationInstrumenpocheComponent } from './mini-components/animation-in
     ObjectifsComponent,
     SequencesComponent,
     SequenceComponent,
-    JeuxComponent,
     LoginComponent,
     ProfilComponent,
     SPS1Component,

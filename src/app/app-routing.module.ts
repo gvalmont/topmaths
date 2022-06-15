@@ -5,7 +5,6 @@ import { ObjectifComponent } from './objectif/objectif.component';
 import { ObjectifsComponent } from './objectifs/objectifs.component';
 import { SequencesComponent } from './sequences/sequences.component';
 import { SequenceComponent } from './sequence/sequence.component';
-import { JeuxComponent } from './jeux/jeux.component';
 import { LoginComponent } from './login/login.component';
 import { ProfilComponent } from './profil/profil.component';
 import { AuthguardGuard } from './services/auth.guard';
@@ -31,7 +30,6 @@ const routes: Routes = [
   { path: 'sequences', redirectTo: 'sequences/tout' },
   { path: 'sequence/SPS1', component: SPS1Component, data: {title: 'topmaths.fr - Programmation'} },
   { path: 'sequence/:ref', component: SequenceComponent },
-  { path: 'jeux', component: JeuxComponent, canActivate: [TimeguardGuard], data: {title: 'topmaths.fr - Jeux'} },
   { path: 'login', component: LoginComponent, data: {title: 'topmaths.fr - Login'} },
   { path: 'profil/avatar', component: AvatarComponent, canActivate: [TimeguardGuard], data: {title: 'topmaths.fr - Avatar'}},
   { path: 'profil', component: ProfilComponent, canActivate: [AuthguardGuard], data: {title: 'topmaths.fr - Profil'} },
