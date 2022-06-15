@@ -1,13 +1,8 @@
 import { Injectable, Output, EventEmitter, isDevMode } from '@angular/core';
-import { first } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { User, UserSimplifie } from './user';
+import { User } from './user';
 import { Router } from '@angular/router';
 import { GlobalConstants } from './global-constants';
-
-interface Message {
-  message: string
-}
 
 interface Nom {
   nom: string
@@ -49,8 +44,7 @@ export class ApiService {
       lastLogin: '',
       pseudo: '',
       derniereSequence: '',
-      dernierObjectif: '',
-      question: 0
+      dernierObjectif: ''
     }
     this.feminin = false
     this.pseudoClique = ''
@@ -87,7 +81,7 @@ export class ApiService {
    * @param user 
    * @returns 
    */
-  getLienAvatar(user: User | UserSimplifie) {
+  getLienAvatar(user: User) {
     let lienAvatar: string
     if (user.pseudo == 'anonyme') {
       lienAvatar = 'assets/img/reshot/user-3294.svg'
@@ -112,7 +106,7 @@ export class ApiService {
   /**
    * Renvoie un style de css qui permet d'afficher un avatar et l'emblème de son équipe
    */
-  getStyleAvatar(user: User | UserSimplifie) {
+  getStyleAvatar(user: User) {
     let style = `--image-avatar:url('${this.getLienAvatar(user)}');`
     return <string>style
   }
@@ -138,8 +132,7 @@ export class ApiService {
         lastLogin: '',
         pseudo: 'Cerf sauvage',
         derniereSequence: 'S4S5!Séquence 5 :<br>Théorème de Pythagore',
-        dernierObjectif: '4G20!4G20 : Calculer une longueur avec le théorème de Pythagore',
-        question: 0
+        dernierObjectif: '4G20!4G20 : Calculer une longueur avec le théorème de Pythagore'
       }
       this.setToken('identifiant', this.user.identifiant)
       this.setToken('version', this.derniereVersionToken)
@@ -202,8 +195,7 @@ export class ApiService {
         lastLogin: '',
         pseudo: this.pseudoAleatoire(),
         derniereSequence: '',
-        dernierObjectif: '',
-        question: 0
+        dernierObjectif: ''
       }
       this.http.post<User[]>(GlobalConstants.apiUrl + 'register.php', user).subscribe(users => {
         this.isloggedIn = true
@@ -329,7 +321,7 @@ export class ApiService {
   logout() {
     this.deleteToken('identifiant')
     this.deleteToken('version')
-    this.user = new User(0, '', '', '', '', '', '', 0)
+    this.user = new User(0, '', '', '', '', '', '')
     this.isloggedIn = false
     this.profilModifie.emit([
       'identifiant',
