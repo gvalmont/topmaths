@@ -68,7 +68,7 @@ export class ApiService {
    */
   surveilleModificationsDuProfil() {
     this.profilModifie.subscribe(valeursModifiees => {
-      if (valeursModifiees.includes('lienAvatar')) {
+      if (valeursModifiees.includes('codeAvatar')) {
         this.lienAvatar = this.getLienAvatar(this.user)
         this.styleAvatar = this.getStyleAvatar(this.user)
       }
@@ -76,21 +76,15 @@ export class ApiService {
   }
 
   /**
-   * Si l'utilisateur choisit de rester anonyme ou qu'il n'a pas de codeAvatar, renvoie le lien vers l'icone de base
+   * Si l'utilisateur n'a pas de codeAvatar, renvoie le lien vers l'icone de base
    * Sinon, épure le codeAvatar et renvoie le lien vers son avatar (avec un ?user.codeAvatar épuré pour signaler une mise à jour et forcer le retéléchargement)
    * @param user 
    * @returns 
    */
   getLienAvatar(user: User) {
     let lienAvatar: string
-    if (user.pseudo == 'anonyme') {
+    if (user.codeAvatar == null || user.codeAvatar == '') {
       lienAvatar = 'assets/img/reshot/user-3294.svg'
-    } else if (user.codeAvatar == null || user.codeAvatar == '') {
-      if (user.lienAvatar != null && user.lienAvatar != '') {
-        lienAvatar = user.lienAvatar
-      } else {
-        lienAvatar = 'assets/img/reshot/user-3294.svg'
-      }
     } else {
       lienAvatar = `/avatars/${user.id}.svg?${user.codeAvatar}`
       lienAvatar = lienAvatar.replace(/-/g, '')
@@ -104,7 +98,7 @@ export class ApiService {
   }
 
   /**
-   * Renvoie un style de css qui permet d'afficher un avatar et l'emblème de son équipe
+   * Renvoie un style de css qui permet d'afficher un avatar
    */
   getStyleAvatar(user: User) {
     let style = `--image-avatar:url('${this.getLienAvatar(user)}');`
@@ -139,7 +133,7 @@ export class ApiService {
       this.isloggedIn = true
       this.profilModifie.emit([
         'identifiant',
-        'lienAvatar',
+        'codeAvatar',
         'lastLogin',
         'lastAction',
         'pseudo',
@@ -159,7 +153,7 @@ export class ApiService {
           this.user = users[0]
           this.profilModifie.emit([
             'identifiant',
-            'lienAvatar',
+            'codeAvatar',
             'lastLogin',
             'lastAction',
             'pseudo',
@@ -204,7 +198,7 @@ export class ApiService {
         this.user = users[0]
         this.profilModifie.emit([
           'identifiant',
-          'lienAvatar',
+          'codeAvatar',
           'lastLogin',
           'lastAction',
           'pseudo',
@@ -285,17 +279,17 @@ export class ApiService {
 
   /**
    * Modifie le codeAvatar dans la bdd et écrit le svg
-   * @param lienAvatar
+   * @param avatarSVG
    * @param codeAvatar
    */
-  majAvatar(lienAvatar: string, codeAvatar: string) {
+  majAvatar(avatarSVG: string, codeAvatar: string) {
     this.user.codeAvatar = codeAvatar
     if (isDevMode()) {
-      this.profilModifie.emit(['lienAvatar'])
+      this.profilModifie.emit(['codeAvatar'])
     } else {
-      this.http.post<User[]>(GlobalConstants.apiUrl + 'majAvatar.php', { identifiant: this.user.identifiant, codeAvatar: this.user.codeAvatar, lienAvatar: lienAvatar }).subscribe(
+      this.http.post<User[]>(GlobalConstants.apiUrl + 'majAvatar.php', { identifiant: this.user.identifiant, codeAvatar: this.user.codeAvatar, avatarSVG: avatarSVG }).subscribe(
         users => {
-          this.profilModifie.emit(['lienAvatar'])
+          this.profilModifie.emit(['codeAvatar'])
         },
         error => {
           console.log(error)
@@ -314,7 +308,7 @@ export class ApiService {
 
   /**
    * Supprime le token de clé 'identifiant' utilisé pour vérifier si l'utilisateur est connecté.
-   * Supprime aussi le token de clé 'lienAvatar'
+   * Supprime aussi le token de clé 'codeAvatar'
    * Toggle les profilbtn et loginbtn.
    * Renvoie vers l'accueil.
    */
@@ -325,7 +319,7 @@ export class ApiService {
     this.isloggedIn = false
     this.profilModifie.emit([
       'identifiant',
-      'lienAvatar',
+      'codeAvatar',
       'lastLogin',
       'lastAction',
       'pseudo',

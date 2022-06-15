@@ -362,15 +362,15 @@ export class AvatarComponent implements OnInit {
    */
   majProfil(redirection: string = '/profil') {
     this.modaleConfirmation.style.display = 'none'
-    this.dataService.majAvatar(this.lienImage(), `${this.skinColor}&${this.eyes}&${this.eyebrows}&${this.mouth}&${this.accessoiresId(this.accessoires)}&${this.hair}&${this.hairColor}`)
+    this.dataService.majAvatar(this.avatarSVG(), `${this.skinColor}&${this.eyes}&${this.eyebrows}&${this.mouth}&${this.accessoiresId(this.accessoires)}&${this.hair}&${this.hairColor}`)
     this.router.navigate([redirection])
   }
 
   /**
    * Crée un lien permettant de construire l'emblème actuel
-   * @returns lien image
+   * @returns une version SVG de l'avatar
    */
-  lienImage() {
+  avatarSVG() {
     const emblemeSVG = document.getElementById("svgDiv")
     let svgData = ''
     if (emblemeSVG != null) svgData = new XMLSerializer().serializeToString(emblemeSVG.childNodes[0]);

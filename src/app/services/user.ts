@@ -6,10 +6,8 @@ export class User {
   public pseudo: string
   public derniereSequence: string
   public dernierObjectif: string
-  public lienAvatar?: string
 
-  constructor(id: number, identifiant: string, codeAvatar: string, lastLogin: string, pseudo: string,
-    derniereSequence: string, dernierObjectif: string) {
+  constructor(id: number, identifiant: string, codeAvatar: string, lastLogin: string, pseudo: string, derniereSequence: string, dernierObjectif: string) {
     this.id = id
     this.identifiant = identifiant
     this.codeAvatar = codeAvatar
