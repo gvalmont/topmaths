@@ -28,8 +28,6 @@ import { AvatarComponent } from './avatar/avatar.component';
 import { ModaleExercicesComponent } from './modale-exercices/modale-exercices.component';
 import { ListeSequencesComponent } from './sequences/liste-sequences/liste-sequences.component';
 import { CompetitionActuelleComponent } from './competitions/competition-actuelle/competition-actuelle.component';
-import { ModulesComponent } from './modules/modules.component';
-import { ModuleComponent } from './module/module.component';
 import { MathadorComponent } from './outils/mathador/mathador.component';
 import { OutilsComponent } from './outils/outils.component';
 import { BoutonImprimerComponent } from './mini-components/bouton-imprimer/bouton-imprimer.component';
@@ -58,8 +56,6 @@ import { AnimationInstrumenpocheComponent } from './mini-components/animation-in
     ModaleExercicesComponent,
     ListeSequencesComponent,
     CompetitionActuelleComponent,
-    ModulesComponent,
-    ModuleComponent,
     MathadorComponent,
     OutilsComponent,
     BoutonImprimerComponent,

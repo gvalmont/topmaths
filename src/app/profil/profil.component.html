@@ -20,13 +20,9 @@
   </div>
   <!-- Raccourcis -->
   <br>
-  <div *ngIf="dataService.user.derniereSequence != '' || dataService.user.dernierModule != '' || dataService.user.dernierObjectif != ''">
+  <div *ngIf="dataService.user.derniereSequence != '' || dataService.user.dernierObjectif != ''">
     <a *ngIf="dataService.user.derniereSequence != ''" [routerLink]="'/sequence/' + dataService.user.derniereSequence.split('!')[0]" routerLinkActive="active">
       <button [class]="'px-4 subtitle is-' + dataService.user.derniereSequence.slice(1, 2) + 'e is-rounded is-clickable'" style="line-height: 2.1; border-color: transparent;" [innerHTML]="dataService.user.derniereSequence.split('!')[1]"></button>
-    </a>
-    <a *ngIf="dataService.user.dernierModule != ''" [routerLink]="'/module/' + dataService.user.dernierModule.split('!')[0]" routerLinkActive="active">
-      <br><br>
-      <button [class]="'px-4 subtitle is-' + dataService.user.dernierModule.slice(0, 1) + 'e is-rounded is-clickable'" style="line-height: 2.1; border-color: transparent;" [innerHTML]="dataService.user.dernierModule.split('!')[1]"></button>
     </a>
     <a *ngIf="dataService.user.dernierObjectif != ''" [routerLink]="'/objectif/' + dataService.user.dernierObjectif.split('!')[0]" routerLinkActive="active">
       <br><br>

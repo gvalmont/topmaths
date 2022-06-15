@@ -5,8 +5,6 @@ import { ObjectifComponent } from './objectif/objectif.component';
 import { ObjectifsComponent } from './objectifs/objectifs.component';
 import { SequencesComponent } from './sequences/sequences.component';
 import { SequenceComponent } from './sequence/sequence.component';
-import { ModulesComponent } from './modules/modules.component';
-import { ModuleComponent } from './module/module.component';
 import { JeuxComponent } from './jeux/jeux.component';
 import { LoginComponent } from './login/login.component';
 import { ProfilComponent } from './profil/profil.component';
@@ -32,11 +30,8 @@ const routes: Routes = [
   { path: 'objectifs', redirectTo: 'objectifs/tout' },
   { path: 'sequences/:niveau', component: SequencesComponent, data: {title: 'topmaths.fr - Séquences'} },
   { path: 'sequences', redirectTo: 'sequences/tout' },
-  { path: 'modules/:niveau', component: ModulesComponent, data: {title: 'topmaths.fr - Modules'} },
-  { path: 'modules', redirectTo: 'modules/tout' },
   { path: 'sequence/SPS1', component: SPS1Component, data: {title: 'topmaths.fr - Programmation'} },
   { path: 'sequence/:ref', component: SequenceComponent },
-  { path: 'module/:ref', component: ModuleComponent },
   { path: 'trophees/:ref', component: TropheesComponent, canActivate: [TimeguardGuard], data: {title: 'topmaths.fr - Trophées'} },
   { path: 'jeux', component: JeuxComponent, canActivate: [TimeguardGuard], data: {title: 'topmaths.fr - Jeux'} },
   { path: 'login', component: LoginComponent, data: {title: 'topmaths.fr - Login'} },
