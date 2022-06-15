@@ -1,24 +1,17 @@
-<div class="columns centre">
-  <div class="column is-one-fifth"></div>
-  <div class="column is-three-fifths">
-    <p>Les modules sont choisis par les élèves et réalisés pendant les heures de travail en autonomie.</p>
-    <br>
-    <p>Design en construction ! En attendant voici quand même la liste des modules disponibles</p>
-    <br>
-    <div *ngFor="let ligne of lignes; index as i">
-      <div class="p-2" *ngIf="ligne.niveau !== ''">
-        <h1 class="title is-3">{{ ligne.niveau }}</h1>
-      </div>
-      <div class="p-2 dropdown is-size-5" *ngIf="ligne.niveau === ''">
-        <a routerLink="/module/{{ligne.reference}}" routerLinkActive="active">
-          {{ligne.reference.slice(2)}} : {{ligne.titre}}<br>
-        </a>
-      <div class="dropdown-content" [mathjax]="ligne.description"></div>
-      </div>
+<div class="container is-max-desktop centre">
+  <p>Les modules sont choisis par les élèves et réalisés pendant les heures de travail en autonomie.</p>
+  <br>
+  <p>Design en construction ! En attendant voici quand même la liste des modules disponibles</p>
+  <br>
+  <div *ngFor="let ligne of lignes; index as i">
+    <div class="p-2" *ngIf="ligne.niveau !== ''">
+      <h1 class="title is-3">{{ ligne.niveau }}</h1>
     </div>
-  </div>
-  <div class="column is-one-fifth">
-    <!-- Utilisateurs connectés -->
-    <app-whosonline></app-whosonline>
+    <div class="p-2 dropdown is-size-5" *ngIf="ligne.niveau === ''">
+      <a routerLink="/module/{{ligne.reference}}" routerLinkActive="active">
+        {{ligne.reference.slice(2)}} : {{ligne.titre}}<br>
+      </a>
+      <div class="dropdown-content" [mathjax]="ligne.description"></div>
+    </div>
   </div>
 </div>

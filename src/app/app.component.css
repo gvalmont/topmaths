@@ -2,7 +2,6 @@
   --window-height: 200px;
   --foreground-transform: scale(1, 1);
   --image-equipe: url(/assets/img/gvalmont/blank.svg);
-  --image-badge: url(/assets/img/gvalmont/blank.svg);
   --basetout: #feb60a;
   --lighttout: hsl(48, 100%, 96%);
   --base6e: #28a745;
@@ -208,10 +207,10 @@
 .avatar {
   height: 68px;
   width: 48px;
-  background-image: var(--image-badge), var(--image-equipe), var(--image-avatar);
-  background-position: right bottom, left bottom, center;
-  background-size: 24px, 24px, 48px;
-  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-image: var(--image-equipe), var(--image-avatar);
+  background-position: left bottom, center;
+  background-size: 24px, 48px;
+  background-repeat: no-repeat, no-repeat;
 }
 
 .avatar.is-large {

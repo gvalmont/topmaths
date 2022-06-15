@@ -1,130 +1,123 @@
-<div class="columns centre">
-  <div class="column is-one-fifth"></div>
-  <div class="column is-three-fifths">
-    <!-- Affichage des compétitions en cours -->
-    <div *ngIf="!organisation">
-      <h1 id="titreCompetitionsEnCours" (click)="toggleCompetitionsEnCours()" class='title is-2 has-text-white has-background-primary is-rounded p-5 is-clickable'>Compétitions en cours</h1>
-      <div id="divCompetitionsEnCours" class="has-background-primary-light bas-arrondi">
-        <br>
-        <p *ngIf="competitionsEnCours[0] == null || (competitionsEnCours[0] != null && competitionsEnCours[0].nbParticipants == 0)">
-          Pas de compétition en ce moment
-        <figure class="image is-32x32 is-inline-block has-text-left">{{troisPetitsPoints}}</figure>
-        </p>
-        <div *ngIf="competitionsEnCours[0] != null && competitionsEnCours[0].type != ''">
-          <div *ngFor="let competitionEnCours of competitionsEnCours">
-            <div *ngIf="competitionEnCours.statut != 'fin'">
-              <div [class]="'titre is-clickable is-flex is-align-items-center is-justify-content-center ' + competitionEnCours.type" (click)="rejoindreCompetition(competitionEnCours)">
-                <p>{{competitionEnCours.type == 'bestOf10' ? 'Best of 10' : competitionEnCours.type == 'battleRoyale' ? 'Battle Royale' : ''}}</p>
-                <p>&nbsp; &nbsp;</p>
-                <i class="image is-white is-24x24 is-inline-block">
-                  <img *ngIf="competitionEnCours.statut == 'recrutement' || competitionEnCours.statut == 'preparation'" [src]="'assets/img/cc0/hourglass-svgrepo-com.svg'" />
-                  <img *ngIf="competitionEnCours.statut != 'recrutement' && competitionEnCours.statut != 'preparation' && competitionEnCours.type == 'bestOf10'" [src]="'assets/img/cc0/gears-configuration-tool-svgrepo-com.svg'" />
-                  <img *ngIf="competitionEnCours.statut != 'recrutement' && competitionEnCours.statut != 'preparation' && competitionEnCours.type == 'battleRoyale'" [src]="'assets/img/cc0/padlock-svgrepo-com.svg'" />
-                </i>
-              </div>
-              <div [class]="'container-competition is-small is-clickable ' + competitionEnCours.type" (click)="rejoindreCompetition(competitionEnCours)">
-                <div class="is-flex is-align-items-center is-justify-content-center" style="line-height: normal;">
-                  <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(competitionEnCours.profilOrganisateur)"></figure>
-                  <span>{{ competitionEnCours.profilOrganisateur.pseudo }}</span>
-                  <i class="image is-48x48 is-inline-block"><img *ngIf="competitionEnCours.type != ''" [src]="'assets/img/cc0/' + competitionEnCours.type + '-svgrepo-com.svg'" /></i>
-                  <span class="colore">{{competitionEnCours.nbParticipants}}</span><i class="image is-24x24"><img [src]="'assets/img/reshot/user-3294.svg'" /></i>
-                </div>
-                <span *ngIf="competitionEnCours.niveaux[0] != ''">
-                  <span *ngFor="let niveau of competitionEnCours.niveaux">
-                    <span style="word-break: keep-all" [ngClass]="'dropdown px-4 subtitle is-rounded is-' + niveau">{{ niveau }}<div class="dropdown-content">Toutes les séquences de {{niveau}}</div></span>
-                  </span>
-                </span>
-                <span *ngIf="competitionEnCours.niveaux[0] != ''">
-                  <span style="word-break: keep-all" class="px-4 py-2 subtitle is-rounded bonus dropdown">x2<div class="dropdown-content">Les points de cette compétition sont doublés !</div></span>
-                </span>
-                <span *ngIf="competitionEnCours.sequences[0] != ''">
-                  <span *ngFor="let sequence of competitionEnCours.sequences; index as i">
-                    <span style="word-break: keep-all" [ngClass]="'dropdown px-4 subtitle is-6 is-rounded is-' + sequence.slice(1, 2) + 'e'">{{ sequence.slice(2) }}<span *ngIf="competitionEnCours.niveaux[0] == '' ? (i + 1) % 5 == 0 :((competitionEnCours.niveaux.length + i + 2) % 5 == 0)">
-                        <br>
-                      </span>
-                      <div class="dropdown-content">Séquence {{ sequence.slice(3) }} de {{sequence.slice(1, 2)}}e</div>
-                    </span>
-                  </span>
-                </span>
-              </div>
-              <br>
+<div class="container is-max-desktop centre">
+  <!-- Affichage des compétitions en cours -->
+  <div *ngIf="!organisation">
+    <h1 id="titreCompetitionsEnCours" (click)="toggleCompetitionsEnCours()" class='title is-2 has-text-white has-background-primary is-rounded p-5 is-clickable'>Compétitions en cours</h1>
+    <div id="divCompetitionsEnCours" class="has-background-primary-light bas-arrondi">
+      <br>
+      <p *ngIf="competitionsEnCours[0] == null || (competitionsEnCours[0] != null && competitionsEnCours[0].nbParticipants == 0)">
+        Pas de compétition en ce moment
+      <figure class="image is-32x32 is-inline-block has-text-left">{{troisPetitsPoints}}</figure>
+      </p>
+      <div *ngIf="competitionsEnCours[0] != null && competitionsEnCours[0].type != ''">
+        <div *ngFor="let competitionEnCours of competitionsEnCours">
+          <div *ngIf="competitionEnCours.statut != 'fin'">
+            <div [class]="'titre is-clickable is-flex is-align-items-center is-justify-content-center ' + competitionEnCours.type" (click)="rejoindreCompetition(competitionEnCours)">
+              <p>{{competitionEnCours.type == 'bestOf10' ? 'Best of 10' : competitionEnCours.type == 'battleRoyale' ? 'Battle Royale' : ''}}</p>
+              <p>&nbsp; &nbsp;</p>
+              <i class="image is-white is-24x24 is-inline-block">
+                <img *ngIf="competitionEnCours.statut == 'recrutement' || competitionEnCours.statut == 'preparation'" [src]="'assets/img/cc0/hourglass-svgrepo-com.svg'" />
+                <img *ngIf="competitionEnCours.statut != 'recrutement' && competitionEnCours.statut != 'preparation' && competitionEnCours.type == 'bestOf10'" [src]="'assets/img/cc0/gears-configuration-tool-svgrepo-com.svg'" />
+                <img *ngIf="competitionEnCours.statut != 'recrutement' && competitionEnCours.statut != 'preparation' && competitionEnCours.type == 'battleRoyale'" [src]="'assets/img/cc0/padlock-svgrepo-com.svg'" />
+              </i>
             </div>
+            <div [class]="'container-competition is-small is-clickable ' + competitionEnCours.type" (click)="rejoindreCompetition(competitionEnCours)">
+              <div class="is-flex is-align-items-center is-justify-content-center" style="line-height: normal;">
+                <figure class="avatar is-inline-block" [style]="dataService.getStyleAvatar(competitionEnCours.profilOrganisateur)"></figure>
+                <span>{{ competitionEnCours.profilOrganisateur.pseudo }}</span>
+                <i class="image is-48x48 is-inline-block"><img *ngIf="competitionEnCours.type != ''" [src]="'assets/img/cc0/' + competitionEnCours.type + '-svgrepo-com.svg'" /></i>
+                <span class="colore">{{competitionEnCours.nbParticipants}}</span><i class="image is-24x24"><img [src]="'assets/img/reshot/user-3294.svg'" /></i>
+              </div>
+              <span *ngIf="competitionEnCours.niveaux[0] != ''">
+                <span *ngFor="let niveau of competitionEnCours.niveaux">
+                  <span style="word-break: keep-all" [ngClass]="'dropdown px-4 subtitle is-rounded is-' + niveau">{{ niveau }}<div class="dropdown-content">Toutes les séquences de {{niveau}}</div></span>
+                </span>
+              </span>
+              <span *ngIf="competitionEnCours.niveaux[0] != ''">
+                <span style="word-break: keep-all" class="px-4 py-2 subtitle is-rounded bonus dropdown">x2<div class="dropdown-content">Les points de cette compétition sont doublés !</div></span>
+              </span>
+              <span *ngIf="competitionEnCours.sequences[0] != ''">
+                <span *ngFor="let sequence of competitionEnCours.sequences; index as i">
+                  <span style="word-break: keep-all" [ngClass]="'dropdown px-4 subtitle is-6 is-rounded is-' + sequence.slice(1, 2) + 'e'">{{ sequence.slice(2) }}<span *ngIf="competitionEnCours.niveaux[0] == '' ? (i + 1) % 5 == 0 :((competitionEnCours.niveaux.length + i + 2) % 5 == 0)">
+                      <br>
+                    </span>
+                    <div class="dropdown-content">Séquence {{ sequence.slice(3) }} de {{sequence.slice(1, 2)}}e</div>
+                  </span>
+                </span>
+              </span>
+            </div>
+            <br>
           </div>
         </div>
-        <figure class="image is-64x64 is-inline-block">
-          <img *ngIf="enCoursDeMaj" [src]="'assets/img/cc0/primary-spinner.svg'">
-        </figure>
-        <br>
       </div>
+      <figure class="image is-64x64 is-inline-block">
+        <img *ngIf="enCoursDeMaj" [src]="'assets/img/cc0/primary-spinner.svg'">
+      </figure>
       <br>
-      <button *ngIf="!participationEnCours" [routerLink]="['/competitions/organiser']" class="button is-link">Organiser une compétition</button>
-      <!-- Affichage de la compétition actuelle -->
-      <div id="divCompetitionActuelle" *ngIf="participationEnCours">
-        <!-- Titre -->
-        <div [ngClass]="{'title is-2 has-text-white': true, 'has-background-link': competitionActuelle.type == 'bestOf10', 'has-background-danger': competitionActuelle.type == 'battleRoyale'}">
-          <div>
-            {{competitionActuelle.type == 'bestOf10' ? 'Best of 10' : competitionActuelle.type == 'battleRoyale' ? 'Battle Royale' : ''}}<figure class="image is-48x48 is-inline-block has-text-left">{{troisPetitsPoints}}</figure>
-          </div>
-        </div>
-        <!-- Contenu -->
-        <div *ngIf="competitionActuelle.statut == 'preparation' || competitionActuelle.statut == 'recrutement'">
-          <app-competition-actuelle [nouvelAffichage]="nouvelAffichage" [competitionActuelle]="competitionActuelle" [troisPetitsPoints]="troisPetitsPoints" (fermerLobby)="fermerLobby()"></app-competition-actuelle>
-        </div>
-        <div *ngIf="competitionActuelle.statut != 'preparation' && competitionActuelle.statut != 'recrutement'">
-          La compétition a déjà commencé.
-        </div>
-        <br>
-        <button *ngIf="competitionActuelle.profilOrganisateur.id != dataService.user.id || competitionActuelle.statut != 'recrutement'" class="button is-danger" (click)="quitterCompetition()">Quitter la compétition</button>
-        <div *ngIf="competitionActuelle.profilOrganisateur.id == dataService.user.id && competitionActuelle.statut == 'recrutement'">
-          <button id='boutonAnnulerCompetition' class="button is-danger" (click)="annulerCompetition(true)">Annuler la compétition</button>
-          &nbsp; &nbsp;
-          <button id='boutonLancerCompetition' class="button is-success" (click)="lancerCompetition()">Lancer la compétition</button>
-        </div>
-      </div>
     </div>
-    <!-- Organisation d'une nouvelle compétition -->
-    <div id="divOrganisation" *ngIf="organisation">
-      <h1 class='title is-2'>Organiser une compétition</h1>
-      <div *ngIf="type != 'battleRoyale'">
-        <a [routerLink]="['/competitions/organiser/bestOf10']">
-          <button [ngClass]="{'button is-large is-info p-6': true, 'is-outlined' : type != 'bestOf10'}">
-            <p class="enorme">Best of 10</p>
-            &nbsp;
-            <i class="image is-48x48 is-inline-block"><img src="assets/img/cc0/bestOf10-svgrepo-com.svg" /></i>
-          </button>
-        </a>
-        <br>
-        <br>
+    <br>
+    <button *ngIf="!participationEnCours" [routerLink]="['/competitions/organiser']" class="button is-link">Organiser une compétition</button>
+    <!-- Affichage de la compétition actuelle -->
+    <div id="divCompetitionActuelle" *ngIf="participationEnCours">
+      <!-- Titre -->
+      <div [ngClass]="{'title is-2 has-text-white': true, 'has-background-link': competitionActuelle.type == 'bestOf10', 'has-background-danger': competitionActuelle.type == 'battleRoyale'}">
+        <div>
+          {{competitionActuelle.type == 'bestOf10' ? 'Best of 10' : competitionActuelle.type == 'battleRoyale' ? 'Battle Royale' : ''}}<figure class="image is-48x48 is-inline-block has-text-left">{{troisPetitsPoints}}</figure>
+        </div>
       </div>
-      <p *ngIf="type == 'bestOf10'" class="is-size-4">10 questions pour voir qui est le ou la meilleur(e) !
-        <br>
-      </p>
-      <div *ngIf="type != 'bestOf10'">
-        <a [routerLink]="['/competitions/organiser/battleRoyale']">
-          <button [ngClass]="{'button is-large is-danger p-6': true, 'is-outlined' : type != 'battleRoyale'}">
-            <p class="enorme">Battle Royale</p>
-            &nbsp;
-            <i class="image is-48x48 is-inline-block"><img src="assets/img/cc0/battleRoyale-svgrepo-com.svg" /></i>
-          </button>
-        </a>
-        <br>
-        <br>
+      <!-- Contenu -->
+      <div *ngIf="competitionActuelle.statut == 'preparation' || competitionActuelle.statut == 'recrutement'">
+        <app-competition-actuelle [nouvelAffichage]="nouvelAffichage" [competitionActuelle]="competitionActuelle" [troisPetitsPoints]="troisPetitsPoints" (fermerLobby)="fermerLobby()"></app-competition-actuelle>
       </div>
-      <p *ngIf="type == 'battleRoyale'" class="is-size-4">Jusqu'à 100 personnes !<br>1 erreur et tu es éliminé(e) !<br>
-      </p>
-      <br>
-      <br>
-      <div *ngIf="type != '' && type != null">
-        <app-liste-sequences [modeSelection]="true" [reactiveBoutonsEnvoi]="reactiveBoutonsEnvoi" (selection)="recupererExercices($event)"></app-liste-sequences>
+      <div *ngIf="competitionActuelle.statut != 'preparation' && competitionActuelle.statut != 'recrutement'">
+        La compétition a déjà commencé.
       </div>
       <br>
-      <button *ngIf="organisation && type != ''" [routerLink]="['/competitions/organiser']" class="button is-warning">Retour</button>
-      <button *ngIf="organisation && type == ''" [routerLink]="['/competitions']" class="button is-warning">Annuler</button>
+      <button *ngIf="competitionActuelle.profilOrganisateur.id != dataService.user.id || competitionActuelle.statut != 'recrutement'" class="button is-danger" (click)="quitterCompetition()">Quitter la compétition</button>
+      <div *ngIf="competitionActuelle.profilOrganisateur.id == dataService.user.id && competitionActuelle.statut == 'recrutement'">
+        <button id='boutonAnnulerCompetition' class="button is-danger" (click)="annulerCompetition(true)">Annuler la compétition</button>
+        &nbsp; &nbsp;
+        <button id='boutonLancerCompetition' class="button is-success" (click)="lancerCompetition()">Lancer la compétition</button>
+      </div>
     </div>
   </div>
-  <div class="column is-one-fifth">
-    <!-- Utilisateurs connectés -->
-    <app-whosonline></app-whosonline>
+  <!-- Organisation d'une nouvelle compétition -->
+  <div id="divOrganisation" *ngIf="organisation">
+    <h1 class='title is-2'>Organiser une compétition</h1>
+    <div *ngIf="type != 'battleRoyale'">
+      <a [routerLink]="['/competitions/organiser/bestOf10']">
+        <button [ngClass]="{'button is-large is-info p-6': true, 'is-outlined' : type != 'bestOf10'}">
+          <p class="enorme">Best of 10</p>
+          &nbsp;
+          <i class="image is-48x48 is-inline-block"><img src="assets/img/cc0/bestOf10-svgrepo-com.svg" /></i>
+        </button>
+      </a>
+      <br>
+      <br>
+    </div>
+    <p *ngIf="type == 'bestOf10'" class="is-size-4">10 questions pour voir qui est le ou la meilleur(e) !
+      <br>
+    </p>
+    <div *ngIf="type != 'bestOf10'">
+      <a [routerLink]="['/competitions/organiser/battleRoyale']">
+        <button [ngClass]="{'button is-large is-danger p-6': true, 'is-outlined' : type != 'battleRoyale'}">
+          <p class="enorme">Battle Royale</p>
+          &nbsp;
+          <i class="image is-48x48 is-inline-block"><img src="assets/img/cc0/battleRoyale-svgrepo-com.svg" /></i>
+        </button>
+      </a>
+      <br>
+      <br>
+    </div>
+    <p *ngIf="type == 'battleRoyale'" class="is-size-4">Jusqu'à 100 personnes !<br>1 erreur et tu es éliminé(e) !<br>
+    </p>
+    <br>
+    <br>
+    <div *ngIf="type != '' && type != null">
+      <app-liste-sequences [modeSelection]="true" [reactiveBoutonsEnvoi]="reactiveBoutonsEnvoi" (selection)="recupererExercices($event)"></app-liste-sequences>
+    </div>
+    <br>
+    <button *ngIf="organisation && type != ''" [routerLink]="['/competitions/organiser']" class="button is-warning">Retour</button>
+    <button *ngIf="organisation && type == ''" [routerLink]="['/competitions']" class="button is-warning">Annuler</button>
   </div>
 </div>
 <app-modale-exercices [infosModale]="infosModale" (modaleFermee)="modalefermee($event)"></app-modale-exercices>

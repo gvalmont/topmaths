@@ -1,52 +1,45 @@
-<div class="columns centre">
-  <div class="column is-one-fifth"></div>
-  <div class="column is-three-fifths">
-    <h1 [class]="'title is-2 is-' + niveau">{{ titre }}</h1>
-    <div [class]="'is-' + niveau" *ngIf="rappelDuCoursHTML != '' || rappelDuCoursImage != '' || rappelDuCoursInstrumenpoche != ''">
-      <h2 [class]="'mb-5 pb-5 subtitle is-3 is-' + niveau">Rappel du cours</h2>
-      <div class="has-text-centered pb-5">
-        <p [mathjax]="rappelDuCoursHTML" class="is-size-5"></p>
-        <img *ngIf="rappelDuCoursImage != ''" [src]="rappelDuCoursImage" />
-        <app-animation-instrumenpoche *ngIf="rappelDuCoursInstrumenpoche != ''" [nomAnimation]="rappelDuCoursInstrumenpoche" class="centre" ></app-animation-instrumenpoche>
-      </div>
-    </div>
-    <div [class]="'is-' + niveau" *ngIf="presenceVideo">
-      <h2 [class]="'subtitle is-3 is-' + niveau">Vidéo{{videos.length > 1 ? 's' : ''}} d'explication</h2>
-      <div class='pb-5' *ngFor="let video of videos">
-        <h3 *ngIf="video.titre != ''" [class]="'subtitle is-4 is-' + niveau">{{video.titre}}</h3>
-        <div class="image is-16by9"><iframe class="has-ratio" [src]="video.lienVideo| safe" allowfullscreen></iframe></div>
-        <p><u>Vidéo de <a [href]="video.lienAuteur" target="_blank" rel="noopener noreferrer">{{ video.auteur }}</a></u></p>
-      </div>
-    </div>
-    <div id="divExercices" *ngIf="exercices.length > 0" [class]="'is-fin is-' + niveau">
-      <h2 [class]="'subtitle is-3 is-' + niveau">S'entraîner</h2>
-      <div><br></div>
-      <div *ngFor="let exercice of exercices; index as i">
-        <h3 class="title is-4 is-inline-block">
-          <a (click)="ouvrirModaleExercices(exercice.lien, 'Exercices')">
-            Exercices de niveau {{ i + 1 }}
-            &nbsp;
-            <i class='image is-24x24 is-inline-block'>
-              <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
-            </i>
-          </a>
-          &nbsp;
-          <app-bouton-imprimer [lien]="exercice.lien"></app-bouton-imprimer>
-        </h3>
-        <div><br></div>
-      </div>
-    </div>
-    <div id='divTelechargements' [class]="'cache is-fin is-' + niveau">
-      <h2 [class]="'subtitle is-3 is-' + niveau">Téléchargements</h2>
-      <div class="p-1 pb-5">
-        <div id='lienFiche' class="p-1 cache"></div>
-        <div id='lienAnki' class="p-1 cache"></div>
-      </div>
+<div class="container is-max-desktop centre">
+  <h1 [class]="'title is-2 is-' + niveau">{{ titre }}</h1>
+  <div [class]="'is-' + niveau" *ngIf="rappelDuCoursHTML != '' || rappelDuCoursImage != '' || rappelDuCoursInstrumenpoche != ''">
+    <h2 [class]="'mb-5 pb-5 subtitle is-3 is-' + niveau">Rappel du cours</h2>
+    <div class="has-text-centered pb-5">
+      <p [mathjax]="rappelDuCoursHTML" class="is-size-5"></p>
+      <img *ngIf="rappelDuCoursImage != ''" [src]="rappelDuCoursImage" />
+      <app-animation-instrumenpoche *ngIf="rappelDuCoursInstrumenpoche != ''" [nomAnimation]="rappelDuCoursInstrumenpoche" class="centre"></app-animation-instrumenpoche>
     </div>
   </div>
-  <div class="column is-one-fifth">
-    <!-- Utilisateurs connectés -->
-    <app-whosonline></app-whosonline>
+  <div [class]="'is-' + niveau" *ngIf="presenceVideo">
+    <h2 [class]="'subtitle is-3 is-' + niveau">Vidéo{{videos.length > 1 ? 's' : ''}} d'explication</h2>
+    <div class='pb-5' *ngFor="let video of videos">
+      <h3 *ngIf="video.titre != ''" [class]="'subtitle is-4 is-' + niveau">{{video.titre}}</h3>
+      <div class="image is-16by9"><iframe class="has-ratio" [src]="video.lienVideo| safe" allowfullscreen></iframe></div>
+      <p><u>Vidéo de <a [href]="video.lienAuteur" target="_blank" rel="noopener noreferrer">{{ video.auteur }}</a></u></p>
+    </div>
+  </div>
+  <div id="divExercices" *ngIf="exercices.length > 0" [class]="'is-fin is-' + niveau">
+    <h2 [class]="'subtitle is-3 is-' + niveau">S'entraîner</h2>
+    <div><br></div>
+    <div *ngFor="let exercice of exercices; index as i">
+      <h3 class="title is-4 is-inline-block">
+        <a (click)="ouvrirModaleExercices(exercice.lien, 'Exercices')">
+          Exercices de niveau {{ i + 1 }}
+          &nbsp;
+          <i class='image is-24x24 is-inline-block'>
+            <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
+          </i>
+        </a>
+        &nbsp;
+        <app-bouton-imprimer [lien]="exercice.lien"></app-bouton-imprimer>
+      </h3>
+      <div><br></div>
+    </div>
+  </div>
+  <div id='divTelechargements' [class]="'cache is-fin is-' + niveau">
+    <h2 [class]="'subtitle is-3 is-' + niveau">Téléchargements</h2>
+    <div class="p-1 pb-5">
+      <div id='lienFiche' class="p-1 cache"></div>
+      <div id='lienAnki' class="p-1 cache"></div>
+    </div>
   </div>
 </div>
 <app-modale-exercices [infosModale]="infosModale" (modaleFermee)="scrollBack($event)"></app-modale-exercices>

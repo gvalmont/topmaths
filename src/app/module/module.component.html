@@ -1,37 +1,30 @@
-<div class="columns centre">
-  <div class="column is-one-fifth"></div>
-  <div class="column is-three-fifths">
-    <h1 [class]="'title is-2 is-' + niveau" [innerHTML]="titre">}</h1>
-    <div [class]="'is-' + niveau">
-      <h2 [class]="'subtitle is-3 is-' + niveau">Description</h2>
-      <p [mathjax]="description" class="p-5 is-size-5"></p>
-    </div>
-    <div [class]="'is-' + niveau">
-      <h2 [class]="'subtitle is-3 is-' + niveau">Objectifs</h2>
-      <p class="is-size-5">Ce module a {{nombreObjectifs(objectifs.length)}} :</p>
-      <div class="p-1 pb-5 is-size-5">
-        <div *ngFor="let objectif of objectifs" class="p-1">
-          <a [routerLink]="['/objectif',objectif.reference]">{{objectif.reference}} : {{objectif.titre}}</a>
-        </div>
-      </div>
-    </div>
-    <div id="divEvaluation" [class]="'is-fin pb-5 is-' + niveau">
-      <h2 id="Evaluation" [class]="'subtitle is-3 is-' + niveau">Évaluation</h2>
-      <a (click)="ouvrirModaleExercices(lienEval, 'Evaluation')" class="is-size-5">S'entraîner pour l'évaluation</a>
-    </div>
-    <div id="divTelechargements" [class]="'pb-5 cache is-fin is-' + niveau">
-      <h2 [class]="'subtitle is-3 is-' + niveau">Téléchargements</h2>
-      <div class="p-1">
-        <div id="lienCours" class="p-1 cache"></div>
-        <div id="lienResume" class="p-1 cache"></div>
-        <div id="lienMission" class="p-1 cache"></div>
-        <div id="lienAnki" class="p-1 cache"></div>
+<div class="container is-max-desktop centre">
+  <h1 [class]="'title is-2 is-' + niveau" [innerHTML]="titre">}</h1>
+  <div [class]="'is-' + niveau">
+    <h2 [class]="'subtitle is-3 is-' + niveau">Description</h2>
+    <p [mathjax]="description" class="p-5 is-size-5"></p>
+  </div>
+  <div [class]="'is-' + niveau">
+    <h2 [class]="'subtitle is-3 is-' + niveau">Objectifs</h2>
+    <p class="is-size-5">Ce module a {{nombreObjectifs(objectifs.length)}} :</p>
+    <div class="p-1 pb-5 is-size-5">
+      <div *ngFor="let objectif of objectifs" class="p-1">
+        <a [routerLink]="['/objectif',objectif.reference]">{{objectif.reference}} : {{objectif.titre}}</a>
       </div>
     </div>
   </div>
-  <div class="column is-one-fifth">
-    <!-- Utilisateurs connectés -->
-    <app-whosonline></app-whosonline>
+  <div id="divEvaluation" [class]="'is-fin pb-5 is-' + niveau">
+    <h2 id="Evaluation" [class]="'subtitle is-3 is-' + niveau">Évaluation</h2>
+    <a (click)="ouvrirModaleExercices(lienEval, 'Evaluation')" class="is-size-5">S'entraîner pour l'évaluation</a>
+  </div>
+  <div id="divTelechargements" [class]="'pb-5 cache is-fin is-' + niveau">
+    <h2 [class]="'subtitle is-3 is-' + niveau">Téléchargements</h2>
+    <div class="p-1">
+      <div id="lienCours" class="p-1 cache"></div>
+      <div id="lienResume" class="p-1 cache"></div>
+      <div id="lienMission" class="p-1 cache"></div>
+      <div id="lienAnki" class="p-1 cache"></div>
+    </div>
   </div>
 </div>
 <app-modale-exercices [infosModale]="infosModale" (modaleFermee)="scrollBack()"></app-modale-exercices>

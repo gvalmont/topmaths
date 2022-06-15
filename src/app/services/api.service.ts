@@ -40,10 +40,6 @@ export class ApiService {
   redirectUrl: string
   isloggedIn: boolean
   user: User
-  onlineUsers: UserSimplifie[]
-  classementIndividuel: UserSimplifie[]
-  classementEquipes: InfosEquipe[]
-  onlineNb: number
   feminin: boolean
   listeMasculins: Nom[]
   listeFeminins: Nom[]
@@ -68,13 +64,11 @@ export class ApiService {
       codeAvatar: '',
       lastLogin: '',
       lastAction: '',
-      visible: '',
       pseudo: '',
       score: 0,
       codeTrophees: '',
       tropheesVisibles: '',
       cleScore: '',
-      classement: 0,
       teamName: '',
       scoreEquipe: 0,
       derniereSequence: '',
@@ -90,10 +84,6 @@ export class ApiService {
       score: 0,
       membres: []
     }
-    this.onlineUsers = []
-    this.classementIndividuel = []
-    this.classementEquipes = []
-    this.onlineNb = 0
     this.feminin = false
     this.pseudoClique = ''
     this.ancienPseudoClique = ''
@@ -156,65 +146,11 @@ export class ApiService {
    */
   surveilleModificationsDuProfil() {
     this.profilModifie.subscribe(valeursModifiees => {
-      if (!valeursModifiees.includes('score')) this.majLastAction()
-      if (valeursModifiees.includes('identifiant')) {
-        this.recupClassement()
-      }
       if (valeursModifiees.includes('lienAvatar')) {
         this.lienAvatar = this.getLienAvatar(this.user)
         this.styleAvatar = this.getStyleAvatar(this.user)
       }
     })
-  }
-
-  /**
-   * Récupère dans les utilisateurs de la base de données par score décroissant
-   */
-  recupClassement() {
-    if (isDevMode()) {
-      this.classementIndividuel = [
-        {
-          id: 1,
-          codeAvatar: '',
-          pseudo: 'lapin bleu',
-          score: 17,
-          lienTrophees: 'tcqnfy',
-          classement: 2,
-          teamName: '',
-          scoreEquipe: 0
-        }, {
-          id: 2,
-          codeAvatar: '',
-          pseudo: 'anonyme',
-          score: 38,
-          lienTrophees: 'tuoocj',
-          classement: 1,
-          teamName: '',
-          scoreEquipe: 0
-        }
-      ]
-      this.classementEquipes = [
-        {
-          leader: 0,
-          codeEquipe: "",
-          teamName: "AMG",
-          lienEmbleme: '',
-          score: 28,
-          membres: []
-        }
-      ]
-    } else {
-      this.http.get<UserSimplifie[]>(GlobalConstants.apiUrl + 'classementIndividuel.php').subscribe(usersSimplifies => {
-        this.classementIndividuel = usersSimplifies
-      }, error => {
-        console.log(error)
-      })
-      this.http.get<InfosEquipe[]>(GlobalConstants.apiUrl + 'classementEquipes.php').subscribe(equipes => {
-        this.classementEquipes = equipes
-      }, error => {
-        console.log(error)
-      })
-    }
   }
 
   /**
@@ -236,7 +172,6 @@ export class ApiService {
             codeAvatar: '',
             score: 38,
             lienTrophees: 'tuoocj',
-            classement: 1,
             teamName: 'PUF',
             scoreEquipe: 28,
           },
@@ -246,7 +181,6 @@ export class ApiService {
             codeAvatar: '',
             score: 38,
             lienTrophees: 'tcqnfy',
-            classement: 2,
             teamName: 'PUF',
             scoreEquipe: 23,
           }
@@ -299,44 +233,6 @@ export class ApiService {
   }
 
   /**
-   * Récupère dans la base de données la liste des utilisateurs ayant été actifs au cours des 10 dernières minutes
-   * ainsi que le nombre d'utilisateurs désirant rester invisibles
-   */
-  recupWhosOnline() {
-    if (isDevMode()) {
-      this.onlineUsers = [
-        {
-          id: 1,
-          codeAvatar: '',
-          pseudo: 'lapin bleu',
-          score: 17,
-          lienTrophees: 'tuoocj',
-          classement: 2,
-          teamName: '',
-          scoreEquipe: 0
-        }, {
-          id: 2,
-          codeAvatar: '',
-          pseudo: 'Pierre verte',
-          score: 38,
-          lienTrophees: 'tuoocj',
-          classement: 1,
-          teamName: '',
-          scoreEquipe: 0
-        }
-      ]
-    } else {
-      this.http.get<UserSimplifie[]>(GlobalConstants.apiUrl + 'whosonline.php').subscribe(userSimplifies => {
-        const infos = userSimplifies.pop() // Le dernier usersSimplifie n'en est pas un mais sert juste à récupérer des infos comme le nombre de personnes en ligne
-        if (typeof (infos) != 'undefined') this.onlineNb = parseInt(infos.pseudo)
-        this.onlineUsers = userSimplifies
-      }, error => {
-        console.log(error)
-      })
-    }
-  }
-
-  /**
    * Si l'utilisateur choisit de rester anonyme ou qu'il n'a pas de codeAvatar, renvoie le lien vers l'icone de base
    * Sinon, épure le codeAvatar et renvoie le lien vers son avatar (avec un ?user.codeAvatar épuré pour signaler une mise à jour et forcer le retéléchargement)
    * @param user 
@@ -365,35 +261,15 @@ export class ApiService {
   }
 
   /**
-   * Renvoie un style de css qui permet d'afficher un avatar, l'emblème de son équipe et le badge de son classement
+   * Renvoie un style de css qui permet d'afficher un avatar et l'emblème de son équipe
    */
   getStyleAvatar(user: User | UserSimplifie) {
     const lienEquipe = `/team_emblems/${user.teamName}.svg`
-    let lienBadge: string
-    if (user.score > 0) {
-      lienBadge = `/assets/img/gvalmont/top${this.top(user.classement)}.svg`
-    } else {
-      lienBadge = `/assets/img/gvalmont/top0.svg`
-    }
     let style = `--image-avatar:url('${this.getLienAvatar(user)}');`
     if (user.teamName != '') style += `--image-equipe:url('${lienEquipe}');`
-    if (user.classement <= 50) style += `--image-badge:url('${lienBadge}');`
     return <string>style
   }
 
-  /**
-   * Renvoie le numéro du badge correspondant au classement
-   * @param classement 
-   * @returns 
-   */
-  top(classement: number) {
-    if (classement <= 3) return classement
-    else if (classement <= 5) return 5
-    else if (classement <= 10) return 10
-    else if (classement <= 20) return 20
-    else if (classement <= 50) return 50
-    else return 0
-  }
   /**
    * Envoie l'identifiant par message post à login.php pour s'identifier
    * Si pas connecté, on renvoie vers erreurLogin pour tenter de créer l'identifiant.
@@ -414,13 +290,11 @@ export class ApiService {
         codeAvatar: '',
         lastLogin: '',
         lastAction: '',
-        visible: '',
         pseudo: 'Cerf sauvage',
         score: 196,
         codeTrophees: 'tuoocj',
         tropheesVisibles: '',
         cleScore: 'abc',
-        classement: 9,
         teamName: 'PUF',
         scoreEquipe: 0,
         derniereSequence: 'S4S5!Séquence 5 :<br>Théorème de Pythagore',
@@ -436,7 +310,6 @@ export class ApiService {
         'lienAvatar',
         'lastLogin',
         'lastAction',
-        'visible',
         'pseudo',
         'score',
         'codeTrophees',
@@ -461,7 +334,6 @@ export class ApiService {
             'lienAvatar',
             'lastLogin',
             'lastAction',
-            'visible',
             'pseudo',
             'score',
             'codeTrophees',
@@ -520,13 +392,11 @@ export class ApiService {
         codeAvatar: '',
         lastLogin: '',
         lastAction: '',
-        visible: '',
         pseudo: this.pseudoAleatoire(),
         score: 0,
         codeTrophees: '',
         tropheesVisibles: '',
         cleScore: '',
-        classement: 0,
         teamName: '',
         scoreEquipe: 0,
         derniereSequence: '',
@@ -544,7 +414,6 @@ export class ApiService {
           'lienAvatar',
           'lastLogin',
           'lastAction',
-          'visible',
           'pseudo',
           'score',
           'codeTrophees',
@@ -751,49 +620,6 @@ export class ApiService {
     }
   }
 
-  /**
-   * Modifie la date de dernière action
-   * Met à jour la liste d'utilisateurs en ligne et leur nombre
-   * Si l'utilisateur est actuellement organisateur d'une compétition, autoCheck sa présence
-   */
-  majLastAction() {
-    if (isDevMode()) {
-      this.onlineNb = 2
-      this.onlineUsers = [
-        {
-          id: 1,
-          codeAvatar: '',
-          pseudo: 'lapin bleu',
-          score: 17,
-          lienTrophees: '',
-          classement: 2,
-          teamName: '',
-          scoreEquipe: 0
-        }, {
-          id: 2,
-          codeAvatar: '',
-          pseudo: 'Pierre verte',
-          score: 38,
-          lienTrophees: '',
-          classement: 1,
-          teamName: '',
-          scoreEquipe: 0
-        }
-      ]
-    } else {
-      if (typeof (this.user.identifiant) != 'undefined' && this.user.identifiant != '') {
-        this.http.post<UserSimplifie[]>(GlobalConstants.apiUrl + 'actionUtilisateur.php', { identifiant: this.user.identifiant }).subscribe(userSimplifies => {
-          const infos = userSimplifies.pop() // Le dernier usersSimplifie n'en est pas un mais sert juste à récupérer des infos comme le nombre de personnes en ligne
-          if (typeof (infos) != 'undefined') this.onlineNb = parseInt(infos.pseudo)
-          this.onlineUsers = userSimplifies
-        },
-          error => {
-            console.log(error)
-          });
-      }
-    }
-  }
-
 
   /**
    * Supprime le token de clé 'identifiant' utilisé pour vérifier si l'utilisateur est connecté.
@@ -802,58 +628,23 @@ export class ApiService {
    * Renvoie vers l'accueil.
    */
   logout() {
-    if (isDevMode()) {
-      this.deleteToken('identifiant')
-      this.deleteToken('version')
-      this.user = new User(0, '', '', '', '', '', '', 0, '', '', '', 0, '', 0, '', '', '', 0)
-      this.isloggedIn = false
-      this.profilModifie.emit([
-        'identifiant',
-        'lienAvatar',
-        'lastLogin',
-        'lastAction',
-        'visible',
-        'pseudo',
-        'score',
-        'codeTrophees',
-        'tropheesVisibles',
-        'derniereSequence',
-        'dernierModule',
-        'dernierObjectif'])
-      this.router.navigate(['accueil'])
-    } else {
-      this.http.post(GlobalConstants.apiUrl + 'logout.php', this.user).subscribe(
-        data => {
-          this.deleteToken('identifiant')
-          this.deleteToken('version')
-          this.user = new User(0, '', '', '', '', '', '', 0, '', '', '', 0, '', 0, '', '', '', 0)
-          this.isloggedIn = false
-          this.profilModifie.emit([
-            'identifiant',
-            'lienAvatar',
-            'lastLogin',
-            'lastAction',
-            'visible',
-            'pseudo',
-            'score',
-            'codeTrophees',
-            'tropheesVisibles',
-            'derniereSequence',
-            'dernierObjectif'])
-          this.router.navigate(['accueil'])
-        },
-        error => {
-          console.log(error)
-        });
-    }
-  }
-
-  /**
-   * @param visible peut être 'oui' ou 'non'
-   */
-  majVisible(visible: string) {
-    this.user.visible = visible
-    this.majProfil(['visible'])
+    this.deleteToken('identifiant')
+    this.deleteToken('version')
+    this.user = new User(0, '', '', '', '', '', 0, '', '', '', '', 0, '', '', '', 0)
+    this.isloggedIn = false
+    this.profilModifie.emit([
+      'identifiant',
+      'lienAvatar',
+      'lastLogin',
+      'lastAction',
+      'pseudo',
+      'score',
+      'codeTrophees',
+      'tropheesVisibles',
+      'derniereSequence',
+      'dernierModule',
+      'dernierObjectif'])
+    this.router.navigate(['accueil'])
   }
 
   /**

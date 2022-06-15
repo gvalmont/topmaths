@@ -28,20 +28,6 @@ export class EquipePageComponent implements OnInit {
       if (typeof(params.teamName) != 'undefined' && params.teamName != '') this.dataService.recupInfosEquipe(params.teamName)
     })
   }
-
-  /**
-   * Renvoie le numéro du badge correspondant au classement
-   * @param classement 
-   * @returns 
-   */
-   top(classement: number) {
-    if (classement <= 3) return classement
-    else if (classement <= 5) return 5
-    else if (classement <= 10) return 10
-    else if (classement <= 20) return 20
-    else if (classement <= 50) return 50
-    else return 0
-  }
   
   /**
    * Envoie l'utilisateur sur la page de trophées et indique que ce sont les trophées de user.pseudo

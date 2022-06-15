@@ -14,8 +14,6 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfilComponent } from './profil/profil.component';
-import { WhosonlineComponent } from './whosonline/whosonline.component';
-import { ClassementComponent } from './classement/classement.component';
 import { NgParticlesModule } from "ng-particles";
 import { MathjaxModule } from 'mathjax-angular';
 import { SPS1Component } from './sequencesParticulieres/sps1/sps1.component';
@@ -49,8 +47,6 @@ import { AnimationInstrumenpocheComponent } from './mini-components/animation-in
     JeuxComponent,
     LoginComponent,
     ProfilComponent,
-    WhosonlineComponent,
-    ClassementComponent,
     SPS1Component,
     TropheesComponent,
     RevisionsComponent,
