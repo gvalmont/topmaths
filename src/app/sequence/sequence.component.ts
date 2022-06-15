@@ -32,7 +32,6 @@ export class SequenceComponent implements OnInit {
   derniereUrl: string
   derniereGraine: string
   dernierSlider: number
-  messageScore: string
   dateDerniereReponse: Date
   infosModale: [string[], string, Date, number[]]
   bonneReponse: boolean
@@ -44,7 +43,7 @@ export class SequenceComponent implements OnInit {
     this.numero = 0
     this.titre = ''
     this.objectifs = []
-    this.calculsMentaux = [new CalculMental('', '', [new NiveauCM('', '', 0)], false)]
+    this.calculsMentaux = [new CalculMental('', '', [new NiveauCM('', '')], false)]
     this.questionsFlash = []
     this.lienQuestionsFlash = ''
     this.lienEval = ''
@@ -57,7 +56,6 @@ export class SequenceComponent implements OnInit {
     this.derniereUrl = ''
     this.derniereGraine = ''
     this.dernierSlider = 0
-    this.messageScore = ''
     this.dateDerniereReponse = new Date()
     this.infosModale = [[], '', new Date(), []]
     this.bonneReponse = false
@@ -213,7 +211,6 @@ export class SequenceComponent implements OnInit {
         niveauxTemp.push({
           commentaire: niveau.commentaire,
           lien: niveau.lien + '&embed=' + GlobalConstants.origine,
-          score: niveau.score,
           lienACopier: niveau.lien
         })
       }

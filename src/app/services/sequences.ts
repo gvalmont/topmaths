@@ -53,12 +53,10 @@ export class CalculMental {
 export class NiveauCM {
   public commentaire: string
   public lien: string
-  public score: number
 
-  constructor(commentaire: string, lien: string, score: number) {
+  constructor(commentaire: string, lien: string) {
     this.commentaire = commentaire
     this.lien = lien
-    this.score = score
   }
 }
 

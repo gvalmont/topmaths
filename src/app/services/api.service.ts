@@ -48,8 +48,6 @@ export class ApiService {
       codeAvatar: '',
       lastLogin: '',
       pseudo: '',
-      score: 0,
-      cleScore: '',
       derniereSequence: '',
       dernierObjectif: '',
       question: 0
@@ -139,8 +137,6 @@ export class ApiService {
         codeAvatar: '',
         lastLogin: '',
         pseudo: 'Cerf sauvage',
-        score: 196,
-        cleScore: 'abc',
         derniereSequence: 'S4S5!Séquence 5 :<br>Théorème de Pythagore',
         dernierObjectif: '4G20!4G20 : Calculer une longueur avec le théorème de Pythagore',
         question: 0
@@ -154,7 +150,6 @@ export class ApiService {
         'lastLogin',
         'lastAction',
         'pseudo',
-        'score',
         'derniereSequence',
         'dernierObjectif'])
     } else {
@@ -175,7 +170,6 @@ export class ApiService {
             'lastLogin',
             'lastAction',
             'pseudo',
-            'score',
             'derniereSequence',
             'dernierObjectif'])
           if (redirige) {
@@ -207,8 +201,6 @@ export class ApiService {
         codeAvatar: '',
         lastLogin: '',
         pseudo: this.pseudoAleatoire(),
-        score: 0,
-        cleScore: '',
         derniereSequence: '',
         dernierObjectif: '',
         question: 0
@@ -224,7 +216,6 @@ export class ApiService {
           'lastLogin',
           'lastAction',
           'pseudo',
-          'score',
           'derniereSequence',
           'dernierObjectif'])
         this.router.navigate(['profil'])
@@ -330,37 +321,6 @@ export class ApiService {
   }
 
   /**
-   * Récupère le score actuel
-   * Ajoute le score de l'exercice
-   * Met à jour le score de la base de données
-   * @param score à ajouter 
-   * @param url de l'exercice en question
-   * @param type de l'exercice '' ou 'tranquille'
-   */
-  majScore(score: number, url: string, type: string) {
-    if (isDevMode()) {
-      this.profilModifie.emit(['score'])
-    } else {
-      this.http.post<User[]>(GlobalConstants.apiUrl + 'majScore.php', {
-        identifiant: this.user.identifiant,
-        score: score,
-        cleScore: this.user.cleScore,
-        url: url,
-        type: type,
-      }).subscribe(
-        users => {
-          this.user.score = users[0].score
-          this.user.cleScore = users[0].cleScore
-          this.profilModifie.emit(['score'])
-        },
-        error => {
-          console.log(error)
-        });
-    }
-  }
-
-
-  /**
    * Supprime le token de clé 'identifiant' utilisé pour vérifier si l'utilisateur est connecté.
    * Supprime aussi le token de clé 'lienAvatar'
    * Toggle les profilbtn et loginbtn.
@@ -369,7 +329,7 @@ export class ApiService {
   logout() {
     this.deleteToken('identifiant')
     this.deleteToken('version')
-    this.user = new User(0, '', '', '', '', 0, '', '', '', 0)
+    this.user = new User(0, '', '', '', '', '', '', 0)
     this.isloggedIn = false
     this.profilModifie.emit([
       'identifiant',
@@ -377,7 +337,6 @@ export class ApiService {
       'lastLogin',
       'lastAction',
       'pseudo',
-      'score',
       'derniereSequence',
       'dernierObjectif'])
     this.router.navigate(['accueil'])

@@ -8,7 +8,7 @@ import { Niveau as NiveauSequence } from '../services/sequences';
 
 interface Exercice {
   lien: string
-  score: number
+  isInteractif: boolean
 }
 
 @Component({
@@ -70,7 +70,7 @@ export class ModaleExercicesComponent implements OnInit {
    * Attend les messages contenant une url,
    * vérifie dans la liste d'exercices s'il y a une correspondance,
    * vérifie si les points ont déjà été compabilisés pour cet exercice avec ces paramètres,
-   * lance this.dataService.majScore si ce n'est pas le cas
+   * lance des confetti s'il n'y a pas de mauvaise réponse
    */
   ecouteMessagesPost() {
     const divListenerExistant = document.getElementById('modaleExercicesListener')
@@ -102,7 +102,7 @@ export class ModaleExercicesComponent implements OnInit {
               // On cherche à quel exercice correspond ce message
               for (const exercice of this.listeExercices) {
                 if (typeof (exercice.lien) != 'undefined') {
-                  // A décommenter pour débugger lorsqu'il n'y a pas de confettis et que le score ne se met pas à jour
+                  // A décommenter pour débugger lorsqu'il n'y a pas de confetti
                   // console.log('lienACopier ' + exercice.lien)
                   // console.log('url ' + url)
                   if (url.split('&serie=')[0].split(',i=')[0] == exercice.lien.split('&serie=')[0].split(',i=')[0]) { // Lorsqu'un exercice n'est pas interactifReady, le ,i=0 est retiré de l'url
@@ -113,22 +113,11 @@ export class ModaleExercicesComponent implements OnInit {
                     const titre: string = event.data.titre
                     const slider: string = event.data.slider
                     const stringExerciceDejaFait: string = url + graine + titre + slider
-                    // On s'assure que les exercices soient différents pour ne pas ajouter plusieurs fois du score
+                    // On s'assure que les exercices soient bien différents
                     if (!exercicesDejaFaits.includes(stringExerciceDejaFait)) {
                       const coef: number = this.get('coef')
-                      const majScore: number = Math.ceil(exercice.score * nbBonnesReponses * coef)
-                      if (majScore > 0) {
-                        if (this.dataService.user.id !== 0) { // Si l'utilisateur est connecté, affiche le gain de score
-                          this.dataService.majScore(majScore, exercice.lien, type)
-                          let divBonneReponse = document.createElement('div')
-                          divBonneReponse.className = 'pleinEcran is-unselectable gigantesque moveUp centre'
-                          divBonneReponse.innerText = '+ ' + majScore
-                          document.body.appendChild(divBonneReponse);
-                          setTimeout(() => divBonneReponse.parentNode?.removeChild(divBonneReponse), 2000)
-                        }
-                        if (nbMauvaisesReponses == 0) {
-                          this.confetti.lanceConfetti()
-                        }
+                      if (nbBonnesReponses > 0 && nbMauvaisesReponses == 0 && exercice.isInteractif) {
+                        this.confetti.lanceConfetti()
                       }
                       exercicesDejaFaits.push(stringExerciceDejaFait)
                       if (type == '') {
@@ -186,7 +175,7 @@ export class ModaleExercicesComponent implements OnInit {
               for (const exercice of objectif.exercices) {
                 this.listeExercices.push({
                   lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&v=eval&z=1.5`,
-                  score: exercice.score
+                  isInteractif: exercice.isInteractif
                 })
                 this.listeExercices[this.listeExercices.length - 1].lien = this.listeExercices[this.listeExercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
                 if (exercice.slug.slice(0, 25) == 'https://mathsmentales.net') {
@@ -206,7 +195,7 @@ export class ModaleExercicesComponent implements OnInit {
               for (const niveau of calculMental.niveaux) {
                 this.listeExercices.push({
                   lien: niveau.lien + '&embed=' + GlobalConstants.origine,
-                  score: niveau.score
+                  isInteractif: false
                 })
               }
             }

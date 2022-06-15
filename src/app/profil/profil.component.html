@@ -14,11 +14,10 @@
     </a>
   </div>
   <br>
-  <!-- Score -->
-  <div>
-    <h2 class="title">Mon score : {{dataService.user.score}}</h2>
-  </div>
   <!-- Raccourcis -->
+  <div>
+    <h2 class="title">Derniers objectif et séquence visités :</h2>
+  </div>
   <br>
   <div *ngIf="dataService.user.derniereSequence != '' || dataService.user.dernierObjectif != ''">
     <a *ngIf="dataService.user.derniereSequence != ''" [routerLink]="'/sequence/' + dataService.user.derniereSequence.split('!')[0]" routerLinkActive="active">

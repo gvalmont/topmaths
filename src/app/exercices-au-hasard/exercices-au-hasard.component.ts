@@ -10,7 +10,6 @@ interface Exercice {
   id: number
   slug: string
   lien: string
-  score: number
 }
 
 @Component({
@@ -86,8 +85,7 @@ export class ExercicesAuHasardComponent implements OnInit {
                         listeExercices.push({
                           id: exercice.id,
                           slug: exercice.slug,
-                          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&v=eval&z=1.5`,
-                          score: exercice.score
+                          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&v=eval&z=1.5`
                         })
                         listeExercices[listeExercices.length - 1].lien = listeExercices[listeExercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
                         if (exercice.slug.slice(0, 25) == 'https://mathsmentales.net') {

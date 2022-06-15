@@ -22,7 +22,6 @@ export class ObjectifComponent implements OnInit {
   exercices: Exercice[]
   lienFiche: string
   lienAnki: string
-  messageScore: string
   presenceVideo: boolean
   dateDerniereReponse: Date
   exercicesDejaFaits: string[]
@@ -41,7 +40,6 @@ export class ObjectifComponent implements OnInit {
     this.exercices = []
     this.lienFiche = ''
     this.lienAnki = ''
-    this.messageScore = ''
     this.exercicesDejaFaits = []
     this.presenceVideo = false
     this.dateDerniereReponse = new Date()
@@ -155,7 +153,6 @@ export class ObjectifComponent implements OnInit {
           id: exercice.id,
           slug: exercice.slug,
           lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&serie=&v=eval&z=1.5`,
-          score: exercice.score,
           temps: exercice.temps,
           isInteractif: exercice.isInteractif
         })
