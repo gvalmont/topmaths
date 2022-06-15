@@ -20,15 +20,12 @@ interface Exercice {
 })
 export class ExercicesAuHasardComponent implements OnInit {
   infosModale: [string[], string, Date, number[]]
-  type: string
 
   constructor(public http: HttpClient, private route: ActivatedRoute, private viewportScroller: ViewportScroller) {
     this.infosModale = [[], '', new Date(), []]
-    this.type = ''
   }
 
   ngOnInit(): void {
-    this.observeChangementsDeRoute()
   }
 
   /**
@@ -36,16 +33,6 @@ export class ExercicesAuHasardComponent implements OnInit {
    */
   scrollBack() {
     this.viewportScroller.scrollToPosition([0, 0])
-  }
-
-  /**
-   * Observe les changements de route,
-   * modifie ensuite les paramètres selon la référence
-   */
-  observeChangementsDeRoute() {
-    this.route.params.subscribe(params => {
-      this.type = params.type
-    })
   }
 
   /**
@@ -96,12 +83,10 @@ export class ExercicesAuHasardComponent implements OnInit {
                   if (reference == objectif.reference) {
                     for (const exercice of objectif.exercices) {
                       if (exercice.isInteractif) {
-                        let temps: string = ''
-                        if (this.type != '' && this.type != 'tranquille') temps = '&duree=' + exercice.temps / 2
                         listeExercices.push({
                           id: exercice.id,
                           slug: exercice.slug,
-                          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&v=eval&z=1.5${temps}`,
+                          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&v=eval&z=1.5`,
                           score: exercice.score
                         })
                         listeExercices[listeExercices.length - 1].lien = listeExercices[listeExercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
@@ -129,7 +114,7 @@ export class ExercicesAuHasardComponent implements OnInit {
             listeDesId.push(exercice.id)
           }
         }
-        this.infosModale = [listeDesUrl, this.type, new Date(), listeDesTemps]
+        this.infosModale = [listeDesUrl, 'tranquille', new Date(), listeDesTemps]
       })
     })
   }

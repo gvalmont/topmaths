@@ -97,38 +97,6 @@ export class ModaleExercicesComponent implements OnInit {
                 } else {
                   this.hideLoadingScreen()
                 }
-              } else if (type == 'vitesse') {
-                this.hideLoadingScreen()
-                clearInterval(this.interval)
-                this.startTimer()
-                if (urlDejaFaits.includes(url.split('&serie=')[0].split(',i=')[0])) {
-                  this.exerciceSuivant()
-                } else {
-                  this.set('coef', 5)
-                  urlDejaFaits.push(url.split('&serie=')[0].split(',i=')[0])
-                  this.set('urlDejaFaits', urlDejaFaits)
-                }
-              } else if (type == 'performance') {
-                this.hideLoadingScreen()
-                clearInterval(this.interval)
-                this.startTimer()
-                if (urlDejaFaits.includes(url.split('&serie=')[0].split(',i=')[0])) {
-                  this.set('coef', 1)
-                } else {
-                  urlDejaFaits.push(url.split('&serie=')[0].split(',i=')[0])
-                  this.set('urlDejaFaits', urlDejaFaits)
-                }
-              } else if (type == 'bestOf10' || type == 'battleRoyale') {
-                this.hideLoadingScreen()
-                clearInterval(this.interval)
-                this.startTimer()
-                this.set('dateDebutExercice', new Date())
-                if (urlDejaFaits.includes(url.split('&serie=')[0].split(',i=')[0])) {
-                  this.fermerModale(1)
-                } else {
-                  urlDejaFaits.push(url.split('&serie=')[0].split(',i=')[0])
-                  this.set('urlDejaFaits', urlDejaFaits)
-                }
               }
             } else if (event.data.nbBonnesReponses != null) {
               // On cherche à quel exercice correspond ce message
@@ -170,26 +138,6 @@ export class ModaleExercicesComponent implements OnInit {
                         if (url.slice(0, 25) == 'https://mathsmentales.net') {
                           setTimeout(() => this.exerciceSuivant(), 3000)
                         }
-                      } else if (type == 'vitesse') {
-                        clearInterval(this.interval)
-                        setTimeout(() => this.exerciceSuivant(), 3000)
-                      } else if (type == 'performance') {
-                        clearInterval(this.interval)
-                        if (nbMauvaisesReponses == 0) {
-                          const coef = this.get('coef')
-                          this.set('coef', (coef * 10 + 10) / 10)
-                        } else {
-                          this.set('coef', 1)
-                        }
-                        setTimeout(() => this.exerciceSuivant(), 3000)
-                      } else if (type == 'bestOf10' || type == 'battleRoyale') {
-                        clearInterval(this.interval)
-                        const tempsDisponible = this.get('tempsDisponible') * 1000
-                        const tempsMis = (new Date()).getTime() - (new Date(this.get('dateDebutExercice'))).getTime()
-                        const tempsRestant = tempsDisponible - tempsMis
-                        const points = 1 + nbBonnesReponses * tempsRestant / 100
-                        this.modaleFermee.emit(points)
-                        this.fermerModale(points)
                       }
                       this.set('exercicesDejaFaits', exercicesDejaFaits)
                       this.set('urlDejaFaits', urlDejaFaits)
@@ -332,26 +280,6 @@ export class ModaleExercicesComponent implements OnInit {
       this.creeListeIndicesExercices()
       const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
       this.ajouteIframe(url)
-    } else if (type == 'vitesse') {
-      this.boutonCopier.style.display = 'none'
-      this.boutonCopierLoading.style.display = 'none'
-      this.set('coef', 5)
-      this.creeListeIndicesExercices()
-      const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
-      this.ajouteIframe(url)
-    } else if (type == 'performance') {
-      this.boutonCopier.style.display = 'none'
-      this.boutonCopierLoading.style.display = 'none'
-      this.set('coef', 1)
-      this.creeListeIndicesExercices()
-      const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
-      this.ajouteIframe(url)
-    } else if (type == 'bestOf10' || type == 'battleRoyale') {
-      this.boutonCopier.style.display = 'none'
-      this.boutonCopierLoading.style.display = 'none'
-      this.creeListeIndicesExercices()
-      const url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
-      this.ajouteIframe(url)
     }
     this.set('lienACopier', this.infosModale[0][this.get('listeDesIndices')[this.get('indiceExerciceActuel')]])
     this.positionneLesBoutons()
@@ -488,30 +416,6 @@ export class ModaleExercicesComponent implements OnInit {
       timePassed = timePassed += 1;
       timeLeft = TIME_LIMIT - timePassed;
       pourcentRestant = Math.floor((timeLeft / TIME_LIMIT) * 1000) / 10
-      if (this.get('type') == 'vitesse') {
-        const pourcentCorrige = Math.floor(((timeLeft + 2) / TIME_LIMIT) * 1000) / 10
-        if (!bool1) {
-          if (pourcentCorrige < 90) {
-            this.set('coef', 4)
-            bool1 = true
-          }
-        } else if (!bool2) {
-          if (pourcentCorrige < 80) {
-            this.set('coef', 3)
-            bool2 = true
-          }
-        } else if (!bool3) {
-          if (pourcentCorrige < 60) {
-            this.set('coef', 2)
-            bool3 = true
-          }
-        } else if (!bool4) {
-          if (pourcentCorrige < 40) {
-            this.set('coef', 1)
-            bool4 = true
-          }
-        }
-      }
       nouveauTimeLeft.style.width = pourcentRestant.toString() + '%'
     }, 1000);
 
@@ -528,11 +432,7 @@ export class ModaleExercicesComponent implements OnInit {
    */
   boutonFermerModale() {
     const type = this.get('type')
-    if (type == 'bestOf10' || type == 'battleRoyale') {
-      this.afficherConfirmation()
-    } else {
-      this.fermerModale()
-    }
+    this.fermerModale()
   }
 
   /**
@@ -602,20 +502,6 @@ export class ModaleExercicesComponent implements OnInit {
     if (tag == 'coef') {
       const divCoef = document.getElementById('aff-coef')
       if (divCoef != null) {
-        if (this.get('type') == 'vitesse') {
-          const coef = objet
-          const timeLeft = document.getElementById('timeLeft')
-          if (timeLeft != null) {
-            let couleur = ''
-            if (coef == 5) couleur = 'hsl(204, 86%, 53%)'
-            else if (coef == 4) couleur = 'hsl(141, 71%, 48%)'
-            else if (coef == 3) couleur = 'hsl(171, 100%, 41%)'
-            else if (coef == 2) couleur = 'hsl(48, 100%, 67%)'
-            else if (coef == 1) couleur = 'hsl(0, 0%, 48%)'
-            timeLeft.style.backgroundColor = couleur
-            divCoef.style.color = couleur
-          }
-        }
         divCoef.innerHTML = ('&times;' + objet.toString()).replace('.', ',')
         divCoef.classList.add('booboom')
         setTimeout(() => { divCoef.classList.remove('booboom') }, 1000);

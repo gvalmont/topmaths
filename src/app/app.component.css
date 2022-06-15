@@ -226,20 +226,6 @@
 #modaleSecureLogin {
   background-color: darkslategray;
 }
-.bestOf10 i {
-  filter: invert(29%) sepia(98%) saturate(796%) hue-rotate(203deg) brightness(101%) contrast(88%);
-}
-.battleRoyale i {
-  filter: invert(37%) sepia(22%) saturate(2463%) hue-rotate(306deg) brightness(107%) contrast(100%);
-}
-
-.bestOf10 .colore {
-  color:  #485fc7;
-}
-
-.battleRoyale .colore {
-  color:  #f04767;
-}
 
 .booboom {
   animation: Booboom 0.3s;
