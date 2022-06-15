@@ -12,8 +12,6 @@ import { TimeguardGuard } from './services/time.guard';
 import { SPS1Component } from './sequencesParticulieres/sps1/sps1.component';
 import { RevisionsComponent } from './revisions/revisions.component';
 import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-hasard.component';
-import { EquipeModificationComponent } from './equipe/modification/equipe.modification.component';
-import { EquipePageComponent } from './equipe/page/equipe.page.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { MathadorComponent } from './outils/mathador/mathador.component';
 import { OutilsComponent } from './outils/outils.component';
@@ -35,8 +33,6 @@ const routes: Routes = [
   { path: 'revisions', component: RevisionsComponent, data: {title: 'topmaths.fr - Révisions'} },
   { path: 'exercices-au-hasard/:type', component: ExercicesAuHasardComponent, data: {title: 'topmaths.fr - Exercices au hasard'} },
   { path: 'exercices-au-hasard', component: ExercicesAuHasardComponent, data: {title: 'topmaths.fr - Exercices au hasard'} },
-  { path: 'team/admin/:ref', component: EquipeModificationComponent, canActivate: [AuthguardGuard, TimeguardGuard], data: {title: 'topmaths.fr - Modification de l\'équipe'}},
-  { path: 'team/:teamName', canActivate: [TimeguardGuard], component: EquipePageComponent},
   { path: 'outils/mathador', component: MathadorComponent },
   { path: 'outils', component: OutilsComponent },
   { path: '', component: AccueilComponent },

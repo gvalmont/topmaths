@@ -30,71 +30,6 @@
     </a>
   </div>
   <div *ngIf="dataService.user.derniereSequence != '' || dataService.user.dernierObjectif != ''"><br></div>
-  <!-- Équipe -->
-  <div *ngIf="dataService.user.teamName != ''">
-    <a (click)="voirPageEquipe()">
-      <button class="button is-info is-large">Page de la TEAM {{ dataService.user.teamName }}</button>
-    </a>
-  </div>
-  <!-- Rejoindre une équipe -->
-  <div class="columns is-centered">
-    <div class="column is-narrow">
-      <div *ngIf="dataService.user.teamName == ''" class="dropdown is-hoverable">
-        <div class="dropdown-trigger">
-          <!-- Champ de connexion -->
-          <form [formGroup]="angFormE" (ngSubmit)="dataService.rejoindreEquipe(angFormE.value.codeEquipe)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-            <div class="field is-inline-block">
-              <div [ngClass]="{'control has-icons-left has-icons-right': true, 'shake': shakeE}">
-                <!-- Champ en lui-même -->
-                <input [ngClass]="{'input': true, 'is-success': (!errPetitNbCharE && !errGrandNbCharE && !errSpCharE && !defautE && !errCodeIncorrectE), 'is-danger': (errPetitNbCharE || errGrandNbCharE || errSpCharE || errCodeIncorrectE)}" type="text" name="codeEquipe" formControlName="codeEquipe" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Code équipe" size="7">
-                <!-- icônes de part et d'autre du champ -->
-                <span class="icon is-small is-left filter-grey">
-                  <i class="image is-24x24"><img src="assets/img/cc0/users-267.svg" /></i>
-                </span>
-                <span *ngIf="(!errPetitNbCharE && !errGrandNbCharE && !errSpCharE && !defautE)" class="icon is-small is-right filter-grey">
-                  <i class="image is-24x24"><img src="assets/img/cc0/check-svgrepo-com.svg" /></i>
-                </span>
-                <span *ngIf="(errPetitNbCharE || errGrandNbCharE || errSpCharE)" class="icon is-small is-right filter-grey">
-                  <i class="image is-24x24"><img src="assets/img/cc0/warning-exclamation-sign-in-filled-triangle-svgrepo-com.svg" /></i>
-                </span>
-              </div>
-            </div>
-            &nbsp;
-            <!-- Bouton d'envoi -->
-            <button type="submit" class="button is-info is-inline-block">Rejoindre l'équipe</button>
-            <!-- Indications sous le champ -->
-            <div *ngIf="(!errPetitNbCharE && !errGrandNbCharE && !errSpCharE && !defautE && !errCodeIncorrectE)" class="has-text-success">Ça a l'air bon !</div>
-            <div *ngIf="errPetitNbCharE" class="has-text-danger">C'est trop court !</div>
-            <div *ngIf="errGrandNbCharE" class="has-text-danger">C'est trop long !</div>
-            <div *ngIf="errSpCharE" class="has-text-danger">Il ne faut que des lettres en minuscule !</div>
-            <div *ngIf="errCodeIncorrectE" class="has-text-danger">Code incorrect</div>
-          </form>
-        </div>
-        <div class="dropdown-menu">
-          <div class="dropdown-content">
-            <div class="dropdown-item is-size-6">
-              <p>Si tu veux rejoindre l'équipe de quelqu'un d'autre,
-                tu peux entrer le code d'équipe qu'il ou elle t'a donné.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="dataService.user.teamName == ''">
-        <a (click)="creerNouvelleEquipe()">
-          <button class="button is-info is-outlined">Créer une nouvelle équipe</button>
-        </a>
-      </div>
-    </div>
-  </div>
-  <!-- Paramètres -->
-  <br><br>
-  <!-- Quitter l'équipe -->
-  <div *ngIf="dataService.user.teamName != ''">
-    <br>
-    <button (click)="quitterEquipe()" class="button is-danger">Quitter la TEAM {{ dataService.user.teamName }}</button>
-    <br>
-  </div>
   <!-- Déconnexion -->
   <div *ngIf="dataService.user.lastLogin != '' && derniereConnexion != 'undefined NaN undefined NaN à NaNhNaNmin'">
     <p class="has-text-grey is-size-6">Quelqu'un s'est connecté sur ce compte le {{derniereConnexion}}.<br>
@@ -140,41 +75,4 @@
     <br><br>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="fermerModale('pseudo')"></button>
-</div>
-
-<!-- Modale de confirmation -->
-<div id="modaleConfirmation" class="modal centre">
-  <div class="modal-background" (click)="fermerModale('confirmation')"></div>
-  <div><br><br><br></div>
-  <div class="modal-content has-background-white px-6">
-    <!-- Texte -->
-    <br><br>
-    <p>
-      Si tu quittes la TEAM {{ dataService.user.teamName }},
-      le nombre de points que tu as fait gagné à l'équipe sera réinitialisé
-      et tu vas avoir besoin du code d'équipe si tu veux la rejoindre à nouveau
-    </p>
-    <br>
-    <p *ngIf="dataService.user.id == dataService.infosEquipe.leader">
-      De plus, plus personne ne pourra modifier l'emblème de l'équipe.
-    </p>
-    <div *ngIf="dataService.user.id == dataService.infosEquipe.leader"><br></div>
-    <p>
-      Tu es{{ dataService.user.id == dataService.infosEquipe.leader ? ' vraiment' : ' ' }} sûr(e) de vouloir la quitter ?
-    </p>
-    <br><br>
-    <!-- Boutons -->
-    <div class="columns">
-      <div class="column is-5 is-flex is-align-items-center is-justify-content-center">
-        <button (click)="fermerModale('confirmation')" class="button is-danger">Annuler</button>
-      </div>
-      <div class="column is-2 is-flex is-align-items-center is-justify-content-center">
-      </div>
-      <div class="column is-5 is-flex is-align-items-center is-justify-content-center">
-        <button (click)="dataService.quitterEquipe(); fermerModale('confirmation')" class="button is-success">Continuer</button>
-      </div>
-    </div>
-    <br><br><br>
-  </div>
-  <button class="modal-close is-large" aria-label="close" (click)="fermerModale('confirmation')"></button>
 </div>

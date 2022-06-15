@@ -3,17 +3,8 @@ import { first } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { User, UserSimplifie } from './user';
 import { Router } from '@angular/router';
-import { Equipe } from './equipe';
 import { GlobalConstants } from './global-constants';
 
-interface InfosEquipe {
-  leader: number
-  codeEquipe: string
-  teamName: string
-  lienEmbleme: string
-  score: number
-  membres: UserSimplifie[]
-}
 interface Message {
   message: string
 }
@@ -44,8 +35,6 @@ export class ApiService {
   pseudoClique: string
   ancienPseudoClique: string
   derniereVersionToken: string
-  equipe: Equipe
-  infosEquipe: InfosEquipe
   dateDerniereReponse: Date
   div!: HTMLElement
   lienAvatar: string
@@ -61,19 +50,9 @@ export class ApiService {
       pseudo: '',
       score: 0,
       cleScore: '',
-      teamName: '',
-      scoreEquipe: 0,
       derniereSequence: '',
       dernierObjectif: '',
       question: 0
-    }
-    this.infosEquipe = {
-      leader: -1,
-      codeEquipe: '',
-      lienEmbleme: '',
-      teamName: '',
-      score: 0,
-      membres: []
     }
     this.feminin = false
     this.pseudoClique = ''
@@ -83,18 +62,6 @@ export class ApiService {
     this.listeAdjectifs = []
     this.isloggedIn = false
     this.derniereVersionToken = '2'
-    this.equipe = {
-      teamName: '',
-      codeEquipe: '',
-      lienEmbleme: '',
-      foregroundId: 0,
-      foregroundPrimaryColor: '',
-      foregroundSecondaryColor: '',
-      backgroundId: 0,
-      backgroundColor: '',
-      leader: '',
-      membres: []
-    }
     this.dateDerniereReponse = new Date()
     this.lienAvatar = ''
     this.styleAvatar = ''
@@ -115,83 +82,6 @@ export class ApiService {
         this.styleAvatar = this.getStyleAvatar(this.user)
       }
     })
-  }
-
-  /**
-   * Récupère de la bdd les infos sur l'équipe teamName
-   * @param teamName
-   */
-  recupInfosEquipe(teamName: string) {
-    if (isDevMode()) {
-      this.infosEquipe = {
-        leader: 0,
-        codeEquipe: 'lkopee',
-        teamName: 'PUF',
-        lienEmbleme: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDBweCIgaGVpZ2h0PSIzMDBweCIgc2hhcGUtcmVuZGVyaW5nPSJnZW9tZXRyaWNQcmVjaXNpb24iPjxnIHRyYW5zZm9ybT0ic2NhbGUoMS4xNzE4NzUsMS4xNzE4NzUpIiBzdHJva2Utd2lkdGg9Ii4wNSUiPjxnIGZpbGw9InJnYmEoMjA0LDExOCwxNTYsMC44KSI+PHBhdGggZD0iIE0gNjkuNDMgMTIuNjcgQyA3Ni4yNyAxMi4wNyA4My4xNCAxMi40NSA5MC4wMCAxMi4zOSBDIDEyMC42OSAxMi4zNSAxNTEuMzcgMTIuNDUgMTgyLjA2IDEyLjMzIEMgMTg0LjQwIDEyLjMyIDE4Ni43MyAxMi42NiAxODkuMDUgMTIuOTYgQyAxOTAuMDcgMTguOTIgMTg5LjU2IDI0Ljk4IDE4OS42MiAzMS4wMCBDIDE4OS42MSA5Mi4wMCAxODkuNjIgMTUzLjAwIDE4OS42MSAyMTQuMDAgQyAxODkuMzQgMjIyLjk5IDE5MC4yOSAyMzIuMDMgMTg5LjEwIDI0MC45NyBDIDE4Ny4xMCAyNDEuMzEgMTg1LjEwIDI0MS42OSAxODMuMDcgMjQxLjY5IEMgMTUxLjM4IDI0MS41MyAxMTkuNjkgMjQxLjY2IDg4LjAwIDI0MS42MSBDIDgxLjYzIDI0MS41NCA3NS4yMiAyNDIuMTIgNjguOTEgMjQxLjA0IEMgNjguMDcgMjM0LjM5IDY4LjUzIDIyNy42OCA2OC40NiAyMjEuMDAgQyA2OC40NCAxNTYuNjcgNjguNDkgOTIuMzMgNjguNDQgMjguMDAgQyA2OC42MCAyMi45MCA2Ny43MCAxNy41OSA2OS40MyAxMi42NyBaIi8+PC9nPjwvZz48ZyB0cmFuc2Zvcm09InNjYWxlKDEuMTcxODc1LDEuMTcxODc1KSIgc3Ryb2tlLXdpZHRoPSIuMDUlIj48ZyBmaWxsPSJyZ2JhKDIxNiw0Niw0MiwwLjUpIj48cGF0aCBkPSIgTSAxMzcuNTYgNDAuNTcgQyAxNDQuMzcgMzcuMjQgMTUwLjg2IDMyLjQxIDE1OC43MCAzMi4wMSBDIDE1NC44NyAzNi43MCAxNDkuOTEgNDAuMzIgMTQ2LjE1IDQ1LjA3IEMgMTQ0LjE5IDQ3LjQ2IDE0MS45OCA0OS42NCAxNDAuMTAgNTIuMTAgQyAxNDQuNjkgNTEuOTMgMTQ5LjIwIDUxLjAyIDE1My43OCA1MC44MCBDIDE2NC42NyA0OS42NCAxNzUuMjQgNDYuNjEgMTg2LjA2IDQ1LjA0IEMgMTg0LjMwIDU0LjAwIDE4MS42NCA2Mi43NSAxNzkuMDcgNzEuNTAgQyAxODMuMDUgNzQuMTkgMTg3LjY3IDc1LjcwIDE5MS43OCA3OC4xNyBDIDE5Ni4xNSA4MC43MiAyMDAuNzQgODIuODUgMjA1LjQ5IDg0LjU3IEMgMjAxLjE1IDg4Ljk3IDE5Ny4xMyA5My42NyAxOTIuOTYgOTguMjQgQyAxOTQuODUgMTA2LjIwIDE5NS43MCAxMTQuMzcgMTk2LjY3IDEyMi40OCBDIDE5OC41NiAxMjYuNTcgMjAyLjI1IDEyOS41NiAyMDQuODcgMTMzLjIwIEMgMjAyLjkyIDEzNS44MiAyMDAuNjMgMTM4LjE2IDE5OC4yNCAxNDAuMzcgQyAxOTguNDUgMTQyLjg2IDE5OC43MSAxNDUuMzcgMTk4LjQxIDE0Ny44NyBDIDE5Ny40MyAxNTUuNjIgMTk5LjQ0IDE2My4zOSAxOTguNDEgMTcxLjEzIEMgMTk3Ljg1IDE3NS4wNSAxOTguNjAgMTc5LjMyIDE5Ny4xNiAxODMuMDIgQyAxODkuMTIgMTkxLjQ2IDE4MC4wMyAxOTguOTIgMTcwLjIzIDIwNS4yNSBDIDE2OC4wMyAyMDYuNjQgMTY1LjY2IDIwNy43NyAxNjMuMTggMjA4LjU2IEMgMTYyLjQ0IDIwMi42MCAxNjQuODIgMTk2LjkxIDE2NS4wNiAxOTEuMDAgQyAxNjUuMzQgMTgyLjgyIDE2NS4yMCAxNzQuNjIgMTY1LjA3IDE2Ni40NCBDIDE1OS40MyAxNzUuMjcgMTUzLjI0IDE4My43MyAxNDYuNTggMTkxLjgzIEMgMTQ3LjAwIDE4Ni44NyAxNDcuMTYgMTgxLjkxIDE0Ny4wNSAxNzYuOTMgQyAxNDcuODUgMTcxLjYxIDE1MC4zMSAxNjYuNjkgMTUxLjMzIDE2MS40MCBDIDE1My45NSAxNTIuNDEgMTU1LjIxIDE0My4xMyAxNTcuMjIgMTM0LjAwIEMgMTUwLjQzIDEzOS42NyAxNDUuMTcgMTQ2Ljg3IDE0MC4xOSAxNTQuMTEgQyAxMzcuNTQgMTU4LjUyIDEzMi4yMCAxNTkuNTYgMTI4LjA2IDE2Mi4wNCBDIDEwOS4zMiAxNzMuNTUgOTEuMTQgMTg2LjA0IDc0LjAyIDE5OS44NyBDIDY4Ljc1IDIwNC4xMCA2NC4zNCAyMDkuMjkgNTkuMjAgMjEzLjY2IEMgNjIuODMgMjA1LjY3IDY4LjM5IDE5OC43MiA3My43MyAxOTEuODEgQyA3OC4xNyAxODYuMjUgODIuODQgMTgwLjg4IDg3Ljc4IDE3NS43NSBDIDExMC40NCAxNTIuMDYgMTMyLjY0IDEyNy40OSAxNTkuMzggMTA4LjI2IEMgMTYxLjYxIDEwNi42NCAxNjIuMTYgMTAzLjc0IDE2My4xNCAxMDEuMzIgQyAxNjQuNTQgOTYuOTQgMTY2LjM2IDkyLjYyIDE2Ny4wNCA4OC4wNiBDIDE2Mi43MiA4MS40NSAxNTYuNDggNzYuNDMgMTUwLjAzIDcyLjAxIEMgMTM4LjQ4IDczLjkxIDEyOC44MCA4MS4xNCAxMjAuNzIgODkuMjEgQyAxMjUuODAgODkuMTIgMTMwLjYyIDg3LjI4IDEzNS42MiA4Ni42MiBDIDEzMS41MCA5MS42NCAxMjYuOTQgOTYuMjcgMTIyLjU1IDEwMS4wNCBDIDEyMC4xNyAxMDEuMTAgMTE3Ljc2IDEwMC44MyAxMTUuNDEgMTAxLjI2IEMgMTExLjA0IDEwMy45OSAxMDguNjkgMTA4Ljc0IDEwNS43NyAxMTIuODAgQyAxMDIuNDIgMTE3LjUwIDk5LjUxIDEyMi40OSA5Ni41MyAxMjcuNDMgQyA5NS4xMyAxMzAuMDMgOTIuMTIgMTMwLjkzIDg5LjgwIDEzMi40NyBDIDkwLjAxIDEyNC40NSA5MC40NiAxMTYuMzAgODguOTQgMTA4LjM3IEMgOTIuMzkgMTA1Ljg5IDk1Ljk0IDEwMy4zMCA5OC4zNCA5OS43MyBDIDk4LjI5IDk1LjM5IDk3Ljg5IDkxLjA0IDk3LjY3IDg2LjcwIEMgOTIuNjEgODguNDIgODcuNTAgOTAuMDMgODIuNTMgOTIuMDIgQyA3OS4xOSA5OC4zNSA3Ni40MiAxMDQuOTUgNzMuMTYgMTExLjMyIEMgNzIuNDUgMTE0LjM1IDczLjA4IDExNy41MSA3NC4yNyAxMjAuMzUgQyA3MS40MiAxMjAuNjYgNjguNTYgMTIwLjQ1IDY1LjczIDEyMC4xNiBDIDY2LjA3IDEyMS4yNSA2Ni40NCAxMjIuMzUgNjYuODIgMTIzLjQ0IEMgNjkuNDQgMTI0LjY3IDcyLjExIDEyNS44MSA3NC43NCAxMjcuMDUgQyA2OC40OSAxMjcuMzcgNjIuMjQgMTI3LjY1IDU2LjA0IDEyNi40OSBDIDU1Ljk5IDEyMi42MSA1NS43NiAxMTguNzQgNTUuNDkgMTE0Ljg3IEMgNTguNTQgMTA4LjE4IDYzLjI0IDEwMi4yMyA2NS4zMyA5NS4xMyBDIDYzLjc4IDg4LjQ5IDY0LjEyIDgxLjYxIDY1LjEzIDc0LjkxIEMgNjUuNTcgNzIuNDMgNjUuNjIgNjkuNDkgNjcuODMgNjcuODIgQyA3My41OCA2Mi41NCA3OS4wMCA1Ni44OCA4My43NCA1MC42NyBDIDg1LjcwIDQ4LjE0IDg2LjkzIDQ1LjEzIDg4Ljk5IDQyLjY3IEMgODguMDAgNDguNzAgODUuODYgNTQuNDggODQuMjUgNjAuMzcgQyA4Ny44OCA1Ny40NCA5Mi4wOCA1NS40MCA5NS45MCA1Mi43NiBDIDEwMC45OSA0OS45NyAxMDYuNzcgNDguNjQgMTExLjgxIDQ1Ljc4IEMgMTE1LjQ4IDQxLjk4IDExNy4zNSAzNi44MCAxMjAuNzkgMzIuNzggQyAxMjEuMTUgMzkuMDQgMTIwLjY2IDQ1LjMxIDEyMS4xOSA1MS41NSBDIDEyNi42OCA0Ny45NCAxMzEuOTUgNDMuOTkgMTM3LjU2IDQwLjU3IE0gNzIuNzAgNzcuNjIgQyA3MC4yOCA4MS4xOCA3MC45MiA4NS43MCA3MC42OSA4OS43NyBDIDcyLjI5IDg3LjI1IDczLjcwIDg0LjYzIDc1LjA1IDgxLjk4IEMgNzYuNjMgNzkuMzcgNzUuOTAgNzYuMTkgNzUuOTAgNzMuMzIgQyA3NC43MyA3NC42NyA3My41OSA3Ni4wNiA3Mi43MCA3Ny42MiBaIi8+PC9nPjxnIGZpbGw9InJnYmEoNjUsOTAsNSwwLjUpIj48cGF0aCBkPSIgTSA3Mi43MCA3Ny42MiBDIDczLjU5IDc2LjA2IDc0LjczIDc0LjY3IDc1LjkwIDczLjMyIEMgNzUuOTAgNzYuMTkgNzYuNjMgNzkuMzcgNzUuMDUgODEuOTggQyA3My43MCA4NC42MyA3Mi4yOSA4Ny4yNSA3MC42OSA4OS43NyBDIDcwLjkyIDg1LjcwIDcwLjI4IDgxLjE4IDcyLjcwIDc3LjYyIFoiLz48cGF0aCBkPSIgTSA1OS43OCAxNDEuOTEgQyA2Ni4yMyAxMzkuMzAgNzMuMjUgMTM3Ljk0IDc5LjEwIDEzMy45OCBDIDc4Ljg1IDEzOS4zMiA3OC4zNyAxNDQuNjUgNzguMTEgMTQ5Ljk5IEMgNzQuNjAgMTUzLjEyIDcxLjAxIDE1Ni4xNSA2Ny4zOCAxNTkuMTQgQyA2MS42OCAxNTguNzUgNTYuMDMgMTU3Ljg5IDUwLjM2IDE1Ny4yNSBDIDU2LjU1IDE1My4wOCA2My45OCAxNTAuODAgNjkuMjggMTQ1LjM2IEMgNjYuMTIgMTQ0LjE5IDYyLjkxIDE0My4xNiA1OS43OCAxNDEuOTEgWiIvPjxwYXRoIGQ9IiBNIDEyMi41NiAxODIuNjMgQyAxMjcuNDkgMTc5LjI2IDEzMS4zNCAxNzQuNjQgMTM1Ljc1IDE3MC42OCBDIDEzNS4yMiAxODEuNDcgMTM0LjEzIDE5Mi4yNyAxMzEuNTMgMjAyLjc4IEMgMTMxLjA2IDIwNC41NCAxMjkuMDQgMjA1LjAxIDEyNy42MiAyMDUuNzUgQyAxMTcuMjkgMjA5LjkzIDEwNi42NiAyMTMuNTMgOTUuNzIgMjE1LjcwIEMgOTAuMDYgMjE2LjI1IDg0LjQzIDIxNC44MyA3OC43OCAyMTQuNTEgQyA5My4yNyAyMDMuNzQgMTA3Ljg1IDE5My4wOSAxMjIuNTYgMTgyLjYzIFoiLz48cGF0aCBkPSIgTSAxMzIuMTcgMjExLjIxIEMgMTM5LjI4IDIwNC45NyAxNDYuNzkgMTk5LjE1IDE1My4zMyAxOTIuMjkgQyAxNTIuNzMgMTk5LjA4IDE1Mi4yNiAyMDUuODkgMTUxLjU2IDIxMi42NSBDIDE0NS43NCAyMTUuMzMgMTM5LjMzIDIxNi41MiAxMzMuMjAgMjE4LjMzIEMgMTI4LjI2IDIxOS42NSAxMjMuMzEgMjIxLjEwIDExOC4xNyAyMjEuNDMgQyAxMjIuODMgMjE4LjAwIDEyNy44OSAyMTUuMTMgMTMyLjE3IDIxMS4yMSBaIi8+PHBhdGggZD0iIE0gMTgyLjQzIDIwOS45MCBDIDE4Ni45MSAyMDYuMzYgMTkxLjMwIDIwMi42OSAxOTUuMTYgMTk4LjQ3IEMgMTk0LjI2IDIwMi4zOSAxOTMuNDQgMjA2LjM0IDE5Mi42NiAyMTAuMjkgQyAxODkuMjUgMjEwLjE3IDE4NS44NCAyMTAuMDMgMTgyLjQzIDIwOS45MCBaIi8+PC9nPjwvZz48L3N2Zz4=',
-        score: 17,
-        membres: [
-          {
-            id: 2,
-            pseudo: 'anonyme',
-            codeAvatar: '',
-            score: 38,
-            teamName: 'PUF',
-            scoreEquipe: 28,
-          },
-          {
-            id: 2,
-            pseudo: 'lapin bleu',
-            codeAvatar: '',
-            score: 38,
-            teamName: 'PUF',
-            scoreEquipe: 23,
-          }
-        ]
-      }
-    } else {
-      this.http.post<InfosEquipe>(GlobalConstants.apiUrl + 'equipe.php', { teamName: teamName, identifiant: this.user.identifiant }).subscribe(equipe => {
-        this.infosEquipe = equipe
-      },
-        error => {
-          console.log(error)
-        })
-    }
-  }
-
-  rejoindreEquipe(codeEquipe: string) {
-    this.http.post<User[]>(GlobalConstants.apiUrl + 'rejoindreEquipe.php', { identifiant: this.user.identifiant, codeEquipe: codeEquipe }).subscribe(users => {
-      if (users[0].identifiant == 'personne') {
-        alert('Code incorrect')
-      } else {
-        this.user = users[0]
-      }
-    },
-      error => {
-        console.log(error)
-      })
-  }
-
-  /**
-   * Demande une reconnexion avant de faire quitter l'équipe
-   */
-  quitterEquipe() {
-    this.securelogin({ quitterEquipe: true }, 'apiService')
-  }
-
-  /**
-   * Fait quitter l'équipe
-   */
-  quitterEquipeSansConfirmation() {
-    this.http.post<User[]>(GlobalConstants.apiUrl + 'quitterEquipe.php', { identifiant: this.user.identifiant }).subscribe(users => {
-      if (users[0].identifiant == 'personne') {
-        alert("Une erreur s'est produite")
-      } else {
-        this.user = users[0]
-      }
-    },
-      error => {
-        console.log(error)
-      })
   }
 
   /**
@@ -226,9 +116,7 @@ export class ApiService {
    * Renvoie un style de css qui permet d'afficher un avatar et l'emblème de son équipe
    */
   getStyleAvatar(user: User | UserSimplifie) {
-    const lienEquipe = `/team_emblems/${user.teamName}.svg`
     let style = `--image-avatar:url('${this.getLienAvatar(user)}');`
-    if (user.teamName != '') style += `--image-equipe:url('${lienEquipe}');`
     return <string>style
   }
 
@@ -254,8 +142,6 @@ export class ApiService {
         pseudo: 'Cerf sauvage',
         score: 196,
         cleScore: 'abc',
-        teamName: 'PUF',
-        scoreEquipe: 0,
         derniereSequence: 'S4S5!Séquence 5 :<br>Théorème de Pythagore',
         dernierObjectif: '4G20!4G20 : Calculer une longueur avec le théorème de Pythagore',
         question: 0
@@ -346,8 +232,6 @@ export class ApiService {
         pseudo: this.pseudoAleatoire(),
         score: 0,
         cleScore: '',
-        teamName: '',
-        scoreEquipe: 0,
         derniereSequence: '',
         dernierObjectif: '',
         question: 0
@@ -373,66 +257,6 @@ export class ApiService {
       });
     }
   }
-  /**
-   * Demande l'ajout d'une nouvelle équipe à la base de données
-   * envoie un postMessage de type retourCreationEquipe si l'équipe existe déjà,
-   * envoie l'utilisateur vers la page de l'équipe si c'est bon
-   * @param creationOuModification
-   * @param teamName 
-   * @param lienEmbleme 
-   * @param foregroundId 
-   * @param foregroundPrimaryColor 
-   * @param foregroundSecondaryColor 
-   * @param backgroundId 
-   * @param backgroundColor 
-   * @param identifiant 
-   */
-  creationModificationEquipe(creationOuModification: string, teamName: string, lienEmbleme: string,
-    foregroundId: number, foregroundPrimaryColor: string, foregroundSecondaryColor: string,
-    backgroundId: number, backgroundColor: string, identifiant: string) {
-    this.http.post<Equipe[]>(`${GlobalConstants.apiUrl}${creationOuModification}Equipe.php`, {
-      teamName: teamName, lienEmbleme: lienEmbleme, codeEquipe: this.infosEquipe.codeEquipe,
-      foregroundId: foregroundId, foregroundPrimaryColor: foregroundPrimaryColor, foregroundSecondaryColor: foregroundSecondaryColor,
-      backgroundId: backgroundId, backgroundColor: backgroundColor, leader: identifiant
-    }).subscribe(equipes => {
-      this.equipe = equipes[0]
-      if (this.equipe.teamName == 'personne') console.log('Aucune équipe avec ce codeEquipe ?')
-      else if (this.equipe.teamName == 'existe_deja') {
-        window.frames.postMessage({ retourCreationEquipe: 'existe_deja' }, GlobalConstants.origine)
-      } else {
-        this.user.teamName = this.equipe.teamName
-        this.router.navigate(['team', this.user.teamName])
-      }
-    }, error => {
-      this.erreurRegistration('creationEquipe', error['message'])
-      console.log(error)
-    });
-  }
-
-  /**
-   * Vérifie si l'utilisateur est bien leader de l'équipe,
-   * récupère les infos sur l'équipe,
-   * dirige vers la page de modification de l'équipe
-   */
-  modifierEquipe() {
-    if (isDevMode()) {
-      this.router.navigate(['team', 'admin', 'modification'])
-    } else {
-      this.http.post<Equipe[]>(`${GlobalConstants.apiUrl}getEquipe.php`, { codeEquipe: this.infosEquipe.codeEquipe, leader: this.user.id }).subscribe(equipes => {
-        this.equipe = equipes[0]
-        if (this.equipe.teamName == 'personne') {
-          alert("Tu n'es pas le chef de cette équipe")
-          this.router.navigate(['accueil'])
-        }
-        else {
-          this.router.navigate(['team', 'admin', 'modification'])
-        }
-      }, error => {
-        this.erreurRegistration('modifierEquipe', error['message'])
-        console.log(error)
-      });
-    }
-  }
 
   /**
    * Signale à l'utilisateur un problème dans l'enregistrement d'un nouvel identifiant
@@ -445,10 +269,6 @@ export class ApiService {
     } else if (typeErreur == 'caracteres_speciaux') {
       alert('Erreur : tu ne dois utiliser que des chiffres et des lettres sans accent')
     } else if (typeErreur == 'userregistration') {
-      alert('Une erreur s\'est produite lors de l\'accès à la base de données (peut-être que la connexion n\'est pas sécurisée ? (https)\n\nLe message d\'erreur est le suivant :\n' + erreur)
-    } else if (typeErreur == 'creationEquipe') {
-      alert('Une erreur s\'est produite lors de l\'accès à la base de données (peut-être que la connexion n\'est pas sécurisée ? (https)\n\nLe message d\'erreur est le suivant :\n' + erreur)
-    } else if (typeErreur == 'modifierEquipe') {
       alert('Une erreur s\'est produite lors de l\'accès à la base de données (peut-être que la connexion n\'est pas sécurisée ? (https)\n\nLe message d\'erreur est le suivant :\n' + erreur)
     } else if (typeErreur == 'secureLogin') {
       alert('Une erreur s\'est produite lors de l\'accès à la base de données (peut-être que la connexion n\'est pas sécurisée ? (https)\n\nLe message d\'erreur est le suivant :\n' + erreur)
@@ -552,7 +372,6 @@ export class ApiService {
         cleScore: this.user.cleScore,
         url: url,
         type: type,
-        teamName: this.user.teamName
       }).subscribe(
         users => {
           this.user.score = users[0].score
@@ -575,7 +394,7 @@ export class ApiService {
   logout() {
     this.deleteToken('identifiant')
     this.deleteToken('version')
-    this.user = new User(0, '', '', '', '', 0, '', '', 0, '', '', 0)
+    this.user = new User(0, '', '', '', '', 0, '', '', '', 0)
     this.isloggedIn = false
     this.profilModifie.emit([
       'identifiant',
@@ -819,9 +638,6 @@ export class ApiService {
               const bouton = <HTMLButtonElement>document.getElementById("secureLoginButton")
               bouton.disabled = false
             } else { // Sinon on ferme la modale
-              if (origineDemande == 'apiService' && donnees.quitterEquipe) {
-                this.quitterEquipeSansConfirmation()
-              }
               const modale = <HTMLElement>document.getElementById("modaleSecureLogin")
               modale.parentNode?.removeChild(modale)
             }

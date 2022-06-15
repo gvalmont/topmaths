@@ -1,7 +1,6 @@
 :root {
   --window-height: 200px;
   --foreground-transform: scale(1, 1);
-  --image-equipe: url(/assets/img/gvalmont/blank.svg);
   --basetout: #feb60a;
   --lighttout: hsl(48, 100%, 96%);
   --base6e: #28a745;
@@ -207,16 +206,16 @@
 .avatar {
   height: 68px;
   width: 48px;
-  background-image: var(--image-equipe), var(--image-avatar);
-  background-position: left bottom, center;
-  background-size: 24px, 48px;
-  background-repeat: no-repeat, no-repeat;
+  background-image: var(--image-avatar);
+  background-position: center;
+  background-size: 48px;
+  background-repeat: no-repeat;
 }
 
 .avatar.is-large {
   height: 272px;
   width: 192px;
-  background-size: 96px, 96px, 192px;
+  background-size: 192px;
 }
 
 .foregrounds, .backgrounds {

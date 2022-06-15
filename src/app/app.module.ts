@@ -18,9 +18,6 @@ import { MathjaxModule } from 'mathjax-angular';
 import { SPS1Component } from './sequencesParticulieres/sps1/sps1.component';
 import { RevisionsComponent } from './revisions/revisions.component';
 import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-hasard.component';
-import { EquipeModificationComponent } from './equipe/modification/equipe.modification.component';
-import { ColorPickerModule } from 'ngx-color-picker';
-import { EquipePageComponent } from './equipe/page/equipe.page.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { ModaleExercicesComponent } from './modale-exercices/modale-exercices.component';
 import { ListeSequencesComponent } from './sequences/liste-sequences/liste-sequences.component';
@@ -43,8 +40,6 @@ import { AnimationInstrumenpocheComponent } from './mini-components/animation-in
     SPS1Component,
     RevisionsComponent,
     ExercicesAuHasardComponent,
-    EquipeModificationComponent,
-    EquipePageComponent,
     AvatarComponent,
     ModaleExercicesComponent,
     ListeSequencesComponent,
@@ -75,8 +70,7 @@ import { AnimationInstrumenpocheComponent } from './mini-components/animation-in
       },
       "src": "https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/startup.js"
     }),
-    MathjaxModule.forChild(),
-    ColorPickerModule
+    MathjaxModule.forChild()
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

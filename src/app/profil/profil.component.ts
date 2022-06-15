@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { ApiService } from '../services/api.service';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { estHeureEte } from '../services/outils'
 
@@ -18,7 +17,6 @@ export class ProfilComponent implements OnInit {
   errSpChar: boolean
   errCodeIncorrect: boolean
   shake: boolean
-  angFormE: FormGroup
   defautE: boolean
   errGrandNbCharE: boolean
   errPetitNbCharE: boolean
@@ -33,23 +31,19 @@ export class ProfilComponent implements OnInit {
   enCoursDeModif: string
   modifTerminee: string
 
-  constructor(private fb: FormBuilder, public http: HttpClient, public appComponent: AppComponent, public dataService: ApiService, private router: Router) {
+  constructor(public http: HttpClient, public appComponent: AppComponent, public dataService: ApiService, private router: Router) {
     this.defaut = true
     this.errGrandNbChar = false
     this.errPetitNbChar = false
     this.errSpChar = false
     this.errCodeIncorrect = false
     this.shake = false
-    this.angFormE = this.fb.group({
-      codeEquipe: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]]
-    });
     this.defautE = true
     this.errGrandNbCharE = false
     this.errPetitNbCharE = false
     this.errSpCharE = false
     this.errCodeIncorrectE = false
     this.shakeE = false
-    this.surveilleChampE()
     this.pseudo = dataService.user.pseudo
     this.derniereConnexion = this.dateDeDerniereConnexion()
     this.enCoursDeModif = ''
@@ -61,30 +55,6 @@ export class ProfilComponent implements OnInit {
     if (modale != null) this.modalePseudo = modale
     modale = document.getElementById("modaleConfirmation")
     if (modale != null) this.modaleConfirmation = modale
-  }
-
-  voirPageEquipe(){
-    this.router.navigate(['team', this.dataService.user.teamName])
-  }
-
-  /**
-   * Vérifie si l'utilisateur fait déjà partie d'une équipe,
-   * prévient si c'est le cas,
-   * sinon envoie vers la page de création d'une nouvelle équipe
-   */
-  creerNouvelleEquipe(){
-    if (this.dataService.user.teamName == '') {
-      this.router.navigate(['team', 'admin', 'creation'])
-    } else {
-      alert('Tu fais déjà partie d\'une équipe !\nTu dois d\'abord la quitter si tu veux en créer une autre.')
-    }
-  }
-
-  /**
-   * Ouvre la modale de confirmation pour quitter l'équipe
-   */
-  quitterEquipe() {
-    this.ouvrirModale('confirmation')
   }
 
   /**
@@ -151,25 +121,6 @@ export class ProfilComponent implements OnInit {
   }
 
   /**
-   * Surveille le champ pour rejoindre une équipe,
-   * actualise les booléens sur lesquels s'appuie le formatage du champ
-   */
-   surveilleChampE() {
-    this.angFormE.valueChanges.subscribe(x => {
-      const str = x.codeEquipe
-      this.defautE = true
-      this.errSpCharE = false
-      this.errPetitNbCharE = false
-      this.errGrandNbCharE = false
-      this.errCodeIncorrectE = false
-      if (str.length != 0) this.defautE = false
-      if (str.length < 5 && str.length != 0) this.errPetitNbCharE = true
-      if (str.length > 5) this.errGrandNbCharE = true
-      if (!/^[a-z]*$/.test(str)) this.errSpCharE = true
-    })
-  }
-
-  /**
    * Ouvre la modale
    * @param type peut être pseudo ou confirmation
    */
@@ -177,9 +128,6 @@ export class ProfilComponent implements OnInit {
      if (type == 'pseudo') {
       this.pseudo = this.dataService.user.pseudo
       this.modalePseudo.style.display = "block"
-    } else if (type == 'confirmation') {
-      this.modaleConfirmation.style.display = "block"
-      this.dataService.recupInfosEquipe(this.dataService.user.teamName)
     }
   }
 
