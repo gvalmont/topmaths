@@ -2394,14 +2394,21 @@
                 "exercices": [
                   {
                     "id": 4043,
-                    "slug": "4C32,s=1,s2=3,n=4",
+                    "slug": "4C32,s=1,s2=1,n=2",
                     "score": 10,
                     "temps": 400,
                     "isInteractif": true
                   },
                   {
                     "id": 4044,
-                    "slug": "4C32,s=2,s2=3,n=4",
+                    "slug": "4C32,s=1,s2=2,n=2",
+                    "score": 10,
+                    "temps": 400,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 4085,
+                    "slug": "4C32,s=1,s2=3,n=2",
                     "score": 10,
                     "temps": 400,
                     "isInteractif": true
