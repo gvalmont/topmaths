@@ -805,23 +805,30 @@
                 "exercices": [
                   {
                     "id": 5070,
-                    "slug": "5L16,s=1,n=3",
+                    "slug": "5L16,s=1,s2=false,n=2",
                     "score": 4,
                     "temps": 120,
                     "isInteractif": true
                   },
                   {
                     "id": 5071,
-                    "slug": "5L16,s=2,n=3",
+                    "slug": "5L16,s=2,s2=false,n=2",
                     "score": 8,
                     "temps": 240,
                     "isInteractif": true
                   },
                   {
                     "id": 5072,
-                    "slug": "5L16,s=3,n=3",
+                    "slug": "5L16,s=3,s2=false,n=2",
                     "score": 12,
                     "temps": 360,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5128,
+                    "slug": "5L16,s=3,s2=true,n=4",
+                    "score": 15,
+                    "temps": 600,
                     "isInteractif": true
                   }
                 ]
@@ -3640,7 +3647,7 @@
                 "exercices": [
                   {
                     "id": 4081,
-                    "slug": "4G51,s=6,s2=1,n=2",
+                    "slug": "4G51,s=6,s2=1,n=1",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
@@ -3667,6 +3674,13 @@
                   }
                 ],
                 "exercices": [
+                  {
+                    "id": 4087,
+                    "slug": "4G51,s=8,s2=1,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
                 ]
               },
               {
