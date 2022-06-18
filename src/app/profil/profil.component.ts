@@ -86,23 +86,7 @@ export class ProfilComponent implements OnInit {
     mois[9] = 'Octobre'
     mois[10] = 'Novembre'
     mois[11] = 'Décembre'
-    return `${jour[date.getDay()]} ${date.getDate()} ${mois[date.getMonth()]} ${date.getFullYear()} à ${date.getHours()}h${this.nb2chiffres(date.getMinutes())}min`
-  }
-
-  /**
-   * Ajoute un 0 aux nombres à un chiffre
-   * Convertir les nombres en string
-   * @param nb 
-   * @returns string
-   */
-  nb2chiffres(nb: number) {
-    if (nb < 1) {
-      return '01'
-    } else if (nb < 10) {
-      return '0' + Math.floor(nb)
-    } else {
-      return Math.floor(nb).toString()
-    }
+    return `${jour[date.getDay()]} ${date.getDate()} ${mois[date.getMonth()]} ${date.getFullYear()} entre ${date.getHours()}h et ${date.getHours() + 1}h`
   }
 
   /**
