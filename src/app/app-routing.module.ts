@@ -15,6 +15,7 @@ import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-h
 import { AvatarComponent } from './avatar/avatar.component';
 import { MathadorComponent } from './outils/mathador/mathador.component';
 import { OutilsComponent } from './outils/outils.component';
+import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidentialite/politique-de-confidentialite.component';
 
 const routes: Routes = [
   { path: 'accueil', component: AccueilComponent, data: {title: 'topmaths.fr - les maths au TOP !'} },
@@ -31,10 +32,10 @@ const routes: Routes = [
   { path: 'profil/avatar', component: AvatarComponent, canActivate: [TimeguardGuard], data: {title: 'topmaths.fr - Avatar'}},
   { path: 'profil', component: ProfilComponent, canActivate: [AuthguardGuard], data: {title: 'topmaths.fr - Profil'} },
   { path: 'revisions', component: RevisionsComponent, data: {title: 'topmaths.fr - Révisions'} },
-  { path: 'exercices-au-hasard/:type', component: ExercicesAuHasardComponent, data: {title: 'topmaths.fr - Exercices au hasard'} },
   { path: 'exercices-au-hasard', component: ExercicesAuHasardComponent, data: {title: 'topmaths.fr - Exercices au hasard'} },
   { path: 'outils/mathador', component: MathadorComponent },
   { path: 'outils', component: OutilsComponent },
+  { path: 'politique-de-confidentialite', component: PolitiqueDeConfidentialiteComponent, data: {title: 'topmaths.fr - Politique de confidentialité'} },
   { path: '', component: AccueilComponent },
   { path: ':ref', component: ObjectifComponent },
   { path: '**', component: AccueilComponent }

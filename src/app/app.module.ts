@@ -25,6 +25,7 @@ import { MathadorComponent } from './outils/mathador/mathador.component';
 import { OutilsComponent } from './outils/outils.component';
 import { BoutonImprimerComponent } from './mini-components/bouton-imprimer/bouton-imprimer.component';
 import { AnimationInstrumenpocheComponent } from './mini-components/animation-instrumenpoche/animation-instrumenpoche.component';
+import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidentialite/politique-de-confidentialite.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AnimationInstrumenpocheComponent } from './mini-components/animation-in
     MathadorComponent,
     OutilsComponent,
     BoutonImprimerComponent,
-    AnimationInstrumenpocheComponent
+    AnimationInstrumenpocheComponent,
+    PolitiqueDeConfidentialiteComponent
   ],
   imports: [
     BrowserModule,
