@@ -687,14 +687,14 @@
                     "isInteractif": true
                   },
                   {
-                    "id": 5069,
+                    "id": 5126,
                     "slug": "5L12-2,s=9,s2=false,s3=1-2-3-4,n=3",
                     "score": 8,
                     "temps": 240,
                     "isInteractif": true
                   },
                   {
-                    "id": 5069,
+                    "id": 5127,
                     "slug": "5L12-2,s=9,s2=true,s3=1-2-3-4,n=3",
                     "score": 12,
                     "temps": 360,
@@ -2286,7 +2286,7 @@
                 ],
                 "exercices": [
                   {
-                    "id": 4048,
+                    "id": 4086,
                     "slug": "4C23-1,s=1,s2=true,n=4,cd=1",
                     "score": 30,
                     "temps": 1200,
