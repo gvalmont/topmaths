@@ -33,7 +33,7 @@ export class SequenceComponent implements OnInit {
   derniereGraine: string
   dernierSlider: number
   dateDerniereReponse: Date
-  infosModale: [string[], string, Date, number[]]
+  infosModale: [string[], string, Date]
   bonneReponse: boolean
   ancre: string
   niveau: string
@@ -57,7 +57,7 @@ export class SequenceComponent implements OnInit {
     this.derniereGraine = ''
     this.dernierSlider = 0
     this.dateDerniereReponse = new Date()
-    this.infosModale = [[], '', new Date(), []]
+    this.infosModale = [[], '', new Date()]
     this.bonneReponse = false
     this.ancre = ''
     this.niveau = ''
@@ -173,7 +173,7 @@ export class SequenceComponent implements OnInit {
                   questionFlash.pageExiste = true
                 }
               }
-              this.lienQuestionsFlash = this.lienQuestionsFlash.concat('v=can&z=1.5')
+              this.lienQuestionsFlash = this.lienQuestionsFlash.concat('v=eval&z=1.5')
               // On vérifie si la page existe pour les objectifs des calculs mentaux
               for (const calculMental of this.calculsMentaux) {
                 if (calculMental.reference == JSONobjectif.reference) {
@@ -193,7 +193,7 @@ export class SequenceComponent implements OnInit {
           }
         }
       }
-      this.lienEval = this.lienEval.concat('v=can&z=1.5')
+      this.lienEval = this.lienEval.concat('v=eval&z=1.5')
     }
     )
   }
@@ -303,7 +303,7 @@ export class SequenceComponent implements OnInit {
    */
   ouvrirModaleExercices(lien: string | undefined, ancre: string) {
     if (typeof (lien) != 'undefined') {
-      this.infosModale = [[lien], '', new Date(), []]
+      this.infosModale = [[lien], '', new Date()]
       this.ancre = ancre
     }
   }

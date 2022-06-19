@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationStart, Event as NavigationEvent } from '@angular/router';
 import { Niveau } from '../services/objectifs';
 
@@ -21,7 +21,7 @@ interface Ligne {
   templateUrl: './objectifs.component.html',
   styleUrls: []
 })
-export class ObjectifsComponent implements OnInit {
+export class ObjectifsComponent implements OnInit, OnDestroy {
   lignes: Ligne[]
   filtre: Ligne
   event$: any

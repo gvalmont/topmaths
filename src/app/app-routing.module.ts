@@ -18,7 +18,7 @@ import { OutilsComponent } from './outils/outils.component';
 import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidentialite/politique-de-confidentialite.component';
 
 const routes: Routes = [
-  { path: 'accueil', component: AccueilComponent, data: {title: 'topmaths.fr - les maths au TOP !'} },
+  { path: 'accueil', component: AccueilComponent, data: {title: 'topmaths.fr - Les maths au TOP !'} },
   { path: 'objectif/:ref', component: ObjectifComponent },
   { path: 'objectifs/:niveau/:theme/:sousTheme', component: ObjectifsComponent },
   { path: 'objectifs/:niveau/:theme', component: ObjectifsComponent },

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Niveau, SequenceParticuliere } from '../../services/sequences';
 
 /**
@@ -9,7 +9,7 @@ import { Niveau, SequenceParticuliere } from '../../services/sequences';
  * De cette façon, les *ngIf du html sauront comment les afficher
  */
 interface Ligne {
-  niveau?: string;
+  niveau: string;
   numero?: number;
   reference?: string;
   titre?: string
@@ -19,7 +19,7 @@ interface Ligne {
   templateUrl: './liste-sequences.component.html',
   styleUrls: ['./liste-sequences.component.css']
 })
-export class ListeSequencesComponent implements OnInit {
+export class ListeSequencesComponent implements OnInit, OnChanges {
   @Input() reactiveBoutonsEnvoi!: Date
   @Output() selection = new EventEmitter<{niveaux: string[], sequences: string[]}>();
   lignes: Ligne[]

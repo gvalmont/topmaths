@@ -9,7 +9,7 @@
       </div>
     </div>
   </div>
-  <div [class]="'is-' + niveau" *ngIf="calculsMentaux[0] != null && calculsMentaux[0].reference != ''; else divPasDeCalculMental">
+  <div [class]="'is-' + niveau" *ngIf="calculsMentaux[0] !== null && calculsMentaux[0].reference !== ''; else divPasDeCalculMental">
     <h2 id="calculMental" [class]="'subtitle is-3 is-' + niveau">Calcul Mental</h2>
     <div *ngIf="presenceCalculMental">
       <p>Dans cette séquence, le calcul mental porte sur :</p>
@@ -26,7 +26,7 @@
           <div><br></div>
           <h3 [class]="'subtitle is-4 is-inline-block'">
             <a (click)="ouvrirModaleExercices(niveau.lien, 'calculMental')">
-              {{niveau.commentaire == '' ? 'Niveau ' + (j + 1) : niveau.commentaire }}
+              {{niveau.commentaire === '' ? 'Niveau ' + (j + 1) : niveau.commentaire }}
               &nbsp;
               <i class='image is-24x24 is-inline-block'>
                 <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
@@ -38,12 +38,12 @@
     </div>
   </div>
   <ng-template #divPasDeCalculMental>
-    <div *ngIf="calculsMentaux[0].niveaux[0].commentaire != ''" [class]="'pb-5 is-' + niveau">
+    <div *ngIf="calculsMentaux[0].niveaux[0].commentaire !== ''" [class]="'pb-5 is-' + niveau">
       <h2 [class]="'subtitle is-3 is-' + niveau">Calcul Mental</h2><br>
       <p [mathjax]="calculsMentaux[0].niveaux[0].commentaire" class="is-size-5"></p>
     </div>
   </ng-template>
-  <div [class]="'pb-5 is-' + niveau" *ngIf="questionsFlash[0] != null && questionsFlash[0].slug != ''">
+  <div [class]="'pb-5 is-' + niveau" *ngIf="questionsFlash[0] !== null && questionsFlash[0].slug !== ''">
     <h2 id="questionsFlash" [class]="'subtitle is-3 is-' + niveau">Questions Flash</h2>
     <p>Dans cette séquence, une question flash porte sur l’un des objectifs ci-dessus et les deux autres portent sur :</p>
     <div class="p-1">

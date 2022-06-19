@@ -68,14 +68,12 @@ export class Exercice {
   public id: number
   public slug: string
   public lien: string
-  public temps: number
   public isInteractif: boolean
 
-  constructor(id: number, slug: string, lien: string, temps: number, isInteractif: boolean) {
+  constructor(id: number, slug: string, lien: string, isInteractif: boolean) {
     this.id = id
     this.slug = slug
     this.lien = lien
-    this.temps = temps
     this.isInteractif = isInteractif
   }
 }

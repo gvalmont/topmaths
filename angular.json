@@ -105,9 +105,21 @@
               "src/assets/js/iepjsmin.js"
             ]
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "topmaths"
+  "defaultProject": "topmaths",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

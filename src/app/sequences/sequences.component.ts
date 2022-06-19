@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationStart, Event as NavigationEvent } from '@angular/router';
 import { Niveau, SequenceParticuliere } from '../services/sequences';
 
@@ -20,7 +20,7 @@ interface Ligne {
   templateUrl: './sequences.component.html',
   styleUrls: []
 })
-export class SequencesComponent implements OnInit {
+export class SequencesComponent implements OnInit, OnDestroy {
   lignes: Ligne[]
   lignesParticulieres: Ligne[]
   filtre: Ligne

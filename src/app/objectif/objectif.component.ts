@@ -25,7 +25,7 @@ export class ObjectifComponent implements OnInit {
   presenceVideo: boolean
   dateDerniereReponse: Date
   exercicesDejaFaits: string[]
-  infosModale: [string[], string, Date, number[]]
+  infosModale: [string[], string, Date]
   bonneReponse: boolean
   ancre: string
   niveau: string
@@ -43,7 +43,7 @@ export class ObjectifComponent implements OnInit {
     this.exercicesDejaFaits = []
     this.presenceVideo = false
     this.dateDerniereReponse = new Date()
-    this.infosModale = [[], '', new Date(), []]
+    this.infosModale = [[], '', new Date()]
     this.bonneReponse = false
     this.ancre = ''
     this.niveau = ''
@@ -152,8 +152,7 @@ export class ObjectifComponent implements OnInit {
         this.exercices.push({
           id: exercice.id,
           slug: exercice.slug,
-          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&serie=&v=can&z=1.5`,
-          temps: exercice.temps,
+          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&serie=&v=eval&z=1.5`,
           isInteractif: exercice.isInteractif
         })
         this.exercices[this.exercices.length - 1].lien = this.exercices[this.exercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
@@ -182,7 +181,7 @@ export class ObjectifComponent implements OnInit {
    */
    ouvrirModaleExercices(lien: string | undefined, ancre: string) {
     if (typeof (lien) != 'undefined') {
-      this.infosModale = [[this.changeSerie(lien)], '', new Date(), []]
+      this.infosModale = [[this.changeSerie(lien)], '', new Date()]
       this.ancre = ancre
     }
   }

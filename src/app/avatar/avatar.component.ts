@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, NavigationStart, Event as NavigationEvent } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../services/api.service';
@@ -36,7 +36,7 @@ interface Color {
   templateUrl: './avatar.component.html',
   styleUrls: ['./avatar.component.css']
 })
-export class AvatarComponent implements OnInit {
+export class AvatarComponent implements OnInit, OnDestroy {
   codeHTMLduSVG: string
   skinColor: string
   hairColor: string

@@ -32,12 +32,3 @@
   width: 30px;
   z-index: 150;
 }
-
-#aff-coef {
-  position: fixed;
-  right: 140px;
-  top: 20px;
-  z-index: 150;
-  font-size: 40px;
-  font-weight: 600;
-}

@@ -19,18 +19,18 @@
     <h2 class="title">Derniers objectif et séquence visités :</h2>
   </div>
   <br>
-  <div *ngIf="dataService.user.derniereSequence != '' || dataService.user.dernierObjectif != ''">
-    <a *ngIf="dataService.user.derniereSequence != ''" [routerLink]="'/sequence/' + dataService.user.derniereSequence.split('!')[0]" routerLinkActive="active">
+  <div *ngIf="dataService.user.derniereSequence !== '' || dataService.user.dernierObjectif !== ''">
+    <a *ngIf="dataService.user.derniereSequence !== ''" [routerLink]="'/sequence/' + dataService.user.derniereSequence.split('!')[0]" routerLinkActive="active">
       <button [class]="'px-4 subtitle is-' + dataService.user.derniereSequence.slice(1, 2) + 'e is-rounded is-clickable'" style="line-height: 2.1; border-color: transparent;" [innerHTML]="dataService.user.derniereSequence.split('!')[1]"></button>
     </a>
-    <a *ngIf="dataService.user.dernierObjectif != ''" [routerLink]="'/objectif/' + dataService.user.dernierObjectif.split('!')[0]" routerLinkActive="active">
+    <a *ngIf="dataService.user.dernierObjectif !== ''" [routerLink]="'/objectif/' + dataService.user.dernierObjectif.split('!')[0]" routerLinkActive="active">
       <br><br>
       <button [class]="'px-4 subtitle is-' + dataService.user.dernierObjectif.slice(0, 1) + 'e is-rounded is-clickable'" style="line-height: 2.1; border-color: transparent;" [innerHTML]="dataService.user.dernierObjectif.split('!')[1]"></button>
     </a>
   </div>
-  <div *ngIf="dataService.user.derniereSequence != '' || dataService.user.dernierObjectif != ''"><br></div>
+  <div *ngIf="dataService.user.derniereSequence !== '' || dataService.user.dernierObjectif !== ''"><br></div>
   <!-- Déconnexion -->
-  <div *ngIf="dataService.user.lastLogin != '' && derniereConnexion != 'undefined NaN undefined NaN à NaNhNaNmin'">
+  <div *ngIf="dataService.user.lastLogin !== '' && derniereConnexion !== 'undefined NaN undefined NaN à NaNhNaNmin'">
     <p class="has-text-grey is-size-6">Quelqu'un s'est connecté sur ce compte le {{derniereConnexion}}.<br>
       Si cette date ne te dit rien, c'est sûrement que ton identifiant est trop facile à deviner ou que tu as oublié
       de te déconnecter et que quelqu'un d'autre l'a utilisé !</p>

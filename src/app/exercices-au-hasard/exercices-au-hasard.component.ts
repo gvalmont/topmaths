@@ -1,7 +1,6 @@
 import { ViewportScroller } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, isDevMode, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, isDevMode } from '@angular/core';
 import { GlobalConstants } from 'src/app/services/global-constants';
 import { Niveau as NiveauObjectif } from 'src/app/services/objectifs';
 import { Niveau as NiveauSequence } from 'src/app/services/sequences';
@@ -18,14 +17,11 @@ interface Exercice {
   templateUrl: './exercices-au-hasard.component.html',
   styleUrls: ['./exercices-au-hasard.component.css']
 })
-export class ExercicesAuHasardComponent implements OnInit {
-  infosModale: [string[], string, Date, number[]]
+export class ExercicesAuHasardComponent {
+  infosModale: [string[], string, Date]
 
-  constructor(public http: HttpClient, private route: ActivatedRoute, private viewportScroller: ViewportScroller, private calendrier: CalendrierService) {
-    this.infosModale = [[], '', new Date(), []]
-  }
-
-  ngOnInit(): void {
+  constructor(public http: HttpClient, private viewportScroller: ViewportScroller, private calendrier: CalendrierService) {
+    this.infosModale = [[], '', new Date()]
   }
 
   /**
@@ -35,73 +31,31 @@ export class ExercicesAuHasardComponent implements OnInit {
     this.viewportScroller.scrollToPosition([0, 0])
   }
 
-  /**
-   * Récupère la dernière séquence du niveau choisi
-   * Récupère la liste de tous les exercices depuis le début de l'année jusque cette séquence
-   * En devMode, vérifie qu'il n'y a pas de doublon au niveau des id
-   * Lance la modale exercices
-   * @param niveauChoisi 
-   */
   lancerExercices(niveauChoisi: string) {
-    let listeReferences: string[] = []
     this.http.get<NiveauSequence[]>('assets/data/sequences.json').subscribe(niveaux => {
-      for (const niveau of niveaux) {
-        if (niveau.nom == niveauChoisi || niveauChoisi == 'tout') {
-          const derniereSequence = this.getDerniereSequence()
-          for (const sequence of niveau.sequences) {
-            if (parseInt(sequence.reference.slice(3)) <= derniereSequence) {
-              for (const objectif of sequence.objectifs) {
-                listeReferences.push(objectif.reference)
-              }
+      const listeReferences = this.getListeDesReferences(niveauChoisi, niveaux)
+      this.http.get<NiveauObjectif[]>('assets/data/objectifs.json').subscribe(niveaux => {
+        const listeDesUrl = this.getListeDesExercices(listeReferences, niveaux)
+        this.infosModale = [listeDesUrl, 'exerciceAuHasard', new Date()]
+      })
+    })
+  }
+
+  getListeDesReferences(niveauChoisi: string, niveaux: NiveauSequence[]) {
+    let listeReferences: string[] = []
+    for (const niveau of niveaux) {
+      if (niveau.nom == niveauChoisi || niveauChoisi == 'tout') {
+        const derniereSequence = this.getDerniereSequence()
+        for (const sequence of niveau.sequences) {
+          if (parseInt(sequence.reference.slice(3)) <= derniereSequence) {
+            for (const objectif of sequence.objectifs) {
+              listeReferences.push(objectif.reference)
             }
           }
         }
       }
-      let listeExercices: Exercice[] = []
-      let listeDesUrl: string[] = []
-      let listeDesTemps: number[] = []
-      this.http.get<NiveauObjectif[]>('assets/data/objectifs.json').subscribe(niveaux => {
-        for (const niveau of niveaux) {
-          for (const theme of niveau.themes) {
-            for (const sousTheme of theme.sousThemes) {
-              for (const objectif of sousTheme.objectifs) {
-                for (const reference of listeReferences) {
-                  if (reference == objectif.reference) {
-                    for (const exercice of objectif.exercices) {
-                      if (exercice.isInteractif) {
-                        listeExercices.push({
-                          id: exercice.id,
-                          slug: exercice.slug,
-                          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&v=can&z=1.5`
-                        })
-                        listeExercices[listeExercices.length - 1].lien = listeExercices[listeExercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
-                        if (exercice.slug.slice(0, 25) == 'https://mathsmentales.net') {
-                          listeExercices[listeExercices.length - 1].lien = exercice.slug + '&embed=' + GlobalConstants.origine
-                        } else if (exercice.slug.slice(0, 4) == 'http') {
-                          listeExercices[listeExercices.length - 1].lien = exercice.slug
-                        }
-                        listeDesUrl.push(listeExercices[listeExercices.length - 1].lien)
-                        listeDesTemps.push(exercice.temps / 2)
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        if (isDevMode()) {
-          let listeDesId: number[] = []
-          for (const exercice of listeExercices) {
-            for (const id of listeDesId) {
-              if (exercice.id == id) alert('id ' + id + ' trouvé 2 fois !')
-            }
-            listeDesId.push(exercice.id)
-          }
-        }
-        this.infosModale = [listeDesUrl, 'tranquille', new Date(), listeDesTemps]
-      })
-    })
+    }
+    return listeReferences
   }
 
   getDerniereSequence() {
@@ -141,5 +95,52 @@ export class ExercicesAuHasardComponent implements OnInit {
         }
     }
     return 0
+  }
+
+  getListeDesExercices(listeReferences: string[], niveaux: NiveauObjectif[]) {
+    let listeExercices: Exercice[] = []
+    let listeDesUrl: string[] = []
+    for (const niveau of niveaux) {
+      for (const theme of niveau.themes) {
+        for (const sousTheme of theme.sousThemes) {
+          for (const objectif of sousTheme.objectifs) {
+            for (const reference of listeReferences) {
+              if (reference == objectif.reference) {
+                for (const exercice of objectif.exercices) {
+                  if (exercice.isInteractif) {
+                    listeExercices.push({
+                      id: exercice.id,
+                      slug: exercice.slug,
+                      lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&v=eval&z=1.5`
+                    })
+                    listeExercices[listeExercices.length - 1].lien = listeExercices[listeExercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
+                    if (exercice.slug.slice(0, 25) == 'https://mathsmentales.net') {
+                      listeExercices[listeExercices.length - 1].lien = exercice.slug + '&embed=' + GlobalConstants.origine
+                    } else if (exercice.slug.slice(0, 4) == 'http') {
+                      listeExercices[listeExercices.length - 1].lien = exercice.slug
+                    }
+                    listeDesUrl.push(listeExercices[listeExercices.length - 1].lien)
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    if (isDevMode()) {
+      this.verifierPresenceDoublons(listeExercices)
+    }
+    return listeDesUrl
+  }
+
+  verifierPresenceDoublons(listeExercices: Exercice[]) {
+    const listeDesId: number[] = []
+    for (const exercice of listeExercices) {
+      for (const id of listeDesId) {
+        if (exercice.id == id) alert('id ' + id + ' trouvé 2 fois !')
+      }
+      listeDesId.push(exercice.id)
+    }
   }
 }

@@ -1,17 +1,17 @@
 <div class="container is-max-desktop centre">
   <h1 [class]="'title is-2 is-' + niveau">{{ titre }}</h1>
-  <div [class]="'is-' + niveau" *ngIf="rappelDuCoursHTML != '' || rappelDuCoursImage != '' || rappelDuCoursInstrumenpoche != ''">
+  <div [class]="'is-' + niveau" *ngIf="rappelDuCoursHTML !== '' || rappelDuCoursImage !== '' || rappelDuCoursInstrumenpoche !== ''">
     <h2 [class]="'mb-5 pb-5 subtitle is-3 is-' + niveau">Rappel du cours</h2>
     <div class="has-text-centered pb-5">
       <p [mathjax]="rappelDuCoursHTML" class="is-size-5"></p>
-      <img *ngIf="rappelDuCoursImage != ''" [src]="rappelDuCoursImage" />
-      <app-animation-instrumenpoche *ngIf="rappelDuCoursInstrumenpoche != ''" [nomAnimation]="rappelDuCoursInstrumenpoche" class="centre"></app-animation-instrumenpoche>
+      <img *ngIf="rappelDuCoursImage !== ''" [src]="rappelDuCoursImage" />
+      <app-animation-instrumenpoche *ngIf="rappelDuCoursInstrumenpoche !== ''" [nomAnimation]="rappelDuCoursInstrumenpoche" class="centre"></app-animation-instrumenpoche>
     </div>
   </div>
   <div [class]="'is-' + niveau" *ngIf="presenceVideo">
     <h2 [class]="'subtitle is-3 is-' + niveau">Vidéo{{videos.length > 1 ? 's' : ''}} d'explication</h2>
     <div class='pb-5' *ngFor="let video of videos">
-      <h3 *ngIf="video.titre != ''" [class]="'subtitle is-4 is-' + niveau">{{video.titre}}</h3>
+      <h3 *ngIf="video.titre !== ''" [class]="'subtitle is-4 is-' + niveau">{{video.titre}}</h3>
       <div class="image is-16by9"><iframe class="has-ratio" [src]="video.lienVideo| safe" allowfullscreen></iframe></div>
       <p><u>Vidéo de <a [href]="video.lienAuteur" target="_blank" rel="noopener noreferrer">{{ video.auteur }}</a></u></p>
     </div>
