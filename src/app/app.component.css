@@ -1,5 +1,4 @@
 :root {
-  --window-height: 200px;
   --foreground-transform: scale(1, 1);
   --basetout: #feb60a;
   --lighttout: hsl(48, 100%, 96%);
@@ -42,11 +41,6 @@
 .dropdown:hover .dropdown-content {
   display: block;
 }
-
-
-/* html {
-  scroll-behavior: smooth;
-} */
 
 .title.is-tout, .title.is-6e, .title.is-5e, .title.is-4e, .title.is-3e {
   border-radius: 50px 50px 0px 0px;
@@ -160,34 +154,12 @@
   width: 200px;
 }
 
-.gigantesque {
-  font-size: 1000%;
-}
-
-.is-width-170 {
-  width: 170px;
-}
-
 .is-width-130 {
   width: 130px;
 }
 
-.p-7 {
-  padding: 6rem !important;
-}
-
-.p-8 {
-  padding: 9rem !important;
-}
-
 .cache {
   display: none;
-}
-
-.liste {
-  text-align: left;
-  margin-left: 15%;
-  margin-right: 15%;
 }
 
 .pleinEcran {
@@ -197,10 +169,6 @@
   width: 100%;
   height: 100%;
   z-index: 100;
-}
-
-.pleinEcran.is-unselectable {
-  z-index: 150;
 }
 
 .avatar {
@@ -218,11 +186,6 @@
   background-size: 192px;
 }
 
-.foregrounds, .backgrounds {
-  height: var(--window-height);
-  overflow: scroll;
-}
-
 .booboom {
   animation: Booboom 0.3s;
 }
@@ -234,21 +197,6 @@
   }
   50% {
     transform:  scale(1.6);
-  }
-}
-
-.moveUp {
-  /* Start the shake animation and make the animation last for 0.5 seconds */
-  animation: moveUp 2s;
-}
-
-@keyframes moveUp {
-  0% {
-    transform: translate(0px, 100%);
-  }
-
-  100% {
-    transform: translate(0px, 20%);
   }
 }
 

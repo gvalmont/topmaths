@@ -1,13 +1,7 @@
-
-
-.is-unclickable {
-  cursor: default;
-}
-
 /****************************************************************************************************
-***** Bandeau supérieur
+***** Header
 ****************************************************************************************************/
-/* Met les icones en blanc lors du survol */
+/* Met en blanc les icones lors du survol */
 .tabs-menu-link:hover i {
   filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
 }
@@ -16,7 +10,7 @@ i.image.is-white {
   filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%) !important;
 }
 
-/* Met le fond de la bonne couleur lors du survol */
+/* Met en couleur le fond lors du survol */
 li:hover .is-warning {
   background-color: #ffe08a;
 }
@@ -57,19 +51,12 @@ li:hover .is-green {
   background-color: #16A34A;
 }
 
-/* Met en évidence l'onglet actif */
+/* Met en blanc l'icone de l'onglet actif */
 .is-actif>.tabs-menu-link i {
   filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
 }
 
-/* Permet d'arrondir les menus */
-ul.tabs-menu.is-rounded .is-left-side {
-  border-radius: 25px 0px 0px 0px;
-}
-ul.tabs-menu.is-rounded .is-right-side {
-  border-radius: 0px 25px 0px 0px;
-}
-
+/* Met en couleur le fond de l'onglet actif */
 li.is-actif .is-warning {
   background-color: #ffe08a;
 }
@@ -119,6 +106,17 @@ li.is-actif .is-green {
 }
 
 /****************************************************************************************************
+***** Autres tabs-menu
+****************************************************************************************************/
+/* Permet d'arrondir les menus des listes des séquences et d'objectifs */
+ul.tabs-menu.is-rounded .is-left-side {
+  border-radius: 25px 0px 0px 0px;
+}
+ul.tabs-menu.is-rounded .is-right-side {
+  border-radius: 0px 25px 0px 0px;
+}
+
+/****************************************************************************************************
 ***** Colorisation des icones en général
 ****************************************************************************************************/
 /* Gris foncé par défaut */
@@ -146,7 +144,7 @@ button:not(.is-outlined)>i {
   filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
 }
 
-/* Colore l'icone selon les couleurs de Bulma */
+/* Colore l'icone selon les couleurs de Bulma (et de son extension) */
 .is-warning i {
   filter: invert(73%) sepia(96%) saturate(209%) hue-rotate(346deg) brightness(104%) contrast(103%);
 }
@@ -186,6 +184,10 @@ button:not(.is-outlined)>i {
 .is-green i {
   filter: invert(43%) sepia(81%) saturate(478%) hue-rotate(89deg) brightness(98%) contrast(91%);
 }
+
+/****************************************************************************************************
+***** Ajout de boutons de nouvelles couleurs
+****************************************************************************************************/
 
 .button.is-sponsor {
   background-color: #ea4aaa;
@@ -662,6 +664,10 @@ button:not(.is-outlined)>i {
   border-color: transparent;
   color: #c0167c
 }
+
+/****************************************************************************************************
+***** Ajout de boutons aux couleurs des niveaux
+****************************************************************************************************/
 
 .button.is-5e {
   background-color: var(--base5e);

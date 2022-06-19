@@ -282,7 +282,7 @@ export class ApiService {
    * @param avatarSVG
    * @param codeAvatar
    */
-  majAvatar(avatarSVG: string, codeAvatar: string) {
+  MAJAvatar(avatarSVG: string, codeAvatar: string) {
     this.user.codeAvatar = codeAvatar
     if (isDevMode()) {
       this.profilModifie.emit(['codeAvatar'])

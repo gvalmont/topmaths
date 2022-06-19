@@ -1,6 +1,6 @@
 <div class="columns has-text-centered">
   <div class="column is-4">
-    <div id='svgDiv' class="is-inline-block" style="width: 390px; height: 390px"></div>
+    <div id='divAvatarEnCreation' class="is-inline-block" style="width: 390px; height: 390px"></div>
   </div>
   <div class="column is-8">
     <div class="tabs is-centered" style="margin-top: -50px;">
@@ -13,49 +13,49 @@
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'couleur'}">
-          <a (click)="ongletActif = 'couleur'; initPage()">
+          <a (click)="ongletActif = 'couleur'; MAJPage()">
             <span class="image is-96x96">
               <div id="skinColorMenu"></div>
             </span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'yeux'}">
-          <a (click)="ongletActif = 'yeux'; initPage()">
+          <a (click)="ongletActif = 'yeux'; MAJPage()">
             <span class="image is-96x96">
               <div id="eyesMenu"></div>
             </span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'sourcils'}">
-          <a (click)="ongletActif = 'sourcils'; initPage()">
+          <a (click)="ongletActif = 'sourcils'; MAJPage()">
             <span class="image is-96x96">
               <div id="eyebrowsMenu"></div>
             </span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'bouche'}">
-          <a (click)="ongletActif = 'bouche'; initPage()">
+          <a (click)="ongletActif = 'bouche'; MAJPage()">
             <span class="image is-96x96">
               <div id="mouthMenu"></div>
             </span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'accessoires'}">
-          <a (click)="ongletActif = 'accessoires'; initPage()">
+          <a (click)="ongletActif = 'accessoires'; MAJPage()">
             <span class="image is-96x96">
               <div id="accessoiresMenu"></div>
             </span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'cheveux'}">
-          <a (click)="ongletActif = 'cheveux'; initPage()">
+          <a (click)="ongletActif = 'cheveux'; MAJPage()">
             <span class="image is-96x96">
               <div id="hairMenu"></div>
             </span>
           </a>
         </li>
         <li [ngClass]="{'is-active': ongletActif == 'couleurCheveux'}">
-          <a (click)="ongletActif = 'couleurCheveux'; initPage()">
+          <a (click)="ongletActif = 'couleurCheveux'; MAJPage()">
             <span class="image is-96x96">
               <div id="hairColorMenu"></div>
             </span>
@@ -70,7 +70,7 @@
         </li>
       </ul>
     </div>
-    <div id="panel" (click)="majAvatar()"></div>
+    <div id="panneauPrincipal" (click)="recupererDonneesAvatar()"></div>
   </div>
 </div>
 <svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
@@ -101,14 +101,14 @@
   <div><br><br><br></div>
   <div class="modal-content has-background-white px-6 is-size-3">
     <!-- Texte -->
-    <div id="confirmationSvgDiv"></div>
+    <div id="modaleConfirmationDivAvatarEnCreation"></div>
     <p>
       Enregistrer cet avatar ?
     </p>
     <!-- Boutons -->
     <button (click)="fermerModaleConfirmation(redirection)" class="button is-danger">Non</button>
     &nbsp; &nbsp;
-    <button (click)="empecherNavigation = false; majProfil(redirection)" class="button is-success">Oui</button>
+    <button (click)="empecherNavigation = false; MAJAvatar(redirection)" class="button is-success">Oui</button>
     <br>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="fermerModaleConfirmation()"></button>
