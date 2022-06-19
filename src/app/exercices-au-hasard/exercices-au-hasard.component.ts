@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalConstants } from 'src/app/services/global-constants';
 import { Niveau as NiveauObjectif } from 'src/app/services/objectifs';
 import { Niveau as NiveauSequence } from 'src/app/services/sequences';
+import { CalendrierService } from '../services/calendrier.service';
 
 interface Exercice {
   id: number
@@ -20,7 +21,7 @@ interface Exercice {
 export class ExercicesAuHasardComponent implements OnInit {
   infosModale: [string[], string, Date, number[]]
 
-  constructor(public http: HttpClient, private route: ActivatedRoute, private viewportScroller: ViewportScroller) {
+  constructor(public http: HttpClient, private route: ActivatedRoute, private viewportScroller: ViewportScroller, private calendrier: CalendrierService) {
     this.infosModale = [[], '', new Date(), []]
   }
 
@@ -41,26 +42,12 @@ export class ExercicesAuHasardComponent implements OnInit {
    * Lance la modale exercices
    * @param niveauChoisi 
    */
-   lancerExercices(niveauChoisi: string) {
-    let derniereSequence: number
+  lancerExercices(niveauChoisi: string) {
     let listeReferences: string[] = []
     this.http.get<NiveauSequence[]>('assets/data/sequences.json').subscribe(niveaux => {
       for (const niveau of niveaux) {
         if (niveau.nom == niveauChoisi || niveauChoisi == 'tout') {
-          switch (niveau.nom) {
-            case '6e':
-              derniereSequence = GlobalConstants.derniereSequence6e
-              break;
-            case '5e':
-              derniereSequence = GlobalConstants.derniereSequence5e
-              break;
-            case '4e':
-              derniereSequence = GlobalConstants.derniereSequence4e
-              break;
-            case '3e':
-              derniereSequence = GlobalConstants.derniereSequence3e
-              break;
-          }
+          const derniereSequence = this.getDerniereSequence()
           for (const sequence of niveau.sequences) {
             if (parseInt(sequence.reference.slice(3)) <= derniereSequence) {
               for (const objectif of sequence.objectifs) {
@@ -115,5 +102,44 @@ export class ExercicesAuHasardComponent implements OnInit {
         this.infosModale = [listeDesUrl, 'tranquille', new Date(), listeDesTemps]
       })
     })
+  }
+
+  getDerniereSequence() {
+    const periode = this.calendrier.periodeNumero
+    const type = this.calendrier.typeDePeriode
+    const semaine = this.calendrier.semaineDansLaPeriode
+    switch (periode) {
+      case 1:
+        if (type === 'cours') {
+          return semaine - 1
+        } else {
+          return 6
+        }
+      case 2:
+        if (type === 'cours') {
+          return Math.max(6, 6 + semaine - 1)
+        } else {
+          return 12
+        }
+      case 3:
+        if (type === 'cours') {
+          return Math.max(12, 12 + semaine)
+        } else {
+          return 17
+        }
+      case 4:
+        if (type === 'cours') {
+          return Math.max(17, 17 + semaine)
+        } else {
+          return 22
+        }
+      case 5:
+        if (type === 'cours') {
+          return Math.max(22, 22 + semaine)
+        } else {
+          return 27
+        }
+    }
+    return 0
   }
 }

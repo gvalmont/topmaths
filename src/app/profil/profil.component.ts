@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { ApiService } from '../services/api.service';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { CalendrierService } from '../services/calendrier.service';
 
 @Component({
@@ -64,7 +63,7 @@ export class ProfilComponent implements OnInit {
   dateDeDerniereConnexion() {
     let date = new Date(this.dataService.user.lastLogin);
     date.setMinutes(date.getMinutes() - date.getTimezoneOffset() - 60); //Le serveur mysql est en UTC + 1 ?
-    if (this.calendrier.estHeureEte()) date.setMinutes(date.getMinutes() - 60)
+    if (this.calendrier.estHeureEte) date.setMinutes(date.getMinutes() - 60)
     const jour = new Array(7);
     jour[0] = 'Dimanche'
     jour[1] = 'Lundi'
