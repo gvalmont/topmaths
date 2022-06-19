@@ -3,7 +3,7 @@ import { AppComponent } from '../app.component';
 import { ApiService } from '../services/api.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { estHeureEte } from '../services/outils'
+import { CalendrierService } from '../services/calendrier.service';
 
 @Component({
   selector: 'app-profil',
@@ -31,7 +31,7 @@ export class ProfilComponent implements OnInit {
   enCoursDeModif: string
   modifTerminee: string
 
-  constructor(public http: HttpClient, public appComponent: AppComponent, public dataService: ApiService, private router: Router) {
+  constructor(public http: HttpClient, public appComponent: AppComponent, public dataService: ApiService, private calendrier: CalendrierService) {
     this.defaut = true
     this.errGrandNbChar = false
     this.errPetitNbChar = false
@@ -64,7 +64,7 @@ export class ProfilComponent implements OnInit {
   dateDeDerniereConnexion() {
     let date = new Date(this.dataService.user.lastLogin);
     date.setMinutes(date.getMinutes() - date.getTimezoneOffset() - 60); //Le serveur mysql est en UTC + 1 ?
-    if (estHeureEte()) date.setMinutes(date.getMinutes() - 60)
+    if (this.calendrier.estHeureEte()) date.setMinutes(date.getMinutes() - 60)
     const jour = new Array(7);
     jour[0] = 'Dimanche'
     jour[1] = 'Lundi'

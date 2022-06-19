@@ -1,0 +1,151 @@
+[
+  {
+    "annee": 2022,
+    "heureEte": {
+      "debut": 86,
+      "fin": 302
+    },
+    "periodes": [
+      {
+        "debut": 1,
+        "fin": 23,
+        "type": "vacances"
+      },
+      {
+        "debut": 24,
+        "fin": 71,
+        "type": "cours"
+      },
+      {
+        "debut": 72,
+        "fin": 86,
+        "type": "vacances"
+      },
+      {
+        "debut": 87,
+        "fin": 134,
+        "type": "cours"
+      },
+      {
+        "debut": 135,
+        "fin": 149,
+        "type": "vacances"
+      },
+      {
+        "debut": 150,
+        "fin": 190,
+        "type": "cours"
+      },
+      {
+        "debut": 191,
+        "fin": 227,
+        "type": "vacances"
+      },
+      {
+        "debut": 228,
+        "fin": 281,
+        "type": "cours"
+      },
+      {
+        "debut": 282,
+        "fin": 296,
+        "type": "vacances"
+      },
+      {
+        "debut": 297,
+        "fin": 351,
+        "type": "cours"
+      },
+      {
+        "debut": 352,
+        "fin": 365,
+        "type": "vacances"
+      }
+    ]
+  },
+  {
+    "annee": 2023,
+    "heureEte": {
+      "debut": 85,
+      "fin": 300
+    },
+    "periodes": [
+      {
+        "debut": 1,
+        "fin": 22,
+        "type": "vacances"
+      },
+      {
+        "debut": 23,
+        "fin": 70,
+        "type": "cours"
+      },
+      {
+        "debut": 71,
+        "fin": 85,
+        "type": "vacances"
+      },
+      {
+        "debut": 86,
+        "fin": 133,
+        "type": "cours"
+      },
+      {
+        "debut": 134,
+        "fin": 149,
+        "type": "vacances"
+      },
+      {
+        "debut": 150,
+        "fin": 189,
+        "type": "cours"
+      },
+      {
+        "debut": 190,
+        "fin": 227,
+        "type": "vacances"
+      },
+      {
+        "debut": 228,
+        "fin": 281,
+        "type": "cours"
+      },
+      {
+        "debut": 282,
+        "fin": 296,
+        "type": "vacances"
+      },
+      {
+        "debut": 297,
+        "fin": 351,
+        "type": "cours"
+      },
+      {
+        "debut": 352,
+        "fin": 365,
+        "type": "vacances"
+      }
+    ]
+  },
+  {
+    "annee": 2024,
+    "heureEte": {
+      "debut": 91,
+      "fin": 299
+    }
+  },
+  {
+    "annee": 2025,
+    "heureEte": {
+      "debut": 89,
+      "fin": 297
+    }
+  },
+  {
+    "annee": 2026,
+    "heureEte": {
+      "debut": 88,
+      "fin": 296
+    }
+  }
+]

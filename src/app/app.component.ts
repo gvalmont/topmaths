@@ -4,6 +4,7 @@ import { ApiService } from './services/api.service';
 import { Title } from '@angular/platform-browser';
 import { filter, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { CalendrierService } from './services/calendrier.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
   event$: any
   title: string
 
-  constructor(private http: HttpClient, private router: Router, public dataService: ApiService, private activatedRoute: ActivatedRoute, private titleService: Title) {
+  constructor(private http: HttpClient, private router: Router, public dataService: ApiService, private activatedRoute: ActivatedRoute, private titleService: Title, private calendrier: CalendrierService) {
     this.title = 'topmaths.fr - les maths au TOP !'
     this.dataService.set('premiereNavigation', null)
     this.ongletActif = 'accueil'
