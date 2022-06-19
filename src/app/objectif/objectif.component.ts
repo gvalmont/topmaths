@@ -152,7 +152,7 @@ export class ObjectifComponent implements OnInit {
         this.exercices.push({
           id: exercice.id,
           slug: exercice.slug,
-          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&serie=&v=eval&z=1.5`,
+          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&serie=&v=can&z=1.5`,
           temps: exercice.temps,
           isInteractif: exercice.isInteractif
         })
