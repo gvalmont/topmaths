@@ -56,7 +56,7 @@ export class AppComponent implements OnInit, OnDestroy {
     const version = this.dataService.getToken('version')
     if (identifiant != null && version == this.dataService.derniereVersionToken) {
       setTimeout(() => {
-        this.dataService.login(identifiant, false, false)
+        this.dataService.login(identifiant, true, false)
       }, 0);
     }
   }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
+import { OutilsService } from '../services/outils.service';
 
 @Component({
   selector: 'app-login',
@@ -17,43 +18,34 @@ export class LoginComponent {
   shake: boolean
   loginVisible: boolean
 
-  constructor(private fb: FormBuilder, public dataService: ApiService, private router: Router) {
+  constructor(private fb: FormBuilder, public dataService: ApiService, private router: Router, private outils: OutilsService) {
     this.angForm = this.fb.group({
-      identifiant: ['', [Validators.required, Validators.minLength(4), Validators.minLength(5)]]
-    });
+      identifiant: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(5)]]
+    })
     this.defaut = true
     this.errGrandNbChar = false
     this.errPetitNbChar = false
     this.errSpChar = false
     this.shake = false
     this.loginVisible = false
-    this.surveilleChamp()
+    this.surveillerChamp()
     this.dataService.profilModifie.subscribe(valeursModifiees => {
       if (valeursModifiees.includes('identifiant')) this.router.navigate(['/profil'])
     })
   }
 
-  /**
-   * Secoue le champ si la saisie est incorrecte,
-   * se connecte sinon
-   * @param identifiant 
-   */
   login(identifiant: string) {
     if (this.inputOk(identifiant)) {
       const bouton = <HTMLButtonElement> document.getElementById("loginButton")
       if (bouton != null) bouton.disabled = true
-      this.dataService.login(identifiant, true, true)
+      this.dataService.login(identifiant, false, true)
     } else {
       this.shake = true
       setTimeout(() => this.shake = false, 500)
     }
   }
 
-  /**
-   * Surveille le champ de connexion,
-   * actualise les booléens sur lesquels s'appuie le formatage du champ
-   */
-  surveilleChamp() {
+  surveillerChamp() {
     this.angForm.valueChanges.subscribe(x => {
       this.inputOk(x.identifiant)
     })
@@ -67,13 +59,10 @@ export class LoginComponent {
     if (input.length != 0) this.defaut = false
     if (input.length < 4 && input.length != 0) this.errPetitNbChar = true
     if (input.length > 5) this.errGrandNbChar = true
-    if (!this.dataService.onlyLettersAndNumbers(input)) this.errSpChar = true
+    if (!this.outils.onlyLettersAndNumbers(input)) this.errSpChar = true
     return (!this.defaut && !this.errSpChar && !this.errPetitNbChar && !this.errGrandNbChar)
   }
 
-  /**
-   * Montre ou cache l'identifiant
-   */
   montrerCacherIdentifiant() {
     const champLogin = <HTMLInputElement>document.getElementById('champLogin')
     if (champLogin.type === 'password') {

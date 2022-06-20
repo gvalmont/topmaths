@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from './user';
 import { Router } from '@angular/router';
 import { GlobalConstants } from './global-constants';
+import { OutilsService } from './outils.service';
 
 interface Nom {
   nom: string
@@ -35,7 +36,7 @@ export class ApiService {
   lienAvatar: string
   styleAvatar: string
 
-  constructor(public http: HttpClient, private router: Router) {
+  constructor(public http: HttpClient, private router: Router, private outils: OutilsService) {
     this.redirectUrl = ''
     this.user = {
       id: 0,
@@ -114,10 +115,10 @@ export class ApiService {
    * - Fire un event pour prévenir de la connexion
    * - Redirige vers la page qu'on a voulu accéder ou vers la page profil.
    * @param identifiant identifiant à chercher dans la bdd
-   * @param secure false si connexion automatique, true si l'utilisateur saisit son identifiant
+   * @param auto true si connexion automatique, true si l'utilisateur saisit son identifiant
    * @param redigire true s'il y a une redirection à faire, false sinon
    */
-  login(identifiant: string, secure: boolean, redirige?: boolean) {
+  login(identifiant: string, auto: boolean, redirige?: boolean) {
     if (isDevMode()) {
       this.user = {
         id: 1,
@@ -141,7 +142,7 @@ export class ApiService {
         'dernierObjectif'])
     } else {
       let loginPage: string
-      secure ? loginPage = 'login.php' : loginPage = 'autologin.php'
+      auto ? loginPage = 'autologin.php' : loginPage = 'login.php'
       this.http.post<User[]>(GlobalConstants.apiUrl + loginPage, { identifiant: identifiant }).subscribe(users => {
         if (users[0].identifiant == 'personne') {
           console.log('identifiant non trouvé, on en crée un nouveau')
@@ -179,7 +180,7 @@ export class ApiService {
   registration(identifiant: string) {
     if (identifiant.length > 5 || identifiant.length < 4) {
       this.erreurRegistration('longueur')
-    } else if (!this.onlyLettersAndNumbers(identifiant)) {
+    } else if (!this.outils.onlyLettersAndNumbers(identifiant)) {
       this.erreurRegistration('caracteres_speciaux')
     } else {
       const user: User = {
@@ -227,15 +228,6 @@ export class ApiService {
     } else {
       alert('Une erreur s\'est produite')
     }
-  }
-
-  /**
-   * Vérifie qu'il n'y a que des lettres et des chiffres
-   * @param str chaîne à tester
-   * @returns true si c'est le cas, false sinon
-   */
-  onlyLettersAndNumbers(str: string) {
-    return /^[A-Za-z0-9]*$/.test(str);
   }
 
   /**
@@ -412,7 +404,7 @@ export class ApiService {
     if (input.length != 0) defaut = false
     if (input.length < 4 && input.length != 0) errPetitNbChar = true
     if (input.length > 5) errGrandNbChar = true
-    if (!this.onlyLettersAndNumbers(input)) errSpChar = true
+    if (!this.outils.onlyLettersAndNumbers(input)) errSpChar = true
     return (!defaut && !errSpChar && !errPetitNbChar && !errGrandNbChar)
   }
 

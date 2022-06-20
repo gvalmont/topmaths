@@ -12,16 +12,6 @@
   --light3e: rgb(252 231 243);
 }
 
-#confirmationModaleExercices {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 500;
-  background: rgba(36, 36, 36, 0.8);
-}
-
 .dropdown {
   position: relative;
   display: inline-block;

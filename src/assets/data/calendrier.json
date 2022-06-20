@@ -7,56 +7,67 @@
     },
     "periodes": [
       {
+        "numero": 2,
         "debut": 1,
         "fin": 23,
         "type": "vacances"
       },
       {
+        "numero": 3,
         "debut": 24,
         "fin": 71,
         "type": "cours"
       },
       {
+        "numero": 3,
         "debut": 72,
         "fin": 86,
         "type": "vacances"
       },
       {
+        "numero": 4,
         "debut": 87,
         "fin": 134,
         "type": "cours"
       },
       {
+        "numero": 4,
         "debut": 135,
         "fin": 149,
         "type": "vacances"
       },
       {
+        "numero": 5,
         "debut": 150,
         "fin": 190,
         "type": "cours"
       },
       {
+        "numero": 5,
         "debut": 191,
         "fin": 227,
         "type": "vacances"
       },
       {
+        "numero": 1,
         "debut": 228,
         "fin": 281,
         "type": "cours"
       },
       {
+        "numero": 1,
         "debut": 282,
         "fin": 296,
         "type": "vacances"
       },
       {
+        "numero": 2,
         "debut": 297,
         "fin": 351,
         "type": "cours"
       },
       {
+        "numero": 2,
         "debut": 352,
         "fin": 365,
         "type": "vacances"
@@ -71,56 +82,67 @@
     },
     "periodes": [
       {
+        "numero": 2,
         "debut": 1,
         "fin": 22,
         "type": "vacances"
       },
       {
+        "numero": 3,
         "debut": 23,
         "fin": 70,
         "type": "cours"
       },
       {
+        "numero": 3,
         "debut": 71,
         "fin": 85,
         "type": "vacances"
       },
       {
+        "numero": 4,
         "debut": 86,
         "fin": 133,
         "type": "cours"
       },
       {
+        "numero": 4,
         "debut": 134,
         "fin": 149,
         "type": "vacances"
       },
       {
+        "numero": 5,
         "debut": 150,
         "fin": 189,
         "type": "cours"
       },
       {
+        "numero": 5,
         "debut": 190,
         "fin": 227,
         "type": "vacances"
       },
       {
+        "numero": 1,
         "debut": 228,
         "fin": 281,
         "type": "cours"
       },
       {
+        "numero": 1,
         "debut": 282,
         "fin": 296,
         "type": "vacances"
       },
       {
+        "numero": 2,
         "debut": 297,
         "fin": 351,
         "type": "cours"
       },
       {
+        "numero": 2,
         "debut": 352,
         "fin": 365,
         "type": "vacances"

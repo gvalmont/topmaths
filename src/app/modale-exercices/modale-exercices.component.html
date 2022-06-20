@@ -1,13 +1,13 @@
+<!-- Modale d'exercices -->
 <div id="modaleExercices" [ngClass]="{'centre cache has-background-white':true}">
   <figure id="modal-copy" class="is-clickable" (click)="copierLien()">
     <img src="assets/img/cc0/copy-interface-symbol-svgrepo-com.svg" />
   </figure>
-  <figure id="modal-cross" class="is-clickable" (click)="boutonFermerModale()">
+  <figure id="modal-cross" class="is-clickable" (click)="fermerModale()">
     <img src="assets/img/cc0/cross-svgrepo-com.svg" />
   </figure>
-  <figure id="aff-coef">
-  </figure>
 </div>
+<!-- Écran de chargement -->
 <div id="loading" class="centre pleinEcran has-background-white cache"><img class="is-inline-block" [src]="lienSpinner" />
   <figure id="boutonCopierLoading" class="modal-copy is-clickable" (click)="copierLien()">
     <img src="assets/img/cc0/copy-interface-symbol-svgrepo-com.svg" />
@@ -16,15 +16,6 @@
     <img src="assets/img/cc0/cross-svgrepo-com.svg" />
   </figure>
 </div>
-<div id="confirmationModaleExercices" class="centre cache">
-  <div><br><br></div>
-  <div class="container has-background-white is-size-3">
-    <div><br><br></div>
-    <p>Tu veux abandonner cette question ?</p>
-    <div><br></div>
-    <button class="button is-danger" (click)="cacherConfirmation()">Annuler</button> &nbsp; &nbsp; <button class="button is-success" (click)="fermerModale(1)">Abandonner</button>
-    <div><br><br></div>
-  </div>
-</div>
+<!-- Confetti -->
 <ng-particles [id]="confetti.id" [options]="confetti.particlesOptions" (particlesLoaded)="confetti.particlesLoaded($event)" (particlesInit)="confetti.particlesInit($event)"></ng-particles>
 <div id="tsparticles"></div>

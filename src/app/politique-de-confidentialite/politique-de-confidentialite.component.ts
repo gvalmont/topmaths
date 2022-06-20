@@ -5,11 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './politique-de-confidentialite.component.html',
   styleUrls: ['./politique-de-confidentialite.component.css']
 })
-export class PolitiqueDeConfidentialiteComponent implements OnInit {
+export class PolitiqueDeConfidentialiteComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

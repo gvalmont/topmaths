@@ -5,14 +5,11 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './bouton-imprimer.component.html',
   styleUrls: ['./bouton-imprimer.component.css']
 })
-export class BoutonImprimerComponent implements OnInit {
+export class BoutonImprimerComponent {
   @Input() lien: string
 
   constructor() {
-    this.lien = ""
-  }
-
-  ngOnInit(): void {
+    this.lien = ''
   }
 
 }
