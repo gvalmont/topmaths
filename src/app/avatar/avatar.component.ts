@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router, NavigationStart, Event as NavigationEvent } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { ApiService } from '../services/api.service';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Router, NavigationStart, Event as NavigationEvent } from '@angular/router'
+import { HttpClient } from '@angular/common/http'
+import { ApiService } from '../services/api.service'
 
 interface AvatarsDef {
   baliseOuverture: string
@@ -78,7 +78,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.event$.unsubscribe();
+    this.event$.unsubscribe()
   }
 
   MAJDiv() {
@@ -105,7 +105,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
           this.empecherNavigation = false
         }
       }
-    });
+    })
   }
 
   MAJParametresAvatarActuel() {
@@ -165,39 +165,39 @@ export class AvatarComponent implements OnInit, OnDestroy {
         for (const element of this.avatarsDef.skinColor) {
           this.ajouterSVG(this.panneauPrincipal, { skinColor: element.color })
         }
-        break;
+        break
       case 'yeux':
         for (const element of this.avatarsDef.eyes) {
           this.ajouterSVG(this.panneauPrincipal, { eyes: element.id })
         }
-        break;
+        break
       case 'sourcils':
         for (const element of this.avatarsDef.eyebrows) {
           this.ajouterSVG(this.panneauPrincipal, { eyebrows: element.id })
         }
-        break;
+        break
       case 'bouche':
         for (const element of this.avatarsDef.mouth) {
           this.ajouterSVG(this.panneauPrincipal, { mouth: element.id })
         }
-        break;
+        break
       case 'accessoires':
         for (const element of this.avatarsDef.accessoires) {
           this.ajouterSVG(this.panneauPrincipal, { accessoires: [element.id] })
         }
-        break;
+        break
       case 'cheveux':
         for (const element of this.avatarsDef.hair) {
           this.ajouterSVG(this.panneauPrincipal, { hair: element.id })
         }
-        break;
+        break
       case 'couleurCheveux':
         for (const element of this.avatarsDef.hairColor) {
           this.ajouterSVG(this.panneauPrincipal, { hairColor: element.color })
         }
-        break;
+        break
       default:
-        break;
+        break
     }
     this.divAvatarEnCreation.innerHTML = this.codeHTMLduSVG
   }
@@ -293,7 +293,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
   }
 
   genererDivSVG(cibleAAttacher: HTMLElement, parametres: { skinColor?: string, eyes?: number, eyebrows?: number, mouth?: number, accessoires?: number[], hair?: number, hairColor?: string }) {
-    let divSVG = document.createElement('div')
+    const divSVG = document.createElement('div')
     divSVG.innerHTML = this.codeHTMLduSVG
     if (cibleAAttacher.id == 'panneauPrincipal') { // Stocker le type de paramètre et sa valeur dans l'id du div
       divSVG.id = typeof (parametres.skinColor) != 'undefined' ? 'skin' + parametres.skinColor : typeof (parametres.eyes) != 'undefined' ? 'eyes' + parametres.eyes :
@@ -306,25 +306,25 @@ export class AvatarComponent implements OnInit, OnDestroy {
       switch (divSVG.id.slice(0, 4)) {
         case 'skin':
           div = document.getElementById('skinColor')
-          break;
+          break
         case 'eyes':
           div = document.getElementById('eyes')
-          break;
+          break
         case 'eyeb':
           div = document.getElementById('eyebrows')
-          break;
+          break
         case 'mout':
           div = document.getElementById('mouth')
-          break;
+          break
         case 'acce':
           div = document.getElementById('accessoires')
-          break;
+          break
         case 'hair':
           div = document.getElementById('hair')
-          break;
+          break
         case 'hcol':
           div = document.getElementById('hairColor')
-          break;
+          break
       }
       if (div != null) {
         div.innerHTML = divSVG.id.slice(4)
@@ -368,7 +368,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
   getAvatarFichierSVG() {
     const divAvatarEnCreation = document.getElementById("divAvatarEnCreation")
     let svgData = ''
-    if (divAvatarEnCreation != null) svgData = new XMLSerializer().serializeToString(divAvatarEnCreation.childNodes[0]);
+    if (divAvatarEnCreation != null) svgData = new XMLSerializer().serializeToString(divAvatarEnCreation.childNodes[0])
     return "data:image/codeHTMLduSVG+xml;base64," + btoa(svgData)
   }
 

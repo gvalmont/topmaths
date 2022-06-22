@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Container, Main } from 'tsparticles';
-import { Options } from 'node_modules/tsparticles/Options/Classes/Options';
+import { Injectable } from '@angular/core'
+import { Container, Main } from 'tsparticles'
+import { Options } from 'node_modules/tsparticles/Options/Classes/Options'
 
 @Injectable({
   providedIn: 'root'
@@ -70,18 +70,18 @@ export class ConfettiService {
           type: ["square"], // the confetti shape
           options: {
             confetti: { // confetti shape options
-              //type: ["square"] // you can only have circle or square for now
+              // type: ["square"] // you can only have circle or square for now
             }
           }
         },
         opacity: {
-          //value: 1, // confetti are solid, so opacity should be 1, but who cares?
+          // value: 1, // confetti are solid, so opacity should be 1, but who cares?
           animation: {
             enable: true, // enables the opacity animation, this will fade away the confettis
             minimumValue: 0, // minimum opacity reached with animation
             speed: 2, // the opacity animation speed, the higher the value, the faster the confetti disappear
-            //startValue: "max", // start always from opacity 1
-            //destroy: "min" // destroy the confettis at opacity 0
+            // startValue: "max", // start always from opacity 1
+            // destroy: "min" // destroy the confettis at opacity 0
           }
         },
         size: {
@@ -110,14 +110,14 @@ export class ConfettiService {
         },
         outMode: { // what confettis should do offscreen?
           default: "destroy", // by default remove them
-          //top: "none" // but since gravity attract them to bottom, when they go offscreen on top they can stay
+          // top: "none" // but since gravity attract them to bottom, when they go offscreen on top they can stay
         },
         rotate: {
           value: {
             min: 0,
             max: 360
           },
-          //direction: "random",
+          // direction: "random",
           move: true,
           animation: {
             enable: true,
@@ -125,7 +125,7 @@ export class ConfettiService {
           }
         },
         tilt: {
-          //direction: "random",
+          // direction: "random",
           enable: true,
           move: true,
           value: {
@@ -163,7 +163,7 @@ export class ConfettiService {
         }
       },
       background: {
-        //color: "#FFFFFF" // set the canvas background, it will set the style property
+        // color: "#FFFFFF" // set the canvas background, it will set the style property
       },
       emitters: [ // the confetti emitters, the will bring confetti to life
         {

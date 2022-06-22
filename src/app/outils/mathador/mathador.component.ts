@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+
 interface Possibilite {
   nombres: number[],
   signes: string[],
@@ -16,48 +17,43 @@ interface Solution {
   styleUrls: ['./mathador.component.css']
 })
 export class MathadorComponent implements OnInit {
-  cible: number
-  a: number
-  b: number
-  c: number
-  d: number
-  e: number
+  nombreCible: number
+  donnee1: number
+  donnee2: number
+  donnee3: number
+  donnee4: number
+  donnee5: number
   stringSolutions: string
   nombreDeSolutions: number
   solutionsAffichees: boolean
 
   constructor() {
-    this.cible = this.randint(0, 99)
-    this.a = this.randint(1, 4)
-    this.b = this.randint(1, 6)
-    this.c = this.randint(1, 8)
-    this.d = this.randint(1, 12)
-    this.e = this.randint(1, 20)
+    this.nombreCible = 0
+    this.donnee1 = 0
+    this.donnee2 = 0
+    this.donnee3 = 0
+    this.donnee4 = 0
+    this.donnee5 = 0
     this.stringSolutions = ''
     this.nombreDeSolutions = -1
     this.solutionsAffichees = false
   }
 
   ngOnInit(): void {
-    this.testerMathador()
+    this.relancer()
   }
 
-  /**
-   * Relance un nouveau Mathador en :
-   * - tirant au sort de nouveaux nombres
-   * - réinitialisant le nombre de solutions
-   * - cherchant les solutions correspondant au nouveau tirage
-   */
   relancer() {
-    this.cible = this.randint(0, 99)
-    this.a = this.randint(1, 4)
-    this.b = this.randint(1, 6)
-    this.c = this.randint(1, 8)
-    this.d = this.randint(1, 12)
-    this.e = this.randint(1, 20)
+    this.nombreCible = this.randint(0, 99)
+    this.donnee1 = this.randint(1, 4)
+    this.donnee2 = this.randint(1, 6)
+    this.donnee3 = this.randint(1, 8)
+    this.donnee4 = this.randint(1, 12)
+    this.donnee5 = this.randint(1, 20)
     this.stringSolutions = ''
     this.nombreDeSolutions = -1
-    this.testerMathador()
+    this.solutionsAffichees = false
+    this.resoudreMathador()
   }
 
   /**
@@ -76,10 +72,10 @@ export class MathadorComponent implements OnInit {
    * Filtre les possibilités équivalentes (mêmes calculs mais pas dans le même ordre)
    * Modifie le nombre de solutions et le contenu du div des solutions
    */
-  testerMathador() {
-    this.solutionsAffichees = false
+  resoudreMathador() {
     const solutions: Solution[] = []
-    const possibilites1 = this.determinerPossibilites([this.a, this.b, this.c, this.d, this.e], ['+', '-', '*', '/'])
+    const possibilites0: Possibilite = { nombres: [this.donnee1, this.donnee2, this.donnee3, this.donnee4, this.donnee5], signes: ['+', '-', '*', '/'], calcul: '' }
+    const possibilites1 = this.determinerPossibilites(possibilites0.nombres, possibilites0.signes)
     for (const possibilite1 of possibilites1) {
       if (this.lesNombresPassentLeFiltre(possibilite1)) {
         const possibilites2 = this.determinerPossibilites(possibilite1.nombres, possibilite1.signes)
@@ -90,10 +86,10 @@ export class MathadorComponent implements OnInit {
               if (this.lesNombresPassentLeFiltre(possibilite3)) {
                 const possibilites4 = this.determinerPossibilites(possibilite3.nombres, possibilite3.signes)
                 for (const possibilite4 of possibilites4) {
-                  if (possibilite4.nombres[0] === this.cible) {
+                  if (possibilite4.nombres[0] === this.nombreCible) {
                     const calculs = [possibilite1.calcul, possibilite2.calcul, possibilite3.calcul, possibilite4.calcul]
                     const redaction = ' $ ' + possibilite1.calcul + ' \\\\ ' + possibilite2.calcul + ' \\\\ ' + possibilite3.calcul + ' \\\\ ' + possibilite4.calcul + ' $ '
-                    const solutionCandidate = {calculs, redaction}
+                    const solutionCandidate = { calculs, redaction }
                     if (!this.solutionPresente(solutionCandidate, solutions)) {
                       solutions.push(solutionCandidate)
                     }
@@ -113,43 +109,6 @@ export class MathadorComponent implements OnInit {
   }
 
   /**
-   * Vérifie si une solutionCandidate existe déja dans les solutions
-   * @param solutionCandidate 
-   * @param solutions 
-   * @returns true si la solutionCandidate existe déjà dans les solutions
-   */
-  solutionPresente(solutionCandidate: Solution, solutions: Solution[]) {
-    for (const solution of solutions) {
-      let nombreDeCalculsIdentiques = 0
-      for (const calculCandidat of solutionCandidate.calculs) {
-        if (solution.calculs.indexOf(calculCandidat) !== -1) nombreDeCalculsIdentiques ++
-      }
-      if (nombreDeCalculsIdentiques === 4) return true
-    }
-    return false
-  }
-
-  /**
-   * Renvoie false si :
-   * - un nombre n'est pas positif
-   * - un nombre n'est pas entier
-   * Renvoie true sinon
-   * @param possibilite 
-   * @returns 
-   */
-  lesNombresPassentLeFiltre(possibilite: Possibilite) {
-    for (const nombre of possibilite.nombres) {
-      if (nombre < 0) { // On vérifie si les nombres sont positifs
-        return false
-      }
-      if (nombre !== Math.floor(nombre)) { // On vérifie si les nombres sont entiers
-        return false
-      }
-    }
-    return true
-  }
-
-  /**
    * Coeur de la recherche de solutions.
    * Fait tous les calculs possibles à partir des nombres de poolDeNombres et des signes de signesDisponibles.
    * Dans chaque cas, reconstitue un nouveau pool de nombres en regroupant les nombres inutilisés et le résultat obtenu
@@ -162,17 +121,17 @@ export class MathadorComponent implements OnInit {
     const possibilites: Possibilite[] = []
     for (const premierNombre of poolDeNombres) {
       for (const premierSigne of signesDisponibles) {
-        const nombresSaufPremier = poolDeNombres.filter(function (value, index, arr) {
-          return value !== premierNombre;
+        const nombresSaufPremier = poolDeNombres.filter(function (value) {
+          return value !== premierNombre
         })
         while (nombresSaufPremier.length < poolDeNombres.length - 1) nombresSaufPremier.push(premierNombre) // Si le même nombre apparaissait plusieurs fois on les a tous enlevés. Si c'est le cas, on renfloue nombres1
-        const signesSaufLePremier = signesDisponibles.filter(function (value, index, arr) {
-          return value !== premierSigne;
+        const signesSaufLePremier = signesDisponibles.filter(function (value) {
+          return value !== premierSigne
         })
         for (const deuxiemeNombre of nombresSaufPremier) {
           const resultatPremierCalcul = this.calculer(premierNombre, deuxiemeNombre, premierSigne)
-          const nombresSauf1et2 = nombresSaufPremier.filter(function (value, index, arr) {
-            return value !== deuxiemeNombre;
+          const nombresSauf1et2 = nombresSaufPremier.filter(function (value) {
+            return value !== deuxiemeNombre
           })
           while (nombresSauf1et2.length < nombresSaufPremier.length - 1) nombresSauf1et2.push(deuxiemeNombre)
           const nombresSauf1et2AvecResultat1 = nombresSauf1et2
@@ -215,5 +174,42 @@ export class MathadorComponent implements OnInit {
         console.log('Erreur : signe d\'opération inconnu')
         return { resultat: -1000, calcul: 'Erreur : signe d\'opération inconnu' }
     }
+  }
+
+  /**
+   * Renvoie false si :
+   * - un nombre n'est pas positif
+   * - un nombre n'est pas entier
+   * Renvoie true sinon
+   * @param possibilite 
+   * @returns 
+   */
+  lesNombresPassentLeFiltre(possibilite: Possibilite) {
+    for (const nombre of possibilite.nombres) {
+      if (nombre < 0) { // On vérifie si les nombres sont positifs
+        return false
+      }
+      if (nombre !== Math.floor(nombre)) { // On vérifie si les nombres sont entiers
+        return false
+      }
+    }
+    return true
+  }
+
+  /**
+   * Vérifie si une solutionCandidate existe déja dans les solutions
+   * @param solutionCandidate 
+   * @param solutions 
+   * @returns true si la solutionCandidate existe déjà dans les solutions
+   */
+  solutionPresente(solutionCandidate: Solution, solutions: Solution[]) {
+    for (const solution of solutions) {
+      let nombreDeCalculsIdentiques = 0
+      for (const calculCandidat of solutionCandidate.calculs) {
+        if (solution.calculs.indexOf(calculCandidat) !== -1) nombreDeCalculsIdentiques++
+      }
+      if (nombreDeCalculsIdentiques === 4) return true
+    }
+    return false
   }
 }

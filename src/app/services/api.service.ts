@@ -1,9 +1,9 @@
-import { Injectable, Output, EventEmitter, isDevMode } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { User } from './user';
-import { Router } from '@angular/router';
-import { GlobalConstants } from './global-constants';
-import { OutilsService } from './outils.service';
+import { Injectable, Output, EventEmitter, isDevMode } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import { User } from './user'
+import { Router } from '@angular/router'
+import { GlobalConstants } from './global-constants'
+import { OutilsService } from './outils.service'
 
 interface Nom {
   nom: string
@@ -19,7 +19,7 @@ interface Adjectif {
 })
 
 export class ApiService {
-  @Output() profilModifie: EventEmitter<string[]> = new EventEmitter();
+  @Output() profilModifie: EventEmitter<string[]> = new EventEmitter()
 
   redirectUrl: string
   isloggedIn: boolean
@@ -102,7 +102,7 @@ export class ApiService {
    * Renvoie un style de css qui permet d'afficher un avatar
    */
   getStyleAvatar(user: User) {
-    let style = `--image-avatar:url('${this.getLienAvatar(user)}');`
+    const style = `--image-avatar:url('${this.getLienAvatar(user)}');`
     return <string>style
   }
 
@@ -161,8 +161,8 @@ export class ApiService {
             'derniereSequence',
             'dernierObjectif'])
           if (redirige) {
-            const redirect = this.redirectUrl ? this.redirectUrl : 'profil';
-            this.router.navigate([redirect]);
+            const redirect = this.redirectUrl ? this.redirectUrl : 'profil'
+            this.router.navigate([redirect])
           }
         }
       },
@@ -188,14 +188,14 @@ export class ApiService {
         identifiant: identifiant,
         codeAvatar: '',
         lastLogin: '',
-        pseudo: this.pseudoAleatoire(),
+        pseudo: this.tirerUnPseudoAleatoire(),
         derniereSequence: '',
         dernierObjectif: ''
       }
       this.http.post<User[]>(GlobalConstants.apiUrl + 'register.php', user).subscribe(users => {
         this.isloggedIn = true
-        this.setToken('identifiant', users[0].identifiant);
-        this.setToken('version', this.derniereVersionToken);
+        this.setToken('identifiant', users[0].identifiant)
+        this.setToken('version', this.derniereVersionToken)
         this.user = users[0]
         this.profilModifie.emit([
           'identifiant',
@@ -209,7 +209,7 @@ export class ApiService {
       }, error => {
         console.log(error)
         this.erreurRegistration('userregistration', error['message'])
-      });
+      })
     }
   }
 
@@ -242,7 +242,7 @@ export class ApiService {
    * Crée un pseudo aléatoire en mélangeant un nom et un adjectif au hasard
    * @returns pseudo
    */
-  pseudoAleatoire() {
+  tirerUnPseudoAleatoire() {
     if (this.feminin) {
       const nom = this.listeFeminins[Math.floor(Math.random() * this.listeFeminins.length)].nom
       const adjectif = this.listeAdjectifs[Math.floor(Math.random() * this.listeAdjectifs.length)].feminin
@@ -285,17 +285,8 @@ export class ApiService {
         },
         error => {
           console.log(error)
-        });
+        })
     }
-  }
-
-  /**
-   * Modifie le pseudo dans la bdd
-   * @param pseudo 
-   */
-  majPseudo(pseudo: string) {
-    this.user.pseudo = pseudo
-    this.majProfil(['pseudo'])
   }
 
   /**
@@ -333,7 +324,7 @@ export class ApiService {
         },
         error => {
           console.log(error)
-        });
+        })
     }
   }
 
@@ -343,7 +334,7 @@ export class ApiService {
    * @param value Valeur du token
    */
   setToken(key: string, value: string) {
-    localStorage.setItem(key, value);
+    localStorage.setItem(key, value)
   }
 
   /**
@@ -352,7 +343,7 @@ export class ApiService {
    * @returns Valeur du token key
    */
   getToken(key: string) {
-    return localStorage.getItem(key);
+    return localStorage.getItem(key)
   }
 
   /**
@@ -360,7 +351,7 @@ export class ApiService {
    * @param key
    */
   deleteToken(key: string) {
-    localStorage.removeItem(key);
+    localStorage.removeItem(key)
   }
 
   /**
@@ -370,7 +361,7 @@ export class ApiService {
    * @returns boolean
    */
   checkLoggedIn() {
-    const usertoken = this.getToken('identifiant');
+    const usertoken = this.getToken('identifiant')
     const version = this.getToken('version')
     if (usertoken != null && version == this.derniereVersionToken) {
       this.isloggedIn = true

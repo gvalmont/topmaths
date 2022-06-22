@@ -1,11 +1,11 @@
-import { ViewportScroller } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from '../services/api.service';
-import { GlobalConstants } from '../services/global-constants';
-import { Niveau, Objectif, Video, Exercice } from '../services/objectifs';
-import { Title } from '@angular/platform-browser';
+import { ViewportScroller } from '@angular/common'
+import { HttpClient } from '@angular/common/http'
+import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { ApiService } from '../services/api.service'
+import { GlobalConstants } from '../services/global-constants'
+import { Niveau, Objectif, Video, Exercice } from '../services/objectifs'
+import { Title } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-objectif',
@@ -54,7 +54,7 @@ export class ObjectifComponent implements OnInit {
                 this.niveau = niveau.nom
                 this.MAJProprietes(objectif)
               }
-              return objectif.reference == reference;
+              return objectif.reference == reference
             })
           })
         })
@@ -121,7 +121,7 @@ export class ObjectifComponent implements OnInit {
     }
   }
 
-   ouvrirModaleExercices(lien: string | undefined) {
+  ouvrirModaleExercices(lien: string | undefined) {
     if (typeof lien !== 'undefined') {
       this.infosModale = [[this.changerSerie(lien)], '', new Date()]
     }

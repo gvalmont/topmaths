@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { BoutonImprimerComponent } from './bouton-imprimer.component';
+import { BoutonImprimerComponent } from './bouton-imprimer.component'
 
 describe('BoutonImprimerComponent', () => {
-  let component: BoutonImprimerComponent;
-  let fixture: ComponentFixture<BoutonImprimerComponent>;
+  let component: BoutonImprimerComponent
+  let fixture: ComponentFixture<BoutonImprimerComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ BoutonImprimerComponent ]
     })
-    .compileComponents();
-  });
+    .compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BoutonImprimerComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(BoutonImprimerComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

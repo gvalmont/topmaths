@@ -1,9 +1,10 @@
+<!-- eslint-disable @angular-eslint/template/eqeqeq -->
 <div class="tabs is-medium is-centered">
   <ul class="tabs-menu is-rounded">
-    <li><a [ngClass]="{'subtitle is-4 is-tout is-left-side': true, 'is-active': ongletActif == 'tout'}" (click)="ongletActif = 'tout'; filtre.niveau = 'tout'">Tout</a></li>
-    <li><a [ngClass]="{'subtitle is-4 is-6e': true, 'is-active': ongletActif == '6e'}" (click)="ongletActif = '6e'; filtre.niveau = '6e'">6e</a></li>
+    <li><a [ngClass]="{'subtitle is-4 is-tout is-left-side': true, 'is-active': ongletActif === 'tout'}" (click)="ongletActif = 'tout'; filtre.niveau = 'tout'">Tout</a></li>
+    <li><a [ngClass]="{'subtitle is-4 is-6e': true, 'is-active': ongletActif === '6e'}" (click)="ongletActif = '6e'; filtre.niveau = '6e'">6e</a></li>
     <li *ngFor="let ligne of lignes;">
-      <a *ngIf="ligne.niveau != null && ligne.niveau != 'fin' && ligne.reference == null" (click)="ongletActif = ligne.niveau; filtre.niveau = ligne.niveau" [ngClass]="{'is-active': ongletActif == ligne.niveau, 'subtitle is-4': true, 'is-6e': ligne.niveau == '6e', 'is-5e': ligne.niveau == '5e', 'is-4e': ligne.niveau == '4e', 'is-3e is-right-side': ligne.niveau == '3e'}">{{ligne.niveau}}</a>
+      <a *ngIf="ligne.niveau != null && ligne.niveau !== 'fin' && ligne.reference == null" (click)="ongletActif = ligne.niveau; filtre.niveau = ligne.niveau" [ngClass]="{'is-active': ongletActif == ligne.niveau, 'subtitle is-4': true, 'is-6e': ligne.niveau === '6e', 'is-5e': ligne.niveau === '5e', 'is-4e': ligne.niveau === '4e', 'is-3e is-right-side': ligne.niveau === '3e'}">{{ligne.niveau}}</a>
     </li>
   </ul>
 </div>
@@ -11,7 +12,7 @@
   <!-- Séquences particulières -->
   <div>
     <span *ngFor="let ligne of lignesParticulieres; index as i">
-      <h1 *ngIf="ligne.niveau != null && ligne.niveau != 'fin' && ligne.reference == null" class="title is-3 p-2 is-tout">{{ligne.niveau}}</h1>
+      <h1 *ngIf="ligne.niveau != null && ligne.niveau !== 'fin' && ligne.reference == null" class="title is-3 p-2 is-tout">{{ligne.niveau}}</h1>
       <p *ngIf="ligne.reference != null" [ngClass]="{'is-tout is-size-5': true, 'is-fin': lignesParticulieres[i].niveau != lignesParticulieres[i + 1].niveau}">
         <a routerLink="/sequence/{{ligne.reference}}" routerLinkActive="active">
           {{ligne.numero == 0 ? '' : 'Séquence ' + ligne.numero + ' : '}}{{ligne.titre}}<br>
@@ -21,13 +22,13 @@
   </div>
   <!-- Séquences normales -->
   <span *ngFor="let ligne of lignes; index as i">
-    <div *ngIf="ligne.niveau != null && ligne.niveau != 'fin' && ligne.reference == null && (filtre.niveau == null || filtre.niveau == 'tout' || filtre.niveau == ligne.niveau)"><br></div>
-    <h1 *ngIf="ligne.niveau != null && ligne.niveau != 'fin' && ligne.reference == null && (filtre.niveau == null || filtre.niveau == 'tout' || filtre.niveau == ligne.niveau)" [class]="'title is-3 p-2 is-' + ligne.niveau">
+    <div *ngIf="ligne.niveau != null && ligne.niveau !== 'fin' && ligne.reference == null && (filtre.niveau == null || filtre.niveau === 'tout' || filtre.niveau == ligne.niveau)"><br></div>
+    <h1 *ngIf="ligne.niveau != null && ligne.niveau !== 'fin' && ligne.reference == null && (filtre.niveau == null || filtre.niveau === 'tout' || filtre.niveau == ligne.niveau)" [class]="'title is-3 p-2 is-' + ligne.niveau">
       <span class="has-text-white">
         {{ligne.niveau}}
       </span>
     </h1>
-    <p *ngIf="ligne.reference != null && ligne.niveau != 'fin' && (filtre.niveau == null || filtre.niveau == 'tout' || filtre.niveau == ligne.niveau)" [ngClass]="{'p-1 is-size-5': true, 'is-fin': lignes[i].niveau != lignes[i + 1].niveau, 'is-6e': ligne.niveau == '6e', 'is-5e': ligne.niveau == '5e', 'is-4e': ligne.niveau == '4e', 'is-3e': ligne.niveau == '3e'}">
+    <p *ngIf="ligne.reference != null && ligne.niveau !== 'fin' && (filtre.niveau == null || filtre.niveau === 'tout' || filtre.niveau == ligne.niveau)" [ngClass]="{'p-1 is-size-5': true, 'is-fin': lignes[i].niveau != lignes[i + 1].niveau, 'is-6e': ligne.niveau === '6e', 'is-5e': ligne.niveau === '5e', 'is-4e': ligne.niveau === '4e', 'is-3e': ligne.niveau === '3e'}">
       <a routerLink="/sequence/{{ligne.reference}}" routerLinkActive="active">
         {{ligne.numero == 0 ? '' : 'Séquence ' + ligne.numero + ' : '}}{{ligne.titre}}
       </a>

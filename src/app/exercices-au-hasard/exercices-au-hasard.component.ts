@@ -1,10 +1,10 @@
-import { ViewportScroller } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Component, isDevMode } from '@angular/core';
-import { GlobalConstants } from 'src/app/services/global-constants';
-import { Niveau as NiveauObjectif } from 'src/app/services/objectifs';
-import { Niveau as NiveauSequence } from 'src/app/services/sequences';
-import { CalendrierService } from '../services/calendrier.service';
+import { ViewportScroller } from '@angular/common'
+import { HttpClient } from '@angular/common/http'
+import { Component, isDevMode } from '@angular/core'
+import { GlobalConstants } from 'src/app/services/global-constants'
+import { Niveau as NiveauObjectif } from 'src/app/services/objectifs'
+import { Niveau as NiveauSequence } from 'src/app/services/sequences'
+import { CalendrierService } from '../services/calendrier.service'
 
 interface Exercice {
   id: number
@@ -43,7 +43,7 @@ export class ExercicesAuHasardComponent {
   }
 
   getListeDesReferences(niveauChoisi: string, niveaux: NiveauSequence[]) {
-    let listeReferences: string[] = []
+    const listeReferences: string[] = []
     for (const niveau of niveaux) {
       if (niveau.nom == niveauChoisi || niveauChoisi == 'tout') {
         const derniereSequence = this.getDerniereSequence()
@@ -99,8 +99,8 @@ export class ExercicesAuHasardComponent {
   }
 
   getListeDesExercices(listeReferences: string[], niveauChoisi: string, niveaux: NiveauObjectif[]) {
-    let listeExercices: Exercice[] = []
-    let listeDesUrl: string[] = []
+    const listeExercices: Exercice[] = []
+    const listeDesUrl: string[] = []
     for (const niveau of niveaux) {
       for (const theme of niveau.themes) {
         for (const sousTheme of theme.sousThemes) {

@@ -1,12 +1,12 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from '../services/api.service';
-import { CalculMental, Niveau, NiveauCM, Objectif, QuestionFlash, Sequence } from '../services/sequences';
-import { Niveau as NiveauObjectif } from '../services/objectifs';
-import { ViewportScroller } from '@angular/common';
-import { GlobalConstants } from '../services/global-constants';
-import { Title } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http'
+import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { ApiService } from '../services/api.service'
+import { CalculMental, Niveau, NiveauCM, Objectif, QuestionFlash, Sequence } from '../services/sequences'
+import { Niveau as NiveauObjectif } from '../services/objectifs'
+import { ViewportScroller } from '@angular/common'
+import { GlobalConstants } from '../services/global-constants'
+import { Title } from '@angular/platform-browser'
 
 
 @Component({
@@ -98,7 +98,7 @@ export class SequenceComponent implements OnInit {
             this.niveau = niveau.nom
             this.recupereAttributsSequence(niveau, sequence)
           }
-          return sequence.reference == this.reference;
+          return sequence.reference == this.reference
         })
       })
     })
@@ -110,7 +110,7 @@ export class SequenceComponent implements OnInit {
    * @param sequence 
    */
   recupereAttributsSequence(niveau: Niveau, sequence: Sequence) {
-    this.numero = niveau.sequences.findIndex(sequence => { return sequence.reference == this.reference; }) + 1
+    this.numero = niveau.sequences.findIndex(sequence => { return sequence.reference == this.reference }) + 1
     this.titre = `Séquence ${this.numero} :<br>${sequence.titre}`
     this.titleService.setTitle(this.titre.replace('<br>', ' '))
     this.dataService.user.derniereSequence = this.reference + '!' + this.titre
@@ -153,7 +153,7 @@ export class SequenceComponent implements OnInit {
         for (const theme of niveau.themes) {
           for (const sousTheme of theme.sousThemes) {
             for (const JSONobjectif of sousTheme.objectifs) {
-              //On complète le titre et les slugs des objectifs de la séquence
+              // On complète le titre et les slugs des objectifs de la séquence
               for (const thisObjectif of this.objectifs) {
                 if (thisObjectif.reference == JSONobjectif.reference) {
                   thisObjectif.titre = JSONobjectif.titre
@@ -206,7 +206,7 @@ export class SequenceComponent implements OnInit {
   recupereCalculsMentaux(sequence: Sequence) {
     this.calculsMentaux = []
     for (const calculMental of sequence.calculsMentaux) {
-      let niveauxTemp = []
+      const niveauxTemp = []
       for (const niveau of calculMental.niveaux) {
         niveauxTemp.push({
           commentaire: niveau.commentaire,
@@ -291,7 +291,7 @@ export class SequenceComponent implements OnInit {
     } else {
       extension = 'pdf'
     }
-    let lien = `assets/${type}/${this.reference.slice(1, 2)}e/${type.charAt(0).toUpperCase() + type.slice(1)}_${this.reference}.${extension}`
+    const lien = `assets/${type}/${this.reference.slice(1, 2)}e/${type.charAt(0).toUpperCase() + type.slice(1)}_${this.reference}.${extension}`
     this.verifieExistence(type, lien)
     return lien
   }
@@ -315,7 +315,7 @@ export class SequenceComponent implements OnInit {
    * @returns true s'il existe, false sinon
    */
   verifieExistence(type: string, urlToFile: string) {
-    var xhttp = new XMLHttpRequest();
+    var xhttp = new XMLHttpRequest()
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         let divId = '', description, lienIcone = '/assets/img/cc0/pdf-file-format-symbol-svgrepo-com.svg'
@@ -362,8 +362,8 @@ export class SequenceComponent implements OnInit {
           divEvaluation.classList.remove('is-fin')
         }
       }
-    };
-    xhttp.open("HEAD", urlToFile, true);
-    xhttp.send();
+    }
+    xhttp.open("HEAD", urlToFile, true)
+    xhttp.send()
   }
 }

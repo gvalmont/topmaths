@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing'
 
-import { ConfettiService } from './confetti.service';
+import { ConfettiService } from './confetti.service'
 
 describe('ConfettiService', () => {
-  let service: ConfettiService;
+  let service: ConfettiService
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(ConfettiService);
-  });
+    TestBed.configureTestingModule({})
+    service = TestBed.inject(ConfettiService)
+  })
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+    expect(service).toBeTruthy()
+  })
+})

@@ -1,31 +1,31 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ObjectifComponent } from './objectif/objectif.component';
-import { AccueilComponent } from './accueil/accueil.component';
-import { SafePipe } from './services/safe.pipe';
-import { ObjectifsComponent } from './objectifs/objectifs.component';
-import { SequencesComponent } from './sequences/sequences.component';
-import { SequenceComponent } from './sequence/sequence.component';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { LoginComponent } from './login/login.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProfilComponent } from './profil/profil.component';
-import { NgParticlesModule } from "ng-particles";
-import { MathjaxModule } from 'mathjax-angular';
-import { SPS1Component } from './sequencesParticulieres/sps1/sps1.component';
-import { RevisionsComponent } from './revisions/revisions.component';
-import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-hasard.component';
-import { AvatarComponent } from './avatar/avatar.component';
-import { ModaleExercicesComponent } from './modale-exercices/modale-exercices.component';
-import { ListeSequencesComponent } from './sequences/liste-sequences/liste-sequences.component';
-import { MathadorComponent } from './outils/mathador/mathador.component';
-import { OutilsComponent } from './outils/outils.component';
-import { BoutonImprimerComponent } from './mini-components/bouton-imprimer/bouton-imprimer.component';
-import { AnimationInstrumenpocheComponent } from './mini-components/animation-instrumenpoche/animation-instrumenpoche.component';
-import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidentialite/politique-de-confidentialite.component';
+import { NgModule } from '@angular/core'
+import { BrowserModule } from '@angular/platform-browser'
+import { HttpClientModule } from '@angular/common/http'
+import { AppRoutingModule } from './app-routing.module'
+import { AppComponent } from './app.component'
+import { ObjectifComponent } from './objectif/objectif.component'
+import { AccueilComponent } from './accueil/accueil.component'
+import { SafePipe } from './services/safe.pipe'
+import { ObjectifsComponent } from './objectifs/objectifs.component'
+import { SequencesComponent } from './sequences/sequences.component'
+import { SequenceComponent } from './sequence/sequence.component'
+import { HashLocationStrategy, LocationStrategy } from '@angular/common'
+import { LoginComponent } from './login/login.component'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { ProfilComponent } from './profil/profil.component'
+import { NgParticlesModule } from "ng-particles"
+import { MathjaxModule } from 'mathjax-angular'
+import { SPS1Component } from './sequencesParticulieres/sps1/sps1.component'
+import { RevisionsComponent } from './revisions/revisions.component'
+import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-hasard.component'
+import { AvatarComponent } from './avatar/avatar.component'
+import { ModaleExercicesComponent } from './modale-exercices/modale-exercices.component'
+import { ListeSequencesComponent } from './sequences/liste-sequences/liste-sequences.component'
+import { MathadorComponent } from './outils/mathador/mathador.component'
+import { OutilsComponent } from './outils/outils.component'
+import { BoutonImprimerComponent } from './mini-components/bouton-imprimer/bouton-imprimer.component'
+import { AnimationInstrumenpocheComponent } from './mini-components/animation-instrumenpoche/animation-instrumenpoche.component'
+import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidentialite/politique-de-confidentialite.component'
 
 @NgModule({
   declarations: [

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate, Router } from '@angular/router';
+import { Injectable } from '@angular/core'
+import { ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate, Router } from '@angular/router'
 
 interface Vacance {
   annee: number,
@@ -51,11 +51,11 @@ export class TimeguardGuard implements CanActivate {
    * @returns le numéro du jour de l'année
    */
   getDayOfYear() {
-    const now = new Date();
-    const begin = new Date(now.getFullYear(), 0, 0);
-    const diff = (now.getTime() - begin.getTime()) + ((begin.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
-    const oneDay = 1000 * 60 * 60 * 24;
-    return Math.floor(diff / oneDay);
+    const now = new Date()
+    const begin = new Date(now.getFullYear(), 0, 0)
+    const diff = (now.getTime() - begin.getTime()) + ((begin.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000)
+    const oneDay = 1000 * 60 * 60 * 24
+    return Math.floor(diff / oneDay)
   }
 
   /**

@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { RevisionsComponent } from './revisions.component';
+import { RevisionsComponent } from './revisions.component'
 
 describe('RevisionsComponent', () => {
-  let component: RevisionsComponent;
-  let fixture: ComponentFixture<RevisionsComponent>;
+  let component: RevisionsComponent
+  let fixture: ComponentFixture<RevisionsComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ RevisionsComponent ]
     })
-    .compileComponents();
-  });
+    .compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RevisionsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(RevisionsComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

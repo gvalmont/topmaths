@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { Niveau, SequenceParticuliere } from '../../services/sequences';
+import { HttpClient } from '@angular/common/http'
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core'
+import { Niveau, SequenceParticuliere } from '../../services/sequences'
 
 /**
  * Type d'objet de toutes les lignes qui seront affichées
@@ -21,7 +21,7 @@ interface Ligne {
 })
 export class ListeSequencesComponent implements OnInit, OnChanges {
   @Input() reactiveBoutonsEnvoi!: Date
-  @Output() selection = new EventEmitter<{niveaux: string[], sequences: string[]}>();
+  @Output() selection = new EventEmitter<{niveaux: string[], sequences: string[]}>()
   lignes: Ligne[]
   lignesParticulieres: Ligne[]
   filtre: Ligne
@@ -81,8 +81,8 @@ export class ListeSequencesComponent implements OnInit, OnChanges {
    * Récupère les niveaux complets et les séquences individuelles sélectionnées et les envoie au module parent
    */
   envoiSelection() {
-    let niveaux: string[] = []
-    let sequences: string[] = []
+    const niveaux: string[] = []
+    const sequences: string[] = []
     // On désactive les boutons d'envoi
     const boutonsEnvoi = <HTMLButtonElement[]><unknown> document.getElementsByClassName('boutonEnvoi')
     if (boutonsEnvoi != null) {

@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationStart, Event as NavigationEvent } from '@angular/router';
-import { Niveau, SequenceParticuliere } from '../services/sequences';
+import { HttpClient } from '@angular/common/http'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Router, ActivatedRoute, NavigationStart, Event as NavigationEvent } from '@angular/router'
+import { Niveau, SequenceParticuliere } from '../services/sequences'
 
 /**
  * Type d'objet de toutes les lignes qui seront affichées
@@ -40,7 +40,7 @@ export class SequencesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.event$.unsubscribe();
+    this.event$.unsubscribe()
   }
 
   /**
@@ -51,7 +51,7 @@ export class SequencesComponent implements OnInit, OnDestroy {
       if (event instanceof NavigationStart) {
         this.ongletActif = event.url.split('/')[2]
       }
-    });
+    })
   }
 
   /**

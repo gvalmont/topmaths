@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { ListeSequencesComponent } from './liste-sequences.component';
+import { ListeSequencesComponent } from './liste-sequences.component'
 
 describe('ListeSequencesComponent', () => {
-  let component: ListeSequencesComponent;
-  let fixture: ComponentFixture<ListeSequencesComponent>;
+  let component: ListeSequencesComponent
+  let fixture: ComponentFixture<ListeSequencesComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ListeSequencesComponent ]
     })
-    .compileComponents();
-  });
+    .compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListeSequencesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(ListeSequencesComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

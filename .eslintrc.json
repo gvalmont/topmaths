@@ -39,6 +39,25 @@
             "prefix": "app",
             "style": "kebab-case"
           }
+        ],
+        "prefer-const": [
+          "error",
+          {
+            "destructuring": "any",
+            "ignoreReadBeforeAssign": false
+          }
+        ],
+        "semi": [
+          "error",
+          "never"
+        ],
+        "comma-style": [
+          "error",
+          "last"
+        ],
+        "spaced-comment": [
+          "error",
+          "always"
         ]
       }
     },

@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, isDevMode, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { ApiService } from '../services/api.service';
-import { ConfettiService } from '../services/confetti.service';
-import { GlobalConstants } from '../services/global-constants';
-import { Niveau as NiveauObjectif } from '../services/objectifs';
-import { Niveau as NiveauSequence } from '../services/sequences';
+import { HttpClient } from '@angular/common/http'
+import { Component, EventEmitter, Input, isDevMode, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core'
+import { ApiService } from '../services/api.service'
+import { ConfettiService } from '../services/confetti.service'
+import { GlobalConstants } from '../services/global-constants'
+import { Niveau as NiveauObjectif } from '../services/objectifs'
+import { Niveau as NiveauSequence } from '../services/sequences'
 
 interface Exercice {
   lien: string
@@ -18,7 +18,7 @@ interface Exercice {
 })
 export class ModaleExercicesComponent implements OnInit, OnChanges {
   @Input() infosModale: [string[], string, Date] // liste des url, type d'exercice, date
-  @Output() modaleFermee = new EventEmitter<number>();
+  @Output() modaleFermee = new EventEmitter<number>()
   modale!: HTMLElement
   modaleUrl!: HTMLElement
   boutonFermer!: HTMLElement
@@ -124,7 +124,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
         const dateDerniereReponse: Date = new Date(this.get('dateDerniereReponse'))
         const dateNouvelleReponse: Date = new Date()
         if (dateNouvelleReponse.getTime() - dateDerniereReponse.getTime() > 200) {
-          const url: string = event.data.url;
+          const url: string = event.data.url
           if (typeof (url) != 'undefined') {
             if (event.data.exercicesAffiches == true || event.data.ready == 'ok') {
               this.fermerEcranDeChargement(type, url, urlDejaFaits)
@@ -251,11 +251,11 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
    * pour éviter des comportements bizarres si on charge plusieurs fois d'affilée la même page
    */
   ajouterIframe(url: string) {
-    const iframeActuel = document.getElementById('iframeExercice1');
+    const iframeActuel = document.getElementById('iframeExercice1')
     let parent = <Node>this.modale // Pour le premier iframe
     if (iframeActuel != null && iframeActuel.parentNode != null) {
       parent = iframeActuel.parentNode // Pour tous les suivants car la référence this.modale n'est plus valide lorsque lancée depuis un ancien listener
-      parent.removeChild(iframeActuel);
+      parent.removeChild(iframeActuel)
     }
     const nouvelIframe = document.createElement('iframe')
     nouvelIframe.id = 'iframeExercice1'
@@ -280,7 +280,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
         this.boutonFermer.style.right = '20px'
         this.boutonFermer.style.top = '35px'
         this.boutonFermer.style.width = '30px'
-        break;
+        break
       case 'mathsmentales':
         this.lienSpinner = '/assets/img/cc0/blue-spinner.svg'
 
@@ -293,7 +293,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
         this.boutonFermer.style.right = '20px'
         this.boutonFermer.style.top = '80px'
         this.boutonFermer.style.width = '30px'
-        break;
+        break
     }
   }
 
@@ -335,7 +335,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
   }
 
   copierLien() {
-    navigator.clipboard.writeText(this.get('lienACopier'));
+    navigator.clipboard.writeText(this.get('lienACopier'))
     alert('Le lien vers l\'exercice a été copié')
   }
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class OutilsService {
    * @returns true si c'est le cas, false sinon
    */
   onlyLettersAndNumbers(str: string) {
-    return /^[A-Za-z0-9]*$/.test(str);
+    return /^[A-Za-z0-9]*$/.test(str)
   }
 
 }

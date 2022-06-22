@@ -1,21 +1,21 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AccueilComponent } from './accueil/accueil.component';
-import { ObjectifComponent } from './objectif/objectif.component';
-import { ObjectifsComponent } from './objectifs/objectifs.component';
-import { SequencesComponent } from './sequences/sequences.component';
-import { SequenceComponent } from './sequence/sequence.component';
-import { LoginComponent } from './login/login.component';
-import { ProfilComponent } from './profil/profil.component';
-import { AuthguardGuard } from './services/auth.guard';
-import { TimeguardGuard } from './services/time.guard';
-import { SPS1Component } from './sequencesParticulieres/sps1/sps1.component';
-import { RevisionsComponent } from './revisions/revisions.component';
-import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-hasard.component';
-import { AvatarComponent } from './avatar/avatar.component';
-import { MathadorComponent } from './outils/mathador/mathador.component';
-import { OutilsComponent } from './outils/outils.component';
-import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidentialite/politique-de-confidentialite.component';
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
+import { AccueilComponent } from './accueil/accueil.component'
+import { ObjectifComponent } from './objectif/objectif.component'
+import { ObjectifsComponent } from './objectifs/objectifs.component'
+import { SequencesComponent } from './sequences/sequences.component'
+import { SequenceComponent } from './sequence/sequence.component'
+import { LoginComponent } from './login/login.component'
+import { ProfilComponent } from './profil/profil.component'
+import { AuthguardGuard } from './services/auth.guard'
+import { TimeguardGuard } from './services/time.guard'
+import { SPS1Component } from './sequencesParticulieres/sps1/sps1.component'
+import { RevisionsComponent } from './revisions/revisions.component'
+import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-hasard.component'
+import { AvatarComponent } from './avatar/avatar.component'
+import { MathadorComponent } from './outils/mathador/mathador.component'
+import { OutilsComponent } from './outils/outils.component'
+import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidentialite/politique-de-confidentialite.component'
 
 const routes: Routes = [
   { path: 'accueil', component: AccueilComponent, data: {title: 'topmaths.fr - Les maths au TOP !'} },
@@ -39,7 +39,7 @@ const routes: Routes = [
   { path: '', component: AccueilComponent },
   { path: ':reference', component: ObjectifComponent },
   { path: '**', component: AccueilComponent }
-];
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {

@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http'
+import { Component, Input, OnInit } from '@angular/core'
 declare const iep: any
 
 @Component({
@@ -34,12 +34,12 @@ export class AnimationInstrumenpocheComponent implements OnInit {
     try {
       this.httpClient.request('GET', 'assets/data/instrumenpoche/' + this.nomAnimation + '.xml', {responseType:'text'}).subscribe(xml => {
         const container = document.getElementById("svgContainer")
-        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.setAttributeNS(null, "width", this.largeurAnimation);
-        svg.setAttributeNS(null, "height", this.hauteurAnimation);
-        svg.setAttributeNS(null, "id", "svg");
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        svg.setAttributeNS(null, "width", this.largeurAnimation)
+        svg.setAttributeNS(null, "height", this.hauteurAnimation)
+        svg.setAttributeNS(null, "id", "svg")
         if (container != null) {
-          container.appendChild(svg);
+          container.appendChild(svg)
           const iepApp = new iep.iepApp()
           iepApp.addDoc(svg, xml.replace(/\$/g, ''), true /* autostart */)
         }

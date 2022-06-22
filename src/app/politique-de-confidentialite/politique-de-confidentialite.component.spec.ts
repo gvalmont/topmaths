@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidentialite.component';
+import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidentialite.component'
 
 describe('PolitiqueDeConfidentialiteComponent', () => {
-  let component: PolitiqueDeConfidentialiteComponent;
-  let fixture: ComponentFixture<PolitiqueDeConfidentialiteComponent>;
+  let component: PolitiqueDeConfidentialiteComponent
+  let fixture: ComponentFixture<PolitiqueDeConfidentialiteComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ PolitiqueDeConfidentialiteComponent ]
     })
-    .compileComponents();
-  });
+    .compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PolitiqueDeConfidentialiteComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(PolitiqueDeConfidentialiteComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

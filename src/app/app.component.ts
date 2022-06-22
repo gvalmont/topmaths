@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router, NavigationStart, Event as NavigationEvent, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { ApiService } from './services/api.service';
-import { Title } from '@angular/platform-browser';
-import { filter, map } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
-import { CalendrierService } from './services/calendrier.service';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core'
+import { Router, NavigationStart, Event as NavigationEvent, ActivatedRoute, NavigationEnd } from '@angular/router'
+import { ApiService } from './services/api.service'
+import { Title } from '@angular/platform-browser'
+import { filter, map } from 'rxjs/operators'
+import { HttpClient } from '@angular/common/http'
+import { CalendrierService } from './services/calendrier.service'
 
 @Component({
   selector: 'app-root',
@@ -31,7 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.event$.unsubscribe();
+    this.event$.unsubscribe()
   }
 
   /**
@@ -45,7 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
           this.ongletActif = 'accueil'
         }
       }
-    });
+    })
   }
 
   /**
@@ -57,26 +57,26 @@ export class AppComponent implements OnInit, OnDestroy {
     if (identifiant != null && version == this.dataService.derniereVersionToken) {
       setTimeout(() => {
         this.dataService.login(identifiant, true, false)
-      }, 0);
+      }, 0)
     }
   }
 
   MAJLeTitreDeLaPage() {
     // Fonction de https://blog.bitsrc.io/dynamic-page-titles-in-angular-98ce20b5c334
-    const appTitle = this.titleService.getTitle();
+    const appTitle = this.titleService.getTitle()
     this.router
       .events.pipe(
         filter(event => event instanceof NavigationEnd),
         map(() => {
-          const child = this.activatedRoute.firstChild;
+          const child = this.activatedRoute.firstChild
           if (child != null && child.snapshot.data['title']) { // Ce data['title'] est défini dans le app-routing.module.ts
-            return child.snapshot.data['title'];
+            return child.snapshot.data['title']
           }
-          return appTitle;
+          return appTitle
         })
       ).subscribe((ttl: string) => {
-        this.titleService.setTitle(ttl);
-      });
+        this.titleService.setTitle(ttl)
+      })
   }
 
   /**
