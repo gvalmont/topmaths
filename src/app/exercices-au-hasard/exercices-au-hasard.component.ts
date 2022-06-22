@@ -20,7 +20,8 @@ interface Exercice {
 export class ExercicesAuHasardComponent {
   infosModale: [string[], string, Date]
 
-  constructor(public http: HttpClient, private viewportScroller: ViewportScroller, private calendrier: CalendrierService) {
+  // eslint-disable-next-line no-unused-vars
+  constructor(public httpClient: HttpClient, private viewportScroller: ViewportScroller, private calendrier: CalendrierService) {
     this.infosModale = [[], '', new Date()]
   }
 
@@ -32,10 +33,10 @@ export class ExercicesAuHasardComponent {
   }
 
   lancerExercices(niveauChoisi: string) {
-    this.http.get<NiveauSequence[]>('assets/data/sequences.json').subscribe(niveaux => {
+    this.httpClient.get<NiveauSequence[]>('assets/data/sequences.json').subscribe(niveaux => {
       const listeReferences = this.getListeDesReferences(niveauChoisi, niveaux)
-      this.http.get<NiveauObjectif[]>('assets/data/objectifs.json').subscribe(niveaux => {
-        const listeDesUrl = this.getListeDesExercices(listeReferences, niveaux)
+      this.httpClient.get<NiveauObjectif[]>('assets/data/objectifs.json').subscribe(niveaux => {
+        const listeDesUrl = this.getListeDesExercices(listeReferences, niveauChoisi, niveaux)
         this.infosModale = [listeDesUrl, 'exerciceAuHasard', new Date()]
       })
     })
@@ -97,7 +98,7 @@ export class ExercicesAuHasardComponent {
     return 0
   }
 
-  getListeDesExercices(listeReferences: string[], niveaux: NiveauObjectif[]) {
+  getListeDesExercices(listeReferences: string[], niveauChoisi: string, niveaux: NiveauObjectif[]) {
     let listeExercices: Exercice[] = []
     let listeDesUrl: string[] = []
     for (const niveau of niveaux) {
@@ -128,7 +129,7 @@ export class ExercicesAuHasardComponent {
         }
       }
     }
-    if (isDevMode()) {
+    if (isDevMode() && niveauChoisi != 'tout') {
       this.verifierPresenceDoublons(listeExercices)
     }
     return listeDesUrl

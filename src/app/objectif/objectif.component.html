@@ -3,12 +3,12 @@
   <div [class]="'is-' + niveau" *ngIf="rappelDuCoursHTML !== '' || rappelDuCoursImage !== '' || rappelDuCoursInstrumenpoche !== ''">
     <h2 [class]="'mb-5 pb-5 subtitle is-3 is-' + niveau">Rappel du cours</h2>
     <div class="has-text-centered pb-5">
-      <p [mathjax]="rappelDuCoursHTML" class="is-size-5"></p>
+      <p *ngIf="rappelDuCoursHTML !== ''" [mathjax]="rappelDuCoursHTML" class="is-size-5"></p>
       <img *ngIf="rappelDuCoursImage !== ''" [src]="rappelDuCoursImage" />
       <app-animation-instrumenpoche *ngIf="rappelDuCoursInstrumenpoche !== ''" [nomAnimation]="rappelDuCoursInstrumenpoche" class="centre"></app-animation-instrumenpoche>
     </div>
   </div>
-  <div [class]="'is-' + niveau" *ngIf="presenceVideo">
+  <div [class]="'is-' + niveau" *ngIf="videos.length > 0">
     <h2 [class]="'subtitle is-3 is-' + niveau">Vidéo{{videos.length > 1 ? 's' : ''}} d'explication</h2>
     <div class='pb-5' *ngFor="let video of videos">
       <h3 *ngIf="video.titre !== ''" [class]="'subtitle is-4 is-' + niveau">{{video.titre}}</h3>
@@ -21,7 +21,7 @@
     <div><br></div>
     <div *ngFor="let exercice of exercices; index as i">
       <h3 class="title is-4 is-inline-block">
-        <a (click)="ouvrirModaleExercices(exercice.lien, 'Exercices')">
+        <a (click)="ouvrirModaleExercices(exercice.lien)">
           Exercices de niveau {{ i + 1 }}
           &nbsp;
           <i class='image is-24x24 is-inline-block'>
@@ -34,12 +34,5 @@
       <div><br></div>
     </div>
   </div>
-  <div id='divTelechargements' [class]="'cache is-fin is-' + niveau">
-    <h2 [class]="'subtitle is-3 is-' + niveau">Téléchargements</h2>
-    <div class="p-1 pb-5">
-      <div id='lienFiche' class="p-1 cache"></div>
-      <div id='lienAnki' class="p-1 cache"></div>
-    </div>
-  </div>
 </div>
-<app-modale-exercices [infosModale]="infosModale" (modaleFermee)="scrollBack($event)"></app-modale-exercices>
+<app-modale-exercices [infosModale]="infosModale" (modaleFermee)="scrollBack()"></app-modale-exercices>

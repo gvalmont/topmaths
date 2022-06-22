@@ -55,7 +55,8 @@ export class AvatarComponent implements OnInit, OnDestroy {
   empecherNavigation: boolean
   redirection: string
 
-  constructor(private http: HttpClient, public dataService: ApiService, private router: Router) {
+  // eslint-disable-next-line no-unused-vars
+  constructor(private httpClient: HttpClient, public apiService: ApiService, private router: Router) {
     this.skinColor = 'rgba(243, 237, 232, 1)'
     this.hairColor = 'rgba(172, 101, 17, 1)'
     this.codeHTMLduSVG = ''
@@ -108,8 +109,8 @@ export class AvatarComponent implements OnInit, OnDestroy {
   }
 
   MAJParametresAvatarActuel() {
-    if (this.dataService.user.codeAvatar != '') {
-      const parametres = this.dataService.user.codeAvatar.split('&')
+    if (this.apiService.user.codeAvatar != '') {
+      const parametres = this.apiService.user.codeAvatar.split('&')
       this.skinColor = parametres[0]
       this.eyes = parseInt(parametres[1])
       this.eyebrows = parseInt(parametres[2])
@@ -125,7 +126,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
 
   MAJPage() {
     if (typeof (this.avatarsDef) == 'undefined') {
-      this.http.get<AvatarsDef>('assets/data/avatars-def.json').subscribe(avatarsDef => {
+      this.httpClient.get<AvatarsDef>('assets/data/avatars-def.json').subscribe(avatarsDef => {
         this.avatarsDef = avatarsDef
         this.MAJMenu()
         this.MAJPanneauPrincipal()
@@ -360,7 +361,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
 
   MAJAvatar(redirection: string = '/profil') {
     this.modaleConfirmation.style.display = 'none'
-    this.dataService.MAJAvatar(this.getAvatarFichierSVG(), `${this.skinColor}&${this.eyes}&${this.eyebrows}&${this.mouth}&${this.getAccessoiresId(this.accessoires)}&${this.hair}&${this.hairColor}`)
+    this.apiService.MAJAvatar(this.getAvatarFichierSVG(), `${this.skinColor}&${this.eyes}&${this.eyebrows}&${this.mouth}&${this.getAccessoiresId(this.accessoires)}&${this.hair}&${this.hairColor}`)
     this.router.navigate([redirection])
   }
 

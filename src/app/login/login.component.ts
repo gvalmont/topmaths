@@ -18,7 +18,8 @@ export class LoginComponent {
   shake: boolean
   loginVisible: boolean
 
-  constructor(private fb: FormBuilder, public dataService: ApiService, private router: Router, private outils: OutilsService) {
+  // eslint-disable-next-line no-unused-vars
+  constructor(private fb: FormBuilder, public apiService: ApiService, private router: Router, private outilsService: OutilsService) {
     this.angForm = this.fb.group({
       identifiant: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(5)]]
     })
@@ -29,7 +30,7 @@ export class LoginComponent {
     this.shake = false
     this.loginVisible = false
     this.surveillerChamp()
-    this.dataService.profilModifie.subscribe(valeursModifiees => {
+    this.apiService.profilModifie.subscribe(valeursModifiees => {
       if (valeursModifiees.includes('identifiant')) this.router.navigate(['/profil'])
     })
   }
@@ -38,7 +39,7 @@ export class LoginComponent {
     if (this.inputOk(identifiant)) {
       const bouton = <HTMLButtonElement> document.getElementById("loginButton")
       if (bouton != null) bouton.disabled = true
-      this.dataService.login(identifiant, false, true)
+      this.apiService.login(identifiant, false, true)
     } else {
       this.shake = true
       setTimeout(() => this.shake = false, 500)
@@ -59,7 +60,7 @@ export class LoginComponent {
     if (input.length != 0) this.defaut = false
     if (input.length < 4 && input.length != 0) this.errPetitNbChar = true
     if (input.length > 5) this.errGrandNbChar = true
-    if (!this.outils.onlyLettersAndNumbers(input)) this.errSpChar = true
+    if (!this.outilsService.onlyLettersAndNumbers(input)) this.errSpChar = true
     return (!this.defaut && !this.errSpChar && !this.errPetitNbChar && !this.errGrandNbChar)
   }
 

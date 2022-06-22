@@ -19,7 +19,7 @@ import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidential
 
 const routes: Routes = [
   { path: 'accueil', component: AccueilComponent, data: {title: 'topmaths.fr - Les maths au TOP !'} },
-  { path: 'objectif/:ref', component: ObjectifComponent },
+  { path: 'objectif/:reference', component: ObjectifComponent },
   { path: 'objectifs/:niveau/:theme/:sousTheme', component: ObjectifsComponent },
   { path: 'objectifs/:niveau/:theme', component: ObjectifsComponent },
   { path: 'objectifs/:niveau', component: ObjectifsComponent, data: {title: 'topmaths.fr - Objectifs'} },
@@ -27,7 +27,7 @@ const routes: Routes = [
   { path: 'sequences/:niveau', component: SequencesComponent, data: {title: 'topmaths.fr - Séquences'} },
   { path: 'sequences', redirectTo: 'sequences/tout' },
   { path: 'sequence/SPS1', component: SPS1Component, data: {title: 'topmaths.fr - Programmation'} },
-  { path: 'sequence/:ref', component: SequenceComponent },
+  { path: 'sequence/:reference', component: SequenceComponent },
   { path: 'login', component: LoginComponent, data: {title: 'topmaths.fr - Login'} },
   { path: 'profil/avatar', component: AvatarComponent, canActivate: [TimeguardGuard], data: {title: 'topmaths.fr - Avatar'}},
   { path: 'profil', component: ProfilComponent, canActivate: [AuthguardGuard], data: {title: 'topmaths.fr - Profil'} },
@@ -37,7 +37,7 @@ const routes: Routes = [
   { path: 'outils', component: OutilsComponent },
   { path: 'politique-de-confidentialite', component: PolitiqueDeConfidentialiteComponent, data: {title: 'topmaths.fr - Politique de confidentialité'} },
   { path: '', component: AccueilComponent },
-  { path: ':ref', component: ObjectifComponent },
+  { path: ':reference', component: ObjectifComponent },
   { path: '**', component: AccueilComponent }
 ];
 

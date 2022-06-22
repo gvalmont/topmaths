@@ -80,7 +80,7 @@ export class SequenceComponent implements OnInit {
    */
   observeChangementsDeRoute() {
     this.route.params.subscribe(params => {
-      this.reference = params.ref
+      this.reference = params.reference
       this.modificationDesAttributs()
     })
   }

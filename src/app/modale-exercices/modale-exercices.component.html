@@ -17,5 +17,5 @@
   </figure>
 </div>
 <!-- Confetti -->
-<ng-particles [id]="confetti.id" [options]="confetti.particlesOptions" (particlesLoaded)="confetti.particlesLoaded($event)" (particlesInit)="confetti.particlesInit($event)"></ng-particles>
+<ng-particles [id]="confettiService.id" [options]="confettiService.particlesOptions" (particlesLoaded)="confettiService.particlesLoaded($event)" (particlesInit)="confettiService.particlesInit($event)"></ng-particles>
 <div id="tsparticles"></div>

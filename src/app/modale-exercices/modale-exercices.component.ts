@@ -28,7 +28,8 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
   site: string
   listeExercices: Exercice[]
 
-  constructor(private http: HttpClient, private dataService: ApiService, public confetti: ConfettiService) {
+  // eslint-disable-next-line no-unused-vars
+  constructor(private httpClient: HttpClient, private apiService: ApiService, public confettiService: ConfettiService) {
     this.infosModale = [[], '', new Date()]
     this.lienSpinner = ''
     this.site = ''
@@ -37,7 +38,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     this.set('urlDejaFaits', [''])
     this.set('exercicesDejaFaits', [''])
     this.set('dateDerniereReponse', new Date())
-    setTimeout(() => this.confetti.stop(), 3000) // Sinon un reliquat reste apparent
+    setTimeout(() => this.confettiService.stop(), 3000) // Sinon un reliquat reste apparent
   }
 
   ngOnInit(): void {
@@ -66,9 +67,9 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
    * enfin lance la création du listener des messages post (car ces listes d'exercices seront "embed" avec le listener et ne pourra plus être modifiée)
    */
   recupererListeExercices() {
-    this.http.get<NiveauObjectif[]>('assets/data/objectifs.json').subscribe(niveaux => {
+    this.httpClient.get<NiveauObjectif[]>('assets/data/objectifs.json').subscribe(niveaux => {
       this.recupererExercicesObjectifs(niveaux)
-      this.http.get<NiveauSequence[]>('assets/data/sequences.json').subscribe(niveaux => {
+      this.httpClient.get<NiveauSequence[]>('assets/data/sequences.json').subscribe(niveaux => {
         this.recupererExercicesSequences(niveaux)
         this.creerListenerMessagesPost()
       })
@@ -170,7 +171,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     const nbBonnesReponses: number = data.nbBonnesReponses
     const nbMauvaisesReponses: number = data.nbMauvaisesReponses
     if (nbBonnesReponses > 0 && nbMauvaisesReponses == 0 && exercice.isInteractif) {
-      this.confetti.lanceConfetti()
+      this.confettiService.lanceConfetti()
     }
   }
 
@@ -339,11 +340,11 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
   }
 
   set(tag: string, objet: any) {
-    this.dataService.set('ME' + tag, objet)
+    this.apiService.set('ME' + tag, objet)
   }
 
   get(tag: string) {
-    return this.dataService.get('ME' + tag)
+    return this.apiService.get('ME' + tag)
   }
 
   isMathalea(url: string) {
