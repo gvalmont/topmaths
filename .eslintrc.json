@@ -62,6 +62,14 @@
         "eqeqeq": [
           "error",
           "always"
+        ],
+        "no-trailing-spaces": [
+          "error"
+        ],
+        "indent": [
+          "error",
+          2,
+          { "SwitchCase": 1 }
         ]
       }
     },

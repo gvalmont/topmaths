@@ -9,7 +9,7 @@ export class ConfettiService {
   confetti: Container
   particlesOptions!: any
   id : string
-  
+
   constructor() {
     this.id =  "tsparticles"
     this.confetti = new Container('tsparticles')
@@ -34,7 +34,7 @@ export class ConfettiService {
 
   /**
    * Récupère le container des particules et le met dans la variable this.confetti
-   * @param container 
+   * @param container
    */
   particlesLoaded(container: Container): void {
     this.confetti = container
@@ -42,7 +42,7 @@ export class ConfettiService {
 
   /**
    * Ne fait rien à l'initialisation
-   * @param main 
+   * @param main
    */
   particlesInit(main: Main): void {
   }
@@ -106,7 +106,7 @@ export class ConfettiService {
           },
           speed: 50, // the confetti speed, it's the starting value since gravity will affect it, and decay too
           decay: 0.1, // the speed decay over time, it's a decreasing value, every frame the decay will be multiplied by current particle speed and removed from that value
-  
+
         },
         outMode: { // what confettis should do offscreen?
           default: "destroy", // by default remove them

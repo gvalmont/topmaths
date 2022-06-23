@@ -79,8 +79,8 @@ export class ApiService {
   /**
    * Si l'utilisateur n'a pas de codeAvatar, renvoie le lien vers l'icone de base
    * Sinon, épure le codeAvatar et renvoie le lien vers son avatar (avec un ?user.codeAvatar épuré pour signaler une mise à jour et forcer le retéléchargement)
-   * @param user 
-   * @returns 
+   * @param user
+   * @returns
    */
   getLienAvatar(user: User) {
     let lienAvatar: string
@@ -143,7 +143,7 @@ export class ApiService {
     } else {
       let loginPage: string
       auto ? loginPage = 'autologin.php' : loginPage = 'login.php'
-      this.http.post<User[]>(GlobalConstants.apiUrl + loginPage, { identifiant: identifiant }).subscribe(users => {
+      this.http.post<User[]>(GlobalConstants.API_URL + loginPage, { identifiant: identifiant }).subscribe(users => {
         if (users[0].identifiant == 'personne') {
           console.log('identifiant non trouvé, on en crée un nouveau')
           this.registration(identifiant)
@@ -166,16 +166,16 @@ export class ApiService {
           }
         }
       },
-        error => {
-          console.log(error)
-        })
+      error => {
+        console.log(error)
+      })
     }
   }
 
   /**
    * Vérifie la longueur et la présence de caractères spéciaux dans la chaîne.
    * Si tout est ok, on passe l'identifiant à l'API pour le créer.
-   * @param identifiant 
+   * @param identifiant
    */
   registration(identifiant: string) {
     if (identifiant.length > 5 || identifiant.length < 4) {
@@ -192,7 +192,7 @@ export class ApiService {
         derniereSequence: '',
         dernierObjectif: ''
       }
-      this.http.post<User[]>(GlobalConstants.apiUrl + 'register.php', user).subscribe(users => {
+      this.http.post<User[]>(GlobalConstants.API_URL + 'register.php', user).subscribe(users => {
         this.isloggedIn = true
         this.setToken('identifiant', users[0].identifiant)
         this.setToken('version', this.derniereVersionToken)
@@ -279,7 +279,7 @@ export class ApiService {
     if (isDevMode()) {
       this.profilModifie.emit(['codeAvatar'])
     } else {
-      this.http.post<User[]>(GlobalConstants.apiUrl + 'majAvatar.php', { identifiant: this.user.identifiant, codeAvatar: this.user.codeAvatar, avatarSVG: avatarSVG }).subscribe(
+      this.http.post<User[]>(GlobalConstants.API_URL + 'majAvatar.php', { identifiant: this.user.identifiant, codeAvatar: this.user.codeAvatar, avatarSVG: avatarSVG }).subscribe(
         users => {
           this.profilModifie.emit(['codeAvatar'])
         },
@@ -318,7 +318,7 @@ export class ApiService {
     if (isDevMode()) {
       this.profilModifie.emit(valeursModifiees)
     } else {
-      this.http.post<User[]>(GlobalConstants.apiUrl + 'majProfil.php', this.user).subscribe(
+      this.http.post<User[]>(GlobalConstants.API_URL + 'majProfil.php', this.user).subscribe(
         users => {
           this.profilModifie.emit(valeursModifiees)
         },
@@ -384,7 +384,7 @@ export class ApiService {
 
   /**
    * Tests clients pour vérifier si l'input est correct
-   * @param input 
+   * @param input
    * @returns true si l'input est correct, false sinon
    */
   inputOk(input: string) {
@@ -402,7 +402,7 @@ export class ApiService {
   /**
    * Ecrit dans le localStorage les valeurs séparés par des '!' s'il y en a plusieurs
    * @param tag nom de la "variable"
-   * @param valeurs 
+   * @param valeurs
    */
   set(tag: string, objet: any) {
     localStorage.setItem(tag, JSON.stringify(objet))

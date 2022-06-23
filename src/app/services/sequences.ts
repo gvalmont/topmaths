@@ -77,7 +77,7 @@ export class QuestionFlash {
 export class SequenceParticuliere {
   public reference: string
   public titre: string
-  
+
   constructor(reference: string, titre: string) {
     this.reference = reference
     this.titre = titre

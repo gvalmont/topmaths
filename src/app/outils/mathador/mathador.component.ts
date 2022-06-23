@@ -58,7 +58,7 @@ export class MathadorComponent implements OnInit {
 
   /**
    * Renvoie un nombre entier entre min et max inclus
-   * @param min 
+   * @param min
    * @param max
    * @returns nombre entier entre min et max inclus
    */
@@ -113,8 +113,8 @@ export class MathadorComponent implements OnInit {
    * Fait tous les calculs possibles à partir des nombres de poolDeNombres et des signes de signesDisponibles.
    * Dans chaque cas, reconstitue un nouveau pool de nombres en regroupant les nombres inutilisés et le résultat obtenu
    * Renvoie tous ces nouveaux pool de nombres ainsi que les signes disponibles restants dans une liste d'objets possibilités
-   * @param poolDeNombres 
-   * @param signesDisponibles 
+   * @param poolDeNombres
+   * @param signesDisponibles
    * @returns possibilites
    */
   determinerPossibilites(poolDeNombres: number[], signesDisponibles: string[]) {
@@ -149,9 +149,9 @@ export class MathadorComponent implements OnInit {
 
   /**
    * Effectue l'opération entre le max de nombre1 et nombre2 et leur min
-   * @param nombre1 
-   * @param nombre2 
-   * @param operation 
+   * @param nombre1
+   * @param nombre2
+   * @param operation
    * @returns {resultat: number, calcul: string} resultat est un nombre servant pour la suite des calculs et calcul est une version LateX du calcul servant plus tard pour l'affichage des solutions.
    */
   calculer(nombre1: number, nombre2: number, operation: string) {
@@ -181,8 +181,8 @@ export class MathadorComponent implements OnInit {
    * - un nombre n'est pas positif
    * - un nombre n'est pas entier
    * Renvoie true sinon
-   * @param possibilite 
-   * @returns 
+   * @param possibilite
+   * @returns
    */
   lesNombresPassentLeFiltre(possibilite: Possibilite) {
     for (const nombre of possibilite.nombres) {
@@ -198,8 +198,8 @@ export class MathadorComponent implements OnInit {
 
   /**
    * Vérifie si une solutionCandidate existe déja dans les solutions
-   * @param solutionCandidate 
-   * @param solutions 
+   * @param solutionCandidate
+   * @param solutions
    * @returns true si la solutionCandidate existe déjà dans les solutions
    */
   solutionPresente(solutionCandidate: Solution, solutions: Solution[]) {

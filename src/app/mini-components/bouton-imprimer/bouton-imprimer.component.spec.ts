@@ -10,7 +10,7 @@ describe('BoutonImprimerComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ BoutonImprimerComponent ]
     })
-    .compileComponents()
+      .compileComponents()
   })
 
   beforeEach(() => {

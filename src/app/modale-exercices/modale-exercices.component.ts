@@ -87,7 +87,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
               })
               this.listeExercices[this.listeExercices.length - 1].lien = this.listeExercices[this.listeExercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
               if (exercice.slug.slice(0, 25) === 'https://mathsmentales.net') {
-                this.listeExercices[this.listeExercices.length - 1].lien = exercice.slug + '&embed=' + GlobalConstants.origine
+                this.listeExercices[this.listeExercices.length - 1].lien = exercice.slug + '&embed=' + GlobalConstants.ORIGINE
               } else if (exercice.slug.slice(0, 4) === 'http') {
                 this.listeExercices[this.listeExercices.length - 1].lien = exercice.slug
               }
@@ -104,7 +104,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
         for (const calculMental of sequence.calculsMentaux) {
           for (const niveau of calculMental.niveaux) {
             this.listeExercices.push({
-              lien: niveau.lien + '&embed=' + GlobalConstants.origine,
+              lien: niveau.lien + '&embed=' + GlobalConstants.ORIGINE,
               isInteractif: false
             })
           }
@@ -198,7 +198,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     this.ajouterIframe(urlExerciceSuivant)
   }
 
-   recupererElementsHTML() {
+  recupererElementsHTML() {
     let element = document.getElementById("modaleExercices")
     if (element !== null) this.modale = element
     element = document.getElementById("modaleExercicesUrl")

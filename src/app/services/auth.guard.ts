@@ -11,9 +11,9 @@ export class AuthguardGuard implements CanActivate {
 
   /**
    * Fonction qui sert à déterminer si l'utilisateur a le droit d'emprunter une route
-   * @param route 
-   * @param state 
-   * @returns 
+   * @param route
+   * @param state
+   * @returns
    */
   canActivate(
     route: ActivatedRouteSnapshot,

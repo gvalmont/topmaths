@@ -10,7 +10,7 @@ describe('RevisionsComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ RevisionsComponent ]
     })
-    .compileComponents()
+      .compileComponents()
   })
 
   beforeEach(() => {

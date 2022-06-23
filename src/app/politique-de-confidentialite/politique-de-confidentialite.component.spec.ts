@@ -10,7 +10,7 @@ describe('PolitiqueDeConfidentialiteComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ PolitiqueDeConfidentialiteComponent ]
     })
-    .compileComponents()
+      .compileComponents()
   })
 
   beforeEach(() => {

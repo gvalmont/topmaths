@@ -16,8 +16,8 @@ export class TimeguardGuard implements CanActivate {
 
   /**
    * Fonction qui sert à déterminer si l'utilisateur a le droit d'emprunter une route
-   * @param route 
-   * @param state 
+   * @param route
+   * @param state
    * @returns true s'il peut l'emprunter, false sinon
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {

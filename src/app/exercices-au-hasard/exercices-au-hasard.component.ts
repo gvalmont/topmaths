@@ -116,7 +116,7 @@ export class ExercicesAuHasardComponent {
                     })
                     listeExercices[listeExercices.length - 1].lien = listeExercices[listeExercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
                     if (exercice.slug.slice(0, 25) === 'https://mathsmentales.net') {
-                      listeExercices[listeExercices.length - 1].lien = exercice.slug + '&embed=' + GlobalConstants.origine
+                      listeExercices[listeExercices.length - 1].lien = exercice.slug + '&embed=' + GlobalConstants.ORIGINE
                     } else if (exercice.slug.slice(0, 4) === 'http') {
                       listeExercices[listeExercices.length - 1].lien = exercice.slug
                     }

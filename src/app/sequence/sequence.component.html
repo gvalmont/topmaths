@@ -2,7 +2,7 @@
   <h1 [class]="'title is-2 is-' + niveau" [innerHTML]="titre"></h1>
   <div [class]="'is-' + niveau">
     <h2 [class]="'subtitle is-3 is-' + niveau">Objectifs</h2>
-    <p>Cette séquence a {{nombreObjectifs(objectifs.length)}} :</p>
+    <p>Cette séquence a {{ getStringNombreObjectifs(objectifs.length) }} :</p>
     <div class="p-1 pb-5 is-size-5">
       <div *ngFor="let objectif of objectifs" class="p-1">
         <a [routerLink]="['/objectif',objectif.reference]">{{objectif.reference}} : {{objectif.titre}}</a>
@@ -38,7 +38,7 @@
     </div>
   </div>
   <ng-template #divPasDeCalculMental>
-    <div *ngIf="calculsMentaux[0].niveaux[0] !== undefined && calculsMentaux[0].niveaux[0].commentaire !== ''" [class]="'pb-5 is-' + niveau">
+    <div *ngIf="calculsMentaux[0] !== undefined && calculsMentaux[0].niveaux[0] !== undefined && calculsMentaux[0].niveaux[0].commentaire !== ''" [class]="'pb-5 is-' + niveau">
       <h2 [class]="'subtitle is-3 is-' + niveau">Calcul Mental</h2><br>
       <p [mathjax]="calculsMentaux[0].niveaux[0].commentaire" class="is-size-5"></p>
     </div>

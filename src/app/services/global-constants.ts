@@ -1,4 +1,4 @@
 export class GlobalConstants {
-  public static origine: string = 'https://topmaths.fr/'
-  public static apiUrl: string = 'https://api.topmaths.fr/'
+  public static ORIGINE: string = 'https://topmaths.fr/'
+  public static API_URL: string = 'https://api.topmaths.fr/'
 }

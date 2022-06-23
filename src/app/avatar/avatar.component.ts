@@ -336,7 +336,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
 
   /**
    * Renvoie un string contenant les différents éléments de l'array séparés par des tirets
-   * @param accessoires 
+   * @param accessoires
    * @returns string
    */
   getAccessoiresId(accessoires: number[]) {

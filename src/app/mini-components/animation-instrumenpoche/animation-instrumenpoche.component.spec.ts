@@ -10,7 +10,7 @@ describe('AnimationInstrumenpocheComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ AnimationInstrumenpocheComponent ]
     })
-    .compileComponents()
+      .compileComponents()
   })
 
   beforeEach(() => {

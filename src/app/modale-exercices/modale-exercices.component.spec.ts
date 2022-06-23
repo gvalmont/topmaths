@@ -10,7 +10,7 @@ describe('ModaleExercicesComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ ModaleExercicesComponent ]
     })
-    .compileComponents()
+      .compileComponents()
   })
 
   beforeEach(() => {

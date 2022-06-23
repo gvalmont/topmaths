@@ -10,7 +10,7 @@ describe('SPS1Component', () => {
     await TestBed.configureTestingModule({
       declarations: [ SPS1Component ]
     })
-    .compileComponents()
+      .compileComponents()
   })
 
   beforeEach(() => {
