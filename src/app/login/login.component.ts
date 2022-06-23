@@ -38,7 +38,7 @@ export class LoginComponent {
   login(identifiant: string) {
     if (this.inputOk(identifiant)) {
       const bouton = <HTMLButtonElement> document.getElementById("loginButton")
-      if (bouton != null) bouton.disabled = true
+      if (bouton !== null) bouton.disabled = true
       this.apiService.login(identifiant, false, true)
     } else {
       this.shake = true
@@ -57,8 +57,8 @@ export class LoginComponent {
     this.errSpChar = false
     this.errPetitNbChar = false
     this.errGrandNbChar = false
-    if (input.length != 0) this.defaut = false
-    if (input.length < 4 && input.length != 0) this.errPetitNbChar = true
+    if (input.length !== 0) this.defaut = false
+    if (input.length < 4 && input.length !== 0) this.errPetitNbChar = true
     if (input.length > 5) this.errGrandNbChar = true
     if (!this.outilsService.onlyLettersAndNumbers(input)) this.errSpChar = true
     return (!this.defaut && !this.errSpChar && !this.errPetitNbChar && !this.errGrandNbChar)

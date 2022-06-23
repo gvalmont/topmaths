@@ -83,13 +83,13 @@ export class AvatarComponent implements OnInit, OnDestroy {
 
   MAJDiv() {
     let div = document.getElementById("panneauPrincipal")
-    if (div != null) this.panneauPrincipal = div
+    if (div !== null) this.panneauPrincipal = div
     div = document.getElementById('divAvatarEnCreation')
-    if (div != null) this.divAvatarEnCreation = div
+    if (div !== null) this.divAvatarEnCreation = div
     div = document.getElementById("modaleConfirmation")
-    if (div != null) this.modaleConfirmation = div
+    if (div !== null) this.modaleConfirmation = div
     div = document.getElementById("modaleConfirmationDivAvatarEnCreation")
-    if (div != null) this.modaleConfirmationDivAvatarEnCreation = div
+    if (div !== null) this.modaleConfirmationDivAvatarEnCreation = div
   }
 
   /**
@@ -109,7 +109,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
   }
 
   MAJParametresAvatarActuel() {
-    if (this.apiService.user.codeAvatar != '') {
+    if (this.apiService.user.codeAvatar !== '') {
       const parametres = this.apiService.user.codeAvatar.split('&')
       this.skinColor = parametres[0]
       this.eyes = parseInt(parametres[1])
@@ -125,7 +125,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
   }
 
   MAJPage() {
-    if (typeof (this.avatarsDef) == 'undefined') {
+    if (typeof (this.avatarsDef) === 'undefined') {
       this.httpClient.get<AvatarsDef>('assets/data/avatars-def.json').subscribe(avatarsDef => {
         this.avatarsDef = avatarsDef
         this.MAJMenu()
@@ -143,19 +143,19 @@ export class AvatarComponent implements OnInit, OnDestroy {
 
   MAJMenu() {
     const skinColorMenu = document.getElementById("skinColorMenu")
-    if (skinColorMenu != null) this.ajouterSVG(skinColorMenu, { skinColor: this.skinColor })
+    if (skinColorMenu !== null) this.ajouterSVG(skinColorMenu, { skinColor: this.skinColor })
     const eyesMenu = document.getElementById("eyesMenu")
-    if (eyesMenu != null) this.ajouterSVG(eyesMenu, { eyes: this.eyes })
+    if (eyesMenu !== null) this.ajouterSVG(eyesMenu, { eyes: this.eyes })
     const eyebrowsMenu = document.getElementById("eyebrowsMenu")
-    if (eyebrowsMenu != null) this.ajouterSVG(eyebrowsMenu, { eyebrows: this.eyebrows })
+    if (eyebrowsMenu !== null) this.ajouterSVG(eyebrowsMenu, { eyebrows: this.eyebrows })
     const mouthMenu = document.getElementById("mouthMenu")
-    if (mouthMenu != null) this.ajouterSVG(mouthMenu, { mouth: this.mouth })
+    if (mouthMenu !== null) this.ajouterSVG(mouthMenu, { mouth: this.mouth })
     const accessoiresMenu = document.getElementById("accessoiresMenu")
-    if (accessoiresMenu != null) this.ajouterSVG(accessoiresMenu, { accessoires: this.accessoires })
+    if (accessoiresMenu !== null) this.ajouterSVG(accessoiresMenu, { accessoires: this.accessoires })
     const hairMenu = document.getElementById("hairMenu")
-    if (hairMenu != null) this.ajouterSVG(hairMenu, { hair: this.hair })
+    if (hairMenu !== null) this.ajouterSVG(hairMenu, { hair: this.hair })
     const hairColorMenu = document.getElementById("hairColorMenu")
-    if (hairColorMenu != null) this.ajouterSVG(hairColorMenu, { hairColor: this.hairColor })
+    if (hairColorMenu !== null) this.ajouterSVG(hairColorMenu, { hairColor: this.hairColor })
   }
 
   MAJPanneauPrincipal() {
@@ -204,36 +204,36 @@ export class AvatarComponent implements OnInit, OnDestroy {
 
   sauvegarderDonneesAvatar() {
     const skinColorDiv = document.getElementById("skinColor")
-    if (skinColorDiv != null) skinColorDiv.innerText = this.skinColor
+    if (skinColorDiv !== null) skinColorDiv.innerText = this.skinColor
     const eyesDiv = document.getElementById("eyes")
-    if (eyesDiv != null) eyesDiv.innerText = this.eyes.toString()
+    if (eyesDiv !== null) eyesDiv.innerText = this.eyes.toString()
     const eyebrowsDiv = document.getElementById("eyebrows")
-    if (eyebrowsDiv != null) eyebrowsDiv.innerText = this.eyebrows.toString()
+    if (eyebrowsDiv !== null) eyebrowsDiv.innerText = this.eyebrows.toString()
     const mouthDiv = document.getElementById("mouth")
-    if (mouthDiv != null) mouthDiv.innerText = this.mouth.toString()
+    if (mouthDiv !== null) mouthDiv.innerText = this.mouth.toString()
     const accessoiresDiv = document.getElementById("accessoires")
-    if (accessoiresDiv != null) accessoiresDiv.innerText = this.accessoires.toString()
+    if (accessoiresDiv !== null) accessoiresDiv.innerText = this.accessoires.toString()
     const hairDiv = document.getElementById("hair")
-    if (hairDiv != null) hairDiv.innerText = this.hair.toString()
+    if (hairDiv !== null) hairDiv.innerText = this.hair.toString()
     const hairColorDiv = document.getElementById("hairColor")
-    if (hairColorDiv != null) hairColorDiv.innerText = this.hairColor
+    if (hairColorDiv !== null) hairColorDiv.innerText = this.hairColor
   }
 
   recupererDonneesAvatar() {
     const skinColorDiv = document.getElementById("skinColor")
-    if (skinColorDiv != null) this.skinColor = skinColorDiv.innerText
+    if (skinColorDiv !== null) this.skinColor = skinColorDiv.innerText
     const eyesDiv = document.getElementById("eyes")
-    if (eyesDiv != null) this.eyes = parseInt(eyesDiv.innerText)
+    if (eyesDiv !== null) this.eyes = parseInt(eyesDiv.innerText)
     const eyebrowsDiv = document.getElementById("eyebrows")
-    if (eyebrowsDiv != null) this.eyebrows = parseInt(eyebrowsDiv.innerText)
+    if (eyebrowsDiv !== null) this.eyebrows = parseInt(eyebrowsDiv.innerText)
     const mouthDiv = document.getElementById("mouth")
-    if (mouthDiv != null) this.mouth = parseInt(mouthDiv.innerText)
+    if (mouthDiv !== null) this.mouth = parseInt(mouthDiv.innerText)
     const accessoiresDiv = document.getElementById("accessoires")
-    if (accessoiresDiv != null) this.accessoires = [parseInt(accessoiresDiv.innerText)]
+    if (accessoiresDiv !== null) this.accessoires = [parseInt(accessoiresDiv.innerText)]
     const hairDiv = document.getElementById("hair")
-    if (hairDiv != null) this.hair = parseInt(hairDiv.innerText)
+    if (hairDiv !== null) this.hair = parseInt(hairDiv.innerText)
     const hairColorDiv = document.getElementById("hairColor")
-    if (hairColorDiv != null) this.hairColor = hairColorDiv.innerText
+    if (hairColorDiv !== null) this.hairColor = hairColorDiv.innerText
     this.ajouterSVG(this.divAvatarEnCreation, { eyes: this.eyes, eyebrows: this.eyebrows, mouth: this.mouth, accessoires: this.accessoires, hair: this.hair })
     this.MAJMenu()
   }
@@ -246,35 +246,35 @@ export class AvatarComponent implements OnInit, OnDestroy {
 
   genererCodeHTMLduSVG(cibleAAttacher: HTMLElement, parametres: { skinColor?: string, eyes?: number, eyebrows?: number, mouth?: number, accessoires?: number[], hair?: number, hairColor?: string }) {
     this.codeHTMLduSVG = this.avatarsDef.baliseOuverture
-    if (cibleAAttacher.id == 'panneauPrincipal' || cibleAAttacher.id == 'divAvatarEnCreation') { // Panneau principal ou avatar en cours de création
+    if (cibleAAttacher.id === 'panneauPrincipal' || cibleAAttacher.id === 'divAvatarEnCreation') { // Panneau principal ou avatar en cours de création
       this.codeHTMLduSVG += "<g transform=\"translate(38.1 38.1) scale(0.9)\">"
       this.codeHTMLduSVG += this.avatarsDef.visage
-      if (typeof (parametres.skinColor) != 'undefined') this.codeHTMLduSVG = this.codeHTMLduSVG.replace(/colorsSkinValue/g, parametres.skinColor)
-      this.ajouterTrait(this.avatarsDef.eyes[typeof (parametres.eyes) != 'undefined' ? parametres.eyes : this.eyes], 'yeux')
-      this.ajouterTrait(this.avatarsDef.eyebrows[typeof (parametres.eyebrows) != 'undefined' ? parametres.eyebrows : this.eyebrows], 'sourcils')
-      this.ajouterTrait(this.avatarsDef.mouth[typeof (parametres.mouth) != 'undefined' ? parametres.mouth : this.mouth], 'bouche')
-      for (const accessoire of typeof (parametres.accessoires) != 'undefined' ? parametres.accessoires : this.accessoires) {
+      if (typeof (parametres.skinColor) !== 'undefined') this.codeHTMLduSVG = this.codeHTMLduSVG.replace(/colorsSkinValue/g, parametres.skinColor)
+      this.ajouterTrait(this.avatarsDef.eyes[typeof (parametres.eyes) !== 'undefined' ? parametres.eyes : this.eyes], 'yeux')
+      this.ajouterTrait(this.avatarsDef.eyebrows[typeof (parametres.eyebrows) !== 'undefined' ? parametres.eyebrows : this.eyebrows], 'sourcils')
+      this.ajouterTrait(this.avatarsDef.mouth[typeof (parametres.mouth) !== 'undefined' ? parametres.mouth : this.mouth], 'bouche')
+      for (const accessoire of typeof (parametres.accessoires) !== 'undefined' ? parametres.accessoires : this.accessoires) {
         this.ajouterTrait(this.avatarsDef.accessoires[accessoire], 'accessoire')
       }
-      this.ajouterTrait(this.avatarsDef.hair[typeof (parametres.hair) != 'undefined' ? parametres.hair : this.hair], 'cheveux')
-      if (typeof (parametres.hairColor) != 'undefined') this.codeHTMLduSVG = this.codeHTMLduSVG.replace(/colorsHairValue/g, parametres.hairColor)
+      this.ajouterTrait(this.avatarsDef.hair[typeof (parametres.hair) !== 'undefined' ? parametres.hair : this.hair], 'cheveux')
+      if (typeof (parametres.hairColor) !== 'undefined') this.codeHTMLduSVG = this.codeHTMLduSVG.replace(/colorsHairValue/g, parametres.hairColor)
     } else { // Menu
       this.codeHTMLduSVG += "<g transform=\"translate(38.1 38.1) scale(0.9)\">"
       this.codeHTMLduSVG += this.avatarsDef.visageBlanc
-      if (typeof (parametres.skinColor) == 'undefined') {
+      if (typeof (parametres.skinColor) === 'undefined') {
         this.codeHTMLduSVG += this.avatarsDef.visageBlanc
       } else {
         this.codeHTMLduSVG += this.avatarsDef.visage
       }
-      if (typeof (parametres.eyes) != 'undefined') this.ajouterTrait(this.avatarsDef.eyes[parametres.eyes], 'yeux')
-      if (typeof (parametres.eyebrows) != 'undefined') this.ajouterTrait(this.avatarsDef.eyebrows[parametres.eyebrows], 'sourcils')
-      if (typeof (parametres.mouth) != 'undefined') this.ajouterTrait(this.avatarsDef.mouth[parametres.mouth], 'bouche')
-      if (typeof (parametres.accessoires) != 'undefined') for (const accessoire of parametres.accessoires) {
+      if (typeof (parametres.eyes) !== 'undefined') this.ajouterTrait(this.avatarsDef.eyes[parametres.eyes], 'yeux')
+      if (typeof (parametres.eyebrows) !== 'undefined') this.ajouterTrait(this.avatarsDef.eyebrows[parametres.eyebrows], 'sourcils')
+      if (typeof (parametres.mouth) !== 'undefined') this.ajouterTrait(this.avatarsDef.mouth[parametres.mouth], 'bouche')
+      if (typeof (parametres.accessoires) !== 'undefined') for (const accessoire of parametres.accessoires) {
         this.ajouterTrait(this.avatarsDef.accessoires[accessoire], 'accessoires')
       }
-      if (typeof (parametres.hair) != 'undefined') this.ajouterTrait(this.avatarsDef.hair[parametres.hair], 'cheveux')
-      if (typeof (parametres.hairColor) != 'undefined') this.ajouterTrait(this.avatarsDef.hair[this.hair], 'cheveux')
-      if (typeof (parametres.hairColor) == 'undefined') this.codeHTMLduSVG = this.codeHTMLduSVG.replace(/colorsHairValue/g, '#000')
+      if (typeof (parametres.hair) !== 'undefined') this.ajouterTrait(this.avatarsDef.hair[parametres.hair], 'cheveux')
+      if (typeof (parametres.hairColor) !== 'undefined') this.ajouterTrait(this.avatarsDef.hair[this.hair], 'cheveux')
+      if (typeof (parametres.hairColor) === 'undefined') this.codeHTMLduSVG = this.codeHTMLduSVG.replace(/colorsHairValue/g, '#000')
     }
     this.codeHTMLduSVG = this.codeHTMLduSVG.replace(/colorsSkinValue/g, this.skinColor)
     this.codeHTMLduSVG = this.codeHTMLduSVG.replace(/colorsHairValue/g, this.hairColor)
@@ -295,11 +295,11 @@ export class AvatarComponent implements OnInit, OnDestroy {
   genererDivSVG(cibleAAttacher: HTMLElement, parametres: { skinColor?: string, eyes?: number, eyebrows?: number, mouth?: number, accessoires?: number[], hair?: number, hairColor?: string }) {
     const divSVG = document.createElement('div')
     divSVG.innerHTML = this.codeHTMLduSVG
-    if (cibleAAttacher.id == 'panneauPrincipal') { // Stocker le type de paramètre et sa valeur dans l'id du div
-      divSVG.id = typeof (parametres.skinColor) != 'undefined' ? 'skin' + parametres.skinColor : typeof (parametres.eyes) != 'undefined' ? 'eyes' + parametres.eyes :
-        typeof (parametres.eyebrows) != 'undefined' ? 'eyeb' + parametres.eyebrows : typeof (parametres.mouth) != 'undefined' ? 'mout' + parametres.mouth :
-          typeof (parametres.accessoires) != 'undefined' ? 'acce' + this.getAccessoiresId(parametres.accessoires) :
-            typeof (parametres.hair) != 'undefined' ? 'hair' + parametres.hair : typeof (parametres.hairColor) != 'undefined' ? 'hcol' + parametres.hairColor : 'inconnu'
+    if (cibleAAttacher.id === 'panneauPrincipal') { // Stocker le type de paramètre et sa valeur dans l'id du div
+      divSVG.id = typeof (parametres.skinColor) !== 'undefined' ? 'skin' + parametres.skinColor : typeof (parametres.eyes) !== 'undefined' ? 'eyes' + parametres.eyes :
+        typeof (parametres.eyebrows) !== 'undefined' ? 'eyeb' + parametres.eyebrows : typeof (parametres.mouth) !== 'undefined' ? 'mout' + parametres.mouth :
+          typeof (parametres.accessoires) !== 'undefined' ? 'acce' + this.getAccessoiresId(parametres.accessoires) :
+            typeof (parametres.hair) !== 'undefined' ? 'hair' + parametres.hair : typeof (parametres.hairColor) !== 'undefined' ? 'hcol' + parametres.hairColor : 'inconnu'
     }
     divSVG.onclick = (function () { // onclick, stocker la valeur du div cliqué dans le div de stockage correspondant
       let div: HTMLElement | null = null
@@ -326,7 +326,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
           div = document.getElementById('hairColor')
           break
       }
-      if (div != null) {
+      if (div !== null) {
         div.innerHTML = divSVG.id.slice(4)
       }
     })
@@ -348,9 +348,9 @@ export class AvatarComponent implements OnInit, OnDestroy {
   }
 
   attacherDivSVG(cibleAAttacher: HTMLElement, divSVG: HTMLDivElement) {
-    if (cibleAAttacher.id == 'panneauPrincipal') {
+    if (cibleAAttacher.id === 'panneauPrincipal') {
       cibleAAttacher.appendChild(divSVG)
-    } else if (cibleAAttacher.id == 'divAvatarEnCreation') {
+    } else if (cibleAAttacher.id === 'divAvatarEnCreation') {
       divSVG.className = 'is-inline-block'
       cibleAAttacher.replaceChild(divSVG.childNodes[0], cibleAAttacher.childNodes[0])
     } else {
@@ -368,7 +368,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
   getAvatarFichierSVG() {
     const divAvatarEnCreation = document.getElementById("divAvatarEnCreation")
     let svgData = ''
-    if (divAvatarEnCreation != null) svgData = new XMLSerializer().serializeToString(divAvatarEnCreation.childNodes[0])
+    if (divAvatarEnCreation !== null) svgData = new XMLSerializer().serializeToString(divAvatarEnCreation.childNodes[0])
     return "data:image/codeHTMLduSVG+xml;base64," + btoa(svgData)
   }
 

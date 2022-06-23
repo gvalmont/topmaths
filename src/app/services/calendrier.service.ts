@@ -43,7 +43,7 @@ export class CalendrierService {
   }
 
   MAJProprietes() {
-    if (typeof this.annees != 'undefined') {
+    if (typeof this.annees !== 'undefined') {
       this.annee = new Date().getFullYear()
       this.jourNumero = this.getDayOfYear()
       for (const annee of this.annees) {

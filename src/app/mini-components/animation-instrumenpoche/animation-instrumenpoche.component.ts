@@ -9,16 +9,17 @@ declare const iep: any
 })
 export class AnimationInstrumenpocheComponent implements OnInit {
   @Input() nomAnimation: string
-  largeurAnimation = '600'
-  hauteurAnimation = '600'
+  largeurAnimation: string = '600'
+  hauteurAnimation: string = '600'
 
   // eslint-disable-next-line no-unused-vars
   constructor(private httpClient: HttpClient) {
     this.nomAnimation = ''
+    this.largeurAnimation = '600'
+    this.hauteurAnimation = '600'
   }
 
   ngOnInit(): void {
-
     /**
      * Affiche une erreur dans la page
      * @param {Error|string} error
@@ -29,7 +30,7 @@ export class AnimationInstrumenpocheComponent implements OnInit {
       const txt = document.createTextNode(error.toString())
       pre.appendChild(txt)
       const errorsHTML = document.getElementById('errors')
-      if (errorsHTML != null) errorsHTML.appendChild(pre)
+      if (errorsHTML !== null) errorsHTML.appendChild(pre)
     }
     try {
       this.httpClient.request('GET', 'assets/data/instrumenpoche/' + this.nomAnimation + '.xml', {responseType:'text'}).subscribe(xml => {
@@ -38,7 +39,7 @@ export class AnimationInstrumenpocheComponent implements OnInit {
         svg.setAttributeNS(null, "width", this.largeurAnimation)
         svg.setAttributeNS(null, "height", this.hauteurAnimation)
         svg.setAttributeNS(null, "id", "svg")
-        if (container != null) {
+        if (container !== null) {
           container.appendChild(svg)
           const iepApp = new iep.iepApp()
           iepApp.addDoc(svg, xml.replace(/\$/g, ''), true /* autostart */)
@@ -48,7 +49,5 @@ export class AnimationInstrumenpocheComponent implements OnInit {
       displayError("Le lecteur a échoué à lire le script fourni")
       console.error(error)
     }
-
   }
-
 }

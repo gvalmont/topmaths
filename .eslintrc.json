@@ -58,6 +58,10 @@
         "spaced-comment": [
           "error",
           "always"
+        ],
+        "eqeqeq": [
+          "error",
+          "always"
         ]
       }
     },

@@ -25,14 +25,12 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
   boutonCopier!: HTMLElement
   boutonCopierLoading!: HTMLElement
   lienSpinner: string
-  site: string
   listeExercices: Exercice[]
 
   // eslint-disable-next-line no-unused-vars
   constructor(private httpClient: HttpClient, private apiService: ApiService, public confettiService: ConfettiService) {
     this.infosModale = [[], '', new Date()]
     this.lienSpinner = ''
-    this.site = ''
     this.listeExercices = []
     this.set('indiceExerciceActuel', 0)
     this.set('urlDejaFaits', [''])
@@ -47,16 +45,17 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (typeof (changes.infosModale) != 'undefined') {
+    if (typeof (changes.infosModale) !== 'undefined') {
       if (!changes.infosModale.isFirstChange()) {
         this.set('listeDesUrl', changes.infosModale.currentValue[0])
         this.set('type', changes.infosModale.currentValue[1])
+        let site: string = ''
         if (this.isMathsmentales(this.get('listeDesUrl')[0])) {
-          this.site = 'mathsmentales'
+          site = 'mathsmentales'
         } else if (this.isMathalea(this.get('listeDesUrl')[0])) {
-          this.site = 'mathalea'
+          site = 'mathalea'
         }
-        this.parametrage()
+        this.parametrage(site)
       }
     }
   }
@@ -87,9 +86,9 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
                 isInteractif: exercice.isInteractif
               })
               this.listeExercices[this.listeExercices.length - 1].lien = this.listeExercices[this.listeExercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
-              if (exercice.slug.slice(0, 25) == 'https://mathsmentales.net') {
+              if (exercice.slug.slice(0, 25) === 'https://mathsmentales.net') {
                 this.listeExercices[this.listeExercices.length - 1].lien = exercice.slug + '&embed=' + GlobalConstants.origine
-              } else if (exercice.slug.slice(0, 4) == 'http') {
+              } else if (exercice.slug.slice(0, 4) === 'http') {
                 this.listeExercices[this.listeExercices.length - 1].lien = exercice.slug
               }
             }
@@ -116,7 +115,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
 
   creerListenerMessagesPost() {
     const divListenerExistant = document.getElementById('modaleExercicesListener')
-    if (divListenerExistant == null) {
+    if (divListenerExistant === null) {
       this.creerDivPresenceListener()
       window.addEventListener('message', (event) => {
         const type: string = this.get('type')
@@ -125,17 +124,17 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
         const dateNouvelleReponse: Date = new Date()
         if (dateNouvelleReponse.getTime() - dateDerniereReponse.getTime() > 200) {
           const url: string = event.data.url
-          if (typeof (url) != 'undefined') {
-            if (event.data.exercicesAffiches == true || event.data.ready == 'ok') {
+          if (typeof (url) !== 'undefined') {
+            if (event.data.exercicesAffiches === true || event.data.ready === 'ok') {
               this.fermerEcranDeChargement(type, url, urlDejaFaits)
               this.set('lienACopier', url)
-            } else if (event.data.nbBonnesReponses != null) {
+            } else if (event.data.nbBonnesReponses !== null) {
               for (const exercice of this.listeExercices) {
-                if (typeof (exercice.lien) != 'undefined') {
+                if (typeof (exercice.lien) !== 'undefined') {
                   // A décommenter pour débugger lorsqu'il n'y a pas de confetti
                   // console.log('lienACopier ' + exercice.lien)
                   // console.log('url ' + url)
-                  if (url.split('&serie=')[0].split(',i=')[0] == exercice.lien.split('&serie=')[0].split(',i=')[0]) { // Lorsqu'un exercice n'est pas interactifReady, le ,i=0 est retiré de l'url
+                  if (url.split('&serie=')[0].split(',i=')[0] === exercice.lien.split('&serie=')[0].split(',i=')[0]) { // Lorsqu'un exercice n'est pas interactifReady, le ,i=0 est retiré de l'url
                     this.lancerLesConfetti(exercice, event.data)
                     const graine = event.data.graine
                     this.MAJurlDejaFaits(type, exercice, graine, url, urlDejaFaits)
@@ -156,9 +155,9 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
   }
 
   fermerEcranDeChargement(type: string, url: string, urlDejaFaits: string[]) {
-    if (type == '') {
+    if (type === '') {
       this.hideLoadingScreen()
-    } else if (type == 'exerciceAuHasard') {
+    } else if (type === 'exerciceAuHasard') {
       if (urlDejaFaits.includes(url.split('&serie=')[0].split(',i=')[0])) {
         this.exerciceAleatoireSuivant()
       } else {
@@ -170,7 +169,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
   lancerLesConfetti(exercice: Exercice, data: any) {
     const nbBonnesReponses: number = data.nbBonnesReponses
     const nbMauvaisesReponses: number = data.nbMauvaisesReponses
-    if (nbBonnesReponses > 0 && nbMauvaisesReponses == 0 && exercice.isInteractif) {
+    if (nbBonnesReponses > 0 && nbMauvaisesReponses === 0 && exercice.isInteractif) {
       this.confettiService.lanceConfetti()
     }
   }
@@ -201,41 +200,31 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
 
    recupererElementsHTML() {
     let element = document.getElementById("modaleExercices")
-    if (element != null) this.modale = element
+    if (element !== null) this.modale = element
     element = document.getElementById("modaleExercicesUrl")
-    if (element != null) this.modaleUrl = element
+    if (element !== null) this.modaleUrl = element
     element = document.getElementById("modal-copy")
-    if (element != null) this.boutonCopier = element
+    if (element !== null) this.boutonCopier = element
     element = document.getElementById("modal-cross")
-    if (element != null) this.boutonFermer = element
+    if (element !== null) this.boutonFermer = element
     element = document.getElementById("boutonCopierLoading")
-    if (element != null) this.boutonCopierLoading = element
+    if (element !== null) this.boutonCopierLoading = element
   }
 
-  /**
-   * Pour mathsmentales, une fois l'iframe chargée on enlève le spinner
-   * Pour mathaléa, il reste encore pas mal de choses à charger, on attend le message post
-   */
-  isLoaded() {
-    if (this.site == 'mathsmentales') {
-      this.hideLoadingScreen()
-    }
-  }
-
-  parametrage() {
+  parametrage(site: string) {
     this.modale.style.display = 'block'
     const type = this.get('type')
     if (!isDevMode()) this.displayLoadingScreen()
     this.creeListeIndicesExercices()
     let url: string = ''
-    if (type == 'exerciceAuHasard') {
+    if (type === 'exerciceAuHasard') {
       url = this.get('listeDesUrl')[this.get('listeDesIndices')[this.get('indiceExerciceActuel')]]
     } else {
       url = this.get('listeDesUrl')[this.get('indiceExerciceActuel')]
     }
     this.ajouterIframe(url)
     this.set('lienACopier', this.infosModale[0][this.get('listeDesIndices')[this.get('indiceExerciceActuel')]])
-    this.positionnerLesBoutons()
+    this.positionnerLesBoutons(site)
   }
 
   creeListeIndicesExercices() {
@@ -253,7 +242,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
   ajouterIframe(url: string) {
     const iframeActuel = document.getElementById('iframeExercice1')
     let parent = <Node>this.modale // Pour le premier iframe
-    if (iframeActuel != null && iframeActuel.parentNode != null) {
+    if (iframeActuel !== null && iframeActuel.parentNode !== null) {
       parent = iframeActuel.parentNode // Pour tous les suivants car la référence this.modale n'est plus valide lorsque lancée depuis un ancien listener
       parent.removeChild(iframeActuel)
     }
@@ -266,8 +255,8 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     parent.appendChild(nouvelIframe)
   }
 
-  positionnerLesBoutons() {
-    switch (this.site) {
+  positionnerLesBoutons(site: string) {
+    switch (site) {
       case 'mathalea':
         this.lienSpinner = '/assets/img/cc0/orange-spinner.svg'
 
@@ -319,19 +308,19 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
   fermerModale(valeur?: number) {
     this.modaleFermee.emit(valeur)
     const iframe = document.getElementById('iframeExercice1')
-    if (iframe != null && iframe.parentNode != null) iframe.parentNode.removeChild(iframe)
+    if (iframe !== null && iframe.parentNode !== null) iframe.parentNode.removeChild(iframe)
     this.modale.style.display = "none"
     this.hideLoadingScreen()
   }
 
   displayLoadingScreen() {
     const loadingDiv = document.getElementById('loading')
-    if (loadingDiv != null) loadingDiv.style.display = 'block'
+    if (loadingDiv !== null) loadingDiv.style.display = 'block'
   }
 
   hideLoadingScreen() {
     const loadingDiv = document.getElementById('loading')
-    if (loadingDiv != null) loadingDiv.style.display = 'none'
+    if (loadingDiv !== null) loadingDiv.style.display = 'none'
   }
 
   copierLien() {
@@ -348,10 +337,10 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
   }
 
   isMathalea(url: string) {
-    return url.slice(0, 34) == 'https://coopmaths.fr/mathalea.html'
+    return url.slice(0, 34) === 'https://coopmaths.fr/mathalea.html'
   }
 
   isMathsmentales(url: string) {
-    return url.slice(0, 25) == 'https://mathsmentales.net'
+    return url.slice(0, 25) === 'https://mathsmentales.net'
   }
 }

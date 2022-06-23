@@ -45,7 +45,7 @@ export class ExercicesAuHasardComponent {
   getListeDesReferences(niveauChoisi: string, niveaux: NiveauSequence[]) {
     const listeReferences: string[] = []
     for (const niveau of niveaux) {
-      if (niveau.nom == niveauChoisi || niveauChoisi == 'tout') {
+      if (niveau.nom === niveauChoisi || niveauChoisi === 'tout') {
         const derniereSequence = this.getDerniereSequence()
         for (const sequence of niveau.sequences) {
           if (parseInt(sequence.reference.slice(3)) <= derniereSequence) {
@@ -106,7 +106,7 @@ export class ExercicesAuHasardComponent {
         for (const sousTheme of theme.sousThemes) {
           for (const objectif of sousTheme.objectifs) {
             for (const reference of listeReferences) {
-              if (reference == objectif.reference) {
+              if (reference === objectif.reference) {
                 for (const exercice of objectif.exercices) {
                   if (exercice.isInteractif) {
                     listeExercices.push({
@@ -115,9 +115,9 @@ export class ExercicesAuHasardComponent {
                       lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&v=eval&z=1.5`
                     })
                     listeExercices[listeExercices.length - 1].lien = listeExercices[listeExercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
-                    if (exercice.slug.slice(0, 25) == 'https://mathsmentales.net') {
+                    if (exercice.slug.slice(0, 25) === 'https://mathsmentales.net') {
                       listeExercices[listeExercices.length - 1].lien = exercice.slug + '&embed=' + GlobalConstants.origine
-                    } else if (exercice.slug.slice(0, 4) == 'http') {
+                    } else if (exercice.slug.slice(0, 4) === 'http') {
                       listeExercices[listeExercices.length - 1].lien = exercice.slug
                     }
                     listeDesUrl.push(listeExercices[listeExercices.length - 1].lien)
@@ -129,7 +129,7 @@ export class ExercicesAuHasardComponent {
         }
       }
     }
-    if (isDevMode() && niveauChoisi != 'tout') {
+    if (isDevMode() && niveauChoisi !== 'tout') {
       this.verifierPresenceDoublons(listeExercices)
     }
     return listeDesUrl
@@ -139,7 +139,7 @@ export class ExercicesAuHasardComponent {
     const listeDesId: number[] = []
     for (const exercice of listeExercices) {
       for (const id of listeDesId) {
-        if (exercice.id == id) alert('id ' + id + ' trouvé 2 fois !')
+        if (exercice.id === id) alert('id ' + id + ' trouvé 2 fois !')
       }
       listeDesId.push(exercice.id)
     }

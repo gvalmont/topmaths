@@ -8,97 +8,54 @@ import { ViewportScroller } from '@angular/common'
 import { GlobalConstants } from '../services/global-constants'
 import { Title } from '@angular/platform-browser'
 
-
 @Component({
   selector: 'app-sequence',
   templateUrl: './sequence.component.html',
   styleUrls: []
 })
 export class SequenceComponent implements OnInit {
-  reference: string
-  numero: number
   titre: string
   objectifs: Objectif[]
   calculsMentaux: CalculMental[]
   questionsFlash: QuestionFlash[]
   lienQuestionsFlash: string
   lienEval: string
-  lienCours: string
-  lienResume: string
-  lienMission: string
-  lienAnki: string
-  presenceCalculMental: boolean
-  messagePasDeCalculMental: string
-  derniereUrl: string
-  derniereGraine: string
-  dernierSlider: number
-  dateDerniereReponse: Date
   infosModale: [string[], string, Date]
-  bonneReponse: boolean
-  ancre: string
+  ancreDeRetour: string
   niveau: string
 
-  constructor(public http: HttpClient, private route: ActivatedRoute, public dataService: ApiService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
-    this.reference = ''
-    this.numero = 0
+  // eslint-disable-next-line no-unused-vars
+  constructor(public httpClient: HttpClient, private activatedRoute: ActivatedRoute, public apiService: ApiService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
     this.titre = ''
     this.objectifs = []
     this.calculsMentaux = [new CalculMental('', '', [new NiveauCM('', '')], false)]
     this.questionsFlash = []
     this.lienQuestionsFlash = ''
     this.lienEval = ''
-    this.lienCours = ''
-    this.lienResume = ''
-    this.lienMission = ''
-    this.lienAnki = ''
-    this.presenceCalculMental = true
-    this.messagePasDeCalculMental = ''
-    this.derniereUrl = ''
-    this.derniereGraine = ''
-    this.dernierSlider = 0
-    this.dateDerniereReponse = new Date()
     this.infosModale = [[], '', new Date()]
-    this.bonneReponse = false
-    this.ancre = ''
+    this.ancreDeRetour = ''
     this.niveau = ''
   }
 
   ngOnInit(): void {
-    this.observeChangementsDeRoute()
+    this.surveillerChangementsDeSequence()
   }
 
-  /**
-   * Scroll vers l'ancre de l'exercice qui a été cliqué pour ouvrir la modale exercices
-   */
-  scrollBack(): void {
-    this.viewportScroller.scrollToAnchor(this.ancre)
-  }
-
-  /**
-   * Observe les changements de route,
-   * modifie ensuite les paramètres selon la référence
-   */
-  observeChangementsDeRoute() {
-    this.route.params.subscribe(params => {
-      this.reference = params.reference
-      this.modificationDesAttributs()
+  surveillerChangementsDeSequence() {
+    this.activatedRoute.params.subscribe(params => {
+      this.trouverSequence(params.reference)
     })
   }
 
-  /**
-   * Ouvre sequences.json,
-   * cherche la séquence qui a pour référence this.reference,
-   * une fois trouvé, lance this.recupereAttributsSequence(sequence)
-   */
-  modificationDesAttributs() {
-    this.http.get<Niveau[]>('assets/data/sequences.json').subscribe(niveaux => {
+  trouverSequence(reference: string) {
+    this.httpClient.get<Niveau[]>('assets/data/sequences.json').subscribe(niveaux => {
       niveaux.find(niveau => {
         return niveau.sequences.find(sequence => {
-          if (sequence.reference == this.reference) {
+          if (sequence.reference === reference) {
             this.niveau = niveau.nom
-            this.recupereAttributsSequence(niveau, sequence)
+            this.MAJProprietes(sequence)
           }
-          return sequence.reference == this.reference
+          return sequence.reference === reference
         })
       })
     })
@@ -109,20 +66,19 @@ export class SequenceComponent implements OnInit {
    * @param niveau 
    * @param sequence 
    */
-  recupereAttributsSequence(niveau: Niveau, sequence: Sequence) {
-    this.numero = niveau.sequences.findIndex(sequence => { return sequence.reference == this.reference }) + 1
-    this.titre = `Séquence ${this.numero} :<br>${sequence.titre}`
+  MAJProprietes(sequence: Sequence) {
+    const numero = parseInt(sequence.reference.slice(3))
+    this.titre = `Séquence ${numero} :<br>${sequence.titre}`
     this.titleService.setTitle(this.titre.replace('<br>', ' '))
-    this.dataService.user.derniereSequence = this.reference + '!' + this.titre
-    this.dataService.majProfil(['derniereSequence'])
+    this.apiService.user.derniereSequence = sequence.reference + '!' + this.titre
+    this.apiService.majProfil(['derniereSequence'])
     this.recupereObjectifsSequence(sequence)
     this.recupereQuestionsFlash(sequence)
     this.recupereCalculsMentaux(sequence)
     this.recupereDetailsObjectifs()
-    this.lienCours = this.creerLienTelechargement('cours')
-    this.lienResume = this.creerLienTelechargement('resume')
-    this.lienMission = this.creerLienTelechargement('mission')
-    this.lienAnki = this.creerLienTelechargement('anki')
+    this.creerLienTelechargement(sequence.reference, 'cours')
+    this.creerLienTelechargement(sequence.reference, 'resume')
+    this.creerLienTelechargement(sequence.reference, 'mission')
   }
 
   /**
@@ -133,7 +89,7 @@ export class SequenceComponent implements OnInit {
   recupereObjectifsSequence(sequence: Sequence) {
     this.objectifs = []
     for (const objectif of sequence.objectifs) {
-      if (objectif.reference != '') {
+      if (objectif.reference !== '') {
         this.objectifs.push({
           reference: objectif.reference,
           slugs: []
@@ -148,14 +104,14 @@ export class SequenceComponent implements OnInit {
    * Modifie les this.objectifs.titre, les this.objectifs.slugs et le this.lienEval
    */
   recupereDetailsObjectifs() {
-    this.http.get<NiveauObjectif[]>('assets/data/objectifs.json').subscribe(niveaux => {
+    this.httpClient.get<NiveauObjectif[]>('assets/data/objectifs.json').subscribe(niveaux => {
       for (const niveau of niveaux) {
         for (const theme of niveau.themes) {
           for (const sousTheme of theme.sousThemes) {
             for (const JSONobjectif of sousTheme.objectifs) {
               // On complète le titre et les slugs des objectifs de la séquence
               for (const thisObjectif of this.objectifs) {
-                if (thisObjectif.reference == JSONobjectif.reference) {
+                if (thisObjectif.reference === JSONobjectif.reference) {
                   thisObjectif.titre = JSONobjectif.titre
                   for (const exercice of JSONobjectif.exercices) {
                     thisObjectif.slugs.push(exercice.slug)
@@ -166,17 +122,17 @@ export class SequenceComponent implements OnInit {
               // On en profite pour créer le lien pour s'entraîner aux questions flash
               this.lienQuestionsFlash = 'https://coopmaths.fr/mathalea.html?'
               for (const questionFlash of this.questionsFlash) {
-                if (questionFlash.slug != '') {
+                if (questionFlash.slug !== '') {
                   this.lienQuestionsFlash = this.lienQuestionsFlash.concat('ex=', questionFlash.slug, ',i=1&')
                 }
-                if (questionFlash.reference == JSONobjectif.reference) {
+                if (questionFlash.reference === JSONobjectif.reference) {
                   questionFlash.pageExiste = true
                 }
               }
               this.lienQuestionsFlash = this.lienQuestionsFlash.concat('v=eval&z=1.5')
               // On vérifie si la page existe pour les objectifs des calculs mentaux
               for (const calculMental of this.calculsMentaux) {
-                if (calculMental.reference == JSONobjectif.reference) {
+                if (calculMental.reference === JSONobjectif.reference) {
                   calculMental.pageExiste = true
                 }
               }
@@ -188,7 +144,7 @@ export class SequenceComponent implements OnInit {
       this.lienEval = 'https://coopmaths.fr/mathalea.html?'
       for (const thisObjectif of this.objectifs) {
         for (const slug of thisObjectif.slugs) {
-          if (slug.slice(0, 4) != 'http' && slug != '') {
+          if (slug.slice(0, 4) !== 'http' && slug !== '') {
             this.lienEval = this.lienEval.concat('ex=', slug, ',i=1&')
           }
         }
@@ -221,10 +177,6 @@ export class SequenceComponent implements OnInit {
         pageExiste: false
       })
     }
-    if (this.calculsMentaux[0].reference == '') {
-      this.presenceCalculMental = false
-      this.messagePasDeCalculMental = this.calculsMentaux[0].niveaux[0].commentaire
-    }
   }
 
   /**
@@ -235,7 +187,7 @@ export class SequenceComponent implements OnInit {
   recupereQuestionsFlash(sequence: Sequence) {
     this.questionsFlash = [] // Au cas où l'attribut ne serait pas réinitialisé lors d'un changement de référence
     for (const questionFlash of sequence.questionsFlash) {
-      if (questionFlash.reference != '') {
+      if (questionFlash.reference !== '') {
         this.questionsFlash.push({
           reference: questionFlash.reference,
           titre: questionFlash.titre,
@@ -278,20 +230,13 @@ export class SequenceComponent implements OnInit {
 
   /**
    * Vérifie si le fichier assets/type/niveau/Type_reference.extension existe et renvoie le lien si c'est le cas
-   * @param type peut être cours, resume, mission ou anki
+   * @param type peut être cours, resume ou mission
    * le niveau peut être 6e, 5e, 4e ou 3e
    * la référence correspond à this.reference
-   * l'extension est apkg si le type est anki, pdf sinon
    * @returns lien de téléchargement du fichier s'il existe, une chaîne vide sinon
    */
-  creerLienTelechargement(type: string) {
-    let extension: string
-    if (type == 'anki') {
-      extension = 'apkg'
-    } else {
-      extension = 'pdf'
-    }
-    const lien = `assets/${type}/${this.reference.slice(1, 2)}e/${type.charAt(0).toUpperCase() + type.slice(1)}_${this.reference}.${extension}`
+  creerLienTelechargement(reference: string, type: string) {
+    const lien = `assets/${type}/${reference.slice(1, 2)}e/${type.charAt(0).toUpperCase() + type.slice(1)}_${reference}.pdf`
     this.verifieExistence(type, lien)
     return lien
   }
@@ -302,9 +247,9 @@ export class SequenceComponent implements OnInit {
    * @param ancre
    */
   ouvrirModaleExercices(lien: string | undefined, ancre: string) {
-    if (typeof (lien) != 'undefined') {
+    if (typeof (lien) !== 'undefined') {
       this.infosModale = [[lien], '', new Date()]
-      this.ancre = ancre
+      this.ancreDeRetour = ancre
     }
   }
 
@@ -317,8 +262,8 @@ export class SequenceComponent implements OnInit {
   verifieExistence(type: string, urlToFile: string) {
     var xhttp = new XMLHttpRequest()
     xhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        let divId = '', description, lienIcone = '/assets/img/cc0/pdf-file-format-symbol-svgrepo-com.svg'
+      if (this.readyState === 4 && this.status === 200) {
+        let divId = '', description
         switch (type) {
           case 'cours':
             divId = 'lienCours'
@@ -332,32 +277,21 @@ export class SequenceComponent implements OnInit {
             divId = 'lienMission'
             description = 'la mission'
             break
-          case 'anki':
-            divId = 'lienAnki'
-            description = 'le paquet Anki de la séquence'
-            lienIcone = ''
-            break
         }
         const div = document.getElementById(divId)
-        if (div != null) {
-          let texte = `<a href=${urlToFile}>
-          Télécharger ${description}`
-          if (lienIcone !== '') {
-            texte += `
+        if (div !== null) {
+          div.innerHTML = `<a href=${urlToFile}>
+          Télécharger ${description}
             &nbsp;
             <i class='image is-24x24 is-inline-block'>
-              <img src='${lienIcone}' />
+              <img src='/assets/img/cc0/pdf-file-format-symbol-svgrepo-com.svg' />
             </i>
           </a>`
-          } else {
-            texte += '</a>'
-          }
-          div.innerHTML = texte
           div.style.display = 'block'
         }
         const divTelechargements = document.getElementById('divTelechargements')
         const divEvaluation = document.getElementById('divEvaluation')
-        if (divTelechargements != null && divEvaluation != null) {
+        if (divTelechargements !== null && divEvaluation !== null) {
           divTelechargements.style.display = 'block'
           divEvaluation.classList.remove('is-fin')
         }
@@ -365,5 +299,9 @@ export class SequenceComponent implements OnInit {
     }
     xhttp.open("HEAD", urlToFile, true)
     xhttp.send()
+  }
+
+  scrollBack(): void {
+    this.viewportScroller.scrollToAnchor(this.ancreDeRetour)
   }
 }

@@ -54,7 +54,7 @@ export class ObjectifComponent implements OnInit {
                 this.niveau = niveau.nom
                 this.MAJProprietes(objectif)
               }
-              return objectif.reference == reference
+              return objectif.reference === reference
             })
           })
         })

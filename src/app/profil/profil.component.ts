@@ -20,7 +20,7 @@ export class ProfilComponent implements OnInit {
 
   ngOnInit(): void {
     const modalePseudo = document.getElementById("modalePseudo")
-    if (modalePseudo != null) this.modalePseudo = modalePseudo
+    if (modalePseudo !== null) this.modalePseudo = modalePseudo
   }
 
   getDateDeDerniereConnexion() {
