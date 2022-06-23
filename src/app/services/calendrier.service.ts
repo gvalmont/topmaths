@@ -13,7 +13,7 @@ export class CalendrierService {
   estHeureEte: boolean
 
   // eslint-disable-next-line no-unused-vars
-  constructor(private dataService: DataService) {
+  constructor (private dataService: DataService) {
     this.annee = 0
     this.jourNumero = 0
     this.periodeNumero = 0
@@ -23,7 +23,7 @@ export class CalendrierService {
     this.MAJProprietes()
   }
 
-  MAJProprietes() {
+  MAJProprietes () {
     this.annee = new Date().getFullYear()
     this.jourNumero = this.getDayOfYear()
     for (const annee of this.dataService.calendrierAnnees) {
@@ -45,7 +45,7 @@ export class CalendrierService {
     }
   }
 
-  getDayOfYear() {
+  getDayOfYear () {
     const now = new Date()
     const begin = new Date(now.getFullYear(), 0, 0)
     const diff = (now.getTime() - begin.getTime()) + ((begin.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000)

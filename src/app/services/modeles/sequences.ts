@@ -2,7 +2,7 @@ export class Niveau {
   public nom: string
   public sequences: Sequence[]
 
-  constructor(nom: string, sequences: Sequence[]) {
+  constructor (nom: string, sequences: Sequence[]) {
     this.nom = nom
     this.sequences = sequences
   }
@@ -15,7 +15,7 @@ export class Sequence {
   public calculsMentaux: CalculMental[]
   public questionsFlash: QuestionFlash[]
 
-  constructor(reference: string, titre: string, objectifs: Objectif[], calculsMentaux: CalculMental[], questionsFlash: QuestionFlash[]) {
+  constructor (reference: string, titre: string, objectifs: Objectif[], calculsMentaux: CalculMental[], questionsFlash: QuestionFlash[]) {
     this. reference=reference
     this. titre=titre
     this. objectifs=objectifs
@@ -29,7 +29,7 @@ export class Objectif {
   public titre?: string
   public slugs: string[]
 
-  constructor(reference: string, titre: string, slugs: string[]) {
+  constructor (reference: string, titre: string, slugs: string[]) {
     this.reference = reference
     this.titre = titre
     this.slugs = slugs
@@ -42,7 +42,7 @@ export class CalculMental {
   public niveaux: NiveauCM[]
   public pageExiste: boolean
 
-  constructor(reference: string, titre: string, niveaux: NiveauCM[], pageExiste: boolean) {
+  constructor (reference: string, titre: string, niveaux: NiveauCM[], pageExiste: boolean) {
     this.reference = reference
     this.titre = titre
     this.niveaux = niveaux
@@ -54,7 +54,7 @@ export class NiveauCM {
   public commentaire: string
   public lien: string
 
-  constructor(commentaire: string, lien: string) {
+  constructor (commentaire: string, lien: string) {
     this.commentaire = commentaire
     this.lien = lien
   }
@@ -66,7 +66,7 @@ export class QuestionFlash {
   public slug: string
   public pageExiste: boolean
 
-  constructor(reference: string, titre: string, slug: string, pageExiste: boolean) {
+  constructor (reference: string, titre: string, slug: string, pageExiste: boolean) {
     this.reference = reference
     this.titre = titre
     this.slug = slug
@@ -78,7 +78,7 @@ export class SequenceParticuliere {
   public reference: string
   public titre: string
 
-  constructor(reference: string, titre: string) {
+  constructor (reference: string, titre: string) {
     this.reference = reference
     this.titre = titre
   }

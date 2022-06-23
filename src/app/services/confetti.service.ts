@@ -9,7 +9,7 @@ export class ConfettiService {
   particlesOptions!: any
   id : string
 
-  constructor() {
+  constructor () {
     this.id =  "tsparticles"
     this.confetti = new Container('tsparticles')
     this.majParametres()
@@ -19,14 +19,14 @@ export class ConfettiService {
    * Arrête tsparticles et libère les ressources
    * (si le processus n'est pas arrêté il y a un bug graphique en changeant d'onglet)
    */
-  public stop() {
+  public stop () {
     this.confetti.stop()
   }
 
   /**
    * Lance les confetti
    */
-  public lanceConfetti() {
+  public lanceConfetti () {
     this.confetti.refresh()
     this.confetti.play()
   }
@@ -35,7 +35,7 @@ export class ConfettiService {
    * Récupère le container des particules et le met dans la variable this.confetti
    * @param container
    */
-  particlesLoaded(container: Container): void {
+  particlesLoaded (container: Container): void {
     this.confetti = container
   }
 
@@ -43,14 +43,14 @@ export class ConfettiService {
    * Ne fait rien à l'initialisation
    * @param main
    */
-  particlesInit(): void {
+  particlesInit (): void {
   }
 
   /**
    * Crée une liste d'emetteurs différents selon que l'on soit en portrait ou en paysage
    * Les ajoute aux autres paramètres de this.particlesOptions
    */
-  majParametres(){
+  majParametres (){
     this.particlesOptions = {
       autoPlay: false,
       fullScreen: {

@@ -7,7 +7,7 @@ import { SequencesComponent } from './sequences/sequences.component'
 import { SequenceComponent } from './sequence/sequence.component'
 import { LoginComponent } from './login/login.component'
 import { ProfilComponent } from './profil/profil.component'
-import { AuthguardGuard } from './services/auth.guard'
+import { AuthGuard } from './services/auth.guard'
 import { TimeguardGuard } from './services/time.guard'
 import { SPS1Component } from './sequencesParticulieres/sps1/sps1.component'
 import { RevisionsComponent } from './revisions/revisions.component'
@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: 'sequence/:reference', component: SequenceComponent },
   { path: 'login', component: LoginComponent, data: {title: 'topmaths.fr - Login'} },
   { path: 'profil/avatar', component: AvatarComponent, canActivate: [TimeguardGuard], data: {title: 'topmaths.fr - Avatar'}},
-  { path: 'profil', component: ProfilComponent, canActivate: [AuthguardGuard], data: {title: 'topmaths.fr - Profil'} },
+  { path: 'profil', component: ProfilComponent, canActivate: [AuthGuard], data: {title: 'topmaths.fr - Profil'} },
   { path: 'revisions', component: RevisionsComponent, data: {title: 'topmaths.fr - Révisions'} },
   { path: 'exercices-au-hasard', component: ExercicesAuHasardComponent, data: {title: 'topmaths.fr - Exercices au hasard'} },
   { path: 'outils/mathador', component: MathadorComponent },

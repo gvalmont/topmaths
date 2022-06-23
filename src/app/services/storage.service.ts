@@ -5,14 +5,14 @@ import { Injectable } from '@angular/core'
 })
 export class StorageService {
 
-  constructor() { }
+  constructor () { }
 
   /**
    * Crée un token dans le localStorage
    * @param key clé to token
    * @param value Valeur du token
    */
-  setToken(key: string, value: string) {
+  setToken (key: string, value: string) {
     localStorage.setItem(key, value)
   }
 
@@ -21,7 +21,7 @@ export class StorageService {
    * @param key
    * @returns Valeur du token key
    */
-  getToken(key: string) {
+  getToken (key: string) {
     return localStorage.getItem(key)
   }
 
@@ -29,7 +29,7 @@ export class StorageService {
    * Supprime le token key du localStorage
    * @param key
    */
-  deleteToken(key: string) {
+  deleteToken (key: string) {
     localStorage.removeItem(key)
   }
 
@@ -38,7 +38,7 @@ export class StorageService {
    * @param tag nom de la "variable"
    * @param valeurs
    */
-  set(tag: string, objet: any) {
+  set (tag: string, objet: any) {
     localStorage.setItem(tag, JSON.stringify(objet))
   }
 
@@ -47,7 +47,7 @@ export class StorageService {
    * @param tag nom de la "variable"
    * @returns
    */
-  get(tag: string) {
+  get (tag: string) {
     const obj = localStorage.getItem(tag)
     if (obj !== null) return JSON.parse(obj)
   }

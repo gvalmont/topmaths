@@ -12,7 +12,7 @@ interface Vacance {
 })
 
 export class TimeguardGuard implements CanActivate {
-  constructor(private router: Router) { }
+  constructor (private router: Router) { }
 
   /**
    * Fonction qui sert à déterminer si l'utilisateur a le droit d'emprunter une route
@@ -20,7 +20,7 @@ export class TimeguardGuard implements CanActivate {
    * @param state
    * @returns true s'il peut l'emprunter, false sinon
    */
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  canActivate (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     return true // timeguard désactivé
     if (this.estPendantLesVacances()) return true
     if (this.estPendantLesCours()) {
@@ -34,7 +34,7 @@ export class TimeguardGuard implements CanActivate {
   /**
    * @returns true si on est pendant les vacances, false sinon
    */
-  estPendantLesVacances() {
+  estPendantLesVacances () {
     const date = new Date()
     const jour = this.getDayOfYear()
     for (const vacance of this.vacances) {
@@ -50,7 +50,7 @@ export class TimeguardGuard implements CanActivate {
   /**
    * @returns le numéro du jour de l'année
    */
-  getDayOfYear() {
+  getDayOfYear () {
     const now = new Date()
     const begin = new Date(now.getFullYear(), 0, 0)
     const diff = (now.getTime() - begin.getTime()) + ((begin.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000)
@@ -64,7 +64,7 @@ export class TimeguardGuard implements CanActivate {
    * Il n'y a pas de cours Samedi et Dimanche.
    * @returns true si on est pendant les cours
    */
-  estPendantLesCours() {
+  estPendantLesCours () {
     const heureDebutLundiMardiJeudiVendredi = 8
     const heureFinLundiMardiJeudiVendredi = 16.5
     const heureDebutMercredi = 8

@@ -19,7 +19,7 @@ export class LoginComponent {
   loginVisible: boolean
 
   // eslint-disable-next-line no-unused-vars
-  constructor(private fb: FormBuilder, public profilService: ProfilService, private router: Router, private outilsService: OutilsService) {
+  constructor (private fb: FormBuilder, public profilService: ProfilService, private router: Router, private outilsService: OutilsService) {
     this.angForm = this.fb.group({
       identifiant: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(5)]]
     })
@@ -35,7 +35,7 @@ export class LoginComponent {
     })
   }
 
-  login(identifiant: string) {
+  login (identifiant: string) {
     if (this.inputOk(identifiant)) {
       const bouton = <HTMLButtonElement> document.getElementById("loginButton")
       if (bouton !== null) bouton.disabled = true
@@ -46,13 +46,13 @@ export class LoginComponent {
     }
   }
 
-  surveillerChamp() {
+  surveillerChamp () {
     this.angForm.valueChanges.subscribe(x => {
       this.inputOk(x.identifiant)
     })
   }
 
-  inputOk(input: string) {
+  inputOk (input: string) {
     this.defaut = true
     this.errSpChar = false
     this.errPetitNbChar = false
@@ -64,7 +64,7 @@ export class LoginComponent {
     return (!this.defaut && !this.errSpChar && !this.errPetitNbChar && !this.errGrandNbChar)
   }
 
-  montrerCacherIdentifiant() {
+  montrerCacherIdentifiant () {
     const champLogin = <HTMLInputElement>document.getElementById('champLogin')
     if (champLogin.type === 'password') {
       champLogin.type = 'text'

@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core'
 export class BoutonImprimerComponent {
   @Input() lien: string
 
-  constructor() {
+  constructor () {
     this.lien = ''
   }
 

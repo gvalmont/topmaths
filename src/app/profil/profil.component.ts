@@ -14,17 +14,17 @@ export class ProfilComponent implements OnInit {
   modalePseudo!: HTMLElement
 
   // eslint-disable-next-line no-unused-vars
-  constructor(public profilService: ProfilService, public dataService: DataService, private calendrierService: CalendrierService) {
+  constructor (public profilService: ProfilService, public dataService: DataService, private calendrierService: CalendrierService) {
     this.pseudo = profilService.user.pseudo
     this.derniereConnexion = this.getDateDeDerniereConnexion()
   }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
     const modalePseudo = document.getElementById("modalePseudo")
     if (modalePseudo !== null) this.modalePseudo = modalePseudo
   }
 
-  getDateDeDerniereConnexion() {
+  getDateDeDerniereConnexion () {
     const date = new Date(this.profilService.user.lastLogin)
     date.setMinutes(date.getMinutes() - date.getTimezoneOffset() - 60) // Le serveur mysql est en UTC + 1 ?
     if (this.calendrierService.estHeureEte) date.setMinutes(date.getMinutes() - 60)
@@ -52,18 +52,18 @@ export class ProfilComponent implements OnInit {
     return `${jour[date.getDay()]} ${date.getDate()} ${mois[date.getMonth()]} ${date.getFullYear()} entre ${date.getHours()}h et ${date.getHours() + 1}h`
   }
 
-  enregistrerPseudo() {
+  enregistrerPseudo () {
     this.profilService.user.pseudo = this.pseudo
     this.profilService.majProfil(['pseudo'])
     this.modalePseudo.style.display = "none"
   }
 
-  ouvrirModalePseudo() {
+  ouvrirModalePseudo () {
     this.pseudo = this.profilService.user.pseudo
     this.modalePseudo.style.display = "block"
   }
 
-  fermerModalePseudo() {
+  fermerModalePseudo () {
     this.modalePseudo.style.display = "none"
   }
 

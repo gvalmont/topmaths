@@ -27,7 +27,7 @@ export class MathadorComponent implements OnInit {
   nombreDeSolutions: number
   solutionsAffichees: boolean
 
-  constructor() {
+  constructor () {
     this.nombreCible = 0
     this.donnee1 = 0
     this.donnee2 = 0
@@ -39,11 +39,11 @@ export class MathadorComponent implements OnInit {
     this.solutionsAffichees = false
   }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
     this.relancer()
   }
 
-  relancer() {
+  relancer () {
     this.nombreCible = this.randint(0, 99)
     this.donnee1 = this.randint(1, 4)
     this.donnee2 = this.randint(1, 6)
@@ -62,7 +62,7 @@ export class MathadorComponent implements OnInit {
    * @param max
    * @returns nombre entier entre min et max inclus
    */
-  randint(min: number, max: number) {
+  randint (min: number, max: number) {
     return Math.floor(Math.random() * (max + 1 - min) + min)
   }
 
@@ -72,7 +72,7 @@ export class MathadorComponent implements OnInit {
    * Filtre les possibilités équivalentes (mêmes calculs mais pas dans le même ordre)
    * Modifie le nombre de solutions et le contenu du div des solutions
    */
-  resoudreMathador() {
+  resoudreMathador () {
     const solutions: Solution[] = []
     const possibilites0: Possibilite = { nombres: [this.donnee1, this.donnee2, this.donnee3, this.donnee4, this.donnee5], signes: ['+', '-', '*', '/'], calcul: '' }
     const possibilites1 = this.determinerPossibilites(possibilites0.nombres, possibilites0.signes)
@@ -117,7 +117,7 @@ export class MathadorComponent implements OnInit {
    * @param signesDisponibles
    * @returns possibilites
    */
-  determinerPossibilites(poolDeNombres: number[], signesDisponibles: string[]) {
+  determinerPossibilites (poolDeNombres: number[], signesDisponibles: string[]) {
     const possibilites: Possibilite[] = []
     for (const premierNombre of poolDeNombres) {
       for (const premierSigne of signesDisponibles) {
@@ -154,7 +154,7 @@ export class MathadorComponent implements OnInit {
    * @param operation
    * @returns {resultat: number, calcul: string} resultat est un nombre servant pour la suite des calculs et calcul est une version LateX du calcul servant plus tard pour l'affichage des solutions.
    */
-  calculer(nombre1: number, nombre2: number, operation: string) {
+  calculer (nombre1: number, nombre2: number, operation: string) {
     const max = Math.max(nombre1, nombre2)
     const min = Math.min(nombre1, nombre2)
     switch (operation) {
@@ -184,7 +184,7 @@ export class MathadorComponent implements OnInit {
    * @param possibilite
    * @returns
    */
-  lesNombresPassentLeFiltre(possibilite: Possibilite) {
+  lesNombresPassentLeFiltre (possibilite: Possibilite) {
     for (const nombre of possibilite.nombres) {
       if (nombre < 0) { // On vérifie si les nombres sont positifs
         return false
@@ -202,7 +202,7 @@ export class MathadorComponent implements OnInit {
    * @param solutions
    * @returns true si la solutionCandidate existe déjà dans les solutions
    */
-  solutionPresente(solutionCandidate: Solution, solutions: Solution[]) {
+  solutionPresente (solutionCandidate: Solution, solutions: Solution[]) {
     for (const solution of solutions) {
       let nombreDeCalculsIdentiques = 0
       for (const calculCandidat of solutionCandidate.calculs) {

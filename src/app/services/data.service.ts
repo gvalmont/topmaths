@@ -29,7 +29,7 @@ export class DataService {
   feminin: boolean
 
   // eslint-disable-next-line no-unused-vars
-  constructor(public httpClient: HttpClient) {
+  constructor (public httpClient: HttpClient) {
     this.niveauxObjectifs = []
     this.niveauxSequences = []
     this.sequencesParticulieres = []
@@ -42,7 +42,7 @@ export class DataService {
     this.miseEnCacheDesDonnees()
   }
 
-  miseEnCacheDesDonnees() {
+  miseEnCacheDesDonnees () {
     this.httpClient.get<NiveauObjectif[]>('assets/data/objectifs.json').subscribe(niveaux => {
       this.niveauxObjectifs = niveaux
     })

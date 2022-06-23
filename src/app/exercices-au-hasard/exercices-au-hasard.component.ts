@@ -21,24 +21,24 @@ export class ExercicesAuHasardComponent {
   infosModale: [string[], string, Date]
 
   // eslint-disable-next-line no-unused-vars
-  constructor(private dataService: DataService, private viewportScroller: ViewportScroller, private calendrier: CalendrierService) {
+  constructor (private dataService: DataService, private viewportScroller: ViewportScroller, private calendrier: CalendrierService) {
     this.infosModale = [[], '', new Date()]
   }
 
   /**
    * Remonte jusqu'au menu au retour de la modale d'exercice
    */
-  scrollBack() {
+  scrollBack () {
     this.viewportScroller.scrollToPosition([0, 0])
   }
 
-  lancerExercices(niveauChoisi: string) {
+  lancerExercices (niveauChoisi: string) {
     const listeReferences = this.getListeDesReferences(niveauChoisi, this.dataService.niveauxSequences)
     const listeDesUrl = this.getListeDesExercices(listeReferences, niveauChoisi, this.dataService.niveauxObjectifs)
     this.infosModale = [listeDesUrl, 'exerciceAuHasard', new Date()]
   }
 
-  getListeDesReferences(niveauChoisi: string, niveaux: NiveauSequence[]) {
+  getListeDesReferences (niveauChoisi: string, niveaux: NiveauSequence[]) {
     const listeReferences: string[] = []
     for (const niveau of niveaux) {
       if (niveau.nom === niveauChoisi || niveauChoisi === 'tout') {
@@ -55,7 +55,7 @@ export class ExercicesAuHasardComponent {
     return listeReferences
   }
 
-  getDerniereSequence() {
+  getDerniereSequence () {
     const periode = this.calendrier.periodeNumero
     const type = this.calendrier.typeDePeriode
     const semaine = this.calendrier.semaineDansLaPeriode
@@ -94,7 +94,7 @@ export class ExercicesAuHasardComponent {
     return 0
   }
 
-  getListeDesExercices(listeReferences: string[], niveauChoisi: string, niveaux: NiveauObjectif[]) {
+  getListeDesExercices (listeReferences: string[], niveauChoisi: string, niveaux: NiveauObjectif[]) {
     const listeExercices: Exercice[] = []
     const listeDesUrl: string[] = []
     for (const niveau of niveaux) {
@@ -131,7 +131,7 @@ export class ExercicesAuHasardComponent {
     return listeDesUrl
   }
 
-  verifierPresenceDoublons(listeExercices: Exercice[]) {
+  verifierPresenceDoublons (listeExercices: Exercice[]) {
     const listeDesId: number[] = []
     for (const exercice of listeExercices) {
       for (const id of listeDesId) {

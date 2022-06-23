@@ -24,7 +24,7 @@ export class SequenceComponent implements OnInit {
   ancreDeRetour: string
 
   // eslint-disable-next-line no-unused-vars
-  constructor(private activatedRoute: ActivatedRoute, public profilService: ProfilService, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
+  constructor (private activatedRoute: ActivatedRoute, public profilService: ProfilService, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
     this.niveau = ''
     this.titre = ''
     this.objectifs = []
@@ -36,17 +36,17 @@ export class SequenceComponent implements OnInit {
     this.ancreDeRetour = ''
   }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
     this.surveillerChangementsDeSequence()
   }
 
-  surveillerChangementsDeSequence() {
+  surveillerChangementsDeSequence () {
     this.activatedRoute.params.subscribe(params => {
       this.trouverSequence(params.reference)
     })
   }
 
-  trouverSequence(reference: string) {
+  trouverSequence (reference: string) {
     this.dataService.niveauxSequences.find(niveau => {
       return niveau.sequences.find(sequence => {
         if (sequence.reference === reference) {
@@ -58,7 +58,7 @@ export class SequenceComponent implements OnInit {
     })
   }
 
-  MAJProprietes(sequence: Sequence) {
+  MAJProprietes (sequence: Sequence) {
     const numero = parseInt(sequence.reference.slice(3))
     this.titre = `Séquence ${numero} :<br>${sequence.titre}`
     this.titleService.setTitle(this.titre.replace('<br>', ' '))
@@ -73,7 +73,7 @@ export class SequenceComponent implements OnInit {
     this.MAJLienTelechargement(sequence.reference, 'mission')
   }
 
-  MAJListeObjectifs(sequence: Sequence) {
+  MAJListeObjectifs (sequence: Sequence) {
     this.objectifs = []
     for (const objectif of sequence.objectifs) {
       if (objectif.reference !== '') {
@@ -85,7 +85,7 @@ export class SequenceComponent implements OnInit {
     }
   }
 
-  MAJListeQuestionsFlash(sequence: Sequence) {
+  MAJListeQuestionsFlash (sequence: Sequence) {
     this.questionsFlash = []
     for (const questionFlash of sequence.questionsFlash) {
       if (questionFlash.reference !== '') {
@@ -99,7 +99,7 @@ export class SequenceComponent implements OnInit {
     }
   }
 
-  MAJListeCalculsMentaux(sequence: Sequence) {
+  MAJListeCalculsMentaux (sequence: Sequence) {
     this.calculsMentaux = []
     for (const calculMental of sequence.calculsMentaux) {
       const niveauxTemp = []
@@ -119,7 +119,7 @@ export class SequenceComponent implements OnInit {
     }
   }
 
-  MAJInfosObjectifs() {
+  MAJInfosObjectifs () {
     for (const niveau of this.dataService.niveauxObjectifs) {
       for (const theme of niveau.themes) {
         for (const sousTheme of theme.sousThemes) {
@@ -141,7 +141,7 @@ export class SequenceComponent implements OnInit {
     this.MAJLienEval()
   }
 
-  MAJPageExiste(reference: string) {
+  MAJPageExiste (reference: string) {
     for (const questionFlash of this.questionsFlash) {
       if (questionFlash.reference === reference) {
         questionFlash.pageExiste = true
@@ -154,7 +154,7 @@ export class SequenceComponent implements OnInit {
     }
   }
 
-  MAJLienQuestionsFlash() {
+  MAJLienQuestionsFlash () {
     this.lienQuestionsFlash = 'https://coopmaths.fr/mathalea.html?'
     for (const questionFlash of this.questionsFlash) {
       if (questionFlash.slug !== '') {
@@ -164,7 +164,7 @@ export class SequenceComponent implements OnInit {
     this.lienQuestionsFlash = this.lienQuestionsFlash.concat('v=eval&z=1.5')
   }
 
-  MAJLienEval() {
+  MAJLienEval () {
     this.lienEval = 'https://coopmaths.fr/mathalea.html?'
     for (const thisObjectif of this.objectifs) {
       for (const slug of thisObjectif.slugs) {
@@ -176,7 +176,7 @@ export class SequenceComponent implements OnInit {
     this.lienEval = this.lienEval.concat('v=eval&z=1.5')
   }
 
-  MAJLienTelechargement(reference: string, type: string) {
+  MAJLienTelechargement (reference: string, type: string) {
     const lien = `assets/${type}/${reference.slice(1, 2)}e/${type.charAt(0).toUpperCase() + type.slice(1)}_${reference}.pdf`
     const xhttp = new XMLHttpRequest()
     xhttp.onreadystatechange = function () {
@@ -193,7 +193,7 @@ export class SequenceComponent implements OnInit {
     xhttp.open("HEAD", lien, true)
     xhttp.send()
 
-    function majDivLigneTelechargement(type: string, lien: string) {
+    function majDivLigneTelechargement (type: string, lien: string) {
       let divId = '', description
       switch (type) {
         case 'cours':
@@ -223,7 +223,7 @@ export class SequenceComponent implements OnInit {
     }
   }
 
-  getStringNombreObjectifs(nombre: number) {
+  getStringNombreObjectifs (nombre: number) {
     switch (nombre) {
       case 1:
         return 'un objectif'
@@ -242,12 +242,12 @@ export class SequenceComponent implements OnInit {
     }
   }
 
-  ouvrirModaleExercices(lien: string, ancre: string) {
+  ouvrirModaleExercices (lien: string, ancre: string) {
     this.infosModale = [[lien], '', new Date()]
     this.ancreDeRetour = ancre
   }
 
-  scrollBack(): void {
+  scrollBack (): void {
     this.viewportScroller.scrollToAnchor(this.ancreDeRetour)
   }
 }

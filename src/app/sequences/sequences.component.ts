@@ -22,7 +22,7 @@ export class SequencesComponent implements OnInit, OnDestroy {
   ongletActif: string
 
   // eslint-disable-next-line no-unused-vars
-  constructor(private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor (private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.lignesSequencesNormales = []
     this.lignesSequencesParticulieres = []
     this.filtre = {}
@@ -31,17 +31,17 @@ export class SequencesComponent implements OnInit, OnDestroy {
     this.MAJOngletActif()
   }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
     this.MAJFiltre()
     this.MAJLignesSequencesParticulieres()
     this.MAJLignesSequencesNormales()
   }
 
-  ngOnDestroy() {
+  ngOnDestroy () {
     this.navigationEventSubscription.unsubscribe()
   }
 
-  MAJOngletActif() {
+  MAJOngletActif () {
     this.navigationEventSubscription = this.router.events.subscribe((event: NavigationEvent) => {
       if (event instanceof NavigationStart) {
         this.ongletActif = event.url.split('/')[2]
@@ -49,13 +49,13 @@ export class SequencesComponent implements OnInit, OnDestroy {
     })
   }
 
-  MAJFiltre() {
+  MAJFiltre () {
     this.activatedRoute.params.subscribe(params => {
       this.filtre.niveau = params.niveau
     })
   }
 
-  MAJLignesSequencesParticulieres() {
+  MAJLignesSequencesParticulieres () {
     this.lignesSequencesParticulieres = []
     this.lignesSequencesParticulieres.push({ niveau: 'Séquences particulières' })
     for (const sequence of this.dataService.sequencesParticulieres) {
@@ -64,7 +64,7 @@ export class SequencesComponent implements OnInit, OnDestroy {
     this.lignesSequencesParticulieres.push({ niveau: 'fin' })
   }
 
-  MAJLignesSequencesNormales() {
+  MAJLignesSequencesNormales () {
     this.lignesSequencesNormales = []
     for (const niveau of this.dataService.niveauxSequences) {
       this.lignesSequencesNormales.push({ niveau: niveau.nom })

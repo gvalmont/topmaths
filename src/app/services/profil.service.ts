@@ -21,7 +21,7 @@ export class ProfilService {
   lienAvatar: string
 
   // eslint-disable-next-line no-unused-vars
-  constructor(public httpClient: HttpClient, private router: Router, private outils: OutilsService, private dataService: DataService, private storageService: StorageService) {
+  constructor (public httpClient: HttpClient, private router: Router, private outils: OutilsService, private dataService: DataService, private storageService: StorageService) {
     this.redirectUrl = ''
     this.user = {
       id: 0,
@@ -38,7 +38,7 @@ export class ProfilService {
     this.MAJLienAvatar()
   }
 
-  MAJLienAvatar() {
+  MAJLienAvatar () {
     this.profilModifie.subscribe(valeursModifiees => {
       if (valeursModifiees.includes('codeAvatar')) {
         this.lienAvatar = this.getLienAvatar(this.user)
@@ -52,7 +52,7 @@ export class ProfilService {
    * @param user
    * @returns lienAvatar
    */
-  getLienAvatar(user: User) {
+  getLienAvatar (user: User) {
     let lienAvatar: string
     if (user.codeAvatar === undefined || user.codeAvatar === '') {
       lienAvatar = 'assets/img/reshot/user-3294.svg'
@@ -80,7 +80,7 @@ export class ProfilService {
    * @param auto true si connexion automatique, true si l'utilisateur saisit son identifiant
    * @param redigire true s'il y a une redirection à faire, false sinon
    */
-  login(identifiant: string, auto: boolean, redirige?: boolean) {
+  login (identifiant: string, auto: boolean, redirige?: boolean) {
     if (isDevMode()) {
       this.user = {
         id: 1,
@@ -139,7 +139,7 @@ export class ProfilService {
    * Si tout est ok, on passe l'identifiant à l'API pour le créer.
    * @param identifiant
    */
-  registration(identifiant: string) {
+  registration (identifiant: string) {
     if (identifiant.length > 5 || identifiant.length < 4) {
       this.erreurRegistration('longueur')
     } else if (!this.outils.onlyLettersAndNumbers(identifiant)) {
@@ -180,7 +180,7 @@ export class ProfilService {
    * @param typeErreur chaine de caractères
    * @param erreur objet erreur
    */
-  erreurRegistration(typeErreur?: string, erreur?: any) {
+  erreurRegistration (typeErreur?: string, erreur?: any) {
     if (typeErreur === 'longueur') {
       alert('Erreur : l\'identifiant doit comporter 4 ou 5 caractères !')
     } else if (typeErreur === 'caracteres_speciaux') {
@@ -197,7 +197,7 @@ export class ProfilService {
    * @param avatarSVG
    * @param codeAvatar
    */
-  MAJAvatar(avatarSVG: string, codeAvatar: string) {
+  MAJAvatar (avatarSVG: string, codeAvatar: string) {
     this.user.codeAvatar = codeAvatar
     if (isDevMode()) {
       this.profilModifie.emit(['codeAvatar'])
@@ -218,7 +218,7 @@ export class ProfilService {
    * Toggle les profilbtn et loginbtn.
    * Renvoie vers l'accueil.
    */
-  logout() {
+  logout () {
     this.storageService.deleteToken('identifiant')
     this.storageService.deleteToken('version')
     this.user = new User(0, '', '', '', '', '', '')
@@ -237,7 +237,7 @@ export class ProfilService {
   /**
    * Met à jour le profil de l'utilisateur
    */
-  majProfil(valeursModifiees: string[]) {
+  majProfil (valeursModifiees: string[]) {
     if (isDevMode()) {
       this.profilModifie.emit(valeursModifiees)
     } else {
@@ -255,7 +255,7 @@ export class ProfilService {
    * Met à jour this.feminin
    * @param feminin boolean
    */
-  majFeminin(feminin: boolean) {
+  majFeminin (feminin: boolean) {
     this.dataService.feminin = feminin
   }
 
@@ -263,7 +263,7 @@ export class ProfilService {
    * Crée un pseudo aléatoire en mélangeant un nom et un adjectif au hasard
    * @returns pseudo
    */
-  tirerUnPseudoAleatoire() {
+  tirerUnPseudoAleatoire () {
     if (this.dataService.feminin) {
       const nom = this.dataService.listeFeminins[Math.floor(Math.random() * this.dataService.listeFeminins.length)].nom
       const adjectif = this.dataService.listeAdjectifs[Math.floor(Math.random() * this.dataService.listeAdjectifs.length)].feminin
@@ -281,7 +281,7 @@ export class ProfilService {
    * Sinon, renvoie false
    * @returns boolean
    */
-  checkLoggedIn() {
+  checkLoggedIn () {
     const usertoken = this.storageService.getToken('identifiant')
     const version = this.storageService.getToken('version')
     if (usertoken !== null && version === this.derniereVersionToken) {
@@ -296,7 +296,7 @@ export class ProfilService {
    * @param input
    * @returns true si l'input est correct, false sinon
    */
-  inputOk(input: string) {
+  inputOk (input: string) {
     let defaut = true
     let errSpChar = false
     let errPetitNbChar = false

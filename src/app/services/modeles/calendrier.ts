@@ -4,7 +4,7 @@ export class Annee {
   public heureEte: HeureEte
   public periodes: Periode[]
 
-  constructor(annee: number, heureEte: HeureEte, periodes: Periode[]) {
+  constructor (annee: number, heureEte: HeureEte, periodes: Periode[]) {
     this.annee = annee
     this.heureEte = heureEte
     this.periodes = periodes
@@ -17,7 +17,7 @@ export class Periode {
   public fin: number
   public type: string
 
-  constructor(numero: number, debut: number, fin: number, type: string) {
+  constructor (numero: number, debut: number, fin: number, type: string) {
     this.numero = numero
     this.debut = debut
     this.fin = fin
@@ -29,7 +29,7 @@ export class HeureEte {
   public debut: number
   public fin: number
 
-  constructor(debut: number, fin: number) {
+  constructor (debut: number, fin: number) {
     this.debut = debut
     this.fin = fin
   }

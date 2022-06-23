@@ -18,7 +18,7 @@ export class AppComponent implements OnDestroy {
   navigationEventSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
-  constructor(private router: Router, public profilService: ProfilService, private storageService: StorageService, private activatedRoute: ActivatedRoute, private titleService: Title) {
+  constructor (private router: Router, public profilService: ProfilService, private storageService: StorageService, private activatedRoute: ActivatedRoute, private titleService: Title) {
     this.title = 'topmaths.fr - Les maths au TOP !'
     this.ongletActif = 'accueil'
     this.navigationEventSubscription = new Subscription
@@ -27,11 +27,11 @@ export class AppComponent implements OnDestroy {
     this.MAJTitreDeLaPage()
   }
 
-  ngOnDestroy() {
+  ngOnDestroy () {
     this.navigationEventSubscription.unsubscribe()
   }
 
-  MAJOngletActif() {
+  MAJOngletActif () {
     this.navigationEventSubscription = this.router.events.subscribe((event: NavigationEvent) => {
       if (event instanceof NavigationStart) {
         this.ongletActif = event.url.split('/')[1]
@@ -43,7 +43,7 @@ export class AppComponent implements OnDestroy {
   /**
    * Vérifie la présence d'un token de connexion et récupère le profil utilisateur le cas échéant
    */
-  MAJProfil() {
+  MAJProfil () {
     const identifiant = this.storageService.getToken('identifiant')
     const version = this.storageService.getToken('version')
     if (identifiant !== null && version === this.profilService.derniereVersionToken) {
@@ -53,7 +53,7 @@ export class AppComponent implements OnDestroy {
     }
   }
 
-  MAJTitreDeLaPage() {
+  MAJTitreDeLaPage () {
     // Fonction de https://blog.bitsrc.io/dynamic-page-titles-in-angular-98ce20b5c334
     const appTitle = this.titleService.getTitle()
     this.router

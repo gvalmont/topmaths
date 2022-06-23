@@ -13,18 +13,18 @@ export class AnimationInstrumenpocheComponent implements OnInit {
   hauteurAnimation: string = '600'
 
   // eslint-disable-next-line no-unused-vars
-  constructor(private httpClient: HttpClient) {
+  constructor (private httpClient: HttpClient) {
     this.nomAnimation = ''
     this.largeurAnimation = '600'
     this.hauteurAnimation = '600'
   }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
     /**
      * Affiche une erreur dans la page
      * @param {Error|string} error
      */
-    function displayError(error: any) {
+    function displayError (error: any) {
       console.error(error)
       const pre = document.createElement('pre')
       const txt = document.createTextNode(error.toString())

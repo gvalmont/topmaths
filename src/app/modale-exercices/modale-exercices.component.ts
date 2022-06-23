@@ -29,7 +29,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
   listeExercices: Exercice[]
 
   // eslint-disable-next-line no-unused-vars
-  constructor(private profilService: ProfilService, private dataService: DataService, public confettiService: ConfettiService, private storageService: StorageService) {
+  constructor (private profilService: ProfilService, private dataService: DataService, public confettiService: ConfettiService, private storageService: StorageService) {
     this.infosModale = [[], '', new Date()]
     this.lienSpinner = ''
     this.listeExercices = []
@@ -40,12 +40,12 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     setTimeout(() => this.confettiService.stop(), 3000) // Sinon un reliquat reste apparent
   }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
     this.MAJListeExercices()
     this.MAJElementsHTML()
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges (changes: SimpleChanges) {
     if (typeof (changes.infosModale) !== 'undefined') {
       if (!changes.infosModale.isFirstChange()) {
         this.set('listeDesUrl', changes.infosModale.currentValue[0])
@@ -66,13 +66,13 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
    * puis ajoute tous les calculs mentaux du sequences.json à la liste des exercices,
    * enfin lance la création du listener des messages post (car ces listes d'exercices seront "embed" avec le listener et ne pourra plus être modifiée)
    */
-  MAJListeExercices() {
+  MAJListeExercices () {
     this.MAJExercicesObjectifs(this.dataService.niveauxObjectifs)
     this.MAJExercicesSequences(this.dataService.niveauxSequences)
     this.creerListenerMessagesPost()
   }
 
-  MAJExercicesObjectifs(niveaux: NiveauObjectif[]) {
+  MAJExercicesObjectifs (niveaux: NiveauObjectif[]) {
     for (const niveau of niveaux) {
       for (const theme of niveau.themes) {
         for (const sousTheme of theme.sousThemes) {
@@ -95,7 +95,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     }
   }
 
-  MAJExercicesSequences(niveaux: NiveauSequence[]) {
+  MAJExercicesSequences (niveaux: NiveauSequence[]) {
     for (const niveau of niveaux) {
       for (const sequence of niveau.sequences) {
         for (const calculMental of sequence.calculsMentaux) {
@@ -110,7 +110,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     }
   }
 
-  creerListenerMessagesPost() {
+  creerListenerMessagesPost () {
     const divListenerExistant = document.getElementById('modaleExercicesListener')
     if (divListenerExistant === null) {
       this.creerDivPresenceListener()
@@ -145,13 +145,13 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     }
   }
 
-  creerDivPresenceListener() {
+  creerDivPresenceListener () {
     const divListener = document.createElement('div')
     divListener.id = 'modaleExercicesListener'
     document.body.appendChild(divListener)
   }
 
-  fermerEcranDeChargement(type: string, url: string, urlDejaFaits: string[]) {
+  fermerEcranDeChargement (type: string, url: string, urlDejaFaits: string[]) {
     if (type === '') {
       this.hideLoadingScreen()
     } else if (type === 'exerciceAuHasard') {
@@ -163,7 +163,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     }
   }
 
-  lancerLesConfetti(exercice: Exercice, data: any) {
+  lancerLesConfetti (exercice: Exercice, data: any) {
     const nbBonnesReponses: number = data.nbBonnesReponses
     const nbMauvaisesReponses: number = data.nbMauvaisesReponses
     if (nbBonnesReponses > 0 && nbMauvaisesReponses === 0 && exercice.isInteractif) {
@@ -171,7 +171,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     }
   }
 
-  MAJurlDejaFaits(type: string, exercice: Exercice, graine: string, url: string, urlDejaFaits: string[]) {
+  MAJurlDejaFaits (type: string, exercice: Exercice, graine: string, url: string, urlDejaFaits: string[]) {
     urlDejaFaits.push(url.split('&serie=')[0].split(',i=')[0])
     this.set('urlDejaFaits', urlDejaFaits)
     if (type === 'exerciceAuHasard' && url.slice(0, 25) === 'https://mathsmentales.net') {
@@ -185,7 +185,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     }
   }
 
-  exerciceAleatoireSuivant() {
+  exerciceAleatoireSuivant () {
     const indiceExerciceActuel = this.get('indiceExerciceActuel')
     const listeDesIndices = this.get('listeDesIndices')
     const nouvelIndice = indiceExerciceActuel % (this.get('listeDesUrl').length - 1) + 1
@@ -195,7 +195,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     this.ajouterIframe(urlExerciceSuivant)
   }
 
-  MAJElementsHTML() {
+  MAJElementsHTML () {
     let element = document.getElementById("modaleExercices")
     if (element !== null) this.modale = element
     element = document.getElementById("modaleExercicesUrl")
@@ -208,7 +208,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     if (element !== null) this.boutonCopierLoading = element
   }
 
-  parametrage(site: string) {
+  parametrage (site: string) {
     this.modale.style.display = 'block'
     const type = this.get('type')
     if (!isDevMode()) this.displayLoadingScreen()
@@ -224,7 +224,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     this.positionnerLesBoutons(site)
   }
 
-  creeListeIndicesExercices() {
+  creeListeIndicesExercices () {
     const liste = []
     for (let i = 0; i < this.get('listeDesUrl').length; i++) {
       liste.push(i)
@@ -236,7 +236,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
    * Crée une nouvelle iframe et remplace l'ancienne à chaque ouverture de la page
    * pour éviter des comportements bizarres si on charge plusieurs fois d'affilée la même page
    */
-  ajouterIframe(url: string) {
+  ajouterIframe (url: string) {
     const iframeActuel = document.getElementById('iframeExercice1')
     let parent = <Node>this.modale // Pour le premier iframe
     if (iframeActuel !== null && iframeActuel.parentNode !== null) {
@@ -252,7 +252,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     parent.appendChild(nouvelIframe)
   }
 
-  positionnerLesBoutons(site: string) {
+  positionnerLesBoutons (site: string) {
     switch (site) {
       case 'mathalea':
         this.lienSpinner = '/assets/img/cc0/orange-spinner.svg'
@@ -283,7 +283,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     }
   }
 
-  shuffle(array: number[]) {
+  shuffle (array: number[]) {
     let currentIndex = array.length; let temporaryValue; let randomIndex
 
     // While there remain elements to shuffle...
@@ -302,7 +302,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     return arrayBis
   }
 
-  fermerModale(valeur?: number) {
+  fermerModale (valeur?: number) {
     this.modaleFermee.emit(valeur)
     const iframe = document.getElementById('iframeExercice1')
     if (iframe !== null && iframe.parentNode !== null) iframe.parentNode.removeChild(iframe)
@@ -310,34 +310,34 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     this.hideLoadingScreen()
   }
 
-  displayLoadingScreen() {
+  displayLoadingScreen () {
     const loadingDiv = document.getElementById('loading')
     if (loadingDiv !== null) loadingDiv.style.display = 'block'
   }
 
-  hideLoadingScreen() {
+  hideLoadingScreen () {
     const loadingDiv = document.getElementById('loading')
     if (loadingDiv !== null) loadingDiv.style.display = 'none'
   }
 
-  copierLien() {
+  copierLien () {
     navigator.clipboard.writeText(this.get('lienACopier'))
     alert('Le lien vers l\'exercice a été copié')
   }
 
-  set(tag: string, objet: any) {
+  set (tag: string, objet: any) {
     this.storageService.set('ME' + tag, objet)
   }
 
-  get(tag: string) {
+  get (tag: string) {
     return this.storageService.get('ME' + tag)
   }
 
-  isMathalea(url: string) {
+  isMathalea (url: string) {
     return url.slice(0, 34) === 'https://coopmaths.fr/mathalea.html'
   }
 
-  isMathsmentales(url: string) {
+  isMathsmentales (url: string) {
     return url.slice(0, 25) === 'https://mathsmentales.net'
   }
 }

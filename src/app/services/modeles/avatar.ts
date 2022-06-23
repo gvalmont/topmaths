@@ -11,7 +11,7 @@ export class AvatarsDef {
   public skinColor: Color[]
   public hairColor: Color[]
 
-  constructor(baliseOuverture: string, visage: string, visageBlanc: string, baliseFermeture: string, eyes: Trait[], eyebrows: Trait[], mouth: Trait[], accessoires: Trait[], hair: Trait[], skinColor: Color[], hairColor: Color[]) {
+  constructor (baliseOuverture: string, visage: string, visageBlanc: string, baliseFermeture: string, eyes: Trait[], eyebrows: Trait[], mouth: Trait[], accessoires: Trait[], hair: Trait[], skinColor: Color[], hairColor: Color[]) {
     this.baliseOuverture = baliseOuverture
     this.visage = visage
     this.visageBlanc = visageBlanc
@@ -33,7 +33,7 @@ export class Trait {
   public length?: string
   public emplacement?: string
 
-  constructor(id: number, originalId: string, path: string, length?: string, emplacement?: string) {
+  constructor (id: number, originalId: string, path: string, length?: string, emplacement?: string) {
     this.id = id
     this.originalId = originalId
     this.length = length
@@ -47,7 +47,7 @@ export class Color {
   public originalId: string
   public color: string
 
-  constructor(id: number, originalId: string, color: string) {
+  constructor (id: number, originalId: string, color: string) {
     this.id = id
     this.originalId = originalId
     this.color = color

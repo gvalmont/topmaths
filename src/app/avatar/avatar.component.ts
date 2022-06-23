@@ -29,7 +29,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
   navigationEventSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
-  constructor(public profilService: ProfilService, private dataService: DataService, private router: Router) {
+  constructor (public profilService: ProfilService, private dataService: DataService, private router: Router) {
     this.skinColor = 'rgba(243, 237, 232, 1)'
     this.hairColor = 'rgba(172, 101, 17, 1)'
     this.codeHTMLduSVG = ''
@@ -44,18 +44,18 @@ export class AvatarComponent implements OnInit, OnDestroy {
     this.navigationEventSubscription = new Subscription
   }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
     this.MAJDiv()
     this.surveillerLaNavigation()
     this.MAJParametresAvatarActuel()
     this.MAJPage()
   }
 
-  ngOnDestroy() {
+  ngOnDestroy () {
     this.navigationEventSubscription.unsubscribe()
   }
 
-  MAJDiv() {
+  MAJDiv () {
     let div = document.getElementById("panneauPrincipal")
     if (div !== null) this.panneauPrincipal = div
     div = document.getElementById('divAvatarEnCreation')
@@ -69,7 +69,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
   /**
    * Surveille la navigation pour éventuellement la bloquer si l'utilisateur veut quitter la page sans enregistrer son avatar
    */
-  surveillerLaNavigation() {
+  surveillerLaNavigation () {
     this.navigationEventSubscription = this.router.events.subscribe((event: NavigationEvent) => {
       if (event instanceof NavigationStart) {
         if (this.empecherNavigation) {
@@ -82,7 +82,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
     })
   }
 
-  MAJParametresAvatarActuel() {
+  MAJParametresAvatarActuel () {
     if (this.profilService.user.codeAvatar !== '') {
       const parametres = this.profilService.user.codeAvatar.split('&')
       this.skinColor = parametres[0]
@@ -98,14 +98,14 @@ export class AvatarComponent implements OnInit, OnDestroy {
     }
   }
 
-  MAJPage() {
+  MAJPage () {
     this.MAJMenu()
     this.MAJPanneauPrincipal()
     this.sauvegarderDonneesAvatar()
     this.recupererDonneesAvatar()
   }
 
-  MAJMenu() {
+  MAJMenu () {
     const skinColorMenu = document.getElementById("skinColorMenu")
     if (skinColorMenu !== null) this.ajouterSVG(skinColorMenu, { skinColor: this.skinColor })
     const eyesMenu = document.getElementById("eyesMenu")
@@ -122,7 +122,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
     if (hairColorMenu !== null) this.ajouterSVG(hairColorMenu, { hairColor: this.hairColor })
   }
 
-  MAJPanneauPrincipal() {
+  MAJPanneauPrincipal () {
     this.panneauPrincipal.textContent = ''
     switch (this.ongletActif) {
       case 'couleur':
@@ -166,7 +166,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
     this.divAvatarEnCreation.innerHTML = this.codeHTMLduSVG
   }
 
-  sauvegarderDonneesAvatar() {
+  sauvegarderDonneesAvatar () {
     const skinColorDiv = document.getElementById("skinColor")
     if (skinColorDiv !== null) skinColorDiv.innerText = this.skinColor
     const eyesDiv = document.getElementById("eyes")
@@ -183,7 +183,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
     if (hairColorDiv !== null) hairColorDiv.innerText = this.hairColor
   }
 
-  recupererDonneesAvatar() {
+  recupererDonneesAvatar () {
     const skinColorDiv = document.getElementById("skinColor")
     if (skinColorDiv !== null) this.skinColor = skinColorDiv.innerText
     const eyesDiv = document.getElementById("eyes")
@@ -202,13 +202,13 @@ export class AvatarComponent implements OnInit, OnDestroy {
     this.MAJMenu()
   }
 
-  ajouterSVG(cibleAAttacher: HTMLElement, parametres: { skinColor?: string, eyes?: number, eyebrows?: number, mouth?: number, accessoires?: number[], hair?: number, hairColor?: string }) {
+  ajouterSVG (cibleAAttacher: HTMLElement, parametres: { skinColor?: string, eyes?: number, eyebrows?: number, mouth?: number, accessoires?: number[], hair?: number, hairColor?: string }) {
     this.genererCodeHTMLduSVG(cibleAAttacher, parametres)
     const divSVG = this.genererDivSVG(cibleAAttacher, parametres)
     this.attacherDivSVG(cibleAAttacher, divSVG)
   }
 
-  genererCodeHTMLduSVG(cibleAAttacher: HTMLElement, parametres: { skinColor?: string, eyes?: number, eyebrows?: number, mouth?: number, accessoires?: number[], hair?: number, hairColor?: string }) {
+  genererCodeHTMLduSVG (cibleAAttacher: HTMLElement, parametres: { skinColor?: string, eyes?: number, eyebrows?: number, mouth?: number, accessoires?: number[], hair?: number, hairColor?: string }) {
     this.codeHTMLduSVG = this.dataService.avatarsDef.baliseOuverture
     if (cibleAAttacher.id === 'panneauPrincipal' || cibleAAttacher.id === 'divAvatarEnCreation') { // Panneau principal ou avatar en cours de création
       this.codeHTMLduSVG += "<g transform=\"translate(38.1 38.1) scale(0.9)\">"
@@ -250,13 +250,13 @@ export class AvatarComponent implements OnInit, OnDestroy {
    * @param trait yeux, cheveux etc.
    * @param id id du groupe si on veut pouvoir y accéder plus tard
    */
-  ajouterTrait(trait: Trait, id: string) {
+  ajouterTrait (trait: Trait, id: string) {
     this.codeHTMLduSVG += `<g class="${id}" transform="translate(-161 -83)">`
     this.codeHTMLduSVG += trait.path
     this.codeHTMLduSVG += '</g>'
   }
 
-  genererDivSVG(cibleAAttacher: HTMLElement, parametres: { skinColor?: string, eyes?: number, eyebrows?: number, mouth?: number, accessoires?: number[], hair?: number, hairColor?: string }) {
+  genererDivSVG (cibleAAttacher: HTMLElement, parametres: { skinColor?: string, eyes?: number, eyebrows?: number, mouth?: number, accessoires?: number[], hair?: number, hairColor?: string }) {
     const divSVG = document.createElement('div')
     divSVG.innerHTML = this.codeHTMLduSVG
     if (cibleAAttacher.id === 'panneauPrincipal') { // Stocker le type de paramètre et sa valeur dans l'id du div
@@ -303,7 +303,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
    * @param accessoires
    * @returns string
    */
-  getAccessoiresId(accessoires: number[]) {
+  getAccessoiresId (accessoires: number[]) {
     let str = ''
     for (const accessoire of accessoires) {
       str += this.dataService.avatarsDef.accessoires[accessoire].id + '-'
@@ -311,7 +311,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
     return str.slice(0, str.length - 1)
   }
 
-  attacherDivSVG(cibleAAttacher: HTMLElement, divSVG: HTMLDivElement) {
+  attacherDivSVG (cibleAAttacher: HTMLElement, divSVG: HTMLDivElement) {
     if (cibleAAttacher.id === 'panneauPrincipal') {
       cibleAAttacher.appendChild(divSVG)
     } else if (cibleAAttacher.id === 'divAvatarEnCreation') {
@@ -323,20 +323,20 @@ export class AvatarComponent implements OnInit, OnDestroy {
     }
   }
 
-  MAJAvatar(redirection: string = '/profil') {
+  MAJAvatar (redirection: string = '/profil') {
     this.modaleConfirmation.style.display = 'none'
     this.profilService.MAJAvatar(this.getAvatarFichierSVG(), `${this.skinColor}&${this.eyes}&${this.eyebrows}&${this.mouth}&${this.getAccessoiresId(this.accessoires)}&${this.hair}&${this.hairColor}`)
     this.router.navigate([redirection])
   }
 
-  getAvatarFichierSVG() {
+  getAvatarFichierSVG () {
     const divAvatarEnCreation = document.getElementById("divAvatarEnCreation")
     let svgData = ''
     if (divAvatarEnCreation !== null) svgData = new XMLSerializer().serializeToString(divAvatarEnCreation.childNodes[0])
     return "data:image/codeHTMLduSVG+xml;base64," + btoa(svgData)
   }
 
-  avatarAleatoire() {
+  avatarAleatoire () {
     this.skinColor = this.dataService.avatarsDef.skinColor[Math.floor(Math.random() * this.dataService.avatarsDef.skinColor.length)].color
     this.hairColor = this.dataService.avatarsDef.hairColor[Math.floor(Math.random() * this.dataService.avatarsDef.hairColor.length)].color
     this.eyes = this.dataService.avatarsDef.eyes[Math.floor(Math.random() * this.dataService.avatarsDef.eyes.length)].id
@@ -347,7 +347,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
     this.MAJPage()
   }
 
-  afficherModaleConfirmation() {
+  afficherModaleConfirmation () {
     this.modaleConfirmationDivAvatarEnCreation.textContent = ''
     this.modaleConfirmationDivAvatarEnCreation.appendChild(this.divAvatarEnCreation.cloneNode(true))
     this.modaleConfirmation.style.display = 'block'
@@ -357,7 +357,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
    * Ferme la modale de confirmation
    * Si la modale s'est affichée lorsque l'utilisateur voulait quitter la page, redirige vers là où il voulait aller
    */
-  fermerModaleConfirmation(redirection?: string) {
+  fermerModaleConfirmation (redirection?: string) {
     this.modaleConfirmation.style.display = 'none'
     if (!this.empecherNavigation) {
       if (redirection) this.router.navigate([redirection])

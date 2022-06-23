@@ -23,7 +23,7 @@ export class ObjectifComponent implements OnInit {
   infosModale: [string[], string, Date]
 
   // eslint-disable-next-line no-unused-vars
-  constructor(private activatedRoute: ActivatedRoute, public profilService: ProfilService, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
+  constructor (private activatedRoute: ActivatedRoute, public profilService: ProfilService, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
     this.niveau = ''
     this.titre = ''
     this.rappelDuCoursHTML = ''
@@ -34,17 +34,17 @@ export class ObjectifComponent implements OnInit {
     this.infosModale = [[], '', new Date()]
   }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
     this.surveillerChangementsDeReference()
   }
 
-  surveillerChangementsDeReference() {
+  surveillerChangementsDeReference () {
     this.activatedRoute.params.subscribe(params => {
       this.trouverObjectif(params.reference)
     })
   }
 
-  trouverObjectif(reference: string) {
+  trouverObjectif (reference: string) {
     this.dataService.niveauxObjectifs.find(niveau => {
       return niveau.themes.find(theme => {
         return theme.sousThemes.find(sousTheme => {
@@ -60,7 +60,7 @@ export class ObjectifComponent implements OnInit {
     })
   }
 
-  MAJProprietes(objectif: Objectif) {
+  MAJProprietes (objectif: Objectif) {
     this.titre = `${objectif.reference} : ${objectif.titre}`
     this.titleService.setTitle(this.titre)
     this.profilService.user.dernierObjectif = objectif.reference + '!' + this.titre
@@ -119,17 +119,17 @@ export class ObjectifComponent implements OnInit {
     }
   }
 
-  ouvrirModaleExercices(lien: string | undefined) {
+  ouvrirModaleExercices (lien: string | undefined) {
     if (typeof lien !== 'undefined') {
       this.infosModale = [[this.changerSerie(lien)], '', new Date()]
     }
   }
 
-  changerSerie(lien: string) {
+  changerSerie (lien: string) {
     return lien.split('&serie=')[0] + '&serie=' + Math.random().toString(16).slice(2, 6) + lien.split('&serie=')[1]
   }
 
-  scrollBack(): void {
+  scrollBack (): void {
     this.viewportScroller.scrollToAnchor('divExercices')
   }
 }

@@ -2,7 +2,7 @@ export class Niveau {
   public nom: string
   public themes: Theme[]
 
-  constructor(nom: string, themes: Theme[]) {
+  constructor (nom: string, themes: Theme[]) {
     this.nom = nom
     this.themes = themes
   }
@@ -12,7 +12,7 @@ export class Theme {
   public nom: string
   public sousThemes: SousTheme[]
 
-  constructor(nom: string, sousThemes: SousTheme[]) {
+  constructor (nom: string, sousThemes: SousTheme[]) {
     this.nom = nom
     this.sousThemes = sousThemes
   }
@@ -22,7 +22,7 @@ export class SousTheme {
   public nom: string
   public objectifs: Objectif[]
 
-  constructor(nom: string, objectifs: Objectif[]) {
+  constructor (nom: string, objectifs: Objectif[]) {
     this.nom = nom
     this.objectifs = objectifs
   }
@@ -37,7 +37,7 @@ export class Objectif {
   public videos: Video[]
   public exercices: Exercice[]
 
-  constructor(reference: string, titre: string, rappelDuCoursHTML: string, rappelDuCoursImage: string, rappelDuCoursInstrumenpoche: string, videos: Video[], exercices: Exercice[]) {
+  constructor (reference: string, titre: string, rappelDuCoursHTML: string, rappelDuCoursImage: string, rappelDuCoursInstrumenpoche: string, videos: Video[], exercices: Exercice[]) {
     this.reference = reference
     this.titre = titre
     this.rappelDuCoursHTML = rappelDuCoursHTML
@@ -55,7 +55,7 @@ export class Video {
   public lienAuteur: string
   public lienVideo: string
 
-  constructor(titre: string, slug: string, auteur: string, lienAuteur: string, lienVideo: string) {
+  constructor (titre: string, slug: string, auteur: string, lienAuteur: string, lienVideo: string) {
     this.titre = titre
     this.slug = slug
     this.auteur = auteur
@@ -70,7 +70,7 @@ export class Exercice {
   public lien: string
   public isInteractif: boolean
 
-  constructor(id: number, slug: string, lien: string, isInteractif: boolean) {
+  constructor (id: number, slug: string, lien: string, isInteractif: boolean) {
     this.id = id
     this.slug = slug
     this.lien = lien

@@ -22,7 +22,7 @@ export class ObjectifsComponent implements OnInit, OnDestroy {
   navigationEventSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
-  constructor(private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor (private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.lignes = []
     this.filtre = {}
     this.ongletActif = 'tout'
@@ -30,16 +30,16 @@ export class ObjectifsComponent implements OnInit, OnDestroy {
     this.MAJOngletActif()
   }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
     this.MAJFiltre()
     this.MAJLignes()
   }
 
-  ngOnDestroy() {
+  ngOnDestroy () {
     this.navigationEventSubscription.unsubscribe()
   }
 
-  MAJOngletActif() {
+  MAJOngletActif () {
     this.navigationEventSubscription = this.router.events.subscribe((event: NavigationEvent) => {
       if (event instanceof NavigationStart) {
         this.ongletActif = event.url.split('/')[2]
@@ -47,7 +47,7 @@ export class ObjectifsComponent implements OnInit, OnDestroy {
     })
   }
 
-  MAJFiltre() {
+  MAJFiltre () {
     this.activatedRoute.params.subscribe(params => {
       this.filtre.niveau = params.niveau
       this.filtre.theme = params.theme
@@ -55,7 +55,7 @@ export class ObjectifsComponent implements OnInit, OnDestroy {
     })
   }
 
-  MAJLignes() {
+  MAJLignes () {
     this.lignes = []
     for (const niveau of this.dataService.niveauxObjectifs) {
       this.lignes.push({ niveau: niveau.nom })
