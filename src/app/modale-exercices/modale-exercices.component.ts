@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http'
 import { Component, EventEmitter, Input, isDevMode, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core'
-import { ApiService } from '../services/api.service'
+import { ProfilService } from '../services/profil.service'
 import { ConfettiService } from '../services/confetti.service'
-import { GlobalConstants } from '../services/global-constants'
-import { Niveau as NiveauObjectif } from '../services/objectifs'
-import { Niveau as NiveauSequence } from '../services/sequences'
+import { DataService } from '../services/data.service'
+import { GlobalConstants } from '../services/modeles/global-constants'
+import { Niveau as NiveauObjectif } from '../services/modeles/objectifs'
+import { Niveau as NiveauSequence } from '../services/modeles/sequences'
+import { StorageService } from '../services/storage.service'
 
 interface Exercice {
   lien: string
@@ -28,7 +29,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
   listeExercices: Exercice[]
 
   // eslint-disable-next-line no-unused-vars
-  constructor(private httpClient: HttpClient, private apiService: ApiService, public confettiService: ConfettiService) {
+  constructor(private profilService: ProfilService, private dataService: DataService, public confettiService: ConfettiService, private storageService: StorageService) {
     this.infosModale = [[], '', new Date()]
     this.lienSpinner = ''
     this.listeExercices = []
@@ -66,13 +67,9 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
    * enfin lance la création du listener des messages post (car ces listes d'exercices seront "embed" avec le listener et ne pourra plus être modifiée)
    */
   MAJListeExercices() {
-    this.httpClient.get<NiveauObjectif[]>('assets/data/objectifs.json').subscribe(niveaux => {
-      this.MAJExercicesObjectifs(niveaux)
-      this.httpClient.get<NiveauSequence[]>('assets/data/sequences.json').subscribe(niveaux => {
-        this.MAJExercicesSequences(niveaux)
-        this.creerListenerMessagesPost()
-      })
-    })
+    this.MAJExercicesObjectifs(this.dataService.niveauxObjectifs)
+    this.MAJExercicesSequences(this.dataService.niveauxSequences)
+    this.creerListenerMessagesPost()
   }
 
   MAJExercicesObjectifs(niveaux: NiveauObjectif[]) {
@@ -329,11 +326,11 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
   }
 
   set(tag: string, objet: any) {
-    this.apiService.set('ME' + tag, objet)
+    this.storageService.set('ME' + tag, objet)
   }
 
   get(tag: string) {
-    return this.apiService.get('ME' + tag)
+    return this.storageService.get('ME' + tag)
   }
 
   isMathalea(url: string) {

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core'
 import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivate, Router } from '@angular/router'
-import { ApiService } from './api.service'
+import { ProfilService } from './profil.service'
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthguardGuard implements CanActivate {
-  constructor(private dataService: ApiService, private router: Router) { }
+  constructor(private profilService: ProfilService, private router: Router) { }
 
   /**
    * Fonction qui sert à déterminer si l'utilisateur a le droit d'emprunter une route
@@ -29,10 +29,10 @@ export class AuthguardGuard implements CanActivate {
    * @returns vrai s'il a le droit de l'emprunter, faux sinon
    */
   isLogin(routeurl: string) {
-    if (this.dataService.isloggedIn) {
+    if (this.profilService.isloggedIn) {
       return true
     }
-    this.dataService.redirectUrl = routeurl
+    this.profilService.redirectUrl = routeurl
     this.router.navigate(['/login'], { queryParams: { returnUrl: routeurl } })
     return false
   }

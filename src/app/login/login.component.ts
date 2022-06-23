@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
-import { ApiService } from '../services/api.service'
+import { ProfilService } from '../services/profil.service'
 import { OutilsService } from '../services/outils.service'
 
 @Component({
@@ -19,7 +19,7 @@ export class LoginComponent {
   loginVisible: boolean
 
   // eslint-disable-next-line no-unused-vars
-  constructor(private fb: FormBuilder, public apiService: ApiService, private router: Router, private outilsService: OutilsService) {
+  constructor(private fb: FormBuilder, public profilService: ProfilService, private router: Router, private outilsService: OutilsService) {
     this.angForm = this.fb.group({
       identifiant: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(5)]]
     })
@@ -30,7 +30,7 @@ export class LoginComponent {
     this.shake = false
     this.loginVisible = false
     this.surveillerChamp()
-    this.apiService.profilModifie.subscribe(valeursModifiees => {
+    this.profilService.profilModifie.subscribe(valeursModifiees => {
       if (valeursModifiees.includes('identifiant')) this.router.navigate(['/profil'])
     })
   }
@@ -39,7 +39,7 @@ export class LoginComponent {
     if (this.inputOk(identifiant)) {
       const bouton = <HTMLButtonElement> document.getElementById("loginButton")
       if (bouton !== null) bouton.disabled = true
-      this.apiService.login(identifiant, false, true)
+      this.profilService.login(identifiant, false, true)
     } else {
       this.shake = true
       setTimeout(() => this.shake = false, 500)

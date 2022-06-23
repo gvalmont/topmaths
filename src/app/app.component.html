@@ -32,12 +32,12 @@
       </a>
     </li>
     <li [ngClass]="{'is-actif': ongletActif === 'profil' || ongletActif === 'login'}">
-      <a *ngIf="apiService.isloggedIn" routerLink="profil" routerLinkActive="active" class="tabs-menu-link is-orange">
+      <a *ngIf="profilService.isloggedIn" routerLink="profil" routerLinkActive="active" class="tabs-menu-link is-orange">
         <figure class="image is-48x48">
-          <img [src]="apiService.lienAvatar">
+          <img [src]="profilService.lienAvatar">
         </figure>
       </a>
-      <a *ngIf="!apiService.isloggedIn" routerLink="login" routerLinkActive="active" class="tabs-menu-link is-orange">
+      <a *ngIf="!profilService.isloggedIn" routerLink="login" routerLinkActive="active" class="tabs-menu-link is-orange">
         <i class="image is-48x48"><img src="assets/img/gvalmont/user-regular.svg" /></i>
       </a>
     </li>

@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core'
+import { Component, OnDestroy, ViewEncapsulation } from '@angular/core'
 import { Router, NavigationStart, Event as NavigationEvent, ActivatedRoute, NavigationEnd } from '@angular/router'
-import { ApiService } from './services/api.service'
+import { ProfilService } from './services/profil.service'
 import { Title } from '@angular/platform-browser'
 import { filter, map } from 'rxjs/operators'
-import { HttpClient } from '@angular/common/http'
 import { Subscription } from 'rxjs'
+import { StorageService } from './services/storage.service'
 
 @Component({
   selector: 'app-root',
@@ -12,23 +12,19 @@ import { Subscription } from 'rxjs'
   styleUrls: ['./bulma.css', './bulma-extension.css', './app.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnDestroy {
   title: string
   ongletActif: string
   navigationEventSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
-  constructor(private httpClient: HttpClient, private router: Router, public apiService: ApiService, private activatedRoute: ActivatedRoute, private titleService: Title) {
+  constructor(private router: Router, public profilService: ProfilService, private storageService: StorageService, private activatedRoute: ActivatedRoute, private titleService: Title) {
     this.title = 'topmaths.fr - Les maths au TOP !'
     this.ongletActif = 'accueil'
     this.navigationEventSubscription = new Subscription
     this.MAJOngletActif()
     this.MAJProfil()
     this.MAJTitreDeLaPage()
-  }
-
-  ngOnInit() {
-    this.miseEnCacheDesDonnees()
   }
 
   ngOnDestroy() {
@@ -48,11 +44,11 @@ export class AppComponent implements OnInit, OnDestroy {
    * Vérifie la présence d'un token de connexion et récupère le profil utilisateur le cas échéant
    */
   MAJProfil() {
-    const identifiant = this.apiService.getToken('identifiant')
-    const version = this.apiService.getToken('version')
-    if (identifiant !== null && version === this.apiService.derniereVersionToken) {
+    const identifiant = this.storageService.getToken('identifiant')
+    const version = this.storageService.getToken('version')
+    if (identifiant !== null && version === this.profilService.derniereVersionToken) {
       setTimeout(() => {
-        this.apiService.login(identifiant, true, false)
+        this.profilService.login(identifiant, true, false)
       }, 0)
     }
   }
@@ -73,10 +69,5 @@ export class AppComponent implements OnInit, OnDestroy {
       ).subscribe((ttl: string) => {
         this.titleService.setTitle(ttl)
       })
-  }
-
-  miseEnCacheDesDonnees() {
-    this.httpClient.get('assets/data/objectifs.json').subscribe()
-    this.httpClient.get('assets/data/sequences.json').subscribe()
   }
 }

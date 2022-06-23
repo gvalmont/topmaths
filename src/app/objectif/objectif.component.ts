@@ -1,11 +1,11 @@
 import { ViewportScroller } from '@angular/common'
-import { HttpClient } from '@angular/common/http'
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { ApiService } from '../services/api.service'
-import { GlobalConstants } from '../services/global-constants'
-import { Niveau, Objectif, Video, Exercice } from '../services/objectifs'
+import { ProfilService } from '../services/profil.service'
+import { GlobalConstants } from '../services/modeles/global-constants'
+import { Objectif, Video, Exercice } from '../services/modeles/objectifs'
 import { Title } from '@angular/platform-browser'
+import { DataService } from '../services/data.service'
 
 @Component({
   selector: 'app-objectif',
@@ -23,7 +23,7 @@ export class ObjectifComponent implements OnInit {
   infosModale: [string[], string, Date]
 
   // eslint-disable-next-line no-unused-vars
-  constructor(public httpClient: HttpClient, private activatedRoute: ActivatedRoute, public apiService: ApiService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
+  constructor(private activatedRoute: ActivatedRoute, public profilService: ProfilService, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
     this.niveau = ''
     this.titre = ''
     this.rappelDuCoursHTML = ''
@@ -45,17 +45,15 @@ export class ObjectifComponent implements OnInit {
   }
 
   trouverObjectif(reference: string) {
-    this.httpClient.get<Niveau[]>('assets/data/objectifs.json').subscribe(niveaux => {
-      niveaux.find(niveau => {
-        return niveau.themes.find(theme => {
-          return theme.sousThemes.find(sousTheme => {
-            return sousTheme.objectifs.find(objectif => {
-              if (objectif.reference === reference) {
-                this.niveau = niveau.nom
-                this.MAJProprietes(objectif)
-              }
-              return objectif.reference === reference
-            })
+    this.dataService.niveauxObjectifs.find(niveau => {
+      return niveau.themes.find(theme => {
+        return theme.sousThemes.find(sousTheme => {
+          return sousTheme.objectifs.find(objectif => {
+            if (objectif.reference === reference) {
+              this.niveau = niveau.nom
+              this.MAJProprietes(objectif)
+            }
+            return objectif.reference === reference
           })
         })
       })
@@ -65,8 +63,8 @@ export class ObjectifComponent implements OnInit {
   MAJProprietes(objectif: Objectif) {
     this.titre = `${objectif.reference} : ${objectif.titre}`
     this.titleService.setTitle(this.titre)
-    this.apiService.user.dernierObjectif = objectif.reference + '!' + this.titre
-    this.apiService.majProfil(['dernierObjectif'])
+    this.profilService.user.dernierObjectif = objectif.reference + '!' + this.titre
+    this.profilService.majProfil(['dernierObjectif'])
     this.rappelDuCoursHTML = objectif.rappelDuCoursHTML
     if (objectif.rappelDuCoursImage === '') {
       this.rappelDuCoursImage = ''

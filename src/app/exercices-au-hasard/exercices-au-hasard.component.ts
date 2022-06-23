@@ -1,10 +1,10 @@
 import { ViewportScroller } from '@angular/common'
-import { HttpClient } from '@angular/common/http'
 import { Component, isDevMode } from '@angular/core'
-import { GlobalConstants } from 'src/app/services/global-constants'
-import { Niveau as NiveauObjectif } from 'src/app/services/objectifs'
-import { Niveau as NiveauSequence } from 'src/app/services/sequences'
+import { GlobalConstants } from 'src/app/services/modeles/global-constants'
+import { Niveau as NiveauObjectif } from 'src/app/services/modeles/objectifs'
+import { Niveau as NiveauSequence } from 'src/app/services/modeles/sequences'
 import { CalendrierService } from '../services/calendrier.service'
+import { DataService } from '../services/data.service'
 
 interface Exercice {
   id: number
@@ -21,7 +21,7 @@ export class ExercicesAuHasardComponent {
   infosModale: [string[], string, Date]
 
   // eslint-disable-next-line no-unused-vars
-  constructor(public httpClient: HttpClient, private viewportScroller: ViewportScroller, private calendrier: CalendrierService) {
+  constructor(private dataService: DataService, private viewportScroller: ViewportScroller, private calendrier: CalendrierService) {
     this.infosModale = [[], '', new Date()]
   }
 
@@ -33,13 +33,9 @@ export class ExercicesAuHasardComponent {
   }
 
   lancerExercices(niveauChoisi: string) {
-    this.httpClient.get<NiveauSequence[]>('assets/data/sequences.json').subscribe(niveaux => {
-      const listeReferences = this.getListeDesReferences(niveauChoisi, niveaux)
-      this.httpClient.get<NiveauObjectif[]>('assets/data/objectifs.json').subscribe(niveaux => {
-        const listeDesUrl = this.getListeDesExercices(listeReferences, niveauChoisi, niveaux)
-        this.infosModale = [listeDesUrl, 'exerciceAuHasard', new Date()]
-      })
-    })
+    const listeReferences = this.getListeDesReferences(niveauChoisi, this.dataService.niveauxSequences)
+    const listeDesUrl = this.getListeDesExercices(listeReferences, niveauChoisi, this.dataService.niveauxObjectifs)
+    this.infosModale = [listeDesUrl, 'exerciceAuHasard', new Date()]
   }
 
   getListeDesReferences(niveauChoisi: string, niveaux: NiveauSequence[]) {

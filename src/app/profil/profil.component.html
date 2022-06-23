@@ -2,14 +2,16 @@
   <!-- Pseudo -->
   <div>
     <a (click)="ouvrirModalePseudo()">
-      <h1 class="title is-2 is-inline-block">{{apiService.user.pseudo}}</h1>&nbsp;
+      <h1 class="title is-2 is-inline-block">{{profilService.user.pseudo}}</h1>&nbsp;
       <i class="image is-24x24 is-inline-block"><img src="assets/img/cc0/edit-svgrepo-com.svg" /></i>
     </a>
   </div>
   <!-- Avatar -->
   <div>
     <a routerLink="/profil/avatar">
-      <figure class="avatar is-inline-block is-large" [style]="apiService.styleAvatar"></figure>
+      <figure class="avatar is-inline-block is-large">
+        <img [src]="profilService.lienAvatar">
+      </figure>
       <i class="image is-24x24 is-inline-block"><img src="assets/img/cc0/edit-svgrepo-com.svg" /></i>
     </a>
   </div>
@@ -19,28 +21,28 @@
     <h2 class="title">Derniers objectif et séquence visités :</h2>
   </div>
   <br>
-  <div *ngIf="apiService.user.derniereSequence === '' && apiService.user.dernierObjectif === ''">
+  <div *ngIf="profilService.user.derniereSequence === '' && profilService.user.dernierObjectif === ''">
     Tu pourras retrouver ici des raccourcis vers le dernier objectif et vers la dernière séquence que tu auras visités.
     <br><br><br>
   </div>
-  <div *ngIf="apiService.user.derniereSequence !== '' || apiService.user.dernierObjectif !== ''">
-    <a *ngIf="apiService.user.derniereSequence !== ''" [routerLink]="'/sequence/' + apiService.user.derniereSequence.split('!')[0]" routerLinkActive="active">
-      <button [class]="'px-4 subtitle is-' + apiService.user.derniereSequence.slice(1, 2) + 'e is-rounded is-clickable'" style="line-height: 2.1; border-color: transparent;" [innerHTML]="apiService.user.derniereSequence.split('!')[1]"></button>
+  <div *ngIf="profilService.user.derniereSequence !== '' || profilService.user.dernierObjectif !== ''">
+    <a *ngIf="profilService.user.derniereSequence !== ''" [routerLink]="'/sequence/' + profilService.user.derniereSequence.split('!')[0]" routerLinkActive="active">
+      <button [class]="'px-4 subtitle is-' + profilService.user.derniereSequence.slice(1, 2) + 'e is-rounded is-clickable'" style="line-height: 2.1; border-color: transparent;" [innerHTML]="profilService.user.derniereSequence.split('!')[1]"></button>
     </a>
-    <a *ngIf="apiService.user.dernierObjectif !== ''" [routerLink]="'/objectif/' + apiService.user.dernierObjectif.split('!')[0]" routerLinkActive="active">
+    <a *ngIf="profilService.user.dernierObjectif !== ''" [routerLink]="'/objectif/' + profilService.user.dernierObjectif.split('!')[0]" routerLinkActive="active">
       <br><br>
-      <button [class]="'px-4 subtitle is-' + apiService.user.dernierObjectif.slice(0, 1) + 'e is-rounded is-clickable'" style="line-height: 2.1; border-color: transparent;" [innerHTML]="apiService.user.dernierObjectif.split('!')[1]"></button>
+      <button [class]="'px-4 subtitle is-' + profilService.user.dernierObjectif.slice(0, 1) + 'e is-rounded is-clickable'" style="line-height: 2.1; border-color: transparent;" [innerHTML]="profilService.user.dernierObjectif.split('!')[1]"></button>
     </a>
   </div>
-  <div *ngIf="apiService.user.derniereSequence !== '' || apiService.user.dernierObjectif !== ''"><br><br></div>
+  <div *ngIf="profilService.user.derniereSequence !== '' || profilService.user.dernierObjectif !== ''"><br><br></div>
   <!-- Déconnexion -->
-  <div *ngIf="apiService.user.lastLogin !== '' && derniereConnexion !== 'undefined NaN undefined NaN à NaNhNaNmin'">
+  <div *ngIf="profilService.user.lastLogin !== '' && derniereConnexion !== 'undefined NaN undefined NaN à NaNhNaNmin'">
     <p class="has-text-grey is-size-6">Quelqu'un s'est connecté sur ce compte le {{derniereConnexion}}.<br>
       Si cette date ne te dit rien, c'est sûrement que ton identifiant est trop facile à deviner ou que tu as oublié
       de te déconnecter et que quelqu'un d'autre l'a utilisé !</p>
     <div><br></div>
   </div>
-  <button class="button is-warning" (click)="apiService.logout()">Se déconnecter</button>
+  <button class="button is-warning" (click)="profilService.logout()">Se déconnecter</button>
 </div>
 
 <!-- Modale de création de pseudo -->
@@ -59,7 +61,7 @@
       </div>
       <div class="column is-2 is-flex is-align-items-center is-justify-content-center">
         <a>
-          <figure (click)="pseudo = apiService.tirerUnPseudoAleatoire()" class="image is-64x64 is-inline-block">
+          <figure (click)="pseudo = profilService.tirerUnPseudoAleatoire()" class="image is-64x64 is-inline-block">
             <img src="assets/img/cc0/dice-svgrepo-com.svg" />
           </figure>
         </a>
@@ -70,11 +72,11 @@
     </div>
     <br><br><br>
     <!-- Paramètres -->
-    <button *ngIf="apiService.feminin" type="submit" class="button is-info is-light" (click)="apiService.majFeminin(false)">Pseudo masculin</button>
-    <button *ngIf="!apiService.feminin" class="button is-info">Pseudo masculin</button>
+    <button *ngIf="dataService.feminin" type="submit" class="button is-info is-light" (click)="profilService.majFeminin(false)">Pseudo masculin</button>
+    <button *ngIf="!dataService.feminin" class="button is-info">Pseudo masculin</button>
     &nbsp;
-    <button *ngIf="!apiService.feminin" type="submit" class="button is-sponsor is-light" (click)="apiService.majFeminin(true)">Pseudo féminin</button>
-    <button *ngIf="apiService.feminin" class="button is-sponsor">Pseudo féminin</button>
+    <button *ngIf="!dataService.feminin" type="submit" class="button is-sponsor is-light" (click)="profilService.majFeminin(true)">Pseudo féminin</button>
+    <button *ngIf="dataService.feminin" class="button is-sponsor">Pseudo féminin</button>
     <br><br>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="fermerModalePseudo()"></button>

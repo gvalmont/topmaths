@@ -1,12 +1,11 @@
-import { HttpClient } from '@angular/common/http'
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { ApiService } from '../services/api.service'
-import { CalculMental, Niveau, Objectif, QuestionFlash, Sequence } from '../services/sequences'
-import { Niveau as NiveauObjectif } from '../services/objectifs'
+import { ProfilService } from '../services/profil.service'
+import { CalculMental, Objectif, QuestionFlash, Sequence } from '../services/modeles/sequences'
 import { ViewportScroller } from '@angular/common'
-import { GlobalConstants } from '../services/global-constants'
+import { GlobalConstants } from '../services/modeles/global-constants'
 import { Title } from '@angular/platform-browser'
+import { DataService } from '../services/data.service'
 
 @Component({
   selector: 'app-sequence',
@@ -25,7 +24,7 @@ export class SequenceComponent implements OnInit {
   ancreDeRetour: string
 
   // eslint-disable-next-line no-unused-vars
-  constructor(public httpClient: HttpClient, private activatedRoute: ActivatedRoute, public apiService: ApiService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
+  constructor(private activatedRoute: ActivatedRoute, public profilService: ProfilService, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
     this.niveau = ''
     this.titre = ''
     this.objectifs = []
@@ -48,15 +47,13 @@ export class SequenceComponent implements OnInit {
   }
 
   trouverSequence(reference: string) {
-    this.httpClient.get<Niveau[]>('assets/data/sequences.json').subscribe(niveaux => {
-      niveaux.find(niveau => {
-        return niveau.sequences.find(sequence => {
-          if (sequence.reference === reference) {
-            this.niveau = niveau.nom
-            this.MAJProprietes(sequence)
-          }
-          return sequence.reference === reference
-        })
+    this.dataService.niveauxSequences.find(niveau => {
+      return niveau.sequences.find(sequence => {
+        if (sequence.reference === reference) {
+          this.niveau = niveau.nom
+          this.MAJProprietes(sequence)
+        }
+        return sequence.reference === reference
       })
     })
   }
@@ -65,8 +62,8 @@ export class SequenceComponent implements OnInit {
     const numero = parseInt(sequence.reference.slice(3))
     this.titre = `Séquence ${numero} :<br>${sequence.titre}`
     this.titleService.setTitle(this.titre.replace('<br>', ' '))
-    this.apiService.user.derniereSequence = sequence.reference + '!' + this.titre
-    this.apiService.majProfil(['derniereSequence'])
+    this.profilService.user.derniereSequence = sequence.reference + '!' + this.titre
+    this.profilService.majProfil(['derniereSequence'])
     this.MAJListeObjectifs(sequence)
     this.MAJListeQuestionsFlash(sequence)
     this.MAJListeCalculsMentaux(sequence)
@@ -123,28 +120,25 @@ export class SequenceComponent implements OnInit {
   }
 
   MAJInfosObjectifs() {
-    this.httpClient.get<NiveauObjectif[]>('assets/data/objectifs.json').subscribe(niveaux => {
-      for (const niveau of niveaux) {
-        for (const theme of niveau.themes) {
-          for (const sousTheme of theme.sousThemes) {
-            for (const JSONobjectif of sousTheme.objectifs) {
-              for (const thisObjectif of this.objectifs) {
-                if (thisObjectif.reference === JSONobjectif.reference) {
-                  thisObjectif.titre = JSONobjectif.titre
-                  for (const exercice of JSONobjectif.exercices) {
-                    thisObjectif.slugs.push(exercice.slug)
-                  }
+    for (const niveau of this.dataService.niveauxObjectifs) {
+      for (const theme of niveau.themes) {
+        for (const sousTheme of theme.sousThemes) {
+          for (const JSONobjectif of sousTheme.objectifs) {
+            for (const thisObjectif of this.objectifs) {
+              if (thisObjectif.reference === JSONobjectif.reference) {
+                thisObjectif.titre = JSONobjectif.titre
+                for (const exercice of JSONobjectif.exercices) {
+                  thisObjectif.slugs.push(exercice.slug)
                 }
               }
-              this.MAJPageExiste(JSONobjectif.reference)
             }
+            this.MAJPageExiste(JSONobjectif.reference)
           }
         }
       }
-      this.MAJLienQuestionsFlash()
-      this.MAJLienEval()
     }
-    )
+    this.MAJLienQuestionsFlash()
+    this.MAJLienEval()
   }
 
   MAJPageExiste(reference: string) {

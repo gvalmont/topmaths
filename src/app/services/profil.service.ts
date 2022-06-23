@@ -1,42 +1,27 @@
 import { Injectable, Output, EventEmitter, isDevMode } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { User } from './user'
+import { User } from './modeles/user'
 import { Router } from '@angular/router'
-import { GlobalConstants } from './global-constants'
+import { GlobalConstants } from './modeles/global-constants'
 import { OutilsService } from './outils.service'
-
-interface Nom {
-  nom: string
-}
-
-interface Adjectif {
-  masculin: string,
-  feminin: string
-}
+import { DataService } from './data.service'
+import { StorageService } from './storage.service'
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class ApiService {
+export class ProfilService {
   @Output() profilModifie: EventEmitter<string[]> = new EventEmitter()
 
   redirectUrl: string
   isloggedIn: boolean
   user: User
-  feminin: boolean
-  listeMasculins: Nom[]
-  listeFeminins: Nom[]
-  listeAdjectifs: Adjectif[]
-  pseudoClique: string
-  ancienPseudoClique: string
   derniereVersionToken: string
-  dateDerniereReponse: Date
-  div!: HTMLElement
   lienAvatar: string
-  styleAvatar: string
 
-  constructor(public http: HttpClient, private router: Router, private outils: OutilsService) {
+  // eslint-disable-next-line no-unused-vars
+  constructor(public httpClient: HttpClient, private router: Router, private outils: OutilsService, private dataService: DataService, private storageService: StorageService) {
     this.redirectUrl = ''
     this.user = {
       id: 0,
@@ -47,31 +32,16 @@ export class ApiService {
       derniereSequence: '',
       dernierObjectif: ''
     }
-    this.feminin = false
-    this.pseudoClique = ''
-    this.ancienPseudoClique = ''
-    this.listeMasculins = []
-    this.listeFeminins = []
-    this.listeAdjectifs = []
     this.isloggedIn = false
     this.derniereVersionToken = '2'
-    this.dateDerniereReponse = new Date()
     this.lienAvatar = ''
-    this.styleAvatar = ''
-    this.surveilleModificationsDuProfil()
-    this.recupereDonneesPseudos() // En cas de création d'un nouveau compte
+    this.MAJLienAvatar()
   }
 
-  /**
-   * Surveille les modifications du profil
-   * À chaque modification du profil :
-   * - Met à jour la dernière action
-   */
-  surveilleModificationsDuProfil() {
+  MAJLienAvatar() {
     this.profilModifie.subscribe(valeursModifiees => {
       if (valeursModifiees.includes('codeAvatar')) {
         this.lienAvatar = this.getLienAvatar(this.user)
-        this.styleAvatar = this.getStyleAvatar(this.user)
       }
     })
   }
@@ -80,11 +50,11 @@ export class ApiService {
    * Si l'utilisateur n'a pas de codeAvatar, renvoie le lien vers l'icone de base
    * Sinon, épure le codeAvatar et renvoie le lien vers son avatar (avec un ?user.codeAvatar épuré pour signaler une mise à jour et forcer le retéléchargement)
    * @param user
-   * @returns
+   * @returns lienAvatar
    */
   getLienAvatar(user: User) {
     let lienAvatar: string
-    if (user.codeAvatar == null || user.codeAvatar == '') {
+    if (user.codeAvatar === undefined || user.codeAvatar === '') {
       lienAvatar = 'assets/img/reshot/user-3294.svg'
     } else {
       lienAvatar = `/avatars/${user.id}.svg?${user.codeAvatar}`
@@ -96,14 +66,6 @@ export class ApiService {
       lienAvatar = lienAvatar.replace(/#/g, '')
     }
     return lienAvatar
-  }
-
-  /**
-   * Renvoie un style de css qui permet d'afficher un avatar
-   */
-  getStyleAvatar(user: User) {
-    const style = `--image-avatar:url('${this.getLienAvatar(user)}');`
-    return <string>style
   }
 
   /**
@@ -129,8 +91,8 @@ export class ApiService {
         derniereSequence: 'S4S5!Séquence 5 :<br>Théorème de Pythagore',
         dernierObjectif: '4G20!4G20 : Calculer une longueur avec le théorème de Pythagore'
       }
-      this.setToken('identifiant', this.user.identifiant)
-      this.setToken('version', this.derniereVersionToken)
+      this.storageService.setToken('identifiant', this.user.identifiant)
+      this.storageService.setToken('version', this.derniereVersionToken)
       this.isloggedIn = true
       this.profilModifie.emit([
         'identifiant',
@@ -143,14 +105,14 @@ export class ApiService {
     } else {
       let loginPage: string
       auto ? loginPage = 'autologin.php' : loginPage = 'login.php'
-      this.http.post<User[]>(GlobalConstants.API_URL + loginPage, { identifiant: identifiant }).subscribe(users => {
-        if (users[0].identifiant == 'personne') {
+      this.httpClient.post<User[]>(GlobalConstants.API_URL + loginPage, { identifiant: identifiant }).subscribe(users => {
+        if (users[0].identifiant === 'personne') {
           console.log('identifiant non trouvé, on en crée un nouveau')
           this.registration(identifiant)
         } else {
           this.isloggedIn = true
-          this.setToken('identifiant', users[0].identifiant)
-          this.setToken('version', this.derniereVersionToken)
+          this.storageService.setToken('identifiant', users[0].identifiant)
+          this.storageService.setToken('version', this.derniereVersionToken)
           this.user = users[0]
           this.profilModifie.emit([
             'identifiant',
@@ -192,10 +154,10 @@ export class ApiService {
         derniereSequence: '',
         dernierObjectif: ''
       }
-      this.http.post<User[]>(GlobalConstants.API_URL + 'register.php', user).subscribe(users => {
+      this.httpClient.post<User[]>(GlobalConstants.API_URL + 'register.php', user).subscribe(users => {
         this.isloggedIn = true
-        this.setToken('identifiant', users[0].identifiant)
-        this.setToken('version', this.derniereVersionToken)
+        this.storageService.setToken('identifiant', users[0].identifiant)
+        this.storageService.setToken('version', this.derniereVersionToken)
         this.user = users[0]
         this.profilModifie.emit([
           'identifiant',
@@ -219,54 +181,15 @@ export class ApiService {
    * @param erreur objet erreur
    */
   erreurRegistration(typeErreur?: string, erreur?: any) {
-    if (typeErreur == 'longueur') {
+    if (typeErreur === 'longueur') {
       alert('Erreur : l\'identifiant doit comporter 4 ou 5 caractères !')
-    } else if (typeErreur == 'caracteres_speciaux') {
+    } else if (typeErreur === 'caracteres_speciaux') {
       alert('Erreur : tu ne dois utiliser que des chiffres et des lettres sans accent')
-    } else if (typeErreur == 'userregistration') {
+    } else if (typeErreur === 'userregistration') {
       alert('Une erreur s\'est produite lors de l\'accès à la base de données (peut-être que la connexion n\'est pas sécurisée ? (https)\n\nLe message d\'erreur est le suivant :\n' + erreur)
     } else {
       alert('Une erreur s\'est produite')
     }
-  }
-
-  /**
-   * Met à jour this.feminin
-   * @param feminin boolean
-   */
-  majFeminin(feminin: boolean) {
-    this.feminin = feminin
-  }
-
-  /**
-   * Crée un pseudo aléatoire en mélangeant un nom et un adjectif au hasard
-   * @returns pseudo
-   */
-  tirerUnPseudoAleatoire() {
-    if (this.feminin) {
-      const nom = this.listeFeminins[Math.floor(Math.random() * this.listeFeminins.length)].nom
-      const adjectif = this.listeAdjectifs[Math.floor(Math.random() * this.listeAdjectifs.length)].feminin
-      return nom + ' ' + adjectif
-    } else {
-      const nom = this.listeMasculins[Math.floor(Math.random() * this.listeMasculins.length)].nom
-      const adjectif = this.listeAdjectifs[Math.floor(Math.random() * this.listeAdjectifs.length)].masculin
-      return nom + ' ' + adjectif
-    }
-  }
-
-  /**
-   * Récupère les listes de noms masculins, de noms féminins et d'adjectifs
-   */
-  recupereDonneesPseudos() {
-    this.http.get<Nom[]>('assets/data/nomsMasculins.json').subscribe(noms => {
-      this.listeMasculins = noms
-    })
-    this.http.get<Nom[]>('assets/data/nomsFeminins.json').subscribe(noms => {
-      this.listeFeminins = noms
-    })
-    this.http.get<Adjectif[]>('assets/data/adjectifs.json').subscribe(adjectifs => {
-      this.listeAdjectifs = adjectifs
-    })
   }
 
   /**
@@ -279,8 +202,8 @@ export class ApiService {
     if (isDevMode()) {
       this.profilModifie.emit(['codeAvatar'])
     } else {
-      this.http.post<User[]>(GlobalConstants.API_URL + 'majAvatar.php', { identifiant: this.user.identifiant, codeAvatar: this.user.codeAvatar, avatarSVG: avatarSVG }).subscribe(
-        users => {
+      this.httpClient.post<User[]>(GlobalConstants.API_URL + 'majAvatar.php', { identifiant: this.user.identifiant, codeAvatar: this.user.codeAvatar, avatarSVG: avatarSVG }).subscribe(
+        () => {
           this.profilModifie.emit(['codeAvatar'])
         },
         error => {
@@ -296,8 +219,8 @@ export class ApiService {
    * Renvoie vers l'accueil.
    */
   logout() {
-    this.deleteToken('identifiant')
-    this.deleteToken('version')
+    this.storageService.deleteToken('identifiant')
+    this.storageService.deleteToken('version')
     this.user = new User(0, '', '', '', '', '', '')
     this.isloggedIn = false
     this.profilModifie.emit([
@@ -318,8 +241,8 @@ export class ApiService {
     if (isDevMode()) {
       this.profilModifie.emit(valeursModifiees)
     } else {
-      this.http.post<User[]>(GlobalConstants.API_URL + 'majProfil.php', this.user).subscribe(
-        users => {
+      this.httpClient.post<User[]>(GlobalConstants.API_URL + 'majProfil.php', this.user).subscribe(
+        () => {
           this.profilModifie.emit(valeursModifiees)
         },
         error => {
@@ -329,29 +252,27 @@ export class ApiService {
   }
 
   /**
-   * Crée un token dans le localStorage
-   * @param key clé to token
-   * @param value Valeur du token
+   * Met à jour this.feminin
+   * @param feminin boolean
    */
-  setToken(key: string, value: string) {
-    localStorage.setItem(key, value)
+  majFeminin(feminin: boolean) {
+    this.dataService.feminin = feminin
   }
 
   /**
-   * Récupère la valeur du token key du localStorage
-   * @param key
-   * @returns Valeur du token key
+   * Crée un pseudo aléatoire en mélangeant un nom et un adjectif au hasard
+   * @returns pseudo
    */
-  getToken(key: string) {
-    return localStorage.getItem(key)
-  }
-
-  /**
-   * Supprime le token key du localStorage
-   * @param key
-   */
-  deleteToken(key: string) {
-    localStorage.removeItem(key)
+  tirerUnPseudoAleatoire() {
+    if (this.dataService.feminin) {
+      const nom = this.dataService.listeFeminins[Math.floor(Math.random() * this.dataService.listeFeminins.length)].nom
+      const adjectif = this.dataService.listeAdjectifs[Math.floor(Math.random() * this.dataService.listeAdjectifs.length)].feminin
+      return nom + ' ' + adjectif
+    } else {
+      const nom = this.dataService.listeMasculins[Math.floor(Math.random() * this.dataService.listeMasculins.length)].nom
+      const adjectif = this.dataService.listeAdjectifs[Math.floor(Math.random() * this.dataService.listeAdjectifs.length)].masculin
+      return nom + ' ' + adjectif
+    }
   }
 
   /**
@@ -361,25 +282,13 @@ export class ApiService {
    * @returns boolean
    */
   checkLoggedIn() {
-    const usertoken = this.getToken('identifiant')
-    const version = this.getToken('version')
-    if (usertoken != null && version == this.derniereVersionToken) {
+    const usertoken = this.storageService.getToken('identifiant')
+    const version = this.storageService.getToken('version')
+    if (usertoken !== null && version === this.derniereVersionToken) {
       this.isloggedIn = true
     } else {
       this.isloggedIn = false
     }
-  }
-
-  avatarAleatoire() {
-    const r = function (max: number) {
-      return Math.floor(Math.random() * max)
-    }
-
-    const c = function () {
-      const o = Math.round, r = Math.random, s = 255
-      return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')'
-    }
-    return `${c()},${r(26)},${r(10)},${r(30)},${r(7)},${r(36)},${c()}`
   }
 
   /**
@@ -392,29 +301,10 @@ export class ApiService {
     let errSpChar = false
     let errPetitNbChar = false
     let errGrandNbChar = false
-    if (input.length != 0) defaut = false
-    if (input.length < 4 && input.length != 0) errPetitNbChar = true
+    if (input.length !== 0) defaut = false
+    if (input.length < 4 && input.length !== 0) errPetitNbChar = true
     if (input.length > 5) errGrandNbChar = true
     if (!this.outils.onlyLettersAndNumbers(input)) errSpChar = true
     return (!defaut && !errSpChar && !errPetitNbChar && !errGrandNbChar)
-  }
-
-  /**
-   * Ecrit dans le localStorage les valeurs séparés par des '!' s'il y en a plusieurs
-   * @param tag nom de la "variable"
-   * @param valeurs
-   */
-  set(tag: string, objet: any) {
-    localStorage.setItem(tag, JSON.stringify(objet))
-  }
-
-  /**
-   * Récupère un nombre du localStorage
-   * @param tag nom de la "variable"
-   * @returns
-   */
-  get(tag: string) {
-    const obj = localStorage.getItem(tag)
-    if (obj != null) return JSON.parse(obj)
   }
 }

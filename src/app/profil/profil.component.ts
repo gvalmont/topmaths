@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
-import { ApiService } from '../services/api.service'
+import { ProfilService } from '../services/profil.service'
 import { CalendrierService } from '../services/calendrier.service'
+import { DataService } from '../services/data.service'
 
 @Component({
   selector: 'app-profil',
@@ -13,8 +14,8 @@ export class ProfilComponent implements OnInit {
   modalePseudo!: HTMLElement
 
   // eslint-disable-next-line no-unused-vars
-  constructor(public apiService: ApiService, private calendrierService: CalendrierService) {
-    this.pseudo = apiService.user.pseudo
+  constructor(public profilService: ProfilService, public dataService: DataService, private calendrierService: CalendrierService) {
+    this.pseudo = profilService.user.pseudo
     this.derniereConnexion = this.getDateDeDerniereConnexion()
   }
 
@@ -24,7 +25,7 @@ export class ProfilComponent implements OnInit {
   }
 
   getDateDeDerniereConnexion() {
-    const date = new Date(this.apiService.user.lastLogin)
+    const date = new Date(this.profilService.user.lastLogin)
     date.setMinutes(date.getMinutes() - date.getTimezoneOffset() - 60) // Le serveur mysql est en UTC + 1 ?
     if (this.calendrierService.estHeureEte) date.setMinutes(date.getMinutes() - 60)
     const jour = new Array(7)
@@ -52,13 +53,13 @@ export class ProfilComponent implements OnInit {
   }
 
   enregistrerPseudo() {
-    this.apiService.user.pseudo = this.pseudo
-    this.apiService.majProfil(['pseudo'])
+    this.profilService.user.pseudo = this.pseudo
+    this.profilService.majProfil(['pseudo'])
     this.modalePseudo.style.display = "none"
   }
 
   ouvrirModalePseudo() {
-    this.pseudo = this.apiService.user.pseudo
+    this.pseudo = this.profilService.user.pseudo
     this.modalePseudo.style.display = "block"
   }
 
