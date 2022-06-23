@@ -1,14 +1,9 @@
 import { HttpClient } from '@angular/common/http'
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Router, ActivatedRoute, NavigationStart, Event as NavigationEvent } from '@angular/router'
+import { Subscription } from 'rxjs'
 import { Niveau, SequenceParticuliere } from '../services/sequences'
 
-/**
- * Type d'objet de toutes les lignes qui seront affichées
- * Si c'est un niveau (5e, 4e...), l'attribut niveau sera complété et les autres seront null
- * Si c'est un thème (Nombres et Calculs, Géométrie...), l'attribut theme sera complété et les autres seront null etc.
- * De cette façon, les *ngIf du html sauront comment les afficher
- */
 interface Ligne {
   niveau?: string;
   numero?: number;
@@ -21,45 +16,67 @@ interface Ligne {
   styleUrls: []
 })
 export class SequencesComponent implements OnInit, OnDestroy {
-  lignes: Ligne[]
-  lignesParticulieres: Ligne[]
+  lignesSequencesNormales: Ligne[]
+  lignesSequencesParticulieres: Ligne[]
   filtre: Ligne
-  event$: any
+  navigationEventSubscription: Subscription
   ongletActif: string
 
-  constructor(public http: HttpClient, private route: ActivatedRoute, private router: Router) {
-    this.lignes = []
-    this.lignesParticulieres = []
+  // eslint-disable-next-line no-unused-vars
+  constructor(public httpClient: HttpClient, private activatedRoute: ActivatedRoute, private router: Router) {
+    this.lignesSequencesNormales = []
+    this.lignesSequencesParticulieres = []
     this.filtre = {}
+    this.navigationEventSubscription = new Subscription
     this.ongletActif = 'tout'
-    this.recupereOngletActif()
+    this.MAJOngletActif()
   }
 
   ngOnInit(): void {
-    this.recupereParametresUrl()
+    this.MAJFiltre()
+    this.MAJLignesSequencesParticulieres()
+    this.MAJLignesSequencesNormales()
   }
 
   ngOnDestroy() {
-    this.event$.unsubscribe()
+    this.navigationEventSubscription.unsubscribe()
   }
 
-  /**
-   * Récupère l'onglet actif à partir de l'url pour le mettre en surbrillance
-   */
-  recupereOngletActif() {
-    this.event$ = this.router.events.subscribe((event: NavigationEvent) => {
+  MAJOngletActif() {
+    this.navigationEventSubscription = this.router.events.subscribe((event: NavigationEvent) => {
       if (event instanceof NavigationStart) {
         this.ongletActif = event.url.split('/')[2]
       }
     })
   }
 
-  /**
-   * Récupère le niveau à partir de l'url afin de pouvoir éventuellement le filtrer
-   */
-  recupereParametresUrl() {
-    this.route.params.subscribe(params => {
+  MAJFiltre() {
+    this.activatedRoute.params.subscribe(params => {
       this.filtre.niveau = params.niveau
+    })
+  }
+
+  MAJLignesSequencesParticulieres() {
+    this.lignesSequencesParticulieres = []
+    this.httpClient.get<SequenceParticuliere[]>('assets/data/sequencesParticulieres.json').subscribe(sequencesParticulieres => {
+      this.lignesSequencesParticulieres.push({ niveau: 'Séquences particulières' })
+      for (const sequence of sequencesParticulieres) {
+        this.lignesSequencesParticulieres.push({ niveau: 'Séquences particulières', reference: sequence.reference, titre: sequence.titre, numero: 0 })
+      }
+      this.lignesSequencesParticulieres.push({ niveau: 'fin' })
+    })
+  }
+
+  MAJLignesSequencesNormales() {
+    this.lignesSequencesNormales = []
+    this.httpClient.get<Niveau[]>('assets/data/sequences.json').subscribe(niveaux => {
+      for (const niveau of niveaux) {
+        this.lignesSequencesNormales.push({ niveau: niveau.nom })
+        for (const sequence of niveau.sequences) {
+          this.lignesSequencesNormales.push({ niveau: niveau.nom, reference: sequence.reference, titre: sequence.titre, numero: parseInt(sequence.reference.slice(3)) })
+        }
+        this.lignesSequencesNormales.push({ niveau: 'fin' })
+      }
     })
   }
 }

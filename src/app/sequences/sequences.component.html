@@ -1,5 +1,40 @@
 <div class="container is-max-desktop centre">
-  <!-- <p>Les séquences sont faites en classe entière et animées par le professeur.</p>
-    <br> -->
-  <app-liste-sequences></app-liste-sequences>
+  <!-- Menu -->
+  <div class="tabs is-medium is-centered">
+    <ul class="tabs-menu is-rounded">
+      <li><a [ngClass]="{'subtitle is-4 is-tout is-left-side': true, 'is-active': ongletActif === 'tout'}" (click)="ongletActif = 'tout'; filtre.niveau = 'tout'">Tout</a></li>
+      <li><a [ngClass]="{'subtitle is-4 is-6e': true, 'is-active': ongletActif === '6e'}" (click)="ongletActif = '6e'; filtre.niveau = '6e'">6e</a></li>
+      <li *ngFor="let ligne of lignesSequencesNormales;">
+        <a *ngIf="ligne.niveau !== undefined && ligne.niveau !== 'fin' && ligne.reference === undefined" (click)="ongletActif = ligne.niveau; filtre.niveau = ligne.niveau" [ngClass]="{'is-active': ongletActif === ligne.niveau, 'subtitle is-4': true, 'is-6e': ligne.niveau === '6e', 'is-5e': ligne.niveau === '5e', 'is-4e': ligne.niveau === '4e', 'is-3e is-right-side': ligne.niveau === '3e'}">{{ligne.niveau}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="container is-max-desktop centre">
+    <!-- Séquences particulières -->
+    <div>
+      <span *ngFor="let ligne of lignesSequencesParticulieres; index as i">
+        <h1 *ngIf="ligne.niveau !== undefined && ligne.niveau !== 'fin' && ligne.reference === undefined" class="title is-3 p-2 is-tout">{{ligne.niveau}}</h1>
+        <p *ngIf="ligne.reference !== undefined" [ngClass]="{'is-tout is-size-5': true, 'is-fin': lignesSequencesParticulieres[i].niveau !== lignesSequencesParticulieres[i + 1].niveau}">
+          <a routerLink="/sequence/{{ligne.reference}}" routerLinkActive="active">
+            {{ligne.numero === 0 ? '' : 'Séquence ' + ligne.numero + ' : '}}{{ligne.titre}}<br>
+          </a>
+        </p>
+      </span>
+    </div>
+    <!-- Séquences normales -->
+    <span *ngFor="let ligne of lignesSequencesNormales; index as i">
+      <div *ngIf="ligne.niveau !== undefined && ligne.niveau !== 'fin' && ligne.reference === undefined && (filtre.niveau === undefined || filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)"><br></div>
+      <h1 *ngIf="ligne.niveau !== undefined && ligne.niveau !== 'fin' && ligne.reference === undefined && (filtre.niveau === undefined || filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)" [class]="'title is-3 p-2 is-' + ligne.niveau">
+        <span class="has-text-white">
+          {{ligne.niveau}}
+        </span>
+      </h1>
+      <p *ngIf="ligne.reference !== undefined && ligne.niveau !== 'fin' && (filtre.niveau === undefined || filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)" [ngClass]="{'p-1 is-size-5': true, 'is-fin': lignesSequencesNormales[i].niveau !== lignesSequencesNormales[i + 1].niveau, 'is-6e': ligne.niveau === '6e', 'is-5e': ligne.niveau === '5e', 'is-4e': ligne.niveau === '4e', 'is-3e': ligne.niveau === '3e'}">
+        <a routerLink="/sequence/{{ligne.reference}}" routerLinkActive="active">
+          {{ligne.numero === 0 ? '' : 'Séquence ' + ligne.numero + ' : '}}{{ligne.titre}}
+        </a>
+        <br>
+      </p>
+    </span>
+  </div>
 </div>

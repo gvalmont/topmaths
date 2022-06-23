@@ -20,7 +20,6 @@ import { RevisionsComponent } from './revisions/revisions.component'
 import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-hasard.component'
 import { AvatarComponent } from './avatar/avatar.component'
 import { ModaleExercicesComponent } from './modale-exercices/modale-exercices.component'
-import { ListeSequencesComponent } from './sequences/liste-sequences/liste-sequences.component'
 import { MathadorComponent } from './outils/mathador/mathador.component'
 import { OutilsComponent } from './outils/outils.component'
 import { BoutonImprimerComponent } from './mini-components/bouton-imprimer/bouton-imprimer.component'
@@ -43,7 +42,6 @@ import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidential
     ExercicesAuHasardComponent,
     AvatarComponent,
     ModaleExercicesComponent,
-    ListeSequencesComponent,
     MathadorComponent,
     OutilsComponent,
     BoutonImprimerComponent,

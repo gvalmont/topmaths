@@ -40,8 +40,8 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.recupererListeExercices()
-    this.recupererElementsHTML()
+    this.MAJListeExercices()
+    this.MAJElementsHTML()
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -65,17 +65,17 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
    * puis ajoute tous les calculs mentaux du sequences.json à la liste des exercices,
    * enfin lance la création du listener des messages post (car ces listes d'exercices seront "embed" avec le listener et ne pourra plus être modifiée)
    */
-  recupererListeExercices() {
+  MAJListeExercices() {
     this.httpClient.get<NiveauObjectif[]>('assets/data/objectifs.json').subscribe(niveaux => {
-      this.recupererExercicesObjectifs(niveaux)
+      this.MAJExercicesObjectifs(niveaux)
       this.httpClient.get<NiveauSequence[]>('assets/data/sequences.json').subscribe(niveaux => {
-        this.recupererExercicesSequences(niveaux)
+        this.MAJExercicesSequences(niveaux)
         this.creerListenerMessagesPost()
       })
     })
   }
 
-  recupererExercicesObjectifs(niveaux: NiveauObjectif[]) {
+  MAJExercicesObjectifs(niveaux: NiveauObjectif[]) {
     for (const niveau of niveaux) {
       for (const theme of niveau.themes) {
         for (const sousTheme of theme.sousThemes) {
@@ -98,7 +98,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     }
   }
 
-  recupererExercicesSequences(niveaux: NiveauSequence[]) {
+  MAJExercicesSequences(niveaux: NiveauSequence[]) {
     for (const niveau of niveaux) {
       for (const sequence of niveau.sequences) {
         for (const calculMental of sequence.calculsMentaux) {
@@ -198,7 +198,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     this.ajouterIframe(urlExerciceSuivant)
   }
 
-  recupererElementsHTML() {
+  MAJElementsHTML() {
     let element = document.getElementById("modaleExercices")
     if (element !== null) this.modale = element
     element = document.getElementById("modaleExercicesUrl")

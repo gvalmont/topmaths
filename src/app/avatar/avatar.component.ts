@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Router, NavigationStart, Event as NavigationEvent } from '@angular/router'
 import { HttpClient } from '@angular/common/http'
 import { ApiService } from '../services/api.service'
+import { Subscription } from 'rxjs'
 
 interface AvatarsDef {
   baliseOuverture: string
@@ -48,12 +49,12 @@ export class AvatarComponent implements OnInit, OnDestroy {
   hair: number
   panneauPrincipal!: HTMLElement
   divAvatarEnCreation!: HTMLElement
-  event$: any
   ongletActif: string
   modaleConfirmation!: HTMLElement
   modaleConfirmationDivAvatarEnCreation!: HTMLElement
   empecherNavigation: boolean
   redirection: string
+  navigationEventSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
   constructor(private httpClient: HttpClient, public apiService: ApiService, private router: Router) {
@@ -68,6 +69,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
     this.ongletActif = 'couleur'
     this.empecherNavigation = true
     this.redirection = '/profil'
+    this.navigationEventSubscription = new Subscription
   }
 
   ngOnInit(): void {
@@ -78,7 +80,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.event$.unsubscribe()
+    this.navigationEventSubscription.unsubscribe()
   }
 
   MAJDiv() {
@@ -96,7 +98,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
    * Surveille la navigation pour éventuellement la bloquer si l'utilisateur veut quitter la page sans enregistrer son avatar
    */
   surveillerLaNavigation() {
-    this.event$ = this.router.events.subscribe((event: NavigationEvent) => {
+    this.navigationEventSubscription = this.router.events.subscribe((event: NavigationEvent) => {
       if (event instanceof NavigationStart) {
         if (this.empecherNavigation) {
           this.router.navigate(['/profil/avatar'])

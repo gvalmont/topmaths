@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
-import { Container, Main } from 'tsparticles'
+import { Container } from 'tsparticles'
 import { Options } from 'node_modules/tsparticles/Options/Classes/Options'
-
 @Injectable({
   providedIn: 'root'
 })
@@ -44,7 +43,7 @@ export class ConfettiService {
    * Ne fait rien à l'initialisation
    * @param main
    */
-  particlesInit(main: Main): void {
+  particlesInit(): void {
   }
 
   /**
@@ -57,11 +56,14 @@ export class ConfettiService {
       fullScreen: {
         enable: true,
         zIndex: 200,
-        load: ''
+        load: () => void {}
       },
       particles: {
         number: {
-          value: 0 // no starting particles
+          value: 0, // no starting particles,
+          max: 0,
+          limit: 0,
+          load: () => void {}
         },
         color: {
           value: ["#1E00FF", "#FF0061", "#E1FF00", "#00FF9E"] // the confetti colors
