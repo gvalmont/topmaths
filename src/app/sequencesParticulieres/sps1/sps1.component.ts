@@ -6,7 +6,18 @@ import { Component } from '@angular/core'
   styleUrls: ['./sps1.component.css']
 })
 export class SPS1Component {
+  seances: string[]
 
-  constructor () { }
+  constructor () {
+    this.seances = [
+      'Séquences d\'instructions',
+      'Boucles simples',
+      'Boucles à motif',
+      'Boucles imbriquées',
+      'Conditions',
+      'Variables',
+      'Boucles conditionnelles',
+      'Procédures']
+  }
 
 }

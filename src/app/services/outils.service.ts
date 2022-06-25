@@ -12,7 +12,7 @@ export class OutilsService {
    * @param str chaîne à tester
    * @returns true si c'est le cas, false sinon
    */
-  onlyLettersAndNumbers (str: string) {
+  estAlphanumerique (str: string) {
     return /^[A-Za-z0-9]*$/.test(str)
   }
 

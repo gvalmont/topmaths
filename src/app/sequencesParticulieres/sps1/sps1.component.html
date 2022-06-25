@@ -1,8 +1,8 @@
 <div class="container is-max-desktop centre">
-  <h1 class="title is-2">Programmation</h1>
-  <div class="box">
-    <h2 class="title is-3">Initiation : Lightbot Hour</h2>
-    <img src="/assets/img/lightbot.png" width="200px"><br>
+  <h1 class="title is-2 is-tout">Programmation</h1>
+  <div class="is-tout is-fin">
+    <h2 class="mb-5 py-3 subtitle is-3 is-tout">Initiation : Lightbot Hour</h2>
+    <img src="/assets/img/sps1/lightbot.png" width="200px"><br>
     <div class="columns is-centered is-vcentered">
       <a href='https://play.google.com/store/apps/details?id=com.lightbot.lightbothoc&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' style="display: inline-block; overflow: hidden; border-radius: 13px; width: 320px;">
         <img alt='Disponible sur Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/fr_badge_web_generic.png' style="border-radius: 13px; width: 320px;" />
@@ -12,53 +12,12 @@
       </a>
     </div>
     <p class="is-size-7">Google Play and the Google Play logo are trademarks of Google LLC. &nbsp; App Store and the App Store logo are trademarks of Apple Inc.</p>
-  </div>
-  <div class="box">
-    <h2 class="title is-3">Séance 1 : Algorea - Séquences d'instructions</h2>
-    <a href="https://concours.castor-informatique.fr/?team=seriousg1">
-      <img src="assets/img/seance_seriousgame_01.png">
-    </a>
-  </div>
-  <div class="box">
-    <h2 class="title is-3">Séance 2 : Algorea - Boucles simples</h2>
-    <a href="https://concours.castor-informatique.fr/?team=seriousg2">
-      <img src="assets/img/seance_seriousgame_02.png">
-    </a>
-  </div>
-  <div class="box">
-    <h2 class="title is-3">Séance 3 : Algorea - Boucles à motif</h2>
-    <a href="https://concours.castor-informatique.fr/?team=seriousg3">
-      <img src="assets/img/seance_seriousgame_03.png">
-    </a>
-  </div>
-  <div class="box">
-    <h2 class="title is-3">Séance 4 : Algorea - Boucles imbriquées</h2>
-    <a href="https://concours.castor-informatique.fr/?team=seriousg4">
-      <img src="assets/img/seance_seriousgame_04.png">
-    </a>
-  </div>
-  <div class="box">
-    <h2 class="title is-3">Séance 5 : Algorea - Conditions</h2>
-    <a href="https://concours.castor-informatique.fr/?team=seriousg5">
-      <img src="assets/img/seance_seriousgame_05.png">
-    </a>
-  </div>
-  <div class="box">
-    <h2 class="title is-3">Séance 6 : Algorea - Variables</h2>
-    <a href="https://concours.castor-informatique.fr/?team=seriousg6">
-      <img src="assets/img/seance_seriousgame_06.png">
-    </a>
-  </div>
-  <div class="box">
-    <h2 class="title is-3">Séance 7 : Algorea - Boucles conditionnelles</h2>
-    <a href="https://concours.castor-informatique.fr/?team=seriousg7">
-      <img src="assets/img/seance_seriousgame_07.png">
-    </a>
-  </div>
-  <div class="box">
-    <h2 class="title is-3">Séance 8 : Algorea - Procédures</h2>
-    <a href="https://concours.castor-informatique.fr/?team=seriousg8">
-      <img src="assets/img/seance_seriousgame_08.png">
-    </a>
+    <div *ngFor="let seance of seances; index as i">
+      <h2 class="my-5 py-3 subtitle is-3 is-tout">Séance {{ i + 1 }} : Algorea - {{ seance }}</h2>
+      <a [href]="'https://concours.castor-informatique.fr/?team=seriousg' + (i + 1)">
+        <img [src]="'assets/img/sps1/seance_seriousgame_0' + (i + 1) + '.png'">
+      </a>
+    </div>
+    <div><br><br></div>
   </div>
 </div>

@@ -40,12 +40,9 @@ export class AppComponent implements OnDestroy {
     })
   }
 
-  /**
-   * Vérifie la présence d'un token de connexion et récupère le profil utilisateur le cas échéant
-   */
   MAJProfil () {
-    const identifiant = this.storageService.getToken('identifiant')
-    const version = this.storageService.getToken('version')
+    const identifiant = this.storageService.get('identifiant')
+    const version = this.storageService.get('version')
     if (identifiant !== null && version === this.profilService.derniereVersionToken) {
       setTimeout(() => {
         this.profilService.login(identifiant, true, false)

@@ -33,7 +33,7 @@ export class ProfilService {
       dernierObjectif: ''
     }
     this.isloggedIn = false
-    this.derniereVersionToken = '2'
+    this.derniereVersionToken = '3'
     this.lienAvatar = ''
     this.MAJLienAvatar()
   }
@@ -46,12 +46,6 @@ export class ProfilService {
     })
   }
 
-  /**
-   * Si l'utilisateur n'a pas de codeAvatar, renvoie le lien vers l'icone de base
-   * Sinon, épure le codeAvatar et renvoie le lien vers son avatar (avec un ?user.codeAvatar épuré pour signaler une mise à jour et forcer le retéléchargement)
-   * @param user
-   * @returns lienAvatar
-   */
   getLienAvatar (user: User) {
     let lienAvatar: string
     if (user.codeAvatar === undefined || user.codeAvatar === '') {
@@ -68,19 +62,7 @@ export class ProfilService {
     return lienAvatar
   }
 
-  /**
-   * Envoie l'identifiant par message post à login.php pour s'identifier
-   * Si pas connecté, on renvoie vers erreurLogin pour tenter de créer l'identifiant.
-   * Si connecté :
-   * - Met à jour le lastLogin
-   * - Crée/modifie un token dans le localstorage avec l'identifiant du premier utilisateur correspondant dans la bdd
-   * - Fire un event pour prévenir de la connexion
-   * - Redirige vers la page qu'on a voulu accéder ou vers la page profil.
-   * @param identifiant identifiant à chercher dans la bdd
-   * @param auto true si connexion automatique, true si l'utilisateur saisit son identifiant
-   * @param redigire true s'il y a une redirection à faire, false sinon
-   */
-  login (identifiant: string, auto: boolean, redirige?: boolean) {
+  login (identifiant: string, connexionAutomatique: boolean, redirection?: boolean) {
     if (isDevMode()) {
       this.user = {
         id: 1,
@@ -91,38 +73,22 @@ export class ProfilService {
         derniereSequence: 'S4S5!Séquence 5 :<br>Théorème de Pythagore',
         dernierObjectif: '4G20!4G20 : Calculer une longueur avec le théorème de Pythagore'
       }
-      this.storageService.setToken('identifiant', this.user.identifiant)
-      this.storageService.setToken('version', this.derniereVersionToken)
-      this.isloggedIn = true
-      this.profilMAJ.emit([
-        'identifiant',
-        'codeAvatar',
-        'lastLogin',
-        'lastAction',
-        'pseudo',
-        'derniereSequence',
-        'dernierObjectif'])
+      this.stockerInfosUtilisateur()
     } else {
       let loginPage: string
-      auto ? loginPage = 'autologin.php' : loginPage = 'login.php'
+      connexionAutomatique ? loginPage = 'autologin.php' : loginPage = 'login.php'
       this.httpClient.post<User[]>(GlobalConstants.API_URL + loginPage, { identifiant: identifiant }).subscribe(users => {
         if (users[0].identifiant === 'personne') {
-          console.log('identifiant non trouvé, on en crée un nouveau')
-          this.registration(identifiant)
+          if (connexionAutomatique) {
+            console.log('la connexion automatique a échoué')
+          } else {
+            console.log('identifiant non trouvé, on en crée un nouveau')
+            this.inscrireNouvelUtilisateur(identifiant)
+          }
         } else {
-          this.isloggedIn = true
-          this.storageService.setToken('identifiant', users[0].identifiant)
-          this.storageService.setToken('version', this.derniereVersionToken)
           this.user = users[0]
-          this.profilMAJ.emit([
-            'identifiant',
-            'codeAvatar',
-            'lastLogin',
-            'lastAction',
-            'pseudo',
-            'derniereSequence',
-            'dernierObjectif'])
-          if (redirige) {
+          this.stockerInfosUtilisateur()
+          if (redirection) {
             const redirect = this.redirectUrl ? this.redirectUrl : 'profil'
             this.router.navigate([redirect])
           }
@@ -134,16 +100,25 @@ export class ProfilService {
     }
   }
 
-  /**
-   * Vérifie la longueur et la présence de caractères spéciaux dans la chaîne.
-   * Si tout est ok, on passe l'identifiant à l'API pour le créer.
-   * @param identifiant
-   */
-  registration (identifiant: string) {
+  stockerInfosUtilisateur () {
+    this.storageService.set('identifiant', this.user.identifiant)
+    this.storageService.set('version', this.derniereVersionToken)
+    this.isloggedIn = true
+    this.profilMAJ.emit([
+      'identifiant',
+      'codeAvatar',
+      'lastLogin',
+      'lastAction',
+      'pseudo',
+      'derniereSequence',
+      'dernierObjectif'])
+  }
+
+  inscrireNouvelUtilisateur (identifiant: string) {
     if (identifiant.length > 5 || identifiant.length < 4) {
-      this.erreurRegistration('longueur')
-    } else if (!this.outils.onlyLettersAndNumbers(identifiant)) {
-      this.erreurRegistration('caracteres_speciaux')
+      this.alerterErreurInscription('longueur')
+    } else if (!this.outils.estAlphanumerique(identifiant)) {
+      this.alerterErreurInscription('caracteresSpeciaux')
     } else {
       const user: User = {
         id: 0,
@@ -155,48 +130,28 @@ export class ProfilService {
         dernierObjectif: ''
       }
       this.httpClient.post<User[]>(GlobalConstants.API_URL + 'register.php', user).subscribe(users => {
-        this.isloggedIn = true
-        this.storageService.setToken('identifiant', users[0].identifiant)
-        this.storageService.setToken('version', this.derniereVersionToken)
         this.user = users[0]
-        this.profilMAJ.emit([
-          'identifiant',
-          'codeAvatar',
-          'lastLogin',
-          'lastAction',
-          'pseudo',
-          'derniereSequence',
-          'dernierObjectif'])
+        this.stockerInfosUtilisateur()
         this.router.navigate(['profil'])
       }, error => {
         console.log(error)
-        this.erreurRegistration('userregistration', error['message'])
+        this.alerterErreurInscription('baseDeDonnees', error['message'])
       })
     }
   }
 
-  /**
-   * Signale à l'utilisateur un problème dans l'enregistrement d'un nouvel identifiant
-   * @param typeErreur chaine de caractères
-   * @param erreur objet erreur
-   */
-  erreurRegistration (typeErreur?: string, erreur?: any) {
+  alerterErreurInscription (typeErreur?: string, erreur?: string) {
     if (typeErreur === 'longueur') {
       alert('Erreur : l\'identifiant doit comporter 4 ou 5 caractères !')
-    } else if (typeErreur === 'caracteres_speciaux') {
+    } else if (typeErreur === 'caracteresSpeciaux') {
       alert('Erreur : tu ne dois utiliser que des chiffres et des lettres sans accent')
-    } else if (typeErreur === 'userregistration') {
-      alert('Une erreur s\'est produite lors de l\'accès à la base de données (peut-être que la connexion n\'est pas sécurisée ? (https)\n\nLe message d\'erreur est le suivant :\n' + erreur)
+    } else if (typeErreur === 'baseDeDonnees') {
+      alert('Une erreur s\'est produite lors de l\'accès à la base de données.\n\nLe message d\'erreur est le suivant :\n' + erreur)
     } else {
       alert('Une erreur s\'est produite')
     }
   }
 
-  /**
-   * Modifie le codeAvatar dans la bdd et écrit le svg
-   * @param avatarSVG
-   * @param codeAvatar
-   */
   MAJAvatar (avatarSVG: string, codeAvatar: string) {
     this.user.codeAvatar = codeAvatar
     if (isDevMode() || !this.isloggedIn) {
@@ -212,15 +167,9 @@ export class ProfilService {
     }
   }
 
-  /**
-   * Supprime le token de clé 'identifiant' utilisé pour vérifier si l'utilisateur est connecté.
-   * Supprime aussi le token de clé 'codeAvatar'
-   * Toggle les profilbtn et loginbtn.
-   * Renvoie vers l'accueil.
-   */
   logout () {
-    this.storageService.deleteToken('identifiant')
-    this.storageService.deleteToken('version')
+    this.storageService.delete('identifiant')
+    this.storageService.delete('version')
     this.user = new User(0, '', '', '', '', '', '')
     this.isloggedIn = false
     this.profilMAJ.emit([
@@ -234,9 +183,6 @@ export class ProfilService {
     this.router.navigate(['accueil'])
   }
 
-  /**
-   * Met à jour le profil de l'utilisateur
-   */
   majProfil (valeursModifiees: string[]) {
     if (isDevMode() || !this.isloggedIn) {
       this.profilMAJ.emit(valeursModifiees)
@@ -251,18 +197,10 @@ export class ProfilService {
     }
   }
 
-  /**
-   * Met à jour this.feminin
-   * @param feminin boolean
-   */
   majFeminin (feminin: boolean) {
     this.dataService.feminin = feminin
   }
 
-  /**
-   * Crée un pseudo aléatoire en mélangeant un nom et un adjectif au hasard
-   * @returns pseudo
-   */
   tirerUnPseudoAleatoire () {
     if (this.dataService.feminin) {
       const nom = this.dataService.listeFeminins[Math.floor(Math.random() * this.dataService.listeFeminins.length)].nom
@@ -275,15 +213,9 @@ export class ProfilService {
     }
   }
 
-  /**
-   * Vérifie si l'utilisateur est connecté en vérifiant la présence d'un token qui a pour clé 'identifiant'
-   * Si on en trouve un, renvoie true
-   * Sinon, renvoie false
-   * @returns boolean
-   */
-  checkLoggedIn () {
-    const usertoken = this.storageService.getToken('identifiant')
-    const version = this.storageService.getToken('version')
+  MAJIsLoggedIn () {
+    const usertoken = this.storageService.get('identifiant')
+    const version = this.storageService.get('version')
     if (usertoken !== null && version === this.derniereVersionToken) {
       this.isloggedIn = true
     } else {
@@ -291,12 +223,7 @@ export class ProfilService {
     }
   }
 
-  /**
-   * Tests clients pour vérifier si l'input est correct
-   * @param input
-   * @returns true si l'input est correct, false sinon
-   */
-  inputOk (input: string) {
+  isInputOk (input: string) {
     let defaut = true
     let errSpChar = false
     let errPetitNbChar = false
@@ -304,7 +231,7 @@ export class ProfilService {
     if (input.length !== 0) defaut = false
     if (input.length < 4 && input.length !== 0) errPetitNbChar = true
     if (input.length > 5) errGrandNbChar = true
-    if (!this.outils.onlyLettersAndNumbers(input)) errSpChar = true
+    if (!this.outils.estAlphanumerique(input)) errSpChar = true
     return (!defaut && !errSpChar && !errPetitNbChar && !errGrandNbChar)
   }
 }

@@ -60,7 +60,7 @@ export class LoginComponent {
     if (input.length !== 0) this.defaut = false
     if (input.length < 4 && input.length !== 0) this.errPetitNbChar = true
     if (input.length > 5) this.errGrandNbChar = true
-    if (!this.outilsService.onlyLettersAndNumbers(input)) this.errSpChar = true
+    if (!this.outilsService.estAlphanumerique(input)) this.errSpChar = true
     return (!this.defaut && !this.errSpChar && !this.errPetitNbChar && !this.errGrandNbChar)
   }
 
