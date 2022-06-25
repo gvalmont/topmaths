@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ProfilService } from '../services/profil.service'
 import { CalculMental, Objectif, QuestionFlash, Sequence } from '../services/modeles/sequences'
@@ -6,13 +6,15 @@ import { ViewportScroller } from '@angular/common'
 import { GlobalConstants } from '../services/modeles/global-constants'
 import { Title } from '@angular/platform-browser'
 import { DataService } from '../services/data.service'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-sequence',
   templateUrl: './sequence.component.html',
   styleUrls: []
 })
-export class SequenceComponent implements OnInit {
+export class SequenceComponent implements OnInit, OnDestroy {
+  reference: string
   niveau: string
   titre: string
   objectifs: Objectif[]
@@ -22,9 +24,11 @@ export class SequenceComponent implements OnInit {
   lienEval: string
   infosModale: [string[], string, Date]
   ancreDeRetour: string
+  dataMAJSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
   constructor (private activatedRoute: ActivatedRoute, public profilService: ProfilService, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
+    this.reference = ''
     this.niveau = ''
     this.titre = ''
     this.objectifs = []
@@ -34,31 +38,50 @@ export class SequenceComponent implements OnInit {
     this.lienEval = ''
     this.infosModale = [[], '', new Date()]
     this.ancreDeRetour = ''
+    this.dataMAJSubscription = new Subscription
   }
 
   ngOnInit (): void {
     this.surveillerChangementsDeSequence()
+    this.surveillerLeChargementDesDonnees()
+  }
+
+  ngOnDestroy () {
+    this.dataMAJSubscription.unsubscribe()
   }
 
   surveillerChangementsDeSequence () {
     this.activatedRoute.params.subscribe(params => {
-      this.trouverSequence(params.reference)
+      this.reference = params.reference
+      if (this.lesDonneesSontChargees()) this.trouverSequence()
     })
   }
 
-  trouverSequence (reference: string) {
+  surveillerLeChargementDesDonnees () {
+    this.dataMAJSubscription = this.dataService.dataMAJ.subscribe(valeurModifiee => {
+      if (valeurModifiee === 'niveauxObjectifs' || valeurModifiee === 'niveauxSequences') {
+        if (this.lesDonneesSontChargees()) this.trouverSequence()
+      }
+    })
+  }
+
+  lesDonneesSontChargees () {
+    return this.dataService.niveauxObjectifs.length > 0 && this.dataService.niveauxSequences.length > 0
+  }
+
+  trouverSequence () {
     this.dataService.niveauxSequences.find(niveau => {
       return niveau.sequences.find(sequence => {
-        if (sequence.reference === reference) {
+        if (sequence.reference === this.reference) {
           this.niveau = niveau.nom
-          this.MAJProprietes(sequence)
+          this.MAJPage(sequence)
         }
-        return sequence.reference === reference
+        return sequence.reference === this.reference
       })
     })
   }
 
-  MAJProprietes (sequence: Sequence) {
+  MAJPage (sequence: Sequence) {
     const numero = parseInt(sequence.reference.slice(3))
     this.titre = `Séquence ${numero} :<br>${sequence.titre}`
     this.titleService.setTitle(this.titre.replace('<br>', ' '))

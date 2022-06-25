@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, isDevMode, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core'
-import { ProfilService } from '../services/profil.service'
+import { Component, EventEmitter, Input, isDevMode, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core'
+import { Subscription } from 'rxjs'
 import { ConfettiService } from '../services/confetti.service'
 import { DataService } from '../services/data.service'
 import { GlobalConstants } from '../services/modeles/global-constants'
@@ -17,7 +17,7 @@ interface Exercice {
   templateUrl: './modale-exercices.component.html',
   styleUrls: ['./modale-exercices.component.css']
 })
-export class ModaleExercicesComponent implements OnInit, OnChanges {
+export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
   @Input() infosModale: [string[], string, Date] // liste des url, type d'exercice, date
   @Output() modaleFermee = new EventEmitter<number>()
   modale!: HTMLElement
@@ -27,9 +27,10 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
   boutonCopierLoading!: HTMLElement
   lienSpinner: string
   listeExercices: Exercice[]
+  dataMAJSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
-  constructor (private profilService: ProfilService, private dataService: DataService, public confettiService: ConfettiService, private storageService: StorageService) {
+  constructor (private dataService: DataService, public confettiService: ConfettiService, private storageService: StorageService) {
     this.infosModale = [[], '', new Date()]
     this.lienSpinner = ''
     this.listeExercices = []
@@ -37,12 +38,13 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
     this.set('urlDejaFaits', [''])
     this.set('exercicesDejaFaits', [''])
     this.set('dateDerniereReponse', new Date())
+    this.dataMAJSubscription = new Subscription
+    this.surveillerLeChargementDesDonnees()
     setTimeout(() => this.confettiService.stop(), 3000) // Sinon un reliquat reste apparent
   }
 
   ngOnInit (): void {
-    this.MAJListeExercices()
-    this.MAJElementsHTML()
+    if (this.lesDonneesSontChargees()) this.MAJComponent()
   }
 
   ngOnChanges (changes: SimpleChanges) {
@@ -59,6 +61,27 @@ export class ModaleExercicesComponent implements OnInit, OnChanges {
         this.parametrage(site)
       }
     }
+  }
+
+  ngOnDestroy () {
+    this.dataMAJSubscription.unsubscribe()
+  }
+
+  surveillerLeChargementDesDonnees () {
+    this.dataMAJSubscription = this.dataService.dataMAJ.subscribe(valeurModifiee => {
+      if (valeurModifiee === 'niveauxSequences' || valeurModifiee === 'niveauxObjectifs') {
+        if (this.lesDonneesSontChargees()) this.MAJComponent()
+      }
+    })
+  }
+
+  lesDonneesSontChargees () {
+    return this.dataService.niveauxSequences.length > 0 && this.dataService.niveauxObjectifs.length > 0
+  }
+
+  MAJComponent () {
+    this.MAJListeExercices()
+    this.MAJElementsHTML()
   }
 
   /**

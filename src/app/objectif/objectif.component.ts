@@ -1,18 +1,20 @@
 import { ViewportScroller } from '@angular/common'
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ProfilService } from '../services/profil.service'
 import { GlobalConstants } from '../services/modeles/global-constants'
 import { Objectif, Video, Exercice } from '../services/modeles/objectifs'
 import { Title } from '@angular/platform-browser'
 import { DataService } from '../services/data.service'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-objectif',
   templateUrl: './objectif.component.html',
   styleUrls: ['./objectif.component.css']
 })
-export class ObjectifComponent implements OnInit {
+export class ObjectifComponent implements OnInit, OnDestroy {
+  reference: string
   niveau: string
   titre: string
   rappelDuCoursHTML: string
@@ -21,9 +23,11 @@ export class ObjectifComponent implements OnInit {
   videos: Video[]
   exercices: Exercice[]
   infosModale: [string[], string, Date]
+  dataMAJSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
   constructor (private activatedRoute: ActivatedRoute, public profilService: ProfilService, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
+    this.reference = ''
     this.niveau = ''
     this.titre = ''
     this.rappelDuCoursHTML = ''
@@ -32,28 +36,47 @@ export class ObjectifComponent implements OnInit {
     this.videos = []
     this.exercices = []
     this.infosModale = [[], '', new Date()]
+    this.dataMAJSubscription = new Subscription
   }
 
   ngOnInit (): void {
     this.surveillerChangementsDeReference()
+    this.surveillerLeChargementDesDonnees()
+  }
+
+  ngOnDestroy () {
+    this.dataMAJSubscription.unsubscribe()
   }
 
   surveillerChangementsDeReference () {
     this.activatedRoute.params.subscribe(params => {
-      this.trouverObjectif(params.reference)
+      this.reference = params.reference
+      if (this.lesDonneesSontChargees()) this.trouverObjectif()
     })
   }
 
-  trouverObjectif (reference: string) {
+  surveillerLeChargementDesDonnees () {
+    this.dataMAJSubscription = this.dataService.dataMAJ.subscribe(valeurModifiee => {
+      if (valeurModifiee === 'niveauxObjectifs') {
+        if (this.lesDonneesSontChargees()) this.trouverObjectif()
+      }
+    })
+  }
+
+  lesDonneesSontChargees () {
+    return this.dataService.niveauxObjectifs.length > 0
+  }
+
+  trouverObjectif () {
     this.dataService.niveauxObjectifs.find(niveau => {
       return niveau.themes.find(theme => {
         return theme.sousThemes.find(sousTheme => {
           return sousTheme.objectifs.find(objectif => {
-            if (objectif.reference === reference) {
+            if (objectif.reference === this.reference) {
               this.niveau = niveau.nom
               this.MAJProprietes(objectif)
             }
-            return objectif.reference === reference
+            return objectif.reference === this.reference
           })
         })
       })

@@ -20,6 +20,7 @@ export class ObjectifsComponent implements OnInit, OnDestroy {
   filtre: Ligne
   ongletActif: string
   navigationEventSubscription: Subscription
+  dataMAJSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
   constructor (private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router) {
@@ -27,16 +28,30 @@ export class ObjectifsComponent implements OnInit, OnDestroy {
     this.filtre = {}
     this.ongletActif = 'tout'
     this.navigationEventSubscription = new Subscription
+    this.dataMAJSubscription = new Subscription
     this.MAJOngletActif()
+    this.surveillerLeChargementDesDonnees()
   }
 
   ngOnInit (): void {
-    this.MAJFiltre()
-    this.MAJLignes()
+    if (this.lesDonneesSontChargees()) this.MAJPage()
   }
 
   ngOnDestroy () {
     this.navigationEventSubscription.unsubscribe()
+    this.dataMAJSubscription.unsubscribe()
+  }
+
+  surveillerLeChargementDesDonnees () {
+    this.dataMAJSubscription = this.dataService.dataMAJ.subscribe(valeurModifiee => {
+      if (valeurModifiee === 'niveauxObjectifs') {
+        if (this.lesDonneesSontChargees()) this.MAJPage()
+      }
+    })
+  }
+
+  lesDonneesSontChargees () {
+    return this.dataService.niveauxObjectifs.length > 0
   }
 
   MAJOngletActif () {
@@ -45,6 +60,11 @@ export class ObjectifsComponent implements OnInit, OnDestroy {
         this.ongletActif = event.url.split('/')[2]
       }
     })
+  }
+
+  MAJPage () {
+    this.MAJFiltre()
+    this.MAJLignes()
   }
 
   MAJFiltre () {

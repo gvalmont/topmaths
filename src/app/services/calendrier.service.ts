@@ -1,16 +1,20 @@
-import { Injectable } from '@angular/core'
+import { EventEmitter, Injectable, OnDestroy, Output } from '@angular/core'
+import { Subscription } from 'rxjs'
 import { DataService } from './data.service'
 
 @Injectable({
   providedIn: 'root'
 })
-export class CalendrierService {
+export class CalendrierService implements OnDestroy {
+  @Output() calendrierMAJ: EventEmitter<boolean> = new EventEmitter()
+
   annee: number
   jourNumero: number
   periodeNumero: number
   semaineDansLaPeriode: number
   typeDePeriode: string // Peut être 'cours' ou 'vacances'
   estHeureEte: boolean
+  dataMAJSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
   constructor (private dataService: DataService) {
@@ -20,7 +24,25 @@ export class CalendrierService {
     this.semaineDansLaPeriode = 0
     this.typeDePeriode = ''
     this.estHeureEte = false
-    this.MAJProprietes()
+    this.dataMAJSubscription = new Subscription
+    if (this.lesDonneesSontChargees()) this.MAJProprietes()
+    this.surveillerLeChargementDesDonnees()
+  }
+
+  ngOnDestroy () {
+    this.dataMAJSubscription.unsubscribe()
+  }
+
+  surveillerLeChargementDesDonnees () {
+    this.dataMAJSubscription = this.dataService.dataMAJ.subscribe(valeurModifiee => {
+      if (valeurModifiee === 'calendrierAnnees') {
+        if (this.lesDonneesSontChargees()) this.MAJProprietes()
+      }
+    })
+  }
+
+  lesDonneesSontChargees () {
+    return this.dataService.calendrierAnnees.length > 0
   }
 
   MAJProprietes () {
@@ -43,6 +65,7 @@ export class CalendrierService {
         }
       }
     }
+    this.calendrierMAJ.emit(true)
   }
 
   getDayOfYear () {

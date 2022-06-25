@@ -19,6 +19,7 @@ export class SequencesComponent implements OnInit, OnDestroy {
   lignesSequencesParticulieres: Ligne[]
   filtre: Ligne
   navigationEventSubscription: Subscription
+  dataMAJSubscription: Subscription
   ongletActif: string
 
   // eslint-disable-next-line no-unused-vars
@@ -27,18 +28,19 @@ export class SequencesComponent implements OnInit, OnDestroy {
     this.lignesSequencesParticulieres = []
     this.filtre = {}
     this.navigationEventSubscription = new Subscription
+    this.dataMAJSubscription = new Subscription
     this.ongletActif = 'tout'
     this.MAJOngletActif()
+    this.surveillerLeChargementDesDonnees()
   }
 
   ngOnInit (): void {
-    this.MAJFiltre()
-    this.MAJLignesSequencesParticulieres()
-    this.MAJLignesSequencesNormales()
+    if (this.lesDonneesSontChargees()) this.MAJPage()
   }
 
   ngOnDestroy () {
     this.navigationEventSubscription.unsubscribe()
+    this.dataMAJSubscription.unsubscribe()
   }
 
   MAJOngletActif () {
@@ -47,6 +49,24 @@ export class SequencesComponent implements OnInit, OnDestroy {
         this.ongletActif = event.url.split('/')[2]
       }
     })
+  }
+
+  surveillerLeChargementDesDonnees () {
+    this.dataMAJSubscription = this.dataService.dataMAJ.subscribe(valeurModifiee => {
+      if (valeurModifiee === 'sequencesParticulieres' || valeurModifiee === 'niveauxSequences') {
+        if (this.lesDonneesSontChargees()) this.MAJPage()
+      }
+    })
+  }
+
+  lesDonneesSontChargees () {
+    return this.dataService.sequencesParticulieres.length > 0 && this.dataService.niveauxSequences.length > 0
+  }
+
+  MAJPage () {
+    this.MAJFiltre()
+    this.MAJLignesSequencesParticulieres()
+    this.MAJLignesSequencesNormales()
   }
 
   MAJFiltre () {

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http'
-import { Injectable } from '@angular/core'
+import { EventEmitter, Injectable, Output } from '@angular/core'
 import { AvatarsDef } from './modeles/avatar'
 import { Annee } from './modeles/calendrier'
 import { Niveau as NiveauObjectif } from './modeles/objectifs'
@@ -18,6 +18,8 @@ interface Adjectif {
   providedIn: 'root'
 })
 export class DataService {
+  @Output() dataMAJ: EventEmitter<string> = new EventEmitter()
+
   niveauxObjectifs: NiveauObjectif[]
   niveauxSequences: NiveauSequence[]
   sequencesParticulieres: SequenceParticuliere[]
@@ -45,27 +47,35 @@ export class DataService {
   miseEnCacheDesDonnees () {
     this.httpClient.get<NiveauObjectif[]>('assets/data/objectifs.json').subscribe(niveaux => {
       this.niveauxObjectifs = niveaux
+      this.dataMAJ.emit('niveauxObjectifs')
     })
     this.httpClient.get<NiveauSequence[]>('assets/data/sequences.json').subscribe(niveaux => {
       this.niveauxSequences = niveaux
+      this.dataMAJ.emit('niveauxSequences')
     })
     this.httpClient.get<SequenceParticuliere[]>('assets/data/sequencesParticulieres.json').subscribe(sequencesParticulieres => {
       this.sequencesParticulieres = sequencesParticulieres
+      this.dataMAJ.emit('sequencesParticulieres')
     })
     this.httpClient.get<AvatarsDef>('assets/data/avatars-def.json').subscribe(avatarsDef => {
       this.avatarsDef = avatarsDef
+      this.dataMAJ.emit('avatarsDef')
     })
     this.httpClient.get<Annee[]>('assets/data/calendrier.json').subscribe(annees => {
       this.calendrierAnnees = annees
+      this.dataMAJ.emit('calendrierAnnees')
     })
     this.httpClient.get<Nom[]>('assets/data/nomsMasculins.json').subscribe(noms => {
       this.listeMasculins = noms
+      this.dataMAJ.emit('listeMasculins')
     })
     this.httpClient.get<Nom[]>('assets/data/nomsFeminins.json').subscribe(noms => {
       this.listeFeminins = noms
+      this.dataMAJ.emit('listeFeminins')
     })
     this.httpClient.get<Adjectif[]>('assets/data/adjectifs.json').subscribe(adjectifs => {
       this.listeAdjectifs = adjectifs
+      this.dataMAJ.emit('listeAdjectifs')
     })
   }
 }

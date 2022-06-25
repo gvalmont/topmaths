@@ -27,6 +27,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
   empecherNavigation: boolean
   redirection: string
   navigationEventSubscription: Subscription
+  dataMAJSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
   constructor (public profilService: ProfilService, private dataService: DataService, private router: Router) {
@@ -42,28 +43,20 @@ export class AvatarComponent implements OnInit, OnDestroy {
     this.empecherNavigation = true
     this.redirection = '/profil'
     this.navigationEventSubscription = new Subscription
+    this.dataMAJSubscription = new Subscription
+    this.surveillerLaNavigation()
+    this.surveillerLeChargementDesDonnees()
   }
 
   ngOnInit (): void {
     this.MAJDiv()
-    this.surveillerLaNavigation()
     this.MAJParametresAvatarActuel()
-    this.MAJPage()
+    if (this.lesDonneesSontChargees()) this.MAJPage()
   }
 
   ngOnDestroy () {
     this.navigationEventSubscription.unsubscribe()
-  }
-
-  MAJDiv () {
-    let div = document.getElementById("panneauPrincipal")
-    if (div !== null) this.panneauPrincipal = div
-    div = document.getElementById('divAvatarEnCreation')
-    if (div !== null) this.divAvatarEnCreation = div
-    div = document.getElementById("modaleConfirmation")
-    if (div !== null) this.modaleConfirmation = div
-    div = document.getElementById("modaleConfirmationDivAvatarEnCreation")
-    if (div !== null) this.modaleConfirmationDivAvatarEnCreation = div
+    this.dataMAJSubscription.unsubscribe()
   }
 
   /**
@@ -80,6 +73,29 @@ export class AvatarComponent implements OnInit, OnDestroy {
         }
       }
     })
+  }
+
+  surveillerLeChargementDesDonnees () {
+    this.dataMAJSubscription = this.dataService.dataMAJ.subscribe(valeurModifiee => {
+      if (valeurModifiee === 'avatarsDef') {
+        if (this.lesDonneesSontChargees()) this.MAJPage()
+      }
+    })
+  }
+
+  lesDonneesSontChargees () {
+    return this.dataService.avatarsDef.baliseOuverture !== ''
+  }
+
+  MAJDiv () {
+    let div = document.getElementById("panneauPrincipal")
+    if (div !== null) this.panneauPrincipal = div
+    div = document.getElementById('divAvatarEnCreation')
+    if (div !== null) this.divAvatarEnCreation = div
+    div = document.getElementById("modaleConfirmation")
+    if (div !== null) this.modaleConfirmation = div
+    div = document.getElementById("modaleConfirmationDivAvatarEnCreation")
+    if (div !== null) this.modaleConfirmationDivAvatarEnCreation = div
   }
 
   MAJParametresAvatarActuel () {
