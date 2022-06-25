@@ -12,7 +12,7 @@ import { StorageService } from './storage.service'
 })
 
 export class ProfilService {
-  @Output() profilModifie: EventEmitter<string[]> = new EventEmitter()
+  @Output() profilMAJ: EventEmitter<string[]> = new EventEmitter()
 
   redirectUrl: string
   isloggedIn: boolean
@@ -39,7 +39,7 @@ export class ProfilService {
   }
 
   MAJLienAvatar () {
-    this.profilModifie.subscribe(valeursModifiees => {
+    this.profilMAJ.subscribe(valeursModifiees => {
       if (valeursModifiees.includes('codeAvatar')) {
         this.lienAvatar = this.getLienAvatar(this.user)
       }
@@ -94,7 +94,7 @@ export class ProfilService {
       this.storageService.setToken('identifiant', this.user.identifiant)
       this.storageService.setToken('version', this.derniereVersionToken)
       this.isloggedIn = true
-      this.profilModifie.emit([
+      this.profilMAJ.emit([
         'identifiant',
         'codeAvatar',
         'lastLogin',
@@ -114,7 +114,7 @@ export class ProfilService {
           this.storageService.setToken('identifiant', users[0].identifiant)
           this.storageService.setToken('version', this.derniereVersionToken)
           this.user = users[0]
-          this.profilModifie.emit([
+          this.profilMAJ.emit([
             'identifiant',
             'codeAvatar',
             'lastLogin',
@@ -159,7 +159,7 @@ export class ProfilService {
         this.storageService.setToken('identifiant', users[0].identifiant)
         this.storageService.setToken('version', this.derniereVersionToken)
         this.user = users[0]
-        this.profilModifie.emit([
+        this.profilMAJ.emit([
           'identifiant',
           'codeAvatar',
           'lastLogin',
@@ -199,12 +199,12 @@ export class ProfilService {
    */
   MAJAvatar (avatarSVG: string, codeAvatar: string) {
     this.user.codeAvatar = codeAvatar
-    if (isDevMode()) {
-      this.profilModifie.emit(['codeAvatar'])
+    if (isDevMode() || !this.isloggedIn) {
+      this.profilMAJ.emit(['codeAvatar'])
     } else {
       this.httpClient.post<User[]>(GlobalConstants.API_URL + 'majAvatar.php', { identifiant: this.user.identifiant, codeAvatar: this.user.codeAvatar, avatarSVG: avatarSVG }).subscribe(
         () => {
-          this.profilModifie.emit(['codeAvatar'])
+          this.profilMAJ.emit(['codeAvatar'])
         },
         error => {
           console.log(error)
@@ -223,7 +223,7 @@ export class ProfilService {
     this.storageService.deleteToken('version')
     this.user = new User(0, '', '', '', '', '', '')
     this.isloggedIn = false
-    this.profilModifie.emit([
+    this.profilMAJ.emit([
       'identifiant',
       'codeAvatar',
       'lastLogin',
@@ -238,12 +238,12 @@ export class ProfilService {
    * Met à jour le profil de l'utilisateur
    */
   majProfil (valeursModifiees: string[]) {
-    if (isDevMode()) {
-      this.profilModifie.emit(valeursModifiees)
+    if (isDevMode() || !this.isloggedIn) {
+      this.profilMAJ.emit(valeursModifiees)
     } else {
       this.httpClient.post<User[]>(GlobalConstants.API_URL + 'majProfil.php', this.user).subscribe(
         () => {
-          this.profilModifie.emit(valeursModifiees)
+          this.profilMAJ.emit(valeursModifiees)
         },
         error => {
           console.log(error)

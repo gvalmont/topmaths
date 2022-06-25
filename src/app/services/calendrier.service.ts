@@ -6,7 +6,7 @@ import { DataService } from './data.service'
   providedIn: 'root'
 })
 export class CalendrierService implements OnDestroy {
-  @Output() calendrierMAJ: EventEmitter<boolean> = new EventEmitter()
+  @Output() calendrierMAJ: EventEmitter<void> = new EventEmitter()
 
   annee: number
   jourNumero: number
@@ -65,7 +65,7 @@ export class CalendrierService implements OnDestroy {
         }
       }
     }
-    this.calendrierMAJ.emit(true)
+    this.calendrierMAJ.emit()
   }
 
   getDayOfYear () {

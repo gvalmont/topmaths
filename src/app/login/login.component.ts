@@ -30,7 +30,7 @@ export class LoginComponent {
     this.shake = false
     this.loginVisible = false
     this.surveillerChamp()
-    this.profilService.profilModifie.subscribe(valeursModifiees => {
+    this.profilService.profilMAJ.subscribe(valeursModifiees => {
       if (valeursModifiees.includes('identifiant')) this.router.navigate(['/profil'])
     })
   }

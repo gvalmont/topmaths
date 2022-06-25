@@ -28,6 +28,7 @@ export class AvatarComponent implements OnInit, OnDestroy {
   redirection: string
   navigationEventSubscription: Subscription
   dataMAJSubscription: Subscription
+  profilMAJSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
   constructor (public profilService: ProfilService, private dataService: DataService, private router: Router) {
@@ -44,19 +45,22 @@ export class AvatarComponent implements OnInit, OnDestroy {
     this.redirection = '/profil'
     this.navigationEventSubscription = new Subscription
     this.dataMAJSubscription = new Subscription
+    this.profilMAJSubscription = new Subscription
     this.surveillerLaNavigation()
+    this.surveillerLeChargementDuProfil()
     this.surveillerLeChargementDesDonnees()
   }
 
   ngOnInit (): void {
     this.MAJDiv()
-    this.MAJParametresAvatarActuel()
+    if (this.leProfilEstCharge()) this.MAJParametresAvatarActuel()
     if (this.lesDonneesSontChargees()) this.MAJPage()
   }
 
   ngOnDestroy () {
     this.navigationEventSubscription.unsubscribe()
     this.dataMAJSubscription.unsubscribe()
+    this.profilMAJSubscription.unsubscribe()
   }
 
   /**
@@ -75,12 +79,25 @@ export class AvatarComponent implements OnInit, OnDestroy {
     })
   }
 
+  surveillerLeChargementDuProfil () {
+    this.profilMAJSubscription = this.profilService.profilMAJ.subscribe(valeursModifiees => {
+      if (valeursModifiees.includes('codeAvatar')) {
+        this.MAJParametresAvatarActuel()
+        if (this.lesDonneesSontChargees()) this.MAJPage()
+      }
+    })
+  }
+
   surveillerLeChargementDesDonnees () {
     this.dataMAJSubscription = this.dataService.dataMAJ.subscribe(valeurModifiee => {
       if (valeurModifiee === 'avatarsDef') {
         if (this.lesDonneesSontChargees()) this.MAJPage()
       }
     })
+  }
+
+  leProfilEstCharge () {
+    return this.profilService.user.codeAvatar !== ''
   }
 
   lesDonneesSontChargees () {
@@ -99,19 +116,17 @@ export class AvatarComponent implements OnInit, OnDestroy {
   }
 
   MAJParametresAvatarActuel () {
-    if (this.profilService.user.codeAvatar !== '') {
-      const parametres = this.profilService.user.codeAvatar.split('&')
-      this.skinColor = parametres[0]
-      this.eyes = parseInt(parametres[1])
-      this.eyebrows = parseInt(parametres[2])
-      this.mouth = parseInt(parametres[3])
-      this.accessoires = []
-      for (const accessoire of parametres[4].split('-')) {
-        this.accessoires.push(parseInt(accessoire))
-      }
-      this.hair = parseInt(parametres[5])
-      this.hairColor = parametres[6]
+    const parametres = this.profilService.user.codeAvatar.split('&')
+    this.skinColor = parametres[0]
+    this.eyes = parseInt(parametres[1])
+    this.eyebrows = parseInt(parametres[2])
+    this.mouth = parseInt(parametres[3])
+    this.accessoires = []
+    for (const accessoire of parametres[4].split('-')) {
+      this.accessoires.push(parseInt(accessoire))
     }
+    this.hair = parseInt(parametres[5])
+    this.hairColor = parametres[6]
   }
 
   MAJPage () {

@@ -21,7 +21,7 @@ export class ExercicesAuHasardComponent {
   infosModale: [string[], string, Date]
 
   // eslint-disable-next-line no-unused-vars
-  constructor (private dataService: DataService, private viewportScroller: ViewportScroller, private calendrier: CalendrierService) {
+  constructor (private dataService: DataService, private viewportScroller: ViewportScroller, private calendrierService: CalendrierService) {
     this.infosModale = [[], '', new Date()]
   }
 
@@ -56,9 +56,9 @@ export class ExercicesAuHasardComponent {
   }
 
   getDerniereSequence () {
-    const periode = this.calendrier.periodeNumero
-    const type = this.calendrier.typeDePeriode
-    const semaine = this.calendrier.semaineDansLaPeriode
+    const periode = this.calendrierService.periodeNumero
+    const type = this.calendrierService.typeDePeriode
+    const semaine = this.calendrierService.semaineDansLaPeriode
     switch (periode) {
       case 1:
         if (type === 'cours') {

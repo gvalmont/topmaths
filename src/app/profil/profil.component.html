@@ -36,8 +36,8 @@
   </div>
   <div *ngIf="profilService.user.derniereSequence !== '' || profilService.user.dernierObjectif !== ''"><br><br></div>
   <!-- Déconnexion -->
-  <div *ngIf="profilService.user.lastLogin !== '' && derniereConnexion !== 'undefined NaN undefined NaN à NaNhNaNmin'">
-    <p class="has-text-grey is-size-6">Quelqu'un s'est connecté sur ce compte le {{derniereConnexion}}.<br>
+  <div *ngIf="profilService.user.lastLogin !== '' && dateDeDerniereConnexion !== '' && dateDeDerniereConnexion !== 'undefined NaN undefined NaN à NaNhNaNmin'">
+    <p class="has-text-grey is-size-6">Quelqu'un s'est connecté sur ce compte le {{dateDeDerniereConnexion}}.<br>
       Si cette date ne te dit rien, c'est sûrement que ton identifiant est trop facile à deviner ou que tu as oublié
       de te déconnecter et que quelqu'un d'autre l'a utilisé !</p>
     <div><br></div>
