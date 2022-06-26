@@ -42,6 +42,7 @@ export class SequenceComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit (): void {
+    this.viewportScroller.scrollToAnchor('titre')
     this.surveillerChangementsDeSequence()
     this.surveillerLeChargementDesDonnees()
   }

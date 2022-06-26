@@ -7,6 +7,7 @@ import { Objectif, Video, Exercice } from '../services/modeles/objectifs'
 import { Title } from '@angular/platform-browser'
 import { DataService } from '../services/data.service'
 import { Subscription } from 'rxjs'
+import { Sequence } from '../services/modeles/sequences'
 
 @Component({
   selector: 'app-objectif',
@@ -22,6 +23,7 @@ export class ObjectifComponent implements OnInit, OnDestroy {
   rappelDuCoursInstrumenpoche: string
   videos: Video[]
   exercices: Exercice[]
+  sequences: Sequence[]
   infosModale: [string[], string, Date]
   dataMAJSubscription: Subscription
 
@@ -35,11 +37,13 @@ export class ObjectifComponent implements OnInit, OnDestroy {
     this.rappelDuCoursInstrumenpoche = ''
     this.videos = []
     this.exercices = []
+    this.sequences = []
     this.infosModale = [[], '', new Date()]
     this.dataMAJSubscription = new Subscription
   }
 
   ngOnInit (): void {
+    this.viewportScroller.scrollToAnchor('titre')
     this.surveillerChangementsDeReference()
     this.surveillerLeChargementDesDonnees()
   }
@@ -51,36 +55,56 @@ export class ObjectifComponent implements OnInit, OnDestroy {
   surveillerChangementsDeReference () {
     this.activatedRoute.params.subscribe(params => {
       this.reference = params.reference
-      if (this.lesDonneesSontChargees()) this.trouverObjectif()
+      if (this.lesDonneesSontChargees()) this.MAJPage()
     })
   }
 
   surveillerLeChargementDesDonnees () {
     this.dataMAJSubscription = this.dataService.dataMAJ.subscribe(valeurModifiee => {
-      if (valeurModifiee === 'niveauxObjectifs') {
-        if (this.lesDonneesSontChargees()) this.trouverObjectif()
+      if (valeurModifiee === 'niveauxObjectifs' || valeurModifiee === 'niveauxSequences') {
+        if (this.lesDonneesSontChargees()) this.MAJPage()
       }
     })
   }
 
   lesDonneesSontChargees () {
-    return this.dataService.niveauxObjectifs.length > 0
+    return this.dataService.niveauxObjectifs.length > 0 && this.dataService.niveauxSequences.length > 0
   }
 
-  trouverObjectif () {
-    this.dataService.niveauxObjectifs.find(niveau => {
-      return niveau.themes.find(theme => {
-        return theme.sousThemes.find(sousTheme => {
-          return sousTheme.objectifs.find(objectif => {
+  MAJPage () {
+    const objectif: Objectif = this.getObjectif()
+    this.sequences = this.getSequences()
+    this.niveau = objectif.reference.slice(0, 1) + 'e'
+    this.MAJProprietes(objectif)
+  }
+
+  getObjectif () {
+    for (const niveau of this.dataService.niveauxObjectifs) {
+      for (const theme of niveau.themes) {
+        for (const sousTheme of theme.sousThemes) {
+          for (const objectif of sousTheme.objectifs) {
             if (objectif.reference === this.reference) {
-              this.niveau = niveau.nom
-              this.MAJProprietes(objectif)
+              return objectif
             }
-            return objectif.reference === this.reference
-          })
-        })
-      })
-    })
+          }
+        }
+      }
+    }
+    return new Objectif('', '', '', '', '', [], [])
+  }
+
+  getSequences () {
+    const listeDesSequences = []
+    for (const niveau of this.dataService.niveauxSequences) {
+      for (const sequence of niveau.sequences) {
+        for (const objectif of sequence.objectifs) {
+          if (objectif.reference === this.reference) {
+            listeDesSequences.push(sequence)
+          }
+        }
+      }
+    }
+    return listeDesSequences
   }
 
   MAJProprietes (objectif: Objectif) {

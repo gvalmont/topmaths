@@ -1,5 +1,5 @@
 <div class="container is-max-desktop centre">
-  <h1 [class]="'title is-2 is-' + niveau">{{ titre }}</h1>
+  <h1 id="titre" [class]="'title is-2 is-' + niveau">{{ titre }}</h1>
   <div [class]="'is-' + niveau" *ngIf="rappelDuCoursHTML !== '' || rappelDuCoursImage !== '' || rappelDuCoursInstrumenpoche !== ''">
     <h2 [class]="'mb-5 pb-5 subtitle is-3 is-' + niveau">Rappel du cours</h2>
     <div class="has-text-centered pb-5">
@@ -16,7 +16,7 @@
       <p><u>Vidéo de <a [href]="video.lienAuteur" target="_blank" rel="noopener noreferrer">{{ video.auteur }}</a></u></p>
     </div>
   </div>
-  <div id="divExercices" *ngIf="exercices.length > 0" [class]="'is-fin is-' + niveau">
+  <div id="divExercices" *ngIf="exercices.length > 0" [class]="'is-' + niveau">
     <h2 [class]="'subtitle is-3 is-' + niveau">S'entraîner</h2>
     <div><br></div>
     <div *ngFor="let exercice of exercices; index as i">
@@ -33,6 +33,20 @@
       </h3>
       <div><br></div>
     </div>
+  </div>
+  <div id="liens" [class]="'is-fin is-' + niveau">
+    <h2 [class]="'subtitle is-3 is-' + niveau">Séquence{{ sequences.length > 1 ? 's' : '' }}</h2>
+    <div><br></div>
+    <p>Cet objectif fait partie de :</p>
+    <br>
+    <ul>
+      <li class="title is-4" *ngFor="let sequence of sequences">
+        <a [ngStyle]="{'color' : 'var(--base' + sequence.reference.slice(1, 2) + 'e)'}" [routerLink]="['/sequence/' + sequence.reference]">
+          {{'Séquence ' + sequence.reference.slice(3) + ' : ' + sequence.titre }}
+        </a>
+      </li>
+    </ul>
+    <div><br><br></div>
   </div>
 </div>
 <app-modale-exercices [infosModale]="infosModale" (modaleFermee)="scrollBack()"></app-modale-exercices>

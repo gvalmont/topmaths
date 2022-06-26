@@ -25,10 +25,10 @@
     </div>
     <br><br><br>
     <!-- Paramètres -->
-    <button *ngIf="feminin" type="submit" class="button is-info is-light" (click)="majFeminin(false)">Pseudo masculin</button>
+    <button *ngIf="feminin" type="submit" class="button is-info is-light" (click)="MAJFeminin(false)">Pseudo masculin</button>
     <button *ngIf="!feminin" class="button is-info">Pseudo masculin</button>
     &nbsp;
-    <button *ngIf="!feminin" type="submit" class="button is-sponsor is-light" (click)="majFeminin(true)">Pseudo féminin</button>
+    <button *ngIf="!feminin" type="submit" class="button is-sponsor is-light" (click)="MAJFeminin(true)">Pseudo féminin</button>
     <button *ngIf="feminin" class="button is-sponsor">Pseudo féminin</button>
     <br><br>
   </div>
