@@ -9,10 +9,12 @@
       </li>
     </ul>
   </div>
+  <input style="text-align:center; font-size:x-large ;" type="email" class="form-control" id="search-text" aria-describedby="search-text" [(ngModel)]="texteRecherche" placeholder="Recherche" autofocus>
+  <div><br></div>
   <div class="container is-max-desktop centre">
     <!-- Séquences particulières -->
     <div>
-      <span *ngFor="let ligne of lignesSequencesParticulieres; index as i">
+      <span *ngFor="let ligne of lignesSequencesParticulieres | sequencesFilter: texteRecherche; index as i">
         <h1 *ngIf="ligne.niveau !== undefined && ligne.niveau !== 'fin' && ligne.reference === undefined" class="title is-3 p-2 is-tout">{{ligne.niveau}}</h1>
         <p *ngIf="ligne.reference !== undefined" [ngClass]="{'is-tout is-size-5': true, 'is-fin': lignesSequencesParticulieres[i].niveau !== lignesSequencesParticulieres[i + 1].niveau}">
           <a routerLink="/sequence/{{ligne.reference}}" routerLinkActive="active">
@@ -22,7 +24,7 @@
       </span>
     </div>
     <!-- Séquences normales -->
-    <span *ngFor="let ligne of lignesSequencesNormales; index as i">
+    <span *ngFor="let ligne of lignesSequencesNormales | sequencesFilter: texteRecherche; index as i">
       <div *ngIf="ligne.niveau !== undefined && ligne.niveau !== 'fin' && ligne.reference === undefined && (filtre.niveau === undefined || filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)"><br></div>
       <h1 *ngIf="ligne.niveau !== undefined && ligne.niveau !== 'fin' && ligne.reference === undefined && (filtre.niveau === undefined || filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)" [class]="'title is-3 p-2 is-' + ligne.niveau">
         <span class="has-text-white">

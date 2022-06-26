@@ -19,6 +19,7 @@ export class ObjectifsComponent implements OnInit, OnDestroy {
   lignes: Ligne[]
   filtre: Ligne
   ongletActif: string
+  texteRecherche: string
   navigationEventSubscription: Subscription
   dataMAJSubscription: Subscription
 
@@ -27,6 +28,7 @@ export class ObjectifsComponent implements OnInit, OnDestroy {
     this.lignes = []
     this.filtre = {}
     this.ongletActif = 'tout'
+    this.texteRecherche = ''
     this.navigationEventSubscription = new Subscription
     this.dataMAJSubscription = new Subscription
     this.MAJOngletActif()

@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module'
+import { SafePipe } from './services/pipes/safe.pipe'
+import { ObjectifsFilter } from './services/pipes/objectifsFilter.pipe'
+import { SequencesFilter } from './services/pipes/sequencesFilter.pipe'
 import { AppComponent } from './app.component'
 import { ObjectifComponent } from './objectif/objectif.component'
 import { AccueilComponent } from './accueil/accueil.component'
-import { SafePipe } from './services/safe.pipe'
 import { ObjectifsComponent } from './objectifs/objectifs.component'
 import { SequencesComponent } from './sequences/sequences.component'
 import { SequenceComponent } from './sequence/sequence.component'
@@ -48,7 +50,9 @@ import { PseudoComponent } from './pseudo/pseudo.component'
     BoutonImprimerComponent,
     AnimationInstrumenpocheComponent,
     PolitiqueDeConfidentialiteComponent,
-    PseudoComponent
+    PseudoComponent,
+    ObjectifsFilter,
+    SequencesFilter
   ],
   imports: [
     BrowserModule,

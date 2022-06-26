@@ -18,6 +18,7 @@ export class SequencesComponent implements OnInit, OnDestroy {
   lignesSequencesNormales: Ligne[]
   lignesSequencesParticulieres: Ligne[]
   filtre: Ligne
+  texteRecherche: string
   navigationEventSubscription: Subscription
   dataMAJSubscription: Subscription
   ongletActif: string
@@ -27,6 +28,7 @@ export class SequencesComponent implements OnInit, OnDestroy {
     this.lignesSequencesNormales = []
     this.lignesSequencesParticulieres = []
     this.filtre = {}
+    this.texteRecherche = ''
     this.navigationEventSubscription = new Subscription
     this.dataMAJSubscription = new Subscription
     this.ongletActif = 'tout'
