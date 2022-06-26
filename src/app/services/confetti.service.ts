@@ -23,40 +23,76 @@ export class ConfettiService {
     this.confetti.stop()
   }
 
-  /**
-   * Lance les confetti
-   */
   public lanceConfetti () {
     this.confetti.refresh()
     this.confetti.play()
   }
 
-  /**
-   * Récupère le container des particules et le met dans la variable this.confetti
-   * @param container
-   */
   particlesLoaded (container: Container): void {
     this.confetti = container
   }
 
-  /**
-   * Ne fait rien à l'initialisation
-   * @param main
-   */
   particlesInit (): void {
   }
 
-  /**
-   * Crée une liste d'emetteurs différents selon que l'on soit en portrait ou en paysage
-   * Les ajoute aux autres paramètres de this.particlesOptions
-   */
   majParametres (){
+    // https://particles.js.org/docs/classes/Options_Classes_Options.Options.html
     this.particlesOptions = {
       autoPlay: false,
+      background: {
+        color: {
+          value : "#FFFFFF",
+          load: () => {}
+        },
+        image: '',
+        load: () => {},
+        opacity: 0,
+        position: 'center',
+        repeat: 'no-repeat',
+        size: 'cover'
+      },
+      backgroundMask: {
+        composite: 'destination-out',
+        cover: {
+          color: {
+            value : "#FFFFFF",
+            load: () => {}
+          },
+          load: () => {},
+          opacity: 0
+        },
+        enable: false,
+        load: () => {}
+      },
+      detectRetina: true,
+      duration: 0,
+      fpsLimit: 60,
       fullScreen: {
         enable: true,
         zIndex: 200,
-        load: () => void {}
+        load: () => {}
+      },
+      interactivity: {
+        detect_on: 'window',
+        detectsOn: 'window',
+        events: {
+          onClick: {
+            enable: false,
+            mode: 'push',
+            load: () => {}
+          },
+          onDiv: {
+            enable: false,
+            mode: 'push',
+            selectors: '',
+            elementId: '',
+            ids: '',
+            el: '',
+            load: () => {}
+          }
+        },
+        modes: '',
+        load: () => {}
       },
       particles: {
         number: {
@@ -163,9 +199,6 @@ export class ConfettiService {
             max: 15
           }
         }
-      },
-      background: {
-        // color: "#FFFFFF" // set the canvas background, it will set the style property
       },
       emitters: [ // the confetti emitters, the will bring confetti to life
         {
