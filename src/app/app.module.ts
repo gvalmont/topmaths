@@ -25,6 +25,7 @@ import { OutilsComponent } from './outils/outils.component'
 import { BoutonImprimerComponent } from './mini-components/bouton-imprimer/bouton-imprimer.component'
 import { AnimationInstrumenpocheComponent } from './mini-components/animation-instrumenpoche/animation-instrumenpoche.component'
 import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidentialite/politique-de-confidentialite.component'
+import { PseudoComponent } from './pseudo/pseudo.component'
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidential
     OutilsComponent,
     BoutonImprimerComponent,
     AnimationInstrumenpocheComponent,
-    PolitiqueDeConfidentialiteComponent
+    PolitiqueDeConfidentialiteComponent,
+    PseudoComponent
   ],
   imports: [
     BrowserModule,

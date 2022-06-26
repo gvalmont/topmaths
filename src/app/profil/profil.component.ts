@@ -10,23 +10,20 @@ import { Subscription } from 'rxjs'
   styleUrls: ['./profil.component.css']
 })
 export class ProfilComponent implements OnInit, OnDestroy {
-  pseudo: string
   dateDeDerniereConnexion: string
-  modalePseudo!: HTMLElement
   calendrierMAJSubscription: Subscription
   profilMAJSubscription: Subscription
+  infosModale: Date
 
   // eslint-disable-next-line no-unused-vars
   constructor (public profilService: ProfilService, public dataService: DataService, private calendrierService: CalendrierService) {
-    this.pseudo = profilService.user.pseudo
     this.dateDeDerniereConnexion = ''
     this.calendrierMAJSubscription = new Subscription
     this.profilMAJSubscription = new Subscription
+    this.infosModale = new Date()
   }
 
   ngOnInit (): void {
-    const modalePseudo = document.getElementById("modalePseudo")
-    if (modalePseudo !== null) this.modalePseudo = modalePseudo
     if (this.leCalendrierEstCharge() && this.leProfilEstCharge()) this.MAJDateDeDerniereConnexion()
     this.surveillerLeChargementDuCalendrier()
     this.surveillerLeChargementDuProfil()
@@ -47,9 +44,6 @@ export class ProfilComponent implements OnInit, OnDestroy {
     this.profilMAJSubscription = this.profilService.profilMAJ.subscribe(valeursModifiees => {
       if (valeursModifiees.includes('lastLogin')) {
         if (this.leCalendrierEstCharge()) this.MAJDateDeDerniereConnexion()
-      }
-      if (valeursModifiees.includes('pseudo')) {
-        this.pseudo = this.profilService.user.pseudo
       }
     })
   }
@@ -90,19 +84,12 @@ export class ProfilComponent implements OnInit, OnDestroy {
     this.dateDeDerniereConnexion = `${jour[date.getDay()]} ${date.getDate()} ${mois[date.getMonth()]} ${date.getFullYear()} entre ${date.getHours()}h et ${date.getHours() + 1}h`
   }
 
-  enregistrerPseudo () {
-    this.profilService.user.pseudo = this.pseudo
-    this.profilService.majProfil(['pseudo'])
-    this.modalePseudo.style.display = "none"
-  }
-
   ouvrirModalePseudo () {
-    this.pseudo = this.profilService.user.pseudo
-    this.modalePseudo.style.display = "block"
+    this.infosModale = new Date()
   }
 
-  fermerModalePseudo () {
-    this.modalePseudo.style.display = "none"
+  enregistrerPseudo (pseudo: string) {
+    this.profilService.user.pseudo = pseudo
+    this.profilService.majProfil(['pseudo'])
   }
-
 }

@@ -28,7 +28,6 @@ export class DataService {
   listeMasculins: Nom[]
   listeFeminins: Nom[]
   listeAdjectifs: Adjectif[]
-  feminin: boolean
 
   // eslint-disable-next-line no-unused-vars
   constructor (public httpClient: HttpClient) {
@@ -40,7 +39,6 @@ export class DataService {
     this.listeMasculins = []
     this.listeFeminins = []
     this.listeAdjectifs = []
-    this.feminin = false
     this.miseEnCacheDesDonnees()
   }
 

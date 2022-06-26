@@ -125,7 +125,7 @@ export class ProfilService {
         identifiant: identifiant,
         codeAvatar: '',
         lastLogin: '',
-        pseudo: this.tirerUnPseudoAleatoire(),
+        pseudo: this.tirerUnPseudoAleatoire(true),
         derniereSequence: '',
         dernierObjectif: ''
       }
@@ -197,12 +197,8 @@ export class ProfilService {
     }
   }
 
-  majFeminin (feminin: boolean) {
-    this.dataService.feminin = feminin
-  }
-
-  tirerUnPseudoAleatoire () {
-    if (this.dataService.feminin) {
+  tirerUnPseudoAleatoire (estFeminin: boolean) {
+    if (estFeminin) {
       const nom = this.dataService.listeFeminins[Math.floor(Math.random() * this.dataService.listeFeminins.length)].nom
       const adjectif = this.dataService.listeAdjectifs[Math.floor(Math.random() * this.dataService.listeAdjectifs.length)].feminin
       return nom + ' ' + adjectif
