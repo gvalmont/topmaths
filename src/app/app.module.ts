@@ -12,22 +12,17 @@ import { ObjectifsComponent } from './objectifs/objectifs.component'
 import { SequencesComponent } from './sequences/sequences.component'
 import { SequenceComponent } from './sequence/sequence.component'
 import { HashLocationStrategy, LocationStrategy } from '@angular/common'
-import { LoginComponent } from './login/login.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { ProfilComponent } from './profil/profil.component'
 import { NgParticlesModule } from "ng-particles"
 import { MathjaxModule } from 'mathjax-angular'
 import { SPS1Component } from './sequencesParticulieres/sps1/sps1.component'
-import { RevisionsComponent } from './revisions/revisions.component'
 import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-hasard.component'
-import { AvatarComponent } from './avatar/avatar.component'
 import { ModaleExercicesComponent } from './modale-exercices/modale-exercices.component'
 import { MathadorComponent } from './outils/mathador/mathador.component'
 import { OutilsComponent } from './outils/outils.component'
 import { BoutonImprimerComponent } from './mini-components/bouton-imprimer/bouton-imprimer.component'
 import { AnimationInstrumenpocheComponent } from './mini-components/animation-instrumenpoche/animation-instrumenpoche.component'
 import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidentialite/politique-de-confidentialite.component'
-import { PseudoComponent } from './pseudo/pseudo.component'
 
 @NgModule({
   declarations: [
@@ -38,19 +33,14 @@ import { PseudoComponent } from './pseudo/pseudo.component'
     ObjectifsComponent,
     SequencesComponent,
     SequenceComponent,
-    LoginComponent,
-    ProfilComponent,
     SPS1Component,
-    RevisionsComponent,
     ExercicesAuHasardComponent,
-    AvatarComponent,
     ModaleExercicesComponent,
     MathadorComponent,
     OutilsComponent,
     BoutonImprimerComponent,
     AnimationInstrumenpocheComponent,
     PolitiqueDeConfidentialiteComponent,
-    PseudoComponent,
     ObjectifsFilter,
     SequencesFilter
   ],

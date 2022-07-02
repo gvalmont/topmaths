@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { ProfilService } from '../services/profil.service'
 import { CalculMental, Objectif, QuestionFlash, Sequence } from '../services/modeles/sequences'
 import { ViewportScroller } from '@angular/common'
 import { GlobalConstants } from '../services/modeles/global-constants'
@@ -27,7 +26,7 @@ export class SequenceComponent implements OnInit, OnDestroy {
   dataMAJSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
-  constructor (private activatedRoute: ActivatedRoute, public profilService: ProfilService, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
+  constructor (private activatedRoute: ActivatedRoute, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
     this.reference = ''
     this.niveau = ''
     this.titre = ''
@@ -86,8 +85,6 @@ export class SequenceComponent implements OnInit, OnDestroy {
     const numero = parseInt(sequence.reference.slice(3))
     this.titre = `Séquence ${numero} :<br>${sequence.titre}`
     this.titleService.setTitle(this.titre.replace('<br>', ' '))
-    this.profilService.user.derniereSequence = sequence.reference + '!' + this.titre
-    this.profilService.majProfil(['derniereSequence'])
     this.MAJListeObjectifs(sequence)
     this.MAJListeQuestionsFlash(sequence)
     this.MAJListeCalculsMentaux(sequence)

@@ -1,6 +1,5 @@
 import { Component, OnDestroy, ViewEncapsulation } from '@angular/core'
 import { Router, NavigationStart, Event as NavigationEvent, ActivatedRoute, NavigationEnd } from '@angular/router'
-import { ProfilService } from './services/profil.service'
 import { Title } from '@angular/platform-browser'
 import { filter, map } from 'rxjs/operators'
 import { Subscription } from 'rxjs'
@@ -18,12 +17,11 @@ export class AppComponent implements OnDestroy {
   navigationEventSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
-  constructor (private router: Router, public profilService: ProfilService, private storageService: StorageService, private activatedRoute: ActivatedRoute, private titleService: Title) {
+  constructor (private router: Router, private storageService: StorageService, private activatedRoute: ActivatedRoute, private titleService: Title) {
     this.title = 'topmaths.fr - Les maths au TOP !'
     this.ongletActif = 'accueil'
     this.navigationEventSubscription = new Subscription
     this.MAJOngletActif()
-    this.MAJProfil()
     this.MAJTitreDeLaPage()
   }
 
@@ -38,16 +36,6 @@ export class AppComponent implements OnDestroy {
         if (this.ongletActif === '') this.ongletActif = 'accueil'
       }
     })
-  }
-
-  MAJProfil () {
-    const identifiant = this.storageService.get('identifiant')
-    const version = this.storageService.get('version')
-    if (identifiant !== null && version === this.profilService.derniereVersionToken) {
-      setTimeout(() => {
-        this.profilService.login(identifiant, true, false)
-      }, 0)
-    }
   }
 
   MAJTitreDeLaPage () {

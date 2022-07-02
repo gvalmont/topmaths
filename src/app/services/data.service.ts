@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http'
 import { EventEmitter, Injectable, Output } from '@angular/core'
-import { AvatarsDef } from './modeles/avatar'
 import { Annee } from './modeles/calendrier'
 import { Niveau as NiveauObjectif } from './modeles/objectifs'
 import { Niveau as NiveauSequence, SequenceParticuliere } from './modeles/sequences'
@@ -23,7 +22,6 @@ export class DataService {
   niveauxObjectifs: NiveauObjectif[]
   niveauxSequences: NiveauSequence[]
   sequencesParticulieres: SequenceParticuliere[]
-  avatarsDef: AvatarsDef
   calendrierAnnees: Annee[]
   listeMasculins: Nom[]
   listeFeminins: Nom[]
@@ -34,7 +32,6 @@ export class DataService {
     this.niveauxObjectifs = []
     this.niveauxSequences = []
     this.sequencesParticulieres = []
-    this.avatarsDef = new AvatarsDef('', '', '', '', [], [], [], [], [], [], [])
     this.calendrierAnnees = []
     this.listeMasculins = []
     this.listeFeminins = []
@@ -54,10 +51,6 @@ export class DataService {
     this.httpClient.get<SequenceParticuliere[]>('assets/data/sequencesParticulieres.json').subscribe(sequencesParticulieres => {
       this.sequencesParticulieres = sequencesParticulieres
       this.dataMAJ.emit('sequencesParticulieres')
-    })
-    this.httpClient.get<AvatarsDef>('assets/data/avatars-def.json').subscribe(avatarsDef => {
-      this.avatarsDef = avatarsDef
-      this.dataMAJ.emit('avatarsDef')
     })
     this.httpClient.get<Annee[]>('assets/data/calendrier.json').subscribe(annees => {
       this.calendrierAnnees = annees

@@ -5,13 +5,8 @@ import { ObjectifComponent } from './objectif/objectif.component'
 import { ObjectifsComponent } from './objectifs/objectifs.component'
 import { SequencesComponent } from './sequences/sequences.component'
 import { SequenceComponent } from './sequence/sequence.component'
-import { LoginComponent } from './login/login.component'
-import { ProfilComponent } from './profil/profil.component'
-import { AuthGuard } from './services/auth.guard'
 import { SPS1Component } from './sequencesParticulieres/sps1/sps1.component'
-import { RevisionsComponent } from './revisions/revisions.component'
 import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-hasard.component'
-import { AvatarComponent } from './avatar/avatar.component'
 import { MathadorComponent } from './outils/mathador/mathador.component'
 import { OutilsComponent } from './outils/outils.component'
 import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidentialite/politique-de-confidentialite.component'
@@ -27,10 +22,6 @@ const routes: Routes = [
   { path: 'sequences', redirectTo: 'sequences/tout' },
   { path: 'sequence/SPS1', component: SPS1Component, data: {title: 'topmaths.fr - Programmation'} },
   { path: 'sequence/:reference', component: SequenceComponent },
-  { path: 'login', component: LoginComponent, data: {title: 'topmaths.fr - Login'} },
-  { path: 'profil/avatar', component: AvatarComponent, data: {title: 'topmaths.fr - Avatar'}},
-  { path: 'profil', component: ProfilComponent, canActivate: [AuthGuard], data: {title: 'topmaths.fr - Profil'} },
-  { path: 'revisions', component: RevisionsComponent, data: {title: 'topmaths.fr - Révisions'} },
   { path: 'exercices-au-hasard', component: ExercicesAuHasardComponent, data: {title: 'topmaths.fr - Exercices au hasard'} },
   { path: 'outils/mathador', component: MathadorComponent },
   { path: 'outils', component: OutilsComponent },

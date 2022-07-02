@@ -1,7 +1,6 @@
 import { ViewportScroller } from '@angular/common'
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { ProfilService } from '../services/profil.service'
 import { GlobalConstants } from '../services/modeles/global-constants'
 import { Objectif, Video, Exercice } from '../services/modeles/objectifs'
 import { Title } from '@angular/platform-browser'
@@ -28,7 +27,7 @@ export class ObjectifComponent implements OnInit, OnDestroy {
   dataMAJSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
-  constructor (private activatedRoute: ActivatedRoute, public profilService: ProfilService, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
+  constructor (private activatedRoute: ActivatedRoute, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
     this.reference = ''
     this.niveau = ''
     this.titre = ''
@@ -110,8 +109,6 @@ export class ObjectifComponent implements OnInit, OnDestroy {
   MAJProprietes (objectif: Objectif) {
     this.titre = `${objectif.reference} : ${objectif.titre}`
     this.titleService.setTitle(this.titre)
-    this.profilService.user.dernierObjectif = objectif.reference + '!' + this.titre
-    this.profilService.majProfil(['dernierObjectif'])
     this.rappelDuCoursHTML = objectif.rappelDuCoursHTML
     if (objectif.rappelDuCoursImage === '') {
       this.rappelDuCoursImage = ''

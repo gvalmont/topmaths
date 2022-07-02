@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, isDevMode, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core'
 import { Subscription } from 'rxjs'
-import { ConfettiService } from '../services/confetti.service'
 import { DataService } from '../services/data.service'
 import { GlobalConstants } from '../services/modeles/global-constants'
 import { Niveau as NiveauObjectif } from '../services/modeles/objectifs'
@@ -30,7 +29,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
   dataMAJSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
-  constructor (private dataService: DataService, public confettiService: ConfettiService, private storageService: StorageService) {
+  constructor (private dataService: DataService, private storageService: StorageService) {
     this.infosModale = [[], '', new Date()]
     this.lienSpinner = ''
     this.listeExercices = []
@@ -40,7 +39,6 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
     this.set('dateDerniereReponse', new Date())
     this.dataMAJSubscription = new Subscription
     this.surveillerLeChargementDesDonnees()
-    setTimeout(() => this.confettiService.stop(), 3000) // Sinon un reliquat reste apparent
   }
 
   ngOnInit (): void {
@@ -151,11 +149,10 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
             } else if (event.data.nbBonnesReponses !== null) {
               for (const exercice of this.listeExercices) {
                 if (typeof (exercice.lien) !== 'undefined') {
-                  // A décommenter pour débugger lorsqu'il n'y a pas de confetti
+                  // A décommenter pour débugger
                   // console.log('lienACopier ' + exercice.lien)
                   // console.log('url ' + url)
                   if (url.split('&serie=')[0].split(',i=')[0] === exercice.lien.split('&serie=')[0].split(',i=')[0]) { // Lorsqu'un exercice n'est pas interactifReady, le ,i=0 est retiré de l'url
-                    this.lancerLesConfetti(exercice, event.data)
                     const graine = event.data.graine
                     this.MAJurlDejaFaits(type, exercice, graine, url, urlDejaFaits)
                   }
@@ -183,14 +180,6 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
       } else {
         this.hideLoadingScreen()
       }
-    }
-  }
-
-  lancerLesConfetti (exercice: Exercice, data: any) {
-    const nbBonnesReponses: number = data.nbBonnesReponses
-    const nbMauvaisesReponses: number = data.nbMauvaisesReponses
-    if (nbBonnesReponses > 0 && nbMauvaisesReponses === 0 && exercice.isInteractif) {
-      this.confettiService.lanceConfetti()
     }
   }
 

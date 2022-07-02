@@ -1,10 +1,6 @@
 [
   {
     "annee": 2022,
-    "heureEte": {
-      "debut": 86,
-      "fin": 302
-    },
     "periodes": [
       {
         "numero": 2,
@@ -76,10 +72,6 @@
   },
   {
     "annee": 2023,
-    "heureEte": {
-      "debut": 85,
-      "fin": 300
-    },
     "periodes": [
       {
         "numero": 2,
@@ -148,26 +140,5 @@
         "type": "vacances"
       }
     ]
-  },
-  {
-    "annee": 2024,
-    "heureEte": {
-      "debut": 91,
-      "fin": 299
-    }
-  },
-  {
-    "annee": 2025,
-    "heureEte": {
-      "debut": 89,
-      "fin": 297
-    }
-  },
-  {
-    "annee": 2026,
-    "heureEte": {
-      "debut": 88,
-      "fin": 296
-    }
   }
 ]
