@@ -13,7 +13,6 @@ import { SequencesComponent } from './sequences/sequences.component'
 import { SequenceComponent } from './sequence/sequence.component'
 import { HashLocationStrategy, LocationStrategy } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { NgParticlesModule } from "ng-particles"
 import { MathjaxModule } from 'mathjax-angular'
 import { SPS1Component } from './sequencesParticulieres/sps1/sps1.component'
 import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-hasard.component'
@@ -50,7 +49,6 @@ import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidential
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgParticlesModule,
     MathjaxModule.forRoot({
       "config": {
         "loader": {
