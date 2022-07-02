@@ -100,10 +100,10 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
           for (const objectif of sousTheme.objectifs) {
             for (const exercice of objectif.exercices) {
               this.listeExercices.push({
-                lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=1&v=eval&z=1.5`,
+                lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=0&v=e&z=1.5`,
                 isInteractif: exercice.isInteractif
               })
-              this.listeExercices[this.listeExercices.length - 1].lien = this.listeExercices[this.listeExercices.length - 1].lien.replace(/&ex=/g, ',i=1&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
+              this.listeExercices[this.listeExercices.length - 1].lien = this.listeExercices[this.listeExercices.length - 1].lien.replace(/&ex=/g, ',i=0&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
               if (exercice.slug.slice(0, 25) === 'https://mathsmentales.net') {
                 this.listeExercices[this.listeExercices.length - 1].lien = exercice.slug + '&embed=' + GlobalConstants.ORIGINE
               } else if (exercice.slug.slice(0, 4) === 'http') {
@@ -146,17 +146,9 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
             if (event.data.exercicesAffiches === true || event.data.ready === 'ok') {
               this.fermerEcranDeChargement(type, url, urlDejaFaits)
               this.set('lienACopier', url)
-            } else if (event.data.nbBonnesReponses !== null) {
-              for (const exercice of this.listeExercices) {
-                if (typeof (exercice.lien) !== 'undefined') {
-                  // A décommenter pour débugger
-                  // console.log('lienACopier ' + exercice.lien)
-                  // console.log('url ' + url)
-                  if (url.split('&serie=')[0].split(',i=')[0] === exercice.lien.split('&serie=')[0].split(',i=')[0]) { // Lorsqu'un exercice n'est pas interactifReady, le ,i=0 est retiré de l'url
-                    const graine = event.data.graine
-                    this.MAJurlDejaFaits(type, exercice, graine, url, urlDejaFaits)
-                  }
-                }
+              this.MAJurlDejaFaits(url, urlDejaFaits)
+              if (type === 'exerciceAuHasard' && url.slice(0, 25) === 'https://mathsmentales.net') {
+                this.exerciceAleatoireSuivant() // mathsmentales n'envoie pas de message à la fin de l'exercice, mieux vaut le shunter pour les exercices au hasard
               }
             }
           }
@@ -183,18 +175,10 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  MAJurlDejaFaits (type: string, exercice: Exercice, graine: string, url: string, urlDejaFaits: string[]) {
+  MAJurlDejaFaits (url: string, urlDejaFaits: string[]) {
     urlDejaFaits.push(url.split('&serie=')[0].split(',i=')[0])
     this.set('urlDejaFaits', urlDejaFaits)
-    if (type === 'exerciceAuHasard' && url.slice(0, 25) === 'https://mathsmentales.net') {
-      setTimeout(() => this.exerciceAleatoireSuivant(), 3000)
-    }
     this.set('dateDerniereReponse', new Date())
-    if (url.slice(0, 25) === 'https://mathsmentales.net') {
-      exercice.lien = `${url.split(',a=')[0]},a=${graine}${url.split(',a=')[1]}`
-    } else {
-      exercice.lien = url
-    }
   }
 
   exerciceAleatoireSuivant () {

@@ -56,17 +56,5 @@ export class DataService {
       this.calendrierAnnees = annees
       this.dataMAJ.emit('calendrierAnnees')
     })
-    this.httpClient.get<Nom[]>('assets/data/nomsMasculins.json').subscribe(noms => {
-      this.listeMasculins = noms
-      this.dataMAJ.emit('listeMasculins')
-    })
-    this.httpClient.get<Nom[]>('assets/data/nomsFeminins.json').subscribe(noms => {
-      this.listeFeminins = noms
-      this.dataMAJ.emit('listeFeminins')
-    })
-    this.httpClient.get<Adjectif[]>('assets/data/adjectifs.json').subscribe(adjectifs => {
-      this.listeAdjectifs = adjectifs
-      this.dataMAJ.emit('listeAdjectifs')
-    })
   }
 }

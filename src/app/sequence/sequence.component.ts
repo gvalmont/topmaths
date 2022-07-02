@@ -179,7 +179,7 @@ export class SequenceComponent implements OnInit, OnDestroy {
     this.lienQuestionsFlash = 'https://coopmaths.fr/mathalea.html?'
     for (const questionFlash of this.questionsFlash) {
       if (questionFlash.slug !== '') {
-        this.lienQuestionsFlash = this.lienQuestionsFlash.concat('ex=', questionFlash.slug, ',i=1&')
+        this.lienQuestionsFlash = this.lienQuestionsFlash.concat('ex=', questionFlash.slug, ',i=0&')
       }
     }
     this.lienQuestionsFlash = this.lienQuestionsFlash.concat('v=eval&z=1.5')
@@ -190,7 +190,7 @@ export class SequenceComponent implements OnInit, OnDestroy {
     for (const thisObjectif of this.objectifs) {
       for (const slug of thisObjectif.slugs) {
         if (slug.slice(0, 4) !== 'http' && slug !== '') {
-          this.lienEval = this.lienEval.concat('ex=', slug, ',i=1&')
+          this.lienEval = this.lienEval.concat('ex=', slug, ',i=0&')
         }
       }
     }
