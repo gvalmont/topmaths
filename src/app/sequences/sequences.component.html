@@ -3,7 +3,6 @@
   <div class="tabs is-medium is-centered">
     <ul class="tabs-menu is-rounded">
       <li><a [ngClass]="{'subtitle is-4 is-tout is-left-side': true, 'is-active': ongletActif === 'tout'}" (click)="ongletActif = 'tout'; filtre.niveau = 'tout'">Tout</a></li>
-      <li><a [ngClass]="{'subtitle is-4 is-6e': true, 'is-active': ongletActif === '6e'}" (click)="ongletActif = '6e'; filtre.niveau = '6e'">6e</a></li>
       <li *ngFor="let ligne of lignesSequencesNormales;">
         <a *ngIf="ligne.niveau !== undefined && ligne.niveau !== 'fin' && ligne.reference === undefined" (click)="ongletActif = ligne.niveau; filtre.niveau = ligne.niveau" [ngClass]="{'is-active': ongletActif === ligne.niveau, 'subtitle is-4': true, 'is-6e': ligne.niveau === '6e', 'is-5e': ligne.niveau === '5e', 'is-4e': ligne.niveau === '4e', 'is-3e is-right-side': ligne.niveau === '3e'}">{{ligne.niveau}}</a>
       </li>

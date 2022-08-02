@@ -1,5 +1,50 @@
 [
   {
+    "nom": "6e",
+    "sequences": [
+      {
+        "reference": "S6S1",
+        "titre": "Nombres entiers 1",
+        "objectifs": [
+          {
+            "reference": "6N10"
+          },
+          {
+            "reference": "6N11"
+          },
+          {
+            "reference": "6N12"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C10",
+            "titre": "Connaître les tables de multiplication",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6G10",
+            "titre": "Connaître le vocabulaire et les notations des points, des droites, des segments, des demi-droites et des cercles",
+            "slug": "6G10-3,n=3"
+          },
+          {
+            "reference": "6C10",
+            "titre": "Ajouter et soustraire des nombres entiers",
+            "slug": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
     "nom": "5e",
     "sequences": [
       {
