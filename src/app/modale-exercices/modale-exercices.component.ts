@@ -24,6 +24,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
   boutonFermer!: HTMLElement
   boutonCopier!: HTMLElement
   boutonCopierLoading!: HTMLElement
+  divConfirmationCopie!: HTMLDivElement
   lienSpinner: string
   listeExercices: Exercice[]
   dataMAJSubscription: Subscription
@@ -202,6 +203,8 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
     if (element !== null) this.boutonFermer = element
     element = document.getElementById("boutonCopierLoading")
     if (element !== null) this.boutonCopierLoading = element
+    element = document.getElementById("divConfirmationCopie")
+    if (element !== null) this.divConfirmationCopie = <HTMLDivElement> element
   }
 
   parametrage (site: string) {
@@ -258,6 +261,10 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
         this.boutonCopier.style.top = '35px'
         this.boutonCopier.style.width = '30px'
 
+        this.divConfirmationCopie.style.left = ''
+        this.divConfirmationCopie.style.right = '35px'
+        this.divConfirmationCopie.style.top = '70px'
+
         this.boutonFermer.style.left = ''
         this.boutonFermer.style.right = '20px'
         this.boutonFermer.style.top = '35px'
@@ -270,6 +277,10 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
         this.boutonCopier.style.right = '80px'
         this.boutonCopier.style.top = '80px'
         this.boutonCopier.style.width = '30px'
+
+        this.divConfirmationCopie.style.left = ''
+        this.divConfirmationCopie.style.right = '35px'
+        this.divConfirmationCopie.style.top = '115px'
 
         this.boutonFermer.style.left = ''
         this.boutonFermer.style.right = '20px'
@@ -302,7 +313,8 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
     this.modaleFermee.emit(valeur)
     const iframe = document.getElementById('iframeExercice1')
     if (iframe !== null && iframe.parentNode !== null) iframe.parentNode.removeChild(iframe)
-    this.modale.style.display = "none"
+    this.modale.style.display = 'none'
+    this.divConfirmationCopie.style.display = 'none'
     this.hideLoadingScreen()
   }
 
@@ -318,7 +330,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
 
   copierLien () {
     navigator.clipboard.writeText(this.get('lienACopier'))
-    alert('Le lien vers l\'exercice a été copié')
+    this.divConfirmationCopie.style.display = 'block'
   }
 
   set (tag: string, objet: any) {
