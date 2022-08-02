@@ -100,7 +100,7 @@
   color: var(--base5e);
 }
 
-.is-4e, .is-4e:not(.title) a, .tabs-menu .subtitle.is-4e:not(:hover):not(.is-active) {
+.is-4e, .is-4e a, .tabs-menu .subtitle.is-4e:not(:hover):not(.is-active) {
   background-color: var(--light4e);
   color: var(--base4e);
 }
@@ -110,8 +110,13 @@
   color: var(--base3e);
 }
 
-.is-tout.title a, .is-6e.title a, .is-5e.title a, .is-4e.title a, .is-3e.title a {
+.is-tout.title a, .is-tout.subtitle a, .is-6e.title a, .is-6e.subtitle a, .is-5e.title a, .is-5e.subtitle a, .is-4e.title a, .is-4e.subtitle a, .is-3e.title a, .is-3e.subtitle a {
   color: white;
+  background-color: inherit;
+}
+
+.is-tout.title a i, .is-tout.subtitle a i, .is-6e.title a i, .is-6e.subtitle a i, .is-5e.title a i, .is-5e.subtitle a i, .is-4e.title a i, .is-4e.subtitle a i, .is-3e.title a i, .is-3e.subtitle a i {
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
 }
 
 /* Couleur des icônes */

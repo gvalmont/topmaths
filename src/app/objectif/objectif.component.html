@@ -17,7 +17,17 @@
     </div>
   </div>
   <div id="divExercices" *ngIf="exercices.length > 0" [class]="'is-' + niveau">
-    <h2 [class]="'subtitle is-3 is-' + niveau">S'entraîner</h2>
+    <h2 [class]="'subtitle is-3 is-' + niveau">
+      <a (click)="ouvrirModaleExercices(lienExercices.concat('v=e'))">
+        S'entraîner
+        &nbsp;
+        <i class='image is-24x24 is-inline-block'>
+          <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
+        </i>
+      </a>
+      &nbsp;
+      <app-bouton-imprimer [lien]="lienExercices.concat('v=latex')"></app-bouton-imprimer>
+    </h2>
     <div><br></div>
     <div *ngFor="let exercice of exercices; index as i">
       <h3 class="title is-4 is-inline-block">

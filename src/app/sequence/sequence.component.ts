@@ -182,7 +182,7 @@ export class SequenceComponent implements OnInit, OnDestroy {
         this.lienQuestionsFlash = this.lienQuestionsFlash.concat('ex=', questionFlash.slug, ',i=0&')
       }
     }
-    this.lienQuestionsFlash = this.lienQuestionsFlash.concat('v=eval&z=1.5')
+    this.lienQuestionsFlash = this.lienQuestionsFlash.concat('v=e&z=1.5')
   }
 
   MAJLienEval () {
@@ -194,7 +194,7 @@ export class SequenceComponent implements OnInit, OnDestroy {
         }
       }
     }
-    this.lienEval = this.lienEval.concat('v=eval&z=1.5')
+    this.lienEval = this.lienEval.concat('v=e&z=1.5')
   }
 
   MAJLienTelechargement (reference: string, type: string) {

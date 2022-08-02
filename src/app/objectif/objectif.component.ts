@@ -113,6 +113,7 @@ export class ObjectifComponent implements OnInit, OnDestroy {
     this.titleService.setTitle(this.titre)
     this.MAJRappelDuCours(objectif)
     this.MAJVideos(objectif)
+    this.MAJLienExercices(objectif)
     this.MAJExercices(objectif)
   }
 
@@ -154,7 +155,18 @@ export class ObjectifComponent implements OnInit, OnDestroy {
           lienVideo: lienVideo
         })
       }
-    }}
+    }
+  }
+
+  MAJLienExercices (objectif: Objectif) {
+    this.lienExercices = 'https://coopmaths.fr/mathalea.html?'
+    for (const exercice of objectif.exercices) {
+      if (exercice.slug !== '') {
+        this.lienExercices = this.lienExercices.concat('ex=', exercice.slug, ',i=0&')
+      }
+    }
+    this.lienExercices = this.lienExercices.concat('z=1.5&')
+  }
 
   MAJExercices (objectif: Objectif) {
     this.exercices = []
