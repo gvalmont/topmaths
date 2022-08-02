@@ -22,6 +22,7 @@ export class ObjectifComponent implements OnInit, OnDestroy {
   rappelDuCoursInstrumenpoche: string
   videos: Video[]
   exercices: Exercice[]
+  lienExercices: string
   sequences: Sequence[]
   infosModale: [string[], string, Date]
   dataMAJSubscription: Subscription
@@ -36,6 +37,7 @@ export class ObjectifComponent implements OnInit, OnDestroy {
     this.rappelDuCoursInstrumenpoche = ''
     this.videos = []
     this.exercices = []
+    this.lienExercices = ''
     this.sequences = []
     this.infosModale = [[], '', new Date()]
     this.dataMAJSubscription = new Subscription
@@ -109,6 +111,12 @@ export class ObjectifComponent implements OnInit, OnDestroy {
   MAJProprietes (objectif: Objectif) {
     this.titre = `${objectif.reference} : ${objectif.titre}`
     this.titleService.setTitle(this.titre)
+    this.MAJRappelDuCours(objectif)
+    this.MAJVideos(objectif)
+    this.MAJExercices(objectif)
+  }
+
+  MAJRappelDuCours (objectif: Objectif) {
     this.rappelDuCoursHTML = objectif.rappelDuCoursHTML
     if (objectif.rappelDuCoursImage === '') {
       this.rappelDuCoursImage = ''
@@ -120,6 +128,9 @@ export class ObjectifComponent implements OnInit, OnDestroy {
     } else {
       this.rappelDuCoursInstrumenpoche = objectif.rappelDuCoursInstrumenpoche
     }
+  }
+
+  MAJVideos (objectif: Objectif) {
     this.videos = []
     for (const video of objectif.videos) {
       if (video.slug !== '') {
@@ -143,7 +154,9 @@ export class ObjectifComponent implements OnInit, OnDestroy {
           lienVideo: lienVideo
         })
       }
-    }
+    }}
+
+  MAJExercices (objectif: Objectif) {
     this.exercices = []
     for (const exercice of objectif.exercices) {
       if (exercice.slug !== '') {
