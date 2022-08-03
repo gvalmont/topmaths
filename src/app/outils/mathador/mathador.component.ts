@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 
 interface Possibilite {
   nombres: number[],
@@ -16,7 +16,7 @@ interface Solution {
   templateUrl: './mathador.component.html',
   styleUrls: ['./mathador.component.css']
 })
-export class MathadorComponent implements OnInit {
+export class MathadorComponent implements OnInit, OnDestroy {
   nombreCible: number
   donnee1: number
   donnee2: number
@@ -26,6 +26,11 @@ export class MathadorComponent implements OnInit {
   stringSolutions: string
   nombreDeSolutions: number
   solutionsAffichees: boolean
+  durees: number[]
+  minuteurInterval!: ReturnType<typeof setInterval>
+  minuteurEnFonctionnement: boolean | undefined
+  tempsRestant: number
+  audioDejaJoue: boolean
 
   constructor () {
     this.nombreCible = 0
@@ -37,10 +42,44 @@ export class MathadorComponent implements OnInit {
     this.stringSolutions = ''
     this.nombreDeSolutions = -1
     this.solutionsAffichees = false
+    this.durees = []
+    for (let i = 1; i < 61; i++) {
+      this.durees.push(i)
+    }
+    this.tempsRestant = -1
+    this.audioDejaJoue = false
   }
 
   ngOnInit (): void {
     this.relancer()
+    this.lancerMinuteurInterval()
+  }
+
+  ngOnDestroy () : void {
+    clearInterval(this.minuteurInterval)
+  }
+
+  lancerMinuteurInterval () {
+    this.minuteurInterval = setInterval( () => {
+      const audioElement = <HTMLAudioElement> document.getElementById('audioElement')
+      const divTempsAffiche = document.getElementById('divTempsAffiche')
+      if (audioElement !== null && divTempsAffiche !== null) {
+        if (this.minuteurEnFonctionnement) {
+          if (this.tempsRestant > 0) {
+            this.tempsRestant--
+            this.MAJTempsAffiche()
+          } else {
+            divTempsAffiche.classList.add('shake', 'rouge')
+            this.minuteurEnFonctionnement = undefined
+            if (!this.audioDejaJoue) {
+              audioElement.play()
+              this.audioDejaJoue = true
+            }
+          }
+        }
+      }
+    }
+    , 1000)
   }
 
   relancer () {
@@ -74,7 +113,7 @@ export class MathadorComponent implements OnInit {
    */
   resoudreMathador () {
     const solutions: Solution[] = []
-    const possibilites0: Possibilite = { nombres: [this.donnee1, this.donnee2, this.donnee3, this.donnee4, this.donnee5], signes: ['+', '-', '*', '/'], calcul: '' }
+    const possibilites0: Possibilite = { nombres: [ this.donnee1, this.donnee2, this.donnee3, this.donnee4, this.donnee5 ], signes: [ '+', '-', '*', '/' ], calcul: '' }
     const possibilites1 = this.determinerPossibilites(possibilites0.nombres, possibilites0.signes)
     for (const possibilite1 of possibilites1) {
       if (this.lesNombresPassentLeFiltre(possibilite1)) {
@@ -87,7 +126,7 @@ export class MathadorComponent implements OnInit {
                 const possibilites4 = this.determinerPossibilites(possibilite3.nombres, possibilite3.signes)
                 for (const possibilite4 of possibilites4) {
                   if (possibilite4.nombres[0] === this.nombreCible) {
-                    const calculs = [possibilite1.calcul, possibilite2.calcul, possibilite3.calcul, possibilite4.calcul]
+                    const calculs = [ possibilite1.calcul, possibilite2.calcul, possibilite3.calcul, possibilite4.calcul ]
                     const redaction = ' $ ' + possibilite1.calcul + ' \\\\ ' + possibilite2.calcul + ' \\\\ ' + possibilite3.calcul + ' \\\\ ' + possibilite4.calcul + ' $ '
                     const solutionCandidate = { calculs, redaction }
                     if (!this.solutionPresente(solutionCandidate, solutions)) {
@@ -212,4 +251,31 @@ export class MathadorComponent implements OnInit {
     }
     return false
   }
+
+  setupMinuteur (dureeEnMin: number) {
+    const divTempsAffiche = document.getElementById('divTempsAffiche')
+    if (divTempsAffiche !== null) {
+      this.tempsRestant = dureeEnMin * 60
+      this.MAJTempsAffiche()
+      this.minuteurEnFonctionnement = false
+      this.audioDejaJoue = false
+      divTempsAffiche.classList.remove('shake', 'rouge')
+    }
+  }
+
+  lancerMinuteur () {
+    this.minuteurEnFonctionnement = true
+  }
+
+  arreterMinuteur () {
+    this.minuteurEnFonctionnement = false
+  }
+
+  MAJTempsAffiche () {
+    const divTempsAffiche = document.getElementById('divTempsAffiche')
+    if (divTempsAffiche !== null) {
+      divTempsAffiche.innerHTML = `${Math.floor(this.tempsRestant / 60)} : ${(this.tempsRestant % 60) < 10 ? '0' : ''}${this.tempsRestant % 60}`
+    }
+  }
+
 }

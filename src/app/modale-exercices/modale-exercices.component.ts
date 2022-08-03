@@ -31,7 +31,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
 
   // eslint-disable-next-line no-unused-vars
   constructor (private dataService: DataService, private storageService: StorageService) {
-    this.infosModale = [[], '', new Date()]
+    this.infosModale = [[], '', new Date() ]
     this.lienSpinner = ''
     this.listeExercices = []
     this.set('indiceExerciceActuel', 0)
