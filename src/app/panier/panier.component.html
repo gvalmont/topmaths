@@ -1,0 +1,27 @@
+<div class="container is-max-desktop centre" id="'top'">
+  <h1 class="title is-2 p-5" style="color: white; background-color: #a930b8; border-radius: 50px 0px 50px 0px">Panier</h1>
+  <h3 class="title is-2 is-inline-block is-fuchsia">
+    <a (click)="ouvrirModaleExercices()">
+      &nbsp;
+      <app-bouton-dropdown-simple [big]="true" [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer tous les exercices du panier'"></app-bouton-dropdown-simple>
+    </a>
+    &nbsp;
+    <a (click)="viderLePanier()">
+      <app-bouton-dropdown-simple [big]="true" [bouton]="'/assets/img/cc0/cart-remove-svgrepo-com.svg'" [dropdown]="'Vider le panier'"></app-bouton-dropdown-simple>
+    </a>
+    &nbsp;
+    <app-bouton-imprimer [big]="true" [lien]="lien"></app-bouton-imprimer>
+  </h3>
+  <ul>
+    <li class="is-size-5" *ngFor="let panierItem of panier">
+      <div *ngIf="panierItem !== null && panierItem !== undefined" [ngClass]="'is-' + panierItem.objectif.slice(0, 1) + 'e'">
+        {{ panierItem.objectif }} - {{ panierItem.description }}
+        &nbsp;
+        <a (click)="retirerDuPanier(panierItem)">
+          <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/cart-minus-svgrepo-com.svg'" [dropdown]="'Retirer l\'exercice au panier'"></app-bouton-dropdown-simple>
+        </a>
+      </div>
+    </li>
+  </ul>
+</div>
+<app-modale-exercices [infosModale]="infosModale" (modaleFermee)="scrollBack()"></app-modale-exercices>

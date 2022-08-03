@@ -35,7 +35,7 @@ export class SequenceComponent implements OnInit, OnDestroy {
     this.questionsFlash = []
     this.lienQuestionsFlash = ''
     this.lienEval = ''
-    this.infosModale = [[], '', new Date()]
+    this.infosModale = [[], '', new Date() ]
     this.ancreDeRetour = ''
     this.dataMAJSubscription = new Subscription
   }
@@ -264,7 +264,7 @@ export class SequenceComponent implements OnInit, OnDestroy {
   }
 
   ouvrirModaleExercices (lien: string, ancre: string) {
-    this.infosModale = [[lien], '', new Date()]
+    this.infosModale = [[lien], '', new Date() ]
     this.ancreDeRetour = ancre
   }
 

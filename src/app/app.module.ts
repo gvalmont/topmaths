@@ -22,6 +22,8 @@ import { OutilsComponent } from './outils/outils.component'
 import { BoutonImprimerComponent } from './mini-components/bouton-imprimer/bouton-imprimer.component'
 import { AnimationInstrumenpocheComponent } from './mini-components/animation-instrumenpoche/animation-instrumenpoche.component'
 import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidentialite/politique-de-confidentialite.component'
+import { PanierComponent } from './panier/panier.component'
+import { BoutonDropdownSimpleComponent } from './mini-components/bouton-dropdown-simple/bouton-dropdown-simple.component'
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidential
     AnimationInstrumenpocheComponent,
     PolitiqueDeConfidentialiteComponent,
     ObjectifsFilter,
-    SequencesFilter
+    SequencesFilter,
+    PanierComponent,
+    BoutonDropdownSimpleComponent
   ],
   imports: [
     BrowserModule,
@@ -52,11 +56,11 @@ import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidential
     MathjaxModule.forRoot({
       "config": {
         "loader": {
-          "load": ["output/svg", "[tex]/require", "[tex]/ams"]
+          "load": [ "output/svg", "[tex]/require", "[tex]/ams" ]
         },
         "tex": {
-          "inlineMath": [["$", "$"]],
-          "packages": ["base", "require", "ams"]
+          "inlineMath": [[ "$", "$" ]],
+          "packages": [ "base", "require", "ams" ]
         },
         "svg": {
           "fontCache": "global"
@@ -66,7 +70,7 @@ import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidential
     }),
     MathjaxModule.forChild()
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

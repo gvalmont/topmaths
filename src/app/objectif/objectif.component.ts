@@ -7,6 +7,8 @@ import { Title } from '@angular/platform-browser'
 import { DataService } from '../services/data.service'
 import { Subscription } from 'rxjs'
 import { Sequence } from '../services/modeles/sequences'
+import { StorageService } from '../services/storage.service'
+import { PanierItem } from '../services/modeles/panier'
 
 @Component({
   selector: 'app-objectif',
@@ -26,9 +28,10 @@ export class ObjectifComponent implements OnInit, OnDestroy {
   sequences: Sequence[]
   infosModale: [string[], string, Date]
   dataMAJSubscription: Subscription
+  tousLesExercicesSontDansLePanier: boolean
 
   // eslint-disable-next-line no-unused-vars
-  constructor (private activatedRoute: ActivatedRoute, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
+  constructor (private activatedRoute: ActivatedRoute, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title, private storageService: StorageService) {
     this.reference = ''
     this.niveau = ''
     this.titre = ''
@@ -39,8 +42,9 @@ export class ObjectifComponent implements OnInit, OnDestroy {
     this.exercices = []
     this.lienExercices = ''
     this.sequences = []
-    this.infosModale = [[], '', new Date()]
+    this.infosModale = [[], '', new Date() ]
     this.dataMAJSubscription = new Subscription
+    this.tousLesExercicesSontDansLePanier = false
   }
 
   ngOnInit (): void {
@@ -165,7 +169,7 @@ export class ObjectifComponent implements OnInit, OnDestroy {
         this.lienExercices = this.lienExercices.concat('ex=', exercice.slug, ',i=0&')
       }
     }
-    this.lienExercices = this.lienExercices.concat('z=1.5&')
+    this.lienExercices = this.lienExercices.concat('v=e&z=1.5')
   }
 
   MAJExercices (objectif: Objectif) {
@@ -184,18 +188,69 @@ export class ObjectifComponent implements OnInit, OnDestroy {
         } else if (exercice.slug.slice(0, 4) === 'http') {
           this.exercices[this.exercices.length - 1].lien = exercice.slug
         }
+        if (this.estPresentDansLePanier(exercice.id)) {
+          this.exercices[this.exercices.length - 1].estDansLePanier = true
+        } else {
+          this.exercices[this.exercices.length - 1].estDansLePanier = false
+        }
       }
     }
+    this.verifierSiTousLesExercicesSontPresentsDansLePanier()
   }
 
   ouvrirModaleExercices (lien: string | undefined) {
     if (typeof lien !== 'undefined') {
-      this.infosModale = [[this.changerSerie(lien)], '', new Date()]
+      this.infosModale = [[this.changerSerie(lien)], '', new Date() ]
     }
   }
 
   changerSerie (lien: string) {
     return lien.split('&serie=')[0] + '&serie=' + Math.random().toString(16).slice(2, 6) + lien.split('&serie=')[1]
+  }
+
+  toutAjouterAuPanier () {
+    for (let i = 0; i < this.exercices.length; i++) {
+      this.ajouterAuPanier(i)
+    }
+  }
+
+  ajouterAuPanier (exerciceIndex: number) {
+    const exercice = this.exercices[exerciceIndex]
+    const description = 'Niveau ' + (exerciceIndex + 1)
+    const panierActuel = <PanierItem[]> this.storageService.get('panier')
+    const panierItem = { exerciceId: exercice.id, objectif: this.titre, description, slug: exercice.slug }
+    if (!this.estPresentDansLePanier(panierItem.exerciceId, panierActuel)) {
+      this.exercices[exerciceIndex].estDansLePanier = true
+      this.verifierSiTousLesExercicesSontPresentsDansLePanier()
+      let panier = <PanierItem[]>[]
+      if (panierActuel !== undefined) panier = panierActuel
+      panier.push(panierItem)
+      this.storageService.set('panier', panier)
+    }
+  }
+
+  verifierSiTousLesExercicesSontPresentsDansLePanier () {
+    if (this.tousLesExercicesSontPresentsDansLePanier()) {
+      this.tousLesExercicesSontDansLePanier = true
+    } else {
+      this.tousLesExercicesSontDansLePanier = false
+    }
+  }
+
+  tousLesExercicesSontPresentsDansLePanier () {
+    for (const exercice of this.exercices) {
+      if (!exercice.estDansLePanier) return false
+    }
+    return true
+  }
+
+  estPresentDansLePanier (exerciceId: number, panierActuel: PanierItem[] = <PanierItem[]> this.storageService.get('panier')) {
+    if (panierActuel !== undefined) {
+      for (const panierActuelItem of panierActuel) {
+        if (panierActuelItem !== null && panierActuelItem.exerciceId === exerciceId) return true
+      }
+    }
+    return false
   }
 
   scrollBack (): void {

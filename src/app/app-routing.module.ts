@@ -10,6 +10,7 @@ import { ExercicesAuHasardComponent } from './exercices-au-hasard/exercices-au-h
 import { MathadorComponent } from './outils/mathador/mathador.component'
 import { OutilsComponent } from './outils/outils.component'
 import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidentialite/politique-de-confidentialite.component'
+import { PanierComponent } from './panier/panier.component'
 
 const routes: Routes = [
   { path: 'accueil', component: AccueilComponent, data: {title: 'topmaths.fr - Les maths au TOP !'} },
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'exercices-au-hasard', component: ExercicesAuHasardComponent, data: {title: 'topmaths.fr - Exercices au hasard'} },
   { path: 'outils/mathador', component: MathadorComponent },
   { path: 'outils', component: OutilsComponent },
+  { path: 'panier', component: PanierComponent },
   { path: 'politique-de-confidentialite', component: PolitiqueDeConfidentialiteComponent, data: {title: 'topmaths.fr - Politique de confidentialité'} },
   { path: '', component: AccueilComponent },
   { path: ':reference', component: ObjectifComponent },

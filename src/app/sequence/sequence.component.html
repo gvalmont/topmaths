@@ -28,9 +28,7 @@
             <a (click)="ouvrirModaleExercices(niveau.lien, 'calculMental')">
               {{niveau.commentaire === '' ? 'Niveau ' + (j + 1) : niveau.commentaire }}
               &nbsp;
-              <i class='image is-24x24 is-inline-block'>
-                <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
-              </i>
+              <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer le calcul mental'"></app-bouton-dropdown-simple>
             </a>
           </h3>
         </div>
@@ -61,9 +59,7 @@
     <div class="pt-5 pb-1">
       <a (click)="ouvrirModaleExercices(lienQuestionsFlash, 'questionsFlash')" class="is-size-5">S'entraîner pour les Questions Flash
         &nbsp;
-        <i class='image is-24x24 is-inline-block'>
-          <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
-        </i>
+        <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer les Questions Flash'"></app-bouton-dropdown-simple>
       </a>
       &nbsp;
       <app-bouton-imprimer [lien]="lienQuestionsFlash"></app-bouton-imprimer>
@@ -75,9 +71,7 @@
     <a (click)="ouvrirModaleExercices(lienEval, 'Evaluation')" class="is-size-5">
       S'entraîner pour l'évaluation
       &nbsp;
-      <i class='image is-24x24 is-inline-block'>
-        <img src='/assets/img/cc0/fullscreen-svgrepo-com.svg' />
-      </i>
+      <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer un entraînement'"></app-bouton-dropdown-simple>
     </a>
     &nbsp;
     <app-bouton-imprimer [lien]="lienEval"></app-bouton-imprimer>

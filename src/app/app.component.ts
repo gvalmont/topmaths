@@ -15,18 +15,24 @@ export class AppComponent implements OnDestroy {
   title: string
   ongletActif: string
   navigationEventSubscription: Subscription
+  presencePanier: boolean
+  panierMAJSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
   constructor (private router: Router, private storageService: StorageService, private activatedRoute: ActivatedRoute, private titleService: Title) {
     this.title = 'topmaths.fr - Les maths au TOP !'
     this.ongletActif = 'accueil'
     this.navigationEventSubscription = new Subscription
+    this.presencePanier = false
+    this.panierMAJSubscription = new Subscription
     this.MAJOngletActif()
     this.MAJTitreDeLaPage()
+    this.surveillerMAJPanier()
   }
 
   ngOnDestroy () {
     this.navigationEventSubscription.unsubscribe()
+    this.panierMAJSubscription.unsubscribe()
   }
 
   MAJOngletActif () {
@@ -54,5 +60,21 @@ export class AppComponent implements OnDestroy {
       ).subscribe((ttl: string) => {
         this.titleService.setTitle(ttl)
       })
+  }
+
+  surveillerMAJPanier () {
+    const panier = this.storageService.get('panier')
+    this.MAJPanier(panier)
+    this.panierMAJSubscription = this.storageService.MAJPanier.subscribe(panier => {
+      this.MAJPanier(panier)
+    })
+  }
+
+  MAJPanier (panier: string[]) {
+    if (Array.isArray(panier) && panier.length > 0) {
+      this.presencePanier = true
+    } else {
+      this.presencePanier = false
+    }
   }
 }

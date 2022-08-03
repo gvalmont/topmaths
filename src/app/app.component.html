@@ -26,6 +26,11 @@
         <i class="image is-48x48"><img src="assets/img/cc0/classroom-svgrepo-com.svg" /></i>
       </a>
     </li>
+    <li *ngIf="presencePanier" [ngClass]="{'is-actif': ongletActif === 'panier'}">
+      <a routerLink="/panier" routerLinkActive="active" class="tabs-menu-link is-fuchsia">
+        <i class="image is-48x48"><img src="assets/img/cc0/cart-content-svgrepo-com.svg" /></i>
+      </a>
+    </li>
   </ul>
 </div>
 <!-- Affichage principal -->

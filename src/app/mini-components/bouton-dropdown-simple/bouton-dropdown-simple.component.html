@@ -1,0 +1,16 @@
+<div class="dropdown is-hoverable">
+  <div class="dropdown-trigger">
+    <a>
+      <i [ngClass]="{'image is-inline-block': true, 'is-24x24': !big, 'is-64x64': big}" class='image is-24x24 is-inline-block'>
+        <img [src]="bouton" />
+      </i>
+    </a>
+  </div>
+  <div class="dropdown-menu">
+    <div class="dropdown-content p-1">
+      <div class="dropdown-item">
+        <span id="contenuDropdown" class="has-text-weight-normal" style="padding: 5px;">{{ dropdown }}</span>
+      </div>
+    </div>
+  </div>
+</div>

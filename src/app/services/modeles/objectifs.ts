@@ -69,6 +69,7 @@ export class Exercice {
   public slug: string
   public lien: string
   public isInteractif: boolean
+  public estDansLePanier?: boolean
 
   constructor (id: number, slug: string, lien: string, isInteractif: boolean) {
     this.id = id
