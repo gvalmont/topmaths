@@ -1,7 +1,7 @@
 <div class="dropdown is-hoverable">
   <div class="dropdown-trigger">
     <a>
-      <i [ngClass]="{'image is-inline-block': true, 'is-24x24': !big, 'is-64x64': big}" class='image is-24x24 is-inline-block'>
+      <i [ngClass]="{'image is-inline-block': true, 'is-16x16': size === 1, 'is-24x24': size === 2, 'is-32x32': size === 3, 'is-48x48': size === 4, 'is-64x64': size === 5, 'is-96x96': size === 6, 'is-128x128': size === 7}">
         <img [src]="bouton" />
       </i>
     </a>

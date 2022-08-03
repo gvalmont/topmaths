@@ -3,14 +3,14 @@
   <h3 class="title is-2 is-inline-block is-fuchsia">
     <a (click)="ouvrirModaleExercices()">
       &nbsp;
-      <app-bouton-dropdown-simple [big]="true" [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer tous les exercices du panier'"></app-bouton-dropdown-simple>
+      <app-bouton-dropdown-simple [size]="5" [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer tous les exercices du panier'"></app-bouton-dropdown-simple>
     </a>
     &nbsp;
     <a (click)="viderLePanier()">
-      <app-bouton-dropdown-simple [big]="true" [bouton]="'/assets/img/cc0/cart-remove-svgrepo-com.svg'" [dropdown]="'Vider le panier'"></app-bouton-dropdown-simple>
+      <app-bouton-dropdown-simple [size]="5" [bouton]="'/assets/img/cc0/cart-remove-svgrepo-com.svg'" [dropdown]="'Vider le panier'"></app-bouton-dropdown-simple>
     </a>
     &nbsp;
-    <app-bouton-imprimer [big]="true" [lien]="lien"></app-bouton-imprimer>
+    <app-bouton-imprimer [size]="5" [lien]="lien"></app-bouton-imprimer>
   </h3>
   <ul>
     <li class="is-size-5" *ngFor="let panierItem of panier">

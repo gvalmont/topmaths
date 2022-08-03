@@ -7,11 +7,11 @@ import { Component, Input } from '@angular/core'
 })
 export class BoutonImprimerComponent {
   @Input() lien: string
-  @Input() big: boolean
+  @Input() size: number
 
   constructor () {
     this.lien = ''
-    this.big = false
+    this.size = 2
   }
 
 }

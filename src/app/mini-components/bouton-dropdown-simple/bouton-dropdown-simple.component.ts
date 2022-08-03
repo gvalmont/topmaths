@@ -8,12 +8,12 @@ import { Component, Input } from '@angular/core'
 export class BoutonDropdownSimpleComponent {
   @Input() bouton: string
   @Input() dropdown: string
-  @Input() big: boolean
+  @Input() size: number
 
   constructor () {
     this.bouton = ''
     this.dropdown = ''
-    this.big = false
+    this.size = 2
   }
 
 }
