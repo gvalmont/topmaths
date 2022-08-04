@@ -48,3 +48,4 @@
     <p><a routerLink="politique-de-confidentialite" routerLinkActive="active">Politique de confidentialité</a></p>
   </div>
 </footer>
+<div *ngIf="storageService.modeEnseignant" id="overlayHeure" (click)="alternerTailleOverlayHeure()"></div>

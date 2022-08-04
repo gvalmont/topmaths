@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewEncapsulation } from '@angular/core'
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core'
 import { Router, NavigationStart, Event as NavigationEvent, ActivatedRoute, NavigationEnd } from '@angular/router'
 import { Title } from '@angular/platform-browser'
 import { filter, map } from 'rxjs/operators'
@@ -11,15 +11,16 @@ import { StorageService } from './services/storage.service'
   styleUrls: [ './bulma.css', './bulma-extension.css', './app.component.css' ],
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
   title: string
   ongletActif: string
   navigationEventSubscription: Subscription
   presencePanier: boolean
   panierMAJSubscription: Subscription
+  heureInterval!: ReturnType<typeof setInterval>
 
   // eslint-disable-next-line no-unused-vars
-  constructor (private router: Router, private storageService: StorageService, private activatedRoute: ActivatedRoute, private titleService: Title) {
+  constructor (private router: Router, public storageService: StorageService, private activatedRoute: ActivatedRoute, private titleService: Title) {
     this.title = 'topmaths.fr - Les maths au TOP !'
     this.ongletActif = 'accueil'
     this.navigationEventSubscription = new Subscription
@@ -30,9 +31,22 @@ export class AppComponent implements OnDestroy {
     this.surveillerMAJPanier()
   }
 
+  ngOnInit (): void {
+    this.lancerHeureInterval()
+  }
+
   ngOnDestroy () {
     this.navigationEventSubscription.unsubscribe()
     this.panierMAJSubscription.unsubscribe()
+    clearInterval(this.heureInterval)
+  }
+
+  lancerHeureInterval () {
+    this.MAJHeure()
+    this.heureInterval = setInterval( () => {
+      this.MAJHeure()
+    }
+    , 1000)
   }
 
   MAJOngletActif () {
@@ -75,6 +89,35 @@ export class AppComponent implements OnDestroy {
       this.presencePanier = true
     } else {
       this.presencePanier = false
+    }
+  }
+
+  alternerTailleOverlayHeure () {
+    const overlayHeureDiv = document.getElementById('overlayHeure')
+    if (overlayHeureDiv !== null) {
+      if (overlayHeureDiv.style.width === '240px') {
+        overlayHeureDiv.style.width = '60px'
+        overlayHeureDiv.style.height = '30px'
+        overlayHeureDiv.style.fontSize = '18px'
+      } else {
+        overlayHeureDiv.style.width = '240px'
+        overlayHeureDiv.style.height = '120px'
+        overlayHeureDiv.style.fontSize = '72px'
+      }
+    }
+  }
+
+  MAJHeure () {
+    const divOverlayHeure = document.getElementById("overlayHeure")
+    if (divOverlayHeure !== null) {
+      const date = new Date()
+      let hh = date.getHours().toString()
+      let mm = date.getMinutes().toString()
+
+      hh = (hh.length === 1) ? "0" + hh : hh
+      mm = (mm.length === 1) ? "0" + mm : mm
+
+      divOverlayHeure.innerHTML = hh + ":" + mm
     }
   }
 }

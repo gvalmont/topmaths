@@ -181,6 +181,17 @@
   background-size: 192px;
 }
 
+#overlayHeure {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 200;
+  width: 60px;
+  height: 30px;
+  font-size: 18px;
+  transition: width 1s, height 1s, font-size 1s;
+}
+
 .booboom {
   animation: Booboom 0.3s;
 }
