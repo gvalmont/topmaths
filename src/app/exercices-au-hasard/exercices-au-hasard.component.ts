@@ -22,20 +22,20 @@ export class ExercicesAuHasardComponent {
 
   // eslint-disable-next-line no-unused-vars
   constructor (private dataService: DataService, private viewportScroller: ViewportScroller, private calendrierService: CalendrierService) {
-    this.infosModale = [[], '', new Date()]
+    this.infosModale = [[], '', new Date() ]
   }
 
   /**
    * Remonte jusqu'au menu au retour de la modale d'exercice
    */
   scrollBack () {
-    this.viewportScroller.scrollToPosition([0, 0])
+    this.viewportScroller.scrollToPosition([ 0, 0 ])
   }
 
   lancerExercices (niveauChoisi: string) {
     const listeReferences = this.getListeDesReferences(niveauChoisi, this.dataService.niveauxSequences)
     const listeDesUrl = this.getListeDesExercices(listeReferences, niveauChoisi, this.dataService.niveauxObjectifs)
-    this.infosModale = [listeDesUrl, 'exerciceAuHasard', new Date()]
+    this.infosModale = [ listeDesUrl, 'exerciceAuHasard', new Date() ]
   }
 
   getListeDesReferences (niveauChoisi: string, niveaux: NiveauSequence[]) {

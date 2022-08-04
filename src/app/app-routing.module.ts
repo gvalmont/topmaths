@@ -13,21 +13,21 @@ import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidential
 import { PanierComponent } from './panier/panier.component'
 
 const routes: Routes = [
-  { path: 'accueil', component: AccueilComponent, data: {title: 'topmaths.fr - Les maths au TOP !'} },
+  { path: 'accueil', component: AccueilComponent, data: { title: 'topmaths.fr - Les maths au TOP !' } },
   { path: 'objectif/:reference', component: ObjectifComponent },
   { path: 'objectifs/:niveau/:theme/:sousTheme', component: ObjectifsComponent },
   { path: 'objectifs/:niveau/:theme', component: ObjectifsComponent },
-  { path: 'objectifs/:niveau', component: ObjectifsComponent, data: {title: 'topmaths.fr - Objectifs'} },
+  { path: 'objectifs/:niveau', component: ObjectifsComponent, data: { title: 'topmaths.fr - Objectifs' } },
   { path: 'objectifs', redirectTo: 'objectifs/tout' },
-  { path: 'sequences/:niveau', component: SequencesComponent, data: {title: 'topmaths.fr - Séquences'} },
+  { path: 'sequences/:niveau', component: SequencesComponent, data: { title: 'topmaths.fr - Séquences' } },
   { path: 'sequences', redirectTo: 'sequences/tout' },
-  { path: 'sequence/SPS1', component: SPS1Component, data: {title: 'topmaths.fr - Programmation'} },
+  { path: 'sequence/SPS1', component: SPS1Component, data: { title: 'topmaths.fr - Programmation' } },
   { path: 'sequence/:reference', component: SequenceComponent },
-  { path: 'exercices-au-hasard', component: ExercicesAuHasardComponent, data: {title: 'topmaths.fr - Exercices au hasard'} },
+  { path: 'exercices-au-hasard', component: ExercicesAuHasardComponent, data: { title: 'topmaths.fr - Exercices au hasard' } },
   { path: 'outils/mathador', component: MathadorComponent },
   { path: 'outils', component: OutilsComponent },
   { path: 'panier', component: PanierComponent },
-  { path: 'politique-de-confidentialite', component: PolitiqueDeConfidentialiteComponent, data: {title: 'topmaths.fr - Politique de confidentialité'} },
+  { path: 'politique-de-confidentialite', component: PolitiqueDeConfidentialiteComponent, data: { title: 'topmaths.fr - Politique de confidentialité' } },
   { path: '', component: AccueilComponent },
   { path: ':reference', component: ObjectifComponent },
   { path: '**', component: AccueilComponent }

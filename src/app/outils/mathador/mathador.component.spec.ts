@@ -8,7 +8,7 @@ describe('MathadorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MathadorComponent ]
+      declarations: [MathadorComponent]
     })
       .compileComponents()
   })

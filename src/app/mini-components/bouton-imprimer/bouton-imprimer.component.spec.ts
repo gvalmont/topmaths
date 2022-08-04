@@ -8,7 +8,7 @@ describe('BoutonImprimerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BoutonImprimerComponent ]
+      declarations: [BoutonImprimerComponent]
     })
       .compileComponents()
   })

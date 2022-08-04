@@ -8,7 +8,7 @@ describe('ModaleExercicesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModaleExercicesComponent ]
+      declarations: [ModaleExercicesComponent]
     })
       .compileComponents()
   })

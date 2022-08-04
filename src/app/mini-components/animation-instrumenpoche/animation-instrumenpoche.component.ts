@@ -33,7 +33,7 @@ export class AnimationInstrumenpocheComponent implements OnInit {
       if (errorsHTML !== null) errorsHTML.appendChild(pre)
     }
     try {
-      this.httpClient.request('GET', 'assets/data/instrumenpoche/' + this.nomAnimation + '.xml', {responseType:'text'}).subscribe(xml => {
+      this.httpClient.request('GET', 'assets/data/instrumenpoche/' + this.nomAnimation + '.xml', { responseType:'text' }).subscribe(xml => {
         const container = document.getElementById("svgContainer")
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
         svg.setAttributeNS(null, "width", this.largeurAnimation)

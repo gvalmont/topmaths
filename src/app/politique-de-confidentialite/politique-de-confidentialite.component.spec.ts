@@ -8,7 +8,7 @@ describe('PolitiqueDeConfidentialiteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PolitiqueDeConfidentialiteComponent ]
+      declarations: [PolitiqueDeConfidentialiteComponent]
     })
       .compileComponents()
   })

@@ -8,7 +8,7 @@ import { StorageService } from './services/storage.service'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./bulma.css', './bulma-extension.css', './app.component.css'],
+  styleUrls: [ './bulma.css', './bulma-extension.css', './app.component.css' ],
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnDestroy {

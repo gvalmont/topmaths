@@ -17,7 +17,7 @@ export class SPS1Component {
       'Conditions',
       'Variables',
       'Boucles conditionnelles',
-      'Procédures']
+      'Procédures' ]
   }
 
 }
