@@ -61,8 +61,10 @@
         &nbsp;
         <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer les Questions Flash'"></app-bouton-dropdown-simple>
       </a>
-      &nbsp;
-      <app-bouton-imprimer [lien]="lienQuestionsFlash"></app-bouton-imprimer>
+      <span *ngIf="storageService.modeEnseignant">
+        &nbsp;
+        <app-bouton-imprimer [lien]="lienQuestionsFlash"></app-bouton-imprimer>
+      </span>
     </div>
   </div>
   <div id="divEvaluation" [class]="'is-fin pb-5 is-' + niveau">
@@ -73,8 +75,10 @@
       &nbsp;
       <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer un entraînement'"></app-bouton-dropdown-simple>
     </a>
-    &nbsp;
-    <app-bouton-imprimer [lien]="lienEval"></app-bouton-imprimer>
+    <span *ngIf="storageService.modeEnseignant">
+      &nbsp;
+      <app-bouton-imprimer [lien]="lienEval"></app-bouton-imprimer>
+    </span>
   </div>
   <div id="divTelechargements" [class]="'pb-5 cache is-fin is-' + niveau">
     <h2 [class]="'subtitle is-3 is-' + niveau">Téléchargements</h2>

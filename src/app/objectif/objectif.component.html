@@ -23,15 +23,17 @@
         &nbsp;
         <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer les exercices'"></app-bouton-dropdown-simple>
       </a>
-      &nbsp;
-      <app-bouton-imprimer [lien]="lienExercices"></app-bouton-imprimer>
-      &nbsp;
-      <a *ngIf="!tousLesExercicesSontDansLePanier" (click)="toutAjouterAuPanier()">
-        <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/cart-plus-svgrepo-com.svg'" [dropdown]="'Ajouter tous les exercices au panier'"></app-bouton-dropdown-simple>
-      </a>
-      <a *ngIf="tousLesExercicesSontDansLePanier">
-        <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/cart-check-svgrepo-com.svg'" [dropdown]="'Les exercices sont tous déjà dans le panier'"></app-bouton-dropdown-simple>
-      </a>
+      <span *ngIf="storageService.modeEnseignant">
+        &nbsp;
+        <app-bouton-imprimer [lien]="lienExercices"></app-bouton-imprimer>
+        &nbsp;
+        <a *ngIf="!tousLesExercicesSontDansLePanier" (click)="toutAjouterAuPanier()">
+          <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/cart-plus-svgrepo-com.svg'" [dropdown]="'Ajouter tous les exercices au panier'"></app-bouton-dropdown-simple>
+        </a>
+        <a *ngIf="tousLesExercicesSontDansLePanier">
+          <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/cart-check-svgrepo-com.svg'" [dropdown]="'Les exercices sont tous déjà dans le panier'"></app-bouton-dropdown-simple>
+        </a>
+      </span>
     </h2>
     <div><br></div>
     <div *ngFor="let exercice of exercices; index as i">
@@ -41,14 +43,16 @@
           &nbsp;
           <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer l\'exercice'"></app-bouton-dropdown-simple>
         </a>
-        &nbsp;
-        <app-bouton-imprimer [lien]="exercice.lien"></app-bouton-imprimer>
-        &nbsp;
-        <a *ngIf="!exercice.estDansLePanier" (click)="ajouterAuPanier(i)">
-          <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/cart-plus-svgrepo-com.svg'" [dropdown]="'Ajouter l\'exercice au panier'"></app-bouton-dropdown-simple>
-        </a>
-        <span *ngIf="exercice.estDansLePanier">
-          <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/cart-check-svgrepo-com.svg'" [dropdown]="'L\'exercice est déjà présent dans le panier'"></app-bouton-dropdown-simple>
+        <span *ngIf="storageService.modeEnseignant">
+          &nbsp;
+          <app-bouton-imprimer [lien]="exercice.lien"></app-bouton-imprimer>
+          &nbsp;
+          <a *ngIf="!exercice.estDansLePanier" (click)="ajouterAuPanier(i)">
+            <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/cart-plus-svgrepo-com.svg'" [dropdown]="'Ajouter l\'exercice au panier'"></app-bouton-dropdown-simple>
+          </a>
+          <span *ngIf="exercice.estDansLePanier">
+            <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/cart-check-svgrepo-com.svg'" [dropdown]="'L\'exercice est déjà présent dans le panier'"></app-bouton-dropdown-simple>
+          </span>
         </span>
       </h3>
       <div><br></div>

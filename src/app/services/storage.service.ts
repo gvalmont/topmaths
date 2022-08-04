@@ -5,8 +5,27 @@ import { EventEmitter, Injectable, Output } from '@angular/core'
 })
 export class StorageService {
   @Output() MAJPanier: EventEmitter<[string]> = new EventEmitter()
+  modeEnseignant: boolean
 
-  constructor () { }
+  constructor () {
+    this.modeEnseignant = false
+    this.verifierActivationModeEnseignant()
+  }
+
+  verifierActivationModeEnseignant () {
+    const obj = localStorage.getItem('modeEnseignant')
+    if (obj !== null) this.modeEnseignant = <boolean> JSON.parse(obj)
+  }
+
+  activerModeEnseignant () {
+    localStorage.setItem('modeEnseignant', JSON.stringify(true))
+    this.modeEnseignant = true
+  }
+
+  desactiverModeEnseignant () {
+    localStorage.setItem('modeEnseignant', JSON.stringify(false))
+    this.modeEnseignant = false
+  }
 
   get (key: string) {
     const obj = sessionStorage.getItem(key)

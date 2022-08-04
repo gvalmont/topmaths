@@ -6,6 +6,7 @@ import { GlobalConstants } from '../services/modeles/global-constants'
 import { Title } from '@angular/platform-browser'
 import { DataService } from '../services/data.service'
 import { Subscription } from 'rxjs'
+import { StorageService } from '../services/storage.service'
 
 @Component({
   selector: 'app-sequence',
@@ -26,7 +27,7 @@ export class SequenceComponent implements OnInit, OnDestroy {
   dataMAJSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
-  constructor (private activatedRoute: ActivatedRoute, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title) {
+  constructor (private activatedRoute: ActivatedRoute, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title, public storageService: StorageService) {
     this.reference = ''
     this.niveau = ''
     this.titre = ''

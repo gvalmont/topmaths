@@ -31,7 +31,7 @@ export class ObjectifComponent implements OnInit, OnDestroy {
   tousLesExercicesSontDansLePanier: boolean
 
   // eslint-disable-next-line no-unused-vars
-  constructor (private activatedRoute: ActivatedRoute, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title, private storageService: StorageService) {
+  constructor (private activatedRoute: ActivatedRoute, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title, public storageService: StorageService) {
     this.reference = ''
     this.niveau = ''
     this.titre = ''

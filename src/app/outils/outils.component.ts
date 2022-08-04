@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { StorageService } from '../services/storage.service'
 
 @Component({
   selector: 'app-outils',
@@ -7,6 +8,15 @@ import { Component } from '@angular/core'
 })
 export class OutilsComponent {
 
-  constructor () { }
+  // eslint-disable-next-line no-unused-vars
+  constructor (public storageService: StorageService) { }
+
+  activerModeEnseignant () {
+    this.storageService.activerModeEnseignant()
+  }
+
+  desactiverModeEnseignant () {
+    this.storageService.desactiverModeEnseignant()
+  }
 
 }
