@@ -33,8 +33,37 @@
   z-index: 150;
 }
 
+#boutonPauseMetacognitive {
+  position: fixed;
+  right: 16px;
+  top: 88px;
+  width: 40px;
+  z-index: 150;
+}
+
 #divConfirmationCopie {
   position: fixed;
   display: none;
   z-index: 150;
+}
+
+#fondPanneauPauseMetacognitive, #contenuPanneauPauseMetacognitive {
+  position: fixed;
+  width: 50%;
+  height: 100%;
+  right: 0px;
+  pointer-events: none;
+  transition: opacity 1s;
+}
+
+#fondPanneauPauseMetacognitive {
+  background-color: white;
+  opacity: 0%;
+}
+
+#contenuPanneauPauseMetacognitive {
+  font-size: 22px;
+  color: black;
+  top: 100px;
+  opacity: 0%;
 }

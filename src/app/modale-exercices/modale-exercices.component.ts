@@ -24,13 +24,15 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
   boutonFermer!: HTMLElement
   boutonCopier!: HTMLElement
   boutonCopierLoading!: HTMLElement
+  boutonPauseMetacognitive!: HTMLElement
   divConfirmationCopie!: HTMLDivElement
   lienSpinner: string
   listeExercices: Exercice[]
   dataMAJSubscription: Subscription
+  etapePauseMetacognitive: number
 
   // eslint-disable-next-line no-unused-vars
-  constructor (private dataService: DataService, private storageService: StorageService) {
+  constructor (private dataService: DataService, public storageService: StorageService) {
     this.infosModale = [[], '', new Date() ]
     this.lienSpinner = ''
     this.listeExercices = []
@@ -40,6 +42,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
     this.set('dateDerniereReponse', new Date())
     this.dataMAJSubscription = new Subscription
     this.surveillerLeChargementDesDonnees()
+    this.etapePauseMetacognitive = 1
   }
 
   ngOnInit (): void {
@@ -145,6 +148,8 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
           const url: string = event.data.url
           if (typeof (url) !== 'undefined') {
             if (event.data.exercicesAffiches === true || event.data.ready === 'ok') {
+              this.divConfirmationCopie.style.display = 'none'
+              this.etapePauseMetacognitive = 1
               this.fermerEcranDeChargement(type, url, urlDejaFaits)
               this.set('lienACopier', url)
               this.MAJurlDejaFaits(url, urlDejaFaits)
@@ -203,6 +208,8 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
     if (element !== null) this.boutonFermer = element
     element = document.getElementById("boutonCopierLoading")
     if (element !== null) this.boutonCopierLoading = element
+    element = document.getElementById('boutonPauseMetacognitive')
+    if (element !== null) this.boutonPauseMetacognitive = element
     element = document.getElementById("divConfirmationCopie")
     if (element !== null) this.divConfirmationCopie = <HTMLDivElement> element
   }
@@ -269,6 +276,8 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
         this.boutonFermer.style.right = '20px'
         this.boutonFermer.style.top = '35px'
         this.boutonFermer.style.width = '30px'
+
+        this.boutonPauseMetacognitive.style.top = '88px'
         break
       case 'mathsmentales':
         this.lienSpinner = '/assets/img/cc0/blue-spinner.svg'
@@ -286,6 +295,8 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
         this.boutonFermer.style.right = '20px'
         this.boutonFermer.style.top = '80px'
         this.boutonFermer.style.width = '30px'
+
+        this.boutonPauseMetacognitive.style.top = '133px'
         break
     }
   }
@@ -347,5 +358,23 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
 
   isMathsmentales (url: string) {
     return url.slice(0, 25) === 'https://mathsmentales.net'
+  }
+
+  alternerAffichagePauseMetacognitive () {
+    const divFondPanneauPauseMetacognitive = document.getElementById('fondPanneauPauseMetacognitive')
+    const divContenuPanneauPauseMetacognitive = document.getElementById('contenuPanneauPauseMetacognitive')
+    if (divFondPanneauPauseMetacognitive !== null && divContenuPanneauPauseMetacognitive) {
+      if (divContenuPanneauPauseMetacognitive.style.opacity === '1') {
+        divContenuPanneauPauseMetacognitive.style.opacity = '0%'
+        divFondPanneauPauseMetacognitive.style.opacity = '0%'
+      } else {
+        divContenuPanneauPauseMetacognitive.style.opacity = '100%'
+        divFondPanneauPauseMetacognitive.style.opacity = '70%'
+      }
+    }
+  }
+
+  passerPauseMetacognitiveEtape (numeroEtape: number) {
+    this.etapePauseMetacognitive = numeroEtape
   }
 }

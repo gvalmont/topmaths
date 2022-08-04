@@ -6,6 +6,49 @@
   <figure id="modal-cross" class="is-clickable" (click)="fermerModale()">
     <img src="assets/img/cc0/cross-svgrepo-com.svg" />
   </figure>
+  <div id="fondPanneauPauseMetacognitive"></div>
+  <div id="contenuPanneauPauseMetacognitive">
+    <div>
+      <strong>1. Pensez-vous réussir ?</strong><br>
+      Oui TB / Oui un peu / Bof / Non<br>
+      <figure *ngIf="etapePauseMetacognitive === 1" class="image is-24x24 is-clickable is-inline-block" (click)="passerPauseMetacognitiveEtape(2)">
+        <img src="assets/img/cc0/scroll-svgrepo-com.svg" />
+      </figure>
+    </div>
+    <div *ngIf="etapePauseMetacognitive !== 1"><br></div>
+    <div *ngIf="etapePauseMetacognitive > 1">
+      <strong>2. Faites l’exercice</strong><br>
+      Notez le résultat<br>
+      <figure *ngIf="etapePauseMetacognitive === 2" class="image is-24x24 is-clickable is-inline-block" (click)="passerPauseMetacognitiveEtape(3)">
+        <img src="assets/img/cc0/scroll-svgrepo-com.svg" />
+      </figure>
+    </div>
+    <div *ngIf="etapePauseMetacognitive !== 2"><br></div>
+    <div *ngIf="etapePauseMetacognitive > 2">
+      <strong>3. Votre résultat est-il en accord avec ce que vous pensiez faire ?</strong><br>
+      Oui TB / Oui un peu / Bof / Non<br>
+      <figure *ngIf="etapePauseMetacognitive === 3" class="image is-24x24 is-clickable is-inline-block" (click)="passerPauseMetacognitiveEtape(4)">
+        <img src="assets/img/cc0/scroll-svgrepo-com.svg" />
+      </figure>
+    </div>
+    <div *ngIf="etapePauseMetacognitive !== 3"><br></div>
+    <div *ngIf="etapePauseMetacognitive > 3">
+      <strong>Correction</strong><br>
+      <figure *ngIf="etapePauseMetacognitive === 4" class="image is-24x24 is-clickable is-inline-block" (click)="passerPauseMetacognitiveEtape(5)">
+        <img src="assets/img/cc0/scroll-svgrepo-com.svg" />
+      </figure>
+    </div>
+    <div *ngIf="etapePauseMetacognitive !== 4"><br></div>
+    <div *ngIf="etapePauseMetacognitive > 4">
+      <strong>4. Par rapport à ce que vous pensiez faire, comment est votre résultat réel ?</strong><br>
+      Meilleur / Pareil / Moins bon
+    </div>
+  </div>
+  <div id="boutonPauseMetacognitive" [ngClass]="{'is-clickable' : true, 'cache' : !storageService.modeEnseignant}" class="is-clickable">
+    <figure (click)="alternerAffichagePauseMetacognitive()">
+      <img src="assets/img/cc0/head-svgrepo-com.svg" />
+    </figure>
+  </div>
 </div>
 <!-- Écran de chargement -->
 <div id="loading" class="centre pleinEcran has-background-white cache"><img class="is-inline-block" [src]="lienSpinner" />
