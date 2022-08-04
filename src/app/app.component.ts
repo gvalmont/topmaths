@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser'
 import { filter, map } from 'rxjs/operators'
 import { Subscription } from 'rxjs'
 import { StorageService } from './services/storage.service'
+import { environment } from 'src/environments/environment'
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
   presencePanier: boolean
   panierMAJSubscription: Subscription
   heureInterval!: ReturnType<typeof setInterval>
+  heureDerniereAlarme: { heure: string, minute: string }
 
   // eslint-disable-next-line no-unused-vars
   constructor (private router: Router, public storageService: StorageService, private activatedRoute: ActivatedRoute, private titleService: Title) {
@@ -26,6 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.navigationEventSubscription = new Subscription
     this.presencePanier = false
     this.panierMAJSubscription = new Subscription
+    this.heureDerniereAlarme = { heure: '', minute: '' }
     this.MAJOngletActif()
     this.MAJTitreDeLaPage()
     this.surveillerMAJPanier()
@@ -118,6 +121,54 @@ export class AppComponent implements OnInit, OnDestroy {
       mm = (mm.length === 1) ? "0" + mm : mm
 
       divOverlayHeure.innerHTML = hh + ":" + mm
+      if (environment.perso) {
+        if (this.estHeureDuJournalDeBord(parseInt(hh), parseInt(mm)) && this.heureDerniereAlarme.heure !== hh && this.heureDerniereAlarme.minute !== mm) {
+          this.heureDerniereAlarme = { heure: hh, minute: mm }
+          const audioElement = <HTMLAudioElement> document.getElementById('audioElement')
+          if (audioElement !== null) audioElement.play()
+          setTimeout(() => {
+            alert('C\'est l\'heure d\'écrire dans son journal de bord !')
+          }, 2000)
+        }
+      }
     }
   }
+
+  estHeureDuJournalDeBord (heures: number, minutes: number) {
+    for (const heure of this.heuresDuJournalDeBord) {
+      if (heure.heure === heures && heure.minute === minutes) return true
+    }
+    return false
+  }
+
+  heuresDuJournalDeBord = [
+    {
+      heure: 8,
+      minute: 40
+    },
+    {
+      heure: 9,
+      minute: 40
+    },
+    {
+      heure: 10,
+      minute: 50
+    },
+    {
+      heure: 11,
+      minute: 50
+    },
+    {
+      heure: 14,
+      minute: 15
+    },
+    {
+      heure: 15,
+      minute: 15
+    },
+    {
+      heure: 16,
+      minute: 20
+    }
+  ]
 }
