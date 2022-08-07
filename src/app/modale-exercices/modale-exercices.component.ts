@@ -269,7 +269,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
         this.boutonCopier.style.width = '30px'
 
         this.divConfirmationCopie.style.left = ''
-        this.divConfirmationCopie.style.right = '35px'
+        this.divConfirmationCopie.style.right = '65px'
         this.divConfirmationCopie.style.top = '70px'
 
         this.boutonFermer.style.left = ''

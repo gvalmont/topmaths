@@ -180,7 +180,8 @@ export class ObjectifComponent implements OnInit, OnDestroy {
           id: exercice.id,
           slug: exercice.slug,
           lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=0&serie=&v=e&z=1.5`,
-          isInteractif: exercice.isInteractif
+          isInteractif: exercice.isInteractif,
+          description: exercice.description
         })
         this.exercices[this.exercices.length - 1].lien = this.exercices[this.exercices.length - 1].lien.replace(/&ex=/g, ',i=0&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
         if (exercice.slug.slice(0, 25) === 'https://mathsmentales.net') {
