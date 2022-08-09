@@ -11,37 +11,104 @@
               {
                 "reference": "6N10",
                 "titre": "Connaître le système décimal",
-                "rappelDuCoursHTML": "",
+                "rappelDuCoursHTML": "En France, on écrit les grand nombres en faisant des \"paquets de 3\" qu'on appelle des <i>classes</i><br>Il y a la <i>classe des unités</i>, la <i>classe des milliers</i>, la <i>classe des millions</i> etc.<br><img src='/assets/img/tableau-de-numeration-entiers.png' /><br><br>Pour écrire un nombre en chiffres, il y a quelques règles à connaître :<ul><li>On place un <i>trait d’union entre tous les mots</i> qui composent le nombre.</li><li><i>Vingt et cent s'accordent</i> au pluriel lorsqu'ils ne sont <i><b>pas suivis</b> d'un autre nombre</i></li><li><i>Mille est invariable</i> (il ne s’accorde jamais)</li><li><i>Million et milliard s'accordent</i> au pluriel</li></ul>",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
                     "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=fpqFXBis5nQ&vignette=https://i.ytimg.com/vi/fpqFXBis5nQ/hqdefault.jpg&debut=0&fin=340&largeur=200&hauteur=113",
-                    "auteur": "*Mme Maths*",
-                    "lienAuteur": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=2dZyuZrov5M&vignette=https://i.ytimg.com/vi/2dZyuZrov5M/hqdefault.jpg&debut=0&fin=198&largeur=200&hauteur=113",
+                    "auteur": "Khan Academy",
+                    "lienAuteur": "https://www.youtube.com/c/KhanAcademyFrancais"
                   }
                 ],
                 "exercices": [
                   {
-                    "id": 5001,
-                    "slug": "5C11,s=1,s2=false,s3=true,s4=true,n=1",
-                    "score": 5,
-                    "temps": 80,
-                    "isInteractif": false
+                    "id": 6001,
+                    "slug": "6N10-4,n=4",
+                    "description": "Écrire correctement les grand nombres entiers"
                   },
                   {
-                    "id": 5002,
-                    "slug": "5C12-1,s=2,s2=false,s3=true,s4=true,n=1",
-                    "score": 10,
-                    "temps": 200,
-                    "isInteractif": true
+                    "id": 6002,
+                    "slug": "6N10,s=5-6-7-8,s2=0,s3=2,n=4,i=0",
+                    "description": "Écrire un nombre en chiffres"
                   },
                   {
-                    "id": 5003,
-                    "slug": "5C12-1,s=3,s2=false,s3=true,s4=true,n=1",
-                    "score": 15,
-                    "temps": 300,
-                    "isInteractif": true
+                    "id": 6003,
+                    "slug": "6N10,s=5-6-7-8,s2=1-2-3,s3=1,n=4,i=0",
+                    "description": "Écrire un nombre en lettres"
+                  }
+                ]
+              },
+              {
+                "reference": "6N11",
+                "titre": "Comparer, ranger, encadrer, repérer des grands nombres entiers",
+                "rappelDuCoursHTML": "<i><b>Comparer</b></i> deux nombres entiers, c'est dire s'ils sont égaux ou si l'un est plus petit ou plus grand que l'autre.<br><i><b>Encadrer</i></b> un nombre, c'est en trouver deux autres, un plus petit et un plus grand.<br><i><b>Ordre croissant</i></b> signifie « du plus petit au plus grand ».<br><i><b>Ordre décroissant</i></b> signifie « du plus grand au plus petit ».",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Comparer et ranger",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=ZA6E7Z2G2c8&vignette=https://i.ytimg.com/vi/ZA6E7Z2G2c8/hqdefault.jpg&debut=0&fin=213&largeur=200&hauteur=113",
+                    "auteur": "Ben Explique",
+                    "lienAuteur": "https://www.youtube.com/c/BenExplique"
+                  },
+                  {
+                    "titre": "Encadrer",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=xXAZabLniLI&vignette=https://i.ytimg.com/vi/xXAZabLniLI/hqdefault.jpg&debut=0&fin=323&largeur=200&hauteur=113",
+                    "auteur": "Classe des CE CM",
+                    "lienAuteur": "https://www.youtube.com/channel/UCFd_S55E7aFKA4ui79qp0Vg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6004,
+                    "slug": "6N11-5,n=4,cd=1",
+                    "description": "Comparer deux nombres entiers"
+                  },
+                  {
+                    "id": 6005,
+                    "slug": "6N11-3,s=1,n=2",
+                    "description": "Encadrer entre deux entiers"
+                  },
+                  {
+                    "id": 6006,
+                    "slug": "6N11-3,s=3,n=2",
+                    "description": "Encadrer à la centaine près"
+                  },
+                  {
+                    "id": 6007,
+                    "slug": "6N11-4,s=1,n=2",
+                    "description": "Ranger des nombres entiers"
+                  }
+                ]
+              },
+              {
+                "reference": "6N12",
+                "titre": "Multiplier ou diviser un entier par 10, 100, 1 000",
+                "rappelDuCoursHTML": "Pour multiplier un nombre entier par 10, 100, 1000... on ajoute le même nombre de zéros<br>et pour diviser, on enlève le même nombre de zéros !",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=f9MHkY8D7Kw&vignette=https://i.ytimg.com/vi/f9MHkY8D7Kw/hqdefault.jpg&debut=0&fin=109&largeur=200&hauteur=150",
+                    "auteur": "Pigerlesmaths",
+                    "lienAuteur": "https://www.youtube.com/c/Pigerlesmaths"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6008,
+                    "slug": "6N12,s=2,s2=1,n=2",
+                    "description": "Multiplier par 10, 100, 1 000..."
+                  },
+                  {
+                    "id": 6009,
+                    "slug": "6N12,s=2,s2=2,n=2",
+                    "description": "Diviser par 10, 100, 1 000..."
+                  },
+                  {
+                    "id": 6010,
+                    "slug": "6N12,s=2,s2=3,n=2",
+                    "description": "Multiplier ou diviser par 10, 100, 1 000..."
                   }
                 ]
               }
