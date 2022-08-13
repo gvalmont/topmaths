@@ -26,8 +26,6 @@ export class BoutonImprimerComponent {
       }
       if (i < parts.length - 1) lien += ',n='
     }
-    console.log(this.lien)
-    console.log(lien)
     return lien
   }
 }
