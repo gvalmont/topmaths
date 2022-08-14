@@ -206,7 +206,11 @@ export class ObjectifComponent implements OnInit, OnDestroy {
   }
 
   changerSerie (lien: string) {
-    return lien.split('&serie=')[0] + '&serie=' + Math.random().toString(16).slice(2, 6) + lien.split('&serie=')[1]
+    if (lien.slice(0, 34) === 'https://coopmaths.fr/mathalea.html') {
+      return lien.split('&serie=')[0] + '&serie=' + Math.random().toString(16).slice(2, 6) + lien.split('&serie=')[1]
+    } else {
+      return lien
+    }
   }
 
   toutAjouterAuPanier () {

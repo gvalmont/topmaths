@@ -3468,21 +3468,29 @@
                     "slug": "4G20-1,s=1,s2=3,n=1,video=M9sceJ8gzNc",
                     "score": 10,
                     "temps": 150,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Écrire l'égalité de Pythagore"
+                  },
+                  {
+                    "id": 4088,
+                    "slug": "https://mathix.org/thpythagore/",
+                    "description": "Apprendre à rédiger"
                   },
                   {
                     "id": 4023,
                     "slug": "4G20,s2=1,n=1,video=M9sceJ8gzNc",
                     "score": 20,
                     "temps": 600,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Calculer la longueur de l'hypoténuse"
                   },
                   {
                     "id": 4024,
                     "slug": "4G20,s2=2,n=1,video=M9sceJ8gzNc",
                     "score": 30,
                     "temps": 720,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Calculer la longueur d'un côté de l'angle droit"
                   }
                 ]
               },
