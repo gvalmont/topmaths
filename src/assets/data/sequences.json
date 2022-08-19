@@ -41,6 +41,38 @@
             "slug": ""
           }
         ]
+      },
+      {
+        "reference": "S6S2",
+        "titre": "Vocabulaire de géométrie",
+        "objectifs": [
+          {
+            "reference": "6G10-1"
+          },
+          {
+            "reference": "6G10-2"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6N12",
+            "titre": "Multiplier ou diviser un entier par 10, 100, 1 000… (résultat entier)",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=9NE1~o=0,1,2~q=0.0,1-1.0,1-2.0,1~p=~t=12~n=4_i=7NE2~o=3,4,5~q=3.-4.-5.~p=~t=8~n=10",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6C10",
+            "titre": "Multiplication posée de nombres entiers",
+            "slug": "6C10,s=4-5,n=1"
+          }
+        ]
       }
     ]
   },

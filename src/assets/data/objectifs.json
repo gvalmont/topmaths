@@ -115,6 +115,78 @@
             ]
           }
         ]
+      },
+      {
+        "nom": "Géométrie",
+        "sousThemes": [
+          {
+            "nom": "Niveau 1",
+            "objectifs": [
+              {
+                "reference": "6G10-1",
+                "titre": "Connaître le vocabulaire et les notations des droites, des demi-droites et des segments",
+                "rappelDuCoursHTML": "] = on s'arrête.<br>) = on prolonge.<br>Un <b><i>segment</i></b> s'arrête des deux côtés, on le note donc avec deux crochets, par exemple [AB].<br>Une <b><i>droite</i></b> se prolonge des deux côtés, on la note donc avec deux parenthèses, par exemple (AB).<br>Une <b><i>demi-droite</i></b> commence en un point et se prolonge en passant par un autre point, on la note donc avec un crochet et une parenthèse. Par exemple [AB).",
+                "rappelDuCoursImage": "droite-demi-droite-segment.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=UG4pHmYmwb4&vignette=https://i.ytimg.com/vi/UG4pHmYmwb4/hqdefault.jpg&debut=0&fin=330&largeur=200&hauteur=113",
+                    "auteur": "WizAide",
+                    "lienAuteur": "https://www.youtube.com/c/Lescouleursduprimaire"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6011,
+                    "slug": "6G10-3,n=3",
+                    "description": "Reconnaître droite, demi-droite, segment"
+                  },
+                  {
+                    "id": 6012,
+                    "slug": "6G10-1,n=3",
+                    "description": "Noter droite, demi-droite, segment"
+                  },
+                  {
+                    "id": 6013,
+                    "slug": "6G10,n=3",
+                    "description": "Utiliser droite, demi-droite, segment"
+                  }
+                ]
+              },
+              {
+                "reference": "6G10-2",
+                "titre": "Connaître le vocabulaire du cercle",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "Vocabulaire-du-cercle.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=PY4XwGIeJ4s&vignette=https://i.ytimg.com/vi/PY4XwGIeJ4s/hqdefault.jpg&debut=0&fin=230&largeur=200&hauteur=150",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6014,
+                    "slug": "6G10-4,s=1,s2=true,n=1,cd=1",
+                    "description": "Reconnaître les natures et les notations"
+                  },
+                  {
+                    "id": 6015,
+                    "slug": "6G10-4,s=2,s2=false,n=1,cd=1",
+                    "description": "Se rappeler des natures"
+                  },
+                  {
+                    "id": 6016,
+                    "slug": "6G10-4,s=1,s2=false,n=1,cd=1",
+                    "description": "Se rappeler des notations"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -180,21 +252,21 @@
                 "exercices": [
                   {
                     "id": 5004,
-                    "slug": "5C12,s=2,s2=false,s3=true,s4=true,n=1",
+                    "slug": "5C12,s=2,s2=false,s3=true,s4=true,n=2",
                     "score": 5,
                     "temps": 100,
                     "isInteractif": true
                   },
                   {
                     "id": 5005,
-                    "slug": "5C12,s=3,s2=false,s3=true,s4=true,n=1",
+                    "slug": "5C12,s=3,s2=false,s3=true,s4=true,n=2",
                     "score": 10,
                     "temps": 130,
                     "isInteractif": true
                   },
                   {
                     "id": 5006,
-                    "slug": "5C12,s=4,s2=false,s3=true,s4=true,n=1",
+                    "slug": "5C12,s=4,s2=false,s3=true,s4=true,n=2",
                     "score": 15,
                     "temps": 200,
                     "isInteractif": true
@@ -3474,7 +3546,7 @@
                   {
                     "id": 4088,
                     "slug": "https://mathix.org/thpythagore/",
-                    "description": "Apprendre à rédiger"
+                    "description": "Rédiger correctement"
                   },
                   {
                     "id": 4023,
