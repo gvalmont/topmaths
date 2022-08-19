@@ -58,6 +58,13 @@
       <div><br></div>
     </div>
   </div>
+  <div id="divTelechargements" [class]="'pb-5 is-' + niveau">
+    <h2 [class]="'subtitle is-3 is-' + niveau">Téléchargements</h2>
+    <div class="p-1">
+      <div id="lienEntrainement" class="p-1 cache"></div>
+      <div id="lienTest" class="p-1 cache"></div>
+    </div>
+  </div>
   <div id="liens" [class]="'is-fin is-' + niveau">
     <h2 [class]="'subtitle is-3 is-' + niveau">Séquence{{ sequences.length > 1 ? 's' : '' }}</h2>
     <div><br></div>

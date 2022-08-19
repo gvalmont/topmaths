@@ -119,6 +119,8 @@ export class ObjectifComponent implements OnInit, OnDestroy {
     this.MAJVideos(objectif)
     this.MAJLienExercices(objectif)
     this.MAJExercices(objectif)
+    this.MAJLienTelechargement(objectif.reference, 'entrainement')
+    if (this.storageService.modeEnseignant) this.MAJLienTelechargement(objectif.reference, 'test')
   }
 
   MAJRappelDuCours (objectif: Objectif) {
@@ -197,6 +199,44 @@ export class ObjectifComponent implements OnInit, OnDestroy {
       }
     }
     this.verifierSiTousLesExercicesSontPresentsDansLePanier()
+  }
+
+  MAJLienTelechargement (reference: string, type: string) {
+    const lien = `assets/${type}/${reference.slice(0, 1)}e/${type.charAt(0).toUpperCase() + type.slice(1)}_${reference}.pdf`
+    const xhttp = new XMLHttpRequest()
+    xhttp.onreadystatechange = function () {
+      console.log(type, lien)
+      if (this.readyState === 4 && this.status === 200) {
+        majDivLigneTelechargement(type, lien)
+      }
+    }
+    xhttp.open("HEAD", lien, true)
+    xhttp.send()
+
+    function majDivLigneTelechargement (type: string, lien: string) {
+      let divId = '', description
+      switch (type) {
+        case 'entrainement':
+          divId = 'lienEntrainement'
+          description = 'la feuille d\'entraînement'
+          break
+        case 'test':
+          divId = 'lienTest'
+          description = 'les tests'
+          break
+      }
+      const div = document.getElementById(divId)
+      if (div !== null) {
+        div.innerHTML = `<a href=${lien}>
+        Télécharger ${description}
+          &nbsp;
+          <i class='image is-24x24 is-inline-block'>
+            <img src='/assets/img/cc0/pdf-file-format-symbol-svgrepo-com.svg' />
+          </i>
+        </a>`
+        div.style.display = 'block'
+      }
+    }
   }
 
   ouvrirModaleExercices (lien: string | undefined) {
