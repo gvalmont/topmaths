@@ -1638,14 +1638,14 @@
                 "exercices": [
                   {
                     "id": 5118,
-                    "slug": "5M20,s=1,s3=2,s4=8,n=4",
+                    "slug": "5M20,s=1,s3=2,s4=8,n=2",
                     "score": 30,
                     "temps": 1200,
                     "isInteractif": true
                   },
                   {
                     "id": 5119,
-                    "slug": "5M20,s=2,s3=2,s4=8,n=4",
+                    "slug": "5M20,s=2,s3=2,s4=8,n=2",
                     "score": 35,
                     "temps": 1400,
                     "isInteractif": true
