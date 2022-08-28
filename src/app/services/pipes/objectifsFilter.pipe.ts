@@ -24,8 +24,8 @@ export class ObjectifsFilter implements PipeTransform {
     if (!searchText) {
       return items
     }
-    searchText = searchText.toLocaleLowerCase()
-    const searchArray = searchText.toLocaleLowerCase().split(' ')
+    searchText = this.normaliser(searchText)
+    const searchArray = searchText.split(' ')
 
     return items.filter(ligne => {
       for (const mot of searchArray) {
@@ -36,11 +36,15 @@ export class ObjectifsFilter implements PipeTransform {
   }
 
   motTrouve (mot: string, ligne: Ligne) {
-    if (ligne.niveau !== undefined && ligne.niveau.toLocaleLowerCase().includes(mot)) return true
-    if (ligne.theme !== undefined && ligne.theme.toLocaleLowerCase().includes(mot)) return true
-    if (ligne.sousTheme !== undefined && ligne.sousTheme.toLocaleLowerCase().includes(mot)) return true
-    if (ligne.reference !== undefined && ligne.reference.toLocaleLowerCase().includes(mot)) return true
-    if (ligne.titre !== undefined && ligne.titre.toLocaleLowerCase().includes(mot)) return true
+    if (ligne.niveau !== undefined && this.normaliser(ligne.niveau).includes(mot)) return true
+    if (ligne.theme !== undefined && this.normaliser(ligne.theme).includes(mot)) return true
+    if (ligne.sousTheme !== undefined && this.normaliser(ligne.sousTheme).includes(mot)) return true
+    if (ligne.reference !== undefined && this.normaliser(ligne.reference).includes(mot)) return true
+    if (ligne.titre !== undefined && this.normaliser(ligne.titre).includes(mot)) return true
     return false
+  }
+
+  normaliser (mot: string) {
+    return mot.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase()
   }
 }

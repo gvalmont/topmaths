@@ -23,7 +23,7 @@ export class SequencesFilter implements PipeTransform {
     if (!searchText) {
       return items
     }
-    const searchArray = searchText.toLocaleLowerCase().split(' ')
+    const searchArray = this.normaliser(searchText).split(' ')
 
     return items.filter(ligne => {
       for (const mot of searchArray) {
@@ -34,10 +34,14 @@ export class SequencesFilter implements PipeTransform {
   }
 
   motTrouve (mot: string, ligne: Ligne) {
-    if (ligne.niveau !== undefined && ligne.niveau.toLocaleLowerCase().includes(mot)) return true
-    if (ligne.numero !== undefined && ligne.numero.toString().toLocaleLowerCase().includes(mot)) return true
-    if (ligne.reference !== undefined && ligne.reference.toLocaleLowerCase().includes(mot)) return true
-    if (ligne.titre !== undefined && ligne.titre.toLocaleLowerCase().includes(mot)) return true
+    if (ligne.niveau !== undefined && this.normaliser(ligne.niveau).includes(mot)) return true
+    if (ligne.numero !== undefined && this.normaliser(ligne.numero.toString()).includes(mot)) return true
+    if (ligne.reference !== undefined && this.normaliser(ligne.reference).includes(mot)) return true
+    if (ligne.titre !== undefined && this.normaliser(ligne.titre).includes(mot)) return true
     return false
+  }
+
+  normaliser (mot: string) {
+    return mot.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase()
   }
 }
