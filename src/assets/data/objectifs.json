@@ -4778,14 +4778,14 @@
               {
                 "reference": "3S20",
                 "titre": "Calculer des probabilités pour des expériences aléatoires simples à une ou deux épreuves à partir de dénombrements",
-                "rappelDuCoursHTML": "",
-                "rappelDuCoursImage": "",
+                "rappelDuCoursHTML": "Pour calculer la probabilité d'un événement lors d'une expérience aléatoire à deux épreuves, c'est à dire avec deux \"tirages\", on peut utiliser la même formule que lorsqu'il y a une épreuve : $\\text{Probabilité} = \\cfrac{\\text{Nombre de cas favorables}}{\\text{Nombre de cas possibles}}$<br>et s'aider d'un tableau pour compter le \"nombre de cas favorables\"<br>",
+                "rappelDuCoursImage": "3S20-RDC.png",
                 "videos": [
                   {
                     "titre": "",
-                    "slug": "",
-                    "auteur": "",
-                    "lienAuteur": ""
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=5DGQ-49xzgI&vignette=https://i.ytimg.com/vi/5DGQ-49xzgI/hqdefault.jpg&debut=0&fin=445&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
                 "exercices": [
@@ -4794,7 +4794,8 @@
                     "slug": "3S20,s=1,n=1",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Exercices"
                   }
                 ]
               },

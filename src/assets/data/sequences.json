@@ -2308,22 +2308,48 @@
         "titre": "Probabilités",
         "objectifs": [
           {
+            "reference": "4S20"
+          },
+          {
+            "reference": "4S22"
+          },
+          {
             "reference": "3S20"
           }
         ],
         "calculsMentaux": [
           {
-            "reference": "",
-            "titre": "",
+            "reference": "4C11",
+            "titre": "Calculer avec des nombres relatifs",
             "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC1~o=0,1~q=0.-1.~p=~t=15~n=4_i=5NC5~o=0~q=0.~p=~t=15~n=4",
+                "score": 2
+              }
             ]
           }
         ],
         "questionsFlash": [
           {
-            "reference": "",
-            "titre": "",
-            "slug": ""
+            "reference": "3L11",
+            "titre": "Réduire des expressions algébriques simples",
+            "slug": "3L11-2,n=1"
+          },
+          {
+            "reference": "3N12",
+            "titre": "Calculer une moyenne arithmétique",
+            "slug": "5S14,s=1,n=1"
+          },
+          {
+            "reference": "3N12",
+            "titre": "Calculer une moyenne pondérée",
+            "slug": "5S14,s=3,n=1"
+          },
+          {
+            "reference": "3N12",
+            "titre": "Calculer une médiane",
+            "slug": "4S11,s=2,n=1"
           }
         ]
       },
