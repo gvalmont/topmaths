@@ -218,21 +218,24 @@
                     "slug": "5C11,s=1,s2=false,s3=true,s4=true,n=1",
                     "score": 5,
                     "temps": 80,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Traduire une phrase par un calcul (1 opération)"
                   },
                   {
                     "id": 5002,
                     "slug": "5C12-1,s=2,s2=false,s3=true,s4=true,n=1",
                     "score": 10,
                     "temps": 200,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Traduire une phrase et faire le calcul (2 opérations)"
                   },
                   {
                     "id": 5003,
                     "slug": "5C12-1,s=3,s2=false,s3=true,s4=true,n=1",
                     "score": 15,
                     "temps": 300,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Traduire une phrase et faire le calcul (3 opérations)"
                   }
                 ]
               },
@@ -255,21 +258,24 @@
                     "slug": "5C12,s=2,s2=false,s3=true,s4=true,n=2",
                     "score": 5,
                     "temps": 100,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Calculer en respectant les priorités (2 opérations)"
                   },
                   {
                     "id": 5005,
                     "slug": "5C12,s=3,s2=false,s3=true,s4=true,n=2",
                     "score": 10,
                     "temps": 130,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Calculer en respectant les priorités (3 opérations)"
                   },
                   {
                     "id": 5006,
                     "slug": "5C12,s=4,s2=false,s3=true,s4=true,n=2",
                     "score": 15,
                     "temps": 200,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Calculer en respectant les priorités (4 opérations)"
                   }
                 ]
               }
