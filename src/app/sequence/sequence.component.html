@@ -71,7 +71,7 @@
     <h2 id="Evaluation" [class]="'subtitle is-3 is-' + niveau">Évaluation</h2>
     <br>
     <a (click)="ouvrirModaleExercices(lienEval, 'Evaluation')" class="is-size-5">
-      S'entraîner pour l'évaluation
+      S'entraîner pour l'évaluation{{niveau === '3e' ? ' (Exercices générés)' : ''}}
       &nbsp;
       <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer un entraînement'"></app-bouton-dropdown-simple>
     </a>
@@ -79,6 +79,17 @@
       &nbsp;
       <app-bouton-imprimer [lien]="lienEval"></app-bouton-imprimer>
     </span>
+    <div *ngIf="niveau === '3e' && lienEvalBrevet !== '' && lienEvalBrevet !== undefined">
+      <a (click)="ouvrirModaleExercices(lienEvalBrevet, 'Evaluation')" class="is-size-5">
+        S'entraîner pour l'évaluation (Exercices de brevet)
+        &nbsp;
+        <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer un entraînement'"></app-bouton-dropdown-simple>
+      </a>
+      <span *ngIf="storageService.modeEnseignant">
+        &nbsp;
+        <app-bouton-imprimer [lien]="lienEvalBrevet"></app-bouton-imprimer>
+      </span>
+    </div>
   </div>
   <div id="divTelechargements" [class]="'pb-5 cache is-fin is-' + niveau">
     <h2 [class]="'subtitle is-3 is-' + niveau">Téléchargements</h2>

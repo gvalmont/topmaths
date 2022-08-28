@@ -14,13 +14,15 @@ export class Sequence {
   public objectifs: Objectif[]
   public calculsMentaux: CalculMental[]
   public questionsFlash: QuestionFlash[]
+  public slugEvalBrevet: string
 
-  constructor (reference: string, titre: string, objectifs: Objectif[], calculsMentaux: CalculMental[], questionsFlash: QuestionFlash[]) {
-    this. reference=reference
-    this. titre=titre
-    this. objectifs=objectifs
-    this. calculsMentaux=calculsMentaux
-    this. questionsFlash=questionsFlash
+  constructor (reference: string, titre: string, objectifs: Objectif[], calculsMentaux: CalculMental[], questionsFlash: QuestionFlash[], slugEvalBrevet: string) {
+    this.reference = reference
+    this.titre = titre
+    this.objectifs = objectifs
+    this.calculsMentaux = calculsMentaux
+    this.questionsFlash = questionsFlash
+    this.slugEvalBrevet = slugEvalBrevet
   }
 }
 

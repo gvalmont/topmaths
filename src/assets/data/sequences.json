@@ -2351,7 +2351,8 @@
             "titre": "Calculer une médiane",
             "slug": "4S11,s=2,n=1"
           }
-        ]
+        ],
+        "slugEvalBrevet": "ex=dnb_2021_06_etrangers_2&ex=dnb_2020_09_polynesie_4&ex=dnb_2019_07_polynesie_3&ex=dnb_2019_06_etrangers_4&ex=dnb_2018_06_etrangers_3"
       },
       {
         "reference": "S3S2",

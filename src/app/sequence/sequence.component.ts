@@ -22,6 +22,7 @@ export class SequenceComponent implements OnInit, OnDestroy {
   questionsFlash: QuestionFlash[]
   lienQuestionsFlash: string
   lienEval: string
+  lienEvalBrevet: string
   infosModale: [string[], string, Date]
   ancreDeRetour: string
   dataMAJSubscription: Subscription
@@ -36,6 +37,7 @@ export class SequenceComponent implements OnInit, OnDestroy {
     this.questionsFlash = []
     this.lienQuestionsFlash = ''
     this.lienEval = ''
+    this.lienEvalBrevet = ''
     this.infosModale = [[], '', new Date() ]
     this.ancreDeRetour = ''
     this.dataMAJSubscription = new Subscription
@@ -90,6 +92,7 @@ export class SequenceComponent implements OnInit, OnDestroy {
     this.MAJListeQuestionsFlash(sequence)
     this.MAJListeCalculsMentaux(sequence)
     this.MAJInfosObjectifs()
+    this.MAJLienEvalBrevet(sequence.slugEvalBrevet)
     this.MAJLienTelechargement(sequence.reference, 'cours')
     this.MAJLienTelechargement(sequence.reference, 'resume')
     this.MAJLienTelechargement(sequence.reference, 'mission')
@@ -196,6 +199,14 @@ export class SequenceComponent implements OnInit, OnDestroy {
       }
     }
     this.lienEval = this.lienEval.concat('v=e&z=1.5')
+  }
+
+  MAJLienEvalBrevet (slugEvalBrevet: string) {
+    if (slugEvalBrevet !== undefined) {
+      this.lienEvalBrevet = 'https://coopmaths.fr/mathalea.html?'
+      this.lienEvalBrevet += slugEvalBrevet
+      this.lienEvalBrevet = this.lienEvalBrevet.concat('&v=e&z=1.5')
+    }
   }
 
   MAJLienTelechargement (reference: string, type: string) {
