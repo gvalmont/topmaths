@@ -239,7 +239,7 @@
       },
       {
         "reference": "S5S5",
-        "titre": "Programmes de calcul « somme et différence »",
+        "titre": "Nombres relatifs 1",
         "objectifs": [
           {
             "reference": "5R10"
@@ -330,7 +330,7 @@
       },
       {
         "reference": "S5S7",
-        "titre": "Programmes de calcul « somme et différence » (2ème partie)",
+        "titre": "Nombres relatifs 2",
         "objectifs": [
           {
             "reference": "5R21"
@@ -1317,7 +1317,7 @@
       },
       {
         "reference": "S4S4",
-        "titre": "Calcul littéral (1ère partie)",
+        "titre": "Calcul littéral 1",
         "objectifs": [
           {
             "reference": "4L16"
@@ -2359,27 +2359,41 @@
         "titre": "Calcul littéral 1",
         "objectifs": [
           {
-            "reference": "3L11-1"
+            "reference": "5L13"
           },
           {
-            "reference": "3L13"
+            "reference": "4L10"
+          },
+          {
+            "reference": "4L20"
           }
         ],
         "calculsMentaux": [
           {
-            "reference": "",
-            "titre": "",
+            "reference": "4C11",
+            "titre": "Calculer avec des nombres relatifs",
             "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC1~o=0,1~q=0.-1.~p=~t=10~n=4_i=5NC5~o=0~q=0.~p=~t=10~n=4",
+                "score": 2
+              }
             ]
           }
         ],
         "questionsFlash": [
           {
-            "reference": "",
-            "titre": "",
-            "slug": ""
+            "reference": "3S20",
+            "titre": "Calculer des probabilités pour des expériences aléatoires simples à une ou deux épreuves à partir de dénombrements",
+            "slug": "3S20,s=1,n=1"
+          },
+          {
+            "reference": "5P12",
+            "titre": "Partager une quantité en deux parts selon un ratio donné",
+            "slug": "5P12,s=1,n=1,cd=1"
           }
-        ]
+        ],
+        "slugEvalBrevet": "ex=dnb_2022_06_ameriquenord_5&ex=dnb_2020_09_metropole_2&ex=dnb_2019_09_polynesie_7&ex=dnb_2019_06_etrangers_3&ex=dnb_2019_06_asie_1"
       },
       {
         "reference": "S3S3",
@@ -2445,10 +2459,10 @@
         "titre": "Calcul littéral 2",
         "objectifs": [
           {
-            "reference": "3L11-2"
+            "reference": "3L11"
           },
           {
-            "reference": "3L11-3"
+            "reference": "4L11"
           },
           {
             "reference": "3L10"

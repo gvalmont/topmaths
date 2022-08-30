@@ -24,17 +24,17 @@
                 "exercices": [
                   {
                     "id": 6001,
-                    "slug": "6N10-4,n=4",
+                    "slug": "6N10-4,n=2",
                     "description": "Écrire correctement les grand nombres entiers"
                   },
                   {
                     "id": 6002,
-                    "slug": "6N10,s=5-6-7-8,s2=0,s3=2,n=4,i=0",
+                    "slug": "6N10,s=5-6-7-8,s2=0,s3=2,n=2,i=0",
                     "description": "Écrire un nombre en chiffres"
                   },
                   {
                     "id": 6003,
-                    "slug": "6N10,s=5-6-7-8,s2=1-2-3,s3=1,n=4,i=0",
+                    "slug": "6N10,s=5-6-7-8,s2=1-2-3,s3=1,n=2,i=0",
                     "description": "Écrire un nombre en lettres"
                   }
                 ]
@@ -3993,31 +3993,8 @@
                 ]
               },
               {
-                "reference": "3L11-1",
-                "titre": "Réduire des expressions algébriques simples",
-                "rappelDuCoursHTML": "",
-                "rappelDuCoursImage": "",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "",
-                    "auteur": "",
-                    "lienAuteur": ""
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 3003,
-                    "slug": "3L11-2,n=1",
-                    "score": 7,
-                    "temps": 350,
-                    "isInteractif": false
-                  }
-                ]
-              },
-              {
-                "reference": "3L11-2",
-                "titre": "Développer par simple et double distributivités",
+                "reference": "3L11",
+                "titre": "Développer par double distributivité",
                 "rappelDuCoursHTML": "",
                 "rappelDuCoursImage": "",
                 "videos": [
@@ -4048,43 +4025,6 @@
                     "slug": "3L11-1,s=3,n=2",
                     "score": 20,
                     "temps": 400,
-                    "isInteractif": false
-                  }
-                ]
-              },
-              {
-                "reference": "3L11-3",
-                "titre": "Factoriser à l'aide d'un facteur commun",
-                "rappelDuCoursHTML": "",
-                "rappelDuCoursImage": "",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "",
-                    "auteur": "",
-                    "lienAuteur": ""
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 3007,
-                    "slug": "3L11-4,s=1,n=2",
-                    "score": 10,
-                    "temps": 200,
-                    "isInteractif": false
-                  },
-                  {
-                    "id": 3008,
-                    "slug": "3L11-4,s=2,n=2",
-                    "score": 15,
-                    "temps": 250,
-                    "isInteractif": false
-                  },
-                  {
-                    "id": 3009,
-                    "slug": "3L11-4,s=3,n=2",
-                    "score": 20,
-                    "temps": 300,
                     "isInteractif": false
                   }
                 ]
@@ -4123,29 +4063,6 @@
                     "score": 10,
                     "temps": 300,
                     "isInteractif": false
-                  }
-                ]
-              },
-              {
-                "reference": "3L13",
-                "titre": "Résoudre algébriquement des équations du 1er degré",
-                "rappelDuCoursHTML": "",
-                "rappelDuCoursImage": "",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "",
-                    "auteur": "",
-                    "lienAuteur": ""
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 3013,
-                    "slug": "3L13-0,s=true,s2=4,n=5,cd=1",
-                    "score": 10,
-                    "temps": 600,
-                    "isInteractif": true
                   }
                 ]
               },
