@@ -261,7 +261,7 @@ export class ObjectifComponent implements OnInit, OnDestroy {
 
   ajouterAuPanier (exerciceIndex: number) {
     const exercice = this.exercices[exerciceIndex]
-    const description = 'Niveau ' + (exerciceIndex + 1)
+    const description = exercice.description !== undefined && exercice.description !== '' ? exercice.description : this.exercices.length > 1 ? 'Exercices de niveau ' + (exerciceIndex + 1) : 'Lancer l\'exercice'
     const panierActuel = <PanierItem[]> this.storageService.get('panier')
     const panierItem = { exerciceId: exercice.id, objectif: this.titre, description, slug: exercice.slug }
     if (!this.estPresentDansLePanier(panierItem.exerciceId, panierActuel)) {

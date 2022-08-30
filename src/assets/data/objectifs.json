@@ -4800,8 +4800,7 @@
                     "slug": "3S20,s=1,n=1",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false,
-                    "description": "Exercices"
+                    "isInteractif": false
                   }
                 ]
               },

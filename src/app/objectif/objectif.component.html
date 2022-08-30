@@ -39,7 +39,7 @@
     <div *ngFor="let exercice of exercices; index as i">
       <h3 class="title is-4 is-inline-block">
         <a (click)="ouvrirModaleExercices(exercice.lien)">
-          {{ exercice.description !== undefined && exercice.description !== '' ? exercice.description : 'Exercices de niveau ' + (i + 1) }}
+          {{ exercice.description !== undefined && exercice.description !== '' ? exercice.description : exercices.length > 1 ? 'Exercices de niveau ' + (i + 1) : 'Lancer l\'exercice' }}
           &nbsp;
           <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer l\'exercice'"></app-bouton-dropdown-simple>
         </a>
