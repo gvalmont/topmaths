@@ -115,6 +115,99 @@
             ]
           }
         ]
+      },{
+        "nom": "Gestion de données",
+        "sousThemes": [
+          {
+            "nom": "Proportionnalité",
+            "objectifs": [
+              {
+                "reference": "6P10",
+                "titre": "Reconnaître une situation de proportionnalité ou de non proportionnalité",
+                "rappelDuCoursHTML": "Deux grandeurs sont <i>probablement proportionnelles</i> si j'obtient un résultat réaliste lorsque je les multiplie par un même nombre (2 ou 10 par exemple)<br><p>Deux grandeurs (longueur, prix, masse, durée etc.) sont <i>proportionnelles</i> si les valeurs de l’une s’obtiennent en multipliant les valeurs de l’autre par un même nombre appelé <i>coefficient de proportionnalité.</i></p>",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Situation de proportionnalité",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=B_S57F69GCE&vignette=https://i.ytimg.com/vi/B_S57F69GCE/hqdefault.jpg&debut=0&fin=323&largeur=200&hauteur=150",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
+                  },
+                  {
+                    "titre": "Coefficient de proportionnalité",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=oNruk3vyMHQ&vignette=https://i.ytimg.com/vi/oNruk3vyMHQ/hqdefault.jpg&debut=0&fin=294&largeur=200&hauteur=150",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6017,
+                    "slug": "6P10,s=1-2-3-4,n=2",
+                    "score": 8,
+                    "temps": 240,
+                    "isInteractif": true,
+                    "description": "À partir d'un énoncé-problème"
+                  },
+                  {
+                    "id": 6018,
+                    "slug": "6P10,s=5,n=1",
+                    "score": 10,
+                    "temps": 200,
+                    "isInteractif": true,
+                    "description": "À partir d'un tableau"
+                  }
+                ]
+              },
+              {
+                "reference": "6P11",
+                "titre": "Résoudre un problème de proportionnalité",
+                "rappelDuCoursHTML": "<p>Pour résoudre une situation de proportionnalité, on peut s'aider d'un schéma.</p><p><strong>Exemple : </strong><br>Nawel lit sur sa recette de crêpes pour 3 personnes qu'il faut 150 g de farine. <br>Elle veut adapter sa recette pour 21 personnes. <br>Quelle masse de farine doit-elle prévoir ?</p>",
+                "rappelDuCoursImage": "schema-proportionnalite.png",
+                "videos": [
+                  {
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=8oqdLF3AN0w&vignette=https://i.ytimg.com/vi/8oqdLF3AN0w/hqdefault.jpg&debut=0&fin=121&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
+                    "titre": "En détail",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=r4CYLxVhnhE&vignette=https://i.ytimg.com/vi/r4CYLxVhnhE/hqdefault.jpg&debut=0&fin=257&largeur=200&hauteur=113",
+                    "auteur": "Maths en pause",
+                    "lienAuteur": "https://www.youtube.com/channel/UCA4wk8mKv6tiOwAcOBRo9rA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6019,
+                    "slug": "6P11,s=true,n=1",
+                    "score": 20,
+                    "temps": 300,
+                    "isInteractif": true,
+                    "description": "Coefficient de linéarité entier"
+                  },
+                  {
+                    "id": 6020,
+                    "slug": "6P11,s=false,n=1",
+                    "score": 20,
+                    "temps": 300,
+                    "isInteractif": true,
+                    "description": "Coefficient de linéarité décimal"
+                  },
+                  {
+                    "id": 6021,
+                    "slug": "6P12,s=false,n=1",
+                    "score": 20,
+                    "temps": 300,
+                    "isInteractif": true,
+                    "description": "Coefficient de proportionnalité décimal"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       },
       {
         "nom": "Géométrie",
@@ -1087,85 +1180,6 @@
             "nom": "Proportionnalité",
             "objectifs": [
               {
-                "reference": "5P10",
-                "titre": "Reconnaître une situation de proportionnalité ou de non proportionnalité",
-                "rappelDuCoursHTML": "Deux grandeurs sont <i>probablement proportionnelles</i> si j'obtient un résultat réaliste lorsque je les multiplie par un même nombre (2 ou 10 par exemple)<br><p>Deux grandeurs (longueur, prix, masse, durée etc.) sont <i>proportionnelles</i> si les valeurs de l’une s’obtiennent en multipliant les valeurs de l’autre par un même nombre appelé <i>coefficient de proportionnalité.</i></p>",
-                "rappelDuCoursImage": "",
-                "videos": [
-                  {
-                    "titre": "Situation de proportionnalité",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=B_S57F69GCE&vignette=https://i.ytimg.com/vi/B_S57F69GCE/hqdefault.jpg&debut=0&fin=323&largeur=200&hauteur=150",
-                    "auteur": "jean-yves Labouche",
-                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
-                  },
-                  {
-                    "titre": "Coefficient de proportionnalité",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=oNruk3vyMHQ&vignette=https://i.ytimg.com/vi/oNruk3vyMHQ/hqdefault.jpg&debut=0&fin=294&largeur=200&hauteur=150",
-                    "auteur": "jean-yves Labouche",
-                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 5019,
-                    "slug": "6P10,s=1-2-3-4,n=2",
-                    "score": 8,
-                    "temps": 240,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5020,
-                    "slug": "6P10,s=5,n=1",
-                    "score": 10,
-                    "temps": 200,
-                    "isInteractif": true
-                  }
-                ]
-              },
-              {
-                "reference": "5P11",
-                "titre": "Résoudre un problème de proportionnalité",
-                "rappelDuCoursHTML": "<p>Pour résoudre une situation de proportionnalité, on peut s'aider d'un schéma.</p><p><strong>Exemple : </strong><br>Nawel lit sur sa recette de crêpes pour 3 personnes qu'il faut 150 g de farine. <br>Elle veut adapter sa recette pour 21 personnes. <br>Quelle masse de farine doit-elle prévoir ?</p>",
-                "rappelDuCoursImage": "schema-proportionnalite.png",
-                "videos": [
-                  {
-                    "titre": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=8oqdLF3AN0w&vignette=https://i.ytimg.com/vi/8oqdLF3AN0w/hqdefault.jpg&debut=0&fin=121&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
-                    "auteur": "Rapémathiques",
-                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
-                  },
-                  {
-                    "titre": "En détail",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=r4CYLxVhnhE&vignette=https://i.ytimg.com/vi/r4CYLxVhnhE/hqdefault.jpg&debut=0&fin=257&largeur=200&hauteur=113",
-                    "auteur": "Maths en pause",
-                    "lienAuteur": "https://www.youtube.com/channel/UCA4wk8mKv6tiOwAcOBRo9rA"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 5021,
-                    "slug": "6P11,s=true,n=1",
-                    "score": 20,
-                    "temps": 300,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5023,
-                    "slug": "6P11,s=false,n=1",
-                    "score": 20,
-                    "temps": 300,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5024,
-                    "slug": "6P12,s=false,n=1",
-                    "score": 20,
-                    "temps": 300,
-                    "isInteractif": true
-                  }
-                ]
-              },
-              {
                 "reference": "5P12",
                 "titre": "Partager une quantité en deux ou trois parts selon un ratio donné",
                 "rappelDuCoursHTML": "<i>2 : 3</i> est un <i><b>ratio</b></i> et se lit « <i>deux pour trois</i> ».<br>Par exemple « Tic et Tac se partagent des noisettes selon le ratio 2 : 3 » signifie<br>qu'à chaque fois que Tic en prend 2, Tac en prend 3. Le partage est donc inégal.<br><i>S'ils ont au total 5 noisettes, alors Tic en aura 2 et Tac en aura 3.</i><br>S'ils ont au total 10 noisettes, alors Tic en aura 4 et Tac en aura 6.<i> (× 2)</i><br>S'ils ont au total 50 noisettes, alors Tic en aura 20 et Tac en aura 30.<i> (× 10)</i>",
@@ -1360,14 +1374,16 @@
                     "slug": "5S14,s=1,n=1",
                     "score": 20,
                     "temps": 300,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Calculer une moyenne arithmétique"
                   },
                   {
                     "id": 5032,
                     "slug": "5S14,s=3,n=1",
                     "score": 30,
                     "temps": 600,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Calculer une moyenne pondérée"
                   }
                 ]
               }
@@ -1842,14 +1858,16 @@
                     "slug": "5G10-1,s=1,s2=1,n=1",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Construire le symétrique d'un point"
                   },
                   {
                     "id": 5034,
                     "slug": "5G10-2,s=1,s2=1,n=1",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Construire le symétrique d'une figure"
                   }
                 ]
               },
@@ -1901,14 +1919,16 @@
                     "slug": "5G13,s=1,s2=1,n=1",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Conservation du parallélisme"
                   },
                   {
                     "id": 5036,
                     "slug": "5G13,s=1,s2=2,n=1",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Conservation des longueurs et des angles"
                   }
                 ]
               },
@@ -2359,17 +2379,35 @@
                 "exercices": [
                   {
                     "id": 4001,
-                    "slug": "4C10-3,s=10,s2=false,n=2&ex=4C10-4,s=true,n=2",
+                    "slug": "4C10-3,s=10,s2=false,n=4",
                     "score": 8,
                     "temps": 300,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Multiplier des nombres relatifs"
+                  },
+                  {
+                    "id": 4001,
+                    "slug": "4C10-4,s=true,n=4",
+                    "score": 8,
+                    "temps": 300,
+                    "isInteractif": true,
+                    "description": "Diviser des nombres relatifs"
                   },
                   {
                     "id": 4002,
-                    "slug": "4C10-1,s=3,n=2&ex=4C10-2,s=4,n=2",
+                    "slug": "4C10-1,s=3,n=2",
                     "score": 8,
                     "temps": 300,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Donner le signe d'un produit"
+                  },
+                  {
+                    "id": 4002,
+                    "slug": "4C10-2,s=4,n=2",
+                    "score": 8,
+                    "temps": 300,
+                    "isInteractif": true,
+                    "description": "Donner le signe d'un quotient"
                   }
                 ]
               }
@@ -3236,7 +3274,7 @@
               {
                 "reference": "4P11",
                 "titre": "Calculer une quatrième proportionnelle par la procédure de son choix",
-                "rappelDuCoursHTML": "Voir aussi <a href='#/objectif/5P11'>5P11</a> pour d'autres méthodes.",
+                "rappelDuCoursHTML": "Voir aussi <a href='#/objectif/6P11'>6P11</a> pour d'autres méthodes.",
                 "rappelDuCoursImage": "regle-de-trois.png",
                 "videos": [
                   {
@@ -3649,14 +3687,16 @@
                     "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=yes,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND13~o=1~q=1.0,1~p=~t=15~n=8",
                     "score": 3,
                     "temps": 150,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Calculer des carrés"
                   },
                   {
                     "id": 4027,
                     "slug": "4G20-2,s=3,s2=1,n=2",
                     "score": 5,
                     "temps": 80,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Calculer des racines carrées"
                   }
                 ]
               },
@@ -3679,14 +3719,16 @@
                     "slug": "4G20-6,s=2,n=1",
                     "score": 8,
                     "temps": 250,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Encadrer une racine carrée de tête"
                   },
                   {
                     "id": 4029,
                     "slug": "4G20-6,s=1,n=3",
                     "score": 10,
                     "temps": 450,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Encadrer une racine carrée à la calculatrice"
                   }
                 ]
               }
@@ -4585,16 +4627,9 @@
                 "exercices": [
                   {
                     "id": 3020,
-                    "slug": "3S15,s=1,n=1",
+                    "slug": "3S15,s=3,n=2",
                     "score": 8,
                     "temps": 80,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 3021,
-                    "slug": "3S15,s=2,n=1",
-                    "score": 15,
-                    "temps": 150,
                     "isInteractif": true
                   }
                 ]
