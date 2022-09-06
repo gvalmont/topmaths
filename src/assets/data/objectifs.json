@@ -2856,9 +2856,9 @@
             "nom": "Calcul littéral",
             "objectifs": [
               {
-                "reference": "4L10",
-                "titre": "Développer une expression littérale",
-                "rappelDuCoursHTML": "Développer, c’est transformer un produit en une somme ou une différence.<br><strong>k</strong>(a + b) = <strong>k</strong>a + <strong>k</strong>b<br><strong>k</strong>(a – b) = <strong>k</strong>a – <strong>k</strong>b",
+                "reference": "4L10-1",
+                "titre": "Développer une expression littérale avec des nombres positifs",
+                "rappelDuCoursHTML": "Développer, c’est transformer un produit en une somme ou une différence.<br><b><i>k</i></b>(a + b) = <b><i>k</i></b>a + <b><i>k</i></b>b<br><b><i>k</i></b>(a – b) = <b><i>k</i></b>a – <b><i>k</i></b>b",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -2875,7 +2875,23 @@
                     "score": 10,
                     "temps": 350,
                     "isInteractif": true
-                  },
+                  }
+                ]
+              },
+              {
+                "reference": "4L10-2",
+                "titre": "Développer une expression littérale avec des nombres relatifs",
+                "rappelDuCoursHTML": "Développer, c’est transformer un produit en une somme ou une différence.<br><b><i>k</i></b>(a + b) = <b><i>k</i></b>a + <b><i>k</i></b>b<br><b><i>k</i></b>(a – b) = <b><i>k</i></b>a – <b><i>k</i></b>b",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=S_ckQpWzmG8&vignette=https://i.ytimg.com/vi/S_ckQpWzmG8/hqdefault.jpg&debut=0&fin=412&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
                   {
                     "id": 4012,
                     "slug": "4L10,s=3,s2=true,n=2",

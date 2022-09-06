@@ -60,7 +60,7 @@
             "niveaux": [
               {
                 "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=9NE1~o=0,1,2~q=0.0,1-1.0,1-2.0,1~p=~t=12~n=4_i=7NE2~o=3,4,5~q=3.-4.-5.~p=~t=8~n=10",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=9NE1~o=0,1,2~q=0.0,1-1.0,1-2.0,1~p=~t=12~n=4_i=7NE2~o=3,4,5~q=3.-4.-5.~p=~t=12~n=4",
                 "score": 2
               }
             ]
@@ -1228,12 +1228,7 @@
         ],
         "questionsFlash": [
           {
-            "reference": "5P12",
-            "titre": "Partager une quantité en deux ou trois parts selon un ratio donné",
-            "slug": "5P12,s=1,n=1,cd=1&ex=5P12,s=2,n=1,cd=1"
-          },
-          {
-            "reference": "4L10",
+            "reference": "5L13",
             "titre": "Réduire une expression littérale",
             "slug": "4L10-1,s=false,n=1"
           }
@@ -1241,6 +1236,38 @@
       },
       {
         "reference": "S4S2",
+        "titre": "Calcul littéral 1",
+        "objectifs": [
+          {
+            "reference": "4L16"
+          },
+          {
+            "reference": "4L10-1"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4C11",
+            "titre": "Calculer avec des nombres relatifs",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC1~o=0,1~q=0.-1.~p=~t=15~n=4_i=5NC5~o=0~q=0.~p=~t=15~n=4",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5P12",
+            "titre": "Partager une quantité en deux ou trois parts selon un ratio donné",
+            "slug": "5P12,s=1,n=1,cd=1&ex=5P12,s=2,n=1,cd=1"
+          }
+        ]
+      },
+      {
+        "reference": "S4S3",
         "titre": "Multiplication et division de nombres relatifs",
         "objectifs": [
           {
@@ -1274,7 +1301,7 @@
         ]
       },
       {
-        "reference": "S4S3",
+        "reference": "S4S4",
         "titre": "Racine carrée",
         "objectifs": [
           {
@@ -1316,14 +1343,11 @@
         ]
       },
       {
-        "reference": "S4S4",
-        "titre": "Calcul littéral 1",
+        "reference": "S4S5",
+        "titre": "Calcul littéral 2",
         "objectifs": [
           {
-            "reference": "4L16"
-          },
-          {
-            "reference": "4L10"
+            "reference": "4L10-2"
           },
           {
             "reference": "4L11"
@@ -1356,7 +1380,7 @@
         ]
       },
       {
-        "reference": "S4S5",
+        "reference": "S4S6",
         "titre": "Théorème de Pythagore",
         "objectifs": [
           {
@@ -1393,7 +1417,7 @@
         ]
       },
       {
-        "reference": "S4S6",
+        "reference": "S4S7",
         "titre": "Puissances 1",
         "objectifs": [
           {
@@ -1445,7 +1469,7 @@
         ]
       },
       {
-        "reference": "S4S7",
+        "reference": "S4S8",
         "titre": "Proportionnalité et représentation graphique",
         "objectifs": [
           {
@@ -1495,7 +1519,7 @@
         ]
       },
       {
-        "reference": "S4S8",
+        "reference": "S4S9",
         "titre": "Triangles égaux",
         "objectifs": [
           {
@@ -1529,7 +1553,7 @@
         ]
       },
       {
-        "reference": "S4S9",
+        "reference": "S4S10",
         "titre": "Nombres premiers",
         "objectifs": [
           {
@@ -1584,8 +1608,8 @@
         ]
       },
       {
-        "reference": "S4S10",
-        "titre": "Calcul littéral 2",
+        "reference": "S4S11",
+        "titre": "Équations 1",
         "objectifs": [
           {
             "reference": "4L12"
@@ -1626,7 +1650,7 @@
         ]
       },
       {
-        "reference": "S4S11",
+        "reference": "S4S12",
         "titre": "Fractions",
         "objectifs": [
           {
@@ -1674,7 +1698,7 @@
         ]
       },
       {
-        "reference": "S4S12",
+        "reference": "S4S13",
         "titre": "Probabilités",
         "objectifs": [
           {
@@ -1719,8 +1743,8 @@
         ]
       },
       {
-        "reference": "S4S13",
-        "titre": "Calcul littéral 3",
+        "reference": "S4S14",
+        "titre": "Équations 2",
         "objectifs": [
           {
             "reference": "4L20"
@@ -1761,7 +1785,7 @@
         ]
       },
       {
-        "reference": "S4S14",
+        "reference": "S4S15",
         "titre": "Agrandissement et réduction",
         "objectifs": [
           {
@@ -1803,7 +1827,7 @@
         ]
       },
       {
-        "reference": "S4S15",
+        "reference": "S4S16",
         "titre": "Théorème de Thalès",
         "objectifs": [
           {
@@ -1837,7 +1861,7 @@
         ]
       },
       {
-        "reference": "S4S16",
+        "reference": "S4S17",
         "titre": "Puissances 2",
         "objectifs": [
           {
@@ -1884,7 +1908,7 @@
         ]
       },
       {
-        "reference": "S4S17",
+        "reference": "S4S18",
         "titre": "Translation",
         "objectifs": [
           {
@@ -1950,7 +1974,7 @@
         ]
       },
       {
-        "reference": "S4S18",
+        "reference": "S4S19",
         "titre": "Notation scientifique",
         "objectifs": [
           {
@@ -1994,7 +2018,7 @@
         ]
       },
       {
-        "reference": "S4S19",
+        "reference": "S4S20",
         "titre": "Repérage dans un pavé droit",
         "objectifs": [
           {
@@ -2049,7 +2073,7 @@
         ]
       },
       {
-        "reference": "S4S20",
+        "reference": "S4S21",
         "titre": "Réciproques et contraposées",
         "objectifs": [
           {
@@ -2091,7 +2115,7 @@
         ]
       },
       {
-        "reference": "S4S21",
+        "reference": "S4S22",
         "titre": "Grandeurs composées",
         "objectifs": [
           {
@@ -2149,7 +2173,7 @@
         ]
       },
       {
-        "reference": "S4S22",
+        "reference": "S4S23",
         "titre": "Dépendance entre deux grandeurs",
         "objectifs": [
           {
@@ -2194,7 +2218,7 @@
         ]
       },
       {
-        "reference": "S4S23",
+        "reference": "S4S24",
         "titre": "Pyramides et cônes",
         "objectifs": [
           {
@@ -2260,7 +2284,7 @@
         ]
       },
       {
-        "reference": "S4S24",
+        "reference": "S4S25",
         "titre": "Cosinus d'un angle aigu",
         "objectifs": [
           {
