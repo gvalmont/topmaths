@@ -59,6 +59,8 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
           site = 'mathsmentales'
         } else if (this.isMathalea(this.get('listeDesUrl')[0])) {
           site = 'mathalea'
+        } else if (this.isGeogebraClassic(this.get('listeDesUrl')[0])) {
+          site = 'geogebraClassic'
         }
         this.parametrage(site)
       }
@@ -193,7 +195,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
     const nouvelIndice = indiceExerciceActuel % (this.get('listeDesUrl').length - 1) + 1
     this.set('indiceExerciceActuel', nouvelIndice)
     const urlExerciceSuivant = this.get('listeDesUrl')[listeDesIndices[nouvelIndice]]
-    if (!isDevMode()) this.displayLoadingScreen()
+    this.displayLoadingScreen('mathalea')
     this.ajouterIframe(urlExerciceSuivant)
   }
 
@@ -217,7 +219,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
   parametrage (site: string) {
     this.modale.style.display = 'block'
     const type = this.get('type')
-    if (!isDevMode()) this.displayLoadingScreen()
+    this.displayLoadingScreen(site)
     this.creeListeIndicesExercices()
     let url: string = ''
     if (type === 'exerciceAuHasard') {
@@ -261,8 +263,6 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
   positionnerLesBoutons (site: string) {
     switch (site) {
       case 'mathalea':
-        this.lienSpinner = '/assets/img/cc0/orange-spinner.svg'
-
         this.boutonCopier.style.left = ''
         this.boutonCopier.style.right = '80px'
         this.boutonCopier.style.top = '35px'
@@ -280,8 +280,6 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
         this.boutonPauseMetacognitive.style.top = '88px'
         break
       case 'mathsmentales':
-        this.lienSpinner = '/assets/img/cc0/blue-spinner.svg'
-
         this.boutonCopier.style.left = ''
         this.boutonCopier.style.right = '80px'
         this.boutonCopier.style.top = '80px'
@@ -298,6 +296,22 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
 
         this.boutonPauseMetacognitive.style.top = '133px'
         break
+      case 'geogebraClassic':
+        this.boutonCopier.style.left = ''
+        this.boutonCopier.style.right = '80px'
+        this.boutonCopier.style.top = '100px'
+        this.boutonCopier.style.width = '30px'
+
+        this.divConfirmationCopie.style.left = ''
+        this.divConfirmationCopie.style.right = '65px'
+        this.divConfirmationCopie.style.top = '135px'
+
+        this.boutonFermer.style.left = ''
+        this.boutonFermer.style.right = '20px'
+        this.boutonFermer.style.top = '100px'
+        this.boutonFermer.style.width = '30px'
+
+        this.boutonPauseMetacognitive.style.top = '143px'
     }
   }
 
@@ -329,9 +343,27 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
     this.hideLoadingScreen()
   }
 
-  displayLoadingScreen () {
-    const loadingDiv = document.getElementById('loading')
-    if (loadingDiv !== null) loadingDiv.style.display = 'block'
+  displayLoadingScreen (site: string) {
+    if (!isDevMode()) {
+      let afficherSpinner = false
+      switch (site) {
+        case 'mathalea':
+          this.lienSpinner = '/assets/img/cc0/orange-spinner.svg'
+          afficherSpinner = true
+          break
+        case 'mathsmentales':
+          this.lienSpinner = '/assets/img/cc0/blue-spinner.svg'
+          afficherSpinner = true
+          break
+        default:
+          afficherSpinner = false
+          break
+      }
+      if (afficherSpinner) {
+        const loadingDiv = document.getElementById('loading')
+        if (loadingDiv !== null) loadingDiv.style.display = 'block'
+      }
+    }
   }
 
   hideLoadingScreen () {
@@ -358,6 +390,10 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
 
   isMathsmentales (url: string) {
     return url.slice(0, 25) === 'https://mathsmentales.net'
+  }
+
+  isGeogebraClassic (url: string) {
+    return url.slice(0, 33) === 'https://www.geogebra.org/classic/'
   }
 
   alternerAffichagePauseMetacognitive () {

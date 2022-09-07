@@ -167,7 +167,7 @@ export class ObjectifComponent implements OnInit, OnDestroy {
   MAJLienExercices (objectif: Objectif) {
     this.lienExercices = 'https://coopmaths.fr/mathalea.html?'
     for (const exercice of objectif.exercices) {
-      if (exercice.slug !== '') {
+      if (exercice.slug !== '' && exercice.slug.slice(0, 4) !== 'http') {
         this.lienExercices = this.lienExercices.concat('ex=', exercice.slug, ',i=0&')
       }
     }
@@ -205,7 +205,6 @@ export class ObjectifComponent implements OnInit, OnDestroy {
     const lien = `assets/${type}/${reference.slice(0, 1)}e/${type.charAt(0).toUpperCase() + type.slice(1)}_${reference}.pdf`
     const xhttp = new XMLHttpRequest()
     xhttp.onreadystatechange = function () {
-      console.log(type, lien)
       if (this.readyState === 4 && this.status === 200) {
         majDivLigneTelechargement(type, lien)
       }

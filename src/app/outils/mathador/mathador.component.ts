@@ -210,7 +210,7 @@ export class MathadorComponent implements OnInit, OnDestroy {
           return { resultat: max / min, calcul: `${max} \\div ${min} = ${max / min}` }
         }
       default:
-        console.log('Erreur : signe d\'opération inconnu')
+        console.error('Signe d\'opération inconnu')
         return { resultat: -1000, calcul: 'Erreur : signe d\'opération inconnu' }
     }
   }

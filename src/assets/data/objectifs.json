@@ -1854,8 +1854,24 @@
                 ],
                 "exercices": [
                   {
+                    "id": 5129,
+                    "slug": "https://www.geogebra.org/classic/zCHW88bx",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Estimer la position du symétrique d'un point"
+                  },
+                  {
+                    "id": 5129,
+                    "slug": "https://www.geogebra.org/classic/DCqyYqvD",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Estimer la position du symétrique d'une figure"
+                  },
+                  {
                     "id": 5033,
-                    "slug": "5G10-1,s=1,s2=1,n=1",
+                    "slug": "5G10-1,s=1,s2=3,n=1",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false,
@@ -1863,7 +1879,7 @@
                   },
                   {
                     "id": 5034,
-                    "slug": "5G10-2,s=1,s2=1,n=1",
+                    "slug": "5G10-2,s=1,s2=3,n=1",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false,
@@ -3051,7 +3067,7 @@
               {
                 "reference": "4L16",
                 "titre": "Identifier la structure d’une expression littérale",
-                "rappelDuCoursHTML": "<p>La <strong>somme</strong> est le résultat d’une <strong>addition</strong>.<br>La <strong>différence</strong> est le résultat d’une <strong>soustraction</strong>.<br>Le <strong>produit</strong> est le résultat d’une <strong>multiplication</strong>.<br>Le <strong>quotient</strong> est le résultat d’une <strong>division</strong>.</p><p>La <strong>structure d’une expression</strong> est déterminée par l’<strong>opération</strong> qu’on réaliserait <strong>en dernier</strong> si on voulait faire les calculs.</p><p>Si vous ne savez plus dans quel ordre on fait les calculs, vous pouvez aller voir <a href='#/objectif/5C12'>5C12 – Effectuer un enchaînement d’opérations en respectant les priorités opératoires.</a> et <a href='#/objectif/5C11'>5C11 – Traduire un enchaînement d’opérations à l’aide d’une expression avec des parenthèses.</a></p>",
+                "rappelDuCoursHTML": "<p>La <b><i>somme</i></b> est le résultat d’une <b><i>addition</i></b>.<br>La <b><i>différence</i></b> est le résultat d’une <b><i>soustraction</i></b>.<br>Le <b><i>produit</i></b> est le résultat d’une <b><i>multiplication</i></b>.<br>Le <b><i>quotient</i></b> est le résultat d’une <b><i>division</i></b>.</p><p>La <b><i>structure d’une expression</i></b> est déterminée par l’<b><i>opération</i></b> qu’on réaliserait <b><i>en dernier</i></b> si on voulait faire les calculs.</p><p>Si vous ne savez plus dans quel ordre on fait les calculs, vous pouvez aller voir <a href='#/objectif/5C12'>5C12 – Effectuer un enchaînement d’opérations en respectant les priorités opératoires.</a> et <a href='#/objectif/5C11'>5C11 – Traduire un enchaînement d’opérations à l’aide d’une expression avec des parenthèses.</a></p>",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -3067,21 +3083,24 @@
                     "slug": "4L16,s2=false,s3=2,n=2",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Avec deux opérations"
                   },
                   {
                     "id": 4018,
                     "slug": "4L16,s2=false,s3=3,n=2",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Avec trois opérations"
                   },
                   {
                     "id": 4019,
                     "slug": "4L16,s2=false,s3=4,n=2",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Avec quatre opérations"
                   }
                 ]
               },
