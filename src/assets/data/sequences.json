@@ -73,6 +73,43 @@
             "slug": "6C10,s=4-5,n=1"
           }
         ]
+      },
+      {
+        "reference": "S6S3",
+        "titre": "Fractions 1",
+        "objectifs": [
+          {
+            "reference": "6C23"
+          },
+          {
+            "reference": "6N20"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C10",
+            "titre": "Connaître les tables de multiplication",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6G10-1",
+            "titre": "Connaître le vocabulaire et les notations des droites, des demi-droites et des segments",
+            "slug": "6G10-3,n=1"
+          },
+          {
+            "reference": "6G10-2",
+            "titre": "Connaître le vocabulaire du cercle",
+            "slug": "6G10-4,s=1,s2=true,n=1,cd=1"
+          }
+        ]
       }
     ]
   },

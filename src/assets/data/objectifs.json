@@ -29,12 +29,12 @@
                   },
                   {
                     "id": 6002,
-                    "slug": "6N10,s=5-6-7-8,s2=0,s3=2,n=2,i=0",
+                    "slug": "6N10,s=5-6-7-8,s2=0,s3=2,n=2",
                     "description": "Écrire un nombre en chiffres"
                   },
                   {
                     "id": 6003,
-                    "slug": "6N10,s=5-6-7-8,s2=1-2-3,s3=1,n=2,i=0",
+                    "slug": "6N10,s=5-6-7-8,s2=1-2-3,s3=1,n=2",
                     "description": "Écrire un nombre en lettres"
                   }
                 ]
@@ -113,9 +113,82 @@
                 ]
               }
             ]
+          },
+          {
+            "nom": "Niveau 2",
+            "objectifs": [
+              {
+                "reference": "6N20",
+                "titre": "Faire le lien entre les fractions et les nombres entiers",
+                "rappelDuCoursHTML": "$\\require{color} \\cfrac{17}{5} = \\cfrac{15}{5} + \\cfrac25 = \\cfrac{3 {\\color{red} \\times 5}}{\\color{red} 5} + \\cfrac25 = 3 + \\cfrac25$<br><br>Comme $\\cfrac{17}5 = 3 + \\text{\"un petit peu\"}$, alors $3 < \\cfrac{17}5 < 4$",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Séparer la partie entière",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=wxIRFRqvpgg&vignette=https://i.ytimg.com/vi/wxIRFRqvpgg/hqdefault.jpg&debut=0&fin=141&largeur=200&hauteur=150",
+                    "auteur": "Noelle Barny",
+                    "lienAuteur": "https://www.youtube.com/channel/UC9_mMk5yn9L2NPKXnqodaaA"
+                  },
+                  {
+                    "titre": "Encadrer entre deux nombres entiers",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=dNVihjIWCUY&vignette=https://i.ytimg.com/vi/dNVihjIWCUY/hqdefault.jpg&debut=0&fin=177&largeur=200&hauteur=113",
+                    "auteur": "Soledad GARNIER",
+                    "lienAuteur": "https://www.youtube.com/channel/UCAYaPNccYMMEzmYGqrfT-Hw"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6023,
+                    "slug": "6N22,s=true,n=4,cd=1",
+                    "description": "Calculer en s'aidant d'un schéma"
+                  },
+                  {
+                    "id": 6024,
+                    "slug": "6N20,s=false,n=4",
+                    "description": "Séparer la partie entière"
+                  },
+                  {
+                    "id": 6025,
+                    "slug": "6N20-1,n=4,cd=1",
+                    "description": "Encadrer entre deux nombres entiers"
+                  }
+                ]
+              }
+            ]
           }
         ]
-      },{
+      },
+      {
+        "nom": "Calculs",
+        "sousThemes": [
+          {
+            "nom": "Niveau 2",
+            "objectifs": [
+              {
+                "reference": "6C23",
+                "titre": "Ajouter et soustraire des fractions de même dénominateur.",
+                "rappelDuCoursHTML": "Pour additionner ou soustraire des fractions de même dénominateur :<br>- on additionne ou on soustrait les numérateurs ;<br>- on garde le même dénominateur.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=2-JfYiX6Wk4&vignette=https://i.ytimg.com/vi/2-JfYiX6Wk4/hqdefault.jpg&debut=0&fin=227&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6022,
+                    "slug": "6C23,s=4,n=4"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
         "nom": "Gestion de données",
         "sousThemes": [
           {
@@ -1229,8 +1302,7 @@
                     "lienAuteur": "https://www.youtube.com/channel/UCuvHpNCqGDTFaEvO4c0nhZQ"
                   }
                 ],
-                "exercices": [
-                ]
+                "exercices": []
               }
             ]
           },
@@ -1687,8 +1759,7 @@
                     "lienAuteur": "https://www.youtube.com/channel/UCReQr9ZV7z1DAsI3bAQgMbQ"
                   }
                 ],
-                "exercices": [
-                ]
+                "exercices": []
               },
               {
                 "reference": "5M22",
@@ -2314,8 +2385,7 @@
                     "lienAuteur": "https://www.youtube.com/channel/UCfRhflEKujHRHkYVkX4ZGBg"
                   }
                 ],
-                "exercices": [
-                ]
+                "exercices": []
               },
               {
                 "reference": "5G51",
@@ -2737,8 +2807,7 @@
                 "titre": "Utiliser les ordres de grandeur pour vérifier ses résultats",
                 "rappelDuCoursHTML": "Après avoir résolu un problème, c’est toujours une bonne idée de vérifier si le résultat qu’on a trouvé est cohérent, s’il est plausible ou si ce n’est pas le cas.<br>Ça nous permet de tout de suite remarquer qu’on a fait une erreur et de pouvoir tout de suite se corriger.<br>Pour y arriver, il faut avoir une idée de « à quel point c’est grand » ou « à quel point c’est petit ».<br>Voici des tableaux avec différents « ordres de grandeur » qui pourront servir de base.",
                 "rappelDuCoursImage": "Ordres-de-grandeur.png",
-                "videos": [
-                ],
+                "videos": [],
                 "exercices": [
                   {
                     "id": 4079,
@@ -3449,8 +3518,7 @@
                     "lienAuteur": "https://www.youtube.com/channel/UCbwDhmflS7WO2KWvexucY4A"
                   }
                 ],
-                "exercices": [
-                ]
+                "exercices": []
               },
               {
                 "reference": "4F11",
@@ -3465,8 +3533,7 @@
                     "lienAuteur": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
-                "exercices": [
-                ]
+                "exercices": []
               },
               {
                 "reference": "4F12",
@@ -4457,18 +4524,15 @@
                     "lienAuteur": "https://www.youtube.com/channel/UCxJOha9_0qZHuGf1d4imhyQ"
                   }
                 ],
-                "exercices": [
-                ]
+                "exercices": []
               },
               {
                 "reference": "3F15",
                 "titre": "Résoudre des problèmes modélisés par des fonctions en utilisant un ou plusieurs modes de représentation",
                 "rappelDuCoursHTML": "",
                 "rappelDuCoursImage": "",
-                "videos": [
-                ],
-                "exercices": [
-                ]
+                "videos": [],
+                "exercices": []
               }
             ]
           },
@@ -4488,8 +4552,7 @@
                     "lienAuteur": "https://www.youtube.com/channel/UCKBe8LjK0lStt4doSADrDBg"
                   }
                 ],
-                "exercices": [
-                ]
+                "exercices": []
               },
               {
                 "reference": "3F20-2",
@@ -4510,8 +4573,7 @@
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
                 ],
-                "exercices": [
-                ]
+                "exercices": []
               },
               {
                 "reference": "3F21-1",
@@ -4600,8 +4662,7 @@
                     "lienAuteur": "https://www.youtube.com/channel/UC03wsBtWPczoiwthZx4uH9g"
                   }
                 ],
-                "exercices": [
-                ]
+                "exercices": []
               },
               {
                 "reference": "3F23",
@@ -4736,7 +4797,8 @@
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=5LaL_SJVLoI&vignette=https://i.ytimg.com/vi/5LaL_SJVLoI/hqdefault.jpg&debut=0&fin=543&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  }],
+                  }
+                ],
                 "exercices": [
                   {
                     "id": 3060,
@@ -4893,8 +4955,7 @@
                 "titre": "Identifier des rotations et des homothéties dans des frises, des pavages et des rosaces",
                 "rappelDuCoursHTML": "Une <b><i>frise</i></b> est constituée d’un motif de base qui est reproduit plusieurs fois dans une seule direction par translation.<br>Un <b><i>pavage</i></b> est constitué d’un motif qui est reproduit dans deux directions par des translations et qui  recouvre le plan sans trou ni recouvrement.<br>Une <b><i>rosace</i></b> est constituée d’un motif qui est reproduit plusieurs fois par rotation.",
                 "rappelDuCoursImage": "exemple_frise_pavage_rosace.png",
-                "videos": [
-                ],
+                "videos": [],
                 "exercices": [
                   {
                     "id": 3048,
@@ -4910,8 +4971,7 @@
                 "titre": "Mobiliser les connaissances des figures, des configurations, de la rotation et de l’homothétie pour déterminer des grandeurs géométriques",
                 "rappelDuCoursHTML": "",
                 "rappelDuCoursImage": "",
-                "videos": [
-                ],
+                "videos": [],
                 "exercices": [
                   {
                     "id": 3049,
@@ -5110,8 +5170,7 @@
                     "lienAuteur": "https://www.youtube.com/channel/UCMrNKnPlVxKIfijG2w_ylgg"
                   }
                 ],
-                "exercices": [
-                ]
+                "exercices": []
               },
               {
                 "reference": "3G42",
