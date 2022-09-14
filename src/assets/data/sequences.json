@@ -1247,18 +1247,13 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "4C11",
-            "titre": "Calculer avec des nombres relatifs",
+            "reference": "5R22",
+            "titre": "Effectuer une somme algébrique",
             "niveaux": [
               {
                 "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
                 "score": 3
-              },
-              {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=4~q=1.-2.-4.~p=~t=35~n=4",
-                "score": 6
               }
             ]
           }
@@ -1284,13 +1279,13 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "4C11",
-            "titre": "Calculer avec des nombres relatifs",
+            "reference": "5R21",
+            "titre": "Additionner ou soustraire des nombres relatifs",
             "niveaux": [
               {
                 "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC1~o=0,1~q=0.-1.~p=~t=15~n=4_i=5NC5~o=0~q=0.~p=~t=15~n=4",
-                "score": 2
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC1~o=0~q=0.~p=~t=15~n=4_i=5NC2~o=0~q=0.~p=~t=15~n=4",
+                "score": 3
               }
             ]
           }
@@ -1313,12 +1308,12 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "4C11",
-            "titre": "Calculer avec des nombres relatifs",
+            "reference": "4L10-1",
+            "titre": "Développer un produit avec des nombres positifs",
             "niveaux": [
               {
                 "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=4~q=4.~p=~t=30~n=4",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=25~n=4",
                 "score": 6
               }
             ]
@@ -1350,7 +1345,7 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "4L10",
+            "reference": "5L13",
             "titre": "Réduire une expression littérale",
             "niveaux": [
               {
@@ -1381,7 +1376,7 @@
       },
       {
         "reference": "S4S5",
-        "titre": "Calcul littéral 2",
+        "titre": "Distributivité 2",
         "objectifs": [
           {
             "reference": "4L10-2"
