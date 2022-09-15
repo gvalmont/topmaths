@@ -2388,22 +2388,22 @@
         ],
         "questionsFlash": [
           {
-            "reference": "3L11",
+            "reference": "5L13",
             "titre": "Réduire des expressions algébriques simples",
             "slug": "3L11-2,n=1"
           },
           {
-            "reference": "3N12",
+            "reference": "5S14",
             "titre": "Calculer une moyenne arithmétique",
             "slug": "5S14,s=1,n=1"
           },
           {
-            "reference": "3N12",
+            "reference": "5S14",
             "titre": "Calculer une moyenne pondérée",
             "slug": "5S14,s=3,n=1"
           },
           {
-            "reference": "3N12",
+            "reference": "4S11",
             "titre": "Calculer une médiane",
             "slug": "4S11,s=2,n=1"
           }
@@ -2467,19 +2467,40 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "",
-            "titre": "",
+            "reference": "5L13",
+            "titre": "Réduire une expression littérale",
             "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE2~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=20~n=8",
+                "score": 5
+              }
             ]
           }
         ],
         "questionsFlash": [
           {
-            "reference": "",
-            "titre": "",
-            "slug": ""
+            "reference": "4G20",
+            "titre": "Calculer la longueur de l'hypoténuse",
+            "slug": "4G20,s2=1,n=1,video=M9sceJ8gzNc"
+          },
+          {
+            "reference": "4G20",
+            "titre": "Calculer la longueur d'un côté de l'angle droit",
+            "slug": "4G20,s2=2,n=1,video=M9sceJ8gzNc"
+          },
+          {
+            "reference": "5P12",
+            "titre": "Partager une quantité en deux parts selon un ratio donné",
+            "slug": "5P12,s=1,n=1,cd=1"
+          },
+          {
+            "reference": "5P12",
+            "titre": "Partager une quantité en trois parts selon un ratio donné",
+            "slug": "5P12,s=2,n=1,cd=1"
           }
-        ]
+        ],
+        "slugEvalBrevet": "ex=dnb_2022_06_polynesie_3&ex=dnb_2022_06_asie_3&ex=dnb_2022_06_ameriquenord_3&ex=dnb_2021_09_metropole_2&ex=dnb_2019_07_polynesie_6"
       },
       {
         "reference": "S3S4",

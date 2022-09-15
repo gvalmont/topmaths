@@ -1271,21 +1271,24 @@
                     "slug": "5P12,s=1,n=1,cd=1",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Partager en deux parts"
                   },
                   {
                     "id": 5098,
                     "slug": "5P12,s=2,n=1,cd=1",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Partager en trois parts"
                   },
                   {
                     "id": 5099,
                     "slug": "5N15,s=3,n=1",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Résoudre un problème"
                   }
                 ]
               },
@@ -3662,19 +3665,19 @@
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
                   },
                   {
-                    "titre": "Niveau 1",
+                    "titre": "Écrire l'égalité de Pythagore",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=h4sXOrqGhRE&vignette=https://i.ytimg.com/vi/h4sXOrqGhRE/hqdefault.jpg&debut=0&fin=237&largeur=200&hauteur=113",
                     "auteur": "*Mme Maths*",
                     "lienAuteur": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
                   },
                   {
-                    "titre": "Niveau 2",
+                    "titre": "Calculer la longueur de l'hypoténuse",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=589aaCn3uIE&vignette=https://i.ytimg.com/vi/589aaCn3uIE/hqdefault.jpg&debut=0&fin=242&largeur=200&hauteur=113",
                     "auteur": "*Mme Maths*",
                     "lienAuteur": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
                   },
                   {
-                    "titre": "Niveau 3",
+                    "titre": "Calculer la longueur d'un côté de l'angle droit",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=T04UI5tw3Ds&vignette=https://i.ytimg.com/vi/T04UI5tw3Ds/hqdefault.jpg&debut=0&fin=287&largeur=200&hauteur=113",
                     "auteur": "*Mme Maths*",
                     "lienAuteur": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
@@ -4710,14 +4713,14 @@
               {
                 "reference": "3S11",
                 "titre": "Calculer et interpréter l'étendue d'une série de données",
-                "rappelDuCoursHTML": "",
+                "rappelDuCoursHTML": "<b><i>L'étendue</i></b> est l'écart entre la plus grande et la plus petite valeur d'une série.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
                     "titre": "",
-                    "slug": "",
-                    "auteur": "",
-                    "lienAuteur": ""
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=sYo2DpzSbss&vignette=https://i.ytimg.com/vi/sYo2DpzSbss/hqdefault.jpg&debut=0&fin=26&largeur=200&hauteur=113",
+                    "auteur": "Mathématiques Gutierrez",
+                    "lienAuteur": "https://www.youtube.com/channel/UC7ANpuouenKUzYjpGKyRFCA"
                   }
                 ],
                 "exercices": [
