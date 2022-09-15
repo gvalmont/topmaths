@@ -1437,7 +1437,7 @@
         ],
         "questionsFlash": [
           {
-            "reference": "4L10",
+            "reference": "4L10-2",
             "titre": "Utiliser la propriété de distributivité simple pour développer un produit ou réduire une expression littérale",
             "slug": "4L10,s=3,s2=true,n=1"
           },
@@ -1516,7 +1516,7 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "4L10",
+            "reference": "4L10-2",
             "titre": "Développer un produit ou réduire une expression littérale",
             "niveaux": [
               {
@@ -1700,7 +1700,7 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "4L10",
+            "reference": "4L10-2",
             "titre": "Développer un produit ou réduire une expression littérale",
             "niveaux": [
               {
@@ -1787,7 +1787,7 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "4L10",
+            "reference": "4L10-2",
             "titre": "Développer un produit ou réduire une expression littérale",
             "niveaux": [
               {
@@ -1955,7 +1955,7 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "4L10",
+            "reference": "4L10-2",
             "titre": "Développer un produit ou réduire une expression littérale",
             "niveaux": [
               {
@@ -2059,7 +2059,7 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "4L10",
+            "reference": "4L10-2",
             "titre": "Développer un produit ou réduire une expression littérale",
             "niveaux": [
               {
@@ -2159,7 +2159,7 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "4L10",
+            "reference": "4L10-2",
             "titre": "Développer un produit ou réduire une expression littérale",
             "niveaux": [
               {
@@ -2265,7 +2265,7 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "4L10",
+            "reference": "4L10-2",
             "titre": "Développer un produit ou réduire une expression littérale",
             "niveaux": [
               {
@@ -2418,7 +2418,7 @@
             "reference": "5L13"
           },
           {
-            "reference": "4L10"
+            "reference": "4L10-2"
           },
           {
             "reference": "4L20"
