@@ -2959,10 +2959,19 @@
                 "exercices": [
                   {
                     "id": 4011,
-                    "slug": "4L10,s=1,s2=true,n=2",
+                    "slug": "4L10,s=1,s2=true,n=4",
                     "score": 10,
                     "temps": 350,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Développer k(a + b)"
+                  },
+                  {
+                    "id": 4011,
+                    "slug": "4L10,s=2,s2=true,n=4",
+                    "score": 10,
+                    "temps": 350,
+                    "isInteractif": true,
+                    "description": "Développer k(a - b)"
                   }
                 ]
               },
