@@ -110,6 +110,54 @@
             "slug": "6G10-4,s=1,s2=true,n=1,cd=1"
           }
         ]
+      },
+      {
+        "reference": "S6S4",
+        "titre": "Perpendiculaires et parallèles",
+        "objectifs": [
+          {
+            "reference": "6G11"
+          },
+          {
+            "reference": "6G52"
+          },
+          {
+            "reference": "6G12"
+          },
+          {
+            "reference": "6G13"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C23",
+            "titre": "Ajouter et soustraire des fractions de même dénominateur",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=1~q=1.~p=~t=15~n=4_i=5NC8~o=0~q=0.~p=~t=15~n=4",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6N20",
+            "titre": "Décomposer une fraction",
+            "slug": "6N20,s=false,n=4"
+          },
+          {
+            "reference": "6N20",
+            "titre": "Encadrer une fraction entre deux nombres entiers",
+            "slug": "6N20-1,n=4,cd=1"
+          },
+          {
+            "reference": "6N11",
+            "titre": "Encadrer à la centaine près",
+            "slug": "6N11-3,s=3,n=2"
+          }
+        ]
       }
     ]
   },

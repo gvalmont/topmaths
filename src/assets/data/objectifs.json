@@ -349,6 +349,104 @@
                     "description": "Se rappeler des notations"
                   }
                 ]
+              },
+              {
+                "reference": "6G11",
+                "titre": "Tracer des perpendiculaires",
+                "rappelDuCoursHTML": "Pour tracer la perpendiculaire à une droite, on utilise <b><i>l'équerre</i></b>",
+                "rappelDuCoursImage": "",
+                "rappelDuCoursInstrumenpoche": "tracer-perpendiculaire",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=0J59aZmTwJA&vignette=https://i.ytimg.com/vi/0J59aZmTwJA/hqdefault.jpg&debut=0&fin=201&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6026,
+                    "slug": "6G11,s=1,s2=true,n=1",
+                    "description": ""
+                  }
+                ]
+              },
+              {
+                "reference": "6G12",
+                "titre": "Tracer des parallèles",
+                "rappelDuCoursHTML": "Pour tracer la parallèle à une droite, on utilise <b><i>la règle</i></b> et <b><i>l'équerre</i></b>",
+                "rappelDuCoursImage": "",
+                "rappelDuCoursInstrumenpoche": "tracer-parallele",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=0J-qLZArCmo&vignette=https://i.ytimg.com/vi/0J-qLZArCmo/hqdefault.jpg&debut=0&fin=208&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6027,
+                    "slug": "6G12,s=1,s2=true,n=1",
+                    "description": ""
+                  }
+                ]
+              },
+              {
+                "reference": "6G13",
+                "titre": "Tracer des rectangles et des carrés de longueurs données",
+                "rappelDuCoursHTML": "Un carré n'étant constitué que de segments perpendiculaires, si vous savez <a href='/#/objectif/6G11' title='6G11 : Tracer des droites perpendiculaires'>tracer des droites perpendiculaires</a> vous devriez y arriver !",
+                "rappelDuCoursImage": "",
+                "rappelDuCoursInstrumenpoche": "",
+                "videos": [
+                  {
+                    "titre": "Construire un carré",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=ESpytnoGK-A&vignette=https://i.ytimg.com/vi/ESpytnoGK-A/hqdefault.jpg&debut=0&fin=283&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  },
+                  {
+                    "titre": "Construire un rectangle",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=8G3LuAAMyFU&vignette=https://i.ytimg.com/vi/8G3LuAAMyFU/hqdefault.jpg&debut=0&fin=308&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6028,
+                    "slug": "6G13,s=3,n=2",
+                    "description": ""
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nom": "Alignement, perpendicularité et parallélisme",
+            "objectifs": [
+              {
+                "reference": "6G52",
+                "titre": "Connaître les relations entre perpendicularité et parallélisme et savoir s’en servir pour raisonner",
+                "rappelDuCoursHTML": "<b>Si <span style='color:MediumBlue'>deux</span> <span style='color:ForestGreen'>droites</span></b> sont <b><span style='color:MediumBlue'>para</span><span style='color:ForestGreen'>llèles</span></b> et <b>si</b> une <b><span style='color:red'>troisième droite</span></b> est <span style='color:red'>perpendiculaire</span> à <b><span style='color:MediumBlue'>l'une</span> alors</b> elle est <span style='color:red'>perpendiculaire</span> à <b><span style='color:ForestGreen'>l'autre</span></b>.<br><b>Si <span style='color:MediumBlue'>deux</span> <span style='color:ForestGreen'>droites</span></b> sont <span style='color:red'>perpendiculaires</span> à une <b><span style='color:red'>même droite</span> alors</b> elles sont <b><span style='color:MediumBlue'>para</span><span style='color:ForestGreen'>llèles</span> <span style='color:MediumBlue'>entre</span> <span style='color:ForestGreen'>elles</span></b>.<br><b>Si <span style='color:MediumBlue'>deux</span> <span style='color:ForestGreen'>droites</span></b> sont <b><span style='color:MediumBlue'>para</span><span style='color:ForestGreen'>llèles</span></b> à une <b><span style='color:red'>même droite</span> alors</b> elles sont <b><span style='color:MediumBlue'>para</span><span style='color:ForestGreen'>llèles</span> <span style='color:MediumBlue'>entre</span> <span style='color:ForestGreen'>elles</span>.",
+                "rappelDuCoursImage": "6G52-RDC.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=7RWkYb19FiQ&vignette=https://i.ytimg.com/vi/7RWkYb19FiQ/hqdefault.jpg&debut=0&fin=420&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6027,
+                    "slug": "6G52,s=3,n=2,cd=0",
+                    "description": ""
+                  }
+                ]
               }
             ]
           }
