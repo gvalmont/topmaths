@@ -2,5 +2,9 @@
   {
     "reference": "SPS1",
     "titre": "Programmation"
+  },
+  {
+    "reference": "SPS2",
+    "titre": "Défis géométriques"
   }
 ]

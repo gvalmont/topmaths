@@ -24,6 +24,7 @@ import { AnimationInstrumenpocheComponent } from './mini-components/animation-in
 import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidentialite/politique-de-confidentialite.component'
 import { PanierComponent } from './panier/panier.component'
 import { BoutonDropdownSimpleComponent } from './mini-components/bouton-dropdown-simple/bouton-dropdown-simple.component'
+import { SPS2Component } from './sequencesParticulieres/sps2/sps2.component'
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { BoutonDropdownSimpleComponent } from './mini-components/bouton-dropdown
     SequencesComponent,
     SequenceComponent,
     SPS1Component,
+    SPS2Component,
     ExercicesAuHasardComponent,
     ModaleExercicesComponent,
     MathadorComponent,
