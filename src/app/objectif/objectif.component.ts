@@ -166,12 +166,15 @@ export class ObjectifComponent implements OnInit, OnDestroy {
 
   MAJLienExercices (objectif: Objectif) {
     this.lienExercices = 'https://coopmaths.fr/mathalea.html?'
+    let nbExercices = 0
     for (const exercice of objectif.exercices) {
       if (exercice.slug !== '' && exercice.slug.slice(0, 4) !== 'http') {
         this.lienExercices = this.lienExercices.concat('ex=', exercice.slug, ',i=0&')
+        nbExercices ++
       }
     }
     this.lienExercices = this.lienExercices.concat('v=e&z=1.5')
+    if (nbExercices === 0) this.lienExercices = ''
   }
 
   MAJExercices (objectif: Objectif) {

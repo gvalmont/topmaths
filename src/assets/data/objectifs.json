@@ -1306,18 +1306,18 @@
             "objectifs": [
               {
                 "reference": "5I13",
-                "titre": "Savoir construire une figure simple sur Geogebra",
+                "titre": "Savoir construire un triangle sur Geogebra",
                 "rappelDuCoursHTML": "<p>Il s'agit ici de faire la même chose que <a href='#/objectif/5G20'>5G20 : Construire des triangles connaissant des longueurs et/ou des angles</a> mais sur <a href='https://www.geogebra.org/classic' target='_blank' rel='noopener noreferrer'>Geogebra</a>.</p>",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "Niveau 1",
+                    "titre": "Connaissant les 3 longueurs",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=ptMRvQozNv8&vignette=https://i.ytimg.com/vi/ptMRvQozNv8/hqdefault.jpg&debut=0&fin=238&largeur=200&hauteur=150",
                     "auteur": "jean-yves Labouche",
                     "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
                   },
                   {
-                    "titre": "Niveau 2",
+                    "titre": "Connaissant 1 longueur et 2 angles",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=9vGH_inS8aQ&vignette=https://i.ytimg.com/vi/9vGH_inS8aQ/hqdefault.jpg&debut=0&fin=494&largeur=200&hauteur=113",
                     "auteur": "MINUTESMATHS",
                     "lienAuteur": "https://www.youtube.com/channel/UCsD5NwzkIrKs-ySUmeSsEwg"
@@ -1326,17 +1326,43 @@
                 "exercices": [
                   {
                     "id": 5017,
-                    "slug": "5G20-0,s=1,s2=true,n=1",
+                    "slug": "https://www.geogebra.org/m/ffeasjyg",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Triangle 1"
                   },
                   {
-                    "id": 5018,
-                    "slug": "5G20-2,s=false,n=1",
+                    "id": 5017,
+                    "slug": "https://www.geogebra.org/m/mjhxsfue",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Triangle 2"
+                  },
+                  {
+                    "id": 5130,
+                    "slug": "https://www.geogebra.org/m/w7e6cawq",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Triangle 3"
+                  },
+                  {
+                    "id": 5131,
+                    "slug": "https://www.geogebra.org/m/mdmt3dyx",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Triangle 4"
+                  },
+                  {
+                    "id": 5132,
+                    "slug": "https://www.geogebra.org/m/s3jygvkg",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Triangle 5"
                   }
                 ]
               }
@@ -2155,19 +2181,19 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "Niveau 1",
+                    "titre": "Connaissant les 3 longueurs",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=-7UGauYeTdk&vignette=https://i.ytimg.com/vi/-7UGauYeTdk/hqdefault.jpg&debut=0&fin=159&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
-                    "titre": "Niveau 2",
+                    "titre": "Connaissant 2 longueurs et 1 angle",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=6mFBqacFzws&vignette=https://i.ytimg.com/vi/6mFBqacFzws/hqdefault.jpg&debut=0&fin=223&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
-                    "titre": "",
+                    "titre": "Connaissant 1 longueur et de 2 angles",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=tX-vhEtJJzY&vignette=https://i.ytimg.com/vi/tX-vhEtJJzY/hqdefault.jpg&debut=0&fin=281&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
@@ -2179,14 +2205,16 @@
                     "slug": "5G20-0,s=1,s2=true,n=1",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Connaissant les 3 longueurs"
                   },
                   {
                     "id": 5038,
                     "slug": "5G20-2,s=false,n=1",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Connaissant des longueurs et des angles"
                   }
                 ]
               },
@@ -2209,14 +2237,16 @@
                     "slug": "5G21-1,s=1,n=1",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Connaissant 3 longueurs"
                   },
                   {
                     "id": 5040,
                     "slug": "5G21-1,s=2,n=1",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Connaissant 2 longueurs et le périmètre"
                   }
                 ]
               },
