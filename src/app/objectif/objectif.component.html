@@ -19,12 +19,13 @@
   </div>
   <div id="divExercices" *ngIf="exercices.length > 0" [class]="'is-' + niveau">
     <h2 [class]="'subtitle is-3 is-' + niveau">
-      <a (click)="ouvrirModaleExercices(lienExercices)">
+      <a *ngIf="lienExercices !== ''" (click)="ouvrirModaleExercices(lienExercices)">
         S'entraîner
         &nbsp;
         <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer les exercices'"></app-bouton-dropdown-simple>
       </a>
-      <span *ngIf="storageService.modeEnseignant">
+      <a *ngIf="lienExercices === ''">S'entraîner</a>
+      <span *ngIf="storageService.modeEnseignant && lienExercices !== ''">
         &nbsp;
         <app-bouton-imprimer [lien]="lienExercices"></app-bouton-imprimer>
         &nbsp;
