@@ -61,6 +61,8 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
           site = 'mathalea'
         } else if (this.isGeogebraClassic(this.get('listeDesUrl')[0])) {
           site = 'geogebraClassic'
+        } else if (this.isGeogebraM(this.get('listeDesUrl')[0])) {
+          site = 'geogebraM'
         }
         this.parametrage(site)
       }
@@ -278,6 +280,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
         this.boutonFermer.style.width = '30px'
 
         this.boutonPauseMetacognitive.style.top = '88px'
+        this.boutonPauseMetacognitive.style.right = '20px'
         break
       case 'mathsmentales':
         this.boutonCopier.style.left = ''
@@ -295,6 +298,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
         this.boutonFermer.style.width = '30px'
 
         this.boutonPauseMetacognitive.style.top = '133px'
+        this.boutonPauseMetacognitive.style.right = '20px'
         break
       case 'geogebraClassic':
         this.boutonCopier.style.left = ''
@@ -312,6 +316,26 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
         this.boutonFermer.style.width = '30px'
 
         this.boutonPauseMetacognitive.style.top = '143px'
+        this.boutonPauseMetacognitive.style.right = '20px'
+        break
+      case 'geogebraM':
+        this.boutonCopier.style.left = ''
+        this.boutonCopier.style.right = '50px'
+        this.boutonCopier.style.top = '70px'
+        this.boutonCopier.style.width = '30px'
+
+        this.divConfirmationCopie.style.left = ''
+        this.divConfirmationCopie.style.right = '80px'
+        this.divConfirmationCopie.style.top = '70px'
+
+        this.boutonFermer.style.left = ''
+        this.boutonFermer.style.right = '15px'
+        this.boutonFermer.style.top = '70px'
+        this.boutonFermer.style.width = '30px'
+
+        this.boutonPauseMetacognitive.style.top = '105px'
+        this.boutonPauseMetacognitive.style.right = '15px'
+        break
     }
   }
 
@@ -394,6 +418,10 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
 
   isGeogebraClassic (url: string) {
     return url.slice(0, 33) === 'https://www.geogebra.org/classic/'
+  }
+
+  isGeogebraM (url: string) {
+    return url.slice(0, 27) === 'https://www.geogebra.org/m/'
   }
 
   alternerAffichagePauseMetacognitive () {
