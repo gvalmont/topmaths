@@ -15,11 +15,11 @@
       <h1 *ngIf="ligne.niveau !== undefined && ligne.niveau !== 'fin' && ligne.theme === undefined && (filtre.niveau === undefined || filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)" [class]="'title is-2 p-2 is-' + ligne.niveau">{{ligne.niveau}}</h1>
       <h2 *ngIf="ligne.theme !== undefined && ligne.niveau !== 'fin' && ligne.sousTheme === undefined && (filtre.niveau === undefined || filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && (filtre.theme === undefined || filtre.theme === ligne.theme)" [class]="'subtitle is-3 pt-2 is-' + ligne.niveau">{{ligne.theme}}</h2>
       <h3 *ngIf="ligne.sousTheme !== undefined && ligne.sousTheme !== '' && ligne.niveau !== 'fin' && ligne.reference === undefined && (filtre.niveau === undefined || filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && (filtre.theme === undefined || filtre.theme === ligne.theme) && (filtre.sousTheme === undefined || filtre.sousTheme === ligne.sousTheme)" [class]="'subtitle is-4 p-4 is-' + ligne.niveau">{{ligne.sousTheme}}</h3>
-      <p *ngIf="ligne.reference !== undefined && ligne.niveau !== 'fin' && (filtre.niveau === undefined || filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && (filtre.theme === undefined || filtre.theme === ligne.theme) && (filtre.sousTheme === undefined || filtre.sousTheme === ligne.sousTheme)" [ngClass]="{'p-1 is-size-5': true, 'is-fin': lignes[i].niveau !== lignes[i + 1].niveau, 'is-6e': ligne.niveau === '6e', 'is-5e': ligne.niveau === '5e', 'is-4e': ligne.niveau === '4e', 'is-3e': ligne.niveau === '3e'}">
-        <a routerLink="/objectif/{{ligne.reference}}" routerLinkActive="active">
+      <a routerLink="/objectif/{{ligne.reference}}" routerLinkActive="active" *ngIf="ligne.reference !== undefined && ligne.niveau !== 'fin' && (filtre.niveau === undefined || filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && (filtre.theme === undefined || filtre.theme === ligne.theme) && (filtre.sousTheme === undefined || filtre.sousTheme === ligne.sousTheme)">
+        <p [ngClass]="{'p-1 is-size-5': true, 'is-fin': lignes[i].niveau !== lignes[i + 1].niveau, 'is-6e': ligne.niveau === '6e', 'is-5e': ligne.niveau === '5e', 'is-4e': ligne.niveau === '4e', 'is-3e': ligne.niveau === '3e'}">
           {{ligne.reference}} : {{ligne.titre}}<br>
-        </a>
-      </p>
+        </p>
+      </a>
     </span>
   </div>
 </div>
