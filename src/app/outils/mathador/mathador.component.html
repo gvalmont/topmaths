@@ -16,9 +16,9 @@
     <br>
     <div class="is-flex is-align-items-center is-justify-content-center">
       <div class="select m-2 is-size-6">
-        <select>
+        <select (change)="setupMinuteur($event)">
           <option>Minuteur</option>
-          <option *ngFor="let duree of durees" (click)="setupMinuteur(duree)">{{ duree }} min</option>
+          <option *ngFor="let duree of durees">{{ duree }} min</option>
         </select>
       </div>
       <a *ngIf="minuteurEnFonctionnement !== undefined && !minuteurEnFonctionnement" (click)="lancerMinuteur()">
