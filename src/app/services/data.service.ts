@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { EventEmitter, Injectable, Output } from '@angular/core'
+import { environment } from 'src/environments/environment'
 import { Annee } from './modeles/calendrier'
 import { Niveau as NiveauObjectif } from './modeles/objectifs'
 import { Niveau as NiveauSequence, SequenceParticuliere } from './modeles/sequences'
@@ -40,19 +41,19 @@ export class DataService {
   }
 
   miseEnCacheDesDonnees () {
-    this.httpClient.get<NiveauObjectif[]>('assets/data/objectifs.json').subscribe(niveaux => {
+    this.httpClient.get<NiveauObjectif[]>('assets/data/objectifs.json?' + environment.appVersion).subscribe(niveaux => {
       this.niveauxObjectifs = niveaux
       this.dataMAJ.emit('niveauxObjectifs')
     })
-    this.httpClient.get<NiveauSequence[]>('assets/data/sequences.json').subscribe(niveaux => {
+    this.httpClient.get<NiveauSequence[]>('assets/data/sequences.json?' + environment.appVersion).subscribe(niveaux => {
       this.niveauxSequences = niveaux
       this.dataMAJ.emit('niveauxSequences')
     })
-    this.httpClient.get<SequenceParticuliere[]>('assets/data/sequencesParticulieres.json').subscribe(sequencesParticulieres => {
+    this.httpClient.get<SequenceParticuliere[]>('assets/data/sequencesParticulieres.json?' + environment.appVersion).subscribe(sequencesParticulieres => {
       this.sequencesParticulieres = sequencesParticulieres
       this.dataMAJ.emit('sequencesParticulieres')
     })
-    this.httpClient.get<Annee[]>('assets/data/calendrier.json').subscribe(annees => {
+    this.httpClient.get<Annee[]>('assets/data/calendrier.json?' + environment.appVersion).subscribe(annees => {
       this.calendrierAnnees = annees
       this.dataMAJ.emit('calendrierAnnees')
     })

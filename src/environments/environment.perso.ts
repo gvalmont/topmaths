@@ -3,6 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  // eslint-disable-next-line no-undef
+  appVersion: require('../../package.json').version + '-perso',
   production: true,
   perso: true
 }
