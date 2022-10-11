@@ -252,7 +252,8 @@ export class MathadorComponent implements OnInit, OnDestroy {
     return false
   }
 
-  setupMinuteur (dureeEnMin: number) {
+  setupMinuteur (evenementDuree: Event) {
+    const dureeEnMin = Number((evenementDuree.target as HTMLInputElement).value.toString().split(' ')[0])
     const divTempsAffiche = document.getElementById('divTempsAffiche')
     if (divTempsAffiche !== null) {
       this.tempsRestant = dureeEnMin * 60
@@ -278,4 +279,17 @@ export class MathadorComponent implements OnInit, OnDestroy {
     }
   }
 
+  alternerAffichagePoints () {
+    const divFondPanneauPoints = document.getElementById('fondPanneauPoints')
+    const divContenuPanneauPoints = document.getElementById('contenuPanneauPoints')
+    if (divFondPanneauPoints !== null && divContenuPanneauPoints) {
+      if (divContenuPanneauPoints.style.opacity === '1') {
+        divContenuPanneauPoints.style.opacity = '0%'
+        divFondPanneauPoints.style.opacity = '0%'
+      } else {
+        divContenuPanneauPoints.style.opacity = '100%'
+        divFondPanneauPoints.style.opacity = '70%'
+      }
+    }
+  }
 }

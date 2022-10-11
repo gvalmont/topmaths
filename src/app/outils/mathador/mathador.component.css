@@ -10,3 +10,33 @@
 .rouge {
   color: red
 }
+
+#boutonPoints {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  width: 40px;
+  z-index: 150;
+}
+
+#fondPanneauPoints, #contenuPanneauPoints {
+  position: absolute;
+  top: 100px;
+  left: 45px;
+  width: 230px;
+  height: 150px;
+  pointer-events: none;
+  transition: opacity 1s;
+}
+
+#fondPanneauPoints {
+  background-color: white;
+  opacity: 0%;
+}
+
+#contenuPanneauPoints {
+  font-size: 22px;
+  color: black;
+  opacity: 0%;
+  text-align: left;
+}
