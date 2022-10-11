@@ -76,7 +76,7 @@
       },
       {
         "reference": "S6S3",
-        "titre": "Fractions 1",
+        "titre": "Fractions",
         "objectifs": [
           {
             "reference": "6C23"
@@ -158,6 +158,46 @@
             "slug": "6N11-3,s=3,n=2"
           }
         ]
+      },
+      {
+        "reference": "S6S5",
+        "titre": "Nombres décimaux 1",
+        "objectifs": [
+          {
+            "reference": "6N23"
+          },
+          {
+            "reference": "6N30"
+          },
+          {
+            "reference": "6N31"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6N12",
+            "titre": "Multiplier ou diviser un entier par 10, 100, 1 000… (résultat entier)",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=9NE1~o=0,1,2~q=0.0,1-1.0,1-2.0,1~p=~t=12~n=4_i=7NE2~o=3,4,5~q=3.-4.-5.~p=~t=12~n=4",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6G52",
+            "titre": "Connaître les relations entre perpendicularité et parallélisme et savoir s’en servir pour raisonner",
+            "slug": "6G52,s=3,n=1,cd=0"
+          },
+          {
+            "reference": "6C10",
+            "titre": "Ajouter, soustraire, multiplier des nombres entiers",
+            "slug": "c3C10,s=6,n=3,i=0"
+          }
+        ]
       }
     ]
   },
@@ -227,7 +267,7 @@
               },
               {
                 "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=2,6~q=2.0,1,2,3,4,5-6.0,1,2,3,4,5~p=~t=24~n=8",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=2,6~q=2.0,1,2,3,4,5-6.0,1,2,3,4,5~p=~t=40~n=4",
                 "score": 5
               }
             ]
@@ -1398,7 +1438,7 @@
             "niveaux": [
               {
                 "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321&e=correction&o=no&s=1&so=h&c=%7B%220%22%3A%7B%22i%22%3A0%2C%22a%22%3A%7B%220%22%3A%7B%22i%22%3A%224NE2%22%2C%22o%22%3A%5B0%5D%2C%22q%22%3A%7B%220%22%3A%5B%5D%7D%2C%22p%22%3A%5B%5D%2C%22t%22%3A24%2C%22n%22%3A8%7D%7D%2C%22t%22%3A%22Diapo%201%22%2C%22c%22%3A%5B1%5D%2C%22o%22%3Atrue%7D%7D&f=n",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE2~o=0~q=0.~p=~t=30~n=4",
                 "score": 6
               }
             ]
@@ -2577,7 +2617,8 @@
             "titre": "",
             "slug": ""
           }
-        ]
+        ],
+        "slugEvalBrevet": "ex=dnb_2022_06_metropole_mathalea_1&ex=dnb_2021_09_metropole_5&ex=dnb_2019_12_caledonie_4&ex=dnb_2019_09_metropole_1&ex=dnb_2018_06_ameriquenord_2"
       },
       {
         "reference": "S3S5",

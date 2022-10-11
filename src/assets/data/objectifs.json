@@ -153,6 +153,74 @@
                     "description": "Encadrer entre deux nombres entiers"
                   }
                 ]
+              },
+              {
+                "reference": "6N23",
+                "titre": "Comprendre et utiliser différentes écritures d’un nombre",
+                "rappelDuCoursHTML": "<b><u>Définitions :</u></b><br>Une <b><i>fraction décimale</i></b> est une fraction qui a pour <i>dénominateur</i> $10$, $100$, $1\\, 000$ etc.<br>Un <b><i>nombre décimal</i></b> est un nombre qui peut s'écrire sous la forme d'une fraction décimale.<br><br>Pour utiliser différentes écritures d'un nombre décimal, on peut s'aider du tableau de numération et se rappeler que :<br>- un dixième = $\\cfrac{1}{10}$ <br>- un centième = $\\cfrac{1}{100}$ <br>- un millième = $\\cfrac{1}{1000}$ <br>Par exemple, $7$ unités et $3$ centièmes correspondent à $7 + \\cfrac{3}{100} = \\cfrac{703}{100} = 7,03$ <br>Vous pouvez le vérifier dans le tableau ci-dessous ! <br><iframe width='600px' height='450px' src='assets/data/tableau-ecriture-decimale.html'></iframe>",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Écrire en lettres un nombre décimal",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=mybEQfCJFD0&vignette=https://i.ytimg.com/vi/mybEQfCJFD0/hqdefault.jpg&debut=0&fin=580&largeur=200&hauteur=150",
+                    "auteur": "La classe de Marion",
+                    "lienAuteur": "https://www.youtube.com/channel/UC1CNz6Kh6hrER1lVD_vwzPg"
+                  },
+                  {
+                    "titre": "Passer d'une écriture fractionnaire à l'écriture décimale",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=i75HKdds3Gc&vignette=https://i.ytimg.com/vi/i75HKdds3Gc/hqdefault.jpg&debut=0&fin=403&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6029,
+                    "slug": "6N23-4,s=1-2-3,n=3",
+                    "description": "Donner l'écriture décimale d'un nombre écrit en lettres"
+                  },
+                  {
+                    "id": 6030,
+                    "slug": "6N23-0,s=1,s2=1,s3=2,n=4",
+                    "description": "Écrire en lettres un nombre décimal"
+                  },
+                  {
+                    "id": 6031,
+                    "slug": "6N23-1,s=1-2-3,n=4",
+                    "description": "Passer d'une écriture fractionnaire à l'écriture décimale en décomposant"
+                  },
+                  {
+                    "id": 6032,
+                    "slug": "6N23,n=4",
+                    "description": "Passer d'une écriture fractionnaire à l'écriture décimale directement"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nom": "Niveau 3",
+            "objectifs": [
+              {
+                "reference": "6N30",
+                "titre": "Repérer et placer des nombres décimaux (jusqu’à 3 décimales) sur une demi-droite graduée adaptée",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "",
+                    "auteur": "Noelle Barny",
+                    "lienAuteur": "https://www.youtube.com/channel/UC9_mMk5yn9L2NPKXnqodaaA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6033,
+                    "slug": "",
+                    "description": ""
+                  }
+                ]
               }
             ]
           }
@@ -1153,13 +1221,6 @@
                     "score": 8,
                     "temps": 240,
                     "isInteractif": true
-                  },
-                  {
-                    "id": 5127,
-                    "slug": "5L12-2,s=9,s2=true,s3=1-2-3-4,n=3",
-                    "score": 12,
-                    "temps": 360,
-                    "isInteractif": false
                   }
                 ]
               },
@@ -1429,7 +1490,15 @@
                     "lienAuteur": "https://www.youtube.com/channel/UCuvHpNCqGDTFaEvO4c0nhZQ"
                   }
                 ],
-                "exercices": []
+                "exercices": [
+                  {
+                    "id": 5133,
+                    "slug": "5P13,s=4,n=3",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
               }
             ]
           },
@@ -2516,7 +2585,15 @@
                     "lienAuteur": "https://www.youtube.com/channel/UCfRhflEKujHRHkYVkX4ZGBg"
                   }
                 ],
-                "exercices": []
+                "exercices": [
+                  {
+                    "id": 5134,
+                    "slug": "6G44-1,s=0,s2=false,s3=false,n=4",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
               },
               {
                 "reference": "5G51",
@@ -3022,14 +3099,14 @@
                 "exercices": [
                   {
                     "id": 4007,
-                    "slug": "4A11-0,s=3,s2=false,s3=false,s4=false,n=2,cd=1",
+                    "slug": "3A10-5,s=5,s2=3,n=4",
                     "score": 20,
                     "temps": 400,
                     "isInteractif": true
                   },
                   {
                     "id": 4008,
-                    "slug": "4A11-1,s=false,n=1",
+                    "slug": "4A11-1,s=false,n=2",
                     "score": 30,
                     "temps": 600,
                     "isInteractif": true
@@ -3110,8 +3187,14 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=S_ckQpWzmG8&vignette=https://i.ytimg.com/vi/S_ckQpWzmG8/hqdefault.jpg&debut=0&fin=412&largeur=200&hauteur=113",
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=otICNqaunUQ&vignette=https://i.ytimg.com/vi/otICNqaunUQ/hqdefault.jpg&debut=0&fin=217&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
+                  {
+                    "titre": "En détail",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=URNld8xsXgM&vignette=https://i.ytimg.com/vi/URNld8xsXgM/hqdefault.jpg&debut=0&fin=405&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -4004,21 +4087,24 @@
                     "slug": "3G20,s=1,n=1,video=j_zZOpLLl9k,cd=1",
                     "score": 35,
                     "temps": 700,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Configuration avec des triangles emboîtés"
                   },
                   {
                     "id": 4066,
                     "slug": "3G20,s=2,n=1,video=j_zZOpLLl9k,cd=1",
                     "score": 40,
                     "temps": 800,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Configuration en papillon"
                   },
                   {
                     "id": 4067,
                     "slug": "3G20-1",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Problèmes"
                   }
                 ]
               },
@@ -4283,10 +4369,10 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "",
-                    "slug": "",
-                    "auteur": "",
-                    "lienAuteur": ""
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=tL0XlvDC-68&vignette=https://i.ytimg.com/vi/tL0XlvDC-68/hqdefault.jpg&debut=0&fin=192&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   }
                 ],
                 "exercices": [
@@ -4438,14 +4524,14 @@
                 "exercices": [
                   {
                     "id": 3033,
-                    "slug": "3A12,s=true,n=1",
+                    "slug": "3A11-0,s=3,s2=1,s3=1,n=3",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
                   },
                   {
                     "id": 3034,
-                    "slug": "3A12,s=false,n=1",
+                    "slug": "3A11-0,s=3,s2=2,s3=1,n=3",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
@@ -4557,9 +4643,16 @@
                 "exercices": [
                   {
                     "id": 3014,
-                    "slug": "3F10-1,s=2,n=5,cd=0",
+                    "slug": "3F10-1,s=2,n=3,cd=0",
                     "score": 8,
                     "temps": 400,
+                    "isInteractif": false
+                  },
+                  {
+                    "id": 3065,
+                    "slug": "3F10-3,s=5,n=3",
+                    "score": 0,
+                    "temps": 0,
                     "isInteractif": false
                   }
                 ]

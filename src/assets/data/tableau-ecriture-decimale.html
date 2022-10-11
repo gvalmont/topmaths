@@ -1,0 +1,153 @@
+<!--
+@author Thomas CRESPIN <thomas.crespin@sesamath.net> pour SÉSAMATH <http://www.sesamath.net>.
+Fichier sous licence libre Affero GPL 3 <https://www.gnu.org/licenses/agpl-3.0.html>.
+Vous pouvez le redistribuer ou le modifier suivant les termes 
+de la “GNU Affero General Public License” telle que publiée par la Free Software Foundation :
+soit la version 3 de cette licence, soit (à votre gré) toute version ultérieure.
+
+Cache des millionièmes, milliardièmes, millions, milliards par Guillaume Valmont
+-->
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Écriture décimale</title>
+    <link rel="shortcut icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAACVBMVEX///+AgIDiaA1FrSLwAAAAPklEQVQI1x3KsRHAMAhDUTVs4OyQyzQpxH4ufZrS/6B4nED6kqMkWzNP61VbWz8JysC1vYoNKiIYlgYeUylfbj4MfedxhBQAAAAASUVORK5CYII=" type="image/x-icon" />
+    <style>
+      body,thead,tbody,input,button{font-family:"arial","helvetica","nimbus sans l","liberation sans","freesans","garuda",sans-serif}
+      body{font-size:200%}
+      thead{font-size:80%}
+      tbody{font-size:110%}
+      input,button{font-size:80%}
+      table{border-collapse:collapse;text-align:center;margin-top:5px}
+      th,td{border:solid #000 2px;padding:2px;white-space:nowrap}
+      th{vertical-align:bottom;font-weight:700}
+      td{height:1.3em;font-weight:700}
+      input{text-align:center;width:1em}
+      h1{margin-top:.5ex;margin-bottom:.5ex;margin-left:2em;font-size:80%;font-weight:700}
+      #ligne_check{margin-left:2em;font-size:50%}
+      footer{margin-top:1ex;padding-top:.5ex;padding-left:2em;font-size:35%;color:#666;border-top:1px dashed #999}
+      .vertical{width:1.15em;text-align:left;writing-mode:vertical-rl;-webkit-writing-mode:vertical-rl;-ms-writing-mode:tb-rl;transform:rotate(180deg);-webkit-transform:rotate(180deg);-moz-transform:rotate(180deg);-ms-transform:rotate(180deg)}
+      .stretch{vertical-align:top;border:none}
+      .stretch a{color:#000;background:#ddd;text-decoration:none;display:inline-block;margin-top:3ex;padding:0 .5ex;border:solid 1px #666}
+      .stretch a:hover{color:#fff;background:#444;text-decoration:none}
+      tbody .stretch a{font-size:73%;margin-top:auto;vertical-align:middle}
+      .milliard{background:#fedead; display: none;}
+      .million{background:#adfec8; display: none;}
+      .mille{background:#adfbfe}
+      .centaine{background:#e3baff}
+      .dizaine{background:#ffbaf7}
+      .unite{background:#f9fead}
+      .virgule{display:none}
+      th.virgule{background:#666;font-size:140%}
+      .dixieme{background:#ffbaf7}
+      .centieme{background:#e3baff}
+      .millieme{background:#adfbfe}
+      .millionieme{background:#adfec8; display: none;}
+      .milliardieme{background:#fedead; display: none;}
+    </style>
+  </head>
+  <body>
+    <h1>Écriture décimale</h1>
+    <table>
+      <thead>
+        <tr id="ligne_tete">
+          <th style="visibility: hidden;" class="stretch">&nbsp;<br /><a id="retrait_colonnes_gauche" href="#" title="Retirer des colonnes">&minus;</a><br /><a id="ajout_colonnes_gauche" href="#" title="Ajouter des colonnes">+</a></th>
+          <th class="milliard"><span class="vertical">centaines de milliard</span></th>
+          <th class="milliard"><span class="vertical">dizaines de milliard</span></th>
+          <th class="milliard"><span class="vertical">unités de milliard</span></th>
+          <th class="million"><span class="vertical">centaines de million</span></th>
+          <th class="million"><span class="vertical">dizaines de million</span></th>
+          <th class="million"><span class="vertical">unités de million</span></th>
+          <th class="mille"><span class="vertical">centaines de mille</span></th>
+          <th class="mille"><span class="vertical">dizaines de mille</span></th>
+          <th class="mille"><span class="vertical">unités de mille</span></th>
+          <th class="centaine"><span class="vertical">centaines</span></th>
+          <th class="dizaine"><span class="vertical">dizaines</span></th>
+          <th class="unite"><span class="vertical">unités</span></th>
+          <th class="virgule">&nbsp;</th>
+          <th class="dixieme"><span class="vertical">dixièmes</span></th>
+          <th class="centieme"><span class="vertical">centièmes</span></th>
+          <th class="millieme"><span class="vertical">millièmes</span></th>
+          <th class="millieme"><span class="vertical">dix-millièmes</span></th>
+          <th class="millieme"><span class="vertical">cent-millièmes</span></th>
+          <th class="millionieme"><span class="vertical">millionièmes</span></th>
+          <th class="millionieme"><span class="vertical">dix-millionièmes</span></th>
+          <th class="millionieme"><span class="vertical">cent-millionièmes</span></th>
+          <th class="milliardieme"><span class="vertical">milliardièmes</span></th>
+          <th class="milliardieme"><span class="vertical">dix-milliardièmes</span></th>
+          <th class="milliardieme"><span class="vertical">cent-milliardièmes</span></th>
+          <th style="visibility: hidden;" class="stretch">&nbsp;<br /><a id="retrait_colonnes_droite" href="#" title="Retirer des colonnes">&minus;</a><br /><a id="ajout_colonnes_droite" href="#" title="Ajouter des colonnes">+</a></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="ligne1">
+          <td class="stretch"></td>
+          <td class="milliard"><input type="text" size="1" maxlength="1" /></td>
+          <td class="milliard"><input type="text" size="1" maxlength="1" /></td>
+          <td class="milliard"><input type="text" size="1" maxlength="1" /></td>
+          <td class="million"><input type="text" size="1" maxlength="1" /></td>
+          <td class="million"><input type="text" size="1" maxlength="1" /></td>
+          <td class="million"><input type="text" size="1" maxlength="1" /></td>
+          <td class="mille"><input type="text" size="1" maxlength="1" /></td>
+          <td class="mille"><input type="text" size="1" maxlength="1" /></td>
+          <td class="mille"><input type="text" size="1" maxlength="1" /></td>
+          <td class="centaine"><input type="text" size="1" maxlength="1" /></td>
+          <td class="dizaine"><input type="text" size="1" maxlength="1" /></td>
+          <td class="unite"><input type="text" size="1" maxlength="1" /></td>
+          <td class="virgule"><input type="hidden" value="," /></td>
+          <td class="dixieme"><input type="text" size="1" maxlength="1" /></td>
+          <td class="centieme"><input type="text" size="1" maxlength="1" /></td>
+          <td class="millieme"><input type="text" size="1" maxlength="1" /></td>
+          <td class="millieme"><input type="text" size="1" maxlength="1" /></td>
+          <td class="millieme"><input type="text" size="1" maxlength="1" /></td>
+          <td class="millionieme"><input type="text" size="1" maxlength="1" /></td>
+          <td class="millionieme"><input type="text" size="1" maxlength="1" /></td>
+          <td class="millionieme"><input type="text" size="1" maxlength="1" /></td>
+          <td class="milliardieme"><input type="text" size="1" maxlength="1" /></td>
+          <td class="milliardieme"><input type="text" size="1" maxlength="1" /></td>
+          <td class="milliardieme"><input type="text" size="1" maxlength="1" /></td>
+          <td class="stretch"><a id="effacer_saisie" href="#" title="Effacer les saisies">&times;</a></td>
+        </tr>
+        <tr id="ligne2">
+          <td class="stretch"></td>
+          <td class="milliard"></td>
+          <td class="milliard"></td>
+          <td class="milliard"></td>
+          <td class="million"></td>
+          <td class="million"></td>
+          <td class="million"></td>
+          <td class="mille"></td>
+          <td class="mille"></td>
+          <td class="mille"></td>
+          <td class="centaine"></td>
+          <td class="dizaine"></td>
+          <td class="unite"></td>
+          <td class="virgule"></td>
+          <td class="dixieme"></td>
+          <td class="centieme"></td>
+          <td class="millieme"></td>
+          <td class="millieme"></td>
+          <td class="millieme"></td>
+          <td class="millionieme"></td>
+          <td class="millionieme"></td>
+          <td class="millionieme"></td>
+          <td class="milliardieme"></td>
+          <td class="milliardieme"></td>
+          <td class="milliardieme"></td>
+          <td class="stretch"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="ligne_check">
+      <label for="check_virgule"><input id="check_virgule" type="checkbox" checked="checked" /> Masquer la virgule</label>
+    </div>
+    <footer>
+      <span title="Pour enregistrer une page, utilisez le raccourci clavier CTRL + S ou le menu [Enregistrer sous...] du navigateur.">[ Téléchargeable &amp; Multiplateforme ]</span> [ <a href="http://sesaprof.sesamath.net/doc/outils_tableaux/index.html">Site d’origine &amp; Autres tableaux</a> ] [ Thomas CRESPIN pour <a href="http://www.sesamath.net" target="_blank" rel="noopener noreferrer">Sésamath</a> ] [ <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank" rel="noopener noreferrer">Licence libre AGPL 3</a> ]
+    </footer>
+    <script>
+    /* Pour la source non compilée remplacer dans le lien le chemin /minified/ par /sources/ */
+    window.onload=function(){function k(c,a){for(var b=document.getElementById("ligne_tete").getElementsByTagName("th"),f=document.getElementById("ligne1").getElementsByTagName("td"),d=document.getElementById("ligne2").getElementsByTagName("td"),g="retrait"==c?"none":"table-cell",e="gauche"==a?1:24,h="gauche"==a?m:-n,k=0;3>k;k++){var l="retrait"==c?k:k+1;l="retrait"==c&&"gauche"==a||"ajout"==c&&"droite"==a?l:-l;l=e+h+l;b[l].style.display=g;f[l].style.display=g;d[l].style.display=g;console.log(l)}b="retrait"==c?1:-1;"gauche"==a?m+=3*b:n+=3*b;b="gauche"==a?m:n;"gauche"==a&&9==b||"droite"==a&&12==b?document.getElementById("retrait_colonnes_"+a).style.visibility="hidden":document.getElementById("retrait_colonnes_"+a).style.visibility="visible";0==b?document.getElementById("ajout_colonnes_"+a).style.visibility="hidden":document.getElementById("ajout_colonnes_"+a).style.visibility="visible"}function q(){for(var c=document.getElementById("ligne1").getElementsByTagName("input"),a=0;a<c.length;a++)12!=a&&(c[a].value="");r(2)}function r(c){c=document.getElementById("ligne"+c).getElementsByTagName("td");for(var a=1;24>=a;a++)c[a].innerHTML="",c[a].style.color="#000"}var m=0,n=0;q();document.getElementById("ajout_colonnes_gauche").style.visibility="hidden";document.getElementById("ajout_colonnes_droite").style.visibility="hidden";for(var t=document.getElementById("ligne1").getElementsByTagName("input"),p=0;p<t.length;p++)t[p].onkeyup=function(c){for(var a=document.getElementById("ligne1").getElementsByTagName("input"),b="",f=1;24>=f;f++){var d=a[f-1].value;13==f?b+=",":-1!=="0123456789".indexOf(d)?(""==d&&(d="0"),b+=d):b+="0"}a=b.length;d=b.indexOf(",");if(0==d){f="0";var g=1==a?"":b.substring(d+1)}else 1==a-d?(f=b.substring(0,a-1),g=""):(f=b.substring(0,d),g=b.substring(d+1));b="";a=f.length;var e=!1;for(numero_de_caractere=0;numero_de_caractere<a;numero_de_caractere++){var h=f[numero_de_caractere];if("0"!=h||e)e=!0,b+=h}""==b&&(b="0");d="";a=g.length;e=!1;if(a)for(numero_de_caractere=a-1;0<=numero_de_caractere;numero_de_caractere--)if(h=g[numero_de_caractere],"0"!=h||e)e=!0,d=h+d;r(2);g=document.getElementById("ligne2").getElementsByTagName("td");a=b.length;for(e=a-1;0<=e;e--)h=b[e],f=13+e-a,g[f].innerHTML=h;d&&(g[13].innerHTML=",");a=d.length;for(e=0;e<a;e++)h=d[e],f=13+e+1,g[f].innerHTML=h;c=c.keyCode;48<=c&&57>=c&&(c=this.parentNode.nextElementSibling,"stretch"!==c.className&&("virgule"==c.className&&(c=c.nextElementSibling),c.firstChild.focus()))};document.getElementById("check_virgule").onchange=function(){for(var c=this.checked?"none":"table-cell",a=document.getElementsByClassName("virgule"),b=0;b<a.length;b++)a[b].style.display=c};document.getElementById("effacer_saisie").onclick=function(){q()};document.getElementById("retrait_colonnes_gauche").onclick=function(){k("retrait","gauche")};document.getElementById("ajout_colonnes_gauche").onclick=function(){k("ajout","gauche")};document.getElementById("retrait_colonnes_droite").onclick=function(){k("retrait","droite")};document.getElementById("ajout_colonnes_droite").onclick=function(){k("ajout","droite")}};
+    </script>
+  </body>
+</html>
