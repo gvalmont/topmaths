@@ -5,6 +5,7 @@ import { filter, map } from 'rxjs/operators'
 import { Subscription } from 'rxjs'
 import { StorageService } from './services/storage.service'
 import { environment } from 'src/environments/environment'
+import { DataService } from './services/data.service'
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
   heureDerniereAlarme: { heure: string, minute: string }
 
   // eslint-disable-next-line no-unused-vars
-  constructor (private router: Router, public storageService: StorageService, private activatedRoute: ActivatedRoute, private titleService: Title) {
+  constructor (private router: Router, public storageService: StorageService, private dataService: DataService, private activatedRoute: ActivatedRoute, private titleService: Title) {
     this.title = 'topmaths.fr - Les maths au TOP !'
     this.ongletActif = 'accueil'
     this.navigationEventSubscription = new Subscription
