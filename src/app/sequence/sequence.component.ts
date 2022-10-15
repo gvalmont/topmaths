@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { CalculMental, Objectif, QuestionFlash, Sequence } from '../services/modeles/sequences'
 import { ViewportScroller } from '@angular/common'
-import { GlobalConstants } from '../services/modeles/global-constants'
 import { Title } from '@angular/platform-browser'
 import { DataService } from '../services/data.service'
 import { Subscription } from 'rxjs'
 import { StorageService } from '../services/storage.service'
+import { environment } from 'src/environments/environment'
 
 @Component({
   selector: 'app-sequence',
@@ -131,7 +131,7 @@ export class SequenceComponent implements OnInit, OnDestroy {
       for (const niveau of calculMental.niveaux) {
         niveauxTemp.push({
           commentaire: niveau.commentaire,
-          lien: niveau.lien + '&embed=' + GlobalConstants.ORIGINE,
+          lien: niveau.lien + '&embed=' + environment.origine,
           lienACopier: niveau.lien
         })
       }

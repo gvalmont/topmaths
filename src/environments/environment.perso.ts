@@ -5,6 +5,7 @@
 export const environment = {
   // eslint-disable-next-line no-undef
   appVersion: require('../../package.json').version + '-perso',
+  origine: 'https://perso.topmaths.fr',
   production: true,
   perso: true
 }

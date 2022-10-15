@@ -5,6 +5,7 @@
 export const environment = {
   // eslint-disable-next-line no-undef
   appVersion: require('../../package.json').version + '-devperso',
+  origine: 'http://localhost:4200',
   production: false,
   perso: true
 }
