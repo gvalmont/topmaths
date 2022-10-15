@@ -1,8 +1,8 @@
 import { ViewportScroller } from '@angular/common'
 import { Component, isDevMode } from '@angular/core'
-import { GlobalConstants } from 'src/app/services/modeles/global-constants'
 import { Niveau as NiveauObjectif } from 'src/app/services/modeles/objectifs'
 import { Niveau as NiveauSequence } from 'src/app/services/modeles/sequences'
+import { environment } from 'src/environments/environment'
 import { CalendrierService } from '../services/calendrier.service'
 import { DataService } from '../services/data.service'
 
@@ -112,7 +112,7 @@ export class ExercicesAuHasardComponent {
                     })
                     listeExercices[listeExercices.length - 1].lien = listeExercices[listeExercices.length - 1].lien.replace(/&ex=/g, ',i=0&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
                     if (exercice.slug.slice(0, 25) === 'https://mathsmentales.net') {
-                      listeExercices[listeExercices.length - 1].lien = exercice.slug + '&embed=' + GlobalConstants.ORIGINE
+                      listeExercices[listeExercices.length - 1].lien = exercice.slug + '&embed=' + environment.origine
                     } else if (exercice.slug.slice(0, 4) === 'http') {
                       listeExercices[listeExercices.length - 1].lien = exercice.slug
                     }

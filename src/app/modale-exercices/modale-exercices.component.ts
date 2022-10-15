@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, isDevMode, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core'
 import { Subscription } from 'rxjs'
+import { environment } from 'src/environments/environment'
 import { DataService } from '../services/data.service'
-import { GlobalConstants } from '../services/modeles/global-constants'
 import { Niveau as NiveauObjectif } from '../services/modeles/objectifs'
 import { Niveau as NiveauSequence } from '../services/modeles/sequences'
 import { StorageService } from '../services/storage.service'
@@ -113,7 +113,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
               })
               this.listeExercices[this.listeExercices.length - 1].lien = this.listeExercices[this.listeExercices.length - 1].lien.replace(/&ex=/g, ',i=0&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
               if (exercice.slug.slice(0, 25) === 'https://mathsmentales.net') {
-                this.listeExercices[this.listeExercices.length - 1].lien = exercice.slug + '&embed=' + GlobalConstants.ORIGINE
+                this.listeExercices[this.listeExercices.length - 1].lien = exercice.slug + '&embed=' + environment.origine
               } else if (exercice.slug.slice(0, 4) === 'http') {
                 this.listeExercices[this.listeExercices.length - 1].lien = exercice.slug
               }
@@ -130,7 +130,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
         for (const calculMental of sequence.calculsMentaux) {
           for (const niveau of calculMental.niveaux) {
             this.listeExercices.push({
-              lien: niveau.lien + '&embed=' + GlobalConstants.ORIGINE,
+              lien: niveau.lien + '&embed=' + environment.origine,
               isInteractif: false
             })
           }
