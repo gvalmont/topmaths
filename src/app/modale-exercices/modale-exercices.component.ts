@@ -144,21 +144,23 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
     if (divListenerExistant === null) {
       this.creerDivPresenceListener()
       window.addEventListener('message', (event) => {
-        const type: string = this.get('type')
-        const urlDejaFaits: string[] = this.get('urlDejaFaits')
-        const dateDerniereReponse: Date = new Date(this.get('dateDerniereReponse'))
-        const dateNouvelleReponse: Date = new Date()
-        if (dateNouvelleReponse.getTime() - dateDerniereReponse.getTime() > 200) {
-          const url: string = event.data.url
-          if (typeof (url) !== 'undefined') {
-            if (event.data.exercicesAffiches === true || event.data.ready === 'ok') {
-              this.divConfirmationCopie.style.display = 'none'
-              this.etapePauseMetacognitive = 1
-              this.fermerEcranDeChargement(type, url, urlDejaFaits)
-              this.set('lienACopier', url)
-              this.MAJurlDejaFaits(url, urlDejaFaits)
-              if (type === 'exerciceAuHasard' && url.slice(0, 25) === 'https://mathsmentales.net') {
-                this.exerciceAleatoireSuivant() // mathsmentales n'envoie pas de message à la fin de l'exercice, mieux vaut le shunter pour les exercices au hasard
+        if (event.origin === 'https://coopmaths.fr/' || event.origin === 'https://mathsmentales.net/' ) {
+          const type: string = this.get('type')
+          const urlDejaFaits: string[] = this.get('urlDejaFaits')
+          const dateDerniereReponse: Date = new Date(this.get('dateDerniereReponse'))
+          const dateNouvelleReponse: Date = new Date()
+          if (dateNouvelleReponse.getTime() - dateDerniereReponse.getTime() > 200) {
+            const url: string = event.data.url
+            if (typeof (url) !== 'undefined') {
+              if (event.data.exercicesAffiches === true || event.data.ready === 'ok') {
+                this.divConfirmationCopie.style.display = 'none'
+                this.etapePauseMetacognitive = 1
+                this.fermerEcranDeChargement(type, url, urlDejaFaits)
+                this.set('lienACopier', url)
+                this.MAJurlDejaFaits(url, urlDejaFaits)
+                if (type === 'exerciceAuHasard' && url.slice(0, 25) === 'https://mathsmentales.net') {
+                  this.exerciceAleatoireSuivant() // mathsmentales n'envoie pas de message à la fin de l'exercice, mieux vaut le shunter pour les exercices au hasard
+                }
               }
             }
           }
