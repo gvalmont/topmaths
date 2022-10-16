@@ -25,6 +25,7 @@ import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidential
 import { PanierComponent } from './panier/panier.component'
 import { BoutonDropdownSimpleComponent } from './mini-components/bouton-dropdown-simple/bouton-dropdown-simple.component'
 import { SPS2Component } from './sequencesParticulieres/sps2/sps2.component'
+import { TableauDAideComponent } from './outils/tableau-d-aide/tableau-d-aide.component'
 import { LecteurDeXlsComponent } from './mini-components/lecteur-de-xls/lecteur-de-xls.component'
 
 @NgModule({
@@ -49,6 +50,7 @@ import { LecteurDeXlsComponent } from './mini-components/lecteur-de-xls/lecteur-
     SequencesFilter,
     PanierComponent,
     BoutonDropdownSimpleComponent,
+    TableauDAideComponent,
     LecteurDeXlsComponent
   ],
   imports: [

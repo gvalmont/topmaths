@@ -12,6 +12,7 @@ import { MathadorComponent } from './outils/mathador/mathador.component'
 import { OutilsComponent } from './outils/outils.component'
 import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidentialite/politique-de-confidentialite.component'
 import { PanierComponent } from './panier/panier.component'
+import { TableauDAideComponent } from './outils/tableau-d-aide/tableau-d-aide.component'
 
 const routes: Routes = [
   { path: 'accueil', component: AccueilComponent, data: { title: 'topmaths.fr - Les maths au TOP !' } },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'sequence/:reference', component: SequenceComponent },
   { path: 'exercices-au-hasard', component: ExercicesAuHasardComponent, data: { title: 'topmaths.fr - Exercices au hasard' } },
   { path: 'outils/mathador', component: MathadorComponent, data: { title: 'topmaths.fr - Mathador' }  },
+  { path: 'outils/tableau-d-aide', component: TableauDAideComponent, data: { title: 'topmaths.fr - Tableau d\'aide' }  },
   { path: 'outils', component: OutilsComponent, data: { title: 'topmaths.fr - Outils pour la classe' }  },
   { path: 'panier', component: PanierComponent, data: { title: 'topmaths.fr - Panier' }  },
   { path: 'politique-de-confidentialite', component: PolitiqueDeConfidentialiteComponent, data: { title: 'topmaths.fr - Politique de confidentialité' } },

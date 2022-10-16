@@ -1231,6 +1231,14 @@ button:not(.is-outlined)>i {
   color: #fff
 }
 
+.button.is-tout.is-outlined > p {
+  color : var(--basetout)
+}
+
+.button.is-tout.is-outlined:hover > p {
+  color : white
+}
+
 .button.is-tout.is-inverted.is-outlined.is-focused, .button.is-tout.is-inverted.is-outlined.is-hovered, .button.is-tout.is-inverted.is-outlined:focus, .button.is-tout.is-inverted.is-outlined:hover {
   background-color: #fff;
   color: var(--basetout)

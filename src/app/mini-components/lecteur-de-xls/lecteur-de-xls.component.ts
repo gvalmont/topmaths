@@ -32,7 +32,7 @@ export class LecteurDeXlsComponent implements OnInit {
     const fileUpload = <HTMLInputElement> document.getElementById("fileUpload")
 
     // Validate whether File is valid Excel file.
-    const regex = /^([a-zA-Z0-9\s_\\.\-:])+(.xls|.xlsx)$/
+    const regex = /^([a-zA-Z0-9()\s_\\.\-:])+(.xls|.xlsx)$/
     if (fileUpload !== null && fileUpload.files !== null && regex.test(fileUpload.value.toLowerCase())) {
       this.reader.onload = function (e) {
         if (e.target !== null) GetTableFromExcel(e.target.result)
@@ -53,7 +53,7 @@ export class LecteurDeXlsComponent implements OnInit {
         window.postMessage(eleves, environment.origine)
       }
     } else {
-      alert("Il faut d'abord charger un fichier")
+      alert("Il faut d'abord charger un fichier ")
     }
   }
 

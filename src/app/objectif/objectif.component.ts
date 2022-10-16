@@ -1,7 +1,6 @@
 import { ViewportScroller } from '@angular/common'
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { GlobalConstants } from '../services/modeles/global-constants'
 import { Objectif, Video, Exercice } from '../services/modeles/objectifs'
 import { Title } from '@angular/platform-browser'
 import { DataService } from '../services/data.service'
@@ -9,6 +8,7 @@ import { Subscription } from 'rxjs'
 import { Sequence } from '../services/modeles/sequences'
 import { StorageService } from '../services/storage.service'
 import { PanierItem } from '../services/modeles/panier'
+import { environment } from 'src/environments/environment'
 
 @Component({
   selector: 'app-objectif',
@@ -190,7 +190,7 @@ export class ObjectifComponent implements OnInit, OnDestroy {
         })
         this.exercices[this.exercices.length - 1].lien = this.exercices[this.exercices.length - 1].lien.replace(/&ex=/g, ',i=0&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
         if (exercice.slug.slice(0, 25) === 'https://mathsmentales.net') {
-          this.exercices[this.exercices.length - 1].lien = exercice.slug + '&embed=' + GlobalConstants.ORIGINE
+          this.exercices[this.exercices.length - 1].lien = exercice.slug + '&embed=' + environment.origine
         } else if (exercice.slug.slice(0, 4) === 'http') {
           this.exercices[this.exercices.length - 1].lien = exercice.slug
         }

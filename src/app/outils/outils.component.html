@@ -1,16 +1,29 @@
 <div class="container is-max-desktop centre">
   <h1 style="border-radius: 50px 50px 0px 0px; padding: 5px 50px 5px 50px; margin-bottom: 0px; background-color: #16A34A; color: white; font-size: xx-large; font-weight: 600;">Outils pour la classe</h1>
   <div style="background-color: #ebfaf1; border-radius: 0px 0px 50px 50px; ">
-    <br>
+    <div>
+      <br><br>
+      <a [routerLink]="['/outils/mathador']">
+        <button class="button is-large is-violet is-outlined p-6">
+          <p class="enorme">Mathador</p>
+        </button>
+      </a>
+    </div>
+    <div *ngIf="storageService.modeEnseignant">
+      <br><br>
+      <a [routerLink]="['/outils/tableau-d-aide']">
+        <button class="button is-large is-tout is-outlined p-6">
+          <p class="enorme">Tableau d'aide</p>
+        </button>
+      </a>
+    </div>
+    <br><br><br><br>
     <div *ngIf="!storageService.modeEnseignant">
       <a (click)="activerModeEnseignant()">
         <button class="button is-green is-outlined">
           <p>Activer le mode enseignant</p>
         </button>
       </a>
-      <br>
-      Le mode enseignant est actuellement désactivé.<br>
-      Des outils comme l'heure ou les boutons pour imprimer des pages d'exercices et pour ajouter des exercices au panier ne sont pas visibles.
     </div>
     <div *ngIf="storageService.modeEnseignant">
       <a (click)="desactiverModeEnseignant()">
@@ -18,16 +31,7 @@
           <p>Désactiver le mode enseignant</p>
         </button>
       </a>
-      <br>
-      Le mode enseignant est actuellement activé.<br>
-      Des outils comme l'heure ou les boutons pour imprimer des pages d'exercices et pour ajouter des exercices au panier sont visibles.
     </div>
-    <br><br>
-    <a [routerLink]="['/outils/mathador']">
-      <button class="button is-large is-violet is-outlined p-6">
-        <p class="enorme">Mathador</p>
-      </button>
-    </a>
     <br><br>
   </div>
 </div>
