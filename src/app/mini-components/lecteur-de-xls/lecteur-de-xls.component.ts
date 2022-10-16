@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { environment } from 'src/environments/environment'
 import { ScriptService } from '../../services/script.service'
 declare let XLS: any
@@ -8,14 +8,20 @@ declare let XLS: any
   templateUrl: './lecteur-de-xls.component.html',
   styleUrls: ['./lecteur-de-xls.component.css']
 })
-export class LecteurDeXlsComponent {
+export class LecteurDeXlsComponent implements OnInit {
   @Input() label: string
   reader: FileReader
+  modale!: HTMLDivElement
 
   constructor (private scriptService: ScriptService) {
     this.label = ''
     this.reader = new FileReader()
     scriptService.load('xls')
+  }
+
+  ngOnInit (): void {
+    const modale = document.getElementById('modale-container')
+    if (modale !== null) this.modale = <HTMLDivElement> modale
   }
 
   /**
@@ -51,4 +57,11 @@ export class LecteurDeXlsComponent {
     }
   }
 
+  cacherModale () {
+    this.modale.className = 'cache'
+  }
+
+  afficherModale () {
+    this.modale.className = ''
+  }
 }

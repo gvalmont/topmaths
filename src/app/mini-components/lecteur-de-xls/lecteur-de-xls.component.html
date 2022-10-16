@@ -1,2 +1,34 @@
-<input type="file" id="fileUpload" />
-<input type="button" id="upload" [value]="label" (click)="UploadProcess()" />
+<div class="is-flex is-justify-content-center">
+  <input type="file" id="fileUpload" />
+  <input type="button" id="upload" [value]="label" (click)="UploadProcess()" />
+  &nbsp;
+  <div (click)="afficherModale()">
+    <app-bouton-dropdown-simple [bouton]="'assets/img/cc0/carnival-mask-silhouette-svgrepo-com.svg'" [dropdown]="'Confidentialité des données'" [size]="2"></app-bouton-dropdown-simple>
+  </div>
+</div>
+<div id="modale-container" class="cache" (click)="cacherModale()">
+  <div id="modale-contenu">
+    <section class="section">
+      <h1 class="title">Aucune donnée ne quitte votre ordinateur</h1>
+      Les fichiers sont lus et traités localement.<br>
+      Aucune donnée ne transite par internet.<br>
+      Les données sont toutes effacées dès que vous fermez l'onglet.
+    </section>
+    <section class="section">
+      <h1 class="title">Comment le vérifier ?</h1>
+      Vous pouvez constater que les informations s'affichent instantannément.<br>
+      Vous pouvez couper votre connexion à internet avant d'envoyer votre fichier et voir que ça ne change rien.<br><br>
+      <h2 class="subtitle">Pour les bidouilleurs</h2>
+      <ul style="text-align: left;">
+        <li>- Ouvrir la console avec F12</li>
+        <li>- Aller dans l'onglet Réseau / Network</li>
+        <li>- Vider son contenu (poubelle sur Firefox, panneau "sens interdit" sur Chrome)</li>
+        <li>- Envoyer un fichier</li>
+        <li>- Constater l'absence totale de mouvements sur le réseau</li>
+        <li>- Naviguer sur d'autres pages pour voir que l'onglet réseau fonctionnait bien correctement</li>
+      </ul>
+      <br>
+      Vous pouvez aussi consulter le <a href="https://github.com/gvalmont/topmaths">code source</a> du site.
+    </section>
+  </div>
+</div>
