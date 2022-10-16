@@ -25,6 +25,7 @@ import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidential
 import { PanierComponent } from './panier/panier.component'
 import { BoutonDropdownSimpleComponent } from './mini-components/bouton-dropdown-simple/bouton-dropdown-simple.component'
 import { SPS2Component } from './sequencesParticulieres/sps2/sps2.component'
+import { LecteurDeXlsComponent } from './mini-components/lecteur-de-xls/lecteur-de-xls.component'
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { SPS2Component } from './sequencesParticulieres/sps2/sps2.component'
     ObjectifsFilter,
     SequencesFilter,
     PanierComponent,
-    BoutonDropdownSimpleComponent
+    BoutonDropdownSimpleComponent,
+    LecteurDeXlsComponent
   ],
   imports: [
     BrowserModule,
