@@ -4335,14 +4335,14 @@
               {
                 "reference": "3L10",
                 "titre": "Déterminer l’opposé d’une expression littérale",
-                "rappelDuCoursHTML": "",
+                "rappelDuCoursHTML": "L'opposé d'une expression littérale est la somme des opposés de chacun de ses termes.<br> $-(a + b) = -a - b$ <br> $ -(a - b) = -a + b$ <br> $-(-a - b) = a + b$",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
                     "titre": "",
-                    "slug": "",
-                    "auteur": "",
-                    "lienAuteur": ""
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=5xesP84UUZ0&vignette=https://i.ytimg.com/vi/5xesP84UUZ0/hqdefault.jpg&debut=0&fin=212&largeur=200&hauteur=113",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   }
                 ],
                 "exercices": [
@@ -4365,7 +4365,7 @@
               {
                 "reference": "3L11",
                 "titre": "Développer par double distributivité",
-                "rappelDuCoursHTML": "",
+                "rappelDuCoursHTML": "$ \\require{color} ({\\color{red} a} + {\\color{blue} b})({\\color{green} c} + d) = {\\color{red} a} \\times {\\color{green} c} + {\\color{red} a} \\times d + {\\color{blue} b} \\times {\\color{green} c} + {\\color{blue} b} \\times d$",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -4378,24 +4378,27 @@
                 "exercices": [
                   {
                     "id": 3004,
-                    "slug": "3L11,s=1,n=2",
+                    "slug": "3L11-1,s=1,n=2",
                     "score": 8,
                     "temps": 150,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Additions et nombres positifs"
                   },
                   {
                     "id": 3005,
-                    "slug": "3L11,s=2,n=2",
+                    "slug": "3L11-1,s=2,n=2",
                     "score": 10,
                     "temps": 200,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Additions, soustractions et nombres positifs"
                   },
                   {
                     "id": 3006,
-                    "slug": "3L11-1,s=3,n=2",
+                    "slug": "3L11-3,n=2",
                     "score": 20,
                     "temps": 400,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Expressions complexes"
                   }
                 ]
               },

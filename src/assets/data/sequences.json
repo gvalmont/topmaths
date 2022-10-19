@@ -2613,9 +2613,19 @@
         ],
         "questionsFlash": [
           {
-            "reference": "",
-            "titre": "",
-            "slug": ""
+            "reference": "3S11",
+            "titre": "Déterminer l'étendue d'une série de données",
+            "slug": "3S15,s=3,n=1"
+          },
+          {
+            "reference": "4G20",
+            "titre": "Utiliser le théorème de Pythagore",
+            "slug": "4G20,s2=1,n=1,video=M9sceJ8gzNc"
+          },
+          {
+            "reference": "4G20",
+            "titre": "Utiliser le théorème de Pythagore",
+            "slug": "4G20,s2=2,n=1,video=M9sceJ8gzNc"
           }
         ],
         "slugEvalBrevet": "ex=dnb_2022_06_metropole_mathalea_1&ex=dnb_2021_09_metropole_5&ex=dnb_2019_12_caledonie_4&ex=dnb_2019_09_metropole_1&ex=dnb_2018_06_ameriquenord_2"
@@ -2636,19 +2646,35 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "",
-            "titre": "",
+            "reference": "3N11",
+            "titre": "Calculer avec des nombres rationnels positifs",
             "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=15~n=2_i=5NC8~o=3~q=3.0,1~p=~t=15~n=2_i=4NC3~o=0~q=0.~p=~t=15~n=2_i=4NC4~o=0~q=0.0~p=~t=15~n=2",
+                "score": 5
+              }
             ]
           }
         ],
         "questionsFlash": [
           {
-            "reference": "",
-            "titre": "",
-            "slug": ""
+            "reference": "3S20",
+            "titre": "Calculer des probabilités pour des expériences aléatoires à deux épreuves à partir de dénombrement",
+            "slug": "3S20,s=1,n=1"
+          },
+          {
+            "reference": "4G30",
+            "titre": "Calculer une longueur à l'aide du théorème de Thalès (triangles emboîtés)",
+            "slug": "3G20,s=1,n=1,video=j_zZOpLLl9k,cd=1"
+          },
+          {
+            "reference": "4G30",
+            "titre": "Calculer une longueur à l'aide du théorème de Thalès (configuration en papillon)",
+            "slug": "3G20,s=2,n=1,video=j_zZOpLLl9k,cd=1"
           }
-        ]
+        ],
+        "slugEvalBrevet": "ex=dnb_2022_06_polynesie_4&ex=dnb_2017_06_metropole_5&ex=dnb_2020_09_metropole_2&ex=dnb_2019_07_metropole_6&ex=dnb_2019_06_metropole_5"
       },
       {
         "reference": "S3S6",
