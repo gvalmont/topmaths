@@ -209,16 +209,75 @@
                 "videos": [
                   {
                     "titre": "",
-                    "slug": "",
-                    "auteur": "Noelle Barny",
-                    "lienAuteur": "https://www.youtube.com/channel/UC9_mMk5yn9L2NPKXnqodaaA"
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=61nTu6CcydA&vignette=https://i.ytimg.com/vi/61nTu6CcydA/hqdefault.jpg&debut=0&fin=170&largeur=200&hauteur=113",
+                    "auteur": "nicolas RENAUD",
+                    "lienAuteur": "https://www.youtube.com/channel/UCkb9DAWPOy4C-_zg_VKA1Mw"
                   }
                 ],
                 "exercices": [
                   {
                     "id": 6033,
-                    "slug": "",
-                    "description": ""
+                    "slug": "6N30,s=4,n=3",
+                    "description": "Lire l'abscisse (Niveau 1)"
+                  },
+                  {
+                    "id": 6034,
+                    "slug": "6N30-1,s=1-2-3-4-5-6,n=3",
+                    "description": "Lire l'abscisse (Niveau 2)"
+                  },
+                  {
+                    "id": 6034,
+                    "slug": "6N30-2,s=4,n=3",
+                    "description": "Placer un point"
+                  }
+                ]
+              },
+              {
+                "reference": "6N31",
+                "titre": "Comparer, ranger, encadrer, intercaler des nombres décimaux",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Comparer",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=fr5GemewG4Q&vignette=https://i.ytimg.com/vi/fr5GemewG4Q/hqdefault.jpg&debut=0&fin=316&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  },
+                  {
+                    "titre": "Ranger",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=V5fOpdx53R4&vignette=https://i.ytimg.com/vi/V5fOpdx53R4/hqdefault.jpg&debut=0&fin=457&largeur=200&hauteur=113",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
+                  },
+                  {
+                    "titre": "Encadrer",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=B_U6DOnB-0o&vignette=https://i.ytimg.com/vi/B_U6DOnB-0o/hqdefault.jpg&debut=0&fin=362&largeur=200&hauteur=113",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
+                  },
+                  {
+                    "titre": "Intercaler",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=sXSS3Gmq3q4&vignette=https://i.ytimg.com/vi/sXSS3Gmq3q4/hqdefault.jpg&debut=0&fin=217&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6035,
+                    "slug": "6N31,n=4",
+                    "description": "Comparer"
+                  },
+                  {
+                    "id": 6036,
+                    "slug": "6N31-5,s=1-2-3,n=4",
+                    "description": "Encadrer"
+                  },
+                  {
+                    "id": 6034,
+                    "slug": "6N31-4,n=4",
+                    "description": "Intercaler"
                   }
                 ]
               }
