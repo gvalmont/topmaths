@@ -275,9 +275,46 @@
                     "description": "Encadrer"
                   },
                   {
-                    "id": 6034,
+                    "id": 6037,
                     "slug": "6N31-4,n=4",
                     "description": "Intercaler"
+                  }
+                ]
+              },
+              {
+                "reference": "6N35",
+                "titre": "Multiplier ou diviser un nombre décimal par 10, 100, 1 000…",
+                "rappelDuCoursHTML": "Pour multiplier un nombre décimal par 10, 100, 1000... on décale la virgule vers la droite<br>et pour diviser, on la décale vers la gauche !<br><i>S'il y a 2 zéros, on la décale de 2 rangs, s'il y a 3 zéros, on la décale de 3 rangs etc.</i><br><i>Si la virgule n'apparaît pas (parce que c'est un nombre entier), on a juste à l'ajouter !</i><br>Exemple : $\\require{color} 3 \\div 1{\\color{red}000} = 3,0 \\div 1{\\color{red}000} = 0,{\\color{red}003}{\\color{lightgrey},}0 $",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Multiplier",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=pPnCPmWGqyo&vignette=https://i.ytimg.com/vi/pPnCPmWGqyo/hqdefault.jpg&debut=0&fin=344&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  },
+                  {
+                    "titre": "Diviser",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=pLlBl2V1CC4&vignette=https://i.ytimg.com/vi/pLlBl2V1CC4/hqdefault.jpg&debut=0&fin=362&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6038,
+                    "slug": "6C30-1,s=1,s2=false,s3=true,s4=false,n=3",
+                    "description": "Multiplier par 10, 100, 1 000..."
+                  },
+                  {
+                    "id": 6039,
+                    "slug": "6C30-8,s=false,s2=true,s3=1,n=3",
+                    "description": "Diviser par 10, 100, 1 000..."
+                  },
+                  {
+                    "id": 6040,
+                    "slug": "6C30-8,s=false,s2=true,s3=4,n=6",
+                    "description": "Divisions à trou"
                   }
                 ]
               }
