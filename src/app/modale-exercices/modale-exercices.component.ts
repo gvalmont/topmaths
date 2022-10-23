@@ -144,7 +144,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
     if (divListenerExistant === null) {
       this.creerDivPresenceListener()
       window.addEventListener('message', (event) => {
-        if (event.origin === 'https://coopmaths.fr/' || event.origin === 'https://mathsmentales.net/' ) {
+        if (event.origin === 'https://coopmaths.fr' || event.origin === 'https://mathsmentales.net' ) {
           const type: string = this.get('type')
           const urlDejaFaits: string[] = this.get('urlDejaFaits')
           const dateDerniereReponse: Date = new Date(this.get('dateDerniereReponse'))
