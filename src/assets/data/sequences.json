@@ -201,6 +201,43 @@
             "slug": "c3C10,s=6,n=3,i=0"
           }
         ]
+      },
+      {
+        "reference": "S6S6",
+        "titre": "Polygones particuliers",
+        "objectifs": [
+          {
+            "reference": "6G20"
+          },
+          {
+            "reference": "6G16"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C10",
+            "titre": "Connaître les tables de multiplication",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6C20",
+            "titre": "Additionner et soustraire des nombres décimaux",
+            "slug": "6G52,s=3,n=1,cd=0"
+          },
+          {
+            "reference": "6N35",
+            "titre": "Multiplier ou diviser un nombre entier ou décimal par 10, 100, 1 000… (résultat décimal)",
+            "slug": "c3C10,s=6,n=3,i=0"
+          }
+        ]
       }
     ]
   },

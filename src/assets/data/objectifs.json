@@ -585,6 +585,66 @@
                     "description": ""
                   }
                 ]
+              },
+              {
+                "reference": "6G16",
+                "titre": "Coder les triangles et les quadrilatères particuliers",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "rappelDuCoursInstrumenpoche": "",
+                "videos": [
+                  {
+                    "titre": "Triangles particuliers",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=8jm4T3A5iq0&vignette=https://i.ytimg.com/vi/8jm4T3A5iq0/hqdefault.jpg&debut=0&fin=344&largeur=200&hauteur=113",
+                    "auteur": "Math Coaching",
+                    "lienAuteur": "https://www.youtube.com/c/MathCoaching"
+                  },
+                  {
+                    "titre": "Quadrilatères particuliers",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=4_RwdgCQg_0&vignette=https://i.ytimg.com/vi/4_RwdgCQg_0/hqdefault.jpg&debut=0&fin=171&largeur=200&hauteur=113",
+                    "auteur": "Chez Maîtresse Nath",
+                    "lienAuteur": "https://www.youtube.com/channel/UCLW5CTI4eVQoFSs3Wv-R0sQ"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6042,
+                    "slug": "6G20,s=3,n=8",
+                    "description": ""
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nom": "Niveau 2",
+            "objectifs": [
+              {
+                "reference": "6G20",
+                "titre": "Connaître le vocabulaire des polygones",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Définitions",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=zXlaaL3Y5vI&vignette=https://i.ytimg.com/vi/zXlaaL3Y5vI/hqdefault.jpg&debut=0&fin=343&largeur=200&hauteur=113",
+                    "auteur": "Substratum",
+                    "lienAuteur": "https://www.youtube.com/c/Substratum"
+                  },
+                  {
+                    "titre": "Comment nommer un polygone",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=x-dXftoFO1w&vignette=https://i.ytimg.com/vi/x-dXftoFO1w/hqdefault.jpg&debut=41&fin=157&largeur=200&hauteur=113",
+                    "auteur": "MATHS - VIDEOS",
+                    "lienAuteur": "https://www.youtube.com/c/maths-videos"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6041,
+                    "slug": "6G20-3,n=2,cd=1",
+                    "description": ""
+                  }
+                ]
               }
             ]
           },
