@@ -256,25 +256,6 @@ export class SequenceComponent implements OnInit, OnDestroy {
     }
   }
 
-  getStringNombreObjectifs (nombre: number) {
-    switch (nombre) {
-      case 1:
-        return 'un objectif'
-      case 2:
-        return 'deux objectifs'
-      case 3:
-        return 'trois objectifs'
-      case 4:
-        return 'quatre objectifs'
-      case 5:
-        return 'cinq objectifs'
-      case 6:
-        return 'six objectifs'
-      default:
-        return ''
-    }
-  }
-
   ouvrirModaleExercices (lien: string, ancre: string) {
     this.infosModale = [[lien], '', new Date() ]
     this.ancreDeRetour = ancre
