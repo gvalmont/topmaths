@@ -4127,29 +4127,6 @@
                 ]
               },
               {
-                "reference": "4G22",
-                "titre": "Résoudre un problème géométrique en ayant recours au théorème de Pythagore",
-                "rappelDuCoursHTML": "<a href='#/objectif/4G20'>4G20 : Calculer une longueur avec le théorème de Pythagore</a>",
-                "rappelDuCoursImage": "",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=IfCFBqxEQWk&vignette=https://i.ytimg.com/vi/IfCFBqxEQWk/hqdefault.jpg&debut=0&fin=171&largeur=200&hauteur=150",
-                    "auteur": "EXERCICES MATHS",
-                    "lienAuteur": "https://www.youtube.com/channel/UCL_2K3sFiaMQngZuvQhnRhQ"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 4025,
-                    "slug": "4G22,n=1,s=1",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
-                  }
-                ]
-              },
-              {
                 "reference": "4G23",
                 "titre": "Connaître la définition de la racine carrée d’un nombre positif",
                 "rappelDuCoursHTML": "$a$ désigne un nombre positif.<br>La carré de $a$ est le produit de $a$ par lui-même ($a \\times a$). Il est noté $a^2$.<br>La racine carrée de $a$ est le nombre positif dont le carré est $a$.<br>Ce nombre est noté $\\sqrt{a}$ et $(\\sqrt{a})^2=a$",
