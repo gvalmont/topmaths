@@ -410,9 +410,6 @@
             "reference": "5R10"
           },
           {
-            "reference": "5R11"
-          },
-          {
             "reference": "5R22"
           },
           {
@@ -499,6 +496,9 @@
         "objectifs": [
           {
             "reference": "5R21"
+          },
+          {
+            "reference": "5R11"
           },
           {
             "reference": "5R12"
