@@ -8,6 +8,14 @@
       </li>
     </ul>
   </div>
+  <div>
+    <button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== null && filtre.periode !== undefined && filtre.periode > 0}" (click)="filtre.periode = 0">Période</button>
+    <button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== 1}" (click)="filtre.periode === 1 ? filtre.periode = 0 : filtre.periode = 1">1</button>
+    <button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== 2}" (click)="filtre.periode === 2 ? filtre.periode = 0 : filtre.periode = 2">2</button>
+    <button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== 3}" (click)="filtre.periode === 3 ? filtre.periode = 0 : filtre.periode = 3">3</button>
+    <button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== 4}" (click)="filtre.periode === 4 ? filtre.periode = 0 : filtre.periode = 4">4</button>
+    <button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== 5}" (click)="filtre.periode === 5 ? filtre.periode = 0 : filtre.periode = 5">5</button>
+  </div>
   <input style="text-align:center; font-size:x-large ;" type="email" class="form-control" id="search-text" aria-describedby="search-text" [(ngModel)]="texteRecherche" placeholder="Recherche" autofocus>
   <div><br></div>
   <div class="container is-max-desktop centre">
@@ -28,7 +36,7 @@
           {{ligne.niveau}}
         </span>
       </h1>
-      <a routerLink="/sequence/{{ligne.reference}}" routerLinkActive="active" *ngIf="ligne.reference !== undefined && ligne.niveau !== 'fin' && (filtre.niveau === undefined || filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)">
+      <a routerLink="/sequence/{{ligne.reference}}" routerLinkActive="active" *ngIf="ligne.reference !== undefined && ligne.niveau !== 'fin' && filtre.periode !== null && (ligne.periode === filtre.periode || filtre.periode === undefined || filtre.periode === 0) && (filtre.niveau === undefined || filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)">
         <p [ngClass]="{'p-1 is-size-5': true, 'is-fin': lignesSequencesNormales[i].niveau !== lignesSequencesNormales[i + 1].niveau, 'is-6e': ligne.niveau === '6e', 'is-5e': ligne.niveau === '5e', 'is-4e': ligne.niveau === '4e', 'is-3e': ligne.niveau === '3e'}">
           {{ligne.numero === 0 ? '' : 'Séquence ' + ligne.numero + ' : '}}{{ligne.titre}}
         </p>

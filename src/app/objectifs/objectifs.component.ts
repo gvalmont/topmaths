@@ -4,11 +4,17 @@ import { Subscription } from 'rxjs'
 import { DataService } from '../services/data.service'
 
 interface Ligne {
-  niveau?: string;
-  theme?: string;
-  sousTheme?: string;
-  reference?: string;
+  niveau?: string,
+  periode?: number,
+  theme?: Theme,
+  sousTheme?: Theme,
+  reference?: string,
   titre?: string
+}
+
+interface Theme {
+  nom: string,
+  nbObjectifsParPeriode: number[]
 }
 @Component({
   selector: 'app-objectifs',
@@ -82,11 +88,11 @@ export class ObjectifsComponent implements OnInit, OnDestroy {
     for (const niveau of this.dataService.niveauxObjectifs) {
       this.lignes.push({ niveau: niveau.nom })
       for (const theme of niveau.themes) {
-        this.lignes.push({ niveau: niveau.nom, theme: theme.nom })
+        this.lignes.push({ niveau: niveau.nom, theme: { nom: theme.nom, nbObjectifsParPeriode: theme.nbObjectifsParPeriode } })
         for (const sousTheme of theme.sousThemes) {
-          this.lignes.push({ niveau: niveau.nom, theme: theme.nom, sousTheme: sousTheme.nom })
+          this.lignes.push({ niveau: niveau.nom, theme: { nom: theme.nom, nbObjectifsParPeriode: theme.nbObjectifsParPeriode }, sousTheme: { nom: sousTheme.nom, nbObjectifsParPeriode: sousTheme.nbObjectifsParPeriode } })
           for (const objectif of sousTheme.objectifs) {
-            this.lignes.push({ niveau: niveau.nom, theme: theme.nom, sousTheme: sousTheme.nom, reference: objectif.reference, titre: objectif.titre })
+            this.lignes.push({ niveau: niveau.nom, theme: { nom: theme.nom, nbObjectifsParPeriode: theme.nbObjectifsParPeriode }, sousTheme: { nom: sousTheme.nom, nbObjectifsParPeriode: sousTheme.nbObjectifsParPeriode }, reference: objectif.reference, titre: objectif.titre, periode: objectif.periode })
           }
         }
       }

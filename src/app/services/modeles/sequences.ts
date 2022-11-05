@@ -11,14 +11,16 @@ export class Niveau {
 export class Sequence {
   public reference: string
   public titre: string
+  public periode: number
   public objectifs: Objectif[]
   public calculsMentaux: CalculMental[]
   public questionsFlash: QuestionFlash[]
   public slugEvalBrevet: string
 
-  constructor (reference: string, titre: string, objectifs: Objectif[], calculsMentaux: CalculMental[], questionsFlash: QuestionFlash[], slugEvalBrevet: string) {
+  constructor (reference: string, titre: string, periode: number, objectifs: Objectif[], calculsMentaux: CalculMental[], questionsFlash: QuestionFlash[], slugEvalBrevet: string) {
     this.reference = reference
     this.titre = titre
+    this.periode = periode
     this.objectifs = objectifs
     this.calculsMentaux = calculsMentaux
     this.questionsFlash = questionsFlash

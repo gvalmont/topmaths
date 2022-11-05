@@ -95,7 +95,7 @@ export class ObjectifComponent implements OnInit, OnDestroy {
         }
       }
     }
-    return new Objectif('', '', '', '', '', [], [])
+    return new Objectif('', '', 0, '', '', '', [], [])
   }
 
   getSequences () {

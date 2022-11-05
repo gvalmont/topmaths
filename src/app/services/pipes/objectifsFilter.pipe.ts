@@ -1,11 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core'
 
 interface Ligne {
-  niveau?: string;
-  theme?: string;
-  sousTheme?: string;
-  reference?: string;
+  niveau?: string,
+  periode?: number,
+  theme?: Theme,
+  sousTheme?: Theme,
+  reference?: string,
   titre?: string
+}
+
+interface Theme {
+  nom: string,
+  nbObjectifsParPeriode: number[]
 }
 
 @Pipe({ name: 'objectifsFilter' })
@@ -37,8 +43,8 @@ export class ObjectifsFilter implements PipeTransform {
 
   motTrouve (mot: string, ligne: Ligne) {
     if (ligne.niveau !== undefined && this.normaliser(ligne.niveau).includes(mot)) return true
-    if (ligne.theme !== undefined && this.normaliser(ligne.theme).includes(mot)) return true
-    if (ligne.sousTheme !== undefined && this.normaliser(ligne.sousTheme).includes(mot)) return true
+    if (ligne.theme !== undefined && this.normaliser(ligne.theme.nom).includes(mot)) return true
+    if (ligne.sousTheme !== undefined && this.normaliser(ligne.sousTheme.nom).includes(mot)) return true
     if (ligne.reference !== undefined && this.normaliser(ligne.reference).includes(mot)) return true
     if (ligne.titre !== undefined && this.normaliser(ligne.titre).includes(mot)) return true
     return false

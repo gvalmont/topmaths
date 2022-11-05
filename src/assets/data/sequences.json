@@ -5,6 +5,7 @@
       {
         "reference": "S6S1",
         "titre": "Nombres entiers 1",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "6N10"
@@ -45,6 +46,7 @@
       {
         "reference": "S6S2",
         "titre": "Vocabulaire de géométrie",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "6G10-1"
@@ -77,6 +79,7 @@
       {
         "reference": "S6S3",
         "titre": "Fractions",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "6C23"
@@ -114,6 +117,7 @@
       {
         "reference": "S6S4",
         "titre": "Perpendiculaires et parallèles",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "6G11"
@@ -162,6 +166,7 @@
       {
         "reference": "S6S5",
         "titre": "Nombres décimaux 1",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "6N23"
@@ -205,6 +210,7 @@
       {
         "reference": "S6S6",
         "titre": "Polygones particuliers",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "6G20"
@@ -247,6 +253,7 @@
       {
         "reference": "S5S1",
         "titre": "Enchaînements d’opérations",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "5C12"
@@ -284,6 +291,7 @@
       {
         "reference": "S5S2",
         "titre": "Symétrie et médiatrice",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "5G10"
@@ -329,6 +337,7 @@
       {
         "reference": "S5S3",
         "titre": "Proportionnalité",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "6P10"
@@ -366,6 +375,7 @@
       {
         "reference": "S5S4",
         "titre": "Constructions de triangles",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "5G20"
@@ -405,6 +415,7 @@
       {
         "reference": "S5S5",
         "titre": "Nombres relatifs 1",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "5R10"
@@ -445,6 +456,7 @@
       {
         "reference": "S5S6",
         "titre": "Représentation de données",
+        "periode": 2,
         "objectifs": [
           {
             "reference": "5S10"
@@ -493,6 +505,7 @@
       {
         "reference": "S5S7",
         "titre": "Nombres relatifs 2",
+        "periode": 2,
         "objectifs": [
           {
             "reference": "5R21"
@@ -543,6 +556,7 @@
       {
         "reference": "S5S8",
         "titre": "Symétrie centrale",
+        "periode": 2,
         "objectifs": [
           {
             "reference": "5G11"
@@ -580,6 +594,7 @@
       {
         "reference": "S5S9",
         "titre": "Arithmétique 1",
+        "periode": 2,
         "objectifs": [
           {
             "reference": "5A10"
@@ -617,6 +632,7 @@
       {
         "reference": "S5S10",
         "titre": "Échelles",
+        "periode": 2,
         "objectifs": [
           {
             "reference": "5M12"
@@ -654,6 +670,7 @@
       {
         "reference": "S5S11",
         "titre": "Fractions 1",
+        "periode": 2,
         "objectifs": [
           {
             "reference": "5N10"
@@ -694,6 +711,7 @@
       {
         "reference": "S5S12",
         "titre": "Angles",
+        "periode": 3,
         "objectifs": [
           {
             "reference": "5G30-1"
@@ -731,6 +749,7 @@
       {
         "reference": "S5S13",
         "titre": "Arithmétique 2",
+        "periode": 3,
         "objectifs": [
           {
             "reference": "5A12"
@@ -763,6 +782,7 @@
       {
         "reference": "S5S14",
         "titre": "Somme des angles d'un triangle",
+        "periode": 3,
         "objectifs": [
           {
             "reference": "5G31"
@@ -797,6 +817,7 @@
       {
         "reference": "S5S15",
         "titre": "Calcul littéral 1",
+        "periode": 3,
         "objectifs": [
           {
             "reference": "5L16"
@@ -834,6 +855,7 @@
       {
         "reference": "S5S16",
         "titre": "Fractions 2",
+        "periode": 3,
         "objectifs": [
           {
             "reference": "5N13"
@@ -871,6 +893,7 @@
       {
         "reference": "S5S17",
         "titre": "Parallélogrammes 1",
+        "periode": 3,
         "objectifs": [
           {
             "reference": "5G40"
@@ -908,6 +931,7 @@
       {
         "reference": "S5S18",
         "titre": "Fractions 3",
+        "periode": 4,
         "objectifs": [
           {
             "reference": "5N20"
@@ -945,6 +969,7 @@
       {
         "reference": "S5S19",
         "titre": "Aires",
+        "periode": 4,
         "objectifs": [
           {
             "reference": "5M10"
@@ -995,6 +1020,7 @@
       {
         "reference": "S5S20",
         "titre": "Parallélogrammes 2",
+        "periode": 4,
         "objectifs": [
           {
             "reference": "5G41"
@@ -1034,6 +1060,7 @@
       {
         "reference": "S5S21",
         "titre": "Ratios",
+        "periode": 4,
         "objectifs": [
           {
             "reference": "5P12"
@@ -1068,6 +1095,7 @@
       {
         "reference": "S5S22",
         "titre": "Calcul littéral 2",
+        "periode": 4,
         "objectifs": [
           {
             "reference": "5L10"
@@ -1107,6 +1135,7 @@
       {
         "reference": "S5S23",
         "titre": "Moyennes",
+        "periode": 4,
         "objectifs": [
           {
             "reference": "5S14"
@@ -1141,6 +1170,7 @@
       {
         "reference": "S5S24",
         "titre": "Calcul littéral 3",
+        "periode": 5,
         "objectifs": [
           {
             "reference": "5L14"
@@ -1183,6 +1213,7 @@
       {
         "reference": "S5S25",
         "titre": "Durées, horaires",
+        "periode": 5,
         "objectifs": [
           {
             "reference": "5M30"
@@ -1225,6 +1256,7 @@
       {
         "reference": "S5S26",
         "titre": "Probabilités",
+        "periode": 5,
         "objectifs": [
           {
             "reference": "5S20"
@@ -1267,6 +1299,7 @@
       {
         "reference": "S5S27",
         "titre": "Solides",
+        "periode": 5,
         "objectifs": [
           {
             "reference": "5G50"
@@ -1304,6 +1337,7 @@
       {
         "reference": "S5S28",
         "titre": "Volumes",
+        "periode": 5,
         "objectifs": [
           {
             "reference": "5M22"
@@ -1362,6 +1396,7 @@
       {
         "reference": "S4S1",
         "titre": "Statistiques",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "5S14"
@@ -1397,6 +1432,7 @@
       {
         "reference": "S4S2",
         "titre": "Distributivité 1",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "4L16"
@@ -1428,6 +1464,7 @@
       },
       {
         "reference": "S4S3",
+        "periode": 1,
         "titre": "Multiplication et division de nombres relatifs",
         "objectifs": [
           {
@@ -1463,6 +1500,7 @@
       {
         "reference": "S4S4",
         "titre": "Racine carrée",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "4G23"
@@ -1505,6 +1543,7 @@
       {
         "reference": "S4S5",
         "titre": "Distributivité 2",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "4L10-2"
@@ -1542,6 +1581,7 @@
       {
         "reference": "S4S6",
         "titre": "Théorème de Pythagore",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "4G20"
@@ -1576,6 +1616,7 @@
       {
         "reference": "S4S7",
         "titre": "Puissances 1",
+        "periode": 2,
         "objectifs": [
           {
             "reference": "4C33"
@@ -1628,6 +1669,7 @@
       {
         "reference": "S4S8",
         "titre": "Proportionnalité et représentation graphique",
+        "periode": 2,
         "objectifs": [
           {
             "reference": "6P10"
@@ -1678,6 +1720,7 @@
       {
         "reference": "S4S9",
         "titre": "Triangles égaux",
+        "periode": 2,
         "objectifs": [
           {
             "reference": "4G33"
@@ -1712,6 +1755,7 @@
       {
         "reference": "S4S10",
         "titre": "Nombres premiers",
+        "periode": 2,
         "objectifs": [
           {
             "reference": "4A10"
@@ -1767,6 +1811,7 @@
       {
         "reference": "S4S11",
         "titre": "Équations 1",
+        "periode": 2,
         "objectifs": [
           {
             "reference": "4L12"
@@ -1809,6 +1854,7 @@
       {
         "reference": "S4S12",
         "titre": "Fractions",
+        "periode": 2,
         "objectifs": [
           {
             "reference": "5N21"
@@ -1857,6 +1903,7 @@
       {
         "reference": "S4S13",
         "titre": "Probabilités",
+        "periode": 3,
         "objectifs": [
           {
             "reference": "4S20"
@@ -1902,6 +1949,7 @@
       {
         "reference": "S4S14",
         "titre": "Équations 2",
+        "periode": 3,
         "objectifs": [
           {
             "reference": "4L20"
@@ -1944,6 +1992,7 @@
       {
         "reference": "S4S15",
         "titre": "Agrandissement et réduction",
+        "periode": 3,
         "objectifs": [
           {
             "reference": "4P14"
@@ -1986,6 +2035,7 @@
       {
         "reference": "S4S16",
         "titre": "Théorème de Thalès",
+        "periode": 3,
         "objectifs": [
           {
             "reference": "4G30"
@@ -2020,6 +2070,7 @@
       {
         "reference": "S4S17",
         "titre": "Puissances 2",
+        "periode": 3,
         "objectifs": [
           {
             "reference": "4C30"
@@ -2067,6 +2118,7 @@
       {
         "reference": "S4S18",
         "titre": "Translation",
+        "periode": 4,
         "objectifs": [
           {
             "reference": "4G11"
@@ -2133,6 +2185,7 @@
       {
         "reference": "S4S19",
         "titre": "Notation scientifique",
+        "periode": 4,
         "objectifs": [
           {
             "reference": "4C32"
@@ -2177,6 +2230,7 @@
       {
         "reference": "S4S20",
         "titre": "Repérage dans un pavé droit",
+        "periode": 4,
         "objectifs": [
           {
             "reference": "4G52"
@@ -2232,6 +2286,7 @@
       {
         "reference": "S4S21",
         "titre": "Réciproques et contraposées",
+        "periode": 4,
         "objectifs": [
           {
             "reference": "4G21"
@@ -2274,6 +2329,7 @@
       {
         "reference": "S4S22",
         "titre": "Grandeurs composées",
+        "periode": 4,
         "objectifs": [
           {
             "reference": "4P16"
@@ -2332,6 +2388,7 @@
       {
         "reference": "S4S23",
         "titre": "Dépendance entre deux grandeurs",
+        "periode": 5,
         "objectifs": [
           {
             "reference": "4F10"
@@ -2377,6 +2434,7 @@
       {
         "reference": "S4S24",
         "titre": "Pyramides et cônes",
+        "periode": 5,
         "objectifs": [
           {
             "reference": "4G50"
@@ -2443,6 +2501,7 @@
       {
         "reference": "S4S25",
         "titre": "Cosinus d'un angle aigu",
+        "periode": 5,
         "objectifs": [
           {
             "reference": "4G40"
@@ -2487,6 +2546,7 @@
       {
         "reference": "S3S1",
         "titre": "Probabilités",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "4S20"
@@ -2538,6 +2598,7 @@
       {
         "reference": "S3S2",
         "titre": "Calcul littéral 1",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "5L13"
@@ -2579,6 +2640,7 @@
       {
         "reference": "S3S3",
         "titre": "Statistiques 1",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "5S14"
@@ -2630,6 +2692,7 @@
       {
         "reference": "S3S4",
         "titre": "Proportionnalité en géométrie 1",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "4G30"
@@ -2670,6 +2733,7 @@
       {
         "reference": "S3S5",
         "titre": "Calcul littéral 2",
+        "periode": 1,
         "objectifs": [
           {
             "reference": "3L11"
@@ -2716,6 +2780,7 @@
       {
         "reference": "S3S6",
         "titre": "Notion de fonction",
+        "periode": 2,
         "objectifs": [
           {
             "reference": "3F10"
@@ -2749,6 +2814,7 @@
       {
         "reference": "S3S7",
         "titre": "Calcul littéral 3",
+        "periode": 2,
         "objectifs": [
           {
             "reference": "3L12"
@@ -2783,6 +2849,7 @@
       {
         "reference": "S3S8",
         "titre": "Trigonométrie 1",
+        "periode": 2,
         "objectifs": [
           {
             "reference": "3G30"
@@ -2817,6 +2884,7 @@
       {
         "reference": "S3S9",
         "titre": "Statistiques 2",
+        "periode": 2,
         "objectifs": [
           {
             "reference": "3S10"
@@ -2867,6 +2935,7 @@
       {
         "reference": "S3S10",
         "titre": "Proportionnalité en géométrie 2",
+        "periode": 2,
         "objectifs": [
           {
             "reference": "3G23"
@@ -2909,6 +2978,7 @@
       {
         "reference": "S3S11",
         "titre": "Nombres premiers",
+        "periode": 2,
         "objectifs": [
           {
             "reference": "4A11"
@@ -2957,6 +3027,7 @@
       {
         "reference": "S3S12",
         "titre": "Trigonométrie 2",
+        "periode": 3,
         "objectifs": [
           {
             "reference": "3G31"
@@ -2991,6 +3062,7 @@
       {
         "reference": "S3S13",
         "titre": "Fractions",
+        "periode": 3,
         "objectifs": [
           {
             "reference": "3N11"
@@ -3028,6 +3100,7 @@
       {
         "reference": "S3S14",
         "titre": "Statistiques et probabilités",
+        "periode": 3,
         "objectifs": [
           {
             "reference": "3S21"
@@ -3057,6 +3130,7 @@
       {
         "reference": "S3S15",
         "titre": "Puissances",
+        "periode": 3,
         "objectifs": [
           {
             "reference": "4C37"
@@ -3094,6 +3168,7 @@
       {
         "reference": "S3S16",
         "titre": "Calcul littéral 4",
+        "periode": 3,
         "objectifs": [
           {
             "reference": "3L15"
@@ -3121,6 +3196,7 @@
       {
         "reference": "S3S17",
         "titre": "Rotations",
+        "periode": 4,
         "objectifs": [
           {
             "reference": "3G10"
@@ -3148,6 +3224,7 @@
       {
         "reference": "S3S18",
         "titre": "Fonctions linéaires",
+        "periode": 4,
         "objectifs": [
           {
             "reference": "3F22"
@@ -3178,6 +3255,7 @@
       {
         "reference": "S3S19",
         "titre": "Proportionnalité en géométrie 3",
+        "periode": 4,
         "objectifs": [
           {
             "reference": "3G21"
@@ -3202,6 +3280,7 @@
       {
         "reference": "S3S20",
         "titre": "Fonctions affines",
+        "periode": 5,
         "objectifs": [
           {
             "reference": "3F14"
@@ -3238,6 +3317,7 @@
       {
         "reference": "S3S21",
         "titre": "Sphère et boule",
+        "periode": 5,
         "objectifs": [
           {
             "reference": "3G40"
@@ -3265,6 +3345,7 @@
       {
         "reference": "S3S22",
         "titre": "Proportionnalité en géométrie 4",
+        "periode": 5,
         "objectifs": [
           {
             "reference": "3G11"
@@ -3292,6 +3373,7 @@
       {
         "reference": "S3S23",
         "titre": "Grandeurs composées",
+        "periode": 5,
         "objectifs": [
           {
             "reference": "3P11"
@@ -3322,6 +3404,7 @@
       {
         "reference": "S3S24",
         "titre": "Solides et sections planes",
+        "periode": 5,
         "objectifs": [
           {
             "reference": "3G41"

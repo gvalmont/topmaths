@@ -11,35 +11,41 @@ export class Niveau {
 export class Theme {
   public nom: string
   public sousThemes: SousTheme[]
+  public nbObjectifsParPeriode: number[]
 
-  constructor (nom: string, sousThemes: SousTheme[]) {
+  constructor (nom: string, sousThemes: SousTheme[], nbObjectifsParPeriode: number[]) {
     this.nom = nom
     this.sousThemes = sousThemes
+    this.nbObjectifsParPeriode = nbObjectifsParPeriode
   }
 }
 
 export class SousTheme {
   public nom: string
   public objectifs: Objectif[]
+  public nbObjectifsParPeriode: number[]
 
-  constructor (nom: string, objectifs: Objectif[]) {
+  constructor (nom: string, objectifs: Objectif[], nbObjectifsParPeriode: number[]) {
     this.nom = nom
     this.objectifs = objectifs
+    this.nbObjectifsParPeriode = nbObjectifsParPeriode
   }
 }
 
 export class Objectif {
   public reference: string
   public titre: string
+  public periode: number
   public rappelDuCoursHTML: string
   public rappelDuCoursImage: string
   public rappelDuCoursInstrumenpoche: string
   public videos: Video[]
   public exercices: Exercice[]
 
-  constructor (reference: string, titre: string, rappelDuCoursHTML: string, rappelDuCoursImage: string, rappelDuCoursInstrumenpoche: string, videos: Video[], exercices: Exercice[]) {
+  constructor (reference: string, titre: string, periode: number, rappelDuCoursHTML: string, rappelDuCoursImage: string, rappelDuCoursInstrumenpoche: string, videos: Video[], exercices: Exercice[]) {
     this.reference = reference
     this.titre = titre
+    this.periode = periode
     this.rappelDuCoursHTML = rappelDuCoursHTML
     this.rappelDuCoursImage = rappelDuCoursImage
     this.rappelDuCoursInstrumenpoche = rappelDuCoursInstrumenpoche

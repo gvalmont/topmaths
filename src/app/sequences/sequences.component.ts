@@ -4,9 +4,10 @@ import { Subscription } from 'rxjs'
 import { DataService } from '../services/data.service'
 
 interface Ligne {
-  niveau?: string;
-  numero?: number;
-  reference?: string;
+  niveau?: string,
+  periode?: number,
+  numero?: number,
+  reference?: string,
   titre?: string
 }
 @Component({
@@ -91,7 +92,8 @@ export class SequencesComponent implements OnInit, OnDestroy {
     for (const niveau of this.dataService.niveauxSequences) {
       this.lignesSequencesNormales.push({ niveau: niveau.nom })
       for (const sequence of niveau.sequences) {
-        this.lignesSequencesNormales.push({ niveau: niveau.nom, reference: sequence.reference, titre: sequence.titre, numero: parseInt(sequence.reference.slice(3)) })
+        if (typeof sequence.periode !== 'number') console.log(sequence)
+        this.lignesSequencesNormales.push({ niveau: niveau.nom, reference: sequence.reference, titre: sequence.titre, periode: sequence.periode, numero: parseInt(sequence.reference.slice(3)) })
       }
       this.lignesSequencesNormales.push({ niveau: 'fin' })
     }
