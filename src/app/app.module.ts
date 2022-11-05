@@ -26,8 +26,8 @@ import { PanierComponent } from './panier/panier.component'
 import { BoutonDropdownSimpleComponent } from './mini-components/bouton-dropdown-simple/bouton-dropdown-simple.component'
 import { SPS2Component } from './sequencesParticulieres/sps2/sps2.component'
 import { TableauDAideComponent } from './outils/tableau-d-aide/tableau-d-aide.component'
-import { LecteurDeXlsComponent } from './mini-components/lecteur-de-xls/lecteur-de-xls.component';
-import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
+import { LecteurDeXlsComponent } from './mini-components/lecteur-de-xls/lecteur-de-xls.component'
+import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component'
 import { CguComponent } from './cgu/cgu.component'
 
 @NgModule({
