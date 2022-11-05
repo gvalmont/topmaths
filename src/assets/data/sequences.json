@@ -78,7 +78,7 @@
       },
       {
         "reference": "S6S3",
-        "titre": "Fractions",
+        "titre": "Fractions 1",
         "periode": 1,
         "objectifs": [
           {
@@ -242,6 +242,44 @@
             "reference": "6N35",
             "titre": "Multiplier ou diviser un nombre entier ou décimal par 10, 100, 1 000… (résultat décimal)",
             "slug": "c3C10,s=6,n=3,i=0"
+          }
+        ]
+      },
+      {
+        "reference": "S6S7",
+        "titre": "Nombres entiers 2",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "6C21"
+          },
+          {
+            "reference": "6C12"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6N35",
+            "titre": "Multiplier ou diviser un nombre entier ou décimal par 10, 100, 1 000… (résultat décimal)",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=8NE5~o=~q=~p=~t=18~n=4_i=8NE4~o=0,1,2,3,4,5,6,7,8~q=0.-1.-2.-3.-4.-5.-6.-7.-8.~p=~t=18~n=4",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6N31",
+            "titre": "Comparer, encadrer, intercaler des nombres décimaux",
+            "slug": "6N31,n=1&ex=6N31-5,s=1-2-3,n=1&ex=6N31-4,n=1"
+          },
+          {
+            "reference": "6G60",
+            "titre": "Exécuter des déplacements.",
+            "slug": "can6I01,s=1,s2=true,s3=1,s4=false,n=1,cd=1"
           }
         ]
       }

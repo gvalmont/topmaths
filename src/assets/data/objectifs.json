@@ -319,6 +319,27 @@
                 ]
               }
             ]
+          },
+          {
+            "nom": "Niveau 4",
+            "objectifs": [
+              {
+                "reference": "6N44",
+                "titre": "Utiliser des fractions pour exprimer un quotient",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=-xwhkfVwd-o&vignette=https://i.ytimg.com/vi/-xwhkfVwd-o/hqdefault.jpg&debut=0&fin=555&largeur=200&hauteur=150",
+                    "auteur": "Maths et Jeux",
+                    "lienAuteur": "https://www.youtube.com/c/MathsetJeux"
+                  }
+                ],
+                "exercices": [
+                ]
+              }
+            ]
           }
         ]
       },
@@ -326,8 +347,78 @@
         "nom": "Calculs",
         "sousThemes": [
           {
+            "nom": "Niveau 1",
+            "objectifs": [
+              {
+                "reference": "6C12",
+                "titre": "Résoudre des problèmes avec des nombres entiers",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Addition et soustraction",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Ek0j4-DO_pw&vignette=https://i.ytimg.com/vi/Ek0j4-DO_pw/hqdefault.jpg&debut=0&fin=758&largeur=200&hauteur=113",
+                    "auteur": "Magali Ziegler",
+                    "lienAuteur": "https://www.youtube.com/channel/UCmhV560qa7hhba6XQ6er-8g"
+                  },
+                  {
+                    "titre": "Multiplication",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=tWl-gMvyJdY&vignette=https://i.ytimg.com/vi/tWl-gMvyJdY/hqdefault.jpg&debut=0&fin=713&largeur=200&hauteur=113",
+                    "auteur": "Magali Ziegler",
+                    "lienAuteur": "https://www.youtube.com/channel/UCmhV560qa7hhba6XQ6er-8g"
+                  },
+                  {
+                    "titre": "Division",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=9Fu2CAnMeLY&vignette=https://i.ytimg.com/vi/9Fu2CAnMeLY/hqdefault.jpg&debut=0&fin=321&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6045,
+                    "slug": "6C12,s=9,s2=true,s3=true,s4=3,n=1",
+                    "description": ""
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "nom": "Niveau 2",
             "objectifs": [
+              {
+                "reference": "6C21",
+                "titre": "Effectuer une division euclidienne",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Diviseur à 1 chiffre",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=ZIwmQ3KSMH0&vignette=https://i.ytimg.com/vi/ZIwmQ3KSMH0/hqdefault.jpg&debut=0&fin=392&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  },
+                  {
+                    "titre": "Diviseur à 2 chiffres",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=2Ocfhucc58g&vignette=https://i.ytimg.com/vi/2Ocfhucc58g/hqdefault.jpg&debut=0&fin=671&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6043,
+                    "slug": "6C21,s=2,n=4",
+                    "description": "Diviseur à 1 chiffre"
+                  },
+                  {
+                    "id": 6044,
+                    "slug": "6C21,s=3,n=1",
+                    "description": "Diviseur à 2 chiffres"
+                  }
+                ]
+              },
               {
                 "reference": "6C23",
                 "titre": "Ajouter et soustraire des fractions de même dénominateur",
