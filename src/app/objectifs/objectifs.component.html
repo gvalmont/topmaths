@@ -7,7 +7,7 @@
       </li>
     </ul>
   </div>
-  <div>
+  <div class="is-flex is-justify-content-center" style="overflow:scroll">
     <button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== null && filtre.periode !== undefined && filtre.periode > 0}" (click)="filtre.periode = 0">Période</button>
     <button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== 1}" (click)="filtre.periode === 1 ? filtre.periode = 0 : filtre.periode = 1">1</button>
     <button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== 2}" (click)="filtre.periode === 2 ? filtre.periode = 0 : filtre.periode = 2">2</button>
