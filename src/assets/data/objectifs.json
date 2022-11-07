@@ -6,7 +6,7 @@
         "nom": "Numération et fractions",
         "sousThemes": [
           {
-            "nom": "Niveau 1",
+            "nom": "6N1 Niveau 1",
             "objectifs": [
               {
                 "reference": "6N10",
@@ -115,7 +115,7 @@
             ]
           },
           {
-            "nom": "Niveau 2",
+            "nom": "6N2 Niveau 2",
             "objectifs": [
               {
                 "reference": "6N20",
@@ -199,7 +199,7 @@
             ]
           },
           {
-            "nom": "Niveau 3",
+            "nom": "6N3 Niveau 3",
             "objectifs": [
               {
                 "reference": "6N30",
@@ -321,7 +321,7 @@
             ]
           },
           {
-            "nom": "Niveau 4",
+            "nom": "6N4 Niveau 4",
             "objectifs": [
               {
                 "reference": "6N44",
@@ -347,7 +347,7 @@
         "nom": "Calculs",
         "sousThemes": [
           {
-            "nom": "Niveau 1",
+            "nom": "6C1 Niveau 1",
             "objectifs": [
               {
                 "reference": "6C12",
@@ -385,7 +385,7 @@
             ]
           },
           {
-            "nom": "Niveau 2",
+            "nom": "6C2 Niveau 2",
             "objectifs": [
               {
                 "reference": "6C21",
@@ -447,7 +447,7 @@
         "nom": "Gestion de données",
         "sousThemes": [
           {
-            "nom": "Proportionnalité",
+            "nom": "6P1 Proportionnalité",
             "objectifs": [
               {
                 "reference": "6P10",
@@ -541,7 +541,7 @@
         "nom": "Géométrie",
         "sousThemes": [
           {
-            "nom": "Niveau 1",
+            "nom": "6G1 Niveau 1",
             "objectifs": [
               {
                 "reference": "6G10-1",
@@ -708,7 +708,7 @@
             ]
           },
           {
-            "nom": "Niveau 2",
+            "nom": "6G2 Niveau 2",
             "objectifs": [
               {
                 "reference": "6G20",
@@ -740,7 +740,7 @@
             ]
           },
           {
-            "nom": "Alignement, perpendicularité et parallélisme",
+            "nom": "6G5 Alignement, perpendicularité et parallélisme",
             "objectifs": [
               {
                 "reference": "6G52",
@@ -776,7 +776,7 @@
         "nom": "Nombres et Calculs",
         "sousThemes": [
           {
-            "nom": "Calculs",
+            "nom": "5C1 Calculs",
             "objectifs": [
               {
                 "reference": "5C11",
@@ -861,7 +861,7 @@
             ]
           },
           {
-            "nom": "Arithmétique",
+            "nom": "5A1 Arithmétique",
             "objectifs": [
               {
                 "reference": "5A10",
@@ -978,7 +978,7 @@
             ]
           },
           {
-            "nom": "Fractions",
+            "nom": "5N1 Fractions",
             "objectifs": [
               {
                 "reference": "5N10",
@@ -1225,7 +1225,7 @@
             ]
           },
           {
-            "nom": "Nombres Relatifs",
+            "nom": "5R1 Nombres Relatifs",
             "objectifs": [
               {
                 "reference": "5R10",
@@ -1389,7 +1389,7 @@
             ]
           },
           {
-            "nom": "Calcul littéral",
+            "nom": "5L1 Calcul littéral",
             "objectifs": [
               {
                 "reference": "5L10",
@@ -1682,7 +1682,7 @@
         "nom": "Organisation et gestion de données",
         "sousThemes": [
           {
-            "nom": "Proportionnalité",
+            "nom": "5P1 Proportionnalité",
             "objectifs": [
               {
                 "reference": "5P12",
@@ -1750,7 +1750,7 @@
             ]
           },
           {
-            "nom": "Statistiques",
+            "nom": "5S1 Statistiques",
             "objectifs": [
               {
                 "reference": "5S10",
@@ -1905,7 +1905,7 @@
             ]
           },
           {
-            "nom": "Probabilités",
+            "nom": "5S2 Probabilités",
             "objectifs": [
               {
                 "reference": "5S20",
@@ -1961,7 +1961,7 @@
         "nom": "Grandeurs et mesures",
         "sousThemes": [
           {
-            "nom": "Périmètre et aire",
+            "nom": "5M1 Périmètre et aire",
             "objectifs": [
               {
                 "reference": "5M10",
@@ -2145,7 +2145,7 @@
             ]
           },
           {
-            "nom": "Volumes",
+            "nom": "5M2 Volumes",
             "objectifs": [
               {
                 "reference": "5M20",
@@ -2281,7 +2281,7 @@
             ]
           },
           {
-            "nom": "Durées",
+            "nom": "5M3 Durées",
             "objectifs": [
               {
                 "reference": "5M30",
@@ -2351,7 +2351,7 @@
         "nom": "Géométrie",
         "sousThemes": [
           {
-            "nom": "Symétries",
+            "nom": "5G1 Symétries",
             "objectifs": [
               {
                 "reference": "5G10",
@@ -2488,7 +2488,7 @@
             ]
           },
           {
-            "nom": "Triangles",
+            "nom": "5G2 Triangles",
             "objectifs": [
               {
                 "reference": "5G20",
@@ -2598,7 +2598,7 @@
             ]
           },
           {
-            "nom": "Angles",
+            "nom": "5G3 Angles",
             "objectifs": [
               {
                 "reference": "5G30-1",
@@ -2724,7 +2724,7 @@
             ]
           },
           {
-            "nom": "Parallélogrammes",
+            "nom": "5G4 Parallélogrammes",
             "objectifs": [
               {
                 "reference": "5G40",
@@ -2811,7 +2811,7 @@
             ]
           },
           {
-            "nom": "Espace",
+            "nom": "6G5 Espace",
             "objectifs": [
               {
                 "reference": "5G50",
@@ -2896,7 +2896,7 @@
         "nom": "Calculs",
         "sousThemes": [
           {
-            "nom": "Relatifs",
+            "nom": "4C1 Relatifs",
             "objectifs": [
               {
                 "reference": "4C10",
@@ -2955,7 +2955,7 @@
             ]
           },
           {
-            "nom": "Fractions",
+            "nom": "4C2 Fractions",
             "objectifs": [
               {
                 "reference": "4C22-1",
@@ -3080,7 +3080,7 @@
             ]
           },
           {
-            "nom": "Puissances",
+            "nom": "4C3 Puissances",
             "objectifs": [
               {
                 "reference": "4C30",
@@ -3299,7 +3299,7 @@
             ]
           },
           {
-            "nom": "Arithmétique",
+            "nom": "4A1 Arithmétique",
             "objectifs": [
               {
                 "reference": "4A10",
@@ -3393,7 +3393,7 @@
             ]
           },
           {
-            "nom": "Calcul littéral",
+            "nom": "4L1 Calcul littéral",
             "objectifs": [
               {
                 "reference": "4L10-1",
@@ -3687,7 +3687,7 @@
         "nom": "Organisation et gestion de données, fonctions",
         "sousThemes": [
           {
-            "nom": "Statistiques",
+            "nom": "4S1 Statistiques",
             "objectifs": [
               {
                 "reference": "4S10",
@@ -3813,7 +3813,7 @@
             ]
           },
           {
-            "nom": "Proportionnalité",
+            "nom": "4P1 Proportionnalité",
             "objectifs": [
               {
                 "reference": "4P10",
@@ -3961,7 +3961,7 @@
             ]
           },
           {
-            "nom": "Fonctions",
+            "nom": "4F1 Fonctions",
             "objectifs": [
               {
                 "reference": "4F10",
@@ -4036,7 +4036,7 @@
         "nom": "Espace et géométrie",
         "sousThemes": [
           {
-            "nom": "Translation",
+            "nom": "4G1 Translation",
             "objectifs": [
               {
                 "reference": "4G10",
@@ -4117,7 +4117,7 @@
             ]
           },
           {
-            "nom": "Théorème de Pythagore",
+            "nom": "4G2 Théorème de Pythagore",
             "objectifs": [
               {
                 "reference": "4G20",
@@ -4284,7 +4284,7 @@
             ]
           },
           {
-            "nom": "Théorème de Thalès",
+            "nom": "4G3 Théorème de Thalès",
             "objectifs": [
               {
                 "reference": "4G30",
@@ -4394,7 +4394,7 @@
             ]
           },
           {
-            "nom": "Cosinus d'un angle",
+            "nom": "4G4 Cosinus d'un angle",
             "objectifs": [
               {
                 "reference": "4G40",
@@ -4422,7 +4422,7 @@
             ]
           },
           {
-            "nom": "Espace",
+            "nom": "4G5 Espace",
             "objectifs": [
               {
                 "reference": "4G50",
@@ -4554,7 +4554,7 @@
         "nom": "Nombres et Calculs",
         "sousThemes": [
           {
-            "nom": "Calcul Littéral",
+            "nom": "3L1 Calcul Littéral",
             "objectifs": [
               {
                 "reference": "3L10",
@@ -4733,7 +4733,7 @@
             ]
           },
           {
-            "nom": "Arithmétique",
+            "nom": "3A1 Arithmétique",
             "objectifs": [
               {
                 "reference": "3A11",
@@ -4768,7 +4768,7 @@
             ]
           },
           {
-            "nom": "Nombres et calculs",
+            "nom": "3N1 Nombres et calculs",
             "objectifs": [
               {
                 "reference": "3N11",
@@ -4815,7 +4815,7 @@
         "nom": "Organisation et gestion de données, fonctions",
         "sousThemes": [
           {
-            "nom": "Généralités sur les fonctions",
+            "nom": "3F1 Généralités sur les fonctions",
             "objectifs": [
               {
                 "reference": "3F10",
@@ -4960,7 +4960,7 @@
             ]
           },
           {
-            "nom": "Fonctions affines et linéaires",
+            "nom": "3F2 Fonctions affines et linéaires",
             "objectifs": [
               {
                 "reference": "3F20-1",
@@ -5113,7 +5113,7 @@
             ]
           },
           {
-            "nom": "Statistiques",
+            "nom": "3S1 Statistiques",
             "objectifs": [
               {
                 "reference": "3S10",
@@ -5156,7 +5156,7 @@
             ]
           },
           {
-            "nom": "Proportionnalité",
+            "nom": "3P1 Proportionnalité",
             "objectifs": [
               {
                 "reference": "3P10",
@@ -5251,7 +5251,7 @@
             ]
           },
           {
-            "nom": "Probabilités",
+            "nom": "3S2 Probabilités",
             "objectifs": [
               {
                 "reference": "3S20",
@@ -5307,7 +5307,7 @@
         "nom": "Géométrie",
         "sousThemes": [
           {
-            "nom": "Homothétie et rotation",
+            "nom": "3G1 Homothétie et rotation",
             "objectifs": [
               {
                 "reference": "3G10",
@@ -5408,7 +5408,7 @@
             ]
           },
           {
-            "nom": "Théorème de Thalès",
+            "nom": "3G2 Théorème de Thalès",
             "objectifs": [
               {
                 "reference": "3G21",
@@ -5471,7 +5471,7 @@
             ]
           },
           {
-            "nom": "Trigonométrie",
+            "nom": "3G3 Trigonométrie",
             "objectifs": [
               {
                 "reference": "3G30",
@@ -5543,7 +5543,7 @@
             ]
           },
           {
-            "nom": "Espace",
+            "nom": "3G4 Espace",
             "objectifs": [
               {
                 "reference": "3G40",
