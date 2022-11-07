@@ -12,6 +12,15 @@
       </a>
     </div>
     <p class="is-size-7">Google Play and the Google Play logo are trademarks of Google LLC. &nbsp; App Store and the App Store logo are trademarks of Apple Inc.</p>
+    <div>
+      <h2 class="my-5 py-3 subtitle is-3 is-tout">Continuer une séance Algorea</h2>
+      <p>
+        Il y a eu un bug ? Tu as eu un problème de connexion ?<br>
+        Ou tu veux juste continuer à la maison la séance que tu as commencée en classe ?<br>
+        Si tu as bien noté ton code, tu peux reprendre là où tu en étais grâce à ce bouton :<br><br>
+        <a href="https://concours.castor-informatique.fr/?"><button class="button is-link is-large">Continuer une séance Algorea</button></a>
+      </p>
+    </div>
     <div *ngFor="let seance of seances; index as i">
       <h2 class="my-5 py-3 subtitle is-3 is-tout">Séance {{ i + 1 }} : Algorea - {{ seance }}</h2>
       <a [href]="'https://concours.castor-informatique.fr/?team=seriousg' + (i + 1)">
