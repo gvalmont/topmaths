@@ -13,6 +13,9 @@ interface Eleve {
   styleUrls: ['./tableau-d-aide.component.css']
 })
 export class TableauDAideComponent implements OnInit {
+  INTITULE_COLONNE_PRENOM = 'Prénom'
+  INTUTULE_COLONNE_NOM = 'Nom'
+  NOTE_MIN_VALIDATION = 3
   eleves: Eleve[]
   parametresAffiches: boolean
   affichageCompetencesValidees: boolean
@@ -41,8 +44,9 @@ export class TableauDAideComponent implements OnInit {
     if (divListenerExistant === null) {
       this.creerDivPresenceListener()
       window.addEventListener('message', (event) => {
-        if (event.origin === environment.origine) {
-          this.eleves = this.modifierEleves(event.data)
+        if (event.origin === environment.origine && event.data.type === 'donneesTableur') {
+          const elevesBruts = event.data.data
+          this.eleves = this.modifierEleves(elevesBruts)
           sessionStorage.setItem('listeElevesTableauDAide', JSON.stringify(this.eleves)) // Pour éviter un bug si l'utilisateur utilise les boutons page précédente/suivante
         }
       })
@@ -55,47 +59,46 @@ export class TableauDAideComponent implements OnInit {
     document.body.appendChild(divListener)
   }
 
-  modifierEleves (eleves: any) {
-    const elevesModifies: Eleve[] = []
+  modifierEleves (elevesBruts: any) {
+    const elevesAvecCompetencesVaidees = this.ajouterCompetencesValidees(elevesBruts)
+    const elevesAvecPrenomEtCompetences = this.ajouterPrenom(elevesAvecCompetencesVaidees)
+    const eleves = <Eleve[]> this.ajouterNeVeutPasAider(elevesAvecPrenomEtCompetences)
+    return eleves
+  }
+
+  ajouterCompetencesValidees (eleves: any) {
     for (const eleve of eleves) {
+      const competencesValidees = []
       const keys = Object.keys(eleve)
       const values = <string[]>Object.values(eleve)
-      if (values[0] !== '') {
-        const competencesValidees = this.getCompetencesValidees(keys, values)
-        const presenceDoublonsPrenoms = this.getPresenceDoublonsPrenoms(eleves, values)
-        let prenom: string
-        presenceDoublonsPrenoms ? prenom = values[1] + ' ' + values[0].slice(0, 1) + '.' : prenom = values[1]
-        prenom = prenom.replace(/ /g, '\u00a0')
-        const eleveModifie: Eleve = { prenom, competencesValidees, veutAider: false }
-        elevesModifies.push(eleveModifie)
+      for (let i = 0; i < keys.length; i++) {
+        if (Number(values[i]) >= this.NOTE_MIN_VALIDATION) competencesValidees.push(keys[i].split(' ')[0])
       }
+      eleve.competencesValidees = competencesValidees
     }
-    return elevesModifies
+    return eleves
   }
 
-  getCompetencesValidees (keys: string[], values: string[]) {
-    const competencesValidees = []
-    for (let i = 0; i < keys.length; i++) {
-      if (Number(values[i]) >= 3) {
-        competencesValidees.push(keys[i].normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ')[0])
+  ajouterPrenom (eleves: any) {
+    for (const eleve of eleves) {
+      eleve.prenom = eleve[this.INTITULE_COLONNE_PRENOM]
+    }
+    for (const eleve1 of eleves) {
+      for (const eleve2 of eleves) {
+        if (eleve1[this.INTITULE_COLONNE_PRENOM] === eleve2[this.INTITULE_COLONNE_PRENOM] && eleve1[this.INTUTULE_COLONNE_NOM] !== eleve2[this.INTUTULE_COLONNE_NOM]) {
+          eleve1.prenom = eleve1[this.INTITULE_COLONNE_PRENOM] + ' ' + eleve1[this.INTUTULE_COLONNE_NOM].slice(0, 1) + '.'
+          eleve2.prenom = eleve2[this.INTITULE_COLONNE_PRENOM] + ' ' + eleve2[this.INTUTULE_COLONNE_NOM].slice(0, 1) + '.'
+        }
       }
     }
-    return competencesValidees
+    return eleves
   }
 
-  getPresenceDoublonsPrenoms (eleves: any, values: string[]) {
-    let compteurPrenomsIdentiques = 0
-    for (const eleve2 of eleves) {
-      const values2 = <string[]>Object.values(eleve2)
-      if (values2[1] === values[1]) {
-        compteurPrenomsIdentiques++
-      }
+  ajouterNeVeutPasAider (eleves: any) {
+    for (const eleve of eleves) {
+      eleve.veutAider = false
     }
-    if (compteurPrenomsIdentiques > 1) {
-      return true
-    } else {
-      return false
-    }
+    return eleves
   }
 
   veutAider (index: number, veutAider: boolean) {

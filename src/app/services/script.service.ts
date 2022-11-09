@@ -9,7 +9,7 @@ interface Scripts {
 }
 
 export const ScriptStore: Scripts[] = [
-  { name: 'xls', src: 'https://cdnjs.cloudflare.com/ajax/libs/xls/0.7.4-a/xls.js' }
+  { name: 'sheetJs', src: 'https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js' }
 ]
 
 @Injectable({
