@@ -766,6 +766,102 @@
             ]
           }
         ]
+      },
+      {
+        "nom": "Grandeurs et mesures",
+        "sousThemes": [
+          {
+            "nom": "6M1 Niveau 1",
+            "objectifs": [
+              {
+                "reference": "6M10",
+                "titre": "Calculer le périmètre et l’aire d’un carré, d’un rectangle et d’un triangle-rectangle",
+                "rappelDuCoursHTML": "Le <b><i>périmètre</i></b> d'un polygone est la somme des longeurs de ses côtés.<br>L'<b><i>aire</i></b> est la mesure de sa surface, on la calcule souvent en utilisant une formule :<br> $\\mathcal{A}_{\\text{Carré}} = \\text{côté} \\times \\text{côté} = c \\times c $ <br> $\\mathcal{A}_{\\text{Rectangle}} = \\text{Longueur} \\times \\text{largeur} = L \\times l$ <br> $\\mathcal{A}_{\\text{Triangle rectangle}} = \\cfrac{ \\text{Longueur} \\times \\text{largeur} }{2} = \\cfrac{ L \\times l }{2}$",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Cours sur le périmètre",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=9WZIOT5Ulsk&vignette=https://i.ytimg.com/vi/9WZIOT5Ulsk/hqdefault.jpg&debut=0&fin=481&largeur=200&hauteur=113&st=fr,fr",
+                    "auteur": "Maître Lucas",
+                    "lienAuteur": "https://www.youtube.com/c/Ma%C3%AEtreLucas"
+                  },
+                  {
+                    "titre": "Cours sur l'aire",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=T1iLZzu1Irs&vignette=https://i.ytimg.com/vi/T1iLZzu1Irs/hqdefault.jpg&debut=0&fin=348&largeur=200&hauteur=113&st=fr,fr",
+                    "auteur": "Maître Lucas",
+                    "lienAuteur": "https://www.youtube.com/c/Ma%C3%AEtreLucas"
+                  },
+                  {
+                    "titre": "Aires du carré et du rectangle en 1 min",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=UCd5hm4NMN4&vignette=https://i.ytimg.com/vi/UCd5hm4NMN4/hqdefault.jpg&debut=0&fin=64&largeur=200&hauteur=113",
+                    "auteur": "Hedacademy",
+                    "lienAuteur": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
+                  },
+                  {
+                    "titre": "Aire du triangle rectangle en 1 min",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=6gwJdatGvPo&vignette=https://i.ytimg.com/vi/6gwJdatGvPo/hqdefault.jpg&debut=0&fin=65&largeur=200&hauteur=113",
+                    "auteur": "Hedacademy",
+                    "lienAuteur": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6046,
+                    "slug": "6M11-1",
+                    "description": ""
+                  }
+                ]
+              },
+              {
+                "reference": "6M11",
+                "titre": "Calculer le périmètre et l’aire d’une figure complexe",
+                "rappelDuCoursHTML": "Pour calculer l'aire d'une figure complexe, on la découpe en figures dont on sait calculer l'aire.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=bMSrZjOBwcA&vignette=https://i.ytimg.com/vi/bMSrZjOBwcA/hqdefault.jpg&debut=0&fin=558&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6047,
+                    "slug": "6M11-2,n=1",
+                    "description": ""
+                  }
+                ]
+              },
+              {
+                "reference": "6M12",
+                "titre": "Convertir des longueurs",
+                "rappelDuCoursHTML": "Utilise le tableau ci-dessous ou fais-en un sur ta feuille pour t'aider à convertir !<br><iframe width='800px' height='350px' src='https://sesaprof.sesamath.net/doc/outils_tableaux/minified/unites_longueur.html'></iframe>",
+                "rappelDuCoursImage": "utiliser-convertisseur-de-longueurs.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=a6rFbX2eRx4&vignette=https://i.ytimg.com/vi/a6rFbX2eRx4/hqdefault.jpg&debut=0&fin=515&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6048,
+                    "slug": "6M12,s=4,s2=false,n=4",
+                    "description": "Avec des nombres entiers"
+                  },
+                  {
+                    "id": 6049,
+                    "slug": "6M12,s=4,s2=true,n=4",
+                    "description": "Avec des nombres décimaux"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -2066,43 +2162,6 @@
                     "slug": "6M11-2,n=1",
                     "score": 15,
                     "temps": 600,
-                    "isInteractif": true
-                  }
-                ]
-              },
-              {
-                "reference": "5M12",
-                "titre": "Effectuer des conversions d’unités de longueurs",
-                "rappelDuCoursHTML": "Utilise le tableau ci-dessous ou fais-en un sur ta feuille pour t'aider à convertir !<br><iframe width='800px' height='350px' src='https://sesaprof.sesamath.net/doc/outils_tableaux/minified/unites_longueur.html'></iframe>",
-                "rappelDuCoursImage": "utiliser-convertisseur-de-longueurs.png",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=drCAik_P1fE&vignette=https://i.ytimg.com/vi/drCAik_P1fE/hqdefault.jpg&debut=0&fin=359&largeur=200&hauteur=150",
-                    "auteur": "jean-yves Labouche",
-                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 5050,
-                    "slug": "6M12,s=3,s2=false,n=2",
-                    "score": 15,
-                    "temps": 300,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5051,
-                    "slug": "6M12,s=3,s2=true,n=2",
-                    "score": 20,
-                    "temps": 400,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5052,
-                    "slug": "6M12,s=4,s2=true,n=2",
-                    "score": 25,
-                    "temps": 500,
                     "isInteractif": true
                   }
                 ]
