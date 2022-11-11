@@ -5503,10 +5503,22 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "",
+                    "titre": "Résumé musical",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=PYRMUqSeNEc&vignette=https://i.ytimg.com/vi/PYRMUqSeNEc/hqdefault.jpg&debut=0&fin=218&largeur=200&hauteur=113",
                     "auteur": "Rapémathiques",
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
+                    "titre": "L'essentiel",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=BscM5Iti3zI&vignette=https://i.ytimg.com/vi/BscM5Iti3zI/hqdefault.jpg&debut=0&fin=492&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  },
+                  {
+                    "titre": "Cours complet",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=DfgUYXB5_jg&vignette=https://i.ytimg.com/vi/DfgUYXB5_jg/hqdefault.jpg&debut=0&fin=965&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
                 "exercices": [
@@ -5515,14 +5527,16 @@
                     "slug": "3G30,s=true,cd=0",
                     "score": 30,
                     "temps": 300,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Exercices avec schéma"
                   },
                   {
                     "id": 3026,
                     "slug": "3G30,s=false,cd=0",
                     "score": 40,
                     "temps": 400,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Exercices sans schéma"
                   }
                 ]
               },
