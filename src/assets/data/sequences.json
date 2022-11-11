@@ -2835,19 +2835,30 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "",
-            "titre": "",
+            "reference": "3L10",
+            "titre": "Déterminer l'opposé d'une expression littérale",
             "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=3ND3~o=1~q=1.0,1~p=~t=15~n=8",
+                "score": 5
+              }
             ]
           }
         ],
         "questionsFlash": [
           {
-            "reference": "",
-            "titre": "",
-            "slug": ""
+            "reference": "3L11",
+            "titre": "Développer par double distributivité",
+            "slug": "3L11-3,n=1"
+          },
+          {
+            "reference": "4L11",
+            "titre": "Factoriser",
+            "slug": "4L11,s=3,n=1"
           }
-        ]
+        ],
+        "slugEvalBrevet": "ex=dnb_2022_09_polynesie_4&ex=dnb_2019_06_grece_5&ex=dnb_2019_06_asie_7&ex=dnb_2019_03_caledonie_3&ex=dnb_2018_09_polynesie_3"
       },
       {
         "reference": "S3S7",

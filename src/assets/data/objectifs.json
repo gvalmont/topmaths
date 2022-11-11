@@ -928,7 +928,16 @@
                     "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=18~n=8",
                     "score": 2,
                     "temps": 160,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Calcul mental"
+                  },
+                  {
+                    "id": 5135,
+                    "slug": "5A12-3,s=1,s2=6,s3=1,s4=1,n=4",
+                    "score": 2,
+                    "temps": 160,
+                    "isInteractif": true,
+                    "description": "Labyrinthes"
                   }
                 ]
               },
@@ -2497,6 +2506,12 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
+                    "titre": "Connaissant les 3 longueurs (Résumé musical)",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=rlf9CYbPp6Y&vignette=https://i.ytimg.com/vi/rlf9CYbPp6Y/hqdefault.jpg&debut=0&fin=146&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
+                  {
                     "titre": "Connaissant les 3 longueurs",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=-7UGauYeTdk&vignette=https://i.ytimg.com/vi/-7UGauYeTdk/hqdefault.jpg&debut=0&fin=159&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
@@ -3320,7 +3335,13 @@
                     "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=1~q=1.~p=~t=30~n=8",
                     "score": 5,
                     "temps": 270,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Calcul mental"
+                  },
+                  {
+                    "id": 4089,
+                    "slug": "4A10-1,s=2,s2=6,s3=1,s4=1,n=4",
+                    "description": "Labyrinthes"
                   }
                 ]
               },
@@ -4824,60 +4845,72 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "",
+                    "titre": "Résumé musical",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=7OlnI4rj8cM&vignette=https://i.ytimg.com/vi/7OlnI4rj8cM/hqdefault.jpg&debut=0&fin=206&largeur=200&hauteur=113",
-                    "auteur": "rapémathiques",
+                    "auteur": "Rapémathiques",
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
+                    "titre": "Résumé pas musical",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=9DPvnj6Cl78&vignette=https://i.ytimg.com/vi/9DPvnj6Cl78/hqdefault.jpg&debut=0&fin=366&largeur=200&hauteur=113&st=fr,fr",
+                    "auteur": "L'Antisèche",
+                    "lienAuteur": "https://www.youtube.com/c/LAntiseche"
                   }
                 ],
                 "exercices": [
                   {
                     "id": 3014,
-                    "slug": "3F10-1,s=2,n=3,cd=0",
+                    "slug": "3F10-1,s=5,n=3,cd=0",
                     "score": 8,
                     "temps": 400,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "QCM"
                   },
                   {
                     "id": 3065,
                     "slug": "3F10-3,s=5,n=3",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Écrire une égalité ou une phrase"
                   }
                 ]
               },
               {
                 "reference": "3F11",
-                "titre": "Passer d’un mode de représentation d’une fonction à un autre",
+                "titre": "Calculer une image par une fonction",
                 "rappelDuCoursHTML": "",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
                     "titre": "",
-                    "slug": "",
-                    "auteur": "",
-                    "lienAuteur": ""
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=FjqPwHS7vE8&vignette=https://i.ytimg.com/vi/FjqPwHS7vE8/hqdefault.jpg&debut=0&fin=209&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
                 "exercices": [
                   {
-                    "slug": "",
-                    "score": ""
+                    "id": 3016,
+                    "slug": "3F12-2,s=5,n=4",
+                    "score": 15,
+                    "temps": 500,
+                    "isInteractif": false,
+                    "description": ""
                   }
                 ]
               },
               {
                 "reference": "3F12",
-                "titre": "Déterminer l’image d’un nombre par une fonction à partir de tous les modes de représentation",
+                "titre": "Déterminer une image et un antécédent dans un tableau",
                 "rappelDuCoursHTML": "",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
                     "titre": "",
-                    "slug": "",
-                    "auteur": "",
-                    "lienAuteur": ""
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=EOS5bSPTZjg&vignette=https://i.ytimg.com/vi/EOS5bSPTZjg/hqdefault.jpg&debut=0&fin=310&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
                 "exercices": [
@@ -4886,51 +4919,32 @@
                     "slug": "3F10",
                     "score": 10,
                     "temps": 600,
-                    "isInteractif": false
-                  },
-                  {
-                    "id": 3016,
-                    "slug": "3F12-2,s=5,n=4",
-                    "score": 15,
-                    "temps": 500,
-                    "isInteractif": false
-                  },
-                  {
-                    "id": 3017,
-                    "slug": "3F12-4,s=3",
-                    "score": 8,
-                    "temps": 250,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": ""
                   }
                 ]
               },
               {
                 "reference": "3F13",
-                "titre": "Déterminer un antécédent à partir d’une représentation graphique ou d’un tableau de valeurs",
+                "titre": "Lire graphiquement une image et un antécédent",
                 "rappelDuCoursHTML": "",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
                     "titre": "",
-                    "slug": "",
-                    "auteur": "",
-                    "lienAuteur": ""
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=gQUt5y8LFKk&vignette=https://i.ytimg.com/vi/gQUt5y8LFKk/hqdefault.jpg&debut=0&fin=681&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
                 "exercices": [
-                  {
-                    "id": 3018,
-                    "slug": "3F10",
-                    "score": 10,
-                    "temps": 600,
-                    "isInteractif": false
-                  },
                   {
                     "id": 3019,
                     "slug": "3F13-1",
                     "score": 8,
                     "temps": 300,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": ""
                   }
                 ]
               },
@@ -5419,7 +5433,7 @@
                   {
                     "titre": "",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=3oI2MR90UAE&vignette=https://i.ytimg.com/vi/3oI2MR90UAE/hqdefault.jpg&debut=0&fin=183&largeur=200&hauteur=113",
-                    "auteur": "rapémathiques",
+                    "auteur": "Rapémathiques",
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
                   }
                 ],
@@ -5482,7 +5496,7 @@
                   {
                     "titre": "",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=PYRMUqSeNEc&vignette=https://i.ytimg.com/vi/PYRMUqSeNEc/hqdefault.jpg&debut=0&fin=218&largeur=200&hauteur=113",
-                    "auteur": "rapémathiques",
+                    "auteur": "Rapémathiques",
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
                   }
                 ],
@@ -5512,7 +5526,7 @@
                   {
                     "titre": "",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=PYRMUqSeNEc&vignette=https://i.ytimg.com/vi/PYRMUqSeNEc/hqdefault.jpg&debut=0&fin=218&largeur=200&hauteur=113",
-                    "auteur": "rapémathiques",
+                    "auteur": "Rapémathiques",
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
                   }
                 ],
