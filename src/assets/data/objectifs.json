@@ -4654,10 +4654,16 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "",
-                    "slug": "",
-                    "auteur": "",
-                    "lienAuteur": ""
+                    "titre": "Développer",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=vOKtaQThM3o&vignette=https://i.ytimg.com/vi/vOKtaQThM3o/hqdefault.jpg&debut=0&fin=495&largeur=200&hauteur=113",
+                    "auteur": "Hedacademy",
+                    "lienAuteur": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
+                  },
+                  {
+                    "titre": "Factoriser",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=k9i9d0mAv_Y&vignette=https://i.ytimg.com/vi/k9i9d0mAv_Y/hqdefault.jpg&debut=0&fin=463&largeur=200&hauteur=113",
+                    "auteur": "Hedacademy",
+                    "lienAuteur": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
                   }
                 ],
                 "exercices": [
@@ -4666,21 +4672,24 @@
                     "slug": "2N41-6,s=1,n=3",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Développer niveau 1"
                   },
                   {
                     "id": 3011,
                     "slug": "2N41-6,s=2,n=3",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Développer niveau 2"
                   },
                   {
                     "id": 3012,
-                    "slug": "3L12,s=2,n=3",
+                    "slug": "3L12,s=2,n=4",
                     "score": 10,
                     "temps": 300,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Factoriser"
                   }
                 ]
               },

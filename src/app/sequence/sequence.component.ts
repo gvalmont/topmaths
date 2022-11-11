@@ -202,7 +202,7 @@ export class SequenceComponent implements OnInit, OnDestroy {
   }
 
   MAJLienEvalBrevet (slugEvalBrevet: string) {
-    if (slugEvalBrevet !== undefined) {
+    if (slugEvalBrevet !== undefined && slugEvalBrevet !== '') {
       this.lienEvalBrevet = 'https://coopmaths.fr/mathalea.html?'
       this.lienEvalBrevet += slugEvalBrevet
       this.lienEvalBrevet = this.lienEvalBrevet.concat('&v=e&z=1.5')
