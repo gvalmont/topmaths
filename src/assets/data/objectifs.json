@@ -336,8 +336,7 @@
                     "lienAuteur": "https://www.youtube.com/c/MathsetJeux"
                   }
                 ],
-                "exercices": [
-                ]
+                "exercices": []
               }
             ]
           }
@@ -530,6 +529,94 @@
                     "temps": 300,
                     "isInteractif": true,
                     "description": "Coefficient de proportionnalité décimal"
+                  }
+                ]
+              },
+              {
+                "reference": "6P16",
+                "titre": "Relier fractions, proportions et pourcentages",
+                "rappelDuCoursHTML": "Au lieu d'écrire \"sur 100\", on peut écrire \"%\".<br><br>Par exemple : $\\cfrac{35}{100} = 35 \\text{%}$<br><br>On peut alors passer de l'écriture décimale à l'écriture en pourcentage en multipliant par 100.<br><br>Par exemple : $0{,}513 = 51{,}3 \\text{%}$<br><br>(car $0{,}513 = \\cfrac{0{,}513 \\times 100}{100} = \\cfrac{51{,}3}{100} = 51{,}3 \\text{%}$)",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Q9Qg8wOaM64&vignette=https://i.ytimg.com/vi/Q9Qg8wOaM64/hqdefault.jpg&debut=0&fin=144&largeur=200&hauteur=150",
+                    "auteur": " Genevieve Beaudet",
+                    "lienAuteur": "https://www.youtube.com/channel/UCTkDV8ARPyfjFcwYFoLZuMg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5055,
+                    "slug": "5N11-3,s=2,n=2",
+                    "score": 2,
+                    "temps": 40,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5056,
+                    "slug": "5N11-3,s=1,n=2",
+                    "score": 6,
+                    "temps": 120,
+                    "isInteractif": true
+                  },
+                  {
+                    "id": 5057,
+                    "slug": "5N11-4,s=2,n=2",
+                    "score": 6,
+                    "temps": 120,
+                    "isInteractif": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nom": "6S1 Statistiques",
+            "objectifs": [
+              {
+                "reference": "6S10",
+                "titre": "Lire une représentation de données",
+                "rappelDuCoursHTML": "<p>Dans un diagramme en bâtons, chaque bâton représente une donnée.<br>La hauteur du bâton correspond à la valeur de cette donnée qu'on peut lire sur l'axe vertical.</p>",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=CR4lSAfho5A&vignette=https://i.ytimg.com/vi/CR4lSAfho5A/hqdefault.jpg&debut=0&fin=399&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5026,
+                    "slug": "6S10,s=3,s2=2",
+                    "score": 5,
+                    "temps": 300,
+                    "isInteractif": true
+                  }
+                ]
+              },
+              {
+                "reference": "6S11",
+                "titre": "Recueillir et organiser des données",
+                "rappelDuCoursHTML": "Si on veut juste organiser et regrouper des données pour pouvoir les lire plus facilement, on peut utiliser un tableau :",
+                "rappelDuCoursImage": "5S10-tableau.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=gvIZ3bt6gw8&vignette=https://i.ytimg.com/vi/gvIZ3bt6gw8/hqdefault.jpg&debut=0&fin=217&largeur=200&hauteur=113",
+                    "auteur": "Math Coaching",
+                    "lienAuteur": "https://www.youtube.com/channel/UCGqY72r3_uGP4VWw8GLSNsQ"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5025,
+                    "slug": "6S11,s=false,s2=4",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               }
@@ -736,6 +823,278 @@
                     "description": ""
                   }
                 ]
+              },
+              {
+                "reference": "6G21",
+                "titre": "Construire des triangles connaissant les 3 longueurs",
+                "rappelDuCoursHTML": "<ul><li>Je commence par tracer le plus grand côté</li><li>Je mesure les autres longueurs mon compas et trace des arcs de cercle</li><li>Je trouve le troisième point à l'intersection des arcs de cercle</li></ul>",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=rlf9CYbPp6Y&vignette=https://i.ytimg.com/vi/rlf9CYbPp6Y/hqdefault.jpg&debut=0&fin=146&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
+                  {
+                    "titre": "Explications détaillées",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=-7UGauYeTdk&vignette=https://i.ytimg.com/vi/-7UGauYeTdk/hqdefault.jpg&debut=0&fin=159&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5037,
+                    "slug": "5G20-0,s=1,s2=true,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": ""
+                  }
+                ]
+              },
+              {
+                "reference": "6G24",
+                "titre": "Transformer une figure par symétrie axiale",
+                "rappelDuCoursHTML": "Méthode pour construire le symétrique d'un point",
+                "rappelDuCoursImage": "methode_construction_symetrie_axiale.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=sxUHj4A3K-8&vignette=https://i.ytimg.com/vi/sxUHj4A3K-8/hqdefault.jpg&debut=0&fin=162&largeur=200&hauteur=113",
+                    "auteur": "20/20",
+                    "lienAuteur": "https://www.youtube.com/channel/UCqjw7aREI90TYZXEg49H04Q"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5129,
+                    "slug": "https://www.geogebra.org/classic/zCHW88bx",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Estimer la position du symétrique d'un point"
+                  },
+                  {
+                    "id": 5129,
+                    "slug": "https://www.geogebra.org/classic/DCqyYqvD",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Estimer la position du symétrique d'une figure"
+                  },
+                  {
+                    "id": 5033,
+                    "slug": "5G10-1,s=1,s2=3,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Construire le symétrique d'un point"
+                  },
+                  {
+                    "id": 5034,
+                    "slug": "5G10-2,s=1,s2=3,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Construire le symétrique d'une figure"
+                  }
+                ]
+              },
+              {
+                "reference": "6G26",
+                "titre": "Connaître et utiliser la définition de la médiatrice",
+                "rappelDuCoursHTML": "<p><strong>Définition :</strong><br>La médiatrice d'un segment est la droite qui coupe ce segment perpendiculairement en son milieu.</p><p><strong><strong>Propriété :</strong></strong><br>Si un point appartient à la médiatrice d’un segment, alors il est équidistant (= à la même distance) des deux extrémités de ce segment.</p><p><strong>Propriété :</strong><br>Si un point est équidistant des deux extrémités d’un segment, alors il appartient à la médiatrice de ce segment.</p>",
+                "rappelDuCoursImage": "mediatrice.png",
+                "videos": [
+                  {
+                    "titre": "Définition",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=41-nginyPbk&vignette=https://i.ytimg.com/vi/41-nginyPbk/hqdefault.jpg&debut=0&fin=224&largeur=200&hauteur=113",
+                    "auteur": "Séverine LEMAITRE",
+                    "lienAuteur": "https://www.youtube.com/channel/UCW4XcuJF3f6uuNGV2BAMX0A"
+                  },
+                  {
+                    "titre": "Propriétés",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=-HvUYDfhR0s&vignette=https://i.ytimg.com/vi/-HvUYDfhR0s/hqdefault.jpg&debut=0&fin=290&largeur=200&hauteur=113",
+                    "auteur": "Séverine LEMAITRE",
+                    "lienAuteur": "https://www.youtube.com/channel/UCW4XcuJF3f6uuNGV2BAMX0A"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5041,
+                    "slug": "6G25",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Construire une médiatrice"
+                  },
+                  {
+                    "id": 5041,
+                    "slug": "5G22-1,s=3,s2=false,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Utiliser les propriétés de la médiatrice"
+                  }
+                ]
+              },
+              {
+                "reference": "6G29",
+                "titre": "Construire un triangle connaissant les 3 longueurs sur Geogebra",
+                "rappelDuCoursHTML": "<p>Il s'agit ici de faire la même chose que <a href='#/objectif/6G21'>6G21 : Construire des triangles connaissant les 3 longueurs</a> mais sur <a href='https://www.geogebra.org/classic' target='_blank' rel='noopener noreferrer'>Geogebra</a>.</p>",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Connaissant les 3 longueurs",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=ptMRvQozNv8&vignette=https://i.ytimg.com/vi/ptMRvQozNv8/hqdefault.jpg&debut=0&fin=238&largeur=200&hauteur=150",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5017,
+                    "slug": "https://www.geogebra.org/m/ffeasjyg",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Triangle 1"
+                  },
+                  {
+                    "id": 5017,
+                    "slug": "https://www.geogebra.org/m/mjhxsfue",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Triangle 2"
+                  },
+                  {
+                    "id": 5130,
+                    "slug": "https://www.geogebra.org/m/w7e6cawq",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Triangle 3"
+                  },
+                  {
+                    "id": 5131,
+                    "slug": "https://www.geogebra.org/m/mdmt3dyx",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Triangle 4"
+                  },
+                  {
+                    "id": 5132,
+                    "slug": "https://www.geogebra.org/m/s3jygvkg",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Triangle 5"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nom": "6G3 Niveau 3",
+            "objectifs": [
+              {
+                "reference": "6G32",
+                "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles",
+                "rappelDuCoursHTML": "La symétrie par rapport à une droite <strong>conserve</strong> le <strong>parallélisme</strong>, les <strong>longueurs</strong>, et les <strong>angles</strong>.",
+                "rappelDuCoursImage": "exemple_5G13-1.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=xv1lONmklBA&vignette=https://i.ytimg.com/vi/xv1lONmklBA/hqdefault.jpg&debut=0&fin=93&largeur=200&hauteur=113",
+                    "auteur": "IDmaths",
+                    "lienAuteur": "https://www.youtube.com/channel/UCzzZOyjuJu0ePPMQFh_B2-A"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5035,
+                    "slug": "5G13,s=1,s2=1,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Conservation du parallélisme"
+                  },
+                  {
+                    "id": 5036,
+                    "slug": "5G13,s=1,s2=2,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Conservation des longueurs et des angles"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nom": "6G4 Espace",
+            "objectifs": [
+              {
+                "reference": "6G40",
+                "titre": "Reconnaître des solides à partir d’un objet réel, d’une image, d’une représentation en perspective cavalière",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "Solides-usuels.png",
+                "videos": [
+                  {
+                    "titre": "Présentation des solides",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=SYBogG4e43E&vignette=https://i.ytimg.com/vi/SYBogG4e43E/hqdefault.jpg&debut=0&fin=257&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Loïc Cadoret",
+                    "lienAuteur": "https://www.youtube.com/channel/UCDsagbCc_MHFdJZLDwsjwzA"
+                  },
+                  {
+                    "titre": "Vue en 3D",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=muK4M7_ej58&vignette=https://i.ytimg.com/vi/muK4M7_ej58/hqdefault.jpg&debut=0&fin=232&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Le prof de maths sciences",
+                    "lienAuteur": "https://www.youtube.com/channel/UCfRhflEKujHRHkYVkX4ZGBg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5134,
+                    "slug": "6G44-1,s=0,s2=false,s3=false,n=4",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "6G41",
+                "titre": "Construire et mettre en relation une représentation en perspective cavalière et un patron d’un cube et d'un pavé droit",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Représenter un pavé droit en perspective cavalière",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=RNWuANuhRig&vignette=https://i.ytimg.com/vi/RNWuANuhRig/hqdefault.jpg&debut=0&fin=262&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Maths et Jeux",
+                    "lienAuteur": "https://www.youtube.com/channel/UCj5z973uER7e6ppaAEvYMHQ"
+                  },
+                  {
+                    "titre": "Construire un patron d'un pavé droit",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=WhwYCIcA220&vignette=https://i.ytimg.com/vi/WhwYCIcA220/hqdefault.jpg&debut=0&fin=751&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5117,
+                    "slug": "6G41,s=3,s2=1,n=3",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
               }
             ]
           },
@@ -775,9 +1134,9 @@
             "objectifs": [
               {
                 "reference": "6M10",
-                "titre": "Calculer le périmètre et l’aire d’un carré, d’un rectangle et d’un triangle-rectangle",
-                "rappelDuCoursHTML": "Le <b><i>périmètre</i></b> d'un polygone est la somme des longeurs de ses côtés.<br>L'<b><i>aire</i></b> est la mesure de sa surface, on la calcule souvent en utilisant une formule :<br> $\\mathcal{A}_{\\text{Carré}} = \\text{côté} \\times \\text{côté} = c \\times c $ <br> $\\mathcal{A}_{\\text{Rectangle}} = \\text{Longueur} \\times \\text{largeur} = L \\times l$ <br> $\\mathcal{A}_{\\text{Triangle rectangle}} = \\cfrac{ \\text{Longueur} \\times \\text{largeur} }{2} = \\cfrac{ L \\times l }{2}$",
-                "rappelDuCoursImage": "",
+                "titre": "Calculer le périmètre et l’aire d’un carré, d’un rectangle et d’un triangle rectangle",
+                "rappelDuCoursHTML": "Le <b><i>périmètre</i></b> d'un polygone est la somme des longeurs de ses côtés.<br>L'<b><i>aire</i></b> est la mesure de sa surface, on la calcule souvent en utilisant une formule :",
+                "rappelDuCoursImage": "Aire-carre-rectangle-triangle rectangle.png",
                 "videos": [
                   {
                     "titre": "Cours sur le périmètre",
@@ -814,15 +1173,21 @@
               },
               {
                 "reference": "6M11",
-                "titre": "Calculer le périmètre et l’aire d’une figure complexe",
+                "titre": "Calculer le périmètre et l’aire d’une figure composée de triangles et rectangles",
                 "rappelDuCoursHTML": "Pour calculer l'aire d'une figure complexe, on la découpe en figures dont on sait calculer l'aire.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=bMSrZjOBwcA&vignette=https://i.ytimg.com/vi/bMSrZjOBwcA/hqdefault.jpg&debut=0&fin=558&largeur=200&hauteur=113",
+                    "titre": "Périmètre",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=wNk5XKwEZDw&vignette=https://i.ytimg.com/vi/wNk5XKwEZDw/hqdefault.jpg&debut=0&fin=208&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
                     "auteur": "Yvan Monka",
-                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Aire",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=bMSrZjOBwcA&vignette=https://i.ytimg.com/vi/bMSrZjOBwcA/hqdefault.jpg&debut=0&fin=558&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
                 ],
                 "exercices": [
@@ -856,6 +1221,254 @@
                     "id": 6049,
                     "slug": "6M12,s=4,s2=true,n=4",
                     "description": "Avec des nombres décimaux"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nom": "6M2 Niveau 2",
+            "objectifs": [
+              {
+                "reference": "6M20",
+                "titre": "Déterminer le périmètre et l’aire d’un triangle quelconque",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                ],
+                "exercices": [
+                  {
+                    "id": 5088,
+                    "slug": "6M20,n=2,cd=1",
+                    "score": 15,
+                    "temps": 150,
+                    "isInteractif": true,
+                    "description": ""
+                  }
+                ]
+              },
+              {
+                "reference": "6M21",
+                "titre": "Calculer le périmètre et l’aire d’un assemblage de figures",
+                "rappelDuCoursHTML": "Revoir si besoin :<br><a href='#/objectif/6M10'>6M10 : Calculer le périmètre et l’aire d’un carré, d’un rectangle et d’un triangle rectangle</a><br><a href='#/objectif/6M20'>6M20 : Déterminer le périmètre et l’aire d’un triangle quelconque</a><br><a href='#/objectif/6M22'>6M22 : Déterminer le périmètre et l’aire d’un disque</a><br><a href='#/objectif/6M11'>6M11 : Calculer le périmètre et l’aire d’une figure composée de triangles et rectangles</a>",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Périmètre",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=wm0pfj3U3LI&vignette=https://i.ytimg.com/vi/wm0pfj3U3LI/hqdefault.jpg&debut=0&fin=329&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Aire",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=BfOFFFCm5n4&vignette=https://i.ytimg.com/vi/BfOFFFCm5n4/hqdefault.jpg&debut=0&fin=401&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5090,
+                    "slug": "6M22-2,s=3",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
+                "reference": "6M22",
+                "titre": "Déterminer le périmètre et l’aire d’un disque",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                ],
+                "exercices": [
+                  {
+                    "id": 5087,
+                    "slug": "6M22-1,s=3,s2=true,n=1",
+                    "score": 12,
+                    "temps": 120,
+                    "isInteractif": true,
+                    "description": ""
+                  }
+                ]
+              },
+              {
+                "reference": "6M23",
+                "titre": "Effectuer des conversions d’unités d'aires",
+                "rappelDuCoursHTML": "Utilise le tableau ci-dessous ou fais-en un sur ta feuille pour t'aider à convertir !<br><iframe width='1000px' height='360px' src='https://sesaprof.sesamath.net/doc/outils_tableaux/minified/unites_aire_agraire.html'></iframe>",
+                "rappelDuCoursImage": "utiliser-convertisseur-de-longueurs.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=vZew5Ia03FY&vignette=https://i.ytimg.com/vi/vZew5Ia03FY/hqdefault.jpg&debut=0&fin=404&largeur=200&hauteur=150&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5093,
+                    "slug": "6M23,s=4,s2=false,s3=1,n=3",
+                    "score": 13,
+                    "temps": 130,
+                    "isInteractif": true,
+                    "description": "Avec des nombres entiers"
+                  },
+                  {
+                    "id": 5094,
+                    "slug": "6M23,s=4,s2=true,s3=1,n=3",
+                    "score": 16,
+                    "temps": 160,
+                    "isInteractif": true,
+                    "description": "Avec des nombres décimaux"
+                  },
+                  {
+                    "id": 5095,
+                    "slug": "6M23,s=5,s2=true,s3=1,n=2",
+                    "score": 20,
+                    "temps": 200,
+                    "isInteractif": true,
+                    "description": "Avec des ares et des hectares"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nom": "6M3 Niveau 3",
+            "objectifs": [
+              {
+                "reference": "6M30",
+                "titre": "Déterminer le volume d'un cube ou d'un pavé droit",
+                "rappelDuCoursHTML": "$\\mathcal{V}_{\\text{cube}} = c \\times c \\times c$ <br> $\\mathcal{V}_{\\text{pavé droit}} = L \\times l \\times h$",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Volume d'un pavé droit",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=JqS7YBLtksw&vignette=https://i.ytimg.com/vi/JqS7YBLtksw/hqdefault.jpg&debut=0&fin=303&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5088,
+                    "slug": "6M30,s=1,s3=2,s4=8,n=4",
+                    "score": 15,
+                    "temps": 150,
+                    "isInteractif": true,
+                    "description": ""
+                  }
+                ]
+              },
+              {
+                "reference": "6M31",
+                "titre": "Convertir des unités de volumes",
+                "rappelDuCoursHTML": "Utilise le tableau ci-dessous ou fais-en un sur ta feuille pour t'aider à convertir !<br><iframe width='1200px' height='360px' src='https://sesaprof.sesamath.net/doc/outils_tableaux/minified/unites_volume_capacite.html'></iframe>",
+                "rappelDuCoursImage": "utiliser-convertisseur-de-longueurs.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=WYY360nR14A&vignette=https://i.ytimg.com/vi/WYY360nR14A/hqdefault.jpg&debut=0&fin=470&largeur=200&hauteur=150&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5120,
+                    "slug": "6M31,s=4,s2=false,s3=2,n=3",
+                    "score": 10,
+                    "temps": 200,
+                    "isInteractif": true,
+                    "description": "Avec des nombres entiers"
+                  },
+                  {
+                    "id": 5121,
+                    "slug": "6M31,s=4,s2=true,s3=2,n=3",
+                    "score": 15,
+                    "temps": 300,
+                    "isInteractif": true,
+                    "description": "Avec des nombres décimaux"
+                  },
+                  {
+                    "id": 5125,
+                    "slug": "6M31-2,s=3,s2=true,n=2",
+                    "score": 12,
+                    "temps": 240,
+                    "isInteractif": true,
+                    "description": "Avec des litres"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nom": "6D1 Les durées",
+            "objectifs": [
+              {
+                "reference": "6D10",
+                "titre": "Convertir des durées",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "5M30-RDC.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=9IIcLRhI-Qs&vignette=https://i.ytimg.com/vi/9IIcLRhI-Qs/hqdefault.jpg&debut=0&fin=283&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "jaicompris Maths",
+                    "lienAuteur": "https://www.youtube.com/channel/UCo-O74A4qVz6nq5cfCIee6w"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5111,
+                    "slug": "6D10,s=1,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Conversions en une étape"
+                  },
+                  {
+                    "id": 5112,
+                    "slug": "6D13,s=3,n=2,cd=1",
+                    "score": 12,
+                    "temps": 240,
+                    "isInteractif": true,
+                    "description": "Conversions en deux étapes"
+                  }
+                ]
+              },
+              {
+                "reference": "6D11",
+                "titre": "Effectuer des calculs de durées et d’horaires",
+                "rappelDuCoursHTML": "Pour calculer des durées ou des horaires on fait attention à calculer les minutes avec les minutes et les heures avec les heures.<br>S'il y a un souci, on peut utiliser le fait que 60 min = 1 h :<br>- si le résultat d'une addition dépasse les 60 minutes, on enlève 60 min et on rajoute 1h ;<br>- si on veut faire une soustraction mais qu'on n'a pas assez de minutes, on ajoute 60 min et on enlève 1h.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=frnQXnbL6yo&vignette=https://i.ytimg.com/vi/frnQXnbL6yo/hqdefault.jpg&debut=0&fin=299&largeur=200&hauteur=150&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 5113,
+                    "slug": "6D11,s=1,n=2",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Additionner des durées"
+                  },
+                  {
+                    "id": 5114,
+                    "slug": "6D12,s=4,n=3",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Calculer des durées ou déterminer un horaire"
                   }
                 ]
               }
@@ -1111,66 +1724,6 @@
                     "slug": "5N10,s=3,s2=false,n=4",
                     "score": 7,
                     "temps": 280,
-                    "isInteractif": true
-                  }
-                ]
-              },
-              {
-                "reference": "5N11",
-                "titre": "Relier fractions, proportions et pourcentages",
-                "rappelDuCoursHTML": "Au lieu d'écrire \"sur 100\", on peut écrire \"%\".<br><br>Par exemple : $\\cfrac{35}{100} = 35 \\text{%}$<br><br>On peut alors passer de l'écriture décimale à l'écriture en pourcentage en multipliant par 100.<br><br>Par exemple : $0{,}513 = 51{,}3 \\text{%}$<br><br>(car $0{,}513 = \\cfrac{0{,}513 \\times 100}{100} = \\cfrac{51{,}3}{100} = 51{,}3 \\text{%}$)",
-                "rappelDuCoursImage": "",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Q9Qg8wOaM64&vignette=https://i.ytimg.com/vi/Q9Qg8wOaM64/hqdefault.jpg&debut=0&fin=144&largeur=200&hauteur=150",
-                    "auteur": " Genevieve Beaudet",
-                    "lienAuteur": "https://www.youtube.com/channel/UCTkDV8ARPyfjFcwYFoLZuMg"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 5055,
-                    "slug": "5N11-3,s=2,n=2",
-                    "score": 2,
-                    "temps": 40,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5056,
-                    "slug": "5N11-3,s=1,n=2",
-                    "score": 6,
-                    "temps": 120,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5057,
-                    "slug": "5N11-4,s=2,n=2",
-                    "score": 6,
-                    "temps": 120,
-                    "isInteractif": true
-                  }
-                ]
-              },
-              {
-                "reference": "5N12",
-                "titre": "Décomposer une fraction sous la forme d’une somme (ou d’une différence) d’un entier et d’une fraction",
-                "rappelDuCoursHTML": "$\\cfrac{20}{3}=\\cfrac{18}{3} + \\cfrac{2}{3} = 6 \\times \\cfrac{3}{3} + \\cfrac{2}{3} = 6 \\times 1 + \\cfrac{2}{3} = 6 + \\cfrac{2}{3}$",
-                "rappelDuCoursImage": "",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=6EdYRXY8620&vignette=https://i.ytimg.com/vi/6EdYRXY8620/hqdefault.jpg&debut=0&fin=155&largeur=200&hauteur=113",
-                    "auteur": "La classe de Mallory",
-                    "lienAuteur": "https://www.youtube.com/channel/UC9tH3DtBcT2mlEz5FbuRX6A"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 5045,
-                    "slug": "6N20,s=false,n=4",
-                    "score": 5,
-                    "temps": 200,
                     "isInteractif": true
                   }
                 ]
@@ -1712,78 +2265,6 @@
         ]
       },
       {
-        "nom": "Algorithmique et programmation",
-        "sousThemes": [
-          {
-            "nom": "",
-            "objectifs": [
-              {
-                "reference": "5I13",
-                "titre": "Savoir construire un triangle sur Geogebra",
-                "rappelDuCoursHTML": "<p>Il s'agit ici de faire la même chose que <a href='#/objectif/5G20'>5G20 : Construire des triangles connaissant des longueurs et/ou des angles</a> mais sur <a href='https://www.geogebra.org/classic' target='_blank' rel='noopener noreferrer'>Geogebra</a>.</p>",
-                "rappelDuCoursImage": "",
-                "videos": [
-                  {
-                    "titre": "Connaissant les 3 longueurs",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=ptMRvQozNv8&vignette=https://i.ytimg.com/vi/ptMRvQozNv8/hqdefault.jpg&debut=0&fin=238&largeur=200&hauteur=150",
-                    "auteur": "jean-yves Labouche",
-                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
-                  },
-                  {
-                    "titre": "Connaissant 1 longueur et 2 angles",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=9vGH_inS8aQ&vignette=https://i.ytimg.com/vi/9vGH_inS8aQ/hqdefault.jpg&debut=0&fin=494&largeur=200&hauteur=113",
-                    "auteur": "MINUTESMATHS",
-                    "lienAuteur": "https://www.youtube.com/channel/UCsD5NwzkIrKs-ySUmeSsEwg"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 5017,
-                    "slug": "https://www.geogebra.org/m/ffeasjyg",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false,
-                    "description": "Triangle 1"
-                  },
-                  {
-                    "id": 5017,
-                    "slug": "https://www.geogebra.org/m/mjhxsfue",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false,
-                    "description": "Triangle 2"
-                  },
-                  {
-                    "id": 5130,
-                    "slug": "https://www.geogebra.org/m/w7e6cawq",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false,
-                    "description": "Triangle 3"
-                  },
-                  {
-                    "id": 5131,
-                    "slug": "https://www.geogebra.org/m/mdmt3dyx",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false,
-                    "description": "Triangle 4"
-                  },
-                  {
-                    "id": 5132,
-                    "slug": "https://www.geogebra.org/m/s3jygvkg",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false,
-                    "description": "Triangle 5"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
         "nom": "Organisation et gestion de données",
         "sousThemes": [
           {
@@ -1857,52 +2338,6 @@
           {
             "nom": "5S1 Statistiques",
             "objectifs": [
-              {
-                "reference": "5S10",
-                "titre": "Recueillir et organiser des données",
-                "rappelDuCoursHTML": "Si on veut juste organiser et regrouper des données pour pouvoir les lire plus facilement, on peut utiliser un tableau :",
-                "rappelDuCoursImage": "5S10-tableau.png",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=gvIZ3bt6gw8&vignette=https://i.ytimg.com/vi/gvIZ3bt6gw8/hqdefault.jpg&debut=0&fin=217&largeur=200&hauteur=113",
-                    "auteur": "Math Coaching",
-                    "lienAuteur": "https://www.youtube.com/channel/UCGqY72r3_uGP4VWw8GLSNsQ"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 5025,
-                    "slug": "5S10,s=false,s2=4",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
-                  }
-                ]
-              },
-              {
-                "reference": "5S11",
-                "titre": "Lire et interpréter des données brutes ou présentées sous forme de tableaux, de diagrammes et de graphiques",
-                "rappelDuCoursHTML": "<p>Dans un diagramme en bâtons, chaque bâton représente une donnée.<br>La hauteur du bâton correspond à la valeur de cette donnée qu'on peut lire sur l'axe vertical.</p>",
-                "rappelDuCoursImage": "5S10-tableau.png",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=CR4lSAfho5A&vignette=https://i.ytimg.com/vi/CR4lSAfho5A/hqdefault.jpg&debut=0&fin=399&largeur=200&hauteur=113",
-                    "auteur": "Yvan Monka",
-                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 5026,
-                    "slug": "5S11,s=3,s2=2",
-                    "score": 5,
-                    "temps": 300,
-                    "isInteractif": true
-                  }
-                ]
-              },
               {
                 "reference": "5S12",
                 "titre": "Représenter sur papier ou à l’aide d’un tableur-grapheur, des données sous la forme d’un graphique ou d’un diagramme en bâtons",
@@ -2070,8 +2505,8 @@
             "objectifs": [
               {
                 "reference": "5M10",
-                "titre": "Calculer l’aire des figures usuelles",
-                "rappelDuCoursHTML": "",
+                "titre": "Calculer le périmètre et l'aire d'une figure usuelle",
+                "rappelDuCoursHTML": "Rappels de 6e :<br><a href='#/objectif/6M10' title='Calculer le périmètre et l’aire d’un carré, d’un rectangle et d’un triangle rectangle'>6M10 : Calculer le périmètre et l’aire d’un carré, d’un rectangle et d’un triangle rectangle</a><br><a href='#/objectif/6M20' title='Déterminer le périmètre et l’aire d’un triangle quelconque'>6M20 : Déterminer le périmètre et l’aire d’un triangle quelconque</a><br><a href='#/objectif/6M22' title='Déterminer le périmètre et l’aire d’un disque'>6M22 : Déterminer le périmètre et l’aire d’un disque</a>",
                 "rappelDuCoursImage": "RDC_S5S19.png",
                 "videos": [
                   {
@@ -2083,130 +2518,20 @@
                 ],
                 "exercices": [
                   {
-                    "id": 5086,
-                    "slug": "6M11",
-                    "score": 8,
-                    "temps": 240,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5087,
-                    "slug": "6M22-1,s=2,s2=true,n=1",
-                    "score": 12,
-                    "temps": 120,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5088,
-                    "slug": "6M20,n=2,cd=1",
-                    "score": 15,
-                    "temps": 150,
-                    "isInteractif": true
+                    "id": 0,
+                    "slug": "6M11-1&ex=6M20,n=1&ex=6M22-1,s=3,s2=true,n=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false,
+                    "description": "Rappels de 6e"
                   },
                   {
                     "id": 5089,
                     "slug": "5M10,n=1",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
-                  }
-                ]
-              },
-              {
-                "reference": "5M11",
-                "titre": "Calculer le périmètre et l’aire d’un assemblage de figures",
-                "rappelDuCoursHTML": "Le <b><i>périmètre</i></b> est la longueur du contour : pour le trouver on fait le tour de la figure en ajoutant toutes les longueurs.<br>L'<b><i>aire</i></b> est la mesure de la surface (à l'intérieur) : pour la trouver, on découpe la figure en figures dont on connaît la formule et on utilise les formules présentées dans <a href='#/objectif/5M10' title='Calculer l’aire des figures usuelles'>5M10</a><br><br><i>Remarque : Si on a besoin de calculer le périmètre d'une figure qui comporte des arcs de cercle, il faudra aussi connaître la formule qui sert à calculer le périmètre d'un cercle (qu'on appelle sa circonférence) qui est : $\\mathcal{P} =2 \\pi r$",
-                "rappelDuCoursImage": "",
-                "videos": [
-                  {
-                    "titre": "Périmètre 1",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=wNk5XKwEZDw&vignette=https://i.ytimg.com/vi/wNk5XKwEZDw/hqdefault.jpg&debut=0&fin=208&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
-                    "auteur": "Yvan Monka",
-                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  },
-                  {
-                    "titre": "Aire 1",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=bMSrZjOBwcA&vignette=https://i.ytimg.com/vi/bMSrZjOBwcA/hqdefault.jpg&debut=0&fin=558&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
-                    "auteur": "Yvan Monka",
-                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  },
-                  {
-                    "titre": "Périmètre 2",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=wm0pfj3U3LI&vignette=https://i.ytimg.com/vi/wm0pfj3U3LI/hqdefault.jpg&debut=0&fin=329&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
-                    "auteur": "Yvan Monka",
-                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  },
-                  {
-                    "titre": "Aire 2",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=BfOFFFCm5n4&vignette=https://i.ytimg.com/vi/BfOFFFCm5n4/hqdefault.jpg&debut=0&fin=401&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
-                    "auteur": "Yvan Monka",
-                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  },
-                  {
-                    "titre": "Aire 3",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=vof06TmPcQk&vignette=https://i.ytimg.com/vi/vof06TmPcQk/hqdefault.jpg&debut=0&fin=379&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
-                    "auteur": "Yvan Monka",
-                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 5090,
-                    "slug": "6M22-2,s=3",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
-                  },
-                  {
-                    "id": 5091,
-                    "slug": "6M11-2,n=1",
-                    "score": 15,
-                    "temps": 600,
-                    "isInteractif": true
-                  }
-                ]
-              },
-              {
-                "reference": "5M13",
-                "titre": "Effectuer des conversions d’unités d'aires",
-                "rappelDuCoursHTML": "Utilise le tableau ci-dessous ou fais-en un sur ta feuille pour t'aider à convertir !<br><iframe width='1000px' height='360px' src='https://sesaprof.sesamath.net/doc/outils_tableaux/minified/unites_aire_agraire.html'></iframe>",
-                "rappelDuCoursImage": "utiliser-convertisseur-de-longueurs.png",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=vZew5Ia03FY&vignette=https://i.ytimg.com/vi/vZew5Ia03FY/hqdefault.jpg&debut=0&fin=404&largeur=200&hauteur=150&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
-                    "auteur": "jean-yves Labouche",
-                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 5092,
-                    "slug": "6M23,s=3,s2=false,s3=1,n=1",
-                    "score": 7,
-                    "temps": 70,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5093,
-                    "slug": "6M23,s=3,s2=true,s3=1,n=1",
-                    "score": 13,
-                    "temps": 130,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5094,
-                    "slug": "6M23,s=4,s2=true,s3=1,n=1",
-                    "score": 16,
-                    "temps": 160,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5095,
-                    "slug": "6M23,s=5,s2=true,s3=1,n=1",
-                    "score": 20,
-                    "temps": 200,
-                    "isInteractif": true
+                    "isInteractif": false,
+                    "description": "Périmètre et aire d'un parallélogramme"
                   }
                 ]
               }
@@ -2218,17 +2543,11 @@
               {
                 "reference": "5M20",
                 "titre": "Calculer le volume d’un pavé droit, d’un prisme droit, d’un cylindre",
-                "rappelDuCoursHTML": "$\\mathcal{V}_{\\text{pavé droit}} = L \\times l \\times h$ <br> $\\mathcal{V}_{\\text{prisme}} = \\mathcal{A}_{\\text{base}} \\times h$ <br> $\\mathcal{V}_{\\text{cylindre}} = \\mathcal{A}_{\\text{base}} \\times h = \\pi r^2 h$",
+                "rappelDuCoursHTML": "<a href='#objectif/6M30'>6M30 Calculer le volume d'un cube ou d'un pavé droit</a><br> $\\mathcal{V}_{\\text{prisme}} = \\mathcal{A}_{\\text{base}} \\times h$ <br> $\\mathcal{V}_{\\text{cylindre}} = \\mathcal{A}_{\\text{base}} \\times h = \\pi r^2 h$",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "Volume d'un pavé droit",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=JqS7YBLtksw&vignette=https://i.ytimg.com/vi/JqS7YBLtksw/hqdefault.jpg&debut=0&fin=303&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
-                    "auteur": "Yvan Monka",
-                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  },
-                  {
-                    "titre": "Volume d'un prisme",
+                    "titre": "Volume d'un prisme droit",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=lsAWODx566E&vignette=https://i.ytimg.com/vi/lsAWODx566E/hqdefault.jpg&debut=0&fin=423&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
@@ -2243,16 +2562,9 @@
                 "exercices": [
                   {
                     "id": 5118,
-                    "slug": "5M20,s=1,s3=2,s4=8,n=2",
+                    "slug": "5M20,s=1,s3=2,s4=5,n=4",
                     "score": 30,
                     "temps": 1200,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5119,
-                    "slug": "5M20,s=2,s3=2,s4=8,n=2",
-                    "score": 35,
-                    "temps": 1400,
                     "isInteractif": true
                   }
                 ]
@@ -2271,145 +2583,6 @@
                   }
                 ],
                 "exercices": []
-              },
-              {
-                "reference": "5M22",
-                "titre": "Convertir des unités de volumes",
-                "rappelDuCoursHTML": "Utilise le tableau ci-dessous ou fais-en un sur ta feuille pour t'aider à convertir !<br><iframe width='1100px' height='340px' src='https://sesaprof.sesamath.net/doc/outils_tableaux/minified/unites_volume.html'></iframe>",
-                "rappelDuCoursImage": "utiliser-convertisseur-de-longueurs.png",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=WYY360nR14A&vignette=https://i.ytimg.com/vi/WYY360nR14A/hqdefault.jpg&debut=0&fin=470&largeur=200&hauteur=150&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
-                    "auteur": "jean-yves Labouche",
-                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 5120,
-                    "slug": "6M31,s=1,s2=false,s3=2,n=2",
-                    "score": 10,
-                    "temps": 200,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5121,
-                    "slug": "6M31,s=1,s2=true,s3=2,n=2",
-                    "score": 15,
-                    "temps": 300,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5122,
-                    "slug": "6M31,s=2,s2=true,s3=2,n=2",
-                    "score": 20,
-                    "temps": 400,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5123,
-                    "slug": "6M31,s=4,s2=true,s3=2,n=2",
-                    "score": 25,
-                    "temps": 500,
-                    "isInteractif": true
-                  }
-                ]
-              },
-              {
-                "reference": "5M23",
-                "titre": "Convertir des unités de volumes et de contenances",
-                "rappelDuCoursHTML": "Utilise le tableau ci-dessous ou fais-en un sur ta feuille pour t'aider à convertir !<br><iframe width='1200px' height='360px' src='https://sesaprof.sesamath.net/doc/outils_tableaux/minified/unites_volume_capacite.html'></iframe>",
-                "rappelDuCoursImage": "utiliser-convertisseur-de-longueurs.png",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=WYY360nR14A&vignette=https://i.ytimg.com/vi/WYY360nR14A/hqdefault.jpg&debut=0&fin=470&largeur=200&hauteur=150&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
-                    "auteur": "jean-yves Labouche",
-                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 5124,
-                    "slug": "6M31-2,s=3,s2=false,n=2",
-                    "score": 10,
-                    "temps": 200,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5125,
-                    "slug": "6M31-2,s=3,s2=true,n=2",
-                    "score": 12,
-                    "temps": 240,
-                    "isInteractif": true
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "nom": "5M3 Durées",
-            "objectifs": [
-              {
-                "reference": "5M30",
-                "titre": "Convertir des durées",
-                "rappelDuCoursHTML": "",
-                "rappelDuCoursImage": "5M30-RDC.png",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=9IIcLRhI-Qs&vignette=https://i.ytimg.com/vi/9IIcLRhI-Qs/hqdefault.jpg&debut=0&fin=283&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
-                    "auteur": "jaicompris Maths",
-                    "lienAuteur": "https://www.youtube.com/channel/UCo-O74A4qVz6nq5cfCIee6w"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 5111,
-                    "slug": "6D10,s=1,n=2",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
-                  },
-                  {
-                    "id": 5112,
-                    "slug": "6D13,s=3,n=2,cd=1",
-                    "score": 12,
-                    "temps": 240,
-                    "isInteractif": true
-                  }
-                ]
-              },
-              {
-                "reference": "5M31",
-                "titre": "Effectuer des calculs de durées et d’horaires",
-                "rappelDuCoursHTML": "Pour calculer des durées ou des horaires on fait attention à calculer les minutes avec les minutes et les heures avec les heures.<br>S'il y a un souci, on peut utiliser le fait que 60 min = 1 h :<br>- si le résultat d'une addition dépasse les 60 minutes, on enlève 60 min et on rajoute 1h ;<br>- si on veut faire une soustraction mais qu'on n'a pas assez de minutes, on ajoute 60 min et on enlève 1h.",
-                "rappelDuCoursImage": "",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=frnQXnbL6yo&vignette=https://i.ytimg.com/vi/frnQXnbL6yo/hqdefault.jpg&debut=0&fin=299&largeur=200&hauteur=150&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
-                    "auteur": "jean-yves Labouche",
-                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 5113,
-                    "slug": "6D11,s=1,n=2",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
-                  },
-                  {
-                    "id": 5114,
-                    "slug": "6D12,s=4,n=3",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
-                  }
-                ]
               }
             ]
           }
@@ -2421,54 +2594,6 @@
           {
             "nom": "5G1 Symétries",
             "objectifs": [
-              {
-                "reference": "5G10",
-                "titre": "Transformer une figure par symétrie axiale",
-                "rappelDuCoursHTML": "Méthode pour construire le symétrique d'un point",
-                "rappelDuCoursImage": "methode_construction_symetrie_axiale.png",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=sxUHj4A3K-8&vignette=https://i.ytimg.com/vi/sxUHj4A3K-8/hqdefault.jpg&debut=0&fin=162&largeur=200&hauteur=113",
-                    "auteur": "20/20",
-                    "lienAuteur": "https://www.youtube.com/channel/UCqjw7aREI90TYZXEg49H04Q"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 5129,
-                    "slug": "https://www.geogebra.org/classic/zCHW88bx",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false,
-                    "description": "Estimer la position du symétrique d'un point"
-                  },
-                  {
-                    "id": 5129,
-                    "slug": "https://www.geogebra.org/classic/DCqyYqvD",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false,
-                    "description": "Estimer la position du symétrique d'une figure"
-                  },
-                  {
-                    "id": 5033,
-                    "slug": "5G10-1,s=1,s2=3,n=1",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false,
-                    "description": "Construire le symétrique d'un point"
-                  },
-                  {
-                    "id": 5034,
-                    "slug": "5G10-2,s=1,s2=3,n=1",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false,
-                    "description": "Construire le symétrique d'une figure"
-                  }
-                ]
-              },
               {
                 "reference": "5G11",
                 "titre": "Transformer une figure par symétrie centrale",
@@ -2499,39 +2624,7 @@
                 ]
               },
               {
-                "reference": "5G13-1",
-                "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles",
-                "rappelDuCoursHTML": "La symétrie par rapport à une droite <strong>conserve</strong> le <strong>parallélisme</strong>, les <strong>longueurs</strong>, et les <strong>angles</strong>.",
-                "rappelDuCoursImage": "exemple_5G13-1.png",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=xv1lONmklBA&vignette=https://i.ytimg.com/vi/xv1lONmklBA/hqdefault.jpg&debut=0&fin=93&largeur=200&hauteur=113",
-                    "auteur": "IDmaths",
-                    "lienAuteur": "https://www.youtube.com/channel/UCzzZOyjuJu0ePPMQFh_B2-A"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 5035,
-                    "slug": "5G13,s=1,s2=1,n=1",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false,
-                    "description": "Conservation du parallélisme"
-                  },
-                  {
-                    "id": 5036,
-                    "slug": "5G13,s=1,s2=2,n=1",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false,
-                    "description": "Conservation des longueurs et des angles"
-                  }
-                ]
-              },
-              {
-                "reference": "5G13-2",
+                "reference": "5G13",
                 "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles",
                 "rappelDuCoursHTML": "La symétrie centrale <i>conserve</i> le <i>parallélisme</i>, les <i>longueurs</i> et les <i>angles</i> :<br><ul><li>Si des droites sont <i>parallèles</i>, leurs symétriques seront aussi <i>parallèles</i> ;</li><li>Si des segments ont une certaine <i>longueur</i>, leurs symétriques auront la même <i>longueur</i> ;</li><li>Si des angles ont une certaine <i>mesure</i>, leurs symétriques auront la même <i>mesure</i>.</li></ul>",
                 "rappelDuCoursImage": "",
@@ -2560,22 +2653,10 @@
             "objectifs": [
               {
                 "reference": "5G20",
-                "titre": "Construire des triangles connaissant des longueurs et/ou des angles",
-                "rappelDuCoursHTML": "<ul><li>Je commence par tracer le plus grand côté</li><li>Je mesure les autres longueurs mon compas et trace des arcs de cercle</li><li>Je mesure les angles avec le rapporteur et trace des demi-droites</li><li>Je trouve le troisième point à l'intersection des arcs de cercle (et des demi-droites dans le cas des angles)</li></ul>",
+                "titre": "Construire des triangles connaissant des longueurs et des angles",
+                "rappelDuCoursHTML": "<ul><li>Je commence par tracer le plus grand côté</li><li>Je mesure les autres longueurs que je connais avec mon compas et trace des arcs de cercle</li><li>Je mesure les angles que je connais avec le rapporteur et trace des demi-droites</li><li>Je trouve le troisième point à l'intersection des arcs de cercle et des demi-droites</li></ul>",
                 "rappelDuCoursImage": "",
                 "videos": [
-                  {
-                    "titre": "Connaissant les 3 longueurs (Résumé musical)",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=rlf9CYbPp6Y&vignette=https://i.ytimg.com/vi/rlf9CYbPp6Y/hqdefault.jpg&debut=0&fin=146&largeur=200&hauteur=113",
-                    "auteur": "Rapémathiques",
-                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
-                  },
-                  {
-                    "titre": "Connaissant les 3 longueurs",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=-7UGauYeTdk&vignette=https://i.ytimg.com/vi/-7UGauYeTdk/hqdefault.jpg&debut=0&fin=159&largeur=200&hauteur=113",
-                    "auteur": "Yvan Monka",
-                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  },
                   {
                     "titre": "Connaissant 2 longueurs et 1 angle",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=6mFBqacFzws&vignette=https://i.ytimg.com/vi/6mFBqacFzws/hqdefault.jpg&debut=0&fin=223&largeur=200&hauteur=113",
@@ -2591,20 +2672,12 @@
                 ],
                 "exercices": [
                   {
-                    "id": 5037,
-                    "slug": "5G20-0,s=1,s2=true,n=1",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false,
-                    "description": "Connaissant les 3 longueurs"
-                  },
-                  {
                     "id": 5038,
-                    "slug": "5G20-2,s=false,n=1",
+                    "slug": "5G20-2,s=false,n=2",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false,
-                    "description": "Connaissant des longueurs et des angles"
+                    "description": ""
                   }
                 ]
               },
@@ -2637,35 +2710,6 @@
                     "temps": 0,
                     "isInteractif": false,
                     "description": "Connaissant 2 longueurs et le périmètre"
-                  }
-                ]
-              },
-              {
-                "reference": "5G22",
-                "titre": "Connaître et utiliser la définition de la médiatrice",
-                "rappelDuCoursHTML": "<p><strong>Définition :</strong><br>La médiatrice d'un segment est la droite qui coupe ce segment perpendiculairement en son milieu.</p><p><strong><strong>Propriété :</strong></strong><br>Si un point appartient à la médiatrice d’un segment, alors il est équidistant (= à la même distance) des deux extrémités de ce segment.</p><p><strong>Propriété :</strong><br>Si un point est équidistant des deux extrémités d’un segment, alors il appartient à la médiatrice de ce segment.</p>",
-                "rappelDuCoursImage": "mediatrice.png",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=41-nginyPbk&vignette=https://i.ytimg.com/vi/41-nginyPbk/hqdefault.jpg&debut=0&fin=224&largeur=200&hauteur=113",
-                    "auteur": "Séverine LEMAITRE",
-                    "lienAuteur": "https://www.youtube.com/channel/UCW4XcuJF3f6uuNGV2BAMX0A"
-                  },
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=-HvUYDfhR0s&vignette=https://i.ytimg.com/vi/-HvUYDfhR0s/hqdefault.jpg&debut=0&fin=290&largeur=200&hauteur=113",
-                    "auteur": "Séverine LEMAITRE",
-                    "lienAuteur": "https://www.youtube.com/channel/UCW4XcuJF3f6uuNGV2BAMX0A"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 5041,
-                    "slug": "5G22-1,s=3,s2=false,n=2",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
                   }
                 ]
               }
@@ -2888,57 +2932,16 @@
             "nom": "6G5 Espace",
             "objectifs": [
               {
-                "reference": "5G50",
-                "titre": "Reconnaître des solides à partir d’un objet réel, d’une image, d’une représentation en perspective cavalière",
-                "rappelDuCoursHTML": "",
-                "rappelDuCoursImage": "Solides-usuels.png",
-                "videos": [
-                  {
-                    "titre": "Présentation des solides",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=SYBogG4e43E&vignette=https://i.ytimg.com/vi/SYBogG4e43E/hqdefault.jpg&debut=0&fin=257&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
-                    "auteur": "Loïc Cadoret",
-                    "lienAuteur": "https://www.youtube.com/channel/UCDsagbCc_MHFdJZLDwsjwzA"
-                  },
-                  {
-                    "titre": "Vue en 3D",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=muK4M7_ej58&vignette=https://i.ytimg.com/vi/muK4M7_ej58/hqdefault.jpg&debut=0&fin=232&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
-                    "auteur": "Le prof de maths sciences",
-                    "lienAuteur": "https://www.youtube.com/channel/UCfRhflEKujHRHkYVkX4ZGBg"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 5134,
-                    "slug": "6G44-1,s=0,s2=false,s3=false,n=4",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
-                  }
-                ]
-              },
-              {
                 "reference": "5G51",
-                "titre": "Construire et mettre en relation une représentation en perspective cavalière et un patron d’un pavé droit et d’un cylindre",
+                "titre": "Construire et mettre en relation une représentation en perspective cavalière d’un cylindre",
                 "rappelDuCoursHTML": "",
                 "rappelDuCoursImage": "",
                 "videos": [
-                  {
-                    "titre": "Représenter un pavé droit en perspective cavalière",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=RNWuANuhRig&vignette=https://i.ytimg.com/vi/RNWuANuhRig/hqdefault.jpg&debut=0&fin=262&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
-                    "auteur": "Maths et Jeux",
-                    "lienAuteur": "https://www.youtube.com/channel/UCj5z973uER7e6ppaAEvYMHQ"
-                  },
                   {
                     "titre": "Représenter un cylindre en perspective cavalière",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=7MVNeG-UpiI&vignette=https://i.ytimg.com/vi/7MVNeG-UpiI/hqdefault.jpg&debut=0&fin=107&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
                     "auteur": "Maths et Jeux",
                     "lienAuteur": "https://www.youtube.com/channel/UCj5z973uER7e6ppaAEvYMHQ"
-                  },
-                  {
-                    "titre": "Construire un patron d'un pavé droit",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=WhwYCIcA220&vignette=https://i.ytimg.com/vi/WhwYCIcA220/hqdefault.jpg&debut=0&fin=751&largeur=200&hauteur=113&api=AIzaSyAMwdrqtoOp9JzFx2XZS1ikbbghQHf2Gvg",
-                    "auteur": "Yvan Monka",
-                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "titre": "Construire un patron d'un cylindre",
@@ -2948,13 +2951,6 @@
                   }
                 ],
                 "exercices": [
-                  {
-                    "id": 5117,
-                    "slug": "6G41,s=2,s2=1,n=2",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
-                  }
                 ]
               }
             ]

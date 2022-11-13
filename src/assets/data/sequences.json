@@ -285,7 +285,7 @@
       },
       {
         "reference": "S6S8",
-        "titre": "Périmètre et aire 1",
+        "titre": "Périmètres et aires 1",
         "periode": 2,
         "objectifs": [
           {
@@ -361,9 +361,9 @@
             "slug": "5G12-1,s=1"
           },
           {
-            "reference": "5G50",
+            "reference": "6G40",
             "titre": "Reconnaître des solides (pavé droit, cube, cylindre, prisme droit, pyramide, cône, boule) à partir d’un objet réel, d’une image, d’une représentation en perspective cavalière",
-            "slug": ""
+            "slug": "6G44-1,s=0,s2=false,s3=false,n=1"
           }
         ]
       },
@@ -373,13 +373,13 @@
         "periode": 1,
         "objectifs": [
           {
-            "reference": "5G10"
+            "reference": "6G24"
           },
           {
-            "reference": "5G13-1"
+            "reference": "6G32"
           },
           {
-            "reference": "5G22"
+            "reference": "6G26"
           }
         ],
         "calculsMentaux": [
@@ -402,7 +402,7 @@
         ],
         "questionsFlash": [
           {
-            "reference": "5S11",
+            "reference": "6S10",
             "titre": "Lire et interpréter des données brutes ou présentées sous forme de tableaux, de diagrammes et de graphiques.",
             "slug": "6S10,s=1,s2=1"
           },
@@ -440,7 +440,7 @@
         ],
         "questionsFlash": [
           {
-            "reference": "5G22",
+            "reference": "6G26",
             "titre": "Connaître et utiliser la définition de la médiatrice",
             "slug": "5G22-1,s=3,s2=false,n=1"
           },
@@ -457,13 +457,16 @@
         "periode": 1,
         "objectifs": [
           {
+            "reference": "6G21"
+          },
+          {
             "reference": "5G20"
           },
           {
             "reference": "5G21"
           },
           {
-            "reference": "5I13"
+            "reference": "6G29"
           }
         ],
         "calculsMentaux": [
@@ -480,7 +483,7 @@
         ],
         "questionsFlash": [
           {
-            "reference": "5G22",
+            "reference": "6G26",
             "titre": "Connaître et utiliser la définition de la médiatrice",
             "slug": "5G22-1,s=3,s2=false,n=1"
           },
@@ -538,10 +541,10 @@
         "periode": 2,
         "objectifs": [
           {
-            "reference": "5S10"
+            "reference": "6S10"
           },
           {
-            "reference": "5S11"
+            "reference": "6S11"
           },
           {
             "reference": "5S12"
@@ -621,7 +624,7 @@
         ],
         "questionsFlash": [
           {
-            "reference": "5S11",
+            "reference": "6S10",
             "titre": "Lire et interpréter des données brutes ou présentées sous forme de tableaux, de diagrammes et de graphiques",
             "slug": "5S11,s=3,s2=2"
           },
@@ -641,7 +644,7 @@
             "reference": "5G11"
           },
           {
-            "reference": "5G13-2"
+            "reference": "5G13"
           }
         ],
         "calculsMentaux": [
@@ -755,10 +758,10 @@
             "reference": "5N10"
           },
           {
-            "reference": "5N11"
+            "reference": "6P16"
           },
           {
-            "reference": "5N12"
+            "reference": "6N20"
           }
         ],
         "calculsMentaux": [
@@ -814,7 +817,7 @@
         ],
         "questionsFlash": [
           {
-            "reference": "5N12",
+            "reference": "6N20",
             "titre": "Décomposer une fraction sous la forme d’une somme (ou d’une différence) d’un entier et d’une fraction",
             "slug": "6N20,s=false,n=1"
           },
@@ -1047,17 +1050,17 @@
       },
       {
         "reference": "S5S19",
-        "titre": "Aires",
+        "titre": "Périmètres et aires",
         "periode": 4,
         "objectifs": [
           {
             "reference": "5M10"
           },
           {
-            "reference": "5M11"
+            "reference": "6M21"
           },
           {
-            "reference": "5M13"
+            "reference": "6M23"
           }
         ],
         "calculsMentaux": [
@@ -1120,7 +1123,7 @@
         ],
         "questionsFlash": [
           {
-            "reference": "5M13",
+            "reference": "6M23",
             "titre": "Effectuer des conversions d’unités d’aires",
             "slug": "6M23,s=3,s2=true,s3=1,n=1"
           },
@@ -1205,7 +1208,7 @@
             "slug": "5P12,s=2,n=1,cd=1"
           },
           {
-            "reference": "5N11",
+            "reference": "6P16",
             "titre": "Relier fractions, proportions et pourcentages",
             "slug": "5N11-4,s=2,n=1"
           }
@@ -1273,7 +1276,7 @@
         ],
         "questionsFlash": [
           {
-            "reference": "5M13",
+            "reference": "6M23",
             "titre": "Effectuer des conversions d’unités d’aires",
             "slug": "6M23,s=3,s2=true,s3=1,n=1"
           },
@@ -1295,10 +1298,10 @@
         "periode": 5,
         "objectifs": [
           {
-            "reference": "5M30"
+            "reference": "6D10"
           },
           {
-            "reference": "5M31"
+            "reference": "6D11"
           }
         ],
         "calculsMentaux": [
@@ -1359,9 +1362,9 @@
         ],
         "questionsFlash": [
           {
-            "reference": "5G50",
+            "reference": "6G40",
             "titre": "Reconnaître des solides (pavé droit, cube, cylindre, prisme droit, pyramide, cône, boule) à partir d’un objet réel, d’une image, d’une représentation en perspective cavalière",
-            "slug": ""
+            "slug": "6G44-1,s=0,s2=false,s3=false,n=1"
           },
           {
             "reference": "5M10",
@@ -1381,7 +1384,10 @@
         "periode": 5,
         "objectifs": [
           {
-            "reference": "5G50"
+            "reference": "6G40"
+          },
+          {
+            "reference": "6G41"
           },
           {
             "reference": "5G51"
@@ -1407,7 +1413,7 @@
             "slug": "5S21,n=1"
           },
           {
-            "reference": "5M22",
+            "reference": "6M31",
             "titre": "Effectuer des conversions d’unités de volumes",
             "slug": "6M31,s=1,s2=false,s3=1,n=1,i=0"
           }
@@ -1419,10 +1425,7 @@
         "periode": 5,
         "objectifs": [
           {
-            "reference": "5M22"
-          },
-          {
-            "reference": "5M23"
+            "reference": "6M31"
           },
           {
             "reference": "5M20"
@@ -1456,12 +1459,12 @@
             "slug": "ex=5S14,s=3,n=1"
           },
           {
-            "reference": "5M30",
+            "reference": "6D10",
             "titre": "Effectuer des conversions d’unités de durées - Niveau 1",
             "slug": "6D10,s=1,n=2"
           },
           {
-            "reference": "5M30",
+            "reference": "6D10",
             "titre": "Effectuer des conversions d’unités de durées - Niveau 2",
             "slug": "6D13,s=3,n=2,cd=1"
           }
