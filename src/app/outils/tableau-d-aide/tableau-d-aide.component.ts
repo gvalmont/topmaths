@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core'
+import { DataService } from 'src/app/services/data.service'
+import { ScriptService } from 'src/app/services/script.service'
 import { environment } from 'src/environments/environment'
+declare let XLSX: any
 
 interface Eleve {
   prenom: string,
@@ -21,12 +24,14 @@ export class TableauDAideComponent implements OnInit {
   affichageCompetencesValidees: boolean
   modale!: HTMLDivElement
 
-  constructor () {
+  // eslint-disable-next-line no-unused-vars
+  constructor (private dataService: DataService, private scriptService: ScriptService) {
     this.eleves = []
     this.parametresAffiches = true
     this.affichageCompetencesValidees = false
     this.recupererListeDejaUploadee()
     this.creerListenerMessagesPost()
+    scriptService.load('sheetJs')
   }
 
   ngOnInit (): void {
@@ -120,5 +125,57 @@ export class TableauDAideComponent implements OnInit {
 
   afficherModale () {
     this.modale.className = ''
+  }
+
+  telechargerFichier (niveau: string) {
+    const references = this.getListeDesReferences(niveau)
+    const donnees = this.getListeDesIntitules(references)
+    donnees.unshift('Nom', 'Prénom', ' ')
+
+    /* Create worksheet */
+    const ws_data = [donnees]
+    const ws = XLSX.utils.aoa_to_sheet(ws_data)
+
+    /* Create workbook */
+    const wb = XLSX.utils.book_new()
+
+    /* Add the worksheet to the workbook */
+    XLSX.utils.book_append_sheet(wb, ws, 'Compétences validées')
+
+    /* Write to file */
+    XLSX.writeFile(wb, 'Compétences ' + niveau + '.ods')
+  }
+
+  getListeDesReferences (nomNiveau: string) {
+    const references = []
+    for (const niveau of this.dataService.niveauxSequences) {
+      if (niveau.nom === nomNiveau) {
+        for (const sequence of niveau.sequences) {
+          for (const objectif of sequence.objectifs) {
+            references.push(objectif.reference)
+          }
+        }
+      }
+    }
+    return references
+  }
+
+  getListeDesIntitules (references: string[]) {
+    const intitules: string[] = []
+    for (const reference of references) {
+      this.dataService.niveauxObjectifs.find(niveau => {
+        return niveau.themes.find(theme => {
+          return theme.sousThemes.find(sousTheme => {
+            return sousTheme.objectifs.find(objectif => {
+              if (objectif.reference === reference) {
+                intitules.push(objectif.reference + ' : ' + objectif.titre)
+              }
+              return objectif.reference === reference
+            })
+          })
+        })
+      })
+    }
+    return intitules
   }
 }

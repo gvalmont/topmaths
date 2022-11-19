@@ -3525,14 +3525,14 @@
                 "exercices": [
                   {
                     "id": 4012,
-                    "slug": "4L10,s=3,s2=true,n=2",
+                    "slug": "4L10,s=3,s2=true,n=4",
                     "score": 15,
                     "temps": 450,
                     "isInteractif": true
                   },
                   {
                     "id": 4013,
-                    "slug": "3L11,s=2,n=2",
+                    "slug": "3L11,s=2,n=4",
                     "score": 20,
                     "temps": 550,
                     "isInteractif": false
