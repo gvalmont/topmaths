@@ -1,7 +1,7 @@
 .eleve-container:not(:empty) {
   margin: 0.2rem 0;
   padding: 0.5rem;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .eleve {
