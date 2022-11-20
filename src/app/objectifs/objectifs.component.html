@@ -8,12 +8,10 @@
     </ul>
   </div>
   <div class="is-flex is-justify-content-center" style="overflow:auto">
-    <button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== null && filtre.periode !== undefined && filtre.periode > 0}" (click)="filtre.periode = 0">Période</button>
-    <button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== 1}" (click)="filtre.periode === 1 ? filtre.periode = 0 : filtre.periode = 1">1</button>
-    <button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== 2}" (click)="filtre.periode === 2 ? filtre.periode = 0 : filtre.periode = 2">2</button>
-    <button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== 3}" (click)="filtre.periode === 3 ? filtre.periode = 0 : filtre.periode = 3">3</button>
-    <button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== 4}" (click)="filtre.periode === 4 ? filtre.periode = 0 : filtre.periode = 4">4</button>
-    <button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== 5}" (click)="filtre.periode === 5 ? filtre.periode = 0 : filtre.periode = 5">5</button>
+    <span><button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== null && filtre.periode !== undefined && filtre.periode > 0}" (click)="filtre.periode = 0">Période</button></span>
+    <span *ngFor="let periode of [1, 2, 3, 4, 5]">
+      <button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== periode}" (click)="filtre.periode === periode ? filtre.periode = 0 : filtre.periode = periode">{{ periode }}</button>
+    </span>
   </div>
   <input style="text-align:center; font-size:x-large ;" type="email" class="form-control" id="search-text" aria-describedby="search-text" [(ngModel)]="texteRecherche" placeholder="Recherche" autofocus>
   <div><br></div>
