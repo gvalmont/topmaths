@@ -1602,6 +1602,12 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=e-noKy-HD0Y&vignette=https://i.ytimg.com/vi/e-noKy-HD0Y/hqdefault.jpg&debut=0&fin=225&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
+                  {
                     "titre": "",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=JNPT_Nsf9yE&vignette=https://i.ytimg.com/vi/JNPT_Nsf9yE/hqdefault.jpg&debut=0&fin=203&largeur=200&hauteur=113",
                     "auteur": "La classe de Mallory",
@@ -1846,7 +1852,7 @@
                   {
                     "titre": "Comment simplifier des fractions (rappel)",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=7vkgbr-7vws&vignette=https://i.ytimg.com/vi/7vkgbr-7vws/hqdefault.jpg&debut=0&fin=98&largeur=200&hauteur=113",
-                    "auteur": "Rapématiques",
+                    "auteur": "Rapémathiques",
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
                   },
                   {
@@ -1927,14 +1933,16 @@
                     "slug": "5R11-2,s=1,n=1",
                     "score": 10,
                     "temps": 120,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Placer des points"
                   },
                   {
                     "id": 5009,
                     "slug": "5R11,s=1,n=1",
                     "score": 7,
                     "temps": 300,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Lire des abscisses"
                   }
                 ]
               },
@@ -1957,14 +1965,16 @@
                     "slug": "5R12,s=1,s2=true",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Coordonnées positives"
                   },
                   {
                     "id": 5011,
                     "slug": "5R12-2,s=1,s2=true",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Coordonnées relatives"
                   }
                 ]
               },
@@ -1977,7 +1987,7 @@
                   {
                     "titre": "",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=KuJERDWGMw0&vignette=https://i.ytimg.com/vi/KuJERDWGMw0/hqdefault.jpg&debut=0&fin=202&largeur=200&hauteur=113",
-                    "auteur": "rapématiques",
+                    "auteur": "Rapémathiques",
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
                   }
                 ],
@@ -1999,9 +2009,9 @@
                 "videos": [
                   {
                     "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=ZUuNBh_YJl0&vignette=https://i.ytimg.com/vi/ZUuNBh_YJl0/hqdefault.jpg&debut=0&fin=187&largeur=200&hauteur=113",
-                    "auteur": "maths sonic",
-                    "lienAuteur": "https://www.youtube.com/channel/UCcsHDx0cHCPcS7MFVJ_bxsA"
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=nrOR9x-9vng&vignette=https://i.ytimg.com/vi/nrOR9x-9vng/hqdefault.jpg&debut=0&fin=358&largeur=200&hauteur=150",
+                    "auteur": "monProfDeMaths",
+                    "lienAuteur": "https://www.youtube.com/@monProfDeMaths"
                   }
                 ],
                 "exercices": [
@@ -2010,14 +2020,16 @@
                     "slug": "5R21,s=20,s2=false,n=4,cd=1",
                     "score": 10,
                     "temps": 450,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Soustractions"
                   },
                   {
                     "id": 5014,
                     "slug": "5R22-2,s=20,n=4",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Soustractions et additions"
                   }
                 ]
               },
@@ -2369,14 +2381,16 @@
                     "slug": "5S12,s=3,s2=1,s3=3",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Disgramme en barres"
                   },
                   {
                     "id": 5028,
                     "slug": "5S12,s=3,s2=1,s3=4",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Graphique cartésien"
                   }
                 ]
               },
@@ -2399,14 +2413,16 @@
                     "slug": "5S13,s=3,n=1",
                     "score": 10,
                     "temps": 200,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "À partir d'une série de valeurs"
                   },
                   {
                     "id": 5030,
                     "slug": "5S13-1,s=1,video=https%3A%2F%2Fyoutu.be%2FGWDDay-mdVA",
                     "score": 15,
                     "temps": 900,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "À partir d'une représentation graphique"
                   }
                 ]
               },
@@ -3293,14 +3309,16 @@
                     "slug": "4C33-0,s=1,s2=1,n=4",
                     "score": 10,
                     "temps": 400,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Donner le signification de l'écriture"
                   },
                   {
                     "id": 4004,
                     "slug": "4C33-0,s=2,s2=1,n=4",
                     "score": 10,
                     "temps": 400,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Simplifier l'écriture"
                   }
                 ]
               },
@@ -3728,7 +3746,7 @@
                   {
                     "titre": "Résumé musical",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Y9lF-ReyeXU&vignette=https://i.ytimg.com/vi/Y9lF-ReyeXU/hqdefault.jpg&debut=0&fin=183&largeur=200&hauteur=113",
-                    "auteur": "Rapématiques",
+                    "auteur": "Rapémathiques",
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
                   },
                   {
@@ -3907,17 +3925,10 @@
                 "exercices": [
                   {
                     "id": 4030,
-                    "slug": "can4P05,n=1",
+                    "slug": "can4P05,n=4",
                     "score": 5,
                     "temps": 50,
                     "isInteractif": true
-                  },
-                  {
-                    "id": 4031,
-                    "slug": "4P10-1,n=1",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
                   }
                 ]
               },
@@ -3937,24 +3948,19 @@
                 "exercices": [
                   {
                     "id": 4032,
-                    "slug": "can4P03,n=1",
+                    "slug": "can4P03,n=2",
                     "score": 10,
                     "temps": 100,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Calculer une quatrième proportionnelle"
                   },
                   {
                     "id": 4033,
-                    "slug": "6P11,s=false,n=1",
+                    "slug": "6P11,s=false,s2=7,n=1&ex=6P12,s=false,n=1",
                     "score": 20,
                     "temps": 200,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 4034,
-                    "slug": "6P11-2,s=3,n=1",
-                    "score": 25,
-                    "temps": 250,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Résoudre un problème de proportionnalité"
                   }
                 ]
               },
@@ -4204,7 +4210,7 @@
                   {
                     "titre": "Résumé musical",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=Jv__hIb6Zi4&vignette=https://i.ytimg.com/vi/Jv__hIb6Zi4/hqdefault.jpg&debut=0&fin=185&largeur=200&hauteur=113",
-                    "auteur": "Rapématiques",
+                    "auteur": "Rapémathiques",
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
                   },
                   {
