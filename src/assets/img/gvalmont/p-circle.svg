@@ -7,8 +7,32 @@
    viewBox="0 0 75.984718 75.984734"
    version="1.1"
    id="svg5"
+   sodipodi:docname="p-circle.svg"
+   inkscape:version="1.2.1 (9c6d41e, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview10"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.87764828"
+     inkscape:cx="46.715753"
+     inkscape:cy="143.56548"
+     inkscape:window-width="1470"
+     inkscape:window-height="820"
+     inkscape:window-x="0"
+     inkscape:window-y="37"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5" />
   <defs
      id="defs2">
     <rect
@@ -34,8 +58,19 @@
        style="font-size:200px;white-space:pre;shape-inside:url(#rect2301);fill:none;stroke:#000000;stroke-width:8.56063;stroke-dasharray:none;stroke-opacity:1"><tspan
          x="308.77734"
          y="470.27661"
-         id="tspan3313"><tspan
+         id="tspan289"><tspan
            style="font-family:Arial;-inkscape-font-specification:Arial;fill:#000000;stroke:none"
-           id="tspan3311">P</tspan></tspan></text>
+           id="tspan287">P</tspan></tspan></text>
   </g>
+  <text
+     xml:space="preserve"
+     style="font-size:22.9707px;font-family:Arial;-inkscape-font-specification:Arial;fill:#000000;stroke-width:0.983221"
+     x="33.347179"
+     y="63.984959"
+     id="text274"><tspan
+       sodipodi:role="line"
+       id="tspan272"
+       style="stroke-width:0.983221"
+       x="33.347179"
+       y="63.984959">ts</tspan></text>
 </svg>
