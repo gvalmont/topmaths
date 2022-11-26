@@ -349,6 +349,27 @@
             "nom": "6C1 Niveau 1",
             "objectifs": [
               {
+                "reference": "6C10",
+                "titre": "Connaître les tables de multiplication",
+                "rappelDuCoursHTML": "Pour apprendre les tables de multiplication, il n'y a pas de méthode facile, encore moins des méthodes magiques, en revanche il y a des bonnes méthodes et des mauvaises méthodes.<br><br>Pour apprendre les tables de multiplication, il ne faut <b>pas</b> :<br><span style='text-decoration: line-through;'>- les lire<br>- les réciter l'une après l'autre comme une poésie ou une chanson<br>- utiliser des techniques avec les doigts</span><br><br>En revanche, il <b>faut</b> :<br>- essayer de se rappeler des résultats dans le désordre.<br>- s'entraîner pas longtemps mais souvent, un petit peu tous les jours par exemple<br><br>Pour le faire, vous pouvez <a href='/assets/telechargements/Tables_de_multiplication.pdf'>télécharger les tables de multiplication</a> et vous entraîner avec le lien sous la vidéo.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=IWcz-se9Pj0&vignette=https://i.ytimg.com/vi/IWcz-se9Pj0/hqdefault.jpg&debut=0&fin=458&largeur=200&hauteur=113&st=fr,fr",
+                    "auteur": "Maître Lucas",
+                    "lienAuteur": "https://www.youtube.com/@MaitreLucas"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 0,
+                    "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=10",
+                    "description": ""
+                  }
+                ]
+              },
+              {
                 "reference": "6C12",
                 "titre": "Résoudre des problèmes avec des nombres entiers",
                 "rappelDuCoursHTML": "",
@@ -386,6 +407,33 @@
           {
             "nom": "6C2 Niveau 2",
             "objectifs": [
+              {
+                "reference": "6C20",
+                "titre": "Additionner et soustraire des nombres décimaux",
+                "rappelDuCoursHTML": "Pour additionner ou soustraire des nombres décimaux, il faut faire attention à bien aligner les virgules",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Additionner et soustraire des nombres décimaux",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=OG36kaybrdw&vignette=https://i.ytimg.com/vi/OG36kaybrdw/hqdefault.jpg&debut=0&fin=177&largeur=200&hauteur=113&st=fr,fr",
+                    "auteur": "Maître Lucas",
+                    "lienAuteur": "https://www.youtube.com/@MaitreLucas"
+                  },
+                  {
+                    "titre": "Rappel : soustractions avec retenues",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=ZkjHrm0yOkU&vignette=https://i.ytimg.com/vi/ZkjHrm0yOkU/hqdefault.jpg&debut=0&fin=382&largeur=200&hauteur=113&st=fr,fr",
+                    "auteur": "Maître Lucas",
+                    "lienAuteur": "https://www.youtube.com/@MaitreLucas"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6043,
+                    "slug": "6C20,s=3,s2=3,n=4",
+                    "description": ""
+                  }
+                ]
+              },
               {
                 "reference": "6C21",
                 "titre": "Effectuer une division euclidienne",
@@ -435,6 +483,32 @@
                   {
                     "id": 6022,
                     "slug": "6C23,s=4,n=4"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nom": "6C3 Niveau 3",
+            "objectifs": [
+              {
+                "reference": "6C30",
+                "titre": "Multiplier des nombres décimaux",
+                "rappelDuCoursHTML": "Pour multiplier des nombres décimaux, on commence par poser la multiplication comme s'il n'y avait pas de virgule.<br>Ensuite, on compte il y avait combien de chiffres après la virgule dans les nombres qu'on a multipliés et on place la virgule dans le résultat de façon à avoir ce même nombre de chiffres après la virgule.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=4YQi_icWTTI&vignette=https://i.ytimg.com/vi/4YQi_icWTTI/hqdefault.jpg&debut=0&fin=571&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6043,
+                    "slug": "6C30,s=false,s2=3,n=4",
+                    "description": ""
                   }
                 ]
               }
