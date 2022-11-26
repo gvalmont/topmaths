@@ -26,7 +26,7 @@ export class LecteurDeXlsComponent implements OnInit {
 
   UploadProcess () {
     const fileUpload = <HTMLInputElement> document.getElementById("fileUpload")
-    const regex = /^([a-zA-Z0-9()\s_\\.\-:])+(.xls|.xlsx|.ods|.numbers)$/
+    const regex = /(.xls|.xlsx|.ods|.numbers)$/
     if (fileUpload !== null && fileUpload.files !== null && regex.test(fileUpload.value.toLowerCase())) {
       recupererDonnesEleves (fileUpload)
     } else {
