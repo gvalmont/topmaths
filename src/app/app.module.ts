@@ -29,6 +29,8 @@ import { TableauDAideComponent } from './outils/tableau-d-aide/tableau-d-aide.co
 import { LecteurDeXlsComponent } from './mini-components/lecteur-de-xls/lecteur-de-xls.component'
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component'
 import { CguComponent } from './cgu/cgu.component'
+import { EvaluationsBilanComponent } from './outils/evaluations-bilan/evaluations-bilan.component'
+import { ModaleTutoXlsComponent } from './mini-components/modale-tuto-xls/modale-tuto-xls.component'
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { CguComponent } from './cgu/cgu.component'
     TableauDAideComponent,
     LecteurDeXlsComponent,
     MentionsLegalesComponent,
-    CguComponent
+    CguComponent,
+    EvaluationsBilanComponent,
+    ModaleTutoXlsComponent
   ],
   imports: [
     BrowserModule,

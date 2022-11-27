@@ -1,0 +1,39 @@
+<div (click)="afficherModale()">
+  <app-bouton-dropdown-simple [bouton]="'assets/img/cc0/question-mark-svgrepo-com.svg'" [dropdown]="'Mode d\'emploi'" [size]="1"></app-bouton-dropdown-simple>
+</div>
+<div id="modale-tuto-xls" class="cache modale-container" (click)="cacherModale()">
+  <div class="modale-contenu centre">
+    <section class="section">
+      <h1 class="title">À quoi sert cette page ?</h1>
+      <p [innerHTML]="description"></p>
+    </section>
+    <section class="section">
+      <h1 class="title">Comment l'utiliser ?</h1>
+      <ul style="text-align: left;">
+        <li>- Télécharger l'un des modèles suivants : <a href="assets/telechargements/4eme1.ods">.ods élaboré</a> - <a href="assets/telechargements/4eme1.xlsx">.xlsx élaboré</a> - <a href="assets/telechargements/aide.ods">.ods minimal</a> - <a href="assets/telechargements/aide.xlsx">.xlsx minimal</a></li>
+        <li>- Vous pouvez aussi télécharger un fichier contenant l'ensemble des compétences du site : <a (click)="telechargerFichier('6e')">6ème</a>, <a (click)="telechargerFichier('5e')">5ème</a>, <a (click)="telechargerFichier('4e')">4ème</a>, <a (click)="telechargerFichier('3e')">3ème</a></li>
+        <li>- Le modifier</li>
+        <li>- L'envoyer sur le site grâce au bouton "Parcourir..."</li>
+        <li>- Le traiter grâce au bouton "Mettre à jour la liste des élèves"</li>
+        <li>- Cliquer sur les prénoms des élèves disposés à aider les autres</li>
+      </ul>
+    </section>
+    <section class="section">
+      <h1 class="title">Fonctionnement des modèles élaborés</h1>
+      <ul style="text-align: left;">
+        <li>- Compléter les Noms, Prénoms et intitulés des compétences sur le premier onglet "Compétences validées"</li>
+        <li>- Compléter le degré d'aquisition des différentes compétences (1, 2, 3 ou 4) lors des différents trimestres/semestres sur les onglets "Compétences validées trim/sem 1" etc.</li>
+      </ul>
+    </section>
+    <section class="section">
+      <h1 class="title">Fonctionnement des modèles minimaux</h1>
+      <ul style="text-align: left;">
+        <li>- Le script récupère les prénoms des élèves dans la colonne intitulée "{{ INTITULE_COLONNE_PRENOM }}".</li>
+        <li>- En cas d'homonyme, il ajoute l'initiale du nom trouvée dans la colonne "{{ INTUTULE_COLONNE_NOM }}".</li>
+        <li>- Les compétences ajoutées correspondent au premier mot de l'intitulé de chaque colonne où les élèves ont une "note" de {{ NOTE_MIN_VALIDATION }} ou plus.</li>
+        <li>- Les informations précédentes doivent se trouver dans le premier onglet.</li>
+        <li>- À part ces critères, vous pouvez gérer le fichier comme vous voulez !</li>
+      </ul>
+    </section>
+  </div>
+</div>

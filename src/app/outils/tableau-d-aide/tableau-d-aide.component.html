@@ -3,9 +3,7 @@
     <div class="is-flex is-justify-content-center">
       <app-lecteur-de-xls [label]="'Mettre à jour la liste des élèves'"></app-lecteur-de-xls>
       &nbsp;
-      <div (click)="afficherModale()">
-        <app-bouton-dropdown-simple [bouton]="'assets/img/cc0/question-mark-svgrepo-com.svg'" [dropdown]="'Mode d\'emploi'" [size]="1"></app-bouton-dropdown-simple>
-      </div>
+      <app-modale-tuto-xls [description]="description"></app-modale-tuto-xls>
     </div>
     <div class="my-4" *ngIf="eleves[0] !== undefined">
       <div class="is-flex is-flex-direction-row is-flex-wrap-wrap is-justify-content-center">
@@ -29,43 +27,5 @@
         </span>
       </span>
     </div>
-  </div>
-</div>
-<div id="modale-container" class="cache" (click)="cacherModale()">
-  <div id="modale-contenu" class="centre">
-    <section class="section">
-      <h1 class="title">À quoi sert cette page ?</h1>
-      Lors des séances de travail en autonomie, les élèves qui veulent signaler aux autres qu'ils sont disposés à les aider peuvent s'inscrire sur le "Tableau d'aide".<br>
-      L'enseignant⸱e peut utiliser cet outil pour rapidement projeter au tableau la liste des élèves disposés à aider les autres ainsi que la liste des compétences qu'ils⸱elles ont déjà validées.
-    </section>
-    <section class="section">
-      <h1 class="title">Comment l'utiliser ?</h1>
-      <iframe src="https://podeduc.apps.education.fr/video/4468-presentation-du-tableau-daide-sur-topmaths/?is_iframe=true" width="640" height="360" style="padding: 0; margin: 0; border:0" allowfullscreen></iframe>
-      <ul style="text-align: left;">
-        <li>- Télécharger l'un des modèles suivants : <a href="assets/telechargements/4eme1.ods">.ods élaboré</a> - <a href="assets/telechargements/4eme1.xlsx">.xlsx élaboré</a> - <a href="assets/telechargements/aide.ods">.ods minimal</a> - <a href="assets/telechargements/aide.xlsx">.xlsx minimal</a></li>
-        <li>- Vous pouvez aussi télécharger un fichier contenant l'ensemble des compétences du site : <a (click)="telechargerFichier('6e')">6ème</a>, <a (click)="telechargerFichier('5e')">5ème</a>, <a (click)="telechargerFichier('4e')">4ème</a>, <a (click)="telechargerFichier('3e')">3ème</a></li>
-        <li>- Le modifier</li>
-        <li>- L'envoyer sur le site grâce au bouton "Parcourir..."</li>
-        <li>- Le traiter grâce au bouton "Mettre à jour la liste des élèves"</li>
-        <li>- Cliquer sur les prénoms des élèves disposés à aider les autres</li>
-      </ul>
-    </section>
-    <section class="section">
-      <h1 class="title">Fonctionnement des modèles élaborés</h1>
-      <ul style="text-align: left;">
-        <li>- Compléter les Noms, Prénoms et intitulés des compétences sur le premier onglet "Compétences validées"</li>
-        <li>- Compléter le degré d'aquisition des différentes compétences (1, 2, 3 ou 4) lors des différents trimestres/semestres sur les onglets "Compétences validées trim/sem 1" etc.</li>
-      </ul>
-    </section>
-    <section class="section">
-      <h1 class="title">Fonctionnement des modèles minimaux</h1>
-      <ul style="text-align: left;">
-        <li>- Le script récupère les prénoms des élèves dans la colonne intitulée "{{ INTITULE_COLONNE_PRENOM }}".</li>
-        <li>- En cas d'homonyme, il ajoute l'initiale du nom trouvée dans la colonne "{{ INTUTULE_COLONNE_NOM }}".</li>
-        <li>- Les compétences ajoutées correspondent au premier mot de l'intitulé de chaque colonne où les élèves ont une "note" de {{ NOTE_MIN_VALIDATION }} ou plus.</li>
-        <li>- Les informations précédentes doivent se trouver dans le premier onglet.</li>
-        <li>- À part ces critères, vous pouvez gérer le fichier comme vous voulez !</li>
-      </ul>
-    </section>
   </div>
 </div>

@@ -31,7 +31,7 @@
 .dropdown:hover .dropdown-content {
   display: block;
 
-}#modale-container {
+}.modale-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -41,19 +41,15 @@
   background: rgba(10, 10, 10, 0.86);
 }
 
-#modale-contenu {
+.modale-contenu {
   background-color: white;
   border-radius: 50px;
-  margin: 100px 10%;
-  max-height: calc(100vh - 160px);
+  margin: 5% 10%;
+  max-height: 80%;
   overflow: auto;
   position: relative;
-  max-width: 80%; }
-  @media screen and (min-width: 769px) {
-    .modale-contenu {
-      margin: 0 auto;
-      max-height: calc(100vh - 40px);
-      width: 640px; } }
+  max-width: 80%;
+}
 
 .title.is-tout, .title.is-6e, .title.is-5e, .title.is-4e, .title.is-3e {
   border-radius: 50px 50px 0px 0px;
