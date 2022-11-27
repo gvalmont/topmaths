@@ -15,7 +15,7 @@
         <li>- Le modifier</li>
         <li>- L'envoyer sur le site grâce au bouton "Parcourir..."</li>
         <li>- Le traiter grâce au bouton "Mettre à jour la liste des élèves"</li>
-        <li>- Cliquer sur les prénoms des élèves disposés à aider les autres</li>
+        <li *ngFor="let explication of explications">- {{ explication }}</li>
       </ul>
     </section>
     <section class="section">

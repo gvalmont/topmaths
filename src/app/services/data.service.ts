@@ -141,7 +141,6 @@ export class DataService {
         }
       }
     }
-    console.log('Période non trouvée pour l\'objectif ' + referenceObjectif)
     return -1
   }
 }

@@ -17,6 +17,14 @@
         </button>
       </a>
     </div>
+    <div *ngIf="storageService.modeEnseignant">
+      <br><br>
+      <a [routerLink]="['/outils/evaluations-bilan']">
+        <button class="button is-large is-sponsor is-outlined p-6">
+          <p class="enorme">Évaluations<br>bilan</p>
+        </button>
+      </a>
+    </div>
     <br><br><br><br>
     <div *ngIf="!storageService.modeEnseignant">
       <a (click)="activerModeEnseignant()">

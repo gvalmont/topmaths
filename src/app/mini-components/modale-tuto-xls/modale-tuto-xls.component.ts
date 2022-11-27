@@ -11,6 +11,7 @@ declare let XLSX: any
 })
 export class ModaleTutoXlsComponent implements OnInit {
   @Input() description: string
+  @Input() explications: string[]
   INTITULE_COLONNE_PRENOM = LecteurDeXlsComponent.INTITULE_COLONNE_PRENOM
   INTUTULE_COLONNE_NOM = LecteurDeXlsComponent.INTUTULE_COLONNE_NOM
   NOTE_MIN_VALIDATION = LecteurDeXlsComponent.NOTE_MIN_VALIDATION
@@ -20,6 +21,7 @@ export class ModaleTutoXlsComponent implements OnInit {
   // eslint-disable-next-line no-unused-vars
   constructor (private dataService: DataService, private scriptService: ScriptService) {
     this.description = ''
+    this.explications = []
     scriptService.load('sheetJs')
   }
 

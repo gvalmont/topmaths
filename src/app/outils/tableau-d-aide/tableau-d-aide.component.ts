@@ -1,11 +1,6 @@
 import { Component } from '@angular/core'
 import { environment } from 'src/environments/environment'
-
-interface Eleve {
-  prenom: string,
-  competencesValidees: string[]
-  veutAider: boolean
-}
+import { Eleve } from 'src/app/services/modeles/eleves'
 
 @Component({
   selector: 'app-tableau-d-aide',

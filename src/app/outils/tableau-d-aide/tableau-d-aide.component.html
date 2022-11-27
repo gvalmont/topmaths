@@ -1,9 +1,9 @@
 <div class="container is-max-desktop centre">
   <div *ngIf="parametresAffiches">
     <div class="is-flex is-justify-content-center">
-      <app-lecteur-de-xls [label]="'Mettre à jour la liste des élèves'"></app-lecteur-de-xls>
+      <app-lecteur-de-xls></app-lecteur-de-xls>
       &nbsp;
-      <app-modale-tuto-xls [description]="description"></app-modale-tuto-xls>
+      <app-modale-tuto-xls [description]="description" [explications]="['Cliquer sur les prénoms des élèves disposés à aider les autres']"></app-modale-tuto-xls>
     </div>
     <div class="my-4" *ngIf="eleves[0] !== undefined">
       <div class="is-flex is-flex-direction-row is-flex-wrap-wrap is-justify-content-center">

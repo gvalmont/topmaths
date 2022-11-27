@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { environment } from 'src/environments/environment'
 import { ScriptService } from '../../services/script.service'
 import { Eleve } from '../../services/modeles/eleves'
@@ -10,7 +10,6 @@ declare let XLSX: any
   styleUrls: ['./lecteur-de-xls.component.css']
 })
 export class LecteurDeXlsComponent implements OnInit {
-  @Input() label: string
   reader: FileReader
   public static INTITULE_COLONNE_PRENOM = 'Prénom'
   public static INTUTULE_COLONNE_NOM = 'Nom'
@@ -19,7 +18,6 @@ export class LecteurDeXlsComponent implements OnInit {
   modale!: HTMLDivElement
 
   constructor (private scriptService: ScriptService) {
-    this.label = ''
     this.reader = new FileReader()
     scriptService.load('sheetJs')
   }
