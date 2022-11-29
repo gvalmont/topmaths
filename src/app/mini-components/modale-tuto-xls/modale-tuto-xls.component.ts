@@ -13,7 +13,7 @@ export class ModaleTutoXlsComponent implements OnInit {
   @Input() description: string
   @Input() explications: string[]
   INTITULE_COLONNE_PRENOM = LecteurDeXlsComponent.INTITULE_COLONNE_PRENOM
-  INTUTULE_COLONNE_NOM = LecteurDeXlsComponent.INTUTULE_COLONNE_NOM
+  INTUTULE_COLONNE_NOM = LecteurDeXlsComponent.INTITULE_COLONNE_NOM
   NOTE_MIN_VALIDATION = LecteurDeXlsComponent.NOTE_MIN_VALIDATION
   NOTE_MIN_MAITRISE = LecteurDeXlsComponent.NOTE_MIN_MAITRISE
   modale!: HTMLDivElement

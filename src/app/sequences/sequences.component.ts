@@ -92,7 +92,6 @@ export class SequencesComponent implements OnInit, OnDestroy {
     for (const niveau of this.dataService.niveauxSequences) {
       this.lignesSequencesNormales.push({ niveau: niveau.nom })
       for (const sequence of niveau.sequences) {
-        if (typeof sequence.periode !== 'number') console.log(sequence)
         this.lignesSequencesNormales.push({ niveau: niveau.nom, reference: sequence.reference, titre: sequence.titre, periode: sequence.periode, numero: parseInt(sequence.reference.slice(3)) })
       }
       this.lignesSequencesNormales.push({ niveau: 'fin' })

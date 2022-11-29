@@ -31,6 +31,7 @@ import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.co
 import { CguComponent } from './cgu/cgu.component'
 import { EvaluationsBilanComponent } from './outils/evaluations-bilan/evaluations-bilan.component'
 import { ModaleTutoXlsComponent } from './mini-components/modale-tuto-xls/modale-tuto-xls.component'
+import { EvaluationsALaDemandeComponent } from './outils/evaluations-a-la-demande/evaluations-a-la-demande.component'
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ModaleTutoXlsComponent } from './mini-components/modale-tuto-xls/modale
     MentionsLegalesComponent,
     CguComponent,
     EvaluationsBilanComponent,
-    ModaleTutoXlsComponent
+    ModaleTutoXlsComponent,
+    EvaluationsALaDemandeComponent
   ],
   imports: [
     BrowserModule,

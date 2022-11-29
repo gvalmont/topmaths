@@ -12,7 +12,8 @@ declare let XLSX: any
 export class LecteurDeXlsComponent implements OnInit {
   reader: FileReader
   public static INTITULE_COLONNE_PRENOM = 'Prénom'
-  public static INTUTULE_COLONNE_NOM = 'Nom'
+  public static INTITULE_COLONNE_NOM = 'Nom'
+  public static INTITULE_FEUILLE_A_IMPRIMER = 'A imprimer'
   public static NOTE_MIN_VALIDATION = 3
   public static NOTE_MIN_MAITRISE = 4
   modale!: HTMLDivElement
@@ -29,7 +30,8 @@ export class LecteurDeXlsComponent implements OnInit {
 
   UploadProcess () {
     const INTITULE_COLONNE_PRENOM = LecteurDeXlsComponent.INTITULE_COLONNE_PRENOM
-    const INTUTULE_COLONNE_NOM = LecteurDeXlsComponent.INTUTULE_COLONNE_NOM
+    const INTITULE_COLONNE_NOM = LecteurDeXlsComponent.INTITULE_COLONNE_NOM
+    const INTITULE_FEUILLE_A_IMPRIMER = LecteurDeXlsComponent.INTITULE_FEUILLE_A_IMPRIMER
     const NOTE_MIN_VALIDATION = LecteurDeXlsComponent.NOTE_MIN_VALIDATION
     const NOTE_MIN_MAITRISE = LecteurDeXlsComponent.NOTE_MIN_MAITRISE
     const fileUpload = <HTMLInputElement> document.getElementById("fileUpload")
@@ -42,17 +44,35 @@ export class LecteurDeXlsComponent implements OnInit {
     async function recupererDonnesEleves (e: any) {
       const file = e.files[0]
       const data = await file.arrayBuffer()
-      const workbook = XLSX.read(data)
-      const worksheet = workbook.Sheets[workbook.SheetNames[0]]
-      const elevesBruts = XLSX.utils.sheet_to_json(worksheet)
-      const eleves = modifierEleves(elevesBruts)
+      const classeur = XLSX.read(data)
+      const feuilleCompetences = classeur.Sheets[classeur.SheetNames[0]]
+      const elevesFeuilleCompetences = XLSX.utils.sheet_to_json(feuilleCompetences)
+      const feuilleAImprimer = classeur.Sheets[INTITULE_FEUILLE_A_IMPRIMER]
+      const elevesFeuilleAImprimer = XLSX.utils.sheet_to_json(feuilleAImprimer)
+      const eleves = modifierEleves(elevesFeuilleCompetences, elevesFeuilleAImprimer)
       window.postMessage({ type: 'donneesTableur', data: eleves }, environment.origine)
     }
 
-    const modifierEleves = function (elevesBruts: any) {
-      const elevesAvecCompetencesVaidees = ajouterCompetencesValideesMaitrisees(elevesBruts)
-      const elevesAvecPrenomEtCompetences = ajouterPrenom(elevesAvecCompetencesVaidees)
-      const eleves = <Eleve[]> ajouterNeVeutPasAider(elevesAvecPrenomEtCompetences)
+    const modifierEleves = function (elevesFeuilleCompetences: any, elevesFeuilleAImprimer: any) {
+      const elevesAvecPrenom = ajouterPrenom(elevesFeuilleCompetences)
+      const elevesAvecPrenomCompetences = ajouterCompetencesValideesMaitrisees(elevesAvecPrenom)
+      const elevesAvecPrenomCompetencesEvaluationsDemandees = ajouterEvaluationsDemandees(elevesAvecPrenomCompetences, elevesFeuilleAImprimer)
+      const eleves = <Eleve[]> ajouterNeVeutPasAider(elevesAvecPrenomCompetencesEvaluationsDemandees)
+      return eleves
+    }
+
+    const ajouterPrenom = function (eleves: any) {
+      for (const eleve of eleves) {
+        eleve.prenom = eleve[INTITULE_COLONNE_PRENOM]
+      }
+      for (const eleve1 of eleves) {
+        for (const eleve2 of eleves) {
+          if (eleve1[INTITULE_COLONNE_PRENOM] === eleve2[INTITULE_COLONNE_PRENOM] && eleve1[INTITULE_COLONNE_NOM] !== eleve2[INTITULE_COLONNE_NOM]) {
+            eleve1.prenom = eleve1[INTITULE_COLONNE_PRENOM] + ' ' + eleve1[INTITULE_COLONNE_NOM].slice(0, 1) + '.'
+            eleve2.prenom = eleve2[INTITULE_COLONNE_PRENOM] + ' ' + eleve2[INTITULE_COLONNE_NOM].slice(0, 1) + '.'
+          }
+        }
+      }
       return eleves
     }
 
@@ -72,19 +92,23 @@ export class LecteurDeXlsComponent implements OnInit {
       return eleves
     }
 
-    const ajouterPrenom = function (eleves: any) {
-      for (const eleve of eleves) {
-        eleve.prenom = eleve[INTITULE_COLONNE_PRENOM]
-      }
-      for (const eleve1 of eleves) {
-        for (const eleve2 of eleves) {
-          if (eleve1[INTITULE_COLONNE_PRENOM] === eleve2[INTITULE_COLONNE_PRENOM] && eleve1[INTUTULE_COLONNE_NOM] !== eleve2[INTUTULE_COLONNE_NOM]) {
-            eleve1.prenom = eleve1[INTITULE_COLONNE_PRENOM] + ' ' + eleve1[INTUTULE_COLONNE_NOM].slice(0, 1) + '.'
-            eleve2.prenom = eleve2[INTITULE_COLONNE_PRENOM] + ' ' + eleve2[INTUTULE_COLONNE_NOM].slice(0, 1) + '.'
+    const ajouterEvaluationsDemandees = function (elevesFeuilleCompetences: any, elevesFeuilleAImprimer: any) {
+      for (const eleveFeuilleCompetences of elevesFeuilleCompetences) {
+        const evaluationsDemandees = []
+        for (const eleveFeuilleAImprimer of elevesFeuilleAImprimer) {
+          const keysFeuilleAImprimer = Object.keys(eleveFeuilleAImprimer)
+          const valuesFeuilleAImprimer = <string[]>Object.values(eleveFeuilleAImprimer)
+          if (eleveFeuilleCompetences[INTITULE_COLONNE_NOM] === eleveFeuilleAImprimer[INTITULE_COLONNE_NOM] && eleveFeuilleCompetences[INTITULE_COLONNE_PRENOM] === eleveFeuilleAImprimer[INTITULE_COLONNE_PRENOM]) {
+            for (let i = 0; i < keysFeuilleAImprimer.length; i++) {
+              if (keysFeuilleAImprimer[i].slice(0, 7) === '__EMPTY') {
+                evaluationsDemandees.push(valuesFeuilleAImprimer[i])
+              }
+            }
           }
         }
+        eleveFeuilleCompetences.evaluationsDemandees = evaluationsDemandees
       }
-      return eleves
+      return elevesFeuilleCompetences
     }
 
     const ajouterNeVeutPasAider = function (eleves: any) {
