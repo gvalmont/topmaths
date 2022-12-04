@@ -361,6 +361,52 @@
             "slug": "6M12,s=4,s2=true,n=1"
           }
         ]
+      },
+      {
+        "reference": "S6S10",
+        "titre": "Angles",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "6G22-1"
+          },
+          {
+            "reference": "6G22-2"
+          },
+          {
+            "reference": "6G23"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C20",
+            "titre": "Additionner ou soustraire des nombres décimaux",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=8NE1~o=0,1~q=0.-1.~p=~t=24~n=8",
+                "score": 2
+              },
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=8NE1~o=1,2~q=0.-1.-2.~p=~t=24~n=8",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6C30",
+            "titre": "Multiplier des nombres décimaux",
+            "slug": "6C30,s=false,s2=3,n=4"
+          },
+          {
+            "reference": "6N20",
+            "titre": "Séparer la partie entière d'une fraction",
+            "slug": "6N20,s=false,n=1"
+          }
+        ]
       }
     ]
   },
@@ -3070,7 +3116,8 @@
             "titre": "Déterminer une longueur à l’aide des lignes trigonométriques",
             "slug": "3G30,s=true,cd=0"
           }
-        ]
+        ],
+        "slugEvalBrevet": "ex=dnb_2022_09_polynesie_5&ex=dnb_2022_09_metropole_4&ex=dnb_2021_06_metropole_1&ex=dnb_2018_12_caledonie_6&ex=dnb_2016_04_pondichery_2"
       },
       {
         "reference": "S3S10",

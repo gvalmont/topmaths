@@ -929,6 +929,80 @@
                 ]
               },
               {
+                "reference": "6G22-1",
+                "titre": "Connaître le vocabulaire et les notations des angles",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "6G22-1-RDC.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=mCC0H9pNNEY&vignette=https://i.ytimg.com/vi/mCC0H9pNNEY/hqdefault.jpg&debut=0&fin=498&largeur=200&hauteur=150",
+                    "auteur": "Maths et Jeux",
+                    "lienAuteur": "https://www.youtube.com/@MathsetJeux"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "slug": "6G22-1,cd=1",
+                    "description": "Connaître le vocabulaire de base"
+                  },
+                  {
+                    "slug": "6G22,s=2,s2=1,s3=false,n=2",
+                    "description": "Savoir nommer un angle"
+                  }
+                ]
+              },
+              {
+                "reference": "6G22-2",
+                "titre": "Estimer si un angle est droit, aigu ou obtus",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "6G22-2-RDC.png",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=yfCIOM1tqEw&vignette=https://i.ytimg.com/vi/yfCIOM1tqEw/hqdefault.jpg&debut=113&fin=278&largeur=200&hauteur=150",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "slug": "6G22-2,n=8,cd=1",
+                    "description": ""
+                  }
+                ]
+              },
+              {
+                "reference": "6G23",
+                "titre": "Utiliser le rapporteur pour tracer ou mesurer un angle",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "6G22-2-RDC.png",
+                "videos": [
+                  {
+                    "titre": "Mesurer un angle",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=YqUMin1FQ2c&vignette=https://i.ytimg.com/vi/YqUMin1FQ2c/hqdefault.jpg&debut=0&fin=312&largeur=200&hauteur=150",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
+                  },
+                  {
+                    "titre": "Tracer un angle",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=CIrYkaNIBKE&vignette=https://i.ytimg.com/vi/CIrYkaNIBKE/hqdefault.jpg&debut=0&fin=206&largeur=200&hauteur=150",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "slug": "6G23-4,s=1,s2=7,s3=4,s4=false,n=1",
+                    "description": "Mesurer un angle"
+                  },
+                  {
+                    "slug": "6G23,s=4,n=4,video=cU80v1p6mMI",
+                    "description": "Tracer un angle"
+                  }
+                ]
+              },
+              {
                 "reference": "6G24",
                 "titre": "Transformer une figure par symétrie axiale",
                 "rappelDuCoursHTML": "Méthode pour construire le symétrique d'un point",
@@ -2691,16 +2765,16 @@
                 "rappelDuCoursImage": "methode_construction_symetrie_centrale.png",
                 "videos": [
                   {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=lFvWjCLL0Ak&vignette=https://i.ytimg.com/vi/lFvWjCLL0Ak/hqdefault.jpg&debut=0&fin=54&largeur=200&hauteur=150",
-                    "auteur": "jean-yves Labouche",
-                    "lienAuteur": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
+                    "titre": "Symétrique d'un point",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=bKPMO-5Wv-o&vignette=https://i.ytimg.com/vi/bKPMO-5Wv-o/hqdefault.jpg&debut=0&fin=149&largeur=200&hauteur=113",
+                    "auteur": "*Mme Maths*",
+                    "lienAuteur": "https://www.youtube.com/@MmeMaths"
                   },
                   {
-                    "titre": "",
+                    "titre": "Symétrique d'un triangle",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=gQZIWxzOfaE&vignette=https://i.ytimg.com/vi/gQZIWxzOfaE/hqdefault.jpg&debut=0&fin=252&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
-                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
                 "exercices": [
@@ -3638,7 +3712,13 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "",
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=kz8y9CKvVaI&vignette=https://i.ytimg.com/vi/kz8y9CKvVaI/hqdefault.jpg&debut=0&fin=195&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
+                  {
+                    "titre": "Explications détaillées",
                     "slug": "https://ladigitale.dev/digiplay/inc/video.php?videoId=sr_vOR2ALhw&vignette=https://i.ytimg.com/vi/sr_vOR2ALhw/hqdefault.jpg&debut=0&fin=472&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
