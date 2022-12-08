@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<INSTRUMENPOCHE version="2" >
+<action objet="regle" mouvement="montrer" abscisse="120" ordonnee="270" tempo="0" />
+<action objet="regle" mouvement="rotation" angle="-9.46" tempo="0" sens="5" />
+<action objet="crayon" mouvement="montrer" abscisse="120" ordonnee="270" tempo="0" />
+<action abscisse="564" ordonnee="196" epaisseur="2" couleur="black" mouvement="tracer" objet="crayon" tempo="0" vitesse="10"    id="1" />
+<action objet="regle" mouvement="masquer" tempo="5" />
+<action objet="rapporteur" mouvement="montrer" abscisse="0" ordonnee="300" tempo="5" />
+<action objet="rapporteur" mouvement="translation" abscisse="120" ordonnee="270" tempo="5" vitesse="10" />
+<action objet="rapporteur" mouvement="rotation" angle="-9.46" tempo="5" sens="5" />
+<action objet="crayon" mouvement="translation" abscisse="225" ordonnee="155" tempo="5" vitesse="10" />
+<action abscisse="232" ordonnee="148" epaisseur="1" couleur="gray" mouvement="tracer" objet="crayon" tempo="5" vitesse="10"    id="2" />
+<action objet="rapporteur" mouvement="masquer" tempo="5" />
+<action objet="regle" mouvement="montrer" abscisse="120" ordonnee="270" tempo="5" />
+<action objet="regle" mouvement="rotation" angle="-47.46" tempo="5" sens="5" />
+<action objet="crayon" mouvement="translation" abscisse="120" ordonnee="270" tempo="5" vitesse="10" />
+<action abscisse="394" ordonnee="-28" epaisseur="2" couleur="black" mouvement="tracer" objet="crayon" tempo="5" vitesse="10"    id="3" />
+<action objet="regle" mouvement="masquer" tempo="5" />
+<action objet="compas" mouvement="montrer" abscisse="120" ordonnee="270" tempo="5" />
+<action ecart="60" mouvement="ecarter" objet="compas" tempo="5" vitesse="10" />
+<action sens="5" angle="-9.5" mouvement="rotation" objet="compas" tempo="5" />
+<action mouvement="lever" objet="compas" />
+<action sens="5" angle="-9.5" mouvement="rotation" objet="compas" />
+<action couleur="forestgreen" epaisseur="2" sens="5" debut="-9.5" fin="-47.5" mouvement="tracer" objet="compas"   id="4" />
+<action mouvement="coucher" objet="compas" tempo="5" />
+<action objet="compas" mouvement="masquer" tempo="5" />
+<action abscisse="180" ordonnee="210" id="5" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="38°" id="5" mouvement="ecrire" objet="texte"  tempo="5" />
+<action objet="crayon" mouvement="masquer" tempo="5" />
+</INSTRUMENPOCHE>

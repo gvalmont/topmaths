@@ -975,8 +975,9 @@
               {
                 "reference": "6G23",
                 "titre": "Utiliser le rapporteur pour tracer ou mesurer un angle",
-                "rappelDuCoursHTML": "",
-                "rappelDuCoursImage": "6G22-2-RDC.png",
+                "rappelDuCoursHTML": "Pour mesurer (ou tracer) un angle, il faut :<br>1) placer le centre du rapporteur sur le sommet de l'angle ;<br>2) aligner un des zéros du rapporteur avec un des côtés de l'angle ;<br>3) lire la graduation par laquelle passe l'autre côté de l'angle (ou faire un trait en face de la graduation et tracer l'autre côté si on veut tracer un angle).",
+                "rappelDuCoursImage": "",
+                "rappelDuCoursInstrumenpoche": "tracer-angle",
                 "videos": [
                   {
                     "titre": "Mesurer un angle",
