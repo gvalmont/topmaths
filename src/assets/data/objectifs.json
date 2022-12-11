@@ -222,7 +222,7 @@
                   },
                   {
                     "id": 6034,
-                    "slug": "6N30-1,s=1-2-3-4-5-6,n=3",
+                    "slug": "6N30-1,s=3-4-5,n=3",
                     "description": "Lire l'abscisse (Niveau 2)"
                   },
                   {
@@ -727,11 +727,6 @@
                     "id": 6012,
                     "slug": "6G10-1,n=3",
                     "description": "Noter droite, demi-droite, segment"
-                  },
-                  {
-                    "id": 6013,
-                    "slug": "6G10,n=3",
-                    "description": "Utiliser droite, demi-droite, segment"
                   }
                 ]
               },
