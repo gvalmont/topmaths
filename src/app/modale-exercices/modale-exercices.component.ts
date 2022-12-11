@@ -270,19 +270,19 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
       case 'mathalea':
         this.boutonCopier.style.left = ''
         this.boutonCopier.style.right = '80px'
-        this.boutonCopier.style.top = '35px'
+        this.boutonCopier.style.top = '45px'
         this.boutonCopier.style.width = '30px'
 
         this.divConfirmationCopie.style.left = ''
         this.divConfirmationCopie.style.right = '65px'
-        this.divConfirmationCopie.style.top = '70px'
+        this.divConfirmationCopie.style.top = '80px'
 
         this.boutonFermer.style.left = ''
         this.boutonFermer.style.right = '20px'
-        this.boutonFermer.style.top = '35px'
+        this.boutonFermer.style.top = '45px'
         this.boutonFermer.style.width = '30px'
 
-        this.boutonPauseMetacognitive.style.top = '88px'
+        this.boutonPauseMetacognitive.style.top = '98px'
         this.boutonPauseMetacognitive.style.right = '20px'
         break
       case 'mathsmentales':

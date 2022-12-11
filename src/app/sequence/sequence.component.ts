@@ -7,6 +7,7 @@ import { DataService } from '../services/data.service'
 import { Subscription } from 'rxjs'
 import { StorageService } from '../services/storage.service'
 import { environment } from 'src/environments/environment'
+import { OutilsService } from '../services/outils.service'
 
 @Component({
   selector: 'app-sequence',
@@ -28,7 +29,7 @@ export class SequenceComponent implements OnInit, OnDestroy {
   dataMAJSubscription: Subscription
 
   // eslint-disable-next-line no-unused-vars
-  constructor (private activatedRoute: ActivatedRoute, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title, public storageService: StorageService) {
+  constructor (private activatedRoute: ActivatedRoute, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title, public storageService: StorageService, private outilsService: OutilsService) {
     this.reference = ''
     this.niveau = ''
     this.titre = ''
@@ -130,10 +131,12 @@ export class SequenceComponent implements OnInit, OnDestroy {
       const niveauxTemp = []
       for (const niveau of calculMental.niveaux) {
         let lienACopier = niveau.lien
-        if (lienACopier.slice(0, 4) !== 'http') lienACopier = environment.urlMathALEA + 'ex=' + lienACopier
+        if (lienACopier.slice(0, 4) !== 'http') lienACopier = environment.urlMathALEA + 'ex=' + lienACopier + '&v=diap'
+        let lien = lienACopier
+        if (this.outilsService.estMathsMentales(lien)) lien += '&embed=' + environment.origine
         niveauxTemp.push({
           commentaire: niveau.commentaire,
-          lien: niveau.lien + '&embed=' + environment.origine,
+          lien,
           lienACopier
         })
       }
