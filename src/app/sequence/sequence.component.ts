@@ -129,10 +129,12 @@ export class SequenceComponent implements OnInit, OnDestroy {
     for (const calculMental of sequence.calculsMentaux) {
       const niveauxTemp = []
       for (const niveau of calculMental.niveaux) {
+        let lienACopier = niveau.lien
+        if (lienACopier.slice(0, 4) !== 'http') lienACopier = environment.urlMathALEA + 'ex=' + lienACopier
         niveauxTemp.push({
           commentaire: niveau.commentaire,
           lien: niveau.lien + '&embed=' + environment.origine,
-          lienACopier: niveau.lien
+          lienACopier
         })
       }
       this.calculsMentaux.push({
@@ -180,7 +182,7 @@ export class SequenceComponent implements OnInit, OnDestroy {
   }
 
   MAJLienQuestionsFlash () {
-    this.lienQuestionsFlash = 'https://coopmaths.fr/mathalea.html?'
+    this.lienQuestionsFlash = environment.urlMathALEA
     for (const questionFlash of this.questionsFlash) {
       if (questionFlash.slug !== '') {
         this.lienQuestionsFlash = this.lienQuestionsFlash.concat('ex=', questionFlash.slug, ',i=0&')
@@ -190,7 +192,7 @@ export class SequenceComponent implements OnInit, OnDestroy {
   }
 
   MAJLienEval () {
-    this.lienEval = 'https://coopmaths.fr/mathalea.html?'
+    this.lienEval = environment.urlMathALEA
     for (const thisObjectif of this.objectifs) {
       for (const slug of thisObjectif.slugs) {
         if (slug.slice(0, 4) !== 'http' && slug !== '') {
@@ -203,7 +205,7 @@ export class SequenceComponent implements OnInit, OnDestroy {
 
   MAJLienEvalBrevet (slugEvalBrevet: string) {
     if (slugEvalBrevet !== undefined && slugEvalBrevet !== '') {
-      this.lienEvalBrevet = 'https://coopmaths.fr/mathalea.html?'
+      this.lienEvalBrevet = environment.urlMathALEA
       this.lienEvalBrevet += slugEvalBrevet
       this.lienEvalBrevet = this.lienEvalBrevet.concat('&v=e&z=1.5')
     }

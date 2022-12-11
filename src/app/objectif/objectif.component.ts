@@ -9,6 +9,7 @@ import { Sequence } from '../services/modeles/sequences'
 import { StorageService } from '../services/storage.service'
 import { PanierItem } from '../services/modeles/panier'
 import { environment } from 'src/environments/environment'
+import { OutilsService } from '../services/outils.service'
 
 @Component({
   selector: 'app-objectif',
@@ -31,7 +32,7 @@ export class ObjectifComponent implements OnInit, OnDestroy {
   tousLesExercicesSontDansLePanier: boolean
 
   // eslint-disable-next-line no-unused-vars
-  constructor (private activatedRoute: ActivatedRoute, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title, public storageService: StorageService) {
+  constructor (private activatedRoute: ActivatedRoute, private dataService: DataService, public router: Router, private viewportScroller: ViewportScroller, private titleService: Title, public storageService: StorageService, private outilsService: OutilsService) {
     this.reference = ''
     this.niveau = ''
     this.titre = ''
@@ -165,7 +166,7 @@ export class ObjectifComponent implements OnInit, OnDestroy {
   }
 
   MAJLienExercices (objectif: Objectif) {
-    this.lienExercices = 'https://coopmaths.fr/mathalea.html?'
+    this.lienExercices = environment.urlMathALEA
     let nbExercices = 0
     for (const exercice of objectif.exercices) {
       if (exercice.slug !== '' && exercice.slug.slice(0, 4) !== 'http') {
@@ -184,12 +185,12 @@ export class ObjectifComponent implements OnInit, OnDestroy {
         this.exercices.push({
           id: exercice.id,
           slug: exercice.slug,
-          lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=0&serie=&v=e&z=1.5`,
+          lien: `${environment.urlMathALEA}ex=${exercice.slug},i=0&serie=&v=e&z=1.5`,
           isInteractif: exercice.isInteractif,
           description: exercice.description
         })
         this.exercices[this.exercices.length - 1].lien = this.exercices[this.exercices.length - 1].lien.replace(/&ex=/g, ',i=0&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
-        if (exercice.slug.slice(0, 25) === 'https://mathsmentales.net') {
+        if (this.outilsService.estMathsMentales(exercice.slug)) {
           this.exercices[this.exercices.length - 1].lien = exercice.slug + '&embed=' + environment.origine
         } else if (exercice.slug.slice(0, 4) === 'http') {
           this.exercices[this.exercices.length - 1].lien = exercice.slug
@@ -248,7 +249,7 @@ export class ObjectifComponent implements OnInit, OnDestroy {
   }
 
   changerSerie (lien: string) {
-    if (lien.slice(0, 34) === 'https://coopmaths.fr/mathalea.html') {
+    if (this.outilsService.estMathALEA(lien)) {
       return lien.split('&serie=')[0] + '&serie=' + Math.random().toString(16).slice(2, 6) + lien.split('&serie=')[1]
     } else {
       return lien

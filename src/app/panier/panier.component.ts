@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { StorageService } from '../services/storage.service'
 import { PanierItem } from '../services/modeles/panier'
 import { ViewportScroller } from '@angular/common'
+import { environment } from 'src/environments/environment'
 
 @Component({
   selector: 'app-panier',
@@ -39,7 +40,7 @@ export class PanierComponent {
   }
 
   MAJLien () {
-    this.lien = 'https://coopmaths.fr/mathalea.html?'
+    this.lien = environment.urlMathALEA
     for (const panierItem of this.panier) {
       if (panierItem !== null && panierItem !== undefined) {
         if (panierItem.slug.slice(0, 4) !== 'http' && panierItem.slug !== '') {
