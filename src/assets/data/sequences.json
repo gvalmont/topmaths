@@ -1752,12 +1752,12 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "4A10",
-            "titre": "Reconnaître des nombres premiers inférieurs à 30",
+            "reference": "5C12",
+            "titre": "Effectuer un enchaînement d’opérations en respectant les priorités opératoires avec des nombres relatifs",
             "niveaux": [
               {
                 "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=15~n=8",
+                "lien": "4C11,s=3,s2=true,n=4&duree=30",
                 "score": 3
               }
             ]
@@ -1790,18 +1790,13 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "4C21",
-            "titre": "Additionner ou soustraire des nombres relatifs en écriture fractionnaire",
+            "reference": "4A10",
+            "titre": "Reconnaître des nombres premiers inférieurs à 30",
             "niveaux": [
               {
                 "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=25~n=4_i=5NC8~o=3~q=3.0,1~p=~t=25~n=4",
-                "score": 8
-              },
-              {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC8~o=5~q=5.0,1~p=~t=25~n=4_i=5NC7~o=4~q=4.0,1~p=~t=25~n=4",
-                "score": 12
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=15~n=8",
+                "score": 3
               }
             ]
           }
