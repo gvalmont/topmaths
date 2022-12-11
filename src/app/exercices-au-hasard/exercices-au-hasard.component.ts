@@ -5,6 +5,7 @@ import { Niveau as NiveauSequence } from 'src/app/services/modeles/sequences'
 import { environment } from 'src/environments/environment'
 import { CalendrierService } from '../services/calendrier.service'
 import { DataService } from '../services/data.service'
+import { OutilsService } from '../services/outils.service'
 
 interface Exercice {
   id: number
@@ -21,7 +22,7 @@ export class ExercicesAuHasardComponent {
   infosModale: [string[], string, Date]
 
   // eslint-disable-next-line no-unused-vars
-  constructor (private dataService: DataService, private viewportScroller: ViewportScroller, private calendrierService: CalendrierService) {
+  constructor (private dataService: DataService, private viewportScroller: ViewportScroller, private calendrierService: CalendrierService, private outils: OutilsService) {
     this.infosModale = [[], '', new Date() ]
   }
 
@@ -104,20 +105,18 @@ export class ExercicesAuHasardComponent {
             for (const reference of listeReferences) {
               if (reference === objectif.reference) {
                 for (const exercice of objectif.exercices) {
-                  if (exercice.isInteractif) {
-                    listeExercices.push({
-                      id: exercice.id,
-                      slug: exercice.slug,
-                      lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=0&v=e&z=1.5`
-                    })
-                    listeExercices[listeExercices.length - 1].lien = listeExercices[listeExercices.length - 1].lien.replace(/&ex=/g, ',i=0&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
-                    if (exercice.slug.slice(0, 25) === 'https://mathsmentales.net') {
-                      listeExercices[listeExercices.length - 1].lien = exercice.slug + '&embed=' + environment.origine
-                    } else if (exercice.slug.slice(0, 4) === 'http') {
-                      listeExercices[listeExercices.length - 1].lien = exercice.slug
-                    }
-                    listeDesUrl.push(listeExercices[listeExercices.length - 1].lien)
+                  listeExercices.push({
+                    id: exercice.id,
+                    slug: exercice.slug,
+                    lien: `${environment.urlMathALEA}ex=${exercice.slug},i=0&v=e&z=1.5`
+                  })
+                  listeExercices[listeExercices.length - 1].lien = listeExercices[listeExercices.length - 1].lien.replace(/&ex=/g, ',i=0&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
+                  if (this.outils.estMathsMentales(exercice.slug)) {
+                    listeExercices[listeExercices.length - 1].lien = exercice.slug + '&embed=' + environment.origine
+                  } else if (exercice.slug.slice(0, 4) === 'http') {
+                    listeExercices[listeExercices.length - 1].lien = exercice.slug
                   }
+                  listeDesUrl.push(listeExercices[listeExercices.length - 1].lien)
                 }
               }
             }
