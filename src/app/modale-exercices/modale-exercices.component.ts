@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment'
 import { DataService } from '../services/data.service'
 import { Niveau as NiveauObjectif } from '../services/modeles/objectifs'
 import { Niveau as NiveauSequence } from '../services/modeles/sequences'
+import { OutilsService } from '../services/outils.service'
 import { StorageService } from '../services/storage.service'
 
 interface Exercice {
@@ -32,7 +33,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
   etapePauseMetacognitive: number
 
   // eslint-disable-next-line no-unused-vars
-  constructor (private dataService: DataService, public storageService: StorageService) {
+  constructor (private dataService: DataService, public storageService: StorageService, private outilsService: OutilsService) {
     this.infosModale = [[], '', new Date() ]
     this.lienSpinner = ''
     this.listeExercices = []
@@ -55,13 +56,13 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
         this.set('listeDesUrl', changes.infosModale.currentValue[0])
         this.set('type', changes.infosModale.currentValue[1])
         let site: string = ''
-        if (this.isMathsmentales(this.get('listeDesUrl')[0])) {
+        if (this.outilsService.estMathsMentales(this.get('listeDesUrl')[0])) {
           site = 'mathsmentales'
-        } else if (this.isMathalea(this.get('listeDesUrl')[0])) {
+        } else if (this.outilsService.estMathALEA(this.get('listeDesUrl')[0])) {
           site = 'mathalea'
-        } else if (this.isGeogebraClassic(this.get('listeDesUrl')[0])) {
+        } else if (this.outilsService.estGeogebraClassic(this.get('listeDesUrl')[0])) {
           site = 'geogebraClassic'
-        } else if (this.isGeogebraM(this.get('listeDesUrl')[0])) {
+        } else if (this.outilsService.estGeogebraM(this.get('listeDesUrl')[0])) {
           site = 'geogebraM'
         }
         this.parametrage(site)
@@ -108,11 +109,11 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
           for (const objectif of sousTheme.objectifs) {
             for (const exercice of objectif.exercices) {
               this.listeExercices.push({
-                lien: `https://coopmaths.fr/mathalea.html?ex=${exercice.slug},i=0&v=e&z=1.5`,
+                lien: `${environment.urlMathALEA}ex=${exercice.slug},i=0&v=e&z=1.5`,
                 isInteractif: exercice.isInteractif
               })
               this.listeExercices[this.listeExercices.length - 1].lien = this.listeExercices[this.listeExercices.length - 1].lien.replace(/&ex=/g, ',i=0&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
-              if (exercice.slug.slice(0, 25) === 'https://mathsmentales.net') {
+              if (this.outilsService.estMathsMentales(exercice.slug)) {
                 this.listeExercices[this.listeExercices.length - 1].lien = exercice.slug + '&embed=' + environment.origine
               } else if (exercice.slug.slice(0, 4) === 'http') {
                 this.listeExercices[this.listeExercices.length - 1].lien = exercice.slug
@@ -158,7 +159,7 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
                 this.fermerEcranDeChargement(type, url, urlDejaFaits)
                 this.set('lienACopier', url)
                 this.MAJurlDejaFaits(url, urlDejaFaits)
-                if (type === 'exerciceAuHasard' && url.slice(0, 25) === 'https://mathsmentales.net') {
+                if (type === 'exerciceAuHasard' && this.outilsService.estMathsMentales(url)) {
                   this.exerciceAleatoireSuivant() // mathsmentales n'envoie pas de message à la fin de l'exercice, mieux vaut le shunter pour les exercices au hasard
                 }
               }
@@ -408,22 +409,6 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
 
   get (tag: string) {
     return this.storageService.get('ME' + tag)
-  }
-
-  isMathalea (url: string) {
-    return url.slice(0, 34) === 'https://coopmaths.fr/mathalea.html'
-  }
-
-  isMathsmentales (url: string) {
-    return url.slice(0, 25) === 'https://mathsmentales.net'
-  }
-
-  isGeogebraClassic (url: string) {
-    return url.slice(0, 33) === 'https://www.geogebra.org/classic/'
-  }
-
-  isGeogebraM (url: string) {
-    return url.slice(0, 27) === 'https://www.geogebra.org/m/'
   }
 
   alternerAffichagePauseMetacognitive () {
