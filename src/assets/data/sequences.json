@@ -3120,10 +3120,10 @@
         "periode": 2,
         "objectifs": [
           {
-            "reference": "3G23"
+            "reference": "4G33"
           },
           {
-            "reference": "3P14"
+            "reference": "3G23"
           }
         ],
         "calculsMentaux": [
@@ -3162,6 +3162,9 @@
         "titre": "Nombres premiers",
         "periode": 2,
         "objectifs": [
+          {
+            "reference": "3A10"
+          },
           {
             "reference": "4A11"
           },

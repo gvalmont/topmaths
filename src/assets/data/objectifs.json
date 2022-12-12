@@ -3536,7 +3536,7 @@
               {
                 "reference": "4A10",
                 "titre": "Déterminer la liste des nombres premiers inférieurs à 100",
-                "rappelDuCoursHTML": "Un nombre premier est un nombre qui admet <strong>exactement</strong> deux diviseurs : 1 et lui-même",
+                "rappelDuCoursHTML": "Pour savoir si un nombre inférieur à 100 est premier, il suffit de vérifier qu'il n'est pas divisible par 2, 3, 5, ni 7.<br>Vous pouvez aussi revoir <a href='/#/objectif/5A12' title='5A12 : Déterminer les nombres premiers inférieurs ou égaux à 30'>5A12 : Déterminer les nombres premiers inférieurs ou égaux à 30</a> si besoin.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -4977,6 +4977,29 @@
             "nom": "3A1 Arithmétique",
             "objectifs": [
               {
+                "reference": "3A10",
+                "titre": "Déterminer si un nombre est premier",
+                "rappelDuCoursHTML": "Vous pouvez aussi revoir <a href='/#/objectif/4A10' title='4A10 : Déterminer la liste des nombres premiers inférieurs à 100'>4A10 : Déterminer la liste des nombres premiers inférieurs à 100</a> si besoin",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=kLs0TiIz7lc&vignette=https://i.ytimg.com/vi/kLs0TiIz7lc/hqdefault.jpg&debut=0&fin=686&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 3033,
+                    "slug": "3A10-2,s=false,n=7",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
+                  }
+                ]
+              },
+              {
                 "reference": "3A11",
                 "titre": "Simplifier une fraction pour la rendre irréductible",
                 "rappelDuCoursHTML": "",
@@ -5469,14 +5492,6 @@
               {
                 "reference": "3P13",
                 "titre": "Vérifier la cohérence des résultats du point de vue des unités pour les calculs de grandeurs simples ou composées",
-                "rappelDuCoursHTML": "",
-                "rappelDuCoursImage": "",
-                "videos": [],
-                "exercices": []
-              },
-              {
-                "reference": "3P14",
-                "titre": "Résoudre des problèmes en utilisant la proportionnalité dans le cadre de la géométrie",
                 "rappelDuCoursHTML": "",
                 "rappelDuCoursImage": "",
                 "videos": [],
