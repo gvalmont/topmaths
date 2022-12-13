@@ -96,7 +96,6 @@ export class SequenceComponent implements OnInit, OnDestroy {
     this.MAJLienEvalBrevet(sequence.slugEvalBrevet)
     this.MAJLienTelechargement(sequence.reference, 'cours')
     this.MAJLienTelechargement(sequence.reference, 'resume')
-    this.MAJLienTelechargement(sequence.reference, 'mission')
   }
 
   MAJListeObjectifs (sequence: Sequence) {
