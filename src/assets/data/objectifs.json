@@ -4865,6 +4865,12 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
+                    "titre": "Résumé musical (développer)",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=HiAmsHhvJ4U&vignette=https://i.ytimg.com/vi/HiAmsHhvJ4U/hqdefault.jpg&debut=0&fin=259&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
+                  {
                     "titre": "Développer",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=vOKtaQThM3o&vignette=https://i.ytimg.com/vi/vOKtaQThM3o/hqdefault.jpg&debut=0&fin=495&largeur=200&hauteur=113",
                     "auteur": "Hedacademy",
@@ -4992,7 +4998,7 @@
                 "exercices": [
                   {
                     "id": 3033,
-                    "slug": "3A10-2,s=false,n=7",
+                    "slug": "3A10-2,s=false,n=8",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
