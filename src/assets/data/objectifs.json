@@ -3355,10 +3355,10 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "Résumé",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=pny7jmde0jc&vignette=https://i.ytimg.com/vi/pny7jmde0jc/hqdefault.jpg&debut=0&fin=193&largeur=200&hauteur=150",
-                    "auteur": "Matich Fastich",
-                    "lienAuteur": "https://www.youtube.com/channel/UCcPFyq0PJn0NHlreVBkyZsA"
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=GdJmkUJtQS0&vignette=https://i.ytimg.com/vi/GdJmkUJtQS0/hqdefault.jpg&debut=0&fin=199&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "titre": "Niveau 1",
@@ -3471,6 +3471,12 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=GdJmkUJtQS0&vignette=https://i.ytimg.com/vi/GdJmkUJtQS0/hqdefault.jpg&debut=0&fin=199&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
+                  {
                     "titre": "",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=UL5cgbvDvNQ&vignette=https://i.ytimg.com/vi/UL5cgbvDvNQ/hqdefault.jpg&debut=0&fin=493&largeur=200&hauteur=113",
                     "auteur": "Hedacademy",
@@ -3547,6 +3553,12 @@
                 "rappelDuCoursHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='#/objectif/4C33'>4C33</a><br><br><center> $ a^{-n} = \\cfrac{1}{a^n} = \\cfrac{1}{\\underbrace{a \\times a \\times a \\times ... \\times a}_{\\text{Le } a \\text{ apparaît } n \\text{ fois}}} $ </center>",
                 "rappelDuCoursImage": "",
                 "videos": [
+                  {
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=GdJmkUJtQS0&vignette=https://i.ytimg.com/vi/GdJmkUJtQS0/hqdefault.jpg&debut=0&fin=199&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
                   {
                     "titre": "",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=5miQxq30zhY&vignette=https://i.ytimg.com/vi/5miQxq30zhY/hqdefault.jpg&debut=0&fin=293&largeur=200&hauteur=113",
