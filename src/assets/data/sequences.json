@@ -407,6 +407,44 @@
             "slug": "6N20,s=false,n=1"
           }
         ]
+      },
+      {
+        "reference": "S6S11",
+        "titre": "Nombres décimaux 3",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "6C31"
+          },
+          {
+            "reference": "6C22"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6G22-2",
+            "titre": "Estimer si un angle est droit, aigu ou obtus",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "6G22-2,n=8,cd=1&duree=12",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6G23",
+            "titre": "Estimer une mesure d'angle",
+            "slug": "6G23-1,s=1,s2=false,n=1,video=TEzu9uky56M"
+          },
+          {
+            "reference": "6G20",
+            "titre": "Connaître le vocabulaire des polygones",
+            "slug": "6G20-3,n=1,cd=1"
+          }
+        ]
       }
     ]
   },

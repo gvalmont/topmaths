@@ -376,29 +376,22 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "Addition et soustraction",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Ek0j4-DO_pw&vignette=https://i.ytimg.com/vi/Ek0j4-DO_pw/hqdefault.jpg&debut=0&fin=758&largeur=200&hauteur=113",
-                    "auteur": "Magali Ziegler",
-                    "lienAuteur": "https://www.youtube.com/channel/UCmhV560qa7hhba6XQ6er-8g"
-                  },
-                  {
-                    "titre": "Multiplication",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=tWl-gMvyJdY&vignette=https://i.ytimg.com/vi/tWl-gMvyJdY/hqdefault.jpg&debut=0&fin=713&largeur=200&hauteur=113",
-                    "auteur": "Magali Ziegler",
-                    "lienAuteur": "https://www.youtube.com/channel/UCmhV560qa7hhba6XQ6er-8g"
-                  },
-                  {
-                    "titre": "Division",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=9Fu2CAnMeLY&vignette=https://i.ytimg.com/vi/9Fu2CAnMeLY/hqdefault.jpg&debut=0&fin=321&largeur=200&hauteur=113",
-                    "auteur": "Yvan Monka",
-                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=SCcNUEyzRL0&vignette=https://i.ytimg.com/vi/SCcNUEyzRL0/hqdefault.jpg&debut=0&fin=291&largeur=200&hauteur=150",
+                    "auteur": "Laure CAILLY",
+                    "lienAuteur": "https://www.youtube.com/@LaureCAILLY"
                   }
                 ],
                 "exercices": [
                   {
                     "id": 6045,
+                    "slug": "6C35,s=2,s2=2,s3=3,n=4,cd=1",
+                    "description": "Modéliser un problème"
+                  },
+                  {
+                    "id": 6045,
                     "slug": "6C12,s=9,s2=true,s3=true,s4=3,n=1",
-                    "description": ""
+                    "description": "Résoudre un problème"
                   }
                 ]
               }
@@ -467,6 +460,21 @@
                 ]
               },
               {
+                "reference": "6C22",
+                "titre": "Résoudre des problèmes avec des nombres décimaux",
+                "rappelDuCoursHTML": "Si besoin, vous pouvez revoir <a href='/#/objectif/6C12' title='6C12 : Résoudre des problèmes avec des nombres entiers'>6C12 : Résoudre des problèmes avec des nombres entiers</a> pour vous rappeler comment modéliser et résoudre un problème.<br><br>Vous pouvez aussi revoir <a href='/#/objectif/6C20' title='6C20 : Additionner et soustraire des nombres décimaux'>6C20 : Additionner et soustraire des nombres décimaux</a>, <a href='/#/objectif/6C20' title='6C30 : Multiplier des nombres décimaux'>6C30 : Multiplier des nombres décimaux</a> et <a href='/#/objectif/6C20' title='6C31 : Effectuer une division décimale'>6C31 : Effectuer une division décimale</a> pour revoir comment faire les différents calculs.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                ],
+                "exercices": [
+                  {
+                    "id": 6044,
+                    "slug": "6C32-1,s=0,n=3",
+                    "description": ""
+                  }
+                ]
+              },
+              {
                 "reference": "6C23",
                 "titre": "Ajouter et soustraire des fractions de même dénominateur",
                 "rappelDuCoursHTML": "Pour additionner ou soustraire des fractions de même dénominateur :<br>- on additionne ou on soustrait les numérateurs ;<br>- on garde le même dénominateur.",
@@ -509,6 +517,44 @@
                     "id": 6043,
                     "slug": "6C30,s=false,s2=3,n=4",
                     "description": ""
+                  }
+                ]
+              },
+              {
+                "reference": "6C31",
+                "titre": "Effectuer une division décimale",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Diviser un nombre entier",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=RbkDd_p_EVU&vignette=https://i.ytimg.com/vi/RbkDd_p_EVU/hqdefault.jpg&debut=0&fin=436&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  },
+                  {
+                    "titre": "Diviser un nombre décimal",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=kagPFHfG-ZU&vignette=https://i.ytimg.com/vi/kagPFHfG-ZU/hqdefault.jpg&debut=0&fin=335&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  },
+                  {
+                    "titre": "Poser une division qui ne s'arrête jamais",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=CnuDwxwNl9k&vignette=https://i.ytimg.com/vi/CnuDwxwNl9k/hqdefault.jpg&debut=0&fin=515&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6043,
+                    "slug": "6C31,s=1,n=1",
+                    "description": "Déterminer le quotient exact"
+                  },
+                  {
+                    "id": 6043,
+                    "slug": "6C31,s=2,n=1",
+                    "description": "Déterminer un quotient approché"
                   }
                 ]
               }
@@ -747,17 +793,7 @@
                   {
                     "id": 6014,
                     "slug": "6G10-4,s=1,s2=true,n=1,cd=1",
-                    "description": "Reconnaître les natures et les notations"
-                  },
-                  {
-                    "id": 6015,
-                    "slug": "6G10-4,s=2,s2=false,n=1,cd=1",
-                    "description": "Se rappeler des natures"
-                  },
-                  {
-                    "id": 6016,
-                    "slug": "6G10-4,s=1,s2=false,n=1,cd=1",
-                    "description": "Se rappeler des notations"
+                    "description": ""
                   }
                 ]
               },
