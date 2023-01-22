@@ -1025,6 +1025,10 @@
                 ],
                 "exercices": [
                   {
+                    "slug": "https://mathix.org/permis_rapporteur/",
+                    "description": "Permis Rapporteur"
+                  },
+                  {
                     "slug": "6G23-4,s=1,s2=7,s3=4,s4=false,n=1",
                     "description": "Mesurer un angle"
                   },
