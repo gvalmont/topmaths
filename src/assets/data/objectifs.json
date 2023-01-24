@@ -5831,10 +5831,16 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "",
+                    "titre": "Résumé musical",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=PYRMUqSeNEc&vignette=https://i.ytimg.com/vi/PYRMUqSeNEc/hqdefault.jpg&debut=0&fin=218&largeur=200&hauteur=113",
                     "auteur": "Rapémathiques",
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
+                    "titre": "Explications détaillées",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=md7hgVVKVI0&vignette=https://i.ytimg.com/vi/md7hgVVKVI0/hqdefault.jpg&debut=0&fin=411&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
                 "exercices": [
@@ -5843,21 +5849,16 @@
                     "slug": "3G31,s=true,cd=0",
                     "score": 30,
                     "temps": 300,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Avec une figure à main levée"
                   },
                   {
                     "id": 3031,
                     "slug": "3G31,s=false,cd=0",
                     "score": 35,
                     "temps": 350,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 3032,
-                    "slug": "3G31-1,s=false,cd=1",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": true,
+                    "description": "Sans figure"
                   }
                 ]
               }
