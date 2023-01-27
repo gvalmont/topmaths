@@ -548,12 +548,12 @@
                 "exercices": [
                   {
                     "id": 6043,
-                    "slug": "6C31,s=1,n=1",
+                    "slug": "6C31,s=1,n=2",
                     "description": "Déterminer le quotient exact"
                   },
                   {
                     "id": 6043,
-                    "slug": "6C31,s=2,n=1",
+                    "slug": "6C31,s=2,n=2",
                     "description": "Déterminer un quotient approché"
                   }
                 ]
