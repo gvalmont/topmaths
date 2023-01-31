@@ -445,6 +445,44 @@
             "slug": "6G20-3,n=1,cd=1"
           }
         ]
+      },
+      {
+        "reference": "S6S12",
+        "titre": "Triangles",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "6G21"
+          },
+          {
+            "reference": "6G29"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C10",
+            "titre": "Connaître les tables de multiplication",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6C31",
+            "titre": "Effectuer une division décimale",
+            "slug": "6C31,s=2,n=1"
+          },
+          {
+            "reference": "6C22",
+            "titre": "Résoudre des problèmes avec des nombres décimaux",
+            "slug": "6C32-1,s=0,n=1"
+          }
+        ]
       }
     ]
   },
