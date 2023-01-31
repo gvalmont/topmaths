@@ -483,6 +483,44 @@
             "slug": "6C32-1,s=0,n=1"
           }
         ]
+      },
+      {
+        "reference": "S6S13",
+        "titre": "Proportionnalité",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "6P10"
+          },
+          {
+            "reference": "6P11"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6N35",
+            "titre": "Multiplier ou diviser un nombre entier ou décimal par 10, 100, 1 000… (résultat décimal)",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=8NE5~o=~q=~p=~t=18~n=4_i=8NE4~o=0,1,2,3,4,5,6,7,8~q=0.-1.-2.-3.-4.-5.-6.-7.-8.~p=~t=18~n=4",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6C25",
+            "titre": "Multiplier en utilisant la distributivité simple",
+            "slug": "5C12-3,n=1"
+          },
+          {
+            "reference": "6C31",
+            "titre": "Effectuer une division décimale",
+            "slug": "6C31,s=2,n=1"
+          }
+        ]
       }
     ]
   },
