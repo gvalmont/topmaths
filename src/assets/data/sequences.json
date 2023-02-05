@@ -521,6 +521,47 @@
             "slug": "6C31,s=2,n=1"
           }
         ]
+      },
+      {
+        "reference": "S6S14",
+        "titre": "Se repérer, se déplacer",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "6G60"
+          },
+          {
+            "reference": "6G61"
+          },
+          {
+            "reference": "6G62"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C23",
+            "titre": "Ajouter et soustraire des fractions de même dénominateur",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=1~q=1.~p=~t=15~n=4_i=5NC8~o=0~q=0.~p=~t=15~n=4",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6N20",
+            "titre": "Faire le lien entre les fractions et les nombres entiers",
+            "slug": "6N20,s=false,n=1"
+          },
+          {
+            "reference": "6P11",
+            "titre": "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité",
+            "slug": "6P11,s=true,n=1"
+          }
+        ]
       }
     ]
   },

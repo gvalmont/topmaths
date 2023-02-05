@@ -1307,6 +1307,94 @@
                 ]
               }
             ]
+          },
+          {
+            "nom": "6G6 Se repérer et se déplacer",
+            "objectifs": [
+              {
+                "reference": "6G60",
+                "titre": "Se repérer, décrire ou exécuter des déplacements (tourner à gauche, à droite ; faire demi-tour ; effectuer un quart de tour à droite, à gauche)",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=nZ3eLzGGbI4&vignette=https://i.ytimg.com/vi/nZ3eLzGGbI4/hqdefault.jpg&debut=0&fin=527&largeur=200&hauteur=113&st=fr,fr",
+                    "auteur": "Maître Lucas",
+                    "lienAuteur": "https://www.youtube.com/@MaitreLucas"
+                  }
+                ],
+                "exercices": [
+                ]
+              },
+              {
+                "reference": "6G61",
+                "titre": "Programmer des déplacements absolus d’un personnage sur un écran (vers le haut, l’ouest…)",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=mD_gFzDJ3rw&vignette=https://i.ytimg.com/vi/mD_gFzDJ3rw/hqdefault.jpg&debut=0&fin=92&largeur=200&hauteur=150",
+                    "auteur": "Lallida Cazanove",
+                    "lienAuteur": "https://www.youtube.com/@lallidacazanove1935"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6027,
+                    "slug": "https://www.clicmaclasse.fr/activites/deplacements/deplacements.php",
+                    "description": "Contrôler une voiture (choisir le point de vue Spectateur)"
+                  },
+                  {
+                    "id": 6027,
+                    "slug": "6I10,s=3,s2=false,s3=false",
+                    "description": "Suite d'instructions"
+                  },
+                  {
+                    "id": 6027,
+                    "slug": "6I10,s=1,s2=true,s3=true",
+                    "description": "Instructions avec une boucle"
+                  }
+                ]
+              },
+              {
+                "reference": "6G62",
+                "titre": "Programmer des déplacements relatifs d’un personnage sur un écran (tourner à sa gauche, à sa droite…)",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=sBjckuUs0gk&vignette=https://i.ytimg.com/vi/sBjckuUs0gk/hqdefault.jpg&debut=0&fin=65&largeur=200&hauteur=150",
+                    "auteur": "Lallida Cazanove",
+                    "lienAuteur": "https://www.youtube.com/@lallidacazanove1935"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6027,
+                    "slug": "https://www.clicmaclasse.fr/activites/deplacements/deplacements.php",
+                    "description": "Contrôler une voiture (choisir le point de vue Conducteur)"
+                  },
+                  {
+                    "id": 6027,
+                    "slug": "6I10-1,s=1,s2=false,s3=false",
+                    "description": "Seulement avancer"
+                  },
+                  {
+                    "id": 6027,
+                    "slug": "6I10-1,s=1,s2=false,s3=false",
+                    "description": "Avancer et reculer"
+                  },
+                  {
+                    "id": 6027,
+                    "slug": "6I10,s=1,s2=true,s3=true",
+                    "description": "Avancer et reculer avec une boucle"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
