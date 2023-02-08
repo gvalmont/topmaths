@@ -613,13 +613,7 @@
                 "rappelDuCoursImage": "schema-proportionnalite.png",
                 "videos": [
                   {
-                    "titre": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=8oqdLF3AN0w&vignette=https://i.ytimg.com/vi/8oqdLF3AN0w/hqdefault.jpg&debut=0&fin=121&largeur=200&hauteur=113",
-                    "auteur": "Rapémathiques",
-                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
-                  },
-                  {
-                    "titre": "En détail",
+                    "titre": "",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=r4CYLxVhnhE&vignette=https://i.ytimg.com/vi/r4CYLxVhnhE/hqdefault.jpg&debut=0&fin=257&largeur=200&hauteur=113",
                     "auteur": "Maths en pause",
                     "lienAuteur": "https://www.youtube.com/channel/UCA4wk8mKv6tiOwAcOBRo9rA"
@@ -2952,6 +2946,12 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Pk-dEsXYX7U&vignette=https://i.ytimg.com/vi/Pk-dEsXYX7U/hqdefault.jpg&debut=0&fin=163&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
+                  {
                     "titre": "Connaissant 2 longueurs et 1 angle",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=6mFBqacFzws&vignette=https://i.ytimg.com/vi/6mFBqacFzws/hqdefault.jpg&debut=0&fin=223&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
@@ -4234,6 +4234,12 @@
                 "rappelDuCoursHTML": "Voir aussi <a href='#/objectif/6P11'>6P11</a> pour d'autres méthodes.",
                 "rappelDuCoursImage": "regle-de-trois.png",
                 "videos": [
+                  {
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=8oqdLF3AN0w&vignette=https://i.ytimg.com/vi/8oqdLF3AN0w/hqdefault.jpg&debut=0&fin=121&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
                   {
                     "titre": "",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=gEawD_zsAGI&vignette=https://i.ytimg.com/vi/gEawD_zsAGI/hqdefault.jpg&debut=0&fin=344&largeur=200&hauteur=113",
