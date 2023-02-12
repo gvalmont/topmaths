@@ -3975,21 +3975,16 @@
                     "slug": "5L14-5,n=2",
                     "score": 5,
                     "temps": 50,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 4038,
-                    "slug": "4L14-0,s=1,n=1",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": true,
+                    "description": "Evaluer une expression"
                   },
                   {
                     "id": 4039,
                     "slug": "4L14-0,s=1,n=2",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Tester si un nombre est solution d'une équation"
                   }
                 ]
               },
