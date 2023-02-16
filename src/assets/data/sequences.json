@@ -3503,7 +3503,8 @@
             "titre": "Résoudre algébriquement des équations du 1er degré",
             "slug": "3L13-0,s=true,s2=4,n=1,cd=1"
           }
-        ]
+        ],
+        "slugEvalBrevet": "ex=dnb_2019_09_metropole_2&ex=dnb_2015_06_polynesie_4&ex=dnb_2014_06_asie_1&ex=dnb_2013_04_pondichery_6&ex=dnb_2017_09_metropole_7"
       },
       {
         "reference": "S3S16",

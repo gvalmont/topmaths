@@ -3984,7 +3984,7 @@
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false,
-                    "description": "Tester si un nombre est solution d'une équation"
+                    "description": "Vérifier si un nombre est solution d'une équation"
                   }
                 ]
               },
