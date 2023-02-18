@@ -837,7 +837,7 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "5N10",
+            "reference": "6N20",
             "titre": "Utiliser les écritures décimales et fractionnaires et passer de l’une à l’autre.",
             "niveaux": [
               {
@@ -903,7 +903,7 @@
             "slug": "5R12-2,s=1,s2=true"
           },
           {
-            "reference": "5N10",
+            "reference": "6N20",
             "titre": "Passer de l'écriture fractionnaire à l'écriture décimale",
             "slug": "can6C22,n=1"
           }
@@ -991,13 +991,10 @@
         "periode": 2,
         "objectifs": [
           {
-            "reference": "5N10"
+            "reference": "6N20"
           },
           {
             "reference": "6P16"
-          },
-          {
-            "reference": "6N20"
           }
         ],
         "calculsMentaux": [
@@ -3499,7 +3496,7 @@
             "slug": "3G20,s=2,n=1,video=j_zZOpLLl9k,cd=1"
           },
           {
-            "reference": "3L13",
+            "reference": "4L20",
             "titre": "Résoudre algébriquement des équations du 1er degré",
             "slug": "3L13-0,s=true,s2=4,n=1,cd=1"
           }
