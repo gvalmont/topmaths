@@ -562,6 +562,82 @@
             "slug": "6P11,s=true,n=1"
           }
         ]
+      },
+      {
+        "reference": "S6S15",
+        "titre": "Fractions 2",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "6C24"
+          },
+          {
+            "reference": "6N44"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C25",
+            "titre": "Multiplier en utilisant la distributivité simple",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND9~o=0~q=0.0,1,2~p=~t=24~n=4_i=6ND18~o=0~q=0.0,1~p=~t=24~n=4",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6G62",
+            "titre": "Programmer des déplacements relatifs d'un personnage sur un écran",
+            "slug": "6I10-1,s=1,s2=false,s3=false"
+          },
+          {
+            "reference": "6P11",
+            "titre": "Calculer et utiliser un coefficient de proportionnalité",
+            "slug": "6P12,s=false,n=1"
+          }
+        ]
+      },
+      {
+        "reference": "S6S16",
+        "titre": "Statistiques",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "6S10"
+          },
+          {
+            "reference": "6S11"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C23",
+            "titre": "Ajouter et soustraire des fractions de même dénominateur",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=1~q=1.~p=~t=15~n=4_i=5NC8~o=0~q=0.~p=~t=15~n=4",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6C24",
+            "titre": "Multiplier et diviser par 0,1 ; 0,01 ; 0,001",
+            "slug": "can6C24,s=3,n=2"
+          },
+          {
+            "reference": "6G10-1",
+            "titre": "Connaître le vocabulaire et les notations des droites, des demi-droites et des segments",
+            "slug": "6G10-3,n=1"
+          }
+        ]
       }
     ]
   },

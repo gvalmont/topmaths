@@ -326,7 +326,7 @@
               {
                 "reference": "6N44",
                 "titre": "Utiliser des fractions pour exprimer un quotient",
-                "rappelDuCoursHTML": "",
+                "rappelDuCoursHTML": "Le nombre qui, multiplié par $a$ donne $b$ est le nombre $\\cfrac{b}{a}$",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -336,7 +336,13 @@
                     "lienAuteur": "https://www.youtube.com/c/MathsetJeux"
                   }
                 ],
-                "exercices": []
+                "exercices": [
+                  {
+                    "id": 0,
+                    "slug": "6N23-5,n=4",
+                    "description": ""
+                  }
+                ]
               }
             ]
           }
@@ -491,6 +497,32 @@
                   {
                     "id": 6022,
                     "slug": "6C23,s=4,n=4"
+                  }
+                ]
+              },
+              {
+                "reference": "6C24",
+                "titre": "Multiplier et diviser par 0,1 ; 0,01 ; 0,001",
+                "rappelDuCoursHTML": "Multiplier par 0,1 revient à diviser par 10.<br>Multiplier par 00,1 revient à diviser par 100.<br>etc.<br>Diviser par 0,1 revient à multiplier par 10.<br>Diviser par 0,01 revient à multiplier par 100.<br>etc.",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Multiplier par 0,1 ; 0,01 ; 0,001",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=NV-TPaYXXLg&vignette=https://i.ytimg.com/vi/NV-TPaYXXLg/hqdefault.jpg&debut=0&fin=304&largeur=200&hauteur=113",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
+                  },
+                  {
+                    "titre": "Diviser par 0,1 ; 0,01 ; 0,001",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=8PKKNGOVziI&vignette=https://i.ytimg.com/vi/8PKKNGOVziI/hqdefault.jpg&debut=0&fin=128&largeur=200&hauteur=113",
+                    "auteur": "Maîtresse Cécile",
+                    "lienAuteur": "https://www.youtube.com/@maitressececile4890"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6022,
+                    "slug": "can6C24,s=3,n=8"
                   }
                 ]
               }
