@@ -1982,22 +1982,8 @@
                 ],
                 "exercices": [
                   {
-                    "id": 5064,
-                    "slug": "5A13,s=1,s2=false,s3=false,s4=false,n=1,cd=1",
-                    "score": 5,
-                    "temps": 50,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5065,
-                    "slug": "5A13,s=2,s2=false,s3=false,s4=false,n=1,cd=1",
-                    "score": 10,
-                    "temps": 100,
-                    "isInteractif": true
-                  },
-                  {
                     "id": 5066,
-                    "slug": "5A13,s=3,s2=true,s3=false,s4=false,n=1,cd=1",
+                    "slug": "5A13,s=3,s2=true,s3=false,s4=false,n=4,cd=1",
                     "score": 15,
                     "temps": 150,
                     "isInteractif": true
@@ -2016,7 +2002,13 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "",
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=7vkgbr-7vws&vignette=https://i.ytimg.com/vi/7vkgbr-7vws/hqdefault.jpg&debut=0&fin=98&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
+                    "titre": "Explications détaillées",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=dkE_zaRIeKY&vignette=https://i.ytimg.com/vi/dkE_zaRIeKY/hqdefault.jpg&debut=0&fin=474&largeur=200&hauteur=113",
                     "auteur": "Maths&Methodes",
                     "lienAuteur": "https://www.youtube.com/channel/UCb9LSmnMAXQ6LtggV7pD_xw"
@@ -2028,14 +2020,16 @@
                     "slug": "6N41,s=11,s2=3,n=4",
                     "score": 4,
                     "temps": 160,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Compléter des égalités entre fractions"
                   },
                   {
                     "id": 5074,
                     "slug": "6N41-1,s=13,s2=6",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Labyrinthes"
                   }
                 ]
               },
@@ -2096,24 +2090,10 @@
                 ],
                 "exercices": [
                   {
-                    "id": 5080,
-                    "slug": "6C23,s=4,n=2",
-                    "score": 5,
-                    "temps": 100,
-                    "isInteractif": true
-                  },
-                  {
                     "id": 5081,
-                    "slug": "5N20,s=11,s2=3,s3=false,n=2",
+                    "slug": "5N20,s=11,s2=3,s3=false,n=4",
                     "score": 10,
                     "temps": 200,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5082,
-                    "slug": "5N20,s=11,s2=3,s3=true,n=2",
-                    "score": 15,
-                    "temps": 300,
                     "isInteractif": true
                   }
                 ]
@@ -2139,22 +2119,8 @@
                 ],
                 "exercices": [
                   {
-                    "id": 5083,
-                    "slug": "4C24,s=1,n=2",
-                    "score": 3,
-                    "temps": 60,
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5084,
-                    "slug": "4C24,s=2,n=2",
-                    "score": 5,
-                    "temps": 100,
-                    "isInteractif": true
-                  },
-                  {
                     "id": 5085,
-                    "slug": "4C24,s=3,n=2",
+                    "slug": "4C24,s=3,n=4",
                     "score": 7,
                     "temps": 140,
                     "isInteractif": true
@@ -3340,19 +3306,19 @@
                     "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
                   },
                   {
-                    "titre": "Niveau 1",
+                    "titre": "Multiplier deux fractions avec des nombres positifs",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=j27kXXrw3Xk&vignette=https://i.ytimg.com/vi/j27kXXrw3Xk/hqdefault.jpg&debut=0&fin=297&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
-                    "titre": "Niveau 1",
+                    "titre": "Multiplier un entier par une fraction",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=gReBtrld7xU&vignette=https://i.ytimg.com/vi/gReBtrld7xU/hqdefault.jpg&debut=0&fin=311&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
-                    "titre": "Niveau 2",
+                    "titre": "Multiplications avec des fractions et des nombres relatifs",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=9nwZMLmoag8&vignette=https://i.ytimg.com/vi/9nwZMLmoag8/hqdefault.jpg&debut=0&fin=564&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
@@ -3361,17 +3327,19 @@
                 "exercices": [
                   {
                     "id": 4045,
-                    "slug": "4C22,s=1,s2=false,s3=false,n=2",
+                    "slug": "4C22,s=1,s2=false,s3=false,n=4",
                     "score": 6,
                     "temps": 120,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Multiplications avec des nombres positifs"
                   },
                   {
                     "id": 4046,
-                    "slug": "4C22,s=3,s2=false,s3=false,n=1",
+                    "slug": "4C22,s=3,s2=false,s3=false,n=2",
                     "score": 8,
                     "temps": 800,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Multiplications avec des nombres relatifs"
                   }
                 ]
               },
@@ -3400,21 +3368,24 @@
                     "slug": "4C22-1,s=3,n=2",
                     "score": 3,
                     "temps": 60,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Trouver l'inverse d'une fraction"
                   },
                   {
                     "id": 4049,
                     "slug": "4C22-2,s=1,n=2",
                     "score": 10,
                     "temps": 200,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Divisions de fractions avec des nombres positifs"
                   },
                   {
                     "id": 4050,
                     "slug": "4C22-2,s=2,n=2",
                     "score": 12,
                     "temps": 240,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Divisions de fractions avec des nombres relatifs"
                   }
                 ]
               },
