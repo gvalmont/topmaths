@@ -1953,7 +1953,7 @@
                   },
                   {
                     "id": 5135,
-                    "slug": "5A12-3,s=1,s2=6,s3=1,s4=1,n=4",
+                    "slug": "5A12-3,s=1,s2=6,s3=1,s4=1,n=2",
                     "score": 2,
                     "temps": 160,
                     "isInteractif": true,
@@ -3098,7 +3098,7 @@
                   },
                   {
                     "id": 5068,
-                    "slug": "5G31,s=2,n=2,cd=1",
+                    "slug": "5G31,s=2,n=1,cd=1",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
@@ -3377,7 +3377,7 @@
                     "score": 10,
                     "temps": 200,
                     "isInteractif": true,
-                    "description": "Divisions de fractions avec des nombres positifs"
+                    "description": "Divisions avec des nombres positifs"
                   },
                   {
                     "id": 4050,
@@ -3385,7 +3385,7 @@
                     "score": 12,
                     "temps": 240,
                     "isInteractif": true,
-                    "description": "Divisions de fractions avec des nombres relatifs"
+                    "description": "Divisions avec des nombres relatifs"
                   }
                 ]
               },
@@ -3957,7 +3957,7 @@
                   },
                   {
                     "id": 4039,
-                    "slug": "4L14-0,s=1,n=2",
+                    "slug": "4L14-0,s=1,n=1",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false,
