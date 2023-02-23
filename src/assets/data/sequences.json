@@ -3594,7 +3594,7 @@
             "titre": "",
             "niveaux": [
               {
-                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&serie=kkRf&v=e&z=1'>QCM ou Vrai-Faux tombés ces 3 dernières années !</a>",
+                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
                 "lien": "",
                 "score": ""
               }
@@ -3602,18 +3602,16 @@
           }
         ],
         "questionsFlash": [
-        ]
+        ],
+        "slugEvalBrevet": "ex=dnb_2021_06_etrangers_3&ex=dnb_2020_09_metropole_2&ex=dnb_2019_07_metropole_6&ex=dnb_2019_06_etrangers_2"
       },
       {
         "reference": "S3S17",
-        "titre": "Rotations",
+        "titre": "Proportionnalité en géométrie 3",
         "periode": 4,
         "objectifs": [
           {
-            "reference": "3G10"
-          },
-          {
-            "reference": "3G12"
+            "reference": "3G11"
           }
         ],
         "calculsMentaux": [
@@ -3622,7 +3620,7 @@
             "titre": "",
             "niveaux": [
               {
-                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&serie=kkRf&v=e&z=1'>QCM ou Vrai-Faux tombés ces 3 dernières années !</a>",
+                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
                 "lien": "",
                 "score": ""
               }
@@ -3653,7 +3651,7 @@
             "titre": "",
             "niveaux": [
               {
-                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&serie=kkRf&v=e&z=1'>QCM ou Vrai-Faux tombés ces 3 dernières années !</a>",
+                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
                 "lien": "",
                 "score": ""
               }
@@ -3665,7 +3663,7 @@
       },
       {
         "reference": "S3S19",
-        "titre": "Proportionnalité en géométrie 3",
+        "titre": "Proportionnalité en géométrie 4",
         "periode": 4,
         "objectifs": [
           {
@@ -3678,7 +3676,7 @@
             "titre": "",
             "niveaux": [
               {
-                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&serie=kkRf&v=e&z=1'>QCM ou Vrai-Faux tombés ces 3 dernières années !</a>",
+                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
                 "lien": "",
                 "score": ""
               }
@@ -3691,7 +3689,7 @@
       {
         "reference": "S3S20",
         "titre": "Fonctions affines",
-        "periode": 5,
+        "periode": 4,
         "objectifs": [
           {
             "reference": "3F14"
@@ -3715,7 +3713,7 @@
             "titre": "",
             "niveaux": [
               {
-                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&serie=kkRf&v=e&z=1'>QCM ou Vrai-Faux tombés ces 3 dernières années !</a>",
+                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
                 "lien": "",
                 "score": ""
               }
@@ -3743,7 +3741,7 @@
             "titre": "",
             "niveaux": [
               {
-                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&serie=kkRf&v=e&z=1'>QCM ou Vrai-Faux tombés ces 3 dernières années !</a>",
+                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
                 "lien": "",
                 "score": ""
               }
@@ -3755,14 +3753,14 @@
       },
       {
         "reference": "S3S22",
-        "titre": "Proportionnalité en géométrie 4",
+        "titre": "Rotations",
         "periode": 5,
         "objectifs": [
           {
-            "reference": "3G11"
+            "reference": "3G10"
           },
           {
-            "reference": "3G13"
+            "reference": "3G12"
           }
         ],
         "calculsMentaux": [
@@ -3771,7 +3769,7 @@
             "titre": "",
             "niveaux": [
               {
-                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&serie=kkRf&v=e&z=1'>QCM ou Vrai-Faux tombés ces 3 dernières années !</a>",
+                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
                 "lien": "",
                 "score": ""
               }
@@ -3802,7 +3800,7 @@
             "titre": "",
             "niveaux": [
               {
-                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&serie=kkRf&v=e&z=1'>QCM ou Vrai-Faux tombés ces 3 dernières années !</a>",
+                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
                 "lien": "",
                 "score": ""
               }
@@ -3830,7 +3828,7 @@
             "titre": "",
             "niveaux": [
               {
-                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&serie=kkRf&v=e&z=1'>QCM ou Vrai-Faux tombés ces 3 dernières années !</a>",
+                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
                 "lien": "",
                 "score": ""
               }
