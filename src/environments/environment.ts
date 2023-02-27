@@ -5,6 +5,7 @@
 export const environment = {
   // eslint-disable-next-line no-undef
   appVersion: require('../../package.json').version + '-dev',
+  annee: 2023,
   origine: 'http://localhost:4200',
   urlMathALEA: 'https://coopmaths.fr/mathalea.html?',
   production: false,

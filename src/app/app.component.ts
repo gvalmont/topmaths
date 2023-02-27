@@ -14,6 +14,7 @@ import { DataService } from './services/data.service'
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit, OnDestroy {
+  annee = environment.annee
   title: string
   ongletActif: string
   navigationEventSubscription: Subscription
