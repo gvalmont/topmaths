@@ -679,6 +679,30 @@
                 ]
               },
               {
+                "reference": "6P13",
+                "titre": "Appliquer un pourcentage",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=2UVaPRdSMl0&vignette=https://i.ytimg.com/vi/2UVaPRdSMl0/hqdefault.jpg&debut=0&fin=298&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6019,
+                    "slug": "6P13,s=1,n=2",
+                    "score": 20,
+                    "temps": 300,
+                    "isInteractif": true,
+                    "description": ""
+                  }
+                ]
+              },
+              {
                 "reference": "6P16",
                 "titre": "Relier fractions, proportions et pourcentages",
                 "rappelDuCoursHTML": "Au lieu d'écrire \"sur 100\", on peut écrire \"%\".<br><br>Par exemple : $\\cfrac{35}{100} = 35 \\text{%}$<br><br>On peut alors passer de l'écriture décimale à l'écriture en pourcentage en multipliant par 100.<br><br>Par exemple : $0{,}513 = 51{,}3 \\text{%}$<br><br>(car $0{,}513 = \\cfrac{0{,}513 \\times 100}{100} = \\cfrac{51{,}3}{100} = 51{,}3 \\text{%}$)",
