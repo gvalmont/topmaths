@@ -503,7 +503,7 @@
               {
                 "reference": "6C24",
                 "titre": "Multiplier et diviser par 0,1 ; 0,01 ; 0,001",
-                "rappelDuCoursHTML": "Multiplier par 0,1 revient à diviser par 10.<br>Multiplier par 00,1 revient à diviser par 100.<br>etc.<br>Diviser par 0,1 revient à multiplier par 10.<br>Diviser par 0,01 revient à multiplier par 100.<br>etc.",
+                "rappelDuCoursHTML": "Multiplier par 0,1 revient à diviser par 10.<br>Multiplier par 0,01 revient à diviser par 100.<br>etc.<br>Diviser par 0,1 revient à multiplier par 10.<br>Diviser par 0,01 revient à multiplier par 100.<br>etc.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -697,28 +697,32 @@
                     "slug": "5N11-3,s=2,n=2",
                     "score": 2,
                     "temps": 40,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Définition d'un pourcentage"
                   },
                   {
                     "id": 5056,
                     "slug": "5N11-3,s=1,n=2",
                     "score": 6,
                     "temps": 120,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Écrire sous la forme d'un pourcentage sans calculatrice"
                   },
                   {
                     "id": 5057,
                     "slug": "5N11-4,s=2,n=2",
                     "score": 6,
                     "temps": 120,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Écrire sous la forme d'un pourcentage avec calculatrice"
                   },
                   {
                     "id": 5057,
                     "slug": "can5P02,s=1,n=2",
                     "score": 6,
                     "temps": 120,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Déterminer un pourcentage de proportion"
                   }
                 ]
               }
@@ -1319,6 +1323,38 @@
             "nom": "6G5 Alignement, perpendicularité et parallélisme",
             "objectifs": [
               {
+                "reference": "6G51",
+                "titre": "Reconnaître l'appartenance à une droite",
+                "rappelDuCoursHTML": "Des points <b><i>alignés</i></b> sont des points qui sont situés sur la même droite.<br><b><i>∈</i></b> signifie « <b><i>appartient à</i></b> ».<br><b><i>∉</i></b> signifie « <b><i>n'appartient pas à</i></b> ».",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "Reconnaître des points alignés",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=IRH-DS-gvuE&vignette=https://i.ytimg.com/vi/IRH-DS-gvuE/hqdefault.jpg&debut=0&fin=49&largeur=200&hauteur=113",
+                    "auteur": "mathasius",
+                    "lienAuteur": "https://www.youtube.com/@mathasius"
+                  },
+                  {
+                    "titre": "Utiliser les symboles ∈ et ∉",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=s-KelQ875a8&vignette=https://i.ytimg.com/vi/s-KelQ875a8/hqdefault.jpg&debut=0&fin=309&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6027,
+                    "slug": "6G51-1,n=2",
+                    "description": "Reconnaître des points alignés"
+                  },
+                  {
+                    "id": 6027,
+                    "slug": "6G51-2,n=8",
+                    "description": "Utiliser les symboles ∈ et ∉"
+                  }
+                ]
+              },
+              {
                 "reference": "6G52",
                 "titre": "Connaître les relations entre perpendicularité et parallélisme et savoir s’en servir pour raisonner",
                 "rappelDuCoursHTML": "<b>Si <span style='color:MediumBlue'>deux</span> <span style='color:ForestGreen'>droites</span></b> sont <b><span style='color:MediumBlue'>para</span><span style='color:ForestGreen'>llèles</span></b> et <b>si</b> une <b><span style='color:red'>troisième droite</span></b> est <span style='color:red'>perpendiculaire</span> à <b><span style='color:MediumBlue'>l'une</span> alors</b> elle est <span style='color:red'>perpendiculaire</span> à <b><span style='color:ForestGreen'>l'autre</span></b>.<br><b>Si <span style='color:MediumBlue'>deux</span> <span style='color:ForestGreen'>droites</span></b> sont <span style='color:red'>perpendiculaires</span> à une <b><span style='color:red'>même droite</span> alors</b> elles sont <b><span style='color:MediumBlue'>para</span><span style='color:ForestGreen'>llèles</span> <span style='color:MediumBlue'>entre</span> <span style='color:ForestGreen'>elles</span></b>.<br><b>Si <span style='color:MediumBlue'>deux</span> <span style='color:ForestGreen'>droites</span></b> sont <b><span style='color:MediumBlue'>para</span><span style='color:ForestGreen'>llèles</span></b> à une <b><span style='color:red'>même droite</span> alors</b> elles sont <b><span style='color:MediumBlue'>para</span><span style='color:ForestGreen'>llèles</span> <span style='color:MediumBlue'>entre</span> <span style='color:ForestGreen'>elles</span>.",
@@ -1335,6 +1371,27 @@
                   {
                     "id": 6027,
                     "slug": "6G52,s=3,n=2,cd=0",
+                    "description": ""
+                  }
+                ]
+              },
+              {
+                "reference": "6G53",
+                "titre": "Déterminer le plus court chemin entre un point et une droite",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=tUzoATZrAmc&vignette=https://i.ytimg.com/vi/tUzoATZrAmc/hqdefault.jpg&debut=0&fin=321&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "id": 6027,
+                    "slug": "6G53,n=2",
                     "description": ""
                   }
                 ]
@@ -3365,7 +3422,7 @@
                 "exercices": [
                   {
                     "id": 4048,
-                    "slug": "4C22-1,s=3,n=2",
+                    "slug": "4C22-1,s=4,n=2",
                     "score": 3,
                     "temps": 60,
                     "isInteractif": true,
@@ -5749,6 +5806,13 @@
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false
+                  },
+                  {
+                    "id": 3047,
+                    "slug": "3G13,s=all,s2=3,s3=1,s4=true,n=3,cd=1",
+                    "score": 0,
+                    "temps": 0,
+                    "isInteractif": false
                   }
                 ]
               },
@@ -5762,22 +5826,6 @@
                   {
                     "id": 3048,
                     "slug": "3G12,s=1,s2=false,s3=7,n=3",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
-                  }
-                ]
-              },
-              {
-                "reference": "3G13",
-                "titre": "Mobiliser les connaissances des figures, des configurations, de la rotation et de l’homothétie pour déterminer des grandeurs géométriques",
-                "rappelDuCoursHTML": "",
-                "rappelDuCoursImage": "",
-                "videos": [],
-                "exercices": [
-                  {
-                    "id": 3049,
-                    "slug": "3G13,s=all,s2=3,s3=1,s4=true,n=3,cd=1",
                     "score": 0,
                     "temps": 0,
                     "isInteractif": false

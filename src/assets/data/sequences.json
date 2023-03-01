@@ -638,6 +638,44 @@
             "slug": "6G10-3,n=1"
           }
         ]
+      },
+      {
+        "reference": "S6S17",
+        "titre": "Points et droites",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "6G51"
+          },
+          {
+            "reference": "6G53"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C24",
+            "titre": "Multiplier ou diviser par 0,1 ; 0,01 ; 0,001",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=6NE9~o=0,1,2~q=0.0,1,2-1.0,1,2-2.0,1,2~p=~t=20~n=2_i=6NE2~o=0,1,2~q=0.0,1-1.0,1-2.0,1~p=~t=20~n=2_i=4NC2~o=0,1,2~q=0.-1.-2.~p=~t=20~n=4",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6N44",
+            "titre": "Utiliser des fractions pour exprimer un quotient",
+            "slug": "6N23-5,n=4"
+          },
+          {
+            "reference": "6S10",
+            "titre": "Lire une représentation de données",
+            "slug": "6S10,s=3,s2=2"
+          }
+        ]
       }
     ]
   },
@@ -3628,7 +3666,8 @@
           }
         ],
         "questionsFlash": [
-        ]
+        ],
+        "slugEvalBrevet": "ex=dnb_2021_06_asie_2&ex=dnb_2020_09_polynesie_3&ex=dnb_2018_06_asie_6"
       },
       {
         "reference": "S3S18",
