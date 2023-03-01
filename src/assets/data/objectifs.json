@@ -3115,7 +3115,7 @@
               {
                 "reference": "5G30-2",
                 "titre": "Utiliser les propriétés des angles opposés par le sommet, supplémentaires, correspondants, alternes-internes",
-                "rappelDuCoursHTML": "Si les droites sont parallèles, alors les angles alternes-internes ont la même mesure.<br>Si les angles alternes-internes ont la même mesure, alors les droites sont parallèles.<br>C'est pareil pour les angles correspondants.",
+                "rappelDuCoursHTML": "Deux angles opposés par le sommet ont la même mesure.<br><br>Si les droites sont parallèles, alors les angles alternes-internes ont la même mesure.<br>Si les angles alternes-internes ont la même mesure, alors les droites sont parallèles.<br>C'est pareil pour les angles correspondants.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -4181,7 +4181,7 @@
               {
                 "reference": "4S20",
                 "titre": "Utiliser le vocabulaire des probabilités",
-                "rappelDuCoursHTML": "Une <b><i>expérience aléatoire</b></i> est une expérience qui dépend du hasard : on ne peut pas prévoir à l’avance le résultat.<br>Les <b><i>issues</b></i> d’une expérience aléatoire sont les différents résultats possibles de cette expérience.<br>La <b><i>probabilité</b></i> d’une issue peut s’interpréter comme la « proportion de chance » d’obtenir cette issue.<br>Un <b><i>événement</b></i> est constitué d’issues.<br>On dit qu’un événement est réalisé lorsqu’on a obtenu l’une de ses issues.<br>On dit qu’un événement est <b><i>impossible</b></i> s’il ne peut pas se produire.<br>On dit qu’un événement est <b><i>certain</b></i> s’il se produit toujours.",
+                "rappelDuCoursHTML": "Une <b><i>expérience aléatoire</b></i> est une expérience qui dépend du hasard : on ne peut pas prévoir à l’avance le résultat.<br>Les <b><i>issues</b></i> d’une expérience aléatoire sont les différents résultats possibles de cette expérience.<br>La <b><i>probabilité</b></i> d’une issue peut s’interpréter comme la « proportion de chance » d’obtenir cette issue.<br>Un <b><i>événement</b></i> est constitué d’issues.<br>On dit qu’un événement est <b><i>réalisé</i></b> lorsqu’on a obtenu l’une de ses issues.<br>On dit qu’un événement est <b><i>impossible</b></i> s’il ne peut pas se produire.<br>On dit qu’un événement est <b><i>certain</b></i> s’il se produit toujours.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
