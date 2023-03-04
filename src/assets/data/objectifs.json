@@ -1349,7 +1349,7 @@
               {
                 "reference": "6G51",
                 "titre": "Reconnaître l'appartenance à une droite",
-                "rappelDuCoursHTML": "Des points <b><i>alignés</i></b> sont des points qui sont situés sur la même droite.<br><b><i>∈</i></b> signifie « <b><i>appartient à</i></b> ».<br><b><i>∉</i></b> signifie « <b><i>n'appartient pas à</i></b> ».",
+                "rappelDuCoursHTML": "Des points <b><i>alignés</i></b> sont des points qui sont situés sur la même droite.<br>On dit alors qu'ils <b><i>appartiennent</i></b> à cette droite.<br><b><i>∈</i></b> signifie « <b><i>appartient à</i></b> ».<br><b><i>∉</i></b> signifie « <b><i>n'appartient pas à</i></b> ».",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -3172,17 +3172,19 @@
                 "exercices": [
                   {
                     "id": 5067,
-                    "slug": "5G31,s=1,n=3,cd=1",
+                    "slug": "5G31,s=1,s2=true,n=3,cd=1",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Avec un schéma"
                   },
                   {
                     "id": 5068,
-                    "slug": "5G31,s=2,n=1,cd=1",
+                    "slug": "5G31,s=1,s2=false,n=3,cd=1",
                     "score": 0,
                     "temps": 0,
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Sans schéma"
                   }
                 ]
               }
@@ -3974,7 +3976,7 @@
               {
                 "reference": "4L13",
                 "titre": "Mettre un problème en équation",
-                "rappelDuCoursHTML": "<b><i>1.</i></b> Choix de l'inconnue<br><b><i>2.</i></b> Mise en équation du problème<br><b><i>3.</i></b> Résolution de l'équation<br><b><i>4.</i></b> Vérification du résultat",
+                "rappelDuCoursHTML": "<b><i>1.</i></b> Choisir l'inconnue (souvent ce qu'on doit trouver)<br><b><i>2.</i></b> Exprimer les autres données de l'énoncé en fonction de l'inconnue<br><b><i>3.</i></b> Mettre en équation (écrire une égalité avec les données précédentes)<br><b><i>4.</i></b> Résoudre l'équation<br><b><i>5.</i></b> Vérifier le résultat",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -3992,25 +3994,12 @@
                 ],
                 "exercices": [
                   {
-                    "id": 4057,
-                    "slug": "4L13-0,s=1,n=2",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
-                  },
-                  {
-                    "id": 4058,
-                    "slug": "4L13-1,s=1,n=2",
-                    "score": 0,
-                    "temps": 0,
-                    "isInteractif": false
-                  },
-                  {
                     "id": 4061,
-                    "slug": "4L13-2,s=1,n=1",
+                    "slug": "4L13-2,s=1,n=2",
                     "score": 40,
                     "temps": 400,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": ""
                   }
                 ]
               },
@@ -4108,17 +4097,19 @@
                 "exercices": [
                   {
                     "id": 4059,
-                    "slug": "4L20-0,s=true,s2=4,n=3,cd=1",
+                    "slug": "4L20-0,s=true,s2=4,n=2,cd=1",
                     "score": 10,
                     "temps": 300,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Solutions entières"
                   },
                   {
                     "id": 4060,
-                    "slug": "4L20,s=true,s2=4,n=3,cd=1",
+                    "slug": "4L20,s=true,s2=4,n=2,cd=1",
                     "score": 12,
                     "temps": 360,
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Solutions fractionnaires"
                   }
                 ]
               }
@@ -4210,7 +4201,7 @@
               {
                 "reference": "4S21",
                 "titre": "Reconnaître des événements contraires et s’en servir pour calculer des probabilités",
-                "rappelDuCoursHTML": "La somme des probabilités d’un événement et de son contraire vaut 1 : $P(A) + P( \\overline{A} ) = 1$<br>On peut donc en déduire que la probabilité de son contraire est 1 $-$ sa probabilité : $P( \\overline{A} ) = 1 - P(A)$",
+                "rappelDuCoursHTML": "",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -4233,14 +4224,20 @@
               {
                 "reference": "4S22",
                 "titre": "Calculer des probabilités",
-                "rappelDuCoursHTML": "$\\text{Probabilité} = \\cfrac{\\text{Nombre de cas favorables}}{\\text{Nombre de cas possibles}}$",
+                "rappelDuCoursHTML": "$\\text{Probabilité} = \\cfrac{\\text{Nombre de cas favorables}}{\\text{Nombre de cas possibles}}$ <br><br> La somme des probabilités d’un événement et de son contraire vaut 1 : $P(A) + P( \\overline{A} ) = 1$<br>On peut donc en déduire que la probabilité de son contraire est 1 $-$ sa probabilité : $P( \\overline{A} ) = 1 - P(A)$",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "",
+                    "titre": "Calculer une probabilité",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=XTlxQPG5ehc&vignette=https://i.ytimg.com/vi/XTlxQPG5ehc/hqdefault.jpg&debut=0&fin=479&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "titre": "Événement contraire",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=DWwDpoY4euM&vignette=https://i.ytimg.com/vi/DWwDpoY4euM/hqdefault.jpg&debut=0&fin=165&largeur=200&hauteur=113",
+                    "auteur": "*Mme Maths*",
+                    "lienAuteur": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
                   }
                 ],
                 "exercices": [
