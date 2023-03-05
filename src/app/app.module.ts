@@ -25,13 +25,10 @@ import { PolitiqueDeConfidentialiteComponent } from './politique-de-confidential
 import { PanierComponent } from './panier/panier.component'
 import { BoutonDropdownSimpleComponent } from './mini-components/bouton-dropdown-simple/bouton-dropdown-simple.component'
 import { SPS2Component } from './sequencesParticulieres/sps2/sps2.component'
-import { TableauDAideComponent } from './outils/tableau-d-aide/tableau-d-aide.component'
 import { LecteurDeXlsComponent } from './mini-components/lecteur-de-xls/lecteur-de-xls.component'
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component'
 import { CguComponent } from './cgu/cgu.component'
-import { EvaluationsBilanComponent } from './outils/evaluations-bilan/evaluations-bilan.component'
 import { ModaleTutoXlsComponent } from './mini-components/modale-tuto-xls/modale-tuto-xls.component'
-import { EvaluationsALaDemandeComponent } from './outils/evaluations-a-la-demande/evaluations-a-la-demande.component'
 
 @NgModule({
   declarations: [
@@ -55,13 +52,10 @@ import { EvaluationsALaDemandeComponent } from './outils/evaluations-a-la-demand
     SequencesFilter,
     PanierComponent,
     BoutonDropdownSimpleComponent,
-    TableauDAideComponent,
     LecteurDeXlsComponent,
     MentionsLegalesComponent,
     CguComponent,
-    EvaluationsBilanComponent,
-    ModaleTutoXlsComponent,
-    EvaluationsALaDemandeComponent
+    ModaleTutoXlsComponent
   ],
   imports: [
     BrowserModule,

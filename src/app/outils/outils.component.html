@@ -9,30 +9,6 @@
         </button>
       </a>
     </div>
-    <div *ngIf="storageService.modeEnseignant">
-      <br><br>
-      <a [routerLink]="['/outils/tableau-d-aide']">
-        <button class="button is-large is-tout is-outlined p-6">
-          <p class="enorme">Tableau d'aide</p>
-        </button>
-      </a>
-    </div>
-    <div *ngIf="storageService.modeEnseignant">
-      <br><br>
-      <a [routerLink]="['/outils/evaluations-a-la-demande']">
-        <button class="button is-large is-link is-outlined p-6">
-          <p class="enorme">Évaluations<br>à la demande</p>
-        </button>
-      </a>
-    </div>
-    <div *ngIf="storageService.modeEnseignant">
-      <br><br>
-      <a [routerLink]="['/outils/evaluations-bilan']">
-        <button class="button is-large is-sponsor is-outlined p-6">
-          <p class="enorme">Évaluations<br>bilan</p>
-        </button>
-      </a>
-    </div>
     <br><br><br><br>
     <div *ngIf="!storageService.modeEnseignant">
       <a (click)="activerModeEnseignant()">
