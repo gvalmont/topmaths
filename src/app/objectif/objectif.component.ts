@@ -121,6 +121,7 @@ export class ObjectifComponent implements OnInit, OnDestroy {
     this.MAJLienExercices(objectif)
     this.MAJExercices(objectif)
     this.MAJLienTelechargement(objectif.reference, 'entrainement')
+    this.MAJAffichageSequences()
     if (this.storageService.modeEnseignant) this.MAJLienTelechargement(objectif.reference, 'test')
   }
 
@@ -238,6 +239,11 @@ export class ObjectifComponent implements OnInit, OnDestroy {
         divTelechargement.classList.remove('cache')
       }
     }
+  }
+
+  MAJAffichageSequences () {
+    const divSequences = document.getElementById('divSequences')
+    if (divSequences !== null && this.sequences.length === 0) divSequences.classList.add('cache')
   }
 
   ouvrirModaleExercices (lien: string | undefined) {
