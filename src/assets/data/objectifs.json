@@ -623,16 +623,12 @@
                   {
                     "id": 6017,
                     "slug": "6P10,s=1-2-3-4,n=2",
-                    "score": 8,
-                    "temps": 240,
                     "isInteractif": true,
                     "description": "À partir d'un énoncé-problème"
                   },
                   {
                     "id": 6018,
                     "slug": "6P10,s=5,n=1",
-                    "score": 10,
-                    "temps": 200,
                     "isInteractif": true,
                     "description": "À partir d'un tableau"
                   }
@@ -655,24 +651,18 @@
                   {
                     "id": 6019,
                     "slug": "6P11,s=true,n=1",
-                    "score": 20,
-                    "temps": 300,
                     "isInteractif": true,
                     "description": "Coefficient de linéarité entier"
                   },
                   {
                     "id": 6020,
                     "slug": "6P11,s=false,n=1",
-                    "score": 20,
-                    "temps": 300,
                     "isInteractif": true,
                     "description": "Coefficient de linéarité décimal"
                   },
                   {
                     "id": 6021,
                     "slug": "6P12,s=false,n=1",
-                    "score": 20,
-                    "temps": 300,
                     "isInteractif": true,
                     "description": "Coefficient de proportionnalité décimal"
                   }
@@ -695,8 +685,6 @@
                   {
                     "id": 6019,
                     "slug": "6P13,s=1,n=2",
-                    "score": 20,
-                    "temps": 300,
                     "isInteractif": true,
                     "description": ""
                   }
@@ -719,32 +707,24 @@
                   {
                     "id": 5055,
                     "slug": "5N11-3,s=2,n=2",
-                    "score": 2,
-                    "temps": 40,
                     "isInteractif": true,
                     "description": "Définition d'un pourcentage"
                   },
                   {
                     "id": 5056,
                     "slug": "5N11-3,s=1,n=2",
-                    "score": 6,
-                    "temps": 120,
                     "isInteractif": true,
                     "description": "Écrire sous la forme d'un pourcentage sans calculatrice"
                   },
                   {
                     "id": 5057,
                     "slug": "5N11-4,s=2,n=2",
-                    "score": 6,
-                    "temps": 120,
                     "isInteractif": true,
                     "description": "Écrire sous la forme d'un pourcentage avec calculatrice"
                   },
                   {
                     "id": 5057,
                     "slug": "can5P02,s=1,n=2",
-                    "score": 6,
-                    "temps": 120,
                     "isInteractif": true,
                     "description": "Déterminer un pourcentage de proportion"
                   }
@@ -772,8 +752,6 @@
                   {
                     "id": 5026,
                     "slug": "6S10,s=3,s2=2",
-                    "score": 5,
-                    "temps": 300,
                     "isInteractif": true
                   }
                 ]
@@ -795,8 +773,6 @@
                   {
                     "id": 5025,
                     "slug": "6S11,s=false,s2=4",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -1013,8 +989,6 @@
                   {
                     "id": 5037,
                     "slug": "5G20-0,s=1,s2=true,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": ""
                   }
@@ -1116,32 +1090,24 @@
                   {
                     "id": 5129,
                     "slug": "https://www.geogebra.org/classic/zCHW88bx",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Estimer la position du symétrique d'un point"
                   },
                   {
                     "id": 5129,
                     "slug": "https://www.geogebra.org/classic/DCqyYqvD",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Estimer la position du symétrique d'une figure"
                   },
                   {
                     "id": 5033,
                     "slug": "5G10-1,s=1,s2=3,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Construire le symétrique d'un point"
                   },
                   {
                     "id": 5034,
                     "slug": "5G10-2,s=1,s2=3,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Construire le symétrique d'une figure"
                   }
@@ -1170,16 +1136,12 @@
                   {
                     "id": 5041,
                     "slug": "6G25",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Construire une médiatrice"
                   },
                   {
                     "id": 5041,
                     "slug": "5G22-1,s=3,s2=false,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Utiliser les propriétés de la médiatrice"
                   }
@@ -1202,40 +1164,30 @@
                   {
                     "id": 5017,
                     "slug": "https://www.geogebra.org/m/ffeasjyg",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Triangle 1"
                   },
                   {
                     "id": 5017,
                     "slug": "https://www.geogebra.org/m/mjhxsfue",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Triangle 2"
                   },
                   {
                     "id": 5130,
                     "slug": "https://www.geogebra.org/m/w7e6cawq",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Triangle 3"
                   },
                   {
                     "id": 5131,
                     "slug": "https://www.geogebra.org/m/mdmt3dyx",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Triangle 4"
                   },
                   {
                     "id": 5132,
                     "slug": "https://www.geogebra.org/m/s3jygvkg",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Triangle 5"
                   }
@@ -1263,16 +1215,12 @@
                   {
                     "id": 5035,
                     "slug": "5G13,s=1,s2=1,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Conservation du parallélisme"
                   },
                   {
                     "id": 5036,
                     "slug": "5G13,s=1,s2=2,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Conservation des longueurs et des angles"
                   }
@@ -1306,8 +1254,6 @@
                   {
                     "id": 5134,
                     "slug": "6G44-1,s=0,s2=false,s3=false,n=4",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -1335,8 +1281,6 @@
                   {
                     "id": 5117,
                     "slug": "6G41,s=3,s2=1,n=3",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -1626,8 +1570,6 @@
                   {
                     "id": 5088,
                     "slug": "6M20,n=2,cd=1",
-                    "score": 15,
-                    "temps": 150,
                     "isInteractif": true,
                     "description": ""
                   }
@@ -1656,8 +1598,6 @@
                   {
                     "id": 5090,
                     "slug": "6M22-2,s=3",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -1673,8 +1613,6 @@
                   {
                     "id": 5087,
                     "slug": "6M22-1,s=3,s2=true,n=1",
-                    "score": 12,
-                    "temps": 120,
                     "isInteractif": true,
                     "description": ""
                   }
@@ -1697,24 +1635,18 @@
                   {
                     "id": 5093,
                     "slug": "6M23,s=4,s2=false,s3=1,n=3",
-                    "score": 13,
-                    "temps": 130,
                     "isInteractif": true,
                     "description": "Avec des nombres entiers"
                   },
                   {
                     "id": 5094,
                     "slug": "6M23,s=4,s2=true,s3=1,n=3",
-                    "score": 16,
-                    "temps": 160,
                     "isInteractif": true,
                     "description": "Avec des nombres décimaux"
                   },
                   {
                     "id": 5095,
                     "slug": "6M23,s=5,s2=true,s3=1,n=2",
-                    "score": 20,
-                    "temps": 200,
                     "isInteractif": true,
                     "description": "Avec des ares et des hectares"
                   }
@@ -1742,8 +1674,6 @@
                   {
                     "id": 5088,
                     "slug": "6M30,s=1,s3=2,s4=8,n=4",
-                    "score": 15,
-                    "temps": 150,
                     "isInteractif": true,
                     "description": ""
                   }
@@ -1766,24 +1696,18 @@
                   {
                     "id": 5120,
                     "slug": "6M31,s=4,s2=false,s3=2,n=3",
-                    "score": 10,
-                    "temps": 200,
                     "isInteractif": true,
                     "description": "Avec des nombres entiers"
                   },
                   {
                     "id": 5121,
                     "slug": "6M31,s=4,s2=true,s3=2,n=3",
-                    "score": 15,
-                    "temps": 300,
                     "isInteractif": true,
                     "description": "Avec des nombres décimaux"
                   },
                   {
                     "id": 5125,
                     "slug": "6M31-2,s=3,s2=true,n=2",
-                    "score": 12,
-                    "temps": 240,
                     "isInteractif": true,
                     "description": "Avec des litres"
                   }
@@ -1811,16 +1735,12 @@
                   {
                     "id": 5111,
                     "slug": "6D10,s=1,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Conversions en une étape"
                   },
                   {
                     "id": 5112,
                     "slug": "6D13,s=3,n=2,cd=1",
-                    "score": 12,
-                    "temps": 240,
                     "isInteractif": true,
                     "description": "Conversions en deux étapes"
                   }
@@ -1843,16 +1763,12 @@
                   {
                     "id": 5113,
                     "slug": "6D11,s=1,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Additionner des durées"
                   },
                   {
                     "id": 5114,
                     "slug": "6D12,s=4,n=3",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Calculer des durées ou déterminer un horaire"
                   }
@@ -1890,24 +1806,18 @@
                   {
                     "id": 5001,
                     "slug": "5C11,s=1,s2=false,s3=true,s4=true,n=1",
-                    "score": 5,
-                    "temps": 80,
                     "isInteractif": false,
                     "description": "Traduire une phrase par un calcul (1 opération)"
                   },
                   {
                     "id": 5002,
                     "slug": "5C12-1,s=2,s2=false,s3=true,s4=true,n=1",
-                    "score": 10,
-                    "temps": 200,
                     "isInteractif": true,
                     "description": "Traduire une phrase et faire le calcul (2 opérations)"
                   },
                   {
                     "id": 5003,
                     "slug": "5C12-1,s=3,s2=false,s3=true,s4=true,n=1",
-                    "score": 15,
-                    "temps": 300,
                     "isInteractif": true,
                     "description": "Traduire une phrase et faire le calcul (3 opérations)"
                   }
@@ -1930,24 +1840,18 @@
                   {
                     "id": 5004,
                     "slug": "5C12,s=2,s2=false,s3=true,s4=true,n=2",
-                    "score": 5,
-                    "temps": 100,
                     "isInteractif": true,
                     "description": "Calculer en respectant les priorités (2 opérations)"
                   },
                   {
                     "id": 5005,
                     "slug": "5C12,s=3,s2=false,s3=true,s4=true,n=2",
-                    "score": 10,
-                    "temps": 130,
                     "isInteractif": true,
                     "description": "Calculer en respectant les priorités (3 opérations)"
                   },
                   {
                     "id": 5006,
                     "slug": "5C12,s=4,s2=false,s3=true,s4=true,n=2",
-                    "score": 15,
-                    "temps": 200,
                     "isInteractif": true,
                     "description": "Calculer en respectant les priorités (4 opérations)"
                   }
@@ -1975,8 +1879,6 @@
                   {
                     "id": 5048,
                     "slug": "6N43-3,s=1,s2=NaN,n=8",
-                    "score": 3,
-                    "temps": 240,
                     "isInteractif": true
                   }
                 ]
@@ -2004,8 +1906,6 @@
                   {
                     "id": 5049,
                     "slug": "5A11,s=false,n=8",
-                    "score": 6,
-                    "temps": 480,
                     "isInteractif": true
                   }
                 ]
@@ -2027,16 +1927,12 @@
                   {
                     "id": 5063,
                     "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=18~n=8",
-                    "score": 2,
-                    "temps": 160,
                     "isInteractif": true,
                     "description": "Calcul mental"
                   },
                   {
                     "id": 5135,
                     "slug": "5A12-3,s=1,s2=6,s3=1,s4=1,n=2",
-                    "score": 2,
-                    "temps": 160,
                     "isInteractif": true,
                     "description": "Labyrinthes"
                   }
@@ -2065,8 +1961,6 @@
                   {
                     "id": 5066,
                     "slug": "5A13,s=3,s2=true,s3=false,s4=false,n=4,cd=1",
-                    "score": 15,
-                    "temps": 150,
                     "isInteractif": true
                   }
                 ]
@@ -2099,16 +1993,12 @@
                   {
                     "id": 5073,
                     "slug": "6N41,s=11,s2=3,n=4",
-                    "score": 4,
-                    "temps": 160,
                     "isInteractif": true,
                     "description": "Compléter des égalités entre fractions"
                   },
                   {
                     "id": 5074,
                     "slug": "6N41-1,s=13,s2=6",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Labyrinthes"
                   }
@@ -2137,15 +2027,11 @@
                   {
                     "id": 5075,
                     "slug": "5N14,s=11,s2=false,n=2",
-                    "score": 10,
-                    "temps": 400,
                     "isInteractif": true
                   },
                   {
                     "id": 5076,
                     "slug": "5N14-2,s=false,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -2173,8 +2059,6 @@
                   {
                     "id": 5081,
                     "slug": "5N20,s=11,s2=3,s3=false,n=4",
-                    "score": 10,
-                    "temps": 200,
                     "isInteractif": true
                   }
                 ]
@@ -2201,9 +2085,7 @@
                 "exercices": [
                   {
                     "id": 5085,
-                    "slug": "4C24,s=3,n=4",
-                    "score": 7,
-                    "temps": 140,
+                    "slug": "4C24,s=3,n=2",
                     "isInteractif": true
                   }
                 ]
@@ -2230,8 +2112,6 @@
                   {
                     "id": 5007,
                     "slug": "5R10-0,s=2,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -2253,16 +2133,12 @@
                   {
                     "id": 5008,
                     "slug": "5R11-2,s=1,n=1",
-                    "score": 10,
-                    "temps": 120,
                     "isInteractif": true,
                     "description": "Placer des points"
                   },
                   {
                     "id": 5009,
                     "slug": "5R11,s=1,n=1",
-                    "score": 7,
-                    "temps": 300,
                     "isInteractif": true,
                     "description": "Lire des abscisses"
                   }
@@ -2291,16 +2167,12 @@
                   {
                     "id": 5010,
                     "slug": "5R12,s=1,s2=true",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Coordonnées positives"
                   },
                   {
                     "id": 5011,
                     "slug": "5R12-2,s=1,s2=true",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Coordonnées relatives"
                   }
@@ -2323,8 +2195,6 @@
                   {
                     "id": 5012,
                     "slug": "5R20,s=20,s2=false,s3=false,n=4",
-                    "score": 7,
-                    "temps": 300,
                     "isInteractif": true
                   }
                 ]
@@ -2346,16 +2216,12 @@
                   {
                     "id": 5013,
                     "slug": "5R21,s=20,s2=false,n=4,cd=1",
-                    "score": 10,
-                    "temps": 450,
                     "isInteractif": true,
                     "description": "Soustractions"
                   },
                   {
                     "id": 5014,
                     "slug": "5R22-2,s=20,n=4",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Soustractions et additions"
                   }
@@ -2378,8 +2244,6 @@
                   {
                     "id": 5016,
                     "slug": "5R20,s=20,s2=true,s3=false,n=4",
-                    "score": 5,
-                    "temps": 150,
                     "isInteractif": false
                   }
                 ]
@@ -2412,29 +2276,21 @@
                   {
                     "id": 5100,
                     "slug": "5L10,s=false,n=2",
-                    "score": 6,
-                    "temps": 120,
                     "isInteractif": true
                   },
                   {
                     "id": 5101,
                     "slug": "5L10-1,s=false,s2=false,s3=true,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   },
                   {
                     "id": 5102,
                     "slug": "5L10-2,s=false,n=1",
-                    "score": 15,
-                    "temps": 150,
                     "isInteractif": true
                   },
                   {
                     "id": 5103,
                     "slug": "5L10-4,s=1,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -2456,15 +2312,11 @@
                   {
                     "id": 5069,
                     "slug": "5L12-2,s=9,s2=false,s3=6-7-8-9,n=3",
-                    "score": 4,
-                    "temps": 120,
                     "isInteractif": true
                   },
                   {
                     "id": 5126,
                     "slug": "5L12-2,s=9,s2=false,s3=1-2-3-4,n=3",
-                    "score": 8,
-                    "temps": 240,
                     "isInteractif": true
                   }
                 ]
@@ -2492,22 +2344,16 @@
                   {
                     "id": 5104,
                     "slug": "5L14-5,n=2",
-                    "score": 8,
-                    "temps": 160,
                     "isInteractif": true
                   },
                   {
                     "id": 5105,
                     "slug": "5L14-2,s=1,n=2",
-                    "score": 10,
-                    "temps": 200,
                     "isInteractif": true
                   },
                   {
                     "id": 5106,
                     "slug": "5L14,n=2",
-                    "score": 15,
-                    "temps": 300,
                     "isInteractif": true
                   }
                 ]
@@ -2529,29 +2375,21 @@
                   {
                     "id": 5107,
                     "slug": "5L15,s=1,s2=false,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   },
                   {
                     "id": 5108,
                     "slug": "5L15,s=2,s2=false,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   },
                   {
                     "id": 5109,
                     "slug": "5L15,s=1,s2=true,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   },
                   {
                     "id": 5110,
                     "slug": "5L15,s=2,s2=true,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -2573,29 +2411,21 @@
                   {
                     "id": 5070,
                     "slug": "5L16,s=1,s2=false,n=2",
-                    "score": 4,
-                    "temps": 120,
                     "isInteractif": true
                   },
                   {
                     "id": 5071,
                     "slug": "5L16,s=2,s2=false,n=2",
-                    "score": 8,
-                    "temps": 240,
                     "isInteractif": true
                   },
                   {
                     "id": 5072,
                     "slug": "5L16,s=3,s2=false,n=2",
-                    "score": 12,
-                    "temps": 360,
                     "isInteractif": true
                   },
                   {
                     "id": 5128,
                     "slug": "5L16,s=3,s2=true,n=4",
-                    "score": 15,
-                    "temps": 600,
                     "isInteractif": true
                   }
                 ]
@@ -2627,24 +2457,18 @@
                   {
                     "id": 5097,
                     "slug": "5P12,s=1,n=1,cd=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Partager en deux parts"
                   },
                   {
                     "id": 5098,
                     "slug": "5P12,s=2,n=1,cd=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Partager en trois parts"
                   },
                   {
                     "id": 5099,
                     "slug": "5N15,s=3,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Résoudre un problème"
                   }
@@ -2667,8 +2491,6 @@
                   {
                     "id": 5133,
                     "slug": "5P13,s=4,n=3",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -2707,16 +2529,12 @@
                   {
                     "id": 5027,
                     "slug": "5S12,s=3,s2=1,s3=3",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Disgramme en barres"
                   },
                   {
                     "id": 5028,
                     "slug": "5S12,s=3,s2=1,s3=4",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Graphique cartésien"
                   }
@@ -2739,16 +2557,12 @@
                   {
                     "id": 5029,
                     "slug": "5S13,s=3,n=1",
-                    "score": 10,
-                    "temps": 200,
                     "isInteractif": true,
                     "description": "À partir d'une série de valeurs"
                   },
                   {
                     "id": 5030,
                     "slug": "5S13-1,s=1,video=https%3A%2F%2Fyoutu.be%2FGWDDay-mdVA",
-                    "score": 15,
-                    "temps": 900,
                     "isInteractif": true,
                     "description": "À partir d'une représentation graphique"
                   }
@@ -2771,16 +2585,12 @@
                   {
                     "id": 5031,
                     "slug": "5S14,s=1,n=1",
-                    "score": 20,
-                    "temps": 300,
                     "isInteractif": true,
                     "description": "Calculer une moyenne arithmétique"
                   },
                   {
                     "id": 5032,
                     "slug": "5S14,s=3,n=1",
-                    "score": 30,
-                    "temps": 600,
                     "isInteractif": true,
                     "description": "Calculer une moyenne pondérée"
                   }
@@ -2808,8 +2618,6 @@
                   {
                     "id": 5115,
                     "slug": "5S20,s=true",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -2831,8 +2639,6 @@
                   {
                     "id": 5116,
                     "slug": "5S21,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -2864,16 +2670,12 @@
                   {
                     "id": 0,
                     "slug": "6M11-1&ex=6M20,n=1&ex=6M22-1,s=3,s2=true,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Rappels de 6e"
                   },
                   {
                     "id": 5089,
                     "slug": "5M10,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Périmètre et aire d'un parallélogramme"
                   }
@@ -2907,8 +2709,6 @@
                   {
                     "id": 5118,
                     "slug": "5M20,s=1,s3=2,s4=5,n=4",
-                    "score": 30,
-                    "temps": 1200,
                     "isInteractif": true
                   }
                 ]
@@ -2961,8 +2761,6 @@
                   {
                     "id": 5043,
                     "slug": "5G11-2,s=5,s2=3,s3=4,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -2984,8 +2782,6 @@
                   {
                     "id": 5044,
                     "slug": "5G13,s=2,s2=3,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -3024,8 +2820,6 @@
                   {
                     "id": 5038,
                     "slug": "5G20-2,s=false,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": ""
                   }
@@ -3048,16 +2842,12 @@
                   {
                     "id": 5039,
                     "slug": "5G21-1,s=1,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Connaissant 3 longueurs"
                   },
                   {
                     "id": 5040,
                     "slug": "5G21-1,s=2,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Connaissant 2 longueurs et le périmètre"
                   }
@@ -3097,16 +2887,12 @@
                   {
                     "id": 5058,
                     "slug": "5G30-2,s=1,n=4",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Reconnaître des angles"
                   },
                   {
                     "id": 5059,
                     "slug": "5G30-2,s=4,n=4",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Trouver des angles"
                   }
@@ -3135,16 +2921,12 @@
                   {
                     "id": 5061,
                     "slug": "5G30-2,s=3,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Trouver la mesure d'un angle"
                   },
                   {
                     "id": 5062,
                     "slug": "5G30-2,s=2,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Montrer si des droites sont parallèles"
                   }
@@ -3173,16 +2955,12 @@
                   {
                     "id": 5067,
                     "slug": "5G31,s=1,s2=true,n=3,cd=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Avec un schéma"
                   },
                   {
                     "id": 5068,
                     "slug": "5G31,s=1,s2=false,n=3,cd=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Sans schéma"
                   }
@@ -3216,8 +2994,6 @@
                   {
                     "id": 5077,
                     "slug": "5G40,s=5,n=3,cd=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -3239,8 +3015,6 @@
                   {
                     "id": 5096,
                     "slug": "5G42,n=3",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -3262,15 +3036,11 @@
                   {
                     "id": 5079,
                     "slug": "5G40-1,n=4",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   },
                   {
                     "id": 5078,
                     "slug": "5G40-2,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -3340,32 +3110,24 @@
                   {
                     "id": 4001,
                     "slug": "4C10-3,s=10,s2=false,n=4",
-                    "score": 8,
-                    "temps": 300,
                     "isInteractif": true,
                     "description": "Multiplier des nombres relatifs"
                   },
                   {
                     "id": 4001,
                     "slug": "4C10-4,s=true,n=4",
-                    "score": 8,
-                    "temps": 300,
                     "isInteractif": true,
                     "description": "Diviser des nombres relatifs"
                   },
                   {
                     "id": 4002,
                     "slug": "4C10-1,s=3,n=2",
-                    "score": 8,
-                    "temps": 300,
                     "isInteractif": true,
                     "description": "Donner le signe d'un produit"
                   },
                   {
                     "id": 4002,
                     "slug": "4C10-2,s=4,n=2",
-                    "score": 8,
-                    "temps": 300,
                     "isInteractif": true,
                     "description": "Donner le signe d'un quotient"
                   }
@@ -3411,16 +3173,12 @@
                   {
                     "id": 4045,
                     "slug": "4C22,s=1,s2=false,s3=false,n=4",
-                    "score": 6,
-                    "temps": 120,
                     "isInteractif": true,
                     "description": "Multiplications avec des nombres positifs"
                   },
                   {
                     "id": 4046,
                     "slug": "4C22,s=3,s2=false,s3=false,n=2",
-                    "score": 8,
-                    "temps": 800,
                     "isInteractif": true,
                     "description": "Multiplications avec des nombres relatifs"
                   }
@@ -3449,24 +3207,18 @@
                   {
                     "id": 4048,
                     "slug": "4C22-1,s=4,n=2",
-                    "score": 3,
-                    "temps": 60,
                     "isInteractif": true,
                     "description": "Trouver l'inverse d'une fraction"
                   },
                   {
                     "id": 4049,
                     "slug": "4C22-2,s=1,n=2",
-                    "score": 10,
-                    "temps": 200,
                     "isInteractif": true,
                     "description": "Divisions avec des nombres positifs"
                   },
                   {
                     "id": 4050,
                     "slug": "4C22-2,s=2,n=2",
-                    "score": 12,
-                    "temps": 240,
                     "isInteractif": true,
                     "description": "Divisions avec des nombres relatifs"
                   }
@@ -3495,8 +3247,6 @@
                   {
                     "id": 4086,
                     "slug": "4C23-1,s=1,s2=true,n=4,cd=1",
-                    "score": 30,
-                    "temps": 1200,
                     "isInteractif": true
                   }
                 ]
@@ -3535,15 +3285,11 @@
                   {
                     "id": 4041,
                     "slug": "4C30-2,s=3,n=4",
-                    "score": 10,
-                    "temps": 400,
                     "isInteractif": true
                   },
                   {
                     "id": 4042,
                     "slug": "4C32-0,n=4",
-                    "score": 15,
-                    "temps": 600,
                     "isInteractif": true
                   }
                 ]
@@ -3565,22 +3311,16 @@
                   {
                     "id": 4068,
                     "slug": "4C30-4,s=1,n=3",
-                    "score": 5,
-                    "temps": 150,
                     "isInteractif": true
                   },
                   {
                     "id": 4069,
                     "slug": "4C30-4,s=2,n=3",
-                    "score": 6,
-                    "temps": 180,
                     "isInteractif": true
                   },
                   {
                     "id": 4070,
                     "slug": "4C32-2,n=10",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -3602,22 +3342,16 @@
                   {
                     "id": 4043,
                     "slug": "4C32,s=1,s2=1,n=2",
-                    "score": 10,
-                    "temps": 400,
                     "isInteractif": true
                   },
                   {
                     "id": 4044,
                     "slug": "4C32,s=1,s2=2,n=2",
-                    "score": 10,
-                    "temps": 400,
                     "isInteractif": true
                   },
                   {
                     "id": 4085,
                     "slug": "4C32,s=1,s2=3,n=2",
-                    "score": 10,
-                    "temps": 400,
                     "isInteractif": true
                   }
                 ]
@@ -3651,16 +3385,12 @@
                   {
                     "id": 4003,
                     "slug": "4C33-0,s=1,s2=1,n=4",
-                    "score": 10,
-                    "temps": 400,
                     "isInteractif": true,
                     "description": "Donner le signification de l'écriture"
                   },
                   {
                     "id": 4004,
                     "slug": "4C33-0,s=2,s2=1,n=4",
-                    "score": 10,
-                    "temps": 400,
                     "isInteractif": true,
                     "description": "Simplifier l'écriture"
                   }
@@ -3683,8 +3413,6 @@
                   {
                     "id": 4005,
                     "slug": "4C34,n=4,video=https%3A%2F%2Fyoutu.be%2F0G9xWLl-0zg",
-                    "score": 20,
-                    "temps": 700,
                     "isInteractif": false
                   }
                 ]
@@ -3699,8 +3427,6 @@
                   {
                     "id": 4079,
                     "slug": "4C36,n=4",
-                    "score": 5,
-                    "temps": 200,
                     "isInteractif": true
                   }
                 ]
@@ -3728,8 +3454,6 @@
                   {
                     "id": 4040,
                     "slug": "4C33-0,s=3,s2=3,n=8",
-                    "score": 10,
-                    "temps": 800,
                     "isInteractif": true
                   }
                 ]
@@ -3756,8 +3480,6 @@
                   {
                     "id": 4006,
                     "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=1~q=1.~p=~t=30~n=8",
-                    "score": 5,
-                    "temps": 270,
                     "isInteractif": true,
                     "description": "Calcul mental"
                   },
@@ -3791,15 +3513,11 @@
                   {
                     "id": 4007,
                     "slug": "3A10-5,s=5,s2=3,n=4",
-                    "score": 20,
-                    "temps": 400,
                     "isInteractif": true
                   },
                   {
                     "id": 4008,
                     "slug": "4A11-1,s=false,n=2",
-                    "score": 30,
-                    "temps": 600,
                     "isInteractif": true
                   }
                 ]
@@ -3821,15 +3539,11 @@
                   {
                     "id": 4009,
                     "slug": "4A12,s=1,n=1,cd=1",
-                    "score": 20,
-                    "temps": 300,
                     "isInteractif": true
                   },
                   {
                     "id": 4010,
                     "slug": "4A12,s=2,n=1,cd=1",
-                    "score": 30,
-                    "temps": 450,
                     "isInteractif": true
                   }
                 ]
@@ -3856,16 +3570,12 @@
                   {
                     "id": 4011,
                     "slug": "4L10,s=1,s2=true,n=4",
-                    "score": 10,
-                    "temps": 350,
                     "isInteractif": true,
                     "description": "Développer k(a + b)"
                   },
                   {
                     "id": 4011,
                     "slug": "4L10,s=2,s2=true,n=4",
-                    "score": 10,
-                    "temps": 350,
                     "isInteractif": true,
                     "description": "Développer k(a - b)"
                   }
@@ -3894,15 +3604,11 @@
                   {
                     "id": 4012,
                     "slug": "4L10,s=3,s2=true,n=4",
-                    "score": 15,
-                    "temps": 450,
                     "isInteractif": true
                   },
                   {
                     "id": 4013,
                     "slug": "3L11,s=2,n=4",
-                    "score": 20,
-                    "temps": 550,
                     "isInteractif": false
                   }
                 ]
@@ -3930,22 +3636,16 @@
                   {
                     "id": 4014,
                     "slug": "4L11,s=1,n=2",
-                    "score": 15,
-                    "temps": 400,
                     "isInteractif": false
                   },
                   {
                     "id": 4015,
                     "slug": "4L11,s=2,n=2",
-                    "score": 20,
-                    "temps": 500,
                     "isInteractif": false
                   },
                   {
                     "id": 4016,
                     "slug": "4L11,s=3,n=2",
-                    "score": 25,
-                    "temps": 600,
                     "isInteractif": false
                   }
                 ]
@@ -3967,8 +3667,6 @@
                   {
                     "id": 4036,
                     "slug": "4L12,n=1,video=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D-iw4OkMhgCA",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -3996,8 +3694,6 @@
                   {
                     "id": 4061,
                     "slug": "4L13-2,s=1,n=2",
-                    "score": 40,
-                    "temps": 400,
                     "isInteractif": true,
                     "description": ""
                   }
@@ -4020,16 +3716,12 @@
                   {
                     "id": 4037,
                     "slug": "5L14-5,n=2",
-                    "score": 5,
-                    "temps": 50,
                     "isInteractif": true,
                     "description": "Evaluer une expression"
                   },
                   {
                     "id": 4039,
                     "slug": "4L14-0,s=1,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Vérifier si un nombre est solution d'une équation"
                   }
@@ -4052,24 +3744,18 @@
                   {
                     "id": 4017,
                     "slug": "4L16,s2=false,s3=2,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Avec deux opérations"
                   },
                   {
                     "id": 4018,
                     "slug": "4L16,s2=false,s3=3,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Avec trois opérations"
                   },
                   {
                     "id": 4019,
                     "slug": "4L16,s2=false,s3=4,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Avec quatre opérations"
                   }
@@ -4098,16 +3784,12 @@
                   {
                     "id": 4059,
                     "slug": "4L20-0,s=true,s2=4,n=2,cd=1",
-                    "score": 10,
-                    "temps": 300,
                     "isInteractif": true,
                     "description": "Solutions entières"
                   },
                   {
                     "id": 4060,
                     "slug": "4L20,s=true,s2=4,n=2,cd=1",
-                    "score": 12,
-                    "temps": 360,
                     "isInteractif": true,
                     "description": "Solutions fractionnaires"
                   }
@@ -4140,8 +3822,6 @@
                   {
                     "id": 4021,
                     "slug": "4S10,s=3,s2=2,s3=1,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -4163,8 +3843,6 @@
                   {
                     "id": 4020,
                     "slug": "4S11,s=2,n=2",
-                    "score": 15,
-                    "temps": 600,
                     "isInteractif": true
                   }
                 ]
@@ -4192,8 +3870,6 @@
                   {
                     "id": 4054,
                     "slug": "4S20,s=3,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -4215,8 +3891,6 @@
                   {
                     "id": 4055,
                     "slug": "can3S02,n=1",
-                    "score": 5,
-                    "temps": 50,
                     "isInteractif": true
                   }
                 ]
@@ -4244,8 +3918,6 @@
                   {
                     "id": 4056,
                     "slug": "5S21,s=1,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -4272,8 +3944,6 @@
                   {
                     "id": 4030,
                     "slug": "can4P05,n=4",
-                    "score": 5,
-                    "temps": 50,
                     "isInteractif": true
                   }
                 ]
@@ -4301,16 +3971,12 @@
                   {
                     "id": 4032,
                     "slug": "can4P03,n=2",
-                    "score": 10,
-                    "temps": 100,
                     "isInteractif": true,
                     "description": "Calculer une quatrième proportionnelle"
                   },
                   {
                     "id": 4033,
                     "slug": "6P11,s=false,s2=7,n=1&ex=6P12,s=false,n=1",
-                    "score": 20,
-                    "temps": 200,
                     "isInteractif": true,
                     "description": "Résoudre un problème de proportionnalité"
                   }
@@ -4333,8 +3999,6 @@
                   {
                     "id": 4062,
                     "slug": "6P14,s=7,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -4356,15 +4020,11 @@
                   {
                     "id": 4063,
                     "slug": "can3G01,n=2",
-                    "score": 10,
-                    "temps": 100,
                     "isInteractif": true
                   },
                   {
                     "id": 4064,
                     "slug": "3G22-1,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -4386,8 +4046,6 @@
                   {
                     "id": 4078,
                     "slug": "4P16,s=8,n=3",
-                    "score": 20,
-                    "temps": 200,
                     "isInteractif": true
                   }
                 ]
@@ -4456,8 +4114,6 @@
                   {
                     "id": 4080,
                     "slug": "4F12,s=4",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -4496,8 +4152,6 @@
                   {
                     "id": 4071,
                     "slug": "4G10-2,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -4519,8 +4173,6 @@
                   {
                     "id": 4072,
                     "slug": "4G11-1,s=3",
-                    "score": 25,
-                    "temps": 750,
                     "isInteractif": true
                   }
                 ]
@@ -4542,8 +4194,6 @@
                   {
                     "id": 4073,
                     "slug": "4G12-2,s=4,s2=3,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -4588,8 +4238,6 @@
                   {
                     "id": 4022,
                     "slug": "4G20-1,s=1,s2=3,n=1,video=M9sceJ8gzNc",
-                    "score": 10,
-                    "temps": 150,
                     "isInteractif": true,
                     "description": "Écrire l'égalité de Pythagore"
                   },
@@ -4601,16 +4249,12 @@
                   {
                     "id": 4023,
                     "slug": "4G20,s2=1,n=1,video=M9sceJ8gzNc",
-                    "score": 20,
-                    "temps": 600,
                     "isInteractif": true,
                     "description": "Calculer la longueur de l'hypoténuse"
                   },
                   {
                     "id": 4024,
                     "slug": "4G20,s2=2,n=1,video=M9sceJ8gzNc",
-                    "score": 30,
-                    "temps": 720,
                     "isInteractif": true,
                     "description": "Calculer la longueur d'un côté de l'angle droit"
                   }
@@ -4645,8 +4289,6 @@
                   {
                     "id": 4075,
                     "slug": "4G21,s=3,n=2",
-                    "score": 20,
-                    "temps": 200,
                     "isInteractif": true
                   }
                 ]
@@ -4668,16 +4310,12 @@
                   {
                     "id": 4026,
                     "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=yes,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND13~o=1~q=1.0,1~p=~t=15~n=8",
-                    "score": 3,
-                    "temps": 150,
                     "isInteractif": true,
                     "description": "Calculer des carrés"
                   },
                   {
                     "id": 4027,
                     "slug": "4G20-2,s=3,s2=1,n=2",
-                    "score": 5,
-                    "temps": 80,
                     "isInteractif": true,
                     "description": "Calculer des racines carrées"
                   }
@@ -4700,16 +4338,12 @@
                   {
                     "id": 4028,
                     "slug": "4G20-6,s=2,n=1",
-                    "score": 8,
-                    "temps": 250,
                     "isInteractif": true,
                     "description": "Encadrer une racine carrée de tête"
                   },
                   {
                     "id": 4029,
                     "slug": "4G20-6,s=1,n=3",
-                    "score": 10,
-                    "temps": 450,
                     "isInteractif": true,
                     "description": "Encadrer une racine carrée à la calculatrice"
                   }
@@ -4743,24 +4377,18 @@
                   {
                     "id": 4065,
                     "slug": "3G20,s=1,n=1,video=j_zZOpLLl9k,cd=1",
-                    "score": 35,
-                    "temps": 700,
                     "isInteractif": true,
                     "description": "Configuration avec des triangles emboîtés"
                   },
                   {
                     "id": 4066,
                     "slug": "3G20,s=2,n=1,video=j_zZOpLLl9k,cd=1",
-                    "score": 40,
-                    "temps": 800,
                     "isInteractif": true,
                     "description": "Configuration en papillon"
                   },
                   {
                     "id": 4067,
                     "slug": "3G20-1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Problèmes"
                   }
@@ -4789,15 +4417,11 @@
                   {
                     "id": 4076,
                     "slug": "4G31,s=1,s2=3,s3=3",
-                    "score": 20,
-                    "temps": 200,
                     "isInteractif": true
                   },
                   {
                     "id": 4077,
                     "slug": "4G31,s=2,s2=3,s3=3",
-                    "score": 25,
-                    "temps": 250,
                     "isInteractif": true
                   }
                 ]
@@ -4819,8 +4443,6 @@
                   {
                     "id": 4035,
                     "slug": "5G24-2,s=1,n=4",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -4847,8 +4469,6 @@
                   {
                     "id": 4084,
                     "slug": "4G40,s=1,n=2,cd=1",
-                    "score": 30,
-                    "temps": 600,
                     "isInteractif": true
                   }
                 ]
@@ -4881,8 +4501,6 @@
                   {
                     "id": 4081,
                     "slug": "4G51,s=6,s2=1,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -4910,8 +4528,6 @@
                   {
                     "id": 4087,
                     "slug": "4G51,s=8,s2=1,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -4933,8 +4549,6 @@
                   {
                     "id": 4074,
                     "slug": "4G52,s=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -4962,15 +4576,11 @@
                   {
                     "id": 4082,
                     "slug": "4G53,s=1,s3=2,s4=5-6,n=2",
-                    "score": 25,
-                    "temps": 500,
                     "isInteractif": true
                   },
                   {
                     "id": 4083,
                     "slug": "4G53,s=2,s2=true,s3=2,s4=5-6,n=2",
-                    "score": 30,
-                    "temps": 600,
                     "isInteractif": true
                   }
                 ]
@@ -5007,15 +4617,11 @@
                   {
                     "id": 3001,
                     "slug": "3L10,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   },
                   {
                     "id": 3002,
                     "slug": "3L10-1,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -5037,24 +4643,18 @@
                   {
                     "id": 3004,
                     "slug": "3L11-1,s=1,n=2",
-                    "score": 8,
-                    "temps": 150,
                     "isInteractif": false,
                     "description": "Additions et nombres positifs"
                   },
                   {
                     "id": 3005,
                     "slug": "3L11-1,s=2,n=2",
-                    "score": 10,
-                    "temps": 200,
                     "isInteractif": false,
                     "description": "Additions, soustractions et nombres positifs"
                   },
                   {
                     "id": 3006,
                     "slug": "3L11-3,n=2",
-                    "score": 20,
-                    "temps": 400,
                     "isInteractif": false,
                     "description": "Expressions complexes"
                   }
@@ -5089,24 +4689,18 @@
                   {
                     "id": 3010,
                     "slug": "2N41-6,s=1,n=3",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Développer niveau 1"
                   },
                   {
                     "id": 3011,
                     "slug": "2N41-6,s=2,n=3",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Développer niveau 2"
                   },
                   {
                     "id": 3012,
                     "slug": "3L12,s=2,n=4",
-                    "score": 10,
-                    "temps": 300,
                     "isInteractif": false,
                     "description": "Factoriser"
                   }
@@ -5129,22 +4723,16 @@
                   {
                     "id": 3041,
                     "slug": "3L14,s=1,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   },
                   {
                     "id": 3042,
                     "slug": "3L14,s=2,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   },
                   {
                     "id": 3043,
                     "slug": "3L14,s=3,n=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -5166,15 +4754,11 @@
                   {
                     "id": 3044,
                     "slug": "3L15-1,s=3,n=2",
-                    "score": 3,
-                    "temps": 400,
                     "isInteractif": true
                   },
                   {
                     "id": 3045,
                     "slug": "3L15-1,s=2,n=2",
-                    "score": 6,
-                    "temps": 400,
                     "isInteractif": true
                   }
                 ]
@@ -5201,8 +4785,6 @@
                   {
                     "id": 3033,
                     "slug": "3A10-2,s=false,n=8",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -5224,15 +4806,11 @@
                   {
                     "id": 3033,
                     "slug": "3A11-0,s=3,s2=1,s3=1,n=3",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   },
                   {
                     "id": 3034,
                     "slug": "3A11-0,s=3,s2=2,s3=1,n=3",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -5259,22 +4837,16 @@
                   {
                     "id": 3038,
                     "slug": "4C23-1,s=1,s2=true,n=2,cd=1",
-                    "score": 15,
-                    "temps": 150,
                     "isInteractif": true
                   },
                   {
                     "id": 3039,
                     "slug": "4C23-1,s=3,s2=true,n=2,cd=1",
-                    "score": 20,
-                    "temps": 200,
                     "isInteractif": true
                   },
                   {
                     "id": 3040,
                     "slug": "4C23-1,s=4,s2=true,n=2,cd=1",
-                    "score": 25,
-                    "temps": 250,
                     "isInteractif": true
                   }
                 ]
@@ -5312,16 +4884,12 @@
                   {
                     "id": 3014,
                     "slug": "3F10-1,s=5,n=3,cd=0",
-                    "score": 8,
-                    "temps": 400,
                     "isInteractif": false,
                     "description": "QCM"
                   },
                   {
                     "id": 3065,
                     "slug": "3F10-3,s=5,n=3",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false,
                     "description": "Écrire une égalité ou une phrase"
                   }
@@ -5344,8 +4912,6 @@
                   {
                     "id": 3016,
                     "slug": "3F12-2,s=5,n=4",
-                    "score": 15,
-                    "temps": 500,
                     "isInteractif": false,
                     "description": ""
                   }
@@ -5368,8 +4934,6 @@
                   {
                     "id": 3015,
                     "slug": "3F10",
-                    "score": 10,
-                    "temps": 600,
                     "isInteractif": false,
                     "description": ""
                   }
@@ -5392,8 +4956,6 @@
                   {
                     "id": 3019,
                     "slug": "3F13-1",
-                    "score": 8,
-                    "temps": 300,
                     "isInteractif": false,
                     "description": ""
                   }
@@ -5480,22 +5042,16 @@
                   {
                     "id": 3050,
                     "slug": "3F21,s=1,s2=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   },
                   {
                     "id": 3051,
                     "slug": "3F21,s=2,s2=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   },
                   {
                     "id": 3052,
                     "slug": "3F21,s=3,s2=2",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -5517,22 +5073,16 @@
                   {
                     "id": 3053,
                     "slug": "3F21-1,s=1,s2=2",
-                    "score": 5,
-                    "temps": 100,
                     "isInteractif": true
                   },
                   {
                     "id": 3054,
                     "slug": "3F21-1,s=2,s2=2",
-                    "score": 7,
-                    "temps": 140,
                     "isInteractif": true
                   },
                   {
                     "id": 3055,
                     "slug": "3F21-1,s=3,s2=2",
-                    "score": 9,
-                    "temps": 180,
                     "isInteractif": true
                   }
                 ]
@@ -5569,8 +5119,6 @@
                   {
                     "id": 3059,
                     "slug": "3F10-2,s=2,s2=2,n=3,cd=1",
-                    "score": 12,
-                    "temps": 360,
                     "isInteractif": true
                   }
                 ]
@@ -5612,8 +5160,6 @@
                   {
                     "id": 3020,
                     "slug": "3S15,s=3,n=2",
-                    "score": 8,
-                    "temps": 80,
                     "isInteractif": true
                   }
                 ]
@@ -5646,22 +5192,16 @@
                   {
                     "id": 3027,
                     "slug": "can2C10,n=1",
-                    "score": 4,
-                    "temps": 70,
                     "isInteractif": true
                   },
                   {
                     "id": 3028,
                     "slug": "can2C11,n=1",
-                    "score": 6,
-                    "temps": 70,
                     "isInteractif": true
                   },
                   {
                     "id": 3029,
                     "slug": "can5P01,n=1",
-                    "score": 8,
-                    "temps": 100,
                     "isInteractif": true
                   }
                 ]
@@ -5691,8 +5231,6 @@
                   {
                     "id": 3060,
                     "slug": "4P10,s=false",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -5727,8 +5265,6 @@
                   {
                     "id": 3022,
                     "slug": "3S20,s=1,n=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -5750,8 +5286,6 @@
                   {
                     "id": 0,
                     "slug": "",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -5789,8 +5323,6 @@
                   {
                     "id": 3046,
                     "slug": "3G10-3,s=3",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -5824,15 +5356,11 @@
                   {
                     "id": 3047,
                     "slug": "3G11,s=3",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   },
                   {
                     "id": 3047,
                     "slug": "3G13,s=all,s2=3,s3=1,s4=true,n=3,cd=1",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -5847,8 +5375,6 @@
                   {
                     "id": 3048,
                     "slug": "3G12,s=1,s2=false,s3=7,n=3",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -5875,22 +5401,16 @@
                   {
                     "id": 3056,
                     "slug": "3G21,s=1,s2=3,s3=3",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   },
                   {
                     "id": 3057,
                     "slug": "3G21,s=2,s2=3,s3=3",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   },
                   {
                     "id": 3058,
                     "slug": "3G21,s=3,s2=3,s3=3",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -5950,16 +5470,12 @@
                   {
                     "id": 3025,
                     "slug": "3G30,s=true,cd=0",
-                    "score": 30,
-                    "temps": 300,
                     "isInteractif": true,
                     "description": "Exercices avec schéma"
                   },
                   {
                     "id": 3026,
                     "slug": "3G30,s=false,cd=0",
-                    "score": 40,
-                    "temps": 400,
                     "isInteractif": true,
                     "description": "Exercices sans schéma"
                   }
@@ -5988,16 +5504,12 @@
                   {
                     "id": 3030,
                     "slug": "3G31,s=true,cd=0",
-                    "score": 30,
-                    "temps": 300,
                     "isInteractif": true,
                     "description": "Avec une figure à main levée"
                   },
                   {
                     "id": 3031,
                     "slug": "3G31,s=false,cd=0",
-                    "score": 35,
-                    "temps": 350,
                     "isInteractif": true,
                     "description": "Sans figure"
                   }
@@ -6025,8 +5537,6 @@
                   {
                     "id": 3061,
                     "slug": "3G40,s=3,n=4",
-                    "score": 0,
-                    "temps": 0,
                     "isInteractif": false
                   }
                 ]
@@ -6075,8 +5585,6 @@
                   {
                     "id": 3062,
                     "slug": "3G42,s=4,n=4,video=YQF7CBY-uEk",
-                    "score": 20,
-                    "temps": 1200,
                     "isInteractif": false
                   }
                 ]
@@ -6098,15 +5606,11 @@
                   {
                     "id": 3063,
                     "slug": "3G43,s=1,s3=2,n=4",
-                    "score": 20,
-                    "temps": 1200,
                     "isInteractif": false
                   },
                   {
                     "id": 3064,
                     "slug": "3G43,s=2,s3=2,n=4",
-                    "score": 25,
-                    "temps": 1200,
                     "isInteractif": false
                   }
                 ]
