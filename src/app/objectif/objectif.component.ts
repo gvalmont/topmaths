@@ -233,6 +233,10 @@ export class ObjectifComponent implements OnInit, OnDestroy {
         </a>`
         div.style.display = 'block'
       }
+      const divTelechargement = document.getElementById('divTelechargements')
+      if (divTelechargement !== null) {
+        divTelechargement.classList.remove('cache')
+      }
     }
   }
 
