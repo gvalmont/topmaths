@@ -254,7 +254,8 @@ export class ObjectifComponent implements OnInit, OnDestroy {
 
   changerSerie (lien: string) {
     if (this.outilsService.estMathALEA(lien)) {
-      return lien.split('&serie=')[0] + '&serie=' + Math.random().toString(16).slice(2, 6) + lien.split('&serie=')[1]
+      const lienSplit = lien.split('&serie=')
+      return lienSplit[0] + '&serie=' + Math.random().toString(16).slice(2, 6) + (lienSplit.length > 1 ? lienSplit[1] : '')
     } else {
       return lien
     }
