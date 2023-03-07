@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http'
-import { EventEmitter, Injectable, Output } from '@angular/core'
+import { EventEmitter, Injectable, isDevMode, Output } from '@angular/core'
 import { environment } from 'src/environments/environment'
 import { Annee } from './modeles/calendrier'
 import { Niveau as NiveauObjectif } from './modeles/objectifs'
@@ -27,6 +27,12 @@ export class DataService {
   listeMasculins: Nom[]
   listeFeminins: Nom[]
   listeAdjectifs: Adjectif[]
+  listeSitesPresentsPolitiqueDeConfidentialite = [
+    'https://mathsmentales.net/',
+    'https://mathix.org/',
+    'https://www.geogebra.org/',
+    'https://www.clicmaclasse.fr/'
+  ]
 
   // eslint-disable-next-line no-unused-vars
   constructor (public httpClient: HttpClient) {
@@ -48,6 +54,7 @@ export class DataService {
       this.httpClient.get<NiveauObjectif[]>('assets/data/objectifs.json?' + environment.appVersion).subscribe(niveauxObjectifs => {
         this.niveauxObjectifs = this.ajouterObjectifsParThemeParPeriode(this.ajouterPeriode(niveauxObjectifs))
         this.dataMAJ.emit('niveauxObjectifs')
+        if (isDevMode()) this.listerExercicesAbsentsPolitiqueDeConfidentialite()
       })
     })
     this.httpClient.get<SequenceParticuliere[]>('assets/data/sequencesParticulieres.json?' + environment.appVersion).subscribe(sequencesParticulieres => {
@@ -142,5 +149,34 @@ export class DataService {
       }
     }
     return -1
+  }
+
+  listerExercicesAbsentsPolitiqueDeConfidentialite () {
+    const listeComplete = []
+    for (const niveau of this.niveauxObjectifs) {
+      for (const theme of niveau.themes) {
+        for (const sousTheme of theme.sousThemes) {
+          for (const objectif of sousTheme.objectifs) {
+            for (const exercice of objectif.exercices) {
+              if (exercice.slug.slice(0, 4) === 'http') {
+                listeComplete.push(exercice.slug)
+              }
+            }
+          }
+        }
+      }
+    }
+    const listeAbsents = []
+    for (const site of listeComplete) {
+      let trouve = false
+      for (const sitePresent of this.listeSitesPresentsPolitiqueDeConfidentialite) {
+        if (site.slice(0, sitePresent.length) === sitePresent) {
+          trouve = true
+          break
+        }
+      }
+      if (!trouve) listeAbsents.push(site)
+    }
+    if (listeAbsents.length > 0) console.log('Sites absents de la politique de confidentialité :', listeAbsents)
   }
 }
