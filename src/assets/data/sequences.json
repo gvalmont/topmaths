@@ -1131,9 +1131,9 @@
         ],
         "questionsFlash": [
           {
-            "reference": "5C10",
-            "titre": "Calculer le quotient et le reste dans une division euclidienne",
-            "slug": "6C11,s=2,n=1"
+            "reference": "6C21",
+            "titre": "Effectuer une division euclidienne",
+            "slug": "6C21,s=2,n=4"
           },
           {
             "reference": "5A10",

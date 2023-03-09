@@ -1080,10 +1080,28 @@
                 "rappelDuCoursImage": "methode_construction_symetrie_axiale.png",
                 "videos": [
                   {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=sxUHj4A3K-8&vignette=https://i.ytimg.com/vi/sxUHj4A3K-8/hqdefault.jpg&debut=0&fin=162&largeur=200&hauteur=113",
-                    "auteur": "20/20",
-                    "lienAuteur": "https://www.youtube.com/channel/UCqjw7aREI90TYZXEg49H04Q"
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=R6nCp6dt0xc&vignette=https://i.ytimg.com/vi/R6nCp6dt0xc/hqdefault.jpg&debut=0&fin=123&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
+                  {
+                    "titre": "Construire le symétrique d'un point",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=JauG01P544k&vignette=https://i.ytimg.com/vi/JauG01P544k/hqdefault.jpg&debut=0&fin=263&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  },
+                  {
+                    "titre": "Construire le symétrique d'une figure",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=NILIM-H2tSY&vignette=https://i.ytimg.com/vi/NILIM-H2tSY/hqdefault.jpg&debut=0&fin=280&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
+                  },
+                  {
+                    "titre": "Construire le symétrique d'une droite",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=sRcgsiPeIq4&vignette=https://i.ytimg.com/vi/sRcgsiPeIq4/hqdefault.jpg&debut=0&fin=334&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
                 "exercices": [
