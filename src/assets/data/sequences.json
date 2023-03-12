@@ -765,90 +765,6 @@
       },
       {
         "reference": "S5S2",
-        "titre": "Symétrie et médiatrice",
-        "periode": 1,
-        "objectifs": [
-          {
-            "reference": "6G24"
-          },
-          {
-            "reference": "6G32"
-          },
-          {
-            "reference": "6G26"
-          }
-        ],
-        "calculsMentaux": [
-          {
-            "reference": "5C12",
-            "titre": "Effectuer un enchaînement d’opérations en respectant les priorités opératoires",
-            "niveaux": [
-              {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=4,0~q=0.0,1,2,3-4.0,1,2,3~p=~t=24~n=8",
-                "score": 3
-              },
-              {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=2,6~q=2.0,1,2,3,4,5-6.0,1,2,3,4,5~p=~t=40~n=4",
-                "score": 5
-              }
-            ]
-          }
-        ],
-        "questionsFlash": [
-          {
-            "reference": "6S10",
-            "titre": "Lire et interpréter des données brutes ou présentées sous forme de tableaux, de diagrammes et de graphiques.",
-            "slug": "6S10,s=1,s2=1"
-          },
-          {
-            "reference": "5C11",
-            "titre": "Traduire un enchaînement d’opérations à l’aide d’une expression avec des parenthèses",
-            "slug": "5C12-1,s=3,s2=false,s3=true,n=1"
-          }
-        ]
-      },
-      {
-        "reference": "S5S3",
-        "titre": "Proportionnalité",
-        "periode": 1,
-        "objectifs": [
-          {
-            "reference": "6P10"
-          },
-          {
-            "reference": "6P11"
-          }
-        ],
-        "calculsMentaux": [
-          {
-            "reference": "6C10",
-            "titre": "Connaître les tables de multiplication",
-            "niveaux": [
-              {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321&e=correction&o=no&s=1&so=h&c=%7B%220%22%3A%7B%22i%22%3A0%2C%22a%22%3A%7B%220%22%3A%7B%22i%22%3A%226ND6%22%2C%22o%22%3A%5B%5D%2C%22q%22%3A%7B%7D%2C%22p%22%3A%5B%5D%2C%22t%22%3A8%2C%22n%22%3A8%7D%7D%2C%22t%22%3A%22Diapo%201%22%2C%22c%22%3A%5B1%5D%2C%22o%22%3Atrue%7D%7D&f=n",
-                "score": 2
-              }
-            ]
-          }
-        ],
-        "questionsFlash": [
-          {
-            "reference": "6G26",
-            "titre": "Connaître et utiliser la définition de la médiatrice",
-            "slug": "5G22-1,s=3,s2=false,n=1"
-          },
-          {
-            "reference": "5G13",
-            "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles",
-            "slug": "5G13,s=1,s2=1,n=1"
-          }
-        ]
-      },
-      {
-        "reference": "S5S4",
         "titre": "Constructions de triangles",
         "periode": 1,
         "objectifs": [
@@ -891,7 +807,7 @@
         ]
       },
       {
-        "reference": "S5S5",
+        "reference": "S5S3",
         "titre": "Nombres relatifs 1",
         "periode": 1,
         "objectifs": [
@@ -923,6 +839,90 @@
             "reference": "5G21",
             "titre": "Connaître et utiliser l’inégalité triangulaire",
             "slug": "5G21-1,s=1,n=1"
+          },
+          {
+            "reference": "5C11",
+            "titre": "Traduire un enchaînement d’opérations à l’aide d’une expression avec des parenthèses",
+            "slug": "5C12-1,s=3,s2=false,s3=true,n=1"
+          }
+        ]
+      },
+      {
+        "reference": "S5S4",
+        "titre": "Proportionnalité",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "6P10"
+          },
+          {
+            "reference": "6P11"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5R22",
+            "titre": "Effectuer une somme algébrique",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
+                "score": 3
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5R11",
+            "titre": "Repérer un nombre décimal relatif par un point sur une droite graduée",
+            "slug": "5R11,s=1,n=1"
+          },
+          {
+            "reference": "5G20",
+            "titre": "Construire des triangles connaissant des longueurs et/ou des angles",
+            "slug": "5G20-0,s=1,s2=true,n=1"
+          }
+        ]
+      },
+      {
+        "reference": "S5S5",
+        "titre": "Symétrie et médiatrice",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "6G24"
+          },
+          {
+            "reference": "6G32"
+          },
+          {
+            "reference": "6G26"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5C12",
+            "titre": "Effectuer un enchaînement d’opérations en respectant les priorités opératoires",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=4,0~q=0.0,1,2,3-4.0,1,2,3~p=~t=24~n=8",
+                "score": 3
+              },
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=2,6~q=2.0,1,2,3,4,5-6.0,1,2,3,4,5~p=~t=40~n=4",
+                "score": 5
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6S10",
+            "titre": "Lire et interpréter des données brutes ou présentées sous forme de tableaux, de diagrammes et de graphiques.",
+            "slug": "6S10,s=1,s2=1"
           },
           {
             "reference": "6P11",
@@ -966,14 +966,14 @@
         ],
         "questionsFlash": [
           {
-            "reference": "5R11",
-            "titre": "Repérer un nombre décimal relatif par un point sur une droite graduée",
-            "slug": "5R11,s=1,n=1"
+            "reference": "6G26",
+            "titre": "Connaître et utiliser la définition de la médiatrice",
+            "slug": "5G22-1,s=3,s2=false,n=1"
           },
           {
-            "reference": "5G20",
-            "titre": "Construire des triangles connaissant des longueurs et/ou des angles",
-            "slug": "5G20-0,s=1,s2=true,n=1"
+            "reference": "5G13",
+            "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles",
+            "slug": "5G13,s=1,s2=1,n=1"
           }
         ]
       },
