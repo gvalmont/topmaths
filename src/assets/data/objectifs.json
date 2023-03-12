@@ -3801,15 +3801,9 @@
                 "exercices": [
                   {
                     "id": 4059,
-                    "slug": "4L20-0,s=true,s2=4,n=2,cd=1",
+                    "slug": "4L20-0,s=true,s2=4,n=4,cd=1",
                     "isInteractif": true,
-                    "description": "Solutions entières"
-                  },
-                  {
-                    "id": 4060,
-                    "slug": "4L20,s=true,s2=4,n=2,cd=1",
-                    "isInteractif": true,
-                    "description": "Solutions fractionnaires"
+                    "description": ""
                   }
                 ]
               }
@@ -4038,12 +4032,14 @@
                   {
                     "id": 4063,
                     "slug": "can3G01,n=2",
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Aires et rapports entiers"
                   },
                   {
                     "id": 4064,
                     "slug": "3G22-1,n=2",
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Aires et volumes, rapports décimaux"
                   }
                 ]
               },
@@ -4660,13 +4656,13 @@
                 "exercices": [
                   {
                     "id": 3004,
-                    "slug": "3L11-1,s=1,n=2",
+                    "slug": "3L11-1,s=1,s2=true,n=2",
                     "isInteractif": false,
                     "description": "Additions et nombres positifs"
                   },
                   {
                     "id": 3005,
-                    "slug": "3L11-1,s=2,n=2",
+                    "slug": "3L11-1,s=2,s2=true,n=2",
                     "isInteractif": false,
                     "description": "Additions, soustractions et nombres positifs"
                   },
