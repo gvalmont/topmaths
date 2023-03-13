@@ -3238,7 +3238,7 @@
             "slug": "3G20,s=2,n=1,video=j_zZOpLLl9k,cd=1"
           }
         ],
-        "slugEvalBrevet": "ex=dnb_2022_06_polynesie_4&ex=dnb_2017_06_metropole_5&ex=dnb_2020_09_metropole_2&ex=dnb_2019_07_metropole_6&ex=dnb_2019_06_metropole_5"
+        "slugEvalBrevet": "ex=dnb_2022_06_polynesie_4&ex=dnb_2015_09_metropole_5&ex=dnb_2020_09_metropole_2&ex=dnb_2019_07_metropole_6&ex=dnb_2019_06_metropole_5"
       },
       {
         "reference": "S3S6",
@@ -3587,36 +3587,6 @@
             "reference": "3L12",
             "titre": "Factoriser",
             "slug": "3L11-6,s=2,n=1,cd=1"
-          }
-        ]
-      },
-      {
-        "reference": "S3S14",
-        "titre": "Statistiques et probabilités",
-        "periode": 3,
-        "objectifs": [
-          {
-            "reference": "3S21"
-          }
-        ],
-        "calculsMentaux": [
-          {
-            "reference": "",
-            "titre": "",
-            "niveaux": [
-            ]
-          }
-        ],
-        "questionsFlash": [
-          {
-            "reference": "",
-            "titre": "",
-            "slug": ""
-          },
-          {
-            "reference": "",
-            "titre": "",
-            "slug": ""
           }
         ]
       },

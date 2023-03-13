@@ -1484,7 +1484,7 @@
                 "reference": "6M10",
                 "titre": "Calculer le périmètre et l’aire d’un carré, d’un rectangle et d’un triangle rectangle",
                 "rappelDuCoursHTML": "Le <b><i>périmètre</i></b> d'un polygone est la somme des longeurs de ses côtés.<br>L'<b><i>aire</i></b> est la mesure de sa surface, on la calcule souvent en utilisant une formule :",
-                "rappelDuCoursImage": "Aire-carre-rectangle-triangle rectangle.png",
+                "rappelDuCoursImage": "Aire-carre-rectangle-triangle-rectangle.png",
                 "videos": [
                   {
                     "titre": "Cours sur le périmètre",
@@ -5279,27 +5279,6 @@
                   {
                     "id": 3022,
                     "slug": "3S20,s=1,n=1",
-                    "isInteractif": false
-                  }
-                ]
-              },
-              {
-                "reference": "3S21",
-                "titre": "Faire le lien entre stabilisation des fréquences et probabilités",
-                "rappelDuCoursHTML": "",
-                "rappelDuCoursImage": "probabilite-frequence.png",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Wh7PjoAh0Zo&vignette=https://i.ytimg.com/vi/Wh7PjoAh0Zo/hqdefault.jpg&debut=0&fin=296&largeur=200&hauteur=113",
-                    "auteur": "Maths rapides",
-                    "lienAuteur": "https://www.youtube.com/channel/UCafnbgoB4h_7ZJ50AA07Wrw"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 0,
-                    "slug": "",
                     "isInteractif": false
                   }
                 ]
