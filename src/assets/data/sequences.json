@@ -2104,13 +2104,13 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "4A10",
-            "titre": "Reconnaître des nombres premiers inférieurs à 30",
+            "reference": "4C21",
+            "titre": "Additionner ou soustraire des nombres relatifs en écriture fractionnaire",
             "niveaux": [
               {
                 "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=15~n=8",
-                "score": 3
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=25~n=4_i=5NC8~o=3~q=3.0,1~p=~t=25~n=4",
+                "score": 8
               }
             ]
           }
@@ -2197,13 +2197,13 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "4C21",
-            "titre": "Additionner ou soustraire des nombres relatifs en écriture fractionnaire",
+            "reference": "4A10",
+            "titre": "Reconnaître des nombres premiers inférieurs à 30",
             "niveaux": [
               {
                 "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=25~n=4_i=5NC8~o=3~q=3.0,1~p=~t=25~n=4",
-                "score": 8
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=15~n=8",
+                "score": 3
               }
             ]
           }
@@ -3130,14 +3130,9 @@
         ],
         "questionsFlash": [
           {
-            "reference": "4G20",
-            "titre": "Calculer la longueur de l'hypoténuse",
-            "slug": "4G20,s2=1,n=1,video=M9sceJ8gzNc"
-          },
-          {
-            "reference": "4G20",
-            "titre": "Calculer la longueur d'un côté de l'angle droit",
-            "slug": "4G20,s2=2,n=1,video=M9sceJ8gzNc"
+            "reference": "4G33",
+            "titre": "Reconnaître des triangles égaux : une définition et une propriété caractéristique",
+            "slug": "5G24-2,s=1,n=4"
           },
           {
             "reference": "5P12",
@@ -3154,22 +3149,30 @@
       },
       {
         "reference": "S3S4",
-        "titre": "Proportionnalité en géométrie 1",
-        "periode": 1,
+        "titre": "Proportionnalité en géométrie 1 (Triangles semblables)",
+        "periode": 2,
         "objectifs": [
           {
-            "reference": "4G30"
+            "reference": "4G33"
+          },
+          {
+            "reference": "3G23"
           }
         ],
         "calculsMentaux": [
           {
-            "reference": "3N11",
-            "titre": "Calculer avec des nombres rationnels positifs",
+            "reference": "3A10",
+            "titre": "Reconnaître un nombre premier",
             "niveaux": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=15~n=2_i=5NC8~o=3~q=3.0,1~p=~t=15~n=2_i=4NC3~o=0~q=0.~p=~t=15~n=2_i=4NC4~o=0~q=0.0~p=~t=15~n=2",
-                "score": 5
+                "commentaire": "inférieur à 30",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=15~n=8",
+                "score": 3
+              },
+              {
+                "commentaire": "inférieur à 100",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5ND5~o=1~q=1.~p=~t=20~n=8",
+                "score": 4
               }
             ]
           }
@@ -3182,16 +3185,16 @@
           },
           {
             "reference": "4G20",
-            "titre": "Utiliser le théorème de Pythagore",
+            "titre": "Calculer la longueur de l'hypoténuse",
             "slug": "4G20,s2=1,n=1,video=M9sceJ8gzNc"
           },
           {
             "reference": "4G20",
-            "titre": "Utiliser le théorème de Pythagore",
+            "titre": "Calculer la longueur d'un côté de l'angle droit",
             "slug": "4G20,s2=2,n=1,video=M9sceJ8gzNc"
           }
         ],
-        "slugEvalBrevet": "ex=dnb_2022_06_metropole_mathalea_1&ex=dnb_2021_09_metropole_5&ex=dnb_2019_12_caledonie_4&ex=dnb_2019_09_metropole_1&ex=dnb_2018_06_ameriquenord_2"
+        "slugEvalBrevet": "ex=dnb_2018_05_pondichery_7&ex=dnb_2018_06_metropole_4&ex=dnb_2019_06_grece_2&ex=dnb_2019_07_metropole_2"
       },
       {
         "reference": "S3S5",
@@ -3228,14 +3231,9 @@
             "slug": "3S20,s=1,n=1"
           },
           {
-            "reference": "4G30",
-            "titre": "Calculer une longueur à l'aide du théorème de Thalès (triangles emboîtés)",
-            "slug": "3G20,s=1,n=1,video=j_zZOpLLl9k,cd=1"
-          },
-          {
-            "reference": "4G30",
-            "titre": "Calculer une longueur à l'aide du théorème de Thalès (configuration en papillon)",
-            "slug": "3G20,s=2,n=1,video=j_zZOpLLl9k,cd=1"
+            "reference": "3G23",
+            "titre": "Reconnaître des triangles semblables : une définition et une propriété caractéristique",
+            "slug": ""
           }
         ],
         "slugEvalBrevet": "ex=dnb_2022_06_polynesie_4&ex=dnb_2015_09_metropole_5&ex=dnb_2020_09_metropole_2&ex=dnb_2019_07_metropole_6&ex=dnb_2019_06_metropole_5"
@@ -3281,6 +3279,11 @@
             "reference": "4L11",
             "titre": "Factoriser",
             "slug": "4L11,s=3,n=1"
+          },
+          {
+            "reference": "3L13",
+            "titre": "Résoudre algébriquement des équations du 1er degré",
+            "slug": "can4L03,s=false,s2=3,n=1,cd=0"
           }
         ],
         "slugEvalBrevet": "ex=dnb_2022_09_polynesie_4&ex=dnb_2019_06_grece_5&ex=dnb_2019_06_asie_7&ex=dnb_2019_03_caledonie_3&ex=dnb_2018_09_polynesie_3"
@@ -3328,27 +3331,22 @@
       },
       {
         "reference": "S3S8",
-        "titre": "Trigonométrie 1",
-        "periode": 2,
+        "titre": "Proportionnalité en géométrie 2 (Théorème de Thalès)",
+        "periode": 1,
         "objectifs": [
           {
-            "reference": "3G30"
+            "reference": "4G30"
           }
         ],
         "calculsMentaux": [
           {
-            "reference": "3L12",
-            "titre": "Développer et factoriser",
+            "reference": "3N11",
+            "titre": "Calculer avec des nombres rationnels positifs",
             "niveaux": [
               {
-                "commentaire": "Développer",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND2~o=0,1,2~q=0.0,1-1.0,1-2.0,1,2,3~p=~t=30~n=8",
-                "score": 6
-              },
-              {
-                "commentaire": "Factoriser",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4",
-                "score": 10
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=15~n=2_i=5NC8~o=3~q=3.0,1~p=~t=15~n=2_i=4NC3~o=0~q=0.~p=~t=15~n=2_i=4NC4~o=0~q=0.0~p=~t=15~n=2",
+                "score": 5
               }
             ]
           }
@@ -3365,7 +3363,7 @@
             "slug": "5P12,s=2,n=1,cd=1"
           }
         ],
-        "slugEvalBrevet": "ex=dnb_2019_07_polynesie_5&ex=dnb_2019_07_metropole_2&ex=dnb_2018_09_metropole_7&ex=dnb_2018_05_pondichery_7&ex=dnb_2017_09_polynesie_4"
+        "slugEvalBrevet": "ex=dnb_2022_06_metropole_mathalea_1&ex=dnb_2021_09_metropole_5&ex=dnb_2019_12_caledonie_4&ex=dnb_2019_09_metropole_1&ex=dnb_2018_06_ameriquenord_2"
       },
       {
         "reference": "S3S9",
@@ -3407,44 +3405,46 @@
         ],
         "questionsFlash": [
           {
-            "reference": "4G33",
-            "titre": "Reconnaître des triangles égaux : une définition et une propriété caractéristique",
-            "slug": "5G24-2,s=1,n=4"
+            "reference": "4G30",
+            "titre": "Calculer une longueur à l'aide du théorème de Thalès (triangles emboîtés)",
+            "slug": "3G20,s=1,n=1,video=j_zZOpLLl9k,cd=1"
           },
           {
-            "reference": "3G30",
-            "titre": "Déterminer une longueur à l’aide des lignes trigonométriques",
-            "slug": "3G30,s=true,cd=0"
+            "reference": "4G30",
+            "titre": "Calculer une longueur à l'aide du théorème de Thalès (configuration en papillon)",
+            "slug": "3G20,s=2,n=1,video=j_zZOpLLl9k,cd=1"
+          },
+          {
+            "reference": "3L13",
+            "titre": "Résoudre algébriquement des équations du 1er degré",
+            "slug": "can4L03,s=false,s2=3,n=1,cd=0"
           }
         ],
         "slugEvalBrevet": "ex=dnb_2022_09_polynesie_5&ex=dnb_2022_09_metropole_4&ex=dnb_2021_06_metropole_1&ex=dnb_2018_12_caledonie_6&ex=dnb_2016_04_pondichery_2"
       },
       {
         "reference": "S3S10",
-        "titre": "Proportionnalité en géométrie 2",
+        "titre": "Trigonométrie 1",
         "periode": 2,
         "objectifs": [
           {
-            "reference": "4G33"
-          },
-          {
-            "reference": "3G23"
+            "reference": "3G30"
           }
         ],
         "calculsMentaux": [
           {
-            "reference": "3A10",
-            "titre": "Reconnaître un nombre premier",
+            "reference": "3L12",
+            "titre": "Développer et factoriser",
             "niveaux": [
               {
-                "commentaire": "inférieur à 30",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=15~n=8",
-                "score": 3
+                "commentaire": "Développer",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND2~o=0,1,2~q=0.0,1-1.0,1-2.0,1,2,3~p=~t=30~n=8",
+                "score": 6
               },
               {
-                "commentaire": "inférieur à 100",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5ND5~o=1~q=1.~p=~t=20~n=8",
-                "score": 4
+                "commentaire": "Factoriser",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4",
+                "score": 10
               }
             ]
           }
@@ -3456,12 +3456,12 @@
             "slug": "can2C10,n=1"
           },
           {
-            "reference": "4G30",
-            "titre": "Calculer une longueur avec le théorème de Thalès",
-            "slug": "3G20,s=2,n=1,video=j_zZOpLLl9k,cd=0"
+            "reference": "3F10",
+            "titre": "Utiliser les notations et le vocabulaire fonctionnels",
+            "slug": "3F10-3,s=5,n=1"
           }
         ],
-        "slugEvalBrevet": "ex=dnb_2018_05_pondichery_7&ex=dnb_2018_06_metropole_4&ex=dnb_2019_06_grece_2&ex=dnb_2019_07_metropole_2"
+        "slugEvalBrevet": "ex=dnb_2019_07_polynesie_5&ex=dnb_2019_07_metropole_2&ex=dnb_2018_09_metropole_7&ex=dnb_2018_05_pondichery_7&ex=dnb_2017_09_polynesie_4"
       },
       {
         "reference": "S3S11",
@@ -3504,14 +3504,14 @@
         ],
         "questionsFlash": [
           {
-            "reference": "3G23",
-            "titre": "Reconnaître des triangles semblables : une définition et une propriété caractéristique",
-            "slug": ""
+            "reference": "3G30",
+            "titre": "Déterminer une longueur à l’aide des lignes trigonométriques",
+            "slug": "3G30,s=true,cd=0"
           },
           {
-            "reference": "3L13",
-            "titre": "Résoudre algébriquement des équations du 1er degré",
-            "slug": "can4L03,s=false,s2=3,n=1,cd=0"
+            "reference": "5P12",
+            "titre": "Partager une quantité en trois parts selon un ratio donné",
+            "slug": "5P12,s=2,n=1,cd=1"
           }
         ],
         "slugEvalBrevet": "ex=dnb_2022_06_metropole_mathalea_3&ex=dnb_2022_06_etrangers_5&ex=dnb_2021_06_metropole_2&ex=dnb_2020_12_caledonie_6&ex=dnb_2019_09_metropole_2"
@@ -3579,9 +3579,9 @@
         ],
         "questionsFlash": [
           {
-            "reference": "4G20",
-            "titre": "Calculer une longueur avec le théorème de Pythagore",
-            "slug": "4G20,s2=3,n=1,video=M9sceJ8gzNc"
+            "reference": "3G31",
+            "titre": "Calculer la mesure d’un angle dans un triangle rectangle",
+            "slug": "3G31,s=true,cd=0"
           },
           {
             "reference": "3L12",
@@ -3660,7 +3660,7 @@
       },
       {
         "reference": "S3S17",
-        "titre": "Proportionnalité en géométrie 3",
+        "titre": "Proportionnalité en géométrie 3 (Homothétie)",
         "periode": 4,
         "objectifs": [
           {
@@ -3717,7 +3717,7 @@
       },
       {
         "reference": "S3S19",
-        "titre": "Proportionnalité en géométrie 4",
+        "titre": "Proportionnalité en géométrie 4 (Réciproque du théorème de Thalès)",
         "periode": 4,
         "objectifs": [
           {
