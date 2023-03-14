@@ -1,0 +1,15 @@
+{
+  "types": [
+    {"type": "feat", "section": "Nouvelles fonctionnalités"},
+    {"type": "fix", "section": "Bug réparés"},
+    {"type": "new", "section": "Nouvelles pages"},
+    {"type": "maj", "section": "Pages mises à jour"},
+    {"type": "progression", "section": "Mises à jour des progressions (ordres des séquences)"},
+    {"type": "chore", "hidden": true},
+    {"type": "style", "hidden": true},
+    {"type": "lint", "hidden": true},
+    {"type": "refactor", "hidden": true}
+  ],
+  "commitUrlFormat": "https://github.com/gvalmont/topmaths/commits/{{hash}}",
+  "compareUrlFormat": "https://github.com/gvalmont/topmaths/compare/{{previousTag}}...{{currentTag}}"
+}
