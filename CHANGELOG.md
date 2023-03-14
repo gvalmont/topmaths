@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.26](https://github.com/gvalmont/topmaths/compare/v0.0.25...v0.0.26) (2023-03-14)
+
+
+### Nouvelles fonctionnalités
+
+* Inversion des nombres décimaux 3 et de la proportionnalité en 6eme ([b094d96](https://github.com/gvalmont/topmaths/commits/b094d967fb6a46bf18e6c152084aee69da721e10))
+* MAJ 4G23 ([7985548](https://github.com/gvalmont/topmaths/commits/7985548f06bb3cbecf472def3f6aeae8d384bb09))
+* Modification de la progression de 5e (remontée des nombres relatifs) ([c7b7987](https://github.com/gvalmont/topmaths/commits/c7b7987b0fd369ab4019b2b35e46cba530ee391d))
+* Quelques ajustements ([d1bd245](https://github.com/gvalmont/topmaths/commits/d1bd245e1405331aef5cc2d6934bbe1b8e25cb56))
+* Quelques ajustements ([ba9c4d6](https://github.com/gvalmont/topmaths/commits/ba9c4d6e9e8d3663846424a6100f50ef68671a9f))
+* Remontée des triangles semblables dans la progression de 3e ([36111e4](https://github.com/gvalmont/topmaths/commits/36111e4437eb2c97429d34c767a835840efcfd44))
+
 ### [0.0.5](https://github.com/gvalmont/topmaths/compare/v0.0.4...v0.0.5) (2022-01-19)
 
 
