@@ -410,14 +410,14 @@
       },
       {
         "reference": "S6S11",
-        "titre": "Nombres décimaux 3",
+        "titre": "Proportionnalité",
         "periode": 2,
         "objectifs": [
           {
-            "reference": "6C31"
+            "reference": "6P10"
           },
           {
-            "reference": "6C22"
+            "reference": "6P11"
           }
         ],
         "calculsMentaux": [
@@ -473,27 +473,27 @@
         ],
         "questionsFlash": [
           {
-            "reference": "6C31",
-            "titre": "Effectuer une division décimale",
-            "slug": "6C31,s=2,n=1"
+            "reference": "6N20",
+            "titre": "Faire le lien entre les fractions et les nombres entiers",
+            "slug": "6N20,s=false,n=1"
           },
           {
-            "reference": "6C22",
-            "titre": "Résoudre des problèmes avec des nombres décimaux",
-            "slug": "6C32-1,s=0,n=1"
+            "reference": "6P11",
+            "titre": "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité",
+            "slug": "6P11,s=true,n=1"
           }
         ]
       },
       {
         "reference": "S6S13",
-        "titre": "Proportionnalité",
+        "titre": "Nombres décimaux 3",
         "periode": 2,
         "objectifs": [
           {
-            "reference": "6P10"
+            "reference": "6C31"
           },
           {
-            "reference": "6P11"
+            "reference": "6C22"
           }
         ],
         "calculsMentaux": [
@@ -552,14 +552,14 @@
         ],
         "questionsFlash": [
           {
-            "reference": "6N20",
-            "titre": "Faire le lien entre les fractions et les nombres entiers",
-            "slug": "6N20,s=false,n=1"
+            "reference": "6C31",
+            "titre": "Effectuer une division décimale",
+            "slug": "6C31,s=2,n=1"
           },
           {
-            "reference": "6P11",
-            "titre": "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité",
-            "slug": "6P11,s=true,n=1"
+            "reference": "6C22",
+            "titre": "Résoudre des problèmes avec des nombres décimaux",
+            "slug": "6C32-1,s=0,n=1"
           }
         ]
       },
