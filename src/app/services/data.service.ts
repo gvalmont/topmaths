@@ -54,7 +54,7 @@ export class DataService {
       this.httpClient.get<NiveauObjectif[]>('assets/data/objectifs.json?' + environment.appVersion).subscribe(niveauxObjectifs => {
         this.niveauxObjectifs = this.ajouterObjectifsParThemeParPeriode(this.ajouterPeriode(niveauxObjectifs))
         this.dataMAJ.emit('niveauxObjectifs')
-        if (isDevMode()) this.listerExercicesAbsentsPolitiqueDeConfidentialite()
+        if (isDevMode()) this.checksDeRoutine()
       })
     })
     this.httpClient.get<SequenceParticuliere[]>('assets/data/sequencesParticulieres.json?' + environment.appVersion).subscribe(sequencesParticulieres => {
@@ -151,15 +151,41 @@ export class DataService {
     return -1
   }
 
-  listerExercicesAbsentsPolitiqueDeConfidentialite () {
-    const listeComplete = []
+  checksDeRoutine () {
+    this.checksSequences()
+    this.checksObjectifs()
+  }
+
+  checksSequences () {
+    const listeExercicesDeBrevet = []
+    for (const niveau of this.niveauxSequences) {
+      for (const sequence of niveau.sequences) {
+        if (sequence.slugEvalBrevet !== undefined && sequence.slugEvalBrevet !== "") {
+          const listeExosAvecEx = sequence.slugEvalBrevet.split("&")
+          for (const exoAvecEx of listeExosAvecEx) {
+            const exo = exoAvecEx.slice(3)
+            for (const exerciceDeBrevet of listeExercicesDeBrevet) {
+              if (exo === exerciceDeBrevet) {
+                console.log(exo + ' présent en double')
+              }
+            }
+            listeExercicesDeBrevet.push(exo)
+          }
+        }
+      }
+    }
+
+  }
+
+  checksObjectifs () {
+    const listeHTTP = []
     for (const niveau of this.niveauxObjectifs) {
       for (const theme of niveau.themes) {
         for (const sousTheme of theme.sousThemes) {
           for (const objectif of sousTheme.objectifs) {
             for (const exercice of objectif.exercices) {
               if (exercice.slug.slice(0, 4) === 'http') {
-                listeComplete.push(exercice.slug)
+                listeHTTP.push(exercice.slug)
               }
             }
           }
@@ -167,7 +193,7 @@ export class DataService {
       }
     }
     const listeAbsents = []
-    for (const site of listeComplete) {
+    for (const site of listeHTTP) {
       let trouve = false
       for (const sitePresent of this.listeSitesPresentsPolitiqueDeConfidentialite) {
         if (site.slice(0, sitePresent.length) === sitePresent) {
