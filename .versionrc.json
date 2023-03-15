@@ -5,7 +5,7 @@
     {"type": "new", "section": "Nouvelles pages"},
     {"type": "maj", "section": "Pages mises à jour"},
     {"type": "progression", "section": "Mises à jour des progressions (ordres des séquences)"},
-    {"type": "chore", "hidden": true},
+    {"type": "chore", "section": "Mises à jour du moteur"},
     {"type": "style", "hidden": true},
     {"type": "lint", "hidden": true},
     {"type": "refactor", "hidden": true}
