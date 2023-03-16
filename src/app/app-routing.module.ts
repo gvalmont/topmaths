@@ -18,10 +18,10 @@ import { CguComponent } from './cgu/cgu.component'
 const routes: Routes = [
   { path: 'accueil', component: AccueilComponent, data: { title: 'topmaths.fr - Les maths au TOP !' } },
   { path: 'objectif/:reference', component: ObjectifComponent },
-  { path: 'objectifs/:niveau/:theme/:sousTheme', component: ObjectifsComponent },
-  { path: 'objectifs/:niveau/:theme', component: ObjectifsComponent },
+  { path: 'objectifs/:niveau/:periode', component: ObjectifsComponent, data: { title: 'topmaths.fr - Objectifs' } },
   { path: 'objectifs/:niveau', component: ObjectifsComponent, data: { title: 'topmaths.fr - Objectifs' } },
   { path: 'objectifs', redirectTo: 'objectifs/tout' },
+  { path: 'sequences/:niveau/:periode', component: SequencesComponent, data: { title: 'topmaths.fr - Séquences' } },
   { path: 'sequences/:niveau', component: SequencesComponent, data: { title: 'topmaths.fr - Séquences' } },
   { path: 'sequences', redirectTo: 'sequences/tout' },
   { path: 'sequence/SPS1', component: SPS1Component, data: { title: 'topmaths.fr - Programmation' } },

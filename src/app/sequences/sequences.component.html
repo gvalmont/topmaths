@@ -2,16 +2,16 @@
   <!-- Menu -->
   <div class="tabs is-medium is-centered">
     <ul class="tabs-menu is-rounded">
-      <li><a [ngClass]="{'subtitle is-4 is-tout is-left-side': true, 'is-active': ongletActif === 'tout'}" (click)="ongletActif = 'tout'; filtre.niveau = 'tout'">Tout</a></li>
+      <li><a [ngClass]="{'subtitle is-4 is-tout is-left-side': true, 'is-active': ongletActif === 'tout'}" (click)="clicFiltre('tout')">Tout</a></li>
       <li *ngFor="let ligne of lignesSequencesNormales;">
-        <a *ngIf="ligne.niveau !== undefined && ligne.niveau !== 'fin' && ligne.reference === undefined" (click)="ongletActif = ligne.niveau; filtre.niveau = ligne.niveau" [ngClass]="{'is-active': ongletActif === ligne.niveau, 'subtitle is-4': true, 'is-6e': ligne.niveau === '6e', 'is-5e': ligne.niveau === '5e', 'is-4e': ligne.niveau === '4e', 'is-3e is-right-side': ligne.niveau === '3e'}">{{ligne.niveau}}</a>
+        <a *ngIf="ligne.niveau !== undefined && ligne.niveau !== 'fin' && ligne.reference === undefined" (click)="clicFiltre(ligne.niveau)" [ngClass]="{'is-active': ongletActif === ligne.niveau, 'subtitle is-4': true, 'is-6e': ligne.niveau === '6e', 'is-5e': ligne.niveau === '5e', 'is-4e': ligne.niveau === '4e', 'is-3e is-right-side': ligne.niveau === '3e'}">{{ligne.niveau}}</a>
       </li>
     </ul>
   </div>
   <div class="is-flex is-justify-content-center" style="overflow:auto">
-    <span><button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== null && filtre.periode !== undefined && filtre.periode > 0}" (click)="filtre.periode = 0">Période</button></span>
+    <span><button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== null && filtre.periode !== undefined && filtre.periode > 0}" (click)="clicFiltre('', 0)">Période</button></span>
     <span *ngFor="let periode of [1, 2, 3, 4, 5]">
-      <button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== periode}" (click)="filtre.periode === periode ? filtre.periode = 0 : filtre.periode = periode">{{ periode }}</button>
+      <button [ngClass]="{'button is-rounded is-link mb-5 mx-1 is-medium': true, 'is-light': filtre.periode !== periode}" (click)="clicFiltre('', periode)">{{ periode }}</button>
     </span>
   </div>
   <input style="text-align:center; font-size:x-large ;" type="email" class="form-control" id="search-text" aria-describedby="search-text" [(ngModel)]="texteRecherche" placeholder="Recherche" autofocus>

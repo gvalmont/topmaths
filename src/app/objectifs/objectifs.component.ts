@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { Router, ActivatedRoute, NavigationStart, Event as NavigationEvent } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 import { Subscription } from 'rxjs'
 import { DataService } from '../services/data.service'
 
@@ -63,10 +63,10 @@ export class ObjectifsComponent implements OnInit, OnDestroy {
   }
 
   MAJOngletActif () {
-    this.navigationEventSubscription = this.router.events.subscribe((event: NavigationEvent) => {
-      if (event instanceof NavigationStart) {
-        this.ongletActif = event.url.split('/')[2]
-      }
+    this.activatedRoute.params.subscribe(params => {
+      this.ongletActif = params.niveau
+      this.filtre.niveau = params.niveau
+      if (params.periode !== undefined) this.filtre.periode = Number(params.periode)
     })
   }
 
@@ -98,5 +98,16 @@ export class ObjectifsComponent implements OnInit, OnDestroy {
       }
       this.lignes.push({ niveau: 'fin' })
     }
+  }
+
+  clicFiltre (niveau: string, periode?: number) {
+    if (niveau !== '') {
+      this.ongletActif = niveau
+      this.filtre.niveau = niveau
+    }
+    if (periode !== undefined) {
+      this.filtre.periode === periode ? this.filtre.periode = 0 : this.filtre.periode = periode
+    }
+    window.history.pushState('', '', `/#/objectifs/${this.filtre.niveau}${this.filtre.periode ? '/' + this.filtre.periode : ''}`)
   }
 }
