@@ -3098,7 +3098,7 @@
             "slug": "5P12,s=1,n=1,cd=1"
           }
         ],
-        "slugEvalBrevet": "ex=dnb_2022_06_ameriquenord_5&ex=dnb_2020_09_metropole_2&ex=dnb_2019_09_polynesie_7&ex=dnb_2019_06_etrangers_3&ex=dnb_2019_06_asie_1"
+        "slugEvalBrevet": "ex=dnb_2022_06_ameriquenord_5&ex=dnb_2020_12_caledonie_3&ex=dnb_2019_09_polynesie_7&ex=dnb_2019_06_etrangers_3&ex=dnb_2019_06_asie_1"
       },
       {
         "reference": "S3S3",
@@ -3236,7 +3236,7 @@
             "slug": ""
           }
         ],
-        "slugEvalBrevet": "ex=dnb_2022_06_polynesie_4&ex=dnb_2015_09_metropole_5&ex=dnb_2020_09_metropole_2&ex=dnb_2019_07_metropole_6&ex=dnb_2019_06_metropole_5"
+        "slugEvalBrevet": "ex=dnb_2022_06_polynesie_4&ex=dnb_2015_09_metropole_5&ex=dnb_2022_06_metropole_mathalea_4&ex=dnb_2021_09_metropole_3&ex=dnb_2019_06_metropole_5"
       },
       {
         "reference": "S3S6",
@@ -3461,7 +3461,7 @@
             "slug": "3F10-3,s=5,n=1"
           }
         ],
-        "slugEvalBrevet": "ex=dnb_2019_07_polynesie_5&ex=dnb_2019_07_metropole_2&ex=dnb_2018_09_metropole_7&ex=dnb_2018_05_pondichery_7&ex=dnb_2017_09_polynesie_4"
+        "slugEvalBrevet": "ex=dnb_2019_07_polynesie_5&ex=dnb_2016_06_metropole_3&ex=dnb_2018_09_metropole_7&ex=dnb_2015_12_caledonie_2&ex=dnb_2017_09_polynesie_4"
       },
       {
         "reference": "S3S11",
@@ -3514,7 +3514,7 @@
             "slug": "5P12,s=2,n=1,cd=1"
           }
         ],
-        "slugEvalBrevet": "ex=dnb_2022_06_metropole_mathalea_3&ex=dnb_2022_06_etrangers_5&ex=dnb_2021_06_metropole_2&ex=dnb_2020_12_caledonie_6&ex=dnb_2019_09_metropole_2"
+        "slugEvalBrevet": "ex=dnb_2022_06_metropole_mathalea_3&ex=dnb_2022_06_etrangers_5&ex=dnb_2021_06_metropole_2&ex=dnb_2020_12_caledonie_6&ex=dnb_2018_12_caledonie_3"
       },
       {
         "reference": "S3S12",
@@ -3550,7 +3550,7 @@
             "slug": "4A11-0,s=3,s2=false,s3=false,s4=false,n=1"
           }
         ],
-        "slugEvalBrevet": "ex=dnb_2022_09_polynesie_2&ex=dnb_2022_06_polynesie_5&ex=dnb_2020_09_antillesguyanne_1&ex=dnb_2019_11_ameriquesud_4&ex=dnb_2019_06_grece_2"
+        "slugEvalBrevet": "ex=dnb_2022_09_polynesie_2&ex=dnb_2022_06_polynesie_5&ex=dnb_2020_09_antillesguyanne_1&ex=dnb_2019_11_ameriquesud_4&ex=dnb_2022_09_metropole_5"
       },
       {
         "reference": "S3S13",
