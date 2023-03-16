@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.27](https://github.com/gvalmont/topmaths/compare/v0.0.26...v0.0.27) (2023-03-16)
+
+
+### Mises à jour du moteur
+
+* On peut maintenant repérer les exercices de brevet présents en double ([845252e](https://github.com/gvalmont/topmaths/commits/845252e24aa083794a47581b82dd4045d527cd64))
+
+
+### Nouvelles fonctionnalités
+
+* Les filtres par niveau et par période sont maintenant enregistrés dans l'historique du navigateur (on peut revenir en arrière) ([da3efb1](https://github.com/gvalmont/topmaths/commits/da3efb13b5e80f62d16ce1bd65274b8ad2bb5cf7))
+* Notes de mises à jour améliorées ([425590a](https://github.com/gvalmont/topmaths/commits/425590ab68956b3439a7c5688da0a3ee79068f94))
+
 ### [0.0.26](https://github.com/gvalmont/topmaths/compare/v0.0.25...v0.0.26) (2023-03-14)
 
 
