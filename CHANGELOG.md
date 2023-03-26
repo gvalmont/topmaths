@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.28](https://github.com/gvalmont/topmaths/compare/v0.0.27...v0.0.28) (2023-03-26)
+
+
+### Bug réparés
+
+* Remplacement des exercices de brevet présents en double ([ce699eb](https://github.com/gvalmont/topmaths/commits/ce699ebbe286560c10e839a98d343bbf88281582))
+
+
+### Pages mises à jour
+
+* MAJ S5S15 : Calcul littéral 1 ([0453481](https://github.com/gvalmont/topmaths/commits/0453481e23d69e5538edd7cc55f6c5ccca6cf88e))
+
 ### [0.0.27](https://github.com/gvalmont/topmaths/compare/v0.0.26...v0.0.27) (2023-03-16)
 
 
