@@ -2330,12 +2330,14 @@
                   {
                     "id": 5069,
                     "slug": "5L12-2,s=9,s2=false,s3=6-7-8-9,n=3",
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Exercices avec moins de nombres"
                   },
                   {
                     "id": 5126,
                     "slug": "5L12-2,s=9,s2=false,s3=1-2-3-4,n=3",
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Exercices avec plus de nombres"
                   }
                 ]
               },
@@ -2427,24 +2429,16 @@
                 ],
                 "exercices": [
                   {
-                    "id": 5070,
-                    "slug": "5L16,s=1,s2=false,n=2",
-                    "isInteractif": true
-                  },
-                  {
-                    "id": 5071,
-                    "slug": "5L16,s=2,s2=false,n=2",
-                    "isInteractif": true
-                  },
-                  {
                     "id": 5072,
-                    "slug": "5L16,s=3,s2=false,n=2",
-                    "isInteractif": true
+                    "slug": "5L16,s=3,s2=false,n=4",
+                    "isInteractif": true,
+                    "description": "Simplifier une écriture littérale"
                   },
                   {
                     "id": 5128,
                     "slug": "5L16,s=3,s2=true,n=4",
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Retrouver les × qui sont sous-entendus"
                   }
                 ]
               }
@@ -2710,6 +2704,12 @@
                 "rappelDuCoursHTML": "<a href='#objectif/6M30'>6M30 Calculer le volume d'un cube ou d'un pavé droit</a><br> $\\mathcal{V}_{\\text{prisme}} = \\mathcal{A}_{\\text{base}} \\times h$ <br> $\\mathcal{V}_{\\text{cylindre}} = \\mathcal{A}_{\\text{base}} \\times h = \\pi r^2 h$",
                 "rappelDuCoursImage": "",
                 "videos": [
+                  {
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=kNicKj-PIB4&vignette=https://i.ytimg.com/vi/kNicKj-PIB4/hqdefault.jpg&debut=0&fin=204&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
                   {
                     "titre": "Volume d'un prisme droit",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=lsAWODx566E&vignette=https://i.ytimg.com/vi/lsAWODx566E/hqdefault.jpg&debut=0&fin=423&largeur=200&hauteur=113",
@@ -3328,17 +3328,17 @@
                 "exercices": [
                   {
                     "id": 4068,
-                    "slug": "4C30-4,s=1,n=3",
+                    "slug": "4C30-4,s=1,n=2",
                     "isInteractif": true
                   },
                   {
                     "id": 4069,
-                    "slug": "4C30-4,s=2,n=3",
+                    "slug": "4C30-4,s=2,n=2",
                     "isInteractif": true
                   },
                   {
                     "id": 4070,
-                    "slug": "4C32-2,n=10",
+                    "slug": "4C32-2,n=2",
                     "isInteractif": false
                   }
                 ]
@@ -4569,6 +4569,12 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=kNicKj-PIB4&vignette=https://i.ytimg.com/vi/kNicKj-PIB4/hqdefault.jpg&debut=0&fin=204&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
+                  {
                     "titre": "Volume d'une pyramide",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=KKon_cIVd9k&vignette=https://i.ytimg.com/vi/KKon_cIVd9k/hqdefault.jpg&debut=0&fin=412&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
@@ -5564,6 +5570,12 @@
                 "videos": [
                   {
                     "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=kNicKj-PIB4&vignette=https://i.ytimg.com/vi/kNicKj-PIB4/hqdefault.jpg&debut=0&fin=204&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
+                  {
+                    "titre": "Explications détaillées",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=pxbelimaItQ&vignette=https://i.ytimg.com/vi/pxbelimaItQ/hqdefault.jpg&debut=0&fin=241&largeur=200&hauteur=113",
                     "auteur": "Paul Olivier",
                     "lienAuteur": "https://www.youtube.com/channel/UCp0jxeetANhaifijiK7nkoA"
