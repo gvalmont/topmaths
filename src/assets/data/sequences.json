@@ -719,6 +719,44 @@
             "slug": "6M12,s=4,s2=true,n=2"
           }
         ]
+      },
+      {
+        "reference": "S6S19",
+        "titre": "Périmètres et aires 2",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "6M22"
+          },
+          {
+            "reference": "6M23"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6N44",
+            "titre": "Utiliser des fractions pour exprimer un quotient",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://coopmaths.fr/alea/?uuid=4d0dd&id=6N23-5&n=4&d=30&alea=uaDg&v=diaporama",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6P13",
+            "titre": "Appliquer un pourcentage",
+            "slug": "6P13,s=1,n=1"
+          },
+          {
+            "reference": "6G52",
+            "titre": "Connaître les relations entre perpendicularité et parallélisme et savoir s’en servir pour raisonner",
+            "slug": "6G52,s=3,n=1,cd=0"
+          }
+        ]
       }
     ]
   },

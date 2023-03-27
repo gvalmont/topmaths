@@ -1623,14 +1623,20 @@
               {
                 "reference": "6M22",
                 "titre": "Déterminer le périmètre et l’aire d’un disque",
-                "rappelDuCoursHTML": "",
+                "rappelDuCoursHTML": " Périmètre du cercle $= 2 \\times \\pi \\times \\text{rayon}$ <br> Aire du disque $ = \\pi \\times \\text{rayon} \\times \\text{rayon} $",
                 "rappelDuCoursImage": "",
                 "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=y-PV5LNmqsM&vignette=https://i.ytimg.com/vi/y-PV5LNmqsM/hqdefault.jpg&debut=0&fin=366&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
                 ],
                 "exercices": [
                   {
                     "id": 5087,
-                    "slug": "6M22-1,s=3,s2=true,n=1",
+                    "slug": "6M22-1,s=3,s2=true,n=2",
                     "isInteractif": true,
                     "description": ""
                   }
