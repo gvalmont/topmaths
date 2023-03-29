@@ -2334,16 +2334,16 @@
                 ],
                 "exercices": [
                   {
-                    "id": 5069,
-                    "slug": "5L12-2,s=9,s2=false,s3=6-7-8-9,n=3",
-                    "isInteractif": true,
-                    "description": "Exercices avec moins de nombres"
-                  },
-                  {
                     "id": 5126,
                     "slug": "5L12-2,s=9,s2=false,s3=1-2-3-4,n=3",
                     "isInteractif": true,
-                    "description": "Exercices avec plus de nombres"
+                    "description": "Que des additions"
+                  },
+                  {
+                    "id": 5069,
+                    "slug": "5L12-2,s=9,s2=false,s3=6-7-8-9,n=3",
+                    "isInteractif": true,
+                    "description": "Additions et multiplications"
                   }
                 ]
               },
