@@ -158,6 +158,7 @@ export class DataService {
 
   checksSequences () {
     const listeExercicesDeBrevet = []
+    let nbDoublonsTrouves = 0
     for (const niveau of this.niveauxSequences) {
       for (const sequence of niveau.sequences) {
         if (sequence.slugEvalBrevet !== undefined && sequence.slugEvalBrevet !== "") {
@@ -167,6 +168,7 @@ export class DataService {
             for (const exerciceDeBrevet of listeExercicesDeBrevet) {
               if (exo === exerciceDeBrevet) {
                 console.log(exo + ' présent en double')
+                nbDoublonsTrouves++
               }
             }
             listeExercicesDeBrevet.push(exo)
@@ -174,7 +176,7 @@ export class DataService {
         }
       }
     }
-
+    if (nbDoublonsTrouves === 0) console.log('Pas de doublons d\'exercices de brevet trouvés')
   }
 
   checksObjectifs () {
