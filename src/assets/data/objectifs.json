@@ -2030,18 +2030,18 @@
               },
               {
                 "reference": "5N14",
-                "titre": "Comparer, ranger et encadrer des fractions dont les dénominateurs sont égaux ou multiples l’un de l’autre",
+                "titre": "Comparer et ranger des fractions dont les dénominateurs sont multiples l’un de l’autre",
                 "rappelDuCoursHTML": "Pour comparer deux fractions :<br>- on commence par les mettre sur le même dénominateur ;<br>- puis on compare les numérateurs.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "Comparer (Niveau 1)",
+                    "titre": "Comparer",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=MVnogrTAGy0&vignette=https://i.ytimg.com/vi/MVnogrTAGy0/hqdefault.jpg&debut=0&fin=362&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
-                    "titre": "Ranger (Niveau 2)",
+                    "titre": "Ranger",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=zzRX2N3o6xM&vignette=https://i.ytimg.com/vi/zzRX2N3o6xM/hqdefault.jpg&debut=0&fin=254&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
                     "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
@@ -2051,12 +2051,14 @@
                   {
                     "id": 5075,
                     "slug": "5N14,s=11,s2=false,n=2",
-                    "isInteractif": true
+                    "isInteractif": true,
+                    "description": "Comparer"
                   },
                   {
                     "id": 5076,
                     "slug": "5N14-2,s=false,n=1",
-                    "isInteractif": false
+                    "isInteractif": false,
+                    "description": "Ranger"
                   }
                 ]
               },
