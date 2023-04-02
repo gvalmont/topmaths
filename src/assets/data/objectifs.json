@@ -3884,27 +3884,6 @@
                 ]
               },
               {
-                "reference": "4S21",
-                "titre": "Reconnaître des événements contraires et s’en servir pour calculer des probabilités",
-                "rappelDuCoursHTML": "",
-                "rappelDuCoursImage": "",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=DWwDpoY4euM&vignette=https://i.ytimg.com/vi/DWwDpoY4euM/hqdefault.jpg&debut=0&fin=165&largeur=200&hauteur=113",
-                    "auteur": "*Mme Maths*",
-                    "lienAuteur": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "id": 4055,
-                    "slug": "can3S02,n=1",
-                    "isInteractif": true
-                  }
-                ]
-              },
-              {
                 "reference": "4S22",
                 "titre": "Calculer des probabilités",
                 "rappelDuCoursHTML": "$\\text{Probabilité} = \\cfrac{\\text{Nombre de cas favorables}}{\\text{Nombre de cas possibles}}$ <br><br> La somme des probabilités d’un événement et de son contraire vaut 1 : $P(A) + P( \\overline{A} ) = 1$<br>On peut donc en déduire que la probabilité de son contraire est 1 $-$ sa probabilité : $P( \\overline{A} ) = 1 - P(A)$",
