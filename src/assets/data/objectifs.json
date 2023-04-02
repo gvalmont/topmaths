@@ -699,7 +699,7 @@
                   {
                     "titre": "",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Q9Qg8wOaM64&vignette=https://i.ytimg.com/vi/Q9Qg8wOaM64/hqdefault.jpg&debut=0&fin=144&largeur=200&hauteur=150",
-                    "auteur": " Genevieve Beaudet",
+                    "auteur": "Genevieve Beaudet",
                     "lienAuteur": "https://www.youtube.com/channel/UCTkDV8ARPyfjFcwYFoLZuMg"
                   }
                 ],
@@ -711,16 +711,10 @@
                     "description": "Définition d'un pourcentage"
                   },
                   {
-                    "id": 5056,
-                    "slug": "5N11-3,s=1,n=2",
-                    "isInteractif": true,
-                    "description": "Écrire sous la forme d'un pourcentage sans calculatrice"
-                  },
-                  {
                     "id": 5057,
                     "slug": "5N11-4,s=2,n=2",
                     "isInteractif": true,
-                    "description": "Écrire sous la forme d'un pourcentage avec calculatrice"
+                    "description": "Écrire une fraction sous la forme d'un pourcentage"
                   },
                   {
                     "id": 5057,
