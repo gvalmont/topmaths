@@ -4792,6 +4792,12 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
+                    "titre": "Comment simplifier des fractions (rappel)",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=7vkgbr-7vws&vignette=https://i.ytimg.com/vi/7vkgbr-7vws/hqdefault.jpg&debut=0&fin=98&largeur=200&hauteur=113",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/channel/UCm4qsJ5X0LEvK0IhCGpdpGQ"
+                  },
+                  {
                     "titre": "",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=qZaTliAWkA0&vignette=https://i.ytimg.com/vi/qZaTliAWkA0/hqdefault.jpg&debut=0&fin=416&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
