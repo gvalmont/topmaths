@@ -757,6 +757,41 @@
             "slug": "6G52,s=3,n=1,cd=0"
           }
         ]
+      },
+      {
+        "reference": "S6S20",
+        "titre": "Médiatrice d'un segment",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "6G26"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C25",
+            "titre": "Multiplier en utilisant la distributivité simple",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND9~o=0~q=0.0,1,2~p=~t=24~n=4_i=6ND18~o=0~q=0.0,1~p=~t=24~n=4",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6M11",
+            "titre": "Calculer le périmètre et l’aire d’une figure composée de triangles et rectangles",
+            "slug": "6M11-2,n=1"
+          },
+          {
+            "reference": "6M23",
+            "titre": "Effectuer des conversions d’unités d’aires",
+            "slug": "6M23,s=4,s2=true,s3=1,n=1"
+          }
+        ]
       }
     ]
   },
