@@ -1574,9 +1574,21 @@
               {
                 "reference": "6M20",
                 "titre": "Déterminer le périmètre et l’aire d’un triangle quelconque",
-                "rappelDuCoursHTML": "",
+                "rappelDuCoursHTML": "Formule pour calculer l'aire d'un triangle : $A_{triangle} = \\dfrac{b \\times h}{2}$",
                 "rappelDuCoursImage": "",
                 "videos": [
+                  {
+                    "titre": "Identifier base et hauteur",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=sZnBnrkyS2U&vignette=https://i.ytimg.com/vi/sZnBnrkyS2U/hqdefault.jpg&debut=0&fin=257&largeur=200&hauteur=150",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
+                  },
+                  {
+                    "titre": "Calculer l'aire d'un triangle",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=fuyoOV0F-0k&vignette=https://i.ytimg.com/vi/fuyoOV0F-0k/hqdefault.jpg&debut=0&fin=347&largeur=200&hauteur=150",
+                    "auteur": "jean-yves Labouche",
+                    "lienAuteur": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
+                  }
                 ],
                 "exercices": [
                   {
