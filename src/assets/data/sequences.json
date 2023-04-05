@@ -792,6 +792,44 @@
             "slug": "6M23,s=4,s2=true,s3=1,n=1"
           }
         ]
+      },
+      {
+        "reference": "S6S21",
+        "titre": "Périmètre et aire 3",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "6M20"
+          },
+          {
+            "reference": "6M21"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C10",
+            "titre": "Connaître les tables de multiplication",
+            "niveaux": [
+              {
+                "commentaire": "",
+                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
+                "score": 2
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6G26",
+            "titre": "Utiliser les propriétés de la médiatrice",
+            "slug": "5G22-1,s=3,s2=false,n=1"
+          },
+          {
+            "reference": "6P11",
+            "titre": "Résoudre un problème de proportionnalité",
+            "slug": "6P12,s=false,n=1"
+          }
+        ]
       }
     ]
   },
