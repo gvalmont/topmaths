@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.29](https://github.com/gvalmont/topmaths/compare/v0.0.28...v0.0.29) (2023-04-06)
+
+
+### Mises à jour du moteur
+
+* Affichage d'un message même en cas de doublons d'exercices de brevet non trouvés ([ce4325b](https://github.com/gvalmont/topmaths/commits/ce4325b214ac2f78bc2db50ff867de96b61a1f2e))
+
+
+### Bug réparés
+
+* Un exercice de 4P15 pouvait nécessiter l'utilisation d'une racine cubique. Cela a été corrigé. ([11fcbee](https://github.com/gvalmont/topmaths/commits/11fcbeeeec083810e8c8b74b6a211ae4143ccdf9))
+
+
+### Nouvelles pages
+
+* S6S20 : Médiatrice d'un segment ([6a50eec](https://github.com/gvalmont/topmaths/commits/6a50eec2d64ee5cb32754cd0fac9f5859b0df592))
+* S6S21 : Périmètre et aire 3 ([099878a](https://github.com/gvalmont/topmaths/commits/099878a15a4792052bfd821d5f4881bdf6dc0fae))
+
+
+### Pages mises à jour
+
+* 6M20 : Déterminer le périmètre et l'aire d'un triangle quelconque ([6297367](https://github.com/gvalmont/topmaths/commits/6297367a3eacd297b28d117cffd48b7b38c480dd))
+* Ajout d'une vidéo de rapémathiques à 3A11 : Simplifier une fraction pour la rendre irréductible ([f35ddaf](https://github.com/gvalmont/topmaths/commits/f35ddaffcb5e109ac58dd874558be438fbf3ec80))
+* Cours des séquences 18 et 19 de 6e ([dcfad95](https://github.com/gvalmont/topmaths/commits/dcfad95b8891c665d01590f25cd7a77a93c32e53))
+* Exercices de brevet de S3S18 : Fonctions affines ([3ffc4da](https://github.com/gvalmont/topmaths/commits/3ffc4daca4ecaffc1f175b328c9731a262a521eb))
+* Les exercices de 4L13 : Mettre un problème en équation ne présentent maintenant que des nombres entiers pour alléger la charge cognitive ([cba4f22](https://github.com/gvalmont/topmaths/commits/cba4f22b8862c53ca93aa5aa30f68b9367cafa87))
+* Les noms des exercices de 5N14 : Comparer et ranger des fractions dont les dénominateurs sont multiples l'un de l'autre ([cd4eaf7](https://github.com/gvalmont/topmaths/commits/cd4eaf7b3e7a561afd2cb95c1b46a4e72420349a))
+* ordre des exercices de 5L13 : Réduire une expression littérale ([69de4ea](https://github.com/gvalmont/topmaths/commits/69de4ea5fe71bcd44c1545633d42bfe8a922483b))
+* S6S19 : Périmètres et aires 2, 6M22 : Périmètre et aire d'un disque ([671b53b](https://github.com/gvalmont/topmaths/commits/671b53b62d9fa8e6b0643f4063e98ef4688a24c3))
+* Suppression d'un exercice de 6P16 : Relier fractions, proportions et pourcentages ([f989f38](https://github.com/gvalmont/topmaths/commits/f989f3801a8e7d9a79828c0fbc0a5551f6612728))
+* Suppression de 4S21 (qui a été intégré à 4S22) ([4f38a3a](https://github.com/gvalmont/topmaths/commits/4f38a3af991a842880f1f28cbd9ee7483309ebdf))
+
 ### [0.0.28](https://github.com/gvalmont/topmaths/compare/v0.0.27...v0.0.28) (2023-03-26)
 
 
