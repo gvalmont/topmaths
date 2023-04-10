@@ -29,9 +29,11 @@ export class ExercicesAuHasardComponent {
   }
 
   lancerExercices (niveauChoisi: string) {
-    const listeReferences = this.getListeDesReferences(niveauChoisi, this.dataService.niveauxSequences)
-    const listeDesUrl = this.getListeDesExercices(listeReferences, niveauChoisi, this.dataService.niveauxObjectifs)
-    this.infosModale = [ listeDesUrl, 'exerciceAuHasard', new Date() ]
+    if (this.calendrierService.periodeNumero > 0) {
+      const listeReferences = this.getListeDesReferences(niveauChoisi, this.dataService.niveauxSequences)
+      const listeDesUrl = this.getListeDesExercices(listeReferences, niveauChoisi, this.dataService.niveauxObjectifs)
+      this.infosModale = [ listeDesUrl, 'exerciceAuHasard', new Date() ]
+    }
   }
 
   getListeDesReferences (niveauChoisi: string, niveaux: NiveauSequence[]) {
