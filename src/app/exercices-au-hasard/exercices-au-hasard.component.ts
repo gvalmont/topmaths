@@ -6,12 +6,7 @@ import { environment } from 'src/environments/environment'
 import { CalendrierService } from '../services/calendrier.service'
 import { DataService } from '../services/data.service'
 import { OutilsService } from '../services/outils.service'
-
-interface Exercice {
-  id: number
-  slug: string
-  lien: string
-}
+import { Exercice } from 'src/app/services/modeles/objectifs'
 
 @Component({
   selector: 'app-exercices-au-hasard',
@@ -108,7 +103,9 @@ export class ExercicesAuHasardComponent {
                   listeExercices.push({
                     id: exercice.id,
                     slug: exercice.slug,
-                    lien: `${environment.urlMathALEA}ex=${exercice.slug},i=0&v=e&z=1.5`
+                    lien: `${environment.urlMathALEA}ex=${exercice.slug},i=0&v=e&z=1.5`,
+                    isInteractif: false,
+                    description: ''
                   })
                   listeExercices[listeExercices.length - 1].lien = listeExercices[listeExercices.length - 1].lien.replace(/&ex=/g, ',i=0&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
                   if (this.outils.estMathsMentales(exercice.slug)) {
@@ -131,7 +128,7 @@ export class ExercicesAuHasardComponent {
   }
 
   verifierPresenceDoublons (listeExercices: Exercice[]) {
-    const listeDesId: number[] = []
+    const listeDesId: string[] = []
     for (const exercice of listeExercices) {
       for (const id of listeDesId) {
         if (exercice.id === id) alert('id ' + id + ' trouvé 2 fois !')

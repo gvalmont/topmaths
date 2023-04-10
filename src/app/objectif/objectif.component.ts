@@ -271,8 +271,8 @@ export class ObjectifComponent implements OnInit, OnDestroy {
     const exercice = this.exercices[exerciceIndex]
     const description = exercice.description !== undefined && exercice.description !== '' ? exercice.description : this.exercices.length > 1 ? 'Exercices de niveau ' + (exerciceIndex + 1) : 'Lancer l\'exercice'
     const panierActuel = <PanierItem[]> this.storageService.get('panier')
-    const panierItem = { exerciceId: exercice.id, objectif: this.titre, description, slug: exercice.slug }
-    if (!this.estPresentDansLePanier(panierItem.exerciceId, panierActuel)) {
+    const panierItem = { id: exercice.id, objectif: this.titre, description, slug: exercice.slug }
+    if (!this.estPresentDansLePanier(panierItem.id, panierActuel)) {
       this.exercices[exerciceIndex].estDansLePanier = true
       this.verifierSiTousLesExercicesSontPresentsDansLePanier()
       let panier = <PanierItem[]>[]
@@ -297,10 +297,10 @@ export class ObjectifComponent implements OnInit, OnDestroy {
     return true
   }
 
-  estPresentDansLePanier (exerciceId: number, panierActuel: PanierItem[] = <PanierItem[]> this.storageService.get('panier')) {
+  estPresentDansLePanier (exerciceId: string, panierActuel: PanierItem[] = <PanierItem[]> this.storageService.get('panier')) {
     if (panierActuel !== undefined) {
       for (const panierActuelItem of panierActuel) {
-        if (panierActuelItem !== null && panierActuelItem.exerciceId === exerciceId) return true
+        if (panierActuelItem !== null && panierActuelItem.id === exerciceId) return true
       }
     }
     return false

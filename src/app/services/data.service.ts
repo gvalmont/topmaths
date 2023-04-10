@@ -52,7 +52,7 @@ export class DataService {
       this.dataMAJ.emit('niveauxSequences')
 
       this.httpClient.get<NiveauObjectif[]>('assets/data/objectifs.json?' + environment.appVersion).subscribe(niveauxObjectifs => {
-        this.niveauxObjectifs = this.ajouterObjectifsParThemeParPeriode(this.ajouterPeriode(niveauxObjectifs))
+        this.niveauxObjectifs = this.preTraiterObjectifs(niveauxObjectifs)
         this.dataMAJ.emit('niveauxObjectifs')
         if (isDevMode()) this.checksDeRoutine()
       })
@@ -67,17 +67,22 @@ export class DataService {
     })
   }
 
-  ajouterPeriode (niveaux: NiveauObjectif[]) {
+  preTraiterObjectifs (niveaux: NiveauObjectif[]) {
     for (const niveau of niveaux) {
       for (const theme of niveau.themes) {
         for (const sousTheme of theme.sousThemes) {
           for (const objectif of sousTheme.objectifs) {
             objectif.periode = this.trouverPeriode(objectif.reference)
+            let numeroExercice = 1
+            for (const exercice of objectif.exercices) {
+              exercice.id = objectif.reference + '-' + numeroExercice
+              numeroExercice++
+            }
           }
         }
       }
     }
-    return niveaux
+    return this.ajouterObjectifsParThemeParPeriode(niveaux)
   }
 
   ajouterObjectifsParThemeParPeriode (niveaux: NiveauObjectif[]) {

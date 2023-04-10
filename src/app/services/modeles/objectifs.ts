@@ -71,14 +71,14 @@ export class Video {
 }
 
 export class Exercice {
-  public id: number
+  public id: string
   public slug: string
   public lien: string
   public isInteractif: boolean
   public description: string
   public estDansLePanier?: boolean
 
-  constructor (id: number, slug: string, lien: string, isInteractif: boolean, description: string) {
+  constructor (id: string, slug: string, lien: string, isInteractif: boolean, description: string) {
     this.id = id
     this.slug = slug
     this.lien = lien

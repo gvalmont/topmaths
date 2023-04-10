@@ -1,11 +1,11 @@
 export class PanierItem {
-  exerciceId: number
+  id: string
   objectif: string
   description: string
   slug: string
 
-  constructor (exerciceId: number, objectif: string, description: string, slug: string) {
-    this.exerciceId = exerciceId
+  constructor (id: string, objectif: string, description: string, slug: string) {
+    this.id = id
     this.objectif = objectif
     this.description = description
     this.slug = slug
