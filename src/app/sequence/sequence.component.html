@@ -1,18 +1,18 @@
 <div class="container is-max-desktop centre">
-  <h1 id="titre" [class]="'title is-2 is-' + niveau" [innerHTML]="titre"></h1>
+  <h1 id="titre" [class]="'title is-2 is-' + niveau" [innerHTML]="'Séquence ' + sequence.reference.slice(3) + ' :<br>' + sequence.titre"></h1>
   <div [class]="'is-' + niveau">
     <h2 [class]="'subtitle is-3 is-' + niveau">Automatismes</h2>
     <div class="p-1 py-5 is-size-5">
-      <div *ngFor="let objectif of objectifs" class="p-1">
+      <div *ngFor="let objectif of sequence.objectifs" class="p-1">
         <a [routerLink]="['/objectif',objectif.reference]">{{objectif.reference}} : {{objectif.titre}}</a>
       </div>
     </div>
   </div>
-  <div [class]="'is-' + niveau" *ngIf="calculsMentaux[0] !== undefined && calculsMentaux[0].reference !== ''; else divPasDeCalculMental">
+  <div [class]="'is-' + niveau" *ngIf="sequence.calculsMentaux[0] !== undefined && sequence.calculsMentaux[0].reference !== ''; else divPasDeCalculMental">
     <h2 id="calculMental" [class]="'subtitle is-3 is-' + niveau">Calcul Mental</h2>
-    <div *ngIf="calculsMentaux[0].reference !== ''">
+    <div *ngIf="sequence.calculsMentaux[0].reference !== ''">
       <p>Dans cette séquence, le calcul mental pourra porter sur :</p>
-      <div *ngFor="let calculMental of calculsMentaux; index as i" class='pb-5'>
+      <div *ngFor="let calculMental of sequence.calculsMentaux; index as i" class='pb-5'>
         <p *ngIf="calculMental.pageExiste">
           <a [routerLink]="['/objectif', calculMental.reference]">
             {{calculMental.reference}} : {{calculMental.titre}}
@@ -21,11 +21,11 @@
         <p *ngIf="!calculMental.pageExiste">
           {{calculMental.reference}} : {{calculMental.titre}}
         </p>
-        <div *ngFor="let niveau of calculMental.niveaux; index as j">
+        <div *ngFor="let niveau of calculMental.exercices; index as j">
           <div><br></div>
           <h3 [class]="'subtitle is-4 is-inline-block'">
             <a (click)="ouvrirModaleExercices(niveau.lien, 'calculMental')" class="is-size-5">
-              {{calculMental.niveaux.length === 1 ? 'S\'entraîner pour le calcul mental' : niveau.commentaire === '' ? 'Calcul mental de niveau ' + (j + 1) : niveau.commentaire }}
+              {{calculMental.exercices.length === 1 ? 'S\'entraîner pour le calcul mental' : niveau.description === '' ? 'Calcul mental de niveau ' + (j + 1) : niveau.description }}
               &nbsp;
               <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer le calcul mental'"></app-bouton-dropdown-simple>
             </a>
@@ -35,16 +35,16 @@
     </div>
   </div>
   <ng-template #divPasDeCalculMental>
-    <div *ngIf="calculsMentaux[0] !== undefined && calculsMentaux[0].niveaux[0] !== undefined && calculsMentaux[0].niveaux[0].commentaire !== ''" [class]="'pb-5 is-' + niveau">
+    <div *ngIf="sequence.calculsMentaux[0] !== undefined && sequence.calculsMentaux[0].exercices[0] !== undefined && sequence.calculsMentaux[0].exercices[0].description !== ''" [class]="'pb-5 is-' + niveau">
       <h2 [class]="'subtitle is-3 is-' + niveau">Calcul Mental</h2><br>
-      <p [mathjax]="calculsMentaux[0].niveaux[0].commentaire" class="is-size-5"></p>
+      <p [mathjax]="sequence.calculsMentaux[0].exercices[0].description" class="is-size-5"></p>
     </div>
   </ng-template>
-  <div [class]="'pb-5 is-' + niveau" *ngIf="questionsFlash[0] !== undefined && questionsFlash[0].slug !== ''">
+  <div [class]="'pb-5 is-' + niveau" *ngIf="sequence.questionsFlash[0] !== undefined && sequence.questionsFlash[0].slug !== ''">
     <h2 id="questionsFlash" [class]="'subtitle is-3 is-' + niveau">Questions Flash</h2>
     <p>Dans cette séquence, les questions flash pourront porter sur :</p>
     <div class="p-1">
-      <div class="p-1" *ngFor="let questionFlash of questionsFlash; index as i">
+      <div class="p-1" *ngFor="let questionFlash of sequence.questionsFlash; index as i">
         <p *ngIf="questionFlash.pageExiste">
           <a [routerLink]="['/objectif',questionFlash.reference]">{{questionFlash.reference}} :
             {{questionFlash.titre}}
@@ -56,46 +56,70 @@
       </div>
     </div>
     <div class="pt-5 pb-1">
-      <a (click)="ouvrirModaleExercices(lienQuestionsFlash, 'questionsFlash')" class="is-size-5">S'entraîner pour les Questions Flash
+      <a (click)="ouvrirModaleExercices(sequence.lienQuestionsFlash, 'questionsFlash')" class="is-size-5">S'entraîner pour les Questions Flash
         &nbsp;
         <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer les Questions Flash'"></app-bouton-dropdown-simple>
       </a>
       <span *ngIf="storageService.modeEnseignant">
         &nbsp;
-        <app-bouton-imprimer [lien]="lienQuestionsFlash"></app-bouton-imprimer>
+        <app-bouton-imprimer [lien]="sequence.lienQuestionsFlash"></app-bouton-imprimer>
       </span>
     </div>
   </div>
-  <div id="divEvaluation" [class]="'is-fin pb-5 is-' + niveau">
+  <div id="divEvaluation" [class]="'pb-5 is-' + niveau + (sequence.telechargementsDisponibles.cours || sequence.telechargementsDisponibles.resume || sequence.telechargementsDisponibles.mission ? '' : ' is-fin')">
     <h2 id="Evaluation" [class]="'subtitle is-3 is-' + niveau">Évaluation</h2>
     <br>
-    <a (click)="ouvrirModaleExercices(lienEval, 'Evaluation')" class="is-size-5">
+    <a (click)="ouvrirModaleExercices(sequence.lienEval, 'Evaluation')" class="is-size-5">
       S'entraîner pour l'évaluation{{niveau === '3e' ? ' (Automatismes)' : ''}}
       &nbsp;
       <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer un entraînement'"></app-bouton-dropdown-simple>
     </a>
     <span *ngIf="storageService.modeEnseignant">
       &nbsp;
-      <app-bouton-imprimer [lien]="lienEval"></app-bouton-imprimer>
+      <app-bouton-imprimer [lien]="sequence.lienEval"></app-bouton-imprimer>
     </span>
-    <div *ngIf="niveau === '3e' && lienEvalBrevet !== '' && lienEvalBrevet !== undefined">
-      <a (click)="ouvrirModaleExercices(lienEvalBrevet, 'Evaluation')" class="is-size-5">
+    <div *ngIf="niveau === '3e' && sequence.lienEvalBrevet !== '' && sequence.lienEvalBrevet !== undefined">
+      <a (click)="ouvrirModaleExercices(sequence.lienEvalBrevet, 'Evaluation')" class="is-size-5">
         S'entraîner pour l'évaluation (Exercices de brevet)
         &nbsp;
         <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer un entraînement'"></app-bouton-dropdown-simple>
       </a>
       <span *ngIf="storageService.modeEnseignant">
         &nbsp;
-        <app-bouton-imprimer [lien]="lienEvalBrevet"></app-bouton-imprimer>
+        <app-bouton-imprimer [lien]="sequence.lienEvalBrevet"></app-bouton-imprimer>
       </span>
     </div>
   </div>
-  <div id="divTelechargements" [class]="'pb-5 cache is-fin is-' + niveau">
+  <div *ngIf="sequence.telechargementsDisponibles.cours || sequence.telechargementsDisponibles.resume || sequence.telechargementsDisponibles.mission" [class]="'pb-5 is-fin is-' + niveau">
     <h2 [class]="'subtitle is-3 is-' + niveau">Téléchargements</h2>
     <div class="p-1">
-      <div id="lienCours" class="p-1 cache"></div>
-      <div id="lienResume" class="p-1 cache"></div>
-      <div id="lienMission" class="p-1 cache"></div>
+      <div *ngIf="sequence.telechargementsDisponibles.cours" class="p-1">
+        <a [href]="'assets/cours/' + niveau + '/Cours_' + reference + '.pdf'">
+          Télécharger le cours
+            &nbsp;
+            <i class='image is-24x24 is-inline-block'>
+              <img src='/assets/img/cc0/pdf-file-format-symbol-svgrepo-com.svg' />
+            </i>
+          </a>
+      </div>
+      <div *ngIf="sequence.telechargementsDisponibles.resume" class="p-1">
+        <a [href]="'assets/resume/' + niveau + '/Resume_' + reference + '.pdf'">
+          Télécharger le résumé
+            &nbsp;
+            <i class='image is-24x24 is-inline-block'>
+              <img src='/assets/img/cc0/pdf-file-format-symbol-svgrepo-com.svg' />
+            </i>
+          </a>
+        </div>
+      <div *ngIf="sequence.telechargementsDisponibles.mission" class="p-1">
+        <a [href]="'assets/mission/' + niveau + '/Mission_' + reference + '.pdf'">
+          Télécharger la mission
+            &nbsp;
+            <i class='image is-24x24 is-inline-block'>
+              <img src='/assets/img/cc0/pdf-file-format-symbol-svgrepo-com.svg' />
+            </i>
+          </a>
+        </div>
     </div>
   </div>
 </div>

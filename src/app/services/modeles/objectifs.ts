@@ -1,3 +1,4 @@
+
 export class Niveau {
   public nom: string
   public themes: Theme[]
@@ -41,8 +42,13 @@ export class Objectif {
   public rappelDuCoursInstrumenpoche: string
   public videos: Video[]
   public exercices: Exercice[]
+  public sequences: Sequence[]
+  public lienExercices: string
+  public telechargementsDisponibles: TelechargementsDisponibles
 
-  constructor (reference: string, titre: string, periode: number, rappelDuCoursHTML: string, rappelDuCoursImage: string, rappelDuCoursInstrumenpoche: string, videos: Video[], exercices: Exercice[]) {
+  constructor (reference: string, titre: string, periode: number, rappelDuCoursHTML: string, rappelDuCoursImage: string,
+    rappelDuCoursInstrumenpoche: string, videos: Video[], exercices: Exercice[], sequences: Sequence[], lienExercices: string,
+    telechargementsDisponibles: TelechargementsDisponibles) {
     this.reference = reference
     this.titre = titre
     this.periode = periode
@@ -51,6 +57,9 @@ export class Objectif {
     this.rappelDuCoursInstrumenpoche = rappelDuCoursInstrumenpoche
     this.videos = videos
     this.exercices = exercices
+    this.sequences = sequences
+    this.lienExercices = lienExercices
+    this.telechargementsDisponibles = telechargementsDisponibles
   }
 }
 
@@ -84,5 +93,25 @@ export class Exercice {
     this.lien = lien
     this.isInteractif = isInteractif
     this.description = description
+  }
+}
+
+export class Sequence {
+  public reference: string
+  public titre: string
+
+  constructor (reference: string, titre: string) {
+    this.reference = reference
+    this.titre = titre
+  }
+}
+
+export class TelechargementsDisponibles {
+  public entrainement: boolean
+  public test: boolean
+
+  constructor (entrainement: boolean, test: boolean) {
+    this.entrainement = entrainement
+    this.test = test
   }
 }

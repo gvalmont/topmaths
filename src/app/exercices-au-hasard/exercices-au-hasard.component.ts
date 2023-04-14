@@ -1,12 +1,10 @@
 import { ViewportScroller } from '@angular/common'
-import { Component, isDevMode } from '@angular/core'
+import { Component } from '@angular/core'
 import { Niveau as NiveauObjectif } from 'src/app/services/modeles/objectifs'
 import { Niveau as NiveauSequence } from 'src/app/services/modeles/sequences'
-import { environment } from 'src/environments/environment'
 import { CalendrierService } from '../services/calendrier.service'
 import { DataService } from '../services/data.service'
 import { OutilsService } from '../services/outils.service'
-import { Exercice } from 'src/app/services/modeles/objectifs'
 
 @Component({
   selector: 'app-exercices-au-hasard',
@@ -30,27 +28,47 @@ export class ExercicesAuHasardComponent {
 
   lancerExercices (niveauChoisi: string) {
     if (this.calendrierService.periodeNumero > 0) {
-      const listeReferences = this.getListeDesReferences(niveauChoisi, this.dataService.niveauxSequences)
-      const listeDesUrl = this.getListeDesExercices(listeReferences, niveauChoisi, this.dataService.niveauxObjectifs)
+      const listeDesReferences = this.getListeDesReferences(niveauChoisi, this.dataService.niveauxSequences)
+      const listeDesUrl = this.getListeDesUrl(listeDesReferences, this.dataService.niveauxObjectifs)
       this.infosModale = [ listeDesUrl, 'exerciceAuHasard', new Date() ]
     }
   }
 
   getListeDesReferences (niveauChoisi: string, niveaux: NiveauSequence[]) {
-    const listeReferences: string[] = []
+    const listeDesReferences: string[] = []
     for (const niveau of niveaux) {
       if (niveau.nom === niveauChoisi || niveauChoisi === 'tout') {
         const derniereSequence = this.getDerniereSequence()
         for (const sequence of niveau.sequences) {
           if (parseInt(sequence.reference.slice(3)) <= derniereSequence) {
             for (const objectif of sequence.objectifs) {
-              listeReferences.push(objectif.reference)
+              listeDesReferences.push(objectif.reference)
             }
           }
         }
       }
     }
-    return listeReferences
+    return listeDesReferences
+  }
+
+  getListeDesUrl (listeDesReferences: string[], niveaux: NiveauObjectif[]) {
+    const listeDesUrl: string[] = []
+    for (const niveau of niveaux) {
+      for (const theme of niveau.themes) {
+        for (const sousTheme of theme.sousThemes) {
+          for (const objectif of sousTheme.objectifs) {
+            for (const reference of listeDesReferences) {
+              if (reference === objectif.reference) {
+                for (const exercice of objectif.exercices) {
+                  listeDesUrl.push(exercice.lien)
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    return listeDesUrl
   }
 
   getDerniereSequence () {
@@ -90,52 +108,5 @@ export class ExercicesAuHasardComponent {
         }
     }
     return 0
-  }
-
-  getListeDesExercices (listeReferences: string[], niveauChoisi: string, niveaux: NiveauObjectif[]) {
-    const listeExercices: Exercice[] = []
-    const listeDesUrl: string[] = []
-    for (const niveau of niveaux) {
-      for (const theme of niveau.themes) {
-        for (const sousTheme of theme.sousThemes) {
-          for (const objectif of sousTheme.objectifs) {
-            for (const reference of listeReferences) {
-              if (reference === objectif.reference) {
-                for (const exercice of objectif.exercices) {
-                  listeExercices.push({
-                    id: exercice.id,
-                    slug: exercice.slug,
-                    lien: `${environment.urlMathALEA}ex=${exercice.slug},i=0&v=e&z=1.5`,
-                    isInteractif: false,
-                    description: ''
-                  })
-                  listeExercices[listeExercices.length - 1].lien = listeExercices[listeExercices.length - 1].lien.replace(/&ex=/g, ',i=0&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
-                  if (this.outils.estMathsMentales(exercice.slug)) {
-                    listeExercices[listeExercices.length - 1].lien = exercice.slug + '&embed=' + environment.origine
-                  } else if (exercice.slug.slice(0, 4) === 'http') {
-                    listeExercices[listeExercices.length - 1].lien = exercice.slug
-                  }
-                  listeDesUrl.push(listeExercices[listeExercices.length - 1].lien)
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    if (isDevMode() && niveauChoisi !== 'tout') {
-      this.verifierPresenceDoublons(listeExercices)
-    }
-    return listeDesUrl
-  }
-
-  verifierPresenceDoublons (listeExercices: Exercice[]) {
-    const listeDesId: string[] = []
-    for (const exercice of listeExercices) {
-      for (const id of listeDesId) {
-        if (exercice.id === id) alert('id ' + id + ' trouvé 2 fois !')
-      }
-      listeDesId.push(exercice.id)
-    }
   }
 }

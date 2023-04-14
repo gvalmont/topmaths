@@ -1,16 +1,8 @@
 import { Component, EventEmitter, Input, isDevMode, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core'
 import { Subscription } from 'rxjs'
-import { environment } from 'src/environments/environment'
 import { DataService } from '../services/data.service'
-import { Niveau as NiveauObjectif } from '../services/modeles/objectifs'
-import { Niveau as NiveauSequence } from '../services/modeles/sequences'
 import { OutilsService } from '../services/outils.service'
 import { StorageService } from '../services/storage.service'
-
-interface Exercice {
-  lien: string
-  isInteractif: boolean
-}
 
 @Component({
   selector: 'app-modale-exercices',
@@ -28,7 +20,6 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
   boutonPauseMetacognitive!: HTMLElement
   divConfirmationCopie!: HTMLDivElement
   lienSpinner: string
-  listeExercices: Exercice[]
   dataMAJSubscription: Subscription
   etapePauseMetacognitive: number
 
@@ -36,7 +27,6 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
   constructor (private dataService: DataService, public storageService: StorageService, private outilsService: OutilsService) {
     this.infosModale = [[], '', new Date() ]
     this.lienSpinner = ''
-    this.listeExercices = []
     this.set('indiceExerciceActuel', 0)
     this.set('urlDejaFaits', [''])
     this.set('exercicesDejaFaits', [''])
@@ -87,57 +77,8 @@ export class ModaleExercicesComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   MAJComponent () {
-    this.MAJListeExercices()
-    this.MAJElementsHTML()
-  }
-
-  /**
-   * Ajoute tous les exercices du objectifs.json à la liste des exercices,
-   * puis ajoute tous les calculs mentaux du sequences.json à la liste des exercices,
-   * enfin lance la création du listener des messages post (car ces listes d'exercices seront "embed" avec le listener et ne pourra plus être modifiée)
-   */
-  MAJListeExercices () {
-    this.MAJExercicesObjectifs(this.dataService.niveauxObjectifs)
-    this.MAJExercicesSequences(this.dataService.niveauxSequences)
     this.creerListenerMessagesPost()
-  }
-
-  MAJExercicesObjectifs (niveaux: NiveauObjectif[]) {
-    for (const niveau of niveaux) {
-      for (const theme of niveau.themes) {
-        for (const sousTheme of theme.sousThemes) {
-          for (const objectif of sousTheme.objectifs) {
-            for (const exercice of objectif.exercices) {
-              this.listeExercices.push({
-                lien: `${environment.urlMathALEA}ex=${exercice.slug},i=0&v=e&z=1.5`,
-                isInteractif: exercice.isInteractif
-              })
-              this.listeExercices[this.listeExercices.length - 1].lien = this.listeExercices[this.listeExercices.length - 1].lien.replace(/&ex=/g, ',i=0&ex=') // dans le cas où il y aurait plusieurs exercices dans le même slug
-              if (this.outilsService.estMathsMentales(exercice.slug)) {
-                this.listeExercices[this.listeExercices.length - 1].lien = exercice.slug + '&embed=' + environment.origine
-              } else if (exercice.slug.slice(0, 4) === 'http') {
-                this.listeExercices[this.listeExercices.length - 1].lien = exercice.slug
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  MAJExercicesSequences (niveaux: NiveauSequence[]) {
-    for (const niveau of niveaux) {
-      for (const sequence of niveau.sequences) {
-        for (const calculMental of sequence.calculsMentaux) {
-          for (const niveau of calculMental.niveaux) {
-            this.listeExercices.push({
-              lien: niveau.lien + '&embed=' + environment.origine,
-              isInteractif: false
-            })
-          }
-        }
-      }
-    }
+    this.MAJElementsHTML()
   }
 
   creerListenerMessagesPost () {

@@ -15,7 +15,7 @@
   <ul>
     <li class="is-size-5" *ngFor="let panierItem of panier">
       <div *ngIf="panierItem !== null && panierItem !== undefined" [ngClass]="'is-' + panierItem.objectif.slice(0, 1) + 'e'">
-        {{ panierItem.objectif }} - {{ panierItem.description }}
+        {{ panierItem.objectif }}{{ panierItem.description === 'Lancer l\'exercice' ? '' : ' - ' + panierItem.description }}
         &nbsp;
         <a (click)="retirerDuPanier(panierItem)">
           <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/cart-minus-svgrepo-com.svg'" [dropdown]="'Retirer l\'exercice au panier'"></app-bouton-dropdown-simple>

@@ -31,6 +31,12 @@
         <i class="image is-48x48"><img src="assets/img/cc0/cart-content-svgrepo-com.svg" /></i>
       </a>
     </li>
+    <li *ngIf="afficherTelechargerJson">
+      <a (click)="telechargerJSON()" class="tabs-menu-link is-black-and-yellow">
+        <i class="image is-48x48"><img src="assets/img/cc0/filetype-json.svg" /></i>
+        <div id="compteurAvantTelechargement" style="position: absolute;" class="is-size-6"></div>
+      </a>
+    </li>
   </ul>
 </div>
 <!-- Affichage principal -->

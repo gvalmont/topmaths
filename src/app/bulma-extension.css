@@ -2,7 +2,7 @@
 ***** Header
 ****************************************************************************************************/
 /* Met en blanc les icones lors du survol */
-.tabs-menu-link:hover i {
+.tabs-menu-link:hover:not(.is-black-and-yellow) i {
   filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
 }
 
@@ -45,6 +45,10 @@ li:hover .is-sponsor {
 
 li:hover .is-fuchsia {
   background-color: #c75ad5;
+}
+
+li:hover .is-black-and-yellow {
+  background-color: #f7df1c;
 }
 
 li:hover .is-green {
@@ -91,6 +95,10 @@ li.is-actif .is-sponsor {
 
 li.is-actif .is-fuchsia {
   background-color: #c75ad5;
+}
+
+li.is-actif .is-black-and-yellow {
+  background-color: #f7df1c;
 }
 
 li.is-actif .is-green {
@@ -179,6 +187,10 @@ button:not(.is-outlined)>i {
 
 .is-fuchsia i {
   filter: invert(66%) sepia(95%) saturate(7499%) hue-rotate(280deg) brightness(89%) contrast(100%);
+}
+
+.is-black-and-yellow i {
+  filter: invert(0%) sepia(7%) saturate(7470%) hue-rotate(19deg) brightness(101%) contrast(108%);
 }
 
 .is-green i {

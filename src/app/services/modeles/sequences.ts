@@ -1,3 +1,5 @@
+import { Exercice, Objectif } from "./objectifs"
+
 export class Niveau {
   public nom: string
   public sequences: Sequence[]
@@ -15,52 +17,40 @@ export class Sequence {
   public objectifs: Objectif[]
   public calculsMentaux: CalculMental[]
   public questionsFlash: QuestionFlash[]
+  public lienQuestionsFlash: string
   public slugEvalBrevet: string
+  public lienEval: string
+  public lienEvalBrevet: string
+  public telechargementsDisponibles: TelechargementsDisponibles
 
-  constructor (reference: string, titre: string, periode: number, objectifs: Objectif[], calculsMentaux: CalculMental[], questionsFlash: QuestionFlash[], slugEvalBrevet: string) {
+  constructor (reference: string, titre: string, periode: number, objectifs: Objectif[], calculsMentaux: CalculMental[],
+    questionsFlash: QuestionFlash[], lienQuestionsFlash: string, slugEvalBrevet: string, lienEval: string,
+    lienEvalBrevet: string, telechargementsDisponibles: TelechargementsDisponibles) {
     this.reference = reference
     this.titre = titre
     this.periode = periode
     this.objectifs = objectifs
     this.calculsMentaux = calculsMentaux
     this.questionsFlash = questionsFlash
+    this.lienQuestionsFlash = lienQuestionsFlash
     this.slugEvalBrevet = slugEvalBrevet
-  }
-}
-
-export class Objectif {
-  public reference: string
-  public titre?: string
-  public slugs: string[]
-
-  constructor (reference: string, titre: string, slugs: string[]) {
-    this.reference = reference
-    this.titre = titre
-    this.slugs = slugs
+    this.lienEval = lienEval
+    this.lienEvalBrevet = lienEvalBrevet
+    this.telechargementsDisponibles = telechargementsDisponibles
   }
 }
 
 export class CalculMental {
   public reference: string
   public titre: string
-  public niveaux: NiveauCM[]
+  public exercices: Exercice[]
   public pageExiste: boolean
 
-  constructor (reference: string, titre: string, niveaux: NiveauCM[], pageExiste: boolean) {
+  constructor (reference: string, titre: string, exercices: Exercice[], pageExiste: boolean) {
     this.reference = reference
     this.titre = titre
-    this.niveaux = niveaux
+    this.exercices = exercices
     this.pageExiste = pageExiste
-  }
-}
-
-export class NiveauCM {
-  public commentaire: string
-  public lien: string
-
-  constructor (commentaire: string, lien: string) {
-    this.commentaire = commentaire
-    this.lien = lien
   }
 }
 
@@ -75,6 +65,18 @@ export class QuestionFlash {
     this.titre = titre
     this.slug = slug
     this.pageExiste = pageExiste
+  }
+}
+
+export class TelechargementsDisponibles {
+  public cours: boolean
+  public resume: boolean
+  public mission: boolean
+
+  constructor (cours: boolean, resume: boolean, mission: boolean) {
+    this.cours = cours
+    this.resume = resume
+    this.mission = mission
   }
 }
 

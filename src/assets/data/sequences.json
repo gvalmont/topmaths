@@ -21,10 +21,10 @@
           {
             "reference": "6C10",
             "titre": "Connaître les tables de multiplication",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
                 "score": 2
               }
             ]
@@ -59,10 +59,10 @@
           {
             "reference": "6N12",
             "titre": "Multiplier ou diviser un entier par 10, 100, 1 000… (résultat entier)",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=9NE1~o=0,1,2~q=0.0,1-1.0,1-2.0,1~p=~t=12~n=4_i=7NE2~o=3,4,5~q=3.-4.-5.~p=~t=12~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=9NE1~o=0,1,2~q=0.0,1-1.0,1-2.0,1~p=~t=12~n=4_i=7NE2~o=3,4,5~q=3.-4.-5.~p=~t=12~n=4",
                 "score": 2
               }
             ]
@@ -92,10 +92,10 @@
           {
             "reference": "6C10",
             "titre": "Connaître les tables de multiplication",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
                 "score": 2
               }
             ]
@@ -136,10 +136,10 @@
           {
             "reference": "6C23",
             "titre": "Ajouter et soustraire des fractions de même dénominateur",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=1~q=1.~p=~t=15~n=4_i=5NC8~o=0~q=0.~p=~t=15~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=1~q=1.~p=~t=15~n=4_i=5NC8~o=0~q=0.~p=~t=15~n=4",
                 "score": 2
               }
             ]
@@ -185,10 +185,10 @@
           {
             "reference": "6N12",
             "titre": "Multiplier ou diviser un entier par 10, 100, 1 000… (résultat entier)",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=9NE1~o=0,1,2~q=0.0,1-1.0,1-2.0,1~p=~t=12~n=4_i=7NE2~o=3,4,5~q=3.-4.-5.~p=~t=12~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=9NE1~o=0,1,2~q=0.0,1-1.0,1-2.0,1~p=~t=12~n=4_i=7NE2~o=3,4,5~q=3.-4.-5.~p=~t=12~n=4",
                 "score": 2
               }
             ]
@@ -223,10 +223,10 @@
           {
             "reference": "6C10",
             "titre": "Connaître les tables de multiplication",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
                 "score": 2
               }
             ]
@@ -261,10 +261,10 @@
           {
             "reference": "6N35",
             "titre": "Multiplier ou diviser un nombre entier ou décimal par 10, 100, 1 000… (résultat décimal)",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=8NE5~o=~q=~p=~t=18~n=4_i=8NE4~o=0,1,2,3,4,5,6,7,8~q=0.-1.-2.-3.-4.-5.-6.-7.-8.~p=~t=18~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=8NE5~o=~q=~p=~t=18~n=4_i=8NE4~o=0,1,2,3,4,5,6,7,8~q=0.-1.-2.-3.-4.-5.-6.-7.-8.~p=~t=18~n=4",
                 "score": 2
               }
             ]
@@ -302,10 +302,10 @@
           {
             "reference": "6N31",
             "titre": "Comparer des nombres décimaux",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NC7~o=2~q=2.~p=~t=24~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NC7~o=2~q=2.~p=~t=24~n=8",
                 "score": 2
               }
             ]
@@ -340,10 +340,10 @@
           {
             "reference": "6C10",
             "titre": "Connaître les tables de multiplication",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
                 "score": 2
               }
             ]
@@ -381,15 +381,15 @@
           {
             "reference": "6C20",
             "titre": "Additionner ou soustraire des nombres décimaux",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=8NE1~o=0,1~q=0.-1.~p=~t=24~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=8NE1~o=0,1~q=0.-1.~p=~t=24~n=8",
                 "score": 2
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=8NE1~o=1,2~q=0.-1.-2.~p=~t=24~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=8NE1~o=1,2~q=0.-1.-2.~p=~t=24~n=8",
                 "score": 2
               }
             ]
@@ -424,10 +424,10 @@
           {
             "reference": "6G22-2",
             "titre": "Estimer si un angle est droit, aigu ou obtus",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "6G22-2,n=8,cd=1&duree=20",
+                "description": "",
+                "slug": "6G22-2,n=8,cd=1&duree=20",
                 "score": 2
               }
             ]
@@ -462,10 +462,10 @@
           {
             "reference": "6C10",
             "titre": "Connaître les tables de multiplication",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
                 "score": 2
               }
             ]
@@ -474,7 +474,7 @@
         "questionsFlash": [
           {
             "reference": "6N20",
-            "titre": "Faire le lien entre les fractions et les nombres entiers",
+            "titre": "Faire le slug entre les fractions et les nombres entiers",
             "slug": "6N20,s=false,n=1"
           },
           {
@@ -500,10 +500,10 @@
           {
             "reference": "6N35",
             "titre": "Multiplier ou diviser un nombre entier ou décimal par 10, 100, 1 000… (résultat décimal)",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=8NE5~o=~q=~p=~t=18~n=4_i=8NE4~o=0,1,2,3,4,5,6,7,8~q=0.-1.-2.-3.-4.-5.-6.-7.-8.~p=~t=18~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=8NE5~o=~q=~p=~t=18~n=4_i=8NE4~o=0,1,2,3,4,5,6,7,8~q=0.-1.-2.-3.-4.-5.-6.-7.-8.~p=~t=18~n=4",
                 "score": 2
               }
             ]
@@ -541,10 +541,10 @@
           {
             "reference": "6C23",
             "titre": "Ajouter et soustraire des fractions de même dénominateur",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=1~q=1.~p=~t=15~n=4_i=5NC8~o=0~q=0.~p=~t=15~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=1~q=1.~p=~t=15~n=4_i=5NC8~o=0~q=0.~p=~t=15~n=4",
                 "score": 2
               }
             ]
@@ -579,10 +579,10 @@
           {
             "reference": "6C25",
             "titre": "Multiplier en utilisant la distributivité simple",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND9~o=0~q=0.0,1,2~p=~t=24~n=4_i=6ND18~o=0~q=0.0,1~p=~t=24~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND9~o=0~q=0.0,1,2~p=~t=24~n=4_i=6ND18~o=0~q=0.0,1~p=~t=24~n=4",
                 "score": 2
               }
             ]
@@ -617,10 +617,10 @@
           {
             "reference": "6C23",
             "titre": "Ajouter et soustraire des fractions de même dénominateur",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=1~q=1.~p=~t=15~n=4_i=5NC8~o=0~q=0.~p=~t=15~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=1~q=1.~p=~t=15~n=4_i=5NC8~o=0~q=0.~p=~t=15~n=4",
                 "score": 2
               }
             ]
@@ -655,10 +655,10 @@
           {
             "reference": "6C24",
             "titre": "Multiplier ou diviser par 0,1 ; 0,01 ; 0,001",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=6NE9~o=0,1,2~q=0.0,1,2-1.0,1,2-2.0,1,2~p=~t=20~n=2_i=6NE2~o=0,1,2~q=0.0,1-1.0,1-2.0,1~p=~t=20~n=2_i=4NC2~o=0,1,2~q=0.-1.-2.~p=~t=20~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=6NE9~o=0,1,2~q=0.0,1,2-1.0,1,2-2.0,1,2~p=~t=20~n=2_i=6NE2~o=0,1,2~q=0.0,1-1.0,1-2.0,1~p=~t=20~n=2_i=4NC2~o=0,1,2~q=0.-1.-2.~p=~t=20~n=4",
                 "score": 2
               }
             ]
@@ -693,15 +693,15 @@
           {
             "reference": "6C20",
             "titre": "Additionner ou soustraire des nombres décimaux",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=8NE1~o=0,1~q=0.-1.~p=~t=24~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=8NE1~o=0,1~q=0.-1.~p=~t=24~n=8",
                 "score": 2
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=8NE1~o=1,2~q=0.-1.-2.~p=~t=24~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=8NE1~o=1,2~q=0.-1.-2.~p=~t=24~n=8",
                 "score": 2
               }
             ]
@@ -736,10 +736,10 @@
           {
             "reference": "6N44",
             "titre": "Utiliser des fractions pour exprimer un quotient",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://coopmaths.fr/alea/?uuid=4d0dd&id=6N23-5&n=4&d=30&alea=uaDg&v=diaporama",
+                "description": "",
+                "slug": "https://coopmaths.fr/alea/?uuid=4d0dd&id=6N23-5&n=4&d=30&alea=uaDg&v=diaporama",
                 "score": 2
               }
             ]
@@ -771,10 +771,10 @@
           {
             "reference": "6C25",
             "titre": "Multiplier en utilisant la distributivité simple",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND9~o=0~q=0.0,1,2~p=~t=24~n=4_i=6ND18~o=0~q=0.0,1~p=~t=24~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND9~o=0~q=0.0,1,2~p=~t=24~n=4_i=6ND18~o=0~q=0.0,1~p=~t=24~n=4",
                 "score": 2
               }
             ]
@@ -809,10 +809,10 @@
           {
             "reference": "6C10",
             "titre": "Connaître les tables de multiplication",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
                 "score": 2
               }
             ]
@@ -852,10 +852,10 @@
           {
             "reference": "6C10",
             "titre": "Connaître les tables de multiplication",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8",
                 "score": 2
               }
             ]
@@ -896,10 +896,10 @@
           {
             "reference": "",
             "titre": "",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "Dans cette séquence, ce sera un peu particulier, nous n'allons pas faire de calcul mental et de questions flash mais allons faire deux séquences en même temps, celle-ci et la suivante : Programmes de calcul « somme et différence »",
-                "lien": ""
+                "description": "Dans cette séquence, ce sera un peu particulier, nous n'allons pas faire de calcul mental et de questions flash mais allons faire deux séquences en même temps, celle-ci et la suivante : Programmes de calcul « somme et différence »",
+                "slug": ""
               }
             ]
           }
@@ -936,10 +936,10 @@
           {
             "reference": "5C12",
             "titre": "Effectuer un enchaînement d’opérations en respectant les priorités opératoires",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=&p=0~t=Diapo%201~c=1~o=true_i=6ND11~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=&p=0~t=Diapo%201~c=1~o=true_i=6ND11~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=8",
                 "score": 3
               }
             ]
@@ -974,10 +974,10 @@
           {
             "reference": "5R22",
             "titre": "Effectuer une somme algébrique",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
                 "score": 3
               }
             ]
@@ -1015,15 +1015,15 @@
           {
             "reference": "5C12",
             "titre": "Effectuer un enchaînement d’opérations en respectant les priorités opératoires",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=4,0~q=0.0,1,2,3-4.0,1,2,3~p=~t=24~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=4,0~q=0.0,1,2,3-4.0,1,2,3~p=~t=24~n=8",
                 "score": 3
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=2,6~q=2.0,1,2,3,4,5-6.0,1,2,3,4,5~p=~t=40~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=2,6~q=2.0,1,2,3,4,5-6.0,1,2,3,4,5~p=~t=40~n=4",
                 "score": 5
               }
             ]
@@ -1061,15 +1061,15 @@
           {
             "reference": "5R20",
             "titre": "Additionner des nombres relatifs",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=10~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=10~n=8",
                 "score": 3
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=0~q=0.~p=~t=10~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=0~q=0.~p=~t=10~n=8",
                 "score": 5
               }
             ]
@@ -1107,20 +1107,20 @@
           {
             "reference": "6N20",
             "titre": "Utiliser les écritures décimales et fractionnaires et passer de l’une à l’autre.",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB1~o=1~q=1.-.~p=~t=20~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB1~o=1~q=1.-.~p=~t=20~n=8",
                 "score": 3
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB1~o=0~q=0.-1.-.~p=~t=40~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB1~o=0~q=0.-1.-.~p=~t=40~n=4",
                 "score": 4
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=6NB1~o=0~q=0.-1.-2.-.~p=~t=30~n=4_i=6NB1~o=1,2~q=0.-1.-2.-.~p=~t=15~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=6NB1~o=0~q=0.-1.-2.-.~p=~t=30~n=4_i=6NB1~o=1,2~q=0.-1.-2.-.~p=~t=15~n=4",
                 "score": 5
               }
             ]
@@ -1155,10 +1155,10 @@
           {
             "reference": "5R21",
             "titre": "Soustraire des nombres relatifs",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC2~o=0~q=0.~p=~t=20~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC2~o=0~q=0.~p=~t=20~n=8",
                 "score": 4
               }
             ]
@@ -1193,10 +1193,10 @@
           {
             "reference": "5R22",
             "titre": "Effectuer une somme algébrique",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
                 "score": 3
               }
             ]
@@ -1231,10 +1231,10 @@
           {
             "reference": "5C12",
             "titre": "Effectuer un enchaînement d’opérations en respectant les priorités opératoires",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=6,7,3,2~q=2.0,1,2,3,4,5-3.0,1,2,3,4,5-6.0,1,2,3,4,5-7.0,1,2,3,4,5~p=~t=32~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=6,7,3,2~q=2.0,1,2,3,4,5-3.0,1,2,3,4,5-6.0,1,2,3,4,5-7.0,1,2,3,4,5~p=~t=32~n=4",
                 "score": 5
               }
             ]
@@ -1269,10 +1269,10 @@
           {
             "reference": "5R22",
             "titre": "Effectuer une somme algébrique",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
                 "score": 3
               }
             ]
@@ -1307,10 +1307,10 @@
           {
             "reference": "5C12",
             "titre": "Effectuer un enchaînement d’opérations en respectant les priorités opératoires",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=6,7,3,2~q=2.0,1,2,3,4,5-3.0,1,2,3,4,5-6.0,1,2,3,4,5-7.0,1,2,3,4,5~p=~t=32~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=6,7,3,2~q=2.0,1,2,3,4,5-3.0,1,2,3,4,5-6.0,1,2,3,4,5-7.0,1,2,3,4,5~p=~t=32~n=4",
                 "score": 5
               }
             ]
@@ -1345,10 +1345,10 @@
           {
             "reference": "5R22",
             "titre": "Effectuer une somme algébrique",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
                 "score": 3
               }
             ]
@@ -1380,10 +1380,10 @@
           {
             "reference": "5N13",
             "titre": "Reconnaître et produire des fractions égales",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB6~o=1,0~q=0.-1.~p=~t=20~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB6~o=1,0~q=0.-1.~p=~t=20~n=8",
                 "score": 2
               }
             ]
@@ -1418,10 +1418,10 @@
           {
             "reference": "5A11",
             "titre": "Utiliser les critères de divisibilité",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND2~o=~q=~p=~t=20~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND2~o=~q=~p=~t=20~n=8",
                 "score": 3
               }
             ]
@@ -1456,10 +1456,10 @@
           {
             "reference": "5A12",
             "titre": "Déterminer les nombres premiers inférieurs ou égaux à 30",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=18~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=18~n=8",
                 "score": 2
               }
             ]
@@ -1494,10 +1494,10 @@
           {
             "reference": "5N13",
             "titre": "Produire des fractions égales",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB6~o=0,1~q=0.-1.~p=~t=18~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB6~o=0,1~q=0.-1.~p=~t=18~n=8",
                 "score": 3
               }
             ]
@@ -1532,10 +1532,10 @@
           {
             "reference": "5L13",
             "titre": "Réduire une expression littérale",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4",
                 "score": 4
               }
             ]
@@ -1573,10 +1573,10 @@
           {
             "reference": "5N20",
             "titre": "Additionner ou soustraire des fractions dont les dénominateurs sont multiples l’un de l’autre",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=30~n=2_i=5NC8~o=1~q=1.~p=~t=30~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=30~n=2_i=5NC8~o=1~q=1.~p=~t=30~n=2",
                 "score": 6
               }
             ]
@@ -1618,10 +1618,10 @@
           {
             "reference": "5R22",
             "titre": "Effectuer une somme algébrique",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
                 "score": 3
               }
             ]
@@ -1658,10 +1658,10 @@
           {
             "reference": "5L13",
             "titre": "Réduire une expression littérale",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4",
                 "score": 4
               }
             ]
@@ -1693,10 +1693,10 @@
           {
             "reference": "5A11",
             "titre": "Utiliser les critères de divisibilité",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND2~o=~q=~p=~t=20~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND2~o=~q=~p=~t=20~n=8",
                 "score": 3
               }
             ]
@@ -1733,10 +1733,10 @@
           {
             "reference": "5L13",
             "titre": "Réduire une expression littérale",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4",
                 "score": 4
               }
             ]
@@ -1771,10 +1771,10 @@
           {
             "reference": "5A12",
             "titre": "Déterminer les nombres premiers inférieurs ou égaux à 30",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=18~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=18~n=8",
                 "score": 2
               }
             ]
@@ -1814,10 +1814,10 @@
           {
             "reference": "5R22",
             "titre": "Effectuer une somme algébrique",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
                 "score": 3
               }
             ]
@@ -1857,10 +1857,10 @@
           {
             "reference": "5L13",
             "titre": "Réduire une expression littérale",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4",
                 "score": 4
               }
             ]
@@ -1903,10 +1903,10 @@
           {
             "reference": "5A11",
             "titre": "Utiliser les critères de divisibilité",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND2~o=~q=~p=~t=20~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND2~o=~q=~p=~t=20~n=8",
                 "score": 3
               }
             ]
@@ -1944,10 +1944,10 @@
           {
             "reference": "5L13",
             "titre": "Réduire une expression littérale",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4",
                 "score": 4
               }
             ]
@@ -2000,10 +2000,10 @@
           {
             "reference": "5R22",
             "titre": "Effectuer une somme algébrique",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8",
                 "score": 3
               }
             ]
@@ -2033,10 +2033,10 @@
           {
             "reference": "5R21",
             "titre": "Additionner ou soustraire des nombres relatifs",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC1~o=0~q=0.~p=~t=15~n=4_i=5NC2~o=0~q=0.~p=~t=15~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC1~o=0~q=0.~p=~t=15~n=4_i=5NC2~o=0~q=0.~p=~t=15~n=4",
                 "score": 3
               }
             ]
@@ -2063,10 +2063,10 @@
           {
             "reference": "4L10-1",
             "titre": "Développer un produit avec des nombres positifs",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=25~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=25~n=4",
                 "score": 6
               }
             ]
@@ -2101,10 +2101,10 @@
           {
             "reference": "5L13",
             "titre": "Réduire une expression littérale",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE2~o=0~q=0.~p=~t=30~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE2~o=0~q=0.~p=~t=30~n=4",
                 "score": 6
               }
             ]
@@ -2144,10 +2144,10 @@
           {
             "reference": "4C11",
             "titre": "Calculer avec des nombres relatifs",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC1~o=0,1~q=0.-1.~p=~t=15~n=4_i=5NC5~o=0~q=0.~p=~t=15~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC1~o=0,1~q=0.-1.~p=~t=15~n=4_i=5NC5~o=0~q=0.~p=~t=15~n=4",
                 "score": 2
               }
             ]
@@ -2179,10 +2179,10 @@
           {
             "reference": "5C12",
             "titre": "Effectuer un enchaînement d’opérations en respectant les priorités opératoires avec des nombres relatifs",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "4C11,s=3,s2=true,n=4&duree=30",
+                "description": "",
+                "slug": "4C11,s=3,s2=true,n=4&duree=30",
                 "score": 3
               }
             ]
@@ -2217,10 +2217,10 @@
           {
             "reference": "4C21",
             "titre": "Additionner ou soustraire des nombres relatifs en écriture fractionnaire",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=25~n=4_i=5NC8~o=3~q=3.0,1~p=~t=25~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=25~n=4_i=5NC8~o=3~q=3.0,1~p=~t=25~n=4",
                 "score": 8
               }
             ]
@@ -2265,20 +2265,20 @@
           {
             "reference": "4L10-2",
             "titre": "Développer un produit ou réduire une expression littérale",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=40~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=40~n=4",
                 "score": 6
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=4",
                 "score": 8
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=2_i=4NE1~o=0,2~q=0.0,1,2,3-2.0,1,2,3~p=~t=40~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=2_i=4NE1~o=0,2~q=0.0,1,2,3-2.0,1,2,3~p=~t=40~n=2",
                 "score": 10
               }
             ]
@@ -2310,10 +2310,10 @@
           {
             "reference": "4A10",
             "titre": "Reconnaître des nombres premiers inférieurs à 30",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=15~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=15~n=8",
                 "score": 3
               }
             ]
@@ -2351,15 +2351,15 @@
           {
             "reference": "4C21",
             "titre": "Additionner ou soustraire des nombres relatifs en écriture fractionnaire",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=25~n=4_i=5NC8~o=3~q=3.0,1~p=~t=25~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=25~n=4_i=5NC8~o=3~q=3.0,1~p=~t=25~n=4",
                 "score": 8
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC8~o=5~q=5.0,1~p=~t=25~n=4_i=5NC7~o=4~q=4.0,1~p=~t=25~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC8~o=5~q=5.0,1~p=~t=25~n=4_i=5NC7~o=4~q=4.0,1~p=~t=25~n=4",
                 "score": 12
               }
             ]
@@ -2404,10 +2404,10 @@
           {
             "reference": "4A10",
             "titre": "Reconnaître des nombres premiers inférieurs à 100",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=1~q=1.~p=~t=15~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=1~q=1.~p=~t=15~n=8",
                 "score": 5
               }
             ]
@@ -2450,15 +2450,15 @@
           {
             "reference": "4L10-2",
             "titre": "Développer un produit ou réduire une expression littérale",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=32~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=32~n=4",
                 "score": 6
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=32~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=32~n=4",
                 "score": 8
               }
             ]
@@ -2493,15 +2493,15 @@
           {
             "reference": "4C23",
             "titre": "Effectuer un calcul avec des nombres relatifs et fractionnaires",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=30~n=2_i=4NC4~o=1~q=1.0~p=~t=36~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=30~n=2_i=4NC4~o=1~q=1.0~p=~t=36~n=2",
                 "score": 3
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
                 "score": 5
               }
             ]
@@ -2536,15 +2536,15 @@
           {
             "reference": "4L10-2",
             "titre": "Développer un produit ou réduire une expression littérale",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=32~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=32~n=4",
                 "score": 6
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=32~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=32~n=4",
                 "score": 8
               }
             ]
@@ -2579,15 +2579,15 @@
           {
             "reference": "4C23",
             "titre": "Effectuer un calcul avec des nombres relatifs et fractionnaires",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4",
                 "score": 3
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
                 "score": 5
               }
             ]
@@ -2619,10 +2619,10 @@
           {
             "reference": "4L11",
             "titre": "Utiliser la propriété de distributivité simple pour factoriser une somme",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4",
                 "score": 10
               }
             ]
@@ -2657,15 +2657,15 @@
           {
             "reference": "4C23",
             "titre": "Effectuer un calcul avec des nombres relatifs et fractionnaires",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4",
                 "score": 3
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
                 "score": 5
               }
             ]
@@ -2708,20 +2708,20 @@
           {
             "reference": "4L10-2",
             "titre": "Développer un produit ou réduire une expression littérale",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=40~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=40~n=4",
                 "score": 6
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=4",
                 "score": 8
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=2_i=4NE1~o=0,2~q=0.0,1,2,3-2.0,1,2,3~p=~t=40~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=2_i=4NE1~o=0,2~q=0.0,1,2,3-2.0,1,2,3~p=~t=40~n=2",
                 "score": 10
               }
             ]
@@ -2729,10 +2729,10 @@
           {
             "reference": "4L11",
             "titre": "Utiliser la propriété de distributivité simple pour factoriser une somme",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4",
                 "score": 10
               }
             ]
@@ -2769,15 +2769,15 @@
           {
             "reference": "4C23",
             "titre": "Effectuer un calcul avec des nombres relatifs et fractionnaires",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4",
                 "score": 3
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
                 "score": 5
               }
             ]
@@ -2814,20 +2814,20 @@
           {
             "reference": "4L10-2",
             "titre": "Développer un produit ou réduire une expression littérale",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=40~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=40~n=4",
                 "score": 6
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=4",
                 "score": 8
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=2_i=4NE1~o=0,2~q=0.0,1,2,3-2.0,1,2,3~p=~t=40~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=2_i=4NE1~o=0,2~q=0.0,1,2,3-2.0,1,2,3~p=~t=40~n=2",
                 "score": 10
               }
             ]
@@ -2835,10 +2835,10 @@
           {
             "reference": "4L11",
             "titre": "Utiliser la propriété de distributivité simple pour factoriser une somme",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4",
                 "score": 10
               }
             ]
@@ -2873,15 +2873,15 @@
           {
             "reference": "4C23",
             "titre": "Effectuer un calcul avec des nombres relatifs et fractionnaires",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4",
                 "score": 3
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
                 "score": 5
               }
             ]
@@ -2916,20 +2916,20 @@
           {
             "reference": "4L10-2",
             "titre": "Développer un produit ou réduire une expression littérale",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=40~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=40~n=4",
                 "score": 6
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=4",
                 "score": 8
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=2_i=4NE1~o=0,2~q=0.0,1,2,3-2.0,1,2,3~p=~t=40~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=2_i=4NE1~o=0,2~q=0.0,1,2,3-2.0,1,2,3~p=~t=40~n=2",
                 "score": 10
               }
             ]
@@ -2937,10 +2937,10 @@
           {
             "reference": "4L11",
             "titre": "Utiliser la propriété de distributivité simple pour factoriser une somme",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4",
                 "score": 10
               }
             ]
@@ -2978,15 +2978,15 @@
           {
             "reference": "4C23",
             "titre": "Effectuer un calcul avec des nombres relatifs et fractionnaires",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4",
                 "score": 3
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
                 "score": 5
               }
             ]
@@ -3024,20 +3024,20 @@
           {
             "reference": "4L10-2",
             "titre": "Développer un produit ou réduire une expression littérale",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=40~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=40~n=4",
                 "score": 6
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=4",
                 "score": 8
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=2_i=4NE1~o=0,2~q=0.0,1,2,3-2.0,1,2,3~p=~t=40~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=2_i=4NE1~o=0,2~q=0.0,1,2,3-2.0,1,2,3~p=~t=40~n=2",
                 "score": 10
               }
             ]
@@ -3045,10 +3045,10 @@
           {
             "reference": "4L11",
             "titre": "Utiliser la propriété de distributivité simple pour factoriser une somme",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4",
                 "score": 10
               }
             ]
@@ -3085,15 +3085,15 @@
           {
             "reference": "4C23",
             "titre": "Effectuer un calcul avec des nombres relatifs et fractionnaires",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4",
                 "score": 3
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2",
                 "score": 5
               }
             ]
@@ -3136,10 +3136,10 @@
           {
             "reference": "4C11",
             "titre": "Calculer avec des nombres relatifs",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC1~o=0,1~q=0.-1.~p=~t=15~n=4_i=5NC5~o=0~q=0.~p=~t=15~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC1~o=0,1~q=0.-1.~p=~t=15~n=4_i=5NC5~o=0~q=0.~p=~t=15~n=4",
                 "score": 2
               }
             ]
@@ -3188,10 +3188,10 @@
           {
             "reference": "4C11",
             "titre": "Calculer avec des nombres relatifs",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC1~o=0,1~q=0.-1.~p=~t=10~n=4_i=5NC5~o=0~q=0.~p=~t=10~n=4",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC1~o=0,1~q=0.-1.~p=~t=10~n=4_i=5NC5~o=0~q=0.~p=~t=10~n=4",
                 "score": 2
               }
             ]
@@ -3230,10 +3230,10 @@
           {
             "reference": "5L13",
             "titre": "Réduire une expression littérale",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE2~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=20~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE2~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=20~n=8",
                 "score": 5
               }
             ]
@@ -3274,15 +3274,15 @@
           {
             "reference": "3A10",
             "titre": "Reconnaître un nombre premier",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "inférieur à 30",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=15~n=8",
+                "description": "inférieur à 30",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=15~n=8",
                 "score": 3
               },
               {
-                "commentaire": "inférieur à 100",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5ND5~o=1~q=1.~p=~t=20~n=8",
+                "description": "inférieur à 100",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5ND5~o=1~q=1.~p=~t=20~n=8",
                 "score": 4
               }
             ]
@@ -3326,10 +3326,10 @@
           {
             "reference": "3N11",
             "titre": "Calculer avec des nombres rationnels positifs",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=15~n=2_i=5NC8~o=3~q=3.0,1~p=~t=15~n=2_i=4NC3~o=0~q=0.~p=~t=15~n=2_i=4NC4~o=0~q=0.0~p=~t=15~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=15~n=2_i=5NC8~o=3~q=3.0,1~p=~t=15~n=2_i=4NC3~o=0~q=0.~p=~t=15~n=2_i=4NC4~o=0~q=0.0~p=~t=15~n=2",
                 "score": 5
               }
             ]
@@ -3371,10 +3371,10 @@
           {
             "reference": "3L10",
             "titre": "Déterminer l'opposé d'une expression littérale",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=3ND3~o=1~q=1.0,1~p=~t=20~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=3ND3~o=1~q=1.0,1~p=~t=20~n=8",
                 "score": 5
               }
             ]
@@ -3412,15 +3412,15 @@
           {
             "reference": "3N11",
             "titre": "Calculer avec des nombres rationnels relatifs",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=5~q=5.0,1~p=~t=20~n=2_i=5NC8~o=6~q=6.0,1~p=~t=20~n=2_i=4NC3~o=1~q=1.~p=~t=20~n=2_i=4NC4~o=1~q=1.0~p=~t=20~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=5~q=5.0,1~p=~t=20~n=2_i=5NC8~o=6~q=6.0,1~p=~t=20~n=2_i=4NC3~o=1~q=1.~p=~t=20~n=2_i=4NC4~o=1~q=1.0~p=~t=20~n=2",
                 "score": 5
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=4NC4~o=1~q=1.0,1~p=~t=20~n=2_i=4NC3~o=1~q=1.~p=~t=20~n=2_i=5NC7~o=7~q=7.~p=~t=20~n=2_i=5NC8~o=8~q=8.~p=~t=20~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=4NC4~o=1~q=1.0,1~p=~t=20~n=2_i=4NC3~o=1~q=1.~p=~t=20~n=2_i=5NC7~o=7~q=7.~p=~t=20~n=2_i=5NC8~o=8~q=8.~p=~t=20~n=2",
                 "score": 7
               }
             ]
@@ -3453,10 +3453,10 @@
           {
             "reference": "3N11",
             "titre": "Calculer avec des nombres rationnels positifs",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=15~n=2_i=5NC8~o=3~q=3.0,1~p=~t=15~n=2_i=4NC3~o=0~q=0.~p=~t=15~n=2_i=4NC4~o=0~q=0.0~p=~t=15~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=15~n=2_i=5NC8~o=3~q=3.0,1~p=~t=15~n=2_i=4NC3~o=0~q=0.~p=~t=15~n=2_i=4NC4~o=0~q=0.0~p=~t=15~n=2",
                 "score": 5
               }
             ]
@@ -3495,20 +3495,20 @@
           {
             "reference": "3N11",
             "titre": "Calculer avec des nombres rationnels relatifs",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=40~n=2_i=5NC8~o=3~q=3.0,1~p=~t=45~n=2_i=4NC3~o=0~q=0.~p=~t=25~n=2_i=4NC4~o=0~q=0.0~p=~t=50~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=40~n=2_i=5NC8~o=3~q=3.0,1~p=~t=45~n=2_i=4NC3~o=0~q=0.~p=~t=25~n=2_i=4NC4~o=0~q=0.0~p=~t=50~n=2",
                 "score": 8
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=5~q=5.0,1~p=~t=40~n=2_i=5NC8~o=6~q=6.0,1~p=~t=45~n=2_i=4NC3~o=1~q=0.-1.~p=~t=25~n=2_i=4NC4~o=1~q=1.0~p=~t=50~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=5~q=5.0,1~p=~t=40~n=2_i=5NC8~o=6~q=6.0,1~p=~t=45~n=2_i=4NC3~o=1~q=0.-1.~p=~t=25~n=2_i=4NC4~o=1~q=1.0~p=~t=50~n=2",
                 "score": 10
               },
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=7~q=6.-7.~p=~t=60~n=2_i=5NC8~o=7~q=7.~p=~t=60~n=2_i=4NC3~o=1~q=0.-1.~p=~t=15~n=2_i=4NC4~o=1~q=1.0~p=~t=35~n=2",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=7~q=6.-7.~p=~t=60~n=2_i=5NC8~o=7~q=7.~p=~t=60~n=2_i=4NC3~o=1~q=0.-1.~p=~t=15~n=2_i=4NC4~o=1~q=1.0~p=~t=35~n=2",
                 "score": 12
               }
             ]
@@ -3546,15 +3546,15 @@
           {
             "reference": "3L12",
             "titre": "Développer et factoriser",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "Développer",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND2~o=0,1,2~q=0.0,1-1.0,1-2.0,1,2,3~p=~t=30~n=8",
+                "description": "Développer",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND2~o=0,1,2~q=0.0,1-1.0,1-2.0,1,2,3~p=~t=30~n=8",
                 "score": 6
               },
               {
-                "commentaire": "Factoriser",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4",
+                "description": "Factoriser",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4",
                 "score": 10
               }
             ]
@@ -3563,7 +3563,7 @@
         "questionsFlash": [
           {
             "reference": "3P10",
-            "titre": "Utiliser le lien entre pourcentage d’évolution et coefficient multiplicateur",
+            "titre": "Utiliser le slug entre pourcentage d’évolution et coefficient multiplicateur",
             "slug": "can2C10,n=1"
           },
           {
@@ -3593,10 +3593,10 @@
           {
             "reference": "3L11",
             "titre": "Développer",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=4NE4~o=4~q=4.~p=~t=50~n=3_i=3ND2~o=2~q=2.0,1,2,3~p=~t=50~n=1",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=4NE4~o=4~q=4.~p=~t=50~n=3_i=3ND2~o=2~q=2.0,1,2,3~p=~t=50~n=1",
                 "score": 10
               }
             ]
@@ -3604,10 +3604,10 @@
           {
             "reference": "3L12",
             "titre": "Factoriser",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=4NE5~o=1,2,3~q=0.-1.-2.-3.~p=~t=50~n=3_i=3ND1~o=2~q=2.0,1~p=~t=50~n=1",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=4NE5~o=1,2,3~q=0.-1.-2.-3.~p=~t=50~n=3_i=3ND1~o=2~q=2.0,1~p=~t=50~n=1",
                 "score": 10
               }
             ]
@@ -3640,10 +3640,10 @@
           {
             "reference": "3F12",
             "titre": "Déterminer l’image d’un nombre par une fonction à partir de tous les modes de représentation, un antécédent à partir d’une représentation graphique ou d’un tableau de valeurs",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=3DD2~o=0,1~q=0.0,1,2-1.0,1,2~p=~t=12~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=3DD2~o=0,1~q=0.0,1,2-1.0,1,2~p=~t=12~n=8",
                 "score": 2
               }
             ]
@@ -3679,10 +3679,10 @@
           {
             "reference": "4A11",
             "titre": "Décomposer un nombre entier en produit de facteurs premiers",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND1~o=1~q=1.~p=~t=24~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND1~o=1~q=1.~p=~t=24~n=8",
                 "score": 5
               }
             ]
@@ -3717,10 +3717,10 @@
           {
             "reference": "3A11",
             "titre": "Simplifier une fraction pour la rendre irréductible",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "",
-                "lien": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB5~o=1~q=1.~p=~t=18~n=8",
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB5~o=1~q=1.~p=~t=18~n=8",
                 "score": 4
               }
             ]
@@ -3756,10 +3756,10 @@
           {
             "reference": "",
             "titre": "",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
-                "lien": "",
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "slug": "",
                 "score": ""
               }
             ]
@@ -3782,10 +3782,10 @@
           {
             "reference": "",
             "titre": "",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
-                "lien": "",
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "slug": "",
                 "score": ""
               }
             ]
@@ -3814,10 +3814,10 @@
           {
             "reference": "",
             "titre": "",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
-                "lien": "",
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "slug": "",
                 "score": ""
               }
             ]
@@ -3840,10 +3840,10 @@
           {
             "reference": "",
             "titre": "",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
-                "lien": "",
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "slug": "",
                 "score": ""
               }
             ]
@@ -3877,10 +3877,10 @@
           {
             "reference": "",
             "titre": "",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
-                "lien": "",
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "slug": "",
                 "score": ""
               }
             ]
@@ -3905,10 +3905,10 @@
           {
             "reference": "",
             "titre": "",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
-                "lien": "",
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "slug": "",
                 "score": ""
               }
             ]
@@ -3933,10 +3933,10 @@
           {
             "reference": "",
             "titre": "",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
-                "lien": "",
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "slug": "",
                 "score": ""
               }
             ]
@@ -3964,10 +3964,10 @@
           {
             "reference": "",
             "titre": "",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
-                "lien": "",
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "slug": "",
                 "score": ""
               }
             ]
@@ -3992,10 +3992,10 @@
           {
             "reference": "",
             "titre": "",
-            "niveaux": [
+            "exercices": [
               {
-                "commentaire": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
-                "lien": "",
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "slug": "",
                 "score": ""
               }
             ]

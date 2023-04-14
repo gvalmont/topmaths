@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core'
+import { Component, OnDestroy, OnInit, ViewEncapsulation, isDevMode } from '@angular/core'
 import { Router, NavigationStart, Event as NavigationEvent, ActivatedRoute, NavigationEnd } from '@angular/router'
 import { Title } from '@angular/platform-browser'
 import { filter, map } from 'rxjs/operators'
@@ -22,6 +22,7 @@ export class AppComponent implements OnInit, OnDestroy {
   panierMAJSubscription: Subscription
   heureInterval!: ReturnType<typeof setInterval>
   heureDerniereAlarme: { heure: string, minute: string }
+  afficherTelechargerJson: boolean
 
   // eslint-disable-next-line no-unused-vars
   constructor (private router: Router, public storageService: StorageService, private dataService: DataService, private activatedRoute: ActivatedRoute, private titleService: Title) {
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.presencePanier = false
     this.panierMAJSubscription = new Subscription
     this.heureDerniereAlarme = { heure: '', minute: '' }
+    this.afficherTelechargerJson = isDevMode()
     this.MAJOngletActif()
     this.MAJTitreDeLaPage()
     this.surveillerMAJPanier()
@@ -109,6 +111,25 @@ export class AppComponent implements OnInit, OnDestroy {
         overlayHeureDiv.style.height = '120px'
         overlayHeureDiv.style.fontSize = '72px'
       }
+    }
+  }
+
+  telechargerJSON () {
+    this.dataService.telechargerJSON()
+    for (let i = 0; i <= this.dataService.delaiAvantTelechargement; i++) {
+      setTimeout(() => {
+        const compteurAvantTelechargement = document.getElementById('compteurAvantTelechargement')
+        if (compteurAvantTelechargement !== null) {
+          if (i === this.dataService.delaiAvantTelechargement) {
+            compteurAvantTelechargement.innerHTML = '<img src="assets/img/cc0/check-circle-svgrepo-com.svg" alt="Téléchargé" width="18" height="18">'
+            setTimeout(() => {
+              compteurAvantTelechargement.innerHTML = ''
+            }, 3000)
+          } else {
+            compteurAvantTelechargement.innerHTML = (this.dataService.delaiAvantTelechargement - i).toString()
+          }
+        }
+      }, i * 1000)
     }
   }
 

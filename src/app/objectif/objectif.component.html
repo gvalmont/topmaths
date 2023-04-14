@@ -1,33 +1,33 @@
 <div class="container is-max-desktop centre">
-  <h1 id="titre" [class]="'title is-2 is-' + niveau">{{ titre }}</h1>
-  <div [class]="'is-' + niveau" *ngIf="rappelDuCoursHTML !== '' || rappelDuCoursImage !== '' || rappelDuCoursInstrumenpoche !== ''">
+  <h1 id="titre" [class]="'title is-2 is-' + niveau">{{ objectif.reference + ' : ' + objectif.titre }}</h1>
+  <div [class]="'is-' + niveau" *ngIf="objectif.rappelDuCoursHTML !== '' || objectif.rappelDuCoursImage !== '' || (objectif.rappelDuCoursInstrumenpoche !== '' && objectif.rappelDuCoursInstrumenpoche !== undefined)">
     <h2 [class]="'mb-5 pb-5 subtitle is-3 is-' + niveau">Rappel du cours</h2>
     <div class="has-text-centered pb-5">
-      <p *ngIf="rappelDuCoursHTML !== ''" [mathjax]="rappelDuCoursHTML" class="is-size-5"></p>
+      <p *ngIf="objectif.rappelDuCoursHTML !== ''" [mathjax]="objectif.rappelDuCoursHTML" class="is-size-5"></p>
       <br>
-      <img *ngIf="rappelDuCoursImage !== ''" [src]="rappelDuCoursImage" />
-      <app-animation-instrumenpoche *ngIf="rappelDuCoursInstrumenpoche !== ''" [nomAnimation]="rappelDuCoursInstrumenpoche" class="centre"></app-animation-instrumenpoche>
+      <img *ngIf="objectif.rappelDuCoursImage !== ''" [src]="objectif.rappelDuCoursImage" />
+      <app-animation-instrumenpoche *ngIf="objectif.rappelDuCoursInstrumenpoche !== undefined && objectif.rappelDuCoursInstrumenpoche !== ''" [nomAnimation]="objectif.rappelDuCoursInstrumenpoche" class="centre"></app-animation-instrumenpoche>
     </div>
   </div>
-  <div [class]="'is-' + niveau" *ngIf="videos.length > 0">
-    <h2 [class]="'subtitle is-3 is-' + niveau">Vidéo{{videos.length > 1 ? 's' : ''}} d'explication</h2>
-    <div class='pb-5' *ngFor="let video of videos">
+  <div [class]="'is-' + niveau" *ngIf="objectif.videos.length > 0">
+    <h2 [class]="'subtitle is-3 is-' + niveau">Vidéo{{objectif.videos.length > 1 ? 's' : ''}} d'explication</h2>
+    <div class='pb-5' *ngFor="let video of objectif.videos">
       <h3 *ngIf="video.titre !== ''" [class]="'subtitle is-4 is-' + niveau">{{video.titre}}</h3>
-      <div class="image is-16by9"><iframe class="has-ratio" [src]="video.lienVideo| safe" allowfullscreen></iframe></div>
+      <div class="image is-16by9"><iframe class="has-ratio" [src]="video.slug | safe" allowfullscreen></iframe></div>
       <p><u>Vidéo de <a [href]="video.lienAuteur" target="_blank" rel="noopener noreferrer">{{ video.auteur }}</a></u></p>
     </div>
   </div>
-  <div id="divExercices" *ngIf="exercices.length > 0" [class]="'is-' + niveau">
+  <div id="divExercices" *ngIf="objectif.exercices.length > 0" [class]="(objectif.sequences.length === 0 && !objectif.telechargementsDisponibles.entrainement && !objectif.telechargementsDisponibles.test ? 'is-fin ' : '') + 'is-' + niveau">
     <h2 [class]="'subtitle is-3 is-' + niveau">
-      <a *ngIf="lienExercices !== ''" (click)="ouvrirModaleExercices(lienExercices)">
+      <a *ngIf="objectif.lienExercices !== ''" (click)="ouvrirModaleExercices(objectif.lienExercices)">
         S'entraîner
         &nbsp;
         <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer les exercices'"></app-bouton-dropdown-simple>
       </a>
-      <a *ngIf="lienExercices === ''">S'entraîner</a>
-      <span *ngIf="storageService.modeEnseignant && lienExercices !== ''">
+      <a *ngIf="objectif.lienExercices === ''">S'entraîner</a>
+      <span *ngIf="storageService.modeEnseignant && objectif.lienExercices !== ''">
         &nbsp;
-        <app-bouton-imprimer [lien]="lienExercices"></app-bouton-imprimer>
+        <app-bouton-imprimer [lien]="objectif.lienExercices"></app-bouton-imprimer>
         &nbsp;
         <a *ngIf="!tousLesExercicesSontDansLePanier" (click)="toutAjouterAuPanier()">
           <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/cart-plus-svgrepo-com.svg'" [dropdown]="'Ajouter tous les exercices au panier'"></app-bouton-dropdown-simple>
@@ -38,10 +38,10 @@
       </span>
     </h2>
     <div><br></div>
-    <div *ngFor="let exercice of exercices; index as i">
+    <div *ngFor="let exercice of objectif.exercices; index as i">
       <h3 class="title is-4 is-inline-block">
         <a (click)="ouvrirModaleExercices(exercice.lien)">
-          {{ exercice.description !== undefined && exercice.description !== '' ? exercice.description : exercices.length > 1 ? 'Exercices de niveau ' + (i + 1) : 'Lancer l\'exercice' }}
+          {{ exercice.description !== undefined && exercice.description !== '' ? exercice.description : objectif.exercices.length > 1 ? 'Exercices de niveau ' + (i + 1) : 'Lancer l\'exercice' }}
           &nbsp;
           <app-bouton-dropdown-simple [bouton]="'/assets/img/cc0/fullscreen-svgrepo-com.svg'" [dropdown]="'Lancer l\'exercice'"></app-bouton-dropdown-simple>
         </a>
@@ -60,20 +60,36 @@
       <div><br></div>
     </div>
   </div>
-  <div id="divTelechargements" [class]="'cache pb-5 is-' + niveau">
+  <div *ngIf="objectif.telechargementsDisponibles.entrainement || objectif.telechargementsDisponibles.test" [class]="(objectif.sequences.length === 0 ? 'is-fin ' : '') + 'pb-5 is-' + niveau">
     <h2 [class]="'subtitle is-3 is-' + niveau">Téléchargements</h2>
     <div class="p-1">
-      <div id="lienEntrainement" class="p-1 cache"></div>
-      <div id="lienTest" class="p-1 cache"></div>
+      <div *ngIf="objectif.telechargementsDisponibles.entrainement" class="p-1">
+        <a [href]="'assets/cours/' + niveau + '/Cours_' + reference + '.pdf'">
+          Télécharger la feuille d'entraînement
+          &nbsp;
+          <i class='image is-24x24 is-inline-block'>
+            <img src='/assets/img/cc0/pdf-file-format-symbol-svgrepo-com.svg' />
+          </i>
+        </a>
+      </div>
+      <div *ngIf="storageService.modeEnseignant && objectif.telechargementsDisponibles.test" class="p-1">
+        <a [href]="'assets/cours/' + niveau + '/Cours_' + reference + '.pdf'">
+          Télécharger les tests
+          &nbsp;
+          <i class='image is-24x24 is-inline-block'>
+            <img src='/assets/img/cc0/pdf-file-format-symbol-svgrepo-com.svg' />
+          </i>
+        </a>
+      </div>
     </div>
   </div>
-  <div id="divSequences" [class]="'is-fin is-' + niveau">
-    <h2 [class]="'subtitle is-3 is-' + niveau">Séquence{{ sequences.length > 1 ? 's' : '' }}</h2>
+  <div *ngIf="objectif.sequences.length > 0" [class]="'is-fin is-' + niveau">
+    <h2 [class]="'subtitle is-3 is-' + niveau">Séquence{{ objectif.sequences.length > 1 ? 's' : '' }}</h2>
     <div><br></div>
     <p>Cet objectif fait partie de :</p>
     <br>
     <ul>
-      <li class="title is-4" *ngFor="let sequence of sequences">
+      <li class="title is-4" *ngFor="let sequence of objectif.sequences">
         <a [ngStyle]="{'color' : 'var(--base' + sequence.reference.slice(1, 2) + 'e)'}" [routerLink]="['/sequence/' + sequence.reference]">
           {{'Séquence ' + sequence.reference.slice(3) + ' : ' + sequence.titre }}
         </a>
@@ -81,5 +97,4 @@
     </ul>
     <div><br><br></div>
   </div>
-</div>
-<app-modale-exercices [infosModale]="infosModale" (modaleFermee)="scrollBack()"></app-modale-exercices>
+  <app-modale-exercices [infosModale]="infosModale" (modaleFermee)="scrollBack()"></app-modale-exercices>
