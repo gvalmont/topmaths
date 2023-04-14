@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.30](https://github.com/gvalmont/topmaths/compare/v0.0.29...v0.0.30) (2023-04-14)
+
+
+### Pages mises à jour
+
+* Modification du nombre d'exercices de 5G31 ([23540c4](https://github.com/gvalmont/topmaths/commits/23540c4fa109918a8bab06287ae2d3aecc2ae7b8))
+
+
+### Bug réparés
+
+* Correction d'un bug qui pouvait empêcher de lancer des exercices au hasard dans le cas d'une connection lente ([c90588d](https://github.com/gvalmont/topmaths/commits/c90588dc605e7620d916f1af6bb57d4ee54f806e))
+
+
+### Mises à jour du moteur
+
+* L'ensemble des séquences et des automatismes est maintenant traité en amont pour un site encore plus réactif ([aabef53](https://github.com/gvalmont/topmaths/commits/aabef536256e23509e74807c261c0c2f09115c65))
+* L'id de chaque exercice est maintenant généré et est de la forme 'référence-numéroExercice' ([1bd7eb3](https://github.com/gvalmont/topmaths/commits/1bd7eb3d849001dca3498f57897ea2ef835adf5d))
+
 ### [0.0.29](https://github.com/gvalmont/topmaths/compare/v0.0.28...v0.0.29) (2023-04-06)
 
 
