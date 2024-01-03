@@ -1,3 +1,5 @@
+export type Couleur = 'warning' | 'link' | 'info' | 'danger' | 'primary' | 'success' | 'orange' | 'sponsor' | 'fuchsia' | 'black-and-yellow' | 'green' | 'coopmaths' | 'purple' | 'info-darker' | 'violet' | 'blue' | '6e' | '5e' | '4e' | '3e' | 'tout'
+
 export interface ObjectifVideo {titre: string, slug: string, auteur: string, lienAuteur: string, lienVideo: string}
 
 export interface ObjectifExercice {id: string, slug: string, lien: string, isInteractif: boolean, description: string, estDansLePanier: boolean}

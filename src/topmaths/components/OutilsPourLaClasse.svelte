@@ -1,7 +1,7 @@
 <script lang="ts">
   import { modeEnseignant } from '../services/store'
-  import { outils } from '../services/outils'
   import { storage } from '../services/storage'
+  import GrosBouton from './mini-components/GrosBouton.svelte'
 
   function activerModeEnseignant () {
     storage.activerModeEnseignant()
@@ -11,9 +11,6 @@
     storage.desactiverModeEnseignant()
   }
 
-  function go (outil: string) {
-    outils.goVue(outil)
-  }
 </script>
 
 <svelte:head>
@@ -27,35 +24,19 @@
     Outils pour la classe
   </h1>
   <div style="background-color: #ebfaf1; border-radius: 0px 0px 50px 50px; ">
-    <div>
-      <br /><br />
-      <button
-        on:click={() => go('mathador')}
-        class="button is-large is-violet is-outlined p-6"
-      >
-        <p class="enorme">Mathador</p>
-      </button>
-    </div>
+    <br />
+    <GrosBouton
+    vue='mathador'
+    couleur='violet'
+    texte='Mathador'
+    />
     {#if $modeEnseignant}
-      <!-- <div>
-        <br /><br />
-        <button
-          on:click={() => go('generateur-de-portraits')}
-          class="button is-large is-link is-outlined p-4"
-        >
-          <span>Générateur de portraits de monstres</span>
-        </button>
-      </div> -->
-      <div>
-        <br /><br />
-        <button
-          on:click={() => go('progressions')}
-          class="button is-large is-sponsor is-outlined p-6"
-        >
-        <p class="enorme">Progressions</p>
-        </button>
-      </div>
-      <br /><br /><br /><br />
+      <GrosBouton
+      vue='progressions'
+      couleur='sponsor'
+      texte='Progressions'
+      />
+      <br /><br />
       <div>
         <button
           on:click={() => desactiverModeEnseignant()}
@@ -65,7 +46,7 @@
         </button>
       </div>
     {:else}
-      <br /><br /><br /><br />
+      <br /><br />
       <div>
         <button
           on:click={() => activerModeEnseignant()}

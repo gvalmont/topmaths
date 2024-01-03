@@ -5,10 +5,9 @@
     niveauxSequences
   } from '../../services/store'
   import type { ObjectifExercice, SequenceSequence } from '../../services/types'
-  import { getTitre, outils } from '../../services/outils'
+  import { getTitre, goVue } from '../../services/outils'
   import { onDestroy, onMount } from 'svelte'
   import type { Unsubscriber } from 'svelte/store'
-  import { mathaleaUpdateUrlFromExercicesParams } from '../../../lib/mathalea'
   import BoutonsExercices from '../mini-components/BoutonsExercices.svelte'
 
   onMount(() => {
@@ -75,7 +74,6 @@
         })
       })
       listerExercices()
-      mathaleaUpdateUrlFromExercicesParams()
     }
   }
 
@@ -106,7 +104,7 @@
         {#if objectif.reference.slice(1, 2) !== 'X'}
           <a
             href="/?v=objectif&ref={objectif.reference}"
-            on:click={(event) => outils.go(event, 'objectif', objectif.reference)}
+            on:click={(event) => goVue(event, 'objectif', objectif.reference)}
           >
             <div class="p-1 is-{niveau} is-size-5">
               {objectif.reference} : {getTitre(objectif)}
@@ -128,7 +126,7 @@
                 <a
                   href="/?v=objectif&ref={calculMental.reference}"
                   on:click={(event) =>
-                    outils.go(event, 'objectif', calculMental.reference)}
+                    goVue(event, 'objectif', calculMental.reference)}
                 >
                   {calculMental.reference} : {calculMental.titre}
                 </a>
@@ -184,7 +182,7 @@
               <a
                 href="/?v=objectif&ref={questionFlash.reference}"
                 on:click={(event) =>
-                  outils.go(event, 'objectif', questionFlash.reference)}
+                  goVue(event, 'objectif', questionFlash.reference)}
               >
                 <p>
                   {questionFlash.reference} : {questionFlash.titre}

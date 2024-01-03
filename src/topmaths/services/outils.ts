@@ -1,60 +1,33 @@
 import { get } from 'svelte/store'
 import type { ObjectifObjectif, SequenceObjectif } from './types'
-import { mathaleaUpdateUrlFromExercicesParams } from '../../lib/mathalea'
 import { reference, titresProchesDesAttendus, vue } from './store'
 import { environment } from './environment'
 import { exercicesParams, globalOptions } from '../../components/stores/generalStore'
 
-export const outils = {
-  /**
-   * Vérifie qu'il n'y a que des lettres et des chiffres
-   * @param str chaîne à tester
-   * @returns true si c'est le cas, false sinon
-   */
-  estAlphanumerique (str: string) {
-    return /^[A-Za-z0-9]*$/.test(str)
-  },
-  estMathsMentales (url: string) {
-    return url.slice(0, 25) === 'https://mathsmentales.net'
-  },
-  estCoopmaths (url: string) {
-    const urlCoopmaths = environment.baseUrl
-    return url.slice(0, urlCoopmaths.length) === environment.baseUrl
-  },
-  estGeogebraClassic (url: string) {
-    return url.slice(0, 33) === 'https://www.geogebra.org/classic/'
-  },
-  estGeogebraM (url: string) {
-    return url.slice(0, 27) === 'https://www.geogebra.org/m/'
-  },
-  goVue (destinationVue: string) {
+export function estCoopmaths (url: string) {
+  const urlCoopmaths = environment.baseUrl
+  return url.slice(0, urlCoopmaths.length) === environment.baseUrl
+}
+
+export function goVue (mouseEvent: MouseEvent, destinationVue: string, ref?: string) {
+  if (mouseEvent.button === 0 && !mouseEvent.ctrlKey && !mouseEvent.metaKey) {
+    mouseEvent.preventDefault()
+    if (ref !== undefined) reference.set(ref)
     vue.set(destinationVue)
-    mathaleaUpdateUrlFromExercicesParams()
-  },
-  normaliser (chaine: string) {
-    if (chaine === undefined) return ''
-    return chaine
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .toLocaleLowerCase()
-  },
-  scrollTo (id: string, smooth = false) {
-    const element = document.getElementById(id)
-    if (!element) return
-    element.scrollIntoView({
-      behavior: smooth ? 'smooth' : 'auto'
-    })
-  },
-  go (event: MouseEvent, vue: string, ref: string) {
-    if (event.button === 0 && !event.ctrlKey && !event.metaKey) {
-      event.preventDefault()
-      reference.set(ref)
-      outils.goVue(vue)
-    }
-  },
-  isDevMode () {
-    return window.location.href.slice(0, 'http://localhost'.length) === 'http://localhost'
+    window.history.pushState({}, '', `?v=${destinationVue}${ref !== undefined ? '&ref=' + ref : ''}`)
   }
+}
+
+export function normaliser (chaine: string) {
+  if (chaine === undefined) return ''
+  return chaine
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLocaleLowerCase()
+}
+
+export function isDevMode () {
+  return window.location.href.slice(0, 'http://localhost'.length) === 'http://localhost'
 }
 
 export function supprimerGraines (lien: string): string {
@@ -95,7 +68,6 @@ export function copierLien (lien: string, inclureAlea = true, forcerInteractif =
       }
     })
   }
-  console.log(lien, params.toString())
   let lienModifie = origineCoopmaths ? (environment.baseUrl + environment.V3) : (environment.prodOrigine + '/?')
   lienModifie += params.toString()
 

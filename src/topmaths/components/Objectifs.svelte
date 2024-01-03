@@ -1,6 +1,6 @@
 <script lang="ts">
   import { modeEnseignant, niveauxObjectifs, titresProchesDesAttendus } from '../services/store'
-  import { outils } from '../services/outils'
+  import { goVue, normaliser } from '../services/outils'
   import { onDestroy } from 'svelte'
   import type { Unsubscriber } from 'svelte/store'
   import { writable, derived } from 'svelte/store'
@@ -118,7 +118,7 @@
 
   function getLignesFiltrees (texteRecherche: string, lignes: LigneObjectif[]): LigneObjectif[] {
     if (texteRecherche === '') return lignes
-    const motsCherches = outils.normaliser(texteRecherche).split(' ')
+    const motsCherches = normaliser(texteRecherche).split(' ')
     return lignes.filter((ligne) => {
       for (const mot of motsCherches) {
         if (!motTrouve(mot, ligne)) return false
@@ -130,19 +130,19 @@
   function motTrouve (mot: string, ligne: LigneObjectif) {
     if (
       ligne.niveau !== undefined &&
-      outils.normaliser(ligne.niveau).includes(mot)
+      normaliser(ligne.niveau).includes(mot)
     ) { return true }
     if (
       ligne.reference !== undefined &&
-      outils.normaliser(ligne.reference).includes(mot)
+      normaliser(ligne.reference).includes(mot)
     ) { return true }
     if (
       ligne.titre !== undefined &&
-      outils.normaliser(ligne.titre).includes(mot)
+      normaliser(ligne.titre).includes(mot)
     ) { return true }
     if (
       ligne.titreSimplifie !== undefined &&
-      outils.normaliser(ligne.titreSimplifie).includes(mot)
+      normaliser(ligne.titreSimplifie).includes(mot)
     ) { return true }
     return false
   }
@@ -252,7 +252,7 @@
               <a
                 href="/?v=objectif&ref={ligne.reference}"
                 on:click={(event) =>
-                  outils.go(event, 'objectif', ligne.reference ?? '')}
+                  goVue(event, 'objectif', ligne.reference ?? '')}
               >
                 <div>
                   {ligne.reference} : {$titresProchesDesAttendus ||

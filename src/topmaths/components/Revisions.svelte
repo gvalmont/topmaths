@@ -6,14 +6,12 @@
     niveauxSequences
   } from '../services/store'
   import type { ObjectifNiveau } from '../services/types'
-  import { outils } from '../services/outils'
+  import { estCoopmaths } from '../services/outils'
   import { randint } from '../../modules/outils'
   import { ouvrirModaleExercices } from '../services/modale'
-  import { mathaleaUpdateUrlFromExercicesParams } from '../../lib/mathalea'
     import { environment } from '../services/environment'
 
   let niveauChoisi = 'tout'
-  mathaleaUpdateUrlFromExercicesParams()
 
   function lancerExercices () {
     if ($calendrierAnneeEnCours.periodeNumero > 0) {
@@ -48,7 +46,6 @@ function lancerExercicesBrevet () {
     for (const niveau of $niveauxSequences) {
       if (niveau.nom === niveauChoisi || niveauChoisi === 'tout') {
         const derniereSequence = getDerniereSequence(niveau.nom)
-        console.log(derniereSequence)
         for (const sequence of niveau.sequences) {
           if (sequence.numero <= derniereSequence) {
             for (const objectif of sequence.objectifs) {
@@ -96,7 +93,7 @@ function getListeExercicesBrevet () {
             for (const reference of listeDesReferences) {
               if (reference === objectif.reference) {
                 for (const exercice of objectif.exercices) {
-                  if (outils.estCoopmaths(exercice.lien)) listeDesUrl.push(exercice.lien)
+                  if (estCoopmaths(exercice.lien)) listeDesUrl.push(exercice.lien)
                 }
               }
             }

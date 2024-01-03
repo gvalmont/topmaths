@@ -1,6 +1,6 @@
 <script lang="ts">
   import { modeEnseignant, niveauxSequences, titresProchesDesAttendus } from '../../services/store'
-  import { getTheme, outils } from '../../services/outils'
+  import { getTheme, goVue, normaliser } from '../../services/outils'
   import type { Unsubscriber } from 'svelte/store'
   import { writable, derived } from 'svelte/store'
   import type { SequenceCalculMental, SequenceObjectif, SequenceQuestionFlash } from '../../services/types'
@@ -96,7 +96,7 @@
 
   function getLignesFiltrees (texteRecherche: string, lignes: Ligne[]): Ligne[] {
     if (texteRecherche === '') return lignes
-    const motsCherches = outils.normaliser(texteRecherche).split(' ')
+    const motsCherches = normaliser(texteRecherche).split(' ')
     return lignes.filter((ligne) => {
       for (const mot of motsCherches) {
         if (!motTrouve(mot, ligne)) return false
@@ -108,40 +108,40 @@
   function motTrouve (mot: string, ligne: Ligne) {
     if (
       ligne.niveau !== '' &&
-      outils.normaliser(ligne.niveau).includes(mot)
+      normaliser(ligne.niveau).includes(mot)
     ) { return true }
     if (
       ligne.numero !== 0 &&
-      outils.normaliser(ligne.numero.toString()).includes(mot)
+      normaliser(ligne.numero.toString()).includes(mot)
     ) { return true }
     if (
       ligne.reference !== '' &&
-      outils.normaliser(ligne.reference).includes(mot)
+      normaliser(ligne.reference).includes(mot)
     ) { return true }
     if (
       ligne.titre !== '' &&
-      outils.normaliser(ligne.titre).includes(mot)
+      normaliser(ligne.titre).includes(mot)
     ) { return true }
     if (ligne.objectifs.length > 0) {
       for (const objectif of ligne.objectifs) {
-        if (outils.normaliser(objectif.reference).includes(mot)) return true
-        if (outils.normaliser(objectif.titre).includes(mot)) return true
-        if (outils.normaliser(objectif.titreSimplifie).includes(mot)) return true
-        if (outils.normaliser(objectif.theme).includes(mot)) return true
+        if (normaliser(objectif.reference).includes(mot)) return true
+        if (normaliser(objectif.titre).includes(mot)) return true
+        if (normaliser(objectif.titreSimplifie).includes(mot)) return true
+        if (normaliser(objectif.theme).includes(mot)) return true
       }
     }
     if (ligne.calculsMentaux.length > 0) {
       for (const calculMental of ligne.calculsMentaux) {
-        if (outils.normaliser(calculMental.reference).includes(mot)) return true
-        if (outils.normaliser(calculMental.titre).includes(mot)) return true
-        if (outils.normaliser(calculMental.theme).includes(mot)) return true
+        if (normaliser(calculMental.reference).includes(mot)) return true
+        if (normaliser(calculMental.titre).includes(mot)) return true
+        if (normaliser(calculMental.theme).includes(mot)) return true
       }
     }
     if (ligne.questionsFlash.length > 0) {
       for (const questionFlash of ligne.questionsFlash) {
-        if (outils.normaliser(questionFlash.reference).includes(mot)) return true
-        if (outils.normaliser(questionFlash.titre).includes(mot)) return true
-        if (outils.normaliser(questionFlash.theme).includes(mot)) return true
+        if (normaliser(questionFlash.reference).includes(mot)) return true
+        if (normaliser(questionFlash.titre).includes(mot)) return true
+        if (normaliser(questionFlash.theme).includes(mot)) return true
       }
     }
     return false
@@ -271,7 +271,7 @@
                 <div class="column is-narrow is-flex is-align-self-center is-flex-direction-column is-justify-content-center" style="width: 150px;">
                   <a
                     href="/?v=sequence&ref={ligne.reference}"
-                    on:click={(event) => outils.go(event, 'sequence', ligne.reference)}
+                    on:click={(event) => goVue(event, 'sequence', ligne.reference)}
                     class="colorless"
                   >
                   <div>Séquence {ligne.numero}</div>
@@ -286,7 +286,7 @@
                     <div class="column is-narrow is-flex is-align-self-center is-justify-content-center">
                       <a
                         href="/?v=objectif&ref={objectif.reference}"
-                        on:click={(event) => outils.go(event, 'objectif', objectif.reference)}
+                        on:click={(event) => goVue(event, 'objectif', objectif.reference)}
                         class="colorless"
                       >
                       <div>{objectif.reference}</div>
@@ -309,7 +309,7 @@
                           <div class="column is-narrow is-flex is-align-self-center is-justify-content-center">
                             <a
                               href="/?v=objectif&ref={questionFlash.reference}"
-                              on:click={(event) => outils.go(event, 'objectif', questionFlash.reference)}
+                              on:click={(event) => goVue(event, 'objectif', questionFlash.reference)}
                               class="colorless"
                             >
                               <div>{questionFlash.reference}</div>
@@ -333,7 +333,7 @@
                           <div class="column is-narrow is-flex is-align-self-center is-justify-content-center">
                             <a
                               href="/?v=objectif&ref={calculMental.reference}"
-                              on:click={(event) => outils.go(event, 'objectif', calculMental.reference)}
+                              on:click={(event) => goVue(event, 'objectif', calculMental.reference)}
                               class="colorless"
                             >
                             <div>{calculMental.reference}</div>

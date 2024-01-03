@@ -2,7 +2,7 @@ import * as packageJson from '../../../package.json'
 
 export const environment = {
   appVersion: packageJson.version,
-  annee: 2023,
+  annee: 2024,
   devOrigine: 'http://localhost:4200',
   prodOrigine: 'https://topmaths.fr',
   baseUrl: 'https://coopmaths.fr/',

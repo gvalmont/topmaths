@@ -7,12 +7,11 @@
     reference
   } from '../services/store'
   import type { ObjectifObjectif } from '../services/types'
-  import { getTitre, outils } from '../services/outils'
+  import { getTitre, goVue } from '../services/outils'
   import { afterUpdate, onMount, onDestroy, tick } from 'svelte'
   import type { Unsubscriber } from 'svelte/store'
   import {
-    mathaleaRenderDiv,
-    mathaleaUpdateUrlFromExercicesParams
+    mathaleaRenderDiv
   } from '../../lib/mathalea'
   import {
     estPresentDansLePanier,
@@ -44,7 +43,6 @@
       const rappelDuCoursHTML = document.getElementById('rappelDuCoursHTML')
       if (rappelDuCoursHTML !== null) mathaleaRenderDiv(rappelDuCoursHTML)
     }
-    mathaleaUpdateUrlFromExercicesParams()
     if (objectif.rappelDuCoursInstrumenpoche !== undefined && objectif.rappelDuCoursInstrumenpoche !== '') loadIep()
   })
 
@@ -340,7 +338,7 @@
               href="/?v=sequence&ref={sequence.reference}"
               style="color: var(--base{sequence.reference.slice(1, 2)}e);"
               on:click={(event) =>
-                outils.go(event, 'sequence', sequence.reference)}
+                goVue(event, 'sequence', sequence.reference)}
             >
               {'Séquence ' +
                 sequence.reference.slice(3) +

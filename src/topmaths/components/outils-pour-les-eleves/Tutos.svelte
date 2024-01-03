@@ -1,6 +1,6 @@
 <script lang="ts">
   import { reference } from '../../services/store'
-  import { outils } from '../../services/outils'
+  import { goVue } from '../../services/outils'
   import InstallationAnki from './tutos/InstallationAnki.svelte'
 </script>
 
@@ -20,7 +20,7 @@
         <br /><br />
         <a
           href="/?v=tutos&ref=installation-anki"
-          on:click={(event) => outils.go(event, 'tutos', 'installation-anki')}
+          on:click={(event) => goVue(event, 'tutos', 'installation-anki')}
         >
           <button class="button is-large is-5e is-outlined p-6">
             <p class="enorme">Comment installer Anki</p>

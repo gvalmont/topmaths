@@ -1,12 +1,12 @@
 <script lang="ts">
   import type { LexiqueItem } from '../../services/types'
   import { tick } from 'svelte'
-  import { outils } from '../../services/outils'
+  import { goVue } from '../../services/outils'
   import { texteRecherche } from '../../services/store'
 
   export let ligne: LexiqueItem
 
-  async function goHash (event: any, hashLocation: string) {
+  async function goHash (event: MouseEvent, hashLocation: string) {
     event.preventDefault()
     texteRecherche.set('')
     await tick()
@@ -29,7 +29,7 @@
   </a>
   {/each}
   {#each ligne.objectifsLies as objectifLie}
-  <a href="/?v=objectif&ref={objectifLie}" on:click={(event) => outils.go(event, 'objectif', objectifLie)}>
+  <a href="/?v=objectif&ref={objectifLie}" on:click={(event) => goVue(event, 'objectif', objectifLie)}>
     <button class="button is-{objectifLie.slice(0, 1)}e is-outlined mt-2 ml-1 pr-2" style="font-size: 0.85rem;">
       {objectifLie}&nbsp;<i><img src="topmaths/img/cc0/exit-svgrepo-com.svg" width="14px" alt="icône de sortie" /></i>
     </button>

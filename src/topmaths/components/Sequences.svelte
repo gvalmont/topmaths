@@ -4,7 +4,7 @@
     sequencesParticulieres
   } from '../services/store'
   import { onDestroy } from 'svelte'
-  import { outils } from '../services/outils'
+  import { goVue, normaliser } from '../services/outils'
   import type { Unsubscriber } from 'svelte/store'
   import { writable, derived } from 'svelte/store'
 
@@ -116,7 +116,7 @@
 
   function getLignesFiltrees (texteRecherche: string, lignes: Ligne[]): Ligne[] {
     if (texteRecherche === '') return lignes
-    const motsCherches = outils.normaliser(texteRecherche).split(' ')
+    const motsCherches = normaliser(texteRecherche).split(' ')
     return lignes.filter((ligne) => {
       for (const mot of motsCherches) {
         if (!motTrouve(mot, ligne)) return false
@@ -128,19 +128,19 @@
   function motTrouve (mot: string, ligne: Ligne) {
     if (
       ligne.niveau !== undefined &&
-      outils.normaliser(ligne.niveau).includes(mot)
+      normaliser(ligne.niveau).includes(mot)
     ) { return true }
     if (
       ligne.numero !== undefined &&
-      outils.normaliser(ligne.numero.toString()).includes(mot)
+      normaliser(ligne.numero.toString()).includes(mot)
     ) { return true }
     if (
       ligne.reference !== undefined &&
-      outils.normaliser(ligne.reference).includes(mot)
+      normaliser(ligne.reference).includes(mot)
     ) { return true }
     if (
       ligne.titre !== undefined &&
-      outils.normaliser(ligne.titre).includes(mot)
+      normaliser(ligne.titre).includes(mot)
     ) { return true }
     return false
   }
@@ -231,7 +231,7 @@
             <a
               href="/?v=sequence&ref={ligne.reference}"
               on:click={(event) =>
-                outils.go(event, 'sequence', ligne.reference)}
+                goVue(event, 'sequence', ligne.reference)}
             >
               <div
                 class="p-1 is-tout is-size-5"
@@ -264,7 +264,7 @@
             <a
               href="/?v=sequence&ref={ligne.reference}"
               on:click={(event) =>
-                outils.go(event, 'sequence', ligne.reference)}
+                goVue(event, 'sequence', ligne.reference)}
             >
               <div>
                 {ligne.numero === 0

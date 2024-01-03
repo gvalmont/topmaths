@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { outils } from '../services/outils'
+  import { goVue } from '../services/outils'
+  import GrosBouton from './mini-components/GrosBouton.svelte'
 </script>
 
 <svelte:head>
@@ -13,37 +14,23 @@
     Outils pour les élèves
   </h1>
   <div style="background-color: #faf5ff; border-radius: 0px 0px 50px 50px; ">
-    <div>
-      <br /><br />
-      <button
-        on:click={() => outils.goVue('lexique')}
-        class="button is-large is-blue is-outlined p-6"
-      >
-        <p class="enorme">Lexique</p>
-      </button>
-    </div>
-    <div>
-      <br /><br />
-      <a
-        href="/?v=tutos&ref=installation-anki"
-        on:click={(event) => outils.go(event, 'tutos', 'installation-anki')}
-      >
-        <button
-          class="button is-large is-5e is-outlined p-6"
-        >
-          <p class="enorme">Tutos</p>
-        </button>
-      </a>
-    </div>
-    <div>
-      <br /><br />
-      <button
-        on:click={() => outils.goVue('telechargements')}
-        class="button is-large is-green is-outlined p-6"
-      >
-        <p class="enorme"><span style="text-align: center; white-space: nowrap;">Téléchargements</span></p>
-      </button>
-    </div>
-    <br /><br />
+    <br />
+    <GrosBouton
+      vue='lexique'
+      couleur='blue'
+      texte='Lexique'
+    />
+    <GrosBouton
+      vue='tutos'
+      ref='installation-anki'
+      couleur='5e'
+      texte='Tutos'
+    />
+    <GrosBouton
+      vue='telechargements'
+      couleur='green'
+      texte='Téléchargements'
+    />
+    <br />
   </div>
 </div>

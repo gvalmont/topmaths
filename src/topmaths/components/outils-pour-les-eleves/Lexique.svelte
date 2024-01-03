@@ -3,7 +3,7 @@
     lexique as lexiqueStore, texteRecherche
 
   } from '../../services/store'
-  import { outils } from '../../services/outils'
+  import { normaliser } from '../../services/outils'
   import { writable, derived } from 'svelte/store'
   import type { LexiqueItem } from '../../services/types'
   import { afterUpdate, onDestroy, tick } from 'svelte'
@@ -43,7 +43,7 @@
 
   function getLignesFiltrees (texteRecherche: string, lignes: LexiqueItem[]): LexiqueItem[] {
     if (texteRecherche === '') return lignes
-    const motsCherches = outils.normaliser(texteRecherche).split(' ')
+    const motsCherches = normaliser(texteRecherche).split(' ')
     return lignes.filter((ligne) => {
       for (const mot of motsCherches) {
         if (!motTrouve(mot, ligne)) return false
@@ -55,20 +55,20 @@
   function motTrouve (mot: string, ligne: LexiqueItem) {
     if (
       ligne.niveau !== undefined &&
-      outils.normaliser(ligne.niveau).includes(mot)
+      normaliser(ligne.niveau).includes(mot)
     ) { return true }
     if (
       ligne.titre !== undefined &&
-      outils.normaliser(ligne.titre).includes(mot)
+      normaliser(ligne.titre).includes(mot)
     ) { return true }
     if (
       ligne.motsCles !== undefined &&
-      outils.normaliser(ligne.motsCles).includes(mot)
+      normaliser(ligne.motsCles).includes(mot)
     ) { return true }
     for (const objectifLie of ligne.objectifsLies) {
       if (
         ligne.objectifsLies !== undefined &&
-        outils.normaliser(objectifLie).includes(mot)
+        normaliser(objectifLie).includes(mot)
       ) { return true }
     }
     return false

@@ -3,7 +3,7 @@
   import IconeTooltipSimple from './IconeTooltipSimple.svelte'
   import type { ObjectifExercice, ObjectifVideo } from '../../services/types'
   import { modeEnseignant } from '../../services/store'
-  import { copierLien, outils } from '../../services/outils'
+  import { copierLien, estCoopmaths } from '../../services/outils'
   import { toutAjouterAuPanier } from '../../services/panier'
   import { environment } from '../../services/environment'
 
@@ -19,7 +19,7 @@
 
   function presenceExercicesCoopmaths (exercices: ObjectifExercice[]) {
     for (const exercice of exercices) {
-      if (outils.estCoopmaths(exercice.lien)) return true
+      if (estCoopmaths(exercice.lien)) return true
     }
     return false
   }
@@ -63,7 +63,7 @@
       reference={reference}
       nbExoFois={3}
     />
-    {#if outils.isDevMode() && exercices.length > 0}
+    {#if isDevMode() && exercices.length > 0}
       &nbsp;
       <ButtonOverleaf
         lien={lienExercices}

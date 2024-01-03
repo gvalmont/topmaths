@@ -1,16 +1,12 @@
 <script lang="ts">
-  import { outils } from '../services/outils'
   import { onMount } from 'svelte'
+  import GrosBouton from './mini-components/GrosBouton.svelte'
 
   onMount(() => {
     window.scrollTo({
       top: 0
     })
   })
-
-  function go (vue: string) {
-    outils.goVue(vue)
-  }
 </script>
 
 <svelte:head>
@@ -18,47 +14,39 @@
 </svelte:head>
 
 <div class="container is-max-desktop centre">
-  <button on:click={() => go('sequences')} class="button is-large is-info-darker is-outlined p-6">
-    <p class="enorme">Séquences</p>
-    &nbsp;
-    <i class="image is-48x48 is-inline-block">
-      <img src="topmaths/img/cc0/guest-book-svgrepo-com.svg" alt="Livre ouvert" />
-    </i>
-  </button>
-  <br />
-  <br />
-  <button on:click={() => go('objectifs')} class="button is-large is-link is-outlined p-6">
-    <p class="enorme">Objectifs</p>
-    &nbsp;
-    <i class="image is-48x48 is-inline-block">
-      <img src="topmaths/img/cc0/study-2-svgrepo-com.svg" alt="Personne lisant un livre" />
-    </i>
-  </button>
-  <br />
-  <br />
-  <button on:click={() => go('revisions')} class="button is-large is-sponsor is-outlined p-6">
-    <p class="enorme">Révisions</p>
-    &nbsp;
-    <i class="image is-48x48 is-inline-block">
-      <img src="topmaths/img/gvalmont/automatismes-regular.svg" alt="Tête avec un engrenage à l'intérieur" />
-    </i>
-  </button>
-  <br />
-  <br />
-  <button on:click={() => go('eleves')} class="button is-large is-purple is-outlined p-6">
-    <p class="enorme">Outils pour<br />les élèves</p>
-    &nbsp;
-    <i class="image is-48x48 is-inline-block">
-      <img src="topmaths/img/cc0/backpack-svgrepo-com.svg" alt="Sac à dos d'élève" />
-    </i>
-  </button>
-  <br />
-  <br />
-  <button on:click={() => go('outils')} class="button is-large is-green is-outlined p-6">
-    <p class="enorme">Outils pour<br />la classe</p>
-    &nbsp;
-    <i class="image is-48x48 is-inline-block">
-      <img src="topmaths/img/cc0/classroom-svgrepo-com.svg" alt="Enseignant montrant un tableau face à une classe" />
-    </i>
-  </button>
+  <GrosBouton
+    vue='sequences'
+    couleur='info-darker'
+    texte='Séquences'
+    lienImage='topmaths/img/cc0/guest-book-svgrepo-com.svg'
+    altImage='Livre ouvert'
+  />
+  <GrosBouton
+    vue='objectifs'
+    couleur='link'
+    texte='Objectifs'
+    lienImage='topmaths/img/cc0/study-2-svgrepo-com.svg'
+    altImage='Personne lisant un livre'
+  />
+  <GrosBouton
+    vue='revisions'
+    couleur='sponsor'
+    texte='Révisions'
+    lienImage='topmaths/img/gvalmont/automatismes-regular.svg'
+    altImage="Tête avec un engrenage à l'intérieur"
+  />
+  <GrosBouton
+    vue='eleves'
+    couleur='purple'
+    texte='Outils pour<br>les élèves'
+    lienImage='topmaths/img/cc0/backpack-svgrepo-com.svg'
+    altImage="Sac à dos d'élève"
+  />
+  <GrosBouton
+    vue='outils'
+    couleur='green'
+    texte='Outils pour<br>la classe'
+    lienImage='topmaths/img/cc0/classroom-svgrepo-com.svg'
+    altImage="Enseignant montrant un tableau face à une classe"
+  />
 </div>

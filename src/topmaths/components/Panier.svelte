@@ -4,8 +4,8 @@
   import { environment } from '../services/environment'
   import { ouvrirModaleExercices } from '../services/modale'
   import { storage } from '../services/storage'
-  import { panierDispo } from '../services/store'
-  import { copierLien, outils } from '../services/outils'
+  import { panierDispo, vue } from '../services/store'
+  import { copierLien } from '../services/outils'
 
   let lien = ''
   let title = ''
@@ -25,7 +25,7 @@
   function viderLePanier () {
     storage.set('panier', [])
     panierDispo.set(false)
-    outils.goVue('accueil')
+    vue.set('accueil')
   }
 
   function MAJLien () {

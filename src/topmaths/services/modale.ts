@@ -1,12 +1,12 @@
 // eslint-disable-next-line camelcase
 import { urlExercice, vue, vuePrecedente } from './store'
-import { outils, supprimerGraines } from './outils'
+import { estCoopmaths, supprimerGraines } from './outils'
 import { mathaleaUpdateExercicesParamsFromUrl } from '../../lib/mathalea'
 import { get } from 'svelte/store'
 import { globalOptions } from '../../components/stores/generalStore'
 
 export function ouvrirModaleExercices (lien: string): void {
-  if (outils.estCoopmaths(lien)) {
+  if (estCoopmaths(lien)) {
     afficherExercices(lien)
   } else {
     afficherModaleExercices(lien)
@@ -16,19 +16,14 @@ export function ouvrirModaleExercices (lien: string): void {
 function afficherExercices (lien: string): void {
   vuePrecedente.set(get(vue))
   urlExercice.set(supprimerGraines(lien))
+  const urlOptions = mathaleaUpdateExercicesParamsFromUrl(get(urlExercice))
   if (lien.includes('diaporama')) {
-    const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
     urlOptions.v = 'diaporama'
-    globalOptions.update(() => {
-      return urlOptions
-    })
   } else {
-    globalOptions.update((options) => {
-      options.presMode = 'liste_exos'
-      options.v = 'eleve'
-      return options
-    })
+    urlOptions.presMode = 'liste_exos'
+    urlOptions.v = 'eleve'
   }
+  globalOptions.set(urlOptions)
 }
 
 function afficherModaleExercices (lien: string): void {
