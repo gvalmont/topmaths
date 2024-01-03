@@ -1,0 +1,571 @@
+{
+  "definitions": [
+    {
+      "titres": [
+        "Droites sécantes",
+        "Point d'intersection"
+      ],
+      "contenu": "Deux [[droites sécantes]] sont deux droites qui ont un seul point en commun.<br>Le point commun à deux droites sécantes est appelé leur [[point d'intersection]].",
+      "motsCles": "",
+      "objectifsLies": [
+        "6G10",
+        "6G11",
+        "6G12"
+      ],
+      "notionsLiees": [
+        {
+          "slug": "droites-perpendiculaires"
+        },
+        {
+          "slug": "droites-paralleles"
+        }
+      ]
+    },
+    {
+      "titres": [
+        "Droites perpendiculaires"
+      ],
+      "contenu": "Deux [[droites perpendiculaires]] sont deux droites sécantes qui forment un angle droit.",
+      "remarques": [
+        "En mathématiques, \"La droite (AB) [[est perpendiculaire à]] la droite (d)\" peut se noter \"(AB) [[⊥]] (d)\""
+      ],
+      "motsCles": "sécantes angle droit",
+      "objectifsLies": [
+        "6G10",
+        "6G11",
+        "6G12"
+      ],
+      "notionsLiees": []
+    },
+    {
+      "titres": [
+        "Droites parallèles"
+      ],
+      "contenu": "Deux [[droites parallèles]] sont deux droites qui ne sont pas sécantes.",
+      "remarques": [
+        "Deux droites sécantes ont un seul point en commun donc elles sont parallèles si elles n'ont aucun point en commun (si elles ne se touchent jamais) mais aussi si elles en ont plusieurs ! Dans ce cas, elles sont confondues.",
+        "En mathématiques, \"La droite (AB) [[est parallèle à]] la droite (d)\" peut se noter \"(AB) [[//]] (d)\""
+      ],
+      "motsCles": "sécantes",
+      "objectifsLies": [
+        "6G10",
+        "6G11",
+        "6G12"
+      ],
+      "notionsLiees": [
+        {
+          "slug": "droites-confondues"
+        }
+      ]
+    },
+    {
+      "titres": [
+        "Droites confondues"
+      ],
+      "contenu": "Deux [[droites confondues]] sont deux droites qui sont identiques. Elles sont placées au même endroit et ont tous leurs points en commun.",
+      "remarques": [
+        "Des droites confondues sont un cas particulier de droites parallèles"
+      ],
+      "motsCles": "sécantes parallèles",
+      "objectifsLies": [
+        "6G12"
+      ],
+      "notionsLiees": []
+    },
+    {
+      "titres": [
+        "Cercle",
+        "Le rayon"
+      ],
+      "contenu": "Un [[cercle]] de centre O est formé de tous les points situés à une même distance du point O.<br>Cette distance commune est appelée [[le rayon]] du cercle.",
+      "remarques": [
+        "À aucun moment on ne parle de la \"forme\" du cercle dans cette définition. Le fait qu'il ait cette forme qu'on lui connaît est une conséquence d'avoir tous ses points à une même distance du centre",
+        "[[le]] rayon d'un cercle est une longueur, c'est la même distance qu'on retrouve entre tous les points du cercle et son centre. Il ne faut pas le confondre avec [[un]] rayon qui est un segment."
+      ],
+      "motsCles": "centre",
+      "objectifsLies": [
+        "6G20"
+      ],
+      "notionsLiees": [
+      ]
+    },
+    {
+      "titres": [
+        "Un rayon"
+      ],
+      "contenu": "[[Un rayon]] est un segment ayant pour extrémités le centre d'un cercle et un point de ce cercle.",
+      "remarques": [
+        "Il y a de nombreux segments qui relient un point d'un cercle à son centre (une infinité), c'est donc un segment parmi d'autres ou \"[[un]] rayon parmi d'autres\", à ne pas confondre avec [[le]] rayon qui n'est pas un segment mais un nombre."
+      ],
+      "motsCles": "cercle diamètre",
+      "objectifsLies": [
+        "6G20"
+      ],
+      "notionsLiees": [
+        {
+          "slug": "cercle"
+        },
+        {
+          "slug": "le-rayon"
+        }
+      ]
+    },
+    {
+      "titres": [
+        "Corde"
+      ],
+      "contenu": "Une [[corde]] est un segment dont les extrémités sont deux points du cercle.",
+      "remarques": [
+        "Une corde relie deux points d'un cercle peu importe lesquels. Si les deux points sont \"face à face\", autrement dit si la corde passe par le centre du cercle, alors c'est un diamètre. Un diamètre est une corde particulière."
+      ],
+      "motsCles": "cercle diametre",
+      "objectifsLies": [
+        "6G20"
+      ],
+      "notionsLiees": [
+        {
+          "slug": "cercle"
+        },
+        {
+          "slug": "un-diametre"
+        }
+      ]
+    },
+    {
+      "titres": [
+        "Un diamètre"
+      ],
+      "contenu": "[[Un diamètre]] est une corde passant par le centre du cercle.",
+      "remarques": [
+        "Un diamètre est donc une corde particulière.",
+        "Il y a plein de façons de relier deux points du cercle en passant par le centre (une infinité), ce segment est donc [[un]] diamètre parmi d'autres, à ne pas confondre avec [[le]] diamètre qui est une longueur."
+      ],
+      "motsCles": "cercle",
+      "objectifsLies": [
+        "6G20"
+      ],
+      "notionsLiees": [
+        {
+          "slug": "cercle"
+        },
+        {
+          "slug": "le-diametre"
+        }
+      ]
+    },
+    {
+      "titres": [
+        "Le diamètre"
+      ],
+      "contenu": "[[Le diamètre]] d'un cercle est la longueur commune de tous les diamètres",
+      "remarques": [
+        "Il y a plusieurs segments qui relient deux points du cercle en passant par le centre (des diamètres), mais ils ont tous la même longueur : [[le]] diamètre."
+      ],
+      "motsCles": "cercle",
+      "objectifsLies": [
+        "6G20"
+      ],
+      "notionsLiees": [
+        {
+          "slug": "cercle"
+        }
+      ]
+    },
+    {
+      "titres": [
+        "Comparer"
+      ],
+      "contenu": "[[Comparer]] deux nombres, c'est dire s'ils sont égaux ou si l'un est plus petit ou plus grand que l'autre.",
+      "remarques": [
+        "a est inférieur (plus petit) à b peut s'écrire $a < b$",
+        "a est supérieur (plus grand) à b peut s'écrire $a > b$"
+      ],
+      "motsCles": "inférieur supérieur plus petit plus grand",
+      "objectifsLies": [
+        "6N11",
+        "6N21"
+      ],
+      "notionsLiees": [
+        {
+          "slug": "ranger"
+        },
+        {
+          "slug": "encadrer"
+        },
+        {
+          "slug": "intercaler"
+        }
+      ]
+    },
+    {
+      "titres": [
+        "Ranger"
+      ],
+      "contenu": "[[Ranger]] une liste de nombres dans l'[[ordre croissant]] signifie les ranger du plus petit au plus grand.<br>[[Ranger]] une liste de nombres dans l'[[ordre décroissant]] signifie les ranger du plus grand au plus petit.",
+      "remarques": [],
+      "exemples": [],
+      "motsCles": "",
+      "objectifsLies": [
+        "6N11",
+        "6N21"
+      ],
+      "notionsLiees": []
+    },
+    {
+      "titres": [
+        "Encadrer"
+      ],
+      "contenu": "[[Encadrer]] un nombre, c'est en trouver deux autres, un plus petit et un plus grand.",
+      "remarques": [],
+      "exemples": [
+        "$23 < 257 < 3450$ est encadrement \"quelconque\" du nombre 257",
+        "$250 < 257 < 260$ est un encadrement à la dizaine près du nombre 257",
+        "$200 < 257 < 300$ est un encadrement à la centaine près du nombre 257",
+        "2 < 2,143 < 2,7 est un encadrement \"quelconque\"",
+        "2,1 < 2,143 < 2,2 est un encadrement au dixième près",
+        "2,14 < 2,143 < 2,15 est un encadrement au centième près"
+      ],
+      "motsCles": "dixième centième",
+      "objectifsLies": [
+        "6N11",
+        "6N21"
+      ],
+      "notionsLiees": [
+        {
+          "slug": "intercaler"
+        }
+      ]
+    },
+    {
+      "titres": [
+        "Intercaler"
+      ],
+      "contenu": "[[Intercaler]] un nombre entre deux nombres donnés, c’est trouver un nombre compris entre les deux.",
+      "remarques": [],
+      "exemples": [
+        "Entre 5 et 8, on peut intercaler 7 : 5 < 7 < 8",
+        "Entre 3,458 et 3,459, on peut intercaler 3,4581 : 3,458 < 3,4581 < 3,459"
+      ],
+      "motsCles": "",
+      "objectifsLies": [
+        "6N11",
+        "6N21"
+      ],
+      "notionsLiees": []
+    },
+    {
+      "titres": [
+        "Fraction"
+      ],
+      "contenu": "Une [[fraction]] désigne le rapport entre deux nombres entiers, ou une division.<br>Par exemple pour désigner un rapport de 2 parts sur 3, on peut écrire $\\dfrac23$.<br>Le nombre du haut est appelé [[numérateur]] tandis que le nombre du bas est appelé [[dénominateur]].<br>Dans l'exemple précédent, le numérateur est $2$ et le dénominateur est $3$.",
+      "exemples": [],
+      "motsCles": "numérateur dénominateur",
+      "objectifsLies": [
+        "6N31"
+      ],
+      "notionsLiees": [
+        {
+          "slug": "fraction-decimale"
+        }
+      ]
+    },
+    {
+      "titres": [
+        "Fraction décimale"
+      ],
+      "contenu": "Une [[fraction décimale]] est une fraction de dénominateur 10, 100, 1 000, …",
+      "remarques": [],
+      "exemples": [
+        "$\\dfrac{1}{100}$",
+        "$\\dfrac{23}{10}$",
+        "$\\dfrac{15}{1000}$"
+      ],
+      "motsCles": "1000",
+      "objectifsLies": [
+        "6N31"
+      ],
+      "notionsLiees": [
+        {
+          "slug": "nombre-decimal"
+        }
+      ]
+    },
+    {
+      "titres": [
+        "Nombre décimal",
+        "Écriture décimale"
+      ],
+      "contenu": "Un [[nombre décimal]] est un nombre qui peut s'écrire sous forme d'une fraction décimale.<br>Un nombre décimal admet une écriture à virgule appelée [[écriture décimale]].",
+      "remarques": [
+        "C'est vrai qu'on appelle souvent les nombres décimaux les \"nombres à virgule\" mais ce n'est pas correct. Non seulement les nombres entiers, \"sans virgule\", sont aussi des nombres décimaux (voir l'exemple avec 14) mais il existe aussi des nombres \"à virgule\" qui ne sont pas des nombres décimaux. Par exemple le nombre 0,33333.. avec une infinité de 3 après la virgule s'écrit avec une virgule mais ne peut pas s'écrire sous la forme d'une fraction décimale (ça ferait combien de 3 au numérateur et combien de zéros au dénominateur ?) et donc c'est un nombre à virgule qui n'est pas un nombre décimal."
+      ],
+      "exemples": [
+        "L'écriture décimale de $\\dfrac{23}{10}$ est $2{,}3$",
+        "Comme 14 peut s'écrire $\\dfrac{140}{10}$, alors 14 est un nombre décimal"
+      ],
+      "motsCles": "écriture",
+      "objectifsLies": [
+        "6N31"
+      ],
+      "notionsLiees": [
+        {
+          "slug": "fraction-decimale"
+        },
+        {
+          "slug": "partie-entiere"
+        },
+        {
+          "slug": "partie-decimale"
+        }
+      ]
+    },
+    {
+      "titres": [
+        "Partie entière"
+      ],
+      "contenu": "La partie à gauche de la virgule d'un nombre décimal est sa [[partie entière]].",
+      "remarques": [],
+      "exemples": [
+        "La partie entière de 27,31 est 27."
+      ],
+      "motsCles": "décimal",
+      "objectifsLies": [
+        "6N31"
+      ],
+      "notionsLiees": []
+    },
+    {
+      "titres": [
+        "Partie décimale"
+      ],
+      "contenu": "Zéro virgule la partie à droite de la virgule d'un nombre décimal est sa [[partie décimale]].",
+      "remarques": [
+        "Attention ! La partie décimale de 27,31 n'est pas 31 !",
+        "L'avantage que la partie décimale de 27,31 soit 0,31 c'est qu'en additionnant partie entière (27) + partie décimale (0,31), on retrouve le nombre décimal (27,31)."
+      ],
+      "exemples": [
+        "La partie décimale de 27,31 est 0,31."
+      ],
+      "motsCles": "",
+      "objectifsLies": [
+        "6N31"
+      ],
+      "notionsLiees": []
+    },
+    {
+      "titres": [
+        "Points distincts"
+      ],
+      "contenu": "Un [[point]] désigne un emplacement.<br>Deux points sont [[distincts]] s'ils ne sont pas situés sur le même emplacement.",
+      "remarques": [
+        "Un point se nomme avec une lettre majuscule"
+      ],
+      "exemples": [
+        "A et B"
+      ],
+      "motsCles": "",
+      "objectifsLies": [
+        "6G10"
+      ],
+      "notionsLiees": [
+        {
+          "slug": "points-confondus"
+        }
+      ]
+    },
+    {
+      "titres": [
+        "Points confondus"
+      ],
+      "contenu": "Un [[point]] désigne un emplacement.<br>Deux points sont [[confondus]] s'ils sont situés exactement au même endroit.",
+      "remarques": [
+        "Un point se nomme avec une lettre majuscule"
+      ],
+      "exemples": [
+        "A et B"
+      ],
+      "motsCles": "",
+      "objectifsLies": [
+        "6G10"
+      ],
+      "notionsLiees": []
+    },
+    {
+      "titres": [
+        "Droite"
+      ],
+      "contenu": "Une [[droite]] est une ligne droite illimitée des deux côtés.",
+      "remarques": [
+        "Une parenthèse signifie qu'on prolonge tandis qu'un crochet signifie qu'on s'arrête.<br>Une droite se prolonge des deux côtés donc se note avec deux parenthèses."
+      ],
+      "exemples": [
+        "(AB)"
+      ],
+      "motsCles": "",
+      "objectifsLies": [
+        "6G10"
+      ],
+      "notionsLiees": [
+        {
+          "slug": "demi-droite"
+        },
+        {
+          "slug": "segment"
+        },
+        {
+          "slug": "droites-secantes"
+        },
+        {
+          "slug": "droites-perpendiculaires"
+        },
+        {
+          "slug": "droites-paralleles"
+        },
+        {
+          "slug": "droites-confondues"
+        }
+      ]
+    },
+    {
+      "titres": [
+        "Demi-droite"
+      ],
+      "contenu": "Une [[demi-droite]] d'[[origine]] A qui passe par le point B est une portion de droite qui commence en A et qui est illimitée du coté de B.",
+      "remarques": [
+        "Une parenthèse signifie qu'on prolonge tandis qu'un crochet signifie qu'on s'arrête.<br>Une demi-droite s'arrête d'un côté et se prolonge de l'autre côté, elle se note donc avec un crochet et une parenthèse."
+      ],
+      "exemples": [
+        "[AB)"
+      ],
+      "motsCles": "",
+      "objectifsLies": [
+        "6G10"
+      ],
+      "notionsLiees": []
+    },
+    {
+      "titres": [
+        "Segment"
+      ],
+      "contenu": "Un segment est une portion de droite délimitée des deux côtés.",
+      "remarques": [
+        "Une parenthèse signifie qu'on prolonge tandis qu'un crochet signifie qu'on s'arrête.<br>Un segment s'arrête des deux côtés et se note donc avec deux crochets."
+      ],
+      "exemples": [
+        "[AB]"
+      ],
+      "motsCles": "",
+      "objectifsLies": [
+        "6G10"
+      ],
+      "notionsLiees": [
+        {
+          "slug": "extremites"
+        },
+        {
+          "slug": "milieu-dun-segment"
+        }
+      ]
+    },
+    {
+      "titres": [
+        "Extremités"
+      ],
+      "contenu": "Les [[extremités]] d'un segment sont le point du début et le point de la fin du segment.",
+      "remarques": [],
+      "exemples": [
+        "Les extrémités du segment [AB] sont les points A et B."
+      ],
+      "motsCles": "",
+      "objectifsLies": [
+        "6G10"
+      ],
+      "notionsLiees": []
+    },
+    {
+      "titres": [
+        "Milieu d'un segment"
+      ],
+      "contenu": "Le [[milieu]] d'un segment est le point de ce segment qui le partage en deux segments de même longueur.",
+      "remarques": [],
+      "exemples": [],
+      "motsCles": "",
+      "objectifsLies": [
+        "6G10"
+      ],
+      "notionsLiees": []
+    },
+    {
+      "titres": [
+        "Points alignés"
+      ],
+      "contenu": "Des points sont [[alignés]] s’ils appartiennent à la même droite.",
+      "remarques": [
+        "Si on peut tracer une seule droite qui passe par ces différents points en même temps, alors ils sont alignés, sinon ils ne le sont pas."
+      ],
+      "exemples": [
+        "Dans l'image ci-dessus, le point C est aligné avec A et B mais le point D n'est pas aligné avec A et B."
+      ],
+      "motsCles": "droite",
+      "objectifsLies": [
+        "6G10"
+      ],
+      "notionsLiees": [
+        {
+          "slug": "droite"
+        }
+      ]
+    },
+    {
+      "titres": [
+        "Polygone"
+      ],
+      "contenu": "Un [[polygone]] est une figure fermée uniquement composée de segments",
+      "remarques": [],
+      "exemples": [],
+      "motsCles": "",
+      "objectifsLies": [
+        "6G10"
+      ],
+      "notionsLiees": [
+        {
+          "slug": "segment"
+        },
+        {
+          "slug": "diagonale"
+        }
+      ]
+    },
+    {
+      "titres": [
+        "Diagonale"
+      ],
+      "contenu": "Une [[diagonale]] est un segment qui relie deux sommets non consécutifs (deux sommets qui ne se suivent pas)",
+      "remarques": [],
+      "exemples": [],
+      "motsCles": "",
+      "objectifsLies": [
+        "6G10"
+      ],
+      "notionsLiees": []
+    }
+  ],
+  "proprietes": [
+    {
+      "titres": [
+        "Théorème de Pythagore"
+      ],
+      "contenu": "rouge[[Si]] vert[[un triangle est rectangle]], rouge[[alors]] le carré de la longueur de son hypoténuse est égal à la somme des carrés des longueurs des côtés de l'angle droit.",
+      "remarques": [],
+      "exemples": [
+        "<table style='text-align: center;'><tbody><tr style='border:none'><td>rouge[[Donnée]]</td><td></td><td>rouge[[Conclusion]]</td></tr><tr style='border:none'><td>vert[[ABC est un triangle rectangle en A]]</td><td>rouge[[Donc =>]]</td><td>BC² = AB² + AC²</td></tr></tbody></table>"
+      ],
+      "motsCles": "",
+      "objectifsLies": [
+        "4G22",
+        "4G23"
+      ],
+      "notionsLiees": []
+    }
+  ]
+}

@@ -1,0 +1,3797 @@
+[
+  {
+    "nom": "6e",
+    "sequences": [
+      {
+        "titre": "Nombres entiers 1",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "6C10"
+          },
+          {
+            "reference": "6N10"
+          },
+          {
+            "reference": "6N11"
+          },
+          {
+            "reference": "6C11"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C10",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6G10",
+            "slug": "6G10-3,n=3"
+          },
+          {
+            "reference": "6C20",
+            "slug": "6C20,s=3,s2=3,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Vocabulaire de géométrie",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "6G10"
+          },
+          {
+            "reference": "6G20"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C11",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=9NE1~o=0,1,2~q=0.0,1-1.0,1-2.0,1~p=~t=12~n=4_i=7NE2~o=3,4,5~q=3.-4.-5.~p=~t=12~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6C20",
+            "slug": "6C10,s=4-5,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Fractions 1",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "6C14"
+          },
+          {
+            "reference": "6N30"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C10",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6G10",
+            "slug": "6G10-3,n=1"
+          },
+          {
+            "reference": "6G20",
+            "slug": "6G10-4,s=1,s2=true,n=1,cd=1"
+          }
+        ]
+      },
+      {
+        "titre": "Perpendiculaires et parallèles",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "6G11"
+          },
+          {
+            "reference": "6G15"
+          },
+          {
+            "reference": "6G12"
+          },
+          {
+            "reference": "6G25"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C14",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=1~q=1.~p=~t=15~n=4_i=5NC8~o=0~q=0.~p=~t=15~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6N30",
+            "slug": "6N20,s=false,n=4"
+          },
+          {
+            "reference": "6N30",
+            "slug": "6N20-1,n=4,cd=1"
+          },
+          {
+            "reference": "6N11",
+            "slug": "6N11-3,s=3,n=2"
+          }
+        ]
+      },
+      {
+        "titre": "Nombres décimaux 1",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "6N31"
+          },
+          {
+            "reference": "6N20"
+          },
+          {
+            "reference": "6N21"
+          },
+          {
+            "reference": "6C12"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C11",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=9NE1~o=0,1,2~q=0.0,1-1.0,1-2.0,1~p=~t=12~n=4_i=7NE2~o=3,4,5~q=3.-4.-5.~p=~t=12~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6G15",
+            "slug": "6G52,s=3,n=1,cd=0"
+          },
+          {
+            "reference": "6C20",
+            "slug": "6C10,s=4-5,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Polygones particuliers",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "6G21"
+          },
+          {
+            "reference": "6G22"
+          },
+          {
+            "reference": "6G30"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C10",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6C20",
+            "slug": "6G52,s=3,n=1,cd=0"
+          },
+          {
+            "reference": "6C12",
+            "slug": "c3C10,s=6,n=3,i=0"
+          }
+        ]
+      },
+      {
+        "titre": "Nombres entiers 2",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "6C21"
+          },
+          {
+            "reference": "6C30"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C12",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=8NE5~o=~q=~p=~t=18~n=4_i=8NE4~o=0,1,2,3,4,5,6,7,8~q=0.-1.-2.-3.-4.-5.-6.-7.-8.~p=~t=18~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6N21",
+            "slug": "6N31,n=1&ex=6N31-5,s=1-2-3,n=1&ex=6N31-4,n=1"
+          },
+          {
+            "reference": "6G70",
+            "slug": "can6I01,s=1,s2=true,s3=1,s4=false,n=1,cd=1"
+          }
+        ]
+      },
+      {
+        "titre": "Périmètres et aires 1",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "6M10"
+          },
+          {
+            "reference": "6M11"
+          },
+          {
+            "reference": "6M20"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6N21",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NC7~o=2~q=2.~p=~t=24~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6C21",
+            "slug": "6C21,s=2,n=1"
+          },
+          {
+            "reference": "6N20",
+            "slug": "6N30-1,s=1-2-3-4-5-6,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Nombres décimaux 2",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "6N22"
+          },
+          {
+            "reference": "6C20"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C10",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6M11",
+            "slug": "6M11-2,n=1"
+          },
+          {
+            "reference": "6M20",
+            "slug": "6M12,s=4,s2=true,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Angles",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "6G40"
+          },
+          {
+            "reference": "6G41"
+          },
+          {
+            "reference": "6G42"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C20",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=8NE1~o=0,1~q=0.-1.~p=~t=24~n=8"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=8NE1~o=1,2~q=0.-1.-2.~p=~t=24~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6C20",
+            "slug": "6C30,s=false,s2=3,n=4"
+          },
+          {
+            "reference": "6N22",
+            "slug": ""
+          }
+        ]
+      },
+      {
+        "titre": "Proportionnalité",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "6P10"
+          },
+          {
+            "reference": "6P11"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6G41",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "6G22-2,n=8,cd=1&duree=20"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6G42",
+            "slug": "6G23-1,s=1,s2=false,n=1,video=TEzu9uky56M"
+          },
+          {
+            "reference": "6G21",
+            "slug": "6G20-3,n=1,cd=1"
+          }
+        ]
+      },
+      {
+        "titre": "Triangles",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "6G23"
+          },
+          {
+            "reference": "6G24"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C10",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6N30",
+            "slug": "6N20,s=false,n=1"
+          },
+          {
+            "reference": "6P11",
+            "slug": "6P11,s=true,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Nombres décimaux 3",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "6C22"
+          },
+          {
+            "reference": "6C31"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C12",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=8NE5~o=~q=~p=~t=18~n=4_i=8NE4~o=0,1,2,3,4,5,6,7,8~q=0.-1.-2.-3.-4.-5.-6.-7.-8.~p=~t=18~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6C20",
+            "slug": "5C12-3,n=1"
+          },
+          {
+            "reference": "6P10",
+            "slug": "6P10,s=1-2-3-4,n=2"
+          }
+        ]
+      },
+      {
+        "titre": "Se repérer, se déplacer",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "6G70"
+          },
+          {
+            "reference": "6G71"
+          },
+          {
+            "reference": "6G72"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C14",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=1~q=1.~p=~t=15~n=4_i=5NC8~o=0~q=0.~p=~t=15~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6C22",
+            "slug": "6C31,s=2,n=1"
+          },
+          {
+            "reference": "6C31",
+            "slug": "6C32-1,s=0,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Fractions 2",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "6C13"
+          },
+          {
+            "reference": "6N32"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C20",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND9~o=0~q=0.0,1,2~p=~t=24~n=4_i=6ND18~o=0~q=0.0,1~p=~t=24~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6G72",
+            "slug": "6I10-1,s=1,s2=false,s3=false"
+          },
+          {
+            "reference": "6P11",
+            "slug": "6P12,s=false,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Statistiques",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "6S10"
+          },
+          {
+            "reference": "6S11"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C14",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=1~q=1.~p=~t=15~n=4_i=5NC8~o=0~q=0.~p=~t=15~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6C13",
+            "slug": "can6C24,s=3,n=2"
+          },
+          {
+            "reference": "6G10",
+            "slug": "6G10-3,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Points et droites",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "6G13"
+          },
+          {
+            "reference": "6G14"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C13",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=6NE9~o=0,1,2~q=0.0,1,2-1.0,1,2-2.0,1,2~p=~t=20~n=2_i=6NE2~o=0,1,2~q=0.0,1-1.0,1-2.0,1~p=~t=20~n=2_i=4NC2~o=0,1,2~q=0.-1.-2.~p=~t=20~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6N32",
+            "slug": "6N23-5,n=4"
+          },
+          {
+            "reference": "6S10",
+            "slug": "6S10,s=3,s2=2"
+          }
+        ]
+      },
+      {
+        "titre": "Pourcentages",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "6P12"
+          },
+          {
+            "reference": "6P13"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C20",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=8NE1~o=0,1~q=0.-1.~p=~t=24~n=8"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=8NE1~o=1,2~q=0.-1.-2.~p=~t=24~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6M10",
+            "slug": "6M11-1"
+          },
+          {
+            "reference": "6M20",
+            "slug": "6M12,s=4,s2=true,n=2"
+          }
+        ]
+      },
+      {
+        "titre": "Périmètres et aires 2",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "6M13"
+          },
+          {
+            "reference": "6M21"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6N32",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://coopmaths.fr/alea/?uuid=4d0dd&id=6N23-5&n=4&d=30&alea=uaDg&v=diaporama"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6P13",
+            "slug": "6P13,s=1,n=1"
+          },
+          {
+            "reference": "6G15",
+            "slug": "6G52,s=3,n=1,cd=0"
+          }
+        ]
+      },
+      {
+        "titre": "Médiatrice d'un segment",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "6G50"
+          },
+          {
+            "reference": "6G32"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C20",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND9~o=0~q=0.0,1,2~p=~t=24~n=4_i=6ND18~o=0~q=0.0,1~p=~t=24~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6M11",
+            "slug": "6M11-2,n=1"
+          },
+          {
+            "reference": "6M21",
+            "slug": "6M23,s=4,s2=true,s3=1,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Périmètre et aire 3",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "6M12"
+          },
+          {
+            "reference": "6M14"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C10",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6G50",
+            "slug": "5G22-1,s=3,s2=false,n=1"
+          },
+          {
+            "reference": "6P11",
+            "slug": "6P12,s=false,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Durées, horaires",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "6M30"
+          },
+          {
+            "reference": "6M31"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6N21",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NC7~o=2~q=2.~p=~t=18~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6M12",
+            "slug": "6M20,n=1,cd=1"
+          },
+          {
+            "reference": "6M13",
+            "slug": "6M22-1,s=3,s2=true,n=1"
+          },
+          {
+            "reference": "6P13",
+            "slug": "6P13,s=1,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Solides",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "6G60"
+          },
+          {
+            "reference": "6G61"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6M31",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=7MC1~o=1~q=1.0,1,2~p=~t=35~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6M14",
+            "slug": "6M11-2,n=2,s=4-5-6,s2=true,s3=1,cd=1"
+          },
+          {
+            "reference": "6M31",
+            "slug": "6D12,s=4,n=3"
+          }
+        ]
+      },
+      {
+        "titre": "Agrandissement et réduction",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "6P14"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C20",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=6NE3~o=0~q=0.0,1~p=~t=24~n=4_i=6NE9~o=0,1,2~q=0.0-1.0-2.0~p=~t=24~n=2_i=6NE2~o=0~q=0.0,1~p=~t=24~n=2"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6G51",
+            "slug": "https://coopmaths.fr/alea/?uuid=07f8a&id=6G24-4&alea=oVKm"
+          },
+          {
+            "reference": "6G60",
+            "slug": "6G44-1,s=0,s2=false,s3=false,n=2"
+          }
+        ]
+      },
+      {
+        "titre": "Symétrie axiale",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "6G51"
+          },
+          {
+            "reference": "6G52"
+          },
+          {
+            "reference": "6G53"
+          },
+          {
+            "reference": "6G54"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6P13",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://coopmaths.fr/alea/?uuid=66756&id=6N33-1&n=8&d=20&s=1&s2=true&s3=false&s4=9&alea=5jxN&cd=1"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6P11",
+            "slug": "6P12,s=false,n=1"
+          },
+          {
+            "reference": "6G61",
+            "slug": ""
+          }
+        ]
+      },
+      {
+        "titre": "Volumes",
+        "periode": 5,
+        "objectifs": [
+          {
+            "reference": "6M15"
+          },
+          {
+            "reference": "6M22"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6M31",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=7MC1~o=1~q=1.0,1,2~p=~t=35~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6M13",
+            "slug": "6M22-1,s=3,s2=true,n=1"
+          },
+          {
+            "reference": "6G53",
+            "slug": "5G13,s=1,s2=1,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Priorités opératoires",
+        "periode": 5,
+        "objectifs": [
+          {
+            "reference": "6C32"
+          },
+          {
+            "reference": "6C33"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6M31",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=7MC1~o=1~q=1.0,1,2~p=~t=30~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6M15",
+            "slug": "6M30,s=1,s3=2,s4=8,n=1"
+          },
+          {
+            "reference": "6M30",
+            "slug": "6D13,s=3,n=1,cd=1"
+          }
+        ]
+      },
+      {
+        "titre": "Patrons",
+        "periode": 5,
+        "objectifs": [
+          {
+            "reference": "6G62"
+          },
+          {
+            "reference": "6G63"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "",
+            "exercices": [
+              {
+                "description": "Dans cette séquence, on fera des <a href=\"/?v=mathador\">Mathador</a> en « une seule ligne ».",
+                "slug": ""
+              }
+            ]
+          }
+        ],
+        "questionsFlash": []
+      },
+      {
+        "titre": "Constructions géométriques",
+        "periode": 5,
+        "objectifs": [
+          {
+            "reference": "6G31"
+          },
+          {
+            "reference": "6G33"
+          },
+          {
+            "reference": "6G34"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C14",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "uuid=64422&id=6C23&n=8&s=4&d=20"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6M22",
+            "slug": "6M31-2,s=3,s2=true,n=2"
+          },
+          {
+            "reference": "6G61",
+            "slug": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "nom": "5e",
+    "sequences": [
+      {
+        "titre": "Enchaînements d’opérations",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "6C10"
+          },
+          {
+            "reference": "5N10"
+          },
+          {
+            "reference": "5N11"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6C10",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND6~o=~q=~p=~t=10~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6G23",
+            "slug": "5G20-0,s=1,s2=true,n=1"
+          },
+          {
+            "reference": "6G60",
+            "slug": "6G44-1,s=0,s2=false,s3=false,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Constructions de triangles",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "6G23"
+          },
+          {
+            "reference": "5G21"
+          },
+          {
+            "reference": "5G22"
+          },
+          {
+            "reference": "5G20"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "",
+            "exercices": [
+              {
+                "description": "Dans cette séquence, ce sera un peu particulier, nous n'allons pas faire de calcul mental et de questions flash mais allons faire deux séquences en même temps, celle-ci et la suivante : Nombres relatifs 1",
+                "slug": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "titre": "Nombres relatifs 1",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "5X1"
+          },
+          {
+            "reference": "5N31"
+          },
+          {
+            "reference": "5N30"
+          },
+          {
+            "reference": "5N32"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N10",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=&p=0~t=Diapo%201~c=1~o=true_i=6ND11~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5G20",
+            "slug": "5G21-1,s=1,n=1"
+          },
+          {
+            "reference": "5N11",
+            "slug": "5C12-1,s=3,s2=false,s3=true,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Proportionnalité",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "6P10"
+          },
+          {
+            "reference": "6P11"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N31",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5N34",
+            "slug": "5R11,s=1,n=1"
+          },
+          {
+            "reference": "5G21",
+            "slug": "5G20-0,s=1,s2=true,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Symétrie et médiatrice",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "6G50"
+          },
+          {
+            "reference": "6G51"
+          },
+          {
+            "reference": "6G53"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N10",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=4,0~q=0.0,1,2,3-4.0,1,2,3~p=~t=24~n=8"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=2,6~q=2.0,1,2,3,4,5-6.0,1,2,3,4,5~p=~t=40~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6S10",
+            "slug": "6S10,s=1,s2=1"
+          },
+          {
+            "reference": "6P11",
+            "slug": "6P12,s=true,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Représentation de données",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "5S10"
+          },
+          {
+            "reference": "5S11"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N32",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=10~n=8"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=0~q=0.~p=~t=10~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6G50",
+            "slug": "5G22-1,s=3,s2=false,n=1"
+          },
+          {
+            "reference": "5G11",
+            "slug": "5G13,s=1,s2=1,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Nombres relatifs 2",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "5N33"
+          },
+          {
+            "reference": "5N34"
+          },
+          {
+            "reference": "5N35"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "6N30",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB1~o=1~q=1.-.~p=~t=20~n=8"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB1~o=0~q=0.-1.-.~p=~t=40~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=6NB1~o=0~q=0.-1.-2.-.~p=~t=30~n=4_i=6NB1~o=1,2~q=0.-1.-2.-.~p=~t=15~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6G51",
+            "slug": "5G10-2,s=1,s2=3,n=1"
+          },
+          {
+            "reference": "5S10",
+            "slug": "5S13,s=3,n=1;5S13-1,s=1"
+          }
+        ]
+      },
+      {
+        "titre": "Symétrie centrale",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "5G10"
+          },
+          {
+            "reference": "5G11"
+          },
+          {
+            "reference": "5G12"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N33",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC2~o=0~q=0.~p=~t=20~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5N35",
+            "slug": "5R12-2,s=1,s2=true"
+          },
+          {
+            "reference": "6N30",
+            "slug": "can6C22,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Arithmétique 1",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "5N40"
+          },
+          {
+            "reference": "5N41"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N31",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5G10",
+            "slug": "5G11-2,s=5,s2=3,s3=4,n=1"
+          },
+          {
+            "reference": "6M20",
+            "slug": "6M12,s=4,s2=false,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Échelles",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "6M20"
+          },
+          {
+            "reference": "5P11"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N10",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=6,7,3,2~q=2.0,1,2,3,4,5-3.0,1,2,3,4,5-6.0,1,2,3,4,5-7.0,1,2,3,4,5~p=~t=32~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6C21",
+            "slug": "6C21,s=2,n=4"
+          },
+          {
+            "reference": "5N40",
+            "slug": "6N43-3,s=1,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Fractions 1",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "6P12"
+          },
+          {
+            "reference": "5N20"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N31",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6P11",
+            "slug": "6P12,s=false,n=1"
+          },
+          {
+            "reference": "6M20",
+            "slug": "6M12,s=4,s2=false,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Angles",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "5G30"
+          },
+          {
+            "reference": "5G31"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N10",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6ND20~o=6,7,3,2~q=2.0,1,2,3,4,5-3.0,1,2,3,4,5-6.0,1,2,3,4,5-7.0,1,2,3,4,5~p=~t=32~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6N30",
+            "slug": "6N20,s=false,n=1"
+          },
+          {
+            "reference": "6M20",
+            "slug": "6M12,s=4,s2=false,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Arithmétique 2",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "5N42"
+          },
+          {
+            "reference": "5N43"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N31",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5G30",
+            "slug": "5G30-2,s=4,n=2"
+          },
+          {
+            "reference": "5N35",
+            "slug": "5R12-2,s=1,s2=true"
+          }
+        ]
+      },
+      {
+        "titre": "Somme des angles d'un triangle",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "5G32"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N20",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB6~o=1,0~q=0.-1.~p=~t=20~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5N43",
+            "slug": "5A13,s=2,s2=false,s3=false,s4=false,n=1,cd=1"
+          },
+          {
+            "reference": "6P11",
+            "slug": "6P11,s=false,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Calcul littéral 1",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "5N50"
+          },
+          {
+            "reference": "5N51"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N41",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND2~o=~q=~p=~t=20~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5N35",
+            "slug": "5R12-2,s=1,s2=true"
+          },
+          {
+            "reference": "5G32",
+            "slug": "5G31,s=1,n=1,cd=1"
+          }
+        ]
+      },
+      {
+        "titre": "Fractions 2",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "5N21"
+          },
+          {
+            "reference": "5N22"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N42",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=18~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5N50",
+            "slug": "5L16,s=3,n=1"
+          },
+          {
+            "reference": "5G12",
+            "slug": "uuid=76ea9&id=5G12&n=3&d=10&s=1&s2=false&s3=8"
+          }
+        ]
+      },
+      {
+        "titre": "Parallélogrammes 1",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "5G40"
+          },
+          {
+            "reference": "5G42"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N20",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB6~o=0,1~q=0.-1.~p=~t=18~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5N21",
+            "slug": "5N14,s=11,s2=false,n=2"
+          },
+          {
+            "reference": "5N21",
+            "slug": "5N14-2,s=false,n=1"
+          },
+          {
+            "reference": "5N51",
+            "slug": "5L12-2,s=9,s2=false,s3=1-2-3-4,n=2"
+          }
+        ]
+      },
+      {
+        "titre": "Fractions 3",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "5N23"
+          },
+          {
+            "reference": "5N24"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N51",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5G42",
+            "slug": "5G40-2"
+          },
+          {
+            "reference": "5M10",
+            "slug": "6M11"
+          }
+        ]
+      },
+      {
+        "titre": "Périmètres et aires",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "5M10"
+          },
+          {
+            "reference": "6M14"
+          },
+          {
+            "reference": "6M21"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N24",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=30~n=2_i=5NC8~o=1~q=1.~p=~t=30~n=2"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5N23",
+            "slug": "4C24,s=2,n=1"
+          },
+          {
+            "reference": "5G30",
+            "slug": "5G30-2,s=4,n=1"
+          },
+          {
+            "reference": "5G31",
+            "slug": "5G30-2,s=3,n=1"
+          },
+          {
+            "reference": "5G31",
+            "slug": "ex=5G30-2,s=2,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Parallélogrammes 2",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "5G41"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N31",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6M21",
+            "slug": "6M23,s=3,s2=true,s3=1,n=1"
+          },
+          {
+            "reference": "5M10",
+            "slug": "6M20,n=2,cd=1"
+          },
+          {
+            "reference": "5M10",
+            "slug": "5M10,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Ratios",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "5P10"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N51",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5N23",
+            "slug": "4C24,s=2,n=1"
+          },
+          {
+            "reference": "5G32",
+            "slug": "5G31,s=1,n=1,cd=1"
+          }
+        ]
+      },
+      {
+        "titre": "Calcul littéral 2",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "5N52"
+          },
+          {
+            "reference": "5N53"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N41",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND2~o=~q=~p=~t=20~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5P10",
+            "slug": "5P12,s=1,n=1,cd=1"
+          },
+          {
+            "reference": "5P10",
+            "slug": "5P12,s=2,n=1,cd=1"
+          },
+          {
+            "reference": "6P12",
+            "slug": "5N11-4,s=2,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Moyennes",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "5S12"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N51",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5N52",
+            "slug": "5L10-2,s=false,n=1"
+          },
+          {
+            "reference": "5N23",
+            "slug": "4C24,s=2,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Calcul littéral 3",
+        "periode": 5,
+        "objectifs": [
+          {
+            "reference": "5N54"
+          },
+          {
+            "reference": "5N55"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N42",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=18~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6M21",
+            "slug": "6M23,s=3,s2=true,s3=1,n=1"
+          },
+          {
+            "reference": "5S12",
+            "slug": "5S14,s=1,n=1"
+          },
+          {
+            "reference": "5S12",
+            "slug": "5S14,s=3,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Durées, horaires",
+        "periode": 5,
+        "objectifs": [
+          {
+            "reference": "6M30"
+          },
+          {
+            "reference": "6M31"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N31",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5N55",
+            "slug": "5L15,s=1,s2=false,n=1"
+          },
+          {
+            "reference": "5P10",
+            "slug": "5P12,s=1,n=1,cd=1"
+          },
+          {
+            "reference": "5P10",
+            "slug": "5P12,s=2,n=1,cd=1"
+          }
+        ]
+      },
+      {
+        "titre": "Probabilités",
+        "periode": 5,
+        "objectifs": [
+          {
+            "reference": "5S20"
+          },
+          {
+            "reference": "5S21"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N51",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "6G60",
+            "slug": "6G44-1,s=0,s2=false,s3=false,n=1"
+          },
+          {
+            "reference": "5M10",
+            "slug": "6M20,n=2,cd=1"
+          },
+          {
+            "reference": "5M10",
+            "slug": "5M10,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Solides",
+        "periode": 5,
+        "objectifs": [
+          {
+            "reference": "5G50"
+          },
+          {
+            "reference": "5G51"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N41",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND2~o=~q=~p=~t=20~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5S21",
+            "slug": "5S21,n=1"
+          },
+          {
+            "reference": "6M22",
+            "slug": "6M31,s=1,s2=false,s3=1,n=1,i=0"
+          }
+        ]
+      },
+      {
+        "titre": "Dépendance entre deux grandeurs",
+        "periode": 5,
+        "objectifs": [
+          {
+            "reference": "5S30"
+          },
+          {
+            "reference": "5S31"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N51",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NE6~o=0~q=0.~p=~t=28~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5N40",
+            "slug": "6N43-3,s=1,n=1"
+          },
+          {
+            "reference": "6P12",
+            "slug": "5N11-4,s=2,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Volumes",
+        "periode": 5,
+        "objectifs": [
+          {
+            "reference": "6M22"
+          },
+          {
+            "reference": "5M20"
+          },
+          {
+            "reference": "5M21"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N41",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND2~o=~q=~p=~t=20~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5S12",
+            "slug": "5S14,s=1,n=1"
+          },
+          {
+            "reference": "5S12",
+            "slug": "5S14,s=3,n=1"
+          },
+          {
+            "reference": "6M30",
+            "slug": "6D10,s=1,n=2"
+          },
+          {
+            "reference": "6M30",
+            "slug": "6D13,s=3,n=2,cd=1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "nom": "4e",
+    "sequences": [
+      {
+        "titre": "Statistiques",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "5S12"
+          },
+          {
+            "reference": "4S10"
+          },
+          {
+            "reference": "4S11"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N31",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5N51",
+            "slug": "4L10-1,s=false,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Distributivité 1",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "4N50"
+          },
+          {
+            "reference": "4N51"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N33",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC1~o=0~q=0.~p=~t=15~n=4_i=5NC2~o=0~q=0.~p=~t=15~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5P10",
+            "slug": "5P12,s=1,n=1,cd=1&ex=5P12,s=2,n=1,cd=1"
+          }
+        ]
+      },
+      {
+        "periode": 1,
+        "titre": "Multiplication et division de nombres relatifs",
+        "objectifs": [
+          {
+            "reference": "4N10"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4N51",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=25~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G20",
+            "slug": "4G20-2,s=2,s2=1,n=1"
+          },
+          {
+            "reference": "5N24",
+            "slug": "5N20,s=11,s2=3,s3=false,n=2"
+          }
+        ]
+      },
+      {
+        "titre": "Racine carrée",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "4G20"
+          },
+          {
+            "reference": "4G21"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N51",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE2~o=0~q=0.~p=~t=30~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5S12",
+            "slug": "5S14,s=1,n=1"
+          },
+          {
+            "reference": "5S12",
+            "slug": "5S14,s=3,n=1"
+          },
+          {
+            "reference": "4S10",
+            "slug": "4S11,s=2,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Distributivité 2",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "4N52"
+          },
+          {
+            "reference": "4N53"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4N10",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC1~o=0,1~q=0.-1.~p=~t=15~n=4_i=5NC5~o=0~q=0.~p=~t=15~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5N21",
+            "slug": "4C20,s=11,s2=true,n=1&ex=4C20-1,s=true,n=1"
+          },
+          {
+            "reference": "4G21",
+            "slug": "4G20-6,s=2,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Théorème de Pythagore",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "4G22"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N10",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "4C11,s=3,s2=true,n=4&duree=30"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4N52",
+            "slug": "4L10,s=3,s2=true,n=1"
+          },
+          {
+            "reference": "4N53",
+            "slug": "4L11,s=2,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Puissances 1",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "4N30"
+          },
+          {
+            "reference": "4N31"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N31",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G22",
+            "slug": "4G20-1,s=1,n=1"
+          },
+          {
+            "reference": "4G22",
+            "slug": "4G20,n=1,s2=1"
+          },
+          {
+            "reference": "5P10",
+            "slug": "5P12,s=1,n=1,cd=1"
+          },
+          {
+            "reference": "5P10",
+            "slug": "5P12,s=2,n=1,cd=1"
+          }
+        ]
+      },
+      {
+        "titre": "Proportionnalité et représentation graphique",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "4P10"
+          },
+          {
+            "reference": "4P11"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4N52",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=40~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=2_i=4NE1~o=0,2~q=0.0,1,2,3-2.0,1,2,3~p=~t=40~n=2"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4N30",
+            "slug": "4C33-0,s=2,s2=1,n=4"
+          },
+          {
+            "reference": "4N53",
+            "slug": "4L11,s=2,n=2"
+          }
+        ]
+      },
+      {
+        "titre": "Triangles égaux",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "4G30"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N42",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=15~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4P10",
+            "slug": "can4P05,n=1"
+          },
+          {
+            "reference": "5N21",
+            "slug": "5N14,s=11,s2=true,n=1,i=0"
+          }
+        ]
+      },
+      {
+        "titre": "Nombres premiers",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "4N40"
+          },
+          {
+            "reference": "4N41"
+          },
+          {
+            "reference": "4N42"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4N52",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=25~n=4_i=5NC8~o=3~q=3.0,1~p=~t=25~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC8~o=5~q=5.0,1~p=~t=25~n=4_i=5NC7~o=4~q=4.0,1~p=~t=25~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G30",
+            "slug": "5G24-2,s=1,n=1"
+          },
+          {
+            "reference": "4P11",
+            "slug": "ex=6P12,s=false,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Équations 1",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "4N54"
+          },
+          {
+            "reference": "4N55"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4N40",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=1~q=1.~p=~t=15~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G22",
+            "slug": "4G20-1,s=1,n=1"
+          },
+          {
+            "reference": "4G22",
+            "slug": "4G20,n=1,s2=1"
+          },
+          {
+            "reference": "4N30",
+            "slug": "4C33-0,s=2,s2=1,n=4"
+          }
+        ]
+      },
+      {
+        "titre": "Fractions",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "4N20"
+          },
+          {
+            "reference": "4N21"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4N52",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=32~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=32~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4S13",
+            "slug": "can3S01,n=1"
+          },
+          {
+            "reference": "4N54",
+            "slug": "4L12,n=1,video=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D-iw4OkMhgCA"
+          }
+        ]
+      },
+      {
+        "titre": "Probabilités",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "4S12"
+          },
+          {
+            "reference": "4S13"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3N11",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=30~n=2_i=4NC4~o=1~q=1.0~p=~t=36~n=2"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4N41",
+            "slug": "4A11-0,s=3,s2=false,s3=false,s4=false,n=1,cd=1"
+          },
+          {
+            "reference": "4N55",
+            "slug": "4L14-0,s=1,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Équations 2",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "4N57"
+          },
+          {
+            "reference": "4N56"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4N52",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=32~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=32~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4S12",
+            "slug": "4S20,s=3,n=1"
+          },
+          {
+            "reference": "4P11",
+            "slug": "ex=6P12,s=false,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Agrandissement et réduction",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "4P12"
+          },
+          {
+            "reference": "4P13"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3N11",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4N57",
+            "slug": "4L20,s=true,s2=4,n=1,cd=1"
+          },
+          {
+            "reference": "4N56",
+            "slug": "4L13-1,s=1,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Théorème de Thalès",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "4G31"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4N53",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4P13",
+            "slug": "can3G01,n=2"
+          },
+          {
+            "reference": "5N23",
+            "slug": "4C24,s=2,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Puissances 2",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "4N32"
+          },
+          {
+            "reference": "4N33"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3N11",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G31",
+            "slug": "can4G06,n=1"
+          },
+          {
+            "reference": "4G31",
+            "slug": "can3G03,n=1"
+          },
+          {
+            "reference": "4N57",
+            "slug": "4C24,s=2,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Translation",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "4G10"
+          },
+          {
+            "reference": "4G11"
+          },
+          {
+            "reference": "4G12"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4N52",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=40~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=2_i=4NE1~o=0,2~q=0.0,1,2,3-2.0,1,2,3~p=~t=40~n=2"
+              }
+            ]
+          },
+          {
+            "reference": "4N53",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4N33",
+            "slug": "4C32-0,n=4"
+          },
+          {
+            "reference": "4N33",
+            "slug": "4C30-2,s=3,n=1"
+          },
+          {
+            "reference": "4S13",
+            "slug": "5S21,s=1,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Notation scientifique",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "4N34"
+          },
+          {
+            "reference": "4N35"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3N11",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G11",
+            "slug": "4G11-1,s=3"
+          },
+          {
+            "reference": "5P10",
+            "slug": "5P12,s=1,n=1,cd=1"
+          },
+          {
+            "reference": "5P10",
+            "slug": "5P12,s=2,n=1,cd=1"
+          }
+        ]
+      },
+      {
+        "titre": "Repérage dans un pavé droit",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "4G50"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4N52",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=40~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=2_i=4NE1~o=0,2~q=0.0,1,2,3-2.0,1,2,3~p=~t=40~n=2"
+              }
+            ]
+          },
+          {
+            "reference": "4N53",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G22",
+            "slug": "4G20,s2=3,n=1,video=M9sceJ8gzNc"
+          },
+          {
+            "reference": "4N35",
+            "slug": "4C32,s=1,s2=3,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Réciproques et contraposées",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "4G23"
+          },
+          {
+            "reference": "4G32"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3N11",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G50",
+            "slug": "4G52,s=2"
+          },
+          {
+            "reference": "4N56",
+            "slug": "4L13-0,s=1,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Grandeurs composées",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "4P14"
+          },
+          {
+            "reference": "4P15"
+          },
+          {
+            "reference": "4N36"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4N52",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=40~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=2_i=4NE1~o=0,2~q=0.0,1,2,3-2.0,1,2,3~p=~t=40~n=2"
+              }
+            ]
+          },
+          {
+            "reference": "4N53",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G23",
+            "slug": "4G21,s=3,n=1"
+          },
+          {
+            "reference": "4G11",
+            "slug": "4G11-1,s=3"
+          }
+        ]
+      },
+      {
+        "titre": "Dépendance entre deux grandeurs",
+        "periode": 5,
+        "objectifs": [
+          {
+            "reference": "4S20"
+          },
+          {
+            "reference": "4S21"
+          },
+          {
+            "reference": "5S31"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3N11",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4P15",
+            "slug": "4P16,s=8,n=1"
+          },
+          {
+            "reference": "4G32",
+            "slug": "4L13-0,s=1,n=1"
+          }
+        ]
+      },
+      {
+        "titre": "Pyramides et cônes",
+        "periode": 5,
+        "objectifs": [
+          {
+            "reference": "4G51"
+          },
+          {
+            "reference": "4G52"
+          },
+          {
+            "reference": "4G53"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4N52",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=40~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=2_i=4NE1~o=0,2~q=0.0,1,2,3-2.0,1,2,3~p=~t=40~n=2"
+              }
+            ]
+          },
+          {
+            "reference": "4N53",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4S20",
+            "slug": "4F12,s=4"
+          },
+          {
+            "reference": "5P10",
+            "slug": "5P12,s=1,n=1,cd=1"
+          },
+          {
+            "reference": "5P10",
+            "slug": "5P12,s=2,n=1,cd=1"
+          }
+        ]
+      },
+      {
+        "titre": "Cosinus d'un angle aigu",
+        "periode": 5,
+        "objectifs": [
+          {
+            "reference": "4G40"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3N11",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=4_i=4NC4~o=1~q=1.0~p=~t=24~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NC3~o=1~q=1.~p=~t=16~n=2_i=4NC4~o=1~q=1.0~p=~t=24~n=2_i=5NC7~o=5~q=5.0,1~p=~t=24~n=2_i=5NC8~o=6~q=6.0,1~p=~t=24~n=2"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4N36",
+            "slug": "4C36,n=1"
+          },
+          {
+            "reference": "4S21",
+            "slug": "can3S02,n=1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "nom": "3e",
+    "sequences": [
+      {
+        "titre": "Probabilités",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "4S12"
+          },
+          {
+            "reference": "4S13"
+          },
+          {
+            "reference": "3S20"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4N10",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC1~o=0,1~q=0.-1.~p=~t=15~n=4_i=5NC5~o=0~q=0.~p=~t=15~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "5N51",
+            "slug": "3L11-2,n=1"
+          },
+          {
+            "reference": "5S12",
+            "slug": "5S14,s=1,n=1"
+          },
+          {
+            "reference": "5S12",
+            "slug": "5S14,s=3,n=1"
+          },
+          {
+            "reference": "4S10",
+            "slug": "4S11,s=2,n=1"
+          }
+        ],
+        "slugEvalBrevet": "ex=dnb_2021_06_etrangers_2&ex=dnb_2020_09_polynesie_4&ex=dnb_2019_07_polynesie_3&ex=dnb_2019_06_etrangers_4&ex=dnb_2018_06_etrangers_3"
+      },
+      {
+        "titre": "Calcul littéral 1",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "5N51"
+          },
+          {
+            "reference": "4N52"
+          },
+          {
+            "reference": "4N57"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3N11",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC1~o=0,1~q=0.-1.~p=~t=10~n=4_i=5NC5~o=0~q=0.~p=~t=10~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "3S20",
+            "slug": "3S20,s=1,n=1"
+          },
+          {
+            "reference": "5P10",
+            "slug": "5P12,s=1,n=1,cd=1"
+          }
+        ],
+        "slugEvalBrevet": "ex=dnb_2022_06_ameriquenord_5&ex=dnb_2020_12_caledonie_3&ex=dnb_2019_09_polynesie_7&ex=dnb_2019_06_etrangers_3&ex=dnb_2019_06_asie_1"
+      },
+      {
+        "titre": "Statistiques 1",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "5S12"
+          },
+          {
+            "reference": "3S10"
+          },
+          {
+            "reference": "3S11"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "5N51",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE2~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=20~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G30",
+            "slug": "5G24-2,s=1,n=4"
+          },
+          {
+            "reference": "5P10",
+            "slug": "5P12,s=1,n=1,cd=1"
+          },
+          {
+            "reference": "5P10",
+            "slug": "5P12,s=2,n=1,cd=1"
+          }
+        ],
+        "slugEvalBrevet": "ex=dnb_2022_06_polynesie_3&ex=dnb_2022_06_asie_3&ex=dnb_2022_06_ameriquenord_3&ex=dnb_2021_09_metropole_2&ex=dnb_2019_07_polynesie_6"
+      },
+      {
+        "titre": "Proportionnalité en géométrie 1 (Triangles semblables)",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "4G30"
+          },
+          {
+            "reference": "3G10"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4N40",
+            "exercices": [
+              {
+                "description": "inférieur à 30",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=15~n=8"
+              },
+              {
+                "description": "inférieur à 100",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5ND5~o=1~q=1.~p=~t=20~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "3S11",
+            "slug": "3S15,s=3,n=1"
+          },
+          {
+            "reference": "4G22",
+            "slug": "4G20,s2=1,n=1,video=M9sceJ8gzNc"
+          },
+          {
+            "reference": "4G22",
+            "slug": "4G20,s2=2,n=1,video=M9sceJ8gzNc"
+          }
+        ],
+        "slugEvalBrevet": "ex=dnb_2018_05_pondichery_7&ex=dnb_2018_06_metropole_4&ex=dnb_2019_06_grece_2&ex=dnb_2019_07_metropole_2"
+      },
+      {
+        "titre": "Calcul littéral 2",
+        "periode": 1,
+        "objectifs": [
+          {
+            "reference": "3N21"
+          },
+          {
+            "reference": "4N53"
+          },
+          {
+            "reference": "3N20"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3N11",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=15~n=2_i=5NC8~o=3~q=3.0,1~p=~t=15~n=2_i=4NC3~o=0~q=0.~p=~t=15~n=2_i=4NC4~o=0~q=0.0~p=~t=15~n=2"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "3S20",
+            "slug": "3S20,s=1,n=1"
+          },
+          {
+            "reference": "3G10",
+            "slug": ""
+          }
+        ],
+        "slugEvalBrevet": "ex=dnb_2022_06_polynesie_4&ex=dnb_2015_09_metropole_5&ex=dnb_2022_06_metropole_mathalea_4&ex=dnb_2021_09_metropole_3&ex=dnb_2019_06_metropole_5"
+      },
+      {
+        "titre": "Notion de fonction",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "3S30"
+          },
+          {
+            "reference": "3S31"
+          },
+          {
+            "reference": "3S32"
+          },
+          {
+            "reference": "3S33"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3N20",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=3ND3~o=1~q=1.0,1~p=~t=20~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "3N21",
+            "slug": "3L11-3,n=1"
+          },
+          {
+            "reference": "4N53",
+            "slug": "4L11,s=3,n=1"
+          },
+          {
+            "reference": "4N57",
+            "slug": "can4L03,s=false,s2=3,n=1,cd=0"
+          }
+        ],
+        "slugEvalBrevet": "ex=dnb_2022_09_polynesie_4&ex=dnb_2019_06_grece_5&ex=dnb_2019_06_asie_7&ex=dnb_2019_03_caledonie_3&ex=dnb_2018_09_polynesie_3"
+      },
+      {
+        "titre": "Calcul littéral 3",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "3N22"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3N11",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=5~q=5.0,1~p=~t=20~n=2_i=5NC8~o=6~q=6.0,1~p=~t=20~n=2_i=4NC3~o=1~q=1.~p=~t=20~n=2_i=4NC4~o=1~q=1.0~p=~t=20~n=2"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=4NC4~o=1~q=1.0,1~p=~t=20~n=2_i=4NC3~o=1~q=1.~p=~t=20~n=2_i=5NC7~o=7~q=7.~p=~t=20~n=2_i=5NC8~o=8~q=8.~p=~t=20~n=2"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "3S10",
+            "slug": "uuid=7c068&id=4S11&n=1&d=10&s=1"
+          },
+          {
+            "reference": "3S30",
+            "slug": "3F10-3,s=5,n=1"
+          }
+        ],
+        "slugEvalBrevet": ""
+      },
+      {
+        "titre": "Proportionnalité en géométrie 2 (Théorème de Thalès)",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "4G31"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4N52",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=0~q=0.0,1~p=~t=40~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=4"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=4NE4~o=1~q=1.0,1~p=~t=40~n=2_i=4NE1~o=0,2~q=0.0,1,2,3-2.0,1,2,3~p=~t=40~n=2"
+              }
+            ]
+          },
+          {
+            "reference": "4N53",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=3ND1~o=2~q=2.0,1-3.~p=~t=30~n=4_i=4NE5~o=0,1,2,3~q=0.-1.-2.-3.~p=~t=30~n=4"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G22",
+            "slug": "4G20,s2=2,n=1,video=M9sceJ8gzNc"
+          },
+          {
+            "reference": "5P10",
+            "slug": "5P12,s=2,n=1,cd=1"
+          }
+        ],
+        "slugEvalBrevet": "ex=dnb_2022_06_metropole_mathalea_1&ex=dnb_2021_09_metropole_5&ex=dnb_2019_12_caledonie_4&ex=dnb_2019_09_metropole_1&ex=dnb_2018_06_ameriquenord_2"
+      },
+      {
+        "titre": "Statistiques 2",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "5S10"
+          },
+          {
+            "reference": "3P10"
+          },
+          {
+            "reference": "3S12"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3N11",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=2~q=2.0,1~p=~t=40~n=2_i=5NC8~o=3~q=3.0,1~p=~t=45~n=2_i=4NC3~o=0~q=0.~p=~t=25~n=2_i=4NC4~o=0~q=0.0~p=~t=50~n=2"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=5~q=5.0,1~p=~t=40~n=2_i=5NC8~o=6~q=6.0,1~p=~t=45~n=2_i=4NC3~o=1~q=0.-1.~p=~t=25~n=2_i=4NC4~o=1~q=1.0~p=~t=50~n=2"
+              },
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5NC7~o=7~q=6.-7.~p=~t=60~n=2_i=5NC8~o=7~q=7.~p=~t=60~n=2_i=4NC3~o=1~q=0.-1.~p=~t=15~n=2_i=4NC4~o=1~q=1.0~p=~t=35~n=2"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G31",
+            "slug": "3G20,s=1,n=1,video=j_zZOpLLl9k,cd=1"
+          },
+          {
+            "reference": "4G31",
+            "slug": "3G20,s=2,n=1,video=j_zZOpLLl9k,cd=1"
+          },
+          {
+            "reference": "4N57",
+            "slug": "can4L03,s=false,s2=3,n=1,cd=0"
+          }
+        ],
+        "slugEvalBrevet": "ex=dnb_2022_09_polynesie_5&ex=dnb_2022_09_metropole_4&ex=dnb_2021_06_metropole_1&ex=dnb_2018_12_caledonie_6&ex=dnb_2016_04_pondichery_2"
+      },
+      {
+        "titre": "Trigonométrie 1",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "3G20"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4N40",
+            "exercices": [
+              {
+                "description": "inférieur à 100",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=5ND5~o=1~q=1.~p=~t=20~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "3P10",
+            "slug": "can2C10,n=1"
+          },
+          {
+            "reference": "3S30",
+            "slug": "3F10-3,s=5,n=1"
+          }
+        ],
+        "slugEvalBrevet": "ex=dnb_2019_07_polynesie_5&ex=dnb_2016_06_metropole_3&ex=dnb_2018_09_metropole_7&ex=dnb_2015_12_caledonie_2&ex=dnb_2017_09_polynesie_4"
+      },
+      {
+        "titre": "Nombres premiers",
+        "periode": 2,
+        "objectifs": [
+          {
+            "reference": "3N10"
+          },
+          {
+            "reference": "4N41"
+          },
+          {
+            "reference": "4N42"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3N21",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=4NE4~o=4~q=4.~p=~t=50~n=3_i=3ND2~o=2~q=2.0,1,2,3~p=~t=50~n=1"
+              }
+            ]
+          },
+          {
+            "reference": "3N22",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=4NE5~o=1,2,3~q=0.-1.-2.-3.~p=~t=50~n=3_i=3ND1~o=2~q=2.0,1~p=~t=50~n=1"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "3G20",
+            "slug": "3G30,s=true,cd=0"
+          },
+          {
+            "reference": "5P10",
+            "slug": "5P12,s=2,n=1,cd=1"
+          }
+        ],
+        "slugEvalBrevet": "ex=dnb_2022_06_metropole_mathalea_3&ex=dnb_2022_06_etrangers_5&ex=dnb_2021_06_metropole_2&ex=dnb_2020_12_caledonie_6&ex=dnb_2018_12_caledonie_3"
+      },
+      {
+        "titre": "Trigonométrie 2",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "3G21"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3S30",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=3DD2~o=0,1~q=0.0,1,2-1.0,1,2~p=~t=12~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "3S20",
+            "slug": "3S20,s=1,n=1"
+          },
+          {
+            "reference": "4N41",
+            "slug": "4A11-0,s=3,s2=false,s3=false,s4=false,n=1"
+          }
+        ],
+        "slugEvalBrevet": "ex=dnb_2022_09_polynesie_2&ex=dnb_2022_06_polynesie_5&ex=dnb_2020_09_antillesguyanne_1&ex=dnb_2019_11_ameriquesud_4&ex=dnb_2022_09_metropole_5"
+      },
+      {
+        "titre": "Fractions",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "3N11"
+          },
+          {
+            "reference": "3N12"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4N41",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND1~o=1~q=1.~p=~t=24~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "3G21",
+            "slug": "3G31,s=true,cd=0"
+          },
+          {
+            "reference": "3N22",
+            "slug": "3L11-6,s=2,n=1,cd=1"
+          }
+        ]
+      },
+      {
+        "titre": "Puissances",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "4N32"
+          },
+          {
+            "reference": "4N35"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "3N12",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB5~o=1~q=1.~p=~t=18~n=8"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "4G31",
+            "slug": "3G20,s=2,n=1,video=j_zZOpLLl9k,cd=1"
+          },
+          {
+            "reference": "4N57",
+            "slug": "3L13-0,s=true,s2=4,n=1,cd=1"
+          }
+        ],
+        "slugEvalBrevet": "ex=dnb_2019_09_metropole_2&ex=dnb_2015_06_polynesie_4&ex=dnb_2014_06_asie_1&ex=dnb_2013_04_pondichery_6&ex=dnb_2017_09_metropole_7"
+      },
+      {
+        "titre": "Calcul littéral 4",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "3N23"
+          },
+          {
+            "reference": "3N24"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "4N32",
+            "exercices": [
+              {
+                "description": "",
+                "slug": "uuid=1d078&id=4C33-0&n=8&s=3&s2=3&d=20"
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [
+          {
+            "reference": "3S33",
+            "slug": "3F12-2,s=5,n=2"
+          },
+          {
+            "reference": "4N35",
+            "slug": "4C32,s=1,s2=3,n=2"
+          }
+        ],
+        "slugEvalBrevet": "ex=dnb_2021_06_etrangers_3&ex=dnb_2020_09_metropole_2&ex=dnb_2019_07_metropole_6&ex=dnb_2019_06_etrangers_2"
+      },
+      {
+        "titre": "Proportionnalité en géométrie 3 (Homothétie)",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "3G11"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "",
+            "exercices": [
+              {
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "slug": ""
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [],
+        "slugEvalBrevet": "ex=dnb_2021_06_asie_2&ex=dnb_2020_09_polynesie_3&ex=dnb_2018_06_asie_6"
+      },
+      {
+        "titre": "Fonctions linéaires",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "3S40"
+          },
+          {
+            "reference": "3S41"
+          },
+          {
+            "reference": "3S42"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "",
+            "exercices": [
+              {
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "slug": ""
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [],
+        "slugEvalBrevet": "ex=dnb_2022_06_asie_1&ex=dnb_2020_12_caledonie_7&ex=dnb_2018_09_metropole_3&ex=dnb_2018_06_metropole_7&ex=dnb_2017_09_polynesie_2"
+      },
+      {
+        "titre": "Proportionnalité en géométrie 4 (Réciproque du théorème de Thalès)",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "4G32"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "",
+            "exercices": [
+              {
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "slug": ""
+              }
+            ]
+          }
+        ],
+        "questionsFlash": []
+      },
+      {
+        "titre": "Fonctions affines",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "3S50"
+          },
+          {
+            "reference": "3S51"
+          },
+          {
+            "reference": "3S52"
+          },
+          {
+            "reference": "3S53"
+          },
+          {
+            "reference": "3S54"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "",
+            "exercices": [
+              {
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "slug": ""
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [],
+        "slugEvalBrevet": "ex=dnb_2022_09_metropole_2&ex=dnb_2022_06_polynesie_2&ex=dnb_2021_06_etrangers_5&ex=dnb_2020_09_polynesie_5&ex=dnb_2020_09_metropole_4"
+      },
+      {
+        "titre": "Sphère et boule",
+        "periode": 5,
+        "objectifs": [
+          {
+            "reference": "3G30"
+          },
+          {
+            "reference": "3G31"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "",
+            "exercices": [
+              {
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "slug": ""
+              }
+            ]
+          }
+        ],
+        "questionsFlash": []
+      },
+      {
+        "titre": "Rotations",
+        "periode": 5,
+        "objectifs": [
+          {
+            "reference": "3G12"
+          },
+          {
+            "reference": "3G13"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "",
+            "exercices": [
+              {
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "slug": ""
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [],
+        "slugEvalBrevet": "ex=dnb_2019_06_ameriquenord_5&ex=dnb_2019_07_metropole_5&ex=dnb_2019_09_polynesie_4&ex=dnb_2020_09_antillesguyanne_3&ex=dnb_2021_06_ameriquenord_3"
+      },
+      {
+        "titre": "Grandeurs composées",
+        "periode": 5,
+        "objectifs": [
+          {
+            "reference": "4P15"
+          },
+          {
+            "reference": "4N36"
+          },
+          {
+            "reference": "3P11"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "",
+            "exercices": [
+              {
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "slug": ""
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [],
+        "slugEvalBrevet": "ex=dnb_2021_06_asie_4&ex=dnb_2019_07_metropole_3&ex=dnb_2019_06_asie_4&ex=dnb_2019_03_caledonie_4&ex=dnb_2019_03_caledonie_2"
+      },
+      {
+        "titre": "Solides et sections planes",
+        "periode": 5,
+        "objectifs": [
+          {
+            "reference": "3G32"
+          },
+          {
+            "reference": "3G33"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "",
+            "exercices": [
+              {
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "slug": ""
+              }
+            ]
+          }
+        ],
+        "questionsFlash": []
+      }
+    ]
+  }
+]

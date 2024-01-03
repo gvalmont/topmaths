@@ -1,0 +1,18 @@
+<div class="container is-max-desktop">
+  <h1 class="title is-1 has-text-centered">CONDITIONS GÉNÉRALES D'UTILISATION</h1>
+  <h1 class="subtitle is-2 pt-6 has-text-centered">PRÉAMBULE</h1>
+  <p class="has-text-justified">
+    En utilisant les outils proposés par topmaths sur topmaths.fr, vous acceptez les conditions d'utilisation suivantes.<br>
+    topmaths se réserve le droit de mettre à jour et de modifier ces conditions sans préavis.
+  </p>
+  <h1 class="subtitle is-2 pt-6 has-text-centered">CONDITIONS D'UTILISATION</h1>
+  <ul>
+    <li>L’utilisation du service se fait à vos propres risques. Le service est fourni tel quel sans aucune garantie.</li>
+  </ul>
+  <h1 class="subtitle is-2 pt-6 has-text-centered">MODIFICATION DU SERVICE</h1>
+  <p>
+    topmaths se réserve le droit, à tout moment de modifier ou d’interrompre, temporairement ou définitivement, le service avec ou sans préavis.
+    <br>
+    topmaths ne pourra être tenu responsable envers vous ou tout tiers pour toute modification, suspension ou interruption du service.
+  </p>
+</div>

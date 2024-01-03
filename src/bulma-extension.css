@@ -1,0 +1,1804 @@
+/****************************************************************************************************
+***** Header
+****************************************************************************************************/
+/* Met en blanc les icones lors du survol */
+.tabs-menu-link:hover:not(.is-black-and-yellow) i {
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+}
+
+i.image.is-white {
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%) !important;
+}
+
+/* Met en couleur le fond lors du survol */
+li:hover .is-warning {
+  background-color: #ffe08a;
+}
+
+li:hover .is-link {
+  background-color: #485fc7;
+}
+
+li:hover .is-info {
+  background-color: #3e8ed0;
+}
+
+li:hover .is-danger {
+  background-color: #f14668;
+}
+
+li:hover .is-primary {
+  background-color: #00d1b2;
+}
+
+li:hover .is-success {
+  background-color: #48c78e;
+}
+
+li:hover .is-orange {
+  background-color: #FCBA82;
+}
+
+li:hover .is-sponsor {
+  background-color: #ea4aaa;
+}
+
+li:hover .is-fuchsia {
+  background-color: #c75ad5;
+}
+
+li:hover .is-black-and-yellow {
+  background-color: #f7df1c;
+}
+
+li:hover .is-green {
+  background-color: #16A34A;
+}
+
+li:hover .is-coopmaths {
+  background-color: #F15929;
+}
+
+li:hover .is-purple {
+  background-color: #9333ea;
+}
+
+li:hover .is-info-darker {
+  background-color: #4175d2;
+}
+
+/* Met en blanc l'icone de l'onglet actif */
+.is-actif>.tabs-menu-link i {
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+}
+
+/* Met en couleur le fond de l'onglet actif */
+li.is-actif .is-warning {
+  background-color: #ffe08a;
+}
+
+li.is-actif .is-link {
+  background-color: #485fc7;
+}
+
+li.is-actif .is-info {
+  background-color: #3e8ed0;
+}
+
+li.is-actif .is-danger {
+  background-color: #f14668;
+}
+
+li.is-actif .is-primary {
+  background-color: #00d1b2;
+}
+
+li.is-actif .is-success {
+  background-color: #48c78e;
+}
+
+li.is-actif .is-orange {
+  background-color: #FCBA82;
+}
+
+li.is-actif .is-sponsor {
+  background-color: #ea4aaa;
+}
+
+li.is-actif .is-fuchsia {
+  background-color: #c75ad5;
+}
+
+li.is-actif .is-black-and-yellow {
+  background-color: #f7df1c;
+}
+
+li.is-actif .is-green {
+  background-color: #16A34A;
+}
+
+li.is-actif .is-coopmaths {
+  background-color: #F15929;
+}
+
+li.is-actif .is-purple {
+  background-color: #9333ea;
+}
+
+li.is-actif .is-info-darker {
+  background-color: #4175d2;
+}
+
+.tabs a:hover {
+  border-bottom-color: #dbdbdb;
+}
+
+.tabs-menu.is-not-menu {
+  border-bottom-style:none;
+}
+
+/****************************************************************************************************
+***** Autres tabs-menu
+****************************************************************************************************/
+/* Permet d'arrondir les menus des listes des séquences et d'objectifs */
+ul.tabs-menu.is-rounded .is-left-side {
+  border-radius: 25px 0px 0px 0px;
+}
+ul.tabs-menu.is-rounded .is-right-side {
+  border-radius: 0px 25px 0px 0px;
+}
+ul.tabs-menu.is-full-rounded .is-left-side {
+  border-radius: 25px 0px 0px 25px;
+}
+ul.tabs-menu.is-full-rounded .is-right-side {
+  border-radius: 0px 25px 25px 0px;
+}
+
+/****************************************************************************************************
+***** Colorisation des icones en général
+****************************************************************************************************/
+
+/* Gris clair pour les icones des champs qui n'ont pas le focus */
+input~.filter-grey {
+  filter: invert(96%) sepia(0%) saturate(540%) hue-rotate(210deg) brightness(99%) contrast(81%);
+}
+
+/* Gris foncé lorsque le champ a le focus */
+input:focus~.filter-grey {
+  filter: invert(26%) sepia(0%) saturate(3266%) hue-rotate(151deg) brightness(95%) contrast(83%);
+}
+
+/* Blanc lorsque l'icône est dans un bouton qu'on survole */
+button.is-outlined:hover i, button.is-outlined:active i, button.is-outlined:focus i {
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+}
+
+/* Blanc pour les boutons qui ne sont pas outlined */
+button.button:not(.is-outlined):not(:active):not(:focus) i {
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+}
+
+/* Colore l'icone selon les couleurs de Bulma (et de son extension) */
+.is-warning i {
+  filter: invert(73%) sepia(96%) saturate(209%) hue-rotate(346deg) brightness(104%) contrast(103%);
+}
+
+.is-link i, a>i {
+  filter: invert(29%) sepia(98%) saturate(796%) hue-rotate(203deg) brightness(101%) contrast(88%);
+}
+
+.is-info i {
+  filter: invert(49%) sepia(45%) saturate(746%) hue-rotate(165deg) brightness(94%) contrast(83%);
+}
+
+.is-danger i {
+  filter: invert(44%) sepia(73%) saturate(4057%) hue-rotate(324deg) brightness(98%) contrast(92%);
+}
+
+.is-primary i {
+  filter: invert(56%) sepia(99%) saturate(1427%) hue-rotate(128deg) brightness(97%) contrast(103%);
+}
+
+.is-success i {
+  filter: invert(67%) sepia(17%) saturate(1218%) hue-rotate(101deg) brightness(96%) contrast(92%);
+}
+
+.is-sponsor i {
+  filter: invert(41%) sepia(47%) saturate(2515%) hue-rotate(298deg) brightness(97%) contrast(88%);
+}
+
+.is-orange i {
+  filter: invert(80%) sepia(16%) saturate(1434%) hue-rotate(326deg) brightness(103%) contrast(98%);
+}
+
+.is-fuchsia i {
+  filter: invert(66%) sepia(95%) saturate(7499%) hue-rotate(280deg) brightness(89%) contrast(100%);
+}
+
+.is-black-and-yellow i {
+  filter: invert(0%) sepia(7%) saturate(7470%) hue-rotate(19deg) brightness(101%) contrast(108%);
+}
+
+.is-green i {
+  filter: invert(43%) sepia(81%) saturate(478%) hue-rotate(89deg) brightness(98%) contrast(91%);
+}
+
+.is-coopmaths i {
+  filter: invert(47%) sepia(27%) saturate(6447%) hue-rotate(345deg) brightness(97%) contrast(95%);
+}
+
+.is-purple i {
+  filter: invert(22%) sepia(70%) saturate(3716%) hue-rotate(264deg) brightness(94%) contrast(95%);
+}
+
+.is-info-darker i {
+  filter: invert(42%) sepia(53%) saturate(1203%) hue-rotate(190deg) brightness(88%) contrast(84%);
+}
+
+.has-background-transparent {
+    background: rgba(0,0,0,0);
+}
+
+/****************************************************************************************************
+***** Ajout de boutons de nouvelles couleurs
+****************************************************************************************************/
+
+.button.is-sponsor {
+  background-color: #ea4aaa;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-sponsor.is-hovered, .button.is-sponsor:hover {
+  background-color: #e93fa5;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-sponsor.is-focused, .button.is-sponsor:focus {
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-sponsor.is-focused:not(:active), .button.is-sponsor:focus:not(:active) {
+  box-shadow: 0 0 0 .125em rgba(234, 74, 170, .25)
+}
+
+.button.is-sponsor.is-active, .button.is-sponsor:active {
+  background-color: #e7339f;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-sponsor[disabled], fieldset[disabled] .button.is-sponsor {
+  background-color: #ea4aaa;
+  border-color: transparent;
+  box-shadow: none
+}
+
+.button.is-sponsor.is-inverted {
+  background-color: #fff;
+  color: #ea4aaa
+}
+
+.button.is-sponsor.is-inverted.is-hovered, .button.is-sponsor.is-inverted:hover {
+  background-color: #f2f2f2
+}
+
+.button.is-sponsor.is-inverted[disabled], fieldset[disabled] .button.is-sponsor.is-inverted {
+  background-color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  color: #ea4aaa
+}
+
+.button.is-sponsor.is-loading::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-sponsor.is-outlined {
+  background-color: transparent;
+  border-color: #ea4aaa;
+  color: #ea4aaa
+}
+
+.button.is-sponsor.is-outlined.is-focused, .button.is-sponsor.is-outlined.is-hovered, .button.is-sponsor.is-outlined:focus, .button.is-sponsor.is-outlined:hover {
+  background-color: #ea4aaa;
+  border-color: #ea4aaa;
+  color: #fff
+}
+
+.button.is-sponsor.is-outlined.is-loading::after {
+  border-color: transparent transparent #ea4aaa #ea4aaa !important
+}
+
+.button.is-sponsor.is-outlined.is-loading.is-focused::after, .button.is-sponsor.is-outlined.is-loading.is-hovered::after, .button.is-sponsor.is-outlined.is-loading:focus::after, .button.is-sponsor.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-sponsor.is-outlined[disabled], fieldset[disabled] .button.is-sponsor.is-outlined {
+  background-color: transparent;
+  border-color: #ea4aaa;
+  box-shadow: none;
+  color: #ea4aaa
+}
+
+.button.is-sponsor.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff
+}
+
+.button.is-sponsor.is-inverted.is-outlined.is-focused, .button.is-sponsor.is-inverted.is-outlined.is-hovered, .button.is-sponsor.is-inverted.is-outlined:focus, .button.is-sponsor.is-inverted.is-outlined:hover {
+  background-color: #fff;
+  color: #ea4aaa
+}
+
+.button.is-sponsor.is-inverted.is-outlined.is-loading.is-focused::after, .button.is-sponsor.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-sponsor.is-inverted.is-outlined.is-loading:focus::after, .button.is-sponsor.is-inverted.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #ea4aaa #ea4aaa !important
+}
+
+.button.is-sponsor.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-sponsor.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  box-shadow: none;
+  color: #fff
+}
+
+.button.is-sponsor.is-light {
+  background-color: #fdedf6;
+  color: #c0167c
+}
+
+.button.is-sponsor.is-light.is-hovered, .button.is-sponsor.is-light:hover {
+  background-color: #fce1f1;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-sponsor.is-light.is-active, .button.is-sponsor.is-light:active {
+  background-color: #fad6ec;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-fuchsia {
+  background-color: #c75ad5;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-fuchsia.is-hovered, .button.is-fuchsia:hover {
+  background-color: #e93fa5;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-fuchsia.is-focused, .button.is-fuchsia:focus {
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-fuchsia.is-focused:not(:active), .button.is-fuchsia:focus:not(:active) {
+  box-shadow: 0 0 0 .125em rgba(234, 74, 170, .25)
+}
+
+.button.is-fuchsia.is-active, .button.is-fuchsia:active {
+  background-color: #e7339f;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-fuchsia[disabled], fieldset[disabled] .button.is-fuchsia {
+  background-color: #c75ad5;
+  border-color: transparent;
+  box-shadow: none
+}
+
+.button.is-fuchsia.is-inverted {
+  background-color: #fff;
+  color: #c75ad5
+}
+
+.button.is-fuchsia.is-inverted.is-hovered, .button.is-fuchsia.is-inverted:hover {
+  background-color: #f2f2f2
+}
+
+.button.is-fuchsia.is-inverted[disabled], fieldset[disabled] .button.is-fuchsia.is-inverted {
+  background-color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  color: #c75ad5
+}
+
+.button.is-fuchsia.is-loading::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-fuchsia.is-outlined {
+  background-color: transparent;
+  border-color: #c75ad5;
+  color: #c75ad5
+}
+
+.button.is-fuchsia.is-outlined.is-focused, .button.is-fuchsia.is-outlined.is-hovered, .button.is-fuchsia.is-outlined:focus, .button.is-fuchsia.is-outlined:hover {
+  background-color: #c75ad5;
+  border-color: #c75ad5;
+  color: #fff
+}
+
+.button.is-fuchsia.is-outlined.is-loading::after {
+  border-color: transparent transparent #c75ad5 #c75ad5 !important
+}
+
+.button.is-fuchsia.is-outlined.is-loading.is-focused::after, .button.is-fuchsia.is-outlined.is-loading.is-hovered::after, .button.is-fuchsia.is-outlined.is-loading:focus::after, .button.is-fuchsia.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-fuchsia.is-outlined[disabled], fieldset[disabled] .button.is-fuchsia.is-outlined {
+  background-color: transparent;
+  border-color: #c75ad5;
+  box-shadow: none;
+  color: #c75ad5
+}
+
+.button.is-fuchsia.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff
+}
+
+.button.is-fuchsia.is-inverted.is-outlined.is-focused, .button.is-fuchsia.is-inverted.is-outlined.is-hovered, .button.is-fuchsia.is-inverted.is-outlined:focus, .button.is-fuchsia.is-inverted.is-outlined:hover {
+  background-color: #fff;
+  color: #c75ad5
+}
+
+.button.is-fuchsia.is-inverted.is-outlined.is-loading.is-focused::after, .button.is-fuchsia.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-fuchsia.is-inverted.is-outlined.is-loading:focus::after, .button.is-fuchsia.is-inverted.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #c75ad5 #c75ad5 !important
+}
+
+.button.is-fuchsia.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-fuchsia.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  box-shadow: none;
+  color: #fff
+}
+
+.button.is-fuchsia.is-light {
+  background-color: #fdedf6;
+  color: #c0167c
+}
+
+.button.is-fuchsia.is-light.is-hovered, .button.is-fuchsia.is-light:hover {
+  background-color: #fce1f1;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-fuchsia.is-light.is-active, .button.is-fuchsia.is-light:active {
+  background-color: #fad6ec;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-green {
+  background-color: #16A34A;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-green.is-hovered, .button.is-green:hover {
+  background-color: #16A34A;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-green.is-focused, .button.is-green:focus {
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-green.is-focused:not(:active), .button.is-green:focus:not(:active) {
+  box-shadow: 0 0 0 .125em rgba(234, 74, 170, .25)
+}
+
+.button.is-green.is-active, .button.is-green:active {
+  background-color: #16A34A;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-green[disabled], fieldset[disabled] .button.is-green {
+  background-color: #16A34A;
+  border-color: transparent;
+  box-shadow: none
+}
+
+.button.is-green.is-inverted {
+  background-color: #fff;
+  color: #16A34A
+}
+
+.button.is-green.is-inverted.is-hovered, .button.is-green.is-inverted:hover {
+  background-color: #f2f2f2
+}
+
+.button.is-green.is-inverted[disabled], fieldset[disabled] .button.is-green.is-inverted {
+  background-color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  color: #16A34A
+}
+
+.button.is-green.is-loading::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-green.is-outlined {
+  background-color: transparent;
+  border-color: #16A34A;
+  color: #16A34A
+}
+
+.button.is-green.is-outlined.is-focused, .button.is-green.is-outlined.is-hovered, .button.is-green.is-outlined:focus, .button.is-green.is-outlined:hover {
+  background-color: #16A34A;
+  border-color: #16A34A;
+  color: #fff
+}
+
+.button.is-green.is-outlined.is-loading::after {
+  border-color: transparent transparent #16A34A #16A34A !important
+}
+
+.button.is-green.is-outlined.is-loading.is-focused::after, .button.is-green.is-outlined.is-loading.is-hovered::after, .button.is-green.is-outlined.is-loading:focus::after, .button.is-green.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-green.is-outlined[disabled], fieldset[disabled] .button.is-green.is-outlined {
+  background-color: transparent;
+  border-color: #16A34A;
+  box-shadow: none;
+  color: #16A34A
+}
+
+.button.is-green.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff
+}
+
+.button.is-green.is-inverted.is-outlined.is-focused, .button.is-green.is-inverted.is-outlined.is-hovered, .button.is-green.is-inverted.is-outlined:focus, .button.is-green.is-inverted.is-outlined:hover {
+  background-color: #fff;
+  color: #16A34A
+}
+
+.button.is-green.is-inverted.is-outlined.is-loading.is-focused::after, .button.is-green.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-green.is-inverted.is-outlined.is-loading:focus::after, .button.is-green.is-inverted.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #16A34A #16A34A !important
+}
+
+.button.is-green.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-green.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  box-shadow: none;
+  color: #fff
+}
+
+.button.is-green.is-light {
+  background-color: #fdedf6;
+  color: #c0167c
+}
+
+.button.is-green.is-light.is-hovered, .button.is-green.is-light:hover {
+  background-color: #fce1f1;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-green.is-light.is-active, .button.is-green.is-light:active {
+  background-color: #fad6ec;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-coopmaths {
+  background-color: #F15929;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-coopmaths.is-hovered, .button.is-coopmaths:hover {
+  background-color: #F15929;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-coopmaths.is-focused, .button.is-coopmaths:focus {
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-coopmaths.is-focused:not(:active), .button.is-coopmaths:focus:not(:active) {
+  box-shadow: 0 0 0 .125em rgba(234, 74, 170, .25)
+}
+
+.button.is-coopmaths.is-active, .button.is-coopmaths:active {
+  background-color: #F15929;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-coopmaths[disabled], fieldset[disabled] .button.is-coopmaths {
+  background-color: #F15929;
+  border-color: transparent;
+  box-shadow: none
+}
+
+.button.is-coopmaths.is-inverted {
+  background-color: #fff;
+  color: #F15929
+}
+
+.button.is-coopmaths.is-inverted.is-hovered, .button.is-coopmaths.is-inverted:hover {
+  background-color: #f2f2f2
+}
+
+.button.is-coopmaths.is-inverted[disabled], fieldset[disabled] .button.is-coopmaths.is-inverted {
+  background-color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  color: #F15929
+}
+
+.button.is-coopmaths.is-loading::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-coopmaths.is-outlined {
+  background-color: transparent;
+  border-color: #F15929;
+  color: #F15929
+}
+
+.button.is-coopmaths.is-outlined.is-focused, .button.is-coopmaths.is-outlined.is-hovered, .button.is-coopmaths.is-outlined:focus, .button.is-coopmaths.is-outlined:hover {
+  background-color: #F15929;
+  border-color: #F15929;
+  color: #fff
+}
+
+.button.is-coopmaths.is-outlined.is-loading::after {
+  border-color: transparent transparent #F15929 #F15929 !important
+}
+
+.button.is-coopmaths.is-outlined.is-loading.is-focused::after, .button.is-coopmaths.is-outlined.is-loading.is-hovered::after, .button.is-coopmaths.is-outlined.is-loading:focus::after, .button.is-coopmaths.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-coopmaths.is-outlined[disabled], fieldset[disabled] .button.is-coopmaths.is-outlined {
+  background-color: transparent;
+  border-color: #F15929;
+  box-shadow: none;
+  color: #F15929
+}
+
+.button.is-coopmaths.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff
+}
+
+.button.is-coopmaths.is-inverted.is-outlined.is-focused, .button.is-coopmaths.is-inverted.is-outlined.is-hovered, .button.is-coopmaths.is-inverted.is-outlined:focus, .button.is-coopmaths.is-inverted.is-outlined:hover {
+  background-color: #fff;
+  color: #F15929
+}
+
+.button.is-coopmaths.is-inverted.is-outlined.is-loading.is-focused::after, .button.is-coopmaths.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-coopmaths.is-inverted.is-outlined.is-loading:focus::after, .button.is-coopmaths.is-inverted.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #F15929 #F15929 !important
+}
+
+.button.is-coopmaths.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-coopmaths.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  box-shadow: none;
+  color: #fff
+}
+
+.button.is-coopmaths.is-light {
+  background-color: #fdedf6;
+  color: #c0167c
+}
+
+.button.is-coopmaths.is-light.is-hovered, .button.is-coopmaths.is-light:hover {
+  background-color: #fce1f1;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-coopmaths.is-light.is-active, .button.is-coopmaths.is-light:active {
+  background-color: #fad6ec;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-violet {
+  background-color: #5B21B6;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-violet.is-hovered, .button.is-violet:hover {
+  background-color: #e93fa5;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-violet.is-focused, .button.is-violet:focus {
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-violet.is-focused:not(:active), .button.is-violet:focus:not(:active) {
+  box-shadow: 0 0 0 .125em rgba(234, 74, 170, .25)
+}
+
+.button.is-violet.is-active, .button.is-violet:active {
+  background-color: #e7339f;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-violet[disabled], fieldset[disabled] .button.is-violet {
+  background-color: #5B21B6;
+  border-color: transparent;
+  box-shadow: none
+}
+
+.button.is-violet.is-inverted {
+  background-color: #fff;
+  color: #5B21B6
+}
+
+.button.is-violet.is-inverted.is-hovered, .button.is-violet.is-inverted:hover {
+  background-color: #f2f2f2
+}
+
+.button.is-violet.is-inverted[disabled], fieldset[disabled] .button.is-violet.is-inverted {
+  background-color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  color: #5B21B6
+}
+
+.button.is-violet.is-loading::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-violet.is-outlined {
+  background-color: transparent;
+  border-color: #5B21B6;
+  color: #5B21B6
+}
+
+.button.is-violet.is-outlined.is-focused, .button.is-violet.is-outlined.is-hovered, .button.is-violet.is-outlined:focus, .button.is-violet.is-outlined:hover {
+  background-color: #5B21B6;
+  border-color: #5B21B6;
+  color: #fff
+}
+
+.button.is-violet.is-outlined.is-loading::after {
+  border-color: transparent transparent #5B21B6 #5B21B6 !important
+}
+
+.button.is-violet.is-outlined.is-loading.is-focused::after, .button.is-violet.is-outlined.is-loading.is-hovered::after, .button.is-violet.is-outlined.is-loading:focus::after, .button.is-violet.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-violet.is-outlined[disabled], fieldset[disabled] .button.is-violet.is-outlined {
+  background-color: transparent;
+  border-color: #5B21B6;
+  box-shadow: none;
+  color: #5B21B6
+}
+
+.button.is-violet.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff
+}
+
+.button.is-violet.is-inverted.is-outlined.is-focused, .button.is-violet.is-inverted.is-outlined.is-hovered, .button.is-violet.is-inverted.is-outlined:focus, .button.is-violet.is-inverted.is-outlined:hover {
+  background-color: #fff;
+  color: #5B21B6
+}
+
+.button.is-violet.is-inverted.is-outlined.is-loading.is-focused::after, .button.is-violet.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-violet.is-inverted.is-outlined.is-loading:focus::after, .button.is-violet.is-inverted.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #5B21B6 #5B21B6 !important
+}
+
+.button.is-violet.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-violet.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  box-shadow: none;
+  color: #fff
+}
+
+.button.is-violet.is-light {
+  background-color: #fdedf6;
+  color: #c0167c
+}
+
+.button.is-violet.is-light.is-hovered, .button.is-violet.is-light:hover {
+  background-color: #fce1f1;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-violet.is-light.is-active, .button.is-violet.is-light:active {
+  background-color: #fad6ec;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-purple {
+  background-color: #9333ea;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-purple.is-hovered, .button.is-purple:hover {
+  background-color: #e93fa5;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-purple.is-focused, .button.is-purple:focus {
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-purple.is-focused:not(:active), .button.is-purple:focus:not(:active) {
+  box-shadow: 0 0 0 .125em rgba(234, 74, 170, .25)
+}
+
+.button.is-purple.is-active, .button.is-purple:active {
+  background-color: #e7339f;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-purple[disabled], fieldset[disabled] .button.is-purple {
+  background-color: #9333ea;
+  border-color: transparent;
+  box-shadow: none
+}
+
+.button.is-purple.is-inverted {
+  background-color: #fff;
+  color: #9333ea
+}
+
+.button.is-purple.is-inverted.is-hovered, .button.is-purple.is-inverted:hover {
+  background-color: #f2f2f2
+}
+
+.button.is-purple.is-inverted[disabled], fieldset[disabled] .button.is-purple.is-inverted {
+  background-color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  color: #9333ea
+}
+
+.button.is-purple.is-loading::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-purple.is-outlined {
+  background-color: transparent;
+  border-color: #9333ea;
+  color: #9333ea
+}
+
+.button.is-purple.is-outlined.is-focused, .button.is-purple.is-outlined.is-hovered, .button.is-purple.is-outlined:focus, .button.is-purple.is-outlined:hover {
+  background-color: #9333ea;
+  border-color: #9333ea;
+  color: #fff
+}
+
+.button.is-purple.is-outlined.is-loading::after {
+  border-color: transparent transparent #9333ea #9333ea !important
+}
+
+.button.is-purple.is-outlined.is-loading.is-focused::after, .button.is-purple.is-outlined.is-loading.is-hovered::after, .button.is-purple.is-outlined.is-loading:focus::after, .button.is-purple.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-purple.is-outlined[disabled], fieldset[disabled] .button.is-purple.is-outlined {
+  background-color: transparent;
+  border-color: #9333ea;
+  box-shadow: none;
+  color: #9333ea
+}
+
+.button.is-purple.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff
+}
+
+.button.is-purple.is-inverted.is-outlined.is-focused, .button.is-purple.is-inverted.is-outlined.is-hovered, .button.is-purple.is-inverted.is-outlined:focus, .button.is-purple.is-inverted.is-outlined:hover {
+  background-color: #fff;
+  color: #9333ea
+}
+
+.button.is-purple.is-inverted.is-outlined.is-loading.is-focused::after, .button.is-purple.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-purple.is-inverted.is-outlined.is-loading:focus::after, .button.is-purple.is-inverted.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #9333ea #9333ea !important
+}
+
+.button.is-purple.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-purple.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  box-shadow: none;
+  color: #fff
+}
+
+.button.is-purple.is-light {
+  background-color: #fdedf6;
+  color: #c0167c
+}
+
+.button.is-purple.is-light.is-hovered, .button.is-purple.is-light:hover {
+  background-color: #fce1f1;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-purple.is-light.is-active, .button.is-purple.is-light:active {
+  background-color: #fad6ec;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-info-darker {
+  background-color: #4175d2;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-info-darker.is-hovered, .button.is-info-darker:hover {
+  background-color: #e93fa5;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-info-darker.is-focused, .button.is-info-darker:focus {
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-info-darker.is-focused:not(:active), .button.is-info-darker:focus:not(:active) {
+  box-shadow: 0 0 0 .125em rgba(234, 74, 170, .25)
+}
+
+.button.is-info-darker.is-active, .button.is-info-darker:active {
+  background-color: #e7339f;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-info-darker[disabled], fieldset[disabled] .button.is-info-darker {
+  background-color: #4175d2;
+  border-color: transparent;
+  box-shadow: none
+}
+
+.button.is-info-darker.is-inverted {
+  background-color: #fff;
+  color: #4175d2
+}
+
+.button.is-info-darker.is-inverted.is-hovered, .button.is-info-darker.is-inverted:hover {
+  background-color: #f2f2f2
+}
+
+.button.is-info-darker.is-inverted[disabled], fieldset[disabled] .button.is-info-darker.is-inverted {
+  background-color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  color: #4175d2
+}
+
+.button.is-info-darker.is-loading::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-info-darker.is-outlined {
+  background-color: transparent;
+  border-color: #4175d2;
+  color: #4175d2
+}
+
+.button.is-info-darker.is-outlined.is-focused, .button.is-info-darker.is-outlined.is-hovered, .button.is-info-darker.is-outlined:focus, .button.is-info-darker.is-outlined:hover {
+  background-color: #4175d2;
+  border-color: #4175d2;
+  color: #fff
+}
+
+.button.is-info-darker.is-outlined.is-loading::after {
+  border-color: transparent transparent #4175d2 #4175d2 !important
+}
+
+.button.is-info-darker.is-outlined.is-loading.is-focused::after, .button.is-info-darker.is-outlined.is-loading.is-hovered::after, .button.is-info-darker.is-outlined.is-loading:focus::after, .button.is-info-darker.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-info-darker.is-outlined[disabled], fieldset[disabled] .button.is-info-darker.is-outlined {
+  background-color: transparent;
+  border-color: #4175d2;
+  box-shadow: none;
+  color: #4175d2
+}
+
+.button.is-info-darker.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff
+}
+
+.button.is-info-darker.is-inverted.is-outlined.is-focused, .button.is-info-darker.is-inverted.is-outlined.is-hovered, .button.is-info-darker.is-inverted.is-outlined:focus, .button.is-info-darker.is-inverted.is-outlined:hover {
+  background-color: #fff;
+  color: #4175d2
+}
+
+.button.is-info-darker.is-inverted.is-outlined.is-loading.is-focused::after, .button.is-info-darker.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-info-darker.is-inverted.is-outlined.is-loading:focus::after, .button.is-info-darker.is-inverted.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #4175d2 #4175d2 !important
+}
+
+.button.is-info-darker.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-info-darker.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  box-shadow: none;
+  color: #fff
+}
+
+.button.is-info-darker.is-light {
+  background-color: #fdedf6;
+  color: #c0167c
+}
+
+.button.is-info-darker.is-light.is-hovered, .button.is-info-darker.is-light:hover {
+  background-color: #fce1f1;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-info-darker.is-light.is-active, .button.is-info-darker.is-light:active {
+  background-color: #fad6ec;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-blue {
+  background-color: #3b82f6;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-blue.is-hovered, .button.is-blue:hover {
+  background-color: #3b82f6;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-blue.is-focused, .button.is-blue:focus {
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-blue.is-focused:not(:active), .button.is-blue:focus:not(:active) {
+  box-shadow: 0 0 0 .125em rgba(234, 74, 170, .25)
+}
+
+.button.is-blue.is-active, .button.is-blue:active {
+  background-color: #e7339f;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-blue[disabled], fieldset[disabled] .button.is-blue {
+  background-color: #3b82f6;
+  border-color: transparent;
+  box-shadow: none
+}
+
+.button.is-blue.is-inverted {
+  background-color: #fff;
+  color: #3b82f6
+}
+
+.button.is-blue.is-inverted.is-hovered, .button.is-blue.is-inverted:hover {
+  background-color: #f2f2f2
+}
+
+.button.is-blue.is-inverted[disabled], fieldset[disabled] .button.is-blue.is-inverted {
+  background-color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  color: #3b82f6
+}
+
+.button.is-blue.is-loading::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-blue.is-outlined {
+  background-color: transparent;
+  border-color: #3b82f6;
+  color: #3b82f6
+}
+
+.button.is-blue.is-outlined.is-focused, .button.is-blue.is-outlined.is-hovered, .button.is-blue.is-outlined:focus, .button.is-blue.is-outlined:hover {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  color: #fff
+}
+
+.button.is-blue.is-outlined.is-loading::after {
+  border-color: transparent transparent #3b82f6 #3b82f6 !important
+}
+
+.button.is-blue.is-outlined.is-loading.is-focused::after, .button.is-blue.is-outlined.is-loading.is-hovered::after, .button.is-blue.is-outlined.is-loading:focus::after, .button.is-blue.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-blue.is-outlined[disabled], fieldset[disabled] .button.is-blue.is-outlined {
+  background-color: transparent;
+  border-color: #3b82f6;
+  box-shadow: none;
+  color: #3b82f6
+}
+
+.button.is-blue.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff
+}
+
+.button.is-blue.is-inverted.is-outlined.is-focused, .button.is-blue.is-inverted.is-outlined.is-hovered, .button.is-blue.is-inverted.is-outlined:focus, .button.is-blue.is-inverted.is-outlined:hover {
+  background-color: #fff;
+  color: #3b82f6
+}
+
+.button.is-blue.is-inverted.is-outlined.is-loading.is-focused::after, .button.is-blue.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-blue.is-inverted.is-outlined.is-loading:focus::after, .button.is-blue.is-inverted.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #3b82f6 #3b82f6 !important
+}
+
+.button.is-blue.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-blue.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  box-shadow: none;
+  color: #fff
+}
+
+.button.is-blue.is-light {
+  background-color: #dbeafe;
+  color: #c0167c
+}
+
+.button.is-blue.is-light.is-hovered, .button.is-blue.is-light:hover {
+  background-color: #bfdbfe;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-blue.is-light.is-active, .button.is-blue.is-light:active {
+  background-color: #bfdbfe;
+  border-color: transparent;
+  color: #c0167c
+}
+
+
+/****************************************************************************************************
+***** Ajout de boutons aux couleurs des niveaux
+****************************************************************************************************/
+
+.button.is-6e {
+  background-color: var(--base6e);
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-6e.is-hovered, .button.is-6e:hover {
+  background-color: #e93fa5;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-6e.is-focused, .button.is-6e:focus {
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-6e.is-focused:not(:active), .button.is-6e:focus:not(:active) {
+  box-shadow: 0 0 0 .125em rgba(234, 74, 170, .25)
+}
+
+.button.is-6e.is-active, .button.is-6e:active {
+  background-color: #e7339f;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-6e[disabled], fieldset[disabled] .button.is-6e {
+  background-color: var(--base6e);
+  border-color: transparent;
+  box-shadow: none
+}
+
+.button.is-6e.is-inverted {
+  background-color: #fff;
+  color: var(--base6e)
+}
+
+.button.is-6e.is-inverted.is-hovered, .button.is-6e.is-inverted:hover {
+  background-color: #f2f2f2
+}
+
+.button.is-6e.is-inverted[disabled], fieldset[disabled] .button.is-6e.is-inverted {
+  background-color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  color: var(--base6e)
+}
+
+.button.is-6e.is-loading::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-6e.is-outlined {
+  background-color: transparent;
+  border-color: var(--base6e);
+  color: var(--base6e)
+}
+
+.button.is-6e.is-outlined.is-focused, .button.is-6e.is-outlined.is-hovered, .button.is-6e.is-outlined:focus, .button.is-6e.is-outlined:hover {
+  background-color: var(--base6e);
+  border-color: var(--base6e);
+  color: #fff
+}
+
+.button.is-6e.is-outlined.is-loading::after {
+  border-color: transparent transparent var(--base6e) var(--base6e) !important
+}
+
+.button.is-6e.is-outlined.is-loading.is-focused::after, .button.is-6e.is-outlined.is-loading.is-hovered::after, .button.is-6e.is-outlined.is-loading:focus::after, .button.is-6e.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-6e.is-outlined[disabled], fieldset[disabled] .button.is-6e.is-outlined {
+  background-color: transparent;
+  border-color: var(--base6e);
+  box-shadow: none;
+  color: var(--base6e)
+}
+
+.button.is-6e.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff
+}
+
+.button.is-6e.is-inverted.is-outlined.is-focused, .button.is-6e.is-inverted.is-outlined.is-hovered, .button.is-6e.is-inverted.is-outlined:focus, .button.is-6e.is-inverted.is-outlined:hover {
+  background-color: #fff;
+  color: var(--base6e)
+}
+
+.button.is-6e.is-inverted.is-outlined.is-loading.is-focused::after, .button.is-6e.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-6e.is-inverted.is-outlined.is-loading:focus::after, .button.is-6e.is-inverted.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent var(--base6e) var(--base6e) !important
+}
+
+.button.is-6e.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-6e.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  box-shadow: none;
+  color: #fff
+}
+
+.button.is-6e.is-light {
+  background-color: #fdedf6;
+  color: #c0167c
+}
+
+.button.is-6e.is-light.is-hovered, .button.is-6e.is-light:hover {
+  background-color: #fce1f1;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-6e.is-light.is-active, .button.is-6e.is-light:active {
+  background-color: #fad6ec;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-5e {
+  background-color: var(--base5e);
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-5e.is-hovered, .button.is-5e:hover {
+  background-color: #e93fa5;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-5e.is-focused, .button.is-5e:focus {
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-5e.is-focused:not(:active), .button.is-5e:focus:not(:active) {
+  box-shadow: 0 0 0 .125em rgba(234, 74, 170, .25)
+}
+
+.button.is-5e.is-active, .button.is-5e:active {
+  background-color: #e7339f;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-5e[disabled], fieldset[disabled] .button.is-5e {
+  background-color: var(--base5e);
+  border-color: transparent;
+  box-shadow: none
+}
+
+.button.is-5e.is-inverted {
+  background-color: #fff;
+  color: var(--base5e)
+}
+
+.button.is-5e.is-inverted.is-hovered, .button.is-5e.is-inverted:hover {
+  background-color: #f2f2f2
+}
+
+.button.is-5e.is-inverted[disabled], fieldset[disabled] .button.is-5e.is-inverted {
+  background-color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  color: var(--base5e)
+}
+
+.button.is-5e.is-loading::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-5e.is-outlined {
+  background-color: transparent;
+  border-color: var(--base5e);
+  color: var(--base5e)
+}
+
+.button.is-5e.is-outlined.is-focused, .button.is-5e.is-outlined.is-hovered, .button.is-5e.is-outlined:focus, .button.is-5e.is-outlined:hover {
+  background-color: var(--base5e);
+  border-color: var(--base5e);
+  color: #fff
+}
+
+.button.is-5e.is-outlined.is-loading::after {
+  border-color: transparent transparent var(--base5e) var(--base5e) !important
+}
+
+.button.is-5e.is-outlined.is-loading.is-focused::after, .button.is-5e.is-outlined.is-loading.is-hovered::after, .button.is-5e.is-outlined.is-loading:focus::after, .button.is-5e.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-5e.is-outlined[disabled], fieldset[disabled] .button.is-5e.is-outlined {
+  background-color: transparent;
+  border-color: var(--base5e);
+  box-shadow: none;
+  color: var(--base5e)
+}
+
+.button.is-5e.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff
+}
+
+.button.is-5e.is-inverted.is-outlined.is-focused, .button.is-5e.is-inverted.is-outlined.is-hovered, .button.is-5e.is-inverted.is-outlined:focus, .button.is-5e.is-inverted.is-outlined:hover {
+  background-color: #fff;
+  color: var(--base5e)
+}
+
+.button.is-5e.is-inverted.is-outlined.is-loading.is-focused::after, .button.is-5e.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-5e.is-inverted.is-outlined.is-loading:focus::after, .button.is-5e.is-inverted.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent var(--base5e) var(--base5e) !important
+}
+
+.button.is-5e.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-5e.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  box-shadow: none;
+  color: #fff
+}
+
+.button.is-5e.is-light {
+  background-color: #fdedf6;
+  color: #c0167c
+}
+
+.button.is-5e.is-light.is-hovered, .button.is-5e.is-light:hover {
+  background-color: #fce1f1;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-5e.is-light.is-active, .button.is-5e.is-light:active {
+  background-color: #fad6ec;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-4e {
+  background-color: var(--base4e);
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-4e.is-hovered, .button.is-4e:hover {
+  background-color: #e93fa5;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-4e.is-focused, .button.is-4e:focus {
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-4e.is-focused:not(:active), .button.is-4e:focus:not(:active) {
+  box-shadow: 0 0 0 .125em rgba(234, 74, 170, .25)
+}
+
+.button.is-4e.is-active, .button.is-4e:active {
+  background-color: #e7339f;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-4e[disabled], fieldset[disabled] .button.is-4e {
+  background-color: var(--base4e);
+  border-color: transparent;
+  box-shadow: none
+}
+
+.button.is-4e.is-inverted {
+  background-color: #fff;
+  color: var(--base4e)
+}
+
+.button.is-4e.is-inverted.is-hovered, .button.is-4e.is-inverted:hover {
+  background-color: #f2f2f2
+}
+
+.button.is-4e.is-inverted[disabled], fieldset[disabled] .button.is-4e.is-inverted {
+  background-color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  color: var(--base4e)
+}
+
+.button.is-4e.is-loading::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-4e.is-outlined {
+  background-color: transparent;
+  border-color: var(--base4e);
+  color: var(--base4e)
+}
+
+.button.is-4e.is-outlined.is-focused, .button.is-4e.is-outlined.is-hovered, .button.is-4e.is-outlined:focus, .button.is-4e.is-outlined:hover {
+  background-color: var(--base4e);
+  border-color: var(--base4e);
+  color: #fff
+}
+
+.button.is-4e.is-outlined.is-loading::after {
+  border-color: transparent transparent var(--base4e) var(--base4e) !important
+}
+
+.button.is-4e.is-outlined.is-loading.is-focused::after, .button.is-4e.is-outlined.is-loading.is-hovered::after, .button.is-4e.is-outlined.is-loading:focus::after, .button.is-4e.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-4e.is-outlined[disabled], fieldset[disabled] .button.is-4e.is-outlined {
+  background-color: transparent;
+  border-color: var(--base4e);
+  box-shadow: none;
+  color: var(--base4e)
+}
+
+.button.is-4e.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff
+}
+
+.button.is-4e.is-inverted.is-outlined.is-focused, .button.is-4e.is-inverted.is-outlined.is-hovered, .button.is-4e.is-inverted.is-outlined:focus, .button.is-4e.is-inverted.is-outlined:hover {
+  background-color: #fff;
+  color: var(--base4e)
+}
+
+.button.is-4e.is-inverted.is-outlined.is-loading.is-focused::after, .button.is-4e.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-4e.is-inverted.is-outlined.is-loading:focus::after, .button.is-4e.is-inverted.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent var(--base4e) var(--base4e) !important
+}
+
+.button.is-4e.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-4e.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  box-shadow: none;
+  color: #fff
+}
+
+.button.is-4e.is-light {
+  background-color: #fdedf6;
+  color: #c0167c
+}
+
+.button.is-4e.is-light.is-hovered, .button.is-4e.is-light:hover {
+  background-color: #fce1f1;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-4e.is-light.is-active, .button.is-4e.is-light:active {
+  background-color: #fad6ec;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-3e {
+  background-color: var(--base3e);
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-3e.is-hovered, .button.is-3e:hover {
+  background-color: #e93fa5;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-3e.is-focused, .button.is-3e:focus {
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-3e.is-focused:not(:active), .button.is-3e:focus:not(:active) {
+  box-shadow: 0 0 0 .125em rgba(234, 74, 170, .25)
+}
+
+.button.is-3e.is-active, .button.is-3e:active {
+  background-color: #e7339f;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-3e[disabled], fieldset[disabled] .button.is-3e {
+  background-color: var(--base3e);
+  border-color: transparent;
+  box-shadow: none
+}
+
+.button.is-3e.is-inverted {
+  background-color: #fff;
+  color: var(--base3e)
+}
+
+.button.is-3e.is-inverted.is-hovered, .button.is-3e.is-inverted:hover {
+  background-color: #f2f2f2
+}
+
+.button.is-3e.is-inverted[disabled], fieldset[disabled] .button.is-3e.is-inverted {
+  background-color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  color: var(--base3e)
+}
+
+.button.is-3e.is-loading::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-3e.is-outlined {
+  background-color: transparent;
+  border-color: var(--base3e);
+  color: var(--base3e)
+}
+
+.button.is-3e.is-outlined.is-focused, .button.is-3e.is-outlined.is-hovered, .button.is-3e.is-outlined:focus, .button.is-3e.is-outlined:hover {
+  background-color: var(--base3e);
+  border-color: var(--base3e);
+  color: #fff
+}
+
+.button.is-3e.is-outlined.is-loading::after {
+  border-color: transparent transparent var(--base3e) var(--base3e) !important
+}
+
+.button.is-3e.is-outlined.is-loading.is-focused::after, .button.is-3e.is-outlined.is-loading.is-hovered::after, .button.is-3e.is-outlined.is-loading:focus::after, .button.is-3e.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-3e.is-outlined[disabled], fieldset[disabled] .button.is-3e.is-outlined {
+  background-color: transparent;
+  border-color: var(--base3e);
+  box-shadow: none;
+  color: var(--base3e)
+}
+
+.button.is-3e.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff
+}
+
+.button.is-3e.is-inverted.is-outlined.is-focused, .button.is-3e.is-inverted.is-outlined.is-hovered, .button.is-3e.is-inverted.is-outlined:focus, .button.is-3e.is-inverted.is-outlined:hover {
+  background-color: #fff;
+  color: var(--base3e)
+}
+
+.button.is-3e.is-inverted.is-outlined.is-loading.is-focused::after, .button.is-3e.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-3e.is-inverted.is-outlined.is-loading:focus::after, .button.is-3e.is-inverted.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent var(--base3e) var(--base3e) !important
+}
+
+.button.is-3e.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-3e.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  box-shadow: none;
+  color: #fff
+}
+
+.button.is-3e.is-light {
+  background-color: #fdedf6;
+  color: #c0167c
+}
+
+.button.is-3e.is-light.is-hovered, .button.is-3e.is-light:hover {
+  background-color: #fce1f1;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-3e.is-light.is-active, .button.is-3e.is-light:active {
+  background-color: #fad6ec;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-tout {
+  background-color: var(--basetout);
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-tout.is-hovered, .button.is-tout:hover {
+  background-color: #e93fa5;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-tout.is-focused, .button.is-tout:focus {
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-tout.is-focused:not(:active), .button.is-tout:focus:not(:active) {
+  box-shadow: 0 0 0 .125em rgba(234, 74, 170, .25)
+}
+
+.button.is-tout.is-active, .button.is-tout:active {
+  background-color: #e7339f;
+  border-color: transparent;
+  color: #fff
+}
+
+.button.is-tout[disabled], fieldset[disabled] .button.is-tout {
+  background-color: var(--basetout);
+  border-color: transparent;
+  box-shadow: none
+}
+
+.button.is-tout.is-inverted {
+  background-color: #fff;
+  color: var(--basetout)
+}
+
+.button.is-tout.is-inverted.is-hovered, .button.is-tout.is-inverted:hover {
+  background-color: #f2f2f2
+}
+
+.button.is-tout.is-inverted[disabled], fieldset[disabled] .button.is-tout.is-inverted {
+  background-color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+  color: var(--basetout)
+}
+
+.button.is-tout.is-loading::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-tout.is-outlined {
+  background-color: transparent;
+  border-color: var(--basetout);
+  color: var(--basetout)
+}
+
+.button.is-tout.is-outlined.is-focused, .button.is-tout.is-outlined.is-hovered, .button.is-tout.is-outlined:focus, .button.is-tout.is-outlined:hover {
+  background-color: var(--basetout);
+  border-color: var(--basetout);
+  color: #fff
+}
+
+.button.is-tout.is-outlined.is-loading::after {
+  border-color: transparent transparent var(--basetout) var(--basetout) !important
+}
+
+.button.is-tout.is-outlined.is-loading.is-focused::after, .button.is-tout.is-outlined.is-loading.is-hovered::after, .button.is-tout.is-outlined.is-loading:focus::after, .button.is-tout.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent #fff #fff !important
+}
+
+.button.is-tout.is-outlined[disabled], fieldset[disabled] .button.is-tout.is-outlined {
+  background-color: transparent;
+  border-color: var(--basetout);
+  box-shadow: none;
+  color: var(--basetout)
+}
+
+.button.is-tout.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff
+}
+
+.button.is-tout.is-outlined > p {
+  color : var(--basetout)
+}
+
+.button.is-tout.is-outlined:hover > p {
+  color : white
+}
+
+.button.is-tout.is-inverted.is-outlined.is-focused, .button.is-tout.is-inverted.is-outlined.is-hovered, .button.is-tout.is-inverted.is-outlined:focus, .button.is-tout.is-inverted.is-outlined:hover {
+  background-color: #fff;
+  color: var(--basetout)
+}
+
+.button.is-tout.is-inverted.is-outlined.is-loading.is-focused::after, .button.is-tout.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-tout.is-inverted.is-outlined.is-loading:focus::after, .button.is-tout.is-inverted.is-outlined.is-loading:hover::after {
+  border-color: transparent transparent var(--basetout) var(--basetout) !important
+}
+
+.button.is-tout.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-tout.is-inverted.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  box-shadow: none;
+  color: #fff
+}
+
+.button.is-tout.is-light {
+  background-color: #fdedf6;
+  color: #c0167c
+}
+
+.button.is-tout.is-light.is-hovered, .button.is-tout.is-light:hover {
+  background-color: #fce1f1;
+  border-color: transparent;
+  color: #c0167c
+}
+
+.button.is-tout.is-light.is-active, .button.is-tout.is-light:active {
+  background-color: #fad6ec;
+  border-color: transparent;
+  color: #c0167c
+}

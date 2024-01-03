@@ -1,0 +1,108 @@
+<div class="container is-max-desktop">
+  <h1 class="title is-1 has-text-centered">POLITIQUE DE CONFIDENTIALITÉ</h1>
+  <h1 class="subtitle is-2 pt-6 has-text-centered">
+    MISE À DISPOSITION DU SITE WEB ET CRÉATION DE FICHIERS JOURNAUX
+  </h1>
+  <p class="has-text-justified">
+    Afin de respecter ses obligations légales, l'hébergeur du site web (HODI)
+    collecte et conserve des données techniques relatives à l’utilisation des
+    services (IP, User Agent) pour une durée d'un an.
+  </p>
+  <h1 class="subtitle is-2 pt-6 has-text-centered">UTILISATION DES COOKIES</h1>
+  <p class="has-text-justified">topmaths n'utilise aucun cookie.</p>
+  <h1 class="subtitle is-2 pt-6 has-text-centered">STOCKAGE DES DONNÉES</h1>
+  <p class="has-text-justified">
+    topmaths ne récupère aucune donnée de ses utilisateurs.<br />
+    Certaines données sont stockées localement dans le navigateur mais ne sont à
+    aucun moment envoyées sur internet.
+  </p>
+  <h1 class="subtitle is-2 pt-6 has-text-centered">
+    UTILISATION DE SERVICES TIERS
+  </h1>
+  <p class="has-text-justified">
+    topmaths affiche des éléments de services tiers qui peuvent éventuellement
+    récupérer des données personnelles.
+  </p>
+  <br />
+  <ul>
+    <li>
+      Le calcul mental peut venir de <a href="https://mathsmentales.net/cgu.html"
+        >MathsMentales</a
+      >
+    </li>
+    <li>
+      Les vidéos viennent de <a
+        href="https://policies.google.com/privacy?hl=fr#infocollect">YouTube</a
+      >
+      avant d'être filtrées par
+      <a href="https://ladigitale.dev/confidentialite.html">DigiPlay</a>
+    </li>
+    <li>
+      Certaines activités peuvent provenir de :
+      <ul>
+        <li>
+          - <a href="https://mathix.org/linux/politique-de-confidentialite-2"
+            >mathix</a
+          >
+        </li>
+        <li>
+          - <a href="https://www.sesamath.net/index.php?page=mentions_legales"
+            >Sesamath</a
+          >
+        </li>
+        <li>- <a href="https://www.geogebra.org/privacy">Geogebra</a></li>
+        <li>- <a href="https://www.clicmaclasse.fr/">clicmaclasse</a></li>
+      </ul>
+    </li>
+  </ul>
+  <h1 class="subtitle is-2 pt-6 has-text-centered">
+    DROIT D’ACCÈS AUX DONNÉES
+  </h1>
+  <p class="has-text-justified">
+    <b>Information et consultation du dossier :</b> conformément à l'Article 15
+    du Règlement général sur la protection des données (Cnil.fr), les
+    utilisateurs du site et des applications de La Digitale peuvent formuler une
+    demande de consultation ou d’accès aux données les concernant, dans la
+    mesure ou ces données peuvent être rattachées de manière univoque et sans
+    ambiguïté à leur personne physique.
+    <br /><br />
+    <b>Correction :</b> Si les données personnelles enregistrées sont
+    incorrectes ou incomplètes, vous avez le droit de les faire corriger ou
+    compléter conformément à l'Article 16 du Règlement général sur la protection
+    des données (Cnil.fr).
+    <br /><br />
+    <b>Suppression :</b> l'Article 17 du Règlement général sur la protection des
+    données (Cnil.fr) normalise le droit à la suppression des données
+    personnelles. Vous disposez de ce droit en particulier si la conservation
+    des données à caractère personnel n'est plus nécessaire à l'accomplissement
+    des tâches légales ou si vous avez révoqué votre consentement au traitement
+    des données avec effet pour l'avenir.
+    <br /><br />
+    <b>Restriction du traitement :</b> conformément à l'Article 18 du Règlement
+    général sur la protection des données (Cnil.fr), vous pouvez demander la
+    restriction des données personnelles si vous contestez l'exactitude des
+    données ou si le traitement est illégal.
+    <br /><br />
+    <b>Opposition :</b> vous pouvez faire valoir un droit d'opposition pour des
+    raisons liées à votre situation particulière. Toutefois, conformément à
+    l'Article 21 du Règlement général sur la protection des données (Cnil.fr),
+    il convient d'examiner s'il existe des motifs légitimes pour le traitement
+    ou si le traitement sert à faire valoir, à exercer ou à défendre des droits
+    légaux.
+    <br /><br />
+    <b>Portabilité des données :</b> si le traitement de vos données a été
+    effectué à l'aide d'une procédure automatisée, vous avez le droit,
+    conformément à l'Article 20 du Règlement général sur la protection des
+    données (Cnil.fr), de recevoir les données dans un format commun et lisible
+    par machine et de les transférer ou de les faire transférer à un autre
+    responsable.
+    <br /><br />
+    <b>Retrait du consentement :</b> conformément à l'Article 7, paragraphe 3,
+    du Règlement général sur la protection des données (Cnil.fr), vous avez le
+    droit de révoquer le consentement que vous nous avez donné à tout moment
+    avec effet pour l'avenir.
+    <br /><br />
+    <b>Contact pour le traitement des données :</b> Guillaume VALMONT (contact arobase
+    topmaths.fr).
+  </p>
+</div>

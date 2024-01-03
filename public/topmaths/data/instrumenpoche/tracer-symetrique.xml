@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<INSTRUMENPOCHE version="2">
+<action echelle="56.48090636666388" mouvement="zoom" objet="equerre" tempo="0" />
+<action mouvement="modifier_longueur" objet="regle" longueur="15" tempo="5"/>
+<action objet="crayon" mouvement="translation" abscisse="309" ordonnee="42" tempo="0" vitesse="10000" />
+<action abscisse="65" ordonnee="531" epaisseur="2" couleur="blue" mouvement="tracer" objet="crayon" tempo="0" vitesse="10000"    id="1" />
+<action abscisse="274" ordonnee="112" couleur="black" id="2" mouvement="creer" objet="point" tempo="0" />
+<action abscisse="100" ordonnee="461" couleur="black" id="3" mouvement="creer" objet="point" tempo="0" />
+<action abscisse="123" ordonnee="270" id="5" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$M$" id="5" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="120" ordonnee="270" couleur="black" id="4" mouvement="creer" objet="point" tempo="0"/>
+<action objet="equerre" mouvement="rotation" angle="-63.43" tempo="5" sens="5" />
+<action objet="equerre" mouvement="montrer" abscisse="180" ordonnee="300" tempo="5" />
+<action objet="crayon" mouvement="montrer" abscisse="120" ordonnee="270" tempo="5" />
+<action abscisse="180" ordonnee="300" epaisseur="2" couleur="blue" mouvement="tracer" objet="crayon" tempo="5" vitesse="10"    id="6" />
+<action objet="equerre" mouvement="masquer" tempo="5" />
+<action objet="regle" mouvement="montrer" abscisse="108" ordonnee="264" tempo="5" />
+<action objet="regle" mouvement="rotation" angle="26.57" tempo="5" sens="5" />
+<action objet="crayon" mouvement="translation" abscisse="108" ordonnee="264" tempo="5" vitesse="10" />
+<action abscisse="252" ordonnee="336" epaisseur="2" couleur="blue" mouvement="tracer" objet="crayon" tempo="5" vitesse="10"    id="7" />
+<action objet="regle" mouvement="masquer" tempo="5" />
+
+<action objet="crayon" mouvement="translation" abscisse="172" ordonnee="296" tempo="0" vitesse="10" />
+<action abscisse="168" ordonnee="304" epaisseur="2" couleur="#f15929" mouvement="tracer" objet="crayon" tempo="0" vitesse="10"    id="8" />
+<action abscisse="176" ordonnee="308" epaisseur="2" couleur="#f15929" mouvement="tracer" objet="crayon" tempo="5" vitesse="10"    id="9" />
+<action echelle="100" mouvement="zoom" objet="equerre" tempo="0" />
+<action mouvement="modifier_longueur" objet="regle" longueur="15" tempo="5"/>
+<action objet="crayon" mouvement="masquer" tempo="5" />
+<action objet="compas" mouvement="montrer" abscisse="0" ordonnee="300" tempo="5" />
+<action objet="compas" mouvement="translation" abscisse="120" ordonnee="270" tempo="5" vitesse="10" />
+
+<action objet="compas" mouvement="translation" abscisse="180" ordonnee="300" tempo="5" vitesse="10" />
+<action ecart="67.0820393249937" mouvement="ecarter" objet="compas" tempo="5" vitesse="10" />
+<action sens="5" angle="-143.43" mouvement="rotation" objet="compas" tempo="5" />
+<action mouvement="lever" objet="compas" />
+<action sens="5" angle="-143.43" mouvement="rotation" objet="compas" />
+<action couleur="forestgreen" epaisseur="2" sens="5" debut="-143.43" fin="-163.43" mouvement="tracer" objet="compas"   id="10" />
+<action mouvement="coucher" objet="compas" tempo="5"/>
+
+<action sens="5" angle="16.57" mouvement="rotation" objet="compas" tempo="5" />
+<action mouvement="lever" objet="compas" />
+<action sens="5" angle="16.57" mouvement="rotation" objet="compas" />
+<action couleur="forestgreen" epaisseur="2" sens="-5" debut="16.57" fin="36.57" mouvement="tracer" objet="compas"   id="11" />
+<action mouvement="coucher" objet="compas" tempo="5"/>
+<action abscisse="243" ordonnee="330" id="13" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$M'$" id="13" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="240" ordonnee="330" couleur="black" id="12" mouvement="creer" objet="point" tempo="5"/>
+<action abscisse="150" ordonnee="285" forme="\"  couleur="#f15929" id="14" tempo="5" mouvement="creer" objet="longueur" />
+<action abscisse="210" ordonnee="315" forme="\"  couleur="#f15929" id="15" tempo="5" mouvement="creer" objet="longueur" />
+<action objet="compas" mouvement="masquer" tempo="5" />
+</INSTRUMENPOCHE>

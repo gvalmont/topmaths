@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<INSTRUMENPOCHE version="2">
+<action abscisse="105" ordonnee="285" id="2" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$A$" id="2" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="120" ordonnee="270" couleur="black" id="1" mouvement="creer" objet="point" tempo="0"/>
+<action abscisse="306" ordonnee="255" id="4" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$B$" id="4" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="300" ordonnee="240" couleur="black" id="3" mouvement="creer" objet="point" tempo="0"/>
+<action abscisse="225" ordonnee="105" id="6" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$C$" id="6" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="210" ordonnee="120" couleur="black" id="5" mouvement="creer" objet="point" tempo="0"/>
+<action echelle="85.85030209659529" mouvement="zoom" objet="equerre" tempo="0" />
+<action mouvement="modifier_longueur" objet="regle" longueur="15" tempo="5"/>
+<action objet="crayon" mouvement="translation" abscisse="84" ordonnee="276" tempo="0" vitesse="10000" />
+<action abscisse="336" ordonnee="234" epaisseur="2" couleur="black" mouvement="tracer" objet="crayon" tempo="0" vitesse="10000"    id="7" />
+<action abscisse="123" ordonnee="270" id="9" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$ $" id="9" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="120" ordonnee="270" couleur="black" id="8" mouvement="creer" objet="point" tempo="0"/>
+<action abscisse="303" ordonnee="240" id="11" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$ $" id="11" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="300" ordonnee="240" couleur="black" id="10" mouvement="creer" objet="point" tempo="0"/>
+<action abscisse="213" ordonnee="120" id="13" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$ $" id="13" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="210" ordonnee="120" couleur="black" id="12" mouvement="creer" objet="point" tempo="0"/>
+<action objet="equerre" mouvement="rotation" angle="-9.46" tempo="5" sens="5" />
+<action objet="equerre" mouvement="montrer" abscisse="232" ordonnee="251" tempo="5" />
+<action objet="crayon" mouvement="montrer" abscisse="210" ordonnee="120" tempo="5" />
+<action abscisse="232" ordonnee="251" epaisseur="2" couleur="black" mouvement="tracer" objet="crayon" tempo="5" vitesse="10"    id="14" />
+<action objet="equerre" mouvement="masquer" tempo="5" />
+<action objet="regle" mouvement="montrer" abscisse="206" ordonnee="94" tempo="5" />
+<action objet="regle" mouvement="rotation" angle="80.53999999999999" tempo="5" sens="5" />
+<action objet="crayon" mouvement="translation" abscisse="206" ordonnee="94" tempo="5" vitesse="10" />
+<action abscisse="258" ordonnee="409" epaisseur="2" couleur="black" mouvement="tracer" objet="crayon" tempo="5" vitesse="10"    id="15" />
+<action objet="regle" mouvement="masquer" tempo="5" />
+
+<action objet="crayon" mouvement="translation" abscisse="230" ordonnee="242" tempo="0" vitesse="10" />
+<action abscisse="222" ordonnee="244" epaisseur="2" couleur="#f15929" mouvement="tracer" objet="crayon" tempo="0" vitesse="10"    id="16" />
+<action abscisse="223" ordonnee="253" epaisseur="2" couleur="#f15929" mouvement="tracer" objet="crayon" tempo="5" vitesse="10"    id="17" />
+<action echelle="100" mouvement="zoom" objet="equerre" tempo="0" />
+<action mouvement="modifier_longueur" objet="regle" longueur="15" tempo="5"/>
+<action objet="crayon" mouvement="masquer" tempo="5" />
+</INSTRUMENPOCHE>

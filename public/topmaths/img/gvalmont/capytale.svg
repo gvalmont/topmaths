@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="81.831932mm"
+   height="81.83194mm"
+   viewBox="0 0 81.831932 81.83194"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="capytale.svg"
+   inkscape:version="1.2.1 (9c6d41e, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview191"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.76304762"
+     inkscape:cx="155.2983"
+     inkscape:cy="154.64304"
+     inkscape:window-width="1470"
+     inkscape:window-height="828"
+     inkscape:window-x="0"
+     inkscape:window-y="37"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="text842" />
+  <defs
+     id="defs2">
+    <rect
+       x="133.1803"
+       y="442.34885"
+       width="323.43787"
+       height="290.14279"
+       id="rect844" />
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(-67.942087,-90.594632)">
+    <g
+       id="g5429">
+      <path
+         id="path234"
+         style="fill:none;stroke:#000000;stroke-width:3.96689"
+         d="M 147.79059,131.5106 A 38.932526,38.932526 0 0 1 108.85806,170.44313 38.932526,38.932526 0 0 1 69.925537,131.5106 38.932526,38.932526 0 0 1 108.85806,92.578079 38.932526,38.932526 0 0 1 147.79059,131.5106 Z" />
+      <g
+         aria-label="PY"
+         transform="matrix(0.26458333,0,0,0.26458333,45.305085,-15.101695)"
+         id="text842"
+         style="font-size:200px;font-family:Arial;-inkscape-font-specification:Arial;white-space:pre;shape-inside:url(#rect844);display:inline;fill:none;stroke:#000000;stroke-width:8.56063">
+        <text
+           xml:space="preserve"
+           style="font-weight:600;font-size:188.434px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro, Semi-Bold';fill:#000000;stroke-width:8.19019;stroke-dasharray:none"
+           x="139.01823"
+           y="614.84296"
+           id="text1033"
+           transform="scale(0.99816748,1.0018359)"><tspan
+             sodipodi:role="line"
+             id="tspan1031"
+             x="139.01823"
+             y="614.84296"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:188.434px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:8.19019">PY</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

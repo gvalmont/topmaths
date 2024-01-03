@@ -1,0 +1,286 @@
+[
+  {
+    "annee": 2022,
+    "periodes": [
+      {
+        "numero": 2,
+        "debut": 1,
+        "fin": 23,
+        "type": "vacances"
+      },
+      {
+        "numero": 3,
+        "debut": 24,
+        "fin": 71,
+        "type": "cours"
+      },
+      {
+        "numero": 3,
+        "debut": 72,
+        "fin": 86,
+        "type": "vacances"
+      },
+      {
+        "numero": 4,
+        "debut": 87,
+        "fin": 134,
+        "type": "cours"
+      },
+      {
+        "numero": 4,
+        "debut": 135,
+        "fin": 149,
+        "type": "vacances"
+      },
+      {
+        "numero": 5,
+        "debut": 150,
+        "fin": 190,
+        "type": "cours"
+      },
+      {
+        "numero": 5,
+        "debut": 191,
+        "fin": 227,
+        "type": "vacances"
+      },
+      {
+        "numero": 1,
+        "debut": 228,
+        "fin": 281,
+        "type": "cours"
+      },
+      {
+        "numero": 1,
+        "debut": 282,
+        "fin": 296,
+        "type": "vacances"
+      },
+      {
+        "numero": 2,
+        "debut": 297,
+        "fin": 351,
+        "type": "cours"
+      },
+      {
+        "numero": 2,
+        "debut": 352,
+        "fin": 365,
+        "type": "vacances"
+      }
+    ]
+  },
+  {
+    "annee": 2023,
+    "periodes": [
+      {
+        "numero": 2,
+        "debut": 1,
+        "fin": 22,
+        "type": "vacances"
+      },
+      {
+        "numero": 3,
+        "debut": 23,
+        "fin": 70,
+        "type": "cours"
+      },
+      {
+        "numero": 3,
+        "debut": 71,
+        "fin": 85,
+        "type": "vacances"
+      },
+      {
+        "numero": 4,
+        "debut": 86,
+        "fin": 133,
+        "type": "cours"
+      },
+      {
+        "numero": 4,
+        "debut": 134,
+        "fin": 149,
+        "type": "vacances"
+      },
+      {
+        "numero": 5,
+        "debut": 150,
+        "fin": 189,
+        "type": "cours"
+      },
+      {
+        "numero": 5,
+        "debut": 190,
+        "fin": 227,
+        "type": "vacances"
+      },
+      {
+        "numero": 1,
+        "debut": 228,
+        "fin": 281,
+        "type": "cours"
+      },
+      {
+        "numero": 1,
+        "debut": 282,
+        "fin": 296,
+        "type": "vacances"
+      },
+      {
+        "numero": 2,
+        "debut": 297,
+        "fin": 351,
+        "type": "cours"
+      },
+      {
+        "numero": 2,
+        "debut": 352,
+        "fin": 365,
+        "type": "vacances"
+      }
+    ]
+  },
+  {
+    "annee": 2024,
+    "periodes": [
+      {
+        "numero": 2,
+        "debut": 1,
+        "fin": 21,
+        "type": "vacances"
+      },
+      {
+        "numero": 3,
+        "debut": 22,
+        "fin": 61,
+        "type": "cours"
+      },
+      {
+        "numero": 3,
+        "debut": 62,
+        "fin": 77,
+        "type": "vacances"
+      },
+      {
+        "numero": 4,
+        "debut": 78,
+        "fin": 124,
+        "type": "cours"
+      },
+      {
+        "numero": 4,
+        "debut": 125,
+        "fin": 141,
+        "type": "vacances"
+      },
+      {
+        "numero": 5,
+        "debut": 142,
+        "fin": 187,
+        "type": "cours"
+      },
+      {
+        "numero": 5,
+        "debut": 188,
+        "fin": 231,
+        "type": "vacances"
+      },
+      {
+        "numero": 1,
+        "debut": 232,
+        "fin": 285,
+        "type": "cours"
+      },
+      {
+        "numero": 1,
+        "debut": 286,
+        "fin": 301,
+        "type": "vacances"
+      },
+      {
+        "numero": 2,
+        "debut": 302,
+        "fin": 353,
+        "type": "cours"
+      },
+      {
+        "numero": 2,
+        "debut": 354,
+        "fin": 365,
+        "type": "vacances"
+      }
+    ]
+  },
+  {
+    "annee": 2025,
+    "periodes": [
+      {
+        "numero": 2,
+        "debut": 1,
+        "fin": 20,
+        "type": "vacances"
+      },
+      {
+        "numero": 3,
+        "debut": 21,
+        "fin": 59,
+        "type": "cours"
+      },
+      {
+        "numero": 3,
+        "debut": 60,
+        "fin": 75,
+        "type": "vacances"
+      },
+      {
+        "numero": 4,
+        "debut": 76,
+        "fin": 122,
+        "type": "cours"
+      },
+      {
+        "numero": 4,
+        "debut": 123,
+        "fin": 138,
+        "type": "vacances"
+      },
+      {
+        "numero": 5,
+        "debut": 139,
+        "fin": 185,
+        "type": "cours"
+      },
+      {
+        "numero": 5,
+        "debut": 186,
+        "fin": 230,
+        "type": "vacances"
+      },
+      {
+        "numero": 1,
+        "debut": 231,
+        "fin": 283,
+        "type": "cours"
+      },
+      {
+        "numero": 1,
+        "debut": 284,
+        "fin": 299,
+        "type": "vacances"
+      },
+      {
+        "numero": 2,
+        "debut": 300,
+        "fin": 352,
+        "type": "cours"
+      },
+      {
+        "numero": 2,
+        "debut": 353,
+        "fin": 365,
+        "type": "vacances"
+      }
+    ]
+  }
+]

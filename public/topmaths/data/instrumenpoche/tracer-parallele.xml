@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<INSTRUMENPOCHE version="2">
+<action abscisse="105" ordonnee="285" id="2" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$A$" id="2" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="120" ordonnee="270" couleur="black" id="1" mouvement="creer" objet="point" tempo="0"/>
+<action abscisse="306" ordonnee="255" id="4" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$B$" id="4" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="300" ordonnee="240" couleur="black" id="3" mouvement="creer" objet="point" tempo="0"/>
+<action abscisse="225" ordonnee="105" id="6" mouvement="creer" objet="texte" />
+<action  couleur="black" texte="$C$" id="6" mouvement="ecrire" objet="texte"  tempo="0" />
+<action abscisse="210" ordonnee="120" couleur="black" id="5" mouvement="creer" objet="point" tempo="0"/>
+<action objet="regle" mouvement="montrer" abscisse="-12" ordonnee="292" tempo="5" />
+<action objet="regle" mouvement="rotation" angle="-9.46" tempo="0" sens="5" />
+<action objet="regle" mouvement="rotation" angle="-9.46" tempo="0" sens="5" />
+<action objet="crayon" mouvement="montrer" abscisse="-12" ordonnee="292" tempo="0" />
+<action abscisse="432" ordonnee="218" epaisseur="2" couleur="black" mouvement="tracer" objet="crayon" tempo="0" vitesse="10"    id="7" />
+<action objet="equerre" mouvement="montrer" abscisse="173" ordonnee="261" tempo="5" />
+<action objet="equerre" mouvement="rotation" angle="80.53999999999999" tempo="5" sens="5" />
+<action objet="regle" mouvement="translation" abscisse="141" ordonnee="71" tempo="0" vitesse="10" />
+<action objet="regle" mouvement="rotation" angle="80.54" tempo="0" sens="5" />
+
+<action objet="equerre" mouvement="translation" abscisse="151" ordonnee="130" tempo="5" vitesse="10" />
+
+<action objet="crayon" mouvement="translation" abscisse="151" ordonnee="130" tempo="5" vitesse="10" />
+<action abscisse="328" ordonnee="100" epaisseur="2" couleur="black" mouvement="tracer" objet="crayon" tempo="5" vitesse="10"    id="8" />
+<action objet="crayon" mouvement="masquer" tempo="5" />
+</INSTRUMENPOCHE>
