@@ -1,5 +1,8 @@
 import 'boxicons/css/boxicons.min.css'
 import './app.css'
+import './topmaths.css'
+import './bulma.css'
+import './bulma-extension.css'
 import App from './components/App.svelte'
 import './bugsnag'
 

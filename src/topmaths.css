@@ -1,0 +1,326 @@
+:root {
+  --foreground-transform: scale(1, 1);
+  --basetout: #feb60a;
+  --lighttout: hsl(48, 100%, 96%);
+  --base6e: #28a745;
+  --light6e: hsl(142, 52%, 96%);
+  --base5e: hsl(217, 71%, 53%);
+  --light5e: hsl(219, 70%, 96%);
+  --base4e: rgb(109 40 217);
+  --light4e: rgb(237 233 254);
+  --base3e: #e03286;
+  --light3e: rgb(252 231 243);
+  --colorless: hsl(0, 0%, 21%);
+}
+
+.bleu {
+  color: blue
+}
+
+.rouge {
+  color: red
+}
+
+.vert {
+  color: green
+}
+
+.noir {
+  color: var(--colorless)
+}
+
+.mot-defini {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+@media print {
+  .noprint,
+  .noprint * {
+    display: none !important;
+    padding:0;
+    margin:0;
+  }
+  html,body {
+    padding:0;
+    margin:0
+  }
+}
+
+.modale-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  background: rgba(10, 10, 10, 0.86);
+}
+
+.modale-contenu {
+  background-color: white;
+  border-radius: 50px;
+  margin: 5% 10%;
+  max-height: 80%;
+  overflow: auto;
+  position: relative;
+  max-width: 80%;
+}
+
+.is-tout :not(a) :not(button), .is-6e :not(a) :not(button), .is-5e :not(a) :not(button), .is-4e :not(a) :not(button), .is-3e :not(a) :not(button) {
+  color: var(--colorless);
+}
+
+.is-tout, .is-tout:not(.title) button:not(.button), .is-tout:not(.title) a, .tabs-menu .subtitle.is-tout:not(:hover):not(.is-active) {
+  background-color: var(--lighttout);
+  color: var(--basetout);
+}
+
+.title.is-tout, .title.is-6e, .title.is-5e, .title.is-4e, .title.is-3e {
+  border-radius: 50px 50px 0px 0px;
+  padding: 25px 50px 25px 50px;
+  margin-bottom: 0px;
+}
+
+.subtitle.is-tout, .subtitle.is-6e, .subtitle.is-5e, .subtitle.is-4e, .subtitle.is-3e {
+  margin-bottom: 0px;
+}
+
+.subtitle.is-rounded {
+  border-radius: 25px;
+}
+
+.is-fin {
+  border-radius: 0px 0px 50px 50px;
+}
+
+.title.is-tout, .subtitle.is-tout, a.subtitle.is-tout, button.subtitle.is-tout {
+  background-color: var(--basetout);
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.title.is-6e, .subtitle.is-6e, a.subtitle.is-6e, button.subtitle.is-6e {
+  background-color: var(--base6e);
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.title.is-5e, .subtitle.is-5e, a.subtitle.is-5e, button.subtitle.is-5e {
+  background-color: var(--base5e);
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.title.is-4e, .subtitle.is-4e, a.subtitle.is-4e, button.subtitle.is-4e {
+  background-color: var(--base4e);
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.title.is-3e, .subtitle.is-3e, a.subtitle.is-3e, button.subtitle.is-3e {
+  background-color: var(--base3e);
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.is-6e {
+  background-color: var(--light6e);
+}
+
+.is-6e a:not(.subtitle *):not(.title *):not(.colorless *), .is-6e a *:not(.subtitle *):not(.title *):not(.colorless *), .is-6e button:not(.subtitle *):not(.title *):not(.colorless *), .is-6e button *:not(.subtitle *):not(.title *):not(.colorless *) {
+  color: var(--base6e) !important;
+}
+
+.tabs-menu .subtitle.is-6e:not(:hover):not(.is-active) {
+  background-color: var(--light6e);
+  color: var(--base6e);
+}
+
+.is-5e {
+  background-color: var(--light5e);
+}
+
+.is-5e a:not(.subtitle *):not(.title *):not(.colorless *), .is-5e a *:not(.subtitle *):not(.title *):not(.colorless *), .is-5e button:not(.subtitle *):not(.title *):not(.colorless *), .is-5e button *:not(.subtitle *):not(.title *):not(.colorless *) {
+  color: var(--base5e);
+}
+
+.tabs-menu .subtitle.is-5e:not(:hover):not(.is-active) {
+  background-color: var(--light5e);
+  color: var(--base5e);
+}
+
+.is-4e {
+  background-color: var(--light4e);
+}
+
+.is-4e a:not(.subtitle *):not(.title *):not(.colorless *), .is-4e a *:not(.subtitle *):not(.title *):not(.colorless *), .is-4e button:not(.subtitle *):not(.title *):not(.colorless *), .is-4e button *:not(.subtitle *):not(.title *):not(.colorless *) {
+  color: var(--base4e);
+}
+
+.tabs-menu .subtitle.is-4e:not(:hover):not(.is-active) {
+  background-color: var(--light4e);
+  color: var(--base4e);
+}
+
+.is-3e {
+  background-color: var(--light3e);
+}
+
+.is-3e a:not(.subtitle *):not(.title *):not(.colorless *), .is-3e a *:not(.subtitle *):not(.title *):not(.colorless *), .is-3e button:not(.subtitle *):not(.title *):not(.colorless *), .is-3e button *:not(.subtitle *):not(.title *):not(.colorless *) {
+  color: var(--base3e);
+}
+
+.tabs-menu .subtitle.is-3e:not(:hover):not(.is-active) {
+  background-color: var(--light3e);
+  color: var(--base3e);
+}
+
+.tabs-menu li a:hover, .tabs-menu li button:hover {
+  color: #ffffff;
+}
+
+.is-tout.title a, .is-tout.subtitle a, .is-6e.title a, .is-6e.subtitle a, .is-5e.title a, .is-5e.subtitle a, .is-4e.title a, .is-4e.subtitle a, .is-3e.title a, .is-3e.subtitle a,
+.is-tout.title button, .is-tout.subtitle button, .is-6e.title button, .is-6e.subtitle button, .is-5e.title button, .is-5e.subtitle button, .is-4e.title button, .is-4e.subtitle button, .is-3e.title button, .is-3e.subtitle button {
+  color: white;
+  background-color: inherit;
+}
+
+.is-tout.title a i, .is-tout.subtitle a i, .is-6e.title a i, .is-6e.subtitle a i, .is-5e.title a i, .is-5e.subtitle a i, .is-4e.title a i, .is-4e.subtitle a i, .is-3e.title a i, .is-3e.subtitle a i,
+.is-tout.title button i, .is-tout.subtitle button i, .is-6e.title button i, .is-6e.subtitle button i, .is-5e.title button i, .is-5e.subtitle button i, .is-4e.title button i, .is-4e.subtitle button i, .is-3e.title button i, .is-3e.subtitle button i {
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+}
+
+/* Couleur des icônes */
+.is-tout i {
+  filter: invert(76%) sepia(16%) saturate(6197%) hue-rotate(354deg) brightness(107%) contrast(99%);
+}
+
+.is-6e i {
+  filter: invert(52%) sepia(26%) saturate(1195%) hue-rotate(81deg) brightness(95%) contrast(94%);
+}
+
+.is-5e i {
+  filter: invert(35%) sepia(90%) saturate(2748%) hue-rotate(207deg) brightness(95%) contrast(81%);
+}
+
+.is-4e i {
+  filter: invert(22%) sepia(91%) saturate(2560%) hue-rotate(255deg) brightness(83%) contrast(110%);
+}
+
+.is-3e i {
+  filter: invert(24%) sepia(75%) saturate(2769%) hue-rotate(313deg) brightness(95%) contrast(83%);
+}
+
+.centre {
+  text-align: center;
+}
+
+.enorme {
+  font-size: xx-large;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+}
+
+.is-width-130 {
+  width: 130px;
+}
+
+.cache {
+  display: none;
+}
+
+.pleinEcran {
+  position: fixed;
+  background: white;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+
+#overlayHeure {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 200;
+  width: 60px;
+  height: 30px;
+  font-size: 18px;
+  transition: width 1s, height 1s, font-size 1s;
+}
+
+.booboom {
+  animation: Booboom 0.3s;
+}
+
+@keyframes Booboom {
+  0%, 100% {
+    transform:  scale(1);
+  
+  }
+  50% {
+    transform:  scale(1.6);
+  }
+}
+
+.shake {
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 0.5s;
+
+  /* When the animation is finished, start again */
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
