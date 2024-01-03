@@ -7,7 +7,7 @@
 = Android
 
 + Installer #link("https://play.google.com/store/apps/details?id=com.ichi2.anki&pli=1")[AnkiDroid]
-+ Télécharger le paquet de #link("https://topmaths.fr/assets/topmaths/telechargements/tables_de_multiplication_anki.apkg")[Tables de multiplication] ainsi que le paquet de #link("https://topmaths.fr/assets/topmaths/telechargements/Topmaths.apkg")[Topmaths]
++ Télécharger le paquet de #link("https://topmaths.fr/topmaths/telechargements/tables_de_multiplication_anki.apkg")[Tables de multiplication] ainsi que le paquet de #link("https://topmaths.fr/topmaths/telechargements/Topmaths.apkg")[Topmaths]
 + Les ouvrir avec AnkiDroid
 
 = iOS
@@ -15,7 +15,7 @@
 == Version payante
 
 + Acheter #link("https://apps.apple.com/us/app/ankimobile-flashcards/id373493387")[AnkiMobile] (29,99 €)
-+ Télécharger le paquet de #link("https://topmaths.fr/assets/topmaths/telechargements/tables_de_multiplication_anki.apkg")[Tables de multiplication] ainsi que le paquet de #link("https://topmaths.fr/assets/topmaths/telechargements/Topmaths.apkg")[Topmaths]
++ Télécharger le paquet de #link("https://topmaths.fr/topmaths/telechargements/tables_de_multiplication_anki.apkg")[Tables de multiplication] ainsi que le paquet de #link("https://topmaths.fr/topmaths/telechargements/Topmaths.apkg")[Topmaths]
 + Les ouvrir avec AnkiMobile
 
 == Version gratuite
@@ -53,7 +53,7 @@ On a maintenant un bouton qui permet d'accéder directement à Anki sur son écr
   - #link("https://github.com/ankitects/anki/releases/download/2.1.66/anki-2.1.66-linux-qt6.tar.zst")[Linux]
 + Ouvrir le fichier téléchargé et l'installer
   - Si le logiciel se ferme immédiatement après ouverture, il faut aller dans les réglages de l'horloge pour faire en sorte que l'heure soit réglée automatiquement
-+ Télécharger le paquet de #link("https://topmaths.fr/assets/topmaths/telechargements/tables_de_multiplication_anki.apkg")[Tables de multiplication] ainsi que le paquet de #link("https://topmaths.fr/assets/topmaths/telechargements/Topmaths.apkg")[Topmaths]
++ Télécharger le paquet de #link("https://topmaths.fr/topmaths/telechargements/tables_de_multiplication_anki.apkg")[Tables de multiplication] ainsi que le paquet de #link("https://topmaths.fr/topmaths/telechargements/Topmaths.apkg")[Topmaths]
 + Les ouvrir avec Anki
 + Cliquer sur le bouton "Synchronisation" puis se connecter avec l'email et le mot de passe choisis sur le téléphone
 

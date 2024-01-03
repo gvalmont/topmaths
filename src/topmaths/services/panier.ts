@@ -1,5 +1,5 @@
-import { panierDispo } from '../../store'
-import type { ObjectifExercice, ObjectifObjectif, PanierItem, SequenceObjectif } from '../../../lib/types'
+import { panierDispo } from './store'
+import type { ObjectifExercice, ObjectifObjectif, PanierItem, SequenceObjectif } from './types'
 import { storage } from './storage'
 import { outils } from './outils'
 

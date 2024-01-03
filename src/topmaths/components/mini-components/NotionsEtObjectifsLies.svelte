@@ -31,7 +31,7 @@
   {#each ligne.objectifsLies as objectifLie}
   <a href="/?v=objectif&ref={objectifLie}" on:click={(event) => outils.go(event, 'objectif', objectifLie)}>
     <button class="button is-{objectifLie.slice(0, 1)}e is-outlined mt-2 ml-1 pr-2" style="font-size: 0.85rem;">
-      {objectifLie}&nbsp;<i><img src="assets/topmaths/img/cc0/exit-svgrepo-com.svg" width="14px" alt="icône de sortie" /></i>
+      {objectifLie}&nbsp;<i><img src="topmaths/img/cc0/exit-svgrepo-com.svg" width="14px" alt="icône de sortie" /></i>
     </button>
   </a>
   {/each}

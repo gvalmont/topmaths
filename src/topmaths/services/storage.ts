@@ -1,4 +1,4 @@
-import { modeEnseignant, modePerso } from '../../store'
+import { modeEnseignant, modePerso } from './store'
 
 export const storage = {
   recupererEtatModeEnseignant () {

@@ -467,7 +467,7 @@ function getRappelDuCoursImage (objectif) {
   if (objectif.rappelDuCoursImage === '' || objectif.rappelDuCoursImage === undefined) {
     return ''
   } else {
-    return '../assets/topmaths/img/' + objectif.rappelDuCoursImage
+    return '../topmaths/img/' + objectif.rappelDuCoursImage
   }
 }
 

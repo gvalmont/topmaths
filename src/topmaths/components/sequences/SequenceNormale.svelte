@@ -246,13 +246,13 @@
         {#if sequence.telechargementsDisponibles.cours}
           <div class="p-1">
             <a
-              href="assets/topmaths/cours/{niveau}/{referenceSequence}_Cours.pdf"
+              href="topmaths/cours/{niveau}/{referenceSequence}_Cours.pdf"
             >
               <button>
                 Télécharger le cours &nbsp;
                 <i class="image is-24x24 is-inline-block">
                   <img
-                    src="/assets/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
+                    src="/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
                     alt="Icone de PDF"
                   />
                 </i>
@@ -263,13 +263,13 @@
         {#if sequence.telechargementsDisponibles.resume}
           <div class="p-1">
             <a
-              href="assets/topmaths/resume/{niveau}/Resume_{referenceSequence}.pdf"
+              href="topmaths/resume/{niveau}/Resume_{referenceSequence}.pdf"
             >
               <button>
                 Télécharger le résumé &nbsp;
                 <i class="image is-24x24 is-inline-block">
                   <img
-                    src="/assets/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
+                    src="/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
                     alt="Icone de PDF"
                   />
                 </i>
@@ -280,13 +280,13 @@
         {#if sequence.telechargementsDisponibles.mission}
           <div class="p-1">
             <a
-              href="assets/topmaths/mission/{niveau}/Mission_{referenceSequence}.pdf"
+              href="topmaths/mission/{niveau}/Mission_{referenceSequence}.pdf"
             >
               <button>
                 Télécharger la mission &nbsp;
                 <i class="image is-24x24 is-inline-block">
                   <img
-                    src="/assets/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
+                    src="/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
                     alt="Icone de PDF"
                   />
                 </i>
@@ -297,13 +297,13 @@
         {#if $modePerso && sequence.telechargementsDisponibles.fiche}
         <div class="p-1">
           <a
-            href="assets/topmaths/fiches/sequences/{niveau}/{referenceSequence}_Fiche.pdf"
+            href="topmaths/fiches/sequences/{niveau}/{referenceSequence}_Fiche.pdf"
           >
             <button>
               Télécharger la fiche &nbsp;
               <i class="image is-24x24 is-inline-block">
                 <img
-                  src="/assets/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
+                  src="/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
                   alt="Icone de PDF"
                 />
               </i>

@@ -362,7 +362,7 @@
         on:keydown={alternerAffichagePoints}
       >
         <img
-          src="assets/topmaths/img/gvalmont/p-circle.svg"
+          src="topmaths/img/gvalmont/p-circle.svg"
           alt="Symbole P entouré"
         />
       </figure>
@@ -385,7 +385,7 @@
     <div class="is-flex is-align-items-center is-justify-content-center">
       Atteindre &nbsp; <figure
         class="is-flex is-align-items-center is-justify-content-center is-size-3 has-text-weight-semibold"
-        style="width: 120px; height: 120px; background-image:url('/assets/topmaths/img/cc0/target-svgrepo-com.svg'); background-position:center, center;background-size: 120px, 120px; color:black;text-shadow: 0px 0px 5px white"
+        style="width: 120px; height: 120px; background-image:url('/topmaths/img/cc0/target-svgrepo-com.svg'); background-position:center, center;background-size: 120px, 120px; color:black;text-shadow: 0px 0px 5px white"
       >
         {nombreCible}
       </figure>
@@ -439,7 +439,7 @@
           {#if minuteurEnFonctionnement}
             <button on:click={arreterMinuteur}>
               <IconeTooltipSimple
-                urlBouton="/assets/topmaths/img/cc0/pause-svgrepo-com.svg"
+                urlBouton="/topmaths/img/cc0/pause-svgrepo-com.svg"
                 texteDropdown=""
                 texteAlternatif="Pause"
                 size={3}
@@ -448,7 +448,7 @@
           {:else if tempsRestant > 0}
             <button on:click={lancerMinuteur}>
               <IconeTooltipSimple
-                urlBouton="/assets/topmaths/img/cc0/play-button-svgrepo-com.svg"
+                urlBouton="/topmaths/img/cc0/play-button-svgrepo-com.svg"
                 texteDropdown=""
                 texteAlternatif="Play"
                 size={3}
@@ -521,7 +521,7 @@
 <div id="sonDejaJoue" class="cache" />
 <audio id="audioElement">
   <source
-    src="/assets/topmaths/mp3/BELLHand_Sonnette de velo 2 (ID 0275)_LS.mp3"
+    src="/topmaths/mp3/BELLHand_Sonnette de velo 2 (ID 0275)_LS.mp3"
     type="audio/mpeg"
   />
   Votre navigateur ne supporte pas les éléments audio.

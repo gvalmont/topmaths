@@ -120,7 +120,7 @@
   }
 
   function loadIep () {
-    const url = `assets/topmaths/data/instrumenpoche/${objectif.rappelDuCoursInstrumenpoche}.xml`
+    const url = `topmaths/data/instrumenpoche/${objectif.rappelDuCoursInstrumenpoche}.xml`
     fetch(url)
       .then(response => response.text())
       .then(xml => {
@@ -273,13 +273,13 @@
         {#if objectif.telechargementsDisponibles.entrainement}
           <div class="p-1">
             <a
-              href="assets/topmaths/entrainement/{niveau}/Entrainement_{$reference}.pdf"
+              href="topmaths/entrainement/{niveau}/Entrainement_{$reference}.pdf"
             >
               <button>
                 Télécharger la feuille d'entraînement &nbsp;
                 <i class="image is-24x24 is-inline-block">
                   <img
-                    src="/assets/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
+                    src="/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
                     alt="Fichier PDF"
                   />
                 </i>
@@ -289,12 +289,12 @@
         {/if}
         {#if $modeEnseignant && objectif.telechargementsDisponibles.test}
           <div class="p-1">
-            <a href="assets/topmaths/test/{niveau}/Test_{$reference}.pdf">
+            <a href="topmaths/test/{niveau}/Test_{$reference}.pdf">
               <button>
                 Télécharger les tests &nbsp;
                 <i class="image is-24x24 is-inline-block">
                   <img
-                    src="/assets/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
+                    src="/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
                     alt="Fichier PDF"
                   />
                 </i>
@@ -307,12 +307,12 @@
             {#each objectif.fiches as fiche}
               {#if fiche.niveaux.length === 0 || fiche.niveaux.includes(niveauDisponible)}
                 <div class="p-1">
-                  <a href="assets/topmaths/fiches/objectifs/{objectif.niveau}/{niveauDisponible}_{fiche.reference.split('-')[1] === undefined ? (fiche.reference + '_Fiche') : fiche.reference.split('-')[0] + '_Fiche-' + fiche.reference.split('-')[1]}.pdf">
+                  <a href="topmaths/fiches/objectifs/{objectif.niveau}/{niveauDisponible}_{fiche.reference.split('-')[1] === undefined ? (fiche.reference + '_Fiche') : fiche.reference.split('-')[0] + '_Fiche-' + fiche.reference.split('-')[1]}.pdf">
                     <button>
                       Télécharger la fiche{fiche.reference.split('-')[1] === undefined ? '' : ' ' + fiche.reference.split('-')[1]}{objectif.telechargementsDisponibles.niveauxFiches.length > 1 ? ` (${niveauDisponible})` : ''} &nbsp;
                       <i class="image is-24x24 is-inline-block">
                         <img
-                          src="/assets/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
+                          src="/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
                           alt="Fichier PDF"
                         />
                       </i>

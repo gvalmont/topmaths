@@ -59,7 +59,7 @@
     <button on:click={() => copierLien(lien, false)}>
       <IconeTooltipSimple
         size={5}
-        urlBouton="/assets/topmaths/img/cc0/copy-interface-symbol-svgrepo-com.svg"
+        urlBouton="/topmaths/img/cc0/copy-interface-symbol-svgrepo-com.svg"
         texteAlternatif="Documents copiés"
       />
     </button>
@@ -67,7 +67,7 @@
     <button on:click={() => ouvrirModaleExercices(lien)}>
       <IconeTooltipSimple
         size={5}
-        urlBouton="/assets/topmaths/img/cc0/fullscreen-svgrepo-com.svg"
+        urlBouton="/topmaths/img/cc0/fullscreen-svgrepo-com.svg"
         texteAlternatif="Lancer en plein écran"
       />
     </button>
@@ -75,7 +75,7 @@
     <button on:click={() => viderLePanier()}>
       <IconeTooltipSimple
         size={5}
-        urlBouton="/assets/topmaths/img/cc0/cart-remove-svgrepo-com.svg"
+        urlBouton="/topmaths/img/cc0/cart-remove-svgrepo-com.svg"
         texteAlternatif="Caddie avec une crois à l'intérieur"
       />
     </button>
@@ -109,7 +109,7 @@
             &nbsp;
             <button on:click={() => retirerDuPanier(panierItem)}>
               <IconeTooltipSimple
-                urlBouton="/assets/topmaths/img/cc0/cart-minus-svgrepo-com.svg"
+                urlBouton="/topmaths/img/cc0/cart-minus-svgrepo-com.svg"
                 texteAlternatif="Caddie avec un signe - à l'intérieur"
               />
             </button>

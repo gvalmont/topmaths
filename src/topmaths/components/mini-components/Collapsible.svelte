@@ -21,7 +21,7 @@
 <div class="mt-1 collapsible-container">
   <button type="button" class="collapsible is-flex is-align-items-center {classesSupplementaires}" on:click={collapsibleOnClick}>
     <i class="image is-16x16 ml-2">
-      <img src="assets/topmaths/img/cc0/plus-alt-svgrepo-com.svg" alt="simple croix" />
+      <img src="topmaths/img/cc0/plus-alt-svgrepo-com.svg" alt="simple croix" />
     </i>
     <h4 class="ml-2"><slot name="header"></slot></h4>
   </button>

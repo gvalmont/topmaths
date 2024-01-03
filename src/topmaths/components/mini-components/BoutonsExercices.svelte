@@ -45,7 +45,7 @@
   <button on:click={() => ouvrirModaleExercices(lienExercices)}>
     {titre} &nbsp;
     <IconeTooltipSimple
-      urlBouton="/assets/topmaths/img/cc0/fullscreen-svgrepo-com.svg"
+      urlBouton="/topmaths/img/cc0/fullscreen-svgrepo-com.svg"
       texteDropdown = {indiceExercice < 0 ? 'Lancer les exercices' : 'Lancer l\'exercice'}
       texteAlternatif = "Lancer en plein écran"
     />
@@ -76,7 +76,7 @@
   &nbsp;
   <button on:click={() => copierLien(creerLienCapytale(), false, true, true)}>
     <IconeTooltipSimple
-      urlBouton="/assets/topmaths/img/gvalmont/capytale.svg"
+      urlBouton="/topmaths/img/gvalmont/capytale.svg"
       texteDropdown = {'Créer un lien pour une utilisation avec CAPYTALE'}
       texteAlternatif = {'"PY" dans un cercle'}
     />
@@ -85,7 +85,7 @@
   {#if panierRempli}
     <button>
       <IconeTooltipSimple
-        urlBouton="/assets/topmaths/img/cc0/cart-check-svgrepo-com.svg"
+        urlBouton="/topmaths/img/cc0/cart-check-svgrepo-com.svg"
         texteDropdown={exercices.length > 1 ? 'Les exercices sont déjà tous dans le panier' : 'L\'exercice est déjà présent dans le panier'}
         texteAlternatif="Caddie rempli"
       />
@@ -98,7 +98,7 @@
       }}
     >
       <IconeTooltipSimple
-        urlBouton="/assets/topmaths/img/cc0/cart-plus-svgrepo-com.svg"
+        urlBouton="/topmaths/img/cc0/cart-plus-svgrepo-com.svg"
         texteDropdown={exercices.length > 1 ? 'Ajouter tous les exercices au panier' : 'Ajouter l\'exercice au panier'}
         texteAlternatif="Caddie avec un signe + à l'intérieur"
       />

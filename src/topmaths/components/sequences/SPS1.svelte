@@ -19,7 +19,7 @@
   <h1 class="title is-2 is-tout mb-0">Programmation</h1>
   <div class="is-tout is-fin">
     <h2 class="mb-5 py-3 subtitle is-3 is-tout">Initiation : Lightbot Hour</h2>
-    <img class="is-inline-block" src="/assets/topmaths/img/sps1/lightbot.png" width="200px" alt="Logo de l'application Lightbot Hour"/><br /><br />
+    <img class="is-inline-block" src="/topmaths/img/sps1/lightbot.png" width="200px" alt="Logo de l'application Lightbot Hour"/><br /><br />
     <div class="columns is-centered is-vcentered">
       <a
         href="https://play.google.com/store/apps/details?id=com.lightbot.lightbothoc&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"
@@ -72,7 +72,7 @@
             Séance {i + 1} : Algorea - {seance}
           </h2>
           <img class="is-inline-block"
-            src="assets/topmaths/img/sps1/seance_seriousgame_0{i + 1}.png"
+            src="topmaths/img/sps1/seance_seriousgame_0{i + 1}.png"
             alt="Capture d'écran de la séance {i + 1} d'Algoréa"
           />
         </a>

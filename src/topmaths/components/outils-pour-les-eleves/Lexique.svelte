@@ -134,7 +134,7 @@
           </div>
           <div class="column is-narrow p-0 m-3 is-flex is-align-items-center is-justify-content-center" style="width: 200px">
             {#if ligne.avecImage}
-              <img src="assets/topmaths/img/lexique/{ligne.slug}.png" alt="Représentation de : {ligne.titre}" />
+              <img src="topmaths/img/lexique/{ligne.slug}.png" alt="Représentation de : {ligne.titre}" />
             {/if}
           </div>
         </div>

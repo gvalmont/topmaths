@@ -62,7 +62,7 @@
             )}
         >
           <img
-            src="assets/topmaths/img/sps2/{seance.slug}.png"
+            src="topmaths/img/sps2/{seance.slug}.png"
             alt="Capture d'écran de travaux accessibles par ce lien"
           />
         </button>

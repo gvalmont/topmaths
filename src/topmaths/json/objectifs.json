@@ -11,7 +11,7 @@
               {
                 "reference": "6C10",
                 "titre": "Connaître les tables de multiplication",
-                "rappelDuCoursHTML": "Pour apprendre les tables de multiplication, il n'y a pas de méthode facile, encore moins des méthodes magiques, en revanche il y a des bonnes méthodes et des mauvaises méthodes.<br><br>Pour apprendre les tables de multiplication, il ne faut <b>pas</b> :<br><span style='text-decoration: line-through;'>- les lire<br>- les réciter l'une après l'autre comme une poésie ou une chanson<br>- utiliser des techniques avec les doigts</span><br><br>En revanche, il <b>faut</b> :<br>- essayer de se rappeler des résultats dans le désordre.<br>- s'entraîner pas longtemps mais souvent, un petit peu tous les jours par exemple<br><br>Pour le faire, vous pouvez <a href='/assets/topmaths/telechargements/Tables_de_multiplication.pdf'>télécharger les tables de multiplication</a> et vous entraîner avec le lien sous la vidéo.",
+                "rappelDuCoursHTML": "Pour apprendre les tables de multiplication, il n'y a pas de méthode facile, encore moins des méthodes magiques, en revanche il y a des bonnes méthodes et des mauvaises méthodes.<br><br>Pour apprendre les tables de multiplication, il ne faut <b>pas</b> :<br><span style='text-decoration: line-through;'>- les lire<br>- les réciter l'une après l'autre comme une poésie ou une chanson<br>- utiliser des techniques avec les doigts</span><br><br>En revanche, il <b>faut</b> :<br>- essayer de se rappeler des résultats dans le désordre.<br>- s'entraîner pas longtemps mais souvent, un petit peu tous les jours par exemple<br><br>Pour le faire, vous pouvez <a href='/topmaths/telechargements/Tables_de_multiplication.pdf'>télécharger les tables de multiplication</a> et vous entraîner avec le lien sous la vidéo.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -2133,7 +2133,7 @@
                 "reference": "6N10",
                 "titre": "Connaître le système décimal",
                 "titreSimplifie": "Lire et écrire des grands nombres entiers",
-                "rappelDuCoursHTML": "En France, on écrit les grand nombres en faisant des \"paquets de 3\" qu'on appelle des <i>classes</i><br>Il y a la <i>classe des unités</i>, la <i>classe des milliers</i>, la <i>classe des millions</i> etc.<br><img src='/assets/topmaths/img/tableau-de-numeration-entiers.png' /><br><br>Pour écrire un nombre en chiffres, il y a quelques règles à connaître :<ul><li>On place un <i>trait d'union entre tous les mots</i> qui composent le nombre.</li><li><i>Vingt et cent s'accordent</i> au pluriel lorsqu'ils ne sont <i><b>pas suivis</b> d'un autre nombre</i></li><li><i>Mille est invariable</i> (il ne s'accorde jamais)</li><li><i>Million et milliard s'accordent</i> au pluriel</li></ul>",
+                "rappelDuCoursHTML": "En France, on écrit les grand nombres en faisant des \"paquets de 3\" qu'on appelle des <i>classes</i><br>Il y a la <i>classe des unités</i>, la <i>classe des milliers</i>, la <i>classe des millions</i> etc.<br><img src='/topmaths/img/tableau-de-numeration-entiers.png' /><br><br>Pour écrire un nombre en chiffres, il y a quelques règles à connaître :<ul><li>On place un <i>trait d'union entre tous les mots</i> qui composent le nombre.</li><li><i>Vingt et cent s'accordent</i> au pluriel lorsqu'ils ne sont <i><b>pas suivis</b> d'un autre nombre</i></li><li><i>Mille est invariable</i> (il ne s'accorde jamais)</li><li><i>Million et milliard s'accordent</i> au pluriel</li></ul>",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -2459,7 +2459,7 @@
                 "reference": "6N31",
                 "titre": "Comprendre et utiliser différentes écritures d'un nombre",
                 "titreSimplifie": "Passer de l'écriture décimale à l'écriture fractionnaire et inversement",
-                "rappelDuCoursHTML": "<b><u>Définitions :</u></b><br>Une <b><i>fraction décimale</i></b> est une fraction qui a pour <i>dénominateur</i> $10$, $100$, $1\\, 000$ etc.<br>Un <b><i>nombre décimal</i></b> est un nombre qui peut s'écrire sous la forme d'une fraction décimale.<br><br>Pour utiliser différentes écritures d'un nombre décimal, on peut s'aider du tableau de numération et se rappeler que :<br>- un dixième = $\\cfrac{1}{10}$ <br>- un centième = $\\cfrac{1}{100}$ <br>- un millième = $\\cfrac{1}{1000}$ <br>Par exemple, $7$ unités et $3$ centièmes correspondent à $7 + \\cfrac{3}{100} = \\cfrac{703}{100} = 7,03$ <br>Vous pouvez le vérifier dans le tableau ci-dessous ! <br><iframe width='600px' height='450px' src='/assets/topmaths/data/tableau-ecriture-decimale.html'></iframe>",
+                "rappelDuCoursHTML": "<b><u>Définitions :</u></b><br>Une <b><i>fraction décimale</i></b> est une fraction qui a pour <i>dénominateur</i> $10$, $100$, $1\\, 000$ etc.<br>Un <b><i>nombre décimal</i></b> est un nombre qui peut s'écrire sous la forme d'une fraction décimale.<br><br>Pour utiliser différentes écritures d'un nombre décimal, on peut s'aider du tableau de numération et se rappeler que :<br>- un dixième = $\\cfrac{1}{10}$ <br>- un centième = $\\cfrac{1}{100}$ <br>- un millième = $\\cfrac{1}{1000}$ <br>Par exemple, $7$ unités et $3$ centièmes correspondent à $7 + \\cfrac{3}{100} = \\cfrac{703}{100} = 7,03$ <br>Vous pouvez le vérifier dans le tableau ci-dessous ! <br><iframe width='600px' height='450px' src='/topmaths/data/tableau-ecriture-decimale.html'></iframe>",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -3285,7 +3285,7 @@
               {
                 "reference": "5G41",
                 "titre": "Connaître et construire un parallélogramme particulier",
-                "rappelDuCoursHTML": "Si un parallélogramme a <i>un angle droit</i> ou <i>ses diagonales de même longueur</i>, alors c'est un <b><i>rectangle</i></b>.<br>Si un parallélogramme a <i>deux côtés consécutifs de même longueur</i> ou <i>ses diagonales perpendiculaires</i>, alors c'est un <b><i>losange</i></b>.<br>Pour montrer qu'un parallélogramme est un <b><i>carré</i></b>, il suffit de montrer qu'il est <i>à la fois un rectangle et un losange</i> en utilisant les propriétés précédentes.<br><br>Toutes ces propriétés sont illustrées dans <a href='/assets/topmaths/cours/5e/Cours_S5S20.pdf'>le cours</a>.",
+                "rappelDuCoursHTML": "Si un parallélogramme a <i>un angle droit</i> ou <i>ses diagonales de même longueur</i>, alors c'est un <b><i>rectangle</i></b>.<br>Si un parallélogramme a <i>deux côtés consécutifs de même longueur</i> ou <i>ses diagonales perpendiculaires</i>, alors c'est un <b><i>losange</i></b>.<br>Pour montrer qu'un parallélogramme est un <b><i>carré</i></b>, il suffit de montrer qu'il est <i>à la fois un rectangle et un losange</i> en utilisant les propriétés précédentes.<br><br>Toutes ces propriétés sont illustrées dans <a href='/topmaths/cours/5e/Cours_S5S20.pdf'>le cours</a>.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {

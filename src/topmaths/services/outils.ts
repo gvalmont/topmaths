@@ -1,8 +1,9 @@
 import { get } from 'svelte/store'
-import type { ObjectifObjectif, SequenceObjectif } from 'src/lib/types'
-import { mathaleaUpdateUrlFromExercicesParams } from '../../../lib/mathalea'
-import { exercicesParams, globalOptions, reference, titresProchesDesAttendus } from '../../store'
+import type { ObjectifObjectif, SequenceObjectif } from './types'
+import { mathaleaUpdateUrlFromExercicesParams } from '../../lib/mathalea'
+import { reference, titresProchesDesAttendus, vue } from './store'
 import { environment } from './environment'
+import { exercicesParams, globalOptions } from '../../components/stores/generalStore'
 
 export const outils = {
   /**
@@ -26,11 +27,8 @@ export const outils = {
   estGeogebraM (url: string) {
     return url.slice(0, 27) === 'https://www.geogebra.org/m/'
   },
-  goVue (vue: string) {
-    globalOptions.update((param) => {
-      param.v = vue
-      return param
-    })
+  goVue (destinationVue: string) {
+    vue.set(destinationVue)
     mathaleaUpdateUrlFromExercicesParams()
   },
   normaliser (chaine: string) {

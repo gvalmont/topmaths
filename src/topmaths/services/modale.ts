@@ -1,12 +1,12 @@
 // eslint-disable-next-line camelcase
-import { get_store_value } from 'svelte/internal'
-import { freezeUrl, globalOptions, urlExercice, vuePrecedente } from '../../store'
+import { urlExercice, vue, vuePrecedente } from './store'
 import { outils, supprimerGraines } from './outils'
-import { mathaleaUpdateExercicesParamsFromUrl } from '../../../lib/mathalea'
+import { mathaleaUpdateExercicesParamsFromUrl } from '../../lib/mathalea'
+import { get } from 'svelte/store'
+import { globalOptions } from '../../components/stores/generalStore'
 
 export function ouvrirModaleExercices (lien: string): void {
   if (outils.estCoopmaths(lien)) {
-    freezeUrl.set(true)
     afficherExercices(lien)
   } else {
     afficherModaleExercices(lien)
@@ -14,7 +14,7 @@ export function ouvrirModaleExercices (lien: string): void {
 }
 
 function afficherExercices (lien: string): void {
-  vuePrecedente.set(get_store_value(globalOptions).v)
+  vuePrecedente.set(get(vue))
   urlExercice.set(supprimerGraines(lien))
   if (lien.includes('diaporama')) {
     const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
@@ -24,7 +24,7 @@ function afficherExercices (lien: string): void {
     })
   } else {
     globalOptions.update((options) => {
-      options.presMode = undefined
+      options.presMode = 'liste_exos'
       options.v = 'eleve'
       return options
     })
@@ -77,7 +77,7 @@ function ajouterBoutonCopier (divBoutons: HTMLDivElement, lien: string): HTMLBut
   boutonCopier.appendChild(iconeCopie)
 
   const copie = document.createElement('img')
-  copie.src = '/assets/topmaths/img/cc0/copy-interface-symbol-svgrepo-com.svg'
+  copie.src = '/topmaths/img/cc0/copy-interface-symbol-svgrepo-com.svg'
   iconeCopie.appendChild(copie)
 
   return boutonCopier
@@ -94,7 +94,7 @@ function ajouterBoutonFermer (divBoutons: HTMLDivElement): HTMLButtonElement {
   boutonFermer.appendChild(iconeCroix)
 
   const croix = document.createElement('img')
-  croix.src = '/assets/topmaths/img/cc0/cross-svgrepo-com.svg'
+  croix.src = '/topmaths/img/cc0/cross-svgrepo-com.svg'
   iconeCroix.appendChild(croix)
 
   return boutonFermer

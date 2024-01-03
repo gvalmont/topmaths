@@ -4,32 +4,32 @@
   if fichier.contains("_Cours") {
     if fichier.starts-with("S") {
       let niveau = fichier.slice(1, 2) + "e"
-      link("https://topmaths.fr/assets/topmaths/cours/" + niveau + "/" + fichier + ".pdf")[Cours]
+      link("https://topmaths.fr/topmaths/cours/" + niveau + "/" + fichier + ".pdf")[Cours]
     } else {
       messageErreur
     }
   } else if fichier.contains("_Fiche") {
     if fichier.starts-with("S") {
       let niveau = fichier.slice(1, 2) + "e"
-      link("https://topmaths.fr/assets/topmaths/fiches/sequences/" + niveau + "/" + fichier + ".pdf")[Fiche de séquence]
+      link("https://topmaths.fr/topmaths/fiches/sequences/" + niveau + "/" + fichier + ".pdf")[Fiche de séquence]
     } else {
       let niveau = fichier.slice(0, 1) + "e"
-      link("https://topmaths.fr/assets/topmaths/fiches/objectifs/" + niveau + "/" + fichier + ".pdf")[Fiche de séance]
+      link("https://topmaths.fr/topmaths/fiches/objectifs/" + niveau + "/" + fichier + ".pdf")[Fiche de séance]
     }
   } else if fichier.contains("_Poly") {
     let niveau = fichier.slice(0, 1) + "e"
     let suffixe = ""
     if fichier.position("-") != none and fichier.position("-") > 0 {suffixe = " " + fichier.at(fichier.position("-") + 1)}
-    link("https://topmaths.fr/assets/topmaths/photocopies/" + niveau + "/" + fichier + ".pdf")[Photocopies#suffixe]
+    link("https://topmaths.fr/topmaths/photocopies/" + niveau + "/" + fichier + ".pdf")[Photocopies#suffixe]
   } else if fichier.contains("_Presentation") {
     let niveau = fichier.slice(0, 1) + "e"
-    link("https://topmaths.fr/assets/topmaths/presentations/" + niveau + "/" + fichier + ".pdf")[Présentation]
+    link("https://topmaths.fr/topmaths/presentations/" + niveau + "/" + fichier + ".pdf")[Présentation]
   } else if fichier.contains("Entrainement_") {
     let niveau = fichier.slice(13, 14) + "e"
-    link("https://topmaths.fr/assets/topmaths/entrainement/" + niveau + "/" + fichier + ".pdf")[Entraînement]
+    link("https://topmaths.fr/topmaths/entrainement/" + niveau + "/" + fichier + ".pdf")[Entraînement]
   } else if fichier.contains("_Diaporama") {
     let niveau = fichier.slice(0, 1) + "e"
-    link("https://topmaths.fr/assets/topmaths/diaporamas/" + niveau + "/" + fichier + ".odp")[Diaporama]
+    link("https://topmaths.fr/topmaths/diaporamas/" + niveau + "/" + fichier + ".odp")[Diaporama]
   }
 }
 

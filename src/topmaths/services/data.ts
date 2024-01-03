@@ -1,10 +1,10 @@
-import type { ObjectifNiveau, SequenceNiveau, SequenceSequenceParticuliere, CalendrierAnnee, LexiqueItem } from 'src/lib/types'
-import { niveauxObjectifs as storeNiveauxObjectifs, niveauxSequences as storeNiveauxSequences, sequencesParticulieres as storeSequencesParticulieres, calendrierAnneeEnCours as storeCalendrierAnneeEnCours, lexique as lexiqueStore } from '../../store'
-import sequencesModifieesJson from '../../../json/topmaths/sequences_modifiees.json'
-import objectifsModifiesJson from '../../../json/topmaths/objectifs_modifies.json'
-import lexiqueModifieJson from '../../../json/topmaths/lexique_modifie.json'
-import sequencesParticulieresJson from '../../../json/topmaths/sequencesParticulieres.json'
-import calendrierJson from '../../../json/topmaths/calendrier.json'
+import type { ObjectifNiveau, SequenceNiveau, SequenceSequenceParticuliere, CalendrierAnnee, LexiqueItem } from './types'
+import { niveauxObjectifs as storeNiveauxObjectifs, niveauxSequences as storeNiveauxSequences, sequencesParticulieres as storeSequencesParticulieres, calendrierAnneeEnCours as storeCalendrierAnneeEnCours, lexique as lexiqueStore } from './store'
+import sequencesModifieesJson from '../../topmaths/json/sequences_modifiees.json'
+import objectifsModifiesJson from '../../topmaths/json/objectifs_modifies.json'
+import lexiqueModifieJson from '../../topmaths/json/lexique_modifie.json'
+import sequencesParticulieresJson from '../../topmaths/json/sequencesParticulieres.json'
+import calendrierJson from '../../topmaths/json/calendrier.json'
 
 let niveauxObjectifs = [] as ObjectifNiveau[]
 let niveauxSequences = [] as SequenceNiveau[]
@@ -56,8 +56,7 @@ function miseEnCacheCalendrier () {
     }
     if (trouve) break
   }
-  const calendrierAnneeEnCours = { annee, jourNumero, periodeNumero, semaineDansLaPeriode, typeDePeriode }
-  storeCalendrierAnneeEnCours.update(() => calendrierAnneeEnCours)
+  storeCalendrierAnneeEnCours.set({ annee, jourNumero, periodeNumero, semaineDansLaPeriode, typeDePeriode })
 }
 
 function getDayOfYear () {

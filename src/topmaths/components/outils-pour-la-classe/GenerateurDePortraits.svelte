@@ -155,7 +155,7 @@
     />
     &nbsp;
     <IconeTooltipSimple
-      urlBouton="/assets/topmaths/img/cc0/info-circle-svgrepo-com.svg"
+      urlBouton="/topmaths/img/cc0/info-circle-svgrepo-com.svg"
       texteDropdown="Les champs peuvent être complétés en LaTeX. Ne pas oublier de placer les formules mathématiques entre deux $"
       texteAlternatif="un i dans un cercle"
       grandTexte={true}
@@ -219,7 +219,7 @@
                 ><i
                   ><img
                     class="image is-24x24 is-inline-block"
-                    src="../../../assets/topmaths/img/cc0/plus-circle-1425-svgrepo-com.svg"
+                    src="../../../topmaths/img/cc0/plus-circle-1425-svgrepo-com.svg"
                     alt="Signe + entouré"
                   /></i
                 ></button
@@ -230,7 +230,7 @@
               &nbsp; <i
                 ><img
                   class="image is-24x24 is-inline-block"
-                  src="../../../assets/topmaths/img/cc0/plus-circle-1425-svgrepo-com.svg"
+                  src="../../../topmaths/img/cc0/plus-circle-1425-svgrepo-com.svg"
                   alt="Signe + entouré"
                 /></i
               >
@@ -242,7 +242,7 @@
                 ><i
                   ><img
                     class="image is-24x24 is-inline-block"
-                    src="../../../assets/topmaths/img/cc0/copy-document-svgrepo-com.svg"
+                    src="../../../topmaths/img/cc0/copy-document-svgrepo-com.svg"
                     alt="Signe 'Copie' entouré"
                   /></i
                 ></button
@@ -253,7 +253,7 @@
               &nbsp; <i
                 ><img
                   class="image is-24x24 is-inline-block"
-                  src="../../../assets/topmaths/img/cc0/copy-document-svgrepo-com.svg"
+                  src="../../../topmaths/img/cc0/copy-document-svgrepo-com.svg"
                   alt="Signe 'Copier' entouré"
                 /></i
               >
@@ -265,7 +265,7 @@
                 ><i
                   ><img
                     class="image is-24x24 is-inline-block"
-                    src="../../../assets/topmaths/img/cc0/minus-round-svgrepo-com.svg"
+                    src="../../../topmaths/img/cc0/minus-round-svgrepo-com.svg"
                     alt="Signe - entouré"
                   /></i
                 ></button
@@ -276,7 +276,7 @@
               &nbsp; <i
                 ><img
                   class="image is-24x24 is-inline-block"
-                  src="../../../assets/topmaths/img/cc0/minus-round-svgrepo-com.svg"
+                  src="../../../topmaths/img/cc0/minus-round-svgrepo-com.svg"
                   alt="Signe - entouré"
                 /></i
               >

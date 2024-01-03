@@ -50,11 +50,11 @@
           <span class="icon">
             {#if telechargement.extension === 'pdf'}
               <i class="image is-24x24 is-inline-block">
-                <img src="/assets/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg" alt="Icone de PDF" />
+                <img src="/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg" alt="Icone de PDF" />
               </i>
             {:else if telechargement.extension === 'apkg'}
               <div class="image is-32x32 is-inline-block">
-                <img src="/assets/topmaths/img/gnu/anki-icon.svg" alt="Icone de Anki" />
+                <img src="/topmaths/img/gnu/anki-icon.svg" alt="Icone de Anki" />
               </div>
             {/if}
           </span>
@@ -62,7 +62,7 @@
       </header>
       <div class="card-image">
         <figure class="image is-4by3">
-          <img src="/assets/topmaths/telechargements/apercus/{telechargement.slug}.png" alt="Aperçu du {telechargement.extension}">
+          <img src="/topmaths/telechargements/apercus/{telechargement.slug}.png" alt="Aperçu du {telechargement.extension}">
         </figure>
       </div>
       <div class="card-content p-4">
@@ -71,7 +71,7 @@
         </div>
       </div>
       <footer class="card-footer">
-        <a href="/assets/topmaths/telechargements/{telechargement.slug}.{telechargement.extension}" class="card-footer-item">
+        <a href="/topmaths/telechargements/{telechargement.slug}.{telechargement.extension}" class="card-footer-item">
           <button class="button is-link is-outlined">Télécharger</button>
         </a>
       </footer>
