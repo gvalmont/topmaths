@@ -23,10 +23,23 @@
   )
 
   let niveauxObjectifsUnsubscribe: Unsubscriber
-  let ongletActif = 'tout'
 
-  surveillerLeChargementDesDonnees()
+  updateParamsFromUrl()
   MAJPage()
+  surveillerLeChargementDesDonnees()
+  addEventListener('popstate', updateParamsFromUrl)
+  onDestroy(() => {
+    removeEventListener('popstate', updateParamsFromUrl)
+  })
+
+  function updateParamsFromUrl () {
+    const url = new URL(window.location.href)
+    const entries = url.searchParams.entries()
+    for (const entry of entries) {
+      if (entry[0] === 'niveau') filtre.niveau = entry[1]
+      if (entry[0] === 'periode') filtre.periode = Number(entry[1])
+    }
+  }
 
   function surveillerLeChargementDesDonnees () {
     niveauxObjectifsUnsubscribe = niveauxObjectifs.subscribe(() => MAJPage())
@@ -149,7 +162,6 @@
 
   function clicFiltre (niveau: string, periode?: number) {
     if (niveau !== '') {
-      ongletActif = niveau
       filtre.niveau = niveau
     }
     if (periode !== undefined) {
@@ -157,6 +169,7 @@
         ? (filtre.periode = 0)
         : (filtre.periode = periode)
     }
+    window.history.pushState({}, '', `?v=objectifs&niveau=${filtre.niveau}&periode=${filtre.periode}`)
   }
 </script>
 
@@ -170,7 +183,7 @@
       <li>
         <button
           class="subtitle is-4 px-5 is-tout is-left-side"
-          class:is-active={ongletActif === 'tout'}
+          class:is-active={filtre.niveau === 'tout'}
           on:click={() => clicFiltre('tout')}>Tout</button
         >
       </li>
@@ -179,7 +192,7 @@
           {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.theme.nom === ''}
             <button
               on:click={() => clicFiltre(ligne.niveau ?? '')}
-              class:is-active={ongletActif === ligne.niveau}
+              class:is-active={filtre.niveau === ligne.niveau}
               class="subtitle is-4 px-5 is-{ligne.niveau}"
               class:is-right-side={ligne.niveau === '3e'}>{ligne.niveau}</button
             >
