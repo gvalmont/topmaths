@@ -1,12 +1,6 @@
 <script lang="ts">
-  import { globalOptions } from '../../components/stores/generalStore'
+  import { goVue } from '../services/outils'
 
-  function go (vue: string) {
-    globalOptions.update((param) => {
-      param.v = vue
-      return param
-    })
-  }
 </script>
 
 <div class="container is-max-desktop">
@@ -74,7 +68,7 @@
     Voir également la page
     <button
       class="has-text-link"
-      on:click={() => go('politique-de-confidentialite')}
+      on:click={(event) => goVue(event, 'politique-de-confidentialite')}
       >Politique de confidentialité</button
     >.
   </p>

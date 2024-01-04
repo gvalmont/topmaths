@@ -3,7 +3,7 @@ import { urlExercice, vue, vuePrecedente } from './store'
 import { estCoopmaths, supprimerGraines } from './outils'
 import { mathaleaUpdateExercicesParamsFromUrl } from '../../lib/mathalea'
 import { get } from 'svelte/store'
-import { globalOptions } from '../../components/stores/generalStore'
+import { globalOptions } from '../../lib/stores/generalStore'
 
 export function ouvrirModaleExercices (lien: string): void {
   if (estCoopmaths(lien)) {

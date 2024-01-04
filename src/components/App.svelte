@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Topmaths from '../topmaths/components/Topmaths.svelte'
   import Diaporama from './setup/diaporama/Diaporama.svelte'
   import Apercu from './display/apercu/Apercu.svelte'
   import Eleve from './display/eleve/Eleve.svelte'
@@ -77,7 +78,7 @@
   }
 </script>
 
-<div class="subpixel-antialiased" id="appComponent">
+<div id="appComponent">
   {#if $globalOptions.v === 'diaporama'}
     <Diaporama />
   {:else if $globalOptions.v === 'can'}
@@ -95,6 +96,6 @@
   {:else if $globalOptions.recorder === 'capytale'}
     <Capytale />
   {:else}
-    <Start />
+    <Topmaths />
   {/if}
 </div>

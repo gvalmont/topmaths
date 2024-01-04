@@ -2,7 +2,7 @@ import { get } from 'svelte/store'
 import type { ObjectifObjectif, SequenceObjectif } from './types'
 import { reference, titresProchesDesAttendus, vue } from './store'
 import { environment } from './environment'
-import { exercicesParams, globalOptions } from '../../components/stores/generalStore'
+import { exercicesParams, globalOptions } from '../../lib/stores/generalStore'
 
 export function estCoopmaths (url: string) {
   const urlCoopmaths = environment.baseUrl
