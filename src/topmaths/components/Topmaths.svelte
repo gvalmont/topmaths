@@ -25,6 +25,7 @@
   import Tutos from './outils-pour-les-eleves/Tutos.svelte'
   import { modeEnseignant, modePerso, panierDispo, reference, vue } from '../services/store'
   import Informations from './Informations.svelte'
+  import ExercicesMathalea from './exercices/ExercicesMathalea.svelte'
 
   if (customElements.get('alea-instrumenpoche') === undefined) {
     customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
@@ -177,12 +178,16 @@
       </ul>
     </div>
   {/if}
-  <!-- Affichage principal -->
-  <div>
-    {#if $vue === 'sequences'}
-      <Sequences />
+</div>
+<!-- Affichage principal -->
+<div class="flex items-center">
+  <div class="md:max-w-screen-lg flex-1 flex-col mx-auto text-center pb-20">
+    {#if $vue === 'exercices'}
+      <ExercicesMathalea />
     {:else if $vue === 'sequence'}
       <Sequence />
+    {:else if $vue === 'sequences'}
+      <Sequences />
     {:else if $vue === 'objectifs'}
       <Objectifs />
     {:else if $vue === 'objectif'}
@@ -216,57 +221,41 @@
     {:else if $vue === 'cgu'}
       <Cgu />
     {:else if $vue === 'perso'}
-    <div class="has-text-centered">
-      <button class="button" class:is-success = {!$modePerso} class:is-danger = {$modePerso} on:click={() => {
-        $modePerso ? storage.desactiverModePerso() : storage.activerModePerso()
-      }}>
-        {$modePerso ? 'Désactiver le mode perso' : 'Activer le mode perso'}
-      </button>
-    </div>
+      <div class="has-text-centered">
+        <button class="button" class:is-success = {!$modePerso} class:is-danger = {$modePerso} on:click={() => {
+          $modePerso ? storage.desactiverModePerso() : storage.activerModePerso()
+        }}>
+          {$modePerso ? 'Désactiver le mode perso' : 'Activer le mode perso'}
+        </button>
+      </div>
     {:else}
       <Accueil />
     {/if}
   </div>
-  <!-- Footer -->
-  <div><br /><br /><br /></div>
-  <footer class="b-footer">
-    <div class="content has-text-centered">
-      <p>
-        <strong>topmaths</strong> © {annee} de
-        <a
-          href="https://forge.aeif.fr/gvalmont"
-          target="_blank"
-          rel="noopener noreferrer">Guillaume Valmont</a
-        >
-        et des
-        <a
-          href="https://coopmaths.fr/a_propos/"
-          target="_blank"
-          rel="noopener noreferrer">contributeurs de MathALÉA</a
-        >
-      </p>
-      <p>
-        <button class="has-text-link" on:click={(event) => goVue(event, 'informations')}>Informations sur le site</button
-        >
-        -
-        <button class="has-text-link" on:click={(event) => goVue(event, 'mentions-legales')}>Mentions légales</button
-        >
-        -
-        <button
-          class="has-text-link"
-          on:click={(event) => goVue(event, 'politique-de-confidentialite')}>Politique de confidentialité</button
-        >
-        - <button class="has-text-link" on:click={(event) => goVue(event, 'cgu')}>CGU</button>
-      </p>
-    </div>
-  </footer>
-  <div
-    class="noprint"
-    role="button"
-    tabindex="-1"
-    id="overlayHeure"
-    on:click={alternerTailleOverlayHeure}
-    on:keydown={alternerTailleOverlayHeure}
-  >
-  </div>
+</div>
+<!-- Footer -->
+<footer class="b-footer text-center">
+  <p>
+    <strong>topmaths</strong> © {annee} de
+    <a href="https://forge.aeif.fr/gvalmont" target="_blank" rel="noopener noreferrer">Guillaume Valmont</a> et des
+    <a href="https://coopmaths.fr/a_propos/" target="_blank" rel="noopener noreferrer">contributeurs de MathALÉA</a>
+  </p>
+  <p>
+    <button class="has-text-link" on:click={(event) => goVue(event, 'informations')}>Informations sur le site</button>
+    -
+    <button class="has-text-link" on:click={(event) => goVue(event, 'mentions-legales')}>Mentions légales</button>
+    -
+    <button class="has-text-link" on:click={(event) => goVue(event, 'politique-de-confidentialite')}>Politique de confidentialité</button>
+    -
+    <button class="has-text-link" on:click={(event) => goVue(event, 'cgu')}>CGU</button>
+  </p>
+</footer>
+<div
+  class="noprint"
+  role="button"
+  tabindex="-1"
+  id="overlayHeure"
+  on:click={alternerTailleOverlayHeure}
+  on:keydown={alternerTailleOverlayHeure}
+>
 </div>

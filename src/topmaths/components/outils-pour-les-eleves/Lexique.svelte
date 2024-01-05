@@ -82,68 +82,64 @@
 
 <svelte:window bind:innerWidth={currentWindowWidth} />
 
-<div class="container is-max-desktop">
-  <div class="centre">
-    <h1 class="title is-2 p-5" style="color: white; background-color: #3b82f6; border-radius: 50px 50px 0px 0px">
-      Lexique
-    </h1>
-    <input
-      class="p-1"
-      style="text-align:center; font-size:x-large;"
-      type="text"
-      aria-describedby="Champ pour rechercher une définition ou une propriété"
-      autocomplete="off"
-      placeholder="Recherche"
-      bind:value={$texteRecherche}
-      on:input
-    />
-  </div>
-  <div><br /></div>
-  <div id="lignes">
-    {#each $lignesFiltrees as ligne}
-      <div id="{ligne.slug}" class="box">
-        <a href="#{ligne.slug}">
-          <h3 class="has-text-weight-semibold">{ligne.titre}</h3>
-        </a>
-        <div class="columns">
-          <div class="column p-0 m-3">
-            <div bind:innerHTML={ligne.contenu} contenteditable="false"></div>
-            {#if ligne.exemples !== undefined && ligne.exemples.length > 0}
-              <Collapsible classesSupplementaires={'exemples'}>
-                <h2 slot="header">Exemple{ligne.exemples.length > 1 ? 's' : ''}</h2>
-                <ul slot="content" class="mt-0 ml-3">
-                  {#each ligne.exemples as exemple, i}
-                    <li bind:innerHTML={exemple} contenteditable="false" style="border-color: #bae6fd; {i > 0 ? 'border-width: 1px 0 0 0' : ''}"></li>
-                  {/each}
-                </ul>
-              </Collapsible>
-            {/if}
-            {#if ligne.remarques !== undefined && ligne.remarques.length > 0}
-            <Collapsible classesSupplementaires={'remarques'}>
-              <h2 slot="header">Remarque{ligne.remarques.length > 1 ? 's' : ''}</h2>
+<h1 class="title is-2 p-5" style="color: white; background-color: #3b82f6; border-radius: 50px 50px 0px 0px">
+  Lexique
+</h1>
+<input
+  class="p-1"
+  style="text-align:center; font-size:x-large;"
+  type="text"
+  aria-describedby="Champ pour rechercher une définition ou une propriété"
+  autocomplete="off"
+  placeholder="Recherche"
+  bind:value={$texteRecherche}
+  on:input
+/>
+<div><br /></div>
+<div id="lignes">
+  {#each $lignesFiltrees as ligne}
+    <div id="{ligne.slug}" class="box">
+      <a href="#{ligne.slug}">
+        <h3 class="has-text-weight-semibold">{ligne.titre}</h3>
+      </a>
+      <div class="columns">
+        <div class="column p-0 m-3">
+          <div bind:innerHTML={ligne.contenu} contenteditable="false"></div>
+          {#if ligne.exemples !== undefined && ligne.exemples.length > 0}
+            <Collapsible classesSupplementaires={'exemples'}>
+              <h2 slot="header">Exemple{ligne.exemples.length > 1 ? 's' : ''}</h2>
               <ul slot="content" class="mt-0 ml-3">
-                {#each ligne.remarques as remarque, i}
-                  <li bind:innerHTML={remarque} contenteditable="false" style="border-color: #bfdbfe; {i > 0 ? 'border-width: 1px 0 0 0' : ''}"></li>
+                {#each ligne.exemples as exemple, i}
+                  <li bind:innerHTML={exemple} contenteditable="false" style="border-color: #bae6fd; {i > 0 ? 'border-width: 1px 0 0 0' : ''}"></li>
                 {/each}
               </ul>
             </Collapsible>
-            {/if}
-            {#if currentWindowWidth >= 768}
-              <NotionsEtObjectifsLies {ligne} />
-            {/if}
-          </div>
-          <div class="column is-narrow p-0 m-3 is-flex is-align-items-center is-justify-content-center" style="width: 200px">
-            {#if ligne.avecImage}
-              <img src="topmaths/img/lexique/{ligne.slug}.png" alt="Représentation de : {ligne.titre}" />
-            {/if}
-          </div>
+          {/if}
+          {#if ligne.remarques !== undefined && ligne.remarques.length > 0}
+          <Collapsible classesSupplementaires={'remarques'}>
+            <h2 slot="header">Remarque{ligne.remarques.length > 1 ? 's' : ''}</h2>
+            <ul slot="content" class="mt-0 ml-3">
+              {#each ligne.remarques as remarque, i}
+                <li bind:innerHTML={remarque} contenteditable="false" style="border-color: #bfdbfe; {i > 0 ? 'border-width: 1px 0 0 0' : ''}"></li>
+              {/each}
+            </ul>
+          </Collapsible>
+          {/if}
+          {#if currentWindowWidth >= 768}
+            <NotionsEtObjectifsLies {ligne} />
+          {/if}
         </div>
-        {#if currentWindowWidth < 768}
-          <NotionsEtObjectifsLies {ligne} />
-        {/if}
+        <div class="column is-narrow p-0 m-3 is-flex is-align-items-center is-justify-content-center" style="width: 200px">
+          {#if ligne.avecImage}
+            <img src="topmaths/img/lexique/{ligne.slug}.png" alt="Représentation de : {ligne.titre}" />
+          {/if}
+        </div>
       </div>
-    {/each}
-  </div>
+      {#if currentWindowWidth < 768}
+        <NotionsEtObjectifsLies {ligne} />
+      {/if}
+    </div>
+  {/each}
 </div>
 
 <style>

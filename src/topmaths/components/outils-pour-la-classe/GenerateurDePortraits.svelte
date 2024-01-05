@@ -142,160 +142,158 @@
   <title>Générateur de portraits de monstres - topmaths</title>
 </svelte:head>
 
-<div class="container is-max-desktop centre">
-  <div class="is-link">
-    <input
-      type="text"
-      class="form-control is-inline-block"
-      style="width: 50%;"
-      id="titre"
-      aria-describedby="titre"
-      bind:value={titre}
-      placeholder="Titre"
-    />
-    &nbsp;
-    <IconeTooltipSimple
-      urlBouton="/topmaths/img/cc0/info-circle-svgrepo-com.svg"
-      texteDropdown="Les champs peuvent être complétés en LaTeX. Ne pas oublier de placer les formules mathématiques entre deux $"
-      texteAlternatif="un i dans un cercle"
-      grandTexte={true}
-    />
-  </div>
-  <br />
-  <div>
-    <input
-      type="text"
-      class="form-control"
-      style="width: 100%;"
-      id="enonce"
-      aria-describedby="enonce"
-      bind:value={enonce}
-      placeholder="Énoncé"
-    />
-  </div>
-  <br />
-  <div>
-    {#each questions as question, i}
-      <div>
-        <div class="is-flex is-justify-content-center is-align-items-center">
-          {i + 1} : &nbsp;<input
-            type="text"
-            class="form-control"
-            id="question{i}"
-            bind:value={question.question}
-            placeholder="Question"
-          />
-          &nbsp; A : &nbsp;<input
-            type="text"
-            class="form-control reponse"
-            id="reponseA{i}"
-            bind:value={question.reponseA}
-            placeholder="Réponse"
-          />
-          &nbsp; B : &nbsp;<input
-            type="text"
-            class="form-control reponse"
-            id="reponseB{i}"
-            bind:value={question.reponseB}
-            placeholder="Réponse"
-          />
-          &nbsp; C : &nbsp;<input
-            type="text"
-            class="form-control reponse"
-            id="reponseC{i}"
-            bind:value={question.reponseC}
-            placeholder="Réponse"
-          />
-          &nbsp; D : &nbsp;<input
-            type="text"
-            class="form-control reponse"
-            id="reponseD{i}"
-            bind:value={question.reponseD}
-            placeholder="Réponse"
-          />
-          {#if questions.length < MAX_QUESTIONS - 1}
-            <span class="is-link">
-              &nbsp; <button on:click={() => ajouterQuestionApres(i)}
-                ><i
-                  ><img
-                    class="image is-24x24 is-inline-block"
-                    src="../../../topmaths/img/cc0/plus-circle-1425-svgrepo-com.svg"
-                    alt="Signe + entouré"
-                  /></i
-                ></button
-              >
-            </span>
-          {:else}
-            <span>
-              &nbsp; <i
+<div class="is-link">
+  <input
+    type="text"
+    class="form-control is-inline-block"
+    style="width: 50%;"
+    id="titre"
+    aria-describedby="titre"
+    bind:value={titre}
+    placeholder="Titre"
+  />
+  &nbsp;
+  <IconeTooltipSimple
+    urlBouton="/topmaths/img/cc0/info-circle-svgrepo-com.svg"
+    texteDropdown="Les champs peuvent être complétés en LaTeX. Ne pas oublier de placer les formules mathématiques entre deux $"
+    texteAlternatif="un i dans un cercle"
+    grandTexte={true}
+  />
+</div>
+<br />
+<div>
+  <input
+    type="text"
+    class="form-control"
+    style="width: 100%;"
+    id="enonce"
+    aria-describedby="enonce"
+    bind:value={enonce}
+    placeholder="Énoncé"
+  />
+</div>
+<br />
+<div>
+  {#each questions as question, i}
+    <div>
+      <div class="is-flex is-justify-content-center is-align-items-center">
+        {i + 1} : &nbsp;<input
+          type="text"
+          class="form-control"
+          id="question{i}"
+          bind:value={question.question}
+          placeholder="Question"
+        />
+        &nbsp; A : &nbsp;<input
+          type="text"
+          class="form-control reponse"
+          id="reponseA{i}"
+          bind:value={question.reponseA}
+          placeholder="Réponse"
+        />
+        &nbsp; B : &nbsp;<input
+          type="text"
+          class="form-control reponse"
+          id="reponseB{i}"
+          bind:value={question.reponseB}
+          placeholder="Réponse"
+        />
+        &nbsp; C : &nbsp;<input
+          type="text"
+          class="form-control reponse"
+          id="reponseC{i}"
+          bind:value={question.reponseC}
+          placeholder="Réponse"
+        />
+        &nbsp; D : &nbsp;<input
+          type="text"
+          class="form-control reponse"
+          id="reponseD{i}"
+          bind:value={question.reponseD}
+          placeholder="Réponse"
+        />
+        {#if questions.length < MAX_QUESTIONS - 1}
+          <span class="is-link">
+            &nbsp; <button on:click={() => ajouterQuestionApres(i)}
+              ><i
                 ><img
                   class="image is-24x24 is-inline-block"
                   src="../../../topmaths/img/cc0/plus-circle-1425-svgrepo-com.svg"
                   alt="Signe + entouré"
                 /></i
-              >
-            </span>
-          {/if}
-          {#if questions.length < MAX_QUESTIONS - 1}
-          <span class="is-link">
-              &nbsp; <button on:click={() => copierQuestion(i)}
-                ><i
-                  ><img
-                    class="image is-24x24 is-inline-block"
-                    src="../../../topmaths/img/cc0/copy-document-svgrepo-com.svg"
-                    alt="Signe 'Copie' entouré"
-                  /></i
-                ></button
-              >
-            </span>
-          {:else}
-            <span>
-              &nbsp; <i
+              ></button
+            >
+          </span>
+        {:else}
+          <span>
+            &nbsp; <i
+              ><img
+                class="image is-24x24 is-inline-block"
+                src="../../../topmaths/img/cc0/plus-circle-1425-svgrepo-com.svg"
+                alt="Signe + entouré"
+              /></i
+            >
+          </span>
+        {/if}
+        {#if questions.length < MAX_QUESTIONS - 1}
+        <span class="is-link">
+            &nbsp; <button on:click={() => copierQuestion(i)}
+              ><i
                 ><img
                   class="image is-24x24 is-inline-block"
                   src="../../../topmaths/img/cc0/copy-document-svgrepo-com.svg"
-                  alt="Signe 'Copier' entouré"
+                  alt="Signe 'Copie' entouré"
                 /></i
-              >
-            </span>
-          {/if}
-          {#if questions.length > 1}
-          <span class="is-link">
-              &nbsp; <button on:click={() => supprimerQuestion(i)}
-                ><i
-                  ><img
-                    class="image is-24x24 is-inline-block"
-                    src="../../../topmaths/img/cc0/minus-round-svgrepo-com.svg"
-                    alt="Signe - entouré"
-                  /></i
-                ></button
-              >
-            </span>
-          {:else}
-            <span>
-              &nbsp; <i
+              ></button
+            >
+          </span>
+        {:else}
+          <span>
+            &nbsp; <i
+              ><img
+                class="image is-24x24 is-inline-block"
+                src="../../../topmaths/img/cc0/copy-document-svgrepo-com.svg"
+                alt="Signe 'Copier' entouré"
+              /></i
+            >
+          </span>
+        {/if}
+        {#if questions.length > 1}
+        <span class="is-link">
+            &nbsp; <button on:click={() => supprimerQuestion(i)}
+              ><i
                 ><img
                   class="image is-24x24 is-inline-block"
                   src="../../../topmaths/img/cc0/minus-round-svgrepo-com.svg"
                   alt="Signe - entouré"
                 /></i
-              >
-            </span>
-          {/if}
-        </div>
-        <div class="p-1" />
+              ></button
+            >
+          </span>
+        {:else}
+          <span>
+            &nbsp; <i
+              ><img
+                class="image is-24x24 is-inline-block"
+                src="../../../topmaths/img/cc0/minus-round-svgrepo-com.svg"
+                alt="Signe - entouré"
+              /></i
+            >
+          </span>
+        {/if}
       </div>
-    {/each}
-  </div>
-  <br /><br />
-  <div>
-    <button class="button is-green is-outlined" on:click={compilerSurOverleaf}>
-      Compiler en PDF sur Overleaf.com
-    </button>
-  </div>
-  <br /><br />
-  <div class="is-size-7">D'après une idée originale de Stéphanie Moure</div>
+      <div class="p-1" />
+    </div>
+  {/each}
 </div>
+<br /><br />
+<div>
+  <button class="button is-green is-outlined" on:click={compilerSurOverleaf}>
+    Compiler en PDF sur Overleaf.com
+  </button>
+</div>
+<br /><br />
+<div class="is-size-7">D'après une idée originale de Stéphanie Moure</div>
 
 <style>
   .reponse {

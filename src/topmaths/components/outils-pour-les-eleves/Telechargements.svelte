@@ -37,7 +37,7 @@
   <title>Téléchargements - topmaths</title>
 </svelte:head>
 
-<div class="container is-max-desktop is-flex is-flex-wrap-wrap is-justify-content-center">
+<div class="flex flex-wrap">
   {#each telechargements as telechargement}
     <div class="card m-5" style="width: 256px;">
       <header class="card-header">

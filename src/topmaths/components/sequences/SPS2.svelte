@@ -38,36 +38,34 @@
   <title>SPS2 : Défis géométriques</title>
 </svelte:head>
 
-<div class="container is-max-desktop centre">
-  <h1 class="title is-2 is-tout mb-0">Défis géométriques</h1>
-  <div class="is-tout is-fin">
-    <p class="is-size-5">
-      <br />
-      Des défis géométriques à relever.<br />
-      Allez-vous réussir à reproduire ces figures ?
-    </p>
+<h1 class="title is-2 is-tout mb-0">Défis géométriques</h1>
+<div class="is-tout is-fin">
+  <p class="is-size-5">
     <br />
-    <p class="is-size-6 is-italic">
-      (Ce sont les mêmes défis que dans le porte-vues jaune)
-    </p>
-    {#each seances as seance, i}
-      <div>
-        <h2 class="mt-5 py-3 subtitle is-3 is-tout">
-          Groupe {i + 1} : {seance.description}
-        </h2>
-        <button
-          on:click={() =>
-            ouvrirModaleExercices(
-              'https://www.geogebra.org/m/Rn6QDFCN#chapter/' + seance.slug
-            )}
-        >
-          <img
-            src="topmaths/img/sps2/{seance.slug}.png"
-            alt="Capture d'écran de travaux accessibles par ce lien"
-          />
-        </button>
-      </div>
-    {/each}
-    <div><br /><br /></div>
-  </div>
+    Des défis géométriques à relever.<br />
+    Allez-vous réussir à reproduire ces figures ?
+  </p>
+  <br />
+  <p class="is-size-6 is-italic">
+    (Ce sont les mêmes défis que dans le porte-vues jaune)
+  </p>
+  {#each seances as seance, i}
+    <div>
+      <h2 class="mt-5 py-3 subtitle is-3 is-tout">
+        Groupe {i + 1} : {seance.description}
+      </h2>
+      <button
+        on:click={() =>
+          ouvrirModaleExercices(
+            'https://www.geogebra.org/m/Rn6QDFCN#chapter/' + seance.slug
+          )}
+      >
+        <img
+          src="topmaths/img/sps2/{seance.slug}.png"
+          alt="Capture d'écran de travaux accessibles par ce lien"
+        />
+      </button>
+    </div>
+  {/each}
+  <div><br /><br /></div>
 </div>

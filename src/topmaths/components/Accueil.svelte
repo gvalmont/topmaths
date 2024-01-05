@@ -13,7 +13,7 @@
   <title>topmaths.fr - Les maths au TOP !</title>
 </svelte:head>
 
-<div class="container is-max-desktop centre">
+<div class="pt-7">
   <GrosBouton
     vue='sequences'
     couleur='info-darker'
