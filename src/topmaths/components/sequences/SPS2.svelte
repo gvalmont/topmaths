@@ -1,37 +1,7 @@
 <script lang="ts">
   import { ouvrirModaleExercices } from '../../services/modale'
+  import papiersCrayons from '../../../topmaths/json/papiers_crayons.json'
 
-  interface seance {
-    description: string;
-    slug: string;
-  }
-
-  const seances = [
-    {
-      description: 'Juste des segments',
-      slug: '58711'
-    },
-    {
-      description: 'Seulement des segments',
-      slug: '58713'
-    },
-    {
-      description: 'Avec des droites et des demi-droites',
-      slug: '58733'
-    },
-    {
-      description: 'Juste des cercles et des arcs de cercles',
-      slug: '58735'
-    },
-    {
-      description: 'Des droites et des cercles pour des experts',
-      slug: '58737'
-    },
-    {
-      description: 'Avec des macros',
-      slug: '58739'
-    }
-  ] as seance[]
 </script>
 
 <svelte:head>
@@ -40,32 +10,24 @@
 
 <h1 class="title is-2 is-tout mb-0">Défis géométriques</h1>
 <div class="is-tout is-fin">
-  <p class="is-size-5">
+  <p class="is-size-5 noir">
     <br />
     Des défis géométriques à relever.<br />
     Allez-vous réussir à reproduire ces figures ?
   </p>
   <br />
-  <p class="is-size-6 is-italic">
+  <p class="is-size-6 is-italic noir">
     (Ce sont les mêmes défis que dans le porte-vues jaune)
   </p>
-  {#each seances as seance, i}
-    <div>
-      <h2 class="mt-5 py-3 subtitle is-3 is-tout">
-        Groupe {i + 1} : {seance.description}
-      </h2>
-      <button
-        on:click={() =>
-          ouvrirModaleExercices(
-            'https://www.geogebra.org/m/Rn6QDFCN#chapter/' + seance.slug
-          )}
-      >
-        <img
-          src="topmaths/img/sps2/{seance.slug}.png"
-          alt="Capture d'écran de travaux accessibles par ce lien"
-        />
-      </button>
-    </div>
-  {/each}
-  <div><br /><br /></div>
+  <br />
+  <div class="flex flex-wrap margin-auto justify-center">
+    {#each papiersCrayons as activite}
+      <div class="p-4">
+        <button on:click={() => ouvrirModaleExercices(activite.ggb)}>
+          <img src="https://www-irem.univ-paris13.fr/site_spip/{activite.src}" alt={activite.titre}/>
+        </button>
+      </div>
+    {/each}
+  </div>
+  <p class="text-xl noir pb-8">Ces activités géniales ont été créées par <a href="https://www-irem.univ-paris13.fr/site_spip/spip.php?article263">l'IREM de Paris-Nord</a> qui propose aussi <a href="https://www-irem.univ-paris13.fr/site_spip/spip.php?article1263">une version papier</a> !</p>
 </div>

@@ -920,7 +920,8 @@ function getLienExercice (slug, calculMental = false) {
       lien = slug + '&embed=' + environmentProd.origine
     } else if (slug.slice(0, 4) !== 'http') { // c'est un slug
       if (slug.includes(',')) { // c'est un slug V2
-        lien = `${environment.baseUrl + environment.V2}ex=${slug},i=0`
+        if (!slug.startsWith('id=')) slug = 'ex=' + slug
+        lien = `${environment.baseUrl + environment.V2}${slug},i=0`
         lien = conversionV2enV3(lien)
       } else { // c'est un slug v3
         lien = environment.baseUrl + environment.V3 + formaterSlug(slug) + '&i=0'
