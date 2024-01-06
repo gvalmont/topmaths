@@ -44,7 +44,7 @@
   onMount(handleInitialUrl)
 
   $: {
-    if (isInitialUrlHandled) mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    // if (isInitialUrlHandled) mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     context.isDiaporama = $globalOptions.v === 'diaporama'
     if ($globalOptions.v === 'latex') {
       context.isHtml = false
