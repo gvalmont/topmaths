@@ -178,7 +178,7 @@
 </svelte:head>
 
 <div class="tabs is-medium is-centered">
-  <ul class="tabs-menu is-rounded">
+  <ul class="tabs-menu is-full-rounded" style="border: none">
     <li>
       <button
         class="subtitle is-4 px-5 is-tout is-left-side"
@@ -200,7 +200,7 @@
     {/each}
   </ul>
 </div>
-<div class="is-flex is-justify-content-center" style="overflow:auto">
+<div class="is-flex is-justify-content-center pt-2 pb-1" style="overflow:auto">
   <span
     ><button
       class="button is-rounded is-link mb-5 mx-1 is-medium"
@@ -231,7 +231,7 @@
   on:input
 />
 {#if $modeEnseignant}
-<label style="position: absolute;">
+<label class="absolute mt-2 ml-2">
   <input type="checkbox" bind:checked={$titresProchesDesAttendus} />
     Intitulés proches des attendus de fin d'année
 </label>

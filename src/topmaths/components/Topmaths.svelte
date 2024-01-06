@@ -105,11 +105,11 @@
   <title>topmaths.fr - Les maths au TOP !</title>
 </svelte:head>
 
-<div id="top" class="is-family-primary">
+<div id="top" class="is-family-primary pb-9">
   <!-- Header -->
   {#if $vue !== 'eleve' && $vue !== 'diaporama'}
     <div class="tabs is-large is-centered">
-      <ul class="tabs-menu">
+      <ul class="tabs-menu" style="border: none;">
         <a href='?v=accueil' class="p-0">
           <li class:is-actif={$vue === 'accueil' || $vue === ''}>
             <button class="tabs-menu-link is-warning py-4 px-5" on:click={(event) => goVue(event, 'accueil')}>
