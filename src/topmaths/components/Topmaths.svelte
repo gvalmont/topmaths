@@ -55,8 +55,6 @@
     if (panier !== undefined && panier[0] !== undefined) panierDispo.set(true)
   }
 
-  // À la construction du component ou à la navigation dans l'historique du navigateur
-  // on met à jour l'url headerStart
   onMount(() => {
     updateParams()
   })
@@ -180,8 +178,8 @@
   {/if}
 </div>
 <!-- Affichage principal -->
-<div class="flex items-center">
-  <div class="md:max-w-screen-lg flex-1 flex-col mx-auto text-center pb-20">
+<div class="flex justify-center">
+  <div class="text-center pb-20">
     {#if $vue === 'exercices'}
       <ExercicesMathalea />
     {:else if $vue === 'sequence'}

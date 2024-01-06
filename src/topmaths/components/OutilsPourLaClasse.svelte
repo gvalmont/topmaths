@@ -17,43 +17,45 @@
   <title>Outils pour la classe - topmaths</title>
 </svelte:head>
 
-<h1
-  style="border-radius: 50px 50px 0px 0px; padding: 5px 50px 5px 50px; margin-bottom: 0px; background-color: #16A34A; color: white; font-size: xx-large; font-weight: 600;"
->
-  Outils pour la classe
-</h1>
-<div style="background-color: #ebfaf1; border-radius: 0px 0px 50px 50px; ">
-  <br />
-  <GrosBouton
-  vue='mathador'
-  couleur='violet'
-  texte='Mathador'
-  />
-  {#if $modeEnseignant}
+<div class="w-screen max-w-screen-lg">
+  <h1
+    style="border-radius: 50px 50px 0px 0px; padding: 5px 50px 5px 50px; margin-bottom: 0px; background-color: #16A34A; color: white; font-size: xx-large; font-weight: 600;"
+  >
+    Outils pour la classe
+  </h1>
+  <div style="background-color: #ebfaf1; border-radius: 0px 0px 50px 50px; ">
+    <br />
     <GrosBouton
-    vue='progressions'
-    couleur='sponsor'
-    texte='Progressions'
+    vue='mathador'
+    couleur='violet'
+    texte='Mathador'
     />
+    {#if $modeEnseignant}
+      <GrosBouton
+      vue='progressions'
+      couleur='sponsor'
+      texte='Progressions'
+      />
+      <br /><br />
+      <div>
+        <button
+          on:click={() => desactiverModeEnseignant()}
+          class="button is-green"
+        >
+          <p>Désactiver le mode enseignant</p>
+        </button>
+      </div>
+    {:else}
+      <br /><br />
+      <div>
+        <button
+          on:click={() => activerModeEnseignant()}
+          class="button is-green is-outlined"
+        >
+          <p>Activer le mode enseignant</p>
+        </button>
+      </div>
+    {/if}
     <br /><br />
-    <div>
-      <button
-        on:click={() => desactiverModeEnseignant()}
-        class="button is-green"
-      >
-        <p>Désactiver le mode enseignant</p>
-      </button>
-    </div>
-  {:else}
-    <br /><br />
-    <div>
-      <button
-        on:click={() => activerModeEnseignant()}
-        class="button is-green is-outlined"
-      >
-        <p>Activer le mode enseignant</p>
-      </button>
-    </div>
-  {/if}
-  <br /><br />
+  </div>
 </div>

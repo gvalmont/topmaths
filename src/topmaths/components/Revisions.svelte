@@ -1,28 +1,19 @@
 <script lang="ts">
-  import {
-    calendrierAnneeEnCours,
-    listeDesUrl,
-    niveauxObjectifs,
-    niveauxSequences
-  } from '../services/store'
+  import { calendrierAnneeEnCours, listeDesUrl, niveauxObjectifs, niveauxSequences, vue, vuePrecedente } from '../services/store'
   import type { ObjectifNiveau } from '../services/types'
   import { estCoopmaths } from '../services/outils'
-  import { randint } from '../../modules/outils'
-  import { ouvrirModaleExercices } from '../services/modale'
-    import { environment } from '../services/environment'
+  import { environment } from '../services/environment'
+  import { get } from 'svelte/store'
 
   let niveauChoisi = 'tout'
 
-  function lancerExercices () {
+  function lancerExercicesMathalea () {
     if ($calendrierAnneeEnCours.periodeNumero > 0) {
-      const listeDesReferences = getListeDesReferences(
-        niveauChoisi
-      )
+      const listeDesReferences = getListeDesReferences(niveauChoisi)
       if (listeDesReferences.length === 0) {
         alert('Tu n\'as pas encore d\'exercice à réviser, reviens plus tard !')
       } else {
-        listeDesUrl.set(getListeDesUrl(listeDesReferences, $niveauxObjectifs))
-        ouvrirModaleExercices($listeDesUrl[randint(0, $listeDesUrl.length - 1)])
+        lancer(listeDesReferences)
       }
     }
   }
@@ -33,10 +24,15 @@ function lancerExercicesBrevet () {
     if (listeExercicesBrevet.length === 0) {
       alert('Tu n\'as pas encore d\'exercice de brevet à réviser, reviens plus tard !')
     } else {
-      listeDesUrl.set(listeExercicesBrevet)
-      ouvrirModaleExercices($listeDesUrl[randint(0, $listeDesUrl.length - 1)])
+      lancer(listeExercicesBrevet)
     }
   }
+}
+
+function lancer (listeUrls: string[]) {
+  listeDesUrl.set(listeUrls)
+  vuePrecedente.set(get(vue))
+  vue.set('exercices')
 }
 
   function getListeDesReferences (
@@ -55,7 +51,7 @@ function lancerExercicesBrevet () {
         }
       }
     }
-    return listeDesReferences
+    return getListeDesUrl(listeDesReferences, $niveauxObjectifs)
   }
 
 function getListeExercicesBrevet () {
@@ -146,37 +142,39 @@ function getListeExercicesBrevet () {
   <title>Révisions - topmaths</title>
 </svelte:head>
 
-<h1 style="border-radius: 50px 50px 0px 0px; padding: 5px 50px 5px 50px; margin-bottom: 0px; background-color: #ea4aaa; color: white; font-size: xx-large; font-weight: 600;">
-  Révisions
-</h1>
-<div style="background-color: #fffafa; border-radius: 0px 0px 50px 50px; ">
-  <br>
-  <div class="tabs is-medium is-centered">
-    <ul class="tabs-menu is-full-rounded" style="border-width: 0px;">
-      {#each ['tout', '6e', '5e', '4e', '3e'] as niveau}
-        <li>
-          <button
-            on:click={() => { niveauChoisi = niveau }}
-            class="subtitle is-4 px-5 is-{niveau}"
-            class:is-active={niveauChoisi === niveau}
-            class:is-left-side={niveau === 'tout'}
-            class:is-right-side={niveau === '3e'}
-            style="text-transform: capitalize; width: 85px">
-            {niveau}
-          </button>
-        </li>
-      {/each}
-      <li />
-    </ul>
+<div class="w-screen max-w-screen-lg">
+  <h1 style="border-radius: 50px 50px 0px 0px; padding: 5px 50px 5px 50px; margin-bottom: 0px; background-color: #ea4aaa; color: white; font-size: xx-large; font-weight: 600;">
+    Révisions
+  </h1>
+  <div style="background-color: #fffafa; border-radius: 0px 0px 50px 50px; ">
+    <br>
+    <div class="tabs is-medium is-centered">
+      <ul class="tabs-menu is-full-rounded" style="border-width: 0px;">
+        {#each ['tout', '6e', '5e', '4e', '3e'] as niveau}
+          <li>
+            <button
+              on:click={() => { niveauChoisi = niveau }}
+              class="subtitle is-4 px-5 is-{niveau}"
+              class:is-active={niveauChoisi === niveau}
+              class:is-left-side={niveau === 'tout'}
+              class:is-right-side={niveau === '3e'}
+              style="text-transform: capitalize; width: 85px">
+              {niveau}
+            </button>
+          </li>
+        {/each}
+        <li />
+      </ul>
+    </div>
+    <button on:click={() => lancerExercicesMathalea()} class="button is-large is-link is-outlined">
+      Réviser les exercices
+    </button>
+    <br />
+    <br />
+    <button on:click={() => lancerExercicesBrevet()} class="button is-large is-sponsor is-outlined">
+      Réviser les exercices de brevet (3e)
+    </button>
+    <br />
+    <br />
   </div>
-  <button on:click={() => lancerExercices()} class="button is-large is-link is-outlined">
-    Réviser les exercices
-  </button>
-  <br />
-  <br />
-  <button on:click={() => lancerExercicesBrevet()} class="button is-large is-sponsor is-outlined">
-    Réviser les exercices de brevet (3e)
-  </button>
-  <br />
-  <br />
 </div>

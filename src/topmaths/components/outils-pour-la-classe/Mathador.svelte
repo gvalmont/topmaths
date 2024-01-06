@@ -354,167 +354,169 @@
   <title>Mathador - topmaths</title>
 </svelte:head>
 
-<div class="is-size-5">
-  <div id="boutonPoints" class="is-clickable">
-    <figure
-      on:click={alternerAffichagePoints}
-      on:keydown={alternerAffichagePoints}
-    >
-      <img
-        src="topmaths/img/gvalmont/p-circle.svg"
-        alt="Symbole P entouré"
-      />
-    </figure>
-  </div>
-  <div id="fondPanneauPoints" />
-  <div id="contenuPanneauPoints" class="has-text-centered">
-    <ul>
-      <li>&plus; Addition : 1 pt</li>
-      <li>&times; Multiplication : 1 pt</li>
-      <li>&minus; Soustraction : 2 pts</li>
-      <li>&div; Division : 3 pts</li>
-    </ul>
-  </div>
-  <h1
-    class="title is-2 p-5"
-    style="color: white; background-color: #5B21B6; border-radius: 50px 0px 50px 0px"
-  >
-    Mathador
-  </h1>
-  <div class="is-flex is-align-items-center is-justify-content-center">
-    Atteindre &nbsp; <figure
-      class="is-flex is-align-items-center is-justify-content-center is-size-3 has-text-weight-semibold"
-      style="width: 120px; height: 120px; background-image:url('/topmaths/img/cc0/target-svgrepo-com.svg'); background-position:center, center;background-size: 120px, 120px; color:black;text-shadow: 0px 0px 5px white"
-    >
-      {nombreCible}
-    </figure>
-  </div>
-  <br />
-  <div class="is-flex is-align-items-center is-justify-content-center">
-    En utilisant
-    <figure
-      class="is-flex is-align-items-center is-justify-content-center is-size-4 m-2 carte"
-      style="border-color: #FBBF24;"
-    >
-      {donnee1}
-    </figure>
-    <figure
-      class="is-flex is-align-items-center is-justify-content-center is-size-4 m-2 carte"
-      style="border-color: #A3E635;"
-    >
-      {donnee2}
-    </figure>
-    <figure
-      class="is-flex is-align-items-center is-justify-content-center is-size-4 m-2 carte"
-      style="border-color: #22D3EE;"
-    >
-      {donnee3}
-    </figure>
-    <figure
-      class="is-flex is-align-items-center is-justify-content-center is-size-4 m-2 carte"
-      style="border-color: #A78BFA;"
-    >
-      {donnee4}
-    </figure>
-    <figure
-      class="is-flex is-align-items-center is-justify-content-center is-size-4 m-2 carte"
-      style="border-color: #F472B6;"
-    >
-      {donnee5}
-    </figure>
-  </div>
-  <br />
-  <div class="is-flex is-align-items-center is-justify-content-center">
-    <div class="b-select m-2 is-size-6">
-      <select on:change={() => setupMinuteur(event)}>
-        <option>Minuteur</option>
-        {#each durees as duree}
-          <option>{duree} min</option>
-        {/each}
-      </select>
+<div class="w-screen max-w-screen-lg">
+  <div class="is-size-5">
+    <div id="boutonPoints" class="is-clickable">
+      <figure
+        on:click={alternerAffichagePoints}
+        on:keydown={alternerAffichagePoints}
+      >
+        <img
+          src="topmaths/img/gvalmont/p-circle.svg"
+          alt="Symbole P entouré"
+        />
+      </figure>
     </div>
+    <div id="fondPanneauPoints" />
+    <div id="contenuPanneauPoints" class="has-text-centered">
+      <ul>
+        <li>&plus; Addition : 1 pt</li>
+        <li>&times; Multiplication : 1 pt</li>
+        <li>&minus; Soustraction : 2 pts</li>
+        <li>&div; Division : 3 pts</li>
+      </ul>
+    </div>
+    <h1
+      class="title is-2 p-5"
+      style="color: white; background-color: #5B21B6; border-radius: 50px 0px 50px 0px"
+    >
+      Mathador
+    </h1>
     <div class="is-flex is-align-items-center is-justify-content-center">
-      <div class="is-link">
-        {#if minuteurEnFonctionnement}
-          <button on:click={arreterMinuteur}>
-            <IconeTooltipSimple
-              urlBouton="/topmaths/img/cc0/pause-svgrepo-com.svg"
-              texteDropdown=""
-              texteAlternatif="Pause"
-              size={3}
-            />
-          </button>
-        {:else if tempsRestant > 0}
-          <button on:click={lancerMinuteur}>
-            <IconeTooltipSimple
-              urlBouton="/topmaths/img/cc0/play-button-svgrepo-com.svg"
-              texteDropdown=""
-              texteAlternatif="Play"
-              size={3}
-            />
-          </button>
-        {/if}
-      </div>
-      <div
-        class="is-size-4 m-2"
-        id="divTempsAffiche"
-        class:rouge={tempsRestant <= 0}
-      />
+      Atteindre &nbsp; <figure
+        class="is-flex is-align-items-center is-justify-content-center is-size-3 has-text-weight-semibold"
+        style="width: 120px; height: 120px; background-image:url('/topmaths/img/cc0/target-svgrepo-com.svg'); background-position:center, center;background-size: 120px, 120px; color:black;text-shadow: 0px 0px 5px white"
+      >
+        {nombreCible}
+      </figure>
     </div>
+    <br />
+    <div class="is-flex is-align-items-center is-justify-content-center">
+      En utilisant
+      <figure
+        class="is-flex is-align-items-center is-justify-content-center is-size-4 m-2 carte"
+        style="border-color: #FBBF24;"
+      >
+        {donnee1}
+      </figure>
+      <figure
+        class="is-flex is-align-items-center is-justify-content-center is-size-4 m-2 carte"
+        style="border-color: #A3E635;"
+      >
+        {donnee2}
+      </figure>
+      <figure
+        class="is-flex is-align-items-center is-justify-content-center is-size-4 m-2 carte"
+        style="border-color: #22D3EE;"
+      >
+        {donnee3}
+      </figure>
+      <figure
+        class="is-flex is-align-items-center is-justify-content-center is-size-4 m-2 carte"
+        style="border-color: #A78BFA;"
+      >
+        {donnee4}
+      </figure>
+      <figure
+        class="is-flex is-align-items-center is-justify-content-center is-size-4 m-2 carte"
+        style="border-color: #F472B6;"
+      >
+        {donnee5}
+      </figure>
+    </div>
+    <br />
+    <div class="is-flex is-align-items-center is-justify-content-center">
+      <div class="b-select m-2 is-size-6">
+        <select on:change={() => setupMinuteur(event)}>
+          <option>Minuteur</option>
+          {#each durees as duree}
+            <option>{duree} min</option>
+          {/each}
+        </select>
+      </div>
+      <div class="is-flex is-align-items-center is-justify-content-center">
+        <div class="is-link">
+          {#if minuteurEnFonctionnement}
+            <button on:click={arreterMinuteur}>
+              <IconeTooltipSimple
+                urlBouton="/topmaths/img/cc0/pause-svgrepo-com.svg"
+                texteDropdown=""
+                texteAlternatif="Pause"
+                size={3}
+              />
+            </button>
+          {:else if tempsRestant > 0}
+            <button on:click={lancerMinuteur}>
+              <IconeTooltipSimple
+                urlBouton="/topmaths/img/cc0/play-button-svgrepo-com.svg"
+                texteDropdown=""
+                texteAlternatif="Play"
+                size={3}
+              />
+            </button>
+          {/if}
+        </div>
+        <div
+          class="is-size-4 m-2"
+          id="divTempsAffiche"
+          class:rouge={tempsRestant <= 0}
+        />
+      </div>
+    </div>
+    <br />
+    <p class="has-text-grey">
+      Il {nombreDeSolutions === -1
+        ? "y a ... possibilités"
+        : nombreDeSolutions > 1
+        ? "y a " + nombreDeSolutions + " possibilités"
+        : nombreDeSolutions === 1
+        ? "y a 1 possibilité"
+        : "n'y a aucune possibilité"} de coup Mathador.
+    </p>
+    <br />
+  </div>
+  <button class="button is-warning" on:click={relancer}>Relancer</button> &nbsp;
+  &nbsp;
+  <button
+    class="button is-success"
+    class:is-inverted={solutionsAffichees}
+    on:click={() => {
+      solutionsAffichees = !solutionsAffichees;
+      interpreterLaTeX();
+    }}
+  >
+    {solutionsAffichees
+      ? "Cacher les solutions"
+      : "Afficher les solutions"}</button
+  >
+  <br /><br />
+  {#if solutionsAffichees}
+    <p
+      id="divSolutions"
+      contenteditable="false"
+      bind:innerHTML={stringSolutions}
+      class="is-size-5"
+    />
+  {/if}
+  <br />
+  <div>
+    Si vous ne connaissez pas le super jeu qu'est Mathador, je vous encourage à
+    visiter <a
+      href="https://www.mathador.fr/index.php"
+      target="_blank"
+      rel="noopener noreferrer">le site officiel</a
+    > !
   </div>
   <br />
-  <p class="has-text-grey">
-    Il {nombreDeSolutions === -1
-      ? "y a ... possibilités"
-      : nombreDeSolutions > 1
-      ? "y a " + nombreDeSolutions + " possibilités"
-      : nombreDeSolutions === 1
-      ? "y a 1 possibilité"
-      : "n'y a aucune possibilité"} de coup Mathador.
-  </p>
-  <br />
-</div>
-<button class="button is-warning" on:click={relancer}>Relancer</button> &nbsp;
-&nbsp;
-<button
-  class="button is-success"
-  class:is-inverted={solutionsAffichees}
-  on:click={() => {
-    solutionsAffichees = !solutionsAffichees;
-    interpreterLaTeX();
-  }}
->
-  {solutionsAffichees
-    ? "Cacher les solutions"
-    : "Afficher les solutions"}</button
->
-<br /><br />
-{#if solutionsAffichees}
-  <p
-    id="divSolutions"
-    contenteditable="false"
-    bind:innerHTML={stringSolutions}
-    class="is-size-5"
-  />
-{/if}
-<br />
-<div>
-  Si vous ne connaissez pas le super jeu qu'est Mathador, je vous encourage à
-  visiter <a
-    href="https://www.mathador.fr/index.php"
-    target="_blank"
-    rel="noopener noreferrer">le site officiel</a
-  > !
-</div>
-<br />
-<div class="is-size-7">
-  <i
-    >Mathador est une marque protégée d'Eric Trouillot et de Réseau Canopé,
-    enregistrée en France. Eric Trouillot est le concepteur du jeu Mathador
-    que vous pouvez retrouver sur le site www.mathaodr.fr. Le site
-    www.topmaths.fr est un site indépendant et n’est pas affilié à
-    www.mathador.fr.</i
-  >
+  <div class="is-size-7">
+    <i
+      >Mathador est une marque protégée d'Eric Trouillot et de Réseau Canopé,
+      enregistrée en France. Eric Trouillot est le concepteur du jeu Mathador
+      que vous pouvez retrouver sur le site www.mathaodr.fr. Le site
+      www.topmaths.fr est un site indépendant et n’est pas affilié à
+      www.mathador.fr.</i
+    >
+  </div>
 </div>
 <div id="sonDejaJoue" class="cache" />
 <audio id="audioElement">

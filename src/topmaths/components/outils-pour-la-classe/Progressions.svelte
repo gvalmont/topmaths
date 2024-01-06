@@ -164,207 +164,209 @@
   <title>Progressions - topmaths</title>
 </svelte:head>
 
-<div class="centre">
-  <!-- Menu -->
-  <div class="tabs is-medium is-centered">
-    <ul class="tabs-menu is-rounded">
-      <li>
-        <button
-          class="subtitle is-4 px-5 is-tout is-left-side"
-          class:is-active={ongletActif === 'tout'}
-          on:click={() => clicFiltre('tout')}>Tout</button
-        >
-      </li>
-      {#each $lignesSequencesNormales as ligne}
-        {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === ''}
-          <li>
-            <button
-              on:click={() => clicFiltre(ligne.niveau)}
-              class="subtitle is-4 px-5 is-{ligne.niveau}"
-              class:is-active={ongletActif === ligne.niveau}
-              class:is-right-side={ligne.niveau === '3e'}>{ligne.niveau}</button
-            >
-          </li>
-        {/if}
-      {/each}
-      <li />
-    </ul>
-  </div>
-  <div class="is-flex is-justify-content-center" style="overflow:auto">
-    <span
-      ><button
-        class="button is-rounded is-link mb-5 mx-1 is-medium"
-        class:is-light={filtre.periode !== null && filtre.periode > 0}
-        on:click={() => clicFiltre('', 0)}>Période</button
-      ></span
-    >
-    {#each [1, 2, 3, 4, 5] as periode}
-      <span>
-        <button
-          class="button is-rounded is-link mb-5 mx-1 is-medium"
-          class:is-light={filtre.periode !== periode}
-          on:click={() => clicFiltre('', periode)}>{periode}</button
-        >
-      </span>
-    {/each}
-  </div>
-  <input
-    class="p-1"
-    style="text-align:center; font-size:x-large;"
-    type="text"
-    aria-describedby="Champ pour rechercher un objectif ou une séquence"
-    autocomplete="off"
-    placeholder="Recherche"
-    bind:value={$texteRecherche}
-    on:input
-  />
-  {#if $modeEnseignant}
-  &nbsp; &nbsp;
-  <label style="position: absolute;">
-    <input type="checkbox" bind:checked={$titresProchesDesAttendus} />
-      Intitulés proches des attendus de fin d'année
-  </label>
-  {/if}
-  <div><br /></div>
-  <div class="container centre">
-    {#each $lignesFiltreesSequencesNormales as ligne, i}
-      {#if ligne.periode !== 0 && ((i === 0 && (filtre.periode === 0 || filtre.periode === ligne.periode) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)) || (i > 0 && $lignesFiltreesSequencesNormales[i].periode !== $lignesFiltreesSequencesNormales[i - 1].periode && ligne.niveau !== 'fin' && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && (filtre.periode === 0 || filtre.periode === ligne.periode)))}
-        <h2 class="subtitle is-3 p-2 is-{ligne.niveau} mb-3">
-          <span class="has-text-white">
-            Période {ligne.periode}
-          </span>
-        </h2>
-        <div class="m-3">
-          <div class="columns p-1 is-{ligne.niveau} is-size-5" style="border-bottom: 1px solid; border-left: 1px solid; border-right: 1px solid; border-color: var(--base{ligne.niveau});">
-            <div class="column is-narrow" style="width: 150px;">
-              <h3>Séquence</h3>
-            </div>
-            <div class="column">
-              <h3>Objectifs</h3>
-            </div>
-            <div class="column is-4">
-              <h3>Questions Flash</h3>
-            </div>
-            <div class="column is-3">
-              <h3>Calcul Mental</h3>
-            </div>
-          </div>
-        </div>
-      {/if}
-      <div>
-        {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === '' && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)}
-          <h1 class="title is-3 p-2 is-{ligne.niveau}">
-            <span class="has-text-white">
-              {ligne.niveau}
-            </span>
-          </h1>
-        {/if}
-        {#if ligne.reference !== '' && ligne.niveau !== 'fin' && filtre.periode !== null && (ligne.periode === filtre.periode || filtre.periode === 0 || filtre.periode === 0) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)}
-          <div
-            class="is-{ligne.niveau} is-size-6"
-            class:is-fin={i < $lignesSequencesNormales.length && ((filtre.periode > 0 && $lignesSequencesNormales[i].periode !== $lignesSequencesNormales[i + 1].periode) || $lignesSequencesNormales[i + 1].niveau === 'fin')}
+<div class="w-screen max-w-screen-lg">
+  <div class="centre">
+    <!-- Menu -->
+    <div class="tabs is-medium is-centered">
+      <ul class="tabs-menu is-rounded">
+        <li>
+          <button
+            class="subtitle is-4 px-5 is-tout is-left-side"
+            class:is-active={ongletActif === 'tout'}
+            on:click={() => clicFiltre('tout')}>Tout</button
           >
-            <div class="m-3">
-              <div class="columns is-{ligne.niveau} is-flex" style="border-bottom: 1px solid; border-left: 1px solid; border-right: 1px solid;  border-color: var(--base{ligne.niveau});"
-              class:is-fin={i < $lignesSequencesNormales.length && ((filtre.periode > 0 && $lignesSequencesNormales[i].periode !== $lignesSequencesNormales[i + 1].periode) || $lignesSequencesNormales[i + 1].niveau === 'fin')}>
-                <!-- Séquence -->
-                <div class="column is-narrow is-flex is-align-self-center is-flex-direction-column is-justify-content-center" style="width: 150px;">
-                  <a
-                    href="/?v=sequence&ref={ligne.reference}"
-                    on:click={(event) => goVue(event, 'sequence', ligne.reference)}
-                    class="colorless"
-                  >
-                  <div>Séquence {ligne.numero}</div>
-                  </a>
-                  <br>
-                  {ligne.titre}
-                </div>
-                <!-- Objectifs -->
-                <div class="column is-4 is-flex is-flex-direction-column">
-                  {#each ligne.objectifs as objectif}
-                  <div class="columns is-theme-{getTheme(objectif.reference)} is-flex-grow-1">
-                    <div class="column is-narrow is-flex is-align-self-center is-justify-content-center">
-                      <a
-                        href="/?v=objectif&ref={objectif.reference}"
-                        on:click={(event) => goVue(event, 'objectif', objectif.reference)}
-                        class="colorless"
-                      >
-                      <div>{objectif.reference}</div>
-                      </a>
-                    </div>
-                    <div class="column is-flex is-align-self-center is-justify-content-center">
-                      <div>
-                        {$titresProchesDesAttendus || objectif.titreSimplifie === '' ? objectif.titre : objectif.titreSimplifie}
-                      </div>
-                    </div>
-                  </div>
-                  {/each}
-                </div>
-                {#if ligne.calculsMentaux[0] !== undefined && ligne.calculsMentaux[0].reference !== ''}
-                  <!-- Questions Flash -->
-                  <div class="column is-4 is-flex is-flex-direction-column">
-                    {#each ligne.questionsFlash as questionFlash, i}
-                      {#if questionFlash.reference !== '' && questionFlash.reference !== '' && (i === 0 || ligne.questionsFlash[i].reference !== ligne.questionsFlash[i - 1].reference)}
-                        <div class="columns is-theme-{getTheme(questionFlash.reference)} is-flex-grow-1">
-                          <div class="column is-narrow is-flex is-align-self-center is-justify-content-center">
-                            <a
-                              href="/?v=objectif&ref={questionFlash.reference}"
-                              on:click={(event) => goVue(event, 'objectif', questionFlash.reference)}
-                              class="colorless"
-                            >
-                              <div>{questionFlash.reference}</div>
-                            </a>
-                          </div>
-                          <div class="column is-flex is-align-self-center is-justify-content-center">
-                            <div>
-                              {$titresProchesDesAttendus || questionFlash.titreSimplifie === '' ? questionFlash.titre : questionFlash.titreSimplifie}
-                            </div>
-                          </div>
-                        </div>
-                      {/if}
-                    {/each}
-                  </div>
-                  <!-- Calcul Mental -->
-                  <div class="column is-flex is-flex-direction-column">
-                    {#each ligne.calculsMentaux as calculMental}
-                      {#if calculMental.reference !== '' && calculMental.reference !== ''}
-                        <div class="columns is-theme-{getTheme(calculMental.reference)} is-flex-grow-1"
-                        style="{i < $lignesSequencesNormales.length && ((filtre.periode > 0 && $lignesSequencesNormales[i].periode !== $lignesSequencesNormales[i + 1].periode) || $lignesSequencesNormales[i + 1].niveau === 'fin') ? 'border-radius: 0px 0px 50px 0px;' : ''}">
-                          <div class="column is-narrow is-flex is-align-self-center is-justify-content-center">
-                            <a
-                              href="/?v=objectif&ref={calculMental.reference}"
-                              on:click={(event) => goVue(event, 'objectif', calculMental.reference)}
-                              class="colorless"
-                            >
-                            <div>{calculMental.reference}</div>
-                            </a>
-                          </div>
-                          <div class="column is-flex is-align-self-center is-justify-content-center">
-                            <div>
-                              {$titresProchesDesAttendus || calculMental.titreSimplifie === '' ? calculMental.titre : calculMental.titreSimplifie}
-                            </div>
-                          </div>
-                        </div>
-                      {/if}
-                    {/each}
-                  </div>
-                {:else if ligne.calculsMentaux[0] !== undefined && ligne.calculsMentaux[0].exercices[0] !== undefined && ligne.calculsMentaux[0].exercices[0].description !== ''}
-                <div class="column is-flex is-align-self-center is-justify-self-center is-justify-content-center">
-                  <div
-                    contenteditable="false"
-                    bind:innerHTML={ligne.calculsMentaux[0].exercices[0].description}
-                  ></div>
-                </div>
-                {/if}
+        </li>
+        {#each $lignesSequencesNormales as ligne}
+          {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === ''}
+            <li>
+              <button
+                on:click={() => clicFiltre(ligne.niveau)}
+                class="subtitle is-4 px-5 is-{ligne.niveau}"
+                class:is-active={ongletActif === ligne.niveau}
+                class:is-right-side={ligne.niveau === '3e'}>{ligne.niveau}</button
+              >
+            </li>
+          {/if}
+        {/each}
+        <li />
+      </ul>
+    </div>
+    <div class="is-flex is-justify-content-center" style="overflow:auto">
+      <span
+        ><button
+          class="button is-rounded is-link mb-5 mx-1 is-medium"
+          class:is-light={filtre.periode !== null && filtre.periode > 0}
+          on:click={() => clicFiltre('', 0)}>Période</button
+        ></span
+      >
+      {#each [1, 2, 3, 4, 5] as periode}
+        <span>
+          <button
+            class="button is-rounded is-link mb-5 mx-1 is-medium"
+            class:is-light={filtre.periode !== periode}
+            on:click={() => clicFiltre('', periode)}>{periode}</button
+          >
+        </span>
+      {/each}
+    </div>
+    <input
+      class="p-1"
+      style="text-align:center; font-size:x-large;"
+      type="text"
+      aria-describedby="Champ pour rechercher un objectif ou une séquence"
+      autocomplete="off"
+      placeholder="Recherche"
+      bind:value={$texteRecherche}
+      on:input
+    />
+    {#if $modeEnseignant}
+    &nbsp; &nbsp;
+    <label style="position: absolute;">
+      <input type="checkbox" bind:checked={$titresProchesDesAttendus} />
+        Intitulés proches des attendus de fin d'année
+    </label>
+    {/if}
+    <div><br /></div>
+    <div class="container centre">
+      {#each $lignesFiltreesSequencesNormales as ligne, i}
+        {#if ligne.periode !== 0 && ((i === 0 && (filtre.periode === 0 || filtre.periode === ligne.periode) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)) || (i > 0 && $lignesFiltreesSequencesNormales[i].periode !== $lignesFiltreesSequencesNormales[i - 1].periode && ligne.niveau !== 'fin' && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && (filtre.periode === 0 || filtre.periode === ligne.periode)))}
+          <h2 class="subtitle is-3 p-2 is-{ligne.niveau} mb-3">
+            <span class="has-text-white">
+              Période {ligne.periode}
+            </span>
+          </h2>
+          <div class="m-3">
+            <div class="columns p-1 is-{ligne.niveau} is-size-5" style="border-bottom: 1px solid; border-left: 1px solid; border-right: 1px solid; border-color: var(--base{ligne.niveau});">
+              <div class="column is-narrow" style="width: 150px;">
+                <h3>Séquence</h3>
+              </div>
+              <div class="column">
+                <h3>Objectifs</h3>
+              </div>
+              <div class="column is-4">
+                <h3>Questions Flash</h3>
+              </div>
+              <div class="column is-3">
+                <h3>Calcul Mental</h3>
               </div>
             </div>
           </div>
         {/if}
-      </div>
-      {#if ligne.niveau === 'fin' && filtre.niveau === 'tout'}
-        <div><br /></div>
-      {/if}
-    {/each}
+        <div>
+          {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === '' && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)}
+            <h1 class="title is-3 p-2 is-{ligne.niveau}">
+              <span class="has-text-white">
+                {ligne.niveau}
+              </span>
+            </h1>
+          {/if}
+          {#if ligne.reference !== '' && ligne.niveau !== 'fin' && filtre.periode !== null && (ligne.periode === filtre.periode || filtre.periode === 0 || filtre.periode === 0) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)}
+            <div
+              class="is-{ligne.niveau} is-size-6"
+              class:is-fin={i < $lignesSequencesNormales.length && ((filtre.periode > 0 && $lignesSequencesNormales[i].periode !== $lignesSequencesNormales[i + 1].periode) || $lignesSequencesNormales[i + 1].niveau === 'fin')}
+            >
+              <div class="m-3">
+                <div class="columns is-{ligne.niveau} is-flex" style="border-bottom: 1px solid; border-left: 1px solid; border-right: 1px solid;  border-color: var(--base{ligne.niveau});"
+                class:is-fin={i < $lignesSequencesNormales.length && ((filtre.periode > 0 && $lignesSequencesNormales[i].periode !== $lignesSequencesNormales[i + 1].periode) || $lignesSequencesNormales[i + 1].niveau === 'fin')}>
+                  <!-- Séquence -->
+                  <div class="column is-narrow is-flex is-align-self-center is-flex-direction-column is-justify-content-center" style="width: 150px;">
+                    <a
+                      href="/?v=sequence&ref={ligne.reference}"
+                      on:click={(event) => goVue(event, 'sequence', ligne.reference)}
+                      class="colorless"
+                    >
+                    <div>Séquence {ligne.numero}</div>
+                    </a>
+                    <br>
+                    {ligne.titre}
+                  </div>
+                  <!-- Objectifs -->
+                  <div class="column is-4 is-flex is-flex-direction-column">
+                    {#each ligne.objectifs as objectif}
+                    <div class="columns is-theme-{getTheme(objectif.reference)} is-flex-grow-1">
+                      <div class="column is-narrow is-flex is-align-self-center is-justify-content-center">
+                        <a
+                          href="/?v=objectif&ref={objectif.reference}"
+                          on:click={(event) => goVue(event, 'objectif', objectif.reference)}
+                          class="colorless"
+                        >
+                        <div>{objectif.reference}</div>
+                        </a>
+                      </div>
+                      <div class="column is-flex is-align-self-center is-justify-content-center">
+                        <div>
+                          {$titresProchesDesAttendus || objectif.titreSimplifie === '' ? objectif.titre : objectif.titreSimplifie}
+                        </div>
+                      </div>
+                    </div>
+                    {/each}
+                  </div>
+                  {#if ligne.calculsMentaux[0] !== undefined && ligne.calculsMentaux[0].reference !== ''}
+                    <!-- Questions Flash -->
+                    <div class="column is-4 is-flex is-flex-direction-column">
+                      {#each ligne.questionsFlash as questionFlash, i}
+                        {#if questionFlash.reference !== '' && questionFlash.reference !== '' && (i === 0 || ligne.questionsFlash[i].reference !== ligne.questionsFlash[i - 1].reference)}
+                          <div class="columns is-theme-{getTheme(questionFlash.reference)} is-flex-grow-1">
+                            <div class="column is-narrow is-flex is-align-self-center is-justify-content-center">
+                              <a
+                                href="/?v=objectif&ref={questionFlash.reference}"
+                                on:click={(event) => goVue(event, 'objectif', questionFlash.reference)}
+                                class="colorless"
+                              >
+                                <div>{questionFlash.reference}</div>
+                              </a>
+                            </div>
+                            <div class="column is-flex is-align-self-center is-justify-content-center">
+                              <div>
+                                {$titresProchesDesAttendus || questionFlash.titreSimplifie === '' ? questionFlash.titre : questionFlash.titreSimplifie}
+                              </div>
+                            </div>
+                          </div>
+                        {/if}
+                      {/each}
+                    </div>
+                    <!-- Calcul Mental -->
+                    <div class="column is-flex is-flex-direction-column">
+                      {#each ligne.calculsMentaux as calculMental}
+                        {#if calculMental.reference !== '' && calculMental.reference !== ''}
+                          <div class="columns is-theme-{getTheme(calculMental.reference)} is-flex-grow-1"
+                          style="{i < $lignesSequencesNormales.length && ((filtre.periode > 0 && $lignesSequencesNormales[i].periode !== $lignesSequencesNormales[i + 1].periode) || $lignesSequencesNormales[i + 1].niveau === 'fin') ? 'border-radius: 0px 0px 50px 0px;' : ''}">
+                            <div class="column is-narrow is-flex is-align-self-center is-justify-content-center">
+                              <a
+                                href="/?v=objectif&ref={calculMental.reference}"
+                                on:click={(event) => goVue(event, 'objectif', calculMental.reference)}
+                                class="colorless"
+                              >
+                              <div>{calculMental.reference}</div>
+                              </a>
+                            </div>
+                            <div class="column is-flex is-align-self-center is-justify-content-center">
+                              <div>
+                                {$titresProchesDesAttendus || calculMental.titreSimplifie === '' ? calculMental.titre : calculMental.titreSimplifie}
+                              </div>
+                            </div>
+                          </div>
+                        {/if}
+                      {/each}
+                    </div>
+                  {:else if ligne.calculsMentaux[0] !== undefined && ligne.calculsMentaux[0].exercices[0] !== undefined && ligne.calculsMentaux[0].exercices[0].description !== ''}
+                  <div class="column is-flex is-align-self-center is-justify-self-center is-justify-content-center">
+                    <div
+                      contenteditable="false"
+                      bind:innerHTML={ligne.calculsMentaux[0].exercices[0].description}
+                    ></div>
+                  </div>
+                  {/if}
+                </div>
+              </div>
+            </div>
+          {/if}
+        </div>
+        {#if ligne.niveau === 'fin' && filtre.niveau === 'tout'}
+          <div><br /></div>
+        {/if}
+      {/each}
+    </div>
   </div>
 </div>
 

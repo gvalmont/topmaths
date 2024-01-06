@@ -176,117 +176,119 @@ function lesDonneesSontChargees () {
 </svelte:head>
 
 <!-- Menu -->
-<div class="tabs is-medium is-centered">
-  <ul class="tabs-menu is-full-rounded" style="border: none">
-    <li>
-      <button
-        class="subtitle is-4 px-5 is-tout is-left-side"
-        class:is-active={filtre.niveau === 'tout'}
-        on:click={() => clicFiltre('tout')}>Tout</button
-      >
-    </li>
-    {#each $lignesSequencesNormales as ligne}
-      {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === ''}
-        <li>
-          <button
-            on:click={() => clicFiltre(ligne.niveau)}
-            class="subtitle is-4 px-5 is-{ligne.niveau}"
-            class:is-active={filtre.niveau === ligne.niveau}
-            class:is-right-side={ligne.niveau === '3e'}>{ligne.niveau}</button
-          >
-        </li>
-      {/if}
-    {/each}
-    <li />
-  </ul>
-</div>
-<div class="is-flex is-justify-content-center pt-2 pb-1" style="overflow:auto">
-  <span
-    ><button
-      class="button is-rounded is-link mb-5 mx-1 is-medium"
-      class:is-light={filtre.periode !== null &&
-        filtre.periode !== undefined &&
-        filtre.periode > 0}
-      on:click={() => clicFiltre('', 0)}>Période</button
-    ></span
-  >
-  {#each [1, 2, 3, 4, 5] as periode}
-    <span>
-      <button
+<div class="w-screen max-w-screen-lg">
+  <div class="tabs is-medium is-centered">
+    <ul class="tabs-menu is-full-rounded" style="border: none">
+      <li>
+        <button
+          class="subtitle is-4 px-5 is-tout is-left-side"
+          class:is-active={filtre.niveau === 'tout'}
+          on:click={() => clicFiltre('tout')}>Tout</button
+        >
+      </li>
+      {#each $lignesSequencesNormales as ligne}
+        {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === ''}
+          <li>
+            <button
+              on:click={() => clicFiltre(ligne.niveau)}
+              class="subtitle is-4 px-5 is-{ligne.niveau}"
+              class:is-active={filtre.niveau === ligne.niveau}
+              class:is-right-side={ligne.niveau === '3e'}>{ligne.niveau}</button
+            >
+          </li>
+        {/if}
+      {/each}
+      <li />
+    </ul>
+  </div>
+  <div class="is-flex is-justify-content-center pt-2 pb-1" style="overflow:auto">
+    <span
+      ><button
         class="button is-rounded is-link mb-5 mx-1 is-medium"
-        class:is-light={filtre.periode !== periode}
-        on:click={() => clicFiltre('', periode)}>{periode}</button
-      >
-    </span>
-  {/each}
-</div>
-<input
-  class="p-1"
-  style="text-align:center; font-size:x-large;"
-  type="text"
-  aria-describedby="Champ pour rechercher une séquence"
-  autocomplete="off"
-  placeholder="Recherche"
-  bind:value={$texteRecherche}
-  on:input
-/>
-<div><br /></div>
-<!-- Séquences particulières -->
-{#if $texteRecherche === ''}
-  <div>
-    {#each lignesSequencesParticulieres as ligne, i}
-      {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === ''}
-        <h1 class="title is-3 p-2 mb-0 is-tout">{ligne.niveau}</h1>
-      {/if}
-      {#if ligne.reference !== ''}
-        <a
-          href="/?v=sequence&ref={ligne.reference}"
-          on:click={(event) =>
-            goVue(event, 'sequence', ligne.reference)}
+        class:is-light={filtre.periode !== null &&
+          filtre.periode !== undefined &&
+          filtre.periode > 0}
+        on:click={() => clicFiltre('', 0)}>Période</button
+      ></span
+    >
+    {#each [1, 2, 3, 4, 5] as periode}
+      <span>
+        <button
+          class="button is-rounded is-link mb-5 mx-1 is-medium"
+          class:is-light={filtre.periode !== periode}
+          on:click={() => clicFiltre('', periode)}>{periode}</button
         >
-          <div
-            class="p-1 is-tout is-size-5"
-            class:is-fin={i === lignesSequencesParticulieres.length - 2}
-          >
-            {ligne.numero === 0
-              ? ''
-              : 'Séquence ' + ligne.numero + ' : '}{ligne.titre}<br />
-          </div>
-        </a>
-      {/if}
+      </span>
     {/each}
   </div>
+  <input
+    class="p-1"
+    style="text-align:center; font-size:x-large;"
+    type="text"
+    aria-describedby="Champ pour rechercher une séquence"
+    autocomplete="off"
+    placeholder="Recherche"
+    bind:value={$texteRecherche}
+    on:input
+  />
   <div><br /></div>
-{/if}
-{#each $lignesFiltreesSequencesNormales as ligne, i}
-  <div>
-    {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === '' && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)}
-      <h1 class="title is-3 p-2 is-{ligne.niveau}">
-        <span class="has-text-white">
-          {ligne.niveau}
-        </span>
-      </h1>
-    {/if}
-    {#if ligne.reference !== '' && ligne.niveau !== 'fin' && (ligne.periode === filtre.periode || filtre.periode === 0) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)}
-      <div
-        class="p-1 is-{ligne.niveau} is-size-5"
-        class:is-fin={i < $lignesSequencesNormales.length && ((filtre.periode > 0 && $lignesSequencesNormales[i].periode !== $lignesSequencesNormales[i + 1].periode) || $lignesSequencesNormales[i + 1].niveau === 'fin')}
-      >
-        <a
-          href="/?v=sequence&ref={ligne.reference}"
-          on:click={(event) =>
-            goVue(event, 'sequence', ligne.reference)}
-        >
-          <div>
-            {ligne.numero === 0
-              ? ''
-              : 'Séquence ' + ligne.numero + ' : '}{ligne.titre}
-          </div>
-        </a>
-      </div>
-    {/if}
-  </div>
-  {#if ligne.niveau === 'fin' && (filtre.niveau === 'tout')}
+  <!-- Séquences particulières -->
+  {#if $texteRecherche === ''}
+    <div>
+      {#each lignesSequencesParticulieres as ligne, i}
+        {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === ''}
+          <h1 class="title is-3 p-2 mb-0 is-tout">{ligne.niveau}</h1>
+        {/if}
+        {#if ligne.reference !== ''}
+          <a
+            href="/?v=sequence&ref={ligne.reference}"
+            on:click={(event) =>
+              goVue(event, 'sequence', ligne.reference)}
+          >
+            <div
+              class="p-1 is-tout is-size-5"
+              class:is-fin={i === lignesSequencesParticulieres.length - 2}
+            >
+              {ligne.numero === 0
+                ? ''
+                : 'Séquence ' + ligne.numero + ' : '}{ligne.titre}<br />
+            </div>
+          </a>
+        {/if}
+      {/each}
+    </div>
     <div><br /></div>
   {/if}
-{/each}
+  {#each $lignesFiltreesSequencesNormales as ligne, i}
+    <div>
+      {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === '' && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)}
+        <h1 class="title is-3 p-2 is-{ligne.niveau}">
+          <span class="has-text-white">
+            {ligne.niveau}
+          </span>
+        </h1>
+      {/if}
+      {#if ligne.reference !== '' && ligne.niveau !== 'fin' && (ligne.periode === filtre.periode || filtre.periode === 0) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)}
+        <div
+          class="p-1 is-{ligne.niveau} is-size-5"
+          class:is-fin={i < $lignesSequencesNormales.length && ((filtre.periode > 0 && $lignesSequencesNormales[i].periode !== $lignesSequencesNormales[i + 1].periode) || $lignesSequencesNormales[i + 1].niveau === 'fin')}
+        >
+          <a
+            href="/?v=sequence&ref={ligne.reference}"
+            on:click={(event) =>
+              goVue(event, 'sequence', ligne.reference)}
+          >
+            <div>
+              {ligne.numero === 0
+                ? ''
+                : 'Séquence ' + ligne.numero + ' : '}{ligne.titre}
+            </div>
+          </a>
+        </div>
+      {/if}
+    </div>
+    {#if ligne.niveau === 'fin' && (filtre.niveau === 'tout')}
+      <div><br /></div>
+    {/if}
+  {/each}
+</div>

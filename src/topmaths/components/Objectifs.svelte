@@ -177,110 +177,112 @@
   <title>Liste des objectifs topmaths</title>
 </svelte:head>
 
-<div class="tabs is-medium is-centered">
-  <ul class="tabs-menu is-full-rounded" style="border: none">
-    <li>
-      <button
-        class="subtitle is-4 px-5 is-tout is-left-side"
-        class:is-active={filtre.niveau === 'tout'}
-        on:click={() => clicFiltre('tout')}>Tout</button
-      >
-    </li>
-    {#each $lignes as ligne}
+<div class="w-screen max-w-screen-lg">
+  <div class="tabs is-medium is-centered">
+    <ul class="tabs-menu is-full-rounded" style="border: none">
       <li>
-        {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.theme.nom === ''}
-          <button
-            on:click={() => clicFiltre(ligne.niveau ?? '')}
-            class:is-active={filtre.niveau === ligne.niveau}
-            class="subtitle is-4 px-5 is-{ligne.niveau}"
-            class:is-right-side={ligne.niveau === '3e'}>{ligne.niveau}</button
-          >
-        {/if}
+        <button
+          class="subtitle is-4 px-5 is-tout is-left-side"
+          class:is-active={filtre.niveau === 'tout'}
+          on:click={() => clicFiltre('tout')}>Tout</button
+        >
       </li>
-    {/each}
-  </ul>
-</div>
-<div class="is-flex is-justify-content-center pt-2 pb-1" style="overflow:auto">
-  <span
-    ><button
-      class="button is-rounded is-link mb-5 mx-1 is-medium"
-      class:is-light={filtre.periode !== null &&
-        filtre.periode !== undefined &&
-        filtre.periode > 0}
-      on:click={() => clicFiltre('', 0)}>Période</button
-    ></span
-  >
-  {#each [1, 2, 3, 4, 5] as periode}
-    <span>
-      <button
-        class="button is-rounded is-link mb-5 mx-1 is-medium"
-        class:is-light={filtre.periode !== periode}
-        on:click={() => clicFiltre('', periode)}>{periode}</button
-      >
-    </span>
-  {/each}
-</div>
-<input
-  class="p-1"
-  style="text-align:center; font-size:x-large;"
-  type="text"
-  aria-describedby="Champ pour rechercher un objectif"
-  autocomplete="off"
-  placeholder="Recherche"
-  bind:value={$texteRecherche}
-  on:input
-/>
-{#if $modeEnseignant}
-<label class="absolute mt-2 ml-2">
-  <input type="checkbox" bind:checked={$titresProchesDesAttendus} />
-    Intitulés proches des attendus de fin d'année
-</label>
-{/if}
-<div><br /></div>
-<div>
-  {#each $lignesFiltrees as ligne, i}
-    {#if ligne.theme.nom !== 'Extra'}
-      <span>
-        {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && ligne.theme.nom === '' && ligne.sousTheme.nom === '' && ligne.reference === ''}
-          <h1 class="title is-2 p-2 is-{ligne.niveau}">
-            {ligne.niveau}
-          </h1>
-        {/if}
-        {#if ligne.niveau !== 'fin' && (filtre.periode === 0 || ligne.theme.nbObjectifsParPeriode[filtre.periode - 1] > 0) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && (filtre.theme.nom === '' || filtre.theme.nom === ligne.theme.nom) && ligne.theme.nom !== '' && ligne.sousTheme.nom === '' && ligne.reference === ''}
-          <h2 class="subtitle is-3 pt-2 is-{ligne.niveau}">
-            {ligne.theme.nom}
-          </h2>
-        {/if}
-        {#if ligne.niveau !== 'fin' && (filtre.periode === 0 || ligne.sousTheme.nbObjectifsParPeriode[filtre.periode - 1] > 0) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && (filtre.sousTheme.nom === '' || filtre.sousTheme.nom === ligne.sousTheme.nom) && ligne.sousTheme.nom !== '' && ligne.reference === ''}
-          <h3 class="subtitle is-4 p-4 is-{ligne.niveau}">
-            {ligne.sousTheme.nom}
-          </h3>
-        {/if}
-        {#if ligne.niveau !== 'fin' && (filtre.periode === 0 || filtre.periode === ligne.periode) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && (filtre.theme.nom === '' || filtre.theme.nom === ligne.theme.nom) && (filtre.sousTheme.nom === '' || filtre.sousTheme.nom === ligne.sousTheme.nom) && ligne.reference !== ''}
-          <div
-            class="p-1 is-size-5 is-{ligne.niveau}"
-            class:is-fin={$texteRecherche === '' && ($lignesFiltrees[i + 1].niveau === 'fin' || $lignesFiltrees[i + 1].theme.nom === 'Extra')}
-          >
-            <a
-              href="/?v=objectif&ref={ligne.reference}"
-              on:click={(event) =>
-                goVue(event, 'objectif', ligne.reference ?? '')}
+      {#each $lignes as ligne}
+        <li>
+          {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.theme.nom === ''}
+            <button
+              on:click={() => clicFiltre(ligne.niveau ?? '')}
+              class:is-active={filtre.niveau === ligne.niveau}
+              class="subtitle is-4 px-5 is-{ligne.niveau}"
+              class:is-right-side={ligne.niveau === '3e'}>{ligne.niveau}</button
             >
-              <div>
-                {ligne.reference} : {$titresProchesDesAttendus ||
-                  ligne.titreSimplifie === undefined || ligne.titreSimplifie === ''
-                  ? ligne.titre
-                  : ligne.titreSimplifie}<br />
-              </div>
-            </a>
-          </div>
-        {/if}
+          {/if}
+        </li>
+      {/each}
+    </ul>
+  </div>
+  <div class="is-flex is-justify-content-center pt-2 pb-1" style="overflow:auto">
+    <span
+      ><button
+        class="button is-rounded is-link mb-5 mx-1 is-medium"
+        class:is-light={filtre.periode !== null &&
+          filtre.periode !== undefined &&
+          filtre.periode > 0}
+        on:click={() => clicFiltre('', 0)}>Période</button
+      ></span
+    >
+    {#each [1, 2, 3, 4, 5] as periode}
+      <span>
+        <button
+          class="button is-rounded is-link mb-5 mx-1 is-medium"
+          class:is-light={filtre.periode !== periode}
+          on:click={() => clicFiltre('', periode)}>{periode}</button
+        >
       </span>
-    {/if}
-    {#if i > 0 && ligne.niveau === 'fin' && filtre.niveau === 'tout'}
-      <div>
-        <br />
-      </div>
-    {/if}
-  {/each}
+    {/each}
+  </div>
+  <input
+    class="p-1"
+    style="text-align:center; font-size:x-large;"
+    type="text"
+    aria-describedby="Champ pour rechercher un objectif"
+    autocomplete="off"
+    placeholder="Recherche"
+    bind:value={$texteRecherche}
+    on:input
+  />
+  {#if $modeEnseignant}
+  <label class="absolute mt-2 ml-2">
+    <input class="translate-y-1" type="checkbox" bind:checked={$titresProchesDesAttendus} />
+      Intitulés proches des attendus de fin d'année
+  </label>
+  {/if}
+  <div><br /></div>
+  <div>
+    {#each $lignesFiltrees as ligne, i}
+      {#if ligne.theme.nom !== 'Extra'}
+        <span>
+          {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && ligne.theme.nom === '' && ligne.sousTheme.nom === '' && ligne.reference === ''}
+            <h1 class="title is-2 p-2 is-{ligne.niveau}">
+              {ligne.niveau}
+            </h1>
+          {/if}
+          {#if ligne.niveau !== 'fin' && (filtre.periode === 0 || ligne.theme.nbObjectifsParPeriode[filtre.periode - 1] > 0) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && (filtre.theme.nom === '' || filtre.theme.nom === ligne.theme.nom) && ligne.theme.nom !== '' && ligne.sousTheme.nom === '' && ligne.reference === ''}
+            <h2 class="subtitle is-3 pt-2 is-{ligne.niveau}">
+              {ligne.theme.nom}
+            </h2>
+          {/if}
+          {#if ligne.niveau !== 'fin' && (filtre.periode === 0 || ligne.sousTheme.nbObjectifsParPeriode[filtre.periode - 1] > 0) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && (filtre.sousTheme.nom === '' || filtre.sousTheme.nom === ligne.sousTheme.nom) && ligne.sousTheme.nom !== '' && ligne.reference === ''}
+            <h3 class="subtitle is-4 p-4 is-{ligne.niveau}">
+              {ligne.sousTheme.nom}
+            </h3>
+          {/if}
+          {#if ligne.niveau !== 'fin' && (filtre.periode === 0 || filtre.periode === ligne.periode) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && (filtre.theme.nom === '' || filtre.theme.nom === ligne.theme.nom) && (filtre.sousTheme.nom === '' || filtre.sousTheme.nom === ligne.sousTheme.nom) && ligne.reference !== ''}
+            <div
+              class="p-1 is-size-5 is-{ligne.niveau}"
+              class:is-fin={$texteRecherche === '' && ($lignesFiltrees[i + 1].niveau === 'fin' || $lignesFiltrees[i + 1].theme.nom === 'Extra')}
+            >
+              <a
+                href="/?v=objectif&ref={ligne.reference}"
+                on:click={(event) =>
+                  goVue(event, 'objectif', ligne.reference ?? '')}
+              >
+                <div>
+                  {ligne.reference} : {$titresProchesDesAttendus ||
+                    ligne.titreSimplifie === undefined || ligne.titreSimplifie === ''
+                    ? ligne.titre
+                    : ligne.titreSimplifie}<br />
+                </div>
+              </a>
+            </div>
+          {/if}
+        </span>
+      {/if}
+      {#if i > 0 && ligne.niveau === 'fin' && filtre.niveau === 'tout'}
+        <div>
+          <br />
+        </div>
+      {/if}
+    {/each}
+  </div>
 </div>

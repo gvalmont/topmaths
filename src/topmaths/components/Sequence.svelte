@@ -11,10 +11,12 @@
 
 </script>
 
-{#if referenceSequence === 'SPS1'}
-  <Sps1 />
-{:else if referenceSequence === 'SPS2'}
-  <Sps2 />
-{:else}
-  <SequenceNormale referenceSequence={referenceSequence} />
-{/if}
+<div class="w-screen max-w-screen-lg">
+  {#if referenceSequence === 'SPS1'}
+    <Sps1 />
+  {:else if referenceSequence === 'SPS2'}
+    <Sps2 />
+  {:else}
+    <SequenceNormale referenceSequence={referenceSequence} />
+  {/if}
+</div>
