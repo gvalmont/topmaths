@@ -1,11 +1,10 @@
 // eslint-disable-next-line camelcase
-import { urlExercice, vue, vuePrecedente } from './store'
+import { listeDesUrl, urlExercice, vue, vuePrecedente } from './store'
 import { estCoopmaths, supprimerGraines } from './outils'
-import { mathaleaUpdateExercicesParamsFromUrl } from '../../lib/mathalea'
 import { get } from 'svelte/store'
-import { globalOptions } from '../../lib/stores/generalStore'
 
 export function ouvrirModaleExercices (lien: string): void {
+  listeDesUrl.set([])
   if (estCoopmaths(lien)) {
     afficherExercices(lien)
   } else {
@@ -16,14 +15,7 @@ export function ouvrirModaleExercices (lien: string): void {
 function afficherExercices (lien: string): void {
   vuePrecedente.set(get(vue))
   urlExercice.set(supprimerGraines(lien))
-  const urlOptions = mathaleaUpdateExercicesParamsFromUrl(get(urlExercice))
-  if (lien.includes('diaporama')) {
-    urlOptions.v = 'diaporama'
-  } else {
-    urlOptions.presMode = 'liste_exos'
-    urlOptions.v = 'eleve'
-  }
-  globalOptions.set(urlOptions)
+  vue.set('exercices')
 }
 
 function afficherModaleExercices (lien: string): void {
@@ -50,7 +42,7 @@ function ajouterWrapper (modale: HTMLDivElement): HTMLDivElement {
 
 function ajouterBoutons (wrapper: HTMLDivElement, lien: string): HTMLDivElement {
   const divBoutons = document.createElement('div')
-  divBoutons.className = 'fixed h-10 z-20 top-5 right-16'
+  divBoutons.className = 'fixed h-10 z-20 top-3 right-36'
   wrapper.appendChild(divBoutons)
 
   ajouterBoutonCopier(divBoutons, lien)

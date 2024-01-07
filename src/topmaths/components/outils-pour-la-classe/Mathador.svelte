@@ -356,39 +356,41 @@
 
 <div class="w-screen max-w-screen-lg">
   <div class="is-size-5">
-    <div id="boutonPoints" class="is-clickable">
-      <figure
-        on:click={alternerAffichagePoints}
-        on:keydown={alternerAffichagePoints}
-      >
-        <img
-          src="topmaths/img/gvalmont/p-circle.svg"
-          alt="Symbole P entouré"
-        />
-      </figure>
-    </div>
-    <div id="fondPanneauPoints" />
-    <div id="contenuPanneauPoints" class="has-text-centered">
-      <ul>
-        <li>&plus; Addition : 1 pt</li>
-        <li>&times; Multiplication : 1 pt</li>
-        <li>&minus; Soustraction : 2 pts</li>
-        <li>&div; Division : 3 pts</li>
-      </ul>
-    </div>
     <h1
       class="title is-2 p-5"
       style="color: white; background-color: #5B21B6; border-radius: 50px 0px 50px 0px"
     >
       Mathador
     </h1>
-    <div class="is-flex is-align-items-center is-justify-content-center">
-      Atteindre &nbsp; <figure
-        class="is-flex is-align-items-center is-justify-content-center is-size-3 has-text-weight-semibold"
-        style="width: 120px; height: 120px; background-image:url('/topmaths/img/cc0/target-svgrepo-com.svg'); background-position:center, center;background-size: 120px, 120px; color:black;text-shadow: 0px 0px 5px white"
-      >
-        {nombreCible}
-      </figure>
+    <div style="position: relative;">
+      <div id="boutonPoints" class="is-clickable">
+        <figure
+          on:click={alternerAffichagePoints}
+          on:keydown={alternerAffichagePoints}
+        >
+          <img
+            src="topmaths/img/gvalmont/p-circle.svg"
+            alt="Symbole P entouré"
+          />
+        </figure>
+      </div>
+      <div id="fondPanneauPoints" />
+      <div id="contenuPanneauPoints" class="has-text-centered">
+        <ul>
+          <li>&plus; Addition : 1 pt</li>
+          <li>&times; Multiplication : 1 pt</li>
+          <li>&minus; Soustraction : 2 pts</li>
+          <li>&div; Division : 3 pts</li>
+        </ul>
+      </div>
+      <div class="is-flex is-align-items-center is-justify-content-center">
+        Atteindre &nbsp; <figure
+          class="is-flex is-align-items-center is-justify-content-center is-size-3 has-text-weight-semibold"
+          style="width: 120px; height: 120px; background-image:url('/topmaths/img/cc0/target-svgrepo-com.svg'); background-position:center, center;background-size: 120px, 120px; color:black;text-shadow: 0px 0px 5px white"
+        >
+          {nombreCible}
+        </figure>
+      </div>
     </div>
     <br />
     <div class="is-flex is-align-items-center is-justify-content-center">
@@ -543,7 +545,7 @@
 
   #boutonPoints {
     position: absolute;
-    top: 100px;
+    top: 0;
     left: 0;
     width: 40px;
     z-index: 150;
@@ -552,8 +554,8 @@
   #fondPanneauPoints,
   #contenuPanneauPoints {
     position: absolute;
-    top: 100px;
-    left: 45px;
+    top: 0;
+    left: 40;
     width: 230px;
     height: 150px;
     pointer-events: none;
