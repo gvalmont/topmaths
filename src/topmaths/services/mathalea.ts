@@ -1,5 +1,8 @@
 import type { InterfaceParams } from '../../lib/types'
 import refToUuid from '../../json/refToUuid.json'
+import { globalOptions } from '../../lib/stores/generalStore'
+let urlToWrite: URL
+let timerId: ReturnType<typeof setTimeout> | undefined
 
 export function getParamsFromUrl (urlString: string): InterfaceParams[] {
   const url = new URL(urlString)
@@ -48,4 +51,44 @@ export function getParamsFromUrl (urlString: string): InterfaceParams[] {
     else previousEntryWasUuid = false
   }
   return newListeExercice
+}
+
+export function updateUrlFromParams (v: string, exercicesParams: InterfaceParams[]) {
+  urlToWrite = getUrlFromParams(v, exercicesParams)
+  updateUrl(v, urlToWrite.href)
+}
+
+export function getUrlFromParams (v: string, exercicesParams: InterfaceParams[]) {
+  const url = new URL(window.location.protocol + '//' + window.location.host)
+  for (const ex of exercicesParams) {
+    url.searchParams.append('uuid', ex.uuid)
+    if (ex.id != null) url.searchParams.append('id', ex.id)
+    if (ex.nbQuestions !== undefined) url.searchParams.append('n', ex.nbQuestions.toString())
+    if (ex.duration != null) url.searchParams.append('d', ex.duration.toString())
+    if (ex.sup != null) url.searchParams.append('s', ex.sup)
+    if (ex.sup2 != null) url.searchParams.append('s2', ex.sup2)
+    if (ex.sup3 != null) url.searchParams.append('s3', ex.sup3)
+    if (ex.sup4 != null) url.searchParams.append('s4', ex.sup4)
+    if (ex.alea != null) url.searchParams.append('alea', ex.alea)
+    if (ex.interactif === '1') url.searchParams.append('i', '1')
+    if (ex.cd != null) url.searchParams.append('cd', ex.cd)
+    if (ex.cols != null) url.searchParams.append('cols', ex.cols.toString())
+  }
+  url.searchParams.append('v', v)
+  return url
+}
+
+export function updateUrl (v: string, urlToWrite: string) {
+  // On ne met à jour l'url qu'une fois toutes les 0,1 s
+  // pour éviter l'erreur Attempt to use history.pushState() more than 100 times per 30 seconds
+  if (timerId === undefined) {
+    timerId = setTimeout(() => {
+      window.history.pushState({}, '', urlToWrite)
+      timerId = undefined
+      globalOptions.update((options) => {
+        options.v = v
+        return options
+      })
+    }, 100)
+  }
 }

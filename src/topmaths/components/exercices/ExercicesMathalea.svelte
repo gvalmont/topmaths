@@ -13,7 +13,7 @@
   import Exercice from '../../../exercices/ExerciceTs'
   import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
   import ExerciceMathalea from './exerciceMathalea/ExerciceMathalea.svelte'
-  import { getParamsFromUrl } from '../../services/mathalea'
+  import { getParamsFromUrl, updateUrlFromParams } from '../../services/mathalea'
   import { listeDesUrl, urlExercice } from '../../services/store'
   import HeaderExerciceMathalea from './presentationalComponents/HeaderExerciceMathalea.svelte'
   import seedrandom from 'seedrandom'
@@ -34,8 +34,6 @@
   let exercicesParams: InterfaceParams[] = []
   let innerWidth: number
   let isMd: boolean
-  let urlToWrite: URL
-  let timerId: ReturnType<typeof setTimeout> | undefined
 
   const apiGeomUuids = getApiGeomUuids()
 
@@ -151,7 +149,7 @@ function getExerciceByUuid (root: object, targetUUID: string): Exercice | null {
 async function updateRoutine (exercise: Exercice, exerciseIndex: number, withUrlUpdate: boolean = true) {
   initiateExercise(exercise, exerciseIndex)
   exercicesParams[exerciseIndex].alea = exercise.seed
-  if (withUrlUpdate) updateUrl()
+  if (withUrlUpdate) updateUrlFromParams('exercices', exercicesParams)
   await adjustMathalea2dFiguresWidth()
   updateChildrenComponents()
 }
@@ -166,34 +164,6 @@ function initiateExercise (exercise: Exercice, exerciseIndex: number) {
 
 function isApiGeom (exercise: Exercice) {
   return exercise.uuid !== '' && apiGeomUuids.includes(exercise.uuid)
-}
-
-function updateUrl () {
-  const url = new URL(window.location.protocol + '//' + window.location.host)
-  for (const ex of exercicesParams) {
-    url.searchParams.append('uuid', ex.uuid)
-    if (ex.id != null) url.searchParams.append('id', ex.id)
-    if (ex.nbQuestions !== undefined) url.searchParams.append('n', ex.nbQuestions.toString())
-    if (ex.duration != null) url.searchParams.append('d', ex.duration.toString())
-    if (ex.sup != null) url.searchParams.append('s', ex.sup)
-    if (ex.sup2 != null) url.searchParams.append('s2', ex.sup2)
-    if (ex.sup3 != null) url.searchParams.append('s3', ex.sup3)
-    if (ex.sup4 != null) url.searchParams.append('s4', ex.sup4)
-    if (ex.alea != null) url.searchParams.append('alea', ex.alea)
-    if (ex.interactif === '1') url.searchParams.append('i', '1')
-    if (ex.cd != null) url.searchParams.append('cd', ex.cd)
-    if (ex.cols != null) url.searchParams.append('cols', ex.cols.toString())
-  }
-  url.searchParams.append('v', 'exercices')
-  urlToWrite = url
-  // On ne met à jour l'url qu'une fois toutes les 0,5 s
-  // pour éviter l'erreur Attempt to use history.pushState() more than 100 times per 30 seconds
-  if (timerId === undefined) {
-    timerId = setTimeout(() => {
-      window.history.pushState({}, '', urlToWrite)
-      timerId = undefined
-    }, 100)
-  }
 }
 
 /**

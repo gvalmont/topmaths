@@ -6,6 +6,7 @@
   import { copierLien, estCoopmaths } from '../../services/outils'
   import { toutAjouterAuPanier } from '../../services/panier'
   import { environment } from '../../services/environment'
+  import { getParamsFromUrl, updateUrlFromParams } from '../../../topmaths/services/mathalea'
 
   export let lienExercices: string
   export let panierRempli = false
@@ -55,24 +56,20 @@
   <button>{titre}</button>
 {/if}
 {#if $modeEnseignant && presenceExercicesCoopmaths(exercices)}
-  <!-- <span>
+  <span>
     &nbsp;
-    <ButtonOverleaf
-      lien={lienExercices}
-      title={'Entraînement'}
-      reference={reference}
-      nbExoFois={3}
-    />
-    {#if isDevMode() && exercices.length > 0}
-      &nbsp;
-      <ButtonOverleaf
-        lien={lienExercices}
-        title={'Test'}
-        reference={reference}
-        nbVersions={30}
+    <button
+      on:click={() => {
+        const params = getParamsFromUrl(lienExercices)
+        updateUrlFromParams('latex', params)
+      }}
+    >
+      <IconeTooltipSimple
+        urlBouton="/topmaths/img/cc0/printing-document-svgrepo-com.svg"
+        texteAlternatif="Imprimante"
       />
-    {/if}
-  </span> -->
+    </button>
+  </span>
   &nbsp;
   <button on:click={() => copierLien(creerLienCapytale(), false, true, true)}>
     <IconeTooltipSimple

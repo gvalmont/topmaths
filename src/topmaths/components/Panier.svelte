@@ -6,9 +6,9 @@
   import { storage } from '../services/storage'
   import { panierDispo, vue } from '../services/store'
   import { copierLien } from '../services/outils'
+  import { getParamsFromUrl, updateUrlFromParams } from '../services/mathalea'
 
   let lien = ''
-  let title = ''
   let references = [] as string[]
   let panier = [] as PanierItem[]
   MAJLien()
@@ -80,19 +80,19 @@
       />
     </button>
     &nbsp;
-    <!-- <ButtonOverleaf {lien} size={5} style="Classique" {title} {references} /> -->
+    <button
+      on:click={() => {
+        const params = getParamsFromUrl(lien)
+        updateUrlFromParams('latex', params)
+      }}
+    >
+      <IconeTooltipSimple
+        urlBouton="/topmaths/img/cc0/printing-document-svgrepo-com.svg"
+        texteAlternatif="Imprimante"
+        size={5}
+      />
+    </button>
   </h3>
-  <br />
-  <input
-    class="p-1"
-    style="text-align:center;"
-    type="text"
-    aria-describedby="Titre du pdf"
-    autocomplete="off"
-    placeholder="Titre du pdf"
-    bind:value={title}
-    on:input
-  />
   <ul>
     {#each panier as panierItem}
       <li class="is-size-5">
