@@ -6,15 +6,9 @@
   } from '../../services/store'
   import type { ObjectifExercice, SequenceSequence } from '../../services/types'
   import { getTitre, goVue } from '../../services/outils'
-  import { onDestroy, onMount } from 'svelte'
+  import { onDestroy } from 'svelte'
   import type { Unsubscriber } from 'svelte/store'
   import BoutonsExercices from '../mini-components/BoutonsExercices.svelte'
-
-  onMount(() => {
-    window.scrollTo({
-      top: 0
-    })
-  })
 
   let niveau = ''
   export let referenceSequence = ''
@@ -38,7 +32,6 @@
   let niveauxObjectifsUnsubscribe: Unsubscriber
   let niveauxSequencesUnsubscribe: Unsubscriber
   export let title = 'topmaths.fr - Séquence'
-  // viewportScroller.scrollToAnchor('titre')
   trouverSequence()
   surveillerLeChargementDesDonnees()
 

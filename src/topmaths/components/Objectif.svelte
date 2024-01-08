@@ -8,7 +8,7 @@
   } from '../services/store'
   import type { ObjectifObjectif } from '../services/types'
   import { getTitre, goVue } from '../services/outils'
-  import { afterUpdate, onMount, onDestroy, tick } from 'svelte'
+  import { afterUpdate, onDestroy, tick } from 'svelte'
   import type { Unsubscriber } from 'svelte/store'
   import {
     mathaleaRenderDiv
@@ -19,12 +19,6 @@
   } from '../services/panier'
   import iepLoadPromise from 'instrumenpoche'
   import BoutonsExercices from './mini-components/BoutonsExercices.svelte'
-
-  onMount(() => {
-    window.scrollTo({
-      top: 0
-    })
-  })
 
   export let title = 'topmaths.fr - Séquence'
   let objectif = {} as ObjectifObjectif
