@@ -53,6 +53,19 @@ export function getParamsFromUrl (urlString: string): InterfaceParams[] {
   return newListeExercice
 }
 
+export function isVueAlreadyInUrl (v: string) {
+  return getVueInUrl() === v
+}
+
+function getVueInUrl () {
+  const url = new URL(window.location.href)
+  const entries = url.searchParams.entries()
+  for (const entry of entries) {
+    if (entry[0] === 'v') return entry[1]
+  }
+  return ''
+}
+
 export function updateUrlFromParams (v: string, exercicesParams: InterfaceParams[]) {
   urlToWrite = getUrlFromParams(v, exercicesParams)
   updateUrl(v, urlToWrite.href)

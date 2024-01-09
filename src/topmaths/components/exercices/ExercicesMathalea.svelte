@@ -6,14 +6,14 @@
     mathaleaLoadExerciceFromUuid
   } from '../../../lib/mathalea'
   import referentielStatic from '../../../json/referentielStatic.json'
-  import { SvelteComponent, onDestroy, onMount, tick } from 'svelte'
+  import { SvelteComponent, onMount, tick } from 'svelte'
   import type { InterfaceParams } from '../../../lib/types'
   import uuidToUrl from '../../../json/uuidsToUrl.json'
   import ExerciceStatic from './presentationalComponents/exerciceStatic/ExerciceStatic.svelte'
   import Exercice from '../../../exercices/ExerciceTs'
   import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
   import ExerciceMathalea from './exerciceMathalea/ExerciceMathalea.svelte'
-  import { getParamsFromUrl, updateUrlFromParams } from '../../services/mathalea'
+  import { getParamsFromUrl, isVueAlreadyInUrl, updateUrlFromParams } from '../../services/mathalea'
   import { listeDesUrl, urlExercice } from '../../services/store'
   import HeaderExerciceMathalea from './presentationalComponents/HeaderExerciceMathalea.svelte'
   import seedrandom from 'seedrandom'
@@ -43,10 +43,8 @@
     else if ($urlExercice !== '') url = $urlExercice
     else url = window.location.href
     initComponent(url)
-    addEventListener('popstate', () => initComponent(window.location.href, false))
+    if (!isVueAlreadyInUrl('exercices')) updateUrlFromParams('exercices', exercicesParams)
   })
-
-  onDestroy(() => removeEventListener('popstate', () => initComponent(window.location.href, false)))
 
   $: isMd = innerWidth >= 768
 
@@ -56,13 +54,13 @@
       .map(([uuid]) => uuid)
   }
 
-  async function initComponent (url: string, withUrlUpdate: boolean = true) {
+  async function initComponent (url: string) {
     const tempExercicesWithMeta = []
     exercicesParams = getParamsFromUrl(url)
     let i = 0
     for (const paramsExercice of exercicesParams) {
       const exerciseWithMeta = await getExerciseWithMeta(paramsExercice, i, exercicesParams.length - 1)
-      if (exerciseWithMeta.exercise !== undefined && exerciseWithMeta.exercise.uuid !== undefined) updateRoutine(exerciseWithMeta.exercise as Exercice, i, withUrlUpdate)
+      if (exerciseWithMeta.exercise !== undefined && exerciseWithMeta.exercise.uuid !== undefined) updateRoutine(exerciseWithMeta.exercise as Exercice, i)
       tempExercicesWithMeta.push(exerciseWithMeta)
       i++
     }
@@ -146,10 +144,9 @@ function getExerciceByUuid (root: object, targetUUID: string): Exercice | null {
     }
   }
 
-async function updateRoutine (exercise: Exercice, exerciseIndex: number, withUrlUpdate: boolean = true) {
+async function updateRoutine (exercise: Exercice, exerciseIndex: number) {
   initiateExercise(exercise, exerciseIndex)
   exercicesParams[exerciseIndex].alea = exercise.seed
-  if (withUrlUpdate) updateUrlFromParams('exercices', exercicesParams)
   await adjustMathalea2dFiguresWidth()
   updateChildrenComponents()
 }
