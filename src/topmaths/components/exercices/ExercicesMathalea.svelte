@@ -13,7 +13,7 @@
   import Exercice from '../../../exercices/ExerciceTs'
   import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
   import ExerciceMathalea from './exerciceMathalea/ExerciceMathalea.svelte'
-  import { getParamsFromUrl, isVueAlreadyInUrl, updateUrlFromParams } from '../../services/mathalea'
+  import { getParamsFromUrl, getUrlFromParams, isVueAlreadyInUrl, updateUrlFromParams } from '../../services/mathalea'
   import { listeDesUrl, urlExercice } from '../../services/store'
   import HeaderExerciceMathalea from './presentationalComponents/HeaderExerciceMathalea.svelte'
   import seedrandom from 'seedrandom'
@@ -247,6 +247,19 @@ function switchCorrectionVisible (exerciseIndex: number) {
     updateChildrenComponents()
   }
 }
+
+function copyLink (exerciseIndex: number) {
+  const urlToCopy = getUrlFromParams('exercices', [exercicesParams[exerciseIndex]]).href
+  navigator.clipboard.writeText(urlToCopy).then(
+    () => {
+      alert('Le lien a été copié')
+    },
+    (err) => {
+      console.error('Async: Could not copy text: ', err)
+      alert('Le lien n\'a pas pu être copié')
+    }
+  )
+}
 </script>
 
 <svelte:window bind:innerWidth />
@@ -267,6 +280,7 @@ function switchCorrectionVisible (exerciseIndex: number) {
         {newData}
         {spacingUpdate}
         {switchCorrectionVisible}
+        {copyLink}
       />
       <div class="break-inside-avoid-column">
         {#if exerciseWithMeta.exerciseType === 'static'}

@@ -12,6 +12,7 @@
   export let newData: (exerciseIndex: number) => void
   export let spacingUpdate: (plusMinus: ('+' | '-'), exerciseIndex: number) => void
   export let switchCorrectionVisible: (exerciseIndex: number) => void
+  export let copyLink: (exerciseIndex: number) => void
 
 </script>
 
@@ -66,6 +67,13 @@
     &nbsp;
     <div class="text-xs md:text-base">{isCorrectionVisible ? 'Masquer la correction' : 'Voir la correction'}</div>
   </button>
+  <div class="is-coopmaths ml-3">
+    <button on:click={() => copyLink(exerciseIndex)}>
+      <i>
+        <img class="image is-24x24" src="topmaths/img/cc0/copy-interface-symbol-svgrepo-com.svg" alt="Documents dupliqués" />
+      </i>
+    </button>
+  </div>
   {#if $modeEnseignant && exerciseType === 'mathalea'}
     <div class="flex flex-row justify-start items-center text-coopmaths-struct dark:text-coopmathsdark-struct">
       <button
@@ -91,7 +99,7 @@
           <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 {isMd ? 'bx-sm' : 'bx-xs'} bx-minus" />
         </button>
         <i class="ml-1" style="filter: invert(34%) sepia(83%) saturate(426%) hue-rotate(159deg) brightness(94%) contrast(97%);">
-          <img src="topmaths/img/gvalmont/three-lines.svg" alt="three lines" />
+          <img src="topmaths/img/gvalmont/three-lines.svg" alt="Trois lignes" />
         </i>
         <button
           type="button"

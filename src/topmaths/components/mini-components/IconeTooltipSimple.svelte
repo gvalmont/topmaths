@@ -1,7 +1,7 @@
 <script lang="ts">
-  export let urlBouton = ''
-  export let texteDropdown = ''
-  export let texteAlternatif = ''
+  export let urlBouton: string
+  export let texteDropdown: string
+  export let texteAlternatif: string
   export let size = 2
   export let grandTexte = false
 </script>
