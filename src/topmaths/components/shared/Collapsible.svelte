@@ -11,7 +11,7 @@
 
   function toggleMaxHeight (contentElement: HTMLElement) {
     if (contentElement.style.maxHeight) {
-      contentElement.style.maxHeight = null
+      contentElement.style.maxHeight = ''
     } else {
       contentElement.style.maxHeight = contentElement.scrollHeight + 'px'
     }
@@ -19,7 +19,7 @@
 </script>
 
 <div class="mt-1 collapsible-container">
-  <button type="button" class="collapsible is-flex is-align-items-center {classesSupplementaires}" on:click={collapsibleOnClick}>
+  <button type="button" class="collapsible flex items-center {classesSupplementaires}" on:click={collapsibleOnClick}>
     <i class="image is-16x16 ml-2">
       <img src="topmaths/img/cc0/plus-alt-svgrepo-com.svg" alt="simple croix" />
     </i>

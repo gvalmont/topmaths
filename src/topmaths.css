@@ -78,12 +78,6 @@
 
 .title.is-tout, .title.is-6e, .title.is-5e, .title.is-4e, .title.is-3e {
   border-radius: 50px 50px 0px 0px;
-  padding: 25px 50px 25px 50px;
-  margin-bottom: 0px;
-}
-
-.subtitle.is-tout, .subtitle.is-6e, .subtitle.is-5e, .subtitle.is-4e, .subtitle.is-3e {
-  margin-bottom: 0px;
 }
 
 .subtitle.is-rounded {
@@ -97,36 +91,26 @@
 .title.is-tout, .subtitle.is-tout, a.subtitle.is-tout, button.subtitle.is-tout {
   background-color: var(--basetout);
   color: white;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 .title.is-6e, .subtitle.is-6e, a.subtitle.is-6e, button.subtitle.is-6e {
   background-color: var(--base6e);
   color: white;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 .title.is-5e, .subtitle.is-5e, a.subtitle.is-5e, button.subtitle.is-5e {
   background-color: var(--base5e);
   color: white;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 .title.is-4e, .subtitle.is-4e, a.subtitle.is-4e, button.subtitle.is-4e {
   background-color: var(--base4e);
   color: white;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 .title.is-3e, .subtitle.is-3e, a.subtitle.is-3e, button.subtitle.is-3e {
   background-color: var(--base3e);
   color: white;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 .is-6e {
@@ -181,10 +165,6 @@
   color: var(--base3e);
 }
 
-.tabs-menu li a:hover, .tabs-menu li button:hover {
-  color: #ffffff;
-}
-
 .is-tout.title a, .is-tout.subtitle a, .is-6e.title a, .is-6e.subtitle a, .is-5e.title a, .is-5e.subtitle a, .is-4e.title a, .is-4e.subtitle a, .is-3e.title a, .is-3e.subtitle a,
 .is-tout.title button, .is-tout.subtitle button, .is-6e.title button, .is-6e.subtitle button, .is-5e.title button, .is-5e.subtitle button, .is-4e.title button, .is-4e.subtitle button, .is-3e.title button, .is-3e.subtitle button {
   color: white;
@@ -219,13 +199,6 @@
 
 .centre {
   text-align: center;
-}
-
-.enorme {
-  font-size: xx-large;
-  width: 200px;
-  display: flex;
-  justify-content: center;
 }
 
 .is-width-130 {

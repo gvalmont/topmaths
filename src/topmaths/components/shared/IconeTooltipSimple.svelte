@@ -2,25 +2,15 @@
   export let urlBouton: string
   export let texteDropdown: string
   export let texteAlternatif: string
-  export let size = 2
   export let grandTexte = false
 </script>
 
 <div class="tooltip">
-  <i
-    class="image is-inline-block"
-    class:is-16x16={size === 1}
-    class:is-24x24={size === 2}
-    class:is-32x32={size === 3}
-    class:is-48x48={size === 4}
-    class:is-64x64={size === 5}
-    class:is-96x96={size === 6}
-    class:is-128x128={size === 7}
-  >
-    <img src={urlBouton} alt={texteAlternatif} />
+  <i>
+    <img class="size-4 md:size-6" src={urlBouton} alt={texteAlternatif} />
   </i>
   {#if texteDropdown !== ''}
-  <span class="tooltiptext is-size-6 has-text-weight-normal"
+  <span class="tooltiptext text-sm md:text-base"
   class:grand-texte={grandTexte}
     >{texteDropdown}</span
   >

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import GrosBouton from './mini-components/GrosBouton.svelte'
+  import GrosBouton from './shared/GrosBouton.svelte'
 </script>
 
 <svelte:head>
@@ -8,12 +8,11 @@
 
 <div class="w-screen max-w-screen-lg">
   <h1
-    style="border-radius: 50px 50px 0px 0px; padding: 5px 50px 5px 50px; margin-bottom: 0px; background-color: #9333ea; color: white; font-size: xx-large; font-weight: 600;"
+    class="title text-2xl md:text-4xl font-semibold p-4 is-4e"
   >
     Outils pour les élèves
   </h1>
-  <div style="background-color: #faf5ff; border-radius: 0px 0px 50px 50px; ">
-    <br />
+  <div class="p-8 is-fin" style="background-color: #faf5ff;">
     <GrosBouton
       vue='lexique'
       couleur='blue'
@@ -30,6 +29,5 @@
       couleur='green'
       texte='Téléchargements'
     />
-    <br />
   </div>
 </div>

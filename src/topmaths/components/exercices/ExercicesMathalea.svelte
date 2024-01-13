@@ -19,6 +19,8 @@
   import seedrandom from 'seedrandom'
   import { randint } from '../../../modules/outils'
 
+  export let isMd: boolean
+
   type ExerciseType = 'mathalea' | 'static' | 'html' | 'svelte'
   type ExerciseWithMeta = {
     uuid: string
@@ -32,8 +34,6 @@
 
   let exercisesWithMeta: ExerciseWithMeta[] = []
   let exercicesParams: InterfaceParams[] = []
-  let innerWidth: number
-  let isMd: boolean
 
   const apiGeomUuids = getApiGeomUuids()
 
@@ -45,8 +45,6 @@
     initComponent(url)
     if (!isVueAlreadyInUrl('exercices')) updateUrlFromParams('exercices', exercicesParams)
   })
-
-  $: isMd = innerWidth >= 768
 
   function getApiGeomUuids () {
     return Object.entries(uuidToUrl)
@@ -262,7 +260,6 @@ function copyLink (exerciseIndex: number) {
 }
 </script>
 
-<svelte:window bind:innerWidth />
 <div
   id="exercises-list"
   class="p-4 columns-1 text-left"

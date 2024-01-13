@@ -1,5 +1,5 @@
 <script lang="ts">
-  import IconeTooltipSimple from '../mini-components/IconeTooltipSimple.svelte'
+  import IconeTooltipSimple from '../shared/IconeTooltipSimple.svelte'
 
   interface Question {
     question: string;

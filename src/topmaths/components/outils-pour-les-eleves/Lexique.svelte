@@ -8,8 +8,8 @@
   import type { LexiqueItem } from '../../services/types'
   import { afterUpdate, onDestroy, tick } from 'svelte'
   import { mathaleaRenderDiv } from '../../../lib/mathalea'
-  import Collapsible from '../mini-components/Collapsible.svelte'
-  import NotionsEtObjectifsLies from '../mini-components/NotionsEtObjectifsLies.svelte'
+  import Collapsible from '../shared/Collapsible.svelte'
+  import NotionsEtObjectifsLies from '../shared/NotionsEtObjectifsLies.svelte'
 
   const lexiqueTampon = writable<LexiqueItem[]>([])
   const lignesFiltrees = derived(
@@ -83,7 +83,7 @@
 <svelte:window bind:innerWidth={currentWindowWidth} />
 
 <div class="w-screen max-w-screen-lg">
-  <h1 class="title is-2 p-5" style="color: white; background-color: #3b82f6; border-radius: 50px 50px 0px 0px">
+  <h1 class="title is-2 p-5 mb-6" style="color: white; background-color: #3b82f6; border-radius: 50px 50px 0px 0px">
     Lexique
   </h1>
   <input
@@ -97,11 +97,11 @@
     on:input
   />
   <div><br /></div>
-  <div id="lignes">
+  <ul id="lignes">
     {#each $lignesFiltrees as ligne}
-      <div id="{ligne.slug}" class="box">
+      <li id="{ligne.slug}" class="box">
         <a href="#{ligne.slug}">
-          <h3 class="has-text-weight-semibold">{ligne.titre}</h3>
+          <h3 class="font-semibold has-text-link">{ligne.titre}</h3>
         </a>
         <div class="columns">
           <div class="column p-0 m-3">
@@ -139,9 +139,9 @@
         {#if currentWindowWidth < 768}
           <NotionsEtObjectifsLies {ligne} />
         {/if}
-      </div>
+      </li>
     {/each}
-  </div>
+  </ul>
 </div>
 
 <style>

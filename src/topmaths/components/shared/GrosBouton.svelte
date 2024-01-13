@@ -11,14 +11,16 @@
   export let altImage: string = ''
 </script>
 
-<a class="block py-1" href='?v={vue}{ref !== undefined ? '&ref=' + ref : ''}'>
-  <button on:click={(event) => goVue(event, vue, ref)} class="button is-large is-{couleur} is-outlined p-6">
-    <p class="enorme" bind:innerHTML={texte} contenteditable="false"></p>
+<a class="block mb-5 md:mb-8" href='?v={vue}{ref !== undefined ? '&ref=' + ref : ''}'>
+  <button on:click={(event) => goVue(event, vue, ref)} class="w-[140px] md:w-[260px] button is-{couleur} is-outlined h-14 md:h-24 rounded md:rounded-lg">
+    <p class="text-sm md:text-2xl {lienImage !== '' ? 'w-2/3' : 'w-full'} shrink-0" bind:innerHTML={texte} contenteditable="false"></p>
     {#if lienImage !== ''}
-      &nbsp;
-      <i class="image is-48x48 is-inline-block">
+      <i class="shrink-0 size-7 md:size-10">
         <img src={lienImage} alt={altImage} />
       </i>
     {/if}
   </button>
 </a>
+
+<style>
+</style>

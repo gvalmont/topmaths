@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import GrosBouton from './mini-components/GrosBouton.svelte'
+  import GrosBouton from './shared/GrosBouton.svelte'
 
   onMount(() => {
     window.scrollTo({

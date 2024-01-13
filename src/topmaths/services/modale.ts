@@ -42,7 +42,7 @@ function ajouterWrapper (modale: HTMLDivElement): HTMLDivElement {
 
 function ajouterBoutons (wrapper: HTMLDivElement, lien: string): HTMLDivElement {
   const divBoutons = document.createElement('div')
-  divBoutons.className = 'fixed h-10 z-20 top-3 right-36'
+  divBoutons.className = 'fixed h-10 z-20 top-3 right-36 is-coopmaths'
   wrapper.appendChild(divBoutons)
 
   ajouterBoutonCopier(divBoutons, lien)

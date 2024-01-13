@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy, tick } from "svelte";
-  import IconeTooltipSimple from "../mini-components/IconeTooltipSimple.svelte";
+  import IconeTooltipSimple from "../shared/IconeTooltipSimple.svelte";
   import { mathaleaRenderDiv } from "../../../lib/mathalea";
 
   interface Possibilite {
@@ -152,6 +152,7 @@
     for (const solution of solutions) {
       stringSolutions += solution.redaction + " <br><br> ";
     }
+    if (solutions.length === 0) relancer()
   }
 
   /**
@@ -355,166 +356,156 @@
 </svelte:head>
 
 <div class="w-screen max-w-screen-lg">
-  <div class="is-size-5">
+  <div class="">
     <h1
-      class="title is-2 p-5"
-      style="color: white; background-color: #5B21B6; border-radius: 50px 0px 50px 0px"
+      class="title text-2xl md:text-4xl font-semibold p-4 text-white bg-violet-800 rounded-tl-3xl rounded-br-3xl"
     >
       Mathador
     </h1>
-    <div style="position: relative;">
-      <div id="boutonPoints" class="is-clickable">
-        <figure
-          on:click={alternerAffichagePoints}
-          on:keydown={alternerAffichagePoints}
-        >
-          <img
-            src="topmaths/img/gvalmont/p-circle.svg"
-            alt="Symbole P entouré"
-          />
-        </figure>
+    <div class="text-base md:text-lg p-8">
+      <div class="relative">
+        <div id="boutonPoints" class="is-clickable">
+          <button
+            on:click={alternerAffichagePoints}
+            on:keydown={alternerAffichagePoints}
+          >
+            <img
+              src="topmaths/img/gvalmont/p-circle.svg"
+              alt="Symbole P entouré"
+            />
+          </button>
+        </div>
+        <div id="fondPanneauPoints" />
+        <div id="contenuPanneauPoints" class="text-center text-base md:text-xl ml-2 md:ml-5">
+          <ul>
+            <li>&plus; Addition : 1 pt</li>
+            <li>&times; Multiplication : 1 pt</li>
+            <li>&minus; Soustraction : 2 pts</li>
+            <li>&div; Division : 3 pts</li>
+          </ul>
+        </div>
+        <div class="flex items-center justify-center">
+          Atteindre &nbsp; <figure
+            class="flex items-center justify-center text-2xl md:text-4xl font-semibold size-24 md:size-32 text-black"
+            style="background-image:url('/topmaths/img/cc0/target-svgrepo-com.svg'); background-position:center;"
+          >
+            {nombreCible}
+          </figure>
+        </div>
       </div>
-      <div id="fondPanneauPoints" />
-      <div id="contenuPanneauPoints" class="has-text-centered">
-        <ul>
-          <li>&plus; Addition : 1 pt</li>
-          <li>&times; Multiplication : 1 pt</li>
-          <li>&minus; Soustraction : 2 pts</li>
-          <li>&div; Division : 3 pts</li>
-        </ul>
+      <div class="flex items-center justify-center p-6 md:p-8">
+        En utilisant
+        <div class="text-lg md:text-2xl flex flex-row">
+          <figure
+            class="flex items-center justify-center m-2 carte"
+            style="border-color: #FBBF24;"
+          >
+            {donnee1}
+          </figure>
+          <figure
+            class="flex items-center justify-center m-2 carte"
+            style="border-color: #A3E635;"
+          >
+            {donnee2}
+          </figure>
+          <figure
+            class="flex items-center justify-center m-2 carte"
+            style="border-color: #22D3EE;"
+          >
+            {donnee3}
+          </figure>
+          <figure
+            class="flex items-center justify-center m-2 carte"
+            style="border-color: #A78BFA;"
+          >
+            {donnee4}
+          </figure>
+          <figure
+            class="flex items-center justify-center m-2 carte"
+            style="border-color: #F472B6;"
+          >
+            {donnee5}
+          </figure>
+        </div>
       </div>
-      <div class="is-flex is-align-items-center is-justify-content-center">
-        Atteindre &nbsp; <figure
-          class="is-flex is-align-items-center is-justify-content-center is-size-3 has-text-weight-semibold"
-          style="width: 120px; height: 120px; background-image:url('/topmaths/img/cc0/target-svgrepo-com.svg'); background-position:center, center;background-size: 120px, 120px; color:black;text-shadow: 0px 0px 5px white"
-        >
-          {nombreCible}
-        </figure>
-      </div>
-    </div>
-    <br />
-    <div class="is-flex is-align-items-center is-justify-content-center">
-      En utilisant
-      <figure
-        class="is-flex is-align-items-center is-justify-content-center is-size-4 m-2 carte"
-        style="border-color: #FBBF24;"
-      >
-        {donnee1}
-      </figure>
-      <figure
-        class="is-flex is-align-items-center is-justify-content-center is-size-4 m-2 carte"
-        style="border-color: #A3E635;"
-      >
-        {donnee2}
-      </figure>
-      <figure
-        class="is-flex is-align-items-center is-justify-content-center is-size-4 m-2 carte"
-        style="border-color: #22D3EE;"
-      >
-        {donnee3}
-      </figure>
-      <figure
-        class="is-flex is-align-items-center is-justify-content-center is-size-4 m-2 carte"
-        style="border-color: #A78BFA;"
-      >
-        {donnee4}
-      </figure>
-      <figure
-        class="is-flex is-align-items-center is-justify-content-center is-size-4 m-2 carte"
-        style="border-color: #F472B6;"
-      >
-        {donnee5}
-      </figure>
-    </div>
-    <br />
-    <div class="is-flex is-align-items-center is-justify-content-center">
-      <div class="b-select m-2 is-size-6">
+      <br />
+      <div class="flex flex-row items-center justify-center my-auto text-base md:text-xl">
         <select on:change={() => setupMinuteur(event)}>
           <option>Minuteur</option>
           {#each durees as duree}
             <option>{duree} min</option>
           {/each}
         </select>
-      </div>
-      <div class="is-flex is-align-items-center is-justify-content-center">
-        <div class="is-link">
+        <div class="is-link ml-2">
           {#if minuteurEnFonctionnement}
             <button on:click={arreterMinuteur}>
-              <IconeTooltipSimple
-                urlBouton="/topmaths/img/cc0/pause-svgrepo-com.svg"
-                texteDropdown=""
-                texteAlternatif="Pause"
-                size={3}
-              />
+              <i>
+                <img class="size-6 md:size-8" src="/topmaths/img/cc0/pause-svgrepo-com.svg" alt="Pause" />
+              </i>
             </button>
           {:else if tempsRestant > 0}
             <button on:click={lancerMinuteur}>
-              <IconeTooltipSimple
-                urlBouton="/topmaths/img/cc0/play-button-svgrepo-com.svg"
-                texteDropdown=""
-                texteAlternatif="Play"
-                size={3}
-              />
+              <i>
+                <img class="size-6 md:size-8" src="/topmaths/img/cc0/play-button-svgrepo-com.svg" alt="Play" />
+              </i>
             </button>
           {/if}
         </div>
         <div
-          class="is-size-4 m-2"
+          class="ml-2"
           id="divTempsAffiche"
           class:rouge={tempsRestant <= 0}
         />
       </div>
+      <br />
+      <p class="has-text-grey">
+        Il {nombreDeSolutions === -1
+          ? "y a ... possibilités"
+          : nombreDeSolutions > 1
+          ? "y a " + nombreDeSolutions + " possibilités"
+          : nombreDeSolutions === 1
+          ? "y a 1 possibilité"
+          : "n'y a aucune possibilité"} de coup Mathador.
+      </p>
     </div>
-    <br />
-    <p class="has-text-grey">
-      Il {nombreDeSolutions === -1
-        ? "y a ... possibilités"
-        : nombreDeSolutions > 1
-        ? "y a " + nombreDeSolutions + " possibilités"
-        : nombreDeSolutions === 1
-        ? "y a 1 possibilité"
-        : "n'y a aucune possibilité"} de coup Mathador.
-    </p>
-    <br />
-  </div>
-  <button class="button is-warning" on:click={relancer}>Relancer</button> &nbsp;
-  &nbsp;
-  <button
-    class="button is-success"
-    class:is-inverted={solutionsAffichees}
-    on:click={() => {
-      solutionsAffichees = !solutionsAffichees;
-      interpreterLaTeX();
-    }}
-  >
-    {solutionsAffichees
-      ? "Cacher les solutions"
-      : "Afficher les solutions"}</button
-  >
-  <br /><br />
-  {#if solutionsAffichees}
-    <p
-      id="divSolutions"
-      contenteditable="false"
-      bind:innerHTML={stringSolutions}
-      class="is-size-5"
-    />
-  {/if}
-  <br />
-  <div>
+    <button class="button is-warning rounded-lg py-2 px-4" on:click={relancer}>Relancer</button> &nbsp;
+    &nbsp;
+    <button
+      class="button is-success rounded-lg py-2 px-4"
+      class:is-inverted={solutionsAffichees}
+      on:click={() => {
+        solutionsAffichees = !solutionsAffichees;
+        interpreterLaTeX();
+      }}
+    >
+      {solutionsAffichees
+        ? "Cacher les solutions"
+        : "Afficher les solutions"}</button
+    >
+    <br /><br />
+    {#if solutionsAffichees}
+      <p
+        id="divSolutions"
+        contenteditable="false"
+        bind:innerHTML={stringSolutions}
+        class="is-size-5"
+      />
+    {/if}
+    </div>
+  <div class="text-base p-8">
     Si vous ne connaissez pas le super jeu qu'est Mathador, je vous encourage à
     visiter <a
+      class="has-text-link"
       href="https://www.mathador.fr/index.php"
       target="_blank"
       rel="noopener noreferrer">le site officiel</a
     > !
   </div>
-  <br />
-  <div class="is-size-7">
+  <div class="text-sm p-4">
     <i
       >Mathador est une marque protégée d'Eric Trouillot et de Réseau Canopé,
       enregistrée en France. Eric Trouillot est le concepteur du jeu Mathador
-      que vous pouvez retrouver sur le site www.mathaodr.fr. Le site
+      que vous pouvez retrouver sur le site www.mathador.fr. Le site
       www.topmaths.fr est un site indépendant et n’est pas affilié à
       www.mathador.fr.</i
     >
@@ -531,13 +522,20 @@
 
 <style>
   .carte {
-    width: 45px;
-    height: 55px;
+    width: 35px;
+    height: 45px;
     border-style: solid;
     border-width: 5px;
     color: black;
     border-radius: 10px;
   }
+
+  @media (min-width: 768px) {
+  .carte {
+    width: 45px;
+    height: 55px;
+  }
+}
 
   .rouge {
     color: red;
@@ -556,7 +554,7 @@
     position: absolute;
     top: 0;
     left: 40;
-    width: 230px;
+    width: 210px;
     height: 150px;
     pointer-events: none;
     transition: opacity 1s;
@@ -568,9 +566,7 @@
   }
 
   #contenuPanneauPoints {
-    font-size: 22px;
-    color: black;
     opacity: 0%;
-    text-align: left;
+    text-align: center;
   }
 </style>

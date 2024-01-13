@@ -30,14 +30,14 @@
   &nbsp; &nbsp
   {#if exerciseType !== 'static' || ($listeDesUrl !== undefined && $listeDesUrl.length > 0)}
     <button
-      class="button is-coopmaths is-outlined {isMd ? '' : 'is-small'}"
+      class="button is-coopmaths is-outlined p-1 rounded {isMd ? '' : 'is-small'}"
       on:click={() => { newData(exerciseIndex) }}
     >
       <i class="flex-shrink-0">
         <img
           src="topmaths/img/cc0/refresh-reverse-svgrepo-com.svg"
           alt="Flèches qui tournent en rond"
-          class="image is-inline-block size-4 md:size-6"
+          class="size-4 md:size-6"
         />
       </i>
       &nbsp;
@@ -54,14 +54,14 @@
     &nbsp; &nbsp;
   {/if}
   <button
-    class="button is-green is-outlined {isMd ? '' : 'is-small'}"
+    class="button is-green is-outlined p-1 rounded {isMd ? '' : 'is-small'}"
     on:click={() => { switchCorrectionVisible(exerciseIndex) }}
   >
   <i class="flex-shrink-0">
     <img
       src="topmaths/img/cc0/{isCorrectionVisible ? 'eye' : 'blind'}-svgrepo-com.svg"
       alt={isCorrectionVisible ? 'oeil' : 'oeil barré'}
-      class="image is-inline-block size-4 md:size-6"
+      class="size-4 md:size-6"
     />
   </i>
     &nbsp;
@@ -70,7 +70,7 @@
   <div class="is-coopmaths ml-3">
     <button on:click={() => copyLink(exerciseIndex)}>
       <i>
-        <img class="image is-24x24" src="topmaths/img/cc0/copy-interface-symbol-svgrepo-com.svg" alt="Documents dupliqués" />
+        <img class="size-4 md:size-6" src="topmaths/img/cc0/copy-interface-symbol-svgrepo-com.svg" alt="Documents dupliqués" />
       </i>
     </button>
   </div>
@@ -99,7 +99,7 @@
           <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 {isMd ? 'bx-sm' : 'bx-xs'} bx-minus" />
         </button>
         <i class="ml-1" style="filter: invert(34%) sepia(83%) saturate(426%) hue-rotate(159deg) brightness(94%) contrast(97%);">
-          <img src="topmaths/img/gvalmont/three-lines.svg" alt="Trois lignes" />
+          <img src="topmaths/img/gvalmont/three-lines.svg" class="size-4 md:size-6" alt="Trois lignes" />
         </i>
         <button
           type="button"

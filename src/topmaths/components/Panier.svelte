@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { PanierItem } from '../services/types'
-  import IconeTooltipSimple from './mini-components/IconeTooltipSimple.svelte'
   import { environment } from '../services/environment'
   import { ouvrirModaleExercices } from '../services/modale'
   import { storage } from '../services/storage'
@@ -50,47 +49,36 @@
 
 <div class="w-screen max-w-screen-lg">
   <h1
-    class="title is-2 p-5"
+    class="title text-2xl md:text-4xl font-semibold p-4 text-white"
     style="color: white; background-color: #a930b8; border-radius: 50px 0px 50px 0px"
   >
     Panier
   </h1>
-  <h3 class="title is-2 is-inline-block is-fuchsia">
-    <button on:click={() => copierLien(lien, false)}>
-      <IconeTooltipSimple
-        size={5}
-        urlBouton="/topmaths/img/cc0/copy-interface-symbol-svgrepo-com.svg"
-        texteAlternatif="Documents copiés"
-      />
+  <h3 class="title is-2 is-inline-block is-fuchsia p-6 md:p-8">
+    <button class="mx-2 md:mx-4" on:click={() => copierLien(lien, false)}>
+      <i>
+        <img class="size-12 md:size-16" src="/topmaths/img/cc0/copy-interface-symbol-svgrepo-com.svg" alt="Documents copiés" />
+      </i>
     </button>
-    &nbsp;
-    <button on:click={() => ouvrirModaleExercices(lien)}>
-      <IconeTooltipSimple
-        size={5}
-        urlBouton="/topmaths/img/cc0/fullscreen-svgrepo-com.svg"
-        texteAlternatif="Lancer en plein écran"
-      />
+    <button class="mx-2 md:mx-4" on:click={() => ouvrirModaleExercices(lien)}>
+      <i>
+        <img class="size-12 md:size-16" src="/topmaths/img/cc0/fullscreen-svgrepo-com.svg" alt="Lancer en plein écran" />
+      </i>
     </button>
-    &nbsp;
-    <button on:click={() => viderLePanier()}>
-      <IconeTooltipSimple
-        size={5}
-        urlBouton="/topmaths/img/cc0/cart-remove-svgrepo-com.svg"
-        texteAlternatif="Caddie avec une crois à l'intérieur"
-      />
+    <button class="mx-2 md:mx-4" on:click={() => viderLePanier()}>
+      <i>
+        <img class="size-12 md:size-16" src="/topmaths/img/cc0/cart-remove-svgrepo-com.svg" alt="Caddie avec une crois à l'intérieur" />
+      </i>
     </button>
-    &nbsp;
     <button
-      on:click={() => {
+      class="mx-2 md:mx-4" on:click={() => {
         const params = getParamsFromUrl(lien)
         updateUrlFromParams('latex', params)
       }}
     >
-      <IconeTooltipSimple
-        urlBouton="/topmaths/img/cc0/printing-document-svgrepo-com.svg"
-        texteAlternatif="Imprimante"
-        size={5}
-      />
+    <i>
+      <img class="size-12 md:size-16" src="/topmaths/img/cc0/printing-document-svgrepo-com.svg" alt="Imprimante" />
+    </i>
     </button>
   </h3>
   <ul>
@@ -108,10 +96,9 @@
             >
             &nbsp;
             <button on:click={() => retirerDuPanier(panierItem)}>
-              <IconeTooltipSimple
-                urlBouton="/topmaths/img/cc0/cart-minus-svgrepo-com.svg"
-                texteAlternatif="Caddie avec un signe - à l'intérieur"
-              />
+              <i>
+                <img class="size-4 md:size-6" src="/topmaths/img/cc0/cart-minus-svgrepo-com.svg" alt="Caddie avec un signe - à l'intérieur" />
+              </i>
             </button>
           </button>
         </div>

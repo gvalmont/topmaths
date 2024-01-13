@@ -1,7 +1,7 @@
 <script lang="ts">
   import { modeEnseignant } from '../services/store'
   import { storage } from '../services/storage'
-  import GrosBouton from './mini-components/GrosBouton.svelte'
+  import GrosBouton from './shared/GrosBouton.svelte'
 
   function activerModeEnseignant () {
     storage.activerModeEnseignant()
@@ -19,7 +19,7 @@
 
 <div class="w-screen max-w-screen-lg">
   <h1
-    style="border-radius: 50px 50px 0px 0px; padding: 5px 50px 5px 50px; margin-bottom: 0px; background-color: #16A34A; color: white; font-size: xx-large; font-weight: 600;"
+    class="title text-2xl md:text-4xl font-semibold p-4 is-6e"
   >
     Outils pour la classe
   </h1>
@@ -40,7 +40,7 @@
       <div>
         <button
           on:click={() => desactiverModeEnseignant()}
-          class="button is-green"
+          class="button is-green rounded md:rounded-lg py-1 px-4 md:py-2 md:px-6"
         >
           <p>Désactiver le mode enseignant</p>
         </button>
@@ -50,7 +50,7 @@
       <div>
         <button
           on:click={() => activerModeEnseignant()}
-          class="button is-green is-outlined"
+          class="button is-green rounded md:rounded-lg py-1 px-4 md:py-2 md:px-6 is-outlined"
         >
           <p>Activer le mode enseignant</p>
         </button>

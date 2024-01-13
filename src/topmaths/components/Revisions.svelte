@@ -4,6 +4,7 @@
   import { estCoopmaths } from '../services/outils'
   import { environment } from '../services/environment'
   import { get } from 'svelte/store'
+  import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
 
   let niveauChoisi = 'tout'
 
@@ -143,38 +144,19 @@ function getListeExercicesBrevet () {
 </svelte:head>
 
 <div class="w-screen max-w-screen-lg">
-  <h1 style="border-radius: 50px 50px 0px 0px; padding: 5px 50px 5px 50px; margin-bottom: 0px; background-color: #ea4aaa; color: white; font-size: xx-large; font-weight: 600;">
+  <h1 class="title text-2xl md:text-4xl font-semibold p-4 is-3e">
     Révisions
   </h1>
-  <div style="background-color: #fffafa; border-radius: 0px 0px 50px 50px; ">
-    <br>
-    <div class="tabs is-medium is-centered">
-      <ul class="tabs-menu is-full-rounded" style="border-width: 0px;">
-        {#each ['tout', '6e', '5e', '4e', '3e'] as niveau}
-          <li>
-            <button
-              on:click={() => { niveauChoisi = niveau }}
-              class="subtitle is-4 px-5 is-{niveau}"
-              class:is-active={niveauChoisi === niveau}
-              class:is-left-side={niveau === 'tout'}
-              class:is-right-side={niveau === '3e'}
-              style="text-transform: capitalize; width: 85px">
-              {niveau}
-            </button>
-          </li>
-        {/each}
-        <li />
-      </ul>
-    </div>
-    <button on:click={() => lancerExercicesMathalea()} class="button is-large is-link is-outlined">
-      Réviser les exercices
+  <div class="flex flex-col justify-center p-8 is-fin" style="background-color: #fffafa;">
+    <LevelsTabsMenu
+      activeLevelTab={niveauChoisi}
+      onLevelsTabsMenuClicked={(clickedLevel) => { niveauChoisi = clickedLevel }}
+    />
+    <button on:click={() => lancerExercicesMathalea()} class="mx-auto p-5 my-4 button is-link is-outlined rounded md:rounded-lg">
+      <p class="mx-auto text-sm md:text-2xl shrink-0">Réviser les exercices</p>
     </button>
-    <br />
-    <br />
-    <button on:click={() => lancerExercicesBrevet()} class="button is-large is-sponsor is-outlined">
-      Réviser les exercices de brevet (3e)
+    <button on:click={() => lancerExercicesBrevet()} class="mx-auto p-5 my-4 button is-sponsor is-outlined rounded md:rounded-lg">
+      <p class="mx-auto text-sm md:text-2xl shrink-0">Réviser les exercices de brevet (3e)</p>
     </button>
-    <br />
-    <br />
   </div>
 </div>

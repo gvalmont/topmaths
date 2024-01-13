@@ -7,6 +7,7 @@
   import { goVue, normaliser } from '../services/outils'
   import type { Unsubscriber } from 'svelte/store'
   import { writable, derived } from 'svelte/store'
+  import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
 
   interface Ligne {
     niveau: string
@@ -177,53 +178,28 @@ function lesDonneesSontChargees () {
 
 <!-- Menu -->
 <div class="w-screen max-w-screen-lg">
-  <div class="tabs is-medium is-centered">
-    <ul class="tabs-menu is-full-rounded" style="border: none">
-      <li>
-        <button
-          class="subtitle is-4 px-5 is-tout is-left-side"
-          class:is-active={filtre.niveau === 'tout'}
-          on:click={() => clicFiltre('tout')}>Tout</button
-        >
-      </li>
-      {#each $lignesSequencesNormales as ligne}
-        {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === ''}
-          <li>
-            <button
-              on:click={() => clicFiltre(ligne.niveau)}
-              class="subtitle is-4 px-5 is-{ligne.niveau}"
-              class:is-active={filtre.niveau === ligne.niveau}
-              class:is-right-side={ligne.niveau === '3e'}>{ligne.niveau}</button
-            >
-          </li>
-        {/if}
-      {/each}
-      <li />
-    </ul>
-  </div>
+  <LevelsTabsMenu
+    activeLevelTab={filtre.niveau}
+    onLevelsTabsMenuClicked={clicFiltre}
+  />
   <div class="is-flex is-justify-content-center pt-2 pb-1" style="overflow:auto">
-    <span
-      ><button
-        class="button is-rounded is-link mb-5 mx-1 is-medium"
-        class:is-light={filtre.periode !== null &&
-          filtre.periode !== undefined &&
-          filtre.periode > 0}
-        on:click={() => clicFiltre('', 0)}>Période</button
-      ></span
+    <button
+      class="button rounded-3xl py-1 px-5 is-link mb-5 mx-1 text-sm md:text-2xl"
+      class:is-light={filtre.periode !== null &&
+        filtre.periode !== undefined &&
+        filtre.periode > 0}
+      on:click={() => clicFiltre('', 0)}>Période</button
     >
     {#each [1, 2, 3, 4, 5] as periode}
-      <span>
-        <button
-          class="button is-rounded is-link mb-5 mx-1 is-medium"
-          class:is-light={filtre.periode !== periode}
-          on:click={() => clicFiltre('', periode)}>{periode}</button
-        >
-      </span>
+      <button
+        class="button rounded-3xl py-1 px-5 is-link mb-5 mx-1 text-sm md:text-2xl"
+        class:is-light={filtre.periode !== periode}
+        on:click={() => clicFiltre('', periode)}>{periode}</button
+      >
     {/each}
   </div>
   <input
-    class="p-1"
-    style="text-align:center; font-size:x-large;"
+    class="p-1 text-center text-sm md:text-2xl"
     type="text"
     aria-describedby="Champ pour rechercher une séquence"
     autocomplete="off"
@@ -237,7 +213,7 @@ function lesDonneesSontChargees () {
     <div>
       {#each lignesSequencesParticulieres as ligne, i}
         {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === ''}
-          <h1 class="title is-3 p-2 mb-0 is-tout">{ligne.niveau}</h1>
+          <h1 class="title text-2xl md:text-4xl font-semibold p-2 is-tout">{ligne.niveau}</h1>
         {/if}
         {#if ligne.reference !== ''}
           <a
@@ -246,7 +222,7 @@ function lesDonneesSontChargees () {
               goVue(event, 'sequence', ligne.reference)}
           >
             <div
-              class="p-1 is-tout is-size-5"
+              class="p-1  is-tout"
               class:is-fin={i === lignesSequencesParticulieres.length - 2}
             >
               {ligne.numero === 0
@@ -262,7 +238,7 @@ function lesDonneesSontChargees () {
   {#each $lignesFiltreesSequencesNormales as ligne, i}
     <div>
       {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === '' && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)}
-        <h1 class="title is-3 p-2 is-{ligne.niveau}">
+        <h1 class="title text-2xl md:text-4xl font-semibold p-2 is-{ligne.niveau}">
           <span class="has-text-white">
             {ligne.niveau}
           </span>
@@ -270,7 +246,7 @@ function lesDonneesSontChargees () {
       {/if}
       {#if ligne.reference !== '' && ligne.niveau !== 'fin' && (ligne.periode === filtre.periode || filtre.periode === 0) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)}
         <div
-          class="p-1 is-{ligne.niveau} is-size-5"
+          class="p-1  is-{ligne.niveau}"
           class:is-fin={i < $lignesSequencesNormales.length && ((filtre.periode > 0 && $lignesSequencesNormales[i].periode !== $lignesSequencesNormales[i + 1].periode) || $lignesSequencesNormales[i + 1].niveau === 'fin')}
         >
           <a

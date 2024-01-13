@@ -1,3 +1,19 @@
+.button {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid transparent;
+  box-shadow: none;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button[disabled] {
+  cursor: not-allowed;
+}
 /****************************************************************************************************
 ***** Header
 ****************************************************************************************************/
@@ -127,31 +143,6 @@ li.is-actif .is-purple {
 
 li.is-actif .is-info-darker {
   background-color: #4175d2;
-}
-
-.tabs a:hover {
-  border-bottom-color: #dbdbdb;
-}
-
-.tabs-menu.is-not-menu {
-  border-bottom-style:none;
-}
-
-/****************************************************************************************************
-***** Autres tabs-menu
-****************************************************************************************************/
-/* Permet d'arrondir les menus des listes des séquences et d'objectifs */
-ul.tabs-menu.is-rounded .is-left-side {
-  border-radius: 25px 0px 0px 0px;
-}
-ul.tabs-menu.is-rounded .is-right-side {
-  border-radius: 0px 25px 0px 0px;
-}
-ul.tabs-menu.is-full-rounded .is-left-side {
-  border-radius: 25px 0px 0px 25px;
-}
-ul.tabs-menu.is-full-rounded .is-right-side {
-  border-radius: 0px 25px 25px 0px;
 }
 
 /****************************************************************************************************

@@ -26,12 +26,18 @@
   import { modeEnseignant, modePerso, panierDispo, reference, vue } from '../services/store'
   import Informations from './Informations.svelte'
   import ExercicesMathalea from './exercices/ExercicesMathalea.svelte'
+  import HeadTabsMenu from './presentationalComponents/headTabsMenu/HeadTabsMenu.svelte'
 
   if (customElements.get('alea-instrumenpoche') === undefined) {
     customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
   }
 
+  let innerWidth: number
+  let isMd: boolean
+
   const annee = environment.annee
+
+  $: isMd = innerWidth >= 768
 
   function updateParams () {
     updateParamsFromUrl()
@@ -103,85 +109,21 @@
   <title>topmaths.fr - Les maths au TOP !</title>
 </svelte:head>
 
-<div id="top" class="is-family-primary pb-9">
+<svelte:window bind:innerWidth />
+<div id="top" class="is-family-primary pb-6 md:pb-9">
   <!-- Header -->
-  {#if $vue !== 'eleve' && $vue !== 'diaporama'}
-    <div class="tabs is-large is-centered">
-      <ul class="tabs-menu" style="border: none;">
-        <a href='?v=accueil' class="p-0">
-          <li class:is-actif={$vue === 'accueil' || $vue === ''}>
-            <button class="tabs-menu-link is-warning py-4 px-5" on:click={(event) => goVue(event, 'accueil')}>
-              <i class="image is-48x48">
-                <img src="topmaths/img/cc0/homepage-svgrepo-com.svg" alt="Maison"/>
-              </i>
-            </button>
-          </li>
-        </a>
-        <a href='?v=sequences' class="p-0">
-          <li class={($vue === 'sequences' || $vue === 'sequence') ? 'is-actif' : ''}>
-            <button on:click={(event) => goVue(event, 'sequences')} class="tabs-menu-link is-info-darker py-4 px-5">
-              <i class="image is-48x48">
-                <img src="topmaths/img/cc0/guest-book-svgrepo-com.svg" alt="Livre ouvert" />
-              </i>
-            </button>
-          </li>
-        </a>
-        <a href='?v=objectifs' class="p-0">
-          <li class={($vue === 'objectifs' || $vue === 'objectif') ? 'is-actif' : ''}>
-            <button on:click={(event) => goVue(event, 'objectifs')} class="tabs-menu-link is-link py-4 px-5">
-              <i class="image is-48x48">
-                <img src="topmaths/img/cc0/study-2-svgrepo-com.svg" alt="Personne lisant un livre" />
-              </i>
-            </button>
-          </li>
-        </a>
-        <a href='?v=revisions' class="p-0">
-          <li class={$vue === 'revisions' ? 'is-actif' : ''}>
-            <button on:click={(event) => goVue(event, 'revisions')} class="tabs-menu-link is-sponsor py-4 px-5">
-              <i class="image is-48x48">
-                <img src="topmaths/img/gvalmont/automatismes-regular.svg" alt="Tête avec un engrenage à l'intérieur" />
-              </i>
-            </button>
-          </li>
-        </a>
-        <a href='?v=eleves' class="p-0">
-          <li class={($vue === 'eleves' || $vue === 'lexique' || $vue === 'tutos' || $vue === 'telechargements') ? 'is-actif' : ''}>
-            <button on:click={(event) => goVue(event, 'eleves')} class="tabs-menu-link is-purple py-4 px-5">
-              <i class="image is-48x48">
-                <img src="topmaths/img/cc0/backpack-svgrepo-com.svg" alt="Sac à dos d'élève" />
-              </i>
-            </button>
-          </li>
-        </a>
-        <a href='?v=outils' class="p-0">
-          <li class={($vue === 'outils' || $vue === 'mathador' || $vue === 'progressions') ? 'is-actif' : ''}>
-            <button on:click={(event) => goVue(event, 'outils')} class="tabs-menu-link is-green py-4 px-5">
-              <i class="image is-48x48">
-                <img src="topmaths/img/cc0/classroom-svgrepo-com.svg" alt="Enseignant qui montre un tableau à une classe" />
-              </i>
-            </button>
-          </li>
-        </a>
-        {#if $panierDispo}
-          <a href='?v=panier' class="p-0">
-            <li class={$vue === 'panier' ? 'is-actif' : ''}>
-              <button on:click={(event) => goVue(event, 'panier')} class="tabs-menu-link is-fuchsia py-4 px-5">
-                <i class="image is-48x48">
-                  <img src="topmaths/img/cc0/cart-content-svgrepo-com.svg" alt="Caddie" />
-                </i>
-              </button>
-            </li>
-          </a>
-        {/if}
-      </ul>
-    </div>
-  {/if}
+  <HeadTabsMenu
+    {isMd}
+    vue={$vue}
+    onHeadTabsMenuClicked={goVue}
+    isBasketAvailable={$panierDispo}
+  />
 </div>
 <!-- Affichage principal -->
 <div class="flex justify-center">
-  <div class="text-center pb-20">
+  <div class="text-center pb-8 mb:pb-20 text-base md:text-xl">
     {#if $vue === 'exercices'}
-      <ExercicesMathalea />
+      <ExercicesMathalea {isMd} />
     {:else if $vue === 'sequence'}
       <Sequence />
     {:else if $vue === 'sequences'}
@@ -232,7 +174,7 @@
   </div>
 </div>
 <!-- Footer -->
-<footer class="b-footer text-center">
+<footer class="p-6 md:p-12 pt-3 md:pt-6 pb-12 md:pb-24 text-center bg-zinc-50 text-xs md:text-base">
   <p>
     <strong>topmaths</strong> © {annee} de
     <a href="https://forge.aeif.fr/gvalmont" target="_blank" rel="noopener noreferrer">Guillaume Valmont</a> et des
@@ -257,3 +199,8 @@
   on:keydown={alternerTailleOverlayHeure}
 >
 </div>
+
+<style>
+  .is-family-primary {
+    font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important; }
+</style>

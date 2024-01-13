@@ -39,7 +39,7 @@
 
 <div class="flex flex-wrap">
   {#each telechargements as telechargement}
-    <div class="card m-5" style="width: 256px;">
+    <div class="card m-5 w-[180px] md:w-[240px]">
       <header class="card-header">
         <p class="card-header-title">
           {telechargement.titre}
@@ -72,7 +72,7 @@
       </div>
       <footer class="card-footer">
         <a href="/topmaths/telechargements/{telechargement.slug}.{telechargement.extension}" class="card-footer-item">
-          <button class="button is-link is-outlined">Télécharger</button>
+          <button class="button is-link is-outlined rounded md:rounded-lg py-1 px-4 md:py-2 md:px-6">Télécharger</button>
         </a>
       </footer>
     </div>
