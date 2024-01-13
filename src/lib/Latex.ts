@@ -269,7 +269,7 @@ class Latex {
       result += '\n\\usepackage{enumitem}'
       result += '\n\\usepackage{fontspec}'
       result += '\n\\usepackage{unicode-math}'
-      result += '\n\\setmainfont{Arial}'
+      result += '\n\\setmainfont{Source Sans Pro}'
       result += '\n\\setmathfont{STIX Two Math}'
       if (content.includes('pspicture')) {
         result += '\n\\usepackage{pstricks,pst-plot,pst-tree,pstricks-add}'

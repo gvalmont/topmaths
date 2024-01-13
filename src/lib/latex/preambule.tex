@@ -2,7 +2,7 @@
 
 \usepackage{fontspec}
 \usepackage{unicode-math}
-\setmainfont{Arial}
+\setmainfont{Source Sans Pro}
 \setmathfont{STIX Two Math}
 
 %%% COULEURS %%%
@@ -302,7 +302,7 @@
     \end{tikzpicture}
     \begin{tikzpicture}[remember picture,overlay]
       \node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {};
-      \node[anchor=east, fill=white] at ($(current page.north east)+(-18.8,-2.3cm)$) {\footnotesize \bfseries{MathALEA}};
+      \node[anchor=east, fill=white] at ($(current page.north east)+(-18.8,-2.3cm)$) {\footnotesize MathALEA};
     \end{tikzpicture}
     \begin{tikzpicture}[line cap=round,line join=round,remember picture, overlay, shift={(current page.north west)},yshift=-8.5cm]
       \fill[fill=couleur_theme] (0,5) rectangle (21,6);
@@ -318,7 +318,7 @@
   }%
   \fancyfoot[R]{%
     \begin{tikzpicture}[remember picture,overlay]
-      \node[anchor=south east] at ($(current page.south east)+(-2,0.25cm)$) {\scriptsize {\bfseries \href{https://coopmaths.fr/}{Coopmaths.fr} -- \href{http://creativecommons.fr/licences/}{CC-BY-SA}}};
+      \node[anchor=south east] at ($(current page.south east)+(-2,0.25cm)$) {\scriptsize { \href{https://topmaths.fr/}{topmaths.fr} -- \href{https://coopmaths.fr/}{Coopmaths.fr} -- \href{http://creativecommons.fr/licences/}{CC-BY-SA}}};
     \end{tikzpicture}
     \begin{tikzpicture}[line cap=round,line join=round,remember picture, overlay,xscale=0.5,yscale=0.5, shift={(current page.south west)},xshift=35.7cm,yshift=-6cm]
       \fill[fill=couleur_theme] (\xini,6)--(\xini+1.5,6)--(\xini+2.5,7)--(\xini+1.5,8)--(\xini,8)--(\xini+1,7)-- cycle;
