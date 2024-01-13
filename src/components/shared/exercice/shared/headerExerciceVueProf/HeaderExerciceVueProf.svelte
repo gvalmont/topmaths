@@ -2,12 +2,12 @@
   import { createEventDispatcher } from 'svelte'
   import BoutonMonter from './BoutonMonter.svelte'
   import BoutonDescendre from './BoutonDescendre.svelte'
-  import { globalOptions, exercicesParams } from '../../../lib/stores/generalStore'
-  import InteractivityIcon from '../icons/TwoStatesIcon.svelte'
-  import uuidsRessources from '../../../json/uuidsRessources.json'
-  import refProfs from '../../../json/referentielProfs.json'
-  import { toMap } from '../../../lib/components/toMap'
-  import { mathaleaGenerateSeed } from '../../../lib/mathalea'
+  import { globalOptions, exercicesParams } from '../../../../../lib/stores/generalStore'
+  import InteractivityIcon from '../../../icons/TwoStatesIcon.svelte'
+  import uuidsRessources from '../../../../../json/uuidsRessources.json'
+  import refProfs from '../../../../../json/referentielProfs.json'
+  import { toMap } from '../../../../../lib/components/toMap'
+  import { mathaleaGenerateSeed } from '../../../../../lib/mathalea'
 
   // paramètres obligatoires
   export let title: string | undefined
@@ -40,7 +40,7 @@
       titleBase = decompo[0]
       titleAddendum = decompo[1]
     } else {
-      titleBase = title || ''
+      titleBase = (title  || '')
       titleAddendum = ''
     }
   }
@@ -76,7 +76,6 @@
   }
 
   function duplicate () {
-    // console.log($exercicesParams)
     exercicesParams.update((l) => {
       const newExercice = { ...l[indiceExercice] }
       newExercice.alea = mathaleaGenerateSeed()
@@ -134,21 +133,20 @@
           >
         {/if}
       </div>
+      {#key titleAddendum}
       <div
         id="exotitle-{indiceExercice}"
         class="flex flex-row justify-start whitespace-pre text-start font-normal items-center text-sm md:text-base xl:text-lg pl-0
         {id && id.length !== 0 ? 'lg:pl-0' : 'lg:pl-4'}"
-      >
+      >        
+        {titleBase}        
         {#if titleAddendum}
-          {titleBase}<span
-            class="ml-2 flex justify-center items-center rounded-full h-5 w-5 bg-coopmaths-warn-900 text-coopmaths-canvas font-bold text-sm"
-          >
+            <span class="ml-2 flex justify-center items-center rounded-full h-5 w-5 bg-coopmaths-warn-900 text-coopmaths-canvas font-bold text-sm">
             {titleAddendum}
-          </span>
-        {:else}
-          {titleBase}
+          </span>               
         {/if}
       </div>
+      {/key}
     </div>
     <div
       class="print-hidden flex flex-col md:flex-row justify-start space-x-2 md:space-x-10 text-normal mt-1 text-xl lg:justify-end mr-1"

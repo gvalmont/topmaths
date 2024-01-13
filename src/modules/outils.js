@@ -10,6 +10,7 @@ import {
 import { texMulticols } from '../lib/format/miseEnPage.js'
 import { arrondi, rangeMinMax } from '../lib/outils/nombres.js'
 import { context } from './context.js'
+import Decimal from 'decimal.js'
 
 export const tropDeChiffres = 'Trop de chiffres'
 export const epsilon = 0.000001
@@ -107,12 +108,12 @@ export function gestionnaireFormulaireTexte ({
     listeIndex = [defaut]
   } else {
     if (typeof (saisie) === 'number' || Number.isInteger(saisie)) { // Si c'est un nombre, c'est que le nombre a été saisi dans la barre d'adresses
-      listeIndex = [contraindreValeur(min, Math.max(max, melange ?? max), saisie, defaut)]
+      listeIndex = [contraindreValeur(Math.min(min, melange ?? min), Math.max(max, melange ?? max), saisie, defaut)]
     } else {
       listeIndexProvisoire = saisie.split('-')// Sinon on crée un tableau à partir des valeurs séparées par des tirets
       for (let i = 0; i < listeIndexProvisoire.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
         if (!isNaN(parseInt(listeIndexProvisoire[i]))) {
-          listeIndex.push(contraindreValeur(min, Math.max(max, melange ?? max), parseInt(listeIndexProvisoire[i]), defaut))
+          listeIndex.push(contraindreValeur(Math.min(min, melange ?? min), Math.max(max, melange ?? max), parseInt(listeIndexProvisoire[i]), defaut))
         } // parseInt en fait un tableau d'entiers
       }
     }
@@ -258,6 +259,8 @@ export function carreParfait (x) {
  */
 export function randint (min, max, listeAEviter = []) {
   // Source : https://gist.github.com/pc035860/6546661
+  if (min instanceof Decimal) min = min.toNumber()
+  if (max instanceof Decimal) max = max.toNumber()
   if (!Number.isInteger(min) || !Number.isInteger(max)) {
     window.notify('Les min et max de randint doivent être entiers', { min, max })
     min = Math.floor(min)
@@ -501,7 +504,7 @@ export function enumerateSansPuceSansNumero (liste, spacing) {
  * @author Rémi Angot
  */
 export function texConsigne (consigne) {
-  return '\\exo{' + ((consigne != null && typeof consigne === 'string') ? consigne.replace(/<br>/g, '\\\\') : '') + '}\n\n'
+  return ((consigne != null && typeof consigne === 'string') ? consigne.replace(/<br>/g, '\\\\') : '') + '\n\n'
 }
 
 /**

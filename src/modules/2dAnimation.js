@@ -5,8 +5,8 @@
  * @author Rémi Angot
  */
 
-import { affiniteOrtho, homothetie, symetrieAxiale } from '../lib/2d/transformations.js'
-import { ObjetMathalea2D } from './2dGeneralites.js'
+import { affiniteOrtho, homothetie, rotation, symetrieAxiale } from '../lib/2d/transformations.js'
+import { fixeBordures, ObjetMathalea2D } from './2dGeneralites.js'
 
 // JSDOC Validee par EE Juin 2022
 export function montrerParDiv (id) {
@@ -236,6 +236,9 @@ function RotationAnimee (
   animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
 ) {
   ObjetMathalea2D.call(this, { })
+  if (!Array.isArray(liste)) liste = [liste]
+  const bordures = fixeBordures([liste, liste.map(el => rotation(el, O, angle))])
+  this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   this.svg = function (coeff) {
     let code = '<g> '
     if (Array.isArray(liste)) {
@@ -274,6 +277,14 @@ function HomothetieAnimee (
   animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
 ) {
   ObjetMathalea2D.call(this, { })
+  const bordures = k > 1
+    ? fixeBordures([O, homothetie(p, O, k)])
+    : fixeBordures([O, p])
+  this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
+  if (k > 1) {
+    this.bordures = homothetie(p, O, k).bordures
+  }
+  this.bordures = homothetie(p, O, k).bordures
   this.svg = function (coeff) {
     const binomesXY1 = p.binomesXY(coeff)
     const p2 = homothetie(p, O, k)
@@ -304,6 +315,8 @@ function SymetrieAnimee (
   animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
 ) {
   ObjetMathalea2D.call(this, { })
+  const bordures = fixeBordures([p, symetrieAxiale(p, d)])
+  this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   this.svg = function (coeff) {
     const binomesXY1 = p.binomesXY(coeff)
     const p2 = symetrieAxiale(p, d)
@@ -329,6 +342,8 @@ function AffiniteOrthoAnimee (
   animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
 ) {
   ObjetMathalea2D.call(this, { })
+  const bordures = fixeBordures([p, affiniteOrtho(p, d, k)])
+  this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   this.svg = function (coeff) {
     const binomesXY1 = p.binomesXY(coeff)
     const p2 = affiniteOrtho(p, d, k)

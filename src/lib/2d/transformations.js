@@ -1,4 +1,4 @@
-import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { egal } from '../../modules/outils.js'
 import { radians } from '../mathFonctions/trigo.js'
 import { arc } from './cercle.js'
@@ -155,7 +155,8 @@ export function SensDeRotation (A1, centre, sens, color = 'black') {
   const s1 = segment(A2, F1, color)
   const s2 = segment(A2, F2, color)
   objets.push(arc1, s1, s2)
-  
+  const bordures = fixeBordures(objets)
+  this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -229,7 +230,7 @@ export function homothetie (Objet, O, k, nom = '', positionLabel = 'above', colo
 /**
  * Renvoie le point M symétrique du point A par la droite d.
  * @param {Point} A Objet de type Point (ses coordonnées x et y renseignées)
- * @param {droite} d Objet de type Droite (son équation ax+by+c=0 renseignée)
+ * @param {Droite} d Objet de type Droite (son équation ax+by+c=0 renseignée)
  * @param {string} M Nom de l'image. Facultatif, vide par défaut.
  * @param {string} positionLabel Facultatif, 'above' par défaut.
  * @return {Point} M image de A par la symétrie axiale d'axe d.
