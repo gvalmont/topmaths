@@ -4972,16 +4972,8 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "3G20,s=1,n=1,video=j_zZOpLLl9k,cd=1",
-                    "description": "Configuration avec des triangles emboîtés"
-                  },
-                  {
-                    "slug": "3G20,s=2,n=1,video=j_zZOpLLl9k,cd=1",
-                    "description": "Configuration en papillon"
-                  },
-                  {
-                    "slug": "3G20-1",
-                    "description": "Problèmes"
+                    "slug": "3G20,s=3,n=2,video=j_zZOpLLl9k,cd=1",
+                    "description": ""
                   }
                 ]
               },
