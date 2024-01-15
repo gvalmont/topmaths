@@ -4053,12 +4053,8 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "5R12,s=1,s2=true",
-                    "description": "Coordonnées positives"
-                  },
-                  {
                     "slug": "5R12-2,s=1,s2=true",
-                    "description": "Coordonnées relatives"
+                    "description": ""
                   }
                 ],
                 "fiches": [
