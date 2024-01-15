@@ -100,8 +100,8 @@
       \let\EXO\EXOlibre\let\endEXO\endEXOlibre%
       \colorlet{couleur_theme}{black}%
       \colorlet{couleur_numerotation}{couleur_theme}%
-      \fancyhead[C]{\bfseries #3}
-      \fancyhead[L]{\bfseries #4}
+      \fancyhead[C]{#3}
+      \fancyhead[L]{#4}
       \fancyfoot[R]{#5}
     }{%
       \usepackage[left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
@@ -124,16 +124,6 @@
     coltitle=black,
     title=\IfNoValueTF{#1}{}{\textmd{#1}},%
     overlay unbroken and first={%
-      \IfNoValueTF{#2}{}{%
-        \node[%
-        fill=white,
-        anchor=east,
-        xshift=10pt,
-        text=black
-        ]
-        at (frame.north east)
-        {\scriptsize #2};
-      }
       \node[anchor=west,xshift=-20pt,yshift=-15pt] at (frame.north west) {\stepcounter{ExoMA}\numb{\arabic{ExoMA}}};
     }
     ]
@@ -275,8 +265,8 @@
   \begin{tikzpicture}[overlay,scale=.8]%,yshift=-.3cm
     \draw[fill=couleur_numerotation,couleur_numerotation](-.3,0)rectangle(.5,.8);
     \draw[line width=.05cm,couleur_numerotation,fill=white] (0,0)--(.5,.5)--(1,0)--(.5,-.5)--cycle;
-    \draw (0.5,0) node[anchor=center,couleur_numerotation]{\large\bfseries#1};
-    \draw (-.4,.8) node[white,anchor=north west]{\bfseries EX}; 
+    \draw (0.5,0) node[anchor=center,couleur_numerotation]{\large#1};
+    \draw (-.4,.8) node[white,anchor=north west]{EX}; 
   \end{tikzpicture}
 }
 
@@ -309,11 +299,11 @@
       \fill[fill=couleur_theme] (\xini,6)--(\xini+1.5,6)--(\xini+2.5,7)--(\xini+1.5,8)--(\xini,8)--(\xini+1,7)-- cycle;
       \fill[fill=couleur_theme] (\xini+2,6)--(\xini+2.5,6)--(\xini+3.5,7)--(\xini+2.5,8)--(\xini+2,8)--(\xini+3,7)-- cycle;  
       \fill[fill=couleur_theme] (\xini+3,6)--(\xini+3.5,6)--(\xini+4.5,7)--(\xini+3.5,8)--(\xini+3,8)--(\xini+4,7)-- cycle;   
-      \node[color=white] at (10.5,5.5) {\LARGE \bfseries{ \MakeUppercase{#4}}};
+      \node[color=white] at (10.5,5.5) {\LARGE \MakeUppercase{#4}};
     \end{tikzpicture}
     \begin{tikzpicture}[remember picture,overlay]
       \node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {};
-      \node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.5cm)$) {\Huge \textcolor{couleur_theme}{\bfseries{\#}} \bfseries{#2} \textcolor{couleur_theme}{\bfseries \MakeUppercase{#3}}};
+      \node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.5cm)$) {\Huge #2 \textcolor{couleur_theme}{\MakeUppercase{#3}}};
     \end{tikzpicture}
   }%
   \fancyfoot[R]{%
@@ -372,7 +362,7 @@
 \newcommand\version[1]{
   \fancyhead[R]{
     \begin{tikzpicture}[remember picture,overlay]
-    \node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(-.5,-.5cm)$) {\large \textcolor{couleur_theme}{\bfseries V#1}};
+    \node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(-.5,-.5cm)$) {\large \textcolor{couleur_theme}{V#1}};
     \end{tikzpicture}
   }
 }
