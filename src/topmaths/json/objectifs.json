@@ -1435,11 +1435,11 @@
                     "description": "Estimer la position du symétrique d'une figure"
                   },
                   {
-                    "slug": "5G10-1,s=1,s2=3,n=1",
+                    "slug": "uuid=91a00&id=6G24-1&n=1&s=3&s2=1&s3=4",
                     "description": "Construire le symétrique d'un point"
                   },
                   {
-                    "slug": "5G10-2,s=1,s2=3,n=1",
+                    "slug": "uuid=adfb5&id=6G24-2&n=1&s=3&s2=1&s3=5",
                     "description": "Construire le symétrique d'une figure"
                   }
                 ],
