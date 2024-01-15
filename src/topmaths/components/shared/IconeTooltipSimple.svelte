@@ -45,7 +45,7 @@
 
   .tooltiptext:not(.grand-texte) {
     width: 120px;
-    opacity: 0.8;
+    opacity: 0.92;
   }
 
   /* Show the tooltip text when you mouse over the tooltip container */
