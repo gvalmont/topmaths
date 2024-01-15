@@ -2218,19 +2218,15 @@
                 "exercices": [
                   {
                     "slug": "6N11-5,n=4,cd=1",
-                    "description": "Comparer deux nombres entiers"
+                    "description": "Comparer"
                   },
                   {
-                    "slug": "6N11-3,s=1,n=2",
-                    "description": "Encadrer entre deux entiers"
-                  },
-                  {
-                    "slug": "6N11-3,s=3,n=2",
-                    "description": "Encadrer à la centaine près"
+                    "slug": "uuid=b9582&id=can6N18&n=2",
+                    "description": "Encadrer"
                   },
                   {
                     "slug": "6N11-4,s=1,n=2",
-                    "description": "Ranger des nombres entiers"
+                    "description": "Ranger"
                   }
                 ],
                 "fiches": [
