@@ -111,13 +111,16 @@
   <div class="is-{niveau}">
     <h2 id="calculMental" class="subtitle text-xl md:text-3xl p-3 is-{niveau}">Calcul Mental</h2>
     {#if sequence.calculsMentaux[0].reference !== ''}
-      <div class="p-6 text-sm md:text-base">
-        <p>Dans cette séquence, le calcul mental pourra porter sur :</p>
+      <div class="p-6">
+        <p class="text-sm md:text-base">
+          Dans cette séquence, le calcul mental pourra porter sur :
+        </p>
         <ul>
           {#each sequence.calculsMentaux as calculMental}
             <li class="p-1 md:p-2">
               {#if calculMental.pageExiste}
                 <a
+                  class="text-sm md:text-base"
                   href="/?v=objectif&ref={calculMental.reference}"
                   on:click={(event) =>
                     goVue(event, 'objectif', calculMental.reference)}
@@ -125,7 +128,7 @@
                   {calculMental.reference} : {calculMental.titre}
                 </a>
               {:else}
-                <p>
+                <p class="text-sm md:text-base">
                   {calculMental.reference} : {calculMental.titre}
                 </p>
               {/if}
@@ -141,7 +144,6 @@
                             ? 'Calcul mental de niveau ' + (j + 1)
                             : exercice.description}
                         exercices = {[exercice]}
-                        reference = {'Calcul Mental '}
                         nomsPanier = {[calculMental.reference + ' ' + calculMental.titre]}
                       />
                     </h3>
