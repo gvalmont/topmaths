@@ -93,6 +93,8 @@
     <Moodle />
   {:else if $globalOptions.recorder === 'capytale'}
     <Capytale />
+  {:else if $globalOptions.v === 'start'}
+    <Start />
   {:else}
     <Topmaths />
   {/if}
