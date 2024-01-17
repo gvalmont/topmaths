@@ -30,6 +30,7 @@
     exercise: Exercice | SvelteComponent | undefined
     isCorrectionVisible: boolean
     nbCols: number
+    zoom: number
   }
 
   let exercisesWithMeta: ExerciseWithMeta[] = []
@@ -85,7 +86,8 @@
       isCorrectionVisible: false,
       lastExerciseIndex,
       nbCols: 1,
-      uuid: paramsExercice.uuid
+      uuid: paramsExercice.uuid,
+      zoom: isMd ? 1.4 : 1
     }
   }
 
@@ -258,6 +260,14 @@ function copyLink (exerciseIndex: number) {
     }
   )
 }
+
+function zoomUpdate (plusMinus: '+' | '-', exerciseIndex: number) {
+  const actualZoom = exercisesWithMeta[exerciseIndex].zoom
+  let newZoom = actualZoom
+  if (plusMinus === '+') newZoom = Number.parseFloat((actualZoom + 0.1).toFixed(1))
+  if (plusMinus === '-') newZoom = Number.parseFloat((actualZoom - 0.1).toFixed(1))
+  exercisesWithMeta[exerciseIndex].zoom = newZoom
+}
 </script>
 
 <div
@@ -278,6 +288,7 @@ function copyLink (exerciseIndex: number) {
         {spacingUpdate}
         {switchCorrectionVisible}
         {copyLink}
+        {zoomUpdate}
       />
       <div class="break-inside-avoid-column">
         {#if exerciseWithMeta.exerciseType === 'static'}
@@ -305,9 +316,9 @@ function copyLink (exerciseIndex: number) {
             exerciseIndex={exerciseWithMeta.exerciseIndex}
             {adjustMathalea2dFiguresWidth}
             nbCols={exerciseWithMeta.nbCols}
-            {isMd}
             {newData}
             isCorrectionVisible={exerciseWithMeta.isCorrectionVisible}
+            zoom={exerciseWithMeta.zoom}
           />
         {/if}
       </div>

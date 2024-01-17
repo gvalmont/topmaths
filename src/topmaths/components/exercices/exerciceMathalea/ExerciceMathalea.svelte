@@ -11,11 +11,10 @@
   export let nbCols: number = 1
   export let adjustMathalea2dFiguresWidth: (initialDimensionsAreNeeded?: boolean) => Promise<void>
   export let newData: (exerciseIndex: number) => void
-  export let isMd: boolean
+  export let zoom: number
 
   let divExercice: HTMLDivElement
   let divScore: HTMLDivElement
-  let zoom: number = 1
   let buttonScore: HTMLButtonElement
   let numberOfAnswerFields: number = 0
 
@@ -34,7 +33,6 @@
   })
 
   $: {
-    zoom = isMd ? 1.4 : 1
     if (exercise.interactif && buttonScore) initButtonScore()
   }
 
@@ -50,7 +48,7 @@
       if (exercise.interactifType === 'cliqueFigure') prepareExerciceCliqueFigure(exercise)
       if (isCorrectionSeen()) newData(exerciseIndex)
     }
-    mathaleaRenderDiv(divExercice)
+    mathaleaRenderDiv(divExercice, zoom)
     adjustMathalea2dFiguresWidth()
   }
 

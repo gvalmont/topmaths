@@ -8,11 +8,12 @@
   export let isCorrectionVisible: boolean
   export let isMd: boolean
   export let nbCols: number
-  export let columnsCountUpdate: (plusMinus: ('+' | '-'), exerciseIndex: number) => void
   export let newData: (exerciseIndex: number) => void
-  export let spacingUpdate: (plusMinus: ('+' | '-'), exerciseIndex: number) => void
   export let switchCorrectionVisible: (exerciseIndex: number) => void
   export let copyLink: (exerciseIndex: number) => void
+  export let columnsCountUpdate: (plusMinus: ('+' | '-'), exerciseIndex: number) => void
+  export let spacingUpdate: (plusMinus: ('+' | '-'), exerciseIndex: number) => void
+  export let zoomUpdate: (plusMinus: ('+' | '-'), exerciseIndex: number) => void
 
 </script>
 
@@ -104,6 +105,24 @@
         <button
           type="button"
           on:click={() => spacingUpdate('+', exerciseIndex)}
+        >
+          <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-1 {isMd ? 'bx-sm' : 'bx-xs'} bx-plus" />
+        </button>
+      </div>
+      <div class="flex flex-row justify-start items-center text-coopmaths-struct dark:text-coopmathsdark-struct">
+        <button
+          type="button"
+          class:invisible={exercise.spacing < 0.1}
+          on:click={() => zoomUpdate('-', exerciseIndex)}
+        >
+          <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 {isMd ? 'bx-sm' : 'bx-xs'} bx-minus" />
+        </button>
+        <i class="ml-1" style="filter: invert(34%) sepia(83%) saturate(426%) hue-rotate(159deg) brightness(94%) contrast(97%);">
+          <img src="topmaths/img/cc0/magnifying-glass-11-svgrepo-com.svg" class="size-4 md:size-6" alt="Loupe" />
+        </i>
+        <button
+          type="button"
+          on:click={() => zoomUpdate('+', exerciseIndex)}
         >
           <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-1 {isMd ? 'bx-sm' : 'bx-xs'} bx-plus" />
         </button>
