@@ -1,4 +1,4 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur, texteEnCouleurEtGras, miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures.js'
 import { sp } from '../../../lib/outils/outilString.js'
@@ -23,7 +23,7 @@ export default function SigneFonctionAffine () {
   this.date = 1635094684684
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.listeAvecNumerotation = false
+  this.listeAvecNumerotation = true
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {

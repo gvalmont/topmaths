@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { choice, enleveElement } from '../../lib/outils/arrayOutils.js'
+import { choice, enleveElement } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
@@ -81,6 +81,7 @@ export default function Exercice_fractions_simplifier (max = 11) {
       i < this.nbQuestions;
       i++
     ) {
+      if (liste_fractions.length === 0) break // En enlevant des fractions de la liste à chaque tour de boucle, on n'en a plus au bout de 31 ! donc il faut s'arrêter avant de provoquer une erreur.
       fraction = choice(liste_fractions) //
       a = fraction[0]
       b = fraction[1]
