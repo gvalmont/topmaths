@@ -1657,7 +1657,33 @@
                     "lienAuteur": "https://www.youtube.com/@MaitreLucas"
                   }
                 ],
-                "exercices": []
+                "exercices": [],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "Tablettes",
+                      "6G70_Geogebra"
+                    ],
+                    "debutDeSeance": [
+                      "Mathador"
+                    ],
+                    "deroule": [
+                      "Ouvrir le fichier Geogebra",
+                      "Faire bouger le Happy de droite en leur demandant s'il a tourné vers la droite ou la gauche par rapport à celui de gauche",
+                      "Répéter plusieurs fois",
+                      "Recommencer avec le Happy de gauche dans d'autres positions",
+                      "Mettre le Happy de droite debout et poser la même question en faisant bouger celui de gauche",
+                      "Répéter plusieurs fois",
+                      "Recommencer avec le Happy de droite dans d'autres positions",
+                      "Kahoot : https://create.kahoot.it/share/6g70-se-reperer-decrire-ou-executer-des-deplacements/cf0d0c45-9662-4272-a9cb-562834448c4f"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
+                  }
+                ]
               },
               {
                 "reference": "6G71",
@@ -1685,6 +1711,29 @@
                   {
                     "slug": "6I10,s=1,s2=true,s3=true",
                     "description": "Instructions avec une boucle"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "6G71_Poly"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Apprentissage explicite du premier exercice de https://topmaths.fr/?v=objectif&ref=6G71",
+                      "Distribuer le poly",
+                      "Laisser les élèves faire le recto",
+                      "Corriger",
+                      "Apprentissage explicite du deuxième exercice de https://topmaths.fr/?v=objectif&ref=6G71",
+                      "Laisser les élèves faire le verso",
+                      "Corriger",
+                      "S'il y a le temps, distribuer les tablettes pour qu'ils fassent l'activité avec la voiture, sinon juste leur montrer et leur encourager à le faire à la maison"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
                   }
                 ]
               },
@@ -1718,6 +1767,31 @@
                   {
                     "slug": "6I10,s=1,s2=true,s3=true",
                     "description": "Avancer et reculer avec une boucle"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "6G72_Poly"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Apprentissage explicite du premier exercice de https://topmaths.fr/?v=objectif&ref=6G72",
+                      "Distribuer le poly",
+                      "Dire aux élèves de ne faire que les 4 exercices du haut",
+                      "Corriger",
+                      "Apprentissage explicite du deuxième exercice de https://topmaths.fr/?v=objectif&ref=6G72",
+                      "Laisser les élèves faire les 4 exercices suivants",
+                      "Corriger",
+                      "Laisser les élèves faire les 4 derniers exercices",
+                      "Corriger",
+                      "S'il y a le temps, distribuer les tablettes pour qu'ils fassent l'activité avec la voiture, sinon juste leur montrer et leur encourager à le faire à la maison"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
                   }
                 ]
               }
