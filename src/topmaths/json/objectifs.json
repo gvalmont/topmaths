@@ -3179,11 +3179,11 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "5G30-2,s=1,n=4",
+                    "slug": "uuid=19812&id=5G30-2&n=4&s=1",
                     "description": "Reconnaître des angles"
                   },
                   {
-                    "slug": "5G30-2,s=4,n=4",
+                    "slug": "uuid=19812&id=5G30-2&n=4&s=6",
                     "description": "Trouver des angles"
                   }
                 ]
@@ -3209,12 +3209,12 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "5G30-2,s=3,n=2",
-                    "description": "Trouver la mesure d'un angle"
+                    "slug": "uuid=19812&id=5G30-2&n=2&d=10&s=2",
+                    "description": "Montrer si des droites sont parallèles"
                   },
                   {
-                    "slug": "5G30-2,s=2,n=2",
-                    "description": "Montrer si des droites sont parallèles"
+                    "slug": "uuid=19812&id=5G30-2&n=1&d=10&s=4",
+                    "description": "Trouver la mesure d'un angle"
                   }
                 ]
               },
@@ -3588,7 +3588,7 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "6N41,s=11,s2=3,n=4",
+                    "slug": "uuid=06633&n=4&d=10&s=11&s2=3",
                     "description": "Compléter des égalités entre fractions"
                   },
                   {
