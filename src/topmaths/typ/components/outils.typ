@@ -30,6 +30,9 @@
   } else if fichier.contains("_Diaporama") {
     let niveau = fichier.slice(0, 1) + "e"
     link("https://topmaths.fr/topmaths/diaporamas/" + niveau + "/" + fichier + ".odp")[Diaporama]
+  } else if fichier.contains("_Geogebra") {
+    let niveau = fichier.slice(0, 1) + "e"
+    link("https://topmaths.fr/topmaths/geogebra/" + niveau + "/" + fichier + ".ggb")[Geogebra]
   }
 }
 

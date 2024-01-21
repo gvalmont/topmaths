@@ -181,7 +181,7 @@ function getTypLignes (titre, lignes) {
     }
     for (const ligne of lignes) {
       if (titre === 'Matériel enseignant') {
-        if (ligne.includes('_Cours') || ligne.includes('_Fiche') || ligne.includes('_Poly') || ligne.includes('_Presentation') || ligne.includes('Entrainement_') || ligne.includes('_Diaporama')) {
+        if (ligne.includes('_Cours') || ligne.includes('_Fiche') || ligne.includes('_Poly') || ligne.includes('_Presentation') || ligne.includes('Entrainement_') || ligne.includes('_Diaporama') || ligne.includes('_Geogebra')) {
           const mots = ligne.split(' ')
           const nomFichier = mots.shift()
           let reste = ''
