@@ -3260,6 +3260,26 @@
                     "slug": "uuid=19812&id=5G30-2&n=4&s=6",
                     "description": "Trouver des angles"
                   }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "Tablettes",
+                      "5G30_Poly_x1"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Expliquer les différentes définitions",
+                      "Distribuer le poly et le coller",
+                      "Entraînement sur https://topmaths.fr/?v=objectif&ref=5G30",
+                      "Kahoot avec réponses dans l'ordre : https://create.kahoot.it/share/5g30-reconnaitre-des-angles-opposes-par-le-sommet-supplementaires-correspondants-alternes/5dc0af29-c9f3-4a91-a200-c309e732c428"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
+                  }
                 ]
               },
               {
@@ -3289,6 +3309,24 @@
                   {
                     "slug": "uuid=19812&id=5G30-2&n=1&d=10&s=4",
                     "description": "Trouver la mesure d'un angle"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "5G31_Presentation",
+                      "5G31_Poly_x1"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Copier le cours en distribuant les photocopies au fur et à mesure",
+                      "Apprentisage explicite de https://topmaths.fr/?v=objectif&ref=5G31"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
                   }
                 ]
               },
