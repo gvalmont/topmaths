@@ -3378,7 +3378,7 @@
         "slugEvalBrevet": "ex=dnb_2022_09_polynesie_5&ex=dnb_2022_09_metropole_4&ex=dnb_2021_06_metropole_1&ex=dnb_2018_12_caledonie_6&ex=dnb_2016_04_pondichery_2"
       },
       {
-        "titre": "Trigonométrie 1",
+        "titre": "Proportionnalité en géométrie 3 (Trigonométrie 1)",
         "periode": 2,
         "objectifs": [
           {
@@ -3455,7 +3455,7 @@
         "slugEvalBrevet": "ex=dnb_2022_06_metropole_mathalea_3&ex=dnb_2022_06_etrangers_5&ex=dnb_2021_06_metropole_2&ex=dnb_2020_12_caledonie_6&ex=dnb_2018_12_caledonie_3"
       },
       {
-        "titre": "Trigonométrie 2",
+        "titre": "Proportionnalité en géométrie 4 (Trigonométrie 2)",
         "periode": 3,
         "objectifs": [
           {
@@ -3587,7 +3587,7 @@
         "slugEvalBrevet": "ex=dnb_2021_06_etrangers_3&ex=dnb_2020_09_metropole_2&ex=dnb_2019_07_metropole_6&ex=dnb_2019_06_etrangers_2"
       },
       {
-        "titre": "Proportionnalité en géométrie 3 (Homothétie)",
+        "titre": "Proportionnalité en géométrie 5 (Homothétie)",
         "periode": 4,
         "objectifs": [
           {
@@ -3637,7 +3637,7 @@
         "slugEvalBrevet": "ex=dnb_2022_06_asie_1&ex=dnb_2020_12_caledonie_7&ex=dnb_2018_09_metropole_3&ex=dnb_2018_06_metropole_7&ex=dnb_2017_09_polynesie_2"
       },
       {
-        "titre": "Proportionnalité en géométrie 4 (Réciproque du théorème de Thalès)",
+        "titre": "Proportionnalité en géométrie 6 (Réciproque du théorème de Thalès)",
         "periode": 4,
         "objectifs": [
           {
