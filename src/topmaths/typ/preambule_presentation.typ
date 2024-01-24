@@ -3,6 +3,40 @@
 
 #let mainColor = red
 
+#let aColler(content, contentHeight) = {
+  let watermark = "Photocopie"
+  let watermarkColor = luma(150)
+  content
+  place(
+    rect(
+      width: 100%,
+      height: contentHeight,
+      fill: color.linear-rgb(100%, 100%, 100%, 70%),
+      stroke: (
+        paint: watermarkColor,
+        thickness: 1pt,
+        dash: "dashed"
+      )
+    ),
+    dy: -contentHeight
+  )
+  place(
+    block(
+      width: 100%,
+      height: contentHeight,
+      align(
+        horizon + center,
+        text(watermarkColor,
+          weight: "regular",
+          watermark,
+          size: 3em
+        )
+      )
+    ),
+    dy: -contentHeight
+  )
+}
+
 #let titre(content) = {
   heading(content, level: 2)
   v(0.5em)
