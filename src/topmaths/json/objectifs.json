@@ -1738,7 +1738,7 @@
                   {
                     "materielEleve": [],
                     "materielEnseignant": [
-                      "6G71_Poly"
+                      "6G71_Poly_x1"
                     ],
                     "debutDeSeance": [],
                     "deroule": [
@@ -1790,18 +1790,15 @@
                   {
                     "materielEleve": [],
                     "materielEnseignant": [
-                      "6G72_Poly"
+                      "6G72_Poly_x1"
                     ],
                     "debutDeSeance": [],
                     "deroule": [
                       "Apprentissage explicite du premier exercice de https://topmaths.fr/?v=objectif&ref=6G72",
-                      "Distribuer le poly",
-                      "Dire aux élèves de ne faire que les 4 exercices du haut",
+                      "Distribuer le poly et laisser les élèves faire le recto",
                       "Corriger",
                       "Apprentissage explicite du deuxième exercice de https://topmaths.fr/?v=objectif&ref=6G72",
-                      "Laisser les élèves faire les 4 exercices suivants",
-                      "Corriger",
-                      "Laisser les élèves faire les 4 derniers exercices",
+                      "Laisser les élèves faire le verso",
                       "Corriger",
                       "S'il y a le temps, distribuer les tablettes pour qu'ils fassent l'activité avec la voiture, sinon juste leur montrer et leur encourager à le faire à la maison"
                     ],
