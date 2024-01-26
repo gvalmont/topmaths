@@ -295,7 +295,7 @@
           <li class="p-1 md:p-2">
             <a
               href="/?v=sequence&ref={sequence.reference}"
-              style="color: var(--base{sequence.reference.slice(1, 2)}e);"
+              style="color: var(--base{sequence.reference.slice(1, 2)}e) !important;"
               on:click={(event) =>
                 goVue(event, 'sequence', sequence.reference)}
             >
