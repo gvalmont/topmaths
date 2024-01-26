@@ -37,10 +37,10 @@
   "homepage": "https://github.com/mathalea/mathalea",
   "scripts": {
     "start": "vite",
-    "build": "node --loader ts-node/esm tasks/majPdf.js && node --loader ts-node/esm tasks/majJson.js && vite build",
+    "build": "node --loader ts-node/esm tasks/majJson.js && node --loader ts-node/esm tasks/majPdf.js && node --loader ts-node/esm tasks/majJson.js && vite build",
     "maj": "git fetch upstream && git checkout main && git merge upstream/main",
     "majJson": "node --loader ts-node/esm tasks/majJson.js",
-    "majPdf": "node --loader ts-node/esm tasks/majPdf.js",
+    "majPdf": "node --loader ts-node/esm tasks/majJson.js && node --loader ts-node/esm tasks/majPdf.js",
     "makeJson": "node tasks/updateMenu.js",
     "getNewUuid": "node tasks/updateMenu.js",
     "updateMenu": "node tasks/updateMenu.js",
