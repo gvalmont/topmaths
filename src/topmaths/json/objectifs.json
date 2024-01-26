@@ -1730,7 +1730,7 @@
                     "description": "Suite d'instructions"
                   },
                   {
-                    "slug": "6I10,s=1,s2=true,s3=true",
+                    "slug": "6I10,s=1,s2=true,s3=false",
                     "description": "Instructions avec une boucle"
                   }
                 ],
@@ -1778,16 +1778,12 @@
                     "description": "Contrôler une voiture (choisir le point de vue Conducteur)"
                   },
                   {
-                    "slug": "6I10,s=1,s2=false,s3=false",
-                    "description": "Seulement avancer"
+                    "slug": "6I10-1,s=1,s2=false,s3=false",
+                    "description": "Suite d'instructions"
                   },
                   {
-                    "slug": "6I10,s=1,s2=false,s3=false",
-                    "description": "Avancer et reculer"
-                  },
-                  {
-                    "slug": "6I10,s=1,s2=true,s3=true",
-                    "description": "Avancer et reculer avec une boucle"
+                    "slug": "6I10-1,s=1,s2=true,s3=false",
+                    "description": "Instructions avec une boucle"
                   }
                 ],
                 "fiches": [
