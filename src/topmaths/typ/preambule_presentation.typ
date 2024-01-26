@@ -66,6 +66,8 @@
 #let presentation(titre: "", sous-titre: "", doc) = {
   set document(author: "Guillaume Valmont", title: titre)
   set text(font: "Source Sans Pro", weight: "light",lang: "fr", size: 25pt)
+  show math.equation: set text(font: "STIX Two Math")
+  show math.frac: it => math.display(it) // Pour avoir de grosses fractions partout
   show heading: it => text(upper(it), weight: "regular")
   show heading.where(level: 1): it => text(it, size: 40pt)
   show heading.where(level: 2): it => text(it, size: 30pt)

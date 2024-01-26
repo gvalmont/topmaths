@@ -178,6 +178,27 @@
                   {
                     "slug": "can6C24,s=3,n=8"
                   }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "6C13_Presentation",
+                      "Tablettes"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Demander s'ils savent combien ça fait $845 times 0,1$",
+                      "Démontrer que multiplier par 0,1 revient à diviser par 10",
+                      "Noter le cours",
+                      "Entraînement sur https://topmaths.fr/?v=objectif&ref=6C13",
+                      "Kahoot https://create.kahoot.it/details/7fbca177-375b-41f0-a6ee-367c94a0301a"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
+                  }
                 ]
               },
               {
@@ -2612,6 +2633,29 @@
                     "slug": "6N23-5,n=4",
                     "description": ""
                   }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "6N32_Presentation",
+                      "Tablettes"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Demander $4 times \"combien\" = 12$ ? ",
+                      "$2 times \"combien\" = 3$ ?",
+                      "$3 times \"combien\" = 5$ ?",
+                      "Faire la démonstration",
+                      "Noter le cours",
+                      "Apprentissage explicite de https://topmaths.fr/?v=objectif&ref=6N32",
+                      "Kahoot https://create.kahoot.it/details/37e47a8c-ca05-4777-97a2-b6a56f2925ca"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
+                  }
                 ]
               }
             ]
@@ -3320,7 +3364,7 @@
                     ],
                     "debutDeSeance": [],
                     "deroule": [
-                      "Copier le cours en distribuant les photocopies au fur et à mesure",
+                      "Copier le cours en distribuant les photocopies au fur et à mesure #text(red)[=> C'était trop long, il ne restait que 15 min lorsqu'on a fini d'écrire le cours (et on n'a pas écrit les remarques). => Fusionner les propriétés 1 et 2 et pourquoi pas juste mettre la remarque au lieu des propriétés 3 et 4 ?]",
                       "Apprentisage explicite de https://topmaths.fr/?v=objectif&ref=5G31"
                     ],
                     "devoirs": [],
