@@ -4358,12 +4358,8 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=18~n=8",
-                    "description": "Calcul mental"
-                  },
-                  {
-                    "slug": "5A12-3,s=1,s2=6,s3=1,s4=1,n=2",
-                    "description": "Labyrinthes"
+                    "slug": "uuid=03d65&id=5A12-2&n=8&d=10&s=30",
+                    "description": ""
                   }
                 ],
                 "fiches": [
@@ -4415,7 +4411,7 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "5A13,s=3,s2=true,s3=false,s4=false,n=4,cd=1"
+                    "slug": "5A13,s=3,s2=true,s3=false,s4=false,n=2,cd=1"
                   }
                 ],
                 "fiches": [
