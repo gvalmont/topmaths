@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures.js'
-import { arrondi } from '../../../lib/outils/nombres.js'
-import Exercice from '../../Exercice.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures'
+import { arrondi } from '../../../lib/outils/nombres'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Exprimer une variable en fonction d\'une autre'
 export const interactifReady = true
@@ -27,9 +27,9 @@ export default function ExprimerVariable () {
     { const a = randint(-9, 9, 0)
       const b = randint(-5, 9, [0, a, -a])
       const c = randint(-9, 9, 0)
-      const Variable1 = ['x', 'z', 't', 'u', 'a', 'r', 'c']
+      const Variable1 = ['x', 'z', 'a']
       const var1 = choice(Variable1)
-      const Variable2 = ['b', 'f', 'h', 'm', 'n', 'g']
+      const Variable2 = ['b', 'c', 'y']
       const var2 = choice(Variable2)
       const corr1 = `De la relation $${rienSi1(a)}${var1}${ecritureAlgebriqueSauf1(b)}${var2}=${c}$, on déduit en ajoutant $${rienSi1(-b)}${var2}$ dans chaque membre :
           $${rienSi1(a)}${var1}=${c}${ecritureAlgebrique(-b)}${var2}$.<br>`

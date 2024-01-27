@@ -1,8 +1,8 @@
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures.js'
-import { abs } from '../../lib/outils/nombres.js'
-import { pgcd } from '../../lib/outils/primalite.js'
-import Exercice from '../Exercice.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures'
+import { abs } from '../../lib/outils/nombres'
+import { pgcd } from '../../lib/outils/primalite'
+import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 export const titre = 'Rendre entier le dénominateur d\'une fraction'

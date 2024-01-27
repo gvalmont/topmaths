@@ -73,7 +73,7 @@ export class Yohaku {
             this.cellules.push(fraction(randint(1, valeurMax), den).texFraction.replace('dfrac', 'frac'))
             break
           case 'fractions positives dénominateurs premiers':
-            this.cellules.push(fraction(randint(1, valeurMax), choice([2, 3, 5, 7])).texFraction.replace('dfrac', 'frac'))
+            this.cellules.push(fraction(randint(1, valeurMax), Number(choice([2, 3, 5, 7]))).texFraction.replace('dfrac', 'frac'))
             break
 
           case 'fractions positives' :
@@ -107,7 +107,7 @@ export class Yohaku {
             }
               break
             case 'fractions positives dénominateurs premiers':
-              this.cellules.push(fraction(randint(1, valeurMax), choice([2, 3, 5, 7])).texFraction.replace('dfrac', 'frac'))
+              this.cellules.push(fraction(randint(1, valeurMax), Number(choice([2, 3, 5, 7]))).texFraction.replace('dfrac', 'frac'))
               break
             case 'fractions positives' :
               this.cellules.push(fraction(randint(1, valeurMax), randint(2, valeurMax)).texFraction.replace('dfrac', 'frac'))
@@ -160,47 +160,113 @@ export class Yohaku {
      */
   representation ({ numeroExercice, question, isInteractif, classes = '' }:{numeroExercice: number, question: number, isInteractif: boolean, classes: string}) {
     const tabEnteteColonnes = [this.operation === 'addition' ? '+' : '\\times']
+    const couleur = context.isHtml ? '' : '\\cellcolor{lightgray}'
     for (let i = 0; i < this.taille; i++) {
-      const resultat = this.resultats[i]
-      tabEnteteColonnes.push(resultat)
+      tabEnteteColonnes.push(`\\text{Colonne ${i + 1}}`)
     }
+    tabEnteteColonnes.push(`\\text{${this.operation === 'addition' ? 'Sommes' : 'Produits'}}`)
+    const laCase = this.Case == null ? null : (this.Case % this.taille) + (Math.floor(this.Case / this.taille) * (this.taille + 1))
+
     const tabEnteteLignes: string[] = []
-    for (let i = this.taille; i < 2 * this.taille; i++) {
-      const resultat = this.resultats[i]
-      tabEnteteLignes.push(resultat)
+    for (let i = 0; i < this.taille; i++) {
+      tabEnteteLignes.push(`\\text{Ligne ${i + 1}}`)
     }
+    tabEnteteLignes.push(`\\text{${this.operation === 'addition' ? 'Sommes' : 'Produits'}}`)
+
     const tabLignes: string[] = []
-    for (let i = 0; i < this.taille ** 2; i++) {
+    let j = 0
+    let k = 0
+    for (let i = 0; i < (this.taille + 1) ** 2; i++) {
       if (this.solution) {
-        const cellule = this.cellules[i]
-        tabLignes.push(cellule)
-      } else {
-        if (this.Case == null) {
-          if (this.cellulesPreremplies[i] != null) {
-            tabLignes.push(this.cellulesPreremplies[i])
+        if (i % (this.taille + 1) < this.taille) {
+          if (i < (this.taille + 1) * (this.taille)) {
+            const cellule = this.cellules[k]
+            tabLignes.push(cellule)
+            k++
           } else {
-            tabLignes.push('')
+            if (j < this.taille * 2) {
+              tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
+              j++
+            }
           }
         } else {
-          if (i === this.Case) {
-            const cellule = this.cellules[i]
-            tabLignes.push(cellule)
-          } else {
-            if (this.cellulesPreremplies[i] != null) {
-              tabLignes.push(this.cellulesPreremplies[i])
+          if (j < this.taille * 2) {
+            tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
+            j++
+          }
+        }
+      } else {
+        if (this.Case == null) {
+          if (this.cellulesPreremplies[k] != null) {
+            if (i % (this.taille + 1) < this.taille) {
+              if (i < (this.taille + 1) * (this.taille)) {
+                tabLignes.push(this.cellulesPreremplies[k])
+                k++
+              } else {
+                if (j < this.taille * 2) {
+                  tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
+                  j++
+                }
+              }
             } else {
-              tabLignes.push('')
+              if (j < this.taille * 2) {
+                tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
+                j++
+              }
+            }
+          } else {
+            if (i % (this.taille + 1) < this.taille) {
+              if (i < (this.taille + 1) * (this.taille)) {
+                tabLignes.push('')
+              } else {
+                if (j < this.taille * 2) {
+                  tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
+                  j++
+                }
+              }
+            } else {
+              if (j < this.taille * 2) {
+                tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
+                j++
+              }
+            }
+          }
+        } else {
+          if (i % (this.taille + 1) < this.taille) {
+            if (i === laCase) {
+              const cellule = this.cellules[k]
+              k++
+              tabLignes.push(cellule)
+            } else {
+              if (i < (this.taille + 1) * (this.taille)) {
+                if (this.cellulesPreremplies[k] != null) {
+                  tabLignes.push(this.cellulesPreremplies[k])
+                  k++
+                } else {
+                  tabLignes.push('')
+                }
+              } else {
+                if (j < this.taille * 2) {
+                  tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
+                  j++
+                }
+              }
+            }
+          } else {
+            if (j < this.taille * 2) {
+              tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
+              j++
             }
           }
         }
       }
     }
+    tabLignes.push(`${context.isHtml ? '' : couleur}///////`)
     if (context.isHtml && isInteractif) {
-      const tab = AddTabDbleEntryMathlive.create(numeroExercice, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEnteteColonnes, tabEnteteLignes, tabLignes), classes)
-      console.log(tab.output)
+      const tab = AddTabDbleEntryMathlive.create(numeroExercice, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEnteteColonnes, tabEnteteLignes, tabLignes), classes, isInteractif)
       return tab.output
     } else {
-      return tableauColonneLigne(tabEnteteColonnes, tabEnteteLignes, tabLignes, 2, true)
+      return tableauColonneLigne(tabEnteteColonnes, tabEnteteLignes, tabLignes, 2, true, numeroExercice, question)
     }
   }
 }

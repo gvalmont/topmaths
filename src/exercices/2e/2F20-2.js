@@ -6,12 +6,12 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   reduirePolynomeDegre3, rienSi1
-} from '../../lib/outils/ecritures.js'
+} from '../../lib/outils/ecritures'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { texteCentre } from '../../lib/format/miseEnPage.js'
 import { sp } from '../../lib/outils/outilString.js'
-import { pgcd } from '../../lib/outils/primalite.js'
-import Exercice from '../Exercice.js'
+import { pgcd } from '../../lib/outils/primalite'
+import Exercice from '../deprecatedExercice.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
 import {

@@ -1,10 +1,10 @@
 import { derivative, divide, parse, simplify } from 'mathjs'
 import { Polynome } from '../../lib/mathFonctions/Polynome.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { rienSi1 } from '../../lib/outils/ecritures.js'
+import { rienSi1 } from '../../lib/outils/ecritures'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { prettyTex } from './1AN14-4.js'
 
 const math = { simplify, parse, derivative }

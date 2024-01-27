@@ -3,8 +3,8 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   rienSi1
-} from '../../../lib/outils/ecritures.js'
-import Exercice from '../../Exercice.js'
+} from '../../../lib/outils/ecritures'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer un coefficient dans un développement*'
 export const interactifReady = true

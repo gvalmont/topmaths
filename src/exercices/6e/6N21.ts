@@ -1,17 +1,17 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../ExerciceTs'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom.js'
-import { arrondi } from '../../lib/outils/nombres.js'
+import { arrondi } from '../../lib/outils/nombres'
 import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine.js'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues.js'
+import { fraction } from '../../modules/fractions'
 
 export const dateDeModifImportante = '12/12/2023'
-export const titre = 'Utiliser les abscisses fractionnaires'
+export const titre = 'Placer des points d’abscisses fractionnaires'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const amcReady = true
@@ -95,7 +95,7 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
         { label: label3, x: arrondi(num3 / den, 4) }
       ]
 
-      texte = `Placer les points $${label1}\\left(${deprecatedTexFraction(num, den)}\\right)$, $~${label2}\\left(${deprecatedTexFraction(num2, den)}\\right)$ et $~${label3}\\left(${deprecatedTexFraction(num3, den)}\\right)$.`
+      texte = `Placer les points $${label1}\\left(${fraction(num, den).texFraction}\\right)$, $~${label2}\\left(${fraction(num2, den).texFraction}\\right)$ et $~${label3}\\left(${fraction(num3, den).texFraction}\\right)$.`
       const { figure, latex } = apigeomGraduatedLine({ xMin: origine, xMax: origine + 4, scale, stepBis: arrondi(1 / den, 6) })
       figure.options.labelAutomaticBeginsWith = label1
       figure.options.pointDescriptionWithCoordinates = false

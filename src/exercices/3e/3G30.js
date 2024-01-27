@@ -7,16 +7,16 @@ import { latexParPoint } from '../../lib/2d/textes.js'
 import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { quatriemeProportionnelle } from '../../lib/outils/calculs.js'
+import { quatriemeProportionnelle } from '../../lib/outils/calculs'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import Grandeur from '../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true
@@ -235,8 +235,14 @@ export default function CalculDeLongueur () {
       if (this.sup) {
         texte += mathalea2d(paramsEnonce, objetsEnonce) + '<br>'
       }
-      if (!context.isHtml && this.correctionDetaillee) {
-        texteCorr += '\\begin{minipage}{.4\\linewidth}\n' + mathalea2d(paramsCorrection, objetsCorrection) + '\n\\end{minipage}\n' + '\\begin{minipage}{.7\\linewidth}\n'
+      if (this.correctionDetaillee) {
+        if (!context.isHtml) {
+          texteCorr += '\\begin{minipage}{.4\\linewidth}\n'
+        }
+        texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
+        if (!context.isHtml) {
+          texteCorr += '\n\\end{minipage}\n' + '\\begin{minipage}{.7\\linewidth}\n'
+        }
       }
       if (!context.isHtml && this.sup) {
         // texte += '\n\\end{minipage}\n'

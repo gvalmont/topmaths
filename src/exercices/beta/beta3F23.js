@@ -1,8 +1,8 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
-import { pgcd } from '../../lib/outils/primalite.js'
-import Exercice from '../Exercice.js'
+import { ecritureAlgebrique } from '../../lib/outils/ecritures'
+import { pgcd } from '../../lib/outils/primalite'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 

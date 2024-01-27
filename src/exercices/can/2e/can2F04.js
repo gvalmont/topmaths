@@ -1,9 +1,9 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
-import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures.js'
+import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Trouver les valeurs interdites d’une fonction'
 export const interactifReady = true
@@ -41,7 +41,7 @@ export default function ValeurInterdite () {
       a = randint(-10, 10, 0)
 
       b = randint(1, 10)
-      this.question = `Donner la plus petite valeur interdite de de la fonction $f$ définie par ${sp(1)}: ${sp(1)} $f(x)=\\dfrac{${rienSi1(a)}x}{x^2-${b ** 2}}$.<br>
+      this.question = `Donner la plus petite valeur interdite de la fonction $f$ définie par ${sp(1)}: ${sp(1)} $f(x)=\\dfrac{${rienSi1(a)}x}{x^2-${b ** 2}}$.<br>
    
       
       `

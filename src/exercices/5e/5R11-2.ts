@@ -1,10 +1,10 @@
-import Exercice from '../ExerciceTs'
-import { arrondi } from '../../lib/outils/nombres.js'
+import Exercice from '../Exercice'
+import { arrondi } from '../../lib/outils/nombres'
 import { context } from '../../modules/context.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 
 import figureApigeom from '../../lib/figureApigeom.js'
 import Figure from 'apigeom'

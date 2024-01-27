@@ -5,8 +5,8 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   reduirePolynomeDegre3, rienSi1
-} from '../../../lib/outils/ecritures.js'
-import Exercice from '../../Exercice.js'
+} from '../../../lib/outils/ecritures'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer un nombre dérivé'
 export const interactifReady = true

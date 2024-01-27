@@ -1,10 +1,10 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction, fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
-import { texNombre, texRacineCarree } from '../../lib/outils/texNombre.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { texNombre, texRacineCarree } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 export const titre = 'Résoudre des équations avec logarithmes'
 const drteParab = l => l.length === 2 ? `${l[0]}x${ecritureAlgebrique(l[1])}` : `${l[0]}x^2${ecritureAlgebrique(l[1])}x${ecritureAlgebrique(l[2])}`
 const EgalEnviron = (v, d = 3) => ((Math.abs(v) * 10 ** d) % 1 > 0 ? '\\approx' : '=') + texNombre(calculANePlusJamaisUtiliser(v, 3))

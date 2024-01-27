@@ -3,9 +3,9 @@ import {
   arrondi,
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDansLaPartieEntiere
-} from '../../lib/outils/nombres.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
-import Exercice from '../Exercice.js'
+} from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'

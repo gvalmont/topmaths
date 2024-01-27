@@ -5,8 +5,8 @@ import { repere } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { latexParCoordonnees } from '../../lib/2d/textes.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { arrondi } from '../../lib/outils/nombres.js'
-import Exercice from '../Exercice.js'
+import { arrondi } from '../../lib/outils/nombres'
+import Exercice from '../deprecatedExercice.js'
 
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 

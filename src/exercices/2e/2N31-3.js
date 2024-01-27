@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { modalPdf } from '../../lib/outils/modales.js'
-import { simpExp } from '../../lib/outils/puissance.js'
-import Exercice from '../Exercice.js'
+import { simpExp } from '../../lib/outils/puissance'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 

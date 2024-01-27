@@ -1,15 +1,15 @@
 import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { shuffle } from '../../lib/outils/arrayOutils'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import {
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDansLaPartieEntiere,
   nombreDeChiffresDe
-} from '../../lib/outils/nombres.js'
+} from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
-import Exercice from '../Exercice.js'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'

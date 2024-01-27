@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { ecritureNombreRelatif } from '../../lib/outils/ecritures.js'
+import { ecritureNombreRelatif } from '../../lib/outils/ecritures'
 import { Relatif } from '../../modules/Relatif.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 

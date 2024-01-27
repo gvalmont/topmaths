@@ -2,8 +2,8 @@ import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arra
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texPrix } from '../../lib/format/style'
 import { sp } from '../../lib/outils/outilString.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
-import Exercice from '../Exercice.js'
+import { texNombre } from '../../lib/outils/texNombre'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 

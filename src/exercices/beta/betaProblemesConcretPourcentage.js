@@ -1,8 +1,8 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { egalOuApprox } from '../../lib/outils/ecritures.js'
-import { range } from '../../lib/outils/nombres.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
-import Exercice from '../Exercice.js'
+import { egalOuApprox } from '../../lib/outils/ecritures'
+import { range } from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 export const titre = 'Problèmes concret et pourcentages'

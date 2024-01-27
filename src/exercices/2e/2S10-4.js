@@ -1,17 +1,17 @@
 import { combinaisonListes, choice } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { randint, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { numberCompare } from '../../lib/interactif/mathLive.js'
+import { numberCompare } from '../../lib/interactif/comparaisonFonctions'
 import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { arrondi } from '../../lib/outils/nombres.js'
+import { arrondi } from '../../lib/outils/nombres'
 export const titre = 'Compléter et utiliser un tableau d\'effectif'
 export const dateDePublication = '08/01/2024'
 export const interactifReady = true
@@ -96,16 +96,16 @@ export default function TableauProportion () {
           texte += '<br> Compléter le tableau suivant :<br><br>'
           if (this.interactif) {
             const tableauVide = AddTabDbleEntryMathlive.convertTclToTableauMathlive(entetesCol, entetesLgn, ['', '', '', '', '', '', '', '', ''])
-            const tabMathlive = AddTabDbleEntryMathlive.create(this.numeroExercice, index, tableauVide, 'nospacebefore')
+            const tabMathlive = AddTabDbleEntryMathlive.create(this.numeroExercice, index, tableauVide, 'nospacebefore', this.interactif)
             texte += tabMathlive.output
           } else {
-            texte += tableauColonneLigne(entetesCol, entetesLgn, contenu)
+            texte += tableauColonneLigne(entetesCol, entetesLgn, contenu, 1, true, this.numeroExercice, i)
           }
           texteCorr = `${choixEnonce[1]}`
           texteCorr += 'On en déduit le tableau suivant : <br> <br>'
           texteCorr += tableauColonneLigne(['~', '\\text{Garçons}', '\\text{Filles}', '\\text{Total}'],
             ['\\text{Première générale}', '\\text{Première technologique}', '\\text{Total}'],
-            [`${miseEnEvidence(GAetG)}`, `${miseEnEvidence(FetG)}`, `${miseEnEvidence(totalG)}`, `${miseEnEvidence(GAetT)}`, `${miseEnEvidence(FetT)}`, `${miseEnEvidence(totalT)}`, `${miseEnEvidence(totalGA)}`, `${miseEnEvidence(totalF)}`, `${miseEnEvidence(total)}`])
+            [`${miseEnEvidence(GAetG)}`, `${miseEnEvidence(FetG)}`, `${miseEnEvidence(totalG)}`, `${miseEnEvidence(GAetT)}`, `${miseEnEvidence(FetT)}`, `${miseEnEvidence(totalT)}`, `${miseEnEvidence(totalGA)}`, `${miseEnEvidence(totalF)}`, `${miseEnEvidence(total)}`], 1, true, this.numeroExercice, i)
           setReponse(this, index, {
             bareme: toutPourUn,
             L1C1: { value: GAetG, compare: numberCompare },

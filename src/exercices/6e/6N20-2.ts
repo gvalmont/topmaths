@@ -1,14 +1,20 @@
 import { shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../ExerciceTs'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import type { MathfieldElement } from 'mathlive'
+import figureApigeom from '../../lib/figureApigeom'
+import Figure from 'apigeom'
+import RectangleFractionDiagram from 'apigeom/src/elements/diagrams/RectangleFractionDiagram'
+import minus from 'apigeom/src/assets/svg/minus.svg'
+import plus from 'apigeom/src/assets/svg/plus.svg'
+import erase from 'apigeom/src/assets/svg/erase.svg'
 
 export const titre = "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale"
 export const interactifReady = true
 export const interactifType = 'custom'
-export const dateDeModifImportante = '18/11/2023' // passage de l'interactif en fill in the blank
+export const dateDeModifImportante = '24/01/2024' // Brouillon interactif
 
 /**
  * Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale.
@@ -35,12 +41,14 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
     this.spacing = 2
     this.spacingCorr = 2
     this.sup = '2-4-4-5-5-5-8-8-10-10-10-10'
+    this.sup2 = true
 
     this.besoinFormulaireTexte = [
       'Dénominateurs à choisir',
       'Nombres séparés par des tirets\n2: demis\n4: quarts\n5: cinquièmes\n8: huitièmes\n10: dixièmes\n11: Mélange'
     ]
     this.exoCustomResultat = true // Permet de mettre chaque question sur 2 points
+    this.besoinFormulaire2CaseACocher = ['Brouillon interactif']
   }
 
   nouvelleVersion (): void {
@@ -55,7 +63,18 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
       melange: 11,
       nbQuestions: this.nbQuestions,
       exclus: [3, 6, 7, 9]
-    })
+    }) as number[]
+
+    if (this.sup2) {
+      const figure = getDynamicFractionDiagram()
+      this.introduction = figureApigeom({ exercice: this, idApigeom: `apiGeomEx${this.numeroExercice}`, figure })
+      figure.isDynamic = true
+      figure.divButtons.style.display = 'grid'
+      if (figure.ui) figure.ui.send('FILL')
+    } else {
+      this.introduction = ''
+    }
+
     const fractions : [number, number, string][] = []
     const nbDenominateursDifferents : number = new Set(listeDenominateurs).size
     const aleaMax = Math.ceil(this.nbQuestions / nbDenominateursDifferents)
@@ -160,4 +179,46 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
     else result.push('KO')
     return result
   }
+}
+
+export function getDynamicFractionDiagram () {
+  const figure = new Figure({ xMin: -0.5, yMin: -2, width: 800, height: 120 })
+  figure.divUserMessage.style.display = 'none'
+  figure.options.automaticUserMessage = false
+  figure.options.color = 'blue'
+  figure.options.limitNumberOfElement.set('Point', 0)
+
+  const d = new RectangleFractionDiagram(figure, { denominator: 2, numberOfRectangles: 5 })
+
+  function decreaseDenominator (): void {
+    if (d.denominator === 2) return
+    const num = d.numerator
+    d.denominator--
+    d.redraw()
+    d.numerator = num
+    text.text = `L'unité est partagée en ${d.denominator} parts égales.`
+  }
+
+  function increaseNumerator (): void {
+    const num = d.numerator
+    d.denominator++
+    d.redraw()
+    d.numerator = num
+    text.text = `L'unité est partagée en ${d.denominator} parts égales.`
+  }
+
+  function clearFill (): void {
+    d.numerator = 0
+  }
+  figure.setToolbar({ position: 'top', tools: ['FILL'] })
+  const p = document.createElement('p')
+  p.innerHTML = 'Brouillon non évalué'
+  p.classList.add('italic', 'font-black', 'text-coopmaths-struct', 'ml-10', 'my-auto')
+  figure.addCustomButton({ action: decreaseDenominator, tooltip: 'Diminuer le nombre de parts', url: minus })
+  figure.addCustomButton({ action: increaseNumerator, tooltip: 'Augmenter le nombre de parts', url: plus })
+  figure.addCustomButton({ action: clearFill, tooltip: 'Réinitialiser le coloriage', url: erase })
+  figure.divButtons.appendChild(p)
+  figure.container.classList.add('border-2', 'border-coopmaths-struct', 'p-2', 'rounded-md')
+  const text = figure.create('TextByPosition', { text: `L'unité est partagée en ${d.denominator} parts égales.`, x: 0, y: -1.5, anchor: 'bottomLeft', isChild: true })
+  return figure
 }

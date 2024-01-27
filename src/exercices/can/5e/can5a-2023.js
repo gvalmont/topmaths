@@ -9,12 +9,12 @@ import { texteParPosition } from '../../../lib/2d/textes.js'
 import { rotation } from '../../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { arrondi } from '../../../lib/outils/nombres.js'
+import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString.js'
-import { prenomF } from '../../../lib/outils/Personne.js'
+import { prenomF } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
-import Exercice from '../../Exercice.js'
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import Exercice from '../../deprecatedExercice.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { paveLPH3d } from '../../../modules/3d.js'
@@ -146,7 +146,7 @@ export default function SujetCAN2023Cinquieme () {
           reponse = 60 - b + d
           prenom1 = prenomF()
           texte = `${prenom1} part à  $${a}$ h $${b}$ min et${context.isHtml ? '' : '<br>'} arrive à  $${a + 1}$ h $${d}$ min.<br>
-            Quelle est la durée de son trajet ?`
+            Quelle est la durée de son trajet en minutes ?`
           texteCorr = `Pour atteindre $${a + 1}$ h, il faut $${60 - b}$ min, puis il faut ajouter encore $${d}$
              min pour atteindre $${a + 1}$ h $${d}$ min. Son trajet aura  duré  $${miseEnEvidence(60 - b + d)}$ min.`
 
@@ -840,7 +840,7 @@ export default function SujetCAN2023Cinquieme () {
             pointStyle: 'x',
             thickEpaisseur: 1,
             axeEpaisseur: 2.5,
-            pointTaille: context.isHtml ? 5 : 2,
+            pointTaille: context.isHtml ? 5 : 3,
 
             // labelPointLargeur:context.isHtml ? 10 : 5,
             // labelPointTaille: context.isHtml ? 10 : 2,
@@ -849,9 +849,9 @@ export default function SujetCAN2023Cinquieme () {
           })
           labA = texteParPosition('A', a + 5, 0.6, 'milieu', 'blue', context.isHtml ? 2 : 1)
           labB = texteParPosition('B', b + 5, 0.6, 'milieu', 'blue', context.isHtml ? 2 : 1)
-          lab1 = texteParPosition(`${stringNombre(a, 1)}`, a + 5, -0.6, 'milieu', 'blue', context.isHtml ? 2.5 : 1)
-          lab2 = texteParPosition(`${stringNombre(b, 1)}`, b + 5, -0.6, 'milieu', 'blue', context.isHtml ? 2.5 : 1)
-          lab3 = texteParPosition(`${stringNombre(0)}`, 5, -0.5, 'milieu', 'black', context.isHtml ? 3 : 1)
+          lab1 = texteParPosition(`$${stringNombre(a, 1)}$`, a + 5, -0.9, 'milieu', 'blue', context.isHtml ? 1.5 : 1)
+          lab2 = texteParPosition(`$${stringNombre(b, 1)}$`, b + 5, -0.9, 'milieu', 'blue', context.isHtml ? 1.5 : 1)
+          lab3 = texteParPosition(`$${stringNombre(0)}$`, 5, -0.9, 'milieu', 'black', context.isHtml ? 2 : 1)
           reponse = arrondi(b - a, 1)
 
           texteCorr = `$AB=${b}-(${a})=${miseEnEvidence(texNombre(b - a, 1))}$.`
@@ -863,7 +863,7 @@ export default function SujetCAN2023Cinquieme () {
           }
           texte += mathalea2d({
             xmin: -1,
-            ymin: -1,
+            ymin: -1.5,
             xmax: 15,
             ymax: 1.2,
             pixelsParCm: 30,
@@ -872,7 +872,7 @@ export default function SujetCAN2023Cinquieme () {
           }, d, labA, labB, lab1, lab2, lab3)
           this.listeCanEnonces.push(mathalea2d({
             xmin: -1,
-            ymin: -1,
+            ymin: -1.5,
             xmax: 15,
             ymax: 1.2,
             pixelsParCm: 25,
@@ -1136,10 +1136,10 @@ export default function SujetCAN2023Cinquieme () {
             Quelle durée met-il pour parcourir ${context.isHtml ? `$${texNombre(1.5 * b, 0)}$ km` : `\\Lg[km]{${texNombre(1.5 * b, 0)}}`} ?`
             texteCorr = `En 1h 30 min, l'avion parcourt $${texNombre(0.5 * b, 0)}$ km.<br>
             Comme il met $3$ h pour parcourir $${texNombre(b)}$ km,  il mettra $${miseEnEvidence(4)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(1.5 * b, 0)}$ km. `
-            setReponse(this, index, [new Hms({
+            setReponse(this, index, new Hms({
               hour: 4,
               minute: 30
-            }), new Hms({ minute: 270 })], { formatInteractif: 'hms' })
+            }), { formatInteractif: 'hms' })
 
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline')
@@ -1152,10 +1152,10 @@ export default function SujetCAN2023Cinquieme () {
             Quelle durée met-il pour parcourir ${context.isHtml ? `$${texNombre(b + b / 6, 0)}$ km` : `\\Lg[km]{${texNombre(b + b / 6, 0)}}`} ? `
             texteCorr = `En $1$ h , l'avion parcourt $${texNombre(b / 3, 0)}$ km, donc en $30$ min, il parcourt  $${texNombre(b / 6, 0)}$ km. <br>
             Ainsi, il met $${miseEnEvidence(3)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(b + b / 6, 0)}$ km`
-            setReponse(this, index, [new Hms({
+            setReponse(this, index, new Hms({
               hour: 3,
               minute: 30
-            }), new Hms({ minute: 210 })], { formatInteractif: 'hms' })
+            }), { formatInteractif: 'hms' })
 
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline')

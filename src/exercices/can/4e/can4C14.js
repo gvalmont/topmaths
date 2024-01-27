@@ -1,9 +1,9 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { arrondi } from '../../../lib/outils/nombres.js'
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { arrondi } from '../../../lib/outils/nombres'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Augmenter un nombre d\'une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'

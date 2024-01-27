@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures.js'
-import Exercice from '../Exercice.js'
+import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { create, all } from 'mathjs'
 

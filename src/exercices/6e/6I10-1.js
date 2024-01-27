@@ -8,7 +8,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -236,7 +236,7 @@ export default function ColorierDeplacement () {
         xLutin += ajoutXY[0]
         yLutin += ajoutXY[1]
         p = polygone(point(xLutin, yLutin), point(xLutin + 1, yLutin), point(xLutin + 1, yLutin - 1), point(xLutin, yLutin - 1))
-        p.couleurDeRemplissage = couleur
+        p.couleurDeRemplissage = colorToLatexOrHTML(couleur)
         p.opaciteDeRemplissage = 0.25
         p.epaisseur = 0
         lstObjet.push(p)

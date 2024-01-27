@@ -14,12 +14,12 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3,
   rienSi1
-} from '../../../lib/outils/ecritures.js'
+} from '../../../lib/outils/ecritures'
 import { arcenciel, texPrix } from '../../../lib/format/style'
-import { arrondi } from '../../../lib/outils/nombres.js'
+import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString.js'
-import { texNombre } from '../../../lib/outils/texNombre.js'
-import Exercice from '../../Exercice.js'
+import { texNombre } from '../../../lib/outils/texNombre'
+import Exercice from '../../deprecatedExercice.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { Arbre } from '../../../modules/arbres.js'

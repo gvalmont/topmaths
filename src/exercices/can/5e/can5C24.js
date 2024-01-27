@@ -1,9 +1,9 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { arrondi } from '../../../lib/outils/nombres.js'
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { arrondi } from '../../../lib/outils/nombres'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { fraction } from '../../../modules/fractions.js'
 import { randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Écrire la valeur décimale d\'une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'

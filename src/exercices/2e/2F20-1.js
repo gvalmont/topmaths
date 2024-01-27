@@ -5,10 +5,10 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   reduirePolynomeDegre3, rienSi1
-} from '../../lib/outils/ecritures.js'
+} from '../../lib/outils/ecritures'
 import { texteCentre } from '../../lib/format/miseEnPage.js'
-import { pgcd } from '../../lib/outils/primalite.js'
-import Exercice from '../Exercice.js'
+import { pgcd } from '../../lib/outils/primalite'
+import Exercice from '../deprecatedExercice.js'
 import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
 import {
   listeQuestionsToContenu, randint

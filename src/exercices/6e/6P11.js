@@ -1,16 +1,16 @@
 import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { texteExposant } from '../../lib/outils/ecritures.js'
+import { texteExposant } from '../../lib/outils/ecritures'
 import {
   arrondi,
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDansLaPartieEntiere,
   nombreDeChiffresDe
-} from '../../lib/outils/nombres.js'
+} from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
-import { prenomF, prenomM } from '../../lib/outils/Personne.js'
+import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
-import { stringNombre } from '../../lib/outils/texNombre.js'
-import Exercice from '../Exercice.js'
+import { stringNombre } from '../../lib/outils/texNombre'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

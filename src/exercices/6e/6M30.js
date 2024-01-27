@@ -1,9 +1,9 @@
 import { combinaisonListes, choice } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
-import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
+import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
-import Exercice from '../Exercice.js'
+import { texNombre } from '../../lib/outils/texNombre'
+import Exercice from '../deprecatedExercice.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -372,7 +372,7 @@ export default function CalculDeVolumes () {
       if (this.interactif && this.interactifType === 'qcm') {
         texte += propositionsQcm(this, i).texte
       } else {
-        setReponse(this, i, new Grandeur(resultat, listeUnites[j][2]), { formatInteractif: 'unites' })
+        setReponse(this, i, new Grandeur(resultat, listeUnites[j][2]), { formatInteractif: 'unites', precision: 0 })
         texte += ajouteChampTexteMathLive(this, i, 'unites[volumes]', { texteAvant: '<br>' + sp(12) + 'Il faut penser à indiquer l\'unité au volume-réponse : ' })
       }
       if (context.isAmc) {

@@ -1,15 +1,15 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { sommeDesTermesParSigne } from '../../lib/outils/calculs.js'
+import { sommeDesTermesParSigne } from '../../lib/outils/calculs'
 import {
   ecritureAlgebrique,
   ecritureAlgebriquec,
   ecritureNombreRelatif,
   ecritureNombreRelatifc
-} from '../../lib/outils/ecritures.js'
-import { nombreDeChiffresDansLaPartieEntiere, signe, triePositifsNegatifs } from '../../lib/outils/nombres.js'
+} from '../../lib/outils/ecritures'
+import { nombreDeChiffresDansLaPartieEntiere, signe, triePositifsNegatifs } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
-import { texNombreCoul } from '../../lib/outils/texNombre.js'
-import Exercice from '../Exercice.js'
+import { texNombreCoul } from '../../lib/outils/texNombre'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

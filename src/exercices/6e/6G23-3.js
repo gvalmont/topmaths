@@ -4,14 +4,13 @@ import { longueur, segment, segmentAvecExtremites } from '../../lib/2d/segmentsV
 import { afficheLongueurSegment, afficheMesureAngle } from '../../lib/2d/codages.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
-import Exercice from '../Exercice.js'
+import { texNombre } from '../../lib/outils/texNombre'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { labelPoint } from '../../lib/2d/textes.js'
-import { arrondi } from '../../lib/outils/nombres.js'
+import { arrondi } from '../../lib/outils/nombres'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '04/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag

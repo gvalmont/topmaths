@@ -24,10 +24,10 @@ export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** numb
   }
   const optionsChoisies = document.querySelectorAll(`[id^=ex${exercice.numeroExercice}Q${i}]`)
   let reponses = []
-  if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
-    reponses = [exercice.autoCorrection[i].reponse.valeur]
+  if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur.reponse.value)) {
+    reponses = [exercice.autoCorrection[i].reponse.valeur.reponse.value]
   } else {
-    reponses = exercice.autoCorrection[i].reponse.valeur
+    reponses = exercice.autoCorrection[i].reponse.valeur.reponse.value
   }
   let saisie = []
   // Sauvegarde pour les exports Moodle, Capytale...
@@ -49,7 +49,7 @@ export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** numb
       }
     } else {
       // Pour les exercices classiques, on compare directement
-      if (reponse === saisie) {
+      if (reponse.replaceAll(' ', '') === saisie.replaceAll(' ', '')) {
         resultat = 'OK'
         if (spanReponseLigne) spanReponseLigne.innerHTML = '😎'
       }

@@ -1,8 +1,8 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
-import { prenomPronom } from '../../lib/outils/Personne.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
-import Exercice from '../Exercice.js'
+import { prenomPronom } from '../../lib/outils/Personne'
+import { texNombre } from '../../lib/outils/texNombre'
+import Exercice from '../Exercice'
 import {
   randint,
   listeQuestionsToContenu,

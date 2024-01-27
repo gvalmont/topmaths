@@ -1,8 +1,8 @@
-import { listeDeNotes } from '../../../lib/outils/aleatoires.js'
+import { listeDeNotes } from '../../../lib/outils/aleatoires'
 import { sp } from '../../../lib/outils/outilString.js'
-import { prenom } from '../../../lib/outils/Personne.js'
-import { texNombre } from '../../../lib/outils/texNombre.js'
-import Exercice from '../../Exercice.js'
+import { prenom } from '../../../lib/outils/Personne'
+import { texNombre } from '../../../lib/outils/texNombre'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Calculer une étendue'
 export const interactifReady = true

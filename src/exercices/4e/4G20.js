@@ -5,9 +5,9 @@ import { nommePolygone, polygone } from '../../lib/2d/polygones.js'
 import { longueur } from '../../lib/2d/segmentsVecteurs.js'
 import { rotation, similitude } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { arrondi } from '../../lib/outils/nombres.js'
+import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -137,7 +137,7 @@ export default function Pythagore2D () {
           ? setReponse(this, i, reponse)
           : setReponse(this, i, new Grandeur(reponse, 'cm'), {
             formatInteractif: 'unites',
-            precision: 0.001
+            precision: 1
           })
 
         if (context.isAmc) {
@@ -195,7 +195,7 @@ export default function Pythagore2D () {
         setReponse(this, i, reponse)
         texte += ajouteChampTexteMathLive(this, i, 'inline clavierDeBase alphanumeric', { texteApres: '<em class="ml-2">(Une unité de longueur est attendue.)</em>' })
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, B1.x, B.y, C1.x, C1.y)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

@@ -1,8 +1,8 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString.js'
-import { scientifiqueToDecimal, stringNombre, texNombre } from '../../lib/outils/texNombre.js'
+import { scientifiqueToDecimal, stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
 
@@ -90,11 +90,7 @@ export default function NotationScientifique () {
       decimalstring = scientifiqueToDecimal(mantisse, exp)
 
       if (this.sup === 1) {
-        if (exp > 9 || exp < 0) {
-          reponse = `${stringNombre(mantisse, 8)}\\times 10^{${exp}}`
-        } else {
-          reponse = `${stringNombre(mantisse, 8)}\\times 10^${exp}`
-        }
+        reponse = `${stringNombre(mantisse, 8)}e${exp}`
         texteAMC = `$${decimalstring}$`
         texteCorr = `$${decimalstring} = ${miseEnEvidence(scientifiquestring)}$`
       } else {

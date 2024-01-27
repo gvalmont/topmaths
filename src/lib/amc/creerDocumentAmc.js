@@ -8,9 +8,9 @@ import {
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDansLaPartieEntiere,
   nombreDeChiffresDe
-} from '../outils/nombres.js'
+} from '../outils/nombres'
 import { lettreDepuisChiffre } from '../outils/outilString.js'
-import { decimalToScientifique } from '../outils/texNombre.js'
+import { decimalToScientifique } from '../outils/texNombre'
 
 /**
  *

@@ -5,8 +5,8 @@ import {
   texFractionReduite
 } from '../../lib/outils/deprecatedFractions.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
-import { prenomF, prenomM } from '../../lib/outils/Personne.js'
-import Exercice from '../Exercice.js'
+import { prenomF, prenomM } from '../../lib/outils/Personne'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, ppcm } from '../../modules/outils.js'
 

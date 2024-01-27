@@ -1,6 +1,6 @@
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
@@ -282,7 +282,7 @@ export default function CalculProbaExperience2Epreuves2e () {
       }
     }
 
-    const tableau = tableauColonneLigne(ligneEnt, colonneEnt, contenu)
+    const tableau = tableauColonneLigne(ligneEnt, colonneEnt, contenu, 1, true, exercice.numeroExercice, numQuestionInteractif)
 
     omega.setTailles() // On calcule les tailles des arbres.
     const objets = omega.represente(0, 12, 0, sup2 ? 2.5 : 1.4, false, -1, 8) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite

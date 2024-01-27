@@ -1,12 +1,12 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre.js'
+import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,
   randint
 } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Passer de la base 12 ou 16 à la base 10 et inversement'
 

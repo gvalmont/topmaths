@@ -1,8 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur, miseEnEvidence } from '../../../lib/outils/embellissements'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures.js'
-import { texNombre } from '../../../lib/outils/texNombre.js'
-import Exercice from '../../Exercice.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
+import { texNombre } from '../../../lib/outils/texNombre'
+import Exercice from '../../deprecatedExercice.js'
 import {
   randint, calculANePlusJamaisUtiliser
 } from '../../../modules/outils.js'
@@ -69,7 +69,6 @@ export default function CalculImageSecondDegre () {
           this.correction = `$f(${x})=
           ${x}^2+ ${x}+${c}=
           ${x * x}+${x}+${c}=
-          ${x * x}${ecritureAlgebrique(b * x)}+${c}=
           ${miseEnEvidence(x * x + b * x + c)}$.<br><br>`
           this.correction += texteEnCouleur(` Mentalement : <br>
           On commence par calculer le carré de $${x}$, soit $${x}^2=${texNombre(x ** 2)}$. <br>
@@ -80,7 +79,7 @@ export default function CalculImageSecondDegre () {
         if (a !== 1 & b === 1) {
           this.correction = `$f(${x})=
           ${a}\\times${x}^2+${b}\\times ${ecritureParentheseSiNegatif(x)}+${c}=
-          ${a}\\times ${x * x}${ecritureAlgebrique(b * x)}=
+          ${a}\\times ${x * x}${ecritureAlgebrique(b * x)}+${c}=
           ${a * x * x}${ecritureAlgebrique(b * x)}+${c}=
           ${miseEnEvidence(a * x * x + b * x + c)}$.<br><br>`
           this.correction += texteEnCouleur(` Mentalement : <br>

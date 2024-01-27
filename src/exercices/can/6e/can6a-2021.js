@@ -6,10 +6,10 @@ import { segment } from '../../../lib/2d/segmentsVecteurs.js'
 import { texteParPosition } from '../../../lib/2d/textes.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { arrondi } from '../../../lib/outils/nombres.js'
+import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString.js'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
-import Exercice from '../../Exercice.js'
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import Exercice from '../../deprecatedExercice.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import { min, round } from 'mathjs'
@@ -133,10 +133,7 @@ export default function SujetCAN2021Sixieme () {
         case 4:
           a = randint(3, 8) // choix de la table = écart entre deux graduations
           c = Math.floor(randint(10, 40) / a) * a // premier nombre.
-          maListe = []
-          for (let i = 0; i < 2; i++) {
-            maListe.push([c + a * i, c + a * i])
-          }
+          maListe = [[c, String(c)], [c + a, String(c + a)]]
           d = droiteGraduee({
             Unite: 3 / a,
             Min: c - 2 * a,

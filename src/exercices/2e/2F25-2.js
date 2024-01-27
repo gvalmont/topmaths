@@ -5,8 +5,8 @@ import {
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   reduireAxPlusB, rienSi1
-} from '../../lib/outils/ecritures.js'
-import Exercice from '../Exercice.js'
+} from '../../lib/outils/ecritures'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'

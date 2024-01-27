@@ -5,11 +5,11 @@ import {
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDe,
   rangeMinMax
-} from '../../lib/outils/nombres.js'
+} from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
-import { prenom } from '../../lib/outils/Personne.js'
+import { prenom } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { checkSum, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

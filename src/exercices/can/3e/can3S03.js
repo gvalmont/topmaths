@@ -4,8 +4,8 @@ import {
   simplificationDeFractionAvecEtapes,
   texFractionReduite
 } from '../../../lib/outils/deprecatedFractions.js'
-import { texNombre } from '../../../lib/outils/texNombre.js'
-import Exercice from '../../Exercice.js'
+import { texNombre } from '../../../lib/outils/texNombre'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Calculer une probabilités*'
 export const interactifReady = true

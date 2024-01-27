@@ -4,9 +4,9 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   reduirePolynomeDegre3
-} from '../../lib/outils/ecritures.js'
-import { abs, signe } from '../../lib/outils/nombres.js'
-import Exercice from '../Exercice.js'
+} from '../../lib/outils/ecritures'
+import { abs, signe } from '../../lib/outils/nombres'
+import Exercice from '../deprecatedExercice.js'
 import {
   listeQuestionsToContenu, randint
 } from '../../modules/outils.js'

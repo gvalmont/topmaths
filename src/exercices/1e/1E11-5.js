@@ -1,17 +1,17 @@
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { choisiDelta } from '../../lib/mathFonctions/outilsMaths.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { extraireRacineCarree } from '../../lib/outils/calculs.js'
+import { extraireRacineCarree } from '../../lib/outils/calculs'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   rienSi1
-} from '../../lib/outils/ecritures.js'
-import { pgcd } from '../../lib/outils/primalite.js'
+} from '../../lib/outils/ecritures'
+import { pgcd } from '../../lib/outils/primalite'
 import { fraction } from '../../modules/fractions.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const interactifReady = false
 // export const interactifType = 'mathLive'

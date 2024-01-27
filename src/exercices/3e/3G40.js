@@ -1,7 +1,7 @@
 import { tracePoint } from '../../lib/2d/points.js'
 import { labelLatexPoint, labelPoint, texteParPoint } from '../../lib/2d/textes.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import {
@@ -20,7 +20,7 @@ import {
   listeQuestionsToContenuSansNumero,
   randint
 } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const dateDeModifImportante = '02/11/2022' // EE : Mise en place de this.sup2, des unités et du grossissement des points
 export const titre = 'Repérage sur la sphère'

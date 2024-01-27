@@ -4,8 +4,8 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   reduirePolynomeDegre3
-} from '../../../lib/outils/ecritures.js'
-import Exercice from '../../Exercice.js'
+} from '../../../lib/outils/ecritures'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer la fonction dérivée d’une fonction $a/u(x)$'
 export const interactifReady = true

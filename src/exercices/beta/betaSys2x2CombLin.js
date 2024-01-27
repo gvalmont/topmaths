@@ -5,12 +5,12 @@ import {
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   rienSi1
-} from '../../lib/outils/ecritures.js'
-import { abs } from '../../lib/outils/nombres.js'
+} from '../../lib/outils/ecritures'
+import { abs } from '../../lib/outils/nombres'
 
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const titre = '2G35-3'
 

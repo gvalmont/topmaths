@@ -1,6 +1,6 @@
 import { choice, combinaisonListes, shuffle } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, rienSi1, reduirePolynomeDegre3, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures.js'
-import { arrondi, abs, range } from '../../../lib/outils/nombres.js'
+import { ecritureAlgebrique, rienSi1, reduirePolynomeDegre3, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
+import { arrondi, abs, range } from '../../../lib/outils/nombres'
 import { codageSegments } from '../../../lib/2d/codages.js'
 import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { milieu, point } from '../../../lib/2d/points.js'
@@ -9,8 +9,8 @@ import { texteParPosition, labelPoint, latexParCoordonnees } from '../../../lib/
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
 import { creerNomDePolygone, sp } from '../../../lib/outils/outilString.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { texNombre, stringNombre } from '../../../lib/outils/texNombre.js'
-import Exercice from '../../Exercice.js'
+import { texNombre, stringNombre } from '../../../lib/outils/texNombre'
+import Exercice from '../../deprecatedExercice.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
@@ -18,7 +18,7 @@ import Decimal from 'decimal.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 import Hms from '../../../modules/Hms'
-import { prenomF } from '../../../lib/outils/Personne.js'
+import { prenomF } from '../../../lib/outils/Personne'
 import { context } from '../../../modules/context.js'
 export const titre = 'CAN Spéciale année 2024'
 export const interactifReady = true
@@ -2365,7 +2365,6 @@ export default function CourseAuxNombresSpeciale2024 () {
           const reponse = new Decimal(c).mul(k)
 
           texte = 'Complèter le tableau de proportionnalité :<br><br>'
-          // texte += tableauColonneLigne([a, b], [c], [''])
           texte += `$
             \\begin{array}{|c|c|}
             \\hline

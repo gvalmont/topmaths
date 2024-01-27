@@ -11531,16 +11531,16 @@
     },
     "6N2": {
       "6N20": {
-        "url": "6e/6N20.js",
+        "url": "6e/6N20.ts",
         "tags": [],
         "uuid": "6c8a1",
         "id": "6N20",
         "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1)",
-        "dateModification": "14/05/2023",
+        "dateModification": "24/01/2024",
         "features": {
           "interactif": {
             "isActive": true,
-            "type": "'mathLive'"
+            "type": "'custom'"
           },
           "amc": {
             "isActive": true,
@@ -11555,7 +11555,7 @@
         "uuid": "1f5de",
         "id": "6N20-1",
         "titre": "Encadrer une fraction entre deux nombres entiers consécutifs",
-        "dateModification": "14/05/2023",
+        "dateModification": "24/01/2024",
         "features": {
           "interactif": {
             "isActive": true,
@@ -11574,7 +11574,7 @@
         "uuid": "ab44e",
         "id": "6N20-2",
         "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale",
-        "dateModification": "18/11/2023",
+        "dateModification": "24/01/2024",
         "features": {
           "interactif": {
             "isActive": true,
@@ -11612,7 +11612,7 @@
         "tags": [],
         "uuid": "2ba53",
         "id": "6N21",
-        "titre": "Utiliser les abscisses fractionnaires",
+        "titre": "Placer des points d’abscisses fractionnaires",
         "dateModification": "12/12/2023",
         "features": {
           "interactif": {
@@ -11631,12 +11631,31 @@
         "tags": [],
         "uuid": "a2582",
         "id": "6N21-1",
-        "titre": "Utiliser des abscisses fractionnaires (niv 2)",
+        "titre": "Placer des points d’abscisses fractionnaires (niv 2)",
         "datePublication": "11/05/2023",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'custom'"
+          },
+          "amc": {
+            "isActive": true,
+            "type": "AMCOpen"
+          }
+        },
+        "typeExercice": "alea"
+      },
+      "6N21-2": {
+        "url": "6e/6N21-2.js",
+        "tags": [],
+        "uuid": "442f4",
+        "id": "6N21-2",
+        "titre": "Lire des abscisses fractionnaires de points (niv 2)",
+        "datePublication": "11/05/2023",
+        "features": {
+          "interactif": {
+            "isActive": true,
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": true,
@@ -13368,11 +13387,11 @@
         "id": "5G30-2",
         "titre": "Effectuer des liens entre angles et parallélisme",
         "datePublication": "15/01/2022",
-        "dateModification": "18/08/2023",
+        "dateModification": "21/01/2024",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'qcm'"
           },
           "amc": {
             "isActive": true,
@@ -14047,7 +14066,7 @@
         "features": {
           "interactif": {
             "isActive": true,
-            "type": "['mathLive', 'custom']"
+            "type": "['custom', 'mathLive']"
           },
           "amc": {
             "isActive": true,
@@ -16551,12 +16570,12 @@
         "titre": "Utiliser la simple distributivité",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'mathLive'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCHybride"
           }
         },
         "typeExercice": "alea"
@@ -18695,7 +18714,7 @@
         "features": {
           "interactif": {
             "isActive": true,
-            "type": "'custom'"
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": false,
@@ -18825,7 +18844,7 @@
         "features": {
           "interactif": {
             "isActive": true,
-            "type": "'custom'"
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": true,
@@ -19578,6 +19597,7 @@
         "id": "2F21-1",
         "titre": "Modéliser une situation à l'aide d'une fonction",
         "datePublication": "14/02/2023",
+        "dateModification": "24/01/2024",
         "features": {
           "interactif": {
             "isActive": false,
@@ -21327,7 +21347,7 @@
         "tags": [],
         "uuid": "47f20",
         "id": "2N41-2",
-        "titre": "Factoriser a²-b²",
+        "titre": "Factoriser $a^2-b^2$",
         "features": {
           "interactif": {
             "isActive": true,
@@ -21345,7 +21365,7 @@
         "tags": [],
         "uuid": "3b7ee",
         "id": "2N41-3",
-        "titre": "Développer (a-b)(a+b)",
+        "titre": "Développer $(a-b)(a+b)$",
         "features": {
           "interactif": {
             "isActive": true,
@@ -21363,7 +21383,7 @@
         "tags": [],
         "uuid": "877a9",
         "id": "2N41-4",
-        "titre": "Développer (a+b)²",
+        "titre": "Développer $(a+b)^2$",
         "features": {
           "interactif": {
             "isActive": true,
@@ -21663,7 +21683,7 @@
         "tags": [],
         "uuid": "78f02",
         "id": "2N51-3v2",
-        "titre": "Équations du type x/a=b/c (v2)",
+        "titre": "Équations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$ (v2)",
         "features": {
           "interactif": {
             "isActive": false,
@@ -21735,7 +21755,7 @@
         "tags": [],
         "uuid": "bb6d5",
         "id": "2N52-2",
-        "titre": "Résoudre des équations carrées de type $~x^² = a$",
+        "titre": "Résoudre des équations carrées de type $x^2=a$",
         "features": {
           "interactif": {
             "isActive": false,

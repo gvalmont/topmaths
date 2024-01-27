@@ -2,7 +2,7 @@ import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -92,7 +92,7 @@ export default function CalculerUneExpressionNumerique () {
       reponse = resultats[4]
       if (this.questionJamaisPosee(i, expn, expf)) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texteAvant: ' = ' })
+          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texteAvant: '$=$' })
           setReponse(this, i, reponse)
         } else if (context.isAmc) {
           texte += '<br>Détailler les calculs dans le cadre et coder le résultat.<br>'

@@ -1,8 +1,8 @@
 import { shuffle } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { texteExposant } from '../../../lib/outils/ecritures.js'
+import { texteExposant } from '../../../lib/outils/ecritures'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Calculer un volume de pyramide'
 export const interactifReady = true
 export const interactifType = 'mathLive'

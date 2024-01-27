@@ -1,12 +1,12 @@
 import { choice } from '../lib/outils/arrayOutils'
-import { nomDuMois } from '../lib/outils/dateEtHoraires.js'
+import { nomDuMois } from '../lib/outils/dateEtHoraires'
 import { deprecatedTexFraction } from '../lib/outils/deprecatedFractions.js'
-import { ecritureParentheseSiNegatif } from '../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../lib/outils/ecritures'
 import { lampeMessage } from '../lib/format/message.js'
-import { arrondi } from '../lib/outils/nombres.js'
-import { prenom } from '../lib/outils/Personne.js'
+import { arrondi } from '../lib/outils/nombres'
+import { prenom } from '../lib/outils/Personne'
 import { texteGras } from '../lib/format/style'
-import { stringNombre, texNombre } from '../lib/outils/texNombre.js'
+import { stringNombre, texNombre } from '../lib/outils/texNombre'
 
 function underbraceMediane (nbVal) {
   let sortie

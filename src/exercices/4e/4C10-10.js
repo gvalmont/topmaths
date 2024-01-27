@@ -3,8 +3,8 @@ import {
   ecritureNombreRelatif,
   ecritureNombreRelatifc,
   ecritureParentheseSiNegatif
-} from '../../lib/outils/ecritures.js'
-import Exercice from '../Exercice.js'
+} from '../../lib/outils/ecritures'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const amcReady = true

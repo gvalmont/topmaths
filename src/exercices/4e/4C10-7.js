@@ -4,9 +4,9 @@ import {
   ecritureNombreRelatif,
   ecritureNombreRelatifc,
   ecritureParentheseSiNegatif
-} from '../../lib/outils/ecritures.js'
-import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
-import Exercice from '../Exercice.js'
+} from '../../lib/outils/ecritures'
+import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
+import Exercice from '../deprecatedExercice.js'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

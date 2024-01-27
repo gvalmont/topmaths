@@ -2,8 +2,8 @@ import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { infoMessage, lampeMessage } from '../../lib/format/message.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
-import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
-import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre.js'
+import { listeDesDiviseurs } from '../../lib/outils/primalite'
+import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context.js'
 import { machineMathsVideo, tikzMachineDiag, tikzMachineMaths } from '../../modules/machines.js'
 import { SvgMachineDiag3F12, SvgMachineDiag3F1ActMono } from '../../modules/macroSvgJs.js'
@@ -11,7 +11,7 @@ import {
   listeQuestionsToContenu,
   randint
 } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Fonctions : Notion et vocabulaire'
 

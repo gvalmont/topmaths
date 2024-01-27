@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
-import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
-import Exercice from '../Exercice.js'
+import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
+import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'

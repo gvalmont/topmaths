@@ -1,9 +1,9 @@
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Encadrer à la dizaine, centaine'
