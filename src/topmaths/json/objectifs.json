@@ -4341,6 +4341,33 @@
                     "slug": "5A12-3,s=1,s2=6,s3=1,s4=1,n=2",
                     "description": "Labyrinthes"
                   }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "5N42_Presentation",
+                      "Tablettes"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Expliquer qu'aujourd'hui, on va \"casser\" des nombres",
+                      "Montrer comment décomposer 15 en plusieurs paquets identiques",
+                      "Laisser les élèves le faire pour 12",
+                      "Corriger",
+                      "Laisser les élèves le faire pour 7",
+                      "Corriger",
+                      "Faire le lien avec les tables de multiplication si personne ne le fait",
+                      "Expliquer que tous les nombres peuvent se décomposer en $1 times \"lui\"$ et en $\"lui\" times 1$ si personne ne le fait remarquer",
+                      "Présenter les nombres premiers comme des nombres \"incassables\" en quelque sorte (c'est ceux qu'on peut le moins casser)",
+                      "Noter le cours",
+                      "Kahoot : https://create.kahoot.it/details/5f3c844e-c108-4d9d-ac7e-bd978307957d"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
+                  }
                 ]
               },
               {
@@ -4365,6 +4392,29 @@
                 "exercices": [
                   {
                     "slug": "5A13,s=3,s2=true,s3=false,s4=false,n=4,cd=1"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "5N43_Poly",
+                      "5N43_Presentation"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Calcul mental : https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=20~n=8 ",
+                      "Décomposer un nombre qui va bien parmi ceux qui sont tombés en calcul mental (idéalement produit de 3 facteurs premiers) et montrer qu’à chaque fois on aboutit à la même décomposition",
+                      "Dire que décomposer comme ça ça va bien mais on ne va pas faire comme ça pour décomposer un 1150",
+                      "Afficher l’exercice 1 du sujet de brevet réunion juillet 2019",
+                      "Appliquer la méthode de décomposition au 1150 et les accompagner pour le 4140",
+                      "Noter le cours",
+                      "Entraînement sur https://topmaths.fr/?v=objectif&ref=5N43"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
                   }
                 ]
               }
