@@ -4465,6 +4465,39 @@
                     "slug": "5L16,s=3,s2=true,n=4",
                     "description": "Retrouver les × qui sont sous-entendus"
                   }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "5N50_Presentation",
+                      "5N50_Poly_x30 avec les $2x^2$ au dessus et les $2x^3$ en dessous",
+                      "Hue HD",
+                      "Tablettes"
+                    ],
+                    "debutDeSeance": [
+                      "Quelque chose de rapide"
+                    ],
+                    "deroule": [
+                      "Noter le cours jusqu’aux règles d’écriture",
+                      "Distribuer le poly (la moitié de la classe a un calcul, l’autre moitié l’autre)",
+                      "Le coller partie exercice et recopier",
+                      "Ramasser 3 cahiers",
+                      "- 1 cahier mal écrit avec le premier calcul",
+                      "- 1 cahier mal écrit avec le deuxième calcul",
+                      "- 1 cahier bien écrit",
+                      "Leur montrer les deux cahiers mal écrits à l’aide de la caméra et voir s'ils remarquent la différence",
+                      "Montrer le cahier bien écrit et expliquer l'importance de bien courber ses $x$",
+                      "Noter la remarque",
+                      "Entraînement sur https://topmaths.fr/?v=objectif&ref=5G50 s'il y a le temps",
+                      "Kahoot : https://create.kahoot.it/details/441f1b6c-0311-4992-8eec-2c23995fda85",
+                      "- À la question 11 : préciser qu’à partir de maintenant, ça pourra aller dans les deux sens, des fois il faudra enlever les $times$, des fois il faudra en rajouter"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
+                  }
                 ]
               },
               {
@@ -4488,6 +4521,33 @@
                   {
                     "slug": "5L12-2,s=9,s2=false,s3=6-7-8-9,n=3",
                     "description": "Additions et multiplications"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "5N51_Presentation",
+                      "Tablettes"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Demander combien ça fait $2x + 3$",
+                      "Avec les tacos et les burger ($2#emoji.taco + 3#emoji.burger$ puis $2#emoji.taco + 3#emoji.taco$), faire comprendre qu’on peut mélanger ceux de la même famille mais qu’on ne peut pas les mélanger entre les familles",
+                      "- S’il y en a qui pensent qu’on peut mélanger des tacos avec des burgers, prendre des maisons et des pommes",
+                      "Remplacer les dessins par des lettres et dire qu’on ne va pas s’amuser à faire des dessins à chaque fois qu’on veut représenter quelque chose et qu’on va préférer écrire des lettres (qui sont plus faciles à écrire)",
+                      "Noter le cours",
+                      "S’entraîner sur https://topmaths.fr/?v=objectif&ref=5N51",
+                      "- Dans le premier exercice, on a juste à mettre ensemble ceux qui vont ensemble",
+                      "- Dans le deuxième exercice il faut faire attention :",
+                      "-- S’il y a une multiplication, on multiplie les nombres entre eux et les lettres entre elles",
+                      "-- S’il y a une addition, on ne peut pas additionner des nombres avec des lettres",
+                      "Kahoot https://create.kahoot.it/details/51214d6d-f43b-4bba-aa67-b43a92b97dad"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
                   }
                 ]
               },
