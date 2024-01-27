@@ -2836,7 +2836,7 @@
               {
                 "reference": "6S10",
                 "titre": "Lire une représentation de données",
-                "rappelDuCoursHTML": "<p>Dans un diagramme en bâtons, chaque bâton représente une donnée.<br>La hauteur du bâton correspond à la valeur de cette donnée qu'on peut lire sur l'axe vertical.</p>",
+                "rappelDuCoursHTML": "<p>Dans un diagramme en barres, chaque barre représente une donnée.<br>La hauteur de chaque barre correspond à la valeur de cette donnée qu'on peut lire sur l'axe vertical.</p>",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -2848,7 +2848,28 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "6S10,s=3,s2=2"
+                    "slug": "uuid=adac4&id=6S10-1&n=4&d=10&s=3&s2=5"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "Tablettes"
+                    ],
+                    "niveaux": [],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Enseignement explicite de https://topmaths.fr/?uuid=adac4&id=6S10-1&n=1&d=10&s=3&s2=3&v=exercices",
+                      "Enseignement explicite de https://topmaths.fr/?uuid=adac4&id=6S10-1&n=1&d=10&s=3&s2=4&v=exercices",
+                      "Enseignement explicite de https://topmaths.fr/?uuid=adac4&id=6S10-1&n=1&d=10&s=3&s2=2&v=exercices",
+                      "Enseignement explicite de https://topmaths.fr/?uuid=adac4&id=6S10-1&n=1&d=10&s=3&s2=1&v=exercices",
+                      "Kahoot avec les questions aléatoires et les réponses dans l'ordre : https://create.kahoot.it/details/1f2bc80c-a6b3-47b7-8f72-2002c4984e02"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
                   }
                 ]
               },
@@ -2868,6 +2889,30 @@
                 "exercices": [
                   {
                     "slug": "6S11,s=false,s2=4"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [
+                      "Règle"
+                    ],
+                    "materielEnseignant": [
+                      "6S11_Poly_x1",
+                      "6S11_Presentation"
+                    ],
+                    "niveaux": [],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Laisser les élèves faire le premier exercice du poly",
+                      "Correction",
+                      "Deuxième exercice",
+                      "Correction",
+                      "Présentation"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
                   }
                 ]
               }
