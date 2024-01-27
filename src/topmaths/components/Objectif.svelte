@@ -290,7 +290,7 @@
         Séquence{objectif.sequences.length > 1 ? 's' : ''}
       </h2>
       <p class="pt-8">Cet objectif fait partie de :</p>
-      <ul class="p-6 ">
+      <ul class="p-6">
         {#each objectif.sequences as sequence}
           <li class="p-1 md:p-2">
             <a
