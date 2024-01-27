@@ -3388,12 +3388,36 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "5G31,s=1,s2=true,n=3,cd=1",
-                    "description": "Avec un schéma"
-                  },
+                    "slug": "uuid=dc8c9&id=5G31&n=4&d=10&s=1-2-5&s2=true&s3=false",
+                    "description": ""
+                  }
+                ],
+                "fiches": [
                   {
-                    "slug": "5G31,s=1,s2=false,n=1,cd=1",
-                    "description": "Sans schéma"
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "S5S14_Cours",
+                      "Huitièmes de feuilles blanches",
+                      "5G32_Presentation"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Distribuer les huitièmes de feuilles blances",
+                      "Dire aux élèves de dessiner un triangle : peu importe sa taille, peu importe sa forme",
+                      "Colorier les 3 angles de 3 couleurs différentes (faire un exemple au tableau)",
+                      "Découper le triangle",
+                      "Séparer les 3 angles (montrer comment au tableau)",
+                      "Rassembler les trois angles colorés (montrer la procédure au tableau avec des flèches)",
+                      "Qu'est-ce qu'ils remarquent ?",
+                      "La consigne ne donnait aucune condition sur les angles pourtant, c'est parce que ça marche sur tous les triangles !",
+                      "Faire la démonstration",
+                      "Noter le cours",
+                      "Entraînement sur https://topmaths.fr/?v=objectif&ref=5G32"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
                   }
                 ]
               }
@@ -3430,7 +3454,7 @@
               {
                 "reference": "5G41",
                 "titre": "Connaître et construire un parallélogramme particulier",
-                "rappelDuCoursHTML": "Si un parallélogramme a <i>un angle droit</i> ou <i>ses diagonales de même longueur</i>, alors c'est un <b><i>rectangle</i></b>.<br>Si un parallélogramme a <i>deux côtés consécutifs de même longueur</i> ou <i>ses diagonales perpendiculaires</i>, alors c'est un <b><i>losange</i></b>.<br>Pour montrer qu'un parallélogramme est un <b><i>carré</i></b>, il suffit de montrer qu'il est <i>à la fois un rectangle et un losange</i> en utilisant les propriétés précédentes.<br><br>Toutes ces propriétés sont illustrées dans <a href='/topmaths/cours/5e/Cours_S5S20.pdf'>le cours</a>.",
+                "rappelDuCoursHTML": "Si un parallélogramme a <i>un angle droit</i> ou <i>ses diagonales de même longueur</i>, alors c'est un <b><i>rectangle</i></b>.<br>Si un parallélogramme a <i>deux côtés consécutifs de même longueur</i> ou <i>ses diagonales perpendiculaires</i>, alors c'est un <b><i>losange</i></b>.<br>Pour montrer qu'un parallélogramme est un <b><i>carré</i></b>, il suffit de montrer qu'il est <i>à la fois un rectangle et un losange</i> en utilisant les propriétés précédentes.<br><br>Toutes ces propriétés sont illustrées dans <a href='/topmaths/cours/5e/S5S20_Cours.pdf'>le cours</a>.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -4405,9 +4429,9 @@
                     "deroule": [
                       "Calcul mental : https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=20~n=8 ",
                       "Décomposer un nombre qui va bien parmi ceux qui sont tombés en calcul mental (idéalement produit de 3 facteurs premiers) et montrer qu’à chaque fois on aboutit à la même décomposition",
-                      "Dire que décomposer comme ça ça va bien mais on ne va pas faire comme ça pour décomposer un 1150",
+                      "Dire que décomposer comme ça ça va bien mais on ne va pas faire comme ça pour décomposer un 1 150",
                       "Afficher l’exercice 1 du sujet de brevet réunion juillet 2019",
-                      "Appliquer la méthode de décomposition au 1150 et les accompagner pour le 4140",
+                      "Appliquer la méthode de décomposition au 1 150 et les accompagner pour le 4 140",
                       "Noter le cours",
                       "Entraînement sur https://topmaths.fr/?v=objectif&ref=5N43"
                     ],
