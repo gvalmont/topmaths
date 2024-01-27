@@ -1,3 +1,5 @@
+#import "@local/svg-emoji:0.1.0": setup-emoji
+
 #let lien(fichier) = {
   let messageErreur = text(red, "le lien vers " + fichier + " n'a pas pu être généré")
 
