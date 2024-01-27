@@ -39,7 +39,8 @@ function genererTypCoursSequence (sequence) {
 }
 
 function creerEnTete (sequence) {
-  let enTete = `#show: doc => sequence(doc, title: "Séquence ${sequence.numero} : ${sequence.titre}")
+  let enTete = `#show: setup-emoji
+#show: doc => sequence(doc, title: "Séquence ${sequence.numero} : ${sequence.titre}")
 #objectifs()[
 `
   for (const objectif of sequence.objectifs) {
@@ -126,7 +127,8 @@ function genererTypFicheObjectif (niveauSequence, objectif, fiche, indiceFiche) 
   let typObjectif = ''
   typObjectif += `#import "../../../preambule_fiche.typ": *
 `
-  typObjectif += `#show: doc => fiche(doc, titre: "${objectif.reference} : ${objectif.titre}", sousTitre: "${sousTitre}")
+  typObjectif += `#show: setup-emoji
+#show: doc => fiche(doc, titre: "${objectif.reference} : ${objectif.titre}", sousTitre: "${sousTitre}")
 
 `
   typObjectif += getTypLignes('Matériel élève', fiche.materielEleve)
@@ -193,24 +195,35 @@ function getTypLignes (titre, lignes) {
 `
         }
       } else {
-        if (ligne.startsWith('-')) {
-          typLignes += `  ${ligne}\\
-`
-        } else {
-          typLignes += `- ${ligne}\\
-`
+        const indentLevel = getIndentLevel(ligne)
+        const lineWithoutLeadingHyphens = removeLeadingHyphens(ligne)
+        for (let i = 0; i < indentLevel; i++) {
+          typLignes += '  '
         }
+        typLignes += `  - ${lineWithoutLeadingHyphens}\\
+`
       }
     }
   }
   return typLignes
+  function getIndentLevel (str) {
+    let count = 0
+    for (let i = 0; i < str.length && str[i] === '-'; i++) {
+      count++
+    }
+    return count
+  }
+  function removeLeadingHyphens (str) {
+    return str.replace(/^[-]+/, '')
+  }
 }
 
 function genererTypFicheSequence (sequence) {
   let typSequence = ''
   typSequence += `#import "../../../preambule_fiche.typ": *
 `
-  typSequence += `#show: doc => fiche(doc, titre: "Séquence ${sequence.numero} : ${sequence.titre}", sousTitre: "Fiche de séquence", paysage: true)
+  typSequence += `#show: setup-emoji
+#show: doc => fiche(doc, titre: "Séquence ${sequence.numero} : ${sequence.titre}", sousTitre: "Fiche de séquence", paysage: true)
 
 #table(
   columns: 1,
