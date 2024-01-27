@@ -20,8 +20,8 @@ Si on veut pouvoir comparer visuellement les données (voir simplement les plus 
 ]
 
 #regle()[
-  #place(right, image("5S11-1.png", width: 70%), dx: 50%)
-  #block(width: 70%)[
+  #place(right, image("5S11-1.png", width: 50%))
+  #block(width: 50%)[
     Dans un diagramme en barres :
     - sur l’axe des abscisses (horizontal) se trouve une grandeur
     - sur l’axe des ordonnées (vertical) se trouve l’autre grandeur
@@ -30,8 +30,8 @@ Si on veut pouvoir comparer visuellement les données (voir simplement les plus 
 
 
 #regle()[
-  #place(right, image("5S11-2.png", width: 60%), dx: 40%)
-  #block(width: 70%)[
+  #place(right, image("5S11-2.png", width: 50%), dy: -2em)
+  #block(width: 50%)[
   Dans un diagramme en bâtons :
   - sur l’axe des abscisses (horizontal) se trouvent des valeurs numériques
   - sur l’axe des ordonnées (vertical) se trouvent les effectifs de ces valeurs
