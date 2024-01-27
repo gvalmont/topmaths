@@ -3,8 +3,7 @@
 
 #let mainColor = red
 
-#let aColler(content, contentHeight) = {
-  let watermark = "Photocopie"
+#let aColler(content, contentHeight, watermark: "Photocopie") = {
   let watermarkColor = luma(150)
   content
   place(
