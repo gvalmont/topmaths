@@ -18,12 +18,12 @@
       [#c(504)], [#cr(2)],
       [#c(252)], [#cr(2)],
       [#c(126)], [#cr(2)],
-      [#c(63)], [#cr(2)],
+      [#c(63)], [#cr(3)],
       [#c(21)], [#cr(3)],
       [#c(7)], [#cr(7)],
       [#c(1)]
     )
-    $1008 = #rouge()[2] times #rouge()[2] times #rouge()[2] times #rouge()[2] times #rouge()[7] times #rouge()[3] times #rouge()[3]$
+    $1008 = #rouge()[2] times #rouge()[2] times #rouge()[2] times #rouge()[2] times #rouge()[3] times #rouge()[3] times #rouge()[7]$
   ]
 ]
 ]
