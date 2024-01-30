@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { PanierItem } from '../services/types'
   import { environment } from '../services/environment'
-  import { ouvrirModaleExercices } from '../services/modale'
+  import { lancerExercices } from '../services/modale'
   import { storage } from '../services/storage'
   import { panierDispo, vue } from '../services/store'
   import { copierLien } from '../services/outils'
@@ -60,7 +60,7 @@
         <img class="size-12 md:size-16" src="/topmaths/img/cc0/copy-interface-symbol-svgrepo-com.svg" alt="Documents copiés" />
       </i>
     </button>
-    <button class="mx-2 md:mx-4" on:click={() => ouvrirModaleExercices(lien)}>
+    <button class="mx-2 md:mx-4" on:click={() => lancerExercices(lien)}>
       <i>
         <img class="size-12 md:size-16" src="/topmaths/img/cc0/fullscreen-svgrepo-com.svg" alt="Lancer en plein écran" />
       </i>

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { ouvrirModaleExercices } from '../../services/modale'
   import papiersCrayons from '../../../topmaths/json/papiers_crayons.json'
 
 </script>
@@ -23,9 +22,9 @@
   <div class="flex flex-wrap margin-auto justify-center">
     {#each papiersCrayons as activite}
       <div class="p-4">
-        <button on:click={() => ouvrirModaleExercices(activite.ggb)}>
+        <a href={activite.ggb}>
           <img src="https://www-irem.univ-paris13.fr/site_spip/{activite.src}" alt={activite.titre}/>
-        </button>
+        </a>
       </div>
     {/each}
   </div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ouvrirModaleExercices } from '../../services/modale'
+  import { lancerExercices } from '../../services/modale'
   import IconeTooltipSimple from './IconeTooltipSimple.svelte'
   import type { ObjectifExercice, ObjectifVideo } from '../../services/types'
   import { modeEnseignant } from '../../services/store'
@@ -44,7 +44,7 @@
 
 <div class="flex flex-row justify-center">
   {#if lienExercices !== ''}
-    <button on:click={() => ouvrirModaleExercices(lienExercices)}>
+    <button on:click={() => lancerExercices(lienExercices)}>
       {titre} &nbsp;
       <IconeTooltipSimple
         urlBouton="/topmaths/img/cc0/fullscreen-svgrepo-com.svg"
