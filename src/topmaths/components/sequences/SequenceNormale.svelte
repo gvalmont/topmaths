@@ -5,7 +5,8 @@
     niveauxSequences
   } from '../../services/store'
   import type { ObjectifExercice, SequenceSequence } from '../../services/types'
-  import { getTitre, goVue } from '../../services/outils'
+  import { getTitre } from '../../services/outils'
+  import { goVue } from '../../services/navigation'
   import { onDestroy } from 'svelte'
   import type { Unsubscriber } from 'svelte/store'
   import BoutonsExercices from '../shared/BoutonsExercices.svelte'

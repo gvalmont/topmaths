@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { lancerExercices } from '../../services/modale'
+  import { lancerExercices } from '../../services/navigation'
   import IconeTooltipSimple from './IconeTooltipSimple.svelte'
   import type { ObjectifExercice, ObjectifVideo } from '../../services/types'
   import { modeEnseignant } from '../../services/store'

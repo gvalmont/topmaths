@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { goVue } from '../services/outils'
+  import { goVue } from '../services/navigation'
 
 </script>
 

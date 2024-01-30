@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { PanierItem } from '../services/types'
   import { environment } from '../services/environment'
-  import { lancerExercices } from '../services/modale'
+  import { lancerExercices } from '../services/navigation'
   import { storage } from '../services/storage'
   import { panierDispo, vue } from '../services/store'
   import { copierLien } from '../services/outils'

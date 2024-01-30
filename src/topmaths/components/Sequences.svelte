@@ -4,7 +4,8 @@
     sequencesParticulieres
   } from '../services/store'
   import { onDestroy } from 'svelte'
-  import { goVue, normaliser } from '../services/outils'
+  import { normaliser } from '../services/outils'
+  import { goVue } from '../services/navigation'
   import type { Unsubscriber } from 'svelte/store'
   import { writable, derived } from 'svelte/store'
   import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'

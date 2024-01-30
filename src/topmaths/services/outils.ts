@@ -1,21 +1,12 @@
 import { get } from 'svelte/store'
 import type { ObjectifObjectif, SequenceObjectif } from './types'
-import { reference, titresProchesDesAttendus, vue } from './store'
+import { titresProchesDesAttendus } from './store'
 import { environment } from './environment'
 import { exercicesParams, globalOptions } from '../../lib/stores/generalStore'
 
 export function estCoopmaths (url: string) {
   const urlCoopmaths = environment.baseUrl
   return url.slice(0, urlCoopmaths.length) === environment.baseUrl
-}
-
-export function goVue (mouseEvent: MouseEvent, destinationVue: string, ref?: string) {
-  if (mouseEvent.button === 0 && !mouseEvent.ctrlKey && !mouseEvent.metaKey) {
-    mouseEvent.preventDefault()
-    if (ref !== undefined) reference.set(ref)
-    vue.set(destinationVue)
-    window.history.pushState({}, '', `?v=${destinationVue}${ref !== undefined ? '&ref=' + ref : ''}`)
-  }
 }
 
 export function normaliser (chaine: string) {

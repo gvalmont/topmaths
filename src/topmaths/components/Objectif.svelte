@@ -7,7 +7,8 @@
     reference
   } from '../services/store'
   import type { ObjectifObjectif } from '../services/types'
-  import { getTitre, goVue } from '../services/outils'
+  import { getTitre } from '../services/outils'
+  import { goVue } from '../services/navigation'
   import { afterUpdate, onDestroy, tick } from 'svelte'
   import type { Unsubscriber } from 'svelte/store'
   import {

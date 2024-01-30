@@ -1,6 +1,6 @@
 <script lang="ts">
   import { reference } from '../../services/store'
-  import { goVue } from '../../services/outils'
+  import { goVue } from '../../services/navigation'
   import InstallationAnki from './tutos/InstallationAnki.svelte'
 </script>
 

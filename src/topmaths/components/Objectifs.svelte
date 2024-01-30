@@ -1,6 +1,7 @@
 <script lang="ts">
   import { modeEnseignant, niveauxObjectifs, titresProchesDesAttendus } from '../services/store'
-  import { goVue, normaliser } from '../services/outils'
+  import { normaliser } from '../services/outils'
+  import { goVue } from '../services/navigation'
   import { onDestroy } from 'svelte'
   import type { Unsubscriber } from 'svelte/store'
   import { writable, derived } from 'svelte/store'

@@ -4,7 +4,7 @@
   import { environment } from '../services/environment'
   import Sequences from './Sequences.svelte'
   import Sequence from './Sequence.svelte'
-  import { goVue } from '../services/outils'
+  import { goVue } from '../services/navigation'
   import Objectifs from './Objectifs.svelte'
   import Objectif from './Objectif.svelte'
   import { storage } from '../services/storage'

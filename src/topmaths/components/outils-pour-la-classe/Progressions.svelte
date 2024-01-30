@@ -1,6 +1,7 @@
 <script lang="ts">
   import { modeEnseignant, niveauxSequences, titresProchesDesAttendus } from '../../services/store'
-  import { getTheme, goVue, normaliser } from '../../services/outils'
+  import { getTheme, normaliser } from '../../services/outils'
+  import { goVue } from '../../services/navigation'
   import type { Unsubscriber } from 'svelte/store'
   import { writable, derived } from 'svelte/store'
   import type { SequenceCalculMental, SequenceObjectif, SequenceQuestionFlash } from '../../services/types'

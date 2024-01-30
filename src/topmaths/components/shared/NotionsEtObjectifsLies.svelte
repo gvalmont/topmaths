@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { LexiqueItem } from '../../services/types'
   import { tick } from 'svelte'
-  import { goVue } from '../../services/outils'
+  import { goVue } from '../../services/navigation'
   import { texteRecherche } from '../../services/store'
 
   export let ligne: LexiqueItem

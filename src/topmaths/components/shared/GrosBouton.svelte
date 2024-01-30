@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Couleur } from 'src/topmaths/services/types'
-  import { goVue } from '../../services/outils'
+  import { goVue } from '../../services/navigation'
 
   export let vue: string
   // eslint-disable-next-line no-undef-init
