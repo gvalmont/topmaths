@@ -276,20 +276,22 @@ function zoomUpdate (plusMinus: '+' | '-', exerciseIndex: number) {
 >
   {#each exercisesWithMeta as exerciseWithMeta}
     <div class="flex flex-col justify-start items-start" id="exercice{exerciseWithMeta.exerciseIndex}">
-      <HeaderExerciceMathalea
-        exerciseType={exerciseWithMeta.exerciseType}
-        exerciseIndex={exerciseWithMeta.exerciseIndex}
-        exercise={exerciseWithMeta.exercise ?? new Exercice()}
-        bind:isCorrectionVisible={exerciseWithMeta.isCorrectionVisible}
-        {isMd}
-        nbCols={exerciseWithMeta.nbCols}
-        {columnsCountUpdate}
-        {newData}
-        {spacingUpdate}
-        {switchCorrectionVisible}
-        {copyLink}
-        {zoomUpdate}
-      />
+      {#if exerciseWithMeta.exerciseType !== 'html'}
+        <HeaderExerciceMathalea
+          exerciseType={exerciseWithMeta.exerciseType}
+          exerciseIndex={exerciseWithMeta.exerciseIndex}
+          exercise={exerciseWithMeta.exercise ?? new Exercice()}
+          bind:isCorrectionVisible={exerciseWithMeta.isCorrectionVisible}
+          {isMd}
+          nbCols={exerciseWithMeta.nbCols}
+          {columnsCountUpdate}
+          {newData}
+          {spacingUpdate}
+          {switchCorrectionVisible}
+          {copyLink}
+          {zoomUpdate}
+        />
+      {/if}
       <div class="break-inside-avoid-column">
         {#if exerciseWithMeta.exerciseType === 'static'}
           <ExerciceStatic
