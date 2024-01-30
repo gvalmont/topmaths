@@ -3807,11 +3807,7 @@
                 "exercices": [
                   {
                     "slug": "uuid=06633&n=4&d=10&s=11&s2=3",
-                    "description": "Compléter des égalités entre fractions"
-                  },
-                  {
-                    "slug": "6N41-1,s=13,s2=6",
-                    "description": "Labyrinthes"
+                    "description": ""
                   }
                 ],
                 "fiches": [
@@ -5804,12 +5800,7 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=1~q=1.~p=~t=30~n=8",
-                    "description": "Calcul mental"
-                  },
-                  {
-                    "slug": "4A10-1,s=2,s2=6,s3=1,s4=1,n=4",
-                    "description": "Labyrinthes"
+                    "slug": "uuid=03d65&id=5A12-2&n=8&d=10&s=100"
                   }
                 ]
               },
