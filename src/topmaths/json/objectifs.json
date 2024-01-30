@@ -5032,6 +5032,12 @@
                 "rappelDuCoursInstrumenpoche": "image-figure-translation",
                 "videos": [
                   {
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=_Ju_sbSnIFI&vignette=https://i.ytimg.com/vi/_Ju_sbSnIFI/hqdefault.jpg&debut=0&fin=156&largeur=16&hauteur=9",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
+                  {
                     "titre": "Image d'un point",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=YzG5ZP9Kp6k&vignette=https://i.ytimg.com/vi/YzG5ZP9Kp6k/hqdefault.jpg&debut=0&fin=221&largeur=200&hauteur=113",
                     "auteur": "Yvan Monka",
@@ -5750,7 +5756,13 @@
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
-                    "titre": "",
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=afiu6VUhngo&vignette=https://i.ytimg.com/vi/afiu6VUhngo/hqdefault.jpg&debut=0&fin=183&largeur=16&hauteur=9",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
+                  {
+                    "titre": "Explications détaillées",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=cgw0QhC8XVM&vignette=https://i.ytimg.com/vi/cgw0QhC8XVM/hqdefault.jpg&debut=0&fin=386&largeur=200&hauteur=113",
                     "auteur": "Mathrix",
                     "lienAuteur": "https://www.youtube.com/channel/UCdH4RLzP9UIxV299clvj1rg"
@@ -6423,6 +6435,12 @@
                 "rappelDuCoursHTML": "",
                 "rappelDuCoursImage": "methode_rotation.png",
                 "videos": [
+                  {
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=_Ju_sbSnIFI&vignette=https://i.ytimg.com/vi/_Ju_sbSnIFI/hqdefault.jpg&debut=0&fin=156&largeur=16&hauteur=9",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
                   {
                     "titre": "Construire l'image d'un point",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=xd_-KzMmjwI&vignette=https://i.ytimg.com/vi/xd_-KzMmjwI/hqdefault.jpg&debut=0&fin=386&largeur=200&hauteur=113",
