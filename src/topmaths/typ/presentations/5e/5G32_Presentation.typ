@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "5P11 : Utiliser l'échelle d'une carte")
+#show: doc => presentation(doc, titre: "5G32 : Connaître et utiliser la somme des angles d'un triangle")
 #show: doc => normal(doc)
 
 #slide()[
