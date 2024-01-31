@@ -3455,34 +3455,25 @@
         "slugEvalBrevet": "ex=dnb_2022_06_metropole_mathalea_3&ex=dnb_2022_06_etrangers_5&ex=dnb_2021_06_metropole_2&ex=dnb_2020_12_caledonie_6&ex=dnb_2018_12_caledonie_3"
       },
       {
-        "titre": "Proportionnalité en géométrie 4 (Trigonométrie 2)",
+        "titre": "Proportionnalité en géométrie 4 (Homothétie)",
         "periode": 3,
         "objectifs": [
           {
-            "reference": "3G21"
+            "reference": "3G11"
           }
         ],
         "calculsMentaux": [
           {
-            "reference": "3S30",
+            "reference": "",
             "exercices": [
               {
-                "description": "",
-                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=3DD2~o=0,1~q=0.0,1,2-1.0,1,2~p=~t=12~n=8"
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='/?uuid=dnb_2017_11_ameriquesud_4&uuid=dnb_2017_12_wallisfutuna_1&uuid=dnb_2018_07_polynesie_1&uuid=dnb_2018_09_polynesie_1&uuid=dnb_2019_11_ameriquesud_1&uuid=dnb_2018_12_caledonie_1&uuid=dnb_2019_03_caledonie_1&uuid=dnb_2019_06_etrangers_1&uuid=dnb_2019_07_polynesie_1&uuid=dnb_2019_09_polynesie_1&uuid=dnb_2020_09_metropole_1&uuid=dnb_2021_09_metropole_1&uuid=dnb_2021_11_ameriquesud_1&uuid=dnb_2022_06_polynesie_1&uuid=dnb_2019_03_caledonie_7&uuid=dnb_2018_11_ameriquesud_7&uuid=dnb_2018_12_caledonie_7&uuid=dnb_2021_06_asie_4&uuid=dnb_2018_06_etrangers_1&uuid=dnb_2019_06_ameriquenord_2&uuid=dnb_2018_11_ameriquesud_1&uuid=dnb_2018_05_pondichery_3&uuid=dnb_2021_06_metropole_3&uuid=dnb_2022_06_metropole_mathalea_2&uuid=dnb_2017_06_polynesie_1&uuid=dnb_2017_06_ameriquenord_1&uuid=dnb_2018_06_asie_3&uuid=dnb_2019_12_caledonie_1&uuid=dnb_2020_09_antillesguyanne_2&uuid=dnb_2022_06_etrangers_1&uuid=dnb_2022_06_ameriquenord_2&uuid=dnb_2022_09_metropole_1&uuid=dnb_2017_12_caledonie_1&uuid=dnb_2023_09_metropole_1&uuid=dnb_2023_06_etrangers_1&uuid=dnb_2023_06_polynesie_1&uuid=dnb_2023_12_caledonie_1&uuid=dnb_2020_12_caledonie_1&uuid=dnb_2013_12_caledonie_1&uuid=dnb_2021_06_asie_1&uuid=dnb_2023_06_asie_2&uuid=dnb_2023_09_polynesie_1&uuid=dnb_2023_06_metropole_3&v=eleve&es=121100'>QCM ou Vrai-Faux tombés ces dernières années !</a>",
+                "slug": ""
               }
             ]
           }
         ],
-        "questionsFlash": [
-          {
-            "reference": "3S20",
-            "slug": "3S20,s=1,n=1"
-          },
-          {
-            "reference": "4N41",
-            "slug": "4A11-0,s=3,s2=false,s3=false,s4=false,n=1"
-          }
-        ],
+        "questionsFlash": [],
         "slugEvalBrevet": "ex=dnb_2022_09_polynesie_2&ex=dnb_2022_06_polynesie_5&ex=dnb_2020_09_antillesguyanne_1&ex=dnb_2019_11_ameriquesud_4&ex=dnb_2022_09_metropole_5"
       },
       {
@@ -3498,119 +3489,20 @@
         ],
         "calculsMentaux": [
           {
-            "reference": "4N41",
-            "exercices": [
-              {
-                "description": "",
-                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND1~o=1~q=1.~p=~t=24~n=8"
-              }
-            ]
-          }
-        ],
-        "questionsFlash": [
-          {
-            "reference": "3G21",
-            "slug": "3G31,s=true,cd=0"
-          },
-          {
-            "reference": "3N22",
-            "slug": "3L11-6,s=2,n=1,cd=1"
-          }
-        ]
-      },
-      {
-        "titre": "Puissances",
-        "periode": 3,
-        "objectifs": [
-          {
-            "reference": "4N32"
-          },
-          {
-            "reference": "4N35"
-          }
-        ],
-        "calculsMentaux": [
-          {
-            "reference": "3N12",
-            "exercices": [
-              {
-                "description": "",
-                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=6NB5~o=1~q=1.~p=~t=18~n=8"
-              }
-            ]
-          }
-        ],
-        "questionsFlash": [
-          {
-            "reference": "4G31",
-            "slug": "3G20,s=2,n=1,video=j_zZOpLLl9k,cd=1"
-          },
-          {
-            "reference": "4N57",
-            "slug": "3L13-0,s=true,s2=4,n=1,cd=1"
-          }
-        ],
-        "slugEvalBrevet": "ex=dnb_2019_09_metropole_2&ex=dnb_2015_06_polynesie_4&ex=dnb_2014_06_asie_1&ex=dnb_2013_04_pondichery_6&ex=dnb_2017_09_metropole_7"
-      },
-      {
-        "titre": "Calcul littéral 4",
-        "periode": 3,
-        "objectifs": [
-          {
-            "reference": "3N23"
-          },
-          {
-            "reference": "3N24"
-          }
-        ],
-        "calculsMentaux": [
-          {
-            "reference": "4N32",
-            "exercices": [
-              {
-                "description": "",
-                "slug": "uuid=1d078&id=4C33-0&n=8&s=3&s2=3&d=20"
-              }
-            ]
-          }
-        ],
-        "questionsFlash": [
-          {
-            "reference": "3S33",
-            "slug": "3F12-2,s=5,n=2"
-          },
-          {
-            "reference": "4N35",
-            "slug": "4C32,s=1,s2=3,n=2"
-          }
-        ],
-        "slugEvalBrevet": "ex=dnb_2021_06_etrangers_3&ex=dnb_2020_09_metropole_2&ex=dnb_2019_07_metropole_6&ex=dnb_2019_06_etrangers_2"
-      },
-      {
-        "titre": "Proportionnalité en géométrie 5 (Homothétie)",
-        "periode": 4,
-        "objectifs": [
-          {
-            "reference": "3G11"
-          }
-        ],
-        "calculsMentaux": [
-          {
             "reference": "",
             "exercices": [
               {
-                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='/?uuid=dnb_2017_11_ameriquesud_4&uuid=dnb_2017_12_wallisfutuna_1&uuid=dnb_2018_07_polynesie_1&uuid=dnb_2018_09_polynesie_1&uuid=dnb_2019_11_ameriquesud_1&uuid=dnb_2018_12_caledonie_1&uuid=dnb_2019_03_caledonie_1&uuid=dnb_2019_06_etrangers_1&uuid=dnb_2019_07_polynesie_1&uuid=dnb_2019_09_polynesie_1&uuid=dnb_2020_09_metropole_1&uuid=dnb_2021_09_metropole_1&uuid=dnb_2021_11_ameriquesud_1&uuid=dnb_2022_06_polynesie_1&uuid=dnb_2019_03_caledonie_7&uuid=dnb_2018_11_ameriquesud_7&uuid=dnb_2018_12_caledonie_7&uuid=dnb_2021_06_asie_4&uuid=dnb_2018_06_etrangers_1&uuid=dnb_2019_06_ameriquenord_2&uuid=dnb_2018_11_ameriquesud_1&uuid=dnb_2018_05_pondichery_3&uuid=dnb_2021_06_metropole_3&uuid=dnb_2022_06_metropole_mathalea_2&uuid=dnb_2017_06_polynesie_1&uuid=dnb_2017_06_ameriquenord_1&uuid=dnb_2018_06_asie_3&uuid=dnb_2019_12_caledonie_1&uuid=dnb_2020_09_antillesguyanne_2&uuid=dnb_2022_06_etrangers_1&uuid=dnb_2022_06_ameriquenord_2&uuid=dnb_2022_09_metropole_1&uuid=dnb_2017_12_caledonie_1&uuid=dnb_2023_09_metropole_1&uuid=dnb_2023_06_etrangers_1&uuid=dnb_2023_06_polynesie_1&uuid=dnb_2023_12_caledonie_1&uuid=dnb_2020_12_caledonie_1&uuid=dnb_2013_12_caledonie_1&uuid=dnb_2021_06_asie_1&uuid=dnb_2023_06_asie_2&uuid=dnb_2023_09_polynesie_1&uuid=dnb_2023_06_metropole_3&v=eleve&es=121100'>QCM ou Vrai-Faux tombés ces dernières années !</a>",
                 "slug": ""
               }
             ]
           }
         ],
-        "questionsFlash": [],
-        "slugEvalBrevet": "ex=dnb_2021_06_asie_2&ex=dnb_2020_09_polynesie_3&ex=dnb_2018_06_asie_6"
+        "questionsFlash": []
       },
       {
         "titre": "Fonctions linéaires",
-        "periode": 4,
+        "periode": 3,
         "objectifs": [
           {
             "reference": "3S40"
@@ -3627,7 +3519,79 @@
             "reference": "",
             "exercices": [
               {
-                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='/?uuid=dnb_2017_11_ameriquesud_4&uuid=dnb_2017_12_wallisfutuna_1&uuid=dnb_2018_07_polynesie_1&uuid=dnb_2018_09_polynesie_1&uuid=dnb_2019_11_ameriquesud_1&uuid=dnb_2018_12_caledonie_1&uuid=dnb_2019_03_caledonie_1&uuid=dnb_2019_06_etrangers_1&uuid=dnb_2019_07_polynesie_1&uuid=dnb_2019_09_polynesie_1&uuid=dnb_2020_09_metropole_1&uuid=dnb_2021_09_metropole_1&uuid=dnb_2021_11_ameriquesud_1&uuid=dnb_2022_06_polynesie_1&uuid=dnb_2019_03_caledonie_7&uuid=dnb_2018_11_ameriquesud_7&uuid=dnb_2018_12_caledonie_7&uuid=dnb_2021_06_asie_4&uuid=dnb_2018_06_etrangers_1&uuid=dnb_2019_06_ameriquenord_2&uuid=dnb_2018_11_ameriquesud_1&uuid=dnb_2018_05_pondichery_3&uuid=dnb_2021_06_metropole_3&uuid=dnb_2022_06_metropole_mathalea_2&uuid=dnb_2017_06_polynesie_1&uuid=dnb_2017_06_ameriquenord_1&uuid=dnb_2018_06_asie_3&uuid=dnb_2019_12_caledonie_1&uuid=dnb_2020_09_antillesguyanne_2&uuid=dnb_2022_06_etrangers_1&uuid=dnb_2022_06_ameriquenord_2&uuid=dnb_2022_09_metropole_1&uuid=dnb_2017_12_caledonie_1&uuid=dnb_2023_09_metropole_1&uuid=dnb_2023_06_etrangers_1&uuid=dnb_2023_06_polynesie_1&uuid=dnb_2023_12_caledonie_1&uuid=dnb_2020_12_caledonie_1&uuid=dnb_2013_12_caledonie_1&uuid=dnb_2021_06_asie_1&uuid=dnb_2023_06_asie_2&uuid=dnb_2023_09_polynesie_1&uuid=dnb_2023_06_metropole_3&v=eleve&es=121100'>QCM ou Vrai-Faux tombés ces dernières années !</a>",
+                "slug": ""
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [],
+        "slugEvalBrevet": "ex=dnb_2019_09_metropole_2&ex=dnb_2015_06_polynesie_4&ex=dnb_2014_06_asie_1&ex=dnb_2013_04_pondichery_6&ex=dnb_2017_09_metropole_7"
+      },
+      {
+        "titre": "Calcul littéral 4",
+        "periode": 3,
+        "objectifs": [
+          {
+            "reference": "3N23"
+          },
+          {
+            "reference": "3N24"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "",
+            "exercices": [
+              {
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='/?uuid=dnb_2017_11_ameriquesud_4&uuid=dnb_2017_12_wallisfutuna_1&uuid=dnb_2018_07_polynesie_1&uuid=dnb_2018_09_polynesie_1&uuid=dnb_2019_11_ameriquesud_1&uuid=dnb_2018_12_caledonie_1&uuid=dnb_2019_03_caledonie_1&uuid=dnb_2019_06_etrangers_1&uuid=dnb_2019_07_polynesie_1&uuid=dnb_2019_09_polynesie_1&uuid=dnb_2020_09_metropole_1&uuid=dnb_2021_09_metropole_1&uuid=dnb_2021_11_ameriquesud_1&uuid=dnb_2022_06_polynesie_1&uuid=dnb_2019_03_caledonie_7&uuid=dnb_2018_11_ameriquesud_7&uuid=dnb_2018_12_caledonie_7&uuid=dnb_2021_06_asie_4&uuid=dnb_2018_06_etrangers_1&uuid=dnb_2019_06_ameriquenord_2&uuid=dnb_2018_11_ameriquesud_1&uuid=dnb_2018_05_pondichery_3&uuid=dnb_2021_06_metropole_3&uuid=dnb_2022_06_metropole_mathalea_2&uuid=dnb_2017_06_polynesie_1&uuid=dnb_2017_06_ameriquenord_1&uuid=dnb_2018_06_asie_3&uuid=dnb_2019_12_caledonie_1&uuid=dnb_2020_09_antillesguyanne_2&uuid=dnb_2022_06_etrangers_1&uuid=dnb_2022_06_ameriquenord_2&uuid=dnb_2022_09_metropole_1&uuid=dnb_2017_12_caledonie_1&uuid=dnb_2023_09_metropole_1&uuid=dnb_2023_06_etrangers_1&uuid=dnb_2023_06_polynesie_1&uuid=dnb_2023_12_caledonie_1&uuid=dnb_2020_12_caledonie_1&uuid=dnb_2013_12_caledonie_1&uuid=dnb_2021_06_asie_1&uuid=dnb_2023_06_asie_2&uuid=dnb_2023_09_polynesie_1&uuid=dnb_2023_06_metropole_3&v=eleve&es=121100'>QCM ou Vrai-Faux tombés ces dernières années !</a>",
+                "slug": ""
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [],
+        "slugEvalBrevet": "ex=dnb_2021_06_etrangers_3&ex=dnb_2020_09_metropole_2&ex=dnb_2019_07_metropole_6&ex=dnb_2019_06_etrangers_2"
+      },
+      {
+        "titre": "Proportionnalité en géométrie 5 (Trigonométrie 2)",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "3G21"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "",
+            "exercices": [
+              {
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='/?uuid=dnb_2017_11_ameriquesud_4&uuid=dnb_2017_12_wallisfutuna_1&uuid=dnb_2018_07_polynesie_1&uuid=dnb_2018_09_polynesie_1&uuid=dnb_2019_11_ameriquesud_1&uuid=dnb_2018_12_caledonie_1&uuid=dnb_2019_03_caledonie_1&uuid=dnb_2019_06_etrangers_1&uuid=dnb_2019_07_polynesie_1&uuid=dnb_2019_09_polynesie_1&uuid=dnb_2020_09_metropole_1&uuid=dnb_2021_09_metropole_1&uuid=dnb_2021_11_ameriquesud_1&uuid=dnb_2022_06_polynesie_1&uuid=dnb_2019_03_caledonie_7&uuid=dnb_2018_11_ameriquesud_7&uuid=dnb_2018_12_caledonie_7&uuid=dnb_2021_06_asie_4&uuid=dnb_2018_06_etrangers_1&uuid=dnb_2019_06_ameriquenord_2&uuid=dnb_2018_11_ameriquesud_1&uuid=dnb_2018_05_pondichery_3&uuid=dnb_2021_06_metropole_3&uuid=dnb_2022_06_metropole_mathalea_2&uuid=dnb_2017_06_polynesie_1&uuid=dnb_2017_06_ameriquenord_1&uuid=dnb_2018_06_asie_3&uuid=dnb_2019_12_caledonie_1&uuid=dnb_2020_09_antillesguyanne_2&uuid=dnb_2022_06_etrangers_1&uuid=dnb_2022_06_ameriquenord_2&uuid=dnb_2022_09_metropole_1&uuid=dnb_2017_12_caledonie_1&uuid=dnb_2023_09_metropole_1&uuid=dnb_2023_06_etrangers_1&uuid=dnb_2023_06_polynesie_1&uuid=dnb_2023_12_caledonie_1&uuid=dnb_2020_12_caledonie_1&uuid=dnb_2013_12_caledonie_1&uuid=dnb_2021_06_asie_1&uuid=dnb_2023_06_asie_2&uuid=dnb_2023_09_polynesie_1&uuid=dnb_2023_06_metropole_3&v=eleve&es=121100'>QCM ou Vrai-Faux tombés ces dernières années !</a>",
+                "slug": ""
+              }
+            ]
+          }
+        ],
+        "questionsFlash": [],
+        "slugEvalBrevet": "ex=dnb_2021_06_asie_2&ex=dnb_2020_09_polynesie_3&ex=dnb_2018_06_asie_6"
+      },
+      {
+        "titre": "Puissances",
+        "periode": 4,
+        "objectifs": [
+          {
+            "reference": "4N32"
+          },
+          {
+            "reference": "4N35"
+          }
+        ],
+        "calculsMentaux": [
+          {
+            "reference": "",
+            "exercices": [
+              {
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='/?uuid=dnb_2017_11_ameriquesud_4&uuid=dnb_2017_12_wallisfutuna_1&uuid=dnb_2018_07_polynesie_1&uuid=dnb_2018_09_polynesie_1&uuid=dnb_2019_11_ameriquesud_1&uuid=dnb_2018_12_caledonie_1&uuid=dnb_2019_03_caledonie_1&uuid=dnb_2019_06_etrangers_1&uuid=dnb_2019_07_polynesie_1&uuid=dnb_2019_09_polynesie_1&uuid=dnb_2020_09_metropole_1&uuid=dnb_2021_09_metropole_1&uuid=dnb_2021_11_ameriquesud_1&uuid=dnb_2022_06_polynesie_1&uuid=dnb_2019_03_caledonie_7&uuid=dnb_2018_11_ameriquesud_7&uuid=dnb_2018_12_caledonie_7&uuid=dnb_2021_06_asie_4&uuid=dnb_2018_06_etrangers_1&uuid=dnb_2019_06_ameriquenord_2&uuid=dnb_2018_11_ameriquesud_1&uuid=dnb_2018_05_pondichery_3&uuid=dnb_2021_06_metropole_3&uuid=dnb_2022_06_metropole_mathalea_2&uuid=dnb_2017_06_polynesie_1&uuid=dnb_2017_06_ameriquenord_1&uuid=dnb_2018_06_asie_3&uuid=dnb_2019_12_caledonie_1&uuid=dnb_2020_09_antillesguyanne_2&uuid=dnb_2022_06_etrangers_1&uuid=dnb_2022_06_ameriquenord_2&uuid=dnb_2022_09_metropole_1&uuid=dnb_2017_12_caledonie_1&uuid=dnb_2023_09_metropole_1&uuid=dnb_2023_06_etrangers_1&uuid=dnb_2023_06_polynesie_1&uuid=dnb_2023_12_caledonie_1&uuid=dnb_2020_12_caledonie_1&uuid=dnb_2013_12_caledonie_1&uuid=dnb_2021_06_asie_1&uuid=dnb_2023_06_asie_2&uuid=dnb_2023_09_polynesie_1&uuid=dnb_2023_06_metropole_3&v=eleve&es=121100'>QCM ou Vrai-Faux tombés ces dernières années !</a>",
                 "slug": ""
               }
             ]
@@ -3649,7 +3613,7 @@
             "reference": "",
             "exercices": [
               {
-                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='/?uuid=dnb_2017_11_ameriquesud_4&uuid=dnb_2017_12_wallisfutuna_1&uuid=dnb_2018_07_polynesie_1&uuid=dnb_2018_09_polynesie_1&uuid=dnb_2019_11_ameriquesud_1&uuid=dnb_2018_12_caledonie_1&uuid=dnb_2019_03_caledonie_1&uuid=dnb_2019_06_etrangers_1&uuid=dnb_2019_07_polynesie_1&uuid=dnb_2019_09_polynesie_1&uuid=dnb_2020_09_metropole_1&uuid=dnb_2021_09_metropole_1&uuid=dnb_2021_11_ameriquesud_1&uuid=dnb_2022_06_polynesie_1&uuid=dnb_2019_03_caledonie_7&uuid=dnb_2018_11_ameriquesud_7&uuid=dnb_2018_12_caledonie_7&uuid=dnb_2021_06_asie_4&uuid=dnb_2018_06_etrangers_1&uuid=dnb_2019_06_ameriquenord_2&uuid=dnb_2018_11_ameriquesud_1&uuid=dnb_2018_05_pondichery_3&uuid=dnb_2021_06_metropole_3&uuid=dnb_2022_06_metropole_mathalea_2&uuid=dnb_2017_06_polynesie_1&uuid=dnb_2017_06_ameriquenord_1&uuid=dnb_2018_06_asie_3&uuid=dnb_2019_12_caledonie_1&uuid=dnb_2020_09_antillesguyanne_2&uuid=dnb_2022_06_etrangers_1&uuid=dnb_2022_06_ameriquenord_2&uuid=dnb_2022_09_metropole_1&uuid=dnb_2017_12_caledonie_1&uuid=dnb_2023_09_metropole_1&uuid=dnb_2023_06_etrangers_1&uuid=dnb_2023_06_polynesie_1&uuid=dnb_2023_12_caledonie_1&uuid=dnb_2020_12_caledonie_1&uuid=dnb_2013_12_caledonie_1&uuid=dnb_2021_06_asie_1&uuid=dnb_2023_06_asie_2&uuid=dnb_2023_09_polynesie_1&uuid=dnb_2023_06_metropole_3&v=eleve&es=121100'>QCM ou Vrai-Faux tombés ces dernières années !</a>",
                 "slug": ""
               }
             ]
@@ -3682,7 +3646,7 @@
             "reference": "",
             "exercices": [
               {
-                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='/?uuid=dnb_2017_11_ameriquesud_4&uuid=dnb_2017_12_wallisfutuna_1&uuid=dnb_2018_07_polynesie_1&uuid=dnb_2018_09_polynesie_1&uuid=dnb_2019_11_ameriquesud_1&uuid=dnb_2018_12_caledonie_1&uuid=dnb_2019_03_caledonie_1&uuid=dnb_2019_06_etrangers_1&uuid=dnb_2019_07_polynesie_1&uuid=dnb_2019_09_polynesie_1&uuid=dnb_2020_09_metropole_1&uuid=dnb_2021_09_metropole_1&uuid=dnb_2021_11_ameriquesud_1&uuid=dnb_2022_06_polynesie_1&uuid=dnb_2019_03_caledonie_7&uuid=dnb_2018_11_ameriquesud_7&uuid=dnb_2018_12_caledonie_7&uuid=dnb_2021_06_asie_4&uuid=dnb_2018_06_etrangers_1&uuid=dnb_2019_06_ameriquenord_2&uuid=dnb_2018_11_ameriquesud_1&uuid=dnb_2018_05_pondichery_3&uuid=dnb_2021_06_metropole_3&uuid=dnb_2022_06_metropole_mathalea_2&uuid=dnb_2017_06_polynesie_1&uuid=dnb_2017_06_ameriquenord_1&uuid=dnb_2018_06_asie_3&uuid=dnb_2019_12_caledonie_1&uuid=dnb_2020_09_antillesguyanne_2&uuid=dnb_2022_06_etrangers_1&uuid=dnb_2022_06_ameriquenord_2&uuid=dnb_2022_09_metropole_1&uuid=dnb_2017_12_caledonie_1&uuid=dnb_2023_09_metropole_1&uuid=dnb_2023_06_etrangers_1&uuid=dnb_2023_06_polynesie_1&uuid=dnb_2023_12_caledonie_1&uuid=dnb_2020_12_caledonie_1&uuid=dnb_2013_12_caledonie_1&uuid=dnb_2021_06_asie_1&uuid=dnb_2023_06_asie_2&uuid=dnb_2023_09_polynesie_1&uuid=dnb_2023_06_metropole_3&v=eleve&es=121100'>QCM ou Vrai-Faux tombés ces dernières années !</a>",
                 "slug": ""
               }
             ]
@@ -3707,7 +3671,7 @@
             "reference": "",
             "exercices": [
               {
-                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='/?uuid=dnb_2017_11_ameriquesud_4&uuid=dnb_2017_12_wallisfutuna_1&uuid=dnb_2018_07_polynesie_1&uuid=dnb_2018_09_polynesie_1&uuid=dnb_2019_11_ameriquesud_1&uuid=dnb_2018_12_caledonie_1&uuid=dnb_2019_03_caledonie_1&uuid=dnb_2019_06_etrangers_1&uuid=dnb_2019_07_polynesie_1&uuid=dnb_2019_09_polynesie_1&uuid=dnb_2020_09_metropole_1&uuid=dnb_2021_09_metropole_1&uuid=dnb_2021_11_ameriquesud_1&uuid=dnb_2022_06_polynesie_1&uuid=dnb_2019_03_caledonie_7&uuid=dnb_2018_11_ameriquesud_7&uuid=dnb_2018_12_caledonie_7&uuid=dnb_2021_06_asie_4&uuid=dnb_2018_06_etrangers_1&uuid=dnb_2019_06_ameriquenord_2&uuid=dnb_2018_11_ameriquesud_1&uuid=dnb_2018_05_pondichery_3&uuid=dnb_2021_06_metropole_3&uuid=dnb_2022_06_metropole_mathalea_2&uuid=dnb_2017_06_polynesie_1&uuid=dnb_2017_06_ameriquenord_1&uuid=dnb_2018_06_asie_3&uuid=dnb_2019_12_caledonie_1&uuid=dnb_2020_09_antillesguyanne_2&uuid=dnb_2022_06_etrangers_1&uuid=dnb_2022_06_ameriquenord_2&uuid=dnb_2022_09_metropole_1&uuid=dnb_2017_12_caledonie_1&uuid=dnb_2023_09_metropole_1&uuid=dnb_2023_06_etrangers_1&uuid=dnb_2023_06_polynesie_1&uuid=dnb_2023_12_caledonie_1&uuid=dnb_2020_12_caledonie_1&uuid=dnb_2013_12_caledonie_1&uuid=dnb_2021_06_asie_1&uuid=dnb_2023_06_asie_2&uuid=dnb_2023_09_polynesie_1&uuid=dnb_2023_06_metropole_3&v=eleve&es=121100'>QCM ou Vrai-Faux tombés ces dernières années !</a>",
                 "slug": ""
               }
             ]
@@ -3731,7 +3695,7 @@
             "reference": "",
             "exercices": [
               {
-                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='/?uuid=dnb_2017_11_ameriquesud_4&uuid=dnb_2017_12_wallisfutuna_1&uuid=dnb_2018_07_polynesie_1&uuid=dnb_2018_09_polynesie_1&uuid=dnb_2019_11_ameriquesud_1&uuid=dnb_2018_12_caledonie_1&uuid=dnb_2019_03_caledonie_1&uuid=dnb_2019_06_etrangers_1&uuid=dnb_2019_07_polynesie_1&uuid=dnb_2019_09_polynesie_1&uuid=dnb_2020_09_metropole_1&uuid=dnb_2021_09_metropole_1&uuid=dnb_2021_11_ameriquesud_1&uuid=dnb_2022_06_polynesie_1&uuid=dnb_2019_03_caledonie_7&uuid=dnb_2018_11_ameriquesud_7&uuid=dnb_2018_12_caledonie_7&uuid=dnb_2021_06_asie_4&uuid=dnb_2018_06_etrangers_1&uuid=dnb_2019_06_ameriquenord_2&uuid=dnb_2018_11_ameriquesud_1&uuid=dnb_2018_05_pondichery_3&uuid=dnb_2021_06_metropole_3&uuid=dnb_2022_06_metropole_mathalea_2&uuid=dnb_2017_06_polynesie_1&uuid=dnb_2017_06_ameriquenord_1&uuid=dnb_2018_06_asie_3&uuid=dnb_2019_12_caledonie_1&uuid=dnb_2020_09_antillesguyanne_2&uuid=dnb_2022_06_etrangers_1&uuid=dnb_2022_06_ameriquenord_2&uuid=dnb_2022_09_metropole_1&uuid=dnb_2017_12_caledonie_1&uuid=dnb_2023_09_metropole_1&uuid=dnb_2023_06_etrangers_1&uuid=dnb_2023_06_polynesie_1&uuid=dnb_2023_12_caledonie_1&uuid=dnb_2020_12_caledonie_1&uuid=dnb_2013_12_caledonie_1&uuid=dnb_2021_06_asie_1&uuid=dnb_2023_06_asie_2&uuid=dnb_2023_09_polynesie_1&uuid=dnb_2023_06_metropole_3&v=eleve&es=121100'>QCM ou Vrai-Faux tombés ces dernières années !</a>",
                 "slug": ""
               }
             ]
@@ -3759,7 +3723,7 @@
             "reference": "",
             "exercices": [
               {
-                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='/?uuid=dnb_2017_11_ameriquesud_4&uuid=dnb_2017_12_wallisfutuna_1&uuid=dnb_2018_07_polynesie_1&uuid=dnb_2018_09_polynesie_1&uuid=dnb_2019_11_ameriquesud_1&uuid=dnb_2018_12_caledonie_1&uuid=dnb_2019_03_caledonie_1&uuid=dnb_2019_06_etrangers_1&uuid=dnb_2019_07_polynesie_1&uuid=dnb_2019_09_polynesie_1&uuid=dnb_2020_09_metropole_1&uuid=dnb_2021_09_metropole_1&uuid=dnb_2021_11_ameriquesud_1&uuid=dnb_2022_06_polynesie_1&uuid=dnb_2019_03_caledonie_7&uuid=dnb_2018_11_ameriquesud_7&uuid=dnb_2018_12_caledonie_7&uuid=dnb_2021_06_asie_4&uuid=dnb_2018_06_etrangers_1&uuid=dnb_2019_06_ameriquenord_2&uuid=dnb_2018_11_ameriquesud_1&uuid=dnb_2018_05_pondichery_3&uuid=dnb_2021_06_metropole_3&uuid=dnb_2022_06_metropole_mathalea_2&uuid=dnb_2017_06_polynesie_1&uuid=dnb_2017_06_ameriquenord_1&uuid=dnb_2018_06_asie_3&uuid=dnb_2019_12_caledonie_1&uuid=dnb_2020_09_antillesguyanne_2&uuid=dnb_2022_06_etrangers_1&uuid=dnb_2022_06_ameriquenord_2&uuid=dnb_2022_09_metropole_1&uuid=dnb_2017_12_caledonie_1&uuid=dnb_2023_09_metropole_1&uuid=dnb_2023_06_etrangers_1&uuid=dnb_2023_06_polynesie_1&uuid=dnb_2023_12_caledonie_1&uuid=dnb_2020_12_caledonie_1&uuid=dnb_2013_12_caledonie_1&uuid=dnb_2021_06_asie_1&uuid=dnb_2023_06_asie_2&uuid=dnb_2023_09_polynesie_1&uuid=dnb_2023_06_metropole_3&v=eleve&es=121100'>QCM ou Vrai-Faux tombés ces dernières années !</a>",
                 "slug": ""
               }
             ]
@@ -3784,7 +3748,7 @@
             "reference": "",
             "exercices": [
               {
-                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='https://coopmaths.fr/mathalea.html?ex=dnb_2018_12_caledonie_7&ex=dnb_2018_11_ameriquesud_7&ex=dnb_2018_09_polynesie_1&ex=dnb_2018_07_polynesie_1&ex=dnb_2018_06_etrangers_1&ex=dnb_2018_12_caledonie_1&ex=dnb_2018_11_ameriquesud_1&ex=dnb_2018_06_asie_3&ex=dnb_2018_05_pondichery_3&ex=dnb_2019_03_caledonie_7,i=0&ex=dnb_2019_06_ameriquenord_2,i=0&ex=dnb_2019_11_ameriquesud_1,i=0&ex=dnb_2021_06_asie_4,i=0&ex=dnb_2021_11_ameriquesud_1,i=0&ex=dnb_2021_09_metropole_1,i=0&ex=dnb_2019_03_caledonie_1,i=0&ex=dnb_2019_06_etrangers_1,i=0&ex=dnb_2019_07_polynesie_1,i=0&ex=dnb_2019_09_polynesie_1,i=0&ex=dnb_2019_12_caledonie_1,i=0&ex=dnb_2020_09_antillesguyanne_2,i=0&ex=dnb_2020_09_metropole_1,i=0&ex=dnb_2020_12_caledonie_1,i=0&ex=dnb_2021_06_asie_1,i=0&ex=dnb_2021_06_metropole_3,i=0&ex=dnb_2022_09_metropole_1&ex=dnb_2022_06_metropole_mathalea_2&ex=dnb_2022_06_etrangers_1&ex=dnb_2022_06_ameriquenord_2&ex=dnb_2022_06_polynesie_1&serie=kkRf&v=can&z=1'>QCM ou Vrai-Faux tombés ces 5 dernières années !</a>",
+                "description": "Maintenant, les calculs mentaux de début d'heure seront beaucoup moins fréquents, on fera des <a href='/?uuid=dnb_2017_11_ameriquesud_4&uuid=dnb_2017_12_wallisfutuna_1&uuid=dnb_2018_07_polynesie_1&uuid=dnb_2018_09_polynesie_1&uuid=dnb_2019_11_ameriquesud_1&uuid=dnb_2018_12_caledonie_1&uuid=dnb_2019_03_caledonie_1&uuid=dnb_2019_06_etrangers_1&uuid=dnb_2019_07_polynesie_1&uuid=dnb_2019_09_polynesie_1&uuid=dnb_2020_09_metropole_1&uuid=dnb_2021_09_metropole_1&uuid=dnb_2021_11_ameriquesud_1&uuid=dnb_2022_06_polynesie_1&uuid=dnb_2019_03_caledonie_7&uuid=dnb_2018_11_ameriquesud_7&uuid=dnb_2018_12_caledonie_7&uuid=dnb_2021_06_asie_4&uuid=dnb_2018_06_etrangers_1&uuid=dnb_2019_06_ameriquenord_2&uuid=dnb_2018_11_ameriquesud_1&uuid=dnb_2018_05_pondichery_3&uuid=dnb_2021_06_metropole_3&uuid=dnb_2022_06_metropole_mathalea_2&uuid=dnb_2017_06_polynesie_1&uuid=dnb_2017_06_ameriquenord_1&uuid=dnb_2018_06_asie_3&uuid=dnb_2019_12_caledonie_1&uuid=dnb_2020_09_antillesguyanne_2&uuid=dnb_2022_06_etrangers_1&uuid=dnb_2022_06_ameriquenord_2&uuid=dnb_2022_09_metropole_1&uuid=dnb_2017_12_caledonie_1&uuid=dnb_2023_09_metropole_1&uuid=dnb_2023_06_etrangers_1&uuid=dnb_2023_06_polynesie_1&uuid=dnb_2023_12_caledonie_1&uuid=dnb_2020_12_caledonie_1&uuid=dnb_2013_12_caledonie_1&uuid=dnb_2021_06_asie_1&uuid=dnb_2023_06_asie_2&uuid=dnb_2023_09_polynesie_1&uuid=dnb_2023_06_metropole_3&v=eleve&es=121100'>QCM ou Vrai-Faux tombés ces dernières années !</a>",
                 "slug": ""
               }
             ]
