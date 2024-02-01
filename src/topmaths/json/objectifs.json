@@ -6506,11 +6506,7 @@
                 "exercices": [
                   {
                     "slug": "3G30,s=true,cd=0",
-                    "description": "Exercices avec schéma"
-                  },
-                  {
-                    "slug": "3G30,s=false,cd=0",
-                    "description": "Exercices sans schéma"
+                    "description": ""
                   }
                 ]
               },
