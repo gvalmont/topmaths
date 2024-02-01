@@ -202,5 +202,17 @@
 
 <style>
   .is-family-primary {
-    font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important; }
+    font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
+  }
+
+  #overlayHeure {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 200;
+    width: 60px;
+    height: 30px;
+    font-size: 18px;
+    transition: width 1s, height 1s, font-size 1s;
+  }
 </style>

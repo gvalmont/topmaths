@@ -9,13 +9,13 @@
 
 <h1 class="title text-2xl md:text-4xl font-semibold p-4 is-tout">Défis géométriques</h1>
 <div class="is-tout is-fin">
-  <p class="noir">
+  <p class="text-slate-700">
     <br />
     Des défis géométriques à relever.<br />
     Allez-vous réussir à reproduire ces figures ?
   </p>
   <br />
-  <p class="italic noir">
+  <p class="italic text-slate-700">
     (Ce sont les mêmes défis que dans le porte-vues jaune)
   </p>
   <br />
@@ -28,5 +28,5 @@
       </div>
     {/each}
   </div>
-  <p class="text-base md:text-xl noir p-8">Ces activités géniales ont été créées par <a href="https://www-irem.univ-paris13.fr/site_spip/spip.php?article263">l'IREM de Paris-Nord</a> qui propose aussi <a href="https://www-irem.univ-paris13.fr/site_spip/spip.php?article1263">une version papier</a> !</p>
+  <p class="text-base md:text-xl text-slate-700 p-8">Ces activités géniales ont été créées par <a href="https://www-irem.univ-paris13.fr/site_spip/spip.php?article263">l'IREM de Paris-Nord</a> qui propose aussi <a href="https://www-irem.univ-paris13.fr/site_spip/spip.php?article1263">une version papier</a> !</p>
 </div>

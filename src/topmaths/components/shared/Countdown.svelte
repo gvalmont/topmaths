@@ -41,6 +41,16 @@
 </div>
 
 <style lang="scss">
+  .pleinEcran {
+    position: fixed;
+    background: white;
+    font-family: Helvetica, Arial, sans-serif;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+  }
   *,
   *:before,
   *:after {
@@ -80,11 +90,6 @@
 
   $totalLen: $num1Len + $num2Len + $num3Len + $numJoin1-2 + $numJoin2-3 +
     $numJoin3-0;
-
-  .pleinEcran {
-    background: white;
-    font-family: Helvetica, Arial, sans-serif;
-  }
 
   .demo {
     position: absolute;
