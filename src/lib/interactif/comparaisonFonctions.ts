@@ -74,6 +74,10 @@ function generateCleaner (operations: CleaningOperation[]): (str: string) => str
  * @return {Grandeur|false} l'objet de type Grandeur qui contient la valeur et l'unité... ou false si c'est pas une grandeur.
  */
 function inputToGrandeur (input: string): Grandeur | false {
+  if (input.indexOf('°C') > 0) {
+    const split = input.split('°C')
+    return new Grandeur(parseFloat(split[0].replace(',', '.')), '°C')
+  }
   if (input.indexOf('°') > 0) {
     const split = input.split('°')
     return new Grandeur(parseFloat(split[0].replace(',', '.')), '°')
@@ -353,13 +357,22 @@ export function texteAvecEspacesCompare (input: string, goodAnswer: string): { i
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
+  // parce qu'il vaut mieux être trop prudent que pas assez, j'applique le même traitement à goodAnswer qu'à input ;-)
+  goodAnswer = goodAnswer.replaceAll('\\:', ' ') // Suppression des espaces LaTeX (présents quand on met des crochets pour les segments)
+  goodAnswer = goodAnswer.replaceAll('\\left\\lbrack ', '[').replaceAll('\\right\\rbrack ', ']') // Suppression des crochets LaTeX (pour les segments)
+  while (goodAnswer.includes('  ')) goodAnswer = goodAnswer.replace('  ', ' ') // Pour enlever tous les doubles espaces
+  goodAnswer = goodAnswer.replaceAll('\\text{', '').replaceAll('}', '').replaceAll('$', '') // Supprimer le \text{....} mis par MathLive
+  if (goodAnswer[0] === ' ') goodAnswer = goodAnswer.substring(1, goodAnswer.length) // Supprimer l'eventuel espace en début de ligne
+  if (goodAnswer[goodAnswer.length - 1] === ' ') goodAnswer = goodAnswer.substring(0, goodAnswer.length - 1) // Supprimer l'éventuel espace en fin de ligne
+
   input = input.replaceAll('\\:', ' ') // Suppression des espaces LaTeX (présents quand on met des crochets pour les segments)
   input = input.replaceAll('\\left\\lbrack ', '[').replaceAll('\\right\\rbrack ', ']') // Suppression des crochets LaTeX (pour les segments)
   while (input.includes('  ')) input = input.replace('  ', ' ') // Pour enlever tous les doubles espaces
   input = input.replaceAll('\\text{', '').replaceAll('}', '').replaceAll('$', '') // Supprimer le \text{....} mis par MathLive
   if (input[0] === ' ') input = input.substring(1, input.length) // Supprimer l'eventuel espace en début de ligne
   if (input[input.length - 1] === ' ') input = input.substring(0, input.length - 1) // Supprimer l'éventuel espace en fin de ligne
-  return { isOk: input === goodAnswer }
+  const result = input.localeCompare(goodAnswer)
+  return { isOk: result === 0 }
 }
 
 /**
@@ -451,7 +464,9 @@ export function unitesCompare (input: string, goodAnswer: {grandeur: Grandeur, p
     isOk: boolean,
     feedback?: string
 } {
-  const inputGrandeur = inputToGrandeur(cleanStringBeforeParse(input))
+  input = input.replace('\\degree', '°')
+  const cleaner = generateCleaner(['virgules', 'espaces', 'fractions', 'parentheses'])
+  const inputGrandeur = inputToGrandeur(cleaner(input))
   const goodAnswerGrandeur = goodAnswer.grandeur
   if (inputGrandeur) {
     console.log(`grandeur passée : ${JSON.stringify(inputGrandeur)} goodAnswer : ${JSON.stringify(goodAnswer.grandeur)} et precision passée à estUneApproximation() : ${goodAnswer.precision}`)
