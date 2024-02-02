@@ -42,7 +42,7 @@ function cleanSpaces (str: string): string {
 }
 
 function cleanParenthses (str: string): string {
-  return str.replaceAll(/\\left\((\+?-?\d+)\\right\)/g, '$1')
+  return str.replaceAll(/\\left\((\+?-?\d+)\\right\)/g, '$1').replaceAll('\\lparen', '(').replaceAll('\\rparen', ')')
 }
 
 function cleanUnite (str: string): string {
@@ -94,6 +94,32 @@ function inputToGrandeur (input: string): Grandeur | false {
 }
 
 /**
+ * Comparaison de fonction f(x)
+ * @param input
+ * @param goodAnswer
+ */
+export function fonctionCompare (input: string, goodAnswer: {fonction: string, variable: string} = { fonction: '', variable: 'x' }): { isOk: boolean, feedback?: string } {
+  if (typeof goodAnswer === 'string') {
+    goodAnswer = { fonction: goodAnswer, variable: 'x' }
+  }
+  const clean = generateCleaner(['espaces', 'virgules', 'parentheses', 'fractions'])
+  const cleanInput = clean(input)
+  const inputParsed = engine.parse(cleanInput)
+  const inputFn = inputParsed.compile()
+  const cleanAnswer = clean(goodAnswer.fonction)
+  const goodAnswerFn = engine.parse(cleanAnswer).compile()
+
+  let isOk = true
+  if (inputFn == null || goodAnswerFn == null) throw Error(`fonctionCompare : La saisie ou la bonne réponse ne sont pas des fonctions (saisie : ${input} et réponse attendue : ${goodAnswer}`)
+  const [a, b, c] = [Math.random(), Math.random(), Math.random()]
+  for (const x of [a, b, c]) {
+    const variable = Object.fromEntries([[goodAnswer.variable, x]])
+    isOk = isOk && Math.abs(inputFn(variable) - goodAnswerFn(variable)) < 1e-10
+  }
+  return { isOk }
+}
+
+/**
  * comparaison de nombres
  * @param {string} entierInf
  * @param {string} entierSup
@@ -102,7 +128,7 @@ function inputToGrandeur (input: string): Grandeur | false {
  */
 export function consecutifsCompare (entierInf: string, entierSup: string, valeurInter?: string): { isOk: boolean, feedback?: string } {
   let feedback = ''
-  if (!(Number.isInteger(entierSup) && Number.isInteger(entierInf))) {
+  if (!(Number.isInteger(Number(entierSup)) && Number.isInteger(Number(entierInf)))) {
     feedback = 'On attend comme réponse deux nombres entiers.'
     return { isOk: false, feedback }
   }
@@ -118,7 +144,7 @@ export function consecutifsCompare (entierInf: string, entierSup: string, valeur
     const diff2 = Number(engine.box(['Subtract', engine.parse(valeurInter).json, engine.parse(entierInf).json]).N().numericValue)
     if (!(diff1 != null && diff2 != null && diff1 < 1 && diff1 >= 0 && diff2 < 1 && diff2 >= 0)) { return { isOk: false, feedback: `Les deux nombres entiers sont biens consécutifs mais n'encadrent pas la valeur ${valeurInter}` } }
   }
-  return { isOk: true }
+  return { isOk: true, feedback: '' }
 }
 
 /**

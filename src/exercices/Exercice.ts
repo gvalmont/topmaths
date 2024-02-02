@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import type Grandeur from '../modules/Grandeur'
+
 /**
  *
  *  Classe parente de tous les exercices.
@@ -30,12 +32,13 @@ export default class Exercice {
   listeCanReponsesACompleter?: string[]
   listeCanEnonces?: string[]
   question?: string // Seulement pour les exercices de type simple
-  reponse?: string | number // Seulement pour les exercices de type simple
+  reponse?: string | number | object// Seulement pour les exercices de type simple
   correction?: string // Seulement pour les exercices de type simple
   canEnonce?: string // Seulement pour les exercices de type simple
   canReponseACompleter?: string // Seulement pour les exercices de type simple
   formatChampTexte?: string // Seulement pour les exercices de type simple
   optionsChampTexte?: object // Seulement pour les exercices de type simple
+  compare?: (input: string, goodAnswer: string | Grandeur)=>{isOk: boolean, feedback?: string}
   formatInteractif?: string // Options par défaut pour les champs Mathlive (très utile dans les exercices simples)
   contenu?: string
   contenuCorrection?: string
