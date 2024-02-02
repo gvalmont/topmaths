@@ -401,7 +401,7 @@
               {
                 "reference": "6C31",
                 "titre": "Résoudre des problèmes avec des nombres décimaux",
-                "rappelDuCoursHTML": "Si besoin, vous pouvez revoir <a href='/#/objectif/6C30' title='6C30 : Résoudre des problèmes avec des nombres entiers'>6C30 : Résoudre des problèmes avec des nombres entiers</a> pour vous rappeler comment modéliser et résoudre un problème.<br><br>Vous pouvez aussi revoir <a href='/#/objectif/6C20' title='6C20 : Additionner et soustraire des nombres décimaux'>6C20 : Additionner et soustraire des nombres décimaux</a>, <a href='/#/objectif/6C20' title='6C21 : Poser une multiplication'>6C21 : Poser une multiplication</a> et <a href='/#/objectif/6C20' title='6C22 : Effectuer une division décimale'>6C22 : Effectuer une division décimale</a> pour revoir comment faire les différents calculs.",
+                "rappelDuCoursHTML": "Si besoin, vous pouvez revoir <a href='/?v=objectif&ref=6C30' title='6C30 : Résoudre des problèmes avec des nombres entiers'>6C30 : Résoudre des problèmes avec des nombres entiers</a> pour vous rappeler comment modéliser et résoudre un problème.<br><br>Vous pouvez aussi revoir <a href='/?v=objectif&ref=6C20' title='6C20 : Additionner et soustraire des nombres décimaux'>6C20 : Additionner et soustraire des nombres décimaux</a>, <a href='/?v=objectif&ref=6C20' title='6C21 : Poser une multiplication'>6C21 : Poser une multiplication</a> et <a href='/?v=objectif&ref=6C20' title='6C22 : Effectuer une division décimale'>6C22 : Effectuer une division décimale</a> pour revoir comment faire les différents calculs.",
                 "rappelDuCoursImage": "",
                 "videos": [],
                 "exercices": [
@@ -1021,7 +1021,7 @@
               {
                 "reference": "6G25",
                 "titre": "Tracer des rectangles et des carrés de longueurs données",
-                "rappelDuCoursHTML": "Un carré n'étant constitué que de segments perpendiculaires, si vous savez <a href='/#/objectif/6G11' title='6G11 : Tracer des droites perpendiculaires'>tracer des droites perpendiculaires</a> vous devriez y arriver !",
+                "rappelDuCoursHTML": "Un carré n'étant constitué que de segments perpendiculaires, si vous savez <a href='/?v=objectif&ref=6G11' title='6G11 : Tracer des droites perpendiculaires'>tracer des droites perpendiculaires</a> vous devriez y arriver !",
                 "rappelDuCoursImage": "",
                 "rappelDuCoursInstrumenpoche": "",
                 "videos": [
@@ -5800,7 +5800,7 @@
                 "reference": "4N40",
                 "titre": "Déterminer la liste des nombres premiers inférieurs à 100",
                 "titreSimplifie": "Reconnaître les nombres premiers jusqu'à 100",
-                "rappelDuCoursHTML": "Pour savoir si un nombre inférieur à 100 est premier, il suffit de vérifier qu'il n'est pas divisible par 2, 3, 5, ni 7.<br>Vous pouvez aussi revoir <a href='/#/objectif/5N42' title='5N42 : Déterminer les nombres premiers inférieurs ou égaux à 30'>5N42 : Déterminer les nombres premiers inférieurs ou égaux à 30</a> si besoin.",
+                "rappelDuCoursHTML": "Pour savoir si un nombre inférieur à 100 est premier, il suffit de vérifier qu'il n'est pas divisible par 2, 3, 5, ni 7.<br>Vous pouvez aussi revoir <a href='/?v=objectif&ref=5N42' title='5N42 : Déterminer les nombres premiers inférieurs ou égaux à 30'>5N42 : Déterminer les nombres premiers inférieurs ou égaux à 30</a> si besoin.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -6651,7 +6651,7 @@
               {
                 "reference": "3N10",
                 "titre": "Déterminer si un nombre est premier",
-                "rappelDuCoursHTML": "Vous pouvez aussi revoir <a href='/#/objectif/4N40' title='4N40 : Déterminer la liste des nombres premiers inférieurs à 100'>4N40 : Déterminer la liste des nombres premiers inférieurs à 100</a> si besoin",
+                "rappelDuCoursHTML": "Vous pouvez aussi revoir <a href='/?v=objectif&ref=4N40' title='4N40 : Déterminer la liste des nombres premiers inférieurs à 100'>4N40 : Déterminer la liste des nombres premiers inférieurs à 100</a> si besoin",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
