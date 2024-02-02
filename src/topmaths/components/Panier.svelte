@@ -39,7 +39,7 @@
         }
       }
     }
-    lien = lien.concat('v=eleve')
+    lien = lien.concat('v=exercices')
   }
 </script>
 
