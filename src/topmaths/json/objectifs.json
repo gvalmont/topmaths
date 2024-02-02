@@ -631,11 +631,36 @@
                     "slug": "6G51-2,n=8",
                     "description": "Utiliser les symboles ∈ et ∉"
                   }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "6G13_Presentation",
+                      "6G13_Poly_x1",
+                      "Tablettes"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Noter les définitions",
+                      "Apprentisage explicite du premier exercice de https://topmaths.fr/?v=objectif&ref=6G13",
+                      "Les élèves font le premier exercice du poly",
+                      "Correction",
+                      "Noter les notations",
+                      "Apprentisage explicite du deuxième exercice de https://topmaths.fr/?v=objectif&ref=6G13",
+                      "Les élèves font le deuxième exercice du poly",
+                      "Correction",
+                      "https://create.kahoot.it/details/884d7fd4-f0a3-4930-96b4-9a0ca8b3ca01 "
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
+                  }
                 ]
               },
               {
                 "reference": "6G14",
-                "titre": "Déterminer le plus court chemin entre un point et une droite",
+                "titre": "Déterminer la distance d'un point à une droite",
                 "rappelDuCoursHTML": "",
                 "rappelDuCoursImage": "",
                 "videos": [
@@ -650,6 +675,28 @@
                   {
                     "slug": "6G53,n=2",
                     "description": ""
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "6G14_Presentation",
+                      "6G14_Poly-1_x8",
+                      "6G14_Poly-2_x1"
+                    ],
+                    "debutDeSeance": [
+                      "Mathador"
+                    ],
+                    "deroule": [
+                      "Noter le cours",
+                      "Les élèves font les exercices du poly",
+                      "Correction",
+                      "Kahoot sur une ancienne leçon pour terminer l'heure : https://create.kahoot.it/details/9bbd1a11-d91c-484e-9233-bd4f0dc29d2c"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
                   }
                 ]
               },
