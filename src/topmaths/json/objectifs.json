@@ -2858,6 +2858,25 @@
                     "slug": "6P13,s=3,n=2,s2=true",
                     "description": ""
                   }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "6P13_Presentation"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Faire ensemble https://topmaths.fr/?uuid=064ce&id=6P13&n=1&s=3&s2=true&alea=CYBq&v=exercices",
+                      "Relancer",
+                      "Noter le cours",
+                      "Vérifier la bonne application des pourcentages de réduction sur https://lapub.re/index.awp"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
+                  }
                 ]
               },
               {
