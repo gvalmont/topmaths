@@ -48,3 +48,7 @@
 }
 
 #let dfrac(a, b) = $display(frac(a, b))$
+
+#let fractionMultiplieParFacteur(numerateur, denominateur, facteur) = [
+  $(numerateur #text(red)[$times #facteur$])/(denominateur #text(red)[$times #facteur$])$
+]
