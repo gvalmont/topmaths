@@ -3929,6 +3929,26 @@
                     "slug": "5N14-2,s=false,n=1",
                     "description": "Ranger"
                   }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "5N21_Presentation"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Afficher https://topmaths.fr/?uuid=234a7&id=5N14&n=2&s=11&s2=false&alea=1dMU&v=exercices",
+                      "Rappeler ce que signifie \"Comparer\"",
+                      "Apprentissage explicite",
+                      "Apprentissage explicite de https://topmaths.fr/?uuid=ce9ca&id=5N14-2&n=1&s=false&alea=s60Z&v=exercices",
+                      "Noter le cours (ne pas noter les exemples si on manque de temps)"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
+                  }
                 ]
               },
               {
@@ -3947,6 +3967,25 @@
                 "exercices": [
                   {
                     "slug": "5N13,s=11,s2=true,n=4"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "5N22_Presentation",
+                      "Tablettes"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Noter le cours",
+                      "Apprentisage explicite de https://topmaths.fr/?v=objectif&ref=5N22",
+                      "Kahoot : https://create.kahoot.it/share/5n22-simplifier-des-fractions-simples/406e9e82-1c1a-4956-9ed5-f001767de715"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
                   }
                 ]
               },
