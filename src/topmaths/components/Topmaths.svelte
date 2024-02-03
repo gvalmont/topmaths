@@ -199,6 +199,11 @@
   on:keydown={alternerTailleOverlayHeure}
 >
 </div>
+<dialog
+  id="topmathsDialog"
+  class="rounded-xl p-6 bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg"
+>
+</dialog>
 
 <style>
   .is-family-primary {

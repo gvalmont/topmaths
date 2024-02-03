@@ -18,6 +18,7 @@
   import HeaderExerciceMathalea from './presentationalComponents/HeaderExerciceMathalea.svelte'
   import seedrandom from 'seedrandom'
   import { randint } from '../../../modules/outils'
+  import { showDialogForLimitedTime } from '../../../lib/components/dialogs'
 
   export let isMd: boolean
 
@@ -252,11 +253,11 @@ function copyLink (exerciseIndex: number) {
   const urlToCopy = getUrlFromParams('exercices', [exercicesParams[exerciseIndex]]).href
   navigator.clipboard.writeText(urlToCopy).then(
     () => {
-      alert('Le lien a été copié')
+      showDialogForLimitedTime('topmathsDialog', 1000, 'Le lien a été copié.')
     },
     (err) => {
       console.error('Async: Could not copy text: ', err)
-      alert('Le lien n\'a pas pu être copié')
+      showDialogForLimitedTime('topmathsDialog', 1000, 'Le lien n\'a pas pu être copié.')
     }
   )
 }

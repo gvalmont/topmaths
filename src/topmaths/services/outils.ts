@@ -3,6 +3,7 @@ import type { ObjectifObjectif, SequenceObjectif } from './types'
 import { titresProchesDesAttendus } from './store'
 import { environment } from './environment'
 import { exercicesParams, globalOptions } from '../../lib/stores/generalStore'
+import { showDialogForLimitedTime } from '../../lib/components/dialogs'
 
 export function estCoopmaths (url: string) {
   const urlCoopmaths = environment.baseUrl
@@ -63,7 +64,7 @@ export function copierLien (lien: string, inclureAlea = true, forcerInteractif =
   lienModifie += params.toString()
 
   navigator.clipboard.writeText(lienModifie)
-  alert('Le lien a été copié')
+  showDialogForLimitedTime('topmathsDialog', 1000, 'Le lien a été copié.')
 }
 
 export function creerLienPageActuelle () {
