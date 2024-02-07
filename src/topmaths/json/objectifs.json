@@ -2046,6 +2046,39 @@
                     "slug": "6M22-1,s=3,s2=true,n=2",
                     "description": ""
                   }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "6M13_Presentation"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Demander s’ils se rappellent la définition d’un cercle",
+                      "- La rappeler si besoin",
+                      "Demander s’ils savent ce qu’est un disque",
+                      "- un cercle est vide à l’intérieur, on dit qu’il est creux alors qu’un disque est rempli à l’intérieur, on dit qu’il est plein",
+                      "- Imagine que tu commandes une pizza",
+                      "-- Si on te livre que la croûte, on te livre un cercle",
+                      "-- Si on te livre la croûte et aussi ce qu’il y a à l’intérieur, on te livre un disque",
+                      "Noter la remarque du cours",
+                      "Demander s’ils se rappellent comment calculer le périmètre d’un cercle",
+                      "- Après avoir écrit la formule, demander s’ils savent combien vaut ce nombre ($pi$)",
+                      "- Montrer comment obtenir une valeur approchée de $pi$ sur la calculatrice",
+                      "Demander s’ils ont une idée de comment calculer la surface d’un disque",
+                      "- partager un disque en $4$ «\"carrés\"» et montrer que l’aire d’un disque est égale à un peu moins de $4 r^2$",
+                      "- Dire qu’en fait la formule est $pi r^2$",
+                      "- Note Propriétés et Exemple du cours",
+                      "Entraînement sur https://topmaths.fr/?v=objectif&ref=6M13",
+                      "Montrer les premières décimales de $pi$ sur http://www.gecif.net/articles/mathematiques/pi/pi_decimales.html",
+                      "Rechercher des dates de naissance et autres sur https://www.angio.net/pi/piquery.html "
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
+                  }
                 ]
               },
               {
@@ -2113,11 +2146,11 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "6M12,s=4,s2=false,n=4",
+                    "slug": "6M12,s=4,s2=false,n=2",
                     "description": "Avec des nombres entiers"
                   },
                   {
-                    "slug": "6M12,s=4,s2=true,n=4",
+                    "slug": "6M12,s=4,s2=true,n=2",
                     "description": "Avec des nombres décimaux"
                   }
                 ],
@@ -2157,16 +2190,39 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "6M23,s=4,s2=false,s3=1,n=3",
+                    "slug": "6M23,s=4,s2=false,s3=1,n=2",
                     "description": "Avec des nombres entiers"
                   },
                   {
-                    "slug": "6M23,s=4,s2=true,s3=1,n=3",
+                    "slug": "6M23,s=4,s2=true,s3=1,n=2",
                     "description": "Avec des nombres décimaux"
                   },
                   {
                     "slug": "6M23,s=5,s2=true,s3=1,n=2",
                     "description": "Avec des ares et des hectares"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "6M21_Presentation",
+                      "6M21_Poly_x5 (il y a 2 tableaux par élève)"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "\"Aujourd’hui, on va convertir des unités d’aires\"",
+                      "\"En quelle unité se mesure une aire ?\" Noter les réponses au tableau",
+                      "\"Et $1 \"dm\"^2$ par exemple, ça fait combien de $\"cm\"^2$ ?\"",
+                      "Faire un carré de côté $1 \"dm\"$ de côté et le partager en rectangles de largeur $1 \"cm\"$ de largeur puis en carrés de $1 \"cm\"$ de côté pour voir que $1 \"dm\"^2 = 100 \"cm\"^2$ $->$ C’est pour ça que dans le tableau de conversion des unités d’aires, on met 2 colonnes dans chaque unité.",
+                      "Afficher le tableau et le décrire \"1 m² c’est 100 dm² etc.\"",
+                      "Copier le cours",
+                      "Coller le deuxième tableau partie exercice",
+                      "Entraînement sur https://topmaths.fr/?v=objectif&ref=6M21"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
                   }
                 ]
               },
@@ -4679,10 +4735,7 @@
                     ],
                     "debutDeSeance": [],
                     "deroule": [
-                      "Demander combien ça fait $2x + 3$",
-                      "Avec les tacos et les burger ($2#emoji.taco + 3#emoji.burger$ puis $2#emoji.taco + 3#emoji.taco$), faire comprendre qu’on peut mélanger ceux de la même famille mais qu’on ne peut pas les mélanger entre les familles",
-                      "- S’il y en a qui pensent qu’on peut mélanger des tacos avec des burgers, prendre des maisons et des pommes",
-                      "Remplacer les dessins par des lettres et dire qu’on ne va pas s’amuser à faire des dessins à chaque fois qu’on veut représenter quelque chose et qu’on va préférer écrire des lettres (qui sont plus faciles à écrire)",
+                      "Demander combien fait $2x + 3x$, $2x + 3$, $2x times 3$ en remettant les $x$ à chaque fois pour vérifier l'équivalence ou non des réponses proposées.",
                       "Noter le cours",
                       "S’entraîner sur https://topmaths.fr/?v=objectif&ref=5N51",
                       "- Dans le premier exercice, on a juste à mettre ensemble ceux qui vont ensemble",
@@ -5887,7 +5940,7 @@
               {
                 "reference": "4N36",
                 "titre": "Utiliser les ordres de grandeur pour vérifier ses résultats",
-                "rappelDuCoursHTML": "Après avoir résolu un problème, c'est toujours une bonne idée de vérifier si le résultat qu'on a trouvé est cohérent, s'il est plausible ou si ce n'est pas le cas.<br>Ça nous permet de tout de suite remarquer qu'on a fait une erreur et de pouvoir tout de suite se corriger.<br>Pour y arriver, il faut avoir une idée de « à quel point c'est grand » ou « à quel point c'est petit ».<br>Voici des tableaux avec différents « ordres de grandeur » qui pourront servir de base.",
+                "rappelDuCoursHTML": "Après avoir résolu un problème, c'est toujours une bonne idée de vérifier si le résultat qu'on a trouvé est cohérent, s'il est plausible ou si ce n'est pas le cas.<br>Ça nous permet de tout de suite remarquer qu'on a fait une erreur et de pouvoir tout de suite se corriger.<br>Pour y arriver, il faut avoir une idée de \"à quel point c'est grand » ou \"à quel point c'est petit ».<br>Voici des tableaux avec différents \"ordres de grandeur » qui pourront servir de base.",
                 "rappelDuCoursImage": "Ordres-de-grandeur.png",
                 "videos": [],
                 "exercices": [
