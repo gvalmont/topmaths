@@ -32,6 +32,9 @@
   import { getCanvasFont, getTextWidth, remToPixels } from '../../../lib/components/measures'
   import Footer2 from './Footer2.svelte'
   import FlipCard from './FlipCard.svelte'
+  import Keyboard from '../../keyboard/Keyboard.svelte'
+  import { keyboardState } from '../../keyboard/stores/keyboardStore'
+  import displayKeyboardToggle from '../../../lib/displayKeyboardToggle'
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -204,6 +207,7 @@
     if ($globalOptions.recorder === 'capytale') {
       $globalOptions.isInteractiveFree = false
     }
+    displayKeyboardToggle($globalOptions.beta ?? false)
   })
 
   onDestroy(() => {
@@ -340,7 +344,7 @@
 <svelte:window bind:innerWidth={currentWindowWidth} />
 <section
   bind:this={eleveSection}
-  class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive
+  class="relative flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive
     ? 'dark'
     : ''}"
 >
@@ -613,7 +617,7 @@
                     {/if}
 
                     <div
-                      class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto"
+                      class="container overflow-x-auto overflow-y-hidden md:overflow-x-auto"
                       style="break-inside:avoid"
                     >
                       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -722,7 +726,7 @@
                         </div>
                       {/if}
                       <div
-                        class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto"
+                        class="container overflow-x-auto overflow-y-hidden md:overflow-x-auto"
                         style="break-inside:avoid"
                       >
                         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -790,7 +794,8 @@
       {/if}
     </div>
   </div>
-  <div class="flex justify-center w-full">
+  <Keyboard/>
+  <div class="flex justify-center w-full {$keyboardState.isVisible ? 'mt-52' : ''}">
     <Footer2 />
   </div>
 </section>

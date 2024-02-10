@@ -9,12 +9,14 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Compléter un tableau de valeurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const dateDeModifImportante = '20/02/2023'
 
 /**
  * Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique
@@ -25,14 +27,11 @@ export const amcType = 'AMCHybride'
  * * Niveau 4 : (ax+b)(cx+d)
  * * Niveau 5 : Mélange
  * @author Rémi Angot
- * 3F12-3
  */
 export const uuid = 'afb2f'
 export const ref = '3F12-3'
 export default function TableauDeValeurs () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -44,21 +43,16 @@ export default function TableauDeValeurs () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    this.sup = parseInt(this.sup)
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['ax+b', 'ax']
-    }
-    if (this.sup === 2) {
+    } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = ['ax2+bx+c', 'ax2+c', 'ax2+bx']
-    }
-    if (this.sup === 3) {
+    } else if (this.sup === 3) {
       typesDeQuestionsDisponibles = ['a/cx+d', 'ax+b/cx+d']
-    }
-    if (this.sup === 4) {
+    } else if (this.sup === 4) {
       typesDeQuestionsDisponibles = ['(ax+b)(cx+d)', '(ax+b)2']
-    }
-    if (this.sup === 5) {
+    } else {
       typesDeQuestionsDisponibles = ['ax+b', 'ax', 'ax2+bx+c', 'ax2+c', 'ax2+bx', 'a/cx+d', 'ax+b/cx+d', '(ax+b)(cx+d)', '(ax+b)2']
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -216,10 +210,8 @@ export default function TableauDeValeurs () {
           reponse = [f(x1), f(x2), f(x3)]
           break
       }
-
       texte = `On considère la fonction $${nomdef}$ définie par $${nomdef}:x\\mapsto ${expression}$. ${this.interactif ? '<br>Calculer les images par $f$ suivantes.' : '<br>Compléter le tableau de valeurs suivant.<br><br>'}`
-      texteCorr = ''
-      // texte += '<br>'
+
       if (context.isHtml) {
         if (!this.interactif) texte += '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n'
       } else {
@@ -233,11 +225,10 @@ export default function TableauDeValeurs () {
         texte += '\\hline\n'
         texte += '\\end{array}\n$'
       }
-      if (context.isHtml) {
-        if (!this.interactif) texteCorr = '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n'
-      } else {
-        texteCorr = '$\\begin{array}{|l|c|c|c|}\n'
-      }
+
+      texteCorr = context.isHtml ? '$\\def\\arraystretch{2.5}' : '$'
+      texteCorr += '\\begin{array}{|l|c|c|c|}\n'
+
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: `On considère la fonction $${nomdef}$ définie par $${nomdef}:x\\mapsto ${expression}$.\\\\ \n
@@ -259,13 +250,13 @@ export default function TableauDeValeurs () {
                 statut: '',
                 reponse: {
                   texte: `a) $f(${listeDeX[i][0]})$`,
-                  valeur: [reponse[0].type !== 'Fraction' ? reponse[0] : reponse[0].d === 1 ? reponse[0].num : reponse[0]],
+                  valeur: [reponse[0].type !== 'FractionEtendue' ? reponse[0] : reponse[0].d === 1 ? reponse[0].num : reponse[0]],
                   param: {
                     signe: true,
                     approx: 0,
                     decimals: 1,
                     digits: 2,
-                    formatInteractif: reponse[0].type !== 'Fraction' ? 'calcul' : reponse[0].d === 1 ? 'calcul' : 'fractionEgale'
+                    formatInteractif: reponse[0].type !== 'FractionEtendue' ? 'calcul' : reponse[0].d === 1 ? 'calcul' : 'fractionEgale'
                   }
                 }
               }]
@@ -277,13 +268,13 @@ export default function TableauDeValeurs () {
                 statut: '',
                 reponse: {
                   texte: `b) $f(${listeDeX[i][1]})$`,
-                  valeur: [reponse[1].type !== 'Fraction' ? reponse[1] : reponse[1].d === 1 ? reponse[1].num : reponse[1]],
+                  valeur: [reponse[1].type !== 'FractionEtendue' ? reponse[1] : reponse[1].d === 1 ? reponse[1].num : reponse[1]],
                   param: {
                     signe: true,
                     approx: 0,
                     decimals: 1,
                     digits: 2,
-                    formatInteractif: reponse[1].type !== 'Fraction' ? 'calcul' : reponse[1].d === 1 ? 'calcul' : 'fractionEgale'
+                    formatInteractif: reponse[1].type !== 'FractionEtendue' ? 'calcul' : reponse[1].d === 1 ? 'calcul' : 'fractionEgale'
                   }
                 }
               }]
@@ -295,19 +286,20 @@ export default function TableauDeValeurs () {
                 statut: '',
                 reponse: {
                   texte: `c) $f(${listeDeX[i][2]})$`,
-                  valeur: [reponse[2].type !== 'Fraction' ? reponse[2] : reponse[2].d === 1 ? reponse[2].num : reponse[2]],
+                  valeur: [reponse[2].type !== 'FractionEtendue' ? reponse[2] : reponse[2].d === 1 ? reponse[2].num : reponse[2]],
                   param: {
                     signe: true,
                     approx: 0,
                     decimals: 1,
                     digits: 2,
-                    formatInteractif: reponse[2].type !== 'Fraction' ? 'calcul' : reponse[2].d === 1 ? 'calcul' : 'fractionEgale'
+                    formatInteractif: reponse[2].type !== 'FractionEtendue' ? 'calcul' : reponse[2].d === 1 ? 'calcul' : 'fractionEgale'
                   }
                 }
               }]
             }
           ]
         }
+        /* EE : Qu'est-ce que ce code fait dans AMC ?
         if (reponse[0].type === 'Fraction') {
           if (reponse[0].den === 1) setReponse(this, i * 3, reponse[0].num, { formatInteractif: 'calcul' })
           else setReponse(this, i * 3, reponse[0], { formatInteractif: 'fractionEgale' })
@@ -320,19 +312,21 @@ export default function TableauDeValeurs () {
           if (reponse[2].den === 1) setReponse(this, i * 3 + 2, reponse[2].num, { formatInteractif: 'calcul' })
           else setReponse(this, i * 3 + 2, reponse[2], { formatInteractif: 'fractionEgale' })
         } else setReponse(this, i * 3 + 2, reponse[2], { formatInteractif: 'calcul' })
+        */
       } else if (this.interactif) {
         texte += `<br><br>$f(${listeDeX[i][0]}) = $` + ajouteChampTexteMathLive(this, i * 3, 'largeur25 inline')
         texte += `<br><br>$f(${listeDeX[i][1]}) = $` + ajouteChampTexteMathLive(this, i * 3 + 1, 'largeur25 inline')
         texte += `<br><br>$f(${listeDeX[i][2]}) = $` + ajouteChampTexteMathLive(this, i * 3 + 2, 'largeur25 inline')
-        if (reponse[0].type === 'Fraction') {
+
+        if (reponse[0].type === 'FractionEtendue') {
           if (reponse[0].den === 1) setReponse(this, i * 3, reponse[0].num, { formatInteractif: 'calcul' })
           else setReponse(this, i * 3, reponse[0], { formatInteractif: 'fractionEgale' })
         } else setReponse(this, i * 3, reponse[0], { formatInteractif: 'calcul' })
-        if (reponse[1].type === 'Fraction') {
+        if (reponse[1].type === 'FractionEtendue') {
           if (reponse[1].den === 1) setReponse(this, i * 3 + 1, reponse[1].num, { formatInteractif: 'calcul' })
           else setReponse(this, i * 3 + 1, reponse[1], { formatInteractif: 'fractionEgale' })
         } else setReponse(this, i * 3 + 1, reponse[1], { formatInteractif: 'calcul' })
-        if (reponse[2].type === 'Fraction') {
+        if (reponse[2].type === 'FractionEtendue') {
           if (reponse[2].den === 1) setReponse(this, i * 3 + 2, reponse[2].num, { formatInteractif: 'calcul' })
           else setReponse(this, i * 3 + 2, reponse[2], { formatInteractif: 'fractionEgale' })
         } else setReponse(this, i * 3 + 2, reponse[2], { formatInteractif: 'calcul' })
@@ -341,10 +335,33 @@ export default function TableauDeValeurs () {
       texteCorr += '\\hline\n'
       texteCorr += `x & ${listeDeX[i][0]} & ${listeDeX[i][1]} & ${listeDeX[i][2]} \\\\\n`
       texteCorr += '\\hline\n'
+
+      // EE : Mise en couleur de ligne2
+      const chaqueReponse = ligne2.split('&')
+      ligne2 = chaqueReponse[0] + '&' + miseEnEvidence(chaqueReponse[1]) + '&' + miseEnEvidence(chaqueReponse[2]) + '&' + miseEnEvidence(chaqueReponse[3]).replace('\\\\\n', '') + '\\\\\n'
+
       texteCorr += ligne2
       texteCorr += '\\hline\n'
       texteCorr += '\\end{array}\n$'
+
       if (this.correctionDetaillee) {
+        // EE : Permet en quelques lignes de mettre toutes les réponses attendues en couleur
+        const chaqueLigneDeCalcul = calculs.split('<br>')
+        const tabDesCalculs = []
+        let aMettreEnCouleur, splitChaqueCalcul
+        for (let ee = 0; ee < 3; ee++) {
+          aMettreEnCouleur = miseEnEvidence(chaqueLigneDeCalcul[ee].split('=').pop().replaceAll('$', '')) + '$'
+          splitChaqueCalcul = chaqueLigneDeCalcul[ee].split('=')
+          tabDesCalculs[ee] = ''
+          for (let ii = 0; ii < splitChaqueCalcul.length - 1; ii++) {
+            tabDesCalculs[ee] += splitChaqueCalcul[ii] + '='
+          }
+          tabDesCalculs[ee] += aMettreEnCouleur + '<br>'
+        }
+        calculs = ''
+        for (let ee = 0; ee < 3; ee++) calculs += tabDesCalculs[ee]
+        // Fin de le mise en couleur
+
         texteCorr += '<br><br>'
         texteCorr += calculs
       }

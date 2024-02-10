@@ -35,6 +35,7 @@ export default function AntecedentEtImageGraphique () {
   }
 
   this.nouvelleVersion = function () {
+    this.listeQuestions = []
     const r = repere({
       xMin: -5,
       xMax: 5,
@@ -82,7 +83,7 @@ export default function AntecedentEtImageGraphique () {
     }
 
     if (context.isHtml && this.interactif) {
-      this.contenu += '<br><em>S\'il y a plusieurs réponses, les séparer les réponses avec un point-virgule.</em>'
+      this.contenu += '<br><em>S\'il y a plusieurs réponses, séparer les réponses avec un point-virgule.</em>'
     }
     this.contenu += '<br><br>'
     let cont1 = `${numAlpha(0)} Quelle est l'image de $${x0}$ ?`
@@ -197,7 +198,7 @@ export default function AntecedentEtImageGraphique () {
 
     this.contenu += deuxColonnes(cont1, cont2)
     this.contenu += mathalea2d({ xmin: -7, ymin: -4.5, xmax: 7, ymax: 4.5, pixelsParCm: 30 }, r, gr)
-    this.contenuCorrection += `${numAlpha(0)} L'image de $${x0}$ est $${a}$, on note $f(${x0})=${a}$.`
+    this.contenuCorrection = `${numAlpha(0)} L'image de $${x0}$ est $${a}$, on note $f(${x0})=${a}$.`
     setReponse(this, 0, a)
 
     this.contenuCorrection += `<br>${numAlpha(1)} L'image de $${x0 + 5}$ est $${(b + c) / 2}$, on note $f(${x0 + 5})=${(b + c) / 2}$.`

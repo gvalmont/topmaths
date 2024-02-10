@@ -115,8 +115,28 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
       const infosExerciceStatique = getExerciceByUuid(referentielStatic, param.uuid)
       let content = ''
       let contentCorr = ''
-      if (infosExerciceStatique?.url) content = await (await window.fetch(infosExerciceStatique.url)).text()
-      if (infosExerciceStatique?.urlcor) contentCorr = await (await window.fetch(infosExerciceStatique.urlcor)).text()
+      if (infosExerciceStatique?.url) {
+        const response = await window.fetch(infosExerciceStatique.url)
+        if (response.status === 200) {
+          const text = await response.clone().text()
+          if (!text.trim().startsWith('<!DOCTYPE html>')) {
+            content = text
+          } else {
+            content = '\n\n\t%Exercice non disponible\n\n'
+          }
+        }
+      }
+      if (infosExerciceStatique?.urlcor) {
+        const response = await window.fetch(infosExerciceStatique.urlcor)
+        if (response.status === 200) {
+          const text = await response.clone().text()
+          if (!text.trim().startsWith('<!DOCTYPE html>')) {
+            contentCorr = text
+          } else {
+            contentCorr = '\n\n\t%Pas de correction disponible\n\n'
+          }
+        }
+      }
       const annee = infosExerciceStatique?.annee
       const lieu = infosExerciceStatique?.lieu
       const mois = infosExerciceStatique?.mois
@@ -472,7 +492,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
             value = exercice.reponse.toString()
           } else if (exercice.reponse instanceof Grandeur) {
             value = exercice.reponse
-          } else if (typeof exercice.reponse === 'object' && exercice.reponse.fonction != null) {
+          } else if (typeof exercice.reponse === 'object') {
             value = exercice.reponse
           } else if (Array.isArray(exercice.reponse)) {
             value = [...exercice.reponse]

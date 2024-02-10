@@ -132,7 +132,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
     // ici, il n'y a qu'un seul input une seule saisie (même si la réponse peut contenir des variantes qui seront toutes comparées à la saisie
     champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
     if (champTexte == null) {
-      throw Error('verifQuestionMathlive: type tableauMathlive ne trouve pas le champ de saisie dans le dom' + JSON.stringify({ selecteur: `table#tabMathliveEx${exercice.numeroExercice}Q${i}` }))
+      throw Error(`verifQuestionMathlive: type ${formatInteractif} ne trouve pas le champ de saisie dans le dom ${JSON.stringify({ selecteur: 'champTexteEx' + String(exercice.numeroExercice) + 'Q' + String(i) })}`)
     }
     if (champTexte.value.length > 0 && typeof exercice.answers === 'object') {
       exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = champTexte.value
@@ -161,7 +161,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
       const check = compare(saisie, reponse)
       if (check.isOk) {
         resultat = 'OK'
-        feedback = ''
+        feedback = check.feedback ?? ''
       } else if (check.feedback) {
         feedback = check.feedback
       }
@@ -190,9 +190,9 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
       spanReponseLigne.innerHTML = '☹️'
       spanReponseLigne.style.fontSize = 'large'
       champTexte.readOnly = true
-      return { resultat, feedback: '', score: { nbBonnesReponses: 0, nbReponses: 1 } }
+      return { resultat, feedback, score: { nbBonnesReponses: 0, nbReponses: 1 } }
     }
-    return { resultat, feedback: '', score: { nbBonnesReponses: resultat === 'OK' ? 1 : 0, nbReponses: 1 } }
+    return { resultat, feedback, score: { nbBonnesReponses: resultat === 'OK' ? 1 : 0, nbReponses: 1 } }
   } catch (error) {
     window.notify(`Erreur dans verif QuestionMathLive : ${error}\n Avec les métadonnées : `, {
       champTexteValue: champTexte?._slotValue ?? null,

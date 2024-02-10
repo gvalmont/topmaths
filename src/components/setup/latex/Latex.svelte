@@ -29,6 +29,7 @@ import {
   import { showDialogForLimitedTime } from '../../../lib/components/dialogs.js'
   import { downloadTexWithImagesZip, downloadZip } from '../../../lib/files'
   import ButtonOverleaf from '../../shared/forms/ButtonOverleaf.svelte'
+  import ButtonCompileLatexToPDF from '../../shared/forms/ButtonCompileLatexToPDF.svelte'
   import SimpleCard from '../../shared/ui/SimpleCard.svelte'
 
   let nbVersions = 1
@@ -338,7 +339,7 @@ import {
           Que faire du code $\LaTeX$ ?
         </div>
         <div
-          class="grid grid-cols-1 grid-rows-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
+          class="grid grid-cols-1 grid-rows-1 md:grid-cols-2 xl:grid-cols-2 gap-8"
         >
           <SimpleCard title={'Obtenir un PDF'}>
             <div>
@@ -358,6 +359,25 @@ import {
                   nbVersions
                 }}
                 disabled={false}
+              />
+            </div>
+          </SimpleCard>
+          <SimpleCard title={'Compiler le code pour avoir un fichier PDF (version béta)'}>
+            <div>
+              Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$. J'essaie
+              le nouveau compilateur en ligne (serveur TexLive.net).
+            </div>
+            <div slot="button1">
+              <ButtonCompileLatexToPDF
+                class="flex w-full flex-col justify-center"
+                {latex}
+                latexFileInfos={{
+                  title,
+                  reference,
+                  subtitle,
+                  style,
+                  nbVersions
+                }}
               />
             </div>
           </SimpleCard>
