@@ -3614,7 +3614,29 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "5G40,s=5,n=3,cd=1"
+                    "slug": "5G40,s=5,n=2,cd=1"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "5G40_Poly_x1",
+                      "5G40_Presentation"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Demander s'ils savent ce qu'est un parallélogramme",
+                      "Noter la définition",
+                      "Faire deviner les propriétés",
+                      "Les noter",
+                      "Faire ensemble quelques exercices de https://topmaths.fr/?v=objectif&ref=5G40 pour qu'ils voient comment utiliser les propriétés pour construire des parallélogrammes (les construire à main levée)",
+                      "Exercices du poly"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
                   }
                 ]
               },
