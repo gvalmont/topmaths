@@ -3619,9 +3619,14 @@
                 ],
                 "fiches": [
                   {
-                    "materielEleve": [],
+                    "materielEleve": [
+                      "Règle",
+                      "Équerre",
+                      "Compas"
+                    ],
                     "materielEnseignant": [
-                      "5G40_Poly_x1",
+                      "5G40_Poly-1_x1 à imprimer",
+                      "5G40_Poly-2_x0 à mettre sur Pronote",
                       "5G40_Presentation"
                     ],
                     "debutDeSeance": [],
@@ -3630,11 +3635,15 @@
                       "Noter la définition",
                       "Faire deviner les propriétés",
                       "Les noter",
-                      "Faire ensemble quelques exercices de https://topmaths.fr/?v=objectif&ref=5G40 pour qu'ils voient comment utiliser les propriétés pour construire des parallélogrammes (les construire à main levée)",
+                      "Faire ensemble quelques exercices de https://topmaths.fr/?v=objectif&ref=5G40 pour qu'ils voient comment utiliser les propriétés pour construire des parallélogrammes",
                       "Exercices du poly"
                     ],
-                    "devoirs": [],
-                    "finDeSeance": [],
+                    "devoirs": [
+                      "Terminer le poly à la maison"
+                    ],
+                    "finDeSeance": [
+                      "Mettre le poly-2 sur Pronote"
+                    ],
                     "prochaineSeance": [],
                     "notes": []
                   }
@@ -3662,7 +3671,7 @@
               {
                 "reference": "5G42",
                 "titre": "Connaître et utiliser les propriétés des parallélogrammes",
-                "rappelDuCoursHTML": "Un <b><i>parallélogramme</i></b> est un quadrilatère dont les côtés opposés sont deux à deux parallèles.<br>Les diagonales d'un parallélogramme se coupent en leur milieu.",
+                "rappelDuCoursHTML": "Si un quadrilatère a ses diagonales qui se coupent en leur milieu, alors c'est un parallélogramme.<br>Si un quadrilatère non croisé a ses côtés opposés de même longueur, alors c'est un parallélogramme.<br>Si un quadrilatère non croisé a deux côtés parallèles et de même longueur, alors c'est un parallélogramme.<br>Si un quadrilatère non croisé a ses angles opposés de même mesure, alors c'est un parallélogramme.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -3674,7 +3683,30 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "5G42-1,n=6,s=3,cd=1"
+                    "slug": "uuid=588fe&id=5G40-2&n=4"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "5G42_Poly_x1"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Coller le poly",
+                      "Demander ce que signifie cette première propriété",
+                      "Construire en direct sur Geogebra une figure qui respecte la condition de cette propriété et la malmener pour vérifier si on obtient toujours un parallélogramme",
+                      "Recommencer pour les autres propriétés",
+                      "Entraînement à l'oral sur https://topmaths.fr/?v=objectif&ref=5G42",
+                      "Montrer un exemple de rédaction",
+                      "Les élèves en font un autre - correction - un autre",
+                      "Kahoot : https://create.kahoot.it/details/d96faad3-d4fe-41b9-b636-4baa6a6592a4"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
                   }
                 ]
               }
