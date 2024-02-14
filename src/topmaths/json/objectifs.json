@@ -3695,11 +3695,12 @@
                     "debutDeSeance": [],
                     "deroule": [
                       "Coller le poly",
-                      "Demander ce que signifie cette première propriété",
+                      "Expliquer comment lire une propriété en mathématiques : Plusieurs fois, en visualisant, en modifiant l'énoncé pour voir ce que ça change (chaque mot est important)",
                       "Construire en direct sur Geogebra une figure qui respecte la condition de cette propriété et la malmener pour vérifier si on obtient toujours un parallélogramme",
-                      "Recommencer pour les autres propriétés",
+                      "Enlever des mots de la propriété pour voir si elle fonctionne toujours",
+                      "Recommencer pour les autres propriétés (sauf la dernière avec les angles pour gagner du temps)",
                       "Entraînement à l'oral sur https://topmaths.fr/?v=objectif&ref=5G42",
-                      "Montrer un exemple de rédaction",
+                      "Noter partie cours un exemple de rédaction Vrai et un exemple de rédaction Faux",
                       "Les élèves en font un autre - correction - un autre",
                       "Kahoot : https://create.kahoot.it/details/d96faad3-d4fe-41b9-b636-4baa6a6592a4"
                     ],
