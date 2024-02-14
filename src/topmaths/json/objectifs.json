@@ -6921,11 +6921,11 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "3A11-0,s=3,s2=1,s3=1,n=3",
+                    "slug": "uuid=1871d&id=3A11-0&n=3&d=10&s=2&s2=2-3-5-7-11&s3=1",
                     "description": "Petits numérateurs et dénominateurs"
                   },
                   {
-                    "slug": "3A11-0,s=3,s2=2,s3=1,n=3",
+                    "slug": "uuid=1871d&id=3A11-0&n=3&d=10&s=4&s2=2-3-5-7-11&s3=1",
                     "description": "Grands numérateurs et dénominateurs"
                   }
                 ]
