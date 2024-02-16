@@ -2004,7 +2004,8 @@
               },
               {
                 "reference": "6M12",
-                "titre": "Calcler le périmètre et l'aire d'un triangle quelconque",
+                "titre": "Déterminer le périmètre et l'aire d'un triangle quelconque",
+                "titreSimplifie": "Calculer le périmètre et l'aire d'un triangle quelconque",
                 "rappelDuCoursHTML": "Formule pour calculer l'aire d'un triangle : $A_{triangle} = \\dfrac{b \\times h}{2}$",
                 "rappelDuCoursImage": "",
                 "videos": [
@@ -2067,7 +2068,7 @@
                       "- Après avoir écrit la formule, demander s’ils savent combien vaut ce nombre ($pi$)",
                       "- Montrer comment obtenir une valeur approchée de $pi$ sur la calculatrice",
                       "Demander s’ils ont une idée de comment calculer la surface d’un disque",
-                      "- partager un disque en $4$ «\"carrés\"» et montrer que l’aire d’un disque est égale à un peu moins de $4 r^2$",
+                      "- partager un disque en $4$ \"carrés\" et montrer que l’aire d’un disque est égale à un peu moins de $4 r^2$",
                       "- Dire qu’en fait la formule est $pi r^2$",
                       "- Note Propriétés et Exemple du cours",
                       "Entraînement sur https://topmaths.fr/?v=objectif&ref=6M13",
