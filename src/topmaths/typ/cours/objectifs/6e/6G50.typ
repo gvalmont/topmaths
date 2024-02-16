@@ -6,9 +6,9 @@
   #place(right, image("6G50-1.png", width: 20%), dx: 7%, dy: -1em)
   #block(width: 95%)[
     #show: normal
-    La droite (d) coupe le segment [AB] #vert()[en formant un angle droit] et #noir()[passe par le milieu] du segment [AB].\
-    Donc la droite (d) coupe le segment [AB] #vert()[perpendiculairement] et #noir()[en son milieu].\
-    La droite (d) est donc la #rouge()[médiatrice] du segment [AB]
+    La droite #rouge()[(d)] coupe le segment [AB] #vert()[en formant un angle droit] et #noir()[passe par le milieu] du segment [AB].\
+    Donc la droite #rouge()[(d)] coupe le segment [AB] #vert()[perpendiculairement] et #noir()[en son milieu].\
+    La droite #rouge()[(d)] est donc la #rouge()[médiatrice] du segment [AB]
   ]
 ]
 
