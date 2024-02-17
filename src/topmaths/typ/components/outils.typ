@@ -53,3 +53,7 @@
 #let fractionMultiplieParFacteur(numerateur, denominateur, facteur) = [
   $(numerateur #text(red)[$times #facteur$])/(denominateur #text(red)[$times #facteur$])$
 ]
+
+#let fractionDiviseParFacteur(numerateur, denominateur, facteur) = [
+  $(numerateur #text(red)[$div #facteur$])/(denominateur #text(red)[$div #facteur$])$
+]
