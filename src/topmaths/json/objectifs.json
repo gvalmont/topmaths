@@ -643,11 +643,11 @@
                     "debutDeSeance": [],
                     "deroule": [
                       "Noter les définitions",
-                      "Apprentisage explicite du premier exercice de https://topmaths.fr/?v=objectif&ref=6G13",
+                      "Apprentissage explicite du premier exercice de https://topmaths.fr/?v=objectif&ref=6G13",
                       "Les élèves font le premier exercice du poly",
                       "Correction",
                       "Noter les notations",
-                      "Apprentisage explicite du deuxième exercice de https://topmaths.fr/?v=objectif&ref=6G13",
+                      "Apprentissage explicite du deuxième exercice de https://topmaths.fr/?v=objectif&ref=6G13",
                       "Les élèves font le deuxième exercice du poly",
                       "Correction",
                       "https://create.kahoot.it/details/884d7fd4-f0a3-4930-96b4-9a0ca8b3ca01 "
@@ -2834,7 +2834,7 @@
                     "materielEnseignant": [],
                     "debutDeSeance": [],
                     "deroule": [
-                      "Apprentisage explicite de https://topmaths.fr/?v=objectif&ref=6P11"
+                      "Apprentissage explicite de https://topmaths.fr/?v=objectif&ref=6P11"
                     ],
                     "devoirs": [],
                     "finDeSeance": [],
@@ -3526,7 +3526,7 @@
                     "debutDeSeance": [],
                     "deroule": [
                       "Copier le cours en distribuant les photocopies au fur et à mesure #text(red)[=> C'était trop long, il ne restait que 15 min lorsqu'on a fini d'écrire le cours (et on n'a pas écrit les remarques). => Fusionner les propriétés 1 et 2 et pourquoi pas juste mettre la remarque au lieu des propriétés 3 et 4 ?]",
-                      "Apprentisage explicite de https://topmaths.fr/?v=objectif&ref=5G31"
+                      "Apprentissage explicite de https://topmaths.fr/?v=objectif&ref=5G31"
                     ],
                     "devoirs": [],
                     "finDeSeance": [],
@@ -4003,7 +4003,7 @@
                       "Expliquer à ceux qui ne l'auraient pas remarqué que dans les deux cas on mange la même quantité : oui on mange deux fois plus de part mais comme la pizza est partagée en 2 fois plus de part elles sont deux fois plus petites donc au final ça reivent à manger la même chose",
                       "Dans quel cas est-ce qu'on mange plus : si on mange 2 parts d'une pizza partagée en 5 ou 6 parts d'une pizza partagée en 15 ?",
                       "Faire la représentation et répondre",
-                      "Apprentisage explicite de https://topmaths.fr/?v=objectif&ref=5N20",
+                      "Apprentissage explicite de https://topmaths.fr/?v=objectif&ref=5N20",
                       "Noter le cours si on a le temps",
                       "Kahoot : https://create.kahoot.it/details/0f120553-eaa9-4eb7-944d-c82ea5ca908b"
                     ],
@@ -4091,7 +4091,7 @@
                     "debutDeSeance": [],
                     "deroule": [
                       "Noter le cours",
-                      "Apprentisage explicite de https://topmaths.fr/?v=objectif&ref=5N22",
+                      "Apprentissage explicite de https://topmaths.fr/?v=objectif&ref=5N22",
                       "Kahoot : https://create.kahoot.it/share/5n22-simplifier-des-fractions-simples/406e9e82-1c1a-4956-9ed5-f001767de715"
                     ],
                     "devoirs": [],
@@ -4125,6 +4125,27 @@
                   {
                     "slug": "4C24,s=3,n=2"
                   }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [],
+                    "debutDeSeance": [
+                      "https://topmaths.fr/?id=5N13&s=11&s2=true&n=3&serie=7fc9&v=exercices"
+                    ],
+                    "deroule": [
+                      "Afficher https://topmaths.fr/?uuid=612b9&id=4C24&n=1&s=3&v=exercices",
+                      "On se rend compte qu’on a besoin d’une autre méthode.",
+                      "On sait que pour pouvoir simplifier, il faut « casser » les nombres et les transformer en multiplication. Et si on multiplie en haut et en bas par un même nombre, alors on peut simplifier.",
+                      "Est-ce que vous avez une idée de comment on pourrait casser ces nombres en plein de multiplications ?",
+                      "Correction",
+                      "Relance, on fait ensemble",
+                      "Relance, ils font seuls"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
+                  }
                 ]
               },
               {
@@ -4149,6 +4170,22 @@
                 "exercices": [
                   {
                     "slug": "5N20,s=11,s2=3,s3=false,n=4"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [],
+                    "debutDeSeance": [
+                      "https://topmaths.fr/?id=5N13&s=11&s2=true&n=3&serie=7fc9&v=exercices"
+                    ],
+                    "deroule": [
+                      "Apprentissage explicite de https://topmaths.fr/?v=objectif&ref=5N24",
+                      "Kahoot : https://create.kahoot.it/details/279e7e5a-38ac-41d2-af2e-1ff5ad5ff854"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
                   }
                 ]
               }
