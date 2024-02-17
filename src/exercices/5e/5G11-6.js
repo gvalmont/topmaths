@@ -23,6 +23,10 @@ export const amcType = 'AMCOpenNum'
  */
 export const uuid = '2a611'
 export const ref = '5G11-6'
+export const refs = {
+  'fr-fr': ['5G11-6'],
+  'fr-ch': []
+}
 export default function CompleterParSymetrie5e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
@@ -183,7 +187,7 @@ export default function CompleterParSymetrie5e () {
         if (!monPoint.etat) aucunMauvaisPointsCliques = false
         monPoint.stopCliquable()
       }
-      const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+      const spanFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
       for (let j = 0; j < pointsSolution[i].length; j++) {
         pointsSolution[i][j].stopCliquable()
       }
@@ -192,10 +196,10 @@ export default function CompleterParSymetrie5e () {
         etat = etat && pointsSolution[i][k]
       }
       if (aucunMauvaisPointsCliques && etat) {
-        divFeedback.innerHTML = '😎'
+        spanFeedback.innerHTML = '😎'
         resultat = 'OK'
       } else {
-        divFeedback.innerHTML = '☹️'
+        spanFeedback.innerHTML = '☹️'
         resultat = 'KO'
       }
       return resultat

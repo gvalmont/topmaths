@@ -13,7 +13,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const dateDeCreation = '01/12/2021'
+export const dateDePublication = '01/12/2021'
 export const dateDeModifImportante = '02/02/2024'
 
 /**
@@ -23,6 +23,10 @@ export const dateDeModifImportante = '02/02/2024'
  */
 export const uuid = '7c068'
 export const ref = '4S11'
+export const refs = {
+  'fr-fr': ['4S11'],
+  'fr-ch': []
+}
 export default function DeterminerDesMedianes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

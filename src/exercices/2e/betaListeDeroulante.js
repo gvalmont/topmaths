@@ -15,7 +15,10 @@ export const interactifType = 'custom'
 export const dateDePublication = '22/06/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = 'addd5' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
 export const ref = 'betaListeDeroulante'// @todo à modifier aussi
-
+export const refs = {
+  'fr-fr': ['betaListeDeroulante'],
+  'fr-ch': []
+}
 const fonctionsAuChoix = [
   { latex: '\\sin(x)', name: 'sin', fonction: x => Math.sin(x), derivee: x => Math.cos(x) },
   { latex: '\\cos(x)', name: 'cos', fonction: x => Math.cos(x), derivee: x => -Math.sin(x) },
@@ -70,16 +73,16 @@ export default class BetaListeDeroulante extends Exercice {
     const spanListe = document.createElement('span')
     this.listeDeroulante = ListeDeroulante.create(spanListe, ['Propositions'].concat(choices), { choix0: false, sansFleche: false })
     texteEnonce += '<br>Sélectionner dans la liste déroulante l\'expression de la fonction $f$ dont la courbe est tracée ci-dessus.'
-    texteEnonce += `<br><span id="ListeDeroulanteExo${this.numeroExercice}Q0"></span><div id ="divDuSmiley${this.numeroExercice}Q0"></div>`
+    texteEnonce += `<br><span id="ListeDeroulanteExo${this.numeroExercice}Q0"></span><span id ="resultatCheckEx${this.numeroExercice}Q0"></span>`
     const texteCorrection = `L'expression de la fonction $f$ est : $f(x)=${latex}$.`
     document.addEventListener('exercicesAffiches', () => {
       const span = document.querySelector(`span#ListeDeroulanteExo${this.numeroExercice}Q0`)
       if (span.getElementsByClassName('listeDeroulante').length === 0) {
         span.appendChild(this.listeDeroulante.container)
         this.listeDeroulante.show()
-        const divFeedback = document.createElement('div')
-        divFeedback.id = `divDuSmiley${this.numeroExercice}Q0`
-        this.listeDeroulante.spanSelected.appendChild(divFeedback)
+        const spanFeedback = document.createElement('div')
+        spanFeedback.id = `resultatCheckEx${this.numeroExercice}Q0`
+        this.listeDeroulante.spanSelected.appendChild(spanFeedback)
       }
     })
     setReponse(this, 0, name)
@@ -89,15 +92,15 @@ export default class BetaListeDeroulante extends Exercice {
   }
 
   correctionInteractive () {
-    const divFeedback = document.querySelector(`div#divDuSmiley${this.numeroExercice}Q0`)
+    const spanFeedback = document.querySelector(`span#resultatCheckEx${this.numeroExercice}Q0`)
     const index = this.listeDeroulante.getReponseIndex()
     const saisie = this.listeDeroulante.choices[index].value
     const resultatOK = saisie === this.autoCorrection[0].reponse.valeur[0]
     if (resultatOK) {
-      divFeedback.innerHTML += '😎'
+      spanFeedback.innerHTML += '😎'
       return 'OK'
     } else {
-      divFeedback.innerHTML += '☹️'
+      spanFeedback.innerHTML += '☹️'
       return 'KO'
     }
   }

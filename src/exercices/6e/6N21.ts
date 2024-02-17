@@ -10,7 +10,7 @@ import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine.js'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues.js'
 import { fraction } from '../../modules/fractions'
 
-export const dateDeCreation = '29/06/2021'
+export const dateDePublication = '29/06/2021'
 export const dateDeModifImportante = '12/12/2023'
 export const titre = 'Placer des points d’abscisses fractionnaires'
 export const interactifReady = true
@@ -23,6 +23,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = '2ba53'
 export const ref = '6N21'
+export const refs = {
+  'fr-fr': ['6N21'],
+  'fr-ch': []
+}
 
 type goodAnswer = { label: string, x: number }[]
 
@@ -106,7 +110,7 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
 
       switch (true) {
         case context.isHtml && this.interactif:
-          texte += '<br>' + figureApigeom({ exercice: this as Exercice, idApigeom: `ex${this.numeroExercice + ref}Q${i}`, figure })
+          texte += '<br>' + figureApigeom({ exercice: this as Exercice, idApigeom: `Ex${this.numeroExercice + ref}Q${i}`, figure })
           texteCorr += figureCorr.getStaticHtml()
           break
         case context.isHtml:
@@ -163,7 +167,7 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'
     const goodAnswer = this.goodAnswers[i]
-    const divFeedback = document.querySelector(`#feedback${`ex${this.numeroExercice}Q${i}`}`)
+    const divFeedback = document.querySelector(`#feedback${`Ex${this.numeroExercice}Q${i}`}`)
     for (let j = 0; j < goodAnswer.length; j++) {
       const label = goodAnswer[j].label
       const x = goodAnswer[j].x

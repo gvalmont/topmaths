@@ -23,6 +23,7 @@ import type PointApigeom from 'apigeom/src/elements/points/Point'
 import { reflectOverLineCoord } from 'apigeom/src/elements/calculus/Coords'
 import { codageMilieu } from '../../lib/2d/codages'
 import type Line from 'apigeom/src/elements/lines/Line'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Construire des symétriques de points'
 export const dateDePublication = '07/01/2024'
@@ -31,7 +32,16 @@ export const interactifType = 'custom'
 
 export const uuid = '26ea4'
 export const ref = '6G24-0'
+export const refs = {
+  'fr-fr': ['6G24-0'],
+  'fr-ch': []
+}
 
+/**
+ * Fonction pour positionner le label
+ * @param pointA
+ * @param pointB
+ */
 function positionneLabel (pointA: Point, pointB: Point) {
   if (pointA.x < pointB.x) return 'above left'
   else if (pointA > pointB.x) return 'below right'
@@ -40,6 +50,11 @@ function positionneLabel (pointA: Point, pointB: Point) {
     else return 'below right'
   }
 }
+
+/**
+ * fonction pour verifier qu'on est dans le cadre
+ * @param points
+ */
 function checkDistance (points: {x: number, y:number}[]) {
   for (const point of points) {
     if (point.x < -7 || point.x > 7 || point.y < -7 || point.y > 7) {
@@ -48,6 +63,11 @@ function checkDistance (points: {x: number, y:number}[]) {
   }
   return true
 }
+
+/**
+ * Construction interactive de symétriques de points
+ * @author Jean-Claude Lhote
+ */
 class ConstrctionsSymetriquesPoints extends Exercice {
   figures!: Figure[]
   idApigeom!: string[]
@@ -75,8 +95,8 @@ class ConstrctionsSymetriquesPoints extends Exercice {
   }
 
   nouvelleVersion (numeroExercice: number) {
-    const marks: string[] = ['//', '\\', 'x', 'O', '|||']
-    const colors: string[] = ['red', 'green', 'purple', 'blue', 'gray']
+    const marks: string[] = ['//', '///', 'x', 'O', '|||']
+    const colors: string[] = context.isHtml ? ['red', 'green', 'purple', 'blue', 'gray'] : ['gray', 'gray', 'gray', 'gray', 'gray']
     this.answers = {}
     this.listeQuestions = []
     this.listeCorrections = []
@@ -97,7 +117,6 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       let enonce = ''
       let antecedents: Array<Point> = []
       const middle: Point[] = []
-      const centre: Point[] = []
       const symetriques: Point[] = []
       const objets = []
       let objetsCorrection: object[] = []
@@ -163,7 +182,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         const guide = droiteParPointEtPerpendiculaire(antecedents[k], d[i]) as Droite
         guide.pointilles = 2
         guide.color = colorToLatexOrHTML(colors[k])
-        guide.opacite = 0.4
+        guide.opacite = 0.8
         guideDroites.push(guide)
       }
       enonce = `Construire le${this.nbPoints > 1 ? 's' : ''} symétrique${this.nbPoints > 1 ? 's' : ''} $${this.nbPoints > 1 ? this.labels[i].slice(0, this.nbPoints - 1).join('\',') + '\'' : (this.labels[i][0] + '\' ')}$` + (this.nbPoints > 1 ? ` et $${this.labels[i][this.nbPoints - 1] + '\''}$` : '') + (this.nbPoints > 1 ? ' respectifs ' : '')
@@ -178,7 +197,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
          */
         const guide = cercleCentrePoint(middle[k], antecedents[k], colors[k])
         guide.pointilles = 2
-        guide.opacite = 0.4
+        guide.opacite = 0.8
         guidesArc.push(guide)
       }
       if (this.sup2 === 1) {
@@ -205,17 +224,17 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         objetsCorrection.push(trace, labelSym, egalite)
       }
       objetsCorrection = [...objets, ...objetsCorrection]
-      if (this.sup2 !== 2) {
+      if (this.sup2 === 2) {
         guideDroites.forEach(guide => {
           guide.epaisseur = 1
-          guide.opacite = 0.5
+          guide.opacite = 0.8
         })
         objetsCorrection.push(...guideDroites)
       }
-      if (this.sup2 !== 3) {
+      if (this.sup2 === 3) {
         guidesArc.forEach(guide => {
           guide.epaisseur = 1
-          guide.opacite = 0.5
+          guide.opacite = 0.8
         })
         objetsCorrection.push(...guidesArc)
       }
@@ -225,6 +244,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
 
         objetsCorrection.push(carre)
       }
+
       if (context.isHtml && this.interactif) {
         this.figures[i] = new Figure({ xMin: -10, yMin: -10, width: 600, height: 600 })
         this.figures[i].scale = 0.7
@@ -261,7 +281,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         if (this.sup2 === 3) {
           for (let k = 0; k < this.nbPoints; k++) {
             this.figures[i].create('CircleCenterPoint', {
-              center: this.figures[i].create('Point', { isVisible: false, x: centre[k].x, y: centre[k].y }),
+              center: this.figures[i].create('Point', { isVisible: false, x: middle[k].x, y: middle[k].y }),
               point: (this.antecedents[i][k] as PointApigeom),
               isDashed: true,
               color: 'gray'
@@ -269,9 +289,9 @@ class ConstrctionsSymetriquesPoints extends Exercice {
           }
         }
         this.figures[i].options.limitNumberOfElement.set('Point', 1)
-        this.idApigeom[i] = `apigeomEx${numeroExercice}F${i}`
+        this.idApigeom[i] = `apiGeomEx${numeroExercice}F${i}`
         const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure: this.figures[i] })
-        this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure)
+        this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure + ajouteFeedback(this, i))
       } else {
         this.listeQuestions.push(enonce + '<br><br>' + mathalea2d({ xmin: -10, xmax: 10, ymin: -10, ymax: 10, scale: 0.5, pixelsParCm: 15 }, objets))
       }
@@ -284,7 +304,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.idApigeom[i]] = this.figures[i].json
     const resultat = []
-    const divFeedback = document.querySelector(`#feedback${this.idApigeom[i]}`) as HTMLDivElement
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
     let feedback = ''
 
     // on crée les bons symétriques :
@@ -321,7 +341,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         resultat.push('KO')
       }
     }
-    divFeedback.innerHTML = feedback
+    if (divFeedback) divFeedback.innerHTML = feedback
     // mathaleaRenderDiv(divFeedback)
     this.figures[i].isDynamic = false
     this.figures[i].divButtons.style.display = 'none'

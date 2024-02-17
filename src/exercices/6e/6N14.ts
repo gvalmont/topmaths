@@ -8,6 +8,7 @@ import { fraction } from '../../modules/fractions.js'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom.js'
 import CircleFractionDiagram from 'apigeom/src/elements/diagrams/CircleFractionDiagram.js'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 export const titre = 'Représenter des fractions'
 export const amcReady = true
 export const interactifReady = true
@@ -23,6 +24,10 @@ export const dateDeModifImportante = '15/01/2024'
  */
 export const uuid = '87479'
 export const ref = '6N14'
+export const refs = {
+  'fr-fr': ['6N14'],
+  'fr-ch': []
+}
 export default class RepresenterUneFraction extends Exercice {
   figures: Figure[] = []
   diagrammes: CircleFractionDiagram[] = []
@@ -86,9 +91,10 @@ export default class RepresenterUneFraction extends Exercice {
         figure.setToolbar({ tools: ['FILL'], position: 'top' })
         if (figure.ui) figure.ui.send('FILL')
         this.diagrammes[i] = new CircleFractionDiagram(figure, { denominator: den, numberOfCircle: 3, radius: 1 })
-        this.idApigeom[i] = `apigeomEx${numeroExercice}F${i}`
+        this.idApigeom[i] = `apiGeomEx${numeroExercice}F${i}`
         texte += figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure })
         figure.divButtons.style.display = 'none' // Doit apparaitre après figureApigeom
+        texte += ajouteFeedback(this, i)
       } else {
         texte += mathalea2d(params, fraction(den * 3, den).representation(0, 0, 2, 0, 'gateau', 'white'))
       }
@@ -122,7 +128,7 @@ export default class RepresenterUneFraction extends Exercice {
           ]
         }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, num, den)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -138,17 +144,17 @@ export default class RepresenterUneFraction extends Exercice {
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.idApigeom[i]] = this.figures[i].json
     let result = 'KO'
-    const divFeedback = document.querySelector(`#feedback${this.idApigeom[i]}`) as HTMLDivElement
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
     if (this.diagrammes[i].numerator === this.numerators[i]) {
-      divFeedback.innerHTML = '😎'
+      if (divFeedback) divFeedback.innerHTML = '😎'
       result = 'OK'
     } else {
       const p1 = document.createElement('p')
       p1.innerText = '☹️'
       const p2 = document.createElement('p')
       p2.innerText = `Tu as colorié $\\dfrac{${this.diagrammes[i].numerator}}{${this.diagrammes[i].denominator}}$.`
-      divFeedback.appendChild(p1)
-      divFeedback.appendChild(p2)
+      if (divFeedback) divFeedback.appendChild(p1)
+      if (divFeedback) divFeedback.appendChild(p2)
     }
     this.figures[i].isDynamic = false
     this.figures[i].divUserMessage.style.display = 'none'

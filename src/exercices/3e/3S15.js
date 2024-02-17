@@ -16,12 +16,15 @@ export const dateDeModifImportante = '31/08/2022'
 /**
  * Calculer des étendues de séries statistiques
  * @author Jean-Claude Lhote
- * Référence 3S15
  * Ajout d'un paramètre "Mélange" par Guillaume Valmont le 31/08/2022
  * 12/01/2023 Mickael Guironnet Refactoring
  */
 export const uuid = '36e68'
 export const ref = '3S15'
+export const refs = {
+  'fr-fr': ['3S15'],
+  'fr-ch': []
+}
 export default function CalculerEtendues () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -53,7 +56,7 @@ export default function CalculerEtendues () {
           texte = OutilsStats.texteNotes(notes)
           texte += '<br>Calculer l\'étendue de ces notes.';
           [min, max] = OutilsStats.computeEtendue(notes)
-          texteCorr = context.isHtml ? '<br>' : '' + '' + OutilsStats.texteCorrEtendueNotes(min, max)
+          texteCorr = OutilsStats.texteCorrEtendueNotes(min, max)
           break
         case 'températures': {
           const mois = randint(1, 12)
@@ -63,7 +66,8 @@ export default function CalculerEtendues () {
           texte = OutilsStats.texteTemperatures(annee, mois, temperatures)
           texte += '<br>Calculer l\'étendue des températures.';
           [min, max] = OutilsStats.computeEtendue(temperatures)
-          texteCorr = context.isHtml ? '<br>' : '' + '' + OutilsStats.texteCorrEtendueNotes(min, max, 'température')
+          texteCorr = (context.isHtml ? '<br>' : '') + '' + OutilsStats.texteCorrEtendueNotes(min, max, 'température')
+          texteCorr = OutilsStats.texteCorrEtendueNotes(min, max, 'température')
           break
         }
       }

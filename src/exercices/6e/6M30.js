@@ -27,6 +27,10 @@ export const dateDeModifImportante = '05/11/2023'
 
 export const uuid = '04b0d'
 export const ref = '6M30'
+export const refs = {
+  'fr-fr': ['6M30'],
+  'fr-ch': []
+}
 export default function CalculDeVolumes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -96,12 +100,12 @@ export default function CalculDeVolumes () {
       partieDecimale2 = new Decimal(0)
       partieDecimale3 = new Decimal(0)
     }
-    for (let i = 0, texte, texteCorr, L, l, h, c, r, j, resultat, resultat2, resultat3, resultat4, volume, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, L, l, h, c, r, j, resultat, resultat2, resultat3, resultat4, volume, cpt = 0; i < this.nbQuestions && cpt < 100;) {
       this.autoCorrection[i] = {}
       texte = 'Calculer le volume'
       switch (listeTypeDeQuestions[i]) {
         case 1: // cube
-          c = new Decimal(randint(2, 10)).plus(partieDecimale1)
+          c = new Decimal(randint(2, 20)).plus(partieDecimale1)
           volume = c.pow(3)
           j = randint(0, 3) // pour le choix de l'unité
           texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
@@ -123,9 +127,9 @@ export default function CalculDeVolumes () {
         case 2: // pavé droit
           if (this.sup === 1) { // sans conversion
             j = randint(0, 3) // pour le choix de l'unité
-            l = partieDecimale1.plus(randint(2, 5))
-            h = partieDecimale2.plus(randint(3, 6))
-            L = partieDecimale3.plus(randint(6, 10))
+            l = partieDecimale1.plus(randint(2, 8))
+            h = partieDecimale2.plus(randint(3, 10, l.toNumber()))
+            L = partieDecimale3.plus(randint(4, 10, l.toNumber()))
             volume = l.mul(L).mul(h)
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += !volume.eq(volume.round()) ? `, arrondi au $${listeUnites[j][1]}$ près,` : ''

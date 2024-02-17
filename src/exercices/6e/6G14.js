@@ -24,7 +24,7 @@ import {
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
-export const titre = 'Utiliser les propriétés des droites perpendiculaires'
+export const titre = 'Utiliser les propriétés des droites parallèles et perpendiculaires'
 
 /**
  * Ref 6G14
@@ -34,6 +34,10 @@ export const titre = 'Utiliser les propriétés des droites perpendiculaires'
  */
 export const uuid = '6a336'
 export const ref = '6G14'
+export const refs = {
+  'fr-fr': ['6G14'],
+  'fr-ch': []
+}
 export default function ProprietesParallelesPerpendiculaires () {
   Exercice.call(this)
   this.nbQuestions = 3

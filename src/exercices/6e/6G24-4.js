@@ -25,6 +25,10 @@ export const amcType = 'AMCOpenNum'
  */
 export const uuid = '07f8a'
 export const ref = '6G24-4'
+export const refs = {
+  'fr-fr': ['6G24-4'],
+  'fr-ch': []
+}
 export default function CompleterParSymetrie6e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
@@ -219,7 +223,7 @@ export default function CompleterParSymetrie6e () {
         else pointsCliques[i].push(tracePoint(monPoint.point, 'red')) // ça c'est pour éventuellement modifier la correction avec les points cliqués par l'utilisateur.
         monPoint.stopCliquable()
       }
-      const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+      const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
       for (let j = 0; j < pointsSolution[i].length; j++) {
         pointsSolution[i][j].stopCliquable()
       }
@@ -228,10 +232,10 @@ export default function CompleterParSymetrie6e () {
         etat = etat && pointsSolution[i][k]
       }
       if (aucunMauvaisPointsCliques && etat) {
-        divFeedback.innerHTML = '😎'
+        spanResultat.innerHTML = '😎'
         resultat = 'OK'
       } else {
-        divFeedback.innerHTML = '☹️'
+        spanResultat.innerHTML = '☹️'
         resultat = 'KO'
       }
       // this.listeCorrections[i] = mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.7, style: 'inline' }, ...objetsEnonce[i], ...pointsCliques[i]) + mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5, style: 'inline' }, ...objetsEnonce, ...objetsCorrection[i])
