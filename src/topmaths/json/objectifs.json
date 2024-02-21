@@ -1236,6 +1236,12 @@
                 "rappelDuCoursImage": "6G40-RDC.png",
                 "videos": [
                   {
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=JHHAakPFvBs&vignette=https://i.ytimg.com/vi/JHHAakPFvBs/hqdefault.jpg&debut=0&fin=210&largeur=16&hauteur=9",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
+                  {
                     "titre": "",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=mCC0H9pNNEY&vignette=https://i.ytimg.com/vi/mCC0H9pNNEY/hqdefault.jpg&debut=0&fin=498&largeur=200&hauteur=150",
                     "auteur": "Maths et Jeux",
@@ -1283,6 +1289,12 @@
                 "rappelDuCoursImage": "6G41-RDC.png",
                 "videos": [
                   {
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=JHHAakPFvBs&vignette=https://i.ytimg.com/vi/JHHAakPFvBs/hqdefault.jpg&debut=0&fin=210&largeur=16&hauteur=9",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
+                  {
                     "titre": "",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=yfCIOM1tqEw&vignette=https://i.ytimg.com/vi/yfCIOM1tqEw/hqdefault.jpg&debut=113&fin=278&largeur=200&hauteur=150",
                     "auteur": "jean-yves Labouche",
@@ -1323,6 +1335,12 @@
                 "rappelDuCoursImage": "",
                 "rappelDuCoursInstrumenpoche": "tracer-angle",
                 "videos": [
+                  {
+                    "titre": "Résumé musical",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=JHHAakPFvBs&vignette=https://i.ytimg.com/vi/JHHAakPFvBs/hqdefault.jpg&debut=0&fin=210&largeur=16&hauteur=9",
+                    "auteur": "Rapémathiques",
+                    "lienAuteur": "https://www.youtube.com/c/Rap%C3%A9mathiques"
+                  },
                   {
                     "titre": "Mesurer un angle",
                     "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=YqUMin1FQ2c&vignette=https://i.ytimg.com/vi/YqUMin1FQ2c/hqdefault.jpg&debut=0&fin=312&largeur=200&hauteur=150",
@@ -4177,7 +4195,9 @@
                 "fiches": [
                   {
                     "materielEleve": [],
-                    "materielEnseignant": [],
+                    "materielEnseignant": [
+                      "Tablettes"
+                    ],
                     "debutDeSeance": [
                       "https://topmaths.fr/?id=5N13&s=11&s2=true&n=3&serie=7fc9&v=exercices"
                     ],
