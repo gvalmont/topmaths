@@ -18,7 +18,7 @@
 
 #slide()[
   #propriete()[
-    Si #vert()[un point est équidistant] des deux extrémités d'un segment, alors rouge()[il appartient à la médiatrice de ce segment].
+    Si #vert()[un point est équidistant] des deux extrémités d'un segment, alors #rouge()[il appartient à la médiatrice de ce segment].
   ]
 
   #exemple()[
