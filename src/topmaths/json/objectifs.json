@@ -1048,7 +1048,7 @@
               {
                 "reference": "6G24",
                 "titre": "Construire un triangle connaissant les 3 longueurs à l'aide d'une application",
-                "rappelDuCoursHTML": "<p>Il s'agit ici de faire la même chose que <a href='#/objectif/6G23'>6G23 : Construire des triangles connaissant les 3 longueurs</a> mais sur une application de géométrie.</p>",
+                "rappelDuCoursHTML": "<p>Il s'agit ici de faire la même chose que <a href='?v=objectif&ref=6G23'>6G23 : Construire des triangles connaissant les 3 longueurs</a> mais sur une application de géométrie.</p>",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -2103,7 +2103,7 @@
               {
                 "reference": "6M14",
                 "titre": "Calculer le périmètre et l'aire d'un assemblage de figures",
-                "rappelDuCoursHTML": "Revoir si besoin :<br><a href='#/objectif/6M10'>6M10 : Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle</a><br><a href='#/objectif/6M12'>6M12 : Déterminer le périmètre et l'aire d'un triangle quelconque</a><br><a href='#/objectif/6M13'>6M13 : Déterminer le périmètre et l'aire d'un disque</a><br><a href='#/objectif/6M11'>6M11 : Calculer le périmètre et l'aire d'une figure composée de triangles et rectangles</a>",
+                "rappelDuCoursHTML": "Revoir si besoin :<br><a href='?v=objectif&ref=6M10'>6M10 : Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle</a><br><a href='?v=objectif&ref=6M12'>6M12 : Déterminer le périmètre et l'aire d'un triangle quelconque</a><br><a href='?v=objectif&ref=6M13'>6M13 : Déterminer le périmètre et l'aire d'un disque</a><br><a href='?v=objectif&ref=6M11'>6M11 : Calculer le périmètre et l'aire d'une figure composée de triangles et rectangles</a>",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -3791,7 +3791,7 @@
               {
                 "reference": "5M10",
                 "titre": "Calculer le périmètre et l'aire d'une figure usuelle",
-                "rappelDuCoursHTML": "Rappels de 6e :<br><a href='#/objectif/6M10' title='Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle'>6M10 : Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle</a><br><a href='#/objectif/6M12' title='Déterminer le périmètre et l'aire d'un triangle quelconque'>6M12 : Déterminer le périmètre et l'aire d'un triangle quelconque</a><br><a href='#/objectif/6M13' title='Déterminer le périmètre et l'aire d'un disque'>6M13 : Déterminer le périmètre et l'aire d'un disque</a>",
+                "rappelDuCoursHTML": "Rappels de 6e :<br><a href='?v=objectif&ref=6M10' title='Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle'>6M10 : Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle</a><br><a href='?v=objectif&ref=6M12' title='Déterminer le périmètre et l'aire d'un triangle quelconque'>6M12 : Déterminer le périmètre et l'aire d'un triangle quelconque</a><br><a href='?v=objectif&ref=6M13' title='Déterminer le périmètre et l'aire d'un disque'>6M13 : Déterminer le périmètre et l'aire d'un disque</a>",
                 "rappelDuCoursImage": "RDC_S5S19.png",
                 "videos": [
                   {
@@ -5242,7 +5242,7 @@
               {
                 "reference": "5S31",
                 "titre": "Produire une formule littérale représentant la dépendance de deux grandeurs",
-                "rappelDuCoursHTML": "Vous trouverez plusieurs vidéos ci-dessous.<br>Vous pouvez aussi revoir <a href='#/objectif/5N52'>5N52 : Produire une expression littérale pour élaborer une formule ou traduire un programme de calcul</a>.",
+                "rappelDuCoursHTML": "Vous trouverez plusieurs vidéos ci-dessous.<br>Vous pouvez aussi revoir <a href='?v=objectif&ref=5N52'>5N52 : Produire une expression littérale pour élaborer une formule ou traduire un programme de calcul</a>.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -5932,7 +5932,7 @@
               {
                 "reference": "4N32",
                 "titre": "Utiliser les puissances d'exposant relatif",
-                "rappelDuCoursHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='#/objectif/4N30'>4N30</a><br><br><center> $ a^{-n} = \\cfrac{1}{a^n} = \\cfrac{1}{\\underbrace{a \\times a \\times a \\times ... \\times a}_{\\text{Le } a \\text{ apparaît } n \\text{ fois}}} $ </center>",
+                "rappelDuCoursHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='?v=objectif&ref=4N30'>4N30</a><br><br><center> $ a^{-n} = \\cfrac{1}{a^n} = \\cfrac{1}{\\underbrace{a \\times a \\times a \\times ... \\times a}_{\\text{Le } a \\text{ apparaît } n \\text{ fois}}} $ </center>",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -5962,7 +5962,7 @@
               {
                 "reference": "4N33",
                 "titre": "Utiliser les puissances de 10 d'exposant relatif",
-                "rappelDuCoursHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='#/objectif/4N30' title='Les puissances, c'est quoi ?'>4N30</a> et <a href='#/objectif/4N32' title='Puissances positives et négatives'>4N32</a>.<br><br><center> $ 10^n = \\underbrace{10 \\times 10 \\times 10 \\times ... \\times 10}_{\\text{Le } 10 \\text{ apparaît } n \\text{ fois}} = {1}\\underbrace{00 ... 0}_{\\text{Il y a } n \\text{ zéros}} $ </center><br><center> $ 10^{-n} = \\cfrac{1}{\\underbrace{10 \\times 10 \\times 10 \\times ... \\times 10}_{\\text{Le } 10 \\text{ apparaît } n \\text{ fois}}} = \\underbrace{0,00 ... 0}_{\\text{Il y a } n \\text{ zéros}}1 $ </center>",
+                "rappelDuCoursHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='?v=objectif&ref=4N30' title='Les puissances, c'est quoi ?'>4N30</a> et <a href='?v=objectif&ref=4N32' title='Puissances positives et négatives'>4N32</a>.<br><br><center> $ 10^n = \\underbrace{10 \\times 10 \\times 10 \\times ... \\times 10}_{\\text{Le } 10 \\text{ apparaît } n \\text{ fois}} = {1}\\underbrace{00 ... 0}_{\\text{Il y a } n \\text{ zéros}} $ </center><br><center> $ 10^{-n} = \\cfrac{1}{\\underbrace{10 \\times 10 \\times 10 \\times ... \\times 10}_{\\text{Le } 10 \\text{ apparaît } n \\text{ fois}}} = \\underbrace{0,00 ... 0}_{\\text{Il y a } n \\text{ zéros}}1 $ </center>",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -6027,7 +6027,7 @@
                 "reference": "4N35",
                 "titre": "Associer dans le cas des nombres décimaux, écriture décimale, écriture fractionnaire et notation scientifique",
                 "titreSimplifie": "Écrire des nombres en notation scientifique",
-                "rappelDuCoursHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='#/objectif/4N30' title='Les puissances, c'est quoi ?'>4N30</a>, <a href='#/objectif/4N32' title='Puissances positives et négatives'>4N32</a> et <a href='#/objectif/4N33' title='Les puissances de 10'>4N33</a>.<br><br>La <i>notation scientifique</i> d'un nombre est de la forme :<br> $a,... \\times 10^n$ avec $a$ qui est un chiffre entre 1 et 9.",
+                "rappelDuCoursHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='?v=objectif&ref=4N30' title='Les puissances, c'est quoi ?'>4N30</a>, <a href='?v=objectif&ref=4N32' title='Puissances positives et négatives'>4N32</a> et <a href='?v=objectif&ref=4N33' title='Les puissances de 10'>4N33</a>.<br><br>La <i>notation scientifique</i> d'un nombre est de la forme :<br> $a,... \\times 10^n$ avec $a$ qui est un chiffre entre 1 et 9.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -6120,7 +6120,7 @@
                 "reference": "4N42",
                 "titre": "Modéliser et résoudre des problèmes mettant en jeu la divisibilité (engrenages, conjonction de phénomènes…)",
                 "titreSimplifie": "Résoudre des problèmes à l'aide des nombres premiers",
-                "rappelDuCoursHTML": "Voir <a href='#/objectif/4N41'>4N41 : Décomposer un nombre entier en produit de facteurs premiers</a>",
+                "rappelDuCoursHTML": "Voir <a href='?v=objectif&ref=4N41'>4N41 : Décomposer un nombre entier en produit de facteurs premiers</a>",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -6150,7 +6150,7 @@
                 "reference": "4N50",
                 "titre": "Identifier la structure d'une expression littérale",
                 "titreSimplifie": "Reconnaître si c'est une somme, une différence, un produit ou un quotient",
-                "rappelDuCoursHTML": "<p>La <b><i>somme</i></b> est le résultat d'une <b><i>addition</i></b>.<br>La <b><i>différence</i></b> est le résultat d'une <b><i>soustraction</i></b>.<br>Le <b><i>produit</i></b> est le résultat d'une <b><i>multiplication</i></b>.<br>Le <b><i>quotient</i></b> est le résultat d'une <b><i>division</i></b>.</p><p>La <b><i>structure d'une expression</i></b> est déterminée par l'<b><i>opération</i></b> qu'on réaliserait <b><i>en dernier</i></b> si on voulait faire les calculs.</p><p>Si vous ne savez plus dans quel ordre on fait les calculs, vous pouvez aller voir <a href='#/objectif/5N10'>5N10 – Effectuer un enchaînement d'opérations en respectant les priorités opératoires.</a> et <a href='#/objectif/5N11'>5N11 – Traduire un enchaînement d'opérations à l'aide d'une expression avec des parenthèses.</a></p>",
+                "rappelDuCoursHTML": "<p>La <b><i>somme</i></b> est le résultat d'une <b><i>addition</i></b>.<br>La <b><i>différence</i></b> est le résultat d'une <b><i>soustraction</i></b>.<br>Le <b><i>produit</i></b> est le résultat d'une <b><i>multiplication</i></b>.<br>Le <b><i>quotient</i></b> est le résultat d'une <b><i>division</i></b>.</p><p>La <b><i>structure d'une expression</i></b> est déterminée par l'<b><i>opération</i></b> qu'on réaliserait <b><i>en dernier</i></b> si on voulait faire les calculs.</p><p>Si vous ne savez plus dans quel ordre on fait les calculs, vous pouvez aller voir <a href='?v=objectif&ref=5N10'>5N10 – Effectuer un enchaînement d'opérations en respectant les priorités opératoires.</a> et <a href='?v=objectif&ref=5N11'>5N11 – Traduire un enchaînement d'opérations à l'aide d'une expression avec des parenthèses.</a></p>",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -6398,7 +6398,7 @@
               {
                 "reference": "4P11",
                 "titre": "Calculer une quatrième proportionnelle par la procédure de son choix",
-                "rappelDuCoursHTML": "Voir aussi <a href='#/objectif/6P11'>6P11</a> pour d'autres méthodes.",
+                "rappelDuCoursHTML": "Voir aussi <a href='?v=objectif&ref=6P11'>6P11</a> pour d'autres méthodes.",
                 "rappelDuCoursImage": "regle-de-trois.png",
                 "videos": [
                   {
