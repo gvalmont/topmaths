@@ -2045,6 +2045,27 @@
                     "slug": "6M20,n=2,cd=1",
                     "description": ""
                   }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "6M12_Presentation",
+                      "Tablettes"
+                    ],
+                    "debutDeSeance": [
+                      "Question Flash https://coopmaths.fr/mathalea.html?ex=6M11-1,s=4,s2=3,s3=true,n=1,i=0&serie=492e&v=l&z=1.5"
+                    ],
+                    "deroule": [
+                      "Les laisser essayer de calculer périmètre et aire du premier triangle https://coopmaths.fr/mathalea.html?ex=6M20,n=2,cd=1,i=0&serie=X67G&v=e&z=1.5",
+                      "Démonstration, relance, ensemble, relance, seul",
+                      "Exercice avec la base en dehors du triangle",
+                      "Noter le cours ou Kahoot en mode réponses aléatoires https://create.kahoot.it/details/a54bee52-0398-460a-b341-8d21f2fd106c"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
+                  }
                 ]
               },
               {
@@ -2122,6 +2143,24 @@
                 "exercices": [
                   {
                     "slug": "6M11-2,n=2,s=4-5-6,s2=true,s3=1,cd=1"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "6M14_Poly_x2"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Enseignement explicite de https://topmaths.fr/?v=objectif&ref=6M14",
+                      "Distribuer le poly",
+                      "Réfléchir à la stratégie (parler de l'échelle notamment)",
+                      "Laisser les élèves commencer s'il y a le temps, finir à la maison (noté)"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
                   }
                 ]
               },
