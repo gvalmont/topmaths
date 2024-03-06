@@ -35,7 +35,9 @@ function genererTypCoursSequence (sequence) {
   for (const objectif of sequence.objectifs) {
     typCoursSequence += genererTypCoursObjectif(objectif, sequence)
   }
-  fs.writeFileSync(`./src/topmaths/typ/cours/sequences/${sequence.niveau}/${sequence.reference}.typ`, typCoursSequence, 'utf8')
+  const directory = `./src/topmaths/typ/cours/sequences/${sequence.niveau}/`
+  if (!fs.existsSync(directory)) fs.mkdirSync(directory, { recursive: true })
+  fs.writeFileSync(`${directory}${sequence.reference}.typ`, typCoursSequence, 'utf8')
 }
 
 function creerEnTete (sequence) {
@@ -142,7 +144,9 @@ function genererTypFicheObjectif (niveauSequence, objectif, fiche, indiceFiche) 
   typObjectif += getTypLignes('Fin de séance', fiche.finDeSeance)
   typObjectif += 'placeholderMateriel'
   typObjectif += getTypLignes('Notes', fiche.notes)
-  fs.writeFileSync(`./src/topmaths/typ/fiches/objectifs/${objectif.niveau}/${niveauSequence}_${fiche.reference}.typ`, typObjectif, 'utf8')
+  const directory = `./src/topmaths/typ/fiches/objectifs/${objectif.niveau}/`
+  if (!fs.existsSync(directory)) fs.mkdirSync(directory, { recursive: true })
+  fs.writeFileSync(`${directory}${niveauSequence}_${fiche.reference}.typ`, typObjectif, 'utf8')
 }
 
 function getNbFiches (objectif, niveauSequence) {
@@ -252,7 +256,9 @@ function genererTypFicheSequence (sequence) {
     }
   }
   typSequence = typSequence.slice(0, typSequence.length - 2) + ')'
-  fs.writeFileSync(`./src/topmaths/typ/fiches/sequences/${sequence.niveau}/${sequence.reference}.typ`, typSequence, 'utf8')
+  const directory = `./src/topmaths/typ/fiches/sequences/${sequence.niveau}/`
+  if (!fs.existsSync(directory)) fs.mkdirSync(directory, { recursive: true })
+  fs.writeFileSync(`${directory}${sequence.reference}.typ`, typSequence, 'utf8')
 }
 
 function compilerTyp () {
