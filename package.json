@@ -39,7 +39,7 @@
     "build": "pnpm makeJson && pnpm majPdf && pnpm majJson && vite build",
     "maj": "git fetch upstream && git checkout main && git merge upstream/main",
     "majJson": "node --loader ts-node/esm tasks/majJson.js",
-    "majPdf": "pnpm majJson && node --loader ts-node/esm tasks/majPdf.js",
+    "majPdf": "pnpm majJson && node --loader ts-node/esm tasks/majPdf.js && pnpm majJson",
     "start": "pnpm makeJson && vite",
     "makeJson": "node tasks/dictionnaireToReferentiel.js && node tasks/updateMenu.js",
     "getNewUuid": "pnpm makeJson",
