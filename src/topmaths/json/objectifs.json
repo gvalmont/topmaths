@@ -2334,12 +2334,23 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "6D10,s=1,n=2",
-                    "description": "Conversions en une étape"
-                  },
+                    "slug": "uuid=8b0f9&id=6D10&n=4&d=10&s=5",
+                    "description": ""
+                  }
+                ],
+                "fiches": [
                   {
-                    "slug": "6D13,s=3,n=2,cd=1",
-                    "description": "Conversions en deux étapes"
+                    "materielEleve": [
+                      "Calculatrice"
+                    ],
+                    "materielEnseignant": [],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Enseignement explicite de https://topmaths.fr/?v=objectif&ref=6M30"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
                   }
                 ]
               },
@@ -2365,6 +2376,25 @@
                   {
                     "slug": "6D12,s=4,n=3",
                     "description": "Calculer des durées ou déterminer un horaire"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [
+                      "Calculatrice"
+                    ],
+                    "materielEnseignant": [
+                      "6M31_Presentation"
+                    ],
+                    "debutDeSeance": [
+                      "https://topmaths.fr/?uuid=4f8f4&id=6D13&n=2&s=3&alea=XRnd&cd=1&v=exercices"
+                    ],
+                    "deroule": [
+                      "Enseignement explicite de https://topmaths.fr/?v=objectif&ref=6M31"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
                   }
                 ]
               }
