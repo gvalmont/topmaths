@@ -1,7 +1,7 @@
 import { droite } from '../../lib/2d/droites.js'
 import { point, tracePointSurDroite } from '../../lib/2d/points.js'
 import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
@@ -25,12 +25,12 @@ export const uuid = 'd81c6'
 export const ref = '6G10-1'
 export const refs = {
   'fr-fr': ['6G10-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES1-2']
 }
 export default function DescriptionSegmentDroiteDemiDroite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 3
-  this.nbCols = 3
+  this.nbCols = 1
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
@@ -99,8 +99,8 @@ export default function DescriptionSegmentDroiteDemiDroite () {
       }
       const [dAB, dABCorr, propsQcm] = creerDroiteDemiSegment(A, B)
       const labels = labelPoint(A, B)
-      texte = '<br>' + mathalea2d(
-        { xmin: -2, ymin: -1, xmax: 7, ymax: 3, pixelsParCm: 40, scale: 0.6 },
+      texte = mathalea2d(
+        { xmin: -2, ymin: -1, xmax: 7, ymax: 3, pixelsParCm: 40, scale: 0.6, optionsTikz: 'baseline=(current bounding box.north)' },
         dAB,
         t1,
         t2,

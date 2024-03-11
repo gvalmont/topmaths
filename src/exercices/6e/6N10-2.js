@@ -23,10 +23,10 @@ export const uuid = '6ea89'
 export const ref = '6N10-2'
 export const refs = {
   'fr-fr': ['6N10-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO1-3']
 }
 export default function DecompositionNombreDecimal () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Compléter les phrases suivantes.'
   this.nbQuestions = 5
   this.nbCols = 1

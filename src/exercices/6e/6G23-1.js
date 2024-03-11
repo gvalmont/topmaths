@@ -1,7 +1,7 @@
 import { afficheMesureAngle } from '../../lib/2d/codages.js'
 import { point, pointSurSegment } from '../../lib/2d/points.js'
 import { demiDroite } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPoint } from '../../lib/2d/textes.js'
+import { texteParPoint } from '../../lib/2d/textes.ts'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
@@ -27,10 +27,10 @@ export const uuid = 'c7f7a'
 export const ref = '6G23-1'
 export const refs = {
   'fr-fr': ['6G23-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES5-4']
 }
 export default function MesurerUnAngle () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
@@ -97,60 +97,60 @@ export default function MesurerUnAngle () {
       context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
       objetsEnonce = [s1, s2, Apos, Bpos, Cpos, secteur0]
       texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsEnonce)
-      texteCorr += `$${Math.abs(angle)}\\degree$`
+      texteCorr += `$${Math.abs(angle)}^\\circ$`
       this.autoCorrection[i] = {}
       this.autoCorrection[i].enonce = `${texte}\n`
       if (!this.sup2) {
         this.autoCorrection[i].propositions = [
           {
-            texte: `$${Math.abs(angle)}\\degree$`,
+            texte: `$${Math.abs(angle)}^\\circ$`,
             statut: true
           },
           {
-            texte: `$${(Math.abs(angle) + 45) % 180}\\degree$`,
+            texte: `$${(Math.abs(angle) + 45) % 180}^\\circ$`,
             statut: false
           },
           {
-            texte: `$${(Math.abs(angle) + 90) % 180}\\degree$`,
+            texte: `$${(Math.abs(angle) + 90) % 180}^\\circ$`,
             statut: false
           },
           {
-            texte: `$${(Math.abs(angle) + 135) % 180}\\degree$`,
+            texte: `$${(Math.abs(angle) + 135) % 180}^\\circ$`,
             statut: false
           },
           {
-            texte: '$180\\degree$',
+            texte: '$180^\\circ$',
             statut: false
           },
           {
-            texte: '$90\\degree$',
+            texte: '$90^\\circ$',
             statut: false
           }
         ]
       } else {
         this.autoCorrection[i].propositions = [
           {
-            texte: `$${Math.abs(angle)}\\degree$`,
+            texte: `$${Math.abs(angle)}^\\circ$`,
             statut: true
           },
           {
-            texte: `$${180 - Math.abs(angle)}\\degree$`,
+            texte: `$${180 - Math.abs(angle)}^\\circ$`,
             statut: false
           },
           {
-            texte: `$${Math.round(Math.abs(angle) / 2)}\\degree$`,
+            texte: `$${Math.round(Math.abs(angle) / 2)}^\\circ$`,
             statut: false
           },
           {
-            texte: `$${this.interactif ? Math.abs(angle) + 20 : arrondiA10Pres > angle ? arrondiA10Pres + delta : arrondiA10Pres - delta}\\degree$`,
+            texte: `$${this.interactif ? Math.abs(angle) + 20 : arrondiA10Pres > angle ? arrondiA10Pres + delta : arrondiA10Pres - delta}^\\circ$`,
             statut: false
           },
           {
-            texte: '$180\\degree$',
+            texte: '$180^\\circ$',
             statut: false
           },
           {
-            texte: '$90\\degree$',
+            texte: '$90^\\circ$',
             statut: false
           }
         ]

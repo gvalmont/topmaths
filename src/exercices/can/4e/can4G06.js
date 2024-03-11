@@ -2,7 +2,7 @@ import { droite } from '../../../lib/2d/droites.js'
 import { milieu, point, pointAdistance } from '../../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
@@ -21,9 +21,13 @@ export const interactifType = 'mathLive'
 */
 export const uuid = '61c07'
 export const ref = 'can4G06'
+export const refs = {
+  'fr-fr': ['can4G06'],
+  'fr-ch': []
+}
 export default function CalculLongueurThales () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   this.tailleDiaporama = 2

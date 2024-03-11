@@ -7,7 +7,7 @@ import {
 } from '../../lib/2d/droites.js'
 import { point, pointIntersectionDD, pointSurDroite } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonneesBox } from '../../lib/2d/textes.js'
+import { latexParCoordonneesBox } from '../../lib/2d/textes.ts'
 import { rotation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
@@ -36,7 +36,7 @@ export const uuid = '6a336'
 export const ref = '6G14'
 export const refs = {
   'fr-fr': ['6G14'],
-  'fr-ch': []
+  'fr-ch': ['9ES3-11']
 }
 export default function ProprietesParallelesPerpendiculaires () {
   Exercice.call(this)

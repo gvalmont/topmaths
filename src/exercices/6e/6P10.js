@@ -25,10 +25,10 @@ export const uuid = '850d5'
 export const ref = '6P10'
 export const refs = {
   'fr-fr': ['6P10'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-1']
 }
 export default function ProportionnalitePasProportionnalite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   context.isHtml ? this.spacing = 2 : this.spacing = 1.4
   context.isHtml ? this.spacingCorr = 1.5 : this.spacingCorr = 1
   this.nbQuestions = 5

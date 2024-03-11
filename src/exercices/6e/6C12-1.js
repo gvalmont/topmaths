@@ -10,6 +10,7 @@ import { estentier, gestionnaireFormulaireTexte, listeQuestionsToContenu } from 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Résoudre des problèmes de prix avec des aliments'
 export const interactifReady = true
@@ -36,10 +37,10 @@ export const uuid = '4e2b2'
 export const ref = '6C12-1'
 export const refs = {
   'fr-fr': ['6C12-1'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-6']
 }
 export default function QuestionsMasses () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Répondre aux questions suivantes.' // Consigne modifiée, plus bas, à l'intérieur de la fonction
   this.nbQuestionsModifiable = true
   this.nbQuestions = 1
@@ -47,8 +48,6 @@ export default function QuestionsMasses () {
   this.sup2 = false
   this.sup3 = false
   this.sup4 = 3
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.interactifType = 'mathLive'
@@ -214,7 +213,7 @@ export default function QuestionsMasses () {
           texteCorr += correctionAMC
         }
         if (this.interactif && !context.isAmc) {
-          texte += ajouteChampTexteMathLive(this, 8 * i + kk, 'inline largeur25', { texteApres: ' €' }) + '<br><br>'
+          texte += ajouteChampTexteMathLive(this, 8 * i + kk, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' €' }) + '<br><br>'
           setReponse(this, 8 * i + kk, reponseAMC)
         }
         if (context.isAmc) {

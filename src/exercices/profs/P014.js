@@ -7,6 +7,10 @@ import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Interpollation de Catmull-Rom'
 export const ref = 'P014'
+export const refs = {
+  'fr-fr': ['P014'],
+  'fr-ch': []
+}
 export const uuid = '295a8'
 
 /**
@@ -15,7 +19,7 @@ export const uuid = '295a8'
  * Référence P014
  */
 export default function TraceCourbeInterpolee1 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1

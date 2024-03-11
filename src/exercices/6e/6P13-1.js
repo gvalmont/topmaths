@@ -15,10 +15,10 @@ export const uuid = '837cd'
 export const ref = '6P13-1'
 export const refs = {
   'fr-fr': ['6P13-1'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-14']
 }
 export default function CompleterUneFacture () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Compléter le tableau suivant.'
   this.nbQuestions = 1

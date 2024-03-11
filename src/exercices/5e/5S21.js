@@ -12,7 +12,6 @@ export const titre = 'Calculer des probabilités dans une expérience aléatoire
 /**
  * Calculs de probabilités sur une expérience aléatoire à une épreuve.
  * @author Jean-Claude Lhote
- * Référence 5S21
  * Ajout de la partie vocabulaire (this.sup !== 1) par Guillaume Valmont le 03/04/2022
  * Remplacement des this.sup par des this.niveau par Guillaume Valmont le 07/05/2022
  */
@@ -20,12 +19,10 @@ export const uuid = '69e1f'
 export const ref = '5S21'
 export const refs = {
   'fr-fr': ['5S21'],
-  'fr-ch': []
+  'fr-ch': ['11NO2-6']
 }
 export default function FonctionsProbabilite1 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = ''
+  Exercice.call(this)
   this.nbQuestions = 4
   this.nbQuestionsModifiable = true
   this.nbCols = 1

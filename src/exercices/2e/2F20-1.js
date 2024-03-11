@@ -25,10 +25,10 @@ export const uuid = '36795'
 export const ref = '2F20-1'
 export const refs = {
   'fr-fr': ['2F20-1'],
-  'fr-ch': []
+  'fr-ch': ['11FA9-1']
 }
 export default function PointSurCourbe () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 1
   this.sup2 = 1
   this.consigne = ''

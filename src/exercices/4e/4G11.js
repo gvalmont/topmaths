@@ -1,7 +1,7 @@
 import { codageSegment } from '../../lib/2d/codages.js'
 import { tracePoint } from '../../lib/2d/points.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { texteParPosition } from '../../lib/2d/textes.ts'
 import { translation } from '../../lib/2d/transformations.js'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { texcolors } from '../../lib/format/style'
@@ -24,10 +24,10 @@ export const uuid = '3bfb6'
 export const ref = '4G11'
 export const refs = {
   'fr-fr': ['4G11'],
-  'fr-ch': []
+  'fr-ch': ['10ES2-9']
 }
 export default function PavageEtTranslation2d () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 3

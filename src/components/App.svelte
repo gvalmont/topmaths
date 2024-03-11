@@ -5,18 +5,31 @@
   import Eleve from './display/eleve/Eleve.svelte'
   import ConfigEleve from './setup/configEleve/ConfigEleve.svelte'
   import Latex from './setup/latex/Latex.svelte'
-  import { exercicesParams, freezeUrl, globalOptions, isInIframe } from '../lib/stores/generalStore'
+  import {
+    darkMode,
+    exercicesParams,
+    freezeUrl,
+    globalOptions,
+    isInIframe
+  } from '../lib/stores/generalStore'
   import { context } from '../modules/context.js'
   import {
     ElementButtonInstrumenpoche,
     ElementInstrumenpoche
   } from '../modules/ElementInstrumenpoche.js'
   import Amc from './setup/amc/Amc.svelte'
+  import Anki from './setup/anki/Anki.svelte'
   import Moodle from './setup/moodle/Moodle.svelte'
   import Capytale from './setup/capytale/Capytale.svelte'
   import Start from './setup/start/Start.svelte'
   import { onMount } from 'svelte'
-  import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea'
+  import {
+    mathaleaUpdateExercicesParamsFromUrl,
+    mathaleaUpdateUrlFromExercicesParams
+  } from '../lib/mathalea'
+  import Can from './display/can/Can.svelte'
+  import { canOptions } from '../lib/stores/canStore'
+  import type { CanSolutionsMode } from '../lib/types/can'
 
   let isInitialUrlHandled = false
 
@@ -40,6 +53,27 @@
     isInIframe.set(false)
   }
 
+  // Gestion des paramètres de la CAN
+  const canDuration = url.searchParams.get('canD')
+  if (canDuration !== null) {
+    $canOptions.durationInMinutes = parseInt(canDuration)
+  }
+  const canSub = url.searchParams.get('canT')
+  if (canSub !== null) {
+    $canOptions.subTitle = canSub
+  }
+  const canSolAccess = url.searchParams.get('canSA')
+  if (canSolAccess !== null) {
+    $canOptions.solutionsAccess = canSolAccess === 'true'
+  }
+  const canSolMode = url.searchParams.get('canSM')
+  if (canSolMode !== null) {
+    $canOptions.solutionsMode = canSolMode as CanSolutionsMode
+  }
+  const canIsInteractive = url.searchParams.get('canI')
+  if (canIsInteractive !== null) {
+    $canOptions.isInteractive = canIsInteractive === 'true'
+  }
   onMount(handleInitialUrl)
 
   $: {
@@ -83,8 +117,10 @@
 <div id="appComponent">
   {#if $globalOptions.v === 'diaporama'}
     <Diaporama />
-  {:else if $globalOptions.v === 'can'}
+  {:else if $globalOptions.v === 'overview'}
     <Apercu />
+  {:else if $globalOptions.v === 'can'}
+    <Can />
   {:else if $globalOptions.v === 'eleve'}
     <Eleve />
   {:else if $globalOptions.v === 'latex'}
@@ -95,6 +131,8 @@
     <Amc />
   {:else if $globalOptions.v === 'moodle'}
     <Moodle />
+  {:else if $globalOptions.v === 'anki'}
+    <Anki />
   {:else if $globalOptions.recorder === 'capytale'}
     <Capytale />
   {:else if $globalOptions.v === 'start'}
@@ -108,6 +146,5 @@
   <dialog
     id="notifDialog"
     class="rounded-xl p-6 bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg"
-  >
-  </dialog>
+  ></dialog>
 {/if}

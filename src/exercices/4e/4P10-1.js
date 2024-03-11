@@ -23,10 +23,10 @@ export const uuid = 'c668a'
 export const ref = '4P10-1'
 export const refs = {
   'fr-fr': ['4P10-1'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-15', '10FA4-3']
 }
 export default function GraphiquesEtProportionnalite2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.debug = false
   if (this.debug) {
     this.nbQuestions = 2

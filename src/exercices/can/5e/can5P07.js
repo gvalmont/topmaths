@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Résoudre un problème de proportionnalité*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,6 +17,10 @@ export const dateDePublication = '19/07/2022'
 */
 export const uuid = 'afbda'
 export const ref = 'can5P07'
+export const refs = {
+  'fr-fr': ['can5P07'],
+  'fr-ch': []
+}
 export default function Proportionnalite2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

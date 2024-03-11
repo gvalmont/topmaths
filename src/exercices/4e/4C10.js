@@ -4,7 +4,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import Decimal from 'decimal.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -20,7 +20,7 @@ export const uuid = '745ba'
 export const ref = '4C10'
 export const refs = {
   'fr-fr': ['4C10'],
-  'fr-ch': []
+  'fr-ch': ['10NO4-1']
 }
 export default function ProduitsEtQuotientRelatifs () {
   Exercice.call(this)

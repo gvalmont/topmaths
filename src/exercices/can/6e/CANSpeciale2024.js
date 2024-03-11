@@ -5,10 +5,10 @@ import { codageSegments } from '../../../lib/2d/codages.js'
 import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { milieu, point } from '../../../lib/2d/points.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition, labelPoint, latexParCoordonnees } from '../../../lib/2d/textes.js'
+import { texteParPosition, labelPoint, latexParCoordonnees } from '../../../lib/2d/textes.ts'
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
 import { creerNomDePolygone, sp } from '../../../lib/outils/outilString.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { texNombre, stringNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
@@ -25,10 +25,14 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '6ca15'
 export const ref = ''
+export const refs = {
+  'fr-fr': [''],
+  'fr-ch': []
+}
 export const dateDePublication = '01/01/2024'
 
 export default function CourseAuxNombresSpeciale2024 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
 
   this.keyboard = ['lycee', 'hms']
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
@@ -754,7 +758,9 @@ export default function CourseAuxNombresSpeciale2024 () {
           texte = `$f(x)=${a}x+${texNombre(2024)}$<br>
          Calculer $f(${c})$.`
           reponse = a * c + 2024
-          texteCorr = `$f(${c})=${a}\\times ${c}+${texNombre(2024)}=${a * c}+${texNombre(2024)}=${miseEnEvidence(texNombre(reponse))}$`
+          texteCorr = `$f(${c})=${a}\\times ${c}+${texNombre(2024)}$`
+          texteCorr = `$f(${c})=${a * c}+${texNombre(2024)}$`
+          texteCorr = `$f(${c})=${miseEnEvidence(texNombre(reponse))}$`
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', { texteAvant: sp(10) + `$f(${c})=$` })
           this.listeCanEnonces.push(texte)
@@ -2070,7 +2076,7 @@ export default function CourseAuxNombresSpeciale2024 () {
           if (a === -2 || a === 2) { reponse = [`${a}\\times x`, `${a}x`] }
           texte = `Soit $f$ la fonction linéaire vérifiant $f(${texNombre(2024)})=${texNombre(a * 2024, 0)}$.<br>
           Compléter : $f(x)=$ `
-          texteCorr = `${reponse}Une fonction linéaire est une fonction de la forme $f(x)=ax$.<br>
+          texteCorr = `Une fonction linéaire est une fonction de la forme $f(x)=ax$.<br>
           Comme $f(${texNombre(2024)})=${texNombre(a * 2024)}$, on a $${texNombre(a * 2024, 0)}=a\\times ${texNombre(2024)}$, soit $a=${a}$.<br>
           On obtient donc : $f(x)=${miseEnEvidence(`${rienSi1(a)}x`)}$.`
           setReponse(this, index, reponse)

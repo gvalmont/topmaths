@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import Exercice from '../deprecatedExercice.js'
 import { randint } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 export const titre = 'Opérations simples avec des fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,6 +15,10 @@ export const dateDeModifImportante = '27/01/2022'
 */
 export const uuid = '3a087'
 export const ref = 'c3C23'
+export const refs = {
+  'fr-fr': ['c3C23'],
+  'fr-ch': ['9NO13-1']
+}
 export default function CalculsFractionsSimples () {
   Exercice.call(this)
   this.typeExercice = 'simple'

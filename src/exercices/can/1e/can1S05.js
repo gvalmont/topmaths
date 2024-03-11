@@ -19,8 +19,12 @@ export const dateDePublication = '16/02/2022' // La date de publication initiale
 */
 export const uuid = '88acd'
 export const ref = 'can1S05'
+export const refs = {
+  'fr-fr': ['can1S05'],
+  'fr-ch': []
+}
 export default function NatureSuiteEx () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 2

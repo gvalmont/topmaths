@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../deprecatedExercice.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Calculer la probabilité d’un évènement contraire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -13,6 +13,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = 'b2a59'
 export const ref = 'can3S02'
+export const refs = {
+  'fr-fr': ['can3S02'],
+  'fr-ch': []
+}
 export default function ProbaEvenementContraire () {
   Exercice.call(this)
   this.typeExercice = 'simple'

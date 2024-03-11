@@ -24,8 +24,12 @@ const math = create(all)
 
 export const uuid = '89071'
 export const ref = 'HPC102'
+export const refs = {
+  'fr-fr': ['HPC102'],
+  'fr-ch': []
+}
 export default function CalculsLoiNormale () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Calcul de probabilités pour une loi normale. Les évaluations numériques peuvent se faire à l\'aide d\'une table de valeur de la loi normale centrée réduite.'
   this.nbQuestions = 4

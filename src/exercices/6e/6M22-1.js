@@ -2,7 +2,7 @@ import { cercle } from '../../lib/2d/cercle.js'
 import { afficheLongueurSegment } from '../../lib/2d/codages.js'
 import { point, pointAdistance, tracePoint } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParPoint } from '../../lib/2d/textes.js'
+import { latexParPoint } from '../../lib/2d/textes.ts'
 import { rotation } from '../../lib/2d/transformations.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
@@ -34,7 +34,7 @@ export const uuid = 'f9a02'
 export const ref = '6M22-1'
 export const refs = {
   'fr-fr': ['6M22-1'],
-  'fr-ch': []
+  'fr-ch': ['10GM1-2']
 }
 
 /**
@@ -42,7 +42,7 @@ export const refs = {
  * @module
  */
 export default function PerimetreAireDisques (pa = 3) {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.sup = pa // 1 : périmètre, 2 : aire, 3 : périmètres et aires
   this.sup2 = true // rayon ou périmètre entier

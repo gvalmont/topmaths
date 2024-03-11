@@ -5,7 +5,7 @@ import { milieu, point, pointSurSegment, tracePoint } from '../../../lib/2d/poin
 import { polygone } from '../../../lib/2d/polygones.js'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
 import { rotation } from '../../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
@@ -43,8 +43,12 @@ function compareNombres (a, b) {
 
 export const uuid = '1fdf7'
 export const ref = 'can5a-2022'
+export const refs = {
+  'fr-fr': ['can5a-2022'],
+  'fr-ch': []
+}
 export default function SujetCAN2022cinquieme () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
@@ -623,7 +627,6 @@ export default function SujetCAN2022cinquieme () {
           break
 
         case 19:
-
           a = randint(1, 6)
           k = randint(3, 9)
           b = a * k

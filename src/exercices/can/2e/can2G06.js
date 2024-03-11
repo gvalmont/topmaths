@@ -5,7 +5,7 @@ import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Déterminer le coefficient directeur d\'une droite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,6 +19,10 @@ export const dateDePublication = '30/09/2021'
 */
 export const uuid = '1f62f'
 export const ref = 'can2G06'
+export const refs = {
+  'fr-fr': ['can2G06'],
+  'fr-ch': []
+}
 export default function CoeffDirecteurDroite () {
   Exercice.call(this)
   this.typeExercice = 'simple'

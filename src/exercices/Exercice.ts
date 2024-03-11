@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import type Grandeur from '../modules/Grandeur'
+import FractionEtendue from '../modules/FractionEtendue'
 
 /**
  *
@@ -27,13 +28,14 @@ export default class Exercice {
   consigne: string
   consigneCorrection: string
   introduction: string
-  listeQuestions: string[]
-  listeCorrections: string[]
-  listeCanReponsesACompleter?: string[]
-  listeCanEnonces?: string[]
+  listeQuestions: string[] = []
+  listeCorrections: string[] = []
+  listeCanReponsesACompleter?: string[] = []
+  listeCanEnonces?: string[] = []
   question?: string // Seulement pour les exercices de type simple
   reponse?: string | number | object// Seulement pour les exercices de type simple
   correction?: string // Seulement pour les exercices de type simple
+  canOfficielle?: boolean = false
   canEnonce?: string // Seulement pour les exercices de type simple
   canReponseACompleter?: string // Seulement pour les exercices de type simple
   formatChampTexte?: string // Seulement pour les exercices de type simple
@@ -94,6 +96,7 @@ export default class Exercice {
   answers?: { [key: string]: string } // Réponses de l'élève
   isDone?: boolean
   html?: HTMLElement
+  score?: number
   constructor () {
   // ////////////////////////////////////////////////
   // Autour de l'exercice
@@ -209,6 +212,13 @@ export default class Exercice {
     console.log(numeroExercice)
   }
 
+  reinit () {
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    this.listeArguments = []
+    this.autoCorrection = []
+  }
+
   applyNewSeed () {
     const seed = generateSeed({
       includeUpperCase: true,
@@ -219,11 +229,11 @@ export default class Exercice {
     this.seed = seed
   }
 
-  questionJamaisPosee (i: number, ...args:(string|number)[]) {
+  questionJamaisPosee (i: number, ...args:(string|number|FractionEtendue)[]) {
     if (i === 0) this.listeArguments = []
     let argsConcatenes = ''
     for (const arg of args) {
-      if (arg !== undefined) argsConcatenes += arg.toString()
+      if (arg !== undefined) argsConcatenes += (arg instanceof FractionEtendue ? arg.texFraction : arg.toString())
     }
     if (this.listeArguments != null && this.listeArguments.indexOf(argsConcatenes) > -1) {
       return false

@@ -4,24 +4,25 @@ import { droite } from '../../../lib/2d/droites.js'
 import { milieu, point, tracePoint } from '../../../lib/2d/points.js'
 import { grille, repere } from '../../../lib/2d/reperes.js'
 import { demiDroite, segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
-import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { texPrix } from '../../../lib/format/style'
 import { abs, arrondi, range1 } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString.js'
+import { factorisationCompare } from '../../../lib/interactif/comparisonFunctions'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { min, round } from 'mathjs'
 import { context } from '../../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'CAN Seconde sujet 2023'
 export const interactifReady = true
@@ -31,6 +32,10 @@ export const dateDePublication = '03/04/2023' // La date de publication initiale
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '9bc44'
 export const ref = 'can2a-2023'
+export const refs = {
+  'fr-fr': ['can2a-2023'],
+  'fr-ch': []
+}
 
 /**
  * Aléatoirisation du sujet 2023 de CAN seconde
@@ -43,7 +48,7 @@ function compareNombres (a, b) {
 }
 
 export default function SujetCAN2023Seconde () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
@@ -143,24 +148,25 @@ export default function SujetCAN2023Seconde () {
           n = couplenm[0]
           m = couplenm[1] * choice([-1, 1])
           f = choice(['a', 'b', 'y', 'x'])
-          reponse = [`${f}(${n}+${m}${f})`, `${f}(${m}${f}+${n})`]
+          handleAnswers(this, index, { reponse: { value: `${f}(${n}${ecritureAlgebrique(m)}${f})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
+          // reponse = [`${f}(${n}+${m}${f})`, `${f}(${m}${f}+${n})`]
           if (choice([true, false])) {
             texte = ` Factoriser $${n}${f}${ecritureAlgebrique(m)}${f}^2$`
-            texteCorr = `$x$ est un facteur commun aux deux termes : $${n}${f}$ et $${abs(m)}${f}^2$.<br>
+            texteCorr = `$${f}$ est un facteur commun aux deux termes : $${n}${f}$ et $${abs(m)}${f}^2$.<br>
           En effet :<br>
-          $${n}${f}${ecritureAlgebrique(m)}${f}^2=\\underbrace{${f}\\times ${n}}_{${n}${f}} ${m < 0 ? '-' : '+'}\\underbrace{${f}\\times ${m}${f}}_{${m}${f}^2}=${f}(${n}${ecritureAlgebrique(m)}${f})$`
+          $${n}${f}${ecritureAlgebrique(m)}${f}^2=\\underbrace{${f}\\times ${n}}_{${n}${f}} ${m < 0 ? '-' : '+'}\\underbrace{${f}\\times ${ecritureParentheseSiNegatif(m)}${f}}_{${m}${f}^2}=${f}(${n}${ecritureAlgebrique(m)}${f})$`
           } else {
             texte = ` Factoriser $${m}${f}^2+${n}${f}$`
-            texteCorr = `$x$ est un facteur commun aux deux termes : $${n}${f}$ et $${abs(m)}${f}^2$.<br>
+            texteCorr = `$${f}$ est un facteur commun aux deux termes : $${n}${f}$ et $${abs(m)}${f}^2$.<br>
           En effet :<br>
-          $${m}${f}^2+${n}${f}=\\underbrace{${f}\\times ${m}${f}}_{${m}${f}^2}+\\underbrace{${f}\\times ${n}}_{${n}${f}} =${f}(${m}${f}+${n})$`
+          $${m}${f}^2+${n}${f}=\\underbrace{${f}\\times ${ecritureParentheseSiNegatif(m)}${f}}_{${m}${f}^2}+\\underbrace{${f}\\times ${n}}_{${n}${f}} =${f}(${m}${f}+${n})$`
           }
 
           this.canEnonce = texte
           this.canReponseACompleter = ''
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline')
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          //  setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           }
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)

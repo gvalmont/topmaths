@@ -21,6 +21,10 @@ export const dateDePublication = '03/04/2023' // La date de publication initiale
 
 export const uuid = '57239'
 export const ref = 'canc3a-2023'
+export const refs = {
+  'fr-fr': ['canc3a-2023'],
+  'fr-ch': []
+}
 
 /**
  * Aléatoirisation du sujet 2023 de CAN CM2
@@ -33,7 +37,7 @@ function compareNombres (a, b) {
 }
 
 export default function SujetCAN2023CM2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.keyboard = ['hms']
   this.titre = titre
   this.interactifReady = interactifReady

@@ -40,10 +40,10 @@ export const uuid = 'cc129'
 export const ref = '4L10-1'
 export const refs = {
   'fr-fr': ['4L10-1'],
-  'fr-ch': []
+  'fr-ch': ['10FA1-15']
 }
 export default function ReductionsPiegesClassiques () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Réduire, si possible, les expressions suivantes.'
   this.spacing = 1
@@ -119,8 +119,8 @@ export default function ReductionsPiegesClassiques () {
           reponse = `${a * b}x`
           break
         case 'ax×bx':
-          texte = `$${lettreDepuisChiffre(i + 1, saufD)}=${ecritureParentheseSiMoins(a + 'x')}\\times${ecritureParentheseSiMoins(b + 'x')}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1, saufD)}=${ecritureParentheseSiMoins(a + 'x')}\\times${ecritureParentheseSiMoins(b + 'x')}=${a * b}x^2$`
+          texte = `$${lettreDepuisChiffre(i + 1, saufD)}=${a + 'x'}\\times${ecritureParentheseSiMoins(b + 'x')}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1, saufD)}=${a + 'x'}\\times${ecritureParentheseSiMoins(b + 'x')}=${a * b}x^2$`
           reponse = `${a * b}x^2`
           break
         case 'ax+0':
@@ -134,15 +134,15 @@ export default function ReductionsPiegesClassiques () {
           reponse = '0'
           break
         case 'ax^2×x':
-          texte = `$${lettreDepuisChiffre(i + 1, saufD)}=${ecritureParentheseSiMoins(a + 'x^2')}\\times x$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1, saufD)}=${ecritureParentheseSiMoins(a + 'x^2')}\\times x=${ecritureParentheseSiMoins(a + 'x^3')}$`
-          reponse = `${ecritureParentheseSiMoins(a + 'x^3')}`
+          texte = `$${lettreDepuisChiffre(i + 1, saufD)}=${a + 'x^2'}\\times x$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1, saufD)}=${a + 'x^2'}\\times x=${a + 'x^3'}$`
+          reponse = `${a + 'x^3'}`
           break
         case 'ax^2-a':
           a = Math.abs(a)
-          texte = `$${lettreDepuisChiffre(i + 1, saufD)}=${ecritureParentheseSiMoins(a + 'x^2')}-${a}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1, saufD)}=${ecritureParentheseSiMoins(a + 'x^2')}-${a}$`
-          reponse = `${ecritureParentheseSiMoins(a + 'x^2')}-${a}`
+          texte = `$${lettreDepuisChiffre(i + 1, saufD)}=${a + 'x^2'}-${a}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1, saufD)}=${a + 'x^2'}-${a}$`
+          reponse = `${a + 'x^2'}-${a}`
           break
         case 'ax^2-ax^2':
           a = Math.abs(a)
@@ -155,7 +155,7 @@ export default function ReductionsPiegesClassiques () {
       if (this.interactif) {
         reponse = [reponse, `${lettreDepuisChiffre(i + 1, saufD)}=${reponse}`.replace('D=', 'd=')]
         setReponse(this, i, reponse)
-        texte += ajouteChampTexteMathLive(this, i)
+        texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore largeur01', { texteAvant: ' $=$' })
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

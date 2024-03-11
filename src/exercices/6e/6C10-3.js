@@ -21,13 +21,13 @@ export const uuid = 'a5c5a'
 export const ref = '6C10-3'
 export const refs = {
   'fr-fr': ['6C10-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO8-7']
 }
 export default function ExerciceTablesMultiplicationsEtDecimaux (
   tablesParDefaut = '2-3-4-5-6-7-8-9'
 ) {
   // Multiplier deux nombres
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = tablesParDefaut
   this.titre = titre
   this.consigne = 'Calculer.'

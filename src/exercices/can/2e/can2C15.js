@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { deprecatedTexFraction, obtenirListeFractionsIrreductibles } from '../../../lib/outils/deprecatedFractions.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { randint } from '../../../modules/outils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
@@ -17,6 +17,10 @@ export const dateDePublication = '10/11/2022'
 
 export const uuid = 'd9488'
 export const ref = 'can2C15'
+export const refs = {
+  'fr-fr': ['can2C15'],
+  'fr-ch': []
+}
 export default function NombreInverse () {
   Exercice.call(this)
   this.typeExercice = 'simple'

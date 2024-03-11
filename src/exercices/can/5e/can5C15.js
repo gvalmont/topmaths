@@ -15,9 +15,13 @@ export const interactifType = 'mathLive'
 */
 export const uuid = '6b25b'
 export const ref = 'can5C15'
+export const refs = {
+  'fr-fr': ['can5C15'],
+  'fr-ch': []
+}
 export default function NombreATrouver () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

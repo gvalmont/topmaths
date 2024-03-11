@@ -1,11 +1,11 @@
 import { courbe } from '../../../lib/2d/courbes.js'
 import { repere } from '../../../lib/2d/reperes.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Lire graphiquement un nombre dérivé'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,9 +21,13 @@ export const dateDePublication = '21/06/2022' // La date de publication initiale
 */
 export const uuid = '0e984'
 export const ref = 'can1F15'
+export const refs = {
+  'fr-fr': ['can1F15'],
+  'fr-ch': []
+}
 export default function LectureGraphiqueNombreDerivee () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.tailleDiaporama = 2

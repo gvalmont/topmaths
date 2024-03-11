@@ -20,7 +20,7 @@ export const uuid = '7aba6'
 export const ref = '5L10-4'
 export const refs = {
   'fr-fr': ['5L10-4'],
-  'fr-ch': []
+  'fr-ch': ['10FA1-9']
 }
 
 // une fonction pour moduler l'affichage d'une étape dans la correction
@@ -29,7 +29,7 @@ function etapeCorrective (str, sup) {
 }
 
 export default function TableauxEtFonction () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 1
   this.nbQuestions = 1
 

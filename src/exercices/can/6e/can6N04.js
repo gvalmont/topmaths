@@ -1,9 +1,9 @@
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { pgcd } from '../../../lib/outils/primalite'
 import { context } from '../../../modules/context.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -20,6 +20,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = 'ca515'
 export const ref = 'can6N04'
+export const refs = {
+  'fr-fr': ['can6N04'],
+  'fr-ch': []
+}
 export default function AbscisseFractionnaire () {
   Exercice.call(this)
   this.typeExercice = 'simple'

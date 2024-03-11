@@ -6,7 +6,7 @@ import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Calculer un carré'
@@ -29,7 +29,7 @@ export const uuid = 'e564b'
 export const ref = '4G20-3'
 export const refs = {
   'fr-fr': ['4G20-3'],
-  'fr-ch': []
+  'fr-ch': ['10NO2-2']
 }
 export default class calculsDeCarre extends Exercice {
   constructor () {

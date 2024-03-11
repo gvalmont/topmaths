@@ -18,10 +18,10 @@ export const uuid = '6667e'
 export const ref = '5R20-4'
 export const refs = {
   'fr-fr': ['5R20-4'],
-  'fr-ch': []
+  'fr-ch': ['9NO9-9']
 }
 export default function ProblemesAdditifsRelatifs5e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.debug = false
   this.sup = 1
   if (this.debug) {

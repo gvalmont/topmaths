@@ -3,7 +3,7 @@ import { rienSi1 } from '../../../lib/outils/ecritures'
 import { arrondi } from '../../../lib/outils/nombres'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
-import { factorisationCompare } from '../../../lib/interactif/comparaisonFonctions'
+import { factorisationCompare } from '../../../lib/interactif/comparisonFunctions'
 import { fraction } from '../../../modules/fractions'
 export const titre = 'Réduire une expression avec une fraction'
 export const interactifReady = true
@@ -18,9 +18,13 @@ export const dateDePublication = '08/12/2022'
 
 export const uuid = '3cf30'
 export const ref = 'can3L06'
+export const refs = {
+  'fr-fr': ['can3L06'],
+  'fr-ch': []
+}
 export default function ReduireAvecFraction () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.compare = factorisationCompare

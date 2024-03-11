@@ -24,11 +24,11 @@ export const dateDePublication = '28/09/22'
 export const ref = '6N23-8'
 export const refs = {
   'fr-fr': ['6N23-8'],
-  'fr-ch': []
+  'fr-ch': ['9NO10-10']
 }
 export const uuid = '708a9'
 export default function ExerciceEcritureDecimaleOuFractionDecimale () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = "Donner l'écriture décimale ou la fraction décimale."
   this.spacing = 2
   this.spacingCorr = 2

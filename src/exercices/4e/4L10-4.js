@@ -15,10 +15,10 @@ export const uuid = 'a40d6'
 export const ref = '4L10-4'
 export const refs = {
   'fr-fr': ['4L10-4'],
-  'fr-ch': []
+  'fr-ch': ['10FA1-17']
 }
 export default function RoseAdditive4L () { // c'est l'ExoRose zéro contenu dans _Roses.js
-  ExoRose.call(this) // Héritage de la classe Exercice()
+  ExoRose.call(this)
   this.operation = 'addition'
   this.typeDonnees = 'litteraux'
   this.besoinFormulaireNumerique = ['Valeur maximale (entre 10 et 30) des termes', 30]

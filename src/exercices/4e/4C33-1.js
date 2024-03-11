@@ -34,7 +34,7 @@ export const uuid = 'bae57'
 export const ref = '4C33-1'
 export const refs = {
   'fr-fr': ['4C33-1'],
-  'fr-ch': []
+  'fr-ch': ['10NO2-11']
 }
 
 /**
@@ -63,7 +63,7 @@ export function reorganiseProduitPuissance (b1, b2, e, couleur1, couleur2) {
 }
 
 export default function PuissancesDunRelatif1 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   context.isHtml
     ? (this.consigne = 'Écrire sous la forme $\\mathbf{a^n}$.')
     : (this.consigne = 'Écrire sous la forme $a^n$.')

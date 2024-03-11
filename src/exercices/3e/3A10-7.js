@@ -14,12 +14,10 @@ export const uuid = '9552d'
 export const ref = '3A10-7'
 export const refs = {
   'fr-fr': ['3A10-7'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-15']
 }
 export default function ExerciceLabyrinthePremiers3e () {
   Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 3
   this.nbCols = 1
   this.nbColsCorr = 1

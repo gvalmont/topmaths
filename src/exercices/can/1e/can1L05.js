@@ -22,8 +22,12 @@ export const dateDePublication = '04/06/2022' // La date de publication initiale
  */
 export const uuid = '7e740'
 export const ref = 'can1L05'
+export const refs = {
+  'fr-fr': ['can1L05'],
+  'fr-ch': []
+}
 export default function ResoudreEquationSecondDegre2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.tailleDiaporama = 2

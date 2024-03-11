@@ -24,13 +24,13 @@ export function Point (arg1, arg2, arg3, positionLabel = 'above') {
   if (arguments.length === 1) {
     this.nom = arg1
   } else if (arguments.length === 2) {
-    if (isNaN(arg1) || isNaN(arg2)) window.notify(`Point : les coordonnées ne sont pas valides ${arg1} ${arg2}`)
+    if (isNaN(arg1) || isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', { arg1, arg2 })
     else {
       this.x = arg1
       this.y = arg2
     }
   } else {
-    if (isNaN(arg1) || isNaN(arg2)) window.notify(`Point : les coordonnées ne sont pas valides ${arg1} ${arg2}`)
+    if (isNaN(arg1) || isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', { arg1, arg2 })
     else {
       this.x = arg1
       this.y = arg2
@@ -153,11 +153,11 @@ export function Point (arg1, arg2, arg3, positionLabel = 'above') {
  * Crée un objet Point ayant les propriétés suivantes :
  * @param {number} x abscisse
  * @param {number} y ordonnée
- * @param {string?} A son nom qui apparaîtra
- * @param {string?} positionLabel Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
+ * @param {string} [A] son nom qui apparaîtra
+ * @param {string} [positionLabel] Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
  * @return {Point}
  */
-export function point (x, y, A, positionLabel = 'above') {
+export function point (x, y, A = '', positionLabel = 'above') {
   return new Point(x, y, A, positionLabel)
 }
 
@@ -205,7 +205,7 @@ export function Plot (x, y, {
     if (this.opaciteDeRemplissage !== 1) {
       tableauOptions.push(`fill opacity=${this.opaciteDeRemplissage}`)
     }
-    if (this.couleurDeRemplissage !== '') {
+    if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage[1] !== 'none' && this.couleurDeRemplissage[1] !== '') {
       tableauOptions.push(`fill=${this.couleurDeRemplissage[1]}`)
     }
     let optionsDraw = []
@@ -241,7 +241,7 @@ export function plot (x, y, {
 export function TracePoint (...points) {
   ObjetMathalea2D.call(this, {})
   this.taille = 3
-  this.tailleTikz = this.taille / 30
+  this.tailleTikz = this.taille / 15
   this.epaisseur = 1
   this.opacite = 0.8
   this.style = 'x'
@@ -490,7 +490,7 @@ export function traceMilieuSegment (A, B) {
  *
  * @author Rémi Angot
  */
-export function milieu (A, B, nom, positionLabel = 'above') {
+export function milieu (A, B, nom = '', positionLabel = 'above') {
   if (isNaN(longueur(A, B))) window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
   const x = (A.x + B.x) / 2
   const y = (A.y + B.y) / 2

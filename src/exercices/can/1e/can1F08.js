@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Déterminer la fonction dérivée d’une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,9 +20,13 @@ export const dateDePublication = '20/06/2022' // La date de publication initiale
 */
 export const uuid = '45511'
 export const ref = 'can1F08'
+export const refs = {
+  'fr-fr': ['can1F08'],
+  'fr-ch': []
+}
 export default function CalculFonctionDeriveeAffine () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.tailleDiaporama = 2

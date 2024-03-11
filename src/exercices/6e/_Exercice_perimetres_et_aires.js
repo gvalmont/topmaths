@@ -14,7 +14,7 @@ import {
 import { polygone, polygoneRegulier } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe, troncature } from '../../lib/outils/nombres'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString.js'
@@ -27,7 +27,7 @@ import { context } from '../../modules/context.js'
 import { texTexte } from '../../lib/format/texTexte'
 import Grandeur from '../../modules/Grandeur'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { unitesCompare } from '../../lib/interactif/comparaisonFonctions'
+import { unitsCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -47,7 +47,7 @@ export const titre = "Calculs de périmètres et d'aires"
  */
 export default function ExercicePerimetresEtAires () {
   // Calculer le périmètre et l'aire de figures
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = '1-2'
   this.consigne = ''
   this.spacing = 1
@@ -376,8 +376,8 @@ export default function ExercicePerimetresEtAires () {
       }
       if (this.questionJamaisPosee(i, resultat1, resultat2)) {
         if (!context.isAmc) {
-          handleAnswers(this, 2 * i, { reponse: { value: { grandeur: new Grandeur(resultat1, 'cm'), precision: 0.1 }, compare: unitesCompare } }, { formatInteractif: 'unites' })
-          handleAnswers(this, 2 * i + 1, { reponse: { value: { grandeur: new Grandeur(resultat2, 'cm^2'), precision: 0.1 }, compare: unitesCompare } }, { formatInteractif: 'unites' })
+          handleAnswers(this, 2 * i, { reponse: { value: { grandeur: new Grandeur(resultat1, 'cm'), precision: 0.1 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
+          handleAnswers(this, 2 * i + 1, { reponse: { value: { grandeur: new Grandeur(resultat2, 'cm^2'), precision: 0.1 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
         } else {
           this.autoCorrection[i] = {
             enonce: texte,

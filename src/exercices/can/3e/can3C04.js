@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { obtenirListeFractionsIrreductibles } from '../../../lib/outils/deprecatedFractions.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Calculer une somme entre fraction et entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,6 +16,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = '1853b'
 export const ref = 'can3C04'
+export const refs = {
+  'fr-fr': ['can3C04'],
+  'fr-ch': []
+}
 export default function SommeEntierEtFractionIrred () {
   Exercice.call(this)
   this.typeExercice = 'simple'

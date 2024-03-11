@@ -1,7 +1,7 @@
 import { abs, acos, polynomialRoot, round } from 'mathjs'
 
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { egal, randint } from '../../modules/outils.js'
 import { Courbe } from '../2d/courbes.js'
 import { point, tracePoint } from '../2d/points.js'
@@ -20,6 +20,7 @@ import { rangeMinMax } from '../outils/nombres'
  * @param {boolean} noeudsVisibles
  * @param {number} xMin
  * @param {number} step
+ * @param {number} y0 ordonnée de départ de la spline aléatoire
  * @returns {Array<{x: number, y:number, deriveeGauche:number, deriveeDroit:number, isVisible:boolean}>}
  */
 export function noeudsSplineAleatoire (n, noeudsVisibles, xMin = -n / 2, y0 = 0, step = 2) {
@@ -189,20 +190,26 @@ export class Spline {
         })
         return
       }
-      const determinant = matrice.determinant()// c'est maintenant une FractionEtendue !
-      if (determinant.valeurDecimale === 0) {
-        window.notify('Spline : impossible de trouver un polynome ici car la matrice n\'est pas inversible, il faut revoir vos noeuds : ', {
-          noeudGauche: noeuds[i],
-          noeudDroit: noeuds[i + 1]
-        })
-        return
+      if (y0 + (x1 - x0) * d1 === y1 && d0 === d1) {
+        const a = (y1 - y0) / (x1 - x0)
+        const b = y0 - a * x0
+        this.polys.push(new Polynome({ coeffs: [b, a, 0, 0] }))
+      } else {
+        const determinant = matrice.determinant()// c'est maintenant une FractionEtendue !
+        if (determinant.valeurDecimale === 0) {
+          window.notify('Spline : impossible de trouver un polynome ici car la matrice n\'est pas inversible, il faut revoir vos noeuds : ', {
+            noeudGauche: noeuds[i],
+            noeudDroit: noeuds[i + 1]
+          })
+          return
+        }
+        const matriceInverse = matrice.inverse()
+        const vecteur = [y0, y1, d0, d1]
+        this.polys.push(new Polynome({
+          isUseFraction: true,
+          coeffs: matriceInverse.multiplieVecteur(vecteur).reverse()
+        }))
       }
-      const matriceInverse = matrice.inverse()
-      const vecteur = [y0, y1, d0, d1]
-      this.polys.push(new Polynome({
-        isUseFraction: true,
-        coeffs: matriceInverse.multiplieVecteur(vecteur).reverse()
-      }))
     }
     this.noeuds = [...noeuds]
     this.n = this.noeuds.length
@@ -408,6 +415,9 @@ export class Spline {
       const xMax = Math.floor(Math.max(...this.noeuds.map(el => el.x)))
       const yMax = Math.floor(Math.max(...this.noeuds.map(el => el.y)))
       return { xMin, xMax, yMin, yMax }
+    } else {
+      window.notify('Spline.trouveMaxes() on demande ça alors que la Spline n\'a pas de noeuds !', { laSpline: JSON.stringify(this) })
+      return { xMin: 0, xMax: 0, yMin: 0, yMax: 0 }
     }
   }
 

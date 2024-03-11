@@ -1,13 +1,13 @@
-import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { randint } from '../../modules/outils.js'
 import { arrondi } from '../outils/nombres'
 import { angleOriente } from './angles.js'
 import { Cercle } from './cercle.js'
 import { Droite, droite } from './droites.js'
 import { milieu, Point, point, pointIntersectionDD, pointIntersectionLC, pointSurSegment } from './points.js'
-import { texteParPosition } from './textes.js'
+import { texteParPosition } from './textes.ts'
 import { rotation, similitude, translation } from './transformations.js'
 
 /**
@@ -104,6 +104,8 @@ export function NomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
   s.styleExtremites = '->'
   s.tailleExtremites = 2
   objets.push(t, s)
+  const bordures = fixeBordures(objets)
+  this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -230,6 +232,10 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     this.color = colorToLatexOrHTML(color)
     this.styleExtremites = styleExtremites
   }
+  this.epaisseur = 1
+  this.opacite = 1
+  this.pointilles = ''
+
   this.bordures = [Math.min(this.x1, this.x2), Math.min(this.y1, this.y2), Math.max(this.x1, this.x2), Math.max(this.y1, this.y2)]
   this.extremite1 = point(this.x1, this.y1)
   this.extremite2 = point(this.x2, this.y2)
@@ -251,8 +257,8 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
       if (fin === '|') {
         // si ça termine par | on le rajoute en B
         const M = pointSurSegment(B, A, h / context.pixelsParCm)
-        const B1 = similitude(M, B, 90, 0.7)
-        const B2 = similitude(M, B, -90, 0.7)
+        const B1 = rotation(M, B, 90)
+        const B2 = rotation(M, B, -90)
         code += `<line x1="${B1.xSVG(coeff)}" y1="${B1.ySVG(
                     coeff
                 )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color[0]

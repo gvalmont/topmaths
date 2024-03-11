@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString.js'
 import { pgcd } from '../../../lib/outils/primalite'
@@ -23,8 +23,12 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
  */
 export const uuid = 'b60f4'
 export const ref = 'can3F09'
+export const refs = {
+  'fr-fr': ['can3F09'],
+  'fr-ch': []
+}
 export default function ReconnaitreFonctionAffine () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'calcul'

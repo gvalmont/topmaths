@@ -20,9 +20,13 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '77511'
 export const ref = 'CM002'
+export const refs = {
+  'fr-fr': ['CM002'],
+  'fr-ch': []
+}
 export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') {
   // Diviser deux nombres
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = tablesParDefaut
   this.sup2 = 1 // classique|a_trous|melange
   this.consigne = 'Calculer.'

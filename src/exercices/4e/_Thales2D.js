@@ -2,7 +2,7 @@ import { angleOriente } from '../../lib/2d/angles.js'
 import { point, pointAdistance, pointSurSegment } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { longueur } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPoint } from '../../lib/2d/textes.js'
+import { texteParPoint } from '../../lib/2d/textes.ts'
 import { homothetie, similitude } from '../../lib/2d/transformations.js'
 import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
 import { creerBoutonMathalea2d } from '../../lib/outils/modales.js'
@@ -30,7 +30,7 @@ export const titre = 'Calculer des longueurs avec le théorème de Thalès'
  * Utilisée dans 4G30 et 3G20
  */
 export default function Thales2D () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
 
   this.consigne = ''
   this.nbQuestions = 1

@@ -1,7 +1,7 @@
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { papierPointe } from '../../lib/2d/reperes.js'
 import { longueur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { rotation } from '../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import Exercice from '../deprecatedExercice.js'
@@ -25,10 +25,10 @@ export const uuid = '2a611'
 export const ref = '5G11-6'
 export const refs = {
   'fr-fr': ['5G11-6'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-16']
 }
 export default function CompleterParSymetrie5e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 1
   this.nbCols = 1

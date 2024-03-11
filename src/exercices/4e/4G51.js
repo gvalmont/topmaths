@@ -3,7 +3,7 @@ import { milieu, point, tracePoint } from '../../lib/2d/points.js'
 import { cone, semiEllipse } from '../../lib/2d/projections3d.js'
 import { grille, seyes } from '../../lib/2d/reperes.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { similitude, translation2Points } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
@@ -26,7 +26,7 @@ export const uuid = '0e754'
 export const ref = '4G51'
 export const refs = {
   'fr-fr': ['4G51'],
-  'fr-ch': []
+  'fr-ch': ['9ES7-3']
 }
 export default function RepresenterUnSolide4e () {
   Exercice.call(this) // Héritage de la classe Exercice ()

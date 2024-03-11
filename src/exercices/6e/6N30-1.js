@@ -26,10 +26,10 @@ export const uuid = '8418e'
 export const ref = '6N30-1'
 export const refs = {
   'fr-fr': ['6N30-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO7-2']
 }
 export default function LireAbscisseDecimaleBis2d () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Lire l\'abscisse de chacun des points suivants et donner le résultat sous la forme d\'un nombre en écriture décimale.'
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true

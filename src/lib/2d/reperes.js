@@ -1,12 +1,10 @@
-import { ceil, fraction, Fraction } from 'mathjs'
 import { ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
 import { arrondi, rangeMinMax } from '../outils/nombres'
 import { nombreAvecEspace, stringNombre } from '../outils/texNombre'
 import { plot, point, tracePoint } from './points.js'
 import { segment } from './segmentsVecteurs.js'
-import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes.js'
+import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes.ts'
 
 /**  Trace un axe gradué
  * @param {Object} parametres À saisir entre accolades
@@ -259,7 +257,7 @@ export function DroiteGraduee ({
  * @param {number} [parametres.pointEpaisseur = 2] Épaisseur des points de la liste pointListe
  * @param {boolean?} [parametres.labelsPrincipaux = true] Présence (ou non) des labels numériques principaux
  * @param {boolean?} [parametres.labelsSecondaires = false] Présence (ou non) des labels numériques secondaires
- * @param {number} [parametres.step1 = 1] Pas des labels numériques principaux
+ * @param {array?} [parametres.labelListe = []] Liste de labels à mettre sous l'axe comme, par exemple, [[2.8,'x'],[3.1,'y']]. Les noms se placent en-dessous de l'axe. * @param {number} [parametres.step1 = 1] Pas des labels numériques principaux
  * @param {number} [parametres.step2 = 1] Pas des labels numériques secondaires
  * @param {number} [parametres.labelDistance = (axeHauteur + 10) / context.pixelsParCm] Distance entre les labels et l'axe
  * @param {number} [parametres.labelCustomDistance = (axeHauteur + 10) / context.pixelsParCm] Distance entre les labels de labelListe et l'axe
@@ -503,22 +501,21 @@ export function AxeY (
   ytick = 2,
   titre = ''
 ) {
-  if (!(ystep instanceof Fraction || ystep instanceof FractionEtendue)) ystep = fraction(ystep)
-  if (!(ytick instanceof Fraction || ytick instanceof FractionEtendue)) ytick = fraction(ytick)
   ObjetMathalea2D.call(this, {})
   const objets = []
-  objets.push(texteParPoint(titre, point(-1 - thick - 0.1, ymax), 'gauche', color))
-  const ordonnee = segment(-1, ymin, -1, ymax, color)
+
+  objets.push(texteParPoint(titre, point(-1 - thick - 0.1, ymax), 0, color, 1, 'droite', false, 1))
+  const ordonnee = segment(-1, ymin.valueOf(), -1, ymax.valueOf(), color)
   ordonnee.styleExtremites = '->'
   ordonnee.epaisseur = epaisseur
   objets.push(ordonnee)
-  for (let y = ymin; y < ymax; y = fraction(y).add(ystep)) {
-    const s = segment(-1 - thick, y, -1, y, color)
+  for (let y = ymin; y < ymax; y = y + ystep) {
+    const s = segment(-1 - thick, y.valueOf(), -1, y.valueOf(), color)
     s.epaisseur = epaisseur
     objets.push(s)
   }
-  for (let y = ymin; y < ymax; y = fraction(y).add(ystep.div(ytick))) {
-    const s = segment(-1 - thick / 2, y, -1, y, color)
+  for (let y = ymin; y < ymax; y = y + ystep / ytick) {
+    const s = segment(-1 - thick / 2, y.valueOf(), -1, y.valueOf(), color)
     s.epaisseur = epaisseur
     objets.push(s)
   }
@@ -591,7 +588,7 @@ export function axeY (
 export function LabelY (ymin = 1, ymax = 20, step = 1, color = 'black', pos = -0.6, coeff = 1) {
   ObjetMathalea2D.call(this, {})
   const objets = []
-  for (let y = ceil(ymin / coeff);
+  for (let y = Math.ceil(ymin / coeff);
     y * coeff <= ymax;
     y = y + step
   ) {
@@ -1488,7 +1485,7 @@ export function Repere ({
       let l
       if (typeof x === 'number') {
         if (x >= xMin && x <= xMax) {
-          l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', false)
+          l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 0.8, 'middle', false)
           //   l.isVisible = false
           objets.push(l)
         }
@@ -1511,7 +1508,7 @@ export function Repere ({
       let l
       if (typeof y === 'number') {
         if (y >= yMin && y <= yMax) {
-          l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', false)
+          l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 0.8, 'middle', false)
           //  l.isVisible = false
           objets.push(l)
         }
@@ -1526,10 +1523,10 @@ export function Repere ({
   }
   // LES LÉGENDES
   if (xLegende.length > 0) {
-    objets.push(texteParPosition(xLegende, xLegendePosition[0], xLegendePosition[1], 'droite'))
+    objets.push(texteParPosition(xLegende, xLegendePosition[0], xLegendePosition[1], 0, 'black', 1, 'droite'))
   }
   if (yLegende.length > 0) {
-    objets.push(texteParPosition(yLegende, yLegendePosition[0], yLegendePosition[1], 'droite'))
+    objets.push(texteParPosition(yLegende, yLegendePosition[0], yLegendePosition[1], 0, 'black', 1, 'droite'))
   }
   this.objets = objets
 

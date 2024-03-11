@@ -1,6 +1,6 @@
 import { courbe } from '../../../lib/2d/courbes.js'
 import { repere } from '../../../lib/2d/reperes.js'
-import { latexParCoordonnees, texteParPosition } from '../../../lib/2d/textes.js'
+import { latexParCoordonnees, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'
@@ -23,9 +23,13 @@ export const dateDePublication = '22/06/2022' // La date de publication initiale
  */
 export const uuid = '6f32d'
 export const ref = 'can1F16'
+export const refs = {
+  'fr-fr': ['can1F16'],
+  'fr-ch': []
+}
 export default function LectureGraphiqueTangente () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.tailleDiaporama = 2

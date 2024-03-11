@@ -5,6 +5,10 @@ import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Interpollation par splines avec tangentes'
 export const ref = 'P021'
+export const refs = {
+  'fr-fr': ['P021'],
+  'fr-ch': []
+}
 export const uuid = '4c7ca'
 
 /**
@@ -13,7 +17,7 @@ export const uuid = '4c7ca'
  * Référence P021
  */
 export default function TraceCourbeSpline () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1

@@ -23,10 +23,10 @@ export const uuid = '4ce2d'
 export const ref = '3P10-1'
 export const refs = {
   'fr-fr': ['3P10-1'],
-  'fr-ch': []
+  'fr-ch': ['10FA4-6']
 }
 export default function CoefficientEvolution () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType

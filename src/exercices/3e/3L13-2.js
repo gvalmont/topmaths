@@ -5,7 +5,7 @@ import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { warnMessage } from '../../lib/format/message.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -23,20 +23,16 @@ export const amcType = 'AMCNum'
 export const dateDeModifImportante = '02/04/2023'
 /**
  * * Équations résolvantes pour le théorème de Thalès
- * * 3L13-2 enfants : 4P10-2 et 4L15-1
- * * modification le 11/01/2021
- * * correctif le 27/03/2022
  * @author Sébastien Lozano
  */
 export const uuid = '6516e'
 export const ref = '3L13-2'
 export const refs = {
   'fr-fr': ['3L13-2'],
-  'fr-ch': []
+  'fr-ch': ['11GM3-7', '11FA5-5']
 }
 export default function EqResolvantesThales () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
+  Exercice.call(this)
   this.debug = false
   if (this.debug) {
     this.nbQuestions = 4
@@ -286,7 +282,7 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a, 4), texNombre(situat
           break
       }
       texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texteAvant: `<br> ${inc} = ` })
-      reponse = new FractionEtendue(correctionInteractif)
+      reponse = new FractionEtendue(Number(correctionInteractif))
       if (context.isAmc) setReponse(this, i, reponse)
       else setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
 

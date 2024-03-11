@@ -3,7 +3,7 @@ import { droiteParPointEtPente } from '../../lib/2d/droites.js'
 import { point } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { texteParPosition } from '../../lib/2d/textes.ts'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenom, prenomM } from '../../lib/outils/Personne'
@@ -28,10 +28,10 @@ export const uuid = '5621b'
 export const ref = '2F21-1'
 export const refs = {
   'fr-fr': ['2F21-1'],
-  'fr-ch': []
+  'fr-ch': ['10FA5-16', '11FA9-10']
 }
 export default function ModeliserParUneFonction () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false

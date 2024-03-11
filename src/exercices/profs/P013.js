@@ -5,6 +5,10 @@ import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'Interpolation cosinusoïdale'
 export const ref = 'P013'
+export const refs = {
+  'fr-fr': ['P013'],
+  'fr-ch': []
+}
 export const uuid = '5b767'
 
 /**
@@ -13,7 +17,7 @@ export const uuid = '5b767'
  * Référence P013
 */
 export default function TraceCourbeInterpolee1 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1

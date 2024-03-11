@@ -4,7 +4,7 @@ import loadjs from 'loadjs'
 // @ts-expect-error
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Exercice from '../exercices/deprecatedExercice.js'
-import type TypeExercice from '../exercices/Exercice.js'
+import type TypeExercice from '../exercices/Exercice'
 // import context from '../modules/context.js'
 import seedrandom from 'seedrandom'
 import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from './stores/generalStore.js'
@@ -16,14 +16,15 @@ import referentielStatic from '../json/referentielStatic.json'
 import 'katex/dist/katex.min.css'
 import renderScratch from './renderScratch.js'
 import { decrypt, isCrypted } from './components/urls.js'
-import type { InterfaceGlobalOptions, InterfaceParams } from './types.js'
+import { convertVueType, type InterfaceGlobalOptions, type InterfaceParams, type VueType } from './types.js'
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale.js'
 import { handleAnswers, setReponse } from './interactif/gestionInteractif'
 import type { MathfieldElement } from 'mathlive'
-import { calculCompare } from './interactif/comparaisonFonctions'
+import { calculCompare } from './interactif/comparisonFunctions'
 import FractionEtendue from '../modules/FractionEtendue'
 import Decimal from 'decimal.js'
 import Grandeur from '../modules/Grandeur'
+import { canOptions } from './stores/canStore.js'
 
 function getExerciceByUuid (root: object, targetUUID: string): object | null {
   if ('uuid' in root) {
@@ -42,6 +43,80 @@ function getExerciceByUuid (root: object, targetUUID: string): object | null {
   }
 
   return null
+}
+
+/*
+ Chargement d'un composant SVELTE
+ ATTENTION : oliger d'être daans ce répertoire, sinon différence entre le serveur de test et de production
+*/
+export async function getSvelteComponent (paramsExercice: InterfaceParams) {
+  const urlExercice = uuidToUrl[paramsExercice.uuid as keyof typeof uuidToUrl]
+
+  let filename, directory
+  if (urlExercice) {
+    [filename, directory] = urlExercice.replaceAll('\\', '/').split('/').reverse()
+  }
+  try {
+    if (filename && filename.includes('.svelte')) {
+      return (await import(`../exercicesInteractifs/${directory === undefined ? '' : `${directory}/`}${filename.replace('.svelte', '')}.svelte`)).default
+    }
+  } catch (err) {
+    console.log(`Chargement de l'exercice ${paramsExercice.uuid} impossible. Vérifier  ${directory === undefined ? '' : `${directory}/`}${filename}`)
+  }
+  throw new Error(`Chargement de l'exercice ${paramsExercice.uuid} impossible. Vérifier ${directory === undefined ? '' : `${directory}/`}${filename}`)
+}
+
+/**
+ * Charge un svelte exercice depuis son uuid
+ * Exemple : mathaleaLoadSvelteExerciceFromUuid('clavier')
+ * @param {string} uuid
+ * @returns {Promise<Exercice>} exercice
+ */
+export async function mathaleaLoadSvelteExerciceFromUuid (uuid: string) {
+  const url = uuidToUrl[uuid as keyof typeof uuidToUrl]
+  let filename, directory, isCan
+  if (url) {
+    [filename, directory, isCan] = url.replaceAll('\\', '/').split('/').reverse()
+  }
+  try {
+    // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
+    // cf https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#globs-only-go-one-level-deep
+    // L'extension doit-être visible donc on l'enlève avant de la remettre...
+    let module: any
+    if (isCan === 'can') {
+      if (filename != null && filename.includes('.ts')) {
+        module = await import(`../exercices/can/${directory}/${filename.replace('.ts', '')}.ts`)
+      } else if (filename != null) {
+        module = await import(`../exercices/can/${directory}/${filename.replace('.js', '')}.js`)
+      }
+    } else {
+      if (filename != null && filename.includes('.ts')) {
+        module = await import(`../exercices/${directory}/${filename.replace('.ts', '')}.ts`)
+      } else if (filename != null) {
+        module = await import(`../exercices/${directory}/${filename.replace('.js', '')}.js`)
+      }
+    }
+    const ClasseExercice = module.default
+    const exercice = new ClasseExercice()
+        ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach((p) => {
+      if (module[p] !== undefined) exercice[p] = module[p]
+    })
+    ;(await exercice).id = filename
+    if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
+      animationLoading(true)
+      await loadGiac()
+      animationLoading(false)
+    }
+    return exercice
+  } catch (error) {
+    console.log(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
+    console.log(error)
+    const exercice = new Exercice()
+    exercice.titre = `Uuid ${uuid} - Problème à signaler`
+    exercice.nouvelleVersion = () => {
+    }
+    return exercice
+  }
 }
 
 /**
@@ -316,7 +391,7 @@ export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]
  */
 export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.location.href): InterfaceGlobalOptions {
   let urlNeedToBeFreezed = false
-  let v = ''
+  let v: VueType | undefined
   let z = '1'
   let durationGlobal = 0
   let nbVues = 1
@@ -336,6 +411,11 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   let twoColumns = false
   let beta = false
   let url: URL
+  let canDuration = 540
+  let canTitle = ''
+  let canSolAccess = true
+  let canSolMode = 'gathered'
+  let canIsInteractive = true
   try {
     url = new URL(urlString)
   } catch (error) {
@@ -387,7 +467,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     } else if (entry[0] === 'cd' && (entry[1] === '0' || entry[1] === '1')) {
       newListeExercice[indiceExercice].cd = entry[1]
     } else if (entry[0] === 'v') {
-      v = entry[1]
+      v = convertVueType(entry[1])
     } else if (entry[0] === 'recorder') {
       if (entry[1] === 'capytale' || entry[1] === 'moodle' || entry[1] === 'labomep' || entry[1] === 'anki') {
         recorder = entry[1]
@@ -418,16 +498,40 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
       answers = entry[1]
     } else if (entry[0] === 'beta') {
       beta = true
+    } else if (entry[0] === 'canD') {
+      canDuration = parseInt(entry[1])
+    } else if (entry[0] === 'canT') {
+      canTitle = entry[1]
+    } else if (entry[0] === 'canSA') {
+      canSolAccess = entry[1] === '1'
+    } else if (entry[0] === 'canSM') {
+      canSolMode = entry[1]
+    } else if (entry[0] === 'canI') {
+      canIsInteractive = entry[1] === '1'
     }
+
     if (entry[0] === 'uuid') previousEntryWasUuid = true
     else previousEntryWasUuid = false
   }
-  exercicesParams.update((l) => {
+  exercicesParams.update(() => {
     return newListeExercice
   })
   if (urlNeedToBeFreezed) {
     freezeUrl.set(true)
   }
+
+  if (v === 'can') {
+    canOptions.update(e => {
+      e.durationInMinutes = canDuration
+      e.isInteractive = canIsInteractive
+      e.solutionsAccess = canSolAccess
+      if (canSolMode === 'gathered') e.solutionsMode = 'gathered'
+      else e.solutionsMode = 'split'
+      e.subTitle = canTitle
+      return e
+    })
+  }
+
   /**
      * es permet de résumer les réglages de la vue élève
      * Il est de la forme 210110
@@ -497,7 +601,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
           } else if (Array.isArray(exercice.reponse)) {
             value = [...exercice.reponse]
           } else {
-            window.notify(`MathaleaHandleExerciceSimple n'a pas réussi à déterminer le type de exercice.reponse, ${JSON.stringify(exercice.reponse)}, on Stingifie, mais c'est sans doute une erreur à rectifier`)
+            window.notify(`MathaleaHandleExerciceSimple n'a pas réussi à déterminer le type de exercice.reponse, dans ${exercice?.numeroExercice + 1} - ${exercice.titre} ${JSON.stringify(exercice.reponse)}, on Stingifie, mais c'est sans doute une erreur à rectifier`, { exercice: JSON.stringify(exercice) })
             value = String(exercice.reponse) // valeur par défaut on transforme tout en string.
           }
         } else {
@@ -513,13 +617,21 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
         setReponse(exercice, i, exercice.reponse, { formatInteractif: exercice.formatInteractif ?? 'calcul' })
       }
       if (exercice.formatInteractif !== 'fillInTheBlank') {
-        exercice.listeQuestions.push(
-          exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte || '', exercice.optionsChampTexte || {})
-        )
+        if (exercice.formatInteractif !== 'qcm') {
+          exercice.listeQuestions.push(
+            exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte || '', exercice.optionsChampTexte || {})
+          )
+        } else {
+          exercice.listeQuestions.push(exercice.question)
+        }
       } else {
         // La question doit contenir une unique variable %{champ1}
-        exercice.listeQuestions.push(remplisLesBlancs(exercice, i, exercice.question, 'inline', '\\ldots'))
-        handleAnswers(exercice, i, { champ1: { value: exercice.reponse, compare } }, { formatInteractif: 'fillInTheBlank' })
+        if (exercice.interactif) {
+          exercice.listeQuestions.push(remplisLesBlancs(exercice, i, exercice.question, 'fillInTheBlank ' + exercice.formatChampTexte || '', '\\ldots'))
+          handleAnswers(exercice, i, { champ1: { value: exercice.reponse, compare } }, { formatInteractif: 'fillInTheBlank' })
+        } else {
+          exercice.listeQuestions.push(exercice.question ?? '')
+        }
       }
       exercice.listeCorrections.push(exercice.correction ?? '')
       exercice.listeCanEnonces.push(exercice.canEnonce ?? '')

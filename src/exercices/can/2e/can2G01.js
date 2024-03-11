@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../deprecatedExercice.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Déterminer un agrandissement/réduction avec fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -14,6 +14,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '4a666'
 export const ref = 'can2G01'
+export const refs = {
+  'fr-fr': ['can2G01'],
+  'fr-ch': []
+}
 export default function AgrandissementReductionGFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

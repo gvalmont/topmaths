@@ -12,7 +12,7 @@ export const titre = 'Probabilités simples'
  * Référence
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = true
   this.consigne = ''
   this.nbQuestionsModifiable = false
@@ -137,10 +137,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     const probaR = omega.getProba('R', true)
     const probaV = omega.getProba('V', true)
     const probaC = omega2.getProba('C', false)
-    console.log(`P(B) = ${texProba(probaB, true)}`)
-    console.log(`P(R) = ${texProba(probaR, true)}`)
-    console.log(`P(V) = ${texProba(probaV, true)}`)
-    console.log(`P(C) = ${texProba(probaC, false)}`)
 
     const objets = omega.represente(0, 15, 0, 3, true, -1)
     texte += mathalea2d({ xmin: -15, xmax: 1, ymin: -2, ymax: 15, style: 'inline' }, ...objets)

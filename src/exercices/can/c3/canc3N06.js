@@ -4,7 +4,7 @@ import { context } from '../../../modules/context.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { listeQuestionsToContenu } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Comparer deux nombres sur une droite graduée (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -19,6 +19,10 @@ export const dateDePublication = '17/11/2022'
 
 export const uuid = 'a8597'
 export const ref = 'canc3N06'
+export const refs = {
+  'fr-fr': ['canc3N06'],
+  'fr-ch': []
+}
 export default function ComparerDroiteGrad () {
   Exercice.call(this)
   this.nbQuestions = 1

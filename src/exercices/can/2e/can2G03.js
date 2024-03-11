@@ -1,7 +1,7 @@
 import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { milieu, point, pointAdistance } from '../../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { similitude } from '../../../lib/2d/transformations.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
@@ -21,9 +21,13 @@ export const interactifType = 'mathLive'
 */
 export const uuid = '6341d'
 export const ref = 'can2G03'
+export const refs = {
+  'fr-fr': ['can2G03'],
+  'fr-ch': []
+}
 export default function CalculHypotenusePythagore () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   this.tailleDiaporama = 2

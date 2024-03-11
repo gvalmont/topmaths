@@ -5,7 +5,7 @@ import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Résoudre une équation du second degré sans $\\Delta$'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -21,8 +21,12 @@ export const dateDePublication = '17/09/2022' // La date de publication initiale
 
 export const uuid = '5283f'
 export const ref = 'can1F20'
+export const refs = {
+  'fr-fr': ['can1F20'],
+  'fr-ch': []
+}
 export default function ResoudreEquationsSecondDegreSansDelta () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 2

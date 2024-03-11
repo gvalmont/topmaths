@@ -20,7 +20,6 @@ export const titre = 'Arrondir une valeur'
 
 /**
  * * Encadrer_puis_arrondir_une_valeur
- * * 6N31-3
  * @author Mireille Gain, s'inspirant de 6N31-1 de Sébastien Lozano
  * Ajout Nouvel AMC : Janvier 2022 par EE
  */
@@ -29,10 +28,10 @@ export const uuid = 'ab793'
 export const ref = '6N31-3'
 export const refs = {
   'fr-fr': ['6N31-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO7-6']
 }
 export default function ArrondirUneValeur () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
 
   this.nbQuestions = 3
   this.nbColsCorr = 1
@@ -120,15 +119,15 @@ export default function ArrondirUneValeur () {
           angle = randint(1, 89, 60)
           if (choice([true, false])) {
             n = v * degCos(angle)
-            nb = `${texNombre(v)}\\cos(${angle}\\degree)`
+            nb = `${texNombre(v)}\\cos(${angle}^\\circ)`
             di = 10 * (troncature(n - troncature(n, 0), 1))
             ci = 100 * (troncature(n - troncature(n, 1), 2))
             mi = 1000 * (troncature(n - troncature(n, 2), 3))
-            nbSansDegree = nb.replace('\\degree', '')
+            nbSansDegree = nb.replace('^\\circ', '')
           } else { // arrondir un calcul de longueur avec une division par cosinus
             n = v / degCos(angle)
-            nb = `\\dfrac{${texNombre(v)}}{\\cos(${angle}\\degree)}`
-            nbSansDegree = nb.replace('\\degree', '')
+            nb = `\\dfrac{${texNombre(v)}}{\\cos(${angle}^\\circ)}`
+            nbSansDegree = nb.replace('^\\circ', '')
             di = 10 * (troncature(n - troncature(n, 0), 1))
             ci = 100 * (troncature(n - troncature(n, 1), 2))
             mi = 1000 * (troncature(n - troncature(n, 2), 3))

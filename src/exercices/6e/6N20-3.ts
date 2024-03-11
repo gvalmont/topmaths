@@ -1,17 +1,17 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice.js'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { consecutifsCompare, numberCompare } from '../../lib/interactif/comparaisonFonctions'
+import { consecutiveCompare, numberCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Encadrer une fraction décimale entre deux nombres entiers'
 export const uuid = '3bdcd'
 export const ref = '6N20-3'
 export const refs = {
   'fr-fr': ['6N20-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO11-3']
 }
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -59,11 +59,11 @@ export default class nomExercice extends Exercice {
       do {
         num = randint(0, den * 10)
       } while (num % den === 0)
-      const texte = remplisLesBlancs(this, i, `%{champ1}~~\\lt~~\\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}}~~\\lt~~%{champ2}`, 'inline clavierDeBaseAvecFraction fillInTheBlank')
+      const texte = remplisLesBlancs(this, i, `%{champ1}~~ < ~~\\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}}~~ < ~~%{champ2}`, 'inline clavierDeBaseAvecFraction fillInTheBlank')
       const a = Math.floor(num / den)
       const b = a + 1
-      texteCorr = ` $\\dfrac{${texNombre(a * den, 1)}}{${texNombre(den, 1)}} \\lt \\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}} \\lt \\dfrac{${texNombre(b * den, 1)}}{${texNombre(den, 1)}}\\quad$ `
-      texteCorr += ` donc $\\quad${a}\\lt \\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}} \\lt ${b}$.<br><br>`
+      texteCorr = ` $\\dfrac{${texNombre(a * den, 1)}}{${texNombre(den, 1)}} < \\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}} < \\dfrac{${texNombre(b * den, 1)}}{${texNombre(den, 1)}}\\quad$ `
+      texteCorr += ` donc $\\quad${a} < \\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}} < ${b}$.<br><br>`
       if (a === 0) {
         texteCorr += `Remarque : on sait que $0 = \\dfrac{0}{${texNombre(den, 1)}}\\quad$ et $\\quad\\dfrac{${texNombre(den, 1)}}{${texNombre(den, 1)}} = ${b}$.`
       } else {
@@ -76,7 +76,7 @@ export default class nomExercice extends Exercice {
           const rep2 = saisies.champ2
           // on teste consecutifsCompare pour le feedback seulement, comme c'est un fillInTheBlank, la comparaison se fait sur les valeurs exactes des bornes entières.
           // consecutifsCompare peut être utilisée pour évaluer des saisies complètes d'encadrements avec les signes < ou >
-          const { feedback } = consecutifsCompare(`${rep1}<${(num / den).toFixed(4)}<${rep2}`, { entierInf: a, entierSup: b, valeurInter: (a + b) / 2 })
+          const { feedback } = consecutiveCompare(`${rep1}<${(num / den).toFixed(4)}<${rep2}`, { entierInf: a, entierSup: b, valeurInter: (a + b) / 2 })
           return feedback
         },
         champ1: { value: String(a), compare: numberCompare },

@@ -30,10 +30,10 @@ export const uuid = '17e39'
 export const ref = '5L14'
 export const refs = {
   'fr-fr': ['5L14'],
-  'fr-ch': []
+  'fr-ch': ['10FA1-2', '11FA1-6']
 }
 export default function CalculerLaValeurDUneExpressionLitterale () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 5
   this.nbCols = 1

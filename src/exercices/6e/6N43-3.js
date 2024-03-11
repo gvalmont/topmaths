@@ -22,10 +22,10 @@ export const uuid = 'bbdd6'
 export const ref = '6N43-3'
 export const refs = {
   'fr-fr': ['6N43-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-2']
 }
 export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Pour chaque affirmation, indiquer si elle est vraie ou fausse.'
   this.nbQuestions = 5
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

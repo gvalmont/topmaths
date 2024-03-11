@@ -2,7 +2,7 @@ import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { droite } from '../../../lib/2d/droites.js'
 import { milieu, point } from '../../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
@@ -16,7 +16,7 @@ import { sp } from '../../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
@@ -42,8 +42,12 @@ function compareNombres (a, b) {
 
 export const uuid = '2a4b1'
 export const ref = 'can2a-2022'
+export const refs = {
+  'fr-fr': ['can2a-2022'],
+  'fr-ch': []
+}
 export default function SujetCAN2022Seconde () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
@@ -260,7 +264,7 @@ export default function SujetCAN2022Seconde () {
           On tire une boule au hasard.<br>
           Quelle est la probabilité de tirer une boule noire ?`
           reponse = f
-          texteCorr = `Puisqu'il s'agit d'une situation d'équiprobabilté, la probabilité  est donnée par le quotient : $\\dfrac{\\text{Nombre de boules noires}}{\\text{Nombre total de boules}}=${f.texFraction}${f.texSimplificationAvecEtapes()}$.`
+          texteCorr = `Puisqu'il s'agit d'une situation d'équiprobabilité, la probabilité  est donnée par le quotient : $\\dfrac{\\text{Nombre de boules noires}}{\\text{Nombre total de boules}}=${f.texFraction}${f.texSimplificationAvecEtapes()}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {

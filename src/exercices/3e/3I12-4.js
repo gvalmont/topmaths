@@ -25,7 +25,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ComprendreScriptListeMultiples () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 9
   this.sup2 = 5
   this.sup3 = 4
@@ -35,7 +35,7 @@ export default function ComprendreScriptListeMultiples () {
   this.typeExercice = 'Scratch'
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.listePackages = 'scratch3'
+  this.listePackages = ['scratch3', 'bclogo']
   this.nouvelleVersion = function () {
     this.introduction = lampeMessage({
       titre: context.isHtml ? `${scratchblock('\\begin{scratch}[print,fill,blocks,scale=0.5]\n\\ovaloperator{\\ovalnum{ } modulo \\ovalnum{ }}\\end{scratch}')}` : 'Information',

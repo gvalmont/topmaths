@@ -1,6 +1,6 @@
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { creerCouples, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -23,10 +23,10 @@ export const uuid = 'ab968'
 export const ref = '5R12-2'
 export const refs = {
   'fr-fr': ['5R12-2'],
-  'fr-ch': []
+  'fr-ch': ['9FA1-7']
 }
 export default function ReperagePointDuPlan () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1

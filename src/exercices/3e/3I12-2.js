@@ -26,7 +26,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ComprendreScriptMultiples () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 9
   this.sup2 = 5
   this.sup3 = 4
@@ -37,7 +37,7 @@ export default function ComprendreScriptMultiples () {
   this.typeExercice = 'Scratch'
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.listePackages = 'scratch3'
+  this.listePackages = ['scratch3', 'bclogo']
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

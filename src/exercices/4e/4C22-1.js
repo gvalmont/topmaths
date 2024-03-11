@@ -6,7 +6,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Trouver l\'inverse d\'un nombre'
@@ -28,10 +28,10 @@ export const uuid = '43cea'
 export const ref = '4C22-1'
 export const refs = {
   'fr-fr': ['4C22-1'],
-  'fr-ch': []
+  'fr-ch': ['10NO5-5']
 }
 export default function ExerciceTrouverInverse () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 1 // Avec ou sans relatifs
   this.titre = titre
   this.consigne =

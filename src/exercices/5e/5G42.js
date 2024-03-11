@@ -3,7 +3,7 @@ import { codageSegments } from '../../lib/2d/codages.js'
 import { point } from '../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { rotation, similitude } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
@@ -13,20 +13,16 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Déterminer la nature de parallélogrammes'
 
 /**
- * Description didactique de l'exercice
- * @author
- * Référence 5G42
+ *
 */
 export const uuid = '8812e'
 export const ref = '5G42'
 export const refs = {
   'fr-fr': ['5G42'],
-  'fr-ch': []
+  'fr-ch': ['9ES2-3']
 }
 export default function DemonstrationsParallelogrammes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = ''
+  Exercice.call(this)
   this.nbQuestions = 7
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX

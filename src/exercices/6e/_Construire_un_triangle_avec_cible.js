@@ -12,7 +12,7 @@ import {
 } from '../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
 import { longueur, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPoint } from '../../lib/2d/textes.js'
+import { texteParPoint } from '../../lib/2d/textes.ts'
 import { rotation, similitude } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { range1 } from '../../lib/outils/nombres'
@@ -27,7 +27,6 @@ import { context } from '../../modules/context.js'
 /**
  * publié le 1/12/2020
  * @author Jean-Claude Lhote
- * Réfrence 6G21-1 et 5G20
  */
 export default function ConstruireUnTriangleAvecCible () {
   Exercice.call(this)

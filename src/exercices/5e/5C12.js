@@ -20,10 +20,10 @@ export const uuid = 'e61fc'
 export const ref = '5C12'
 export const refs = {
   'fr-fr': ['5C12'],
-  'fr-ch': []
+  'fr-ch': ['9NO6-2']
 }
 export default function CalculerUneExpressionNumerique () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1

@@ -18,8 +18,12 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '8f2a4'
 export const ref = 'CM016'
+export const refs = {
+  'fr-fr': ['CM016'],
+  'fr-ch': []
+}
 export default function DiviserPar101001000 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Calculer.'
   this.nbQuestions = 10
   this.nbCols = 2

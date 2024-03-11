@@ -27,10 +27,10 @@ export const uuid = 'c71da'
 export const ref = '2N31-3'
 export const refs = {
   'fr-fr': ['2N31-3'],
-  'fr-ch': []
+  'fr-ch': ['10NO2-14', '11NO1-10']
 }
 export default function PuissancesDUnRelatif2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   context.isHtml
     ? (this.consigne = 'Écrire sous la forme $\\mathbf{a^n}$.')
     : (this.consigne = 'Écrire sous la forme $a^n$.')

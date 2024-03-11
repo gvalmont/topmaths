@@ -37,10 +37,10 @@ export const uuid = '33ac2'
 export const ref = '6M31'
 export const refs = {
   'fr-fr': ['6M31'],
-  'fr-ch': []
+  'fr-ch': ['9GM2-3']
 }
 export default function ExerciceConversionsVolumes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 1 // Niveau de difficulté de l`exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.sup3 = 1 // interactifType Qcm
@@ -403,7 +403,7 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
     texte += ' \\hline '
 
     for (let i = first; i < end; i++) {
-      texte += '\\begin{array}{c:c:c}'
+      texte += '\\begin{array}{c|c|c}'
       texte += `${aT[3 * i]} & ${aT[3 * i + 1]}& ${aT[3 * i + 2]}  \\\\`
       texte += !correction ? ` ${rT[3 * i]} & ${rT[3 * i + 1]}& ${rT[3 * i + 2]}  \\\\` : ''
       texte += '\\end{array}'
@@ -412,7 +412,7 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
     for (let k = 3; k <= ligne; k++) {
       texte += '\\\\ \\hline '
       for (let i = first; i < end; i++) {
-        texte += '\\begin{array}{c:c:c}'
+        texte += '\\begin{array}{c|c|c}'
         texte += ' & & \\\\'
         texte += '\\end{array}'
         texte += (i !== end - 1 ? ' & ' : '')

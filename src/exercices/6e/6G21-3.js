@@ -1,6 +1,7 @@
 import ConstruireUnTriangle from './6G21.js'
 
 export const titre = 'Construire un triangle particulier avec les instruments et auto-vérification'
+export const interactifReady = false
 export const dateDePublication = '17/12/2022'
 
 /**
@@ -12,7 +13,7 @@ export const uuid = 'e1e64'
 export const ref = '6G21-3'
 export const refs = {
   'fr-fr': ['6G21-3'],
-  'fr-ch': []
+  'fr-ch': ['9ES4-10']
 }
 export default class ConstruireUnTriangleParticulier extends ConstruireUnTriangle {
   constructor () {

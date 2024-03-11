@@ -16,10 +16,10 @@ export const uuid = '60910'
 export const ref = '5P12'
 export const refs = {
   'fr-fr': ['5P12'],
-  'fr-ch': []
+  'fr-ch': ['9NO14-9']
 }
 export default function PartagerSelonUnRatio () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 1
   this.sup = 1

@@ -25,10 +25,10 @@ export const uuid = '7c068'
 export const ref = '4S11'
 export const refs = {
   'fr-fr': ['4S11'],
-  'fr-ch': []
+  'fr-ch': ['11NO2-9']
 }
 export default function DeterminerDesMedianes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.spacing = 1
   this.spacingCorr = 1.5

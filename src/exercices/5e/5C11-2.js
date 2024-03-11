@@ -18,10 +18,10 @@ export const uuid = '3406a'
 export const ref = '5C11-2'
 export const refs = {
   'fr-fr': ['5C11-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO6-3']
 }
 export default function ÉcrireUneExpressionMathador () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 4
@@ -45,7 +45,7 @@ export default function ÉcrireUneExpressionMathador () {
       for (let j = 0; j < 4; j++) {
         texte += `$${calculsSuccessifs[j]}$<br>`
       }
-      texte += 'Écris cette succession d\'opérations en une seule expression.'
+      texte += 'Écrire cette succession d\'opérations en une seule expression.'
       texteCorr = `L'expression correspondante au calcul de ${quidam} est :<br>$${miseEnEvidence(expression)}$ ou $${miseEnEvidence(solutionMathador[4])}$.`
       if (context.isAmc) {
         this.autoCorrection[i] =

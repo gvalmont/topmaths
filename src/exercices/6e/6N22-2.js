@@ -6,7 +6,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { fraction } from '../../modules/fractions.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -26,10 +26,10 @@ export const uuid = '6a17f'
 export const ref = '6N22-2'
 export const refs = {
   'fr-fr': ['6N22-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO10-13']
 }
 export default function AjouterDesFractionsDunite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 2

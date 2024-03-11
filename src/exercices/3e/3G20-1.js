@@ -3,7 +3,7 @@ import { texteSurSegment } from '../../lib/2d/codages.js'
 import { milieu, point, pointSurSegment } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPoint } from '../../lib/2d/textes.js'
+import { labelPoint, texteParPoint } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
@@ -18,17 +18,15 @@ export const titre = 'Problèmes avec le théorème de Thalès'
 /**
 * Banque de problèmes utilisant le théorème de Thalès et différentes propriétés de géométrie
 * @author Rémi Angot
-* 3G20-1
 */
 export const uuid = 'eea67'
 export const ref = '3G20-1'
 export const refs = {
   'fr-fr': ['3G20-1'],
-  'fr-ch': []
+  'fr-ch': ['11GM3-8']
 }
 export default function ProblemesThales () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
+  Exercice.call(this)
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1

@@ -11,10 +11,14 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { context } from '../../modules/context.js'
 export const titre = 'Encadrer l\'aire d\'un disque'
 export const ref = 'P017'
+export const refs = {
+  'fr-fr': ['P017'],
+  'fr-ch': []
+}
 export const uuid = '0ff0f'
 
 /**
@@ -23,7 +27,7 @@ export const uuid = '0ff0f'
  * Référence P017
 */
 export default function EncadrerAireDisque () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.spacing = context.isHtml ? 2 : 1

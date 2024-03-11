@@ -11,7 +11,7 @@ import {
   tracePoint
 } from '../../lib/2d/points.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -32,7 +32,7 @@ export const uuid = '3acc1'
 export const ref = '5G22-1'
 export const refs = {
   'fr-fr': ['5G22-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES3-10']
 }
 export default function ProprietesMediatrice () {
   Exercice.call(this)

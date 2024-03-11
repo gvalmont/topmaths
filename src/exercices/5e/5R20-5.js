@@ -16,10 +16,10 @@ export const uuid = '41254'
 export const ref = '5R20-5'
 export const refs = {
   'fr-fr': ['5R20-5'],
-  'fr-ch': []
+  'fr-ch': ['9NO9-10']
 }
 export default function ExerciceTableauAdditionsRelatifs () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Calculer.'
   this.spacing = 1
   this.nbQuestions = 1

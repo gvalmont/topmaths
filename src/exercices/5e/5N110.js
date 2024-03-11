@@ -24,10 +24,10 @@ export const uuid = 'b2c55'
 export const ref = '5N110'
 export const refs = {
   'fr-fr': ['5N110'],
-  'fr-ch': []
+  'fr-ch': ['9NO14-11']
 }
 export default function VariationEnPourcentages () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Calculer le nouveau prix. Pour chaque réponse, écrire la valeur décimale.'
   this.nbQuestions = 5

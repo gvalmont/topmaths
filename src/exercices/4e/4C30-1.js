@@ -23,10 +23,10 @@ export const uuid = '760d7'
 export const ref = '4C30-1'
 export const refs = {
   'fr-fr': ['4C30-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO5-1']
 }
 export default function PuissancesEncadrement () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 4
   this.nbQuestions = 5
 

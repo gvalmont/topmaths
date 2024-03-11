@@ -6,6 +6,8 @@ import { AddTabDbleEntryMathlive } from '../interactif/tableaux/AjouteTableauMat
 import { tableauColonneLigne } from '../2d/tableau'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import { reduireAxPlusB } from './ecritures'
+import { KeyboardType } from '../interactif/claviers/keyboard'
+import FractionEtendue from '../../modules/FractionEtendue'
 
 const engine = new ComputeEngine()
 
@@ -33,6 +35,7 @@ export class Yohaku {
   resultats:string[]
   operation:'addition'|'multiplication'
   solution: boolean
+  clavier: KeyboardType
   constructor ({ type, largeur, hauteur, taille, Case, cellules, operation, valeurMax, solution }:
                    {type: string, largeur: number, hauteur: number, taille: number, Case: number |undefined, cellules: string[], resultats: string[], operation: 'addition'|'multiplication', valeurMax: number, solution: boolean} = {
     type: 'entiers',
@@ -56,31 +59,39 @@ export class Yohaku {
     this.type = type
     this.cellules = cellules ?? []
     this.cellulesPreremplies = []
+    this.clavier = KeyboardType.clavierDeBase
     if (this.cellules.length === 0) {
       const den = randint(2, valeurMax)
       for (let i = 0; i < this.taille ** 2; i++) {
         switch (this.type) {
           case 'entiers' :
             this.cellules.push(String(randint(1, valeurMax) ?? 2))
+            this.clavier = KeyboardType.clavierDeBase
             break
           case 'entiers relatifs' :
             this.cellules.push(String(randint(-valeurMax, valeurMax, 0)))
+            this.clavier = KeyboardType.clavierDeBase
             break
           case 'littéraux' :
             this.cellules.push(reduireAxPlusB(randint(1, valeurMax), randint(1, valeurMax), 'x'))
+            this.clavier = KeyboardType.clavierDeBaseAvecVariable
             break
           case 'fractions dénominateurs multiples':
             this.cellules.push(fraction(randint(1, valeurMax), den).texFraction.replace('dfrac', 'frac'))
+            this.clavier = KeyboardType.clavierDeBaseAvecFraction
             break
           case 'fractions positives dénominateurs premiers':
             this.cellules.push(fraction(randint(1, valeurMax), Number(choice([2, 3, 5, 7]))).texFraction.replace('dfrac', 'frac'))
+            this.clavier = KeyboardType.clavierDeBaseAvecFraction
             break
 
           case 'fractions positives' :
             this.cellules.push(fraction(randint(1, valeurMax), randint(2, valeurMax)).texFraction.replace('dfrac', 'frac'))
+            this.clavier = KeyboardType.clavierDeBaseAvecFraction
             break
           case 'fractions relatives' :
             this.cellules.push(fraction(randint(-valeurMax, valeurMax, 0), randint(2, valeurMax)).texFraction.replace('dfrac', 'frac'))
+            this.clavier = KeyboardType.clavierDeBaseAvecFraction
             break
         }
       }
@@ -91,12 +102,15 @@ export class Yohaku {
           switch (this.type) {
             case 'entiers' :
               this.cellules.push(String(randint(1, valeurMax)))
+              this.clavier = KeyboardType.clavierDeBase
               break
             case 'entiers relatifs' :
               this.cellules.push(String(randint(-valeurMax, valeurMax, 0)))
+              this.clavier = KeyboardType.clavierDeBase
               break
             case 'littéraux' :
               this.cellules.push(reduireAxPlusB(randint(1, valeurMax), randint(1, valeurMax), 'x'))
+              this.clavier = KeyboardType.clavierDeBaseAvecVariable
               break
             case 'fractions dénominateurs multiples':{
               const cellulePrecedente = engine.parse(this.cellules[i - 1])
@@ -104,16 +118,20 @@ export class Yohaku {
                 const [, den] = cellulePrecedente.numericValue
                 this.cellules.push(fraction(randint(1, valeurMax), Number(den) ?? 1).texFraction.replace('dfrac', 'frac'))
               }
+              this.clavier = KeyboardType.clavierDeBaseAvecFraction
             }
               break
             case 'fractions positives dénominateurs premiers':
-              this.cellules.push(fraction(randint(1, valeurMax), Number(choice([2, 3, 5, 7]))).texFraction.replace('dfrac', 'frac'))
+              this.cellules.push(new FractionEtendue(randint(1, valeurMax), Number(choice([2, 3, 5, 7]))).texFraction.replace('dfrac', 'frac'))
+              this.clavier = KeyboardType.clavierDeBaseAvecFraction
               break
             case 'fractions positives' :
               this.cellules.push(fraction(randint(1, valeurMax), randint(2, valeurMax)).texFraction.replace('dfrac', 'frac'))
+              this.clavier = KeyboardType.clavierDeBaseAvecFraction
               break
             case 'fractions relatives' :
               this.cellules.push(fraction(randint(-valeurMax, valeurMax, 0), randint(2, valeurMax)).texFraction.replace('dfrac', 'frac'))
+              this.clavier = KeyboardType.clavierDeBaseAvecFraction
               break
           }
         }
@@ -263,7 +281,7 @@ export class Yohaku {
     }
     tabLignes.push(`${context.isHtml ? '' : couleur}///////`)
     if (context.isHtml && isInteractif) {
-      const tab = AddTabDbleEntryMathlive.create(numeroExercice, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEnteteColonnes, tabEnteteLignes, tabLignes), classes, isInteractif)
+      const tab = AddTabDbleEntryMathlive.create(numeroExercice, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEnteteColonnes, tabEnteteLignes, tabLignes), classes + ' ' + this.clavier, isInteractif, {})
       return tab.output
     } else {
       return tableauColonneLigne(tabEnteteColonnes, tabEnteteLignes, tabLignes, 2, true, numeroExercice, question)

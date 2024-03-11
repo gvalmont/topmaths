@@ -23,10 +23,10 @@ export const uuid = '06633'
 export const ref = '6N41'
 export const refs = {
   'fr-fr': ['6N41'],
-  'fr-ch': []
+  'fr-ch': ['9NO12-1']
 }
 export default function EgalitesEntreFractions () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 11 // Correspond au facteur commun
   this.sup2 = 2 // alternance numérateur ou dénominateur imposé.
   this.consigne = 'Compléter les égalités.'

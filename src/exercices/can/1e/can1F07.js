@@ -23,9 +23,13 @@ export const dateDePublication = '15/06/2022'
 */
 export const uuid = '5b203'
 export const ref = 'can1F07'
+export const refs = {
+  'fr-fr': ['can1F07'],
+  'fr-ch': []
+}
 export default function AxeSymetrieParabole () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'

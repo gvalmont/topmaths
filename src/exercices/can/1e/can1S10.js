@@ -19,8 +19,12 @@ export const dateDePublication = '19/02/2022' // La date de publication initiale
 */
 export const uuid = 'd1261'
 export const ref = 'can1S10'
+export const refs = {
+  'fr-fr': ['can1S10'],
+  'fr-ch': []
+}
 export default function SensVariationSuite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 2

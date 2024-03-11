@@ -3,10 +3,11 @@ import { ecritureAlgebrique, ecritureNombreRelatif, ecritureNombreRelatifc } fro
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { numberCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -26,10 +27,10 @@ export const uuid = 'cbc26'
 export const ref = '5R20'
 export const refs = {
   'fr-fr': ['5R20'],
-  'fr-ch': []
+  'fr-ch': ['9NO9-6']
 }
 export default function ExerciceAdditionsRelatifs (max = 20) {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = max
   this.sup2 = false // écriture simplifiée
   this.consigne = 'Calculer.'
@@ -87,7 +88,8 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
         }
       } else {
         texte += ajouteChampTexteMathLive(this, i)
-        setReponse(this, i, a + b)
+        texte += ajouteFeedback(this, i)
+        handleAnswers(this, i, { reponse: { value: (a + b).toString(), compare: numberCompare } })
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

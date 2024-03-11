@@ -21,8 +21,12 @@ export const dateDePublication = '30/10/2021' // La date de publication initiale
  */
 export const uuid = '651a5'
 export const ref = 'can2G07'
+export const refs = {
+  'fr-fr': ['can2G07'],
+  'fr-ch': []
+}
 export default function CoordonneesVecteur1 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'

@@ -10,6 +10,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import Operation from '../../modules/operations.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Résoudre des problèmes de prix avec des objets'
 export const interactifReady = true
@@ -36,7 +37,7 @@ export const uuid = '28d56'
 export const ref = '6C12'
 export const refs = {
   'fr-fr': ['6C12'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-5']
 }
 export default class QuestionsPrix extends Exercice {
   constructor () {
@@ -229,7 +230,7 @@ export default class QuestionsPrix extends Exercice {
           texteCorr += correctionAMC
         }
         if (this.interactif && !context.isAmc) {
-          texte += ajouteChampTexteMathLive(this, 8 * i + kk, 'inline largeur25', { texteApres: ' €' }) + '<br><br>'
+          texte += ajouteChampTexteMathLive(this, 8 * i + kk, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' €' }) + '<br><br>'
           setReponse(this, 8 * i + kk, reponseAMC)
         }
         if (context.isAmc) {

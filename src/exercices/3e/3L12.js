@@ -4,7 +4,7 @@ import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { reduireAxPlusB } from '../../lib/outils/ecritures'
-import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
+import { factorisationCompare } from '../../lib/interactif/comparisonFunctions'
 import { fraction } from '../../modules/fractions.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -28,10 +28,10 @@ export const uuid = '81fd2'
 export const ref = '3L12'
 export const refs = {
   'fr-fr': ['3L12'],
-  'fr-ch': []
+  'fr-ch': ['11FA3-4']
 }
 export default function FactoriserIdentitesRemarquables3 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.correctionDetailleeDisponible = false
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)

@@ -5,7 +5,7 @@ import {
   reduirePolynomeDegre3
 } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer l’abscisse ou l’ordonnée du sommet d’une parabole'
 export const interactifReady = true
@@ -20,6 +20,10 @@ export const dateDePublication = '21/09/2022'
 
 export const uuid = '2d459'
 export const ref = 'can1F21'
+export const refs = {
+  'fr-fr': ['can1F21'],
+  'fr-ch': []
+}
 export default function EcondDegreAbscisseOrdonneeSommet () {
   Exercice.call(this)
   this.typeExercice = 'simple'

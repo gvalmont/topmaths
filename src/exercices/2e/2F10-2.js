@@ -2,7 +2,7 @@ import { droite } from '../../lib/2d/droites.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParPoint, texteParPosition } from '../../lib/2d/textes.js'
+import { latexParPoint, texteParPosition } from '../../lib/2d/textes.ts'
 import { homothetie, translation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -29,7 +29,7 @@ export const uuid = '93f13'
 export const ref = '2F10-2'
 export const refs = {
   'fr-fr': ['2F10-2'],
-  'fr-ch': []
+  'fr-ch': ['11FA8-13']
 }
 export default function Lecturefonctionaffine () {
   Exercice.call(this)

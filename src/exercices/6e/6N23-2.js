@@ -15,7 +15,7 @@ import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Lire des abscisses décimales sous trois formes'
@@ -37,10 +37,10 @@ export const uuid = '12773'
 export const ref = '6N23-2'
 export const refs = {
   'fr-fr': ['6N23-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO11-7']
 }
 export default function LireAbscisseDecimaleTroisFormes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.niveau = 'sixième'
   this.consigne = ''
   if (context.isHtml) {

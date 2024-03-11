@@ -1,7 +1,7 @@
 import { simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { evaluate, Fraction } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import * as pkg from '@cortex-js/compute-engine'
@@ -19,7 +19,7 @@ export const dateDePublication = '20/03/2022' // La date de publication initiale
  * Référence
  */
 export default function TestFractions () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.sup = randint(1, 1000)
   this.sup2 = randint(2, 1000)

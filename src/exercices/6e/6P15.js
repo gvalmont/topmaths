@@ -6,7 +6,7 @@ import { numAlpha } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
@@ -23,7 +23,7 @@ export const uuid = '2d5eb'
 export const ref = '6P15'
 export const refs = {
   'fr-fr': ['6P15'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-2']
 }
 /**
  * @author jean-claude Lhote

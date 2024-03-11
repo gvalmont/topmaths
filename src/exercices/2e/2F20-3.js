@@ -2,7 +2,7 @@ import { antecedentInterpole, graphiqueInterpole, imageInterpolee } from '../../
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { texteParPosition } from '../../lib/2d/textes.ts'
 import { combinaisonListes, enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { arrondi, numTrie } from '../../lib/outils/nombres'
@@ -31,10 +31,10 @@ export const uuid = '573f2'
 export const ref = '2F20-3'
 export const refs = {
   'fr-fr': ['2F20-3'],
-  'fr-ch': []
+  'fr-ch': ['11FA9-4']
 }
 export default function LecturesGraphiques () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true

@@ -23,8 +23,12 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  */
 export const uuid = 'e0405'
 export const ref = 'can2F08'
+export const refs = {
+  'fr-fr': ['can2F08'],
+  'fr-ch': []
+}
 export default function EncadrerTableau () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.tailleDiaporama = 2

@@ -1,5 +1,5 @@
-import preambule from '../lib/latex/preambule.tex?raw'
-import TypeExercice from '../exercices/Exercice.js'
+import genericPreamble from '../lib/latex/preambule.tex?raw'
+import TypeExercice from '../exercices/Exercice'
 import { mathaleaHandleExerciceSimple } from './mathalea.js'
 import seedrandom from 'seedrandom'
 // printPrettier pose problème avec begin{aligned}[t] en ajoutant un saut de ligne problématique
@@ -184,24 +184,79 @@ class Latex {
     return content
   }
 
-  async getContents (style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can', nbVersions: number = 1, title: string = '', subtitle: string = '', reference: string = ''): Promise<{ content: string; contentCorr: string }> {
-    const contents = { content: '', contentCorr: '' }
-    if (style === 'ProfMaquette') {
-      for (let i = 1; i < nbVersions + 1; i++) {
-        const contentVersion = this.getContentForAVersionProfMaquette(i, false)
-        contents.content += `\n\\begin{Maquette}[Fiche, CorrigeFin]{Niveau=${subtitle || ' '},Classe=${reference || ' '},Date= ${nbVersions > 1 ? 'v' + i : ' '} ,Theme=${title || 'Exercices'}}\n`
-        contents.content += contentVersion
-        contents.content += '\n\\end{Maquette}'
-        contents.contentCorr = ''
+  async getContents (style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can', nbVersions: number = 1, title: string = '', subtitle: string = '', reference: string = ''): Promise<{ preamble: string, intro: string, content: string; contentCorr: string }> {
+    const contents = { preamble: '', intro: '', content: '', contentCorr: '' }
+    if (style === 'ProfMaquette' || style === 'ProfMaquetteQrcode') {
+      if (style === 'ProfMaquette') {
+        for (let i = 1; i < nbVersions + 1; i++) {
+          const contentVersion = this.getContentForAVersionProfMaquette(i, false)
+          contents.content += `\n\\begin{Maquette}[Fiche, CorrigeFin]{Niveau=${subtitle || ' '},Classe=${reference || ' '},Date= ${nbVersions > 1 ? 'v' + i : ' '} ,Theme=${title || 'Exercices'}}\n`
+          contents.content += contentVersion
+          contents.content += '\n\\end{Maquette}'
+          contents.contentCorr = ''
+        }
+      } else if (style === 'ProfMaquetteQrcode') {
+        for (let i = 1; i < nbVersions + 1; i++) {
+          const contentVersion = this.getContentForAVersionProfMaquette(i, true)
+          contents.content += `\n\\begin{Maquette}[Fiche, CorrigeFin]{Niveau=${subtitle || ' '},Classe=${reference || ' '},Date= ${nbVersions > 1 ? 'v' + i : ' '} ,Theme=${title || 'Exercices'}}\n`
+          contents.content += contentVersion
+          contents.content += '\n\\end{Maquette}'
+          contents.contentCorr = ''
+        }
       }
-    } else if (style === 'ProfMaquetteQrcode') {
-      for (let i = 1; i < nbVersions + 1; i++) {
-        const contentVersion = this.getContentForAVersionProfMaquette(i, true)
-        contents.content += `\n\\begin{Maquette}[Fiche, CorrigeFin]{Niveau=${subtitle || ' '},Classe=${reference || ' '},Date= ${nbVersions > 1 ? 'v' + i : ' '} ,Theme=${title || 'Exercices'}}\n`
-        contents.content += contentVersion
-        contents.content += '\n\\end{Maquette}'
-        contents.contentCorr = ''
+      contents.preamble = '\\documentclass[a4paper,11pt,fleqn]{article}'
+      contents.preamble += '\n\\usepackage{ProfCollege}'
+      contents.preamble += '\n\\usepackage{ProfMaquette}'
+      contents.preamble += '\n\\usepackage{qrcode}'
+      contents.preamble += '\n\\usepackage[luatex]{hyperref}'
+      contents.preamble += '\n\\usepackage{tkz-tab}'
+      contents.preamble += '\n\\usepackage{tabularx}'
+      contents.preamble += '\n\\usepackage{mathrsfs}'
+      contents.preamble += '\n\\usepackage[margin=1cm]{geometry}'
+      contents.preamble += '\n\\pagestyle{empty}'
+      contents.preamble += '\n\\usepackage{enumitem}'
+      contents.preamble += '\n\\usepackage{arev}'
+      if (contents.content.includes('pspicture')) {
+        contents.preamble += '\n\\usepackage{pstricks,pst-plot,pst-tree,pstricks-add}'
+        contents.preamble += '\n\\usepackage{pst-eucl}'
+        contents.preamble += '\n\\usepackage{pst-text}'
+        contents.preamble += '\n\\usepackage{pst-node,pst-all}'
+        contents.preamble += '\n\\usepackage{pst-func,pst-math,pst-bspline,pst-3dplot}'
       }
+      if (contents.content.includes('\\euro')) {
+        contents.preamble += '\n\\usepackage[gen]{eurosym}'
+      }
+      if (contents.content.includes('\\np{') || contents.content.includes('\\numprint{')) {
+        contents.preamble += '\n\\usepackage[autolanguage,np]{numprint}'
+      }
+      if (contents.content.includes('\\up{')) {
+        contents.preamble += '\n\\newcommand{\\up}[1]{\\textsuperscript{#1}}'
+      }
+
+      if (contents.content.includes('\\begin{bclogo}') || contents.content.includes('\\fcolorbox{nombres}')) {
+        contents.preamble += '\n\\definecolor{nombres}{cmyk}{0,.8,.95,0}'
+      }
+      if (contents.content.includes(',decorate,decoration=')) {
+        contents.preamble += '\n\\usetikzlibrary{decorations.pathmorphing}'
+      }
+      if (contents.content.includes('\\tkzText')) {
+        contents.preamble += '\n\\usepackage{tkz-fct}'
+      }
+      if (contents.content.includes('\\begin{scratch}')) {
+        contents.preamble += '\n\\usepackage{scratch3}'
+      }
+      const [latexCmds, latexPackages] = this.getContentLatex()
+      for (const pack of latexPackages) {
+        if (pack === 'bclogo') {
+          contents.preamble += '\n\\usepackage[tikz]{' + pack + '}'
+        } else {
+          contents.preamble += '\n\\usepackage{' + pack + '}'
+        }
+      }
+      for (const cmd of latexCmds) {
+        contents.preamble += '\n' + cmd.replace('cmd', '')
+      }
+      contents.intro += '\n\\begin{document}'
     } else {
       for (let i = 1; i < nbVersions + 1; i++) {
         const contentVersion = this.getContentsForAVersion(style, i)
@@ -222,6 +277,18 @@ class Latex {
         contents.content += contentVersion.content
         contents.contentCorr += contentVersion.contentCorr
       }
+      if (style === 'Can') {
+        contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(contents.content)}\n\n`
+        contents.preamble += '\n\\Theme[CAN]{}{}{}{}'
+        contents.intro += '\n\\begin{document}'
+        contents.intro += '\n\\setcounter{nbEx}{1}'
+        contents.intro += '\n\\pageDeGardeCan{nbEx}'
+        contents.intro += '\n\\clearpage'
+      } else {
+        contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(contents.content)}\n\n`
+        contents.preamble += `\\Theme[${style}]{nombres}{${title}}{${reference}}{${subtitle}}`
+        contents.intro += '\n\\begin{document}\n'
+      }
     }
     // contents.content = await printPrettier(contents.content)
     // contents.contentCorr = await printPrettier(contents.contentCorr)
@@ -235,71 +302,25 @@ class Latex {
     reference,
     subtitle,
     style,
-    nbVersions
+    nbVersions,
+    withPreamble = true
   }: {
     title: string
     reference: string
     subtitle: string
     style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can'
     nbVersions: number
+    withPreamble?: boolean
   }) {
     const contents = await this.getContents(style, nbVersions, title, subtitle, reference)
+    const preamble = contents.preamble
+    const intro = contents.intro
     const content = contents.content
     const contentCorr = contents.contentCorr
     let result = ''
-    if (style === 'Can') {
-      result += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${preambule}\n\n`
-      result += '\n\\Theme[CAN]{}{}{}{}'
-      result += '\n\\begin{document}'
-      result += '\n\\setcounter{nbEx}{1}'
-      result += '\n\\pageDeGardeCan{nbEx}'
-      result += '\n\\clearpage'
-      result += content
-    } else if (style === 'ProfMaquette' || style === 'ProfMaquetteQrcode') {
-      result = '\\documentclass[a4paper,11pt,fleqn]{article}'
-      result += '\n\\usepackage{ProfCollege}'
-      result += '\n\\usepackage{ProfMaquette}'
-      result += '\n\\usepackage{qrcode}'
-      result += '\n\\usepackage[luatex]{hyperref}'
-      result += '\n\\usepackage{tkz-tab}'
-      result += '\n\\usepackage{tabularx}'
-      result += '\n\\usepackage{mathrsfs}'
-      result += '\n\\usepackage[margin=1cm]{geometry}'
-      result += '\n\\pagestyle{empty}'
-      result += '\n\\usepackage{enumitem}'
-      result += '\n\\usepackage{fontspec}'
-      result += '\n\\usepackage{unicode-math}'
-      result += '\n\\setmainfont{Source Sans Pro}'
-      result += '\n\\setmathfont{STIX Two Math}'
-      if (content.includes('pspicture')) {
-        result += '\n\\usepackage{pstricks,pst-plot,pst-tree,pstricks-add}'
-        result += '\n\\usepackage{pst-eucl}'
-        result += '\n\\usepackage{pst-text}'
-        result += '\n\\usepackage{pst-node,pst-all}'
-        result += '\n\\usepackage{pst-func,pst-math,pst-bspline,pst-3dplot}'
-      }
-      if (content.includes('\\euro')) {
-        result += '\n\\usepackage[gen]{eurosym}'
-      }
-      if (content.includes('\\np{')) {
-        result += '\n\\usepackage[autolanguage,np]{numprint}'
-      }
-      if (content.includes(',decorate,decoration=')) {
-        result += '\n\\usetikzlibrary{decorations.pathmorphing}'
-      }
-
-      const [latexCmds, latexPackages] = this.getContentLatex()
-      for (const pack of latexPackages) {
-        result += '\n\\usepackage{' + pack + '}'
-      }
-      for (const cmd of latexCmds) {
-        result += '\n' + cmd.replace('cmd', '')
-      }
-      result += '\n\\begin{document}'
-      result += content
-    } else {
-      result = `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${preambule}\n\n\\Theme[${style}]{nombres}{${title}}{${reference}}{${subtitle}}\n\n\\begin{document}\n${content}`
-    }
+    if (withPreamble) result += preamble
+    result += intro
+    result += content
     if (style === 'ProfMaquette' || style === 'ProfMaquetteQrcode') {
       result += '\n\\end{document}'
     } else {
@@ -489,6 +510,7 @@ export function format (text: string): string {
   return text
     .replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/gim, '\n\n\\medskip\n')
     .replace(/<br>/g, '\\\\')
+    .replace(/€/g, '\\euro')
     .replace(/\\\\\s*\n\n/gm, '\\\\')
 }
 
@@ -507,6 +529,14 @@ function getUrlFromExercice (ex: TypeExercice) {
   if (ex.correctionDetaillee !== undefined) url.searchParams.append('cd', ex.correctionDetaillee ? '1' : '0')
   if (ex.nbCols !== undefined) url.searchParams.append('cols', ex.nbCols.toString())
   return url
+}
+
+function addPackages (content: string, isFullPackages = false) {
+  let packages = genericPreamble
+  if (isFullPackages || content.includes('\\euro')) {
+    packages += '\n\\usepackage[gen]{eurosym}'
+  }
+  return packages
 }
 
 export default Latex

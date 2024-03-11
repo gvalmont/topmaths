@@ -25,10 +25,10 @@ export const uuid = '070b4'
 export const ref = '5R22-2'
 export const refs = {
   'fr-fr': ['5R22-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO9-16']
 }
 export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = max
   this.sup2 = 3
   this.consigne = 'Écrire sous la forme d\'une expression algébrique sans parenthèses puis calculer.'

@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { environEgalCompare } from '../../lib/interactif/comparaisonFonctions'
+import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Exprimer une fraction sous la forme d\'une valeur approchée d\'un pourcentage'
 export const interactifReady = true
@@ -24,10 +24,10 @@ export const uuid = '6b534'
 export const ref = '5N11-4'
 export const refs = {
   'fr-fr': ['5N11-4'],
-  'fr-ch': []
+  'fr-ch': ['9NO14-7']
 }
 export default function ValeurApprocheeDePourcentages () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 6
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
@@ -70,8 +70,8 @@ export default function ValeurApprocheeDePourcentages () {
         // setReponse(this, i, arrondi(num / den * 100, 0))
         handleAnswers(this, i, {
           bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
-          champ1: { value: { attendu: (num / den).toFixed(3), tolerance: 0.01 }, compare: environEgalCompare },
-          champ2: { value: { attendu: (100 * num / den).toFixed(0), tolerance: 1 }, compare: environEgalCompare }
+          champ1: { value: { attendu: (num / den).toFixed(3), tolerance: 0.01 }, compare: approximatelyCompare },
+          champ2: { value: { attendu: (100 * num / den).toFixed(0), tolerance: 1 }, compare: approximatelyCompare }
         }, { formatInteractif: 'fillInTheBlank' })
       }
       if (this.sup === 2) {
@@ -79,8 +79,8 @@ export default function ValeurApprocheeDePourcentages () {
         // setReponse(this, i, arrondi(num / den * 100, 0))
         handleAnswers(this, i, {
           bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
-          champ1: { value: { attendu: (num / den).toFixed(3), tolerance: 0.001 }, compare: environEgalCompare },
-          champ2: { value: { attendu: (100 * num / den).toFixed(1), tolerance: 0.1 }, compare: environEgalCompare }
+          champ1: { value: { attendu: (num / den).toFixed(3), tolerance: 0.001 }, compare: approximatelyCompare },
+          champ2: { value: { attendu: (100 * num / den).toFixed(1), tolerance: 0.1 }, compare: approximatelyCompare }
         }, { formatInteractif: 'fillInTheBlank' })
       }
 

@@ -17,7 +17,7 @@ export const uuid = 'aa997'
 export const ref = '5P10'
 export const refs = {
   'fr-fr': ['5P10'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-3']
 }
 
 // une fonction pour la justification
@@ -75,7 +75,7 @@ function justificationsKO (n1, n2, n3, coeff, operation, sens) {
 }
 
 export default function TableauxEtProportionnalite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.debug = false
   this.sup = 1
   if (this.debug) {

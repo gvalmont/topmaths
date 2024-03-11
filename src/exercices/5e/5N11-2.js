@@ -1,6 +1,7 @@
 import TableauxEtPourcentages from './_Tableaux_et_pourcentages.js'
 
 export const titre = 'Tableaux et pourcentages - pourcentage constant'
+export const interactifReady = false
 
 /**
  * * Tableaux et pourcentages prix constant
@@ -12,10 +13,9 @@ export const uuid = '5a44b'
 export const ref = '5N11-2'
 export const refs = {
   'fr-fr': ['5N11-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO14-5']
 }
 export default function TableauxEtPourcentagesPourcentConstant () {
   this.exo = '5N11-2'
-  this.titre = titre
   TableauxEtPourcentages.call(this)
 }

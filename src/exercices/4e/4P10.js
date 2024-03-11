@@ -27,10 +27,10 @@ export const uuid = '72c5a'
 export const ref = '4P10'
 export const refs = {
   'fr-fr': ['4P10'],
-  'fr-ch': []
+  'fr-ch': ['10FA4-2']
 }
 export default function ProblemesGrandeursComposees () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 3

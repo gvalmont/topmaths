@@ -3,7 +3,7 @@ import { codageSegment } from '../../lib/2d/codages.js'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js'
 import { milieu, point, pointIntersectionDD, pointSurDroite, tracePoint } from '../../lib/2d/points.js'
 import { grille, seyes } from '../../lib/2d/reperes.js'
-import { labelPoint, latexParPoint } from '../../lib/2d/textes.js'
+import { labelPoint, latexParPoint } from '../../lib/2d/textes.ts'
 import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
@@ -18,6 +18,7 @@ import {
 import Exercice from '../Exercice'
 
 export const titre = 'Tracer des perpendiculaires'
+export const interactifReady = false
 export const dateDePublication = '09/10/2022'
 /**
  * Fonction générale pour construire des perpendiculairs
@@ -28,7 +29,7 @@ export const uuid = 'df825'
 export const ref = '6G11-1'
 export const refs = {
   'fr-fr': ['6G11-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES3-2']
 }
 export default class constructionPerpendiculaires extends Exercice {
 //

@@ -28,7 +28,7 @@ export const uuid = '77d18'
 export const ref = '3F1-act'
 export const refs = {
   'fr-fr': ['3F1-act'],
-  'fr-ch': []
+  'fr-ch': ['10FA5-3']
 }
 
 /**
@@ -57,7 +57,7 @@ export function katexPopup (texte, titrePopup, textePopup) {
 }
 
 export default function FonctionNotionVocabulaire () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 1
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne

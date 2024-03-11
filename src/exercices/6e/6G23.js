@@ -2,7 +2,7 @@ import { cibleCouronne } from '../../lib/2d/cibles.js'
 import { afficheMesureAngle } from '../../lib/2d/codages.js'
 import { point } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPoint } from '../../lib/2d/textes.js'
+import { texteParPoint } from '../../lib/2d/textes.ts'
 import { homothetie, rotation, sensDeRotation, similitude } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
@@ -25,10 +25,10 @@ export const uuid = '34e3c'
 export const ref = '6G23'
 export const refs = {
   'fr-fr': ['6G23'],
-  'fr-ch': []
+  'fr-ch': ['9ES5-3']
 }
 export default function ConstruireUnAngle () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 2
@@ -64,7 +64,7 @@ export default function ConstruireUnAngle () {
       angle = angle * signe[i]
       anglerot = randint(-50, 50)
       p = ['x', lettreDepuisChiffre(19 + i), 'y']
-      texte = `Construire l'angle $\\widehat{${p[0] + p[1] + p[2]}}$ de mesure $${texNombre(Math.abs(angle))}\\degree$ en tournant dans le sens `
+      texte = `Construire l'angle $\\widehat{${p[0] + p[1] + p[2]}}$ de mesure $${texNombre(Math.abs(angle))}^\\circ$ en tournant dans le sens `
       if (angle < 0) {
         texte += 'des aiguilles d\'une montre.<br>'
       } else {

@@ -24,10 +24,10 @@ export const uuid = 'edbd5'
 export const ref = '3L11-5'
 export const refs = {
   'fr-fr': ['3L11-5'],
-  'fr-ch': []
+  'fr-ch': ['11FA2-5']
 }
 export default function IdentitesCalculs () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.can = false // pour décliner en version CAN
   this.canVersion = '' // Pour distinguer les déclinaisons
   // 'v1' Pour une version simple type 29² 31² ou 29x31, seulement 1 d'écart par rapport à la dizaine ou à la centaine

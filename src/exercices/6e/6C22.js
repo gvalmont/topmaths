@@ -29,10 +29,10 @@ export const uuid = '99522'
 export const ref = '6C22'
 export const refs = {
   'fr-fr': ['6C22'],
-  'fr-ch': []
+  'fr-ch': ['9NO16-4']
 }
 export default function ProblemesDePlusEtDeMoins () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Résoudre les problèmes suivants au brouillon et écrire les réponses dans les cases, ne pas préciser "€" ni "euros" ...'
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

@@ -4,13 +4,13 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 import { tableauColonneLigne } from '../../../lib/2d/tableau.js'
 
-export const titre = 'Déterminer une probabilté dans un tableau de probabilités'
+export const titre = 'Déterminer une probabilité dans un tableau de probabilités'
 export const dateDePublication = '06/07/2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,8 +24,12 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '73673'
 export const ref = 'can1P06'
+export const refs = {
+  'fr-fr': ['can1P06'],
+  'fr-ch': []
+}
 export default function CalculProbaTableau () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = true
   this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
   this.consigne = ''

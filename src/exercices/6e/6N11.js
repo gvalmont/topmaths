@@ -27,10 +27,10 @@ export const uuid = 'acd4a'
 export const ref = '6N11'
 export const refs = {
   'fr-fr': ['6N11'],
-  'fr-ch': []
+  'fr-ch': ['9NO2-1']
 }
 export default function LireAbscisseEntiere2d () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
   this.nbCols = 1

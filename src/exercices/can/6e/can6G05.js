@@ -2,7 +2,7 @@ import { codageSegments } from '../../../lib/2d/codages.js'
 import { droite } from '../../../lib/2d/droites.js'
 import { point, tracePointSurDroite } from '../../../lib/2d/points.js'
 import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../../lib/2d/textes.js'
+import { labelPoint } from '../../../lib/2d/textes.ts'
 import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -19,6 +19,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '84be1'
 export const ref = 'can6G05'
+export const refs = {
+  'fr-fr': ['can6G05'],
+  'fr-ch': []
+}
 export default function ProblemesDeLongueursInverse () {
   Exercice.call(this)
   this.nbQuestions = 1

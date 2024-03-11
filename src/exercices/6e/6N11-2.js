@@ -1,6 +1,6 @@
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { droiteGraduee } from '../../lib/2d/reperes.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
@@ -27,10 +27,10 @@ export const uuid = '4f2a3'
 export const ref = '6N11-2'
 export const refs = {
   'fr-fr': ['6N11-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO2-2']
 }
 export default function PlacerUnPointAbscisseEntiere2d () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 5
   this.nbQuestionsModifiable = true
   this.nbCols = 1

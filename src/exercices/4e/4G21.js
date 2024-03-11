@@ -19,10 +19,10 @@ export const uuid = 'ab5d4'
 export const ref = '4G21'
 export const refs = {
   'fr-fr': ['4G21'],
-  'fr-ch': []
+  'fr-ch': ['11GM1-3']
 }
 export default function ReciproquePythagore () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.amcReady = amcReady
   this.amcType = amcType

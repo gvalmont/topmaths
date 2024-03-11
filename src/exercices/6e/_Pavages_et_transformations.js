@@ -5,12 +5,11 @@ import { droiteHorizontaleParPoint, droiteVerticaleParPoint, mediatrice } from '
 import { milieu, point, pointIntersectionDD, pointSurDroite, tracePoint } from '../../lib/2d/points.js'
 import { barycentre, polygone } from '../../lib/2d/polygones.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, latexParCoordonnees, texteParPoint } from '../../lib/2d/textes.js'
+import { labelPoint, latexParCoordonnees, texteParPoint } from '../../lib/2d/textes.ts'
 import { rotation, similitude, translation } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
 import { imagePointParTransformation } from '../../modules/imagePointParTransformation.js'
 import Exercice from '../deprecatedExercice.js'
 import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
@@ -27,15 +26,10 @@ export const amcType = 'AMCHybride'
 /**
  * Trouver l'image d'une figure par diverses transformations dans un pavage (7 motifs différents)
  * @author Jean-Claude Lhote
- * fonction servant à tous les niveaux
- * Références 5G12-1, 6G25-2, 4G11-1, 3G12-1
  * Relecture : Novembre 2021 par EE
  */
 export default function PavagesEtTransformations () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-
-  // this.titre = "Trouver l'image d'une figure par une symétrie centrale";
-  this.consigne = ''
+  Exercice.call(this)
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1
@@ -179,27 +173,27 @@ export default function PavagesEtTransformations () {
 
     for (let y = 0; y < ny; y++) { // On initialise les tableaux avec les coordonnées des puntos de référence (A,B,C et D) de chaque translaté et son numéro dans le pavage.
       for (let x = 0; x < nx; x++) {
-        xAxy = new FractionEtendue(Math.round((x * xAI + y * xAJ) * 100), 100)
-        yAxy = new FractionEtendue(Math.round((x * yAI + y * yAJ) * 100), 100)
+        xAxy = Math.round((x * xAI + y * xAJ) * 100) / 100
+        yAxy = Math.round((x * yAI + y * yAJ) * 100) / 100
         numAxy = 2 * x + 4 * y * nx
         tabfigA.push([xAxy, yAxy, numAxy])
         quad[numAxy] = translation(polygone(A, B, C, D), vecteur(xAxy, yAxy))
         quadCorr[numAxy] = translation(polygone(A, B, C, D), vecteur(xAxy, yAxy))
-        tabfigB.push([xAxy.sommeFraction(new FractionEtendue(Math.round(xB * 100), 100)), yAxy.sommeFraction(new FractionEtendue(Math.round(yB * 100), 100)), numAxy + 1])
+        tabfigB.push([xAxy + Math.round(xB * 100) / 100, yAxy + Math.round(yB * 100) / 100, numAxy + 1])
         quad[numAxy + 1] = translation(rotation(polygone(A, B, C, D), I, 180), vecteur(xAxy, yAxy))
         quadCorr[numAxy + 1] = translation(rotation(polygone(A, B, C, D), I, 180), vecteur(xAxy, yAxy))
-        tabfigD.push([xAxy.sommeFraction(new FractionEtendue(Math.round(xD * 100), 100)), yAxy.sommeFraction(new FractionEtendue(Math.round(yD * 100), 100)), numAxy + 2 * nx])
+        tabfigD.push([xAxy + Math.round(xD * 100) / 100, yAxy + Math.round(yD * 100) / 100, numAxy + 2 * nx])
         quad[numAxy + 2 * nx] = translation(rotation(polygone(A, B, C, D), J, 180), vecteur(xAxy, yAxy))
         quadCorr[numAxy + 2 * nx] = translation(rotation(polygone(A, B, C, D), J, 180), vecteur(xAxy, yAxy))
-        tabfigC.push([xAxy.sommeFraction(new FractionEtendue(Math.round(xC * 100), 100)), yAxy.sommeFraction(new FractionEtendue(Math.round(yC * 100), 100)), numAxy + 2 * nx + 1])
+        tabfigC.push([xAxy + Math.round(xC * 100) / 100, yAxy + Math.round(yC * 100) / 100, numAxy + 2 * nx + 1])
         quad[numAxy + 2 * nx + 1] = translation(translation(polygone(A, B, C, D), vecteur(A, C)), vecteur(xAxy, yAxy))
         quadCorr[numAxy + 2 * nx + 1] = translation(translation(polygone(A, B, C, D), vecteur(A, C)), vecteur(xAxy, yAxy))
       }
     }
     for (let i = 0; i < quad.length; i++) {
-      objetsEnonce.push(quad[i], texteParPoint(i, barycentre(quad[i], '', 'center'), 'milieu', 'black', 1, 'middle', false))
+      objetsEnonce.push(quad[i], texteParPoint(i, barycentre(quad[i], '', 'center'), 0, 'black', 1, 'milieu', false))
       quadCorr[i].color = colorToLatexOrHTML(assombrirOuEclaircir('gray', 50))
-      objetsCorrection.push(quadCorr[i], texteParPoint(i, barycentre(quad[i], '', 'center'), 'milieu', assombrirOuEclaircir('gray', 50), 1, 'middle', false))
+      objetsCorrection.push(quadCorr[i], texteParPoint(i, barycentre(quad[i], '', 'center'), 0, assombrirOuEclaircir('gray', 50), 1, 'milieu', false))
     }
 
     context.fenetreMathalea2d = [Xmin, Ymin, Xmax, Ymax]
@@ -594,8 +588,8 @@ export default function PavagesEtTransformations () {
         numA = tabfigA[indexA][2]
         iB1 = randint(0, nx * ny - 1)
         iB2 = randint(0, nx * ny - 1, [iB1])
-        xV1 = tabfigB[iB2][0].differenceFraction(tabfigB[iB1][0])
-        yV1 = tabfigB[iB2][1].differenceFraction(tabfigB[iB1][1])
+        xV1 = tabfigB[iB2][0] - tabfigB[iB1][0]
+        yV1 = tabfigB[iB2][1] - tabfigB[iB1][1]
         punto = imagePointParTransformation(8, [tabfigA[indexA][0], tabfigA[indexA][1]], [0, 0], [xV1, yV1])
         trouver = false
         while (trouver === false) {

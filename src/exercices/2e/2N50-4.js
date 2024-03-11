@@ -2,7 +2,7 @@ import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { codageSegments, texteSurSegment } from '../../lib/2d/codages.js'
 import { milieu, point } from '../../lib/2d/points.js'
 import { segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
@@ -24,10 +24,10 @@ export const uuid = 'cf5b7'
 export const ref = '2N50-4'
 export const refs = {
   'fr-fr': ['2N50-4'],
-  'fr-ch': []
+  'fr-ch': ['11FA6-10']
 }
 export default function ModeliserEquationsGeometrie () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 1
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

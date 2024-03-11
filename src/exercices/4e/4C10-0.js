@@ -27,10 +27,10 @@ export const uuid = '450ae'
 export const ref = '4C10-0'
 export const refs = {
   'fr-fr': ['4C10-0'],
-  'fr-ch': []
+  'fr-ch': ['10NO4-2']
 }
 export default function SigneProduitQuotientRelatifs () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Donner le signe des expressions numériques.'
   this.nbQuestions = 7
   this.nbCols = 1

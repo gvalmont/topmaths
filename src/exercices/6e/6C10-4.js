@@ -8,6 +8,7 @@ import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { choice } from '../../lib/outils/arrayOutils'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Effectuer addition de deux entiers'
 export const amcReady = true
@@ -24,10 +25,10 @@ export const uuid = 'ace0a'
 export const ref = '6C10-4'
 export const refs = {
   'fr-fr': ['6C10-4'],
-  'fr-ch': []
+  'fr-ch': ['9NO3-16']
 }
 export default function ExerciceTablesAdditions (max = 20) {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Calculer.'
   this.sup2 = '1'
   this.sup = max // Le paramètre accessible à l'utilisateur sera la valeur maximale
@@ -49,7 +50,7 @@ export default function ExerciceTablesAdditions (max = 20) {
       let socket
       const choix = choice([false, true])
       if (context.isHtml && this.interactif) {
-        socket = ajouteChampTexteMathLive(this, i)
+        socket = ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
       } else socket = '$\\ldots\\ldots$'
       texte = listeTypeDeQuestions[i] === 'somme'
         ? `$ ${texNombre(a, 0)} + ${texNombre(b, 0)} =  $${socket}`

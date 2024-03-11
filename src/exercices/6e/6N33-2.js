@@ -1,6 +1,6 @@
 import { codageAngle } from '../../lib/2d/angles.js'
 import { point, pointSurSegment } from '../../lib/2d/points.js'
-import { texteParPoint } from '../../lib/2d/textes.js'
+import { texteParPoint } from '../../lib/2d/textes.ts'
 import { rotation } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString.js'
@@ -26,10 +26,10 @@ export const uuid = 'db772'
 export const ref = '6N33-2'
 export const refs = {
   'fr-fr': ['6N33-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO15-1']
 }
 export default function CalculerUnPourcentage () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.consigne = 'Calculer.'
   this.spacing = 2

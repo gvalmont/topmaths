@@ -32,10 +32,10 @@ export const uuid = 'afb2f'
 export const ref = '3F12-3'
 export const refs = {
   'fr-fr': ['3F12-3'],
-  'fr-ch': []
+  'fr-ch': ['10FA5-11', '11FA8-5']
 }
 export default function TableauDeValeurs () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1

@@ -11,21 +11,19 @@ export const titre = 'Résoudre des problèmes additifs et de comparaison sur le
 /**
  * Résoudre des problèmes additifs et de comparaison sur les fractions
  * Refactoring Mickael Guironnet : possibilité de choisir les problèmes et avoir des dénominateurs différents
- * 4C25-0
  * @author Sébastien Lozano
  */
 export const uuid = '9db08'
 export const ref = '4C25-0'
 export const refs = {
   'fr-fr': ['4C25-0'],
-  'fr-ch': []
+  'fr-ch': ['9NO15-3']
 }
 export default function ProblemesAdditifsFractionsBis () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = '6'
   this.video = ''
   this.nbQuestions = 5
-  this.titre = titre
   this.consigne = 'Justifier vos réponses aux problèmes suivants.'
   this.nbCols = 1
   this.nbColsCorr = 1

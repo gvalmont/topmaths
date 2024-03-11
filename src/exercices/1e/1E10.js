@@ -26,10 +26,10 @@ export const uuid = 'feb39'
 export const ref = '1E10'
 export const refs = {
   'fr-fr': ['1E10'],
-  'fr-ch': []
+  'fr-ch': ['11FA10-7']
 }
 export default function CalculDiscriminant () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Pour chaque équation, calculer le discriminant et déterminer le nombre de solutions de cette équation dans $\\mathbb{R}$.'
   this.nbQuestions = 6

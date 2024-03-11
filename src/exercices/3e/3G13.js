@@ -4,7 +4,7 @@ import { arcPointPointAngle } from '../../lib/2d/cercle.js'
 import { texteSurArc, texteSurSegment } from '../../lib/2d/codages.js'
 import { point } from '../../lib/2d/points.js'
 import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
@@ -34,7 +34,7 @@ export const uuid = '6f383'
 export const ref = '3G13'
 export const refs = {
   'fr-fr': ['3G13'],
-  'fr-ch': []
+  'fr-ch': ['11ES3-5']
 }
 
 /**
@@ -61,7 +61,7 @@ export function texNum (expression, formatFraction = false) {
 }
 
 export default function CalculsHomothetie () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 4 // Nombre de questions par défaut
   this.nbCols = 0 // Uniquement pour la sortie LaTeX

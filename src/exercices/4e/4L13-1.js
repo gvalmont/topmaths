@@ -7,17 +7,16 @@ export const titre = 'Produire une forme littérale en introduisant une lettre p
 
 /**
  * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue
- * * 4L13-1
  * @author Sébastien Lozano
  */
 export const uuid = '8b18b'
 export const ref = '4L13-1'
 export const refs = {
   'fr-fr': ['4L13-1'],
-  'fr-ch': []
+  'fr-ch': ['9FA2-9', '10FA3-10']
 }
 export default function FormeLitteraleIntroduireUneLettre () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.debug = false
   this.sup = 1
   if (this.debug) {
@@ -26,7 +25,6 @@ export default function FormeLitteraleIntroduireUneLettre () {
     this.nbQuestions = 2
   }
 
-  this.titre = titre
   this.consigne = "Exprimer le prix total de l'achat, en fonction des lettres introduites dans l'énoncé."
 
   this.nbCols = 1

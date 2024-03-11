@@ -5,7 +5,7 @@ import { texteGras } from '../../lib/format/style'
 import { abs, arrondi } from '../../lib/outils/nombres'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -23,10 +23,10 @@ export const uuid = 'ef897'
 export const ref = '2F10-4'
 export const refs = {
   'fr-fr': ['2F10-4'],
-  'fr-ch': []
+  'fr-ch': ['11FA8-11']
 }
 export default function Determinerfonctionaffine () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.nbCols = 1
   this.nbColsCorr = 1

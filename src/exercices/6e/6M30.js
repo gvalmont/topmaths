@@ -29,10 +29,10 @@ export const uuid = '04b0d'
 export const ref = '6M30'
 export const refs = {
   'fr-fr': ['6M30'],
-  'fr-ch': []
+  'fr-ch': ['9GM3-2']
 }
 export default function CalculDeVolumes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 4
   this.nbCols = 1

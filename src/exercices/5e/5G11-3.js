@@ -3,7 +3,7 @@ import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles.js'
 import { codageMilieu } from '../../lib/2d/codages.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { rotation } from '../../lib/2d/transformations.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arcenciel } from '../../lib/format/style'
@@ -25,10 +25,10 @@ export const uuid = '34032'
 export const ref = '5G11-3'
 export const refs = {
   'fr-fr': ['5G11-3'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-8']
 }
 export default function ConstruireSymetriquePoint5e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1

@@ -2,10 +2,10 @@ import earcut from 'earcut'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { randint } from '../../modules/outils.js'
-import { arrondi } from '../outils/nombres'
+import { arrondi, rangeMinMax } from '../outils/nombres'
 import { Point, point, pointAdistance, pointSurSegment } from './points.js'
 import { longueur, segment, vecteur } from './segmentsVecteurs.js'
-import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes.js'
+import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes.ts'
 import { homothetie, rotation, translation } from './transformations.js'
 import { aireTriangle } from './triangle.js'
 
@@ -205,6 +205,8 @@ export function Polygone (...points) {
   this.opaciteDeRemplissage = 1
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
+  this.couleurDeRemplissage = ''
+  this.opaciteDeRemplissage = 0.5
   if (Array.isArray(points[0])) {
     // Si le premier argument est un tableau
     this.listePoints = points[0]
@@ -223,18 +225,18 @@ export function Polygone (...points) {
       this.couleurDesHachures = colorToLatexOrHTML('black')
       this.hachures = false
     }
-    this.nom = this.listePoints.join()
+    this.nom = this.listePoints.map(el => el.nom).join('')
   } else {
     if (typeof points[points.length - 1] === 'string') {
       this.color = points[points.length - 1]
       points.splice(points.length - 1, 1)
     }
     this.listePoints = points
-    this.nom = this.listePoints.join()
+    this.nom = this.listePoints.map(el => el.nom).join('')
     this.couleurDeRemplissage = colorToLatexOrHTML('none')
+    this.couleurDesHachures = colorToLatexOrHTML('none') // Rajout EE du 22/02/2024 pour 6N22 cas 3
     this.hachures = false
   }
-
   let xmin = 1000
   let xmax = -1000
   let ymin = 1000
@@ -777,7 +779,7 @@ export function parallelogramme2points1hauteur (NOM, A, B, h) {
   B.nom = NOM[1]
   let H = rotation(B, A, 90)
   H = pointSurSegment(A, H, h)
-  const D = translation(H, homothetie(vecteur(A, B), A, randint(-4, 4, 0) / 10), NOM[3])
+  const D = translation(H, homothetie(vecteur(A, B), A, randint(-5, 5, rangeMinMax(-2, 2)) / 10), NOM[3])
   const C = translation(D, vecteur(A, B), NOM[2])
   return polygoneAvecNom(A, B, C, D)
 }

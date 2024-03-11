@@ -24,8 +24,12 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'ee478'
 export const ref = 'can1P05'
+export const refs = {
+  'fr-fr': ['can1P05'],
+  'fr-ch': []
+}
 export default function CalculProbaFormuleProbaTotale () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = true
   this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
   this.consigne = ''

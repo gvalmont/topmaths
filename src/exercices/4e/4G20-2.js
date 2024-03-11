@@ -21,10 +21,10 @@ export const uuid = 'f5cbd'
 export const ref = '4G20-2'
 export const refs = {
   'fr-fr': ['4G20-2'],
-  'fr-ch': []
+  'fr-ch': ['10NO3-1']
 }
 export default function RacineCareeDeCarresParfaits () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.amcReady = amcReady
   this.amcType = amcType

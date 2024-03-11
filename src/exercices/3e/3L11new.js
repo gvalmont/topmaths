@@ -43,10 +43,10 @@ export const uuid = 'db2e0'
 export const ref = '3L11'
 export const refs = {
   'fr-fr': ['3L11'],
-  'fr-ch': []
+  'fr-ch': ['10FA2-2', '11FA2-2']
 }
 export default function ExerciceDevelopper () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 3 // difficulté
   this.sup2 = 1 // consigne
   this.sup3 = 7 // forme de développement

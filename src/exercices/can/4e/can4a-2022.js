@@ -2,7 +2,7 @@ import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { milieu, point, tracePoint } from '../../../lib/2d/points.js'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { repere } from '../../../lib/2d/reperes.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
@@ -38,8 +38,12 @@ function compareNombres (a, b) {
 
 export const uuid = 'cf47f'
 export const ref = 'can4a-2022'
+export const refs = {
+  'fr-fr': ['can4a-2022'],
+  'fr-ch': []
+}
 export default function SujetCAN2022quatrieme () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType

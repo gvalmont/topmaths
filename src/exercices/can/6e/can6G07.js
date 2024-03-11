@@ -27,8 +27,12 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '85dfb'
 export const ref = 'can6G07'
+export const refs = {
+  'fr-fr': ['can6G07'],
+  'fr-ch': []
+}
 export default function CompleterParSymetrieCan () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 1
   this.nbCols = 1

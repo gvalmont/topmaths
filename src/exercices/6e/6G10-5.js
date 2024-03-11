@@ -2,7 +2,7 @@ import { droite } from '../../lib/2d/droites.js'
 import { point, pointIntersectionDD, pointSurSegment, tracePoint } from '../../lib/2d/points.js'
 import { grille, seyes } from '../../lib/2d/reperes.js'
 import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
@@ -23,7 +23,7 @@ export const uuid = '3dbda'
 export const ref = '6G10-5'
 export const refs = {
   'fr-fr': ['6G10-5'],
-  'fr-ch': []
+  'fr-ch': ['9ES1-7']
 }
 export default class constructionElementaire extends Exercice {
 //

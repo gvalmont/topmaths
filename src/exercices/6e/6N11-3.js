@@ -16,7 +16,7 @@ export const uuid = '29b40'
 export const ref = '6N11-3'
 export const refs = {
   'fr-fr': ['6N11-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO2-3']
 }
 
 // selon la precision on veut certains chiffres plus souvant que d'autres ...
@@ -76,7 +76,7 @@ function encadrementCorr (nb, precision) {
   }
 }
 export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.beta = false
   this.sup = 1
   if (this.beta) {

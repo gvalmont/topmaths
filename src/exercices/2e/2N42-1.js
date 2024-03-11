@@ -18,10 +18,10 @@ export const uuid = 'ef686'
 export const ref = '2N42-1'
 export const refs = {
   'fr-fr': ['2N42-1'],
-  'fr-ch': []
+  'fr-ch': ['11FA5-3']
 }
 export default function ExprimerEnFonctionDesAutres () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.nbCols = 1
   this.nbColsCorr = 1

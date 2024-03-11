@@ -3,8 +3,10 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { expandedAndReductedCompare } from '../../lib/interactif/comparisonFunctions'
+import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 
 export const titre = 'Additionner ou soustraire une expression entre parenthèses'
 export const interactifReady = true
@@ -24,10 +26,10 @@ export const uuid = '815eb'
 export const ref = '3L10-1'
 export const refs = {
   'fr-fr': ['3L10-1'],
-  'fr-ch': []
+  'fr-ch': ['11FA1-2']
 }
 export default function ParenthesesPrecedesDeMoinsOuPlus () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.spacing = context.isHtml ? 3 : 2
   this.spacingCorr = context.isHtml ? 3 : 2
@@ -35,6 +37,8 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
   this.nbColsCorr = 1
   this.tailleDiaporama = 3
   this.listeAvecNumerotation = false
+  this.sup = false
+  this.besoinFormulaireCaseACocher = ['Sanctionner les formes non simplifiées', false]
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Supprimer les parenthèses et réduire les expressions suivantes.' : 'Supprimer les parenthèses et réduire l\'expression suivante.'
@@ -51,6 +55,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
       a = randint(-9, 9, 0)
       b = randint(-9, 9, 0)
       choixLettre = choice(lettresPossibles)
+      let reponse
       switch (listeTypeDeQuestions[i]) {
         case 1:
           // k-(ax+b)
@@ -64,17 +69,16 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
             texteCorr += `<br>$${lettreDepuisChiffre(
                             i + 1
                         )}=${printlatex(`${k}+(${-a}*${choixLettre})+(${-b})`)}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                            `${-a}*${choixLettre}+(${k - b})`
-                        )}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(-a, k - b, choixLettre)}$`
+            reponse = reduireAxPlusB(-a, k - b, choixLettre)
           } else {
             texteCorr += `<br>$${lettreDepuisChiffre(
                             i + 1
                         )}=${printlatex(`${k}+(${-a}*${choixLettre})+(${-b})`)}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                            `${-a}*${choixLettre}`
-                        )}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(-a, 0, choixLettre)}$`
+            reponse = reduireAxPlusB(-a, 0, choixLettre)
           }
+
           reponse1 = 0
           reponse2 = -a
           reponse3 = -b + k
@@ -91,16 +95,14 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
             texteCorr += `<br>$${lettreDepuisChiffre(
                             i + 1
                         )}=${printlatex(`${k}+(${a}*${choixLettre})+(${b})`)}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                            `${a}*${choixLettre}+(${k + b})`
-                        )}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(a, k + b, choixLettre)}$`
+            reponse = reduireAxPlusB(a, k + b, choixLettre)
           } else {
             texteCorr += `<br>$${lettreDepuisChiffre(
                             i + 1
                         )}=${printlatex(`${k}+(${a}*${choixLettre})+(${b})`)}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                            `${a}*${choixLettre}`
-                        )}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(a, 0, choixLettre)}$`
+            reponse = reduireAxPlusB(a, 0, choixLettre)
           }
           reponse1 = 0
           reponse2 = a
@@ -116,16 +118,14 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
             texteCorr += `<br>$${lettreDepuisChiffre(
                             i + 1
                         )}=${printlatex(`${k}${choixLettre}+(${-a}*${choixLettre})+(${-b})`)}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                            `(${k - a})*${choixLettre}+(${-b})`
-                        )}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(k - a, -b, choixLettre)}$`
+            reponse = reduireAxPlusB(k - a, -b, choixLettre)
           } else {
             texteCorr += `<br>$${lettreDepuisChiffre(
                             i + 1
                         )}=${printlatex(`${k}${choixLettre}+(${-a}*${choixLettre})+(${-b})`)}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                            `${-b}`
-                        )}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${ecritureAlgebrique(-b)}$`
+            reponse = ecritureAlgebrique(-b)
           }
           reponse1 = 0
           reponse2 = k - a
@@ -141,16 +141,16 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
             texteCorr += `<br>$${lettreDepuisChiffre(
                             i + 1
                         )}=${printlatex(`${k}${choixLettre}+(${a}*${choixLettre})+(${b})`)}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                            `(${k + a})*${choixLettre}+(${b})`
-                        )}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(
+                            k + a, b, choixLettre)}$`
+            reponse = reduireAxPlusB(
+              k + a, b, choixLettre)
           } else {
             texteCorr += `<br>$${lettreDepuisChiffre(
                             i + 1
                         )}=${printlatex(`${k}${choixLettre}+(${a}*${choixLettre})+(${b})`)}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                            `${b}`
-                        )}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${ecritureAlgebrique(b)}$`
+            reponse = ecritureAlgebrique(b)
           }
           reponse1 = 0
           reponse2 = k + a
@@ -158,9 +158,10 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
           break
       }
       if (!context.isAmc && this.interactif) {
-        const reponse = texteCorr.match(/=([^=$]+)\$$/)[1]
-        setReponse(this, i, reponse, { formatInteractif: 'canonicalAdd' })
+        handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: this.sup }, compare: expandedAndReductedCompare } }, { formatInteractif: 'calcul' })
+        // setReponse(this, i, reponse, { formatInteractif: 'canonicalAdd' })
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
+        texte += ajouteFeedback(this, i)
       } else {
         this.autoCorrection[i] = {
           enonce: '',

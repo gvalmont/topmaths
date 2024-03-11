@@ -16,7 +16,7 @@ export const uuid = '3bba9'
 export const ref = '6N11-4'
 export const refs = {
   'fr-fr': ['6N11-4'],
-  'fr-ch': []
+  'fr-ch': ['9NO2-4']
 }
 // une fonction pour gérer l'ordre
 function myOrdre (ordre, tab) {
@@ -30,7 +30,7 @@ function myOrdre (ordre, tab) {
 }
 
 export default function RangerOrdreCroissantDecroissant () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.beta = false
   this.sup = 1
   if (this.beta) {

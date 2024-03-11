@@ -17,8 +17,12 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '5e009'
 export const ref = 'CM013'
+export const refs = {
+  'fr-fr': ['CM013'],
+  'fr-ch': []
+}
 export default function ComplementAUneDizaine () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Calculer.'
   this.nbQuestions = 10
   this.nbCols = 2

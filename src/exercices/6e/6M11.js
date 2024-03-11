@@ -34,10 +34,10 @@ export const uuid = 'eb45a'
 export const ref = '6M11'
 export const refs = {
   'fr-fr': ['6M11'],
-  'fr-ch': []
+  'fr-ch': ['9GM1-2']
 }
 export default function AireCarresRectanglesTriangles () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.amcReady = amcReady
   this.amcType = amcType

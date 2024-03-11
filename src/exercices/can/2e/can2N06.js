@@ -14,6 +14,10 @@ export const dateDePublication = '19/10/2023'
  */
 export const uuid = 'e57cb'
 export const ref = 'can2N06'
+export const refs = {
+  'fr-fr': ['can2N06'],
+  'fr-ch': []
+}
 export default function DecimalForme () {
   Exercice.call(this)
   this.typeExercice = 'simple'
@@ -36,7 +40,7 @@ export default function DecimalForme () {
 
     this.correction = `$${texNombre(dec, 5)}=\\dfrac{${texNombre(a, 0)}}{10^{${puissance}}}$`
     this.reponse = `\\dfrac{${a}}{10^{${puissance}}}`
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
-  this.canEnonce = this.question
-  this.canReponseACompleter = ''
 }

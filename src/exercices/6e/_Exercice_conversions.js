@@ -31,7 +31,7 @@ export const dateDeModifImportante = '17/09/2022' // Modifications pour les octe
  * Relecture : Novembre 2021 par EE
  */
 export default function ExerciceConversions (niveau = 1) {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = niveau // Niveau de difficulté de l'exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.titre =
@@ -240,7 +240,7 @@ export default function ExerciceConversions (niveau = 1) {
 
       // EE : Mise en couleur de la réponse interactive
       const aMettreEnCouleur = miseEnEvidence(texteCorr.split('=').pop().replaceAll('$', '')) + '$'
-      texteCorr = '$$' + texteCorr.replace(texteCorr.split('=').pop(), '') + aMettreEnCouleur.replace(texTexte(unite), '') + '$' + texTexte(unite) + '$'
+      texteCorr = texteCorr.replace(texteCorr.split('=').pop(), '') + aMettreEnCouleur.replace(texTexte(unite), '') + '$' + texTexte(unite) + '$'
 
       if (this.questionJamaisPosee(i, val, resultat)) {
         setReponse(this, i, resultat)

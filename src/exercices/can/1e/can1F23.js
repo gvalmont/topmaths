@@ -1,5 +1,5 @@
 import { repere } from '../../../lib/2d/reperes.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { spline } from '../../../lib/mathFonctions/Spline.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -12,6 +12,10 @@ export const titre = 'Dresser le tableau de signes d\'une fonction dérivée à 
 export const dateDePublication = '18/11/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = 'ad915' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
 export const ref = 'can1F23'// @todo à modifier aussi
+export const refs = {
+  'fr-fr': ['can1F23'],
+  'fr-ch': []
+}
 // une liste de nœuds pour définir une fonction Spline
 export default function SignesTabGSpline () {
   Exercice.call(this)
@@ -84,14 +88,13 @@ export default function SignesTabGSpline () {
     const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
     const nuage = aleatoiriseCourbe(mesFonctions)
     const maSpline = spline(nuage)
-    const fonctionD = x => maSpline.derivee(x)
-    const { xMin, xMax, yMin, yMax } = maSpline.trouveMaxes()
-    const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { step: 1, tolerance: 0.1, nomVariable: 'x', nomFonction: 'f^\\prime(x)' })
+    bornes = maSpline.trouveMaxes()
 
+    const fonctionD = x => maSpline.derivee(x)
+    const { xMin, xMax, yMin, yMax } = bornes
+    const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { step: 1, tolerance: 0.1, nomVariable: 'x', nomFonction: 'f^\\prime(x)' })
     const tableauD = tableauSignesFonction(fonctionD, xMin, xMax, { step: 1, tolerance: 0.1, nomVariable: 'x', nomFonction: 'f^\\prime(x)' })
     const choixInteractif = choice([tableau, tableauD])
-    this.spline = maSpline
-    bornes = maSpline.trouveMaxes()
     const repere1 = repere({
       xMin: bornes.xMin - 1,
       xMax: bornes.xMax + 1,

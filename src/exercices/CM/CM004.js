@@ -22,8 +22,12 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'ac900'
 export const ref = 'CM004'
+export const refs = {
+  'fr-fr': ['CM004'],
+  'fr-ch': []
+}
 export default function QuatreOperations () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Calculer.'
   this.nbQuestions = 10
   this.nbCols = 2

@@ -35,11 +35,11 @@ export const uuid = 'f4d29'
 export const ref = '6M31-2'
 export const refs = {
   'fr-fr': ['6M31-2'],
-  'fr-ch': []
+  'fr-ch': ['10GM3-6']
 }
 export default function UnitesDeVolumesEtDeCapacite () {
   Decimal.set({ toExpNeg: -10 }) // Pour permettre aux petits nombres de s'afficher sans puissances de 10.
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 1 // Niveau de difficulté de l'exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.sup3 = 4
@@ -257,11 +257,12 @@ export default function UnitesDeVolumesEtDeCapacite () {
         texte += propositionsQcm(this, i).texte
       } else if (this.interactif && this.interactifType === 'mathLive') {
         uniteFinale = listeTypeDeQuestions[i].split('to')[1]
-        uniteFinale = uniteFinale === 'L' ? '$\\text{L}$' : `$\\text{${uniteFinale.split('3')[0]}}^3$`
-        texte = texte.replace('\\dotfill', `$${ajouteChampTexteMathLive(this, i, 'inline', {
-                    tailleExtensible: true,
+        uniteFinale = uniteFinale === 'L' ? sp() + '$\\text{L}$' : sp() + `$ \\text{${uniteFinale.split('3')[0]}}^3$`
+        // texte = texte.replace('\\dotfill', `$${ajouteChampTexteMathLive(this, i, 'inline', {
+        texte = texte.split('\\dotfill')[0] + `$${ajouteChampTexteMathLive(this, i, 'inline', {
+            tailleExtensible: true,
                     texteApres: uniteFinale
-                })}$`)
+                })}`
         setReponse(this, i, resultat)
       }
 
@@ -354,10 +355,10 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, correction = false) {
     for (let i = first; i < first + 3; i++) {
       texte += '&'
     }
-    texte += '\\begin{array}{c:c:c}'
+    texte += '\\begin{array}{c|c|c}'
     texte += '\\text{hL} & \\text{daL} & \\text{L}\\hspace*{0.2cm}\\\\'
     texte += '\\end{array}&'
-    texte += '\\begin{array}{c:c:c}'
+    texte += '\\begin{array}{c|c|c}'
     texte += '\\hspace*{0.1cm}\\text{dL} & \\hspace*{0.1cm}\\text{cL}\\hspace*{0.1cm} & \\text{mL}\\\\'
     texte += '\\end{array}&'
 
@@ -368,7 +369,7 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, correction = false) {
       texte += '\\\\'
       texte += '\\hline '
       for (let i = first; i < end; i++) {
-        texte += '\\begin{array}{c:c:c}'
+        texte += '\\begin{array}{c|c|c}'
         texte += `${aT[3 * i]} & ${aT[3 * i + 1]}& ${aT[3 * i + 2]}  \\\\`
         texte += `${rT[3 * i]}  & ${rT[3 * i + 1]}& ${rT[3 * i + 2]}  \\\\`
         texte += !correction ? ` ${rT[3 * i]} & ${rT[3 * i + 1]}& ${rT[3 * i + 2]}  \\\\` : ''
@@ -379,7 +380,7 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, correction = false) {
       for (let k = 1; k <= ligne; k++) {
         texte += '\\\\ \\hline '
         for (let i = first; i < end; i++) {
-          texte += '\\begin{array}{c:c:c}'
+          texte += '\\begin{array}{c|c|c}'
           texte += '\\hspace*{0.6cm} & \\hspace*{0.6cm} & \\hspace*{0.6cm} \\\\'
           texte += '\\end{array}'
           texte += (i !== end - 1 ? ' & ' : '')

@@ -22,12 +22,11 @@ export const uuid = '4117b'
 export const ref = '3A10-4'
 export const refs = {
   'fr-fr': ['3A10-4'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-8']
 }
 export default function ListerDiviseursParDecompositionFacteursPremiers () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = false
-  this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = 'Sans la calculatrice, compter/lister les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers.'
   // this.consigne += `<br>`;

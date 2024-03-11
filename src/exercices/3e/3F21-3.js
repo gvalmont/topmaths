@@ -3,7 +3,7 @@ import { droite } from '../../lib/2d/droites.js'
 import { milieu, point } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPoint } from '../../lib/2d/textes.js'
+import { texteParPoint } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
@@ -14,7 +14,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { fonctionCompare, fractionEgaleCompare } from '../../lib/interactif/comparaisonFonctions'
+import { functionCompare, equalFractionCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine ou linéaire"
 export const interactifReady = true
@@ -32,10 +32,10 @@ export const uuid = '056fa'
 export const ref = '3F21-3'
 export const refs = {
   'fr-fr': ['3F21-3'],
-  'fr-ch': []
+  'fr-ch': ['11FA8-12']
 }
 export default function PenteEtOrdonneeOrigineDroite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 2
   // this.nbCols = 2 // Uniquement pour la sortie LaTeX
@@ -132,8 +132,8 @@ export default function PenteEtOrdonneeOrigineDroite () {
       correction3 += `<br>Finalement, $${nomFonction} : x \\mapsto ${rienSi1(a).toString().replace('.', ',')}x$` + (vocabulaire === 'affine' ? `$${ecritureAlgebrique(b)}$.` : '.')
 
       if (vocabulaire === 'affine') setReponse(this, questionInteractif, b)
-      handleAnswers(this, (vocabulaire === 'affine' ? 1 : 0) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}`, compare: fractionEgaleCompare } }, { formatInteractif: 'fractionEgale' })
-      handleAnswers(this, (vocabulaire === 'affine' ? 2 : 1) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}x+${b}`, compare: fonctionCompare } }, { formatInteractif: 'calcul' })
+      handleAnswers(this, (vocabulaire === 'affine' ? 1 : 0) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}`, compare: equalFractionCompare } }, { formatInteractif: 'fractionEgale' })
+      handleAnswers(this, (vocabulaire === 'affine' ? 2 : 1) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}x+${b}`, compare: functionCompare } }, { formatInteractif: 'calcul' })
 
       texte = introduction + '<br>' + (vocabulaire === 'affine' ? (question1 + '<br>') : '') + question2 + '<br>' + question3
       texteCorr = (vocabulaire === 'affine' ? (correction1 + '<br>') : '') + correction2 + '<br>' + correction3

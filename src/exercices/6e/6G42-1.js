@@ -29,10 +29,10 @@ export const uuid = '6809f'
 export const ref = '6G42-1'
 export const refs = {
   'fr-fr': ['6G42-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES7-5']
 }
 export default function LireFacePaveDroit () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 4
   this.nbCols = 1

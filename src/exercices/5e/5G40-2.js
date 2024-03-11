@@ -3,7 +3,7 @@ import { codageSegment } from '../../lib/2d/codages.js'
 import { milieu, point } from '../../lib/2d/points.js'
 import { nommePolygone, polygone } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParPoint } from '../../lib/2d/textes.js'
+import { latexParPoint } from '../../lib/2d/textes.ts'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
@@ -22,10 +22,10 @@ export const uuid = '588fe'
 export const ref = '5G40-2'
 export const refs = {
   'fr-fr': ['5G40-2'],
-  'fr-ch': []
+  'fr-ch': ['9ES2-2']
 }
 export default function ParallelogrammeAPartirDUneFigure () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX

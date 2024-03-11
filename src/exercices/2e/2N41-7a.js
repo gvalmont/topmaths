@@ -6,7 +6,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { pgcd } from '../../lib/outils/primalite'
 import { rienSi1 } from '../../lib/outils/ecritures'
-import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
+import { factorisationCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Factoriser avec les identités remarquables'
 export const interactifReady = true
@@ -21,13 +21,13 @@ export const uuid = '0bd00'
 export const ref = '2N41-7a'
 export const refs = {
   'fr-fr': ['2N41-7a'],
-  'fr-ch': []
+  'fr-ch': ['11FA3-5']
 }
 // fonction de comparaison de deux expressions factorisées
-// @todo à déplacer dans comparaisonFonctions.ts lors de la fusion de handleAnswer
+// @todo à déplacer dans comparisonFunctions.ts lors de la fusion de handleAnswer
 
 export default function FactoriserIdentitesRemarquables2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Factoriser les expressions suivantes.'
   this.nbCols = 1

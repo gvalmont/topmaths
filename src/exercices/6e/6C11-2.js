@@ -15,6 +15,7 @@ import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modul
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { max, min, mod } from 'mathjs'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = "Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne"
 
@@ -36,11 +37,10 @@ export const uuid = '4e35d'
 export const ref = '6C11-2'
 export const refs = {
   'fr-fr': ['6C11-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO3-6']
 }
 export default function VocabulaireDivisionEuclidienne () {
   Exercice.call(this)
-  this.titre = titre
   this.spacing = 1
   this.nbQuestions = 5
   this.sup = 1
@@ -176,7 +176,7 @@ export default function VocabulaireDivisionEuclidienne () {
       if (this.questionJamaisPosee(i, ...Nbutilises)) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (this.interactif) {
-          texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur 20 inline alphanumeric')
+          texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur 20 inline ' + KeyboardType.alphanumeric)
         }
         setReponse(this, i, ReponsesCorrectes, { formatInteractif: 'ignorerCasse' })
         if (context.isAmc) {

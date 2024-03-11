@@ -15,10 +15,10 @@ export const uuid = '9e862'
 export const ref = '4C10-9'
 export const refs = {
   'fr-fr': ['4C10-9'],
-  'fr-ch': []
+  'fr-ch': ['10NO4-11']
 }
 export default function RoseAdditive4R () { // c'est l'ExoRose zéro contenu dans _Roses.js
-  ExoRose.call(this) // Héritage de la classe Exercice()
+  ExoRose.call(this)
   this.operation = 'multiplication'
   this.typeDonnees = 'entiers relatifs'
 }

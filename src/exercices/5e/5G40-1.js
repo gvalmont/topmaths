@@ -17,10 +17,10 @@ export const uuid = 'af2c2'
 export const ref = '5G40-1'
 export const refs = {
   'fr-fr': ['5G40-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES2-1']
 }
 export default function ProprietesDesParallelogrammes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 3
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

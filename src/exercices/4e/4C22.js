@@ -4,7 +4,7 @@ import Exercice from '../deprecatedExercice.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Multiplier ou/et diviser des fractions'
@@ -30,10 +30,10 @@ export const uuid = '72ce7'
 export const ref = '4C22'
 export const refs = {
   'fr-fr': ['4C22'],
-  'fr-ch': []
+  'fr-ch': ['10NO5-6']
 }
 export default function ExerciceMultiplierFractions () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   const space = '\\phantom{\\dfrac{(_(^(}{(_(^(}}' // Utilisé pour mettre de l'espace dans une fraction de fraction
   const space2 = '\\phantom{(_(^(}' // Utilisé pour mettre de l'espace dans une fraction de fraction lorsque le numérateur ou le dénominateur est entier
   this.sup = 1 // Avec ou sans relatifs

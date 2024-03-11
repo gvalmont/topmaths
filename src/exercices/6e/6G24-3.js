@@ -4,7 +4,7 @@ import { codageMediatrice } from '../../lib/2d/codages.js'
 import { distancePointDroite, droite } from '../../lib/2d/droites.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { homothetie, symetrieAxiale, translation } from '../../lib/2d/transformations.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arcenciel } from '../../lib/format/style'
@@ -25,10 +25,10 @@ export const uuid = '60e16'
 export const ref = '6G24-3'
 export const refs = {
   'fr-fr': ['6G24-3'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-14']
 }
 export default function ConstruireSymetriquePoint6e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1

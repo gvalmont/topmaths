@@ -25,8 +25,12 @@ export const dateDeModifImportante = '10/06/2022' // Une date de modification im
 */
 export const uuid = 'cc460'
 export const ref = 'can1F02'
+export const refs = {
+  'fr-fr': ['can1F02'],
+  'fr-ch': []
+}
 export default function SecondDegreVariations () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

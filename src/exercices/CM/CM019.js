@@ -14,8 +14,12 @@ export const amcType = 'AMCOpen'
 
 export const uuid = '1e528'
 export const ref = 'CM019'
+export const refs = {
+  'fr-fr': ['CM019'],
+  'fr-ch': []
+}
 export default function LeCompteEstBonV3 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne =
     'Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.'
   this.nbQuestions = 5

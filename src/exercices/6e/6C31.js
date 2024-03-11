@@ -37,10 +37,10 @@ export const uuid = '294bb'
 export const ref = '6C31'
 export const refs = {
   'fr-fr': ['6C31'],
-  'fr-ch': []
+  'fr-ch': ['9NO8-14']
 }
 export default function DivisionDecimale () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Effectuer les divisions décimales suivantes et donner la valeur exacte de leur quotient.'
   this.spacing = 2

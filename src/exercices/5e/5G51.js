@@ -1,7 +1,7 @@
 import { milieu, point, tracePoint } from '../../lib/2d/points.js'
 import { grille, seyes } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { similitude, translation2Points } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
@@ -21,7 +21,7 @@ export const uuid = 'a013f'
 export const ref = '5G51'
 export const refs = {
   'fr-fr': ['5G51'],
-  'fr-ch': []
+  'fr-ch': ['9ES7-2']
 }
 export default function RepresenterUnSolide5e () {
   Exercice.call(this) // Héritage de la classe Exercice ()

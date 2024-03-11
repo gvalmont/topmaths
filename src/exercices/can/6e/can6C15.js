@@ -1,6 +1,6 @@
 import { pgcd } from '../../../lib/outils/primalite'
 import { context } from '../../../modules/context.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Trouver la fraction (définition)'
@@ -16,6 +16,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = '84b48'
 export const ref = 'can6C15'
+export const refs = {
+  'fr-fr': ['can6C15'],
+  'fr-ch': []
+}
 export default function FractionCommeFacteurManquant () {
   Exercice.call(this)
   this.typeExercice = 'simple'

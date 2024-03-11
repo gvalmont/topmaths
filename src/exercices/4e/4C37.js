@@ -19,7 +19,7 @@ export const uuid = '67432'
 export const ref = '4C37'
 export const refs = {
   'fr-fr': ['4C37'],
-  'fr-ch': []
+  'fr-ch': ['10NO2-10']
 }
 export default class SignePuissance extends Exercice {
   constructor () {
@@ -39,6 +39,8 @@ export default class SignePuissance extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
+    this.listeCanReponsesACompleter = []
+    this.listeCanEnonces = []
     let listeTypeDeQuestions = ['a^n', '-a^n', '(-a)^n', '-(-a)^n']
     listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
     let a = 0

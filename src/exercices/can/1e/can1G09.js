@@ -3,7 +3,7 @@ import { point, pointSurCercle } from '../../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { grille } from '../../../lib/2d/reperes.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../../lib/outils/ecritures'
 import { abs } from '../../../lib/outils/nombres'
@@ -22,9 +22,13 @@ export const dateDePublication = '31/10/2022'
 
 export const uuid = 'aa661'
 export const ref = 'can1G09'
+export const refs = {
+  'fr-fr': ['can1G09'],
+  'fr-ch': []
+}
 export default function AngleSurCercleTrigo () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

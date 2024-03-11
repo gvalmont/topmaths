@@ -16,9 +16,13 @@ export const amcReady = true
 */
 export const uuid = 'c9168'
 export const ref = 'can6C29'
+export const refs = {
+  'fr-fr': ['can6C29'],
+  'fr-ch': []
+}
 export default function Partage () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
@@ -35,7 +39,7 @@ export default function Partage () {
     n = nombre[2]
     this.reponse = randint(21, 29) // La réponse, c'est ce nombre
     prix = this.reponse * n // calcul n'est pas utile pour la multiplication d'entiers
-    this.question = `${a} amis mangent au restaurant. L'addition sélève à $${prix}$ euros.
+    this.question = `${a} amis mangent au restaurant. L'addition s'élève à $${prix}$ euros.
     Les amis décident de partager la note en ${b}.<br>
     Quelle est la somme payée par chacun ?`
     this.correction = `$${prix}\\div ${n}=${this.reponse}$.`

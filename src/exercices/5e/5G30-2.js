@@ -3,7 +3,7 @@ import { texteSurArc } from '../../lib/2d/codages.js'
 import { droite } from '../../lib/2d/droites.js'
 import { point } from '../../lib/2d/points.js'
 import { vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { homothetie, rotation, translation } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import Exercice from '../deprecatedExercice.js'
@@ -74,7 +74,7 @@ export const uuid = '19812'
 export const ref = '5G30-2'
 export const refs = {
   'fr-fr': ['5G30-2'],
-  'fr-ch': []
+  'fr-ch': ['11ES2-2']
 }
 export default function ExercicesAnglesAIC () {
   Exercice.call(this)
@@ -185,7 +185,6 @@ export default function ExercicesAnglesAIC () {
           const texteCorr = `Par définition, les angles marqués ${reponse}.`
           texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
           exercice = { texte, texteCorr }
-          console.log(i, reponseCorrecte, propositions)
           propositions.push({
             texte: 'alternes-internes',
             statut: reponseCorrecte === 'alternes-internes'

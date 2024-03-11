@@ -2,7 +2,7 @@ import { codageMediatrice } from '../../lib/2d/codages.js'
 import { droiteHorizontaleParPoint, droiteVerticaleParPoint, mediatrice } from '../../lib/2d/droites.js'
 import { point, pointIntersectionDD, tracePoint } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes.js'
+import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes.ts'
 import { symetrieAxiale } from '../../lib/2d/transformations.js'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
@@ -28,17 +28,16 @@ export const dateDePublication = '14/12/2020'
 /**
  * Trouver une figure symétrique dans un pavage. Symétrie axiale. 6 pavages différents.
  * @author Jean-Claude Lhote
- * Réf : 6G25-3
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '328b1'
 export const ref = '6G25-3'
 export const refs = {
   'fr-fr': ['6G25-3'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-20']
 }
 export default function PavageEtReflexion2d () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 3
@@ -192,7 +191,7 @@ export default function PavageEtReflexion2d () {
         index1 = randint(Math.floor(monpavage.nb_polygones / 3), Math.ceil(monpavage.nb_polygones * 2 / 3)) // On choisit 2 points dans 2 polygones distincts.
         index2 = randint(Math.floor(monpavage.nb_polygones / 3), Math.ceil(monpavage.nb_polygones * 2 / 3), index1)
         A = monpavage.polygones[index1].listePoints[randint(0, 2)] // On les choisit dans les trois premiers
-        B = monpavage.polygones[index2].listePoints[randint(0, 2)] // points pour éviter un point qui n'éxiste pas
+        B = monpavage.polygones[index2].listePoints[randint(0, 2)] // points pour éviter un point qui n'existe pas
         while (compare2sommets(A, B)) { // On vérifie qu'ils sont bien distincts sinon, on change.
           index1 = randint(0, monpavage.nb_polygones - 1)
           index2 = randint(0, monpavage.nb_polygones - 1, index1)
@@ -283,9 +282,12 @@ export default function PavageEtReflexion2d () {
         P2.couleurDeRemplissage = colorToLatexOrHTML(couleurs[i])
         P2.opaciteDeRemplissage = 0.5
         P2.epaisseur = 2
-        P3 = symetrieAnimee(P1, d, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`)
-        P3.color = colorToLatexOrHTML(couleurs[i])
-        P3.epaisseur = 2
+        if (context.isHtml) {
+          P3 = symetrieAnimee(P1, d, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`)
+          P3.color = colorToLatexOrHTML(couleurs[i])
+          P3.epaisseur = 2
+          objetsCorrection.push(P3)
+        }
         objetsCorrection.push(tracePoint(A, B), segment(A, B, couleurs[i]), P1, P2, P3)
         if (A !== B) objetsCorrection.push(codageMediatrice(A, B, couleurs[i], codes[i]))
       }

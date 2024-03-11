@@ -22,8 +22,12 @@ export const dateDePublication = '18/02/2022' // La date de publication initiale
  */
 export const uuid = '1eb6e'
 export const ref = 'can1S09'
+export const refs = {
+  'fr-fr': ['can1S09'],
+  'fr-ch': []
+}
 export default function RelationRec () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

@@ -15,10 +15,10 @@ export const uuid = '57502'
 export const ref = '6C10-6'
 export const refs = {
   'fr-fr': ['6C10-6'],
-  'fr-ch': []
+  'fr-ch': ['9NO3-11']
 }
 export default function RoseMultiplicative () { // c'est l'ExoRose zéro contenu dans _Roses.js
-  ExoRose.call(this) // Héritage de la classe Exercice()
+  ExoRose.call(this)
   this.operation = 'multiplication'
   this.typeDonnees = 'entiers'
   this.besoinFormulaire2Numerique = ['Nombre de facteurs (entre 3 et 9)', 9]

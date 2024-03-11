@@ -3,7 +3,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import Exercice from '../../Exercice'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Passer d\'un décimal à une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,6 +16,10 @@ export const dateDePublication = '31/10/2022'
 
 export const uuid = '67f09'
 export const ref = 'can5C22'
+export const refs = {
+  'fr-fr': ['can5C22'],
+  'fr-ch': []
+}
 export default class DecimalVersFraction extends Exercice {
   constructor () {
     super()

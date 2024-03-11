@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import Exercice from '../../deprecatedExercice.js'
 import Decimal from 'decimal.js'
 export const titre = 'Calculer une fraction de dénominateur un décimal'
@@ -19,6 +19,10 @@ export const dateDePublication = '10/01/2023'
 
 export const uuid = '7a0b1'
 export const ref = 'can4C13'
+export const refs = {
+  'fr-fr': ['can4C13'],
+  'fr-ch': []
+}
 export default function CalculFractionDecimal () {
   Exercice.call(this)
   this.typeExercice = 'simple'

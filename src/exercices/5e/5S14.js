@@ -26,10 +26,10 @@ export const uuid = 'ab91d'
 export const ref = '5S14'
 export const refs = {
   'fr-fr': ['5S14'],
-  'fr-ch': []
+  'fr-ch': ['11NO2-4']
 }
 export default function CalculerDesMoyennes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.spacing = 1
   this.spacingCorr = 2.5

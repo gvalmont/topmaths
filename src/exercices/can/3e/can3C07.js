@@ -1,7 +1,7 @@
 import { codageSegments } from '../../../lib/2d/codages.js'
 import { point } from '../../../lib/2d/points.js'
 import { segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -18,6 +18,10 @@ export const interactifType = 'mathLive'
 export const dateDeModifImportante = '06/12/2021'
 export const uuid = '9ae55'
 export const ref = 'can3C07'
+export const refs = {
+  'fr-fr': ['can3C07'],
+  'fr-ch': []
+}
 export default function MilieuEntre1EtFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

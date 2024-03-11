@@ -41,7 +41,7 @@ export function fractionSimplifiee (n, d) {
 
 /**
  * Retourne le code LaTeX d'une fraction simplifiée ou d'un nombre entier
- * @deprecated : utiliser la class FractionEtendue à la place
+ * @deprecated : utiliser la class FractionEtendue à la place. Exemple : new FractionEtendue(a, b).texFractionSimplifiee
  * @author Rémi Angot
  */
 export function texFractionReduite (n, d) {
@@ -148,6 +148,8 @@ export function obtenirListeFractionsIrreductiblesFaciles () { // sous forme de 
 
 /**
  * @deprecated : Utiliser la classe FractionEtendue et sa méthode texFSD (ou une autre)
+ * EE : En fait, elle est deprecated quand numérateur et dénominateur sont des nombres au profit souvent de new FractionEtendue(a,b).texFSD.
+ * EE : Quand le numérateur et/ou le dénominateur contien(nen)t du LaTeX, alors deprecatedTexFraction() est celle qui affiche le mieux la fraction que l'on veut.
  * Retourne le code LaTeX d'une fraction a/b
  * @author Rémi Angot
  */

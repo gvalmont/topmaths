@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { cube } from '../../modules/3d.js'
@@ -8,6 +8,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { deuxColonnes } from '../../lib/format/miseEnPage.js'
 
+export const dateDePublication = '03/03/2021'
 export const titre = 'Compter les cubes manquants ou pas'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,29 +16,23 @@ export const amcType = 'AMCNum'
 export const amcReady = true
 
 /**
- * Compter des cubes
- * @author Erwan DUPLESSY
- * 6G43
- * mars 2021
- * Source : http://cache.media.education.gouv.fr/file/Geometrie_et_espace/47/1/RA16_C4_MATH_geo_espace_flash_567471.pdf
  * Compter des cubes dans un empilement de cubes
+ * @author Erwan DUPLESSY
+ * Source : http://cache.media.education.gouv.fr/file/Geometrie_et_espace/47/1/RA16_C4_MATH_geo_espace_flash_567471.pdf
  */
 
 export const uuid = '5f115'
 export const ref = '6G43'
 export const refs = {
   'fr-fr': ['6G43'],
-  'fr-ch': []
+  'fr-ch': ['9ES7-6']
 }
 export default function DenombrerCubes () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 3 // Ici le nombre de questions
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
   this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
-  this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
-  this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.sup = 1 // A décommenter : valeur par défaut d'un premier paramètre
   this.sup2 = 1 // A décommenter : valeur par défaut d'un deuxième paramètre
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
@@ -46,7 +41,7 @@ export default function DenombrerCubes () {
     this.listeCorrections = []
     this.autoCorrection = []
     let typesDeQuestionsDisponibles = [] // tableau à compléter par valeurs possibles des types de questions
-    switch (parseInt(this.sup)) {
+    switch (this.sup) {
       case 1:
         typesDeQuestionsDisponibles = [1]
         break
@@ -122,31 +117,23 @@ export default function DenombrerCubes () {
       sina = Math.sin(alpha1 * Math.PI / 180)
       cosb = Math.cos(beta1 * Math.PI / 180)
       sinb = Math.sin(beta1 * Math.PI / 180)
-      const paramsEnonce = {
-        xmin: -sina * largeur - 0.5,
-        ymin: -0.5,
-        xmax: cosa * longueur + 0.5,
-        ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
+      const paramsEnonce = Object.assign({
         pixelsParCm: 20,
         scale: 0.6,
         mainlevee: false,
         style: 'display: inline'
-      }
+      }, fixeBordures(objetsEnonce))
 
       cosa = Math.cos(alpha2 * Math.PI / 180)
       sina = Math.sin(alpha2 * Math.PI / 180)
       cosb = Math.cos(beta2 * Math.PI / 180)
       sinb = Math.sin(beta2 * Math.PI / 180)
-      const paramsEnonce2 = {
-        xmin: -sina * largeur - 0.5,
-        ymin: -0.5,
-        xmax: cosa * longueur + 0.5,
-        ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
+      const paramsEnonce2 = Object.assign({
         pixelsParCm: 20,
         scale: 0.6,
         mainlevee: false,
         style: 'display: inline'
-      }
+      }, fixeBordures(objetsEnonce2))
       const paramsCorrection = {
         xmin: -sina * largeur - 0.5,
         ymin: -0.5,
@@ -170,7 +157,7 @@ export default function DenombrerCubes () {
           break
         case 2:
           texte += `Combien de petits cubes manque-t-il pour reconstruire un grand cube de côté ${longueur} ?` + ajouteChampTexteMathLive(this, q, 'largeur10 inline')
-          texte += '<br>' + deuxColonnes(mathalea2d(paramsEnonce, objetsEnonce), mathalea2d(paramsEnonce, objetsEnonce2)) + '<br>'
+          texte += '<br>' + deuxColonnes(mathalea2d(paramsEnonce, objetsEnonce), mathalea2d(paramsEnonce2, objetsEnonce2))
           // correction :
           texteCorr += "On peut, par exemple, représenter l'empilement par tranches : <br>"
           texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + '<br>'
@@ -189,11 +176,6 @@ export default function DenombrerCubes () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
-  // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
-  // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
-
   this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Compter les cubes\n2 : Compter les cubes manquants\n3 : Mélange']
   this.besoinFormulaire2Numerique = ["Taille de l'empilement", 5, 'De taille 3\nDe taille 4\nDe taille 5\nDe taille 6\nDe taille 7']
-  // this.besoinFormulaire3CaseACocher =['figure à main levée',true]
-} // Fin de l'exercice.
+}

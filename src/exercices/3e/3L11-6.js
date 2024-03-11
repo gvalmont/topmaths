@@ -5,7 +5,7 @@ import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
+import { factorisationCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
@@ -24,10 +24,10 @@ export const uuid = '51360'
 export const ref = '3L11-6'
 export const refs = {
   'fr-fr': ['3L11-6'],
-  'fr-ch': []
+  'fr-ch': ['11FA3-3']
 }
 export default function FactoriserUneExpression3e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType

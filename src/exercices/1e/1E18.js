@@ -2,7 +2,7 @@ import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
 import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Trinome from '../../modules/Trinome.js'
 import Exercice from '../Exercice'
@@ -35,8 +35,8 @@ export default class EquationsEtInequations extends Exercice {
     this.listeCorrections = []
     this.tailleDiaporama = 3
     if (context.vue === 'diap' || this.nbQuestions === 1) {
-      this.introduction = 'Résoudre dans $\\R$ :'
-    } else this.introduction = 'Résoudre dans $\\R$ les équations et inéquations suivantes.'
+      this.introduction = 'Résoudre dans $\\mathbb{R}$ :'
+    } else this.introduction = 'Résoudre dans $\\mathbb{R}$ les équations et inéquations suivantes.'
     let typesDeQuestionsDisponibles = ['inequationFormeFactorisee', 'inequationFormeDevelopeeSansRacine', 'inequationFormeDevelopeeAvecRacines', 'inequationFormeDevelopeeSansRacineBis', 'inequationFormeDevelopeeAvecRacinesBis', 'ax2=bx']
     if (this.nbQuestions === 4) {
       typesDeQuestionsDisponibles = ['inequationFormeFactorisee', 'ax2=bx']

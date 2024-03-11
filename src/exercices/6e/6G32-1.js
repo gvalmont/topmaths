@@ -3,7 +3,7 @@ import { droite } from '../../lib/2d/droites.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texcolors, texteGras } from '../../lib/format/style'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
@@ -28,10 +28,10 @@ export const uuid = 'cd69a'
 export const ref = '6G32-1'
 export const refs = {
   'fr-fr': ['6G32-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-26']
 }
 export default function SymetrieAxialeConservation1 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.spacing = 2
   this.nbQuestions = 1

@@ -1,7 +1,7 @@
 import { milieu, point } from '../../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -20,9 +20,13 @@ export const interactifType = 'mathLive'
 */
 export const uuid = '85416'
 export const ref = 'can3G04'
+export const refs = {
+  'fr-fr': ['can3G04'],
+  'fr-ch': []
+}
 export default function RechercheValeurPythagore () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -46,14 +50,9 @@ export default function RechercheValeurPythagore () {
           texteParPosition('x', milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true))
         if (this.interactif) {
           this.question = `Déterminer $x$ pour que le triangle soit rectangle.<br>
-
-      (donner le résultat sous la forme $\\sqrt{a}$)
-      
-      <br>`
+      (donner le résultat sous la forme $\\sqrt{a}$)<br>`
         } else {
-          this.question = `Déterminer $x$ pour que le triangle soit rectangle.
-      
-      <br>`
+          this.question = 'Déterminer $x$ pour que le triangle soit rectangle.<br>'
         }
         this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 6, ymax: 5, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
         this.correction = ` Le plus grand côté est $${a}$ (autrement il y aurait deux hypoténuses). On cherche $x$ tel que $x^2+x^2=${a}^2$, soit $2x^2=${a * a}$.<br>

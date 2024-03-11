@@ -4,9 +4,9 @@ import { obtenirListeFractionsIrreductibles } from '../../modules/fractions.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { texteCompare } from '../../lib/interactif/comparaisonFonctions'
+import { textCompare } from '../../lib/interactif/comparisonFunctions'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,10 +25,10 @@ export const uuid = '234a7'
 export const ref = '5N14'
 export const refs = {
   'fr-fr': ['5N14'],
-  'fr-ch': []
+  'fr-ch': ['9NO12-5']
 }
 export default function ExerciceComparerDeuxFractions (max = 11) {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = max // Correspond au facteur commun
   this.consigne = 'Comparer les fractions suivantes.'
   this.spacing = 2
@@ -98,7 +98,7 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
           options: { ordered: false }
         }
       } else {
-        handleAnswers(this, i, { champ1: { value: ordreDesFractions ? signe : signe2, compare: texteCompare } }, { formatInteractif: 'fillInTheBlank' })
+        handleAnswers(this, i, { champ1: { value: ordreDesFractions ? signe : signe2, compare: textCompare } }, { formatInteractif: 'fillInTheBlank' })
       }
       /*
       if (this.interactif && !context.isAmc) {

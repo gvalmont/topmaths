@@ -13,10 +13,10 @@ export const uuid = 'd1da3'
 export const ref = '2G30-5'
 export const refs = {
   'fr-fr': ['2G30-5'],
-  'fr-ch': []
+  'fr-ch': ['11FA9-6']
 }
 export default function Determinerequationcartesienneavecpente () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 2

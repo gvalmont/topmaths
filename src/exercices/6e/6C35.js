@@ -4,7 +4,7 @@ import { max } from 'mathjs'
 import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { texteParPosition } from '../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { jourAuHasard } from '../../lib/outils/dateEtHoraires'
@@ -18,7 +18,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { operationCompare, upperCaseCompare } from '../../lib/interactif/comparaisonFonctions'
+import { operationCompare, upperCaseCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Modéliser des problèmes'
 export const interactifReady = true
@@ -44,7 +44,7 @@ export const uuid = '4e89b'
 export const ref = '6C35'
 export const refs = {
   'fr-fr': ['6C35'],
-  'fr-ch': []
+  'fr-ch': ['9NO3-9']
 }
 
 /**

@@ -6,7 +6,7 @@ import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Résoudre une équation du second degré se ramenant au premier degré'
@@ -26,10 +26,10 @@ export const uuid = '231d2'
 export const ref = '3L15'
 export const refs = {
   'fr-fr': ['3L15'],
-  'fr-ch': []
+  'fr-ch': ['11FA10-4']
 }
 export default function ExerciceEquations () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
   this.nbQuestions = 6

@@ -4,7 +4,7 @@ import { carre, motifs } from '../../lib/2d/polygones.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { traceBarre, traceGraphiqueCartesien } from '../../lib/2d/diagrammes.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { texteParPosition } from '../../lib/2d/textes.ts'
 import { rotation, translation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
@@ -24,17 +24,15 @@ export const titre = 'Représenter des données par un diagramme'
 
 /**
  * @author Mickael Guironnet - Jean-Claude Lhote
- * Référence 5S12
  */
 export const uuid = 'd3ca7'
 export const ref = '5S12'
 export const refs = {
   'fr-fr': ['5S12'],
-  'fr-ch': []
+  'fr-ch': ['9FA1-4']
 }
 export default function ConstruireUnDiagramme () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1
@@ -141,9 +139,9 @@ export default function ConstruireUnDiagramme () {
         }
         contenutableau.push('1')
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(`${deprecatedTexFraction(lstNombresAnimaux[i], effectiftotal)} \\times 360 ${egalOuApprox(lstNombresAnimaux[i] * 360 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 360 / effectiftotal)}\\degree`)
+          contenutableau.push(`${deprecatedTexFraction(lstNombresAnimaux[i], effectiftotal)} \\times 360 ${egalOuApprox(lstNombresAnimaux[i] * 360 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 360 / effectiftotal)}^\\circ`)
         }
-        contenutableau.push('360\\degree')
+        contenutableau.push('360^\\circ')
 
         texteCorr += `${tableauColonneLigne(entete, ['\\text{Effectifs}', '\\text{Fréquences}', '\\text{Angles}'], contenutableau, 3)}<br>`
 
@@ -195,9 +193,9 @@ export default function ConstruireUnDiagramme () {
         }
         contenutableau.push('1')
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(`${deprecatedTexFraction(lstNombresAnimaux[i], effectiftotal)} \\times 180 ${egalOuApprox(lstNombresAnimaux[i] * 180 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 180 / effectiftotal)}\\degree`)
+          contenutableau.push(`${deprecatedTexFraction(lstNombresAnimaux[i], effectiftotal)} \\times 180 ${egalOuApprox(lstNombresAnimaux[i] * 180 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 180 / effectiftotal)}^\\circ`)
         }
-        contenutableau.push('180\\degree')
+        contenutableau.push('180^\\circ')
 
         texteCorr += `${tableauColonneLigne(entete, ['\\text{Effectifs}', '\\text{Fréquences}', '\\text{Angles}'], contenutableau, 3)}<br>`
 

@@ -4,7 +4,7 @@ import { deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../..
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { pgcd } from '../../lib/outils/primalite'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import Exercice from '../deprecatedExercice.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -32,10 +32,10 @@ export const uuid = '5f429'
 export const ref = '4C21'
 export const refs = {
   'fr-fr': ['4C21'],
-  'fr-ch': []
+  'fr-ch': ['9NO13-5']
 }
 export default function ExerciceAdditionnerOuSoustraireDesFractions () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 2 // Niveau de difficulté
   this.sup2 = false // Avec ou sans relatifs
   this.sup3 = true // Si false alors le résultat n'est pas en fraction simplifiée

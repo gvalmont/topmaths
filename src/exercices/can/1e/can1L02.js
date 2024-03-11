@@ -23,9 +23,13 @@ export const dateDePublication = '1/11/2021' // La date de publication initiale 
 */
 export const uuid = 'c74ea'
 export const ref = 'can1L02'
+export const refs = {
+  'fr-fr': ['can1L02'],
+  'fr-ch': []
+}
 export default function NombreSolutionsSecondDegre () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'

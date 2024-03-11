@@ -97,7 +97,7 @@ export function verifQuestionQcm (exercice, i) {
 /**
  * @param {exercice}
  * @param {number} i indice de la question
- * @returns {object} {texte, texteCorr} le texte à ajouter pour la question traitée
+ * @returns {{texte: string, texteCorr: string}} {texte, texteCorr} le texte à ajouter pour la question traitée
  */
 export function propositionsQcm (exercice, i) {
   let texte = ''
@@ -130,7 +130,7 @@ export function propositionsQcm (exercice, i) {
   if (!context.isHtml) {
     texte += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
     texteCorr += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
-    texte += '\\\\\n\t'
+    // texte += '\\\\\n\t'
     for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
       texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}`
       if (exercice.autoCorrection[i].propositions[rep].statut) {

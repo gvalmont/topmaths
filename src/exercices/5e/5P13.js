@@ -8,7 +8,7 @@ import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, quotientier } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { min } from 'mathjs'
 import Grandeur from '../../modules/Grandeur'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -30,10 +30,10 @@ export const uuid = 'edb61'
 export const ref = '5P13'
 export const refs = {
   'fr-fr': ['5P13'],
-  'fr-ch': []
+  'fr-ch': ['10FA4-1']
 }
 export default function EchellesProblemes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 4
   this.titre = titre
   this.spacing = 2

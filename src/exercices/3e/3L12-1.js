@@ -7,7 +7,7 @@ import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Développer (a-b)(a+b)'
@@ -26,10 +26,10 @@ export const uuid = 'be157'
 export const ref = '3L12-1'
 export const refs = {
   'fr-fr': ['3L12-1'],
-  'fr-ch': []
+  'fr-ch': ['11FA2-12']
 }
 export default function DevelopperIdentitesRemarquables3 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType

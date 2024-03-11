@@ -2,7 +2,7 @@ import { angle, angleOriente } from '../../lib/2d/angles.js'
 import { point, pointAdistance, pointSurSegment } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { longueur } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPoint } from '../../lib/2d/textes.js'
+import { texteParPoint } from '../../lib/2d/textes.ts'
 import { homothetie, similitude } from '../../lib/2d/transformations.js'
 import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
 import { creerBoutonMathalea2d } from '../../lib/outils/modales.js'
@@ -20,9 +20,7 @@ export const titre = 'Écrire une relation de Thalès'
  * @author Sébastien LOZANO
 */
 export default function RelationDeThales () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-
-  this.consigne = ''
+  Exercice.call(this)
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1

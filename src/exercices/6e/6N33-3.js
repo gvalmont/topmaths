@@ -23,10 +23,10 @@ export const uuid = 'd67e9'
 export const ref = '6N33-3'
 export const refs = {
   'fr-fr': ['6N33-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO15-2']
 }
 export default function AppliquerUnPourcentage () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.consigne = 'Calculer.'
   this.spacing = 2

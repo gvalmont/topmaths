@@ -91,8 +91,8 @@ export function mathalea2d (
             } else {
               const xSvg = (code.x - xmin) * pixelsParCm * zoom
               const ySvg = -(code.y - ymax) * pixelsParCm * zoom
-              const part1 = code.divLatex.substring(0, 81)
-              const part2 = code.divLatex.substring(81)
+              const part1 = code.divLatex.substring(0, 81) // MGU CODE DANGEREUX... on coupe au guillement mais non pris
+              const part2 = code.divLatex.substring(82) // MGU CODE DANGEREUX... on ne prend pas le guillement
               const codeHtml = part1 + ` top: ${ySvg}px; left: ${xSvg}px;" data-top=${ySvg} data-left=${xSvg}` + part2
               divsLatex.push(codeHtml)
             }
@@ -259,7 +259,7 @@ export function fondEcran (url, x = 0, y = 0, largeur = context.fenetreMathalea2
 */
 
 /**
- * convertHexToRGB convertit une couleur en héxadécimal (sans le #) en un tableau RVB avec des valeurs entre 0 et 255.
+ * convertHexToRGB convertit une couleur en hexadécimal (sans le #) en un tableau RVB avec des valeurs entre 0 et 255.
  * @param {string} [couleur='000000'] Code couleur HTML sans le #
  * @example convertHexToRGB('f15929')=[241,89,41]
  * @author Eric Elter
@@ -286,7 +286,7 @@ function convertHexToRGB (couleur = '000000') {
  * @example colorToLatexOrHTML('')=''
  * @example colorToLatexOrHTML('none')=['none','none']
  * @author Eric Elter
- * @return {string[]}
+ * @return {[string,string]}
  */
 // JSDOC Validee par EE Juin 2022
 export function colorToLatexOrHTML (couleur) {

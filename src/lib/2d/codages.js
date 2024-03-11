@@ -8,7 +8,7 @@ import { arc } from './cercle.js'
 import { droite, mediatrice } from './droites.js'
 import { milieu, Point, point, pointSurSegment, tracePointSurDroite } from './points.js'
 import { longueur, Segment, segment, vecteur } from './segmentsVecteurs.js'
-import { latexParPoint, TexteParPoint, texteParPoint } from './textes.js'
+import { latexParCoordonnees, latexParPoint, TexteParPoint, texteParPoint } from './textes.ts'
 import { rotation, similitude, translation } from './transformations.js'
 
 /**
@@ -126,8 +126,6 @@ export function codageMediatrice (A, B, color = 'black', mark = '×') {
  * @param {Point} B Point sur l'autre côté de l'angle
  * @param {string} [color = 'black'] Couleur de la bissectrice : du type 'blue' ou du type '#f15929'
  * @param {string} [mark = 'x'] Symbole posé sur les arcs
- * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {string} color Couleur de la bissectrice. À associer obligatoirement à colorToLatexOrHTML().
  * @property {string} mark Symbole posé sur les arcs
  * @property {Point} centre Sommet de l'angle
@@ -136,7 +134,7 @@ export function codageMediatrice (A, B, color = 'black', mark = '×') {
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-export function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
+export function CodageBissectrice (A, O, B, color = 'black', mark = 'X') {
   ObjetMathalea2D.call(this, {})
   this.color = color
   this.mark = mark
@@ -144,7 +142,10 @@ export function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
   this.depart = pointSurSegment(O, A, 1.5)
   const demiangle = angleOriente(A, O, B) / 2
   const lieu = rotation(this.depart, O, demiangle)
-
+  const a1 = codageAngle(pointSurSegment(this.centre, this.depart), O, demiangle, 1, this.mark, this.color, 1, 1)
+  const a2 = codageAngle(pointSurSegment(this.centre, lieu), O, demiangle, 1, this.mark, this.color, 1, 1)
+  return [a1, a2]
+  /*
   this.svg = function (coeff) {
     const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 30 / coeff), O, demiangle, 30 / coeff, this.mark, this.color, 1, 1)
     const a2 = codageAngle(pointSurSegment(this.centre, lieu, 30 / coeff), O, demiangle, 30 / coeff, this.mark, this.color, 1, 1)
@@ -159,7 +160,7 @@ export function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
     const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 1.5 / context.scale), O, demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
     const a2 = codageAngle(pointSurSegment(this.centre, lieu, 1.5 / context.scale), O, demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
     return a1.tikz() + '\n' + a2.tikz() + '\n'
-  }
+  } */
 }
 
 /**
@@ -175,7 +176,7 @@ export function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
  * @return {CodageBissectrice}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageBissectrice (A, O, B, color = 'black', mark = 'x') {
+export function codageBissectrice (A, O, B, color = 'black', mark = 'X') {
   return new CodageBissectrice(A, O, B, color, mark)
 }
 
@@ -265,6 +266,7 @@ export function codageCarre (c, color = 'black', mark = '×') {
  * @param  {number} [d=0.5] Distance entre l'affichage de la longueur et le segment.
  * @param  {string} [unite='cm'] Affiche cette unité après la valeur numérique de la longueur.
  * @param  {boolean} [horizontal=false] Si true, alors le texte est horizontal, sinon le texte est parallèle au segment.
+ * @param  {boolean} [precision=1]
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {string} color Couleur de la longueur affichée. À associer obligatoirement à colorToLatexOrHTML().
@@ -309,6 +311,7 @@ export function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 
  * @param  {number} [d=0.5] Distance entre l'affichage de la longueur et le segment.
  * @param  {string} [unite='cm'] Affiche cette unité après la valeur numérique de la longueur.
  * @param  {boolean} [horizontal=false] Si true, alors le texte est horizontal, sinon le texte est parallèle au segment.
+ * @param  {boolean} [precision=1]
  * @example  afficheLongueurSegment(A,B)
  * // Affiche la longueur du segment [AB] (en noir, à 0,5 "cm" du segment, complétée par l'unité cm et parallèlement au segment).
  * @example  afficheLongueurSegment(A,B,'blue',1,'mm',true)
@@ -498,8 +501,21 @@ export function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
   this.epaisseur = arcEpaisseur
   const M = pointSurSegment(this.sommet, this.depart, this.distance)
   const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart * 20 / context.pixelsParCm), this.sommet, mesureAngle / 2)
+  let mesureAngleString
+  if (label !== '') {
+    mesureAngleString = label
+  } else {
+    mesureAngleString = Math.round(Math.abs(mesureAngle)).toString() + '^\\circ'
+  }
+  const mesure = latexParCoordonnees(mesureAngleString, N.x, N.y, color, 0, 0, '', 8)
+  const marque = arc(M, B, mesureAngle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
+  mesure.contour = mesureEnGras
+  mesure.couleurDeRemplissage = colorToLatexOrHTML(color)
+  marque.epaisseur = this.epaisseur
   this.bordures = [Math.min(N.x, M.x) - 0.5, Math.min(N.y, M.y) - 0.5, Math.max(N.x, M.x) + 0.5, Math.max(N.y, M.y) + 0.5]
-  this.svg = function (coeff) {
+  return [mesure, marque]
+
+  /*  this.svg = function (coeff) {
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
     const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart * 20 / coeff), this.sommet, mesureAngle / 2, '', 'center')
     let mesureAngleString
@@ -508,12 +524,12 @@ export function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
     } else {
       mesureAngleString = Math.round(Math.abs(mesureAngle)).toString() + '°'
     }
-    const mesure = texteParPoint(mesureAngleString, N, 'milieu', color, 1, 'middle', true)
+    const mesure = latexParPoint(mesureAngleString, N, color, 0, 0, '', 8)
     const marque = arc(M, B, mesureAngle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
     mesure.contour = mesureEnGras
     mesure.couleurDeRemplissage = colorToLatexOrHTML(color)
     marque.epaisseur = this.epaisseur
-    return '\n' + mesure.svg(coeff) + '\n' + marque.svg(coeff)
+    return [mesure, marque]
   }
   this.tikz = function () {
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
@@ -522,15 +538,15 @@ export function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
     if (label !== '') {
       mesureAngleString = label
     } else {
-      mesureAngleString = Math.round(Math.abs(mesureAngle)).toString() + '\\degree'
+      mesureAngleString = Math.round(Math.abs(mesureAngle)).toString() + '^\\circ'
     }
-    const mesure = texteParPoint(mesureAngleString, N, 'milieu', color, 1, 'middle', true)
+    const mesure = latexParPoint(mesureAngleString, N, color, 0, 0, '', 8)
     const marque = arc(M, B, mesureAngle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
     mesure.contour = mesureEnGras
     mesure.couleurDeRemplissage = colorToLatexOrHTML(color)
     marque.epaisseur = this.epaisseur
     return '\n' + mesure.tikz() + '\n' + marque.tikz()
-  }
+  } */
 }
 
 /**
@@ -878,7 +894,6 @@ export function codageSegments (mark = '||', color = 'black', ...args) {
  */
 // JSDOC Validee par EE Juin 2022
 export function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1, { echelleMark = 1, angleArrondi = 0 } = {}) {
-//  ObjetMathalea2D.call(this, {})
   this.color = color
   this.debut = debut
   this.centre = centre

@@ -2,7 +2,7 @@ import { milieu, plot, point } from '../../../lib/2d/points.js'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes.js'
 import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
@@ -12,7 +12,7 @@ import { texPrix } from '../../../lib/format/style'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { min, round } from 'mathjs'
 import { context } from '../../../modules/context.js'
 import Hms from '../../../modules/Hms'
@@ -32,6 +32,10 @@ export const dateDePublication = '03/04/2023' // La date de publication initiale
 
 export const uuid = '07680'
 export const ref = 'can6a-2023'
+export const refs = {
+  'fr-fr': ['can6a-2023'],
+  'fr-ch': []
+}
 
 /**
  * Aléatoirisation du sujet 2023 de CAN 6e
@@ -44,7 +48,7 @@ function compareNombres (a, b) {
 }
 
 export default function SujetCAN2023Sixieme () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.keyboard = ['hms']
   this.titre = titre
   this.interactifReady = interactifReady
@@ -1172,7 +1176,8 @@ export default function SujetCAN2023Sixieme () {
         case 27:
           if (choice([true, false])) {
             a = randint(2, 6)
-            prix = new Decimal(2 + randint(1, 3) / 10).add(0.05)
+            b = new Decimal(randint(1, 3)).div(10)
+            prix = new Decimal(2).add(b).add(0.05)
             k = randint(2, 4)
             reponse = new Decimal(prix).mul(100 * k)
             texte = `$${a}$ stylos identiques coûtent  $${texPrix(prix)}$ €. <br>

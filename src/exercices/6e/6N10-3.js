@@ -29,7 +29,7 @@ export const uuid = '34579'
 export const ref = '6N10-3'
 export const refs = {
   'fr-fr': ['6N10-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO1-4']
 }
 
 /**
@@ -90,7 +90,7 @@ function nombreDeJustif (type, str, rang, cduNum) {
 }
 
 export default function ChiffreNombreDe () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 1
   this.sup2 = 3
 

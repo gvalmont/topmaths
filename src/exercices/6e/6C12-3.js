@@ -30,11 +30,11 @@ export const uuid = '7fb24'
 export const ref = '6C12-3'
 export const refs = {
   'fr-fr': ['6C12-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO16-2']
 }
 export default function ExerciceInformationsProblemes () {
   // Multiplier deux nombres
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 1
   this.sup2 = 11
   this.sup3 = false

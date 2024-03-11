@@ -1,9 +1,22 @@
-import { runTest } from '../../helpers/run'
+import { runSeveralTests, runTest } from '../../helpers/run'
 import type { Page } from 'playwright'
 import JSZip from 'jszip'
 import fs from 'fs/promises'
+import referentielStatic from '../../../../src/json/referentielStatic.json'
+import { type JSONReferentielObject } from '../../../../src/lib/types/referentiels'
 import uuidToUrl from '../../../../src/json/uuidsToUrl.json'
 import { logError as lgE, log as lg, getFileLogger } from '../../helpers/log'
+
+const allStaticReferentiels: JSONReferentielObject = {
+  ...referentielStatic
+}
+
+// on supprime les entrées par thèmes qui entraîne des doublons
+delete allStaticReferentiels['Brevet des collèges par thèmes - APMEP']
+delete allStaticReferentiels['BAC par thèmes - APMEP']
+delete allStaticReferentiels['CRPE (2015-2019) par thèmes - COPIRELEM']
+delete allStaticReferentiels['CRPE (2022-2023) par thèmes']
+delete allStaticReferentiels['E3C par thèmes - APMEP']
 
 const logPDF = getFileLogger('exportPDF', { append: true })
 
@@ -34,7 +47,10 @@ async function readZip (file: fs.FileHandle): Promise<Map<string, string>> {
 
 async function getLatexFile (page: Page, urlExercice: string) {
   log(urlExercice)
+  page.setDefaultTimeout(100000)
+
   await page.goto(urlExercice)
+  await page.reload()
   await page.click('input#Style2') // style maquette
 
   const downloadPromise = page.waitForEvent('download')
@@ -79,14 +95,20 @@ async function getLatexFile (page: Page, urlExercice: string) {
     method: 'POST',
     body: formData,
     signal: AbortSignal.timeout(60 * 1000)
-  }).then((res : Response) => { /* console.log(res); */ return res.blob() })
-    .then(blob => {
+  }).then((res : Response) => {
+    log('response.status =' + res.status)
+    if (res.status === 200) {
       resultReq = 'OK'
-      log(resultReq)
-      return blob.arrayBuffer()
-    })
+    } else {
+      resultReq = 'KO'
+    }
+    return res.blob()
+  }).then(blob => {
+    log(resultReq)
+    return blob.arrayBuffer()
+  })
     .then(buffer => {
-      fs.writeFile(UPLOAD_FOLDER + '/' + id + '_' + uuid + '.pdf', new Uint8Array(buffer))
+      fs.writeFile(UPLOAD_FOLDER + '/' + id + '_' + uuid + (resultReq === 'OK' ? '.pdf' : '.log'), new Uint8Array(buffer))
     })
     .catch((err) => {
       logError('Error occured' + err)
@@ -104,6 +126,26 @@ async function findUuid (filter : string) {
   })
 }
 
+async function findStatic (filter : string) {
+  const uuids = Object.entries(allStaticReferentiels)
+  const uuidsDNB = uuids[0][1]
+  const uuidsFound : [string, string][] = []
+
+  Object.entries(uuidsDNB).forEach(([, value]) => {
+    const values = Object.values(value)
+    values.forEach((val) => {
+      if (typeof val === 'object') {
+        if (Object.prototype.hasOwnProperty.call(val, 'uuid')) {
+          if (val.uuid !== undefined && typeof val.uuid === 'string' && val.uuid.startsWith(filter)) {
+            uuidsFound.push([val.uuid, val.uuid])
+          }
+        }
+      }
+    })
+  })
+  return uuidsFound
+}
+
 async function testAll (page: Page, filter: string) {
   // const urlExercice = 'http://localhost:5173/alea/?uuid=322a0&id=6C10-0&alea=QrHL&v=latex'
 
@@ -115,10 +157,16 @@ async function testAll (page: Page, filter: string) {
   const uuids = await findUuid(filter)
   const resultReqs = []
   for (let i = 0; i < uuids.length && i < 300; i++) {
-    log(`uuid=${uuids[i][0]} exo=${uuids[i][1]} i=${i} / ${uuids.length}`)
-    const resultReq = await getLatexFile(page, `http://localhost:5173/alea/?uuid=${uuids[i][0]}&id=${uuids[i][1].substring(0, uuids[i][1].lastIndexOf('.')) || uuids[i][1]}&alea=QrHL&v=latex`)
-    log(`Resu: ${resultReq} uuid=${uuids[i][0]} exo=${uuids[i][1]}`)
-    resultReqs.push(resultReq)
+    try {
+      log(`uuid=${uuids[i][0]} exo=${uuids[i][1]} i=${i} / ${uuids.length}`)
+      const resultReq = await getLatexFile(page, `http://localhost:5173/alea/?uuid=${uuids[i][0]}&id=${uuids[i][1].substring(0, uuids[i][1].lastIndexOf('.')) || uuids[i][1]}&alea=QrHL&v=latex`)
+      log(`Resu: ${resultReq} uuid=${uuids[i][0]} exo=${uuids[i][1]}`)
+      resultReqs.push(resultReq)
+    } catch (err) {
+      log(`Resu: KO uuid=${uuids[i][0]} exo=${uuids[i][1]}`)
+      log(err)
+      resultReqs.push('KO')
+    }
   }
   return resultReqs.every(e => e === 'OK')
 }
@@ -140,15 +188,70 @@ async function test6e (page: Page) {
 }
 
 async function testOneExo (page: Page) {
-  return testAll(page, '6e/6G23')
+  // return testAll(page, '6e/6G23')
+  return testAll(page, '3e')
 }
 
+// const alea = QrHL (1ere passe de test)
+const alea = 'e906e'
+
+async function testRunAll (filter: string) {
+  // return testAll(page, '6e/6G23')
+  const uuids = await findUuid(filter)
+  for (let i = 0; i < uuids.length && i < 300; i++) {
+    const myName = 'test' + uuids[i][1]
+    const f = async function (page: Page) {
+      // Listen for all console logs
+      page.on('console', msg => {
+        logPDF(msg.text())
+      })
+      log(`uuid=${uuids[i][0]} exo=${uuids[i][1]} i=${i} / ${uuids.length}`)
+      const resultReq = await getLatexFile(page, `http://localhost:5173/alea/?uuid=${uuids[i][0]}&id=${uuids[i][1].substring(0, uuids[i][1].lastIndexOf('.')) || uuids[i][1]}&alea=${alea}&v=latex`)
+      log(`Resu: ${resultReq} uuid=${uuids[i][0]} exo=${uuids[i][1]}`)
+      return resultReq === 'OK'
+    }
+    Object.defineProperty(f, 'name', { value: myName, writable: false })
+    runTest(f, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+  }
+}
+
+async function testRunAllLots (filter: string) {
+  // return testAll(page, '6e/6G23')
+  const uuids = filter.includes('dnb') ? await findStatic(filter) : await findUuid(filter)
+  for (let i = 0; i < uuids.length && i < 300; i += 10) {
+    const ff : ((page: Page) => Promise<boolean>)[] = []
+    for (let k = i; k < i + 10 && k < uuids.length; k++) {
+      const myName = 'test' + uuids[k][1]
+      const f = async function (page: Page) {
+        // Listen for all console logs
+        page.on('console', msg => {
+          logPDF(msg.text())
+        })
+        const hostname = 'https://coopmaths.fr/alea/' // http://localhost:5173/alea/
+        log(`uuid=${uuids[k][0]} exo=${uuids[k][1]} i=${k} / ${uuids.length}`)
+        const resultReq = await getLatexFile(page, `${hostname}?uuid=${uuids[k][0]}&id=${uuids[k][1].substring(0, uuids[k][1].lastIndexOf('.')) || uuids[k][1]}&alea=${alea}&v=latex`)
+        log(`Resu: ${resultReq} uuid=${uuids[i][0]} exo=${uuids[k][1]}`)
+        return resultReq === 'OK'
+      }
+      Object.defineProperty(f, 'name', { value: myName, writable: false })
+      ff.push(f)
+    }
+    runSeveralTests(ff, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+  }
+}
 /**
  * Attention, il faut un service REST en localhost qui récupère les fichiers
  * pour ensuite les compiler avec lualatex...
  */
-runTest(testOneExo, import.meta.url, { pauseOnError: false })
-runTest(test3e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
-runTest(test4e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
-runTest(test5e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
-runTest(test6e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+// runTest(testOneExo, import.meta.url, { pauseOnError: false })
+// runTest(test6e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+// runTest(test5e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+// runTest(test4e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+// runTest(test3e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+
+// testRunAllLots('can')
+// testRunAllLots('3e')
+// testRunAllLots('4e')
+// testRunAllLots('5e')
+// testRunAllLots('6e')
+testRunAllLots('dnb_2023')

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { point, tracePoint } from '../../lib/2d/points.js'
-import { texteParPositionEchelle } from '../../lib/2d/textes.js'
+import { texteParPositionEchelle } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
 import { modalPdf, modalUrl } from '../../lib/outils/modales.js'
 import { stringNombre } from '../../lib/outils/texNombre'
@@ -30,6 +30,10 @@ export const dateDePublication = '11/04/2021'
  */
 export const uuid = 'e380b'
 export const ref = 'c3I11'
+export const refs = {
+  'fr-fr': ['c3I11'],
+  'fr-ch': []
+}
 export default function NoteLaCouleurC3 () {
   Exercice.call(this)
   this.titre = titre

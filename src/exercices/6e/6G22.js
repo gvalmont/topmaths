@@ -3,7 +3,7 @@ import { droite } from '../../lib/2d/droites.js'
 import { point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points.js'
 import { polygoneAvecNom, polyline } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { couleurTab } from '../../lib/format/style'
@@ -36,10 +36,10 @@ export const uuid = 'e10d1'
 export const ref = '6G22'
 export const refs = {
   'fr-fr': ['6G22'],
-  'fr-ch': []
+  'fr-ch': ['9ES5-1']
 }
 export default function NommerUnAngle () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 2
   this.sup = 2

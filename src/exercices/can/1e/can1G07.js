@@ -3,7 +3,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/ou
 import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Déterminer une coordonnée avec un produit scalaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,9 +16,13 @@ export const dateDePublication = '29/06/2022'
 */
 export const uuid = '14aa1'
 export const ref = 'can1G07'
+export const refs = {
+  'fr-fr': ['can1G07'],
+  'fr-ch': []
+}
 export default function RechercheCoordonneesProdScal () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   this.tailleDiaporama = 2

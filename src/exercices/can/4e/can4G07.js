@@ -1,7 +1,7 @@
 import { codageSegments } from '../../../lib/2d/codages.js'
 import { point } from '../../../lib/2d/points.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../../lib/2d/textes.js'
+import { labelPoint } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -20,9 +20,13 @@ export const interactifType = 'mathLive'
 */
 export const uuid = 'ae712'
 export const ref = 'can4G07'
+export const refs = {
+  'fr-fr': ['can4G07'],
+  'fr-ch': []
+}
 export default function CalculLongueurThalesMilieu () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   this.tailleDiaporama = 2

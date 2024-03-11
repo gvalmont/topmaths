@@ -9,7 +9,7 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { calculCompare } from '../../lib/interactif/comparaisonFonctions'
+import { calculCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Recomposer un décimal ou un entier'
 export const interactifReady = true
@@ -38,7 +38,7 @@ export const uuid = 'f899b'
 export const ref = '6N10-7'
 export const refs = {
   'fr-fr': ['6N10-7'],
-  'fr-ch': []
+  'fr-ch': ['9NO1-9']
 }
 export default function RecomposerEntierC3 () {
   Exercice.call(this)
@@ -196,12 +196,10 @@ export default function RecomposerEntierC3 () {
         case 5: // décomposition chiffre par chiffre en ordre avec zéros possibles
           nombreStr = trouveEntierAlea(false)
           nombre = new Decimal(nombreStr)
-          console.log(`nombreStr : ${nombreStr}`)
           texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les nombres (à un seul chiffre) qui conviennent.<br>`
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=$`
           texteCorr += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           morcelleNombre(i, nombreStr, false, this.morceaux, this.exposantMorceaux)
-          console.log(`morceaux : ${this.morceaux}, exposants: ${this.exposantMorceaux}`)
           for (let k = 0; k < this.morceaux[i].length; k++) {
             if (this.morceaux[i][k] !== '0') {
               completeLesMantisses(k, i, this.morceaux, this.exposantMorceaux, nombreDeChiffresDec[i])

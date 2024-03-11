@@ -33,10 +33,10 @@ export const uuid = '612a5'
 export const ref = '2S10-2'
 export const refs = {
   'fr-fr': ['2S10-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO14-8']
 }
 export default function Proportions () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 2
   this.nbCols = 1

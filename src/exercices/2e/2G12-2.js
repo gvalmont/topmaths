@@ -2,9 +2,9 @@ import { point, tracePoint } from '../../lib/2d/points.js'
 import Decimal from 'decimal.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -29,10 +29,10 @@ export const uuid = '4b25a'
 export const ref = '2G12-2'
 export const refs = {
   'fr-fr': ['2G12-2'],
-  'fr-ch': []
+  'fr-ch': ['11GM1-5']
 }
 export default function Milieu () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.sup = parseInt(this.sup)
   this.nbQuestions = 1

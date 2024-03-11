@@ -1,4 +1,4 @@
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { texteParPosition } from '../../lib/2d/textes.ts'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -8,6 +8,10 @@ import { pavage } from '../../modules/Pavage.js'
 
 export const titre = 'Fabriquer des pavages pour travailler les transformations'
 export const ref = 'P007'
+export const refs = {
+  'fr-fr': ['P007'],
+  'fr-ch': []
+}
 export const uuid = 'ad5f8'
 
 /**
@@ -17,7 +21,7 @@ export const uuid = 'ad5f8'
  * Ref : P007
  */
 export default function PavagesMathalea2d () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1

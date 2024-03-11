@@ -1,6 +1,6 @@
 import ReperagePointDuPlan from './5R12-2.js'
 export const titre = 'Déterminer les coordonnées (positives) d\'un point'
-
+export const interactifReady = false
 export const amcReady = true
 export const amcType = 'AMCHybride'
 /**
@@ -11,7 +11,7 @@ export const uuid = 'cf83c'
 export const ref = '5R12'
 export const refs = {
   'fr-fr': ['5R12'],
-  'fr-ch': []
+  'fr-ch': ['9FA1-5']
 }
 export default function ReperagePointDuQuartDePlan () {
   ReperagePointDuPlan.call(this)

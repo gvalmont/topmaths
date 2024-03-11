@@ -35,10 +35,10 @@ export const uuid = '36e2a'
 export const ref = '5R20-3'
 export const refs = {
   'fr-fr': ['5R20-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO9-8']
 }
 export default function ExerciceAdditionsDe5Relatifs (max = 20) {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = max
   this.sup2 = false // écriture simplifiée
   this.titre = titre

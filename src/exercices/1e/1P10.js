@@ -1,7 +1,7 @@
 import { fraction, number } from 'mathjs'
 import { point } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonnees } from '../../lib/2d/textes.js'
+import { latexParCoordonnees } from '../../lib/2d/textes.ts'
 import { texteGras } from '../../lib/format/style'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
@@ -31,7 +31,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ProbabilitesConditionnelles () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 1 // Nombre de questions par défaut
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte

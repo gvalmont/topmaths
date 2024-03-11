@@ -2,7 +2,7 @@ import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles.js'
 import { codageSegments } from '../../lib/2d/codages.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { homothetie } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
@@ -28,10 +28,10 @@ export const uuid = '18e25'
 export const ref = '3G11'
 export const refs = {
   'fr-fr': ['3G11'],
-  'fr-ch': []
+  'fr-ch': ['11ES3-3']
 }
 export default function ConstruireHomothetiePoint3e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 2
   this.nbCols = 1
   this.nbColsCorr = 1

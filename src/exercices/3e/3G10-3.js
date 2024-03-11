@@ -2,7 +2,7 @@ import { arcPointPointAngle } from '../../lib/2d/cercle.js'
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { longueur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { rotation } from '../../lib/2d/transformations.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arcenciel } from '../../lib/format/style'
@@ -23,10 +23,10 @@ export const uuid = '19ce6'
 export const ref = '3G10-3'
 export const refs = {
   'fr-fr': ['3G10-3'],
-  'fr-ch': []
+  'fr-ch': ['10ES2-8']
 }
 export default function ConstruireRotationPoint3e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1
@@ -53,7 +53,7 @@ export default function ConstruireRotationPoint3e () {
       this.consigne += `, $${noms[i]}$`
     }
     this.consigne += ` et $${noms[nbpoints - 1]}$ par la rotation de centre $O$`
-    this.consigne += ` et d'angle $${Math.abs(angle)}\\degree$`
+    this.consigne += ` et d'angle $${Math.abs(angle)}^\\circ$`
     if (angle < 0) { this.consigne += ' dans le sens des aiguilles d\'une montre.' } else { this.consigne += ' dans le sens contraire des aiguilles d\'une montre.' }
     const cibles = []; const M = []; const N = []; const objetsEnonce = []; const objetsCorrection = [] // cibles, M point marqués, N symétrique de M
     const cellules = []

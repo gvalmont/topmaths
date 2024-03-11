@@ -29,9 +29,14 @@ import {
   CLAVIER_ENSEMBLE,
   raccourcisEnsemble
 } from '../lib/interactif/claviers/ensemble.js'
+import {
+  CLAVIER_NUMERATION,
+  raccourcisNumeration
+} from '../lib/interactif/claviers/numeration'
 import { keyboardState } from '../components/keyboard/stores/keyboardStore'
 import { get } from 'svelte/store'
 import { globalOptions } from '../lib/stores/generalStore'
+import { getKeyboardShortcusts } from '../lib/interactif/claviers/keyboard'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -224,11 +229,33 @@ export async function loadMathLive () {
       }
       if (mf.classList.contains('alphanumeric')) {
         clavier.push('alphabetic')
+        mf.onInlineShortcut = (_mf, s) => {
+          if (/^[A-Z]{2}/.test(s)) {
+            const m = s.match(/^([A-Z]{2})/)
+            if (m) {
+              return `\\mathrm{${m[1]}}`
+            }
+          }
+          return ''
+        }
+      }
+      if (mf.classList.contains('numeration')) {
+        clavier.push(CLAVIER_NUMERATION)
+        raccourcis = { ...raccourcisNumeration, ...raccourcis }
       }
       if (mf.classList.contains('alphanumericAvecEspace')) {
         clavier.push('alphabetic')
         mf.mathModeSpace = '\\:' // Permet d'accepter la saisie d'espaces
         mf.defaultMode = 'text' // Permet d'avoir toujours du texte (peu importe ce qui est saisi)
+        mf.onInlineShortcut = (_mf, s) => {
+          if (/^[A-Z]{2}/.test(s)) {
+            const m = s.match(/^([A-Z]{2})/)
+            if (m) {
+              return `\\mathrm{${m[1]}}`
+            }
+          }
+          return ''
+        }
         // mf.smartMode = true // Permet d'avoir du texte quand il reconnait qu'il y en a : Commande dangereuse car à la fin, on obtient du mode text mélangé à du mode math
       }
       if (mf.classList.contains('clavierDeBase')) {
@@ -270,7 +297,6 @@ export async function loadMathLive () {
       }
 
       let style = 'font-size: 20px;'
-      if (mf.classList.contains('tableauMathlive')) continue
       if (mf.classList.contains('inline')) {
         if (mf.classList.contains('nospacebefore')) {
           style += 'margin-left:5px;'
@@ -306,7 +332,7 @@ export async function loadMathLive () {
       } else {
         style += ' min-width: 200px'
       }
-      mf.setAttribute('style', style)
+      if (!mf.classList.contains('tableauMathlive')) mf.setAttribute('style', style)
       if (mf.classList.contains('fillInTheBlanks')) {
         mf.style.border = 'none'
         mf.style.boxShadow = 'none'
@@ -318,8 +344,8 @@ export async function loadMathLive () {
       mf.addEventListener('focus', handleFocusMathField)
       mf.addEventListener('focusout', handleFocusOutMathField)
       /* Mgu obliger de rajouter le click sur le bouton clavier , car si on ferme le clavier, on clique sur le bouton, et rien ne se passe */
-      const buttonClivier = mf.shadowRoot?.querySelector('.ML__virtual-keyboard-toggle')
-      if (buttonClivier) buttonClivier.addEventListener('click', clickButtonMathField)
+      const buttonKeyboard = mf.shadowRoot?.querySelector('.ML__virtual-keyboard-toggle')
+      if (buttonKeyboard) buttonKeyboard.addEventListener('click', clickButtonMathField)
     }
   }
   // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
@@ -353,24 +379,15 @@ export async function loadMathLive () {
 function handleClickOnKeyboardToggle (event) {
   event.preventDefault()
   event.stopPropagation()
-  // const idToggle = document.activeElement.id
-  // keyboardState.update((value) => {
-  //   const mf = document.activeElement
-  //   return {
-  //     isVisible: !value.isVisible,
-  //     idMathField: idToggle,
-  //     alphanumericLayout: value.alphanumericLayout,
-  //     blocks: mf.dataset.keyboard.split(' ')
-  //   }
-  // })
 }
 
 function handleFocusMathField (event) {
   if (get(globalOptions).beta) {
     const mf = event.target
+    getKeyboardShortcusts(mf)
     keyboardState.update((value) => {
       return {
-        isVisible: true, // value.isVisible || window.innerWidth < 800,
+        isVisible: true && !mf.readOnly,
         isInLine: value.isInLine,
         idMathField: event.target.id,
         alphanumericLayout: value.alphanumericLayout,
@@ -384,10 +401,9 @@ function clickButtonMathField (event) {
   if (get(globalOptions).beta) {
     const mf = event.target?.getRootNode()?.host
     if (mf) {
-      // console.log(mf.dataset.keyboard.split(' '))
       keyboardState.update((value) => {
         return {
-          isVisible: true, // value.isVisible || window.innerWidth < 800,
+          isVisible: true && !mf.readOnly,
           isInLine: value.isInLine,
           idMathField: mf.id,
           alphanumericLayout: value.alphanumericLayout,
@@ -402,6 +418,7 @@ function handleFocusOutMathField () {
   // Si le focus est sur un autre élément que mathfield, on cache le clavier
   // On utilise setTimeout pour être sûr que le focus soit bien sur le nouvel élément
   // car au focusout, le focus est sur body
+  if (get(globalOptions).v === 'can') return
   setTimeout(() => {
     if (document.activeElement.tagName !== 'MATH-FIELD') {
       keyboardState.update((value) => {

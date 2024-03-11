@@ -13,16 +13,15 @@ export const titre = 'Tracer un triangle dont on connaît une longueur et 2 angl
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9
  * @author Rémi Angot
- * Références 6G23-2 et 5G20-2
  */
 export const uuid = '1ad45'
 export const ref = '6G23-2'
 export const refs = {
   'fr-fr': ['6G23-2'],
-  'fr-ch': []
+  'fr-ch': ['9ES4-11', '9ES5-5']
 }
 export default function TracerTriangle2Angles () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 3
@@ -50,8 +49,8 @@ export default function TracerTriangle2Angles () {
       texte = `Tracer un triangle $${p}$ tel que $${p[0] + p[1]}=${texNombre(
         c
       )}$ cm, $\\widehat{${p[1] + p[0] + p[2]
-        }}=${angle1}\\degree$ et $\\widehat{${p[0] + p[1] + p[2]
-        }}=${angle2}\\degree$.`
+        }}=${angle1}^\\circ$ et $\\widehat{${p[0] + p[1] + p[2]
+        }}=${angle2}^\\circ$.`
       texte += `<br> Mesurer $${p[0] + p[2]}$ et $${p[1] + p[2]}$.`
       // const A0 = point(0, 0, p[0], 'left')
       const B0 = point(c, 0, p[1], 'right')

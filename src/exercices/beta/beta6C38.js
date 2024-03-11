@@ -7,6 +7,7 @@ import Exercice from '../deprecatedExercice.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { context } from '../../modules/context'
 
 export const titre = 'Augmenter ou diminuer d\'un pourcentage'
 export const interactifReady = true
@@ -18,7 +19,7 @@ export const interactifType = 'mathLive'
  * Référence
  */
 export default function AugmenterEtReduireDunPourcentage () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 2
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

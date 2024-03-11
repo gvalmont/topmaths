@@ -9,7 +9,7 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Résoudre une équation du premier degré (utilisant la distributivité)'
@@ -30,10 +30,10 @@ export const uuid = '1802d'
 export const ref = '3L13-1'
 export const refs = {
   'fr-fr': ['3L13-1'],
-  'fr-ch': []
+  'fr-ch': ['11FA6-5']
 }
 export default function ExerciceEquation1Tiret2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.comment = 'Les équations sont de la forme :<br>$ax+b=cx+d$<br>$k(ax+b)=cx+d$<br>$k-(ax+b)=cx+d$<br>avec des nombres à un chiffre.'
   this.spacing = 2
   this.interactifType = 'mathLive'

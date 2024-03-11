@@ -34,10 +34,10 @@ export const uuid = '18ddd'
 export const ref = '4C23-1'
 export const refs = {
   'fr-fr': ['4C23-1'],
-  'fr-ch': []
+  'fr-ch': ['10NO6-3']
 }
 export default function ExerciceAdditionnerFractionProduit () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 3
   this.sup2 = false
   this.sup3 = true

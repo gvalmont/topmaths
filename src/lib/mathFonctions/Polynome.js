@@ -1,5 +1,5 @@
 import { abs, acos, equal, largerEq, max, polynomialRoot, round } from 'mathjs'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { egal, randint } from '../../modules/outils.js'
 import { choice } from '../outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../outils/ecritures'
@@ -31,6 +31,7 @@ export class Polynome {
         if (typeof el === 'number') {
           return el
         } else if (Array.isArray(el)) {
+          if (el[0] === 0) return 0
           return el[1] ? choice([-1, 1]) * randint(1, Number(el[0])) : randint(1, Number(el[0]))
         } else if (el instanceof FractionEtendue) {
           return el.valeurDecimale

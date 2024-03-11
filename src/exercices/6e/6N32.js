@@ -19,10 +19,10 @@ export const uuid = 'c28e5'
 export const ref = '6N32'
 export const refs = {
   'fr-fr': ['6N32'],
-  'fr-ch': []
+  'fr-ch': ['9NO10-12']
 }
 export default function FractionsDunite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 5
   this.consigne = 'Colorier en bleu un segment de longueur ...'
   context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)

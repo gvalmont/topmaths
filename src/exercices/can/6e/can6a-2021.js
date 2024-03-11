@@ -3,7 +3,7 @@ import { milieu, point } from '../../../lib/2d/points.js'
 import { polygone } from '../../../lib/2d/polygones.js'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
@@ -37,8 +37,12 @@ function compareNombres (a, b) {
 
 export const uuid = '90c8c'
 export const ref = 'can6a-2021'
+export const refs = {
+  'fr-fr': ['can6a-2021'],
+  'fr-ch': []
+}
 export default function SujetCAN2021Sixieme () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType

@@ -16,10 +16,10 @@ export const uuid = '93432'
 export const ref = '2N52-4'
 export const refs = {
   'fr-fr': ['2N52-4'],
-  'fr-ch': []
+  'fr-ch': ['11FA10-3']
 }
 export default function Equationspresqueproduitnulle () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.video = ''
   this.nbCols = 1

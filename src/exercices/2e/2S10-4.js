@@ -7,9 +7,9 @@ import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { numberCompare } from '../../lib/interactif/comparaisonFonctions'
+import { numberCompare } from '../../lib/interactif/comparisonFunctions'
 import { texNombre } from '../../lib/outils/texNombre'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 export const titre = 'Compléter et utiliser un tableau d\'effectif'
@@ -30,7 +30,7 @@ export const uuid = '3f39d'
 //  }
 
 export default function TableauProportion () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = context.isHtml ? 1.5 : 2

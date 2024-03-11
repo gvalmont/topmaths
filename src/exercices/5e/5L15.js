@@ -29,10 +29,10 @@ export const uuid = 'd88d6'
 export const ref = '5L15'
 export const refs = {
   'fr-fr': ['5L15'],
-  'fr-ch': []
+  'fr-ch': ['10FA3-1']
 }
 export default function TesterUneEgalite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 3
   this.nbCols = 1
   this.nbColsCorr = 1

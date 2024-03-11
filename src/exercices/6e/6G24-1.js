@@ -3,8 +3,9 @@ export const titre = 'Construire le symétrique d\'un point par rapport à une d
 export const dateDeModifImportante = '14/11/2021'
 export const amcReady = true
 export const amcType = 'AMCOpen'
+export const interactifReady = false
+
 /**
- * Référence 6G24-1
  * @author Jean-Claude Lhote
  * Relecture : Novembre 2021 par EE
  */
@@ -12,7 +13,7 @@ export const uuid = '91a00'
 export const ref = '6G24-1'
 export const refs = {
   'fr-fr': ['6G24-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-12']
 }
 export default class SymetrieAxialePoint6e extends ConstruireParSymetrie {
   constructor () {

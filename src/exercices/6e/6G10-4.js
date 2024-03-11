@@ -3,7 +3,7 @@ import { droite } from '../../lib/2d/droites.js'
 import { point, pointAdistance, pointIntersectionLC, tracePoint } from '../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
@@ -35,7 +35,7 @@ export const uuid = '03b49'
 export const ref = '6G10-4'
 export const refs = {
   'fr-fr': ['6G10-4'],
-  'fr-ch': []
+  'fr-ch': ['9ES1-9']
 }
 
 function ajouterAlternatives (fonction, reponses) {
@@ -78,7 +78,8 @@ export default function VocabulaireDuCercle () {
   this.spacingCorr = 1.5 // Interligne des réponses
 
   this.nouvelleVersion = function () {
-    this.consigne = this.sup2 ? 'Cocher la (ou les) bonne(s) réponse(s).<br><br>' : 'Compléter.<br><br>'
+    this.consigne = this.sup2 ? 'Cocher la (ou les) bonne(s) réponse(s).' : 'Compléter.'
+    if (context.isHtml) this.consigne += '<br><br>'
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

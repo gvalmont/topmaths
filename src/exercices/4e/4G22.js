@@ -16,18 +16,15 @@ export const titre = 'Résoudre des problèmes utilisant le théorème de Pythag
  * * Est-ce qu'un parallélogramme est un losange ? On peut démontrer que les diagonales sont perpendiculaires ou pas.
  * * Est-ce qu'un parallélogramme est un rectangle ? On peut démontrer qu'il possède un angle droit ou pas .
  * @author Rémi Angot (Factorisation de la rédaction de Pythagore par Eric Elter)
- * 4G22
  */
 export const uuid = 'b18e8'
 export const ref = '4G22'
 export const refs = {
   'fr-fr': ['4G22'],
-  'fr-ch': []
+  'fr-ch': ['10GM4-3', '11GM1-4']
 }
 export default function ProblemesPythagore () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = ''
+  Exercice.call(this)
   this.nbQuestions = 2
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -36,7 +33,6 @@ export default function ProblemesPythagore () {
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles

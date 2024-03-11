@@ -25,10 +25,10 @@ export const uuid = '7f50c'
 export const ref = '5A13'
 export const refs = {
   'fr-fr': ['5A13'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-10']
 }
 export default function ExerciceDecomposerEnFacteursPremiers () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.spacing = 2
   this.nbQuestions = 6
   this.sup = 2 // 4 facteurs par défaut

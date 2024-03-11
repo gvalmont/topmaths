@@ -1,5 +1,5 @@
 import { repere } from '../../../lib/2d/reperes.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { spline } from '../../../lib/mathFonctions/Spline.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -16,6 +16,10 @@ export const titre = 'Lire une image graphiquement'
 */
 export const uuid = '966a6'
 export const ref = 'can3F01'
+export const refs = {
+  'fr-fr': ['can3F01'],
+  'fr-ch': []
+}
 export default function ImageSpline () {
   Exercice.call(this)
   this.typeExercice = 'simple'

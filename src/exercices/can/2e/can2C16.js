@@ -3,7 +3,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/ou
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Calculer avec un programme de calcul*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,9 +17,13 @@ export const dateDePublication = '16/11/2022'
 
 export const uuid = '04048'
 export const ref = 'can2C16'
+export const refs = {
+  'fr-fr': ['can2C16'],
+  'fr-ch': []
+}
 export default function ProgrammeCalcul2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
@@ -110,7 +114,7 @@ export default function ProgrammeCalcul2 () {
         f1 = new FractionEtendue(1, a)
         f2 = new FractionEtendue(1, b)
         this.formatInteractif = 'fractionEgale'
-        reponse = new FractionEtendue((f1).add(f2))
+        reponse = f1.sommeFraction(f2).simplifie()
         this.question = `Choisir deux nombres puis calculer la somme de leur inverse.  <br>
       
      Quel résultat obtient-on si on choisit comme nombres $${a}$ et $${b}$ ?`

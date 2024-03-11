@@ -3,14 +3,14 @@ import { afficheLongueurSegment, afficheMesureAngle, codageSegment } from '../..
 import { milieu, point, pointAdistance } from '../../../lib/2d/points.js'
 import { polygone } from '../../../lib/2d/polygones.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../../lib/2d/textes.js'
+import { labelPoint } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Déterminer un produit scalaire sur des figures géométriques classiques '
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,9 +23,13 @@ export const dateDePublication = '27/06/2022'
 */
 export const uuid = 'a394f'
 export const ref = 'can1G06'
+export const refs = {
+  'fr-fr': ['can1G06'],
+  'fr-ch': []
+}
 export default function ProduitScalaireFiguresClassiques () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -48,7 +52,7 @@ export default function ProduitScalaireFiguresClassiques () {
         poly = polygone(A, B, C, D)
         a1 = afficheLongueurSegment(B, A, 'black', 0.5, '')
         a2 = afficheLongueurSegment(C, B, 'black', 0.5, '')
-        a3 = afficheMesureAngle(B, A, D, 'black', 1.5, `${angle}°`)
+        a3 = afficheMesureAngle(B, A, D, 'black', 1.5, `${angle}^\\circ`)
         objets = []
         xmin = Math.min(A.x, B.x, C.x, D.x) - 1
         ymin = Math.min(A.y, B.y, C.y, D.y) - 1

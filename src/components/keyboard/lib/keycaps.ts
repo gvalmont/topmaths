@@ -51,7 +51,7 @@ const basicKeys = {
     insert: '#@^{#0}'
   },
   POW10: {
-    display: '$10^\\square$',
+    display: '$\\times10^\\square$',
     insert: '$$\\times10^#0$$'
   },
   // ================== functions
@@ -69,7 +69,8 @@ const basicKeys = {
   },
   // ================== symbols
   COMMA: {
-    display: ','
+    display: ',',
+    insert: '{,}'
   },
   POINT: {
     display: '.'
@@ -252,9 +253,19 @@ const basicKeys = {
   X: { display: 'X' },
   Y: { display: 'Y' },
   Z: { display: 'Z' },
+  // ================== maths letters
+  xMath: { display: '$x$', insert: 'x' },
+  yMath: { display: '$y$', insert: 'y' },
+  zMath: { display: '$z$', insert: 'z' },
+  aMath: { display: '$a$', insert: 'a' },
+  bMath: { display: '$b$', insert: 'b' },
+  cMath: { display: '$c$', insert: 'c' },
+  iMath: { display: '$i$', insert: 'i' },
+  kMath: { display: '$k$', insert: 'k' },
+  nMath: { display: '$n$', insert: 'n' },
   // ================== greek letters
   PI: {
-    display: 'π',
+    display: '$\\pi$',
     insert: '\\pi'
   },
   ALPHA: {

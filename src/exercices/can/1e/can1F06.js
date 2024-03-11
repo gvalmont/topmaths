@@ -1,6 +1,6 @@
 import { courbe } from '../../../lib/2d/courbes.js'
 import { repere } from '../../../lib/2d/reperes.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString.js'
@@ -25,8 +25,12 @@ export const dateDePublication = '17/06/2022' // La date de publication initiale
  */
 export const uuid = '26b38'
 export const ref = 'can1F06'
+export const refs = {
+  'fr-fr': ['can1F06'],
+  'fr-ch': []
+}
 export default function LectureGraphiqueParaboleaEtb () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur10 inline'
   this.tailleDiaporama = 1

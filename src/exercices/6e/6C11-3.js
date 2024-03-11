@@ -7,6 +7,7 @@ import Operation from '../../modules/operations.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -39,10 +40,10 @@ export const uuid = 'd0cd7'
 export const ref = '6C11-3'
 export const refs = {
   'fr-fr': ['6C11-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO3-7']
 }
 export default function APartirDeDivisionsEuclidiennes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 3
   this.titre = titre
   this.spacing = 2
@@ -127,7 +128,7 @@ export default function APartirDeDivisionsEuclidiennes () {
         `${a}=(${b}\\times ${q})+${r}`, `${a}=(${q}\\times ${b})+${r}`,
         `(${b}\\times ${q})+${r}=${a}`, `(${q}\\times ${b})+${r}=${a}`])
       }
-      texte += ajouteChampTexteMathLive(this, i)
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecEgal)
       // Pour AMC question AmcOpen
       if (context.isAmc) {
         this.autoCorrection[i].enonce = 'Indiquer une égalité à partir de la  division euclidienne suivante : <br><br>' + texte

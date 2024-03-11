@@ -27,8 +27,12 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '32394'
 export const ref = 'can1P02'
+export const refs = {
+  'fr-fr': ['can1P02'],
+  'fr-ch': []
+}
 export default function LectureProbabilite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = true
   this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
   this.consigne = ''
@@ -111,9 +115,7 @@ export default function LectureProbabilite () {
 
       omega.setTailles() // On calcule les tailles des arbres.
       objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
-      texte = `On donne l'arbre de probabilités :<br>
-      
-      `
+      texte = 'On donne l\'arbre de probabilités :<br><br>'
       texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
       texte += '<br>Compléter avec la notation qui convient : '
       if (this.interactif) {

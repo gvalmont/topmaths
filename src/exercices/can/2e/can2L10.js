@@ -3,7 +3,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../
 import { arrondi } from '../../../lib/outils/nombres'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Simplifier un quotient'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,9 +17,13 @@ export const dateDePublication = '04/01/2023'
 
 export const uuid = '0bb5f'
 export const ref = 'can2L10'
+export const refs = {
+  'fr-fr': ['can2L10'],
+  'fr-ch': []
+}
 export default function SimplifierQuotient () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

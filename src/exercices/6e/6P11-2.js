@@ -26,10 +26,10 @@ export const uuid = '65288'
 export const ref = '6P11-2'
 export const refs = {
   'fr-fr': ['6P11-2'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-11']
 }
 export default function ProportionnaliteParLineariteTableau () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 5
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX

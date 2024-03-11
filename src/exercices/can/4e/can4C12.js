@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Calculer la moitié d’une fraction'
 export const interactifReady = true
@@ -15,6 +15,10 @@ export const dateDePublication = '13/09/2022'
 
 export const uuid = '68ea0'
 export const ref = 'can4C12'
+export const refs = {
+  'fr-fr': ['can4C12'],
+  'fr-ch': []
+}
 export default function CalculMoitieFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

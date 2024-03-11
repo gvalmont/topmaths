@@ -3,7 +3,7 @@ import { afficheLongueurSegment, afficheMesureAngle, texteSurSegment } from '../
 import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { longueur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { similitude } from '../../lib/2d/transformations.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { degres, radians } from '../../lib/mathFonctions/trigo.js'
@@ -26,7 +26,6 @@ export const titre = 'Calculer toutes les mesures d\'angle d\'une figure complex
 /**
  * Deux triangles rectangles accolés, on connaît deux longueurs et un angle, il faut déterminer tous les autres angles
  * @author Rémi Angot
- * 3G31-1
  * Février 2021
  */
 export const uuid = '35e0b'
@@ -36,7 +35,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function CalculDAngleFigureComplexe () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Calculer la mesure de tous les angles de cette figure.'
   this.nbQuestions = 2
@@ -80,7 +79,7 @@ export default function CalculDAngleFigureComplexe () {
       const BAC = Math.round(angle(B, A, C))
       let AC = BA / Math.cos(radians(BAC))
       let ACD = Math.round(degres(Math.atan(AD / AC)))
-      let a1 = afficheMesureAngle(B, A, C, 'black', 1, BAC + (context.isHtml ? '°' : '\\degree'))
+      let a1 = afficheMesureAngle(B, A, C, 'black', 1, BAC + '^\\circ')
       const a2 = afficheLongueurSegment(A, B)
       const a3 = afficheLongueurSegment(D, A)
       const a4 = afficheLongueurSegment(A, C)
@@ -102,7 +101,7 @@ export default function CalculDAngleFigureComplexe () {
             ymax: Math.max(C.y, D.y) + 1
           }, objetsMathalea)
           if (!this.sup) {
-            texte += `<br>On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${B.nom + A.nom + C.nom}}=${BAC}\\degree$.`
+            texte += `<br>On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${B.nom + A.nom + C.nom}}=${BAC}^\\circ$.`
           }
           texte += this.interactif ? '<br><br>Les valeurs d\'angle seront arrondis au degré près.' : ''
           texteCorr = ''
@@ -117,7 +116,7 @@ export default function CalculDAngleFigureComplexe () {
             }, t1c, t2, c1, c2, a1, a2, labels, texte1, texte2)
           }
           texteCorr += `<br>$${C.nom + B.nom + A.nom}$ est rectangle en $${B.nom}$ donc $\\cos\\left(\\widehat{${B.nom + A.nom + C.nom}}\\right)=\\dfrac{${B.nom + A.nom}}{${A.nom + C.nom}}\\quad$ `
-          texteCorr += `soit $\\quad\\cos(${BAC}\\degree)=\\dfrac{${texNombre(BA, 1)}}{${A.nom + C.nom}}\\quad$ et $\\quad ${A.nom + C.nom}=\\dfrac{${texNombre(BA, 1)}}{\\cos(${BAC}\\degree)}\\approx${texNombre(AC, 1)}$ cm.`
+          texteCorr += `soit $\\quad\\cos(${BAC}^\\circ)=\\dfrac{${texNombre(BA, 1)}}{${A.nom + C.nom}}\\quad$ et $\\quad ${A.nom + C.nom}=\\dfrac{${texNombre(BA, 1)}}{\\cos(${BAC}^\\circ)}\\approx${texNombre(AC, 1)}$ cm.`
           if (this.correctionDetaillee) {
             const texte3 = texteSurSegment('adjacent', C, A)
             const texte4 = texteSurSegment('opposé', A, D, 'black')
@@ -129,31 +128,31 @@ export default function CalculDAngleFigureComplexe () {
             }, t1, t2c, c1, c2, a3, a4, a5, labels, texte3, texte4)
           }
           texteCorr += `<br>$${C.nom + A.nom + D.nom}$ est rectangle en $${A.nom}$ donc $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)=\\dfrac{${A.nom + D.nom}}{${A.nom + C.nom}}\\quad$ `
-          texteCorr += `soit $\\quad\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\quad$ et $\\quad\\widehat{${A.nom + C.nom + D.nom}}\\approx\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${ACD}\\degree$.`
-          texteCorr += `<br>La somme des angles d'un triangle est égale à $180\\degree$ donc $\\widehat{${B.nom + C.nom + A.nom}}=180\\degree-90\\degree-${BAC}\\degree=${90 - BAC}\\degree$.`
-          texteCorr += `<br>De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180\\degree-90\\degree-${ACD}\\degree$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${90 - ACD}\\degree$.`
+          texteCorr += `soit $\\quad\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\quad$ et $\\quad\\widehat{${A.nom + C.nom + D.nom}}\\approx\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${ACD}^\\circ$.`
+          texteCorr += `<br>La somme des angles d'un triangle est égale à $180^\\circ$ donc $\\widehat{${B.nom + C.nom + A.nom}}=180^\\circ-90^\\circ-${BAC}^\\circ=${90 - BAC}^\\circ$.`
+          texteCorr += `<br>De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180^\\circ-90^\\circ-${ACD}^\\circ$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${90 - ACD}^\\circ$.`
           if (this.interactif) {
             setReponse(this, 3 * i, ACD)
             setReponse(this, 3 * i + 1, 90 - BAC)
             setReponse(this, 3 * i + 2, 90 - ACD)
             texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur25 nospacebefore', {
               texte: `$\\widehat{${A.nom + C.nom + D.nom}}=$`,
-              texteApres: '$\\degree$'
+              texteApres: '$^\\circ$'
             })
             texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur25 nospacebefore', {
               texte: `$\\widehat{${B.nom + C.nom + A.nom}}=$`,
-              texteApres: '$\\degree$'
+              texteApres: '$^\\circ$'
             })
             texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur25 nospacebefore', {
               texte: `$\\widehat{${C.nom + D.nom + A.nom}}=$`,
-              texteApres: '$\\degree$'
+              texteApres: '$^\\circ$'
             })
           }
           break
         case 'BA-AD-ACB':
           AC = BA / Math.sin(radians(ACB))
           ACD = Math.round(degres(Math.atan(AD / AC)))
-          a1 = afficheMesureAngle(A, C, B, 'black', 1, ACB + (context.isHtml ? '°' : '\\degree'))
+          a1 = afficheMesureAngle(A, C, B, 'black', 1, ACB + '\\circ')
           if (this.sup) {
             objetsMathalea.push(a1, a2, a3)
           }
@@ -164,7 +163,7 @@ export default function CalculDAngleFigureComplexe () {
             ymax: Math.max(C.y, D.y) + 1
           }, objetsMathalea)
           if (!this.sup) {
-            texte += `<br>On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${A.nom + C.nom + B.nom}}=${ACB}\\degree$.`
+            texte += `<br>On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${A.nom + C.nom + B.nom}}=${ACB}^\\circ$.`
           }
           texte += this.interactif ? '<br><br>Les valeurs d\'angle seront arrondis au degré près.' : ''
           texteCorr = ''
@@ -180,7 +179,7 @@ export default function CalculDAngleFigureComplexe () {
             texteCorr += '<br>'
           }
           texteCorr += `$${C.nom + B.nom + A.nom}$ est rectangle en $${B.nom}$ donc $\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=\\dfrac{${B.nom + A.nom}}{${A.nom + C.nom}}\\quad$ `
-          texteCorr += `soit $\\quad\\sin(${ACB}\\degree)=\\dfrac{${texNombre(BA, 1)}}{${A.nom + C.nom}}\\quad$ et $\\quad ${A.nom + C.nom}=\\dfrac{${texNombre(BA, 1)}}{\\sin(${ACB}\\degree)}\\approx${texNombre(AC, 1)}$ cm.`
+          texteCorr += `soit $\\quad\\sin(${ACB}^\\circ)=\\dfrac{${texNombre(BA, 1)}}{${A.nom + C.nom}}\\quad$ et $\\quad ${A.nom + C.nom}=\\dfrac{${texNombre(BA, 1)}}{\\sin(${ACB}^\\circ)}\\approx${texNombre(AC, 1)}$ cm.`
           if (this.correctionDetaillee) {
             const texte3 = texteSurSegment('adjacent', C, A)
             const texte4 = texteSurSegment('opposé', A, D, 'black')
@@ -192,24 +191,24 @@ export default function CalculDAngleFigureComplexe () {
             }, t1, t2c, c1, c2, a3, a4, a5, labels, texte3, texte4)
           }
           texteCorr += `<br><br>$${C.nom + A.nom + D.nom}$ est rectangle en $${A.nom}$ donc $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)=\\dfrac{${A.nom + D.nom}}{${A.nom + C.nom}}\\quad$ `
-          texteCorr += `soit $\\quad\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\quad$ et $\\quad\\widehat{${A.nom + C.nom + D.nom}}\\approx\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${ACD}\\degree$.`
-          texteCorr += `<br><br>La somme des angles d'un triangle est égale à $180\\degree$ donc $\\widehat{${B.nom + A.nom + C.nom}}=180\\degree-90\\degree-${ACB}\\degree=${90 - ACB}\\degree$.`
-          texteCorr += `<br>De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180\\degree-90\\degree-${ACD}\\degree$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${90 - ACD}\\degree$.`
+          texteCorr += `soit $\\quad\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\quad$ et $\\quad\\widehat{${A.nom + C.nom + D.nom}}\\approx\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${ACD}^\\circ$.`
+          texteCorr += `<br><br>La somme des angles d'un triangle est égale à $180^\\circ$ donc $\\widehat{${B.nom + A.nom + C.nom}}=180^\\circ-90^\\circ-${ACB}^\\circ=${90 - ACB}^\\circ$.`
+          texteCorr += `<br>De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180^\\circ-90^\\circ-${ACD}^\\circ$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${90 - ACD}^\\circ$.`
           if (this.interactif) {
             setReponse(this, 3 * i, ACD)
             setReponse(this, 3 * i + 1, 90 - ACB)
             setReponse(this, 3 * i + 2, 90 - ACD)
             texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur25 nospacebefore', {
               texte: `$\\widehat{${A.nom + C.nom + D.nom}}=$`,
-              texteApres: '$\\degree$'
+              texteApres: '$^\\circ$'
             })
             texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur25 nospacebefore', {
               texte: `$\\widehat{${B.nom + C.nom + A.nom}}=$`,
-              texteApres: '$\\degree$'
+              texteApres: '$^\\circ$'
             })
             texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur25 nospacebefore', {
               texte: `$\\widehat{${C.nom + D.nom + A.nom}}=$`,
-              texteApres: '$\\degree$'
+              texteApres: '$^\\circ$'
             })
           }
           break

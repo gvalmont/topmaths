@@ -2,8 +2,13 @@ import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import Exercice from '../deprecatedExercice.js'
 import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'
+
 export const titre = 'Encodeur de texte'
 export const ref = 'P020'
+export const refs = {
+  'fr-fr': ['P020'],
+  'fr-ch': []
+}
 export const uuid = 'de353'
 export default function EncodeurTexte (type = 'générateur') {
   Exercice.call(this)
@@ -19,12 +24,13 @@ export default function EncodeurTexte (type = 'générateur') {
   const tableauDesCaracteres = Array.from('-xçwjè,k~:aq«rlgdmftbéocsà.êeipzhu\'ynvî»â!')
   tableauDesCaracteres[2] = 'ç'
   const enteteColonnes = ['×', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+  const lightgrey = 'lightgray'
   for (let i = 0; i < enteteColonnes.length; i++) {
-    enteteColonnes[i] = `\\colorbox{lightgrey}{${enteteColonnes[i]}}`
+    enteteColonnes[i] = `\\colorbox{${lightgrey}}{${enteteColonnes[i]}}`
   }
   const enteteLignes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
   for (let i = 0; i < enteteLignes.length; i++) {
-    enteteLignes[i] = `\\colorbox{lightgrey}{${enteteLignes[i]}}`
+    enteteLignes[i] = `\\colorbox{${lightgrey}}{${enteteLignes[i]}}`
   }
   function produitPourCaractere (car, map) {
     const liste = map.entries()

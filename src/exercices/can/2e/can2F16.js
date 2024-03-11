@@ -1,5 +1,5 @@
 import { repere } from '../../../lib/2d/reperes.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { spline } from '../../../lib/mathFonctions/Spline.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -18,6 +18,10 @@ export const titre = 'Résoudre une équation graphiquement'
 */
 export const uuid = '9d293'
 export const ref = 'can2F16'
+export const refs = {
+  'fr-fr': ['can2F16'],
+  'fr-ch': []
+}
 export default function EquationsGSpline () {
   Exercice.call(this)
   this.typeExercice = 'simple'

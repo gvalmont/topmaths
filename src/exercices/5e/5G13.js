@@ -4,7 +4,7 @@ import { distancePointDroite, droite, droiteAvecNomLatex, droiteParPointEtParall
 import { point, pointAdistance, tracePoint } from '../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
 import { longueur, segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPoint } from '../../lib/2d/textes.js'
+import { labelPoint, texteParPoint } from '../../lib/2d/textes.ts'
 import { rotation, symetrieAxiale, translation, translation2Points } from '../../lib/2d/transformations.js'
 import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -29,11 +29,10 @@ export const uuid = '07d1a'
 export const ref = '5G13'
 export const refs = {
   'fr-fr': ['5G13'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-24']
 }
 export default function ConservationTransformation () {
   Exercice.call(this)
-  this.consigne = ''
   this.nbQuestions = 2
 
   this.besoinFormulaireNumerique = ['Transformations', 4, '1 : Symétrie axiale\n2 : Symétrie centrale\n3 : Symétrie axiale ou centrale\n4 : Translation'] // Je n'ajoute pas de nouvelle option de mélange, ce serait bien d'ajouter la rotation avant.
@@ -121,7 +120,7 @@ export default function ConservationTransformation () {
           } while (distancePointDroite(O, d1) < 1 || longueur(O, B) < 1 || Math.abs(Math.round(angle(B, A, imageC)) - 90) > 85)
           objetsEnonceEtCorr.push(tracePoint(O), labelPoint(O))
           if (listeTypeDeQuestions[i] === 'parallelisme') {
-            objetsCorrectionOnly.push(droite(rotation(point(d1.x1, d1.y1), O, 180), rotation(point(d1.x2, d1.y2), O, 180), '#f15929'))
+            objetsCorrectionOnly.push(droite(rotation(point(d1.x1, d1.y1), O, 180), rotation(point(d1.x2, d1.y2), O, 180), '', '#f15929'))
           }
           figureRetournee = true
           break
@@ -135,7 +134,7 @@ export default function ConservationTransformation () {
           imageC = translation2Points(C, D, E, `${C.nom}'`)
           objetsEnonceEtCorr.push(vecteur(D, E).representant(D), tracePoint(D, E), labelPoint(D, E))
           if (listeTypeDeQuestions[i] === 'parallelisme') {
-            objetsCorrectionOnly.push(droite(translation2Points(point(d1.x1, d1.y1), D, E), translation2Points(point(d1.x2, d1.y2), D, E), '#f15929'))
+            objetsCorrectionOnly.push(droite(translation2Points(point(d1.x1, d1.y1), D, E), translation2Points(point(d1.x2, d1.y2), D, E), '', '#f15929'))
           }
           break
       }
@@ -153,7 +152,7 @@ export default function ConservationTransformation () {
         case 'longueurEtAngle':
           objetsEnonceEtCorr.push(segment(A, C), segment(B, C))
           objetsEnonceEtCorr.push(afficheLongueurSegment(C, B))
-          objetsEnonceEtCorr.push(afficheMesureAngle(A, B, C, 'black', 1, Math.round(angle(A, B, C)) + '°'))
+          objetsEnonceEtCorr.push(afficheMesureAngle(A, B, C, 'black', 1, Math.round(angle(A, B, C)) + '^\\circ'))
           texte = `Les points $${A.nom}'$ et $${B.nom}'$ sont les images respectives de $${A.nom}$ et $${B.nom}$ ${enonceTransformation}.<br>`
           texte += `L'angle $\\widehat{${A.nom + B.nom + C.nom}}$ mesure $${texNombre(Math.round(angle(A, B, C)))}$ °.<br>`
           figure = `du triangle $${A.nom + B.nom + C.nom}$`
@@ -181,7 +180,7 @@ export default function ConservationTransformation () {
       }
       if (listeTypeDeQuestions[i] === 'longueurEtAngle') {
         objetsCorrectionOnly.push(segment(imageA, imageC, '#f15929'), segment(imageB, imageC, '#f15929'))
-        objetsCorrectionOnly.push(afficheMesureAngle(imageA, imageB, imageC, '#f15929', 1, Math.round(angle(A, B, C)) + '°', { colorArc: '#f15929' }))
+        objetsCorrectionOnly.push(afficheMesureAngle(imageA, imageB, imageC, '#f15929', 1, Math.round(angle(A, B, C)) + '^\\circ', { colorArc: '#f15929' }))
         if (figureRetournee) {
           objetsCorrectionOnly.push(afficheLongueurSegment(imageC, imageB, '#f15929'))
         } else {

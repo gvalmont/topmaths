@@ -25,10 +25,10 @@ export const uuid = '17bce'
 export const ref = '6S10'
 export const refs = {
   'fr-fr': ['6S10'],
-  'fr-ch': []
+  'fr-ch': ['9FA1-1']
 }
 export default function LectureDiagrammeBarre () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = "Répondre aux questions à l'aide du graphique."
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false

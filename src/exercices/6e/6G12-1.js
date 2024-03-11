@@ -4,7 +4,7 @@ import { droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire } fr
 import { point, pointIntersectionDD, pointSurDroite, tracePoint } from '../../lib/2d/points.js'
 import { grille, seyes } from '../../lib/2d/reperes.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { rotation } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
@@ -22,7 +22,6 @@ export const titre = 'Tracer des parallèles et des perpendiculaires'
 
 /**
  * Fonction générale pour exercices de constructions de parallèles et perpendiculaires
- * références 6G11, 6G12 et 6G12-1
  * Animation de la correction ajoutée le 16/04/2021
  * @author Jean-Claude Lhote  (AMC par Eric Elter en septembre 2021, ES6 par Loïc Geeraerts)
  */
@@ -31,13 +30,12 @@ export const uuid = 'd14bc'
 export const ref = '6G12-1'
 export const refs = {
   'fr-fr': ['6G12-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES3-4']
 }
 export default class ParalleleEtPerpendiculaires extends Exercice {
 //
   constructor () {
     super()
-    this.titre = titre
     this.nbQuestions = 1
     this.nbCols = 1
     this.nbColsCorr = 1
@@ -211,7 +209,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           numAlpha(4) +
           ' Mesurer ensuite les distances $AM$ et $AN$. Pour l\'auto-correction comparer ces mesures avec celles données dans la correction<br>'
 
-            correction = `<br>$AM \\approx ${texNombre(
+            correction = `$AM \\approx ${texNombre(
           lC
         )}$ cm et $AN \\approx ${texNombre(lD)}$ cm.<br>`
             correction += 'Pour la perpendiculaire en $B$, contrôle la position du point $E$.<br>'
@@ -263,8 +261,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           if (this.sup2) {
             enonce += numAlpha(4) + ' Mesurer les distances $AM$, $AN$ et $AO$. Pour l\'auto-correction, comparer ces mesures avec celles données par  l\'ordinateur dans la correction.<br>'
 
-            correction = `<br>$AM \\approx ${texNombre(
-          lC
+            correction = `$AM \\approx ${texNombre(lC
         )}$ cm, $AN \\approx ${texNombre(
           lD
         )}$ cm et $AO \\approx${texNombre(
@@ -357,7 +354,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           if (this.sup2) {
             enonce += numAlpha(5) + ' Mesurer les distances $AM$, $AN$ et $AO$. Pour l\'auto-correction, comparer ces mesures avec celles données par  l\'ordinateur dans la correction.<br>'
 
-            correction += `<br>$AM \\approx ${texNombre(
+            correction += `$AM \\approx ${texNombre(
           lC
         )}$ cm, $AN \\approx ${texNombre(
           lD

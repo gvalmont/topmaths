@@ -25,10 +25,10 @@ export const uuid = '374b6'
 export const ref = '4C23'
 export const refs = {
   'fr-fr': ['4C23'],
-  'fr-ch': []
+  'fr-ch': ['10NO5-4']
 }
 export default function SommeOuProduitFractions () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.spacing = context.isHtml ? 4 : 3

@@ -2,7 +2,7 @@ import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { grille } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { texteParPosition } from '../../lib/2d/textes.ts'
 import { degCos, degSin } from '../../lib/mathFonctions/trigo.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
@@ -27,7 +27,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ColorierDeplacement () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.typeExercice = 'Scratch'
   this.sup = 1 // nombre de commandes = this.sup + 2
   this.sup2 = false // 1 : sans boucle ; true : avec boucle

@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
+import { factorisationCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
@@ -18,10 +18,10 @@ export const uuid = '874e8'
 export const ref = '2N41-7b'
 export const refs = {
   'fr-fr': ['2N41-7b'],
-  'fr-ch': []
+  'fr-ch': ['11FA3-6']
 }
 export default function FactoriserIdentitesremarquables2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Factoriser les expressions suivantes.'
   this.nbCols = 1

@@ -2,7 +2,7 @@ import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { milieu, point } from '../../../lib/2d/points.js'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
@@ -38,8 +38,12 @@ function compareNombres (a, b) {
 
 export const uuid = 'b9634'
 export const ref = 'can6a-2022'
+export const refs = {
+  'fr-fr': ['can6a-2022'],
+  'fr-ch': []
+}
 export default function SujetCAN2022Sixieme () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 30
   this.nbCols = 1
   this.nbColsCorr = 1

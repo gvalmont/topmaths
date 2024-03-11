@@ -1,5 +1,5 @@
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
@@ -16,6 +16,10 @@ export const dateDePublication = '29/08/2022'
  */
 export const uuid = 'fb7ac'
 export const ref = 'can6N16'
+export const refs = {
+  'fr-fr': ['can6N16'],
+  'fr-ch': []
+}
 export default function AbscisseDroiteEntiers () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -15,10 +15,10 @@ export const uuid = 'd1a2c'
 export const ref = '5L14-6'
 export const refs = {
   'fr-fr': ['5L14-6'],
-  'fr-ch': []
+  'fr-ch': ['11FA5-1']
 }
 export default function DeterminerDerniereOperationExpNum () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.debug = false
   this.consigne = ''
   this.nbQuestions = 4

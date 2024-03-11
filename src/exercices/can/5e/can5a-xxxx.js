@@ -8,7 +8,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import Grandeur from '../../../modules/Grandeur'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
@@ -25,8 +25,12 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '9e40d'
 export const ref = 'can5a-xxxx'
+export const refs = {
+  'fr-fr': ['can5a-xxxx'],
+  'fr-ch': []
+}
 export default function CourseAuxNombres5e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 30
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
@@ -229,7 +233,7 @@ export default function CourseAuxNombres5e () {
           a = calculANePlusJamaisUtiliser(b * 100 + c * 10 + d)
           resultat = a % 3
           texte = `Quel est le reste de la division de $${a}$ par $3$ ?`
-          texteCorr = `Le reste de la division de $${a}$ par $3$ est ${a % 3}`
+          texteCorr = `Le reste de la division de $${a}$ par $3$ est ${a % 3}.`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q15':
@@ -315,7 +319,7 @@ export default function CourseAuxNombres5e () {
           b = calculANePlusJamaisUtiliser(resultat * a)
 
           texte = `$\\dfrac{${c}}{${a}} \\text{ de } ${b} \\text{ L} = \\dots \\text{ L}$`
-          texteCorr = `$\\dfrac{${c}}{${a}}$ de $${b}$ L = ${c}\\times \\dfrac{${b}}{${a}}=${c}\\times ${resultat}=${resultat * c} L`
+          texteCorr = `$\\dfrac{${c}}{${a}}$ de $${b}$ L = $${c}\\times \\dfrac{${b}}{${a}}=${c}\\times ${resultat}=${resultat * c}$ L`
           setReponse(this, i, resultat * c, { formatInteractif: 'calcul' })
           break
         case 'q24':
@@ -334,7 +338,7 @@ export default function CourseAuxNombres5e () {
           propositions = shuffle([`$${b}$ m`, `$${b}$ dm`, `$${b}$ cm`])
           texte = `Choisis parmi les propositions suivantes la hauteur d'une ${hauteurs[a][0]}<br>`
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
-          texteCorr = `La hauteur d'une ${hauteurs[a][0]} est ${b} ${hauteurs[a][3]}`
+          texteCorr = `La hauteur d'une ${hauteurs[a][0]} est ${b} ${hauteurs[a][3]}.`
           setReponse(this, i, new Grandeur(b, hauteurs[a][3]), { formatInteractif: 'unites' })
           break
         case 'q26':
@@ -358,10 +362,10 @@ export default function CourseAuxNombres5e () {
           b = randint(0, 1)
           texte = `Est-il vrai qu'un carré de côté ${a} cm a le même périmètre qu'un rectangle de largeur ${a - b} cm et de longueur ${a + 1} cm ? (V ou F)`
           if (b === 0) {
-            texteCorr = `Faux car $4\\times ${a} cm\\neq 2\\times ${a} cm + 2\\times ${a + 1} cm.`
+            texteCorr = `Faux car $4\\times ${a}$ cm $ \\neq 2\\times ${a}$ cm $ + 2\\times ${a + 1}$ cm.`
             setReponse(this, i, 'F')
           } else {
-            texteCorr = `Vrai car $4\\times ${a} cm = 2\\times ${a - 1} cm + 2\\times ${a + 1} cm= ${4 * a} cm.`
+            texteCorr = `Vrai car $4\\times ${a}$ cm $ = 2\\times ${a - 1}$ cm $ + 2\\times ${a + 1}$ cm $ = ${4 * a}$ cm.`
             setReponse(this, i, 'V')
           }
           break
@@ -393,7 +397,7 @@ export default function CourseAuxNombres5e () {
             step1: 1,
             step2: 1
           }))
-          texteCorr = `L'abscisse du point A est \\dfrac{${b}}{${a}}`
+          texteCorr = `L'abscisse du point A est $\\dfrac{${b}}{${a}}$.`
           if (a === 3) {
             setReponse(this, i, [c.texFraction, `${Math.floor(a / b)}+\\dfrac{${a % b}}{${b}}`], { formatInteractif: 'calcul' })
           } else {

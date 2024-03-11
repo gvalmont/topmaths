@@ -9,7 +9,7 @@ import {
 import { milieu, point, pointSurDroite, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
@@ -33,16 +33,15 @@ export const dateDeModifImportante = '06/02/2024'
 /**
  * Trouver les coordonnées d'un punto transformé d'un autre par une des transformations du plan
  * @author Jean-Claude Lhote (Modif des paramètres, nbQuestions modifiables par Eric Elter)
- * 3G10-1
  */
 export const uuid = 'd4088'
 export const ref = '3G10-1'
 export const refs = {
   'fr-fr': ['3G10-1'],
-  'fr-ch': []
+  'fr-ch': ['11ES3-1']
 }
 export default function TransformationsDuPlanEtCoordonnees () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -64,15 +63,15 @@ export default function TransformationsDuPlanEtCoordonnees () {
     const punto = [[]]
     const couleurs = ['brown', 'green', 'blue']
     const listeTypeDeQuestions = [[1, 2, 3, 4], [7], [8], [5, 6], [9], [10]]
-    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
-      saisie: this.sup,
-      min: 1,
-      max: 6,
-      melange: 7,
-      defaut: 7,
-      nbQuestions: this.nbQuestions * 3
-    }).map((nb) => nb - 1)
     for (let ee = 0, texte, texteCorr, xA, yA, xB, yB, xC, yC, objetsEnonce, objetsCorrection, cpt = 0; ee < this.nbQuestions && cpt < 50;) {
+      const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+        saisie: this.sup,
+        min: 1,
+        max: 6,
+        melange: 7,
+        defaut: 7,
+        nbQuestions: 3
+      }).map((nb) => nb - 1)
       let enonceAmc = ''
       texte = ''
       texteCorr = ''
@@ -101,12 +100,14 @@ export default function TransformationsDuPlanEtCoordonnees () {
         yA = randint(-7, 7, -1)
         if (xA === xO && yA === yO) xA = randint(-7, 7, [0, xO])
         punto[0] = imagePointParTransformation(choixTransformation[0], [xA, yA], [xO, yO], [xO, yO], k[0])
+        punto[0] = punto[0].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
         compteur = 0
         while ((punto[0][0] < -9 || punto[0][0] > 9 || punto[0][1] < -9 || punto[0][1] > 9) && compteur < 20) { // on teste si A est dans la fenêtre sinon on en choisit un autre
           xA = randint(-7, 7, [0]) // Point A
           yA = randint(-7, 7, -1)
           if (xA === xO && yA === yO) xA = randint(-7, 7, [0, xO])
           punto[0] = imagePointParTransformation(choixTransformation[0], [xA, yA], [xO, yO], [xO, yO], k[0])
+          punto[0] = punto[0].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
           compteur++
         }
         /*
@@ -125,8 +126,10 @@ export default function TransformationsDuPlanEtCoordonnees () {
         if (xB === xO && yB === yO) xB = randint(-7, 7, [0, xO, xA])
         if (choixTransformation[1] > 4) {
           punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xA, yA], [xA, yA], k[1])
+          punto[1] = punto[1].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
         } else {
           punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xO, yO])
+          punto[1] = punto[1].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
         } // si c'est une symétrie, l'axe passe par O'
         compteur = 0
         while ((punto[1][0] < -9 || punto[1][0] > 9 || punto[1][1] < -9 || punto[1][1] > 9) && compteur < 20) { // on teste si on est dans les clous, sinon on choisit un autre punto B
@@ -135,8 +138,10 @@ export default function TransformationsDuPlanEtCoordonnees () {
           if (xB === xO && yB === yO) xB = randint(-7, 7, [0, xO, xA])
           if (choixTransformation[1] > 4) {
             punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xA, yA], [xA, yA], k[1])
+            punto[1] = punto[1].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
           } else {
             punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xO, yO])
+            punto[1] = punto[1].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
           } // si c'est une symétrie, l'axe passe par O'
           compteur++
         }
@@ -155,8 +160,10 @@ export default function TransformationsDuPlanEtCoordonnees () {
         if (xC === xO && yC === yO) xC = randint(-7, 7, [0, xO, xA, xB])
         if (choixTransformation[2] > 4) {
           punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xB, yB], [xB, yB], k[2])
+          punto[2] = punto[2].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
         } else {
           punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xO, yO])
+          punto[2] = punto[2].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
         } // si c'est une symétrie, l'axe passe par O'
         compteur = 0
         while ((punto[2][0] < -9 || punto[2][0] > 9 || punto[2][1] < -9 || punto[2][1] > 9) && compteur < 20) { // on vérifie que C est dans le repère sinon on change le punto C.
@@ -165,8 +172,10 @@ export default function TransformationsDuPlanEtCoordonnees () {
           if (xC === xO && yC === yO) xC = randint(-7, 7, [0, xO, xA, xB])
           if (choixTransformation[2] > 4) {
             punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xB, yB], [xB, yB], k[2])
+            punto[2] = punto[2].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
           } else {
             punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xO, yO])
+            punto[2] = punto[2].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
           } // si c'est une symétrie, l'axe passe par O'
           compteur++
         }
@@ -336,20 +345,20 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (i === 0) {
               objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
               objetsCorrection.push(tracePoint(A, O), labelPoint(A, O), tracePoint(Aprime, '#f15929'), labelPoint(Aprime, '#f15929'), codageAngleDroit(A, O, Aprime, couleurs[i]),
-                segment(O, A, couleurs[i]), segment(O, Aprime, couleurs[i]), afficheMesureAngle(A, O, Aprime), codageSegments('//', couleurs[i], O, A, O, Aprime)
+                segment(O, A, couleurs[i]), segment(O, Aprime, couleurs[i]), codageSegments('//', couleurs[i], O, A, O, Aprime)
               )
               xP[5] = xA
               yP[5] = yA
             } else if (i === 1) {
               objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
-              objetsCorrection.push(tracePoint(B, A), labelPoint(B, A), tracePoint(Bprime, '#f15929'), labelPoint(Bprime, '#f15929'), codageAngleDroit(B, O, Bprime, couleurs[i]),
-                segment(A, B, couleurs[i]), segment(A, Bprime, couleurs[i]), afficheMesureAngle(B, A, Bprime), codageSegments('O', couleurs[i], A, B, A, Bprime))
+              objetsCorrection.push(tracePoint(B, A), labelPoint(B, A), tracePoint(Bprime, '#f15929'), labelPoint(Bprime, '#f15929'), codageAngleDroit(B, A, Bprime, couleurs[i]),
+                segment(A, B, couleurs[i]), segment(A, Bprime, couleurs[i]), codageSegments('O', couleurs[i], A, B, A, Bprime))
               xP[5] = xB
               yP[5] = yB
             } else {
               objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
               objetsCorrection.push(tracePoint(C, B), labelPoint(C, B), tracePoint(Cprime, '#f15929'), labelPoint(Cprime, '#f15929'), codageAngleDroit(C, O, Cprime, couleurs[i]),
-                segment(B, C, couleurs[i]), segment(B, Cprime, couleurs[i]), afficheMesureAngle(C, B, Cprime), codageSegments('|||', couleurs[i], B, C, B, Cprime))
+                segment(B, C, couleurs[i]), segment(B, Cprime, couleurs[i]), codageSegments('|||', couleurs[i], B, C, B, Cprime))
               xP[5] = xC
               yP[5] = yC
             }
@@ -372,7 +381,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             } else if (i === 1) {
               objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
               objetsCorrection.push(tracePoint(B, A), labelPoint(B, A), tracePoint(Bprime, '#f15929'), labelPoint(Bprime, '#f15929'), codageAngleDroit(B, A, Bprime, couleurs[i]),
-                segment(A, B, couleurs[i]), segment(A, Bprime, couleurs[i]), afficheMesureAngle(B, A, Bprime), codageSegments('O', couleurs[i], A, B, A, Bprime))
+                segment(A, B, couleurs[i]), segment(A, Bprime, couleurs[i]), codageSegments('O', couleurs[i], A, B, A, Bprime))
               xP[6] = xB
               yP[6] = yB
             } else {
@@ -641,7 +650,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             xmax: 10,
             ymax: 10,
             pixelsParCm: 20,
-            scale: 0.5,
+            scale: 0.45,
             mainlevee: false
           }, objetsEnonce) + '\\\\' + '\\end{center}' + enonceAmc,
           enonceAvant: false,
@@ -766,7 +775,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
           xmax: 10,
           ymax: 10,
           pixelsParCm: 20,
-          scale: 0.4,
+          scale: 0.45,
           mainlevee: false
         }, objetsEnonce))
         this.listeCorrections.push(texteCorr + '<br>' + mathalea2d({
@@ -775,7 +784,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
           xmax: 10,
           ymax: 10,
           pixelsParCm: 20,
-          scale: 0.4,
+          scale: 0.45,
           mainlevee: false
         }, objetsCorrection))
         ee++

@@ -52,10 +52,10 @@ export const uuid = '62f66'
 export const ref = '4C11'
 export const refs = {
   'fr-fr': ['4C11'],
-  'fr-ch': []
+  'fr-ch': ['10NO6-2']
 }
 export default function PrioritesEtRelatifs () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType

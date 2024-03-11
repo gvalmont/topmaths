@@ -1,7 +1,7 @@
 // on importe les fonctions nécessaires.
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPoint } from '../../lib/2d/textes.js'
+import { texteParPoint } from '../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import Exercice from '../deprecatedExercice.js'
@@ -17,12 +17,10 @@ export const interactifType = 'cliqueFigure'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const titre = 'Tortue Scratch avec répétitions'
+export const dateDePublication = '29/06/2021'
 
 /**
- * Référence : 4I2
- * Publié le : 29/06/2021
  * @author Jean-Claude Lhote
- * Géné
  */
 export const uuid = '8ded2'
 export const ref = '4I1-2'
@@ -32,13 +30,10 @@ export const refs = {
 }
 export default function AlgoTortue () { // ça c'est la classe qui permet de créer cet exercice
   Exercice.call(this) // la classe parente qui définit les attributs commun à tous les exercices
-  this.titre = titre
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.pasDeVersionLatex = false
-  this.pas_de_version_HMTL = false
   this.typeExercice = 'Scratch'
   this.listePackages = 'scratch3'
   this.interactif = true
@@ -78,7 +73,6 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     context.unitesLutinParCm = 10 // avancer de 10 pour le lutin lui fait parcourir 1cm (en fait 0,5cm car j'ai ajouté un scale=0.5 pour la sortie latex)
     context.pixelsParCm = 20 // 20 pixels d'écran représentent 1cm (enfin ça dépend du zoom, donc c'est juste un réglage par défaut)
 
-    let texte = '' // la chaine qui va contenir l'énoncé
     let texteCorr = '' // la chaine qui va contenir la correction
 
     for (let i = 0; i < 4; i++) { // Ici on crée 4 instance de l'objet Lutin.
@@ -184,22 +178,19 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
         }
         switch (bonneReponse) {
           case 0:
-            lutins[0].codeScratch += `\n\\blockmove{tourner \\turnright{} de \\ovalnum{${calculANePlusJamaisUtiliser(90 - 180 / n2)}} degrés}\n`
+            lutins[0].codeScratch += `\\blockmove{tourner \\turnright{} de \\ovalnum{${calculANePlusJamaisUtiliser(90 - 180 / n2)}} degrés}\n`
             break
           case 1:
-            lutins[0].codeScratch += '\n\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
+            lutins[0].codeScratch += '\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
             break
           case 2:
-            lutins[0].codeScratch += '\n\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}\n'
-            break
-          case 3:
-            lutins[0].codeScratch += '\n'
+            lutins[0].codeScratch += '\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}\n'
             break
         }
-        lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n2}} fois}\n
+        lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n2}} fois}
         {
-          \\blockmove{avancer de \\ovalnum{${val3}} pas}\n
-          \\blockmove{tourner \\turnleft{} de \\ovalnum{${calculANePlusJamaisUtiliser(360 / n2)}} degrés}\n
+          \\blockmove{avancer de \\ovalnum{${val3}} pas}
+          \\blockmove{tourner \\turnleft{} de \\ovalnum{${calculANePlusJamaisUtiliser(360 / n2)}} degrés}
         }\n`
         switch (bonneReponse) {
           case 0:
@@ -220,8 +211,6 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
         for (let i = 0; i < n; i++) {
           allerA(0, 0, lutins[0])
           allerA(0, 0, lutins[1])
-          //  allerA(0, 0, lutins[2])
-          // allerA(0, 0, lutins[3])
           avance(val1, lutins[0])
           avance(val1 / 2, lutins[1])
           avance(val1, lutins[2])
@@ -325,8 +314,8 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
 
         if (bonneReponse < 5) {
           lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
-{
-\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`
+                                  {
+                                  \\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`
           if (bonneReponse < 2) {
             lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${val3}} degrés}\n`
           } else {
@@ -442,7 +431,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     }
     lutins[0].codeScratch += '\\blockpen{relever le stylo}\n'
     lutins[0].codeScratch += '\\end{scratch}'
-    texte = 'Quelle figure est tracée par le stylo à l\'éxécution du programme ci-dessous ?<br>Le tracé démarre à la croix bleue.<br>'
+    let texte = 'Quelle figure est tracée par le stylo à l\'exécution du programme ci-dessous ?<br>Le tracé démarre à la croix bleue.<br>'
     texte += "S'orienter à 90° signifie s'orienter vers la droite de l'écran.<br>"
 
     let largeur = 1

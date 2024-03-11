@@ -24,10 +24,10 @@ export const uuid = '5f315'
 export const ref = '6D11'
 export const refs = {
   'fr-fr': ['6D11'],
-  'fr-ch': []
+  'fr-ch': ['10GM3-3']
 }
 export default function SommeDeDurees () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.keyboard = ['hms']
   this.consigne = this.nbQuestions > 1 ? 'Compléter les égalités suivantes.' : 'Compléter l\'égalité suivante.'

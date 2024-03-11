@@ -4,13 +4,13 @@ import { carre, motifs } from '../../lib/2d/polygones.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { traceBarre, traceGraphiqueCartesien } from '../../lib/2d/diagrammes.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { texteParPosition } from '../../lib/2d/textes.ts'
 import { rotation, translation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texcolors } from '../../lib/format/style'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
@@ -24,17 +24,15 @@ export const amcType = 'AMCHybride'
 /**
  * Lecture de diagrammes
  * @author Jean-Claude Lhote
- * Référence 6S10-1
  */
 export const uuid = 'adac4'
 export const ref = '6S10-1'
 export const refs = {
   'fr-fr': ['6S10-1'],
-  'fr-ch': []
+  'fr-ch': ['9FA1-2']
 }
 export default function LireUnDiagramme () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
   this.nbCols = 1
@@ -92,12 +90,27 @@ export default function LireUnDiagramme () {
         case 3: nbAnimaux = 4; break
         default: nbAnimaux = 4
       }
-      for (let i = 0; i < nbAnimaux; i++) {
+      for (let i = 0; i < nbAnimaux - 1; i++) {
         N = randint(5, 40, lstVal) // choisit un nombre entre 5 et 40 sauf dans les valeurs à éviter
         lstNombresAnimaux.push(N)
         lstVal = lstVal.concat([N - 2, N - 1, N, N + 1, N + 2]) // valeurs à supprimer pour éviter des valeurs proches
       }
-      let effectiftotal = 0
+
+      let effectiftotal
+      // Le test ci-dessous permet de proposer (avec une fréquence de 1/3) des effectifs les nombreux > 50 %
+      const choixMajoritaire = randint(0, 2)
+      if (choixMajoritaire > 0) {
+        N = randint(5, 40, lstVal) // choisit un nombre entre 5 et 40 sauf dans les valeurs à éviter
+        lstNombresAnimaux.push(N)
+      } else {
+        effectiftotal = 0
+        for (let i = 0; i < nbAnimaux - 1; i++) {
+          effectiftotal += lstNombresAnimaux[i]
+        }
+        lstNombresAnimaux.push(Math.round(effectiftotal * 1.25))
+      }
+
+      effectiftotal = 0
       for (let i = 0; i < nbAnimaux; i++) {
         effectiftotal += lstNombresAnimaux[i]
       }
@@ -105,6 +118,9 @@ export default function LireUnDiagramme () {
         nom = choice(lstAnimaux, lstAnimauxExo) // choisit un animal au hasard sauf parmi ceux déjà utilisés
         lstAnimauxExo.push(nom)
       }
+
+      nbMin = Math.min(...lstNombresAnimaux)
+      nbMax = Math.max(...lstNombresAnimaux)
 
       switch (listeTypeDeQuestions[q]) {
         case 1:
@@ -135,7 +151,7 @@ export default function LireUnDiagramme () {
             legende.opaciteDeRemplissage = 0.7
             textelegende = texteParPosition(lstAnimauxExo[i], 8.5, i * 1.5 + 0.5, 0, 'black', 1.5, 'gauche', false)
             objets.push(legende, textelegende)
-            paramsEnonce = { xmin: -6.5, ymin: -6.5, xmax: 20, ymax: 6.5, pixelsParCm: 20, scale: 0.5, mainlevee: false }
+            paramsEnonce = Object.assign({ pixelsParCm: 20, scale: 0.5, mainlevee: false }, fixeBordures(objets))
           }
           break
         case 2:
@@ -163,9 +179,9 @@ export default function LireUnDiagramme () {
             legende.couleurDesHachures = a.couleurDesHachures
             legende.hachures = hachures
             legende.opaciteDeRemplissage = 0.7
-            textelegende = texteParPosition(lstAnimauxExo[i], 8.5, i * 1.5 + 0.5, 0, 'black', 1.5, 'gauche', false)
+            textelegende = texteParPosition(lstAnimauxExo[i], 8.5, i * 1.5 + 0.5, 0, 'black', 1, 'gauche', false)
             objets.push(legende, textelegende)
-            paramsEnonce = { xmin: -6.5, ymin: -0.2, xmax: 20, ymax: 6.5, pixelsParCm: 20, scale: 0.5, mainlevee: false }
+            paramsEnonce = Object.assign({ pixelsParCm: 20, scale: 0.5, mainlevee: false }, fixeBordures(objets))
           }
           break
         case 3:
@@ -185,7 +201,8 @@ export default function LireUnDiagramme () {
             xLabelListe: false,
             yUnite: 0.1 / coef,
             yThickDistance: 10 * coef,
-            yMax: 60 * coef,
+            yMax: (Math.round(nbMax / 10) + 1) * 10 * coef,
+            yLabelEcart: 0.75,
             xMin: 0,
             xMax: 10,
             yMin: 0,
@@ -197,8 +214,8 @@ export default function LireUnDiagramme () {
           for (let i = 0; i < nbAnimaux; i++) {
             objets.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], lstAnimauxExo[i], { unite: 0.1 / coef, couleurDeRemplissage: texcolors(i + 1), hachures: 'north east lines' }))
           }
-          objets.push(r)
-          paramsEnonce = { xmin: -6.5, ymin: -4, xmax: 20, ymax: 7, pixelsParCm: 20, scale: 0.5, mainlevee: false }
+          objets.push(...r.objets)
+          paramsEnonce = Object.assign({ pixelsParCm: 20, scale: 0.5, mainlevee: false }, fixeBordures(objets))
 
           break
 
@@ -219,7 +236,8 @@ export default function LireUnDiagramme () {
             xLabelListe: false,
             yUnite: 0.1 / coef,
             yThickDistance: 10 * coef,
-            yMax: 60 * coef,
+            yMax: (Math.round(nbMax / 10) + 1) * 10 * coef,
+            yLabelEcart: 0.75,
             xMin: 0,
             xMax: 10,
             yMin: 0,
@@ -242,14 +260,12 @@ export default function LireUnDiagramme () {
             tailleDesPoints: 3
           })
 
-          objets.push(r, g)
+          objets.push(...r.objets, g)
 
-          paramsEnonce = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 7, pixelsParCm: 20, scale: 0.5, mainlevee: false }
+          paramsEnonce = Object.assign({ pixelsParCm: 20, scale: 0.5, mainlevee: false }, fixeBordures(objets))
 
           break
       }
-      nbMin = Math.min(...lstNombresAnimaux)
-      nbMax = Math.max(...lstNombresAnimaux)
       reponse1 = lstAnimauxExo[lstNombresAnimaux.indexOf(nbMin)]
       reponse2 = lstAnimauxExo[lstNombresAnimaux.indexOf(nbMax)]
       texteAMC += mathalea2d(paramsEnonce, objets)

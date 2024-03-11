@@ -6,7 +6,7 @@ import { pave } from '../../../lib/2d/projections3d.js'
 import { droiteGraduee, grille, repere } from '../../../lib/2d/reperes.js'
 import { traceBarre } from '../../../lib/2d/diagrammes.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString.js'
@@ -15,7 +15,7 @@ import { texPrix } from '../../../lib/format/style'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import Decimal from 'decimal.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import { min, round } from 'mathjs'
@@ -43,8 +43,12 @@ function compareNombres (a, b) {
 
 export const uuid = '7292b'
 export const ref = 'can5a-2020'
+export const refs = {
+  'fr-fr': ['can5a-2020'],
+  'fr-ch': []
+}
 export default function SujetCAN20205ieme () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
@@ -68,7 +72,7 @@ export default function SujetCAN20205ieme () {
     const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
     const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
 
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, somme, u, abs0, abs1, pav, pol, pol2, r, l, segmentED, segmentEA, prenom, x1, a1, poly, f, propositions, prix, choix, code1, code2, a, b, c, d, e, h, k, A, B, C, D, E, F, G, H, I, J, K, L, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, partieDec1, partieDec2, somme, u, abs0, abs1, pav, pol, pol2, r, l, segmentED, segmentEA, prenom, x1, a1, poly, f, propositions, prix, choix, code1, code2, a, b, c, d, e, h, k, A, B, C, D, E, F, G, H, I, J, K, L, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(5, 9)
@@ -94,7 +98,10 @@ export default function SujetCAN20205ieme () {
           u = randint(21, 99)
           a = randint(1, 9)
           c = randint(1, 9)
-          reponse = new Decimal(u).add(a / 10).add(c / 1000)
+          partieDec1 = new Decimal(a).div(10)
+          partieDec2 = new Decimal(c).div(1000)
+
+          reponse = new Decimal(u).add(partieDec1).add(partieDec2)
           if (choice([true, false])) {
             texte = `Écris sous forme décimale : $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{${texNombre(1000)}}$. `
             texteCorr = `$${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{${texNombre(1000)}}=${u}+${texNombre(a / 10, 1)}+${texNombre(c / 1000, 3)}=${texNombre(u + a / 10 + c / 1000, 3)}$`
@@ -228,8 +235,8 @@ export default function SujetCAN20205ieme () {
         case 9:
           a = randint(1, 4)
           prix = choice([7, 9, 11, 13])
-
-          reponse = new Decimal(prix).add(prix / 2)
+          b = new Decimal(prix).div(2)
+          reponse = new Decimal(prix).add(b)
           texte = `$${2 * a}$ gâteaux coûtent  $${texPrix(prix)}$ €. <br>
             Combien coûtent $${3 * a}$ de ces mêmes gâteaux ?
              `
@@ -300,8 +307,9 @@ export default function SujetCAN20205ieme () {
           break
 
         case 12:
-          a = new Decimal(2 + randint(1, 9) / 10)
-          b = new Decimal(1 + randint(1, 9) / 10)
+          partieDec1 = new Decimal(randint(1, 9)).div(10)
+          a = new Decimal(2).add(partieDec1)
+          b = new Decimal(1).add(partieDec1)
           c = new Decimal(b).mul(2)
 
           A = point(0, 0)

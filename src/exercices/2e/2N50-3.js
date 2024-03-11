@@ -19,10 +19,10 @@ export const uuid = '846b8'
 export const ref = '2N50-3'
 export const refs = {
   'fr-fr': ['2N50-3'],
-  'fr-ch': []
+  'fr-ch': ['10FA3-12', '11FA6-8']
 }
 export default function ModeliserEquations () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   // this.nbQuestionsModifiable = false
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

@@ -14,10 +14,10 @@ export const uuid = '97f1a'
 export const ref = '5L14-4'
 export const refs = {
   'fr-fr': ['5L14-4'],
-  'fr-ch': []
+  'fr-ch': ['11FA5-2']
 }
 export default function DeterminerDerniereOperationExpressionLitterale () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.debug = false
   this.nbQuestions = 4
   this.nbCols = 1

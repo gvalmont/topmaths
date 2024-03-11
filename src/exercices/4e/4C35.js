@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { puissanceEnProduit } from '../../lib/outils/puissance'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { context } from '../../modules/context.js'
@@ -23,7 +23,7 @@ export const uuid = '125bd'
 export const ref = '4C35'
 export const refs = {
   'fr-fr': ['4C35'],
-  'fr-ch': []
+  'fr-ch': ['10NO2-12']
 }
 export default function PuissanceDecimaleOuFractionnaire () {
   Exercice.call(this)

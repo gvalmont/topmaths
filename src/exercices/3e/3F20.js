@@ -2,7 +2,7 @@ import { droite } from '../../lib/2d/droites.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { polyline } from '../../lib/2d/polygones.js'
 import { repere } from '../../lib/2d/reperes.js'
-import { texteParPoint } from '../../lib/2d/textes.js'
+import { texteParPoint } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { rangeMinMax } from '../../lib/outils/nombres'
@@ -10,7 +10,7 @@ import { pgcd, premierAvec } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
@@ -25,7 +25,7 @@ export const dateDePublication = '13/04/2023'
 export const ref = '3F20'
 export const refs = {
   'fr-fr': ['3F20'],
-  'fr-ch': []
+  'fr-ch': ['10FA5-12', '11FA8-6']
 }
 export const uuid = 'aeb5a'
 /**

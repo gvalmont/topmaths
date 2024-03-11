@@ -1,14 +1,14 @@
 import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { milieu, point, tracePoint } from '../../../lib/2d/points.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import { fraction } from '../../../modules/fractions.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Calculer une aire ou un périmètre (carré et rectangle)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,9 +20,13 @@ export const interactifType = 'mathLive'
 */
 export const uuid = 'b1a48'
 export const ref = 'can4G08'
+export const refs = {
+  'fr-fr': ['can4G08'],
+  'fr-ch': []
+}
 export default function QuestionsAiresEtPerimetres () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   this.tailleDiaporama = 2

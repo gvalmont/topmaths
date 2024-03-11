@@ -21,8 +21,12 @@ export const dateDePublication = '04/03:2022' // La date de publication initiale
  */
 export const uuid = '0dfad'
 export const ref = 'can2G14'
+export const refs = {
+  'fr-fr': ['can2G14'],
+  'fr-ch': []
+}
 export default function TranslationVecteur () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'

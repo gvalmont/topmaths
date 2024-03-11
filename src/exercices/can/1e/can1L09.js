@@ -1,7 +1,7 @@
 import { ecritureAlgebrique, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
@@ -20,8 +20,12 @@ export const dateDePublication = '19/06/2022' // La date de publication initiale
  */
 export const uuid = '6adb0'
 export const ref = 'can1L09'
+export const refs = {
+  'fr-fr': ['can1L09'],
+  'fr-ch': []
+}
 export default function EquationSecondDegreParticuliere () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.tailleDiaporama = 2

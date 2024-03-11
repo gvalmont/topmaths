@@ -19,8 +19,12 @@ export const dateDePublication = '08/07/2022'
  */
 export const uuid = 'dacc1'
 export const ref = 'can2G17'
+export const refs = {
+  'fr-fr': ['can2G17'],
+  'fr-ch': []
+}
 export default function VecteurDirEqCart () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur11 inline'
   this.tailleDiaporama = 2

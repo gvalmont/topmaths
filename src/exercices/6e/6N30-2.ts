@@ -19,7 +19,6 @@ export const amcType = 'AMCOpen'
 /**
  * Placer un point d'abscisse décimale
  * @author Jean-Claude Lhote et Rémi Angot
- * référence : 6N30-2
  * Relecture : Janvier 2022 par EE
  */
 
@@ -28,7 +27,7 @@ export const uuid = 'e528e'
 export const ref = '6N30-2'
 export const refs = {
   'fr-fr': ['6N30-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO7-3']
 }
 
 type goodAnswer = { label: string, x: number }[]

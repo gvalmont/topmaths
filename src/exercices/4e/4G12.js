@@ -3,7 +3,7 @@ import { milieu, point, tracePoint } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { grille } from '../../lib/2d/reperes.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPointEchelle } from '../../lib/2d/textes.js'
+import { texteParPointEchelle } from '../../lib/2d/textes.ts'
 import { homothetie, rotation, symetrieAxiale, translation } from '../../lib/2d/transformations.js'
 import { choice, compteOccurences, enleveElement } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -12,7 +12,7 @@ import { texcolors } from '../../lib/format/style'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { colorToLatexOrHTML, mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
-import { calculANePlusJamaisUtiliser, contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
+import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mod } from 'mathjs'
@@ -36,7 +36,7 @@ export const uuid = '4ffdb'
 export const ref = '4G12'
 export const refs = {
   'fr-fr': ['4G12'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-23', '10ES2-5']
 }
 export default function SerieDeTransformations () {
   Exercice.call(this)
@@ -160,8 +160,8 @@ export default function SerieDeTransformations () {
             nomCentreRotation = leSens ? noeuds[depart + 6].nom : noeuds[depart].nom
             break
         }
-        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la rotation de centre $${nomCentreRotation}$ d'angle $90\\degree$ dans le sens ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}.`
-        texte = `La figure \\ldots${sp()}a pour image la figure${sp(1)}\\ldots${sp(1)}par la rotation de centre${sp(1)}\\ldots${sp(1)}d'angle $90\\degree$ dans le sens  ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}`
+        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la rotation de centre $${nomCentreRotation}$ d'angle $90^\\circ$ dans le sens ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}.`
+        texte = `La figure \\ldots${sp()}a pour image la figure${sp(1)}\\ldots${sp(1)}par la rotation de centre${sp(1)}\\ldots${sp(1)}d'angle $90^\\circ$ dans le sens  ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}`
         texteInteractif = "Une rotation d'angle 90° et dont le centre est un point du quadrillage."
         return { texte, texteCorr, texteInteractif, type, centre: centreRotation, sens: leSens }
       case 'rot180': // pas besoin du sens, mais le milieu choisi dépend de depart et arrivee
@@ -191,13 +191,11 @@ export default function SerieDeTransformations () {
   }
 
   this.nouvelleVersion = function () {
-    if (this.version === 1) {
+    if (this.version === 1) { // On bride this.sup à 1 pour les 6èmes
       this.sup = 1
     } else if (this.version === 2) {
-      this.sup = 2
-    } else if (this.version === 3) {
-      this.sup = 3
-    } else this.sup = 4
+      this.sup = 2 // On le bride à 2 pour les 5èmes
+    } // on ne bride pas pour ce 4G12 et visiblement, il n'existe pas en 3ème. c'est donc la référence max ici.
     this.autoCorrection = []
     this.sup = contraindreValeur(1, 4, this.sup, 4)
     if (this.sup === 1) typeDeTransfos = ['symax']
@@ -351,7 +349,7 @@ export default function SerieDeTransformations () {
           xmax: 17,
           ymax: 16.5,
           pixelsParCm: 20,
-          scale: calculANePlusJamaisUtiliser(1.1 - chemin.length * 0.03125)
+          scale: 1.1 - chemin.length * 0.03125
         }
         paramsCorrection = {
           xmin: -0.5,
@@ -359,7 +357,7 @@ export default function SerieDeTransformations () {
           xmax: 17,
           ymax: 16.5,
           pixelsParCm: 20,
-          scale: calculANePlusJamaisUtiliser(1 - chemin.length * 0.03125)
+          scale: 1 - chemin.length * 0.03125
         }
       } else { // à partir de la symétrie centrale, il peut y avoir 2 lignes par étapes, donc on rétrécit davantage la figure.
         paramsEnonce = {
@@ -368,7 +366,7 @@ export default function SerieDeTransformations () {
           xmax: 17,
           ymax: 16.5,
           pixelsParCm: 20,
-          scale: calculANePlusJamaisUtiliser(1.2 - chemin.length * 0.05)
+          scale: 1.2 - chemin.length * 0.05
         }
         paramsCorrection = {
           xmin: -0.5,
@@ -376,7 +374,7 @@ export default function SerieDeTransformations () {
           xmax: 17,
           ymax: 16.5,
           pixelsParCm: 20,
-          scale: calculANePlusJamaisUtiliser(1.1 - chemin.length * 0.05)
+          scale: 1.1 - chemin.length * 0.05
         }
       }
       for (let k = 1, figure; k < chemin.length - 1; k++) {

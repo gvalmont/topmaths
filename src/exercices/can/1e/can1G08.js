@@ -19,8 +19,12 @@ export const dateDePublication = '08/07/2022'
  */
 export const uuid = 'e7919'
 export const ref = 'can1G08'
+export const refs = {
+  'fr-fr': ['can1G08'],
+  'fr-ch': []
+}
 export default function VecteurNormEqCart () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur11 inline'
   this.tailleDiaporama = 2

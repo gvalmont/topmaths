@@ -15,7 +15,7 @@ import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { max, min } from 'mathjs'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = "Agrandir ou réduire des figures, d'après une situation de proportionnalité"
@@ -34,10 +34,10 @@ export const uuid = '4c6e2'
 export const ref = '6P14'
 export const refs = {
   'fr-fr': ['6P14'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-17']
 }
 export default function AgrandirReduireFigure () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.besoinFormulaireTexte = [
     'Type de figures', [

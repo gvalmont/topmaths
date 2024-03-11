@@ -2,7 +2,7 @@ import { codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
 import { cercleCentrePoint } from '../../lib/2d/cercle.js'
 import { point } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { rotation } from '../../lib/2d/transformations.js'
 import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
@@ -24,7 +24,7 @@ export const uuid = 'b6250'
 export const ref = '5N20-0'
 export const refs = {
   'fr-fr': ['5N20-0'],
-  'fr-ch': []
+  'fr-ch': ['9NO15-4']
 }
 // une fonction pour gérer le codage des angles
 function myCodageAngle (A, O, B, angle, [...args]) {
@@ -39,14 +39,14 @@ function myCodageAngle (A, O, B, angle, [...args]) {
 function myTexteVolsCorr (angle) {
   switch (angle) {
     case 90:
-      return `du secteur est un angle droit, il mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{4}$.`
+      return `du secteur est un angle droit, il mesure $${angle}^\\circ$ sur les $360^\\circ$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{4}$.`
     case 30:
-      return `rouge apparaît 3 fois, l'angle vert vaut $180\\degree$ et il y a un angle droit.<br>
-L'angle pour un tour complet vaut $360\\degree$, donc l'angle rouge vaut $(360-180-90)\\div 3 = ${angle}\\degree$.<br>
-L'angle rouge mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{12}$.
+      return `rouge apparaît 3 fois, l'angle vert vaut $180^\\circ$ et il y a un angle droit.<br>
+L'angle pour un tour complet vaut $360^\\circ$, donc l'angle rouge vaut $(360-180-90)\\div 3 = ${angle}^\\circ$.<br>
+L'angle rouge mesure $${angle}^\\circ$ sur les $360^\\circ$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{12}$.
 `
     case 180:
-      return `du secteur est un angle plat, il mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{2}$.`
+      return `du secteur est un angle plat, il mesure $${angle}^\\circ$ sur les $360^\\circ$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{2}$.`
   }
 }
 
@@ -60,7 +60,7 @@ function myLabelPosition (y) {
   }
 }
 export default function ProblemesAdditifsFractions5e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.debug = false
   this.sup = 1
   this.nbQuestions = 1
@@ -70,6 +70,7 @@ export default function ProblemesAdditifsFractions5e () {
 
   this.nbCols = 1
   this.nbColsCorr = 1
+  this.listePackages = 'bclogo'
   // this.nbQuestionsModifiable = false;
   context.isHtml ? this.spacing = 1 : this.spacing = 1
   context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1

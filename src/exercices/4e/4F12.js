@@ -2,7 +2,7 @@ import { courbe, courbeInterpolee } from '../../lib/2d/courbes.js'
 import { point } from '../../lib/2d/points.js'
 import { polyline } from '../../lib/2d/polygones.js'
 import { grille, repere } from '../../lib/2d/reperes.js'
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { texteParPosition } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
 import { prenomF } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -12,7 +12,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { hmsCompare, unitesCompare } from '../../lib/interactif/comparaisonFonctions'
+import { hmsCompare, unitsCompare } from '../../lib/interactif/comparisonFunctions'
 import Grandeur from '../../modules/Grandeur'
 export const titre = 'Résoudre un problème s\'appuyant sur la lecture d\'une représentation graphique'
 export const interactifType = 'mathLive'
@@ -29,10 +29,10 @@ export const uuid = 'b428e'
 export const ref = '4F12'
 export const refs = {
   'fr-fr': ['4F12'],
-  'fr-ch': []
+  'fr-ch': ['10FA5-2']
 }
 export default function ExploiterRepresentationGraphique () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1
@@ -115,7 +115,7 @@ export default function ExploiterRepresentationGraphique () {
         this.listeQuestions.push(
           'Quelle est la hauteur maximale atteinte par le projectile ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 unitesLongueur')
         )
-        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(Math.round(f(t1 / 2)), 'm'), precision: 0 }, compare: unitesCompare } }, { formatInteractif: 'unites' })
+        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(Math.round(f(t1 / 2)), 'm'), precision: 0 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
         indiceQuestion++
         this.listeCorrections.push(
           `Le point le plus haut de la courbe a pour abscisse $${texNombre(
@@ -156,7 +156,7 @@ export default function ExploiterRepresentationGraphique () {
         this.listeQuestions.push(
           'À quelle distance le projectile est-il retombé au sol ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 unitesLongueur')
         )
-        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(t1, 'm'), precision: 0 }, compare: unitesCompare } }, { formatInteractif: 'unites' })
+        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(t1, 'm'), precision: 0 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
         indiceQuestion++
 
         this.listeCorrections.push(
@@ -168,7 +168,7 @@ export default function ExploiterRepresentationGraphique () {
         this.listeQuestions.push(
           'Quelle est la hauteur maximale atteinte par le projectile ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 unitesLongueur')
         )
-        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(Math.round(f(t1 / 2)), 'm'), precision: 0 }, compare: unitesCompare } }, { formatInteractif: 'unites' })
+        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(Math.round(f(t1 / 2)), 'm'), precision: 0 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
         indiceQuestion++
 
         this.listeCorrections.push(
@@ -301,7 +301,7 @@ export default function ExploiterRepresentationGraphique () {
         this.listeQuestions.push(
           'Quelle est la température la plus froide de la journée ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 unitesAngle alphanumeric')
         )
-        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(tmin, '°C'), precision: 0 }, compare: unitesCompare } }, { formatInteractif: 'unites' })
+        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(tmin, '°C'), precision: 0 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
         indiceQuestion++
 
         this.listeCorrections.push(`La température la plus basse est ${tmin}°C.`)
@@ -309,7 +309,7 @@ export default function ExploiterRepresentationGraphique () {
         this.listeQuestions.push(
           'Quelle est la température la plus chaude de la journée ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 unitesAngle alphanumeric')
         )
-        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(tmax, '°C'), precision: 0 }, compare: unitesCompare } }, { formatInteractif: 'unites' })
+        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(tmax, '°C'), precision: 0 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
         indiceQuestion++
 
         this.listeCorrections.push(`La température la plus élevée de la journée est ${tmax}°C.`)

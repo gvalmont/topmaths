@@ -3,7 +3,7 @@ import { codageSegment } from '../../../lib/2d/codages.js'
 import { milieu, point } from '../../../lib/2d/points.js'
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
@@ -39,8 +39,12 @@ function compareNombres (a, b) {
 
 export const uuid = '339a1'
 export const ref = 'can5a-2021'
+export const refs = {
+  'fr-fr': ['can5a-2021'],
+  'fr-ch': []
+}
 export default function SujetCAN20215ieme () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType

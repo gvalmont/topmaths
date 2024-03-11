@@ -1,7 +1,7 @@
 import { droite } from '../../lib/2d/droites.js'
 import { point } from '../../lib/2d/points.js'
 import { demiDroite, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { combinaisonListes, enleveElement, shuffle } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
@@ -23,7 +23,7 @@ export const uuid = '83763'
 export const ref = '6G10-3'
 export const refs = {
   'fr-fr': ['6G10-3'],
-  'fr-ch': []
+  'fr-ch': ['9ES1-8']
 }
 export default function CliqueFigure () {
   Exercice.call(this)

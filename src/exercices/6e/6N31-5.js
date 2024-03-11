@@ -23,11 +23,11 @@ export const amcType = 'AMCHybride'
 export const ref = '6N31-5'
 export const refs = {
   'fr-fr': ['6N31-5'],
-  'fr-ch': []
+  'fr-ch': ['9NO7-8']
 }
 export const uuid = 'a8c21'
 export default function EncadrerUnDecimal () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 4 // Type de questions
   this.nbQuestions = 4
   this.consigneCorrection = 'Encadrer'

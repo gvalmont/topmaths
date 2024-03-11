@@ -10,13 +10,12 @@ export const dateDeModifImportante = '28/12/2022'
 /**
  * Transformations : symétrie centrale et repérage
  * @author Jean-Claude Lhote
- * référence 5G11-4 réglage de 3G10-1
  */
 export const uuid = '08f60'
 export const ref = '5G11-4'
 export const refs = {
   'fr-fr': ['5G11-4'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-9']
 }
 export default function TransformationsDuPlanEtCoordonnees5e () {
   TransformationsDuPlanEtCoordonnees.call(this)

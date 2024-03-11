@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Décomposer une fraction'
 export const interactifReady = true
@@ -14,6 +14,10 @@ export const dateDePublication = '09/09/2023'
 
 export const uuid = 'f84d1'
 export const ref = 'can4C18'
+export const refs = {
+  'fr-fr': ['can4C18'],
+  'fr-ch': []
+}
 export default function DecomposerFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

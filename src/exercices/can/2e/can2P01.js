@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,6 +16,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '763d3'
 export const ref = 'can2P01'
+export const refs = {
+  'fr-fr': ['can2P01'],
+  'fr-ch': []
+}
 export default function CalculsDeProbabilites () {
   Exercice.call(this)
   this.typeExercice = 'simple'

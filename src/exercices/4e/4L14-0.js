@@ -8,7 +8,6 @@ export const titre = 'Tester si un nombre est solution d\'une équation'
 
 /**
  * Tester si un nombre est solution d'une équation
- * * 4L14-0
  * * adaptation de l'exo 5L14 de Rémi Angot
  * @author Sébastien Lozano
  */
@@ -16,16 +15,13 @@ export const uuid = 'a1c9a'
 export const ref = '4L14-0'
 export const refs = {
   'fr-fr': ['4L14-0'],
-  'fr-ch': []
+  'fr-ch': ['10FA3-2', '11FA6-1']
 }
 export default function TesterSiUnNombreEstSolutionDUneEquation () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = ''
+  Exercice.call(this)
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1
-  // this.sup2=false;
   if (this.exo === '4L14-1') {
     this.nbQuestions = 4
   } else if (this.exo === '4L14-2') {
@@ -37,10 +33,8 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    this.sup = Number(this.sup)
     let typesDeQuestionsDisponibles
     if (this.exo === '4L14-1') {
-      // typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 8];
       typesDeQuestionsDisponibles = [choice([1, 2]), 3, choice([4, 5]), 8]
     } else if (this.exo === '4L14-2') {
       typesDeQuestionsDisponibles = [9, 6, 7]

@@ -1,6 +1,6 @@
 import { droite } from '../../lib/2d/droites.js'
 import { pointAdistance, pointSurDroite, tracePoint } from '../../lib/2d/points.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import Exercice from '../Exercice'
@@ -20,7 +20,7 @@ export const uuid = '02320'
 export const ref = '6G51-1'
 export const refs = {
   'fr-fr': ['6G51-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES1-4']
 }
 export default class ReconnaitreDesPointsAlignes extends Exercice {
   constructor () {

@@ -18,9 +18,13 @@ export const dateDePublication = '09/12/2021' // La date de publication initiale
 */
 export const uuid = '031f0'
 export const ref = 'can2C11'
+export const refs = {
+  'fr-fr': ['can2C11'],
+  'fr-ch': []
+}
 export default function CoeffTaux () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'

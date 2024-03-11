@@ -4,7 +4,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 
 export const titre = 'Homothétie - Rapport'
 
@@ -19,7 +19,7 @@ export const uuid = '1ebf7'
 export const ref = '3G11-1'
 export const refs = {
   'fr-fr': ['3G11-1'],
-  'fr-ch': []
+  'fr-ch': ['11ES3-4']
 }
 export default class HomothetieRapport extends Exercice {
   constructor () {

@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Effectuer une division avec une fraction'
 export const interactifReady = true
@@ -16,13 +16,17 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '22c4c'
 export const ref = 'can4C03'
+export const refs = {
+  'fr-fr': ['can4C03'],
+  'fr-ch': []
+}
 export default function QuotientEntierQuiVaBienParFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur25 inline'
-  this.formatInteractif = 'fraction'
+  this.formatInteractif = 'fractionEgale'
   this.nouvelleVersion = function () {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 3, 4, 5, 6])

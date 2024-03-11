@@ -1,6 +1,6 @@
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes.js'
+import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import Exercice from '../deprecatedExercice.js'
@@ -20,10 +20,10 @@ export const uuid = '86db6'
 export const ref = '5S20'
 export const refs = {
   'fr-fr': ['5S20'],
-  'fr-ch': []
+  'fr-ch': ['11NO2-5']
 }
 export default function PlacerProbabilites () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1

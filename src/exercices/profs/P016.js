@@ -3,6 +3,10 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import Exercice from '../deprecatedExercice.js'
 export const titre = 'Simulateur de Dés'
 export const ref = 'P016'
+export const refs = {
+  'fr-fr': ['P016'],
+  'fr-ch': []
+}
 export const uuid = 'bc372'
 export const dateDePublication = '06/04/2022'
 
@@ -12,7 +16,7 @@ export const dateDePublication = '06/04/2022'
  * Référence P016
 */
 export default function SimulateurDes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1

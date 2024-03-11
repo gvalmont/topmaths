@@ -25,10 +25,10 @@ export const uuid = '526f8'
 export const ref = '3A10-2'
 export const refs = {
   'fr-fr': ['3A10-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-27']
 }
 export default function PremierOuPasCriterePar7Par11 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = 'Justifier que les nombres suivants sont premiers ou pas. Penser aux critères de divisibilité.'

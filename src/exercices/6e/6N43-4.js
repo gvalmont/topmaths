@@ -20,10 +20,10 @@ export const uuid = 'f894a'
 export const ref = '6N43-4'
 export const refs = {
   'fr-fr': ['6N43-4'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-3']
 }
 export default function DivisibleDiviseurMultiple () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 6 // 6 questions au maximum
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

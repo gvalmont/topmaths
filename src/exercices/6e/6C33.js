@@ -54,10 +54,10 @@ export const uuid = '4c10a'
 export const ref = '6C33'
 export const refs = {
   'fr-fr': ['6C33'],
-  'fr-ch': []
+  'fr-ch': ['9NO6-1']
 }
 export default function Priorites () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Calculer.'
   this.nbQuestions = 5

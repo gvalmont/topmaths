@@ -14,10 +14,10 @@ export const uuid = 'c8f4b'
 export const ref = '4C10-5'
 export const refs = {
   'fr-fr': ['4C10-5'],
-  'fr-ch': []
+  'fr-ch': ['10NO4-7']
 }
 export default function ExerciceTableauMultiplicationsRelatifs () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = false
   this.titre = titre
   this.consigne = 'Calculer.'

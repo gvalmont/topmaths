@@ -36,10 +36,10 @@ export const uuid = '8865d'
 export const ref = '5L14-2'
 export const refs = {
   'fr-fr': ['5L14-2'],
-  'fr-ch': []
+  'fr-ch': ['10FA1-1', '11FA1-4']
 }
 export default function ExerciceSubstituer (difficulte = 1) {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = difficulte
   this.spacing = 1
   this.consigneModifiable = false

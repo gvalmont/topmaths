@@ -2,27 +2,27 @@ import { addElement, get, setStyles } from '../html/dom'
 import { verifQuestionMathLive } from './mathLive.js'
 import { verifQuestionQcm } from './qcm'
 import { verifQuestionListeDeroulante } from './questionListeDeroulante'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import Grandeur from '../../modules/Grandeur'
 import Decimal from 'decimal.js'
 import {
   calculCompare, canonicalAddCompare,
-  decimalCompare, developpementCompare,
-  formeDeveloppeeCompare,
-  formeDeveloppeeEtReduiteCompare,
+  decimalCompare, developmentCompare,
+  expandedFormCompare,
+  expandedAndReductedCompare,
   fractionCompare,
-  fractionEgaleCompare,
-  fractionPlusSimpleCompare,
+  equalFractionCompare,
+  simplerFractionCompare,
   hmsCompare,
-  intervallleCompare,
-  intervallleStrictCompare,
+  intervalCompare,
+  intervalStrictCompare,
   numberCompare,
-  puissanceCompare,
+  powerCompare,
   scientificCompare,
-  texteCompare,
-  unitesCompare,
+  textCompare,
+  unitsCompare,
   upperCaseCompare
-} from './comparaisonFonctions'
+} from './comparisonFunctions'
 import Hms from '../../modules/Hms'
 import { context } from '../../modules/context.js'
 
@@ -529,7 +529,7 @@ export function setReponse (exercice, i, valeurs, {
       return handleAnswers(exercice, i, {
         reponse: {
           value: laReponseDemandee,
-          compare: formeDeveloppeeCompare
+          compare: expandedFormCompare
         }
       }, params)
 
@@ -549,7 +549,7 @@ export function setReponse (exercice, i, valeurs, {
       return handleAnswers(exercice, i, {
         reponse: {
           value: laReponseDemandee,
-          compare: formeDeveloppeeEtReduiteCompare
+          compare: expandedAndReductedCompare
         }
       }, params)
 
@@ -591,7 +591,7 @@ export function setReponse (exercice, i, valeurs, {
     }
     case 'texte':
       if (typeof reponses[0] !== 'string') window.notify('setReponse : type "texte" la réponse n\'est pas un string !', { reponses })
-      return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: texteCompare } }, params)
+      return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: textCompare } }, params)
     case 'canonicalAdd':
       if (typeof reponses[0] !== 'string') window.notify('setReponse : type "canonicalAdd" la réponse n\'est pas un string !', { reponses })
       return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: canonicalAddCompare } }, params)
@@ -610,7 +610,7 @@ export function setReponse (exercice, i, valeurs, {
       return handleAnswers(exercice, i, {
         reponse: {
           value: reponses[0].texFraction.replace('dfrac', 'frac'),
-          compare: fractionPlusSimpleCompare
+          compare: simplerFractionCompare
         }
       }, params)
     case 'fractionEgale':
@@ -620,7 +620,7 @@ export function setReponse (exercice, i, valeurs, {
       return handleAnswers(exercice, i, {
         reponse: {
           value: reponses[0].texFraction.replace('dfrac', 'frac'),
-          compare: fractionEgaleCompare
+          compare: equalFractionCompare
         }
       }, params)
     case 'fraction':
@@ -639,7 +639,7 @@ export function setReponse (exercice, i, valeurs, {
       return handleAnswers(exercice, i, {
         reponse: {
           value: { grandeur: reponses[0], precision: 10 ** precision * 10 ** (reponses[0].puissanceUnite * reponses[0].puissancePrefixe) },
-          compare: unitesCompare
+          compare: unitsCompare
         }
       }, params)
     case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
@@ -647,7 +647,7 @@ export function setReponse (exercice, i, valeurs, {
       return handleAnswers(exercice, i, {
         reponse: {
           value: { borneInf: reponses[0], borneSup: reponses[1] },
-          compare: intervallleStrictCompare
+          compare: intervalStrictCompare
         }
       }, params)
     case 'intervalle' :
@@ -655,7 +655,7 @@ export function setReponse (exercice, i, valeurs, {
       return handleAnswers(exercice, i, {
         reponse: {
           value: { borneInf: reponses[0], borneSup: reponses[1] },
-          compare: intervallleCompare
+          compare: intervalCompare
         }
       }, params)
     case 'puissance' :
@@ -664,12 +664,12 @@ export function setReponse (exercice, i, valeurs, {
       return handleAnswers(exercice, i, {
         reponse: {
           value: String(reponses[0]),
-          compare: puissanceCompare
+          compare: powerCompare
         }
       }, params)
     case 'developpements' :
       if (typeof reponses[0] !== 'string') window.notify('setReponse : type "developpements" la réponse n\'est pas un string !', { reponses })
-      return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: developpementCompare } }, params)
+      return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: developmentCompare } }, params)
   }
 
   if (exercice.autoCorrection[i] === undefined) {
@@ -737,7 +737,10 @@ export function handleAnswers (exercice, question, reponses, {
   formatInteractif = 'calcul',
   precision = null
 } = {}) {
+  if (question === 0) exercice.autoCorrection = []
   if (!(reponses instanceof Object)) throw Error(`handleAnswer() reponses doit être un objet : ${reponses}`)
+  const url = new URL(window.location.href)
+  if (url.hostname === 'localhost' && url.searchParams.has('triche')) console.log(`Réponses de l'exercice ${exercice.numeroExercice + 1} - question ${question + 1} : `, reponses)
   if (exercice.autoCorrection[question] === undefined) {
     exercice.autoCorrection[question] = {}
   }

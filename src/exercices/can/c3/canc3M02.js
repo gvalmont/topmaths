@@ -2,7 +2,7 @@ import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { codageSegments } from '../../../lib/2d/codages.js'
 import { milieu, point } from '../../../lib/2d/points.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
@@ -20,6 +20,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'cb91f'
 export const ref = 'canc3M02'
+export const refs = {
+  'fr-fr': ['canc3M02'],
+  'fr-ch': []
+}
 export default function ProblemesDeLongueursEtPerimetreCM () {
   Exercice.call(this)
   this.nbQuestions = 1

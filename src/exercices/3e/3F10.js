@@ -20,10 +20,10 @@ export const uuid = 'b92da'
 export const ref = '3F10'
 export const refs = {
   'fr-fr': ['3F10'],
-  'fr-ch': []
+  'fr-ch': ['10FA5-4']
 }
 export default function ImageAntecedentDepuisTableauOuFleche () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType

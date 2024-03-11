@@ -26,11 +26,11 @@ export const uuid = 'b8afd'
 export const ref = '3S14'
 export const refs = {
   'fr-fr': ['3S14'],
-  'fr-ch': []
+  'fr-ch': ['11NO2-11']
 }
 
 export default function CalculerCaracteristiques () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType

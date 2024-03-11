@@ -12,7 +12,7 @@ import { texteCentre } from '../../lib/format/miseEnPage.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../deprecatedExercice.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
 import {
   listeQuestionsToContenu, randint
@@ -32,10 +32,10 @@ export const uuid = 'ec059'
 export const ref = '2F20-2'
 export const refs = {
   'fr-fr': ['2F20-2'],
-  'fr-ch': []
+  'fr-ch': ['11FA9-2']
 }
 export default function CalculPointSurCourbe () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 1
   this.sup2 = 1
   this.consigne = ''

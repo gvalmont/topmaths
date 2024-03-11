@@ -1,5 +1,9 @@
 import PerimetreOuAireDeFiguresComposees from './6M11-2.js'
 export const titre = 'Décomposer une figure complexe en figures simples'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 export const dateDePublication = '28/10/2023'
 
@@ -10,7 +14,7 @@ export const uuid = 'fbaff'
 export const ref = '6M11-0'
 export const refs = {
   'fr-fr': ['6M11-0'],
-  'fr-ch': []
+  'fr-ch': ['9GM1-7', '10GM1-5']
 }
 export default class DecomposerFigureComplexe extends PerimetreOuAireDeFiguresComposees {
   constructor () {

@@ -3,7 +3,7 @@ import { droite, droiteParPointEtPente } from '../../lib/2d/droites.js'
 import { point } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonnees } from '../../lib/2d/textes.js'
+import { latexParCoordonnees } from '../../lib/2d/textes.ts'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import Exercice from '../deprecatedExercice.js'
@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ResoudreGraphFonctionRef () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 1
   // this.nbQuestionsModifiable = false

@@ -13,10 +13,10 @@ export const uuid = '3ec5c'
 export const ref = '2N20-8'
 export const refs = {
   'fr-fr': ['2N20-8'],
-  'fr-ch': []
+  'fr-ch': ['11FA4-2']
 }
 export default function Parite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Soit $n$ un entier naturel.'
   this.nbQuestions = 4

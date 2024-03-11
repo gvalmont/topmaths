@@ -2,14 +2,14 @@ import { droite } from '../../../lib/2d/droites.js'
 import { milieu, point, tracePoint } from '../../../lib/2d/points.js'
 import { repere } from '../../../lib/2d/reperes.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Déterminer une équation de droite (graphique)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,9 +23,13 @@ export const dateDePublication = '15/11/2022'
 
 export const uuid = '1f967'
 export const ref = 'can2G20'
+export const refs = {
+  'fr-fr': ['can2G20'],
+  'fr-ch': []
+}
 export default function EquationDroite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

@@ -9,7 +9,7 @@ import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -22,17 +22,16 @@ export const interactifType = 'mathLive'
 
 export const dateDeModifImportante = '22/11/2022'
 /**
- * 6N23-3
  * Ajout Interactivité et AMC : Janvier 2022 par EE
  */
 export const uuid = '23c48'
 export const ref = '6N23-3'
 export const refs = {
   'fr-fr': ['6N23-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO11-7']
 }
 export default function LireUneAbscisseAvecZoom () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.niveau = 'sixième'
   this.sup = 3
   this.consigne = ''

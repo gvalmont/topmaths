@@ -4,7 +4,7 @@ import { milieu, point } from '../../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { ellipse } from '../../../lib/2d/projections3d.js'
 import { demiDroite, segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
@@ -38,8 +38,12 @@ function compareNombres (a, b) {
 
 export const uuid = 'afd9f'
 export const ref = 'can3a-2021'
+export const refs = {
+  'fr-fr': ['can3a-2021'],
+  'fr-ch': []
+}
 export default function SujetCAN20213ieme () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
@@ -83,7 +87,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
 
@@ -111,7 +115,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
           break
@@ -128,7 +132,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
           break
@@ -146,7 +150,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
           break
@@ -225,7 +229,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
           break
@@ -250,7 +254,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
           break
@@ -287,7 +291,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
           break
@@ -387,7 +391,7 @@ export default function SujetCAN20213ieme () {
             pixelsParCm: 30,
             mainlevee: false,
             amplitude: 0.5,
-            scale: 1,
+            scale: 0.8,
             style: 'margin: auto'
           }, objets)
           texteCorr = `Le triangle $ADC$ est un agrandissement du triangle $ABE$. Le coefficient d'agrandissement est donné par : $\\dfrac{${b}}{${a}}=${texNombre(b / a)}$.<br>
@@ -414,7 +418,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
           break
@@ -451,7 +455,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
           break
@@ -516,7 +520,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
           break
@@ -545,9 +549,9 @@ export default function SujetCAN20213ieme () {
           B = point(2, 3, 'B', 'above')
 
           xmin = -1
-          ymin = -0.5
+          ymin = -1
           xmax = 3.5
-          ymax = 3.5
+          ymax = 4
           pol = polygoneAvecNom(A, B, C)
           objets = []
           choix = choice(['a', 'b', 'c'])
@@ -670,7 +674,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L'
           } else {
-            texte += '$\\ldots$ L '
+            texte += ' $\\ldots$ L '
           }
           nbChamps = 1
           break
@@ -983,7 +987,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$ '
+            texte += ' $\\ldots$ '
           }
           nbChamps = 1
           break

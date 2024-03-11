@@ -2,7 +2,7 @@
 import { point } from '../../lib/2d/points.js'
 import { polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygones.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonnees, latexParCoordonneesBox, texteParPoint } from '../../lib/2d/textes.js'
+import { latexParCoordonnees, latexParCoordonneesBox, texteParPoint } from '../../lib/2d/textes.ts'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import { lettreMinusculeDepuisChiffre, sp } from '../../lib/outils/outilString.js'
@@ -10,10 +10,11 @@ import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modul
 import { calculer } from '../../modules/outilsMathjs.js'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d, colorToLatexOrHTML, vide2d, fixeBordures } from '../../modules/2dGeneralites.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import * as pkg from '@cortex-js/compute-engine'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 const { ComputeEngine } = pkg
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -189,13 +190,13 @@ export class Rose {
         if (!(this.type === 'can1' && (this.indexInconnue === i || i === (this.indexInconnue - 1) % this.nombreDeValeurs || i === (this.indexInconnue + 1) % this.nombreDeValeurs))) {
           if (!(this.type === 'can2' && (this.indexInconnue === i || i === (this.indexInconnue + 1) % this.nombreDeValeurs))) {
             if (this.typeDonnees !== 'litteraux' && this.typeDonnees.substring(0, 4) !== 'frac') {
-              objets.push(texteParPoint(this.values[i].toString(), M, 'milieu', 'black', 1, 'middle', true))
+              objets.push(texteParPoint(this.values[i], M, 0, 'black', 1, 'milieu', true))
             } else {
               if (this.typeDonnees !== 'litteraux') {
                 if (this.values[i] instanceof FractionEtendue) {
-                  objets.push(latexParCoordonnees(this.values[i].toLatex(), M.x, M.y, 'black', 0, 0, 'none', 8))
+                  objets.push(latexParCoordonnees(this.values[i].texFSD, M.x, M.y, 'black', 0, 0, 'none', 8))
                 } else {
-                  objets.push(texteParPoint(String(this.values[i]), M, 'milieu', 'black', 1, 'middle', true))
+                  objets.push(texteParPoint(String(this.values[i]), M, 0, 'black', 1, 'milieu', true))
                 }
               } else {
                 objets.push(latexParCoordonneesBox(this.values[i], M2.x, M2.y, 'black', 50, 12, 'none', 8, { anchor: 'center' }))
@@ -210,9 +211,13 @@ export class Rose {
       if (this.type === 'solutions' || this.type === 'valeurs' || this.type === 'can1' || this.type === 'can2') { // on ajoute les produits
         if (!(this.type === 'can2' && this.indexInconnue === i)) {
           if (this.typeDonnees !== 'litteraux' && this.typeDonnees.substring(0, 4) !== 'frac') {
-            objets.push(texteParPoint((this.resultats[i]).toString(), P, 'milieu', 'black', 1, 'middle', true))
+            objets.push(texteParPoint((this.resultats[i]), P, 0, 'black', 1, 'milieu', true))
           } else {
-            objets.push(latexParCoordonnees(String(this.resultats[i]), P.x, P.y, 'black', 0, 0, 'none', 8))
+            if (this.resultats[i] instanceof FractionEtendue) {
+              objets.push(latexParCoordonnees(this.resultats[i].texFSD, P.x, P.y, 'black', 0, 0, 'none', 8))
+            } else {
+              objets.push(latexParCoordonnees(String(this.resultats[i]), P.x, P.y, 'black', 0, 0, 'none', 8))
+            }
           }
         }
         if (this.type === 'can2' && this.indexInconnue === i) {
@@ -224,7 +229,11 @@ export class Rose {
           }
         }
       } else {
-        objets.push(texteParPoint(this.cellulesPreremplies[i], P, 'milieu', 'black', 1, 'middle', true))
+        if (this.cellulesPreremplies[i] instanceof FractionEtendue) {
+          objets.push(texteParPoint(this.cellulesPreremplies[i].texFSD, P, 0, 'black', 1, 'milieu', true))
+        } else {
+          objets.push(texteParPoint(this.cellulesPreremplies[i], P, 0, 'black', 1, 'milieu', true))
+        }
       }
 
       objets.push(bulle2)
@@ -246,6 +255,7 @@ export function ExoRose () {
   this.nombreDeValeurs = 4
   this.valeurMax = 10
   this.roses = []
+  this.clavier = KeyboardType.clavierDeBase
 
   this.indexInconnue = []
   this.nouvelleVersion = function () {
@@ -275,6 +285,14 @@ export function ExoRose () {
           if (this.nombreDeValeurs > 5) this.nombreDeValeurs = 5
         }
         break
+    }
+
+    if (this.typeDonnees === 'litteraux') {
+      this.clavier = KeyboardType.clavierDeBaseAvecVariable
+    } else if (this.typeDonnees.includes('frac')) {
+      this.clavier = KeyboardType.clavierDeBaseAvecFraction
+    } else {
+      this.clavier = KeyboardType.clavierDeBase
     }
 
     for (
@@ -333,12 +351,13 @@ export function ExoRose () {
       texte += mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objets)), objets)
       if (this.interactif) {
         if (this.type.substring(0, 3) === 'can') {
-          texte += ajouteChampTexteMathLive(this, i, 'nospacebefor', { texteAvant: `${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}=`, tailleExtensible: true })
+          texte += ajouteChampTexteMathLive(this, i, 'nospacebefor ' + this.clavier, { texteAvant: `${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}=`, tailleExtensible: true })
         } else {
+          let question = ''
           for (let k = 0; k < this.nombreDeValeurs; k++) {
-            texte += ajouteChampTexteMathLive(this, i * this.nombreDeValeurs + k, 'nospacebefor', { texteAvant: `${lettreMinusculeDepuisChiffre(k + 1)}=`, tailleExtensible: true })
-            texte += sp(6)
+            question += `${lettreMinusculeDepuisChiffre(k + 1)}=%{champ${k + 1}}${sp(3)}`
           }
+          texte += remplisLesBlancs(this, i, question, this.clavier, '\\ldots')
         }
       }
       texteCorr = mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objetsCorr)), objetsCorr)
@@ -372,17 +391,16 @@ export function ExoRose () {
   this.correctionInteractive = i => {
     const taille = this.nombreDeValeurs
     const champsTexte = []
-    const spanResultat = this.type.substring(0, 3) === 'can'
-      ? document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-      : document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${(i + 1) * taille - 1}`)
+    const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
     const saisies = []
     if (this.type.substring(0, 3) === 'can') {
       champsTexte[0] = document.getElementById(`champTexteEx${this.numeroExercice}Q${i}`)
       saisies[0] = champsTexte[0].value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1')
     } else {
+      const mfe = document.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${i}`)
       for (let k = 0; k < taille; k++) {
-        champsTexte[k] = document.getElementById(`champTexteEx${this.numeroExercice}Q${i * taille + k}`)
-        saisies[k] = champsTexte[k].value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1')
+        champsTexte[k] = mfe.getPromptValue(`champ${k + 1}`)
+        saisies[k] = champsTexte[k].replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1')
       }
     }
     let resultat

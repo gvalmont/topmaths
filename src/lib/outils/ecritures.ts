@@ -2,7 +2,6 @@ import Decimal from 'decimal.js'
 import { equal, round } from 'mathjs'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { fraction } from '../../modules/fractions.js'
 import { egal } from '../../modules/outils.js'
 import { miseEnEvidence } from './embellissements.js'
 import { arrondi } from './nombres'
@@ -90,13 +89,13 @@ export function ecritureNombreRelatifc (a: string | number) {
  * //+3 ou -3
  * @author Rémi Angot et Jean-claude Lhote pour le support des fractions
  */
-export function ecritureAlgebrique (a: string | number | FractionEtendue | Decimal) {
+export function ecritureAlgebrique (a: number | FractionEtendue | Decimal) {
   if (typeof a === 'string') {
     window.notify('ecritureAlgebrique() n\'accepte pas les string.', { argument: a })
-    a = Number(a)
-  }
-  if (a instanceof FractionEtendue) return fraction(a).ecritureAlgebrique
-  else if (typeof a === 'number') {
+    return a
+  } else if (a instanceof FractionEtendue) {
+    return a.texFSD
+  } else if (typeof a === 'number') {
     if (a >= 0) {
       return '+' + texNombre(a, 7)
     } else {
@@ -108,7 +107,10 @@ export function ecritureAlgebrique (a: string | number | FractionEtendue | Decim
     } else {
       return texNombre(a, 7)
     }
-  } else window.notify('ecritureAlgebrique : type de valeur non prise en compte')
+  } else {
+    window.notify('ecritureAlgebrique() : type de valeur non prise en compte', { argument: a })
+    return ''
+  }
 }
 
 /**
@@ -117,8 +119,8 @@ export function ecritureAlgebrique (a: string | number | FractionEtendue | Decim
  * //+3 ou -3
  * @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
  */
-export function ecritureAlgebriqueSauf1 (a) {
-  if (a instanceof FractionEtendue) return fraction(a).ecritureAlgebrique
+export function ecritureAlgebriqueSauf1 (a: FractionEtendue | number | Decimal) {
+  if (a instanceof FractionEtendue) return a.ecritureAlgebrique
   if (typeof a === 'string') {
     window.notify('ecritureAlgebriqueSauf1() n\'accepte pas les string.', { argument: a })
     a = Number(a)
@@ -126,7 +128,7 @@ export function ecritureAlgebriqueSauf1 (a) {
   if (equal(a, 1)) return '+'
   else if (equal(a, -1)) return '-'
   else if (typeof a === 'number') return ecritureAlgebrique(a)
-  else window.notify('ecritureAlgebriqueSauf1 : type de valeur non prise en compte')
+  else window.notify('ecritureAlgebriqueSauf1 : type de valeur non prise en compte', {})
 }
 
 /**
@@ -190,7 +192,7 @@ export function ecritureParentheseSiNegatif (a: Decimal | number | FractionEtend
  * // (-3x)
  * @author Rémi Angot
  */
-export function ecritureParentheseSiMoins (expr: string | number) {
+export function ecritureParentheseSiMoins (expr: string | number| FractionEtendue) {
   if (typeof expr === 'string' && expr[0] === '-') return `(${expr})`
   else if (typeof expr === 'string') return expr // Il faut sortir si c'est un string, il n'y a rien à faire de plus !
   else if (typeof expr === 'number' && expr < 0) return `(${stringNombre(expr, 7)})`
@@ -225,9 +227,11 @@ export function calculAligne (numero: number, etapes: number[]) {
  * fonctionne aussi si a est une fraction : permet de finir un calcul par la valeur décimale si on veut.
  * @author Jean-Claude Lhote
  */
-export function egalOuApprox (a: number | FractionEtendue, precision: number) {
-  if (typeof a === 'object' && ['FractionEtendue'].indexOf(a.type) !== -1) {
-    return egal(a.n / a.d, arrondi(a.n / a.d, precision)) ? '=' : '\\approx'
+export function egalOuApprox (a: number | FractionEtendue | Decimal, precision: number) {
+  if (a instanceof FractionEtendue) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ ts-expect-errors
+    return egal(a.num / a.den, arrondi(a.num / a.den, precision)) ? '=' : '\\approx'
   } else if (a instanceof Decimal) {
     return a.eq(a.toDP(precision)) ? '=' : '\\approx'
   } else if (!isNaN(a) && !isNaN(precision)) return egal(a, round(a, precision), 10 ** (-precision - 2)) ? '=' : '\\approx'
@@ -359,4 +363,10 @@ export function reduirePolynomeDegre3 (a: number, b: number, c: number, d: numbe
       }
   }
   return result
+}
+
+export function ordreAlphabetique (str: string):string {
+  const chars = Array.from(str)
+  const orderedChars = chars.sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0))
+  return orderedChars.join('')
 }

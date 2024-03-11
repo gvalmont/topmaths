@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { point, tracePoint } from '../../../lib/2d/points.js'
-import { texteParPositionEchelle } from '../../../lib/2d/textes.js'
+import { texteParPositionEchelle } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { modalPdf, modalUrl } from '../../../lib/outils/modales.js'
 import { texteGras } from '../../../lib/format/style'
@@ -23,6 +23,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import { roseDesVents, scratchblock } from '../../../modules/scratchblock.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
+export const dateDePublication = '11/04/2021'
 export const titre = 'Noter la couleur (scratch)'
 export const interactifType = 'mathLive'
 export const interactifReady = true
@@ -30,12 +31,14 @@ export const interactifReady = true
 /**
  * Note_la_couleur() Exercice inspiré de l'activité débranchée de Jean-Yves Labouche Note La Couleur
  * https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/
- * Ref : can6I01 (variante de 6I11 avec des dalles de 20 x 20)
- * Publié le 11/04/2021
  * @author Jean-Claude Lhote
  */
 export const uuid = '667d1'
 export const ref = 'can6I01'
+export const refs = {
+  'fr-fr': ['can6I01'],
+  'fr-ch': []
+}
 export default function CanNoteLaCouleur6 () {
   Exercice.call(this)
   this.titre = titre
@@ -234,7 +237,7 @@ export default function CanNoteLaCouleur6 () {
                     '</td></tr></table>'
       } else {
         texte += `\\begin{minipage}{0.1\\textwidth} ${scratchblock(pion.codeScratch)} \n \\end{minipage}
-        \\begin{minipage}{0.4\\textwidth} \n\t ${mathalea2d(Object.assign({}, fixeBordures([rose]), { scale: 0.5 }), rose)} \n \\end{minipage} \n}
+        \\begin{minipage}{0.4\\textwidth} \n\t ${mathalea2d(Object.assign({}, fixeBordures([rose]), { scale: 0.5 }), rose)} \n \\end{minipage}
       \\begin{minipage}{0.3\\textwidth} \n\t ${this.sup === 4 || this.sup === 2
                     ? 'Correspondance chiffre-couleur : \\\\\n0=Blanc, 1=Noir, 2=Rouge, 3=Bleu, 4=Orange, 5=Rose, 6=Jaune, 7=Vert, 8=Gris\\\\\n'
                     : ''} ${mathalea2d(paramsCorrection, objetsEnonce)} \n\\end{minipage}`

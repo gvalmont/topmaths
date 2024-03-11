@@ -1,7 +1,7 @@
 import { point, tracePoint } from '../../../lib/2d/points.js'
 import { papierPointe } from '../../../lib/2d/reperes.js'
 import { longueur } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../../lib/2d/textes.js'
+import { labelPoint } from '../../../lib/2d/textes.ts'
 import { rotation } from '../../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../deprecatedExercice.js'
@@ -25,8 +25,12 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '36f08'
 export const ref = 'can5G03'
+export const refs = {
+  'fr-fr': ['can5G03'],
+  'fr-ch': []
+}
 export default function CompterlesSymetriquesCan5e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -59,7 +63,6 @@ export default function CompterlesSymetriquesCan5e () {
       d = tracePoint(O, context.isHtml ? 'blue' : 'black')
       d.epaisseur = 2
       d.style = '+'
-      d.color = 'none'
       objetsEnonce.push(d)
       pointsPossibles = papier.listeCoords.slice()
       while (pointsPossibles.length > 1) { // si il n'en reste qu'un, on ne peut pas trouver de symétrique
@@ -135,6 +138,4 @@ export default function CompterlesSymetriquesCan5e () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Type d\'axes', 4, '1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique\n4 : Mélange']
-  // this.besoinFormulaire2Numerique = ['Type de papier pointé', 4, '1 : Carrés\n2 : Hexagones\n3 : Triangles équilatéraux\n4 : Mélange']
 }

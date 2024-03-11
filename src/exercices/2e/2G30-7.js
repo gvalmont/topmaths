@@ -2,7 +2,7 @@ import { droite } from '../../lib/2d/droites.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
@@ -26,7 +26,7 @@ export const uuid = '41e6f'
 export const ref = '2G30-7'
 export const refs = {
   'fr-fr': ['2G30-7'],
-  'fr-ch': []
+  'fr-ch': ['11FA9-7']
 }
 export default function Lecturegraphiquedeaetb () {
   Exercice.call(this)

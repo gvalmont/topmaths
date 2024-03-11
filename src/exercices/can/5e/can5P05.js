@@ -18,9 +18,13 @@ export const dateDeModifImportante = '12/02/2024'
 */
 export const uuid = '6946a'
 export const ref = 'can5P05'
+export const refs = {
+  'fr-fr': ['can5P05'],
+  'fr-ch': []
+}
 export default function PoucentageP2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur01 inline'
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

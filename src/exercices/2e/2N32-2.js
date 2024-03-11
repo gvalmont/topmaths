@@ -16,10 +16,10 @@ export const uuid = '99b29'
 export const ref = '2N32-2'
 export const refs = {
   'fr-fr': ['2N32-2'],
-  'fr-ch': []
+  'fr-ch': ['11NO1-5']
 }
 export default function Proprietesracinecarree () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 2
   this.nbCols = 2

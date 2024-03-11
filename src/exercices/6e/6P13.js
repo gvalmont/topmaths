@@ -37,10 +37,10 @@ export const uuid = '064ce'
 export const ref = '6P13'
 export const refs = {
   'fr-fr': ['6P13'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-13']
 }
 export default function AugmenterEtReduireDunPourcentage () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 2
   this.nbCols = 1 // Uniquement pour la sortie LaTeX

@@ -4,24 +4,28 @@ import Exercice from '../deprecatedExercice.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Donner l\'écriture décimale à partir d\'un somme d\'entiers et de fractions décimales'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const dateDePublication = '24/03/2021'
 
 /**
  * Description didactique de l'exercice
  * @author Benjamin Angot
- * Référence C3N20
- * 2021-03-24
  */
 
 export const uuid = 'ec7e4'
 export const ref = 'c3N20'
+export const refs = {
+  'fr-fr': ['c3N20'],
+  'fr-ch': ['9NO13-3']
+}
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = "Donner l'écriture décimale des nombres suivants."
   this.nbQuestions = 6
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
@@ -81,6 +85,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
       if (this.questionJamaisPosee(i, a, b, c)) {
         setReponse(this, i, reponse)
+        texte += ajouteChampTexteMathLive(this, i)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

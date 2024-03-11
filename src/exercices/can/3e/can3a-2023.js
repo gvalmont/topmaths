@@ -5,7 +5,7 @@ import { milieu, point, tracePoint } from '../../../lib/2d/points.js'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { droiteGraduee, repere } from '../../../lib/2d/reperes.js'
 import { demiDroite, segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, latexParCoordonnees, texteParPosition } from '../../../lib/2d/textes.js'
+import { labelPoint, latexParCoordonnees, texteParPosition } from '../../../lib/2d/textes.ts'
 import { rotation } from '../../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -17,7 +17,7 @@ import { texPrix } from '../../../lib/format/style'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { min, round } from 'mathjs'
 import { context } from '../../../modules/context.js'
 import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils.js'
@@ -34,6 +34,10 @@ export const dateDePublication = '03/04/2023' // La date de publication initiale
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '798ec'
 export const ref = 'can3a-2023'
+export const refs = {
+  'fr-fr': ['can3a-2023'],
+  'fr-ch': []
+}
 
 /**
  * Aléatoirisation du sujet 2023 de CAN 5e
@@ -46,7 +50,7 @@ function compareNombres (a, b) {
 }
 
 export default function SujetCAN2023troisieme () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType

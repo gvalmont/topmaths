@@ -20,16 +20,15 @@ export const interactifType = 'mathLive'
 /**
  * On doit calculer la probabilité qu'un événement se réalise après une expérience aléatoire à deux épreuves
  * @author Jean-Claude Lhote
- * Référence 3S21
  */
 export const uuid = '76230'
 export const ref = '3S21'
 export const refs = {
   'fr-fr': ['3S21'],
-  'fr-ch': []
+  'fr-ch': ['11NO2-14']
 }
 export default function CalculProbaExperience2Epreuves3e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
 
   this.besoinFormulaireTexte = ['Type de question', '1 : Deux épreuves\n2 : Deux épreuves avec Remise\n3 : Deux épreuves sans remise\n4 : Mélange']
   this.sup = 1
@@ -227,7 +226,7 @@ function unePieceDeuxUrnes (exercice, NoQuestion, sup, sup2, sup3) {
     q++
   }
   texteCorr += tableau + '<br><br>'
-  texteCorr += `${numAlpha(q)} Comme on a fait ${pileOuFace}», on va tirer une boule dans la ${urne} urne où il y a ${nbBouleC} boule${nbBouleC > 1 ? 's' : ''} ${boules[choix1]}${nbBouleC > 1 ? 's' : ''} sur ${card} boules.<br>`
+  texteCorr += `${numAlpha(q)} Comme on a fait «${pileOuFace}», on va tirer une boule dans la ${urne} urne où il y a ${nbBouleC} boule${nbBouleC > 1 ? 's' : ''} ${boules[choix1]}${nbBouleC > 1 ? 's' : ''} sur ${card} boules.<br>`
   if (!context.isAmc) setReponse(exercice, NoQuestion, proba1, { formatInteractif: 'fractionEgale' })
   q++
   texteCorr += `La probabilité de cet événement est donc de $${proba1.texFraction}${!proba1.estIrreductible ? '=' + proba1.texFractionSimplifiee : ''}$.<br>`

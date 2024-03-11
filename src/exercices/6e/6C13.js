@@ -19,10 +19,10 @@ export const uuid = 'ed0ea'
 export const ref = '6C13'
 export const refs = {
   'fr-fr': ['6C13'],
-  'fr-ch': []
+  'fr-ch': ['9FA2-1']
 }
 export default function VocabulaireEtOperations () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 5

@@ -29,10 +29,10 @@ export const uuid = '0b020'
 export const ref = '4C10-7'
 export const refs = {
   'fr-fr': ['4C10-7'],
-  'fr-ch': []
+  'fr-ch': ['10NO4-9']
 }
 export default function ExerciceOperationsRelatifs () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = false // écriture simplifiée
   this.sup2 = 5 // Mélange par défaut
   this.sup3 = 10 // Valeur maximum

@@ -4,7 +4,7 @@ import { milieu, plot, point, tracePoint } from '../../../lib/2d/points.js'
 import { pave } from '../../../lib/2d/projections3d.js'
 import { repere } from '../../../lib/2d/reperes.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import {
@@ -21,7 +21,7 @@ import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { Arbre } from '../../../modules/arbres.js'
 import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils.js'
@@ -48,8 +48,12 @@ function compareNombres (a, b) {
 
 export const uuid = '99a59'
 export const ref = 'can1a-2022'
+export const refs = {
+  'fr-fr': ['can1a-2022'],
+  'fr-ch': []
+}
 export default function SujetCAN2022Premiere () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType

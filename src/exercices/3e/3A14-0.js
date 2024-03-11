@@ -1,7 +1,7 @@
 import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { texteParPosition } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
 import { createList } from '../../lib/format/lists.ts'
 import { egalOuApprox } from '../../lib/outils/ecritures'
@@ -26,10 +26,10 @@ export const uuid = '2e22a'
 export const ref = '3A14-0'
 export const refs = {
   'fr-fr': ['3A14-0'],
-  'fr-ch': []
+  'fr-ch': ['11GM2-2']
 }
 export default function DesChocolatsDansDesBoites () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.introduction = 'D’après Brevet des Collège - Centres étrangers - Juin 2022'
   this.consigne = ''

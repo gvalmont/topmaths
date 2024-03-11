@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
-import { egaliteCompare } from '../../../lib/interactif/comparaisonFonctions'
+import { equalityCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Exprimer une variable en fonction d\'une autre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,12 +16,16 @@ export const dateDePublication = '12/01/2023'
 
 export const uuid = 'b5c9c'
 export const ref = 'can2L11'
+export const refs = {
+  'fr-fr': ['can2L11'],
+  'fr-ch': []
+}
 export default function ExprimerVariable () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.compare = egaliteCompare
+  this.compare = equalityCompare
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline nospacebefore'
   this.nouvelleVersion = function () {

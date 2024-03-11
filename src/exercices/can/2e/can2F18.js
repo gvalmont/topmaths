@@ -1,5 +1,5 @@
 import { repere } from '../../../lib/2d/reperes.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { spline } from '../../../lib/mathFonctions/Spline.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -18,6 +18,10 @@ export const titre = 'Déterminer un extremum graphiquement'
 */
 export const uuid = '5a908'
 export const ref = 'can2F18'
+export const refs = {
+  'fr-fr': ['can2F18'],
+  'fr-ch': []
+}
 export default function MaxMinG () {
   Exercice.call(this)
   this.typeExercice = 'simple'

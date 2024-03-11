@@ -4,7 +4,7 @@ import { droite } from '../../lib/2d/droites.js'
 import { point, pointSurSegment } from '../../lib/2d/points.js'
 import { nommePolygone, polygone } from '../../lib/2d/polygones.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPoint } from '../../lib/2d/textes.js'
+import { texteParPoint } from '../../lib/2d/textes.ts'
 import { projectionOrtho, rotation, similitude } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
@@ -89,8 +89,8 @@ export default function ExprimerCosSinTan () {
         t3 = texteSurSegment('opposé à ⍺', A, C)
         t22 = texteSurSegment('opposé à 𝛽', B, A)
         t32 = texteSurSegment('adjacent à 𝛽', A, C)
-        codageAngle = afficheMesureAngle(A, B, C, 'red', 1.5, '⍺')
-        codageAngle2 = afficheMesureAngle(A, C, B, 'red', 1.5, '𝛽')
+        codageAngle = afficheMesureAngle(A, B, C, 'red', 1.5, '\\alpha')
+        codageAngle2 = afficheMesureAngle(A, C, B, 'red', 1.5, '\\beta')
       } else {
         t2 = texteSurSegment('adjacent à $\\alpha$', B, A)
         t3 = texteSurSegment('opposé à $\\alpha$', A, C)

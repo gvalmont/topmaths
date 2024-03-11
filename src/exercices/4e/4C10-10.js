@@ -28,10 +28,10 @@ export const uuid = '857c1'
 export const ref = '4C10-10'
 export const refs = {
   'fr-fr': ['4C10-10'],
-  'fr-ch': []
+  'fr-ch': ['10NO4-6']
 }
 export default function ExerciceMultiplicationsRelatifsATrou (max = 10) {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = max
   this.sup2 = false // écriture simplifiée
   this.titre = titre

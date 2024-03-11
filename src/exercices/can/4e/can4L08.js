@@ -18,8 +18,12 @@ export const dateDePublication = '27/02/2022' // La date de publication initiale
 */
 export const uuid = 'a6e97'
 export const ref = 'can4L08'
+export const refs = {
+  'fr-fr': ['can4L08'],
+  'fr-ch': []
+}
 export default function ReconnaitreExpL () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 1

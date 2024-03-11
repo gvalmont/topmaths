@@ -2,13 +2,13 @@ import { codageSegments } from '../../lib/2d/codages.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { prenom } from '../../lib/outils/Personne'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonnees } from '../../lib/2d/textes.js'
+import { latexParCoordonnees } from '../../lib/2d/textes.ts'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
@@ -32,10 +32,10 @@ export const uuid = 'b77cc'
 export const ref = '2G12-5'
 export const refs = {
   'fr-fr': ['2G12-5'],
-  'fr-ch': []
+  'fr-ch': ['11GM1-8']
 }
 export default function ParallélogrammeSommet () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 1
   this.nbCols = 1

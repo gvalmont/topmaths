@@ -3,7 +3,7 @@ import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -24,7 +24,7 @@ export const uuid = '91d72'
 export const ref = '5N10'
 export const refs = {
   'fr-fr': ['5N10'],
-  'fr-ch': []
+  'fr-ch': ['9NO10-2']
 }
 export default function PasserEcritureDecimaleEcritureFractionnaireInversement () {
   Exercice.call(this)

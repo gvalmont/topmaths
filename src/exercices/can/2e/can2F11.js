@@ -19,8 +19,12 @@ export const dateDePublication = '30/12/2021' // La date de publication initiale
 */
 export const uuid = '991c2'
 export const ref = 'can2F11'
+export const refs = {
+  'fr-fr': ['can2F11'],
+  'fr-ch': []
+}
 export default function ComparerAvecFctCarre () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 1.2

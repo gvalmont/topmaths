@@ -4,7 +4,7 @@ import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js
 import { point, pointAdistance, pointIntersectionDD, pointSurDroite } from '../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { translation2Points } from '../../lib/2d/transformations.js'
 import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
@@ -24,7 +24,7 @@ export const uuid = '6a2dd'
 export const ref = '4G10-2'
 export const refs = {
   'fr-fr': ['4G10-2'],
-  'fr-ch': []
+  'fr-ch': ['10ES2-3']
 }
 
 function segmente (point, image) {

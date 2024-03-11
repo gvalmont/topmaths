@@ -1,4 +1,4 @@
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import Pyramide from '../../../modules/pyramide.js'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -15,6 +15,10 @@ export const dateDePublication = '09/05/2022'
  */
 export const uuid = '140ad'
 export const ref = 'can3C13'
+export const refs = {
+  'fr-fr': ['can3C13'],
+  'fr-ch': []
+}
 export default function Pyramide3EtagesAdditionFractions () {
   Exercice.call(this)
   this.nbQuestions = 1

@@ -4,7 +4,7 @@ import { distancePointDroite, droite } from '../../lib/2d/droites.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { projectionOrtho } from '../../lib/2d/transformations.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -25,7 +25,7 @@ export const uuid = '29c3b'
 export const ref = '6G53'
 export const refs = {
   'fr-fr': ['6G53'],
-  'fr-ch': []
+  'fr-ch': ['9ES3-8']
 }
 export default class MesurerDistancePointDroite extends Exercice {
   constructor () {

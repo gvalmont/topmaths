@@ -31,10 +31,10 @@ export const uuid = '52939'
 export const ref = '6C30'
 export const refs = {
   'fr-fr': ['6C30'],
-  'fr-ch': []
+  'fr-ch': ['9NO8-8']
 }
 export default function MultiplierDecimaux () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Poser et effectuer les calculs suivants.'
   this.spacing = 2

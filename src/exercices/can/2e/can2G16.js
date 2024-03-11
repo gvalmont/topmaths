@@ -1,9 +1,9 @@
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires'
 import { texteCentre } from '../../../lib/format/miseEnPage.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -19,6 +19,10 @@ export const amcType = 'AMCHybride'
 export const dateDePublication = '22/06/2022'
 export const uuid = 'c0d5f'
 export const ref = 'can2G16'
+export const refs = {
+  'fr-fr': ['can2G16'],
+  'fr-ch': []
+}
 export default function VecteursCol () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -1,6 +1,6 @@
 import { courbe } from '../../../lib/2d/courbes.js'
 import { repere } from '../../../lib/2d/reperes.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { point, tracePoint } from '../../../lib/2d/points.js'
 import { rienSi1 } from '../../../lib/outils/ecritures'
@@ -23,8 +23,12 @@ export const dateDeModifImportante = '11/10/2023'// j'ai enlevé c. J'ai ajoute 
  */
 export const uuid = '053d7'
 export const ref = 'can1F05'
+export const refs = {
+  'fr-fr': ['can1F05'],
+  'fr-ch': []
+}
 export default function LectureGraphiqueParabolebEtc () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur10 inline'
   this.tailleDiaporama = 2

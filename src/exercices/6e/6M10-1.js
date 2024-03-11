@@ -1,7 +1,7 @@
 import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonnees, texteParPositionEchelle } from '../../lib/2d/textes.js'
+import { latexParCoordonnees, texteParPositionEchelle } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texteExposant } from '../../lib/outils/ecritures'
@@ -24,7 +24,7 @@ export const uuid = '9a5fe'
 export const ref = '6M10-1'
 export const refs = {
   'fr-fr': ['6M10-1'],
-  'fr-ch': []
+  'fr-ch': ['9GM1-9']
 }
 export default function ProblemesAiresRectangles () {
   Exercice.call(this)

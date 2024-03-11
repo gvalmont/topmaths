@@ -10,7 +10,6 @@ export const titre = 'Organiser des données dans un tableau'
 /**
  * Organiser donnees depuis texte
  * @author Erwan Duplessy
- * Référence 6S11
  */
 
 // source : http://www.ac-grenoble.fr/savoie/pedagogie/docs_pedas/ogd_c2_c3/ogd_c2_c3.pdf
@@ -19,11 +18,10 @@ export const uuid = '99d95'
 export const ref = '6S11'
 export const refs = {
   'fr-fr': ['6S11'],
-  'fr-ch': []
+  'fr-ch': ['9FA1-3']
 }
 export default function OrganiserDonneesDepuisTexte () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
+  Exercice.call(this)
   this.consigne = "Répondre aux questions à l'aide du texte."
   this.nbQuestions = 4
   this.nbQuestionsModifiable = false

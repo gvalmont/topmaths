@@ -1,6 +1,6 @@
 import { point } from '../../lib/2d/points.js'
 import { segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import Exercice from '../deprecatedExercice.js'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ValeurAbsolueEtEquation () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes.'
   this.nbQuestions = 4

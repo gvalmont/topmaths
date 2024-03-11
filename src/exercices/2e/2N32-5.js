@@ -13,10 +13,10 @@ export const uuid = '660de'
 export const ref = '2N32-5'
 export const refs = {
   'fr-fr': ['2N32-5'],
-  'fr-ch': []
+  'fr-ch': ['11NO1-8']
 }
 export default function DoubleDistributiviteAvecRacineCarree () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ' Effectuer les calculs suivants.'
   this.nbQuestions = 5

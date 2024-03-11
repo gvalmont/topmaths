@@ -8,7 +8,7 @@ import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../lib/outils/calculs'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { texteParPosition } from '../../lib/2d/textes.ts'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -22,10 +22,10 @@ export const uuid = 'd633a'
 export const ref = '2G12-4'
 export const refs = {
   'fr-fr': ['2G12-4'],
-  'fr-ch': []
+  'fr-ch': ['11GM1-7']
 }
 export default function NaturePolygone () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 1
   this.nbCols = 1

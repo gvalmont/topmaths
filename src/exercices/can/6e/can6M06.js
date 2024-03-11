@@ -2,7 +2,7 @@ import { cercle } from '../../../lib/2d/cercle.js'
 import { milieu, point, pointAdistance, pointIntersectionCC, tracePoint } from '../../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { longueur } from '../../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
@@ -23,6 +23,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'e52ba'
 export const ref = 'can6M06'
+export const refs = {
+  'fr-fr': ['can6M06'],
+  'fr-ch': []
+}
 export default function Perimetre () {
   Exercice.call(this)
   this.typeExercice = 'simple'

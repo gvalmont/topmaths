@@ -26,7 +26,7 @@ export const uuid = '6c8a1'
 export const ref = '6N20'
 export const refs = {
   'fr-fr': ['6N20'],
-  'fr-ch': []
+  'fr-ch': ['9NO10-9']
 }
 export default class ExerciceFractionsDecomposer extends Exercice {
   constructor () {
@@ -235,6 +235,7 @@ export default class ExerciceFractionsDecomposer extends Exercice {
       throw Error('verifQuestionMathlive: type fillInTheBlank ne trouve pas le mathfieldElement dans le dom : ' + JSON.stringify({ selecteur: `math-field#champTexteEx${this.numeroExercice}Q${i}` }))
     }
     const spanReponseLigne = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+    // @ts-expect-error TS2339 Penser à typer correctement Exercice.autoCorrection
     const reponses = this.autoCorrection[i].reponse.valeur
     let result: string
     const num = Number(mfe.getPromptValue('champ2'))
@@ -260,5 +261,5 @@ export default class ExerciceFractionsDecomposer extends Exercice {
 }
 
 function texFraction (a: number | string, b: number | string): string {
-  return `\\frac{${a}}{${b}}`
+  return `\\dfrac{${a}}{${b}}`
 }

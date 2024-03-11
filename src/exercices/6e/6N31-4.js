@@ -25,10 +25,10 @@ export const uuid = 'b86b9'
 export const ref = '6N31-4'
 export const refs = {
   'fr-fr': ['6N31-4'],
-  'fr-ch': []
+  'fr-ch': ['9NO7-7']
 }
 export default function IntercalerDecimalEntre2Decimaux () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Compléter avec un nombre décimal.'
   this.nbQuestions = 6
   this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX

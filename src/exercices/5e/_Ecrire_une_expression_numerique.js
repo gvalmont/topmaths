@@ -10,7 +10,7 @@ import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteracti
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { range } from '../../lib/outils/nombres'
-import { fonctionXyCompare } from '../../lib/interactif/comparaisonFonctions'
+import { functionXyCompare, numberCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = ['mathLive', 'listeDeroulante']
@@ -20,11 +20,9 @@ export const dateDeModifImportante = '21/09/2023'
 /**
  * Fonction noyau pour 6 fonctions qui utilisent les mêmes variables et la fonction choisirExpressionNumerique
  * @author Jean-Claude Lhote
- * Référence 5C11, 5C11-1, 5C12-1, 5L10-1, 5L10-3, 5L14-1 et 5L14-3
  */
 export default function EcrireUneExpressionNumerique () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = ''
+  Exercice.call(this)
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -109,6 +107,7 @@ export default function EcrireUneExpressionNumerique () {
           texteCorr = `${expn} s'écrit : ${texteEnCouleurEtGras(expf)}.`
           break
         case 3:
+        {
           if (this.interactif) {
             this.consigne = 'Traduire la phrase par un calcul et effectuer le calcul demandé au brouillon.<br> Saisir uniquement le résultat.'
           } else {
@@ -121,7 +120,7 @@ export default function EcrireUneExpressionNumerique () {
 
           if (!this.litteral) {
             texteCorr = ''
-            if (!this.sup4) {
+            if (!this.sup4) { // EE : Ce test ne semble plus servir.
               const expc2 = expc.substring(1, expc.length - 1).split('=')
               texteCorr += `$${miseEnEvidence(expc2[0])} =$` + sp()
               for (let ee = 1; ee < expc2.length - 1; ee++) {
@@ -143,18 +142,47 @@ export default function EcrireUneExpressionNumerique () {
             }
           } else if (nbval === 2) texteCorr += `Pour $x=${val1}$ et $y=${val2}$ :<br> ${expc}`
           else texteCorr += `Pour $x=${val1}$ :<br>${expc}`
-          reponse = parseInt(expc.split('=')[expc.split('=').length - 1].replace('$', ''))
+          reponse = expc.split('=')[expc.split('=').length - 1].replace('$', '')
+
+          if (this.litteral) {
+          // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+            const textCorrSplit = texteCorr.split('=')
+            let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+            aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+            texteCorr = ''
+            for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+              texteCorr += textCorrSplit[ee] + '='
+            }
+            texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+          // Fin de cette uniformisation
+          }
           break
+        }
         case 4:
-          if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou') - 1) // on supprime la deuxième expression fractionnaire
-          this.consigne = ''
-          if (!this.litteral) texte = `${expn}`
-          else if (nbval === 2) texte = `Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
-          else texte = `Pour $x=${val1}$, calculer ${expn}.`
-          if (!this.litteral) texteCorr = `${expc}`
-          else if (nbval === 2) texteCorr = `Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}`
-          else texteCorr = `Pour $x=${val1}$ :<br>${expc}`
-          reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
+          {
+            if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou') - 1) // on supprime la deuxième expression fractionnaire
+            this.consigne = ''
+            if (!this.litteral) texte = `${expn}`
+            else if (nbval === 2) texte = `Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
+            else texte = `Pour $x=${val1}$, calculer ${expn}.`
+            if (!this.litteral) texteCorr = `${expc}`
+            else if (nbval === 2) texteCorr = `Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}`
+            else texteCorr = `Pour $x=${val1}$ :<br>${expc}`
+            reponse = expc.split('=')[expc.split('=').length - 1].replace('$', '')
+
+            // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+            const textCorrSplit = texteCorr.split('=')
+            let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+            aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+            texteCorr = ''
+            for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+              texteCorr += textCorrSplit[ee] + '='
+            }
+            texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+          // Fin de cette uniformisation
+          }
           break
       }
       if ((this.questionJamaisPosee(i, nbOperations, nbval, this.version, expf) && !this.litteral) || (this.litteral && this.questionJamaisPosee(i, nbOperations, nbval, this.version, resultats[4]))) { // Si la question n'a jamais été posée, on en créé une autre
@@ -197,7 +225,7 @@ export default function EcrireUneExpressionNumerique () {
             }
           } else {
             texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: ' Résultat : ' })
-            setReponse(this, i, reponse)
+            handleAnswers(this, i, { reponse: { value: reponse, compare: numberCompare } })
           }
         }
         // on doit donner la traduction en français de l'expression (liste déroulante pour l'interactif et AMCOpen
@@ -220,7 +248,7 @@ export default function EcrireUneExpressionNumerique () {
             setReponse(this, i, expNom, { formatInteractif: 'texte' })
           }
         }
-        // on doit donner une expression littérale => handleAnswer avec fonctionXyCompare. ou amcOpen
+        // on doit donner une expression littérale => handleAnswer avec functionXyCompare. ou amcOpen
         if (this.version === 1) {
           if (context.isAmc) { // AMCOpen pour 5C11, 5C11-1, 5L10-1, 5L10-3
             this.autoCorrection[i] =
@@ -237,7 +265,7 @@ export default function EcrireUneExpressionNumerique () {
             }
           } else {
             texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: ' Résultat : ' })
-            handleAnswers(this, i, { reponse: { value: { fonction: reponse, variables: ['x', 'y'] }, compare: fonctionXyCompare } }, { formatInteractif: 'calcul' })
+            handleAnswers(this, i, { reponse: { value: { fonction: reponse, variables: ['x', 'y'] }, compare: functionXyCompare } }, { formatInteractif: 'calcul' })
           }
         }
 

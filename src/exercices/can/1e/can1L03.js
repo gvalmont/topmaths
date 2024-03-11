@@ -19,8 +19,12 @@ export const dateDePublication = '01/06/2022' // La date de publication initiale
  */
 export const uuid = 'a23a1'
 export const ref = 'can1L03'
+export const refs = {
+  'fr-fr': ['can1L03'],
+  'fr-ch': []
+}
 export default function RacinesPoly () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.tailleDiaporama = 2

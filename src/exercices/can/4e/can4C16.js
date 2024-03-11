@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Multiplier des fractions'
 export const interactifReady = true
@@ -15,6 +15,10 @@ export const dateDePublication = '07/09/2023'
 
 export const uuid = '07df0'
 export const ref = 'can4C16'
+export const refs = {
+  'fr-fr': ['can4C16'],
+  'fr-ch': []
+}
 export default function MultiplierFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

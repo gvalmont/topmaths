@@ -27,10 +27,10 @@ export const uuid = '5e8fc'
 export const ref = '4C21-1'
 export const refs = {
   'fr-fr': ['4C21-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO13-7']
 }
 export default function ExerciceAdditionnerDesFractions () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 2 // Niveau de difficulté
   this.sup2 = false // Avec ou sans relatifs
   this.titre = titre

@@ -3,6 +3,10 @@ import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
 export const titre = 'Opérations posées'
 export const ref = 'P008'
+export const refs = {
+  'fr-fr': ['P008'],
+  'fr-ch': []
+}
 export const uuid = '691a6'
 
 /**
@@ -21,7 +25,7 @@ export const uuid = '691a6'
  * Référence 6C11
  */
 export default function OperationsPosees () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.spacing = 2

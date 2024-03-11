@@ -1,7 +1,7 @@
 import { angleOriente } from '../../lib/2d/angles.js'
 import { point, pointSurSegment } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
-import { texteParPoint } from '../../lib/2d/textes.js'
+import { texteParPoint } from '../../lib/2d/textes.ts'
 import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -35,10 +35,10 @@ export const uuid = '3451c'
 export const ref = '3G21'
 export const refs = {
   'fr-fr': ['3G21'],
-  'fr-ch': []
+  'fr-ch': ['11GM3-5']
 }
 export default function ReciproqueThales () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 3
   // this.nbQuestionsModifiable = false

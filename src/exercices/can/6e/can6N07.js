@@ -1,5 +1,5 @@
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
@@ -18,6 +18,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '34d01'
 export const ref = 'can6N07'
+export const refs = {
+  'fr-fr': ['can6N07'],
+  'fr-ch': []
+}
 export default function LireAbscisseDecimaleDeFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

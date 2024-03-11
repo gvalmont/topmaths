@@ -2,10 +2,10 @@ import { droite, mediatrice } from '../../lib/2d/droites.js'
 import { milieu, point, pointAdistance, pointSurSegment, tracePoint } from '../../lib/2d/points.js'
 import { nommePolygone, polygone, polygoneAvecNom, renommePolygone } from '../../lib/2d/polygones.js'
 import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, latexParPoint } from '../../lib/2d/textes.js'
+import { labelPoint, latexParPoint } from '../../lib/2d/textes.ts'
 import { rotation, similitude, symetrieAxiale, translation } from '../../lib/2d/transformations.js'
 import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
@@ -19,7 +19,7 @@ export const uuid = '0da6a'
 export const ref = '4G15'
 export const refs = {
   'fr-fr': ['4G15'],
-  'fr-ch': []
+  'fr-ch': ['10ES2-7']
 }
 export default function TransformationsDeTriangle () {
   Exercice.call(this)
@@ -122,14 +122,14 @@ export default function TransformationsDeTriangle () {
     let texte = 'Construire<br>$A_1B_1C_1$ le triangle symétrique de $ABC$ par rapport à la droite $(d)$;<br>' // Nous utilisons souvent cette variable pour construire le texte de la question.
     texte += '$A_2B_2C_2$ le triangle symétrique de $A_1B_1C_1$ par rapport au point $D$;<br>'
     texte += '$A_3B_3C_3$ le triangle translaté de $A_2B_2C_2$ tel que $D$ soit transformé en $F$;<br>'
-    texte += `$A_4B_4C_4$ le triangle obtenu par la rotation de $A_3B_3C_3$ de centre $F$ et d'angle $${Math.abs(alpha)}\\degree$ dans le sens des aiguilles d'une montre.<br>`
+    texte += `$A_4B_4C_4$ le triangle obtenu par la rotation de $A_3B_3C_3$ de centre $F$ et d'angle $${Math.abs(alpha)}^\\circ$ dans le sens des aiguilles d'une montre.<br>`
 
     const nomd = latexParPoint('(d)', translation(milieu(B, B1), vecteur(1, 0)), 'black', 30, 12, '')
     if (context.isHtml) {
-      const triangle2a = symetrieAnimee(triangle0, med, `id='anim${numeroExercice}A' begin="0s" dur ="2s" repeatcount="1" fill="freeze"`)
-      const triangle3a = rotationAnimee(triangle2, D, 180, `id='anim${numeroExercice}B' begin="2s" dur ="2s" repeatcount="1" fill="freeze"`)
-      const triangle4a = translationAnimee(triangle3, vecteur(D, F), `id='anim${numeroExercice}C' begin="4s" dur ="2s" repeatcount="1" fill="freeze"`)
-      const triangle5a = rotationAnimee(triangle4, F, alpha, `id='anim${numeroExercice}D' begin="6s" dur ="2s" repeatcount="1" fill="freeze"`)
+      const triangle2a = !context.isHtml ? vide2d() : symetrieAnimee(triangle0, med, `id='anim${numeroExercice}A' begin="0s" dur ="2s" repeatcount="1" fill="freeze"`)
+      const triangle3a = !context.isHtml ? vide2d() : rotationAnimee(triangle2, D, 180, `id='anim${numeroExercice}B' begin="2s" dur ="2s" repeatcount="1" fill="freeze"`)
+      const triangle4a = !context.isHtml ? vide2d() : translationAnimee(triangle3, vecteur(D, F), `id='anim${numeroExercice}C' begin="4s" dur ="2s" repeatcount="1" fill="freeze"`)
+      const triangle5a = !context.isHtml ? vide2d() : rotationAnimee(triangle4, F, alpha, `id='anim${numeroExercice}D' begin="6s" dur ="2s" repeatcount="1" fill="freeze"`)
       anim.vitesse = 15
       anim.tempo = 0.5
       anim.recadre(xMin, yMax)

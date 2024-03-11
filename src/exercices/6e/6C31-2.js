@@ -23,10 +23,10 @@ export const uuid = '013ef'
 export const ref = '6C31-2'
 export const refs = {
   'fr-fr': ['6C31-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO8-15']
 }
 export default function ValeurApprocheeDivisionDecimale () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1

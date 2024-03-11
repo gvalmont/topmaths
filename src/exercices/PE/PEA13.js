@@ -17,6 +17,10 @@ export const dateDePublication = '2/11/2021'
 
 export const uuid = 'a7016'
 export const ref = 'PEA13'
+export const refs = {
+  'fr-fr': ['PEA13'],
+  'fr-ch': []
+}
 
 export function base10VersBaseN (nombre, b) {
   if (nombre instanceof Decimal) return nombre.toNumber().toString(b).toUpperCase()
@@ -42,7 +46,7 @@ export function baseNVersBase10 (stringNombre, b) {
 }
 
 export default function MultiplicationsBaseN () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.video = 'pkp9e8XDH3M'
   this.consigne = 'Poser et effectuer les calculs suivants :'
   this.nbQuestions = 3

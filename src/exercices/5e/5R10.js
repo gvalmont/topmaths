@@ -24,10 +24,10 @@ export const uuid = '61b4a'
 export const ref = '5R10'
 export const refs = {
   'fr-fr': ['5R10'],
-  'fr-ch': []
+  'fr-ch': ['9NO9-4']
 }
 export default function TermeInconnuDeSomme () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 5
   this.sup = 1
   this.sup3 = 1

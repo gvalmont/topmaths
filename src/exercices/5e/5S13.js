@@ -8,7 +8,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -30,10 +30,10 @@ export const uuid = '8cdd5'
 export const ref = '5S13'
 export const refs = {
   'fr-fr': ['5S13'],
-  'fr-ch': []
+  'fr-ch': ['11NO2-1']
 }
 export default function CalculerDesFrequences () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.spacing = 1
   this.spacingCorr = 1.5

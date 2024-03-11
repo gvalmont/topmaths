@@ -2,7 +2,7 @@ import { droite, droiteAvecNomLatex } from '../../lib/2d/droites.js'
 import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPointEchelle } from '../../lib/2d/textes.js'
+import { texteParPointEchelle } from '../../lib/2d/textes.ts'
 import { rotation, symetrieAxiale, translation } from '../../lib/2d/transformations.js'
 import { centreGraviteTriangle } from '../../lib/2d/triangle.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -22,7 +22,6 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /**
-* Référence 6G25-1
 * Relecture : Novembre 2021 par EE
 */
 
@@ -30,11 +29,10 @@ export const uuid = '49cb2'
 export const ref = '6G25-1'
 export const refs = {
   'fr-fr': ['6G25-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-18']
 }
 export default function SymetrieAxialePavageTriangulaire () {
   Exercice.call(this)
-  this.titre = 'Symétrie axiale dans un pavage de triangles équilatéraux'
   this.nbQuestionsModifiable = false // désactive le formulaire nombre de questions
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
   this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
@@ -451,7 +449,7 @@ export default function SymetrieAxialePavageTriangulaire () {
           })
         }
       }
-      objetsEnonce.push(symetrieAnimee(triAngles[question[i].antecedent].tri, d[i], `id="anim${numeroExercice}-${i}" dur="2s" repeatCount="2" `))
+      if (context.isHtml) objetsEnonce.push(symetrieAnimee(triAngles[question[i].antecedent].tri, d[i], `id="anim${numeroExercice}-${i}" dur="2s" repeatCount="2" `))
       images[i] = symetrieAxiale(triAngles[question[i].antecedent].tri, d[i])
       images[i].couleurDeRemplissage = colorToLatexOrHTML(couleurs[i])
       images[i].opaciteDeRemplissage = 0.3

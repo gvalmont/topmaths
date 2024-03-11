@@ -7,7 +7,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
-export const titre = 'Écrire une probabilté avec les notations'
+export const titre = 'Écrire une probabilité avec les notations'
 export const dateDePublication = '21/07/2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,8 +21,12 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '15f6d'
 export const ref = 'can1P01'
+export const refs = {
+  'fr-fr': ['can1P01'],
+  'fr-ch': []
+}
 export default function ProbabilitesNotation () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
   this.sup = true
   this.consigne = ''

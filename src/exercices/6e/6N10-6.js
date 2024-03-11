@@ -5,12 +5,12 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { max } from 'mathjs'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fractionCompare, numberCompare } from '../../lib/interactif/comparaisonFonctions'
+import { fractionCompare, numberCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Donner l\'écriture (décimale ou en fraction décimale) d\'une somme (ou différence) de nombres avec fractions décimales'
 export const amcReady = true
@@ -33,10 +33,10 @@ export const uuid = 'c5438'
 export const ref = '6N10-6'
 export const refs = {
   'fr-fr': ['6N10-6'],
-  'fr-ch': []
+  'fr-ch': ['9NO13-4']
 }
 export default function SommeFractionsDecimales () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 6
   this.besoinFormulaireTexte = ['Type des calculs', 'Nombres séparés par des tirets\n(Les fractions sont décimales et de même dénominateur)\n1 : Somme de 2 fractions\n2 : Différence de 2 fractions\n3 : Somme (sans retenue) d\'un entier et d\'une somme de 2 fractions\n4 : Somme (sans retenue) d\'un entier et d\'une différence de 2 fractions\n5 : Somme d\'un entier et d\'une somme de 2 fractions\n6 : Somme d\'un entier et d\'une différence de 2 fractions\n7 : Mélange']
   this.besoinFormulaire2Numerique = ['Forme de la solution', 3, '1 : Un nombre décimal\n2 : Une fraction décimale\n3 : Les deux']
