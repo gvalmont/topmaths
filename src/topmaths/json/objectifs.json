@@ -1676,6 +1676,29 @@
                     "slug": "uuid=083b9&id=6G44-2&n=4",
                     "description": "Décrire des assemblages de solides"
                   }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "Tablettes",
+                      "6G60_Poly_x1"
+                    ],
+                    "debutDeSeance": [
+                      "Mathador"
+                    ],
+                    "deroule": [
+                      "Diaporama ensemble en défilement manuel https://coopmaths.fr/alea/?uuid=051aa&id=6G44-1&n=10&d=20&s=8&s2=false&s3=false&alea=X1q4&v=diaporama&selectedExercises=%7B%22isActive%22%3Afalse%2C%22indexes%22%3A%5B0%5D%7D&questionsOrder=%7B%22isQuestionsShuffled%22%3Afalse%2C%22indexes%22%3A%5B0%2C1%2C2%2C3%2C4%2C5%2C6%2C7%2C8%5D%7D",
+                      "Distribuer et coller le cours",
+                      "Relancer le diaporama tout seul",
+                      "Enseignement explicite du deuxième exercice de https://topmaths.fr/?v=objectif&ref=6G60",
+                      "Kahoot : https://create.kahoot.it/details/fa5b51ed-6945-4d22-9e14-c08dd66f5d31"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
+                  }
                 ]
               },
               {
