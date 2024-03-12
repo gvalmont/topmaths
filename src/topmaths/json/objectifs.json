@@ -1680,7 +1680,11 @@
                 "rappelDuCoursHTML": "",
                 "rappelDuCoursImage": "",
                 "videos": [],
-                "exercices": []
+                "exercices": [
+                  {
+                    "slug": "uuid=083b9&id=6G44-2&n=4"
+                  }
+                ]
               },
               {
                 "reference": "6G62",
