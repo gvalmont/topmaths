@@ -1649,8 +1649,8 @@
             "objectifs": [
               {
                 "reference": "6G60",
-                "titre": "Reconnaître des solides à partir d'un objet réel, d'une image, d'une représentation en perspective cavalière",
-                "titreSimplifie": "Connaître les différents solides",
+                "titre": "Reconnaître des solides à partir d'un objet réel, d'une image, d'une représentation en perspective cavalière, reconnaître, nommer et décrire des assemblages de solides simples",
+                "titreSimplifie": "Reconnaître les solides usuels",
                 "rappelDuCoursHTML": "",
                 "rappelDuCoursImage": "Solides-usuels.png",
                 "videos": [
@@ -1669,25 +1669,17 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "6G44-1,s=0,s2=false,s3=false,n=8"
+                    "slug": "6G44-1,s=0,s2=false,s3=false,n=8",
+                    "description": "Reconnaître les solides usuels"
+                  },
+                  {
+                    "slug": "uuid=083b9&id=6G44-2&n=4",
+                    "description": "Décrire des assemblages de solides"
                   }
                 ]
               },
               {
                 "reference": "6G61",
-                "titre": "Reconnaître, nommer et décrire des assemblages de solides simples",
-                "titreSimplifie": "Reconnaître, nommer et décrire des assemblages de solides simples.",
-                "rappelDuCoursHTML": "",
-                "rappelDuCoursImage": "",
-                "videos": [],
-                "exercices": [
-                  {
-                    "slug": "uuid=083b9&id=6G44-2&n=4"
-                  }
-                ]
-              },
-              {
-                "reference": "6G62",
                 "titre": "Construire et mettre en relation une représentation en perspective cavalière et un patron d'un cube et d'un pavé droit",
                 "titreSimplifie": "Construire le patron d'un pavé droit",
                 "rappelDuCoursHTML": "",
@@ -1713,10 +1705,10 @@
                 ]
               },
               {
-                "reference": "6G63",
+                "reference": "6G62",
                 "titre": "Construire une maquette à l'aide de patrons d'un assemblage de solides simples (cube, pavé droit, prisme droit, pyramide) dont les patrons sont donnés pour les prismes et les pyramides",
                 "titreSimplifie": "Construire une maquette",
-                "rappelDuCoursHTML": "Grâce à <a href='/?v=6G62'>6G62 : Construire et mettre en relation une représentation en perspective cavalière et un patron d'un cube et d'un pavé droit</a>, on sait construire des cubes et des pavés droits.<br>En en faisant plusieurs, on peut les assembler pour faire des maquettes plus élaborées !",
+                "rappelDuCoursHTML": "Grâce à <a href='/?v=6G61'>6G61 : Construire et mettre en relation une représentation en perspective cavalière et un patron d'un cube et d'un pavé droit</a>, on sait construire des cubes et des pavés droits.<br>En en faisant plusieurs, on peut les assembler pour faire des maquettes plus élaborées !",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
