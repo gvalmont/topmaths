@@ -86,7 +86,6 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           if (mfe == null) {
             throw Error('verifQuestionMathlive: type fillInTheBlank ne trouve pas le mathfieldElement dans le dom : ' + JSON.stringify({ selecteur: `math-field#champTexteEx${exercice.numeroExercice}Q${i}` }))
           }
-          let resultat = 'OK'
           const points = []
           const saisies = {}
           let feedback = ''
@@ -103,7 +102,6 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
               mfe.setPromptState(key, 'correct', true)
             } else {
               points.push(0)
-              resultat = 'KO'
               mfe.setPromptState(key, 'incorrect', true)
             }
             if (result.feedback != null) feedback += result.feedback
@@ -118,19 +116,20 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           }
           const [nbBonnesReponses, nbReponses] = bareme(points)
           if (mfe.getValue().length > 0 && typeof exercice.answers === 'object') {
-            const prompts = mfe.getPrompts()
+            /*    const prompts = mfe.getPrompts()
             const answers = []
             for (const prompt of prompts) {
               answers.push([prompt, mfe.getPromptValue(prompt)])
             }
             exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = Object.assign({}, Object.fromEntries(answers))
-            // exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = mfe.getValue()
+         */
+            exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = mfe.getValue()
           }
           if (spanReponseLigne != null) {
             spanReponseLigne.innerHTML = nbBonnesReponses === nbReponses ? '😎' : '☹️'
           }
           // le feedback est déjà assuré par la fonction feedback(), donc on le met à ''
-          return { isOk: resultat, feedback, score: { nbBonnesReponses, nbReponses } }
+          return { isOk: nbBonnesReponses === nbReponses, feedback, score: { nbBonnesReponses, nbReponses } }
         }
       }
     }
