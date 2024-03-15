@@ -35,6 +35,7 @@ function genererTypCoursSequence (sequence) {
   for (const objectif of sequence.objectifs) {
     typCoursSequence += genererTypCoursObjectif(objectif, sequence)
   }
+  typCoursSequence = replaceImportedLessons(typCoursSequence, sequence)
   const directory = `./src/topmaths/typ/cours/sequences/${sequence.niveau}/`
   if (!fs.existsSync(directory)) fs.mkdirSync(directory, { recursive: true })
   fs.writeFileSync(`${directory}${sequence.reference}.typ`, typCoursSequence, 'utf8')
@@ -95,6 +96,33 @@ function copierImages (objectif, sequence) {
       }
     })
   })
+}
+
+function replaceImportedLessons (text, sequence) {
+  const importedLessonReferences = getImportedLessonReferences(text)
+  for (const importedLessonReference of importedLessonReferences) {
+    const level = `${importedLessonReference.slice(0, 1)}e`
+    const importedLesson = fs.readFileSync(`./src/topmaths/typ/cours/objectifs/${level}/${importedLessonReference}.typ`, 'utf8')
+    if (importedLesson.includes('image("')) copierImages({ niveau: level, reference: importedLessonReference }, sequence)
+    text = text.replaceAll(`##${importedLessonReference}`, importedLesson)
+  }
+  return text
+}
+
+function getImportedLessonReferences (text) {
+  const regex = /##(\w+)/g
+  const matches = []
+  const importedLessonReferences = []
+
+  let match
+  while ((match = regex.exec(text)) !== null) {
+    const name = match[1]
+    if (!importedLessonReferences.includes(name)) {
+      matches.push(name)
+      importedLessonReferences.push(name)
+    }
+  }
+  return importedLessonReferences
 }
 
 function genererTypFichesSequence (sequence) {
