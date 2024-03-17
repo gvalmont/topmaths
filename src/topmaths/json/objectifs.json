@@ -3904,6 +3904,52 @@
                     "slug": "5M10,n=1",
                     "description": "Périmètre et aire d'un parallélogramme"
                   }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [
+                      "Calculatrice"
+                    ],
+                    "materielEnseignant": [
+                      "5M10_Poly_x8"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "L'idéal est de revoir les calculs d'aire et de périmètre de 6e en question flash au fil de l'année",
+                      "Si cela a été fait, on peut zapper cette séance et directement passer à la suivante",
+                      "Sinon, enseignement explicite des rappels de 6e https://topmaths.fr/?v=objectif&ref=5M10 puis coller le cours et noter en remarque que la formule pour calculer le périmètre d'un cercle est $cal(P) = 2 pi r$"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
+                  },
+                  {
+                    "materielEleve": [
+                      "Calculatrice"
+                    ],
+                    "materielEnseignant": [
+                      "5M10_Presentation"
+                    ],
+                    "debutDeSeance": [
+                      "https://topmaths.fr/?uuid=83be1&id=6M10&n=3&d=30&s=1-2-3&s2=false&s3=true&s4=false&alea=VZlb&uuid=06b1a&id=6M20&n=1&d=30&s=3&s4=false&alea=9sGF&uuid=f9a02&id=6M22-1&n=1&d=30&s=3&s2=true&s3=4&s4=3&alea=QPti&v=diaporama&selectedExercises=%7B%22isActive%22%3Afalse%2C%22indexes%22%3A%5B0%2C1%2C2%5D%7D&questionsOrder=%7B%22isQuestionsShuffled%22%3Afalse%2C%22indexes%22%3A%5B0%2C1%2C2%2C3%2C4%5D%7D"
+                    ],
+                    "deroule": [
+                      "Demander de faire https://topmaths.fr/?uuid=d6cd1&id=5M10&n=1&alea=HoSd&v=exercices",
+                      "Ils devraient réussir pour le périmètre mais pas pour l'aire",
+                      "Par découpage et recollage, montrer que l'aire du parallélogramme égale l'aire d'un rectangle",
+                      "Demander comment pourrait se nommer ce $4 \"cm\"$",
+                      "Si ça ne vient pas, leur demander s'ils ne voient pas un lien avec les triangles",
+                      "Écrire la formule au tableau",
+                      "Relancer, ensemble",
+                      "Relancer, seul",
+                      "Noter le cours"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
+                  }
                 ]
               }
             ]

@@ -100,5 +100,5 @@
   #table(columns: 4, rows: (1.5em, 4em, 1.5em), align: horizon + center)[
     ][Carré][Rectangle][Triangle Rectangle][
     Figure][#image("6M10-15.png")][#image("6M10-16.png")][#image("6M10-17.png")][
-    Aire][$A = c times c$][$A = L times l$][$A = (L times l) div 2$]
+    Aire][$cal(A) = c times c$][$cal(A) = L times l$][$cal(A) = (L times l) div 2$]
 ]
