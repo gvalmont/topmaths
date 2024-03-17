@@ -503,8 +503,9 @@ export function AxeY (
 ) {
   ObjetMathalea2D.call(this, {})
   const objets = []
-
-  objets.push(texteParPoint(titre, point(-1 - thick - 0.1, ymax), 0, color, 1, 'droite', false, 1))
+  if (titre !== '') {
+    objets.push(texteParPoint(titre, point(-1 - thick - 0.1, ymax), 0, color, 1, 'milieu', false, 1))
+  }
   const ordonnee = segment(-1, ymin.valueOf(), -1, ymax.valueOf(), color)
   ordonnee.styleExtremites = '->'
   ordonnee.epaisseur = epaisseur
@@ -1298,7 +1299,7 @@ export function Repere ({
   this.yMin = yMin
   this.yMax = yMax
 
-  this.bordures = [xMin * xUnite - 1, yMin * yUnite - 1, xMax * xUnite + 1 + xLegende.length / 3, yMax * yUnite + 1]
+  this.bordures = [xMin * xUnite - 1 - yLegende.length / 3, yMin * yUnite - 1, xMax * xUnite + 1 + xLegende.length / 3, yMax * yUnite + 1]
 
   const objets = []
   // LES AXES

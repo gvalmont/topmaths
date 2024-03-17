@@ -34,12 +34,13 @@
   import NavBar from '../../shared/header/NavBar.svelte'
   import type { InterfaceParams, NumberRange } from '../../../lib/types'
   import { shuffle, listOfRandomIndexes } from '../../../lib/components/shuffle'
+  import FullscreenButton from '../start/presentationalComponents/header/headerButtons/setupButtons/FullscreenButton.svelte'
 
   const divQuestion: HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
   let stepsUl: HTMLUListElement
   let currentQuestion = -1 // -1 pour l'intro et questions[0].length pour l'outro
-  let isFullScreen = false
+  const isFullScreen = false
   let isPause = false
   let isCorrectionVisible = false
   let isQuestionVisible = true
@@ -501,7 +502,7 @@
           'correction' + i
         ) as HTMLDivElement
 
-        if (diapocellDiv === null){
+        if (diapocellDiv === null) {
           // ca sert à rien de continuer
           continue
         }
@@ -837,16 +838,6 @@
     updateExercices()
   }
 
-  function switchFullScreen () {
-    isFullScreen = !isFullScreen
-    if (isFullScreen) {
-      const app = document.querySelector('#diaporama')
-      app?.requestFullscreen()
-    } else {
-      document.exitFullscreen()
-    }
-  }
-
   function handleQuit () {
     mathaleaHandleComponentChange('diaporama', '')
     // $selectedExercises.isActive = false
@@ -920,25 +911,7 @@
                 </div>
               </div>
             </div>
-            <div
-              class="flex text-lg font-bold text-coopmaths-struct dark:text-coopmathsdark-struct"
-            >
-              Plein écran
-              <div class="flex flex-row px-4 justify-start">
-                <button
-                  id="diaporama-plein-ecran"
-                  type="button"
-                  on:click={switchFullScreen}
-                  class="mr-4 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                >
-                  <i
-                    class="bx text-2xl {isFullScreen
-                      ? 'bx-exit-fullscreen'
-                      : 'bx-fullscreen'}"
-                  />
-                </button>
-              </div>
-            </div>
+            <FullscreenButton/>
           </div>
           <div
             class="flex text-lg font-bold mb-2 text-coopmaths-struct dark:text-coopmathsdark-struct"
@@ -1433,13 +1406,7 @@
         <div class="flex flex-row justify-between w-full">
           <!-- boutons réglagles zoom -->
           <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
-            <button type="button" on:click={switchFullScreen}>
-              <i
-                class=" text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg {isFullScreen
-                  ? 'bx-exit-fullscreen'
-                  : 'bx-fullscreen'}"
-              />
-            </button>
+           <FullscreenButton/>
             <button type="button" on:click={zoomPlus}>
               <i
                 class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-plus"

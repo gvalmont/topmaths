@@ -3,7 +3,7 @@ import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 
-export const titre = 'Question de différence'
+export const titre = 'Résoudre un problème avec une différence'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'd7ce2'
@@ -25,8 +25,8 @@ export default class QuestionDeDifference extends Exercice {
   }
 
   nouvelleVersion () {
-    let nbCarteGagnee
-    let nbCarteTotale
+    let nbCarteGagnee: number
+    let nbCarteTotale: number
     if (this.canOfficielle) {
       nbCarteGagnee = 6
       nbCarteTotale = 11
