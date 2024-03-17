@@ -2168,12 +2168,15 @@
                   {
                     "materielEleve": [],
                     "materielEnseignant": [
+                      "6M11_Poly_x6 (pour les 5e uniquement)",
                       "6M14_Poly_x2"
                     ],
                     "debutDeSeance": [],
                     "deroule": [
+                      "Donner à faire https://topmaths.fr/?uuid=5999f&id=6M11-2&n=2&s=1-2-3&s2=true&s3=1&cd=1&v=exercices",
+                      "Pour les 5e, coller la photocopie dans le cours",
                       "Enseignement explicite de https://topmaths.fr/?v=objectif&ref=6M14",
-                      "Distribuer le poly",
+                      "Distribuer le devoir maison",
                       "Réfléchir à la stratégie (parler de l'échelle notamment)",
                       "Laisser les élèves commencer s'il y a le temps, finir à la maison (noté)"
                     ],
