@@ -43,9 +43,14 @@
   text(texte, weight: "semibold")
 }
 
-#let flecheProportionnalite(coefficient) = {
-  place(image("fleche-tableau-proportionnalite.svg", height: 2.2em), dx: 2em, dy: -0.6em)
-  place(dx: 3.3em, dy: 0.1em, text(red, size: 0.9em, $times coefficient$))
+#let flecheProportionnalite(coefficient, cote: "droite") = {
+  if cote == "droite" {
+    place(image("fleche-tableau-proportionnalite.svg", height: 2.2em), dx: 1.3em, dy: -0.6em)
+    place(dx: 2.6em, dy: 0.1em, text(red, size: 0.9em, $times coefficient$))
+  } else {
+    place(image("fleche-tableau-proportionnalite-gauche.svg", height: 2.2em), dx: -2em, dy: -0.6em)
+    place(dx: -4em, dy: 0.1em, text(red, size: 0.9em, $times coefficient$))
+  }
 }
 
 #let dfrac(a, b) = $display(frac(a, b))$
