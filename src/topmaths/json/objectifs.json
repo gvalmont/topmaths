@@ -3760,25 +3760,6 @@
                 ]
               },
               {
-                "reference": "5G41",
-                "titre": "Connaître et construire un parallélogramme particulier",
-                "rappelDuCoursHTML": "Si un parallélogramme a <i>un angle droit</i> ou <i>ses diagonales de même longueur</i>, alors c'est un <b><i>rectangle</i></b>.<br>Si un parallélogramme a <i>deux côtés consécutifs de même longueur</i> ou <i>ses diagonales perpendiculaires</i>, alors c'est un <b><i>losange</i></b>.<br>Pour montrer qu'un parallélogramme est un <b><i>carré</i></b>, il suffit de montrer qu'il est <i>à la fois un rectangle et un losange</i> en utilisant les propriétés précédentes.<br><br>Toutes ces propriétés sont illustrées dans <a href='/topmaths/cours/5e/S5S20_Cours.pdf'>le cours</a>.",
-                "rappelDuCoursImage": "",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=YifgvefR0PE&vignette=https://i.ytimg.com/vi/YifgvefR0PE/hqdefault.jpg&debut=0&fin=217&largeur=200&hauteur=113",
-                    "auteur": "matheasy",
-                    "lienAuteur": "https://www.youtube.com/channel/UCcvDEPQpWm47z9AC55acveg"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "slug": "5G42,n=3"
-                  }
-                ]
-              },
-              {
                 "reference": "5G42",
                 "titre": "Connaître et utiliser les propriétés des parallélogrammes",
                 "rappelDuCoursHTML": "Si un quadrilatère a ses diagonales qui se coupent en leur milieu, alors c'est un parallélogramme.<br>Si un quadrilatère non croisé a ses côtés opposés de même longueur, alors c'est un parallélogramme.<br>Si un quadrilatère non croisé a deux côtés parallèles et de même longueur, alors c'est un parallélogramme.<br>Si un quadrilatère non croisé a ses angles opposés de même mesure, alors c'est un parallélogramme.",

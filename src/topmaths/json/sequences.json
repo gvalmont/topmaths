@@ -1556,7 +1556,7 @@
         ]
       },
       {
-        "titre": "Parallélogrammes 1",
+        "titre": "Parallélogrammes",
         "periode": 3,
         "objectifs": [
           {
@@ -1666,40 +1666,6 @@
           {
             "reference": "5G31",
             "slug": "ex=5G30-2,s=2,n=1"
-          }
-        ]
-      },
-      {
-        "titre": "Parallélogrammes 2",
-        "periode": 4,
-        "objectifs": [
-          {
-            "reference": "5G41"
-          }
-        ],
-        "calculsMentaux": [
-          {
-            "reference": "5N31",
-            "exercices": [
-              {
-                "description": "",
-                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8"
-              }
-            ]
-          }
-        ],
-        "questionsFlash": [
-          {
-            "reference": "6M21",
-            "slug": "6M23,s=3,s2=true,s3=1,n=1"
-          },
-          {
-            "reference": "5M10",
-            "slug": "6M20,n=2,cd=1"
-          },
-          {
-            "reference": "5M10",
-            "slug": "5M10,n=1"
           }
         ]
       },
