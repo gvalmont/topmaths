@@ -14,9 +14,9 @@ export const tikzAncrages = {
   droite: 'east'
 }
 export const svgAncrages = {
-  gauche: 'start',
+  gauche: 'end',
   milieu: 'middle',
-  droite: 'end'
+  droite: 'start'
 }
 /**
  * Associe à tous les points passés en paramètre, son label, défini préalablement en Latex. Par exemple, si besoin de nommer le point A_1.
@@ -259,7 +259,7 @@ export class TexteParPoint extends ObjetMathalea2D {
     const angle = Math.PI * orientation / 180
     const cx = Math.cos(angle)
     const sx = Math.sin(angle)
-    const ratioLettreCm = 0.2
+    const ratioLettreCm = 0.25
     const longueurTexte = texte.length * ratioLettreCm * scale
     if (ancrageDeRotation === 'milieu') {
       this.bordures = [A.x - longueurTexte * cx,
