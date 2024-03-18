@@ -5125,6 +5125,24 @@
                     "slug": "5N15,s=3,n=1",
                     "description": "Résoudre un problème"
                   }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [
+                      "Calculatrice"
+                    ],
+                    "materielEnseignant": [
+                      "Tablettes"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Apprentissage explicite de https://topmaths.fr/?v=objectif&ref=5P10"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
+                  }
                 ]
               },
               {
