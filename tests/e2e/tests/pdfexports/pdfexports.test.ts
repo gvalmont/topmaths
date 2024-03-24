@@ -40,7 +40,9 @@ async function readZip (file: fs.FileHandle): Promise<Map<string, string>> {
   const unzippedFiles = await zipper.loadAsync(buffer)
   const entries = Object.keys(unzippedFiles.files)
   for (const _filename of entries) {
-    files.set(_filename, await unzippedFiles.files[_filename].async('string'))
+    if (_filename !== 'images/') {
+      files.set(_filename.replace('images/', ''), await unzippedFiles.files[_filename].async('string'))
+    }
   }
   return files
 }
@@ -50,15 +52,23 @@ async function getLatexFile (page: Page, urlExercice: string) {
   page.setDefaultTimeout(100000)
 
   await page.goto(urlExercice)
-  await page.reload()
+  // await page.reload()
   await page.click('input#Style2') // style maquette
+
+  await new Promise((resolve) => setTimeout(resolve, 2000))
 
   const downloadPromise = page.waitForEvent('download')
   await page.click('button#downloadFullArchive')
-  // page.on('download', download => download.path().then(console.log));
-
+  //
   const download = await downloadPromise
-  // console.log(download.suggestedFilename())
+
+  const downloadError = await download.failure()
+  if (downloadError !== null) {
+    console.log('Error happened on download:', downloadError)
+    throw new Error(downloadError)
+  }
+
+  console.log(download.suggestedFilename())
 
   const uuid = (new URL(urlExercice)).searchParams.get('uuid')
 
@@ -106,16 +116,14 @@ async function getLatexFile (page: Page, urlExercice: string) {
   }).then(blob => {
     log(resultReq)
     return blob.arrayBuffer()
+  }).then(buffer => {
+    fs.writeFile(UPLOAD_FOLDER + '/' + id + '_' + uuid + (resultReq === 'OK' ? '.pdf' : '.log'), new Uint8Array(buffer))
+  }).catch((err) => {
+    logError('Error occured' + err)
+    logError(err.name)
+    resultReq = 'KO'
+    logError(resultReq)
   })
-    .then(buffer => {
-      fs.writeFile(UPLOAD_FOLDER + '/' + id + '_' + uuid + (resultReq === 'OK' ? '.pdf' : '.log'), new Uint8Array(buffer))
-    })
-    .catch((err) => {
-      logError('Error occured' + err)
-      logError(err.name)
-      resultReq = 'KO'
-      logError(resultReq)
-    })
   return resultReq
 }
 
@@ -259,4 +267,23 @@ async function testRunAllLots (filter: string) {
 // testRunAllLots('4e')
 // testRunAllLots('5e')
 // testRunAllLots('6e')
-testRunAllLots('dnb_2023')
+// testRunAllLots('dnb_2021')
+// testRunAllLots('dnb_2022')
+// testRunAllLots('dnb_2023')
+// testRunAllLots('2e')
+// testRunAllLots('dnb_2023_06_asie_5') // une image
+// testRunAllLots('dnb_2023_06_etrangers_4')
+// testRunAllLots('dnb_2023_06_metropole_2')
+// testRunAllLots('dnb_2023_06_polynesie_3')
+// testRunAllLots('dnb_2023_09_metropole_5')
+// testRunAllLots('dnb_2023_09_polynesie_1')
+// testRunAllLots('dnb_2023_12_caledonie_2')
+
+// testRunAllLots('dnb_2021_06_etrangers_2')
+// testRunAllLots('dnb_2021_06_polynesie_5')
+testRunAllLots('dnb_2021_06_metropole_4')
+// testRunAllLots('dnb_2021_06_asie_1')
+// testRunAllLots('dnb_2021_06_asie_3')
+// testRunAllLots('dnb_2021_06_asie_5')
+// testRunAllLots('dnb_2021_06_polynesie_1')
+// testRunAllLots('dnb_2021_06_polynesie_4')

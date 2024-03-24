@@ -230,6 +230,7 @@ class Latex {
       contents.preamble += '\n\\pagestyle{empty}'
       contents.preamble += '\n\\usepackage{enumitem}'
       contents.preamble += '\n\\usepackage{arev}'
+      contents.preamble += '\n\\usepackage[french]{babel}'
       if (contents.content.includes('pspicture')) {
         contents.preamble += '\n\\usepackage{pstricks,pst-plot,pst-tree,pstricks-add}'
         contents.preamble += '\n\\usepackage{pst-eucl}'
@@ -243,17 +244,19 @@ class Latex {
       if (contents.content.includes('\\ang')) {
         contents.preamble += '\n\\usepackage{siunitx}'
       }
-      if (contents.content.includes('\\np{') || contents.content.includes('\\numprint{')) {
+      if (contents.content.includes('\\np{') || contents.content.includes('\\np[') || contents.content.includes('\\numprint{')) {
         contents.preamble += '\n\\usepackage[autolanguage,np]{numprint}'
       }
-      if (contents.content.includes('\\up{')) {
-        contents.preamble += '\n\\newcommand{\\up}[1]{\\textsuperscript{#1}}'
-      }
-
       if (contents.content.includes('\\begin{bclogo}') || contents.content.includes('\\fcolorbox{nombres}')) {
         contents.preamble += '\n\\definecolor{nombres}{cmyk}{0,.8,.95,0}'
       }
-      if (contents.content.includes(',decorate,decoration=')) {
+      if (contents.content.includes('\\begin{tikzpicture}')) {
+        contents.preamble += '\n\\usepackage{tikz}'
+      }
+      if (contents.content.includes('\\begin{axis}')) {
+        contents.preamble += '\n\\usepackage{pgfplots}'
+      }
+      if (contents.content.includes('decorate,decoration=') || (contents.content.includes('decorate, decoration='))) {
         contents.preamble += '\n\\usetikzlibrary{decorations.pathmorphing}'
       }
       if (contents.content.includes('\\tkzText')) {
@@ -262,13 +265,41 @@ class Latex {
       if (contents.content.includes('\\begin{scratch}')) {
         contents.preamble += '\n\\usepackage{scratch3}'
       }
-      if (contents.content.includes('\\og ')) {
-        // gestion des guillements pour les sujets DNB
-        contents.preamble += '\n\\providecommand{\\og}{}'
-        contents.preamble += '\n\\renewcommand\\og{\\text{\\guillemotleft}~}'
-        contents.preamble += '\n\\providecommand{\\fg}{}'
-        contents.preamble += '\n\\renewcommand\\fg{~\\text{\\guillemotright}}'
+      if (contents.content.includes('\\degre') ||
+          contents.content.includes('\\og') ||
+          contents.content.includes('\\up{') ||
+          contents.content.includes('\\ieme{') ||
+          contents.content.includes('\\no')) {
+        // gestion des commandes pour les sujets DNB : 2023-2022
+        contents.preamble += '\n\\usepackage[french]{babel}'
       }
+      if (contents.content.includes('\\red')) {
+        // gestion des couleurs pour les sujets DNB : 2023
+        contents.preamble += '\n\\usepackage{xcolor}'
+      }
+      if (contents.content.includes('\\starredbullet')) {
+        // gestion des commandes pour les sujets DNB : 2023
+        contents.preamble += '\n\\usepackage{MnSymbol}'
+        contents.preamble += '\n\\newcommand\\starredbullet{\\medstar}'
+      }
+      if (contents.content.includes('\\R') || contents.content.includes('\\N')) {
+        // gestion des commandes pour les sujets DNB : 2023
+        contents.preamble += '\n\\newcommand\\R{\\mathbb{R}}'
+        contents.preamble += '\n\\newcommand\\N{\\mathbb{N}}'
+      }
+      if (contents.content.includes('\\backslashbox')) {
+        // gestion des commandes pour les sujets DNB : 2023
+        contents.preamble += '\n\\usepackage{slashbox}'
+      }
+      if (contents.content.includes('\\ds')) {
+        // gestion des commandes pour les sujets DNB : 2023
+        contents.preamble += '\\newcommand{\\ds}{\\displaystyle}'
+      }
+      if (contents.content.includes('\\diagbox{')) {
+        // gestion des commandes pour les sujets DNB : 2023
+        contents.preamble += '\n\\usepackage{diagbox}'
+      }
+
       const [latexCmds, latexPackages] = this.getContentLatex()
       for (const pack of latexPackages) {
         if (pack === 'bclogo') {
@@ -433,9 +464,9 @@ export function buildImagesUrlsList (exosContentList: ExoContent[], picsNames: p
           imagesFilesUrls.push(`${window.location.origin}/static/${serie}/${year}/images/${file.name}.${file.format}`)
         } else {
           if (file.format) {
-            imagesFilesUrls.push(`https://coopmaths.fr/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`)
+            imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`)
           } else {
-            imagesFilesUrls.push(`https://coopmaths.fr/alea/static/${serie}/${year}/tex/eps/${file.name}.eps`)
+            imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/tex/eps/${file.name}.eps`)
           }
         }
       }
@@ -478,12 +509,19 @@ export function getExosContentList (exercices: TypeExercice[]) {
 export function getPicsNames (exosContentList: ExoContent[]) {
   const picsList = [] as RegExpMatchArray[][]
   const picsNames = [] as picFile[][]
-  const regExpImage = /^(?:(?!%))(?:.*?)\\includegraphics(?:\[.*?\])?\{(?<fullName>.*?)\}/gm
+  const regDeleteCommentaires = /^(?:(?!%))(.*?)$/gm
+  const regExpImage = /(?:.*?)\\includegraphics(?:\[.*?\])?\{(?<fullName>.*?)\}/gm
   const regExpImageName = /(?<name>.*?)\.(?<format>.*)$/gm
   for (const exo of exosContentList) {
-    let pics: RegExpMatchArray[]
-    if (exo.content && exo.content.matchAll(regExpImage) !== undefined) {
-      pics = [...exo.content.matchAll(regExpImage)]
+    if (exo.content) {
+      const pics : RegExpMatchArray [] = []
+      // on supprime les phrases avec des commentaires
+      const content = [...exo.content.matchAll(regDeleteCommentaires)]
+      content.forEach((list) => {
+        // on recherche sur les lignes restantes si une image ou plusieurs images sont présentes
+        const matchIm = list[0].matchAll(regExpImage)
+        if (matchIm !== undefined) pics.push(...matchIm)
+      })
       picsList.push(pics)
     } else {
       picsList.push([])
