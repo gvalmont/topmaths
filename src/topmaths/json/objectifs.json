@@ -5011,10 +5011,6 @@
                     "description": "Expressions simples"
                   },
                   {
-                    "slug": "5L10-1,s=false,s2=false,s3=true,n=2",
-                    "description": "Expressions complexes"
-                  },
-                  {
                     "slug": "5L10-2,s=false,n=1",
                     "description": "Programmes de calcul"
                   }
