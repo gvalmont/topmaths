@@ -5014,6 +5014,21 @@
                     "slug": "5L10-2,s=false,n=1",
                     "description": "Programmes de calcul"
                   }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Apprentissage explicite de https://topmaths.fr/?v=objectif&ref=5N52",
+                      "Travail sur les programmes de calcul des exercices de brevet : https://topmaths.fr/?uuid=dnb_2022_09_polynesie_4&uuid=dnb_2022_06_polynesie_4&uuid=dnb_2022_06_asie_1&uuid=dnb_2022_06_ameriquenord_5&uuid=dnb_2021_06_etrangers_3&uuid=dnb_2019_09_metropole_5&uuid=dnb_2019_07_metropole_6&uuid=dnb_2019_06_metropole_5&serie=zTi7&z=1&v=exercices"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
+                  }
                 ]
               },
               {
@@ -5029,7 +5044,32 @@
                     "lienAuteur": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
-                "exercices": []
+                "exercices": [],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "5N53_Presentation"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Demander, en s'appuyant sur ce qu'on a vu la dernière fois, comment on pourrait écrire les nombres pairs",
+                      "Les guider progressivement à l'aide des indices suivants :",
+                      "- C'est quoi un nombre pair ? (un nombre qui est dans la table de 2, un multiple de 2)",
+                      "- Comment écrire le double d'un nombre ?",
+                      "- Comment est-ce qu'on pourrait dire qu'un nombre est dans la table de 2 / un multiple de 2 ?",
+                      "Noter les propriétés",
+                      "Faire le premier exemple ensemble",
+                      "Les laisser faire le deuxième exemple",
+                      "Corriger",
+                      "Pour les plus rapides, demander de montrer que la somme de trois entiers consécutifs est paire"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": [],
+                    "notes": []
+                  }
+                ]
               },
               {
                 "reference": "5N54",
