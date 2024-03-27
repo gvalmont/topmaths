@@ -1539,8 +1539,7 @@
                     "materielEnseignant": [
                       "6G51_Poly_x1 à imprimer",
                       "Entrainement_6G51 à mettre sur Pronote à la fin de l'heure",
-                      "6G51_Poly-2_x4 à imprimer",
-                      "6G51_Poly-2_x0 à mettre sur Pronote lorsque je récupère le DM"
+                      "6G51_Poly-2_x2 à imprimer"
                     ],
                     "debutDeSeance": [],
                     "deroule": [
@@ -1548,7 +1547,7 @@
                     ],
                     "devoirs": [],
                     "finDeSeance": [
-                      "Distribuer le Poly-2_x4",
+                      "Distribuer le Poly-2_x2",
                       "Ils doivent compléter la figure en faisant en sorte qu'elle soit symétrique",
                       "À rendre dans quelques jours, noté"
                     ],
@@ -1573,6 +1572,22 @@
                   {
                     "slug": "https://www.geogebra.org/m/zcbkxjad",
                     "description": ""
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "Tablettes ou Ordinateurs"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Enseignement explicite de https://topmaths.fr/?v=objectif&ref=6G52",
+                      "Lancer les élèves sur https://topmaths.fr/?v=sequence&ref=SPS2 pendant le reste du temps"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
                   }
                 ]
               },
@@ -1639,6 +1654,22 @@
                   {
                     "slug": "uuid=328b1&id=6G25-3&n=3&d=10&s=1&s2=false&s3=8",
                     "description": ""
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "Tablettes"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Apprentissage explicite de https://topmaths.fr/?v=objectif&ref=6G54",
+                      "Kahoot : "
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
                   }
                 ]
               }
