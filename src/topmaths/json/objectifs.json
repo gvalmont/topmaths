@@ -3078,18 +3078,39 @@
               },
               {
                 "reference": "6P14",
-                "titre": "Reproduire une figure en respectant une échelle donnée",
-                "rappelDuCoursHTML": "",
+                "titre": "Construire un agrandissement ou une réduction d'une figure donnée",
+                "rappelDuCoursHTML": "Pour construire un agrandissement ou une réduction de rapport $k$ d'une figure donnée, on reproduit la même figure mais en multipliant les longueurs par $k$.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
                     "titre": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=1UW3_BuMypE&vignette=https://i.ytimg.com/vi/1UW3_BuMypE/hqdefault.jpg&debut=0&fin=823&largeur=200&hauteur=113",
-                    "auteur": "laurent fayard",
-                    "lienAuteur": "https://www.youtube.com/@laurentfayard43"
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=YpvIvTScQsw&vignette=https://i.ytimg.com/vi/YpvIvTScQsw/hqdefault.jpg&debut=0&fin=406&largeur=200&hauteur=113",
+                    "auteur": "Yvan Monka",
+                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
                 ],
-                "exercices": []
+                "exercices": [
+                  {
+                    "slug": "uuid=4c6e2&id=6P14&n=2&d=10&s=7",
+                    "description": ""
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "6P14_Presentation"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Apprentissage explicite de https://topmaths.fr/?v=objectif&ref=6P14",
+                      "Noter le cours"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
+                  }
+                ]
               }
             ]
           },
@@ -6625,25 +6646,6 @@
                   {
                     "slug": "6P11,s=false,s2=7,n=1&ex=6P12,s=false,n=1",
                     "description": "Résoudre un problème de proportionnalité"
-                  }
-                ]
-              },
-              {
-                "reference": "4P12",
-                "titre": "Construire un agrandissement ou une réduction d'une figure donnée",
-                "rappelDuCoursHTML": "Pour construire un agrandissement ou une réduction de rapport $k$ d'une figure donnée, on reproduit la même figure mais en multipliant les longueurs par $k$.",
-                "rappelDuCoursImage": "",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=YpvIvTScQsw&vignette=https://i.ytimg.com/vi/YpvIvTScQsw/hqdefault.jpg&debut=0&fin=406&largeur=200&hauteur=113",
-                    "auteur": "Yvan Monka",
-                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "slug": "6P14,s=7,n=2"
                   }
                 ]
               },
