@@ -41,7 +41,7 @@
     "majJson": "node tasks/majJson.js",
     "majPdf": "pnpm majJson && node tasks/majPdf.js && pnpm majJson",
     "start": "pnpm makeJson && vite",
-    "makeJson": "node tasks/dictionnaireToReferentiel.js && node tasks/updateMenu.js && node tasks/updateMenuCH",
+    "makeJson": "node tasks/dictionnaireToReferentiel.js && node tasks/updateMenu.js && node tasks/updateMenuInternational",
     "getNewUuid": "pnpm makeJson",
     "updateMenu": "pnpm makeJson",
     "updateMenuCH": "pnpm makeJson",
