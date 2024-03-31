@@ -6650,7 +6650,7 @@
                 ]
               },
               {
-                "reference": "4P13",
+                "reference": "4P12",
                 "titre": "Utiliser un rapport d'agrandissement ou de réduction pour calculer, des longueurs, des aires, des volumes",
                 "rappelDuCoursHTML": "Dans un agrandissement ou une réduction de rapport $k$ :<br>- les longueurs sont multipliées par $k$ ;<br>- les aires sont multipliées par $k^2$ ;<br>- les volumes sont multipliés par $k^3$.",
                 "rappelDuCoursImage": "",
@@ -6674,7 +6674,7 @@
                 ]
               },
               {
-                "reference": "4P14",
+                "reference": "4P13",
                 "titre": "Utiliser une formule liant deux grandeurs dans une situation de proportionnalité",
                 "titreSimplifie": "Utiliser une formule donnée",
                 "rappelDuCoursHTML": "",
@@ -6683,7 +6683,7 @@
                 "exercices": []
               },
               {
-                "reference": "4P15",
+                "reference": "4P14",
                 "titre": "Effectuer des conversions d'unités sur des grandeurs composées",
                 "rappelDuCoursHTML": "Une <b><i>grandeur composée</i></b> est une grandeur obtenue en multipliant ou en divisant deux grandeurs.<br><br><i>Exemple :</i><br> $\\text{Vitesse}=\\cfrac{\\text{Distance}}{\\text{Temps}}$ <br>Pour obtenir la vitesse, on divise deux grandeurs (distance et temps).<br>La vitesse est donc une grandeur composée.<br><br>Pour convertir les unités d'une grandeur composée, on convertit séparément les unités des grandeurs qui la composent.<br><br><i>Exemple :</i><br>Pour convertir en m/s une vitesse qui est donnée en km/h, on convertit les km en m, les h en s et on recalcule la vitesse.<br> $90~\\text{km/h} = \\cfrac{90~\\text{km}}{1~\\text{h}} = \\cfrac{90~000~\\text{m}}{3~600~\\text{s}} = 25~\\text{m/s}$",
                 "rappelDuCoursImage": "",

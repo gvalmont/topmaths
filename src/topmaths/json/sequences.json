@@ -2491,7 +2491,7 @@
             "reference": "6P14"
           },
           {
-            "reference": "4P13"
+            "reference": "4P12"
           }
         ],
         "calculsMentaux": [
@@ -2541,7 +2541,7 @@
         ],
         "questionsFlash": [
           {
-            "reference": "4P13",
+            "reference": "4P12",
             "slug": "can3G01,n=2"
           },
           {
@@ -2778,10 +2778,10 @@
         "periode": 4,
         "objectifs": [
           {
-            "reference": "4P14"
+            "reference": "4P13"
           },
           {
-            "reference": "4P15"
+            "reference": "4P14"
           },
           {
             "reference": "4N36"
@@ -2857,7 +2857,7 @@
         ],
         "questionsFlash": [
           {
-            "reference": "4P15",
+            "reference": "4P14",
             "slug": "4P16,s=8,n=1"
           },
           {
@@ -3672,7 +3672,7 @@
         "periode": 5,
         "objectifs": [
           {
-            "reference": "4P15"
+            "reference": "4P14"
           },
           {
             "reference": "4N36"
