@@ -1,15 +1,11 @@
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures'
-import { texteCentre } from '../../../lib/format/miseEnPage.js'
-import { sp } from '../../../lib/outils/outilString.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
-import { egal, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { randint } from '../../../modules/outils.js'
 
 export const titre = 'Déterminer un vecteur directeur avec une équation cartésienne'
 export const interactifReady = true
-export const interactifType = 'custom'
+export const interactifType = 'mathLive'
 export const dateDePublication = '08/07/2022'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -18,86 +14,33 @@ export const dateDePublication = '08/07/2022'
  *
  */
 export const uuid = 'dacc1'
-export const ref = 'can2G17'
 export const refs = {
   'fr-fr': ['can2G17'],
   'fr-ch': []
 }
 export default function VecteurDirEqCart () {
   Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur11 inline'
   this.tailleDiaporama = 2
-
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-
+  this.formatChampTexte = 'largeur10 inline'
+  this.listeAvecNumerotation = false
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    let texte
-    let texteCorr
-    let a
-    let b
-    let c
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      a = randint(-9, 9, 0)
-      b = randint(-9, 9, 0)
-      c = randint(-5, 5, 0)
+    let a = randint(-9, 9, 0)
+    let b = randint(-9, 9, 0)
+    let c = randint(-5, 5, 0)
 
-      texte = ` Dans un repère, la droite $d$ a pour équation :
-      ${texteCentre(`$${rienSi1(a)}x${ecritureAlgebriqueSauf1(b)}y${ecritureAlgebrique(c)}=0$`)}
- Les coordonnées d'un vecteur directeur $\\vec{u}$ de la droite $d$   sont :<br>`
+    this.question = `Dans un repère, la droite $d$ a pour équation :
+      $${rienSi1(a)}x${ecritureAlgebriqueSauf1(b)}y${ecritureAlgebrique(c)}=0$<br>
+      Donner les coordonnées d'un vecteur directeur $\\vec{u}$ de la droite $d$.<br><br>`
+    this.optionsChampTexte = { texteAvant: '$\\vec{u}$ a pour coordonnées :' }
+    this.correction = `Si l'équation d'une droite $d$ est de la forme $ax+by+c=0$, on sait d'après le cours,<br>
+      qu'un vecteur directeur $\\vec{u}$ de $d$ a pour coordonnées $\\vec{u}(-b\\,;\\,a)$.<br>
+      Tout vecteur colinéaire à $\\vec{u}$ est aussi un vecteur directeur de $d$.<br>
+      On en déduit que les coordonnées de $\\vec{u}$ sont $${miseEnEvidence('(')} ${miseEnEvidence(`${-b}`)}\\,${miseEnEvidence(';')}\\,${miseEnEvidence(`${a}`)} ${miseEnEvidence(')')}$.`
+    this.reponse = `(${-b};${a})`
 
-      if (this.interactif) {
-        texte += '$\\Bigg($' + ajouteChampTexteMathLive(this, 2 * i, 'largeur11 inline')
-        texte += ` ${sp(1)} ;  `
-        texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur11 inline') + '$\\Bigg)$'
-
-        setReponse(this, 2 * i, -b)
-        setReponse(this, 2 * i + 1, a)
-      }
-      this.canEnonce = ` Dans un repère, la droite $d$ a pour équation :<br>
-
-      $${rienSi1(a)}x${ecritureAlgebriqueSauf1(b)}y${ecritureAlgebrique(c)}=0$. <br>
-
- Donner les coordonnées d'un vecteur directeur $\\vec{u}$ de la droite $d$.`
-      this.canReponseACompleter = ''
-      texteCorr = `Si l'équation est de la forme $ax+by+c=0$, on sait d'après le cours, qu'un vecteur directeur $\\vec{u}$ a pour coordonnées $\\vec{u}(-b;a)$.<br>
-    On en déduit qu'un vecteur directeur de $d$ est $\\vec{u}(${-b};${a})$.<br>
-    Tout vecteur colinéaire à $\\vec{u}$ est aussi un vecteur directeur de $d$.`
-
-      if (this.questionJamaisPosee(i, a, b)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
-        i++
-      }
-      cpt++
-    }
-    listeQuestionsToContenu(this)
-  }
-  this.correctionInteractive = i => {
-    const champTexte1 = document.getElementById(`champTexteEx${this.numeroExercice}Q${2 * i}`)
-    const champTexte2 = document.getElementById(`champTexteEx${this.numeroExercice}Q${2 * i + 1}`)
-    const spanResultat1 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${2 * i}`)
-    const spanResultat2 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${2 * i + 1}`)
-    let saisie1 = champTexte1.value.replace(',', '.')
-    let saisie2 = champTexte2.value.replace(',', '.')
-    saisie1 = saisie1.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-    saisie2 = saisie2.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-    const x0 = this.autoCorrection[2 * i].reponse.valeur.reponse.value
-    const y0 = this.autoCorrection[2 * i + 1].reponse.valeur.reponse.value
-    const x = Number(saisie1)
-    const y = Number(saisie2)
-    let resultat
-    if (egal(x * y0 - y * x0, 0) && !(x === 0 && y === 0)) {
-      spanResultat1.innerHTML = '😎'
-      spanResultat2.innerHTML = '😎'
-      resultat = 'OK'
-    } else {
-      spanResultat1.innerHTML = '☹️'
-      spanResultat2.innerHTML = '☹️'
-      resultat = 'KO'
-    }
-    return resultat
+    this.canEnonce = this.question // 'Compléter'
+    this.canReponseACompleter = ''
   }
 }

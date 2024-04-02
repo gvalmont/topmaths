@@ -3,6 +3,7 @@ import { repere } from '../../../lib/2d/reperes.js'
 import { segment, vecteur } from '../../../lib/2d/segmentsVecteurs.js'
 import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { sp } from '../../../lib/outils/outilString.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
@@ -24,7 +25,6 @@ export const dateDePublication = '29/06/2022' // La date de publication initiale
  * Référence
  */
 export const uuid = '8a0ce'
-export const ref = 'can2G18'
 export const refs = {
   'fr-fr': ['can2G18'],
   'fr-ch': []
@@ -82,15 +82,11 @@ export default function LectureGraphiqueVecteurRepere () {
         grilleSecondaireXMax: xmax
       })
 
-      texte = `Lire les coordonnées du vecteur $\\vec{u}$.<br>
-      
-      `
+      texte = `Lire les coordonnées du vecteur $\\vec{u}$.<br><br>`
       texte += mathalea2d({ xmin, xmax, ymin, ymax, style: 'margin: auto', pixelsParCm: 30, scale: 0.75 },
         r1, o, AB, nomvAB
       )
-      texte += `
-      
-      `
+      texte += ``
 
       if (this.interactif) {
         texte += '<br>$\\vec{u}\\Bigg($' + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline')
@@ -100,7 +96,7 @@ export default function LectureGraphiqueVecteurRepere () {
         setReponse(this, 2 * i + 1, k2)
       }
       texteCorr = `En partant de l'origine  du vecteur pour aller à son extrémité, on fait un déplacement de $${k1}$ unité(s) horizontalement et $${k2}$ unité(s) verticalement.<br>
-        Les coordonnées du vecteur $\\vec{u}$ sont donc : $(${k1};${k2})$. `
+        Les coordonnées du vecteur sont donc : $\\vec{u}(${miseEnEvidence(`${k1}`)}\\,;\\,${miseEnEvidence(`${k2}`)})$.`
 
       this.reponse = xa
 
@@ -112,7 +108,7 @@ export default function LectureGraphiqueVecteurRepere () {
       cpt++
     }
     listeQuestionsToContenu(this)
-    this.canEnonce = texte// 'Compléter'
+    this.canEnonce = texte // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

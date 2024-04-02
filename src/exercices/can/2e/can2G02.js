@@ -4,6 +4,7 @@ import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
@@ -18,7 +19,6 @@ export const interactifType = 'mathLive'
  * Date de publication septembre 2021
 */
 export const uuid = '31f61'
-export const ref = 'can2G02'
 export const refs = {
   'fr-fr': ['can2G02'],
   'fr-ch': []
@@ -61,7 +61,7 @@ export default function CalculCotePythagore () {
         $${nom[1]}${nom[2]}^2=${nom[0]}${nom[2]}^2-${nom[0]}${nom[1]}^2$. <br>
         On en déduit : $x^2=${b}^2-${a}^2$, d'où $x=\\sqrt{${b}^2-${a}^2}=\\sqrt{${b ** 2 - a ** 2}}$
        <br>
-       Ainsi, $a=${b ** 2 - a ** 2}$.`
+       Ainsi, $a=${miseEnEvidence(b ** 2 - a ** 2)}$.`
     this.reponse = calculANePlusJamaisUtiliser(b ** 2 - a ** 2)
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = '$a=\\ldots$'
