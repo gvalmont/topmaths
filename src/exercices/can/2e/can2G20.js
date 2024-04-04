@@ -22,6 +22,7 @@ export const dateDePublication = '15/11/2022'
 */
 
 export const uuid = '1f967'
+export const ref = 'can2G20'
 export const refs = {
   'fr-fr': ['can2G20'],
   'fr-ch': []
@@ -111,7 +112,7 @@ export default function EquationDroite () {
 <br>`
           if ((yB - yA) / xB === 1) { this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=x${ecritureAlgebrique(yA)}`)}$.` }
           if ((yB - yA) / xB === -1) { this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=-x${ecritureAlgebrique(yA)}`)}$.` }
-          if ((yB - yA) / xB !== -1 && (yB - yA) / xB !== 1) { this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=${m.texFractionSimplifiee}x${ecritureAlgebrique(yA)}`)}$.` }
+          if ((yB - yA) / xB !== -1 && (yB - yA) / xB !== 1) { this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=${maFraction.texFractionSimplifiee}x${ecritureAlgebrique(yA)}`)}$.` }
           this.correction += `<br>
 
           ${objetC}<br>
@@ -207,7 +208,7 @@ export default function EquationDroite () {
 <br>`
             if (2 * (yB - yA) / xB === 1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=x${ecritureAlgebrique(2 * yA)}`)}$.` }
             if (2 * (yB - yA) / xB === -1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=-x${ecritureAlgebrique(2 * yA)}`)}$.` }
-            if (2 * (yB - yA) / xB !== -1 && 2 * (yB - yA) / xB !== 1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=${m.texFractionSimplifiee}x${ecritureAlgebrique(2 * yA)}`)}$.` }
+            if (2 * (yB - yA) / xB !== -1 && 2 * (yB - yA) / xB !== 1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=${maFraction.texFractionSimplifiee}x${ecritureAlgebrique(2 * yA)}`)}$.` }
             this.correction += `<br>
 
           ${objetC}<br>

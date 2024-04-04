@@ -10,8 +10,8 @@ import seedrandom from 'seedrandom'
 import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from './stores/generalStore.js'
 import { get } from 'svelte/store'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive.js'
-import uuidToUrl from '../json/uuidsToUrl.json'
-import refToUuid from '../json/refToUuid.json'
+import uuidToUrl from '../json/uuidsToUrlFR.json'
+import refToUuid from '../json/refToUuidFR.json'
 import referentielStatic from '../json/referentielStatic.json'
 import 'katex/dist/katex.min.css'
 import renderScratch from './renderScratch.js'
@@ -577,16 +577,12 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
  */
 export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteractif: boolean, numeroExercice?: number) {
   if (numeroExercice !== undefined) exercice.numeroExercice = numeroExercice
-  exercice.autoCorrection = []
+  exercice.reinit()
   exercice.interactif = isInteractif
-  exercice.listeQuestions = []
-  exercice.listeCorrections = []
-  exercice.listeCanEnonces = []
-  exercice.listeCanReponsesACompleter = []
   for (let i = 0, cptSecours = 0; i < exercice.nbQuestions && cptSecours < 50;) {
     const compare = exercice.compare == null ? calculCompare : exercice.compare
     seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
-    if (exercice.nouvelleVersionWrapper && typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper(numeroExercice)
+    if (exercice.nouvelleVersion && typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion(numeroExercice)
     if (exercice.questionJamaisPosee(i, String(exercice.question))) {
       if (exercice.compare != null) {
         let reponse = {}
@@ -598,7 +594,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
             reponse = { reponse: { value: exercice.reponse.toString(), compare } }
           } else if (exercice.reponse instanceof Grandeur) {
             reponse = { reponse: { value: exercice.reponse, compare } }
-          } else if (typeof exercice.reponse === 'object') {
+          } else if (typeof exercice.reponse === 'object') { // Si c'est handleAnswer qu'on veut utiliser directement avec un fillInTheBlank par exemple, on met l'objet reponse complet dans this.reponse
             reponse = exercice.reponse
           } else if (Array.isArray(exercice.reponse)) {
             reponse = { reponse: { value: exercice.reponse[0] } }

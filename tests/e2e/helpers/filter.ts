@@ -1,6 +1,6 @@
 import referentielStatic from '../../../src/json/referentielStatic.json'
 import { type JSONReferentielObject } from '../../../src/lib/types/referentiels'
-import uuidToUrl from '../../../src/json/uuidsToUrl.json'
+import uuidToUrl from '../../../src/json/uuidsToUrlFR.json'
 
 const allStaticReferentiels: JSONReferentielObject = {
   ...referentielStatic
@@ -15,9 +15,14 @@ delete allStaticReferentiels['E3C par thèmes - APMEP']
 
 export async function findUuid (filter : string) {
   const uuids = Object.entries(uuidToUrl)
-  return uuids.filter(function (uuid) {
-    return uuid[1].startsWith(filter)
+  const filters = filter.split('^')
+  const uuidsFilter : [string, string][] = []
+  filters.forEach(e => {
+    uuidsFilter.push(...uuids.filter(function (uuid) {
+      return uuid[1].startsWith(e)
+    }))
   })
+  return uuidsFilter
 }
 
 export async function findStatic (filter : string) {

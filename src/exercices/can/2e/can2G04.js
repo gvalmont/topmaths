@@ -18,6 +18,7 @@ export const dateDeModifImportante = '29/11/2023'
  * Date de publication sptembre 2021
 */
 export const uuid = '8bc88'
+export const ref = 'can2G04'
 export const refs = {
   'fr-fr': ['can2G04'],
   'fr-ch': []
@@ -30,7 +31,7 @@ export default function CalculCoordonneesMilieu () {
   this.formatChampTexte = 'largeur10 inline'
   this.nouvelleVersion = function () {
     let a, b, c, d
-    const nom = creerNomDePolygone(2, 'PQDO')
+    const nom = creerNomDePolygone(2, 'MPQDO')
     switch (choice(['a', 'b'])) {
       case 'a':
         a = randint(-10, 10)

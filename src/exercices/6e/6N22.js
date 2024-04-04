@@ -23,6 +23,7 @@ export const dateDeModifImportante = '07/03/2023' // Une date de modification im
  * @author Rémi Angot (Modifié par EE : rajout d'un paramètre)
  */
 export const uuid = 'c75b6'
+export const ref = '6N22'
 export const refs = {
   'fr-fr': ['6N22'],
   'fr-ch': ['9NO13-2']
@@ -74,7 +75,7 @@ export default function FractionsCalculsSimples () {
           f2 = new FractionEtendue(c, b)
           f3 = new FractionEtendue(a + c, b)
           texte = `$${f1.texFraction} + ${f2.texFraction}$`
-          texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore largeur01', { texteAvant: '=' })
+          texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore largeur01 clavierDeBaseAvecFraction', { texteAvant: '=' })
           texteCorr = `$${f1.texFraction} + ${f2.texFraction} = ${f3.texFraction} ${(f3.estEntiere) ? `=${f3.texFractionSimplifiee}` : ''}$`
           schema = fractionCliquable(0, 0, 4, b)
           if (this.sup) texte += '<br>' + mathalea2d({ scale, xmin: -0.2, xmax, ymin: -1, ymax: 2 }, schema)

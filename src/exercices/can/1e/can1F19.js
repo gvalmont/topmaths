@@ -16,6 +16,7 @@ export const dateDePublication = '24/06/2022' // La date de publication initiale
      * Référence
     */
 export const uuid = 'c7f8e'
+export const ref = 'can1F19'
 export const refs = {
   'fr-fr': ['can1F19'],
   'fr-ch': []
@@ -101,7 +102,7 @@ export default function CalculFonctionDeriveeQuotient () {
         this.correction = `$f$est de la forme $u+v$ avec $u(x)=${p}${ecritureAlgebrique(m)}x$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                        On a $u'(x)=${m}$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
                 Ainsi,
-                $f'(x)= ${m}+\\dfrac{-${a}}{x^2}=\\dfrac{${m}x^2}{x^2}-\\dfrac{${-a}}{x^2}=\\dfrac{${m}x^2+${a}}{x^2}$.`
+                $f'(x)= ${m}-\\dfrac{-${a}}{x^2}=\\dfrac{${m}x^2}{x^2}-\\dfrac{${-a}}{x^2}=\\dfrac{${m}x^2+${a}}{x^2}$.`
 
         this.reponse = [`\\dfrac{${m}x^2+${a}}{x^2}`]
 

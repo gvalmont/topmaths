@@ -9,7 +9,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
-export const titre = 'Déterminer graphiquement la valeur de b avec une parabole'
+export const titre = 'Déterminer graphiquement la valeur de $b$ avec une parabole'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -22,6 +22,7 @@ export const dateDeModifImportante = '11/10/2023'// j'ai enlevé c. J'ai ajoute 
  * Référence can1F05
  */
 export const uuid = '053d7'
+export const ref = 'can1F05'
 export const refs = {
   'fr-fr': ['can1F05'],
   'fr-ch': []

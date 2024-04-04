@@ -4,7 +4,7 @@ import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 
 export const titre = 'Écrire une fraction sur 100 puis sous la forme d\'un pourcentage'
@@ -13,13 +13,14 @@ export const interactifType = ['custom', 'mathLive']
 export const amcType = 'AMCNum'
 export const amcReady = true
 export const dateDePublication = '06/02/2021'
-export const dateDeModifImportante = '19/11/2023' // Fill in the blank
+export const dateDeModifImportante = '03/04/2024'
 const ce = new ComputeEngine()
 
 /**
  * Une fraction étant donnée, il faut l'écrire avec 100 au dénominateur puis donner son écriture sous forme de pourcentage.
  * @author Rémi Angot
  */
+
 export const uuid = '0e58f'
 export const ref = '5N11-3'
 export const refs = {
@@ -59,22 +60,22 @@ export default function FractionVersPourcentage () {
       percenti = Math.round(num * 100 / den)
       if (this.sup === 1) {
         this.interactifType = 'custom'
-        texte = remplisLesBlancs(this, i, `\\dfrac{${num}}{${den}}=\\dfrac{%{champ1}}{%{champ2}}=\\dfrac{%{champ3}}{100}=%{percent}\\%`, 'college6e', '\\ldots\\ldots')
+        texte = remplisLesBlancs(this, i, `\\dfrac{${num}}{${den}}=\\dfrac{%{champ1}}{%{champ2}}=\\dfrac{%{champ3}}{100}=%{champ4}\\%`, 'clavierDeBase', '\\ldots\\ldots')
         texte += ajouteFeedback(this, i)
         if (den < 100) {
           texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\times${100 / den}}}{${den}{\\color{blue}\\times${100 / den}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
         } else {
           texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\div${den / 100}}}{${den}{\\color{blue}\\div${den / 100}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
         }
-        setReponse(this, i, { champ1: { value: '' }, champ2: { value: String(percenti) }, champ3: { value: String(percenti) } }, { formatInteractif: 'fillInTheBlank', digits: 3, decimals: 0 })
+        handleAnswers(this, i, { champ1: { value: den }, champ2: { value: num }, champ3: { value: String(percenti) }, champ4: { value: String(percenti) } }, { formatInteractif: 'fillInTheBlank', digits: 3, decimals: 0 })
       } else {
         this.interactifType = 'mathLive'
-        texte = `$\\dfrac{${percenti}}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
+        texte = `$\\dfrac{${percenti}}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline clavierDeBaseAvecFraction', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
         texteCorr = `$\\dfrac{${texNombre(percenti, 0)}}{100}=${texNombre(percenti, 0)}~\\%$`
         setReponse(this, i, percenti, { formatInteractif: 'calcul', digits: 3, decimals: 0 })
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, den, num)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -86,7 +87,7 @@ export default function FractionVersPourcentage () {
   }
 
   this.correctionInteractive = function (i) {
-    const reponseAttendue = this.autoCorrection[i].reponse.valeur.percent.value
+    const reponseAttendue = this.autoCorrection[i].reponse.valeur.champ4.value
     if (this.answers === undefined) this.answers = {}
     let result = 'KO'
     const mf = document.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${i}`)
@@ -95,15 +96,17 @@ export default function FractionVersPourcentage () {
     } else {
       this.answers[`Ex${this.numeroExercice}Q${i}`] = mf.getValue()
       const spanResultat = document.querySelector(`span#resultatCheckEx${this.numeroExercice}Q${i}`)
-      const num1 = mf.getPromptValue('champ1')
-      const num2 = mf.getPromptValue('champ3')
+      let num1 = mf.getPromptValue('champ1')
+      num1 = num1.replace(',', '.')
       const den1 = mf.getPromptValue('champ2')
-      const percent = mf.getPromptValue('percent')
-      const test1 = ce.parse(`\\frac{${num1.replace(',', '.')}}{${den1}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{${100}}`))
+      const num2 = mf.getPromptValue('champ3')
+      const champ4 = mf.getPromptValue('champ4')
+      // const test1 = ce.parse(`\\frac{${num1.replace(',', '.')}}{${den1}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{${100}}`))
+      const test1 = ce.parse(`\\frac{${num1.split('\\times')[0] * (num1.split('\\times')[1] ?? 1)}}{${den1.split('\\times')[0] * (den1.split('\\times')[1] ?? 1)}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{100}`))
       const test1Bis = ce.parse(den1).isEqual(ce.parse('100'))
       const test1Ter = den1 === '' || num1 === ''
       const test2 = ce.parse(num2).isSame(ce.parse(reponseAttendue))
-      const test3 = ce.parse(percent).isSame(ce.parse(reponseAttendue))
+      const test3 = ce.parse(champ4).isSame(ce.parse(reponseAttendue))
       let smiley; let feedback = ''
       if (test2 && test3) {
         smiley = '😎'
@@ -130,13 +133,13 @@ export default function FractionVersPourcentage () {
             if (!test1Bis) { // pas égal à 100 au dénominateur
               feedback += 'La première fraction est correcte mais le dénominateur ne vaut pas $100$'
             } else {
-              feedback += 'La première fraction est incorrecte'
+              feedback += 'La première fraction est correcte'
             }
           } else {
-            feedback += 'Le calcul est faux'
+            feedback += 'La première fraction est incorrecte'
           }// ici, le premier calcul est faux donc tout est faux, y a rien a dire
         }
-        feedback += ' et le résultat final est faux.'
+        feedback += ' et au moins un des résultats finaux est faux.'
       }
       const divDuFeedback = document.querySelector(`div#feedbackEx${this.numeroExercice}Q${i}`)
       spanResultat.innerHTML = smiley
@@ -144,10 +147,10 @@ export default function FractionVersPourcentage () {
         divDuFeedback.innerHTML = feedback
         spanResultat.after(divDuFeedback)
       }
-      mf.setPromptState('num1', test1 ? 'correct' : 'incorrect', true)
-      mf.setPromptState('den1', test1 ? 'correct' : 'incorrect', true)
-      mf.setPromptState('num2', test2 ? 'correct' : 'incorrect', true)
-      mf.setPromptState('percent', test3 ? 'correct' : 'incorrect', true)
+      mf.setPromptState('champ1', test1 ? 'correct' : 'incorrect', true)
+      mf.setPromptState('champ2', test1 ? 'correct' : 'incorrect', true)
+      mf.setPromptState('champ3', test2 ? 'correct' : 'incorrect', true)
+      mf.setPromptState('champ4', test3 ? 'correct' : 'incorrect', true)
     }
     return result
   }
