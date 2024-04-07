@@ -5156,7 +5156,7 @@
               {
                 "reference": "5N55",
                 "titre": "Tester une égalité",
-                "rappelDuCoursHTML": "Pour tester une égalité :<br>- on calcule la valeur du <i>membre de gauche</i> en remplaçant la lettre par la valeur donnée dans l'énoncé ;<br>- on calcule la valeur du <i>membre de droite</i> en remplaçant la lettre par la valeur donnée dans l'énoncé ;<br>- si on obtient le même résultat, l'égalité est vraie ; sinon, elle est fausse.<br><br><p class='is-size-6'><i>membre de gauche</i> = tout ce qui est à gauche du signe égal<br><i>membre de droite</i> = tout ce qui est à droite du signe égal.</p><p class='is-size-6 has-text-danger'>Attention à bien séparer les calculs du membre de gauche des calculs du membre de droite !</p>",
+                "rappelDuCoursHTML": "Pour tester une égalité :<br>- on calcule la valeur du <i>membre de gauche</i> en remplaçant la lettre par la valeur donnée dans l'énoncé ;<br>- on calcule la valeur du <i>membre de droite</i> en remplaçant la lettre par la valeur donnée dans l'énoncé ;<br>- si on obtient le même résultat, l'égalité est vraie ; sinon, elle est fausse.<br><br><p class='text-sm md:text-base'><i>membre de gauche</i> = tout ce qui est à gauche du signe égal<br><i>membre de droite</i> = tout ce qui est à droite du signe égal.</p><p class='text-sm md:text-base has-text-danger'>Attention à bien séparer les calculs du membre de gauche des calculs du membre de droite !</p>",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -5384,25 +5384,41 @@
               },
               {
                 "reference": "5S12",
-                "titre": "Calculer et interpréter la moyenne d'une série de données",
-                "rappelDuCoursHTML": "<p>Pour calculer une <b><i>moyenne</i></b>, on <i>additionne</i> toutes les <i><b>valeurs</b></i> puis on <i>divise le résultat</i> par l'<i><b>effectif total</b></i>.</p><p>Lorsqu'il y a des valeurs qui se répètent plusieurs fois, pour aller plus vite on peut faire des <i>multiplications</i> <span class='is-size-6'>(par exemple si la valeur 7 apparaît 5 fois, au lieu de faire 7 + 7 + 7 + 7 + 7, on fait 7 × 5 -&gt; On dit alors que 5 est l'<b><i>effectif</i></b> de 7).</span><br>Dans ce cas, on dit que la <b><i>moyenne</i></b> est <b><i>pondérée</i></b> par les effectifs.</p><br><p class='is-size-6'><b><i>valeurs</i></b> = les nombres qui nous intéressent : par exemple si on veut calculer une moyenne de notes, les valeurs sont des notes ; si on veut calculer une moyenne de températures, les valeurs sont les températures etc.<br><b><i>effectif total</i></b> = le nombre total de valeurs = combien il y en a</p>",
+                "titre": "Calculer et interpréter la moyenne arithmétique d'une série de données",
+                "rappelDuCoursHTML": "<p>Pour calculer une <b><i>moyenne</i></b>, on <i>additionne</i> toutes les <i><b>valeurs</b></i> puis on <i>divise le résultat</i> par l'<i><b>effectif total</b></i>.</p><br><p class='text-sm'><b><i>valeurs</i></b> = les nombres qui nous intéressent : par exemple si on veut calculer une moyenne de notes, les valeurs sont des notes ; si on veut calculer une moyenne de températures, les valeurs sont les températures etc.<br><b><i>effectif total</i></b> = le nombre total de valeurs = combien il y en a</p>",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
                     "titre": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=23UG33y2Mic&vignette=https://i.ytimg.com/vi/23UG33y2Mic/hqdefault.jpg&debut=12&fin=110&largeur=200&hauteur=113",
-                    "auteur": "Khan Academy",
-                    "lienAuteur": "http://www.khanacademy.org"
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=RGaby7Nz5mw&vignette=https://i.ytimg.com/vi/RGaby7Nz5mw/hqdefault.jpg&debut=0&fin=310&largeur=16&hauteur=9",
+                    "auteur": "Hedacademy",
+                    "lienAuteur": "https://www.youtube.com/@hedacademy"
                   }
                 ],
                 "exercices": [
                   {
                     "slug": "5S14,s=1,n=1",
-                    "description": "Calculer une moyenne arithmétique"
-                  },
+                    "description": ""
+                  }
+                ]
+              },
+              {
+                "reference": "5S13",
+                "titre": "Calculer et interpréter la moyenne pondérée d'une série de données",
+                "rappelDuCoursHTML": "",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=RGaby7Nz5mw&vignette=https://i.ytimg.com/vi/RGaby7Nz5mw/hqdefault.jpg&debut=0&fin=310&largeur=16&hauteur=9",
+                    "auteur": "Hedacademy",
+                    "lienAuteur": "https://www.youtube.com/@hedacademy"
+                  }
+                ],
+                "exercices": [
                   {
                     "slug": "5S14,s=3,n=1",
-                    "description": "Calculer une moyenne pondérée"
+                    "description": ""
                   }
                 ]
               }
@@ -6794,6 +6810,30 @@
                 "exercices": [
                   {
                     "slug": "5S21,s=1,n=1"
+                  }
+                ]
+              },
+              {
+                "reference": "4S14",
+                "titre": "Calculer et interpréter la moyenne d'une série de données",
+                "rappelDuCoursHTML": "<p>Pour calculer une <b><i>moyenne</i></b>, on <i>additionne</i> toutes les <i><b>valeurs</b></i> puis on <i>divise le résultat</i> par l'<i><b>effectif total</b></i>.</p><p>Lorsqu'il y a des valeurs qui se répètent plusieurs fois, pour aller plus vite on peut faire des <i>multiplications</i> <span class='text-sm md:text-base'>(par exemple si la valeur 7 apparaît 5 fois, au lieu de faire 7 + 7 + 7 + 7 + 7, on fait 7 × 5 -&gt; On dit alors que 5 est l'<b><i>effectif</i></b> de 7).</span><br>Dans ce cas, on dit que la <b><i>moyenne</i></b> est <b><i>pondérée</i></b> par les effectifs.</p><br><p class='text-sm md:text-base'><b><i>valeurs</i></b> = les nombres qui nous intéressent : par exemple si on veut calculer une moyenne de notes, les valeurs sont des notes ; si on veut calculer une moyenne de températures, les valeurs sont les températures etc.<br><b><i>effectif total</i></b> = le nombre total de valeurs = combien il y en a</p>",
+                "rappelDuCoursImage": "",
+                "videos": [
+                  {
+                    "titre": "",
+                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=RGaby7Nz5mw&vignette=https://i.ytimg.com/vi/RGaby7Nz5mw/hqdefault.jpg&debut=0&fin=310&largeur=16&hauteur=9",
+                    "auteur": "Hedacademy",
+                    "lienAuteur": "https://www.youtube.com/@hedacademy"
+                  }
+                ],
+                "exercices": [
+                  {
+                    "slug": "5S14,s=1,n=1",
+                    "description": "Calculer une moyenne arithmétique"
+                  },
+                  {
+                    "slug": "5S14,s=3,n=1",
+                    "description": "Calculer une moyenne pondérée"
                   }
                 ]
               }

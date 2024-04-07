@@ -1742,6 +1742,9 @@
         "objectifs": [
           {
             "reference": "5S12"
+          },
+          {
+            "reference": "5S13"
           }
         ],
         "calculsMentaux": [
@@ -1798,7 +1801,7 @@
             "slug": "5S14,s=1,n=1"
           },
           {
-            "reference": "5S12",
+            "reference": "5S13",
             "slug": "5S14,s=3,n=1"
           }
         ]
@@ -1974,7 +1977,7 @@
             "slug": "5S14,s=1,n=1"
           },
           {
-            "reference": "5S12",
+            "reference": "5S13",
             "slug": "5S14,s=3,n=1"
           },
           {
@@ -1997,7 +2000,7 @@
         "periode": 1,
         "objectifs": [
           {
-            "reference": "5S12"
+            "reference": "4S14"
           },
           {
             "reference": "4S10"
@@ -2107,11 +2110,11 @@
         ],
         "questionsFlash": [
           {
-            "reference": "5S12",
+            "reference": "4S14",
             "slug": "5S14,s=1,n=1"
           },
           {
-            "reference": "5S12",
+            "reference": "4S14",
             "slug": "5S14,s=3,n=1"
           },
           {
@@ -2993,11 +2996,11 @@
             "slug": "3L11-2,n=1"
           },
           {
-            "reference": "5S12",
+            "reference": "4S14",
             "slug": "5S14,s=1,n=1"
           },
           {
-            "reference": "5S12",
+            "reference": "4S14",
             "slug": "5S14,s=3,n=1"
           },
           {
@@ -3049,7 +3052,7 @@
         "periode": 1,
         "objectifs": [
           {
-            "reference": "5S12"
+            "reference": "4S14"
           },
           {
             "reference": "3S10"
