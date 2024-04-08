@@ -1,4 +1,5 @@
 #proprietes()[
+  n désigne un nombre entier.\
   Les nombres pairs sont les nombres de la forme $2n$.\
   Les nombres impairs sont les nombres de la forme $2n + 1$.
 ]
