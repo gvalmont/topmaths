@@ -31,7 +31,7 @@
   >.<br />
   Le
   <a
-    href="https://forge.aeif.fr/gvalmont/topmathalea"
+    href="https://forge.apps.education.fr/valmontguillaume/topmaths"
     target="_blank"
     rel="noopener noreferrer"
   >

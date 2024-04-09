@@ -177,7 +177,7 @@
 <footer class="p-6 md:p-12 pt-3 md:pt-6 pb-12 md:pb-24 text-center bg-zinc-50 text-xs md:text-base">
   <p>
     <strong>topmaths</strong> © {annee} de
-    <a href="https://forge.aeif.fr/gvalmont" target="_blank" rel="noopener noreferrer">Guillaume Valmont</a> et des
+    <a href="https://forge.apps.education.fr/valmontguillaume" target="_blank" rel="noopener noreferrer">Guillaume Valmont</a> et des
     <a href="https://coopmaths.fr/a_propos/" target="_blank" rel="noopener noreferrer">contributeurs de MathALÉA</a>
   </p>
   <p>

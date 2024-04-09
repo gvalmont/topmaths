@@ -74,12 +74,12 @@
   </p>
   <p>
     Le code source de MathALÉA est disponible sur la
-    <a href="https://forge.aeif.fr/framaka/que-la-forge-soit-avec-toi"
+    <a href="https://forge.apps.education.fr/framaka/que-la-forge-soit-avec-toi"
       >Forge des Communs Numériques Éducatifs</a
     >
     à l'adresse suivante&nbsp;:
-    <a href="https://forge.aeif.fr/coopmaths/mathalea"
-      >https://forge.aeif.fr/coopmaths/mathalea</a
+    <a href="https://forge.apps.education.fr/coopmaths/mathalea"
+      >https://forge.apps.education.fr/coopmaths/mathalea</a
     >.
   </p>
   <br />
@@ -91,12 +91,12 @@
   </p>
   <p>
     Le code source de topmaths est lui aussi disponible sur la
-    <a href="https://forge.aeif.fr/framaka/que-la-forge-soit-avec-toi"
+    <a href="https://forge.apps.education.fr/framaka/que-la-forge-soit-avec-toi"
       >Forge des Communs Numériques Éducatifs</a
     >
     à l'adresse suivante&nbsp;:
-    <a href="https://forge.aeif.fr/gvalmont/topmathalea"
-      >https://forge.aeif.fr/gvalmont/topmathalea</a
+    <a href="https://forge.apps.education.fr/valmontguillaume/topmaths"
+      >https://forge.apps.education.fr/valmontguillaume/topmaths</a
     >.
   </p>
 </section>
@@ -105,17 +105,17 @@
   <h3 class="title is-3">Résumé</h3>
   <p>
     Pour adapter topmaths à vos progressions, il suffit de télécharger le code
-    disponible sur <a href="https://forge.aeif.fr/gvalmont/topmathalea"
-      >https://forge.aeif.fr/gvalmont/topmathalea</a
+    disponible sur <a href="https://forge.apps.education.fr/valmontguillaume/topmaths"
+      >https://forge.apps.education.fr/valmontguillaume/topmaths</a
     >
     et de modifier les deux fichiers
     <a
-      href="https://forge.aeif.fr/gvalmont/topmathalea/-/blob/main/src/json/topmaths/objectifs.json"
+      href="https://forge.apps.education.fr/valmontguillaume/topmaths/-/blob/main/src/json/topmaths/objectifs.json"
       >Objectifs</a
     >
     et
     <a
-      href="https://forge.aeif.fr/gvalmont/topmathalea/-/blob/main/src/json/topmaths/sequences.json"
+      href="https://forge.apps.education.fr/valmontguillaume/topmaths/-/blob/main/src/json/topmaths/sequences.json"
       >Séquences</a
     >, tout le site se construit automatiquement à partir de ces fichiers. Il
     n'est pas exclu de faire une interface graphique de configuration mais je
@@ -154,7 +154,7 @@
     </li>
     <li>
       Télécharger <a
-        href="https://forge.aeif.fr/gvalmont/topmathalea/-/archive/main/topmathalea-main.zip"
+        href="https://forge.apps.education.fr/valmontguillaume/topmaths/-/archive/main/topmathalea-main.zip"
         >"topmathalea-main.zip"</a
       >, le décompresser et l'ouvrir dans Visual Studio Code.
     </li>
