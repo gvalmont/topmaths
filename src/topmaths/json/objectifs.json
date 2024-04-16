@@ -2248,14 +2248,17 @@
                   {
                     "materielEleve": [],
                     "materielEnseignant": [
-                      "6M20_Poly_x6"
+                      "6M15_Presentation",
+                      "6M15_Poly_x4"
                     ],
                     "debutDeSeance": [],
                     "deroule": [
-                      "Afficher un exercice de https://topmaths.fr/?v=objectif&ref=6M20",
-                      "Distribuer les poly",
-                      "Enseignement explicite",
-                      "Kahoot : https://create.kahoot.it/details/d1f73255-561b-4670-a4fb-7fb92da53955"
+                      "Demander s'ils savent ce qu'est un volume",
+                      "S'ils ne savent pas, essayer de deviner si on parle d'un grand volume ou d'un petit volume de quelque chose",
+                      "Noter la définition",
+                      "Faire l'exemple ensemble (comme pour calculer la surface on partageait la figure en petits carrés, pour calculer le volume on partage la figure en petits cubes)",
+                      "Coller l'exemple",
+                      "Apprentissage explicite de https://topmaths.fr/?v=objectif&ref=6M15"
                     ],
                     "devoirs": [],
                     "finDeSeance": [],
