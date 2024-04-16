@@ -2232,8 +2232,34 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "6M30,s=1,s3=2,s4=8,n=4",
-                    "description": ""
+                    "slug": "uuid=0d4be&id=6M30-0&n=1",
+                    "description": "Compter les cubes"
+                  },
+                  {
+                    "slug": "uuid=f8019&id=can6M10&n=1",
+                    "description": "Calculer avec une représentation"
+                  },
+                  {
+                    "slug": "6M30,s=1,s3=2,s4=8,n=2",
+                    "description": "Calculer sans représentation"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "6M20_Poly_x6"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Afficher un exercice de https://topmaths.fr/?v=objectif&ref=6M20",
+                      "Distribuer les poly",
+                      "Enseignement explicite",
+                      "Kahoot : https://create.kahoot.it/details/d1f73255-561b-4670-a4fb-7fb92da53955"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
                   }
                 ]
               }
