@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import type TypeExercice from '../../../../../exercices/ExerciceTs.js'
+  import type TypeExercice from '../../../../../exercices/Exercice'
   export let exercise: TypeExercice
   export let indiceExercice: number
   export let indiceLastExercice: number

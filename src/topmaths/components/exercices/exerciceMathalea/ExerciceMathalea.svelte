@@ -1,6 +1,6 @@
 <script lang="ts">
   import { afterUpdate, onMount, tick } from 'svelte'
-  import type TypeExercice from '../../../../exercices/ExerciceTs.js'
+  import type TypeExercice from '../../../../exercices/Exercice'
   import { exerciceInteractif, prepareExerciceCliqueFigure } from '../../../../lib/interactif/gestionInteractif'
   import { loadMathLive } from '../../../../modules/loaders'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
