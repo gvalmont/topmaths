@@ -6,7 +6,8 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choixDeroulant, listeDeroulanteToQcm } from '../../lib/interactif/questionListeDeroulante.js'
 import { textCompare } from '../../lib/interactif/comparisonFunctions'
-export const titre = 'Vérifier si un couple est solution d\'un système linéaire de deux équations à deux inconnues'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+export const titre = 'Tester si un couple de points vérifie un système de deux équations à deux inconnues.'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
 export const amcReady = true
@@ -14,7 +15,8 @@ export const amcType = 'qcmMono'
 export const dateDePublication = '28/03/2024'
 export const uuid = 'ccb71'
 export const refs = {
-  'fr-ch': ['11FA6-1']
+  'fr-ch': ['11FA6-1'],
+  'fr-fr': ['2G34-3']
 }
 
 /**
@@ -33,11 +35,7 @@ export default class systemeEquationsPremDegSol extends Exercice {
   }
 
   nouvelleVersion () {
-    if (this.nbQuestions === 1) {
-      this.consigne = 'Cocher la bonne réponse.'
-    } else {
-      this.consigne = 'Cocher les bonnes réponses.'
-    }
+    this.consigne = 'Déterminer si le couple proposé est solution du système d\'équations.'
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -259,7 +257,7 @@ export default class systemeEquationsPremDegSol extends Exercice {
       const eqFinale2 = eqInt2Droite.concat(eqInt2Gauche)
       const nomVal1 = nomVal12.concat(nomVal11)
       const nomVal2 = nomVal22.concat(nomVal21)
-      texte = texte + ` Le couple $(${texNombre(solPropX, 0)};${texNombre(solPropY, 0)})$ est-il solution du système $${printSystem(eqToLatex(eqFinale1, nomVal1, true), eqToLatex(eqFinale2, nomVal2, true))}$`
+      texte = texte + ` Le couple $(${texNombre(solPropX, 0)};${texNombre(solPropY, 0)})$ est-il solution du système $${printSystem(eqToLatex(eqFinale1, nomVal1, true), eqToLatex(eqFinale2, nomVal2, true))}$ ?`
       if (this.correctionDetaillee) {
         texteCorr = texteCorr + `On substitue le couple (${texNombre(solPropX, 0)};${texNombre(solPropY, 0)}) dans les équations du système :<br> \\[\\begin{cases}\\begin{aligned}${eqToLatex(eqFinale1, listeVal1, true, 1)}\\\\${eqToLatex(eqFinale2, listeVal2, true, 1)}\\end{aligned}\\end{cases}\\] On réduit les membres de gauche et de droite des deux équations
         \\[\\begin{cases}\\begin{aligned}${eqToLatex([0, 0, verifEq(eqFinale1, solPropX, solPropY)[0], 0, 0, verifEq(eqFinale1, solPropX, solPropY)[1]], listeVar, true, 1)}\\\\${eqToLatex([0, 0, verifEq(eqFinale2, solPropX, solPropY)[0], 0, 0, verifEq(eqFinale2, solPropX, solPropY)[1]], listeVar, true, 1)}\\end{aligned}\\end{cases}\\]`
@@ -275,21 +273,13 @@ export default class systemeEquationsPremDegSol extends Exercice {
       } else {
         rep = choix[3]
       }
+      texteCorr = texteCorr + `<br> ${texteEnCouleurEtGras(`${rep}`)}`
       if (this.interactif) {
         texte = texte + choixDeroulant(this, i, choix, 'une réponse')
         handleAnswers(this, i, { reponse: { value: rep, compare: textCompare } }, { formatInteractif: 'listeDeroulante' })
       } else {
         const options = { ordered: true, vertical: true }
         listeDeroulanteToQcm(this, i, choix, rep, options)
-      }
-      if (substring === 'E1Ne2') {
-        texteCorr = texteCorr + choix[0]
-      } else if (substring === 'Ne1E2') {
-        texteCorr = texteCorr + choix[1]
-      } else if (substring === 'Ne1Ne2') {
-        texteCorr = texteCorr + choix[2]
-      } else {
-        texteCorr = texteCorr + choix[3]
       }
       if (this.questionJamaisPosee(i, solX, solY)) {
         this.listeQuestions.push(texte)

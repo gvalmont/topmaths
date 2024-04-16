@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { texNombre } from '../../../src/lib/outils/texNombre'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Amplifier ou simplifier une fraction'
 export const dateDePublication = '14/03/2024'
@@ -11,7 +12,8 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '0e77e'
 export const refs = {
-  'fr-ch': ['9NO12-10']
+  'fr-ch': ['9NO12-10'],
+  'fr-fr': []
 }
 
 /**
@@ -24,7 +26,7 @@ export default class AmplifierOuReduireFraction extends Exercice {
     super()
     this.consigne = ''
     this.nbQuestions = 6
-    this.sup = 1
+    this.sup = 3
     this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Amplifier\n2 : Simplifier\n3 : Mélange']
   }
 
@@ -58,7 +60,7 @@ export default class AmplifierOuReduireFraction extends Exercice {
       switch (listeTypeQuestions[i]) {
         case 'amplifier':
           texte = `Amplifier la fraction $\\dfrac{${num}}{${den}}$ par $${texNombre(k, 0)}$`
-          texteCorr = `La fraction $\\dfrac{${num}}{${den}}$ amplifiée par $${texNombre(k, 0)}$ donne $\\dfrac{${num} \\times ${k}}{${den} \\times ${k}}=\\dfrac{${num * k}}{${den * k}}$.`
+          texteCorr = `La fraction $\\dfrac{${num}}{${den}}$ amplifiée par $${texNombre(k, 0)}$ donne $\\dfrac{${num} \\times ${k}}{${den} \\times ${k}}=${miseEnEvidence(`\\dfrac{${num * k}}{${den * k}}`)}$.`
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i, `\\dfrac{${num}}{${den}} = \\dfrac{%{champ1}}{%{champ2}}`)
             handleAnswers(this, i, {
@@ -74,7 +76,7 @@ export default class AmplifierOuReduireFraction extends Exercice {
           break
         case 'simplifier':
           texte = `Simplifier la fraction $\\dfrac{${num * k}}{${den * k}}$ par $${texNombre(k, 0)}$`
-          texteCorr = `La fraction $\\dfrac{${num * k}}{${den * k}}$ simplifiée par $${texNombre(k, 0)}$ donne $\\dfrac{${num * k} \\div ${k}}{${den * k} \\div ${k}}=\\dfrac{${num}}{${den}}$.`
+          texteCorr = `La fraction $\\dfrac{${num * k}}{${den * k}}$ simplifiée par $${texNombre(k, 0)}$ donne $\\dfrac{${num * k} \\div ${k}}{${den * k} \\div ${k}}=${miseEnEvidence(`\\dfrac{${num}}{${den}}`)}$.`
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i, `\\dfrac{${num * k}}{${den * k}} = \\dfrac{%{champ1}}{%{champ2}}`)
             handleAnswers(this, i, {

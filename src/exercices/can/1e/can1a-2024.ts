@@ -1,8 +1,8 @@
 import Question1 from '../can1a-2024/can1a-2024-Q1'
 import Question2 from '../can1a-2024/can1a-2024-Q2'
-import Question3 from '../2e/can2a-2024-Q3.js'
-import Question4 from '../2e/can2a-2024-Q4.js'
-import Question5 from '../2e/can2a-2024-Q5.js'
+import Question3 from '../can2a-2024/can2a-2024-Q3.js'
+import Question4 from '../can2a-2024/can2a-2024-Q4.js'
+import Question5 from '../can2a-2024/can2a-2024-Q5.js'
 import Question6 from '../can1a-2024/can1a-2024-Q6'
 import Question7 from '../can1a-2024/can1a-2024-Q7'
 import Question8 from '../can1a-2024/can1a-2024-Q8'
@@ -36,12 +36,11 @@ export const titre = 'CAN première sujet 2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '640f2'
-// export const refMAISPASMAINTENANT = 'can3a-2024'
-// export const refsMAISPASMAINTENANT = {
-//  'fr-fr': ['can3a-2024'],
-//   'fr-ch': []
-//  }
-
+export const refs = {
+  'fr-fr': ['can1a-2024'],
+  'fr-ch': []
+}
+export const dateDePublication = '14/04/2024'
 /**
  * Annales CAN 2024
  * @author Gilles Mora

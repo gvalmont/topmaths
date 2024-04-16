@@ -527,7 +527,8 @@ export function equalFractionCompare (input: string, goodAnswer: string): Result
 /**
  * comparaison de fraction à l'identique (pour les fraction irréductibles par exemple)
  * @param {string} input
- * @param {string} goodAnswer
+ * @param {string} goodAnswer // Doit être au format texFSD ! le signe devant, numérateur et dénominateur positifs !!!
+ *
  * @return ResultType
  */
 export function fractionCompare (input: string, goodAnswer: string): ResultType {
@@ -536,8 +537,20 @@ export function fractionCompare (input: string, goodAnswer: string): ResultType 
   }
   const clean = generateCleaner(['espaces', 'fractions'])
   const inputParsed = engine.parse(clean(input), { canonical: false })
+  let newFraction
+  if (inputParsed.head === 'Divide') {
+    const num = Number(inputParsed.op1.numericValue)
+    const den = Number(inputParsed.op2.numericValue)
+    if (num * den < 0) {
+      newFraction = engine.parse(`-\\frac{${Math.abs(num)}}{${Math.abs(den)}}`, { canonical: false })
+    } else {
+      newFraction = engine.parse(`\\frac{${Math.abs(num)}}{${Math.abs(den)}}`, { canonical: false })
+    }
+  } else {
+    newFraction = inputParsed
+  }
   const goodAnswerParsed = engine.parse(clean(goodAnswer), { canonical: false })
-  return { isOk: inputParsed.isSame(goodAnswerParsed) }
+  return { isOk: newFraction.isSame(goodAnswerParsed) }
 }
 
 /**
@@ -651,24 +664,46 @@ export function intervalsCompare (input: string, goodAnswer: string) {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
-  let result = true
-  const clean = generateCleaner(['virgules', 'parentheses'])
+  const clean = generateCleaner(['virgules', 'parentheses', 'espaces'])
   input = clean(input)
-  goodAnswer = clean(goodAnswer)
-  const intervallesSaisie = input.match(/[[\]]-?\d.?\d?;-?\d.?\d?[[\]]/g)
-  const intervallesReponse = goodAnswer.match(/[[\]]-?\d.?\d?;-?\d.?\d?[[\]]/g)
-  if (intervallesReponse != null && intervallesSaisie != null) {
-    for (let i = 0; i < intervallesReponse.length; i++) {
-      const [borneInfRep, borneSupRep] = intervallesReponse[i].match(/-?\d\.?\d?/g) as string[]
-      const [borneInfSai, borneSupSai] = intervallesSaisie[i].match(/-?\d\.?\d?/g) as string[]
-      // ToDo parser les deux bornes pour accepter les fractions
-      if (Math.abs(Number(borneInfSai) - Number(borneInfRep)) > 0.001 || Math.abs(Number(borneSupSai) - Number(borneSupRep)) > 0.001) {
-        result = false
+  goodAnswer = clean(goodAnswer).replaceAll('bigcup', 'cup').replaceAll('bigcap', 'cap')
+  let isOk1: boolean = true
+  let isOk2: boolean = true
+  let feedback: string = ''
+  const extractBornesAndOp = /[^[\];]+/g
+  const extractCrochets = /[[\]]/g
+  const borneAndOpSaisie = input.match(extractBornesAndOp)
+  const borneAndOpReponse = goodAnswer.match(extractBornesAndOp)
+  const crochetsSaisie = input.match(extractCrochets)
+  const crochetsReponse = goodAnswer.match(extractCrochets)
+  if (borneAndOpSaisie != null) {
+    if (borneAndOpSaisie.length !== borneAndOpReponse.length) {
+      return { isOk: false }
+    }
+    // On teste les bornes et les opérateurs
+    let i
+    for (i = 0; i < borneAndOpSaisie.length; i++) {
+      const borneOuOp = engine.parse(borneAndOpSaisie[i])
+      const borneOuOpR = engine.parse(borneAndOpReponse[i])
+      if (!borneOuOp.isEqual(borneOuOpR)) {
+        isOk1 = false
+        if (['\\cup', '\\cap'].includes(borneAndOpSaisie[i])) {
+          feedback += `Il y a une erreur avec l'opérateur : $${borneAndOpSaisie[i]}$.<br>`
+        } else {
+          feedback += `Il y a une erreur avec la valeur : $${borneAndOpSaisie[i]}$.<br>`
+        }
       }
     }
-    return { isOk: result }
+    // on teste maintenant les crochets
+    for (i = 0; i < crochetsSaisie.length; i++) {
+      if (crochetsSaisie[i] !== crochetsReponse[i]) {
+        isOk2 = false
+        feedback += `Le crochet placé en position ${i + 1} est mal orienté.<br>`
+      }
+    }
+    return { isOk: isOk1 && isOk2, feedback }
   }
-  return { isOk: false }
+  return { isOk: false, feedback: 'Il faut donner un intervalle ou une réunion d\'intervalles' }
 }
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -969,7 +1004,7 @@ export function equalityCompare (input: string, goodAnswer: {membre1:{fonction: 
     })
     return {
       isOk: isOk1 && isOk2,
-      feedback: 'La réponse serait peut-être acceptée en mode équivalence, mais nous ne l\'avaons pas encore programmé'
+      feedback: ''
     }
   }
 }

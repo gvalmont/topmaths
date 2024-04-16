@@ -55,6 +55,10 @@ class Latex {
     this.exercices = []
   }
 
+  isExerciceStaticInTheList () {
+    return this.exercices.some(e => e.typeExercice === 'statique')
+  }
+
   addExercices (exercices: TypeExercice[]) {
     this.exercices.push(...exercices)
   }
@@ -73,9 +77,12 @@ class Latex {
       if (exercice != null) {
         const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
         exercice.seed = seed
-        if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
-        seedrandom(seed, { global: true })
-        if (typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper()
+        if (exercice.typeExercice === 'simple') {
+          mathaleaHandleExerciceSimple(exercice, false)
+        } else {
+          seedrandom(seed, { global: true })
+          if (typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper()
+        }
       }
     }
     if (style === 'Can') {
@@ -159,9 +166,13 @@ class Latex {
       if (exercice.typeExercice === 'statique') continue
       const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
       exercice.seed = seed
-      if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
+      if (exercice.typeExercice === 'simple') {
+        mathaleaHandleExerciceSimple(exercice, false)
+      }
       seedrandom(seed, { global: true })
-      if (typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper()
+      if (exercice.typeExercice !== 'simple') {
+        if (typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper()
+      }
     }
     for (const exercice of this.exercices) {
       content += `\n% @see : ${getUrlFromExercice(exercice)}`
@@ -220,7 +231,8 @@ class Latex {
       contents.preamble = `% @see : ${window.location.href}`
       contents.preamble += '\n\\documentclass[a4paper,11pt,fleqn]{article}'
       if (contents.content.includes('\\Engrenages[') || // exo : 3A12
-          contents.content.includes('\\Propor[')) { // exo : 6P15
+          contents.content.includes('\\Propor[') || // exo : 6P15
+          contents.content.includes('\\Reperage[')) { // exo 5R12-1
         // à mettre avant ProfMaquette
         contents.preamble += '\n\\usepackage{ProfCollege}'
       }
@@ -263,11 +275,18 @@ class Latex {
       if (contents.content.includes('\\np{') || contents.content.includes('\\np[') || contents.content.includes('\\numprint{')) {
         contents.preamble += '\n\\usepackage[autolanguage,np]{numprint}'
       }
+      if (contents.content.includes('\\pscurve')) {
+        contents.preamble += '\n\\usepackage{pstricks}'
+      }
       if (contents.content.includes('\\begin{bclogo}') || contents.content.includes('\\fcolorbox{nombres}')) {
         contents.preamble += '\n\\definecolor{nombres}{cmyk}{0,.8,.95,0}'
       }
       if (contents.content.includes('\\begin{tikzpicture}')) {
         contents.preamble += '\n\\usepackage{tikz}'
+      }
+      if (contents.content.includes('\\vect')) {
+        // DBN 2019 juillet polynésie
+        contents.preamble += '\n\\newcommand{\\vect}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}'
       }
       if (contents.content.includes('\\begin{axis}')) {
         contents.preamble += '\n\\usepackage{pgfplots}'
@@ -291,12 +310,48 @@ class Latex {
       }
       if (contents.content.includes('\\red')) {
         // gestion des couleurs pour les sujets DNB : 2023
-        contents.preamble += '\n\\usepackage{xcolor}'
+        contents.preamble += '\n\\usepackage{pst-fun}'
+      }
+      if (contents.content.includes('\\multirow{')) {
+        // gestion pour les sujets DNB : 2021
+        contents.preamble += '\n\\usepackage{multirow}'
+      }
+      if (contents.content.includes('\\ovalbox{') ||
+          contents.content.includes('\\txtbox{')) {
+        // gestion pour les sujets DNB : 2021
+        contents.preamble += '\n\\usepackage{fancybox}'
+        if (contents.content.includes('\\txtbox{')) contents.preamble += '\n\\newcommand{\\txtbox}{\\ovalnum}'
+      }
+      if (contents.content.includes('\\ding{') ||
+          contents.content.includes('\\decoone')) {
+        // pour les sujets DNB : 2023 / 2021
+        contents.preamble += '\n\\usepackage{pifont}'
+        if (contents.content.includes('\\decoone')) contents.preamble += '\n\\newcommand{\\decoone}{\\ding{87}}'
       }
       if (contents.content.includes('\\starredbullet')) {
         // gestion des commandes pour les sujets DNB : 2023
         contents.preamble += '\n\\usepackage{MnSymbol}'
         contents.preamble += '\n\\newcommand\\starredbullet{\\medstar}'
+      }
+      if (contents.content.includes('\\decosix')) {
+        // gestion des commandes pour les sujets DNB : 2021
+        contents.preamble += '\n\\providecommand\\decosix{}'
+        contents.preamble += '\n\\renewcommand\\decosix{$\\bullet$}'
+      }
+      if (contents.content.includes('\\begin{figure}')) {
+        // gestion des commandes pour les sujets DNB : dnb_2019_09_polynesie_6
+        contents.preamble += `\\n% supprime les figures flottantes du DNB
+        \\makeatletter
+        \\def\\provideenvironment{\\@star@or@long\\provide@environment}
+        \\def\\provide@environment#1{%
+          \\@ifundefined{#1}%
+            {\\def\\reserved@a{\\newenvironment{#1}}}%
+            {\\def\reserved@a{\\renewenvironment{dummy@environ}}}%
+          \\reserved@a
+        }
+        \\def\\dummy@environ{}
+        \\makeatother
+        \\provideenvironment{figure}{}{}\\renewenvironment{figure}{}{}`
       }
       if (contents.content.includes('\\R') || contents.content.includes('\\N')) {
         // gestion des commandes pour les sujets DNB : 2023
@@ -477,7 +532,7 @@ export function buildImagesUrlsList (exosContentList: ExoContent[], picsNames: p
       const serie = exo?.serie?.toLowerCase()
       for (const file of picsNames[i]) {
         if (serie === 'crpe') {
-          imagesFilesUrls.push(`${window.location.origin}/static/${serie}/${year}/images/${file.name}.${file.format}`)
+          imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/images/${file.name}.${file.format}`)
         } else {
           if (file.format) {
             imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`)

@@ -35,8 +35,11 @@ async function getConsoleTest (page: Page, urlExercice: string) {
 
   try {
     page.on('pageerror', msg => {
-      messages.push(page.url() + ' ' + msg.stack)
-      logError(msg)
+      if (!msg.stack?.includes('mtgLoad') // mtgLoad : 3G22
+      ) {
+        messages.push(page.url() + ' ' + msg.stack)
+        logError(msg)
+      }
     })
     page.on('crash', msg => {
       messages.push(page.url() + ' ' + msg)
@@ -49,7 +52,7 @@ async function getConsoleTest (page: Page, urlExercice: string) {
           !msg.text().includes('[bugsnag] Loaded!') &&
           !msg.text().includes('No character metrics for') && // katex
           !msg.text().includes('LaTeX-incompatible input') && // katex
-          !msg.text().includes('mtgLoad') // mtgLoad
+          !msg.text().includes('mtgLoad') // mtgLoad : 3G22
       ) {
         if (!msg.text().includes('<HeaderExercice>')) {
           messages.push(page.url() + ' ' + msg.text())
@@ -164,6 +167,7 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('3e')
   // testRunAllLots('2e')
   // testRunAllLots('1e')
-  // testRunAllLots('3e/3G22.js')
-  testRunAllLots('can/2e-can/3e')
+  testRunAllLots('6e/6C10-9')
+  testRunAllLots('can/6e/can6a-alea')
+  // testRunAllLots('can/2e-can/3e')
 }

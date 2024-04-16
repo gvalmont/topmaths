@@ -22,12 +22,12 @@ export default class NomExercice extends Exercice {
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.formatInteractif = 'calcul'
     this.optionsChampTexte = { texteApres: 'cm$^2$.' }
-    this.canOfficielle = true
+    this.canOfficielle = false
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.reponse = ['\\pi', '1\\pi']
+      this.reponse = '\\pi'
       this.question = 'L\'aire exacte d\'un disque  de diamètre $2$ cm est :'
       this.correction = `L'aire d'un disque de rayon $r$ est $\\pi\\times r^2$. <br>
       Comme $r=1$, l'aire exacte d'un disque  de diamètre $2$ cm est : $${miseEnEvidence('\\pi')}$ cm$^2$.`
