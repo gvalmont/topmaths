@@ -5400,12 +5400,36 @@
                     "slug": "5S14,s=1,n=1",
                     "description": ""
                   }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "Haricots",
+                      "5S12_Presentation"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Distribuer les haricots",
+                      "Écrire au tableau : #table(columns: 5, [Amine], [Béatrice], [Krishna], [Emma], [Robin], [8], [5], [12], [3], [17])",
+                      "Si chacun avait le même nombre d'haricots, combien chacun en aurait ?",
+                      "Qui veut expliquer comment il a fait ?",
+                      "Comment pourrait-on faire sans haricots, juste avec les nombres ?",
+                      "Ce nombre qu'on a obtenu, c'est ce qu'on appelle la moyenne.",
+                      "La moyenne est le nombre qu'on aurait si chacun avait la même chose",
+                      "Entraînement sur https://topmaths.fr/?v=objectif&ref=5S12",
+                      "Noter le cours"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
+                  }
                 ]
               },
               {
                 "reference": "5S13",
                 "titre": "Calculer et interpréter la moyenne pondérée d'une série de données",
-                "rappelDuCoursHTML": "",
+                "rappelDuCoursHTML": "Lorsqu'on veut calculer une <b><a href='?v=objectif&ref=5S12'>moyenne</a></b>, si une <i>valeur</i> se répète plusieurs fois, on peut aller plus vite en multipliant cette valeur par son <i>effectif</i> (le nombre de fois où elle se répète).<br>Dans ce cas, on dit que la <i>moyenne</i> est <i>pondérée</i> par les effectifs.",
                 "rappelDuCoursImage": "",
                 "videos": [
                   {
@@ -5419,6 +5443,26 @@
                   {
                     "slug": "5S14,s=3,n=1",
                     "description": ""
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "5S13_Presentation"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Demander de calculer la moyenne de la série suivante : 3 ; 3 ; 3 ; 3 ; 3 ; 3 ; 3 ; 3 ; 3 ; 4 ; 4 ; 4 ; 5 ; 5 ; 5 ; 5 ; 5 : 5 : 5 : 5",
+                      "Corriger sans l'astuce",
+                      "Corriger avec l'astuce",
+                      "Expliquer que certaines valeurs ont plus de poids que d'autres, ce qui fait qu'on appelle ce type de moyenne des moyennes pondérées (imaginer une balance, avec 3 d'un côté et 5 de l'autre côté)",
+                      "Entraînement sur https://topmaths.fr/?v=objectif&ref=5S13",
+                      "Noter le cours"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
                   }
                 ]
               }
