@@ -2355,7 +2355,7 @@
                       "\"En quelle unité se mesure une aire ?\" Noter les réponses au tableau",
                       "\"Et $1 \"dm\"^2$ par exemple, ça fait combien de $\"cm\"^2$ ?\"",
                       "Faire un carré de côté $1 \"dm\"$ de côté et le partager en rectangles de largeur $1 \"cm\"$ de largeur puis en carrés de $1 \"cm\"$ de côté pour voir que $1 \"dm\"^2 = 100 \"cm\"^2$ $->$ C’est pour ça que dans le tableau de conversion des unités d’aires, on met 2 colonnes dans chaque unité.",
-                      "Afficher le tableau et le décrire \"1 m² c’est 100 dm² etc.\"",
+                      "Afficher le tableau et le décrire \"$1 \"m \"^2$ c’est $100 \"dm\"^2$ etc.\"",
                       "Copier le cours",
                       "Coller le deuxième tableau partie exercice",
                       "Entraînement sur https://topmaths.fr/?v=objectif&ref=6M21"
@@ -2392,6 +2392,29 @@
                   {
                     "slug": "6M31-2,s=3,s2=true,n=2",
                     "description": "Avec des litres"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "6M22_Presentation",
+                      "6M22_Poly_x5 (il y a 2 tableaux par élève)"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "\"Aujourd’hui, on va convertir des unités de volume\"",
+                      "\"En quelle unité se mesure un volume ?\" Noter les réponses au tableau",
+                      "\"Et $1 \"dm\"^3$ par exemple, ça fait combien de $\"cm\"^3$ ?\"",
+                      "Faire un cube de côté $1 \"dm\"$ d'arête et le partager en couches de hauteur $1 \"cm\"$ puis en colonnes de $1 \"cm\"$ de largeur puis en cubes d'arête $1 \"cm\"$ pour voir que $1 \"dm\"^3 = 1000 \"cm\"^3$ $->$ C’est pour ça que dans le tableau de conversion des unités de volume, on met 3 colonnes dans chaque unité.",
+                      "Afficher le tableau et le décrire \"$1 \"m \"^3$ c’est $1000 \"dm\"^3$ etc.\"",
+                      "Copier le cours",
+                      "Coller le deuxième tableau partie exercice",
+                      "Entraînement sur https://topmaths.fr/?v=objectif&ref=6M22"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
                   }
                 ]
               }
