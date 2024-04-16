@@ -15,6 +15,7 @@
 stages:
 - test
 - build-projet
+- playwright-test
 
 sast:
   stage: test
@@ -39,30 +40,6 @@ default:
     - nohup pnpm start &
     - sleep 60
 
-.testCIPDF:
-  image: guironne/tex-live-nodejs-playwright
-  before_script:
-    - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
-    - pnpm exec playwright install --with-deps chromium # dernière version playwright.
-    - nohup pnpm start &
-    - sleep 60
-  stage: playwright-pdf
-  rules:
-  - if: $CI_COMMIT_BRANCH == "guironne-jobs"
-    when: manual
-  - if: $CI_PIPELINE_SOURCE == "schedule"
-    when: always
-  - when: never
-  retry:
-    max: 2
-    when: runner_system_failure
-  artifacts:
-    when: always
-    paths:
-      - tests/e2e/logs
-      - updatefile
-    expire_in: 120 day
-
 .testCI:
   extends: .install_dependencies
   image: mcr.microsoft.com/playwright:v1.43.0-jammy
@@ -86,56 +63,6 @@ default:
       - tests/e2e/logs
     expire_in: 10 day
 
-test6e:
-  extends: .testCI
-  script:
-    - NIV=6e/6 pnpm test:e2e:console_errors
-
-test5e:
-  extends: .testCI
-  script:
-    - NIV=5e/5 pnpm test:e2e:console_errors
-
-test4e:
-  extends: .testCI
-  script:
-    - NIV=4e/4 pnpm test:e2e:console_errors
-
-test3e:
-  extends: .testCI
-  script:
-    - NIV=3e/3 pnpm test:e2e:console_errors
-
-testCan6e5e4e3e:
-  extends: .testCI
-  script:
-    - NIV=can/6e^can/5e^can/4e^can/3e pnpm test:e2e:console_errors
-
-testCan2e1e:
-  extends: .testCI
-  script:
-    - NIV=can/2e^can/1e pnpm test:e2e:console_errors
-
-test6ePDF:
-  extends: .testCIPDF
-  script:
-    - NIV=6e/6 pnpm test:e2e:pdfexports
-
-test5ePDF:
-  extends: .testCIPDF
-  script:
-    - NIV=5e/5 pnpm test:e2e:pdfexports
-
-test4ePDF:
-  extends: .testCIPDF
-  script:
-    - NIV=4e/4 pnpm test:e2e:pdfexports
-
-test3ePDF:
-  extends: .testCIPDF
-  script:
-    - NIV=3e/3 pnpm test:e2e:pdfexports
-
 build:
   extends: .testCI
   stage: build-projet
@@ -145,22 +72,6 @@ build:
     - echo "CI_PIPELINE_SOURCE '$CI_PIPELINE_SOURCE'"
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm build
     - echo "$CI_COMMIT_AUTHOR"
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main" && $CI_OPEN_MERGE_REQUESTS
-      when: never
-    - if: $CI_COMMIT_BRANCH == "main"
-      when: always
-    - if: $CI_COMMIT_BRANCH == "guironne-jobs"
-      when: always
-    - when: never
-  artifacts:
-    when: on_failure
-
-playwright-testCanEleve:
-  extends: .testCI
-  stage: playwright-testCanEleve
-  script:
-    - pnpm test:e2e:views
   rules:
     - if: $CI_COMMIT_BRANCH == "main" && $CI_OPEN_MERGE_REQUESTS
       when: never
