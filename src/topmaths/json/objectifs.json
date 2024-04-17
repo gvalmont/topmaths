@@ -5203,6 +5203,24 @@
                     "slug": "5L14,n=2",
                     "description": "Expressions complexes"
                   }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [
+                      "Calculatrice"
+                    ],
+                    "materielEnseignant": [
+                      "Tablettes"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Apprentissage explicite de https://topmaths.fr/?v=objectif&ref=5N54",
+                      "Kahoot : https://create.kahoot.it/details/195256f9-a45e-4f7e-8d9d-7cd47cabb03f"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
+                  }
                 ]
               },
               {
@@ -5226,6 +5244,24 @@
                   {
                     "slug": "5L15,s=1,s2=true,n=1",
                     "description": "Expressions complexes"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [
+                      "Calculatrice"
+                    ],
+                    "materielEnseignant": [
+                      "5N55_Presentation"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Présentation (ne noter que le titre et à partir de la définition de tester une égalité)",
+                      "Entraînement sur https://topmaths.fr/?v=objectif&ref=5N55"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
                   }
                 ]
               }
