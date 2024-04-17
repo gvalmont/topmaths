@@ -62,3 +62,7 @@
 #let fractionDiviseParFacteur(numerateur, denominateur, facteur) = [
   $(numerateur #text(red)[$div #facteur$])/(denominateur #text(red)[$div #facteur$])$
 ]
+
+#let phantom(str) = {
+  text(color.rgb(0, 0, 0, 0), str)
+}
