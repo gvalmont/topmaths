@@ -441,8 +441,32 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "uuid=4c10a&id=6C33&n=4&d=10&s=3&s2=true&s3=true&s4=false&alea=EZsg&cd=1",
+                    "slug": "uuid=4c10a&id=6C33&n=4&d=10&s=3&s2=true&s3=false&s4=false",
                     "description": ""
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [
+                      "Calculatrice"
+                    ],
+                    "materielEnseignant": [
+                      "Tablettes",
+                      "6C32_Presentation"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Afficher des calculs de https://topmaths.fr/?v=objectif&ref=6C32",
+                      "Demander d’essayer de faire de tête",
+                      "Vérifier à la calculatrice",
+                      "Faire deviner la priorité",
+                      "Relancer",
+                      "Noter la propriété et les exemples",
+                      "Kahoot avec réponses aléatoires https://create.kahoot.it/details/c186ae88-a804-4bf4-91c3-5422074a3f4b"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
                   }
                 ]
               },
@@ -452,7 +476,27 @@
                 "rappelDuCoursHTML": "",
                 "rappelDuCoursImage": "",
                 "videos": [],
-                "exercices": []
+                "exercices": [],
+                "fiches": [
+                  {
+                    "materielEleve": [
+                    ],
+                    "materielEnseignant": [
+                    ],
+                    "debutDeSeance": [
+                      "Mathador"
+                    ],
+                    "deroule": [
+                      "Prendre le calcul le plus simple qui a été proposé. Demander comment on pourrait faire pour effectuer ces calculs en une seule ligne au lieu de plusieurs.",
+                      "Parler des parenthèses si l'idée de vient pas",
+                      "Convertir de la même façon les calculs plus compliqués",
+                      "Entraînement sur https://topmaths.fr/?v=objectif&ref=6C33"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
+                  }
+                ]
               }
             ]
           }
