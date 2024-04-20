@@ -24,7 +24,7 @@
   ]
 ]
 
-#for value in range(8) {
+#for value in range(4) {
   truc
   v(2em)
 }
