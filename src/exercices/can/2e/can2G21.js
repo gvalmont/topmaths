@@ -4,7 +4,6 @@ import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
@@ -65,7 +64,7 @@ export default function LectureCoordonnees () {
     const traceA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
     traceA.taille = 3
     traceA.epaisseur = 2
-    this.question = `Donner les coordonnées du point.<br><br>`
+    this.question = 'Donner les coordonnées du point.<br><br>'
     this.question += mathalea2d({ xmin: -3, xmax: 3, ymin: -2, ymax: 2, scale: 1, pixelsParCm: 50, style: 'margin: auto' }, r, o, traceA)
     this.optionsChampTexte = { texteAvant: '<br>Respecter les notations :' }
     this.correction = 'L\'abscisse du point se lit sur l\'axe horizontal.<br>'

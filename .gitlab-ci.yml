@@ -16,11 +16,14 @@ stages:
 - test
 - build-projet
 - playwright-test
+- playwright-pdf
+- playwright-pdfDNB
 
 sast:
   stage: test
 include:
 - template: Security/SAST.gitlab-ci.yml
+
 
 default:
   image: node:18.16.0
@@ -40,6 +43,41 @@ default:
     - nohup pnpm start &
     - sleep 60
 
+.install_dependenciesPDF:
+  before_script:
+    - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
+    - pnpm exec playwright install --with-deps chromium # dernière version playwright.
+    - nohup pnpm start &
+    - sleep 60
+  
+.install_dependenciesPDFDNB:
+  before_script:
+    - git clone https://forge.apps.education.fr/coopmaths/dnb.git ./public/static/dnb
+    - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
+    - pnpm exec playwright install --with-deps chromium # dernière version playwright.
+    - nohup pnpm start &
+    - sleep 60
+
+.testCIPDF:
+  image: guironne/tex-live-nodejs-playwright
+  extends: .install_dependenciesPDF
+  stage: playwright-pdf
+  rules:
+  - if: $CI_COMMIT_BRANCH == "guironne-jobs"
+    when: manual
+  - if: $CI_PIPELINE_SOURCE == "schedule" && $CI_TEST_MA == "PDF"
+    when: always
+  - when: never
+  retry:
+    max: 2
+    when: runner_system_failure
+  artifacts:
+    when: always
+    paths:
+      - tests/e2e/logs
+      - updatefile
+    expire_in: 120 day
+
 .testCI:
   extends: .install_dependencies
   image: mcr.microsoft.com/playwright:v1.43.0-jammy
@@ -51,7 +89,7 @@ default:
     when: always
   - if: $CI_COMMIT_BRANCH == "guironne-jobs"
     when: manual
-  - if: $CI_PIPELINE_SOURCE == "schedule"
+  - if: $CI_PIPELINE_SOURCE == "schedule" && $CI_TEST_MA == "CONSOLE"
     when: always
   - when: never
   retry:

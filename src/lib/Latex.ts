@@ -1,4 +1,5 @@
 import genericPreamble from '../lib/latex/preambule.tex?raw'
+import { loadFonts, loadPackagesFromContent, loadPreambule, loadProfCollegeIfNeed, logPDF } from '../lib/latex/preambuleTex'
 import TypeExercice from '../exercices/Exercice'
 import { mathaleaHandleExerciceSimple } from './mathalea.js'
 import seedrandom from 'seedrandom'
@@ -19,12 +20,16 @@ export interface picFile {
   format: string
 }
 
-export interface LatexFileInfos {
+export type LatexFileInfos = {
   title: string
   reference: string
   subtitle: string
   style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can'
   nbVersions: number
+  fontOption: 'StandardFont'| 'DysFont'
+  correctionOption: 'AvecCorrection' | 'SansCorrection'
+  qrcodeOption: 'AvecQrcode' | 'SansQrcode'
+  signal?: AbortSignal | undefined
 }
 
 export type contentsType = {
@@ -42,6 +47,7 @@ export type latexFileType = {
 
 interface ExoContent {
   content?: string
+  contentCorr?: string
   serie?: string
   month?: string
   year?: string
@@ -64,28 +70,15 @@ class Latex {
   }
 
   getContentsForAVersion (
-    style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can',
+    latexFileInfos: LatexFileInfos,
     indiceVersion: number = 1
   ): { content: string; contentCorr: string } {
-    if (style === 'ProfMaquette') return { content: this.getContentForAVersionProfMaquette(1, false), contentCorr: '' }
-    if (style === 'ProfMaquetteQrcode') return { content: this.getContentForAVersionProfMaquette(1, true), contentCorr: '' }
+    if (latexFileInfos.style === 'ProfMaquette') return { content: this.getContentForAVersionProfMaquette(1, latexFileInfos.qrcodeOption === 'AvecQrcode'), contentCorr: '' }
+    if (latexFileInfos.style === 'ProfMaquetteQrcode') return { content: this.getContentForAVersionProfMaquette(1, true), contentCorr: '' }
     let content = ''
     let contentCorr = ''
-    for (const exercice of this.exercices) {
-      if (exercice.typeExercice === 'statique') continue
-      if (!Object.prototype.hasOwnProperty.call(exercice, 'listeQuestions')) continue
-      if (exercice != null) {
-        const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
-        exercice.seed = seed
-        if (exercice.typeExercice === 'simple') {
-          mathaleaHandleExerciceSimple(exercice, false)
-        } else {
-          seedrandom(seed, { global: true })
-          if (typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper()
-        }
-      }
-    }
-    if (style === 'Can') {
+    this.loadExercicesWithVersion(indiceVersion)
+    if (latexFileInfos.style === 'Can') {
       content += '\\begin{TableauCan}\n'
       contentCorr += '\n\\begin{enumerate}'
       for (const exercice of this.exercices) {
@@ -114,9 +107,9 @@ class Latex {
           if (exercice.content === '') {
             content += '% Cet exercice n\'est pas disponible au format LaTeX'
           } else {
-            if (style === 'Coopmaths') {
+            if (latexFileInfos.style === 'Coopmaths') {
               content += `\n\\begin{EXO}{${exercice.examen || ''} ${exercice.mois || ''} ${exercice.annee || ''} ${exercice.lieu || ''}}{}\n`
-            } else if (style === 'Classique') {
+            } else if (latexFileInfos.style === 'Classique') {
               content += '\n\\begin{EXO}{}{}\n'
             }
             if (Number(exercice.nbCols) > 1) {
@@ -143,7 +136,7 @@ class Latex {
           }
 
           for (const correction of exercice.listeCorrections) {
-            contentCorr += `\n\\item ${format(correction)}`
+            contentCorr += `\n\\item \\begin{minipage}[t]{\\linewidth}${format(correction)}\\end{minipage}`
           }
           contentCorr += '\n\\end{enumerate}\n'
           if (Number(exercice.nbColsCorr) > 1) {
@@ -160,27 +153,41 @@ class Latex {
     return { content, contentCorr }
   }
 
-  getContentForAVersionProfMaquette (indiceVersion: number = 1, withQrcode = false): string {
-    let content = ''
+  loadExercicesWithVersion (indiceVersion: number = 1) {
     for (const exercice of this.exercices) {
       if (exercice.typeExercice === 'statique') continue
+      if (!Object.prototype.hasOwnProperty.call(exercice, 'listeQuestions')) continue
       const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
       exercice.seed = seed
       if (exercice.typeExercice === 'simple') {
         mathaleaHandleExerciceSimple(exercice, false)
-      }
-      seedrandom(seed, { global: true })
-      if (exercice.typeExercice !== 'simple') {
+      } else {
+        seedrandom(seed, { global: true })
         if (typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper()
       }
     }
+  }
+
+  getContentForAVersionProfMaquette (indiceVersion: number = 1, withQrcode = false): string {
+    this.loadExercicesWithVersion(indiceVersion)
+    let content = ''
     for (const exercice of this.exercices) {
       content += `\n% @see : ${getUrlFromExercice(exercice)}`
       if (exercice.typeExercice === 'statique') {
         if (exercice.content === '') {
           content += '% Cet exercice n\'est pas disponible au format LaTeX'
         } else {
+          content += '\n\\needspace{10\\baselineskip}'
           content += '\n\\begin{exercice}\n'
+          if (withQrcode) {
+            content += `\\begin{wrapfigure}{r}{2cm}
+\\centering
+{\\hypersetup{urlcolor=black}
+\\qrcode{${getUrlFromExercice(exercice)}&v=eleve&es=0211}
+}
+Correction
+\\end{wrapfigure}\\ `
+          }
           content += exercice.content
           content += '\n\\end{exercice}\n'
           content += '\n\\begin{Solution}\n'
@@ -188,17 +195,20 @@ class Latex {
           content += '\n\\end{Solution}\n'
         }
       } else {
+        content += '\n\\needspace{10\\baselineskip}'
         content += '\n\\begin{exercice}\n'
-        if (withQrcode) content += '\n\\begin{minipage}{0.75\\linewidth}'
+        if (withQrcode) {
+          content += `\\begin{wrapfigure}{r}{2cm}
+\\centering
+{\\hypersetup{urlcolor=black}
+\\qrcode{${getUrlFromExercice(exercice)}&v=eleve&es=0211}
+}
+Correction
+\\end{wrapfigure}\\ `
+        }
         content += writeIntroduction(exercice.introduction)
         content += '\n' + format(exercice.consigne)
         content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, Boolean(exercice.listeAvecNumerotation), Number(exercice.nbCols)), Number(exercice.nbCols))
-        if (withQrcode) {
-          content += '\n\\end{minipage}'
-          content += '\n\\begin{minipage}{0.20\\linewidth}'
-          content += `\n\\qrcode{${getUrlFromExercice(exercice)}&v=eleve&es=0211}`
-          content += '\n\\end{minipage}'
-        }
         content += '\n\\end{exercice}\n'
         content += '\n\\begin{Solution}'
         content += writeInCols(writeQuestions(exercice.listeCorrections, exercice.spacingCorr, Boolean(exercice.listeAvecNumerotation), Number(exercice.nbCols)), Number(exercice.nbColsCorr))
@@ -208,194 +218,47 @@ class Latex {
     return content
   }
 
-  async getContents (style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can', nbVersions: number = 1, title: string = '', subtitle: string = '', reference: string = ''): Promise<contentsType> {
+  async getContents (latexFileInfos : LatexFileInfos): Promise<contentsType> {
     const contents: contentsType = { preamble: '', intro: '', content: '', contentCorr: '' }
-    if (style === 'ProfMaquette' || style === 'ProfMaquetteQrcode') {
-      if (style === 'ProfMaquette') {
-        for (let i = 1; i < nbVersions + 1; i++) {
-          const contentVersion = this.getContentForAVersionProfMaquette(i, false)
-          contents.content += `\n\\begin{Maquette}[Fiche, CorrigeFin]{Niveau=${subtitle || ' '},Classe=${reference || ' '},Date= ${nbVersions > 1 ? 'v' + i : ' '} ,Theme=${title || 'Exercices'}}\n`
+    if (latexFileInfos.style === 'ProfMaquette' || latexFileInfos.style === 'ProfMaquetteQrcode') {
+      if (latexFileInfos.style === 'ProfMaquette') {
+        for (let i = 1; i < latexFileInfos.nbVersions + 1; i++) {
+          if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted in getContents of Latex.ts', 'AbortError') }
+          const contentVersion = this.getContentForAVersionProfMaquette(i, latexFileInfos.qrcodeOption === 'AvecQrcode')
+          contents.content += `\n\\begin{Maquette}[Fiche]{Niveau=${latexFileInfos.subtitle || ' '},Classe=${latexFileInfos.reference || ' '},Date= ${latexFileInfos.nbVersions > 1 ? 'v' + i : ' '} ,Theme=${latexFileInfos.title || 'Exercices'}}\n`
           contents.content += contentVersion
           contents.content += '\n\\end{Maquette}'
+          contents.content += '\n\\clearpage'
           contents.contentCorr = ''
         }
-      } else if (style === 'ProfMaquetteQrcode') {
-        for (let i = 1; i < nbVersions + 1; i++) {
+      } else if (latexFileInfos.style === 'ProfMaquetteQrcode') {
+        for (let i = 1; i < latexFileInfos.nbVersions + 1; i++) {
+          if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted2 in getContents of Latex.ts', 'AbortError') }
           const contentVersion = this.getContentForAVersionProfMaquette(i, true)
-          contents.content += `\n\\begin{Maquette}[Fiche, CorrigeApres=false, CorrigeFin=true]{Niveau=${subtitle || ' '},Classe=${reference || ' '},Date= ${nbVersions > 1 ? 'v' + i : ' '} ,Theme=${title || 'Exercices'}}\n`
+          contents.content += `\n\\begin{Maquette}[Fiche, CorrigeApres=false, CorrigeFin=true]{Niveau=${latexFileInfos.subtitle || ' '},Classe=${latexFileInfos.reference || ' '},Date= ${latexFileInfos.nbVersions > 1 ? 'v' + i : ' '} ,Theme=${latexFileInfos.title || 'Exercices'}}\n`
           contents.content += contentVersion
           contents.content += '\n\\end{Maquette}'
+          contents.content += '\n\\clearpage'
           contents.contentCorr = ''
         }
       }
-      contents.preamble = `% @see : ${window.location.href}`
-      contents.preamble += '\n\\documentclass[a4paper,11pt,fleqn]{article}'
-      if (contents.content.includes('\\Engrenages[') || // exo : 3A12
-          contents.content.includes('\\Propor[') || // exo : 6P15
-          contents.content.includes('\\Reperage[')) { // exo 5R12-1
-        // à mettre avant ProfMaquette
-        contents.preamble += '\n\\usepackage{ProfCollege}'
-      }
-      contents.preamble += '\n\\usepackage{ProfMaquette}'
-      contents.preamble += '\n\\usepackage{qrcode}'
-      contents.preamble += '\n\\usepackage[luatex]{hyperref}'
-      contents.preamble += '\n\\usepackage{tkz-tab}'
-      contents.preamble += '\n\\usepackage{tabularx}'
-      contents.preamble += '\n\\usepackage{mathrsfs}'
-      contents.preamble += '\n\\usepackage[margin=1cm]{geometry}'
-      contents.preamble += '\n\\pagestyle{empty}'
-      contents.preamble += '\n\\usepackage{enumitem}'
-      contents.preamble += '\n\\usepackage{arev}'
-      contents.preamble += '\n\\usepackage[french]{babel}'
-      if (contents.content.includes('pspicture')) {
-        contents.preamble += '\n\\usepackage{pstricks,pst-plot,pst-tree,pstricks-add}'
-        contents.preamble += '\n\\usepackage{pst-eucl}'
-        contents.preamble += '\n\\usepackage{pst-text}'
-        contents.preamble += '\n\\usepackage{pst-node,pst-all}'
-        contents.preamble += '\n\\usepackage{pst-func,pst-math,pst-bspline,pst-3dplot}'
-      }
-      if (contents.content.includes('\\euro')) {
-        contents.preamble += '\n\\usepackage[gen]{eurosym}'
-      }
-      if (contents.content.includes('\\ang') || contents.content.includes('\\num{')) {
-        contents.preamble += '\n\\usepackage{siunitx}'
-      }
-      if (contents.content.includes('\\begin{multicols}')) {
-        contents.preamble += '\n\\usepackage{multicol}'
-      }
-      if (contents.content.includes('\\cancel{')) {
-        contents.preamble += '\n\\usepackage{cancel}'
-      }
-      if (contents.content.includes('\\cellcolor')) {
-        contents.preamble += '\n\\usepackage{colortbl}'
-      }
-      if (contents.content.includes('\\draw[color={')) {
-        contents.preamble += '\n\\usepackage[svgnames,dvipsnames]{xcolor}'
-      }
-      if (contents.content.includes('\\np{') || contents.content.includes('\\np[') || contents.content.includes('\\numprint{')) {
-        contents.preamble += '\n\\usepackage[autolanguage,np]{numprint}'
-      }
-      if (contents.content.includes('\\pscurve')) {
-        contents.preamble += '\n\\usepackage{pstricks}'
-      }
-      if (contents.content.includes('\\begin{bclogo}') || contents.content.includes('\\fcolorbox{nombres}')) {
-        contents.preamble += '\n\\definecolor{nombres}{cmyk}{0,.8,.95,0}'
-      }
-      if (contents.content.includes('\\begin{tikzpicture}')) {
-        contents.preamble += '\n\\usepackage{tikz}'
-      }
-      if (contents.content.includes('\\vect')) {
-        // DBN 2019 juillet polynésie
-        contents.preamble += '\n\\newcommand{\\vect}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}'
-      }
-      if (contents.content.includes('\\begin{axis}')) {
-        contents.preamble += '\n\\usepackage{pgfplots}'
-      }
-      if (contents.content.includes('decorate,decoration=') || (contents.content.includes('decorate, decoration='))) {
-        contents.preamble += '\n\\usetikzlibrary{decorations.pathmorphing}'
-      }
-      if (contents.content.includes('\\tkzText')) {
-        contents.preamble += '\n\\usepackage{tkz-fct}'
-      }
-      if (contents.content.includes('\\begin{scratch}')) {
-        contents.preamble += '\n\\usepackage{scratch3}'
-      }
-      if (contents.content.includes('\\degre') ||
-          contents.content.includes('\\og') ||
-          contents.content.includes('\\up{') ||
-          contents.content.includes('\\ieme{') ||
-          contents.content.includes('\\no')) {
-        // gestion des commandes pour les sujets DNB : 2023-2022
-        contents.preamble += '\n\\usepackage[french]{babel}'
-      }
-      if (contents.content.includes('\\red')) {
-        // gestion des couleurs pour les sujets DNB : 2023
-        contents.preamble += '\n\\usepackage{pst-fun}'
-      }
-      if (contents.content.includes('\\multirow{')) {
-        // gestion pour les sujets DNB : 2021
-        contents.preamble += '\n\\usepackage{multirow}'
-      }
-      if (contents.content.includes('\\ovalbox{') ||
-          contents.content.includes('\\txtbox{')) {
-        // gestion pour les sujets DNB : 2021
-        contents.preamble += '\n\\usepackage{fancybox}'
-        if (contents.content.includes('\\txtbox{')) contents.preamble += '\n\\newcommand{\\txtbox}{\\ovalnum}'
-      }
-      if (contents.content.includes('\\ding{') ||
-          contents.content.includes('\\decoone')) {
-        // pour les sujets DNB : 2023 / 2021
-        contents.preamble += '\n\\usepackage{pifont}'
-        if (contents.content.includes('\\decoone')) contents.preamble += '\n\\newcommand{\\decoone}{\\ding{87}}'
-      }
-      if (contents.content.includes('\\starredbullet')) {
-        // gestion des commandes pour les sujets DNB : 2023
-        contents.preamble += '\n\\usepackage{MnSymbol}'
-        contents.preamble += '\n\\newcommand\\starredbullet{\\medstar}'
-      }
-      if (contents.content.includes('\\decosix')) {
-        // gestion des commandes pour les sujets DNB : 2021
-        contents.preamble += '\n\\providecommand\\decosix{}'
-        contents.preamble += '\n\\renewcommand\\decosix{$\\bullet$}'
-      }
-      if (contents.content.includes('\\begin{figure}')) {
-        // gestion des commandes pour les sujets DNB : dnb_2019_09_polynesie_6
-        contents.preamble += `\\n% supprime les figures flottantes du DNB
-        \\makeatletter
-        \\def\\provideenvironment{\\@star@or@long\\provide@environment}
-        \\def\\provide@environment#1{%
-          \\@ifundefined{#1}%
-            {\\def\\reserved@a{\\newenvironment{#1}}}%
-            {\\def\reserved@a{\\renewenvironment{dummy@environ}}}%
-          \\reserved@a
-        }
-        \\def\\dummy@environ{}
-        \\makeatother
-        \\provideenvironment{figure}{}{}\\renewenvironment{figure}{}{}`
-      }
-      if (contents.content.includes('\\R') || contents.content.includes('\\N')) {
-        // gestion des commandes pour les sujets DNB : 2023
-        contents.preamble += '\n\\newcommand\\R{\\mathbb{R}}'
-        contents.preamble += '\n\\newcommand\\N{\\mathbb{N}}'
-      }
-      if (contents.content.includes('\\backslashbox')) {
-        // gestion des commandes pour les sujets DNB : 2023
-        contents.preamble += '\n\\usepackage{slashbox}'
-      }
-      if (contents.content.includes('\\ds')) {
-        // gestion des commandes pour les sujets DNB : 2023
-        contents.preamble += '\\newcommand{\\ds}{\\displaystyle}'
-      }
-      if (contents.content.includes('\\diagbox{')) {
-        // gestion des commandes pour les sujets DNB : 2023
-        contents.preamble += '\n\\usepackage{diagbox}'
-      }
-
-      const [latexCmds, latexPackages] = this.getContentLatex()
-      for (const pack of latexPackages) {
-        if (pack === 'bclogo') {
-          contents.preamble += '\n\\usepackage[tikz]{' + pack + '}'
-        } else {
-          contents.preamble += '\n\\usepackage{' + pack + '}'
-        }
-      }
-      for (const cmd of latexCmds) {
-        contents.preamble += '\n' + cmd.replace('cmd', '')
-      }
+      if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted3 in getContents of Latex.ts', 'AbortError') }
+      this.loadPreambuleFromContents(contents, latexFileInfos)
       contents.intro += '\n\\begin{document}'
     } else {
-      for (let i = 1; i < nbVersions + 1; i++) {
-        const contentVersion = this.getContentsForAVersion(style, i)
+      for (let i = 1; i < latexFileInfos.nbVersions + 1; i++) {
+        if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted in getContents of Latex.ts', 'AbortError') }
+        const contentVersion = this.getContentsForAVersion(latexFileInfos, i)
         if (i > 1) {
           contents.content += '\n\\clearpage'
           contents.content += '\n\\setcounter{ExoMA}{0}'
           contents.contentCorr += '\n\\clearpage'
           contents.contentCorr += '\n\\setcounter{ExoMA}{0}'
         }
-        if (nbVersions > 1) {
+        if (latexFileInfos.nbVersions > 1) {
           contents.content += `\n\\version{${i}}`
           contents.contentCorr += `\n\\version{${i}}`
-          if (i > 1 && style === 'Can') {
+          if (i > 1 && latexFileInfos.style === 'Can') {
             contents.content += '\n\\setcounter{nbEx}{1}'
             contents.content += '\n\\pageDeGardeCan{nbEx}\n\\clearpage'
           }
@@ -403,49 +266,112 @@ class Latex {
         contents.content += contentVersion.content
         contents.contentCorr += contentVersion.contentCorr
       }
-      if (style === 'Can') {
-        contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(contents.content)}\n\n`
+      if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted in getContents of Latex.ts', 'AbortError') }
+      if (latexFileInfos.style === 'Can') {
+        contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(latexFileInfos, contents)}\n\n`
         contents.preamble += '\n\\Theme[CAN]{}{}{}{}'
         contents.intro += '\n\\begin{document}'
         contents.intro += '\n\\setcounter{nbEx}{1}'
         contents.intro += '\n\\pageDeGardeCan{nbEx}'
         contents.intro += '\n\\clearpage'
       } else {
-        contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(contents.content)}\n\n`
-        contents.preamble += `\\Theme[${style}]{nombres}{${title}}{${reference}}{${subtitle}}`
+        contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(latexFileInfos, contents)}\n\n`
+        contents.preamble += `\\Theme[${latexFileInfos.style}]{nombres}{${latexFileInfos.title}}{${latexFileInfos.reference}}{${latexFileInfos.subtitle}}`
         contents.intro += '\n\\begin{document}\n'
       }
     }
-    // contents.content = await printPrettier(contents.content)
-    // contents.contentCorr = await printPrettier(contents.contentCorr)
-    // contents.content = contents.content.replaceAll('\\begin{aligned}\n[t]', '\\begin{aligned}[t]')
-    // contents.contentCorr = contents.contentCorr.replaceAll('\\begin{aligned}\n[t]', '\\begin{aligned}[t]')
     return contents
   }
 
-  async getFile ({
-    title,
-    reference,
-    subtitle,
-    style,
-    nbVersions
-  }: {
-    title: string
-    reference: string
-    subtitle: string
-    style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can'
-    nbVersions: number
-    withPreamble?: boolean
-  }): Promise<latexFileType> {
-    const contents = await this.getContents(style, nbVersions, title, subtitle, reference)
-    const preamble = contents.preamble
-    const intro = contents.intro
-    const content = contents.content
-    const contentCorr = contents.contentCorr
+  private loadPreambuleFromContents (contents: contentsType, latexFileInfos: LatexFileInfos) {
+    contents.preamble = `% @see : ${window.location.href}`
+    contents.preamble += '\n\\documentclass[a4paper,11pt,fleqn]{article}'
+    loadProfCollegeIfNeed(contents) // avant profmaquette sinon ça plante
+    contents.preamble += '\n\\usepackage{ProfMaquette}'
+    contents.preamble += `\n\\setKVdefault[Boulot]{CorrigeFin=${latexFileInfos.correctionOption === 'AvecCorrection' ? 'true' : 'false'}}`
+    contents.preamble += loadFonts(latexFileInfos)
+    contents.preamble += '\n\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}'
+    contents.preamble += '\n\\usepackage[luatex]{hyperref}'
+    contents.preamble += '\n\\usepackage{tikz}'
+    contents.preamble += '\n\\usetikzlibrary{calc}'
+    contents.preamble += '\n\\usepackage{fancyhdr}'
+    contents.preamble += '\n\\pagestyle{fancy}'
+    contents.preamble += '\n\\renewcommand\\headrulewidth{0pt}'
+    contents.preamble += '\n\\setlength{\\headheight}{18pt}'
+    contents.preamble += '\n\\fancyhead[R]{\\href{https://coopmaths.fr/alea}{Mathaléa}}'
+    contents.preamble += '\n\\fancyfoot[C]{\\thepage}'
+    contents.preamble += `\n\\fancyfoot[R]{%
+\\begin{tikzpicture}[remember picture,overlay]
+  \\node[anchor=south east] at ($(current page.south east)+(-2,0.25cm)$) {\\scriptsize {\\bfseries \\href{https://coopmaths.fr/}{Coopmaths.fr} -- \\href{http://creativecommons.fr/licences/}{CC-BY-SA}}};
+\\end{tikzpicture}
+}`
+    contents.preamble += `\n\\fancyhead[L]{
+\\begin{tikzpicture}[y=0.8, x=0.8, yscale=-0.04, xscale=0.04,remember picture, overlay,fill=orange!50,transform canvas={xshift=-1cm,yshift=1cm}]
+%%%% Arc supérieur gauche%%%%
+\\path[fill](523,1424)..controls(474,1413)and(404,1372)..(362,1333)..controls(322,1295)and(313,1272)..(331,1254)..controls(348,1236)and(369,1245)..(410,1283)..controls(458,1328)and(517,1356)..(575,1362)..controls(635,1368)and(646,1375)..(643,1404)..controls(641,1428)and(641,1428)..(596,1430)..controls(571,1431)and(538,1428)..(523,1424)--cycle;
+%%%% Dé face supérieur%%%%
+\\path[fill](512,1272)..controls(490,1260)and(195,878)..(195,861)..controls(195,854)and(198,846)..(202,843)..controls(210,838)and(677,772)..(707,772)..controls(720,772)and(737,781)..(753,796)..controls(792,833)and(1057,1179)..(1057,1193)..controls(1057,1200)and(1053,1209)..(1048,1212)..controls(1038,1220)and(590,1283)..(551,1282)..controls(539,1282)and(521,1278)..(512,1272)--cycle;
+%%%% Dé faces gauche et droite%%%%
+\\path[fill](1061,1167)..controls(1050,1158)and(978,1068)..(900,967)..controls(792,829)and(756,777)..(753,756)--(748,729)--(724,745)..controls(704,759)and(660,767)..(456,794)..controls(322,813)and(207,825)..(200,822)..controls(193,820)and(187,812)..(187,804)..controls(188,797)and(229,688)..(279,563)..controls(349,390)and(376,331)..(391,320)..controls(406,309)and(462,299)..(649,273)..controls(780,254)and(897,240)..(907,241)..controls(918,243)and(927,249)..(928,256)..controls(930,264)and(912,315)..(889,372)..controls(866,429)and(848,476)..(849,477)..controls(851,479)and(872,432)..(897,373)..controls(936,276)and(942,266)..(960,266)..controls(975,266)and(999,292)..(1089,408)..controls(1281,654)and(1290,666)..(1290,691)..controls(1290,720)and(1104,1175)..(1090,1180)..controls(1085,1182)and (1071,1176)..(1061,1167)--cycle;
+%%%% Arc inférieur bas%%%%
+\\path[fill](1329,861)..controls(1316,848)and(1317,844)..(1339,788)..controls(1364,726)and(1367,654)..(1347,591)..controls(1330,539)and(1338,522)..(1375,526)..controls(1395,528)and(1400,533)..(1412,566)..controls(1432,624)and(1426,760)..(1401,821)..controls(1386,861)and(1380,866)..(1361,868)..controls(1348,870)and(1334,866)..(1329,861)--cycle;
+%%%% Arc inférieur gauche%%%%
+\\path[fill](196,373)..controls(181,358)and(186,335)..(213,294)..controls(252,237)and(304,190)..(363,161)..controls(435,124)and(472,127)..(472,170)..controls(472,183)and(462,192)..(414,213)..controls(350,243)and(303,283)..(264,343)..controls(239,383)and(216,393)..(196,373)--cycle;
+\\end{tikzpicture}
+}
+%%%%%% Style Fiche
+\\tcbset{%
+  userfiche/.style={%
+    %move upwards=-1cm,colback=red!75%
+    top=5pt, left=5pt, right=5pt, colback=red!5!white%
+  }%
+}%
+\\tcbset{%
+  userfichecor/.style={%
+    %spread upwards=-1cm,colback=gray!5%
+    top=5pt, left=5pt, right=5pt, colback=red!5!white%
+  }%
+}%
+${latexFileInfos.qrcodeOption === 'AvecQrcode' ? '\n\\tcbset{\n  tikzfiche/.append style={height=4cm, height plus=25cm}\n}\n' : ''}
+% Parametrages
+\\hypersetup{
+    colorlinks=true,% On active la couleur pour les liens. Couleur par défaut rouge
+    linkcolor=blue,% On définit la couleur pour les liens internes
+    % filecolor=magenta,% On définit la couleur pour les liens vers les fichiers locaux      
+    urlcolor=blue,% On définit la couleur pour les liens vers des sites web
+    % pdftitle={Puissance Quatre},% On définit un titre pour le document pdf
+    % pdfpagemode=FullScreen,% On fixe l'affichage par défaut à plein écran
+}`
+    contents.preamble += '\n\\usepackage{qrcode}'
+    contents.preamble += '\n\\usepackage{mathrsfs}'
+    contents.preamble += '\n\\usepackage{enumitem}'
+    contents.preamble += '\n\\usepackage[french]{babel}'
+    contents.preamble += '\n\\setlength{\\parindent}{0cm}'
+    loadPackagesFromContent(contents)
+    const [latexCmds, latexPackages] = this.getContentLatex()
+    for (const pack of latexPackages) {
+      logPDF(`pack: ${pack} : ${window.location.href}`)
+      if (pack === 'bclogo') {
+        if (!contents.preamble.includes('bclogo')) contents.preamble += '\n\\usepackage[tikz]{' + pack + '}'
+      } else {
+        contents.preamble += '\n\\usepackage{' + pack + '}'
+      }
+    }
+    for (const cmd of latexCmds) {
+      contents.preamble += '\n' + cmd.replace('cmd', '')
+    }
+  }
+
+  async getFile (latexFileInfos : LatexFileInfos): Promise<latexFileType> {
+    const contents = await this.getContents(latexFileInfos)
+    const preamble = contents?.preamble
+    const intro = contents?.intro
+    const content = contents?.content
+    const contentCorr = contents?.contentCorr
     let latexWithoutPreamble = ''
     latexWithoutPreamble += intro
     latexWithoutPreamble += content
-    if (style === 'ProfMaquette' || style === 'ProfMaquetteQrcode') {
+    if (latexFileInfos.style === 'ProfMaquette' || latexFileInfos.style === 'ProfMaquetteQrcode') {
       latexWithoutPreamble += '\n\\end{document}'
     } else {
       latexWithoutPreamble += '\n\n\\clearpage\n\n\\begin{Correction}' + contentCorr + '\n\\clearpage\n\\end{Correction}\n\\end{document}'
@@ -465,10 +391,6 @@ class Latex {
       }
     }
     const packageFiltered : string[] = packLatex.filter((value, index, array) => array.indexOf(value) === index)
-
-    // let latexCmd = packageFiltered.filter((value, index, array) => value.startsWith('cmd'))
-    // let latexPackages = packageFiltered.filter((value, index, array) => value.startsWith('cmd'))
-
     const [latexCmds, latexPackages] = packageFiltered.reduce((result: [string[], string[]], element : string) => {
       result[element.startsWith('cmd') ? 0 : 1].push(element)
       return result
@@ -502,11 +424,11 @@ function writeQuestions (questions: string[], spacing = 1, numbersNeeded: boolea
       content += '[' + specs.join(',') + ']'
     }
     for (const question of questions) {
-      content += '\n\t\\item ' + (nbCols > 1 ? '\\begin{minipage}[t]{\\linewidth}' : '') + format(question) + (nbCols > 1 ? '\\end{minipage}' : '')
+      content += '\n\t\\item ' + (nbCols > 1 ? '\\begin{minipage}[t]{\\linewidth}' : '\\begin{minipage}[t]{\\linewidth}') + format(question) + (nbCols > 1 ? '\\end{minipage}' : '\\end{minipage}')
     }
     content += '\n\\end{enumerate}'
   } else {
-    content += '\n' + format(questions[0])
+    content += '\n \\begin{minipage}[t]{\\linewidth}' + format(questions[0] + '\\end{minipage}')
   }
   return content
 }
@@ -571,7 +493,7 @@ export function getExosContentList (exercices: TypeExercice[]) {
     } else if (exo.typeExercice === 'simple') {
       Object.assign(data, {}, { content: exo.listeQuestions.join(' ') })
     } else {
-      data = { content: exo.content, serie: exo.examen, month: exo.mois, year: exo.annee, zone: exo.lieu, title: [exo.examen, exo.mois, exo.annee, exo.lieu].join(' ') }
+      data = { content: exo.content, contentCorr: exo.contentCorr, serie: exo.examen, month: exo.mois, year: exo.annee, zone: exo.lieu, title: [exo.examen, exo.mois, exo.annee, exo.lieu].join(' ') }
     }
     exosContentList.push(data)
   }
@@ -588,10 +510,13 @@ export function getPicsNames (exosContentList: ExoContent[]) {
       const pics : RegExpMatchArray [] = []
       // on supprime les phrases avec des commentaires
       const content = [...exo.content.matchAll(regDeleteCommentaires)]
+      if (exo.contentCorr) content.push(...exo.contentCorr.matchAll(regDeleteCommentaires))
       content.forEach((list) => {
         // on recherche sur les lignes restantes si une image ou plusieurs images sont présentes
-        const matchIm = list[0].matchAll(regExpImage)
-        if (matchIm !== undefined) pics.push(...matchIm)
+        const matchIm = Array.from(list[0].matchAll(regExpImage))
+        if (matchIm !== null && matchIm.length > 0) {
+          pics.push(...matchIm)
+        }
       })
       picsList.push(pics)
     } else {
@@ -622,8 +547,12 @@ export function getPicsNames (exosContentList: ExoContent[]) {
  * Détecter si le code LaTeX contient des images
  */
 export function doesLatexNeedsPics (contents: { content: string, contentCorr: string }) {
-  const includegraphicsMatches = contents.content.match('includegraphics')
-  return includegraphicsMatches !== null
+  const exos: ExoContent = {
+    content: contents.content,
+    contentCorr: contents.content
+  }
+  const imas = getPicsNames([exos])
+  return imas.some(e => e.length > 0)
 }
 
 export function makeImageFilesUrls (exercices: TypeExercice[]) {
@@ -665,18 +594,14 @@ function getUrlFromExercice (ex: TypeExercice) {
   if (ex.interactif) url.searchParams.append('i', '1')
   if (ex.correctionDetaillee !== undefined) url.searchParams.append('cd', ex.correctionDetaillee ? '1' : '0')
   if (ex.nbCols !== undefined) url.searchParams.append('cols', ex.nbCols.toString())
-  return url
+  return url.href.replaceAll('%', '\\%')
 }
 
-function addPackages (content: string, isFullPackages = false) {
-  let packages = genericPreamble
-  if (isFullPackages || content.includes('\\euro')) {
-    packages += '\n\\usepackage[gen]{eurosym}'
-  }
-  if (isFullPackages || content.includes('\\ang')) {
-    packages += '\n\\usepackage{siunitx}'
-  }
-  return packages
+function addPackages (latexFileInfos : LatexFileInfos, contents: contentsType) {
+  contents.preamble += genericPreamble
+  contents.preamble += loadFonts(latexFileInfos)
+  loadPreambule(latexFileInfos, contents)
+  return contents.preamble
 }
 
 export default Latex

@@ -4,7 +4,6 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { randint } from '../../../modules/outils.js'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Trouver un coefficient de colinéarité (graphique)'
@@ -42,10 +41,9 @@ export default function VecteursCol () {
     const f3 = new FractionEtendue(b, a).multiplieEntier(-1)
     const f4 = new FractionEtendue(a, b).multiplieEntier(-1)
     switch (choice([1, 2, 3, 4])) { //
-
       case 1:
 
-// ${texteCentre(`$\\overrightarrow{${noms[0]}${noms[1]}}= ....\\overrightarrow{${noms[0]}${noms[2]}}$`)}
+        // ${texteCentre(`$\\overrightarrow{${noms[0]}${noms[1]}}= ....\\overrightarrow{${noms[0]}${noms[2]}}$`)}
 
         this.reponse = f1
         this.question = `Donner le coefficient de colinéarité $k$ de l’égalité vectorielle : $\\overrightarrow{${noms[0]}${noms[1]}}= k\\,\\overrightarrow{${noms[0]}${noms[2]}}$<br><br>`
@@ -61,8 +59,8 @@ export default function VecteursCol () {
           pointCouleur: 'blue',
           labelsPrincipaux: false
 
-     }), texteParPosition(`${noms[0]}`, 0, 0.9, 'milieu', 'blue', 2), texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 'milieu', 'blue', 2),
-     texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 'milieu', 'blue', 2))
+        }), texteParPosition(`${noms[0]}`, 0, 0.9, 'milieu', 'blue', 2), texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 'milieu', 'blue', 2),
+        texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 'milieu', 'blue', 2))
         this.optionsChampTexte = { texteAvant: '$k$ a pour valeur :' }
         this.correction = `Les vecteurs $\\overrightarrow{${noms[0]}${noms[1]}}$ et $\\overrightarrow{${noms[0]}${noms[2]}}$
        sont colinéaires de même sens. Le nombre cherché est donc positif.<br>
@@ -92,7 +90,7 @@ export default function VecteursCol () {
 
       case 2:
 
-// ${texteCentre(`$\\overrightarrow{${noms[0]}${noms[2]}}= ....\\overrightarrow{${noms[0]}${noms[1]}}$`)}
+        // ${texteCentre(`$\\overrightarrow{${noms[0]}${noms[2]}}= ....\\overrightarrow{${noms[0]}${noms[1]}}$`)}
 
         this.reponse = f2
         this.question = `Donner le coefficient de colinéarité $k$ de l’égalité vectorielle : $\\overrightarrow{${noms[0]}${noms[2]}}= k\\,\\overrightarrow{${noms[0]}${noms[1]}}$<br><br>`
@@ -108,8 +106,8 @@ export default function VecteursCol () {
           pointCouleur: 'blue',
           labelsPrincipaux: false
 
-     }), texteParPosition(`${noms[0]}`, 0, 0.9, 'milieu', 'blue', 2), texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 'milieu', 'blue', 2),
-     texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 'milieu', 'blue', 2))
+        }), texteParPosition(`${noms[0]}`, 0, 0.9, 'milieu', 'blue', 2), texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 'milieu', 'blue', 2),
+        texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 'milieu', 'blue', 2))
         this.optionsChampTexte = { texteAvant: '$k$ a pour valeur :' }
         this.correction = `Les vecteurs $\\overrightarrow{${noms[0]}${noms[1]}}$ et $\\overrightarrow{${noms[0]}${noms[2]}}$
        sont colinéaires de même sens. Le nombre cherché est donc positif.<br>
@@ -140,24 +138,24 @@ export default function VecteursCol () {
 
       case 3:
 
-// ${texteCentre(`$\\overrightarrow{${noms[0]}${noms[1]}}= ....\\overrightarrow{${noms[2]}${noms[0]}}$`)}
+        // ${texteCentre(`$\\overrightarrow{${noms[0]}${noms[1]}}= ....\\overrightarrow{${noms[2]}${noms[0]}}$`)}
 
         this.reponse = f3
         this.question = `Donner le coefficient de colinéarité $k$ de l’égalité vectorielle : $\\overrightarrow{${noms[0]}${noms[1]}}= k\\,\\overrightarrow{${noms[2]}${noms[0]}}$<br><br>`
         this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
-         Unite: 1.5,
-         Min: 0,
-         Max: a,
-         x: 0,
-         y: 0,
-         thickOffset: 0,
-         axeStyle: '|-',
-         pointListe: [[0, ''], [b, ''], [a, '']],
-         pointCouleur: 'blue',
-         labelsPrincipaux: false
+          Unite: 1.5,
+          Min: 0,
+          Max: a,
+          x: 0,
+          y: 0,
+          thickOffset: 0,
+          axeStyle: '|-',
+          pointListe: [[0, ''], [b, ''], [a, '']],
+          pointCouleur: 'blue',
+          labelsPrincipaux: false
 
-       }), texteParPosition(`${noms[0]}`, 0, 0.9, 'milieu', 'blue', 2), texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 'milieu', 'blue', 2),
-       texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 'milieu', 'blue', 2))
+        }), texteParPosition(`${noms[0]}`, 0, 0.9, 'milieu', 'blue', 2), texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 'milieu', 'blue', 2),
+        texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 'milieu', 'blue', 2))
         this.optionsChampTexte = { texteAvant: '$k$ a pour valeur :' }
         this.correction = `Les vecteurs $\\overrightarrow{${noms[0]}${noms[1]}}$ et $\\overrightarrow{${noms[2]}${noms[0]}}$
          sont colinéaires de sens contraires. Le nombre cherché est donc négatif.<br>
@@ -188,7 +186,7 @@ export default function VecteursCol () {
 
       case 4:
 
-// ${texteCentre(`$\\overrightarrow{${noms[0]}${noms[2]}}= ....\\overrightarrow{${noms[1]}${noms[0]}}$`)}
+        // ${texteCentre(`$\\overrightarrow{${noms[0]}${noms[2]}}= ....\\overrightarrow{${noms[1]}${noms[0]}}$`)}
 
         this.reponse = f4
         this.question = `Donner le coefficient de colinéarité $k$ de l’égalité vectorielle : $\\overrightarrow{${noms[0]}${noms[2]}}= k\\,\\overrightarrow{${noms[1]}${noms[0]}}$<br><br>`
@@ -204,8 +202,8 @@ export default function VecteursCol () {
           pointCouleur: 'blue',
           labelsPrincipaux: false
 
-         }), texteParPosition(`${noms[0]}`, 0, 0.9, 'milieu', 'blue', 2), texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 'milieu', 'blue', 2),
-         texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 'milieu', 'blue', 2))
+        }), texteParPosition(`${noms[0]}`, 0, 0.9, 'milieu', 'blue', 2), texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 'milieu', 'blue', 2),
+        texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 'milieu', 'blue', 2))
         this.optionsChampTexte = { texteAvant: '$k$ a pour valeur :' }
         this.correction = `Les vecteurs $\\overrightarrow{${noms[1]}${noms[0]}}$ et $\\overrightarrow{${noms[0]}${noms[2]}}$
            sont colinéaires de sens contraires. Le nombre cherché est donc négatif.<br>

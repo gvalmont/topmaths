@@ -4,6 +4,7 @@ import { egal, randint } from '../../modules/outils.js'
 import { choice } from '../outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../outils/ecritures'
 import Decimal from 'decimal.js'
+import { texNombre } from '../outils/texNombre'
 
 /**
  * Avertissement ! pour l'instant la classe ne gère pas les coefficients fractionnaires !
@@ -150,6 +151,7 @@ export class Polynome {
       switch (i) {
         case this.deg: {
           const coeffD = alg ? ecritureAlgebriqueSauf1(c) : this.deg === 0 ? c : rienSi1(c)
+          if (this.deg === 0) return texNombre(c, 2)
           switch (this.deg) {
             case 1:
               maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x`
@@ -158,7 +160,7 @@ export class Polynome {
               maj = egal(c, 0, 1e-15) ? '' : `${coeffD}`
               break
             default:
-              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x^${i}`
+              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x^{${i}}`
           }
           break
         }
@@ -169,7 +171,7 @@ export class Polynome {
           maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
           break
         default:
-          maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
+          maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x^{${i}}`
           break
       }
       res = maj + res
@@ -251,6 +253,7 @@ export class Polynome {
       }
       break
     }
+    if (coeffDerivee.length === 0) return new Polynome({ deg: 0, coeffs: [0] })
     return new Polynome({ coeffs: coeffDerivee })
   }
 

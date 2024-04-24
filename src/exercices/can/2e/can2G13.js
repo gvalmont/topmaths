@@ -1,8 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import { texteEnCouleur, miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { lettreMinusculeDepuisChiffre } from '../../../lib/outils/outilString.js'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Calculer la norme d’un vecteur'
@@ -29,7 +28,7 @@ export default function NormeVecteur () {
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur10 inline'
   this.nouvelleVersion = function () {
-    let a, b, nom, reduction
+    let a, b, nom
     switch (choice(['a'])) {
       case 'a':
         a = randint(-9, 9)

@@ -15,6 +15,8 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Résoudre des problèmes de proportionnalité avec la linéarité (avec ou sans un tableau)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 export const dateDeModifImportante = '30/04/2023' // EE : Rajout de 2 paramètres
 export const dateDePublication = '30/05/2021'
@@ -477,6 +479,6 @@ export default function ProportionnaliteParLineariteTableau () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Multiplication\n2 : Division\n3 : Passage par l\'unité\n4 : Mélange']
-  this.besoinFormulaire2CaseACocher = ['Avec tableau dans la consigne']
+  this.besoinFormulaire2CaseACocher = ['Avec tableau dans la correction']
   this.besoinFormulaire3CaseACocher = ['Avec des situations de non-proportionnalité']
 }

@@ -4,6 +4,8 @@ import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
 
 const engine = new ComputeEngine()
+export default engine
+
 export type RecursivePartial<T> = {
   [P in keyof T]?: T[P] extends (infer U)[]
       ? RecursivePartial<U>[]
@@ -567,7 +569,7 @@ export function powerCompare (input: string, goodAnswer: string): ResultType {
   let formatOK: boolean = false
   let formatKO: boolean = false
   const nombreSaisi = clean(input).split('^')
-  const mantisseSaisie = nombreSaisi[0].replace(/[()]/g, '')
+  const mantisseSaisie = nombreSaisi[0].replace(/\\lparen(.*?)\\rparen/g, '$1')
   // const mantisseS = Number(mantisseSaisie)
   const expoSaisi = nombreSaisi[1] ? nombreSaisi[1].replace(/[{}]/g, '') : '1'
   // const expoS = Number(expoSaisi)
@@ -628,8 +630,6 @@ export function powerCompare (input: string, goodAnswer: string): ResultType {
   return { isOk: false }
 }
 
-export default engine
-
 /**
  * Comparaison d'ensembles de solutions séparés par des ; dans des {} comme {-5;4;10}
  * @param input
@@ -676,7 +676,7 @@ export function intervalsCompare (input: string, goodAnswer: string) {
   const borneAndOpReponse = goodAnswer.match(extractBornesAndOp)
   const crochetsSaisie = input.match(extractCrochets)
   const crochetsReponse = goodAnswer.match(extractCrochets)
-  if (borneAndOpSaisie != null) {
+  if (borneAndOpSaisie != null && borneAndOpReponse != null && crochetsSaisie != null && crochetsReponse != null) {
     if (borneAndOpSaisie.length !== borneAndOpReponse.length) {
       return { isOk: false }
     }
@@ -799,7 +799,7 @@ export function unitsCompare (input: string, goodAnswer: {grandeur: Grandeur, pr
   isOk: boolean,
   feedback?: string
 } {
-  input = input.replace('^\\circ', '°')
+  input = input.replace('^\\circ', '°').replace('\\degree', '°')
   const cleaner = generateCleaner(['virgules', 'espaces', 'fractions', 'parentheses'])
   const inputGrandeur = inputToGrandeur(cleaner(input))
   const goodAnswerGrandeur = goodAnswer.grandeur
