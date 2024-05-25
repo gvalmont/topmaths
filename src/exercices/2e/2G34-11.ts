@@ -7,12 +7,11 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures.js'
-import { equalFractionCompare } from '../../lib/interactif/comparisonFunctions.js'
+import { eqToLatex, printSystem } from '../../lib/outils/systemeEquations.js'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
 export const titre = 'Déterminer le point d\'intersection de deux droites données graphiquement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -56,6 +55,8 @@ export default class IntersectionDroites extends Exercice {
       typeDeQuestionsDisponibles = ['troisDroitesHG']
     } else if (this.sup === 3 && this.sup2 === 1) {
       typeDeQuestionsDisponibles = ['deuxDroitesSG', 'troisDroitesSG']
+    } else if (this.sup === 1 && this.sup2 === 3) {
+      typeDeQuestionsDisponibles = ['deuxDroitesSG', 'deuxDroitesHG']
     } else {
       typeDeQuestionsDisponibles = ['deuxDroitesSG', 'deuxDroitesHG', 'troisDroitesSG', 'troisDroitesHG']
     }
@@ -63,60 +64,6 @@ export default class IntersectionDroites extends Exercice {
       const x = (d2[1]).differenceFraction(d1[1]).diviseFraction((d1[0]).differenceFraction(d2[0])).simplifie()
       const y = (d1[0]).produitFraction(x).sommeFraction(d1[1]).simplifie()
       return [x, y]
-    }
-    const eqToLatex = function (vect : Array<number| FractionEtendue>, nomVal : Array<string>, inSys : boolean) {
-      let expr = ''
-      let checkPreviousNull = true
-      for (let i = 0; i < 3; i++) {
-        if ((vect.slice(0, 3).every(item => item === 0)) && i === 0) {
-          expr = expr + '0'
-        } else if (!(vect[i] === 0) && checkPreviousNull) {
-          if (nomVal[i] === '') {
-            expr = expr + `${texNombre(vect[i], 0)}${nomVal[i]}`
-          } else {
-            expr = expr + `${rienSi1(vect[i])}${nomVal[i]}`
-          }
-          checkPreviousNull = false
-        } else if (!(vect[i] === 0) && !checkPreviousNull) {
-          if (nomVal[i] === '') {
-            expr = expr + `${ecritureAlgebrique(vect[i])}${nomVal[i]}`
-          } else {
-            expr = expr + `${ecritureAlgebriqueSauf1(vect[i])}${nomVal[i]}`
-          }
-          checkPreviousNull = false
-        }
-      }
-      if (inSys === true) {
-        expr = expr + ' &='
-      } else {
-        expr = expr + '='
-      }
-      checkPreviousNull = true
-      for (let i = 3; i < 6; i++) {
-        if ((vect.slice(3).every(item => item === 0)) && i === 3) {
-          expr = expr + '0'
-        } else if (!(vect[i] === 0) && checkPreviousNull) {
-          if (nomVal[i] === '') {
-            expr = expr + `${texNombre(vect[i], 0)}${nomVal[i]}`
-          } else {
-            expr = expr + `${rienSi1(vect[i])}${nomVal[i]}`
-          }
-          checkPreviousNull = false
-        } else if (!(vect[i] === 0) && !checkPreviousNull) {
-          if (nomVal[i] === '') {
-            expr = expr + `${ecritureAlgebrique(vect[i])}${nomVal[i]}`
-          } else {
-            expr = expr + `${ecritureAlgebriqueSauf1(vect[i])}${nomVal[i]}`
-          }
-          checkPreviousNull = false
-        }
-      }
-      return expr
-    }
-    const printSystem = function (eq1 : string, eq2 : string) {
-      let expr = ''
-      expr = expr + `\\begin{cases}\\begin{aligned}${eq1}\\\\${eq2}\\end{aligned}\\end{cases}`
-      return expr
     }
     const inGraph = function (p : Point, xMin = -8, xMax = 8, yMin = -6, yMax = 6) {
       return (p.x >= xMin) && (p.x <= xMax) && (p.y >= yMin) && (p.y <= yMax)
@@ -290,7 +237,7 @@ export default class IntersectionDroites extends Exercice {
               bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
               champ1: { value: pi12[0].texFractionSimplifiee },
               champ2: { value: pi12[1].texFractionSimplifiee },
-              compare: equalFractionCompare
+              compare: fonctionComparaison
             },
             { formatInteractif: 'fillInTheBlank' }
             )
@@ -308,7 +255,7 @@ export default class IntersectionDroites extends Exercice {
               champ4: { value: pi13[1].texFractionSimplifiee },
               champ5: { value: pi23[0].texFractionSimplifiee },
               champ6: { value: pi23[1].texFractionSimplifiee },
-              compare: equalFractionCompare
+              compare: fonctionComparaison
             },
             { formatInteractif: 'fillInTheBlank' }
             )

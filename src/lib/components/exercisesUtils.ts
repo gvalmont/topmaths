@@ -1,7 +1,8 @@
 import Exercice from '../../exercices/Exercice'
 import type TypeExercice from '../../exercices/Exercice'
 import { globalOptions, exercicesParams } from '../stores/generalStore'
-import referentielStatic from '../../json/referentielStatic.json'
+import referentielStaticFR from '../../json/referentielStaticFR.json'
+import referentielStaticCH from '../../json/referentielStaticCH.json'
 import { retrieveResourceFromUuid } from '../../lib/components/refUtils'
 import { isStaticType, type JSONReferentielObject } from '../../lib/types/referentiels'
 import {
@@ -14,15 +15,17 @@ import seedrandom from 'seedrandom'
 import { get } from 'svelte/store'
 
 const allStaticReferentiels: JSONReferentielObject = {
-  ...referentielStatic
+  ...referentielStaticFR,
+  ...referentielStaticCH
 }
 
-// on supprime les entrées par thèmes qui entraîne des doublons
-delete allStaticReferentiels['Brevet des collèges par thèmes - APMEP']
-delete allStaticReferentiels['BAC par thèmes - APMEP']
-delete allStaticReferentiels['CRPE (2015-2019) par thèmes - COPIRELEM']
-delete allStaticReferentiels['CRPE (2022-2023) par thèmes']
-delete allStaticReferentiels['E3C par thèmes - APMEP']
+// on supprime les entrées par thème qui entraîne des doublons
+delete allStaticReferentiels['Brevet des collèges par thème - APMEP']
+delete allStaticReferentiels['BAC par thème - APMEP']
+delete allStaticReferentiels['CRPE (2015-2019) par thème - COPIRELEM']
+delete allStaticReferentiels['CRPE (2022-2023) par thème']
+delete allStaticReferentiels['E3C par thème - APMEP']
+delete allStaticReferentiels['EVACOM par thème']
 
 /**
  * Construit la liste des exercices basée sur le contenu du store exercicesParams
@@ -89,6 +92,7 @@ function isStatic (uuid: string) {
     uuid.startsWith('dnb_') ||
     uuid.startsWith('e3c_') ||
     uuid.startsWith('bac_') ||
+    uuid.startsWith('evacom_') ||
     uuid.startsWith('2nd_')
 }
 
@@ -119,11 +123,11 @@ export const splitExercisesIntoQuestions = (
       mathaleaHandleExerciceSimple(exercice, exercice.interactif, k)
     } else {
       if (exercice.nouvelleVersionWrapper !== undefined) {
+        if (exercice.seed !== undefined) {
+          seedrandom(exercice.seed, { global: true })
+        }
         exercice.nouvelleVersionWrapper(k)
       }
-    }
-    if (exercice.seed !== undefined) {
-      seedrandom(exercice.seed, { global: true })
     }
     isCorrectionVisible[k] = false
     const cumulConsignesCorrections = []

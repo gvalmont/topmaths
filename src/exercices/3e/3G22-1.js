@@ -4,7 +4,7 @@ import Decimal from 'decimal.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Agrandissement et réduction'
 export const interactifReady = true

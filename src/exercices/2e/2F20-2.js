@@ -17,7 +17,7 @@ import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrre
 import {
   listeQuestionsToContenu, randint
 } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 export const titre = 'Calculer des coordonnées de points appartenant à une coube connaissant l\'abscisse ou l\'ordonnée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -85,7 +85,7 @@ export default function CalculPointSurCourbe () {
       // on ne choisit que des nombres compris entre 1 et 20
       x = randint(-9, 9, [0, 1, -1])
       y = randint(-9, 9, [x, 0])
-
+      console.log(i, listeTypeDeQuestions[i], sousChoix[i])
       switch (listeTypeDeQuestions[i]) {
         case 'affine':
           switch (sousChoix[i]) { // sousChoix[i]

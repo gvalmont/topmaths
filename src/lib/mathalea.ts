@@ -11,8 +11,8 @@ import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOpti
 import { get } from 'svelte/store'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive.js'
 import uuidToUrl from '../json/uuidsToUrlFR.json'
-import refToUuid from '../json/refToUuidFR.json'
-import referentielStatic from '../json/referentielStatic.json'
+import referentielStaticFR from '../json/referentielStaticFR.json'
+import referentielStaticCH from '../json/referentielStaticCH.json'
 import 'katex/dist/katex.min.css'
 import renderScratch from './renderScratch.js'
 import { decrypt, isCrypted } from './components/urls.js'
@@ -25,7 +25,7 @@ import FractionEtendue from '../modules/FractionEtendue'
 import Decimal from 'decimal.js'
 import Grandeur from '../modules/Grandeur'
 import { canOptions } from './stores/canStore.js'
-
+import { localisedIDToUuid, referentielLocale, updateURLFromReferentielLocale } from './stores/languagesStore.js'
 function getExerciceByUuid (root: object, targetUUID: string): object | null {
   if ('uuid' in root) {
     if (root.uuid === targetUUID) {
@@ -185,9 +185,10 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
             param.uuid.substring(0, 4) === 'dnb_' ||
             param.uuid.substring(0, 4) === 'e3c_' ||
             param.uuid.substring(0, 4) === 'bac_' ||
+            param.uuid.substring(0, 7) === 'evacom_' ||
             param.uuid.startsWith('2nd_')
     ) {
-      const infosExerciceStatique = getExerciceByUuid(referentielStatic, param.uuid)
+      const infosExerciceStatique = (param.uuid.substring(0, 7) === 'evacom_') ? getExerciceByUuid(referentielStaticCH, param.uuid) : getExerciceByUuid(referentielStaticFR, param.uuid)
       let content = ''
       let contentCorr = ''
       if (infosExerciceStatique?.url) {
@@ -221,6 +222,7 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
       if (param.uuid.substring(0, 4) === 'dnb_') examen = 'DNB'
       if (param.uuid.substring(0, 4) === 'e3c_') examen = 'E3C'
       if (param.uuid.substring(0, 4) === 'bac_') examen = 'BAC'
+      if (param.uuid.substring(0, 7) === 'evacom_') examen = 'EVACOM'
       exercices.push({ typeExercice: 'statique', uuid: param.uuid, content, contentCorr, annee, lieu, mois, numeroInitial, examen })
     } else {
       const exercice = await mathaleaLoadExerciceFromUuid(param.uuid)
@@ -246,7 +248,7 @@ export function mathaleaHandleParamOfOneExercice (exercice: TypeExercice, param:
   if (param.sup4) exercice.sup4 = mathaleaHandleStringFromUrl(param.sup4)
   if (param.interactif) exercice.interactif = param.interactif === '1'
   if (param.alea) exercice.seed = param.alea
-  if (param.cols > 1) exercice.nbCols = param.cols
+  if (param.cols !== undefined && param.cols > 1) exercice.nbCols = param.cols
   if (param.cd !== undefined) exercice.correctionDetaillee = param.cd === '1'
   if (exercice.seed === undefined) {
     exercice.seed = mathaleaGenerateSeed()
@@ -380,6 +382,7 @@ export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]
     if (ex.cd != null) url.searchParams.append('cd', ex.cd)
     if (ex.cols != null) url.searchParams.append('cols', ex.cols.toString())
   }
+  updateURLFromReferentielLocale(url)
   updateGlobalOptionsInURL(url)
 }
 
@@ -390,6 +393,7 @@ export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]
  * @returns vue
  */
 export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.location.href): InterfaceGlobalOptions {
+  const currentRefToUuid = localisedIDToUuid[get(referentielLocale)]
   let urlNeedToBeFreezed = false
   let v: VueType | undefined
   let z = '1'
@@ -434,8 +438,8 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     if (entry[0] === 'uuid') {
       indiceExercice++
       const uuid = entry[1]
-      const id = (Object.keys(refToUuid) as (keyof typeof refToUuid)[]).find((key) => {
-        return refToUuid[key] === uuid
+      const id = (Object.keys(currentRefToUuid) as (keyof typeof currentRefToUuid)[]).find((key) => {
+        return currentRefToUuid[key] === uuid
       })
       if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = { uuid, id }
       newListeExercice[indiceExercice].uuid = uuid // string
@@ -445,7 +449,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
       // En cas de présence d'un uuid juste avant, on ne tient pas compte de l'id
       indiceExercice++
       const id = entry[1]
-      const uuid = refToUuid[id as keyof typeof refToUuid]
+      const uuid = currentRefToUuid[id as keyof typeof currentRefToUuid]
       if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = { id, uuid }
     } else if (entry[0] === 'n') {
       newListeExercice[indiceExercice].nbQuestions = parseInt(entry[1]) // int
@@ -584,9 +588,8 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
     seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
     if (exercice.nouvelleVersion && typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion(numeroExercice)
     if (exercice.questionJamaisPosee(i, String(exercice.question))) {
-      if (exercice.compare != null) {
+      if (exercice.compare != null) { /// DE LA AU PROCHAIN LA, ce sera à supprimer quand il n'y aura plus de this.compare
         let reponse = {}
-        let value: string | Grandeur | string[]
         if (typeof exercice.reponse !== 'string') {
           if (exercice.reponse instanceof FractionEtendue) {
             reponse = { reponse: { value: exercice.reponse.texFraction, compare } }
@@ -605,12 +608,13 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
         } else {
           reponse = { reponse: { value: exercice.reponse, compare } }
         }
-        handleAnswers(exercice, i,
-          reponse
-          , { formatInteractif: exercice.formatInteractif ?? 'mathlive' })
+        handleAnswers(exercice, i, reponse, { formatInteractif: exercice.formatInteractif ?? 'mathlive' }) /// // PROCHAIN LA : La partie ci-dessus sera à supprimer quand il n'y aura plus de this.compare
+      } else if (exercice.reponse instanceof Object && exercice.reponse.value != null && typeof exercice.reponse.value === 'string') {
+        handleAnswers(exercice, i, exercice.reponse)
       } else {
         setReponse(exercice, i, exercice.reponse, { formatInteractif: exercice.formatInteractif ?? 'calcul' })
       }
+
       if (exercice.formatInteractif !== 'fillInTheBlank') {
         if (exercice.formatInteractif !== 'qcm') {
           exercice.listeQuestions.push(

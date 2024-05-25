@@ -13,11 +13,15 @@
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
+- playwright-testInteractivity
+- playwright-testConsistency
+- playwright-test
 - test
 - build-projet
 - playwright-test
 - playwright-pdf
 - playwright-pdfDNB
+- playwright-pdfBAC
 
 sast:
   stage: test
@@ -41,27 +45,53 @@ default:
     - pnpm config set store-dir .pnpm-store
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
     - nohup pnpm start &
+    - sleep 20
+    - until $(curl --output /dev/null --head --fail http://localhost:80/alea/); do printf '.'; sleep 10; done
     - sleep 60
 
 .install_dependenciesPDF:
   before_script:
-    - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
-    - pnpm exec playwright install --with-deps chromium # dernière version playwright.
+    - pnpm config set store-dir .pnpm-store
+    - pnpm -v
+    - lualatex -v
+    - npm install playwright@1.44.0 --with-deps chromium
+    - pnpm install
     - nohup pnpm start &
-    - sleep 60
+    - sleep 10
+    - until $(curl --output /dev/null --head --fail http://localhost:80/alea/); do printf '.'; sleep 10; done
+    - sleep 30
   
 .install_dependenciesPDFDNB:
   before_script:
+    - pnpm config set store-dir .pnpm-store
+    - pnpm -v
+    - lualatex -v
+    - pnpm exec playwright@1.44.0 install --with-deps chromium
     - git clone https://forge.apps.education.fr/coopmaths/dnb.git ./public/static/dnb
-    - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
-    - pnpm exec playwright install --with-deps chromium # dernière version playwright.
+    - pnpm install
     - nohup pnpm start &
-    - sleep 60
+    - sleep 10
+    - until $(curl --output /dev/null --head --fail http://localhost:80/alea/); do printf '.'; sleep 10; done
+    - sleep 30
+
+.install_dependenciesPDFBAC:
+  before_script:
+    - pnpm config set store-dir .pnpm-store
+    - pnpm -v
+    - lualatex -v
+    - pnpm exec playwright@1.44.0 install --with-deps chromium
+    - git clone https://forge.apps.education.fr/coopmaths/bac.git ./public/static/bac
+    - pnpm install
+    - nohup pnpm start &
+    - sleep 10
+    - until $(curl --output /dev/null --head --fail http://localhost:80/alea/); do printf '.'; sleep 10; done
+    - sleep 30
 
 .testCIPDF:
-  image: guironne/tex-live-nodejs-playwright
+  image: guironne/tex-live-nodejs-playwright8
   extends: .install_dependenciesPDF
   stage: playwright-pdf
+  allow_failure: true
   rules:
   - if: $CI_COMMIT_BRANCH == "guironne-jobs"
     when: manual
@@ -70,13 +100,18 @@ default:
   - when: never
   retry:
     max: 2
-    when: runner_system_failure
+    when: 
+    - runner_system_failure
+    - script_failure
+    - unknown_failure
   artifacts:
     when: always
     paths:
       - tests/e2e/logs
       - updatefile
-    expire_in: 120 day
+    exclude:
+      - updatefile/output/*.zip
+    expire_in: 20 day
 
 .testCI:
   extends: .install_dependencies
@@ -94,7 +129,10 @@ default:
   - when: never
   retry:
     max: 2
-    when: runner_system_failure
+    when: 
+    - runner_system_failure
+    - script_failure
+    - unknown_failure
   artifacts:
     when: always
     paths:

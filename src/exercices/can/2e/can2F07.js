@@ -6,7 +6,7 @@ import { context } from '../../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'Lire les extremums dans un tableau de variations'
 export const interactifReady = true
@@ -76,7 +76,7 @@ export default function ExtremumsTableau () {
         colorBackground: '',
         espcl: 3, // taille en cm entre deux antécédents
         deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
-        lgt: 3, // taille de la première colonne en cm
+        lgt: 2, // taille de la première colonne en cm
         scale: 0.4
       }) + '<br>'
       this.canEnonce = texte

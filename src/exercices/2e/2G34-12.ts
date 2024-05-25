@@ -6,8 +6,8 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures.js'
-import { equalFractionCompare } from '../../lib/interactif/comparisonFunctions.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 export const titre = 'Déterminer le point d\'intersection de deux droites données par des points'
@@ -159,14 +159,14 @@ export default class IntersectionDroitesPoints extends Exercice {
       eqD1ListeString = [0, 1, 0, droiteFrac1[0], 0, droiteFrac1[1]]
       eqD2ListeString = [0, 1, 0, droiteFrac2[0], 0, droiteFrac2[1]]
       pi12 = pointIntersectionExactDD(droiteFrac1, droiteFrac2)
-      texte = `Soient les points $A(${p1x};${p2y}),\\,B(${p2x};${p2y}), \\;C(${p3x};${p3y})$ et $D(${p4x};${p4y})$. Déterminer, s'il existe, le point d'intersection entre la droite $(AB)$ et la droite $(CD)$.`
+      texte = `Soient les points $A(${p1x};${p1y}),\\,B(${p2x};${p2y}), \\;C(${p3x};${p3y})$ et $D(${p4x};${p4y})$. Déterminer, s'il existe, le point d'intersection entre la droite $(AB)$ et la droite $(CD)$.`
       if (this.interactif) {
         texte += '<br> Le point d\'intersection des droites $(AB)$ et $(CD)$ est le point' + remplisLesBlancs(this, i, '(%{champ1};%{champ2})')
         handleAnswers(this, i, {
           bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
           champ1: { value: pi12[0].texFractionSimplifiee },
           champ2: { value: pi12[1].texFractionSimplifiee },
-          compare: equalFractionCompare
+          compare: fonctionComparaison
         },
         { formatInteractif: 'fillInTheBlank' }
         )

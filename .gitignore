@@ -4,12 +4,15 @@ node_modules/
 dist/
 built/
 pnpm-lock.yaml
+vitetest.config.ts
 /test-results/
 /playwright-report/
 /playwright/.cache/
 /public/assets/bac
 /public/assets/crpe
 /public/assets/dnb
+/public/assets/evacom
+/public/assets/taf
 /public/assets/e3c
 /public/topmaths/cours
 /public/topmaths/fiches
@@ -27,37 +30,24 @@ _private/
 tests/e2e/logs
 updatefile
 # Dictionnaires générés
-src/json/referentielStatic.json
-src/json/referentielStaticCH.json
 src/json/referentielStaticFR.json
+src/json/referentielStaticCH.json
 
-src/json/exercices.json
 src/json/exercicesCH.json
 src/json/exercicesFR.json
 
-
-src/json/exercicesNonInteractifs.json
 src/json/exercicesNonInteractifsCH.json
 src/json/exercicesNonInteractifsFR.json
 
-
-src/json/referentiel2022.json
 src/json/referentiel2022CH.json
 src/json/referentiel2022FR.json
 
-
-src/json/refToUuid.json
 src/json/refToUuidCH.json
 src/json/refToUuidFR.json
 
-
-src/json/uuidsToUrl.json
 src/json/uuidsToUrlCH.json
 src/json/uuidsToUrlFR.json
 
-
 src/json/referentielGeometrieDynamique.json
-src/json/referentielGeometrieDynamiqueCH.json
-src/json/referentielGeometrieDynamiqueFR.json
 
 screenshots/

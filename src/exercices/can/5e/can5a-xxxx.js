@@ -10,7 +10,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import Grandeur from '../../../modules/Grandeur'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'Course aux nombres début de 5e'
 export const interactifReady = true

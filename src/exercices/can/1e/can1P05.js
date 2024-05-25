@@ -8,7 +8,7 @@ import { Arbre } from '../../../modules/arbres.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'Utiliser la formule des probabilités totales dans un arbre'
 export const dateDePublication = '05/07/2022'

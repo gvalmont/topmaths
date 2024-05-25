@@ -5,7 +5,7 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 // on importait amcReady de 5L10 cf commit cf25dab mais mieux vaut le déclarer explicitement
 
 export const titre = 'Additions et de soustractions'
@@ -86,7 +86,7 @@ export default function TablesAdditionsSoustractions () {
           texte = `$${a} + ${b} =$`
           if (this.interactif && context.isHtml) {
             texte = ajouteChampTexteMathLive(this, i, 'largeur10 inline', {
-              texte: `$${a} + ${b} = $`
+              texteAvant: `$${a} + ${b} = $`
             })
           }
           texteCorr = `$${a} + ${b} = ${a + b}$`
@@ -96,7 +96,7 @@ export default function TablesAdditionsSoustractions () {
           texte = `$${a} + \\ldots\\ldots = ${a + b}$`
           if (this.interactif && context.isHtml) {
             texte = ajouteChampTexteMathLive(this, i, 'largeur10 inline', {
-              texte: `$${a}~+ $`,
+              texteAvant: `$${a}~+ $`,
               texteApres: `$= ${a + b}$`
             })
           }
@@ -113,7 +113,7 @@ export default function TablesAdditionsSoustractions () {
           texte = `$${a} - ${b} =$`
           if (this.interactif && context.isHtml) {
             texte = ajouteChampTexteMathLive(this, i, 'largeur10 inline', {
-              texte: `$${a} - ${b} = $`
+              texteAvant: `$${a} - ${b} = $`
             })
           }
           texteCorr = `$${a} - ${b} = ${a - b}$`
@@ -129,7 +129,7 @@ export default function TablesAdditionsSoustractions () {
           texte = `$${a} - \\ldots\\ldots = ${a - b}$`
           if (this.interactif && context.isHtml) {
             texte = ajouteChampTexteMathLive(this, i, 'largeur10 inline', {
-              texte: `$${a}~- $`,
+              texteAvant: `$${a}~- $`,
               texteApres: `$= ${a - b}$`
             })
           }

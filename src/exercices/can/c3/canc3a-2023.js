@@ -10,7 +10,7 @@ import { listeQuestionsToContenu } from '../../../modules/outils.js'
 import Grandeur from '../../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import ClasseCan2023 from './_Canc3a.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'CAN CM2 sujet 2023'
 export const interactifReady = true
@@ -445,7 +445,7 @@ export default function SujetCAN2023CM2 () {
           setReponse(this, index, nombreDeDixiemesDansUnDecimal.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
             texte += `${ajouteChampTexteMathLive(this, index, 'inline largeur15 nospacebefore', {
-                            texte: `<br>Dans $${texNombre(nombreDeDixiemesDansUnDecimal.nombre, 2)}$ il y a`,
+                            texteAvant: `<br>Dans $${texNombre(nombreDeDixiemesDansUnDecimal.nombre, 2)}$ il y a`,
                             texteApres: sp(5) + 'dixièmes en tout.'
                         })}`
           }

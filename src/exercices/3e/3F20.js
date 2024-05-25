@@ -5,7 +5,7 @@ import { repere } from '../../lib/2d/reperes.js'
 import { texteParPoint } from '../../lib/2d/textes.ts'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { rangeMinMax } from '../../lib/outils/nombres'
+import { abs, rangeMinMax } from '../../lib/outils/nombres'
 import { pgcd, premierAvec } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -14,7 +14,9 @@ import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Fonctions linéaires'
 export const interactifType = 'mathLive'
@@ -22,6 +24,7 @@ export const interactifReady = true
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '13/04/2023'
+export const dateDeModifImportante = '16/05/2024'
 export const ref = '3F20'
 export const refs = {
   'fr-fr': ['3F20'],
@@ -31,14 +34,13 @@ export const uuid = 'aeb5a'
 /**
  * Questions sur les fonctions linéaires
  * @author Jean-Claude Lhote
- * @constructor
  */
 export default function FonctionsLineaires () {
   Exercice.call(this)
   this.comment = `L'exercice propose différents types de questions sur les fonctions linéaires :<br>
 calcul d'image, calcul d'antécédent ou détermination du coefficient.<br>
 Ce coefficient peut être au choix entier relatif ou rationnel relatif.<br>
-Certaines questions de calcul d'image nécessitent le calcul du coefficient au prélable.<br>
+Certaines questions de calcul d'image nécessitent le calcul du coefficient au préalable.<br>
 Le choix a été fait d'un antécédent primaire entier positif, le coefficient étant négatif avec une probabilité de 50%.<br>`
   this.sup = 1 // coefficient entier relatif
   this.nbQuestions = 8
@@ -73,9 +75,11 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
     this.sup = contraindreValeur(1, 3, this.sup, 1)
     const listeTypeDeCoeff = this.sup === 1
       ? combinaisonListes([1], this.nbQuestions)
-      : this.sup === 2
+    /* : this.sup === 2
         ? combinaisonListes([1], this.nbQuestions)
         : combinaisonListes([1, 2], this.nbQuestions)
+        */
+      : combinaisonListes([2], this.nbQuestions)
     const antecedents = []
     for (let i = 0, texteAMC, valeurAMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const elementAmc = {}
@@ -95,6 +99,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           coefficient = new FractionEtendue(premierAvec(antecedent0, antecedents, false) * choice([-1, 1]), antecedent0)
           break
       }
+
       let imageString, formatInteractif
       //
       const antecedent = choice(rangeMinMax(-10, 10, [antecedent0, 0, 1, -1, 2 * antecedent0]))
@@ -130,7 +135,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
         yThickMin = -tableauEchelleY[k][0] - yThickDistance
       }
       const xMin = xThickMin
-      const xMax = -xThickMin + xThickDistance
+      const xMax = -xThickMin + xThickDistance + 5
       const yMin = yThickMin
       const yMax = -yThickMin
       const xmin = xMin * xUnite
@@ -158,13 +163,14 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       const pointilles = polyline([projeteY, M, projeteX], 'red')
       pointilles.pointilles = 2
       pointilles.epaisseur = 1
-      const coordonnees = texteParPoint(`(${antecedent0};${image0})`, point(M.x + 0.2, M.y), 0, 'black', 1, 'droite')
+      const coordonnees = texteParPoint(`(${antecedent0};${image0})`, point(M.x + 0.7, M.y + abs(M.y) / M.y * 0.0), 0, 'black', 1, 'gauche')
 
       switch (listeTypesDeQuestions[i]) {
         // On détermine l'image à partir de l'expression générale de la fonction
         case 'imageParExpression':
           texte += `Soit $${nomFonction}(x)=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient)}x$.<br>`
-          texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$`
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
           texteCorr += `$${nomFonction}(${texNombre(antecedent, 0)})=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient, 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}`
           texteCorr += `=${coefficient instanceof FractionEtendue ? image.texFSD : texNombre(image, 0)}$`
           if (context.isAmc) {
@@ -174,7 +180,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           break
         case 'imageParValeurs':
           texte += `Soit $${nomFonction}$ la fonction linéaire telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$.<br>`
-          texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$`
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
           texteCorr += `Comme $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $${nomFonction}(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
           texteCorr += `On en déduit $a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {
@@ -191,7 +198,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           break
         case 'imageParGraphique':
           texte += `La droite représentant la fonction linéaire $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
-          texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$`
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
           texte += '<br>'
           texte += mathalea2d({
             scale: 0.6,
@@ -209,7 +217,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           break
         case 'antecedentParExpression':
           texte += `Soit $${nomFonction}(x)=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient)}x$.<br>`
-          texte += `Calculer l'antécédent de $${imageString}$ par $${nomFonction}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte += `Calculer l'antécédent de $${imageString}$ par $${nomFonction}$`
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
           texteCorr += `Posons $b$ l'antécédent de $${imageString}$, alors $${nomFonction}(b)=${coefficientString}\\times b=${imageString}$.<br>`
           if (coefficient instanceof FractionEtendue) {
             texteCorr += `Donc $b=\\dfrac{${image.texFSD}}{${coefficientString}}=`
@@ -225,7 +234,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           break
         case 'antecedentParValeurs':
           texte += `Soit $${nomFonction}$ la fonction linéaire telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$.<br>`
-          texte += `Calculer l'antécédent de $${imageString}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte += `Calculer l'antécédent de $${imageString}$`
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
           texteCorr += `Comme $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $${nomFonction}(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
           texteCorr += `$a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {
@@ -245,7 +255,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           break
         case 'antecedentParGraphique':
           texte += `La droite représentant la fonction linéaire $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
-          texte += `Calculer l'antécédent de $${imageString}$ par $${nomFonction}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte += `Calculer l'antécédent de $${imageString}$ par $${nomFonction}$`
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
           texte += '<br>'
           texte += mathalea2d({
             scale: 0.6,
@@ -275,7 +286,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texte += `Donner le coefficient de  $${nomFonction}$.`
           } else {
-            texte += `Donner l'expression de  $${nomFonction}(x)$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+            texte += `Donner l'expression de  $${nomFonction}(x)$.`
+            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `<br>$${nomFonction}(x)=$` })
           }
           texteCorr += `Comme $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $${nomFonction}(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
           texteCorr += `Soit $a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
@@ -288,7 +300,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             texteAMC = `coefficient de $${nomFonction}$ : valeur de $a$ dans $${nomFonction}(x)=ax$`
             valeurAMC = coefficient
           } else {
-            setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x`, `${coefficientString}x`], { formatInteractif: 'calcul' })
+            handleAnswers(this, i, { reponse: { value: `${coefficientString}x`, compare: fonctionComparaison } })
           }
           break
         case 'expressionParGraphique':
@@ -296,7 +308,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texte += `Donner le coefficient de  $${nomFonction}$.`
           } else {
-            texte += `Donner l'expression de  $${nomFonction}(x)$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+            texte += `Donner l'expression de  $${nomFonction}(x)$.`
+            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `<br>$${nomFonction}(x)=$` })
           }
           texte += '<br>'
           texte += mathalea2d({
@@ -317,7 +330,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             texteAMC = `Coefficient de $${nomFonction}$ : valeur de $a$ dans $${nomFonction}(x)=ax$`
             valeurAMC = coefficient
           } else {
-            setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x`, `${coefficientString}x`], { formatInteractif: 'calcul' })
+            handleAnswers(this, i, { reponse: { value: `${coefficientString}x`, compare: fonctionComparaison } })
           }
           break
       }
@@ -348,6 +361,18 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           elementAmc.options = { multicolsAll: true }
           this.autoCorrection[i] = elementAmc
         }
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replace('$', '')
+
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+        // Fin de cette uniformisation
+
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

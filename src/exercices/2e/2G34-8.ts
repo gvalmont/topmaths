@@ -6,7 +6,7 @@ import { lcm } from 'mathjs'
 import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
-import { textCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 export const titre = 'Déterminer la nature des solutions d\'un système linéaire de deux équations à deux inconnues'
 export const interactifReady = true
@@ -173,15 +173,18 @@ export default class systemeEquationsPremDeg extends Exercice {
               eqInt2 = addCombLin(eqEquiv(eq1, 'lv2'), eqEquiv(eq2, 'lv2'), 1)
               break
           }
+          // si ça contient Auc ou lv1
+          if (listeTypeQuestions[i].substring(3) === 'Auc' && !(listeTypeQuestions[i].substring(0, 3) === 'lv1')) {
+            eqInt1 = addCombLin(eqInt1, choice([[0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1]]), randint(-10, 10, [0]))
+          } else if (listeTypeQuestions[i].substring(3) === 'Auc' && listeTypeQuestions[i].substring(0, 3) === 'lv1') {
+            eqInt1 = addCombLin(eqInt1, choice([[0, 0, 0, 0, 0, 1]]), randint(-10, 10, [0]))
+          }
           eqSimpl1 = addCombLin(eqInt1, vectX, -eqInt1[3])
           eqSimpl1 = addCombLin(eqSimpl1, vectY, -eqInt1[4])
           eqSimpl1 = addCombLin(eqSimpl1, vectConstant, -eqInt1[2])
           eqSimpl2 = addCombLin(eqInt2, vectX, -eqInt2[3])
           eqSimpl2 = addCombLin(eqSimpl2, vectY, -eqInt2[4])
           eqSimpl2 = addCombLin(eqSimpl2, vectConstant, -eqInt2[2])
-          if (listeTypeQuestions[i].substring(3) === 'Auc') {
-            eqSimpl1 = addCombLin(eqSimpl1, choice([[0, 0, 1, 0, 0, 0], [0, 0, 1, 0, 0, 0]]), randint(-10, 10, [0]))
-          }
         } while (!(eqSimpl1[0] * eqSimpl2[1] - eqSimpl1[1] * eqSimpl2[0] === 0))
       }
       const eqInt1Droite = eqInt1.slice(0, 3)
@@ -277,7 +280,7 @@ export default class systemeEquationsPremDeg extends Exercice {
       texteCorr = texteCorr + `Ainsi, le système ${texteEnCouleurEtGras(`${rep}`)}.`
       if (this.interactif) {
         texte += '<br>' + 'Le système d\'équations' + choixDeroulant(this, i, choix, 'reponse') + '.'
-        handleAnswers(this, i, { reponse: { value: rep, compare: textCompare } }, { formatInteractif: 'listeDeroulante' })
+        handleAnswers(this, i, { reponse: { value: rep, compare: fonctionComparaison, options: { texteSansCasse: true } } }, { formatInteractif: 'listeDeroulante' })
       }
       if (this.questionJamaisPosee(i, solX, solY)) {
         this.listeQuestions.push(texte)

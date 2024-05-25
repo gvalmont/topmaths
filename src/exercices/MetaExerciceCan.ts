@@ -2,7 +2,7 @@ import { handleAnswers, setReponse } from '../lib/interactif/gestionInteractif'
 import Exercice from './Exercice'
 import { ajouteChampTexteMathLive, ajouteFeedback, remplisLesBlancs } from '../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../lib/interactif/qcm'
-import { numberCompare } from '../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../lib/interactif/comparisonFunctions'
 import Grandeur from '../modules/Grandeur'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../modules/FractionEtendue'
@@ -50,7 +50,7 @@ export default class MetaExercice extends Exercice {
             handleAnswers(this, indexQuestion, {
               champ1: {
                 value: Question.reponse,
-                compare: Question.compare ?? numberCompare
+                compare: Question.compare ?? fonctionComparaison
               }
             }, { formatInteractif: 'mathlive' })
           } else if (typeof Question.reponse === 'object') {
@@ -65,7 +65,8 @@ export default class MetaExercice extends Exercice {
           this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
         } else {
           if (Question.compare == null) {
-            setReponse(this, indexQuestion, Question.reponse, { formatInteractif: Question.formatInteractif ?? 'calcul' })
+            if (Question.reponse.reponse instanceof Object && Question.reponse.reponse.value != null && typeof Question.reponse.reponse.value === 'string') handleAnswers(this, indexQuestion, Question.reponse)
+            else setReponse(this, indexQuestion, Question.reponse, { formatInteractif: Question.formatInteractif ?? 'calcul' })
           } else {
             const compare = Question.compare
             if (typeof Question.reponse === 'string' || typeof Question.reponse === 'number') {
@@ -105,27 +106,23 @@ export default class MetaExercice extends Exercice {
         }
       } else {
         //* ***************** Question Exo classique *****************//
-        this.listeQuestions[indexQuestion] = Question.listeQuestions[0] + ajouteFeedback(this, indexQuestion)
+        this.listeQuestions[indexQuestion] = Question.listeQuestions[0]
+        if (!this.listeQuestions[indexQuestion].includes('feedback')) {
+          this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion] + ajouteFeedback(this, indexQuestion)
+        }
         this.listeCorrections[indexQuestion] = (Question.listeCorrections[0])
-        this.listeCanEnonces[indexQuestion] = (Question.listeCanEnonces[0])
-        this.listeCanReponsesACompleter[indexQuestion] = (Question.listeCanReponsesACompleter[0])
         this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
+        this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll('champTexteEx0Q0', `champTexteEx0Q${indexQuestion}`)
+        this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll('resultatCheckEx0Q0', `resultatCheckEx0Q${indexQuestion}`)
+
         // fin d'alimentation des listes de question et de correction pour cette question
         // this.formatChampTexte = Question.formatChampTexte
         // this.formatInteractif = Question.formatInteractif
-        if (Question.formatInteractif === 'fillInTheBlank') {
-          handleAnswers(this, indexQuestion, Question.listeQuestions[0].reponse.valeur, { formatInteractif: 'mathlive' })
-        } else if (Question.formatInteractif === 'qcm') {
+        const formatInteractif = Question.autoCorrection[0].reponse.param.formatInteractif
+        if (formatInteractif === 'qcm') {
           this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
-        } else if (Question.compare == null) {
-          handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse, compare: numberCompare } }, { formatInteractif: 'mathlive' })
         } else {
-          handleAnswers(this, indexQuestion, {
-            reponse: {
-              value: Question.reponse,
-              compare: Question.compare
-            }
-          }, { formatInteractif: 'mathlive' })
+          handleAnswers(this, indexQuestion, Question.autoCorrection[0].reponse.valeur, { formatInteractif: 'mathlive' })
         }
       }
 

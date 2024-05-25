@@ -1,11 +1,13 @@
 import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
-import FractionEtendue from '../../../../src/modules/FractionEtendue.js'
 import type { Page } from 'playwright'
 import { clean } from 'helpers/text'
 import { KatexHandler } from '../../helpers/KatexHandler'
+import { fraction } from '../../../../src/modules/fractions'
+import prefs from '../../helpers/prefs.js'
 
 async function test (page: Page) {
-  const urlExercice = 'http://localhost:5173/alea/?uuid=91d72&id=5N10&n=20&d=10&s=3&s2=false&i=1&cd=1'
+  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+  const urlExercice = hostname + '?uuid=91d72&id=5N10&n=20&d=10&s=3&s2=false&i=1&cd=1'
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {
@@ -30,10 +32,10 @@ async function test (page: Page) {
       if (chunks !== null) {
         const nombre = Number(chunks[0].replace(',', '.'))
         if (nombre != null) { // on fabrique la réponse
-          const fraction = new FractionEtendue(nombre)
+          const laFraction = fraction(nombre, undefined)
           reponse = question.isCorrect
-            ? `${String(fraction.num)}/${String(fraction.den)}`
-            : `${String(fraction.den)}/${String(fraction.num)}`
+            ? `${String(laFraction.num)}/${String(laFraction.den)}`
+            : `${String(laFraction.den)}/${String(laFraction.num)}`
         }
       }
     }
@@ -43,4 +45,11 @@ async function test (page: Page) {
   return true
 }
 
-runTest(test, import.meta.url)
+const local = true
+if (process.env.CI) {
+  // utiliser pour les tests d'intégration
+  prefs.headless = true
+  runTest(test, import.meta.url, { pauseOnError: false }) // true pendant le développement, false ensuite
+} else {
+  runTest(test, import.meta.url)
+}

@@ -3,7 +3,7 @@ import Exercice from '../deprecatedExercice.js'
 import { texteGras } from '../../lib/format/style'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 export const titre = 'Justifier l\'existence d\'une racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'

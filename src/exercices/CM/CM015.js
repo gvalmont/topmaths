@@ -1,7 +1,7 @@
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Somme de deux nombres mariés'
 export const amcReady = true

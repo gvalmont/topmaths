@@ -12,7 +12,7 @@ import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import Exercice from '../deprecatedExercice.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { texteGras } from '../../lib/format/style'
@@ -79,9 +79,8 @@ export default function Distance () {
           } else { setReponse(this, i, [`\\sqrt{${XAB + YAB}}`, `${texRacineCarree(AB)}`], { formatInteractif: 'calcul' }) }
           texte = 'Dans un repère orthonormé $(O\\,;\\,I\\,,\\,J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$. <br>`
-          if (this.interactif) {
-            texte += 'Calculer la distance $AB$. <br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `$${A.nom}${B.nom}=$` })
-          } else { texte += `Calculer la distance $${A.nom}${B.nom}$.` }
+          texte += `Calculer la distance $${A.nom}${B.nom}$.`
+          texte += this.interactif ? '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `$${A.nom}${B.nom}=$` }) : ''
           if (this.correctionDetaillee) {
             texteCorr = `${CorrD}<br>`
           } else { texteCorr = '' }
