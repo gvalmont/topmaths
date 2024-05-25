@@ -8,7 +8,7 @@
   import referentielStatic from '../../../json/referentielStaticFR.json'
   import { SvelteComponent, onMount, tick } from 'svelte'
   import type { InterfaceParams } from '../../../lib/types'
-  import uuidToUrl from '../../../json/uuidsToUrl.json'
+  import uuidToUrl from '../../../json/uuidsToUrlFR.json'
   import ExerciceStatic from './presentationalComponents/exerciceStatic/ExerciceStatic.svelte'
   import Exercice from '../../../exercices/Exercice'
   import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'

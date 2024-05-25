@@ -1,5 +1,5 @@
 import type { InterfaceParams } from '../../lib/types'
-import refToUuid from '../../json/refToUuid.json'
+import refToUuid from '../../json/refToUuidFR.json'
 import { globalOptions } from '../../lib/stores/generalStore'
 let urlToWrite: URL
 let timerId: ReturnType<typeof setTimeout> | undefined
