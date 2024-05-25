@@ -5620,6 +5620,23 @@
                   {
                     "slug": "5S20,s=true"
                   }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "5S20_Presentation",
+                      "Tablettes"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Expliquer et noter le cours au fur et à mesure",
+                      "https://create.kahoot.it/details/c6c6ad85-5a8d-4cab-ba9e-2e64bbd8fc2c"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
+                  }
                 ]
               },
               {
@@ -5639,6 +5656,24 @@
                 "exercices": [
                   {
                     "slug": "5S21,n=1"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [
+                      "5S21_Presentation",
+                      "Tablettes"
+                    ],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Enseignement explicite de https://topmaths.fr/?v=objectif&ref=5S21",
+                      "Noter le cours",
+                      "https://create.kahoot.it/details/08dee843-7a0f-4071-9c92-2aea5d8a787f"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
                   }
                 ]
               }
