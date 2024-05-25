@@ -3951,54 +3951,6 @@
                 ]
               }
             ]
-          },
-          {
-            "nom": "5G5 Espace",
-            "objectifs": [
-              {
-                "reference": "5G50",
-                "titre": "Connaître et utiliser les propriétés géométriques des cubes, prismes droits et cylindres",
-                "titreSimplifie": "Connaître les propriétés des cubes, prismes droits et cylindres",
-                "rappelDuCoursHTML": "",
-                "rappelDuCoursImage": "",
-                "videos": [
-                  {
-                    "titre": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=JYvfFRVY99I&vignette=https://i.ytimg.com/vi/JYvfFRVY99I/hqdefault.jpg&debut=0&fin=262&largeur=200&hauteur=113",
-                    "auteur": "Maths et Jeux",
-                    "lienAuteur": "https://www.youtube.com/channel/UCj5z973uER7e6ppaAEvYMHQ"
-                  }
-                ],
-                "exercices": [
-                  {
-                    "slug": "uuid=b36df&id=6G42&n=2&d=10&s=3&s2=1&s3=5",
-                    "description": "Cube et pavé droit"
-                  }
-                ]
-              },
-              {
-                "reference": "5G51",
-                "titre": "Construire et mettre en relation une représentation en perspective cavalière d'un cylindre",
-                "titreSimplifie": "Construire le patron d'un cylindre",
-                "rappelDuCoursHTML": "",
-                "rappelDuCoursImage": "",
-                "videos": [
-                  {
-                    "titre": "Représenter un cylindre en perspective cavalière",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=7MVNeG-UpiI&vignette=https://i.ytimg.com/vi/7MVNeG-UpiI/hqdefault.jpg&debut=0&fin=107&largeur=200&hauteur=113",
-                    "auteur": "Maths et Jeux",
-                    "lienAuteur": "https://www.youtube.com/channel/UCj5z973uER7e6ppaAEvYMHQ"
-                  },
-                  {
-                    "titre": "Construire un patron d'un cylindre",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=oRIISSBmdoI&vignette=https://i.ytimg.com/vi/oRIISSBmdoI/hqdefault.jpg&debut=0&fin=563&largeur=200&hauteur=113",
-                    "auteur": "Yvan Monka",
-                    "lienAuteur": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  }
-                ],
-                "exercices": []
-              }
-            ]
           }
         ]
       },
@@ -5075,7 +5027,6 @@
                       "Leur montrer les deux cahiers mal écrits à l’aide de la caméra et voir s'ils remarquent la différence",
                       "Montrer le cahier bien écrit et expliquer l'importance de bien courber ses $x$",
                       "Noter la remarque",
-                      "Entraînement sur https://topmaths.fr/?v=objectif&ref=5G50 s'il y a le temps",
                       "Kahoot : https://create.kahoot.it/details/441f1b6c-0311-4992-8eec-2c23995fda85",
                       "- À la question 11 : préciser qu’à partir de maintenant, ça pourra aller dans les deux sens, des fois il faudra enlever les $times$, des fois il faudra en rajouter"
                     ],

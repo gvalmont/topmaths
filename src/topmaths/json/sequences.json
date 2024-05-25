@@ -1881,39 +1881,6 @@
         ]
       },
       {
-        "titre": "Solides",
-        "periode": 5,
-        "objectifs": [
-          {
-            "reference": "5G50"
-          },
-          {
-            "reference": "5G51"
-          }
-        ],
-        "calculsMentaux": [
-          {
-            "reference": "5N41",
-            "exercices": [
-              {
-                "description": "",
-                "slug": "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND2~o=~q=~p=~t=20~n=8"
-              }
-            ]
-          }
-        ],
-        "questionsFlash": [
-          {
-            "reference": "5S21",
-            "slug": "5S21,n=1"
-          },
-          {
-            "reference": "6M22",
-            "slug": "6M31,s=1,s2=false,s3=1,n=1,i=0"
-          }
-        ]
-      },
-      {
         "titre": "Dépendance entre deux grandeurs",
         "periode": 5,
         "objectifs": [
