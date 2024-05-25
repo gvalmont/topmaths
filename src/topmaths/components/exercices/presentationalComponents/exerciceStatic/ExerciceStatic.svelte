@@ -1,7 +1,7 @@
 <script lang="ts">
   import { retrieveResourceFromUuid } from '../../../../../lib/components/refUtils'
   import type { JSONReferentielObject } from '../../../../../lib/types/referentiels'
-  import referentielStatic from '../../../../../json/referentielStatic.json'
+  import referentielStatic from '../../../../../json/referentielStaticFR.json'
   import referentielBibliotheque from '../../../../../json/referentielBibliotheque.json'
     import { afterUpdate } from 'svelte';
   export let uuid: string
