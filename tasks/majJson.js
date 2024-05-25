@@ -2,7 +2,7 @@ import { readFileSync } from 'fs'
 import * as fs from 'fs'
 import * as path from 'path'
 import { isArray } from 'mathjs'
-import refToUuid from '../src/json/refToUuid.json' assert { type: 'json' }
+import refToUuid from '../src/json/refToUuidFR.json' assert { type: 'json' }
 
 const niveauxSequencesJson = JSON.parse(readFileSync('./src/topmaths/json/sequences.json').toString())
 const niveauxObjectifsJson = JSON.parse(readFileSync('./src/topmaths/json/objectifs.json').toString())
