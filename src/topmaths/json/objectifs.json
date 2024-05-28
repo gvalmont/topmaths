@@ -479,10 +479,8 @@
                 "exercices": [],
                 "fiches": [
                   {
-                    "materielEleve": [
-                    ],
-                    "materielEnseignant": [
-                    ],
+                    "materielEleve": [],
+                    "materielEnseignant": [],
                     "debutDeSeance": [
                       "Mathador"
                     ],
@@ -5639,7 +5637,24 @@
                 "rappelDuCoursHTML": "",
                 "rappelDuCoursImage": "",
                 "videos": [],
-                "exercices": []
+                "exercices": [
+                  {
+                    "slug": "uuid=01387&id=5L17&n=1"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Enseignement explicite de https://topmaths.fr/?v=objectif&ref=5S30"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
+                  }
+                ]
               },
               {
                 "reference": "5S31",
@@ -5666,7 +5681,24 @@
                     "lienAuteur": "https://www.youtube.com/channel/UCbwDhmflS7WO2KWvexucY4A"
                   }
                 ],
-                "exercices": []
+                "exercices": [
+                  {
+                    "slug": "uuid=7aba6&id=5L10-4&n=1"
+                  }
+                ],
+                "fiches": [
+                  {
+                    "materielEleve": [],
+                    "materielEnseignant": [],
+                    "debutDeSeance": [],
+                    "deroule": [
+                      "Enseignement explicite de https://topmaths.fr/?v=objectif&ref=5S31"
+                    ],
+                    "devoirs": [],
+                    "finDeSeance": [],
+                    "prochaineSeance": []
+                  }
+                ]
               }
             ]
           }
