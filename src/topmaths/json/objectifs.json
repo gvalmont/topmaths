@@ -5683,7 +5683,7 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "uuid=7aba6&id=5L10-4&n=1"
+                    "slug": "uuid=af8bb&id=4L10-2&n=2"
                   }
                 ],
                 "fiches": [
@@ -6264,12 +6264,16 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "4C22,s=1,s2=false,s3=false,n=4",
+                    "slug": "4C22,s=1,s2=false,s3=false,n=2",
                     "description": "Multiplications avec des nombres positifs"
                   },
                   {
                     "slug": "4C22,s=3,s2=false,s3=false,n=2",
                     "description": "Multiplications avec des nombres relatifs"
+                  },
+                  {
+                    "slug": "uuid=374b6&id=4C23&n=4&d=10&s=5",
+                    "description": "Additions, soustractions et multiplications"
                   }
                 ]
               },
@@ -7246,12 +7250,16 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "3G31,s=true,cd=0",
+                    "slug": "3G31,s=true,n=1",
                     "description": "Avec une figure à main levée"
                   },
                   {
-                    "slug": "3G31,s=false,cd=0",
+                    "slug": "3G31,s=false,n=1",
                     "description": "Sans figure"
+                  },
+                  {
+                    "slug": "uuid=35e0b&id=3G31-1&n=1",
+                    "description": "Figure complexe"
                   }
                 ]
               }
@@ -7564,11 +7572,11 @@
                 ],
                 "exercices": [
                   {
-                    "slug": "uuid=57f44&id=3L15-1&n=4&d=10&s=4&alea=5DcF&cd=1",
+                    "slug": "uuid=57f44&id=3L15-1&n=2&d=10&s=4&alea=5DcF&cd=1",
                     "description": "Expressions simples"
                   },
                   {
-                    "slug": "uuid=bb6d5&id=2N52-2&n=4&d=10&s=4&alea=kVrM&cd=1",
+                    "slug": "uuid=0f844&id=3L15-2&n=2&d=10&s=4",
                     "description": "Expressions complexes"
                   }
                 ]
