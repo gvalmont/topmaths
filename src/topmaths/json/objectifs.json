@@ -476,7 +476,12 @@
                 "rappelDuCoursHTML": "",
                 "rappelDuCoursImage": "",
                 "videos": [],
-                "exercices": [],
+                "exercices": [
+                  {
+                    "slug": "uuid=2b06d&id=6C33-1&n=2&s=false&cd=1",
+                    "description": ""
+                  }
+                ],
                 "fiches": [
                   {
                     "materielEleve": [],
