@@ -5697,7 +5697,8 @@
                     "materielEnseignant": [],
                     "debutDeSeance": [],
                     "deroule": [
-                      "Enseignement explicite de https://topmaths.fr/?v=objectif&ref=5S31"
+                      "Enseignement explicite de https://topmaths.fr/?v=objectif&ref=5S31",
+                      "#rouge()[Les élèves ont trouvé cet exercice \"trop facile\", prévoir un Kahoot pour le reste de la séance !]"
                     ],
                     "devoirs": [],
                     "finDeSeance": [],
