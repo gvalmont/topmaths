@@ -21,7 +21,7 @@
   import { onDestroy, onMount, tick, afterUpdate } from 'svelte'
   // import seedrandom from 'seedrandom'
   import { loadMathLive } from '../../../modules/loaders'
-  import Button from '../../shared/forms/Button.svelte'
+  import ButtonText from '../../shared/forms/ButtonText.svelte'
   import { verifQuestionMathLive } from '../../../lib/interactif/mathLive'
   import { verifQuestionQcm } from '../../../lib/interactif/qcm'
   import { verifQuestionListeDeroulante } from '../../../lib/interactif/questionListeDeroulante'
@@ -196,9 +196,10 @@
     // }
     exercices = await Promise.all(buildExercisesList())
 
-    await tick()
     if ($globalOptions.presMode === 'liste_questions' || $globalOptions.presMode === 'une_question_par_page') {
       buildQuestions()
+    } else {
+      await tick()
     }
 
     if ($globalOptions.recorder === 'capytale' || $globalOptions.recorder === 'moodle' || $globalOptions.recorder === 'anki' || $globalOptions.recorder === 'labomep') {
@@ -561,11 +562,11 @@
                   Question {k + 1}
                 </div>
                 {#if exercices[indiceExercice[k]].interactif}
-                  <Button
-                    title="Vérifier"
+                  <ButtonText
+                    text="Vérifier"
                     class="p-1 font-bold rounded-lg text-xs ml-2"
                     on:click={() => checkQuestion(k)}
-                    isDisabled={isDisabledButton[k]}
+                    disabled={isDisabledButton[k]}
                   />
                 {:else if $globalOptions.isSolutionAccessible}
                   <ButtonToggle
@@ -742,10 +743,10 @@
                 </div>
                 {#if exercices[indiceExercice[k]].interactif}
                   <div class="pb-4 mt-10">
-                    <Button
-                      title="Vérifier"
+                    <ButtonText
+                      text="Vérifier"
                       on:click={() => checkQuestion(k)}
-                      isDisabled={isDisabledButton[k]}
+                      disabled={isDisabledButton[k]}
                     />
                   </div>
                 {:else if $globalOptions.isSolutionAccessible}

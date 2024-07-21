@@ -46,12 +46,13 @@ export default class Exercice {
   contenu?: string
   contenuCorrection?: string
   autoCorrection: AutoCorrection[]
+  figures?: Array<{id: string, solution: boolean}>[]
   amcType?: string
   tableauSolutionsDuQcm?: object[]
   spacing: number
   spacingCorr: number
   pasDeVersionLatex: boolean
-  listePackages: string[]
+  listePackages?: string[]
   consigneModifiable: boolean
   nbQuestionsModifiable: boolean
   nbCols: number // Nombre de colonnes pour la sortie LaTeX
@@ -62,7 +63,6 @@ export default class Exercice {
   spacingCorrModifiable: boolean
   listeAvecNumerotation?: boolean
   beamer: boolean
-  tailleDiaporama: number
   nbQuestions: number
   pointsParQuestions: number
   correctionDetailleeDisponible: boolean
@@ -96,7 +96,7 @@ export default class Exercice {
   comment?: string // Commentaire facultatif de l'auteur de l'exercice
   answers?: { [key: string]: string } // Réponses de l'élève
   isDone?: boolean
-  html?: HTMLElement
+  private _html: HTMLElement = document.createElement('div')
   score?: number
   constructor () {
   // ////////////////////////////////////////////////
@@ -137,7 +137,6 @@ export default class Exercice {
     // Gestion de la sortie LateX
     // ////////////////////////////////////////////
     this.pasDeVersionLatex = false // booléen qui indique qu'une sortie LateX est impossible.
-    this.listePackages = [] // string ou liste de string avec le nom des packages spécifiques à ajouter dans le préambule.
     this.consigneModifiable = true // booléen pour déterminer si la consigne est modifiable en ligne dans la sortie LaTeX.
     this.nbQuestionsModifiable = true // booléen pour déterminer si le nombre de questions est modifiable en ligne.
     this.nbCols = 1 // Nombre de colonnes pour la sortie LaTeX des questions (environnement multicols).
@@ -152,7 +151,6 @@ export default class Exercice {
     // Gestion de la sortie autre que LateX
     // ////////////////////////////////////////////
     this.beamer = false // booléen pour savoir si la sortie devra être un diaporama beamer
-    this.tailleDiaporama = 1 // Facteur par lequel multiplier la police pour la vue 'diap'
 
     // ////////////////////////////////////////////
     // Paramètres
@@ -200,6 +198,14 @@ export default class Exercice {
     this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
     this.answers = {}
     this.listeAvecNumerotation = true
+  }
+
+  get html (): HTMLElement {
+    return this._html
+  }
+
+  set html (value: HTMLElement) {
+    this._html = value
   }
 
   nouvelleVersionWrapper = exportedNouvelleVersionWrapper.bind(this as Exercice)

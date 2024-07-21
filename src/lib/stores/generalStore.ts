@@ -53,49 +53,12 @@ export const globalOptions = writable<InterfaceGlobalOptions>({
   setInteractive: '2',
   isSolutionAccessible: true,
   isInteractiveFree: true,
+  isTitleDisplayed: true,
   oneShot: false,
   twoColumns: false,
   beta: false,
   lang: 'fr-FR'
 })
-
-// utilisé pour les aller-retours entre le composant Diaporam et le composant Can
-export const questionsOrder = writable<{
-  isQuestionsShuffled: boolean
-  indexes: number[]
-}>({
-  isQuestionsShuffled: false,
-  indexes: []
-})
-
-interface InterfaceSelectedExercises {
-  isActive: boolean
-  indexes: number[]
-  count?: number
-}
-
-export const selectedExercises = writable<InterfaceSelectedExercises>({
-  isActive: false,
-  indexes: [],
-  count: 1
-})
-
-interface InterfaceTransitionsBetweenQuestions {
-  isActive: boolean
-  isNoisy: boolean
-  isQuestThenSolModeActive: boolean
-  questThenQuestAndSolDisplay: boolean
-  tune: '0' | '1' | '2' | '3'
-}
-
-export const transitionsBetweenQuestions =
-  writable<InterfaceTransitionsBetweenQuestions>({
-    isActive: true,
-    isNoisy: false,
-    isQuestThenSolModeActive: false,
-    questThenQuestAndSolDisplay: false,
-    tune: '0'
-  })
 
 // pour la gestion du mode sombre
 export const darkMode = writable({ isActive: false })
@@ -124,7 +87,6 @@ export const bibliothequeSectionContent = writable<bibliothequeExercise[]>([])
 export const bibliothequeDisplayedContent =
   writable<Record<string, JSONReferentielEnding>>()
 export const bibliothequePathToSection = writable<string[]>([])
-export const isModalForStaticsVisible = writable<boolean>(false)
 
 /**
  * Déplace un exercice dans exercicesParams
@@ -146,8 +108,6 @@ let timerId: ReturnType<typeof setTimeout> | undefined
  */
 export function updateGlobalOptionsInURL (url: URL) {
   const options = get(globalOptions)
-  const selectedExexercicesStore = get(selectedExercises)
-  const questionsOrderStore = get(questionsOrder)
   const canStore = get(canOptions)
   if (options.v) {
     url.searchParams.append('v', options.v)
@@ -159,35 +119,10 @@ export function updateGlobalOptionsInURL (url: URL) {
   } else {
     url.searchParams.delete('z')
   }
-  if (options.nbVues && options.nbVues > 1) {
-    url.searchParams.append('nbVues', options.nbVues.toString())
-  } else {
-    url.searchParams.delete('nbVues')
-  }
   if (options.durationGlobal) {
     url.searchParams.append('dGlobal', options.durationGlobal.toString())
   } else {
     url.searchParams.delete('dGlobal')
-  }
-  if (options.choice) {
-    url.searchParams.append('choice', options.choice.toString())
-  } else {
-    url.searchParams.delete('choice')
-  }
-  if (options.shuffle) {
-    url.searchParams.append('shuffle', options.shuffle ? '1' : '0')
-  } else {
-    url.searchParams.delete('shuffle')
-  }
-  if (options.trans) {
-    url.searchParams.append('trans', options.trans ? '1' : '0')
-  } else {
-    url.searchParams.delete('trans')
-  }
-  if (typeof options.sound !== 'undefined') {
-    url.searchParams.append('sound', options.sound.toString())
-  } else {
-    url.searchParams.delete('sound')
   }
   if (options.v === 'eleve') {
     if (options.title != null && options.title.length > 0) {
@@ -215,6 +150,7 @@ export function updateGlobalOptionsInURL (url: URL) {
       es += options.isInteractiveFree ? '1' : '0'
       es += options.oneShot ? '1' : '0'
       es += options.twoColumns ? '1' : '0'
+      es += options.isTitleDisplayed ? '1' : '0'
       url.searchParams.append('es', es)
     }
     if (options.done) {
@@ -245,18 +181,24 @@ export function updateGlobalOptionsInURL (url: URL) {
     url.searchParams.delete('recorder')
   }
   if (options.v === 'diaporama' || options.v === 'overview') {
-    if (selectedExexercicesStore) {
-      url.searchParams.append(
-        'selectedExercises',
-        JSON.stringify(selectedExexercicesStore)
-      )
+    let ds = ''
+    ds += options.nbVues?.toString() ?? '1'
+    ds += options.flow?.toString() ?? '0'
+    ds += options.screenBetweenSlides ? '1' : '0'
+    ds += options.sound?.toString() ?? '0'
+    ds += options.shuffle ? '1' : '0'
+    ds += options.manualMode ? '1' : '0'
+    url.searchParams.append('ds', ds)
+    if (options.select !== undefined && options.select !== undefined && options.select.length > 0 && options.select.length < get(exercicesParams).length) {
+      url.searchParams.append('select', options.select.join('-'))
     }
-    if (questionsOrderStore) {
-      url.searchParams.append(
-        'questionsOrder',
-        JSON.stringify(questionsOrderStore)
-      )
+    if (options.order !== undefined && options.order.length > 0 && options.shuffle) {
+      url.searchParams.append('order', options.order.join('-'))
     }
+  } else {
+    url.searchParams.delete('ds')
+    url.searchParams.delete('select')
+    url.searchParams.delete('order')
   }
   if (options.beta) {
     url.searchParams.append('beta', '1')

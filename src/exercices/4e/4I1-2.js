@@ -36,7 +36,6 @@ export default function AlgoTortue () { // √ßa c'est la classe qui permet de cr√
   this.nbCols = 1
   this.nbColsCorr = 1
   this.typeExercice = 'Scratch'
-  this.listePackages = 'scratch3'
   this.interactif = true
   this.listeAvecNumerotation = false
 
@@ -491,7 +490,7 @@ export default function AlgoTortue () { // √ßa c'est la classe qui permet de cr√
     paramsEnonces.ymax = hauteur + 1
     paramsEnonces.pixelsParCm = Math.round(400 / largeur)
     paramsEnonces.scale = calculANePlusJamaisUtiliser(4 / largeur)
-    paramsEnonces.style = ''
+    paramsEnonces.style = 'display: inline-block'
     paramsCorrection.xmin = -0.5
     paramsCorrection.ymin = -0.5
     paramsCorrection.xmax = largeur

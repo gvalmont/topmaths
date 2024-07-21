@@ -10,7 +10,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { range } from '../../lib/outils/nombres'
-import { functionXyCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = ['mathLive', 'listeDeroulante']
@@ -69,8 +69,12 @@ export default function EcrireUneExpressionNumerique () {
       decimal = 1
     }
     // pour 6C13-2
-    const sousCas = combinaisonListes(range(3), this.nbQuestions)
-    let nbSousCas = 0
+    const listeSousCasParNbOperation = [combinaisonListes(range(3), this.nbQuestions),
+      combinaisonListes(range(9), this.nbQuestions),
+      combinaisonListes(range(13), this.nbQuestions),
+      combinaisonListes(range(2), this.nbQuestions),
+      combinaisonListes(range(4), this.nbQuestions)
+    ]
 
     for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
@@ -79,8 +83,8 @@ export default function EcrireUneExpressionNumerique () {
       val2 = randint(6, 9)
       if (this.version > 2 && nbOperations === 1 && !this.litteral) nbOperations++
       if (!this.litteral) {
-        resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, calculMental, sousCas[nbSousCas])
-        if (nbOperations === 1) nbSousCas++
+        const sousCas = listeSousCasParNbOperation[nbOperations - 1][i]
+        resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, calculMental, sousCas)
       } else {
         resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup3, calculMental)
       }
@@ -248,7 +252,7 @@ export default function EcrireUneExpressionNumerique () {
             handleAnswers(this, i, { reponse: { value: expNom } }, { formatInteractif: 'listeDeroulante' })
           }
         }
-        // on doit donner une expression littérale => handleAnswer avec functionXyCompare. ou amcOpen
+
         if (this.version === 1) {
           if (context.isAmc) { // AMCOpen pour 5C11, 5C11-1, 5L10-1, 5L10-3
             this.autoCorrection[i] =
@@ -264,8 +268,8 @@ export default function EcrireUneExpressionNumerique () {
               ]
             }
           } else {
-            texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: ' Résultat : ' })
-            handleAnswers(this, i, { reponse: { value: reponse, options: { variables: ['x', 'y'] }, compare: functionXyCompare } })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: ' Calcul : ' })
+            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
         }
 

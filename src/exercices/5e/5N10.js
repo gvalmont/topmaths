@@ -12,13 +12,11 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '16/03/2022'
-// export const dateDeModifImportante = '16/03/2022'
 
 /**
  * Propose de passer de l'écriture décimale à l'écriture fractionnaire et inversement
  * Un paramètre permet de limiter cela aux fractions décimales ou d'y incorporer des fractions "simples" (multiples de 1/2, 1/4, 1/5)
  * @author Guillaume Valmont
- * Référence 5N10
  */
 export const uuid = '91d72'
 export const ref = '5N10'
@@ -90,10 +88,10 @@ export default function PasserEcritureDecimaleEcritureFractionnaireInversement (
           let multiple
           denominateur === 4 ? multiple = 100 : multiple = 10
           texteCorr = `$${texNombre(ecritureDecimale, 3)} = \\dfrac{${ecritureDecimale * multiple}}{${multiple}}$  ou $${texNombre(ecritureDecimale, 3)} = \\dfrac{${numerateur}}{${denominateur}}$`
-          setReponse(this, i, [new FractionEtendue(ecritureDecimale * multiple, multiple), new FractionEtendue(numerateur, denominateur)], { formatInteractif: 'fraction' })
+          setReponse(this, i, [new FractionEtendue(ecritureDecimale * multiple, multiple), new FractionEtendue(numerateur, denominateur)], { formatInteractif: 'fractionEgale' })
         } else {
           texteCorr = `$${texNombre(ecritureDecimale, 3)} = \\dfrac{${numerateur}}{${denominateur}}$`
-          setReponse(this, i, new FractionEtendue(numerateur, denominateur), { formatInteractif: 'fraction' })
+          setReponse(this, i, new FractionEtendue(numerateur, denominateur), { formatInteractif: 'fractionEgale' })
         }
       } else if (listeDesSensDemandes[i] === 'FractionnaireADecimale') {
         texte = `Donner l'écriture décimale de $\\dfrac{${numerateur}}{${denominateur}}$.`

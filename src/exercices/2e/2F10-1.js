@@ -153,18 +153,19 @@ export default function Reconnaitrefonctionaffine () {
         this.autoCorrection[i].enonce = `${texte}\n`
         this.autoCorrection[i].propositions = [
           {
-            texte: 'oui',
+            texte: 'Oui',
             statut: bonneReponse !== 'non'
           },
           {
-            texte: 'non',
+            texte: 'Non',
             statut: bonneReponse !== 'oui'
           },
           {
-            texte: 'je ne sais pas',
+            texte: 'Je ne sais pas',
             statut: false
           }
         ]
+
         if (this.interactif) {
           texte += propositionsQcm(this, i).texte
         }

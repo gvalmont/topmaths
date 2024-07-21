@@ -8,7 +8,7 @@ import engine, { functionCompare } from '../../lib/interactif/comparisonFunction
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
 
-export const titre = 'Dérivée d\'un polynome'
+export const titre = 'Dérivée d\'un polynôme'
 export const dateDePublication = '06/05/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,7 +16,6 @@ export const interactifType = 'mathLive'
 /**
  * Calculer la dérivée d'un polynome
  * @author Jean-Claude Lhote
- * Référence 1AN14-3
  */
 
 export const uuid = 'ec088'
@@ -111,7 +110,7 @@ export default function DeriveePoly () {
       if (expression.startsWith('+')) expression = expression.substring(1)
       // Enoncé
       nameF = ['f', 'g', 'h', 'l', 'm', 'p', 'r', 's', 't', 'u', 'v', 'w', 'b', 'c', 'd', 'e'][i % 16]
-      texte = `$${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$.<br>`
+      texte = `$${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$<br>`
       // Correction
       texteCorr = `$${nameF}$ est dérivable sur $\\R$.<br>`
       texteCorr += 'On rappelle le cours : si $u,v$ sont  deux fonctions dérivables sur un même intervalle $I$ alors leur somme est dérivable sur $I$ et on a la formule : '
@@ -165,7 +164,7 @@ export default function DeriveePoly () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['types de fonctions (nombre séparés par des tirets)', '1 constante\n2 : affine\n3 : degré 2\n4 : degré 3\n5 : deux monomes\n6 : mélange']
-  this.besoinFormulaire2CaseACocher = ['coefficients rationnels', false]
-  this.besoinFormulaire3CaseACocher = ['coefficients décimaux', false]
+  this.besoinFormulaireTexte = ['Types de fonctions', 'Nombres séparés par des tirets\n1 Constante\n2 : Affine\n3 : Degré 2\n4 : Degré 3\n5 : Deux monomes\n6 : Mélange']
+  this.besoinFormulaire2CaseACocher = ['Coefficients rationnels', false]
+  this.besoinFormulaire3CaseACocher = ['Coefficients décimaux', false]
 }

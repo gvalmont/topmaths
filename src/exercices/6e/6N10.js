@@ -4,8 +4,10 @@ import { nombreEnLettres } from '../../modules/nombreEnLettres.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Écrire un nombre entier en chiffres ou en lettres'
 export const amcReady = true
@@ -214,32 +216,39 @@ export default function EcrirePetitsNombresEntiers () {
       }
 
       if (typeDeConsigne[i] === 1) {
-        setReponse(this, i, nombreEnLettres(NombreAEcrire))
+        if (context.isAmc) {
+          this.autoCorrection[i] =
+            {
+              enonce: texte + '<br>',
+              propositions: [
+                {
+                  texte: texteCorr,
+                  statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                  sanscadre: true
+                }
+              ]
+            }
+        } else {
+          setReponse(this, i, nombreEnLettres(NombreAEcrire))
+        }
         if (context.vue !== 'diap') texte = `$${texNombre(NombreAEcrire)} ${!this.interactif ? ' : \\dotfill $' : '$ <br>' + ajouteChampTexteMathLive(this, i, 'alphanumeric')}`
         else texte = `$${texNombre(NombreAEcrire)}$`
         if (context.vue !== 'diap') texteCorr = `$${texNombre(NombreAEcrire)}$ : ${nombreEnLettres(NombreAEcrire)}`
         else texteCorr = `${nombreEnLettres(NombreAEcrire)}`
       } else {
-        setReponse(this, i, texNombre(NombreAEcrire), { formatInteractif: 'texte' })
-        if (context.vue !== 'diap') texte = `${nombreEnLettres(NombreAEcrire)} ${!this.interactif ? ' : $\\dotfill$' : ' <br>' + ajouteChampTexteMathLive(this, i, 'college6eme')}`
+        if (context.isAmc) {
+          setReponse(this, i, NombreAEcrire)
+          this.autoCorrection[i].enonce = this.consigne + '\\\\' + nombreEnLettres(NombreAEcrire) + '\\\\'
+        } else {
+          handleAnswers(this, i, { reponse: { value: texNombre(NombreAEcrire), compare: fonctionComparaison, options: { nombreAvecEspace: true } } })
+        }
+        if (context.vue !== 'diap') texte = `${nombreEnLettres(NombreAEcrire)} ${!this.interactif ? ' : $\\dotfill$' : ' <br>' + ajouteChampTexteMathLive(this, i, KeyboardType.numbersSpace, { espace: true })}`
         else texte = `${nombreEnLettres(NombreAEcrire)}`
         if (context.vue !== 'diap') texteCorr = `${nombreEnLettres(NombreAEcrire)} : $${texNombre(NombreAEcrire)}$`
         else texteCorr = `$${texNombre(NombreAEcrire)}$`
       }
 
-      if (context.isAmc) {
-        this.autoCorrection[i] =
-                    {
-                      enonce: texte + '<br>',
-                      propositions: [
-                        {
-                          texte: texteCorr,
-                          statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                          sanscadre: true
-                        }
-                      ]
-                    }
-      }
+      texte += ajouteFeedback(this, i)
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

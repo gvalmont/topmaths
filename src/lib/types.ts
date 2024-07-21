@@ -23,11 +23,15 @@ export interface InterfaceGlobalOptions {
   v?: VueType
   z?: string
   durationGlobal?: number
+  ds?: string
   nbVues?: 1 | 2 | 3 | 4
+  flow?: 0 | 1 | 2 // 0: Q->Q, 1: Q->R->Q, 2: Q->(Q+R)->Q
+  screenBetweenSlides?: boolean
+  sound?: 0 | 1 | 2 | 3 | 4
   shuffle?: boolean
-  choice?: number
-  trans?: boolean
-  sound?: '0' | '1' | '2' | '3'
+  select?: number[]
+  order?: number[]
+  manualMode?: boolean
   es?: string
   title: string
   presMode:
@@ -40,6 +44,7 @@ export interface InterfaceGlobalOptions {
     // | 'cartes'
   setInteractive: string
   isSolutionAccessible?: boolean
+  isTitleDisplayed?: boolean
   isInteractiveFree?: boolean
   oneShot?: boolean
   recorder?: 'capytale' | 'labomep' | 'moodle' | 'anki'

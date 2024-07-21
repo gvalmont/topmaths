@@ -269,5 +269,5 @@ if (process.env.CI) {
   prefs.headless = true
   runTest(test, import.meta.url, { pauseOnError: false })
 } else {
-  runTest(test, import.meta.url, { pauseOnError: false })
+  runTest(test, import.meta.url, { pauseOnError: true })
 }

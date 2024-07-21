@@ -21,7 +21,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '03/04/2022'
+export const dateDeModifImportante = '11/06/2024'
 
 export const titre = 'Démontrer que deux droites sont ou ne sont pas parallèles avec le théorème de Thalès'
 
@@ -29,7 +29,6 @@ export const titre = 'Démontrer que deux droites sont ou ne sont pas parallèle
  * Reciproque_Thales
  * @author Jean-Claude Lhote
  * 18/10/21 passage de MG32 à MathALEA2D par Rémi Angot
- * 3G21
  */
 export const uuid = '3451c'
 export const ref = '3G21'
@@ -39,9 +38,7 @@ export const refs = {
 }
 export default function ReciproqueThales () {
   Exercice.call(this)
-  this.consigne = ''
   this.nbQuestions = 3
-  // this.nbQuestionsModifiable = false
   context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 1)
   context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
   this.nbCols = 1
@@ -50,7 +47,6 @@ export default function ReciproqueThales () {
   this.sup = 1
   this.sup2 = 3
   this.sup3 = 3
-  this.listePackages = 'tkz-euclide'
 
   // coefficient de l'homothétie compris entre -0,8 et -0,2 ou entre 0,2 et 0,8 pour éviter les constructions trop serrées
   this.nouvelleVersion = function (numeroExercice) {
@@ -184,7 +180,7 @@ export default function ReciproqueThales () {
           }
         } else if (randint(1, 2) === 1) {
           // triangles imbriqués sans figure
-          texte = `$${s1}$, $${s2}$ et $${s3}$ sont trois point distincts. $${s4} \\in [${s1 + s2}]$ et $${s5} \\in [${s1 + s3}]$. <br> $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.<br>`
+          texte = `$${s1}$, $${s2}$ et $${s3}$ sont trois points distincts. $${s4} \\in [${s1 + s2}]$ et $${s5} \\in [${s1 + s3}]$. <br> $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.<br>`
           texteCorr = ''
         } else {
           // papillon sans figure
@@ -257,7 +253,7 @@ export default function ReciproqueThales () {
         `,
                     'Mettre en couleur les 2 triangles')
 
-        if (context.isHtml) {
+        if (context.isHtml && this.sup !== 3) {
           texte += `<br><div style="display: inline-block;margin-top:20px;">${boutonAideMathalea2d}</div>`
         }
       } else {
@@ -266,21 +262,21 @@ export default function ReciproqueThales () {
         if (this.sup === 1) {
           // niveau 1 : Calcul direct
           texte =
-                        '\\begin{minipage}{.7 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
-          texte += `\n\t \\item ${s1 + s2}=${s12} cm \n\t \\item ${s1 + s3}=${s13} cm\n\t \\item ${s1 + s5}=${s15} cm\n\t \\item ${s1 + s4}=${s14} cm.`
+                        '\\begin{minipage}[t]{.6 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
+          texte += `\n\t \\item $${s1 + s2}=${s12}$ cm \n\t \\item $${s1 + s3}=${s13}$ cm\n\t \\item $${s1 + s5}=${s15}$ cm\n\t \\item $${s1 + s4}=${s14}$ cm`
           texte +=
                         '\\end{itemize}  ' +
-                        `Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>` +
-                        '. \\end{minipage}'
+                        `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>` +
+                        '\\end{minipage}'
         } else if (this.sup === 2) {
           // niveau 2 : Calcul intermédiaire nécessaire
           texte =
-                        '\\begin{minipage}{.7 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
-          texte += `\n\t \\item ${s1 + s2} = ${s12} cm\n\t \\item ${s1 + s3} = ${s13} cm\n\t \\item ${s3 + s5} = ${s35} cm\n\t \\item ${s2 + s4} = ${s24} cm.`
+                        '\\begin{minipage}[t]{.6 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
+          texte += `\n\t \\item $${s1 + s2} = ${s12}$ cm\n\t \\item $${s1 + s3} = ${s13}$ cm\n\t \\item $${s3 + s5} = ${s35}$ cm\n\t \\item $${s2 + s4} = ${s24}$ cm`
           texte +=
                         '\\end{itemize}  ' +
-                        `Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>` +
-                        '. \\end{minipage}'
+                        `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>` +
+                        '\\end{minipage}'
           if (k.isPos()) {
             // triangles imbriqués
             texteCorr +=
@@ -314,9 +310,9 @@ export default function ReciproqueThales () {
 
         if (this.sup < 3) {
           // on ne fait la figure que si niveau < 3
-          texte += '\\begin{minipage}{0.3 \\linewidth}'
+          texte += '\\begin{minipage}[t]{0.4 \\linewidth}'
           // dessin de la figure
-          texte += '\n \\begin{tikzpicture}[scale=0.7]' // Balise début de figure
+          texte += '\\vspace{0pt}   \n \\begin{tikzpicture}[scale=0.7]' // Balise début de figure
           texte +=
                         '\n\t \\tkzDefPoints{0/0/' +
                         s1 +
@@ -367,7 +363,7 @@ export default function ReciproqueThales () {
             // Nomme les points au dessus avec above, dessous avec below...
           } else {
             // position papillon -> position du nom inversée et nécessité de tracer le triangle secondaire
-            texte += '\n\t \\tkzLabelPoints[below](' + s1 + ')' // nomme les points
+            texte += '\n\t \\tkzLabelPoints[below right](' + s1 + ')' // nomme les points
             texte += '\n\t \\tkzLabelPoints[below](' + s3 + ',' + s4 + ')' // nomme les points
             texte += '\n\t \\tkzLabelPoints[above](' + s2 + ',' + s5 + ')' // nomme les points
             texte += '\n\t \\tkzDrawPolygon(' + s1 + ',' + s4 + ',' + s5 + ')' // Trace le triangle secondaire

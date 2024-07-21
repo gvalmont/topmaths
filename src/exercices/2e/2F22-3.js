@@ -26,6 +26,7 @@ const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisibl
   { x: -2, y: 4, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: -1, y: 2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
   { x: 0, y: 1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
+  { x: 1, y: 2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: 2, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
   { x: 3, y: -2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: 4, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
@@ -75,13 +76,6 @@ let deltaY
  * choisit les caractèristique de la transformation de la courbe
  * @returns {{coeffX: -1|1, deltaX: int, deltaY: int, coeffY: -1|1}}
  */
-// function aleatoiriseCourbe () {
-//  const coeffX = choice([-1, 1]) // symétries ou pas
-// const coeffY = choice([-1, 1])
-// const deltaX = randint(-2, +2) // translations
-// const deltaY = 0//randint(-2, +2)
-// return { coeffX, coeffY, deltaX, deltaY }
-// }
 
 function aleatoiriseCourbe (choix) {
   coeffX = choice([-1, 1]) // symétries ou pas
@@ -95,35 +89,11 @@ function aleatoiriseCourbe (choix) {
       deltaY = randint(-2, +2)
       break
     default:
-      deltaY = choice([randint(-2, +2), 0])
+      deltaY = choice([randint(-4, +4), 0]) / 2
       break
   }
   return { coeffX, coeffY, deltaX, deltaY }
 }
-/* Mauvaise idée ici de mélanger des splines bricolées et des tableaux de signes
-function fauxNoeuds (noeuds) { // on donne des noeuds corrects
-  const newNoeuds = [] // ceux qu'on va renvoyer
-  const zeros = []
-  // On commence par recenser les zéros
-  for (let i = 0; i < noeuds.length; i++) {
-    if (noeuds[i].y === 0) {
-      zeros.push(i)
-    }
-  }
-  // On choisit notre faussaire
-  const leFauxNoeud = choice(zeros)
-  // on crée la liste trafiquée en substituant le faussaire au bon noeud
-  for (let i = 0; i < noeuds.length; i++) {
-    if (i !== leFauxNoeud) {
-      newNoeuds.push(noeuds[i])
-    } else {
-      const avant = noeuds[i]
-      newNoeuds.push({ x: avant.x + choice([-1, 1]) * 0.5, y: 0, deriveeGauche: avant.deriveeGauche, deriveeDroit: avant.deriveeDroit, isVisible: avant.isVisible })
-    }
-  }
-  return newNoeuds
-}
- */
 
 /**
  * Aléatoirise une courbe et demande les antécédents d'une valeur entière (eux aussi entiers)
@@ -136,7 +106,6 @@ export default class BetaModeleSpline extends Exercice {
     this.titre = titre
     // this.sup = 1
     this.nbQuestions = 1 // Nombre de questions par défaut
-    // this.besoinFormulaireTexte = ['Choix des questions', '1 : Antécédents de zéros entiers\n2 : Antécédents de zéros non entiers possible\n3 : Mélange']
     this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
     this.correctionDetaillee = false
   }
@@ -153,7 +122,6 @@ export default class BetaModeleSpline extends Exercice {
       defaut: 1,
       nbQuestions: this.nbQuestions
     })
-    // const typeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, melange: 6, defaut: 4, nbQuestions: this.nbQuestions })
     // boucle de création des différentes questions
     for (let i = 0; i < this.nbQuestions; i++) {
       const { coeffX, coeffY, deltaX, deltaY } = aleatoiriseCourbe(Number(typeDeQuestions[i]))
@@ -192,10 +160,12 @@ export default class BetaModeleSpline extends Exercice {
         optionsNoeuds: { color: 'blue', taille: 2, style: '.', epaisseur: 2 },
         color: 'blue'
       })
-      const objetsEnonce = [repere1, courbe1]
+
+      const objetsEnonce = [...repere1.objets, /* courbe2, */ courbe1]
       let texteEnonce
-      const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { step: 1, tolerance: 0.01 })
-      const tableauB = tableauSignesFonction(fonctionD, xMin, xMax, { step: 1, tolerance: 0.01 })
+
+      const tableau = maSpline.tableauSignes()
+      const tableauB = tableauSignesFonction(fonctionD, xMin, xMax, { step: 1, tolerance: 0.1 })
 
       const tableauChoisi = [tableau, tableauB][choixInteractif]
       if (choixInteractif === 0) {
@@ -203,11 +173,12 @@ export default class BetaModeleSpline extends Exercice {
       } else {
         setReponse(this, i, ['Non', 'NON', 'non'])
       }
-      texteEnonce = 'Dresser le tableau de signes de la fonction $f$ représentée ci-dessous.<br>' +
-        mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 }), objetsEnonce, o)
+      const figure = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 }), objetsEnonce, o)
+
+      texteEnonce = 'Dresser le tableau de signes de la fonction $f$ représentée ci-dessous.<br>' + figure
       if (this.interactif) { // || this.can
         texteEnonce = 'Voici la représentation graphique d\'une fonction $f$ :<br>'
-        texteEnonce += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 }), objetsEnonce, o)
+        texteEnonce += figure
         texteEnonce += '<br>Le tableau de signes de la fonction $f$ est : <br>'
         texteEnonce += tableauChoisi
         texteEnonce += '<br>Répondre par "Oui" ou "Non" '

@@ -1,5 +1,7 @@
 import { context } from './context.js'
 import katex from 'katex'
+import { arrondi } from '../lib/outils/nombres'
+import { randint } from './outils'
 
 /*
   MathALEA2D
@@ -24,7 +26,9 @@ let numId = 0 // Créer un identifiant numérique unique par objet SVG
  */
 export function ObjetMathalea2D ({ classe = true } = {}) {
   this.positionLabel = 'above'
-  this.isVisible = true
+  // @deprecated cette propriété servait dans l'éditeur Mathalea2d en ligne pour dire qu'on ne voulait pas représenter des objets créés juste comme constructeurs
+  // this.isVisible = true // Si on veut qu'un objet soit visible, on le passe dans la liste d'objets à mathalea2d(), si on n'en veut pas, on ne l'y met pas.
+  // Si l'éditeur en ligne de figure mathalea2d revoit le jour, peut-être que cette propriété sera utile ?
   this.color = colorToLatexOrHTML('black')
   this.style = '' // stroke-dasharray="4 3" pour des hachures //stroke-width="2" pour un trait plus épais
   // this.styleTikz = ''
@@ -36,6 +40,24 @@ export function ObjetMathalea2D ({ classe = true } = {}) {
   if (classe && context.isInEditor) context.objets2D.push(this)
 }
 
+/**
+ * Une fonction pour convertir des abscisses en unité Mathalé en abscisses svg
+ * @param x
+ * @param coeff
+ * @return {number}
+ */
+export const xSVG = function (x, coeff) {
+  return arrondi(x * coeff, 1)
+}
+/**
+ * Une fonction pour convertir des ordonnées en unité Mathalé en ordonnées svg
+ * @param y
+ * @param coeff
+ * @return {number}
+ */
+export const ySVG = function (y, coeff) {
+  return arrondi(-y * coeff, 1)
+}
 /**
  * mathalea2d(xmin,xmax,ymin,ymax,objets)
  *
@@ -84,9 +106,7 @@ export function mathalea2d (
     // Cette list est substituée à l'objet ici
     if (typeof objets === 'object' && objets.objets != null) objets = objets.objets // c'est un objet composé d'objets. Exemple : Repere
     if (!Array.isArray(objets) && objets != null) {
-      // console.log('objets.constructor.name', objets.constructor.name, objets.isVisible) // EE : Ne pas supprimer - utile pour débuggage
       try {
-        // console.log('objets.constructor.name', objets.constructor.name, objets.isVisible) // EE : Ne pas supprimer - utile pour débuggage
         if ((!mainlevee) || typeof (objets?.svgml) === 'undefined') {
           if (objets?.svg) {
             const code = objets.svg(pixelsParCm)
@@ -128,9 +148,10 @@ export function mathalea2d (
     let codeTikz = ''
     if (!Array.isArray(objets)) {
       try {
-        if (objets?.isVisible) {
-          if (!mainlevee || typeof (objets.tikzml) === 'undefined') codeTikz = '\t' + objets.tikz(scale) + '\n'
-          else codeTikz = '\t' + objets.tikzml(amplitude, scale) + '\n'
+        if ((!mainlevee || typeof (objets.tikzml) === 'undefined')) {
+          if (typeof objets.tikz === 'function') codeTikz = '\t' + objets.tikz(scale) + '\n'
+        } else {
+          if (typeof objets.tikzml === 'function') codeTikz = '\t' + objets.tikzml(amplitude, scale) + '\n'
         }
       } catch (error) {
         console.log(error.message)
@@ -142,60 +163,51 @@ export function mathalea2d (
     }
     return codeTikz
   }
-  let codeSvg = ''
-  let codeTikz = ''
+  // On prépare le code HTML
+  const m2dId = 'M2D' + String(randint(1, 1000000))
   const divsLatex = []
-  if (context.isHtml) {
-    codeSvg = `<svg class="mathalea2d" id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
-        }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
-        } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" >\n`
-    codeSvg += ajouteCodeHtml(mainlevee, objets, divsLatex, xmin, ymax)
-    codeSvg += '\n</svg>'
-    codeSvg = codeSvg.replace(/\\thickspace/gm, ' ')
-    //  pixelsParCm = 20;
-    if (divsLatex.length > 0) {
-      return `<div class="svgContainer" ${style ? `style="${style}"` : ''}>
-        <div style="position: relative;${style}">
+  let codeSvg = `<svg class="mathalea2d" ${style} id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
+      }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
+      } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" >\n`
+  codeSvg += ajouteCodeHtml(mainlevee, objets, divsLatex, xmin, ymax)
+  codeSvg += '\n</svg>'
+  codeSvg = codeSvg.replace(/\\thickspace/gm, ' ')
+  const codeHTML = `<div class="svgContainer" ${style ? `style="${style}"` : ''}>
+        <div id="${m2dId}" style="position: relative;${style}">
           ${codeSvg}
           ${divsLatex.join('\n')}
         </div>
       </div>`
+  // On prépare le code Latex
+  // si scale existe autre que 1 il faut que le code reste comme avant
+  // sinon on ajoute scale quoi qu'il en soit quitte à ce que xscale et yscale viennent s'ajouter
+  // de cette manière d'autres options Tikz pourront aussi être ajoutées
+  // si il n'y a qu'une optionsTikz on peut passer un string
+  let codeTikz
+  const listeOptionsTikz = []
+  if (optionsTikz !== undefined) {
+    if (typeof optionsTikz === 'string') {
+      listeOptionsTikz.push(optionsTikz)
     } else {
-      return `<div class="svgContainer" ${style ? `style="${style}"` : ''}>
-        <div style="position: relative;${style}">
-          ${codeSvg}
-        </div>
-      </div>`
+      optionsTikz.forEach(e => listeOptionsTikz.push(e))
     }
-  } else { // le context est Latex
-    // si scale existe autre que 1 il faut que le code reste comme avant
-    // sinon on ajoute scale quoi qu'il en soit quitte à ce que xscale et yscale viennent s'ajouter
-    // de cette manière d'autres options Tikz pourront aussi être ajoutées
-    // si il n'y a qu'une optionsTikz on peut passer un string
-    const listeOptionsTikz = []
-    if (optionsTikz !== undefined) {
-      if (typeof optionsTikz === 'string') {
-        listeOptionsTikz.push(optionsTikz)
-      } else {
-        optionsTikz.forEach(e => listeOptionsTikz.push(e))
-      }
+  }
+  if (scale === 1) {
+    codeTikz = '\\begin{tikzpicture}[baseline'
+    for (let l = 0; l < listeOptionsTikz.length; l++) {
+      codeTikz += `,${listeOptionsTikz[l]}`
     }
-    if (scale === 1) {
-      codeTikz = '\\begin{tikzpicture}[baseline'
-      for (let l = 0; l < listeOptionsTikz.length; l++) {
-        codeTikz += `,${listeOptionsTikz[l]}`
-      }
-      codeTikz += ']\n'
-    } else {
-      codeTikz = '\\begin{tikzpicture}[baseline'
-      for (let l = 0; l < listeOptionsTikz.length; l++) {
-        codeTikz += `,${listeOptionsTikz[l]}`
-      }
-      codeTikz += `,scale = ${scale}`
-      codeTikz += ']\n'
+    codeTikz += ']\n'
+  } else {
+    codeTikz = '\\begin{tikzpicture}[baseline'
+    for (let l = 0; l < listeOptionsTikz.length; l++) {
+      codeTikz += `,${listeOptionsTikz[l]}`
     }
+    codeTikz += `,scale = ${scale}`
+    codeTikz += ']\n'
+  }
 
-    codeTikz += `
+  codeTikz += `
     \\tikzset{
       point/.style={
         thick,
@@ -208,12 +220,12 @@ export function mathalea2d (
     }
     \\clip (${xmin},${ymin}) rectangle (${xmax},${ymax});
     `
-    // code += codeTikz(...objets)
-    codeTikz += ajouteCodeTikz(mainlevee, objets)
-    codeTikz += '\n\\end{tikzpicture}'
-    if (style === 'display: block') codeTikz += '\\\\'
-    return codeTikz
-  }
+  // code += codeTikz(...objets)
+  codeTikz += ajouteCodeTikz(mainlevee, objets)
+  codeTikz += '\n\\end{tikzpicture}'
+  if (style === 'display: block') codeTikz += '\\\\'
+  if (context.isHtml) return codeHTML
+  else return codeTikz
 }
 
 export class Vide2d {
@@ -536,11 +548,9 @@ export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
     if (Array.isArray(objet)) {
       for (let i = 0; i < objet.length; i++) {
         try {
-          if (objet[i].isVisible) {
-            if (!mainlevee || typeof (objet[i].svgml) === 'undefined') code += '\t' + objet[i].svg(pixelsParCm) + '\n'
-            else {
-              code += '\t' + objet[i].svgml(pixelsParCm, context.amplitude) + '\n'
-            }
+          if (!mainlevee || typeof (objet[i].svgml) === 'undefined') code += '\t' + objet[i].svg(pixelsParCm) + '\n'
+          else {
+            code += '\t' + objet[i].svgml(pixelsParCm, context.amplitude) + '\n'
           }
         } catch (error) {
           console.log(error.message)
@@ -548,10 +558,8 @@ export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
       }
     }
     try {
-      if (objet.isVisible) {
-        if (!mainlevee || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(pixelsParCm) + '\n'
-        else code += '\t' + objet.svgml(pixelsParCm, context.amplitude) + '\n'
-      }
+      if (!mainlevee || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(pixelsParCm) + '\n'
+      else code += '\t' + objet.svgml(pixelsParCm, context.amplitude) + '\n'
     } catch (error) {
       console.log(error.message)
     }
@@ -599,20 +607,16 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
     if (Array.isArray(objet)) {
       for (let i = 0; i < objet.length; i++) {
         try {
-          if (objet[i].isVisible) {
-            if (!mainlevee || typeof (objet[i].tikzml) === 'undefined') code += '\t' + objet[i].tikz(scale) + '\n'
-            else code += '\t' + objet[i].tikzml(context.amplitude) + '\n'
-          }
+          if (!mainlevee || typeof (objet[i].tikzml) === 'undefined') code += '\t' + objet[i].tikz(scale) + '\n'
+          else code += '\t' + objet[i].tikzml(context.amplitude) + '\n'
         } catch (error) {
           console.log(error.message)
         }
       }
     }
     try {
-      if (objet.isVisible) {
-        if (!mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz(scale) + '\n'
-        else code += '\t' + objet.tikzml(context.amplitude) + '\n'
-      }
+      if (!mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz(scale) + '\n'
+      else code += '\t' + objet.tikzml(context.amplitude) + '\n'
     } catch (error) {
       console.log(error.message)
     }

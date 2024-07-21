@@ -1,7 +1,6 @@
 <script lang="ts">
   import Topmaths from '../topmaths/components/Topmaths.svelte'
   import Diaporama from './setup/diaporama/Diaporama.svelte'
-  import Apercu from './display/apercu/Apercu.svelte'
   import Eleve from './display/eleve/Eleve.svelte'
   import ConfigEleve from './setup/configEleve/ConfigEleve.svelte'
   import Latex from './setup/latex/Latex.svelte'
@@ -20,7 +19,6 @@
   import Amc from './setup/amc/Amc.svelte'
   import Anki from './setup/anki/Anki.svelte'
   import Moodle from './setup/moodle/Moodle.svelte'
-  import Capytale from './setup/capytale/Capytale.svelte'
   import Start from './setup/start/Start.svelte'
   import { onMount } from 'svelte'
   import {
@@ -132,10 +130,8 @@
 </script>
 
 <div id="appComponent">
-  {#if $globalOptions.v === 'diaporama'}
+  {#if $globalOptions.v === 'diaporama' || $globalOptions.v === 'overview'}
     <Diaporama />
-  {:else if $globalOptions.v === 'overview'}
-    <Apercu />
   {:else if $globalOptions.v === 'can'}
     <Can />
   {:else if $globalOptions.v === 'eleve'}
@@ -150,8 +146,6 @@
     <Moodle />
   {:else if $globalOptions.v === 'anki'}
     <Anki />
-  {:else if $globalOptions.recorder === 'capytale'}
-    <Capytale />
   {:else if $globalOptions.v === 'start'}
     <Start />
   {:else}

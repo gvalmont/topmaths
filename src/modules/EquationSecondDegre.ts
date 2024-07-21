@@ -5,6 +5,7 @@ import { ComputeEngine } from '@cortex-js/compute-engine'
 import { shuffle2tableauxSansModif } from '../lib/outils/arrayOutils'
 import { randint } from './outils'
 import type { Expression } from 'mathlive'
+import { getLang } from '../lib/stores/languagesStore'
 
 const ce = new ComputeEngine()
 ce.latexOptions = {
@@ -36,13 +37,14 @@ class EquationSecondDegre {
   correctionTex: string
   variable: string
   constructor (a: FractionEtendue, b: FractionEtendue, c: FractionEtendue, d: FractionEtendue, e: FractionEtendue, f: FractionEtendue, options = { format: 'initial', variable: 'x' }) {
+    const lang = getLang()
     this.coefficients = [a, b, c, d, e, f]
     let melange = true
     this.variable = options.variable
     this.natureDelEquation = options.format
     this.natureDesSolutions = ''
     const nomValDefault = [`${this.variable}^2`, this.variable, '', `${this.variable}^2`, this.variable, '']
-    this.coefficientsEqReduite = [a.differenceFraction(d), b.differenceFraction(e), c.differenceFraction(f), new FractionEtendue(0, 1), new FractionEtendue(0, 1), new FractionEtendue(0, 1)]
+    this.coefficientsEqReduite = [a.differenceFraction(d).simplifie(), b.differenceFraction(e).simplifie(), c.differenceFraction(f).simplifie(), new FractionEtendue(0, 1), new FractionEtendue(0, 1), new FractionEtendue(0, 1)]
     this.equationTex = ''
     if (options.format === 'reduit') {
       melange = false
@@ -100,9 +102,14 @@ class EquationSecondDegre {
     }
     this.correctionDetailleeTex += `On calcule le discriminant : \\[\\Delta=${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}^2-4\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}\\times${this.coefficientsEqReduite[2].ecritureParentheseSiNegatif}=${this.delta.texFSD}.\\] On a $\\Delta=${this.delta.texFSD}$, donc `
     if (this.nombreSolutions > 1) {
-      this.correctionDetailleeTex += `l'équation a deux solutions. Les solutions sont
-        \\[s_{1,2}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}\\pm\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]
-        Ainsi, $${this.ensembleDeSolutionsTex}$.`
+      this.correctionDetailleeTex += 'l\'équation a deux solutions. Les solutions sont'
+      if (lang === 'fr-CH') {
+        this.correctionDetailleeTex += `\\[s_{1,2}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}\\pm\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]`
+      } else {
+        this.correctionDetailleeTex += `\\[s_{1}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}+\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\quad`
+        this.correctionDetailleeTex += ` s_{2}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}-\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]`
+      }
+      this.correctionDetailleeTex += `Ainsi, $${this.ensembleDeSolutionsTex}$.`
     } else if (this.nombreSolutions === 1) {
       this.correctionDetailleeTex += `l'équation a une solution donnée par
     \\[s=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]
