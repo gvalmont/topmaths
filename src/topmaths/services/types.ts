@@ -5,48 +5,188 @@ export function isStringGrade (str: string): str is StringGrade {
 
 export type Couleur = 'warning' | 'link' | 'info' | 'danger' | 'primary' | 'success' | 'orange' | 'sponsor' | 'fuchsia' | 'black-and-yellow' | 'green' | 'coopmaths' | 'purple' | 'info-darker' | 'violet' | 'blue' | '6e' | '5e' | '4e' | '3e' | 'tout'
 
-export interface ObjectifVideo {titre: string, slug: string, auteur: string, lienAuteur: string, lienVideo: string}
+export interface ObjectiveVideo {
+  title: string,
+  slug: string,
+  authorName: string,
+  authorLink: string,
+  videoLink: string
+}
 
-export interface ObjectifExercice {id: string, slug: string, lien: string, isInteractif: boolean, description: string, estDansLePanier: boolean}
+export interface ObjectiveExercise {
+  uuid: string,
+  slug: string,
+  link: string,
+  isInteractive: boolean,
+  description: string,
+  isInCart: boolean
+}
 
-export interface ObjectifFiche {debutDeSeance: string[], deroule: string[], devoirs: string[], finDeSeance: string[], materielEleve: string[], materielEnseignant: string[], niveaux: StringGrade[], notes: string[], prochaineSeance: string[], reference: string}
+export interface ObjectiveLessonPlan {
+  startSteps: string[],
+  lessonSteps: string[],
+  homeworks: string[],
+  closureSteps: string[],
+  studentMaterialsNeeded: string[],
+  teacherMaterialsNeeded: string[],
+  grades: StringGrade[],
+  comments: string[],
+  nextSessionSteps: string[],
+  reference: string
+}
 
-export interface ObjectifSequence {reference: string, titre: string}
+export interface ObjectiveUnit {
+  reference: string,
+  title: string
+}
 
-export interface ObjectifTelechargementsDisponibles {entrainement: boolean, test: boolean, fiche: boolean, niveauxFiches: StringGrade[]}
+export interface ObjectiveAvailableDownloads {
+  isPracticeSheetAvailable: boolean,
+  isTestSheetAvailable: boolean,
+  isLessonPlanAvailable: boolean,
+  availableLessonPlanGrades: StringGrade[]
+}
 
-export interface ObjectifObjectif {reference: string, titre: string, titreSimplifie: string, periode: number, rappelDuCoursHTML: string, rappelDuCoursImage: string, rappelDuCoursInstrumenpoche: string, videos: ObjectifVideo[], exercices: ObjectifExercice[], fiches: ObjectifFiche[], exercicesDeBrevet: ObjectifExercice[], lienExercices: string, lienExercicesDeBrevet: string, sequences: ObjectifSequence[], telechargementsDisponibles: ObjectifTelechargementsDisponibles, theme: string, niveau: StringGrade}
+export interface ObjectiveObjective {
+  reference: string,
+  titleAcademic: string,
+  title: string,
+  period: number,
+  lessonSummaryHTML: string,
+  lessonSummaryImage: string,
+  lessonSummaryInstrumenpoche: string,
+  videos: ObjectiveVideo[],
+  exercises: ObjectiveExercise[],
+  lessonPlans: ObjectiveLessonPlan[],
+  examExercises: ObjectiveExercise[],
+  exercisesLink: string,
+  examExercisesLink: string,
+  units: ObjectiveUnit[],
+  availableDownloads: ObjectiveAvailableDownloads,
+  theme: string,
+  grade: StringGrade
+}
 
-export interface ObjectifSousTheme {nom: string, objectifs: ObjectifObjectif[], nbObjectifsParPeriode: number[]}
+export interface ObjectiveSubTheme {
+  name: string,
+  objectives: ObjectiveObjective[],
+  objectivesPerPeriodCount: number[]
+}
 
-export interface ObjectifTheme {nom: string, sousThemes: ObjectifSousTheme[], nbObjectifsParPeriode: number[]}
+export interface ObjectiveTheme {
+  name: string,
+  subThemes: ObjectiveSubTheme[],
+  objectivesPerPeriodCount: number[]
+}
 
-export interface ObjectifNiveau {nom: StringGrade, themes: ObjectifTheme[]}
+export interface ObjectiveGrade {
+  name: StringGrade,
+  themes: ObjectiveTheme[]
+}
 
-export interface SequenceObjectif {reference: string, titre: string, titreSimplifie: string, exercices: ObjectifExercice[], exercicesDeBrevet: ObjectifExercice[], theme: string, niveau: StringGrade, fiches: ObjectifFiche[]}
+export interface UnitObjective {
+  reference: string,
+  titleAcademic: string,
+  title: string,
+  exercises: ObjectiveExercise[],
+  examExercises: ObjectiveExercise[],
+  theme: string,
+  grade: StringGrade,
+  lessonPlans: ObjectiveLessonPlan[]
+}
 
-export interface SequenceCalculMental {reference: string, titre: string, titreSimplifie: string, exercices: ObjectifExercice[], pageExiste: boolean, theme: string}
+export interface UnitMentalCalculation {
+  reference: string,
+  titleAcademic: string,
+  title: string,
+  exercises: ObjectiveExercise[],
+  isRelatedObjectivePageAvailable: boolean,
+  theme: string
+}
 
-export interface SequenceQuestionFlash {reference: string, titre: string, titreSimplifie: string, slug: string, pageExiste: boolean, theme: string}
+export interface UnitFlashQuestions {
+  reference: string,
+  titleAcademic: string,
+  title: string,
+  slug: string,
+  isRelatedObjectivePageAvailable: boolean,
+  theme: string
+}
 
-export interface SequenceTelechargementsDisponibles {cours: boolean, resume: boolean, mission: boolean, fiche: boolean}
+export interface UnitAvailableDownloads {
+  isLessonAvailable: boolean,
+  isLessonSummaryAvailable: boolean,
+  isMissionAvailable: boolean,
+  isLessonPlanAvailable: boolean
+}
 
-export interface SequenceSequenceParticuliere {reference: string, titre: string}
+export interface UnitSpecialUnit {
+  reference: string,
+  title: string
+}
 
-export interface SequenceSequence {niveau: StringGrade, numero: number, reference: string, titre: string, periode: number, objectifs: SequenceObjectif[], calculsMentaux: SequenceCalculMental[], questionsFlash: SequenceQuestionFlash[], lienQuestionsFlash: string, slugEvalBrevet: string, lienEval: string, lienEvalBrevet: string, telechargementsDisponibles: SequenceTelechargementsDisponibles}
+export interface UnitUnit {
+  grade: StringGrade,
+  number: number,
+  reference: string,
+  title: string,
+  period: number,
+  objectives: UnitObjective[],
+  mentalCalculations: UnitMentalCalculation[],
+  flashQuestions: UnitFlashQuestions[],
+  flashQuestionsLink: string,
+  assessmentExamSlug: string,
+  assessmentLink: string,
+  assessmentExamLink: string,
+  availableDownloads: UnitAvailableDownloads
+}
 
-export interface SequenceNiveau {nom: StringGrade, sequences: SequenceSequence[]}
+export interface UnitGrade {
+  name: StringGrade,
+  units: UnitUnit[]
+}
 
-export interface LigneTheme {nom: string, nbObjectifsParPeriode: number[]}
+export interface LineTheme {
+  name: string,
+  objectivesPerPeriodCount: number[]
+}
 
-export interface LigneObjectif {niveau: StringGrade, periode: number, theme: LigneTheme, sousTheme: LigneTheme, reference: string, titre: string, titreSimplifie: string}
+export type LineGrade = StringGrade | 'all' | 'fin' | ''
 
-export interface Eleve {prenom: string, competencesValidees: string[], competencesMaitrisees: string[], evaluationsDemandees: string[], veutAider: boolean}
+export interface LineObjective {
+  grade: LineGrade,
+  period: number,
+  theme: LineTheme,
+  subTheme: LineTheme,
+  reference: string,
+  titleAcademic: string,
+  title: string
+}
 
-export interface CalendrierPeriode {numero: number, debut: number, fin: number, type: 'cours' | 'vacances'}
+export interface CalendarPeriod {
+  number: number,
+  startDayOfYear: number,
+  endDayOfYear: number,
+  isHoliday: boolean
+}
 
-export interface CalendrierAnnee {annee: number, periodes: CalendrierPeriode[]}
+export interface CalendarYear {
+  year: number,
+  periods: CalendarPeriod[]
+}
 
-export interface CalendrierAnneeEnCours {annee: number, jourNumero: number, periodeNumero: number, semaineDansLaPeriode: number, typeDePeriode: 'cours' | 'vacances'}
+export interface CalendarCurrentYear {
+  year: number,
+  dayOfYear: number,
+  periodNumber: number,
+  weekInPeriod: number,
+  isHoliday: boolean
+}
 
-export interface PanierItem {id: string, objectif: string, description: string, slug: string, reference: string}
+export interface CartItem {
+  id: string,
+  label: string,
+  description: string,
+  slug: string,
+  objectiveReference: string
+}

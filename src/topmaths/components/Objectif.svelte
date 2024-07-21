@@ -6,7 +6,7 @@
     niveauxSequences,
     reference
   } from '../services/store'
-  import type { ObjectifObjectif } from '../services/types'
+  import type { ObjectiveObjective } from '../services/types'
   import { getTitre } from '../services/outils'
   import { goVue } from '../services/navigation'
   import { afterUpdate, onDestroy, tick } from 'svelte'
@@ -23,7 +23,7 @@
   import DownloadLine from './shared/DownloadLine.svelte'
 
   export let title = 'topmaths.fr - Séquence'
-  let objectif = {} as ObjectifObjectif
+  let objectif = {} as ObjectiveObjective
   let tousLesExercicesSontDansLePanier = false
   let niveau = '' as string
   let exercicesDeBrevetDansLePanier = false
@@ -34,12 +34,12 @@
   surveillerLeChargementDesDonnees()
 
   afterUpdate(async () => {
-    if (objectif.rappelDuCoursHTML !== '') {
+    if (objectif.lessonSummaryHTML !== '') {
       await tick()
       const rappelDuCoursHTML = document.getElementById('rappelDuCoursHTML')
       if (rappelDuCoursHTML !== null) mathaleaRenderDiv(rappelDuCoursHTML)
     }
-    if (objectif.rappelDuCoursInstrumenpoche !== undefined && objectif.rappelDuCoursInstrumenpoche !== '') loadIep()
+    if (objectif.lessonSummaryInstrumenpoche !== undefined && objectif.lessonSummaryInstrumenpoche !== '') loadIep()
   })
 
   function surveillerChangementsDeReference () {
@@ -67,8 +67,8 @@
   function getObjectif () {
     for (const niveau of $niveauxObjectifs) {
       for (const theme of niveau.themes) {
-        for (const sousTheme of theme.sousThemes) {
-          for (const objectif of sousTheme.objectifs) {
+        for (const sousTheme of theme.subThemes) {
+          for (const objectif of sousTheme.objectives) {
             if (objectif.reference === $reference) {
               return objectif
             }
@@ -76,7 +76,7 @@
         }
       }
     }
-    return {} as ObjectifObjectif
+    return {} as ObjectiveObjective
   }
 
   function MAJProprietes () {
@@ -87,23 +87,23 @@
 
   function MakeNomsPanier () {
     nomsPanier = []
-    for (let i = 0; i < objectif.exercices.length; i++) {
+    for (let i = 0; i < objectif.exercises.length; i++) {
       nomsPanier.push(objectif.reference + ' ' + getTitre(objectif))
     }
   }
 
   function MAJPanier () {
-    for (const exercice of objectif.exercices) {
+    for (const exercice of objectif.exercises) {
       if (exercice.slug !== '') {
-        exercice.estDansLePanier = estPresentDansLePanier(exercice.id)
+        exercice.isInCart = estPresentDansLePanier(exercice.uuid)
       }
     }
     tousLesExercicesSontDansLePanier =
       tousLesExercicesSontPresentsDansLePanier(objectif)
-    if (objectif.exercicesDeBrevet !== undefined) {
-      for (const exercice of objectif.exercicesDeBrevet) {
+    if (objectif.examExercises !== undefined) {
+      for (const exercice of objectif.examExercises) {
         if (exercice.slug !== '') {
-          exercice.estDansLePanier = estPresentDansLePanier(exercice.id)
+          exercice.isInCart = estPresentDansLePanier(exercice.uuid)
         }
       }
       exercicesDeBrevetDansLePanier = tousLesExercicesSontPresentsDansLePanier(
@@ -114,7 +114,7 @@
   }
 
   function loadIep () {
-    const url = `topmaths/data/instrumenpoche/${objectif.rappelDuCoursInstrumenpoche}.xml`
+    const url = `topmaths/data/instrumenpoche/${objectif.lessonSummaryInstrumenpoche}.xml`
     fetch(url)
       .then(response => response.text())
       .then(xml => {
@@ -138,21 +138,21 @@
   <h1 id="titre" class="title text-2xl md:text-4xl font-semibold p-4 is-{niveau}">
     {objectif.reference + ' : ' + getTitre(objectif)}
   </h1>
-  {#if objectif.rappelDuCoursHTML !== '' || objectif.rappelDuCoursImage !== '' || (objectif.rappelDuCoursInstrumenpoche !== undefined && objectif.rappelDuCoursInstrumenpoche !== '')}
+  {#if objectif.lessonSummaryHTML !== '' || objectif.lessonSummaryImage !== '' || (objectif.lessonSummaryInstrumenpoche !== undefined && objectif.lessonSummaryInstrumenpoche !== '')}
     <div class="is-{niveau}">
       <h2 class="subtitle text-xl md:text-3xl p-3 is-{niveau}">Rappel du cours</h2>
       <div class="p-6 ">
-        {#if objectif.rappelDuCoursHTML !== ''}
+        {#if objectif.lessonSummaryHTML !== ''}
           <p
             id="rappelDuCoursHTML"
             contenteditable="false"
-            bind:innerHTML={objectif.rappelDuCoursHTML}
+            bind:innerHTML={objectif.lessonSummaryHTML}
           />
         {/if}
-        {#if objectif.rappelDuCoursImage !== ''}
-          <img class="inline-block" src={objectif.rappelDuCoursImage} />
+        {#if objectif.lessonSummaryImage !== ''}
+          <img class="inline-block" src={objectif.lessonSummaryImage} />
         {/if}
-        {#if objectif.rappelDuCoursInstrumenpoche !== undefined && objectif.rappelDuCoursInstrumenpoche !== ''}
+        {#if objectif.lessonSummaryInstrumenpoche !== undefined && objectif.lessonSummaryInstrumenpoche !== ''}
         <div class="text-center">
           <div class="inline-block" id="divIEP"></div>
         </div>
@@ -167,8 +167,8 @@
       </h2>
       {#each objectif.videos as video}
         <div class="pb-5 ">
-          {#if video.titre !== ''}
-            <h3 class="subtitle text-lg md:text-2xl p-3 is-{niveau}">{video.titre}</h3>
+          {#if video.title !== ''}
+            <h3 class="subtitle text-lg md:text-2xl p-3 is-{niveau}">{video.title}</h3>
           {/if}
           <div class="image is-16by9">
             <iframe
@@ -179,49 +179,49 @@
             />
           </div>
           Vidéo de&nbsp;<a
-            href={video.lienAuteur}
+            href={video.authorLink}
             target="_blank"
             rel="noopener noreferrer"
           >
             <button>
-              {video.auteur}
+              {video.authorName}
             </button>
           </a>
         </div>
       {/each}
     </div>
   {/if}
-  {#if objectif.exercices.length > 0}
+  {#if objectif.exercises.length > 0}
     <div
       id="divExercices"
       class="is-{niveau}"
-      class:is-fin = {objectif.sequences.length === 0 &&
-        !objectif.telechargementsDisponibles.entrainement &&
-        !objectif.telechargementsDisponibles.test}
+      class:is-fin = {objectif.units.length === 0 &&
+        !objectif.availableDownloads.isPracticeSheetAvailable &&
+        !objectif.availableDownloads.isTestSheetAvailable}
     >
       <h2 class="subtitle text-xl md:text-3xl p-3 is-{niveau}">
         <BoutonsExercices
           reference = {objectif.reference}
-          exercices = {objectif.exercices}
+          exercices = {objectif.exercises}
           videos = {objectif.videos}
-          lienExercices = {objectif.lienExercices}
+          lienExercices = {objectif.exercisesLink}
           panierRempli = {tousLesExercicesSontDansLePanier}
           titre = {'S\'entraîner'}
           nomsPanier = {nomsPanier}
         />
       </h2>
       <ul class="p-6 ">
-        {#each objectif.exercices as exercice, i}
+        {#each objectif.exercises as exercice, i}
           <li class="p-1 md:p-2">
             <BoutonsExercices
               reference = {objectif.reference}
-              exercices = {[objectif.exercices[i]]}
+              exercices = {[objectif.exercises[i]]}
               videos = {objectif.videos}
-              lienExercices = {exercice.lien}
-              panierRempli = {exercice.estDansLePanier}
+              lienExercices = {exercice.link}
+              panierRempli = {exercice.isInCart}
               titre = {exercice.description !== ''
                 ? exercice.description
-                : objectif.exercices.length > 1
+                : objectif.exercises.length > 1
                   ? 'Exercices de niveau ' + (i + 1)
                   : "Lancer l'exercice"}
               indiceExercice = {i}
@@ -232,7 +232,7 @@
       </ul>
     </div>
   {/if}
-  {#if objectif.lienExercicesDeBrevet !== ''}
+  {#if objectif.examExercisesLink !== ''}
     <div class="is-{niveau}">
       <h2 class="subtitle text-xl md:text-3xl p-3 is-{niveau}">En route vers le brevet</h2>
       <div class="pt-6 text-sm md:text-base">
@@ -243,9 +243,9 @@
       <ul class="p-6 ">
         <li class="p-2">
           <BoutonsExercices
-            exercices = {objectif.exercicesDeBrevet}
+            exercices = {objectif.examExercises}
             videos = {objectif.videos}
-            lienExercices = {objectif.lienExercicesDeBrevet}
+            lienExercices = {objectif.examExercisesLink}
             panierRempli = {exercicesDeBrevetDansLePanier}
             titre = {'Lancer les exercices de brevet'}
             exercicesDeBrevet = {true}
@@ -255,29 +255,29 @@
       </ul>
     </div>
   {/if}
-  {#if objectif.telechargementsDisponibles.entrainement || objectif.telechargementsDisponibles.test || ($modePerso && objectif.telechargementsDisponibles.fiche)}
+  {#if objectif.availableDownloads.isPracticeSheetAvailable || objectif.availableDownloads.isTestSheetAvailable || ($modePerso && objectif.availableDownloads.isLessonPlanAvailable)}
     <div
-      class="{objectif.sequences.length === 0 ? 'is-fin ' : ''}is-{niveau}"
+      class="{objectif.units.length === 0 ? 'is-fin ' : ''}is-{niveau}"
     >
       <h2 class="subtitle text-xl md:text-3xl p-3 is-{niveau}">Téléchargements</h2>
       <ul class="p-6 ">
         <DownloadLine
-          displayCondition={objectif.telechargementsDisponibles.entrainement}
+          displayCondition={objectif.availableDownloads.isPracticeSheetAvailable}
           href="topmaths/entrainement/{niveau}/Entrainement_{$reference}.pdf"
           label="Télécharger la feuille d'entraînement"
         />
         <DownloadLine
-          displayCondition={$modeEnseignant && objectif.telechargementsDisponibles.test}
+          displayCondition={$modeEnseignant && objectif.availableDownloads.isTestSheetAvailable}
           href="topmaths/test/{niveau}/Test_{$reference}.pdf"
           label="Télécharger les tests"
         />
-        {#if $modePerso && objectif.telechargementsDisponibles.fiche}
-          {#each objectif.telechargementsDisponibles.niveauxFiches as niveauDisponible}
-            {#each objectif.fiches as fiche}
+        {#if $modePerso && objectif.availableDownloads.isLessonPlanAvailable}
+          {#each objectif.availableDownloads.availableLessonPlanGrades as niveauDisponible}
+            {#each objectif.lessonPlans as fiche}
               <DownloadLine
-                displayCondition={fiche.niveaux.length === 0 || fiche.niveaux.includes(niveauDisponible)}
-                href="topmaths/fiches/objectifs/{objectif.niveau}/{niveauDisponible}_{fiche.reference.split('-')[1] === undefined ? (fiche.reference + '_Fiche') : fiche.reference.split('-')[0] + '_Fiche-' + fiche.reference.split('-')[1]}.pdf"
-                label="Télécharger la fiche{fiche.reference.split('-')[1] === undefined ? '' : ' ' + fiche.reference.split('-')[1]}{objectif.telechargementsDisponibles.niveauxFiches.length > 1 ? ` (${niveauDisponible})` : ''}"
+                displayCondition={fiche.grades.length === 0 || fiche.grades.includes(niveauDisponible)}
+                href="topmaths/fiches/objectifs/{objectif.grade}/{niveauDisponible}_{fiche.reference.split('-')[1] === undefined ? (fiche.reference + '_Fiche') : fiche.reference.split('-')[0] + '_Fiche-' + fiche.reference.split('-')[1]}.pdf"
+                label="Télécharger la fiche{fiche.reference.split('-')[1] === undefined ? '' : ' ' + fiche.reference.split('-')[1]}{objectif.availableDownloads.availableLessonPlanGrades.length > 1 ? ` (${niveauDisponible})` : ''}"
               />
             {/each}
           {/each}
@@ -285,14 +285,14 @@
       </ul>
     </div>
   {/if}
-  {#if objectif.sequences.length > 0}
+  {#if objectif.units.length > 0}
     <div class="is-fin is-{niveau}">
       <h2 class="subtitle text-xl md:text-3xl p-3 is-{niveau}">
-        Séquence{objectif.sequences.length > 1 ? 's' : ''}
+        Séquence{objectif.units.length > 1 ? 's' : ''}
       </h2>
       <p class="pt-8">Cet objectif fait partie de :</p>
       <ul class="p-6">
-        {#each objectif.sequences as sequence}
+        {#each objectif.units as sequence}
           <li class="p-1 md:p-2">
             <a
               href="/?v=sequence&ref={sequence.reference}"
@@ -303,7 +303,7 @@
               {'Séquence ' +
                 sequence.reference.slice(3) +
                 ' : ' +
-                sequence.titre}
+                sequence.title}
             </a>
           </li>
         {/each}

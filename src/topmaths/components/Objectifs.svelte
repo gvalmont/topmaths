@@ -5,20 +5,20 @@
   import { onDestroy } from 'svelte'
   import type { Unsubscriber } from 'svelte/store'
   import { writable, derived } from 'svelte/store'
-  import type { LigneObjectif } from '../services/types'
+  import type { LineGrade, LineObjective } from '../services/types'
   import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
 
   const filtre = {
-    niveau: 'tout',
-    periode: 0,
-    theme: { nom: '', nbObjectifsParPeriode: [] },
-    sousTheme: { nom: '', nbObjectifsParPeriode: [] },
+    grade: 'all',
+    period: 0,
+    theme: { name: '', objectivesPerPeriodCount: [] },
+    subTheme: { name: '', objectivesPerPeriodCount: [] },
     reference: '',
-    titre: '',
-    titreSimplifie: ''
-  } as LigneObjectif
+    titleAcademic: '',
+    title: ''
+  } as LineObjective
   const texteRecherche = writable('')
-  const lignes = writable<LigneObjectif[]>([])
+  const lignes = writable<LineObjective[]>([])
   const lignesFiltrees = derived(
     [texteRecherche, lignes],
     ([$texteRecherche, $lignes]) => getLignesFiltrees($texteRecherche, $lignes)
@@ -38,8 +38,8 @@
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     for (const entry of entries) {
-      if (entry[0] === 'niveau') filtre.niveau = entry[1]
-      if (entry[0] === 'periode') filtre.periode = Number(entry[1])
+      if (entry[0] === 'niveau') filtre.grade = entry[1]
+      if (entry[0] === 'periode') filtre.period = Number(entry[1])
     }
   }
 
@@ -59,79 +59,79 @@
   }
 
   function MAJLignes () {
-    const lignesTemp = []
+    const lignesTemp: LineObjective[] = []
     for (const niveau of $niveauxObjectifs) {
       lignesTemp.push({
-        niveau: niveau.nom,
-        periode: 0,
-        theme: { nom: '', nbObjectifsParPeriode: [] },
-        sousTheme: { nom: '', nbObjectifsParPeriode: [] },
+        grade: niveau.name,
+        period: 0,
+        theme: { name: '', objectivesPerPeriodCount: [] },
+        subTheme: { name: '', objectivesPerPeriodCount: [] },
         reference: '',
-        titre: '',
-        titreSimplifie: ''
+        titleAcademic: '',
+        title: ''
       })
       for (const theme of niveau.themes) {
         lignesTemp.push({
-          niveau: niveau.nom,
-          periode: 0,
+          grade: niveau.name,
+          period: 0,
           theme: {
-            nom: theme.nom,
-            nbObjectifsParPeriode: theme.nbObjectifsParPeriode
+            name: theme.name,
+            objectivesPerPeriodCount: theme.objectivesPerPeriodCount
           },
-          sousTheme: { nom: '', nbObjectifsParPeriode: [] },
+          subTheme: { name: '', objectivesPerPeriodCount: [] },
           reference: '',
-          titre: '',
-          titreSimplifie: ''
+          titleAcademic: '',
+          title: ''
         })
-        for (const sousTheme of theme.sousThemes) {
+        for (const sousTheme of theme.subThemes) {
           lignesTemp.push({
-            niveau: niveau.nom,
-            periode: 0,
+            grade: niveau.name,
+            period: 0,
             theme: {
-              nom: theme.nom,
-              nbObjectifsParPeriode: theme.nbObjectifsParPeriode
+              name: theme.name,
+              objectivesPerPeriodCount: theme.objectivesPerPeriodCount
             },
-            sousTheme: {
-              nom: sousTheme.nom,
-              nbObjectifsParPeriode: sousTheme.nbObjectifsParPeriode
+            subTheme: {
+              name: sousTheme.name,
+              objectivesPerPeriodCount: sousTheme.objectivesPerPeriodCount
             },
             reference: '',
-            titre: '',
-            titreSimplifie: ''
+            titleAcademic: '',
+            title: ''
           })
-          for (const objectif of sousTheme.objectifs) {
+          for (const objectif of sousTheme.objectives) {
             lignesTemp.push({
-              niveau: niveau.nom,
-              periode: objectif.periode,
+              grade: niveau.name,
+              period: objectif.period,
               theme: {
-                nom: theme.nom,
-                nbObjectifsParPeriode: theme.nbObjectifsParPeriode
+                name: theme.name,
+                objectivesPerPeriodCount: theme.objectivesPerPeriodCount
               },
-              sousTheme: {
-                nom: sousTheme.nom,
-                nbObjectifsParPeriode: sousTheme.nbObjectifsParPeriode
+              subTheme: {
+                name: sousTheme.name,
+                objectivesPerPeriodCount: sousTheme.objectivesPerPeriodCount
               },
               reference: objectif.reference,
-              titre: objectif.titre,
-              titreSimplifie: objectif.titreSimplifie
+              titleAcademic: objectif.titleAcademic,
+              title: objectif.title
             })
           }
         }
       }
       lignesTemp.push({
-        niveau: 'fin',
-        periode: 0,
-        theme: { nom: '', nbObjectifsParPeriode: [] },
-        sousTheme: { nom: '', nbObjectifsParPeriode: [] },
+        grade: 'fin',
+        period: 0,
+        theme: { name: '', objectivesPerPeriodCount: [] },
+        subTheme: { name: '', objectivesPerPeriodCount: [] },
         reference: '',
-        titre: '',
-        titreSimplifie: ''
+        titleAcademic: '',
+        title: ''
       })
     }
     lignes.set(lignesTemp)
   }
 
-  function getLignesFiltrees (texteRecherche: string, lignes: LigneObjectif[]): LigneObjectif[] {
+  function getLignesFiltrees (texteRecherche: string, lignes: LineObjective[]): LineObjective[] {
     if (texteRecherche === '') return lignes
     const motsCherches = normaliser(texteRecherche).split(' ')
     return lignes.filter((ligne) => {
@@ -142,36 +142,36 @@
     })
   }
 
-  function motTrouve (mot: string, ligne: LigneObjectif) {
+  function motTrouve (mot: string, ligne: LineObjective) {
     if (
-      ligne.niveau !== undefined &&
-      normaliser(ligne.niveau).includes(mot)
+      ligne.grade !== undefined &&
+      normaliser(ligne.grade).includes(mot)
     ) { return true }
     if (
       ligne.reference !== undefined &&
       normaliser(ligne.reference).includes(mot)
     ) { return true }
     if (
-      ligne.titre !== undefined &&
-      normaliser(ligne.titre).includes(mot)
+      ligne.titleAcademic !== undefined &&
+      normaliser(ligne.titleAcademic).includes(mot)
     ) { return true }
     if (
-      ligne.titreSimplifie !== undefined &&
-      normaliser(ligne.titreSimplifie).includes(mot)
+      ligne.title !== undefined &&
+      normaliser(ligne.title).includes(mot)
     ) { return true }
     return false
   }
 
-  function clicFiltre (niveau: string, periode?: number) {
-    if (niveau !== '') {
-      filtre.niveau = niveau
+  function clicFiltre (grade: LineGrade, periode?: number) {
+    if (grade !== '') {
+      filtre.grade = grade
     }
     if (periode !== undefined) {
-      filtre.periode === periode
-        ? (filtre.periode = 0)
-        : (filtre.periode = periode)
+      filtre.period === periode
+        ? (filtre.period = 0)
+        : (filtre.period = periode)
     }
-    window.history.pushState({}, '', `?v=objectifs&niveau=${filtre.niveau}&periode=${filtre.periode}`)
+    window.history.pushState({}, '', `?v=objectifs&niveau=${filtre.grade}&periode=${filtre.period}`)
   }
 </script>
 
@@ -181,21 +181,21 @@
 
 <div class="w-screen max-w-screen-lg">
   <LevelsTabsMenu
-    activeLevelTab={filtre.niveau}
+    activeLevelTab={filtre.grade}
     onLevelsTabsMenuClicked={clicFiltre}
   />
   <div class="is-flex is-justify-content-center pt-2 pb-1" style="overflow:auto">
     <button
       class="button rounded-3xl py-1 px-5 is-link mb-5 mx-1 text-sm md:text-2xl"
-      class:is-light={filtre.periode !== null &&
-        filtre.periode !== undefined &&
-        filtre.periode > 0}
+      class:is-light={filtre.period !== null &&
+        filtre.period !== undefined &&
+        filtre.period > 0}
       on:click={() => clicFiltre('', 0)}>Période</button
     >
     {#each [1, 2, 3, 4, 5] as periode}
       <button
         class="button rounded-3xl py-1 px-5 is-link mb-5 mx-1 text-sm md:text-2xl"
-        class:is-light={filtre.periode !== periode}
+        class:is-light={filtre.period !== periode}
         on:click={() => clicFiltre('', periode)}>{periode}</button
       >
     {/each}
@@ -218,27 +218,27 @@
   <div><br /></div>
   <div>
     {#each $lignesFiltrees as ligne, i}
-      {#if ligne.theme.nom !== 'Extra'}
+      {#if ligne.theme.name !== 'Extra'}
         <span>
-          {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && ligne.theme.nom === '' && ligne.sousTheme.nom === '' && ligne.reference === ''}
-            <h1 class="title text-2xl md:text-4xl font-semibold p-2 is-{ligne.niveau}">
-              {ligne.niveau}
+          {#if ligne.grade !== '' && ligne.grade !== 'fin' && (filtre.grade === 'all' || filtre.grade === ligne.grade) && ligne.theme.name === '' && ligne.subTheme.name === '' && ligne.reference === ''}
+            <h1 class="title text-2xl md:text-4xl font-semibold p-2 is-{ligne.grade}">
+              {ligne.grade}
             </h1>
           {/if}
-          {#if ligne.niveau !== 'fin' && (filtre.periode === 0 || ligne.theme.nbObjectifsParPeriode[filtre.periode - 1] > 0) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && (filtre.theme.nom === '' || filtre.theme.nom === ligne.theme.nom) && ligne.theme.nom !== '' && ligne.sousTheme.nom === '' && ligne.reference === ''}
-            <h2 class="subtitle text-xl md:text-3xl pt-2 is-{ligne.niveau}">
-              {ligne.theme.nom}
+          {#if ligne.grade !== 'fin' && (filtre.period === 0 || ligne.theme.objectivesPerPeriodCount[filtre.period - 1] > 0) && (filtre.grade === 'all' || filtre.grade === ligne.grade) && (filtre.theme.name === '' || filtre.theme.name === ligne.theme.name) && ligne.theme.name !== '' && ligne.subTheme.name === '' && ligne.reference === ''}
+            <h2 class="subtitle text-xl md:text-3xl pt-2 is-{ligne.grade}">
+              {ligne.theme.name}
             </h2>
           {/if}
-          {#if ligne.niveau !== 'fin' && (filtre.periode === 0 || ligne.sousTheme.nbObjectifsParPeriode[filtre.periode - 1] > 0) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && (filtre.sousTheme.nom === '' || filtre.sousTheme.nom === ligne.sousTheme.nom) && ligne.sousTheme.nom !== '' && ligne.reference === ''}
-            <h3 class="subtitle text-lg md:text-2xl p-4 is-{ligne.niveau}">
-              {ligne.sousTheme.nom}
+          {#if ligne.grade !== 'fin' && (filtre.period === 0 || ligne.subTheme.objectivesPerPeriodCount[filtre.period - 1] > 0) && (filtre.grade === 'all' || filtre.grade === ligne.grade) && (filtre.subTheme.name === '' || filtre.subTheme.name === ligne.subTheme.name) && ligne.subTheme.name !== '' && ligne.reference === ''}
+            <h3 class="subtitle text-lg md:text-2xl p-4 is-{ligne.grade}">
+              {ligne.subTheme.name}
             </h3>
           {/if}
-          {#if ligne.niveau !== 'fin' && (filtre.periode === 0 || filtre.periode === ligne.periode) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && (filtre.theme.nom === '' || filtre.theme.nom === ligne.theme.nom) && (filtre.sousTheme.nom === '' || filtre.sousTheme.nom === ligne.sousTheme.nom) && ligne.reference !== ''}
+          {#if ligne.grade !== 'fin' && (filtre.period === 0 || filtre.period === ligne.period) && (filtre.grade === 'all' || filtre.grade === ligne.grade) && (filtre.theme.name === '' || filtre.theme.name === ligne.theme.name) && (filtre.subTheme.name === '' || filtre.subTheme.name === ligne.subTheme.name) && ligne.reference !== ''}
             <div
-              class="p-1  is-{ligne.niveau}"
-              class:is-fin={$texteRecherche === '' && ($lignesFiltrees[i + 1].niveau === 'fin' || $lignesFiltrees[i + 1].theme.nom === 'Extra')}
+              class="p-1  is-{ligne.grade}"
+              class:is-fin={$texteRecherche === '' && ($lignesFiltrees[i + 1].grade === 'fin' || $lignesFiltrees[i + 1].theme.name === 'Extra')}
             >
               <a
                 href="/?v=objectif&ref={ligne.reference}"
@@ -247,16 +247,16 @@
               >
                 <div>
                   {ligne.reference} : {$titresProchesDesAttendus ||
-                    ligne.titreSimplifie === undefined || ligne.titreSimplifie === ''
-                    ? ligne.titre
-                    : ligne.titreSimplifie}<br />
+                    ligne.title === undefined || ligne.title === ''
+                    ? ligne.titleAcademic
+                    : ligne.title}<br />
                 </div>
               </a>
             </div>
           {/if}
         </span>
       {/if}
-      {#if i > 0 && ligne.niveau === 'fin' && filtre.niveau === 'tout'}
+      {#if i > 0 && ligne.grade === 'fin' && filtre.grade === 'all'}
         <div>
           <br />
         </div>

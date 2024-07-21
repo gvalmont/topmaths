@@ -4,7 +4,7 @@
   import { goVue } from '../../services/navigation'
   import type { Unsubscriber } from 'svelte/store'
   import { writable, derived } from 'svelte/store'
-  import type { SequenceCalculMental, SequenceObjectif, SequenceQuestionFlash } from '../../services/types'
+  import type { UnitMentalCalculation, UnitObjective, UnitFlashQuestions } from '../../services/types'
   import { onDestroy } from 'svelte'
   import LevelsTabsMenu from '../shared/LevelsTabsMenu.svelte'
 
@@ -14,13 +14,13 @@
     numero: number
     reference: string
     titre: string
-    objectifs: SequenceObjectif[]
-    questionsFlash: SequenceQuestionFlash[]
-    calculsMentaux: SequenceCalculMental[]
+    objectifs: UnitObjective[]
+    questionsFlash: UnitFlashQuestions[]
+    calculsMentaux: UnitMentalCalculation[]
   }
 
   const filtre = {
-    niveau: 'tout',
+    niveau: 'all',
     periode: 0,
     numero: 0,
     reference: '',
@@ -55,7 +55,7 @@
     const lignes = [] as Ligne[]
     for (const niveau of $niveauxSequences) {
       lignes.push({
-        niveau: niveau.nom,
+        niveau: niveau.name,
         periode: 0,
         numero: 0,
         reference: '',
@@ -64,16 +64,16 @@
         questionsFlash: [],
         calculsMentaux: []
       })
-      for (const sequence of niveau.sequences) {
+      for (const sequence of niveau.units) {
         lignes.push({
-          niveau: niveau.nom,
+          niveau: niveau.name,
           reference: sequence.reference,
-          titre: sequence.titre,
-          periode: sequence.periode,
-          numero: sequence.numero,
-          objectifs: sequence.objectifs,
-          questionsFlash: sequence.questionsFlash,
-          calculsMentaux: sequence.calculsMentaux
+          titre: sequence.title,
+          periode: sequence.period,
+          numero: sequence.number,
+          objectifs: sequence.objectives,
+          questionsFlash: sequence.flashQuestions,
+          calculsMentaux: sequence.mentalCalculations
         })
       }
       lignes.push({
@@ -126,22 +126,22 @@
     if (ligne.objectifs.length > 0) {
       for (const objectif of ligne.objectifs) {
         if (normaliser(objectif.reference).includes(mot)) return true
-        if (normaliser(objectif.titre).includes(mot)) return true
-        if (normaliser(objectif.titreSimplifie).includes(mot)) return true
+        if (normaliser(objectif.titleAcademic).includes(mot)) return true
+        if (normaliser(objectif.title).includes(mot)) return true
         if (normaliser(objectif.theme).includes(mot)) return true
       }
     }
     if (ligne.calculsMentaux.length > 0) {
       for (const calculMental of ligne.calculsMentaux) {
         if (normaliser(calculMental.reference).includes(mot)) return true
-        if (normaliser(calculMental.titre).includes(mot)) return true
+        if (normaliser(calculMental.titleAcademic).includes(mot)) return true
         if (normaliser(calculMental.theme).includes(mot)) return true
       }
     }
     if (ligne.questionsFlash.length > 0) {
       for (const questionFlash of ligne.questionsFlash) {
         if (normaliser(questionFlash.reference).includes(mot)) return true
-        if (normaliser(questionFlash.titre).includes(mot)) return true
+        if (normaliser(questionFlash.titleAcademic).includes(mot)) return true
         if (normaliser(questionFlash.theme).includes(mot)) return true
       }
     }
@@ -200,7 +200,7 @@
   {/if}
   <div class="text-center p-6 text-base">
     {#each $lignesFiltreesSequencesNormales as ligne, i}
-      {#if ligne.periode !== 0 && ((i === 0 && (filtre.periode === 0 || filtre.periode === ligne.periode) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)) || (i > 0 && $lignesFiltreesSequencesNormales[i].periode !== $lignesFiltreesSequencesNormales[i - 1].periode && ligne.niveau !== 'fin' && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau) && (filtre.periode === 0 || filtre.periode === ligne.periode)))}
+      {#if ligne.periode !== 0 && ((i === 0 && (filtre.periode === 0 || filtre.periode === ligne.periode) && (filtre.niveau === 'all' || filtre.niveau === ligne.niveau)) || (i > 0 && $lignesFiltreesSequencesNormales[i].periode !== $lignesFiltreesSequencesNormales[i - 1].periode && ligne.niveau !== 'fin' && (filtre.niveau === 'all' || filtre.niveau === ligne.niveau) && (filtre.periode === 0 || filtre.periode === ligne.periode)))}
         <h2 class="subtitle text-xl md:text-3xl pt-2 is-{ligne.niveau}">
           <span class="has-text-white">
             Période {ligne.periode}
@@ -224,14 +224,14 @@
         </div>
       {/if}
       <div>
-        {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === '' && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)}
+        {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === '' && (filtre.niveau === 'all' || filtre.niveau === ligne.niveau)}
           <h1 class="title text-2xl md:text-4xl font-semibold p-2 is-{ligne.niveau}">
             <span class="text-white">
               {ligne.niveau}
             </span>
           </h1>
         {/if}
-        {#if ligne.reference !== '' && ligne.niveau !== 'fin' && filtre.periode !== null && (ligne.periode === filtre.periode || filtre.periode === 0 || filtre.periode === 0) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)}
+        {#if ligne.reference !== '' && ligne.niveau !== 'fin' && filtre.periode !== null && (ligne.periode === filtre.periode || filtre.periode === 0 || filtre.periode === 0) && (filtre.niveau === 'all' || filtre.niveau === ligne.niveau)}
           <div
             class="is-{ligne.niveau}"
             class:is-fin={i < $lignesSequencesNormales.length && ((filtre.periode > 0 && $lignesSequencesNormales[i].periode !== $lignesSequencesNormales[i + 1].periode) || $lignesSequencesNormales[i + 1].niveau === 'fin')}
@@ -266,7 +266,7 @@
                     </div>
                     <div class="column flex self-center justify-center">
                       <div>
-                        {$titresProchesDesAttendus || objectif.titreSimplifie === '' ? objectif.titre : objectif.titreSimplifie}
+                        {$titresProchesDesAttendus || objectif.title === '' ? objectif.titleAcademic : objectif.title}
                       </div>
                     </div>
                   </div>
@@ -288,7 +288,7 @@
                             </a>
                           </div>
                           <div class="column flex self-center justify-center">
-                            {$titresProchesDesAttendus || questionFlash.titreSimplifie === '' ? questionFlash.titre : questionFlash.titreSimplifie}
+                            {$titresProchesDesAttendus || questionFlash.title === '' ? questionFlash.titleAcademic : questionFlash.title}
                           </div>
                         </div>
                       {/if}
@@ -311,18 +311,18 @@
                           </div>
                           <div class="column flex self-center justify-center">
                             <div>
-                              {$titresProchesDesAttendus || calculMental.titreSimplifie === '' ? calculMental.titre : calculMental.titreSimplifie}
+                              {$titresProchesDesAttendus || calculMental.title === '' ? calculMental.titleAcademic : calculMental.title}
                             </div>
                           </div>
                         </div>
                       {/if}
                     {/each}
                   </div>
-                {:else if ligne.calculsMentaux[0] !== undefined && ligne.calculsMentaux[0].exercices[0] !== undefined && ligne.calculsMentaux[0].exercices[0].description !== ''}
+                {:else if ligne.calculsMentaux[0] !== undefined && ligne.calculsMentaux[0].exercises[0] !== undefined && ligne.calculsMentaux[0].exercises[0].description !== ''}
                 <div class="column flex self-center justify-self-center justify-center">
                   <div
                     contenteditable="false"
-                    bind:innerHTML={ligne.calculsMentaux[0].exercices[0].description}
+                    bind:innerHTML={ligne.calculsMentaux[0].exercises[0].description}
                   ></div>
                 </div>
                 {/if}
@@ -331,7 +331,7 @@
           </div>
         {/if}
       </div>
-      {#if ligne.niveau === 'fin' && filtre.niveau === 'tout'}
+      {#if ligne.niveau === 'fin' && filtre.niveau === 'all'}
         <div><br /></div>
       {/if}
     {/each}

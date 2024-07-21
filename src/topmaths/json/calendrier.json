@@ -1,285 +1,285 @@
 [
   {
-    "annee": 2022,
-    "periodes": [
+    "year": 2022,
+    "periods": [
       {
-        "numero": 2,
-        "debut": 1,
-        "fin": 23,
-        "type": "vacances"
+        "number": 2,
+        "startDayOfYear": 1,
+        "endDayOfYear": 23,
+        "isHoliday": true
       },
       {
-        "numero": 3,
-        "debut": 24,
-        "fin": 71,
-        "type": "cours"
+        "number": 3,
+        "startDayOfYear": 24,
+        "endDayOfYear": 71,
+        "isHoliday": false
       },
       {
-        "numero": 3,
-        "debut": 72,
-        "fin": 86,
-        "type": "vacances"
+        "number": 3,
+        "startDayOfYear": 72,
+        "endDayOfYear": 86,
+        "isHoliday": true
       },
       {
-        "numero": 4,
-        "debut": 87,
-        "fin": 134,
-        "type": "cours"
+        "number": 4,
+        "startDayOfYear": 87,
+        "endDayOfYear": 134,
+        "isHoliday": false
       },
       {
-        "numero": 4,
-        "debut": 135,
-        "fin": 149,
-        "type": "vacances"
+        "number": 4,
+        "startDayOfYear": 135,
+        "endDayOfYear": 149,
+        "isHoliday": true
       },
       {
-        "numero": 5,
-        "debut": 150,
-        "fin": 190,
-        "type": "cours"
+        "number": 5,
+        "startDayOfYear": 150,
+        "endDayOfYear": 190,
+        "isHoliday": false
       },
       {
-        "numero": 5,
-        "debut": 191,
-        "fin": 227,
-        "type": "vacances"
+        "number": 5,
+        "startDayOfYear": 191,
+        "endDayOfYear": 227,
+        "isHoliday": true
       },
       {
-        "numero": 1,
-        "debut": 228,
-        "fin": 281,
-        "type": "cours"
+        "number": 1,
+        "startDayOfYear": 228,
+        "endDayOfYear": 281,
+        "isHoliday": false
       },
       {
-        "numero": 1,
-        "debut": 282,
-        "fin": 296,
-        "type": "vacances"
+        "number": 1,
+        "startDayOfYear": 282,
+        "endDayOfYear": 296,
+        "isHoliday": true
       },
       {
-        "numero": 2,
-        "debut": 297,
-        "fin": 351,
-        "type": "cours"
+        "number": 2,
+        "startDayOfYear": 297,
+        "endDayOfYear": 351,
+        "isHoliday": false
       },
       {
-        "numero": 2,
-        "debut": 352,
-        "fin": 365,
-        "type": "vacances"
+        "number": 2,
+        "startDayOfYear": 352,
+        "endDayOfYear": 365,
+        "isHoliday": true
       }
     ]
   },
   {
-    "annee": 2023,
-    "periodes": [
+    "year": 2023,
+    "periods": [
       {
-        "numero": 2,
-        "debut": 1,
-        "fin": 22,
-        "type": "vacances"
+        "number": 2,
+        "startDayOfYear": 1,
+        "endDayOfYear": 22,
+        "isHoliday": true
       },
       {
-        "numero": 3,
-        "debut": 23,
-        "fin": 70,
-        "type": "cours"
+        "number": 3,
+        "startDayOfYear": 23,
+        "endDayOfYear": 70,
+        "isHoliday": false
       },
       {
-        "numero": 3,
-        "debut": 71,
-        "fin": 85,
-        "type": "vacances"
+        "number": 3,
+        "startDayOfYear": 71,
+        "endDayOfYear": 85,
+        "isHoliday": true
       },
       {
-        "numero": 4,
-        "debut": 86,
-        "fin": 133,
-        "type": "cours"
+        "number": 4,
+        "startDayOfYear": 86,
+        "endDayOfYear": 133,
+        "isHoliday": false
       },
       {
-        "numero": 4,
-        "debut": 134,
-        "fin": 149,
-        "type": "vacances"
+        "number": 4,
+        "startDayOfYear": 134,
+        "endDayOfYear": 149,
+        "isHoliday": true
       },
       {
-        "numero": 5,
-        "debut": 150,
-        "fin": 189,
-        "type": "cours"
+        "number": 5,
+        "startDayOfYear": 150,
+        "endDayOfYear": 189,
+        "isHoliday": false
       },
       {
-        "numero": 5,
-        "debut": 190,
-        "fin": 227,
-        "type": "vacances"
+        "number": 5,
+        "startDayOfYear": 190,
+        "endDayOfYear": 227,
+        "isHoliday": true
       },
       {
-        "numero": 1,
-        "debut": 228,
-        "fin": 281,
-        "type": "cours"
+        "number": 1,
+        "startDayOfYear": 228,
+        "endDayOfYear": 281,
+        "isHoliday": false
       },
       {
-        "numero": 1,
-        "debut": 282,
-        "fin": 296,
-        "type": "vacances"
+        "number": 1,
+        "startDayOfYear": 282,
+        "endDayOfYear": 296,
+        "isHoliday": true
       },
       {
-        "numero": 2,
-        "debut": 297,
-        "fin": 351,
-        "type": "cours"
+        "number": 2,
+        "startDayOfYear": 297,
+        "endDayOfYear": 351,
+        "isHoliday": false
       },
       {
-        "numero": 2,
-        "debut": 352,
-        "fin": 365,
-        "type": "vacances"
+        "number": 2,
+        "startDayOfYear": 352,
+        "endDayOfYear": 365,
+        "isHoliday": true
       }
     ]
   },
   {
-    "annee": 2024,
-    "periodes": [
+    "year": 2024,
+    "periods": [
       {
-        "numero": 2,
-        "debut": 1,
-        "fin": 21,
-        "type": "vacances"
+        "number": 2,
+        "startDayOfYear": 1,
+        "endDayOfYear": 21,
+        "isHoliday": true
       },
       {
-        "numero": 3,
-        "debut": 22,
-        "fin": 61,
-        "type": "cours"
+        "number": 3,
+        "startDayOfYear": 22,
+        "endDayOfYear": 61,
+        "isHoliday": false
       },
       {
-        "numero": 3,
-        "debut": 62,
-        "fin": 77,
-        "type": "vacances"
+        "number": 3,
+        "startDayOfYear": 62,
+        "endDayOfYear": 77,
+        "isHoliday": true
       },
       {
-        "numero": 4,
-        "debut": 78,
-        "fin": 124,
-        "type": "cours"
+        "number": 4,
+        "startDayOfYear": 78,
+        "endDayOfYear": 124,
+        "isHoliday": false
       },
       {
-        "numero": 4,
-        "debut": 125,
-        "fin": 141,
-        "type": "vacances"
+        "number": 4,
+        "startDayOfYear": 125,
+        "endDayOfYear": 141,
+        "isHoliday": true
       },
       {
-        "numero": 5,
-        "debut": 142,
-        "fin": 187,
-        "type": "cours"
+        "number": 5,
+        "startDayOfYear": 142,
+        "endDayOfYear": 187,
+        "isHoliday": false
       },
       {
-        "numero": 5,
-        "debut": 188,
-        "fin": 231,
-        "type": "vacances"
+        "number": 5,
+        "startDayOfYear": 188,
+        "endDayOfYear": 231,
+        "isHoliday": true
       },
       {
-        "numero": 1,
-        "debut": 232,
-        "fin": 285,
-        "type": "cours"
+        "number": 1,
+        "startDayOfYear": 232,
+        "endDayOfYear": 285,
+        "isHoliday": false
       },
       {
-        "numero": 1,
-        "debut": 286,
-        "fin": 301,
-        "type": "vacances"
+        "number": 1,
+        "startDayOfYear": 286,
+        "endDayOfYear": 301,
+        "isHoliday": true
       },
       {
-        "numero": 2,
-        "debut": 302,
-        "fin": 353,
-        "type": "cours"
+        "number": 2,
+        "startDayOfYear": 302,
+        "endDayOfYear": 353,
+        "isHoliday": false
       },
       {
-        "numero": 2,
-        "debut": 354,
-        "fin": 365,
-        "type": "vacances"
+        "number": 2,
+        "startDayOfYear": 354,
+        "endDayOfYear": 365,
+        "isHoliday": true
       }
     ]
   },
   {
-    "annee": 2025,
-    "periodes": [
+    "year": 2025,
+    "periods": [
       {
-        "numero": 2,
-        "debut": 1,
-        "fin": 20,
-        "type": "vacances"
+        "number": 2,
+        "startDayOfYear": 1,
+        "endDayOfYear": 20,
+        "isHoliday": true
       },
       {
-        "numero": 3,
-        "debut": 21,
-        "fin": 59,
-        "type": "cours"
+        "number": 3,
+        "startDayOfYear": 21,
+        "endDayOfYear": 59,
+        "isHoliday": false
       },
       {
-        "numero": 3,
-        "debut": 60,
-        "fin": 75,
-        "type": "vacances"
+        "number": 3,
+        "startDayOfYear": 60,
+        "endDayOfYear": 75,
+        "isHoliday": true
       },
       {
-        "numero": 4,
-        "debut": 76,
-        "fin": 122,
-        "type": "cours"
+        "number": 4,
+        "startDayOfYear": 76,
+        "endDayOfYear": 122,
+        "isHoliday": false
       },
       {
-        "numero": 4,
-        "debut": 123,
-        "fin": 138,
-        "type": "vacances"
+        "number": 4,
+        "startDayOfYear": 123,
+        "endDayOfYear": 138,
+        "isHoliday": true
       },
       {
-        "numero": 5,
-        "debut": 139,
-        "fin": 185,
-        "type": "cours"
+        "number": 5,
+        "startDayOfYear": 139,
+        "endDayOfYear": 185,
+        "isHoliday": false
       },
       {
-        "numero": 5,
-        "debut": 186,
-        "fin": 230,
-        "type": "vacances"
+        "number": 5,
+        "startDayOfYear": 186,
+        "endDayOfYear": 230,
+        "isHoliday": true
       },
       {
-        "numero": 1,
-        "debut": 231,
-        "fin": 283,
-        "type": "cours"
+        "number": 1,
+        "startDayOfYear": 231,
+        "endDayOfYear": 283,
+        "isHoliday": false
       },
       {
-        "numero": 1,
-        "debut": 284,
-        "fin": 299,
-        "type": "vacances"
+        "number": 1,
+        "startDayOfYear": 284,
+        "endDayOfYear": 299,
+        "isHoliday": true
       },
       {
-        "numero": 2,
-        "debut": 300,
-        "fin": 352,
-        "type": "cours"
+        "number": 2,
+        "startDayOfYear": 300,
+        "endDayOfYear": 352,
+        "isHoliday": false
       },
       {
-        "numero": 2,
-        "debut": 353,
-        "fin": 365,
-        "type": "vacances"
+        "number": 2,
+        "startDayOfYear": 353,
+        "endDayOfYear": 365,
+        "isHoliday": true
       }
     ]
   }

@@ -19,7 +19,7 @@
   }
 
   const filtre = {
-    niveau: 'tout',
+    niveau: 'all',
     periode: 0,
     numero: 0,
     reference: '',
@@ -78,7 +78,7 @@ function lesDonneesSontChargees () {
       lignesSequencesParticulieres.push({
         niveau: 'Séquences particulières',
         reference: sequence.reference,
-        titre: sequence.titre,
+        titre: sequence.title,
         numero: 0,
         periode: 1
       })
@@ -96,19 +96,19 @@ function lesDonneesSontChargees () {
     const lignes = [] as Ligne[]
     for (const niveau of $niveauxSequences) {
       lignes.push({
-        niveau: niveau.nom,
+        niveau: niveau.name,
         reference: '',
         titre: '',
         periode: 0,
         numero: 0
       })
-      for (const sequence of niveau.sequences) {
+      for (const sequence of niveau.units) {
         lignes.push({
-          niveau: niveau.nom,
+          niveau: niveau.name,
           reference: sequence.reference,
-          titre: sequence.titre,
-          periode: sequence.periode,
-          numero: sequence.numero
+          titre: sequence.title,
+          periode: sequence.period,
+          numero: sequence.number
         })
       }
       lignes.push({
@@ -238,14 +238,14 @@ function lesDonneesSontChargees () {
   {/if}
   {#each $lignesFiltreesSequencesNormales as ligne, i}
     <div>
-      {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === '' && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)}
+      {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === '' && (filtre.niveau === 'all' || filtre.niveau === ligne.niveau)}
         <h1 class="title text-2xl md:text-4xl font-semibold p-2 is-{ligne.niveau}">
           <span class="has-text-white">
             {ligne.niveau}
           </span>
         </h1>
       {/if}
-      {#if ligne.reference !== '' && ligne.niveau !== 'fin' && (ligne.periode === filtre.periode || filtre.periode === 0) && (filtre.niveau === 'tout' || filtre.niveau === ligne.niveau)}
+      {#if ligne.reference !== '' && ligne.niveau !== 'fin' && (ligne.periode === filtre.periode || filtre.periode === 0) && (filtre.niveau === 'all' || filtre.niveau === ligne.niveau)}
         <div
           class="p-1  is-{ligne.niveau}"
           class:is-fin={i < $lignesSequencesNormales.length && ((filtre.periode > 0 && $lignesSequencesNormales[i].periode !== $lignesSequencesNormales[i + 1].periode) || $lignesSequencesNormales[i + 1].niveau === 'fin')}
@@ -264,7 +264,7 @@ function lesDonneesSontChargees () {
         </div>
       {/if}
     </div>
-    {#if ligne.niveau === 'fin' && (filtre.niveau === 'tout')}
+    {#if ligne.niveau === 'fin' && (filtre.niveau === 'all')}
       <div><br /></div>
     {/if}
   {/each}

@@ -1,4 +1,4 @@
-import type { ObjectifNiveau, SequenceNiveau, SequenceSequenceParticuliere, CalendrierAnnee } from './types'
+import type { ObjectiveGrade, UnitGrade, UnitSpecialUnit, CalendarYear } from './types'
 import { niveauxObjectifs as storeNiveauxObjectifs, niveauxSequences as storeNiveauxSequences, sequencesParticulieres as storeSequencesParticulieres, calendrierAnneeEnCours as storeCalendrierAnneeEnCours, lexique as lexiqueStore } from './store'
 import sequencesModifieesJson from '../../topmaths/json/sequences_modifiees.json'
 import objectifsModifiesJson from '../../topmaths/json/objectifs_modifies.json'
@@ -7,9 +7,9 @@ import sequencesParticulieresJson from '../../topmaths/json/sequencesParticulier
 import calendrierJson from '../../topmaths/json/calendrier.json'
 import type { GlossaryUniteItem } from '../types/glossary'
 
-let niveauxObjectifs = [] as ObjectifNiveau[]
-let niveauxSequences = [] as SequenceNiveau[]
-let sequencesParticulieres = [] as SequenceSequenceParticuliere[]
+let niveauxObjectifs = [] as ObjectiveGrade[]
+let niveauxSequences = [] as UnitGrade[]
+let sequencesParticulieres = [] as UnitSpecialUnit[]
 let lexique = [] as GlossaryUniteItem[]
 miseEnCacheDesDonnees()
 
@@ -21,14 +21,14 @@ function miseEnCacheDesDonnees () {
 }
 
 function miseEnCacheNiveauxEtSequences () {
-  niveauxSequences = sequencesModifieesJson as SequenceNiveau[]
+  niveauxSequences = sequencesModifieesJson as UnitGrade[]
   storeNiveauxSequences.set(niveauxSequences)
-  niveauxObjectifs = objectifsModifiesJson as ObjectifNiveau[]
+  niveauxObjectifs = objectifsModifiesJson as ObjectiveGrade[]
   storeNiveauxObjectifs.set(niveauxObjectifs)
 }
 
 function miseEnCacheSequencesParticulieres () {
-  sequencesParticulieres = sequencesParticulieresJson as SequenceSequenceParticuliere[]
+  sequencesParticulieres = sequencesParticulieresJson as UnitSpecialUnit[]
   storeSequencesParticulieres.set(sequencesParticulieres)
 }
 
@@ -38,26 +38,26 @@ function miseEnCacheLexique () {
 }
 
 function miseEnCacheCalendrier () {
-  const calendrierAnnees = calendrierJson as CalendrierAnnee[]
+  const calendrierAnnees = calendrierJson as CalendarYear[]
   const annee = new Date().getFullYear()
   const jourNumero = getDayOfYear()
-  let periodeNumero: number
-  let typeDePeriode: 'cours' | 'vacances'
-  let semaineDansLaPeriode: number
+  let periodeNumero: number = 1
+  let isHoliday: boolean = false
+  let semaineDansLaPeriode: number = 1
   let trouve = false
   for (const annee of calendrierAnnees) {
-    for (const periode of annee.periodes) {
-      if (jourNumero >= periode.debut && jourNumero <= periode.fin) {
-        periodeNumero = periode.numero
-        typeDePeriode = periode.type
-        semaineDansLaPeriode = Math.floor((jourNumero - periode.debut) / 7) + 1
+    for (const periode of annee.periods) {
+      if (jourNumero >= periode.startDayOfYear && jourNumero <= periode.endDayOfYear) {
+        periodeNumero = periode.number
+        isHoliday = periode.isHoliday
+        semaineDansLaPeriode = Math.floor((jourNumero - periode.startDayOfYear) / 7) + 1
         trouve = true
       }
       if (trouve) break
     }
     if (trouve) break
   }
-  storeCalendrierAnneeEnCours.set({ annee, jourNumero, periodeNumero, semaineDansLaPeriode, typeDePeriode })
+  storeCalendrierAnneeEnCours.set({ year: annee, dayOfYear: jourNumero, periodNumber: periodeNumero, weekInPeriod: semaineDansLaPeriode, isHoliday })
 }
 
 function getDayOfYear () {

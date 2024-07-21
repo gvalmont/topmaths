@@ -1,6 +1,6 @@
 <script lang="ts">
   import { calendrierAnneeEnCours, listeDesUrl, niveauxObjectifs, niveauxSequences, vue, vuePrecedente } from '../services/store'
-  import type { ObjectifNiveau } from '../services/types'
+  import type { ObjectiveGrade } from '../services/types'
   import { estCoopmaths } from '../services/outils'
   import { environment } from '../services/environment'
   import { get } from 'svelte/store'
@@ -9,7 +9,7 @@
   let niveauChoisi = 'tout'
 
   function lancerExercicesMathalea () {
-    if ($calendrierAnneeEnCours.periodeNumero > 0) {
+    if ($calendrierAnneeEnCours.periodNumber > 0) {
       const listeDesReferences = getListeDesReferences(niveauChoisi)
       if (listeDesReferences.length === 0) {
         alert('Tu n\'as pas encore d\'exercice à réviser, reviens plus tard !')
@@ -20,7 +20,7 @@
   }
 
 function lancerExercicesBrevet () {
-  if ($calendrierAnneeEnCours.periodeNumero > 0) {
+  if ($calendrierAnneeEnCours.periodNumber > 0) {
     const listeExercicesBrevet = getListeExercicesBrevet()
     if (listeExercicesBrevet.length === 0) {
       alert('Tu n\'as pas encore d\'exercice de brevet à réviser, reviens plus tard !')
@@ -41,11 +41,11 @@ function lancer (listeUrls: string[]) {
   ) {
     const listeDesReferences: string[] = []
     for (const niveau of $niveauxSequences) {
-      if (niveau.nom === niveauChoisi || niveauChoisi === 'tout') {
-        const derniereSequence = getDerniereSequence(niveau.nom)
-        for (const sequence of niveau.sequences) {
-          if (sequence.numero <= derniereSequence) {
-            for (const objectif of sequence.objectifs) {
+      if (niveau.name === niveauChoisi || niveauChoisi === 'tout') {
+        const derniereSequence = getDerniereSequence(niveau.name)
+        for (const sequence of niveau.units) {
+          if (sequence.number <= derniereSequence) {
+            for (const objectif of sequence.objectives) {
               listeDesReferences.push(objectif.reference)
             }
           }
@@ -58,12 +58,12 @@ function lancer (listeUrls: string[]) {
 function getListeExercicesBrevet () {
   const listeDesReferences: string[] = []
   for (const niveau of $niveauxSequences) {
-    if (niveau.nom === '3e') {
-      const derniereSequence = getDerniereSequence(niveau.nom)
-      for (const sequence of niveau.sequences) {
-        if (sequence.numero <= derniereSequence) {
-          if (sequence.lienEvalBrevet !== '') {
-            const entries = new URL(sequence.lienEvalBrevet).searchParams.entries()
+    if (niveau.name === '3e') {
+      const derniereSequence = getDerniereSequence(niveau.name)
+      for (const sequence of niveau.units) {
+        if (sequence.number <= derniereSequence) {
+          if (sequence.assessmentExamLink !== '') {
+            const entries = new URL(sequence.assessmentExamLink).searchParams.entries()
             for (const entry of entries) {
               if (entry[0] === 'uuid') {
                 const uuid = entry[1]
@@ -80,17 +80,17 @@ function getListeExercicesBrevet () {
 
   function getListeDesUrl (
     listeDesReferences: string[],
-    niveaux: ObjectifNiveau[]
+    niveaux: ObjectiveGrade[]
   ) {
     const listeDesUrl: string[] = []
     for (const niveau of niveaux) {
       for (const theme of niveau.themes) {
-        for (const sousTheme of theme.sousThemes) {
-          for (const objectif of sousTheme.objectifs) {
+        for (const sousTheme of theme.subThemes) {
+          for (const objectif of sousTheme.objectives) {
             for (const reference of listeDesReferences) {
               if (reference === objectif.reference) {
-                for (const exercice of objectif.exercices) {
-                  if (estCoopmaths(exercice.lien)) listeDesUrl.push(exercice.lien)
+                for (const exercice of objectif.exercises) {
+                  if (estCoopmaths(exercice.link)) listeDesUrl.push(exercice.link)
                 }
               }
             }
@@ -102,9 +102,9 @@ function getListeExercicesBrevet () {
   }
 
   function getDerniereSequence (niveau: string) {
-    const numeroPeriode = $calendrierAnneeEnCours.periodeNumero
-    const typeDePeriode = $calendrierAnneeEnCours.typeDePeriode
-    const semaineDansLaPeriode = $calendrierAnneeEnCours.semaineDansLaPeriode
+    const numeroPeriode = $calendrierAnneeEnCours.periodNumber
+    const typeDePeriode = $calendrierAnneeEnCours.isHoliday
+    const semaineDansLaPeriode = $calendrierAnneeEnCours.weekInPeriod
     const nbSequencesCumulees = getNbSequencesCumulees(niveau)
 
     const nbSequencesDebutPeriode = nbSequencesCumulees[numeroPeriode - 1]
@@ -119,18 +119,18 @@ function getListeExercicesBrevet () {
   }
 
   function getNbSequencesCumulees (nomNiveau: string) {
-    const niveau = $niveauxSequences.find(niveauSequence => niveauSequence.nom === nomNiveau)
+    const niveau = $niveauxSequences.find(niveauSequence => niveauSequence.name === nomNiveau)
     let periode = 1
     let nbSequences = 0
     const nbSequencesCumulees = [0]
     if (niveau === undefined) return nbSequencesCumulees
-    for (const sequence of niveau.sequences) {
-      if (sequence.periode === periode) {
+    for (const sequence of niveau.units) {
+      if (sequence.period === periode) {
         nbSequences++
       } else {
         nbSequencesCumulees.push(nbSequences)
         nbSequences++
-        periode = sequence.periode
+        periode = sequence.period
       }
     }
     nbSequencesCumulees.push(nbSequences)

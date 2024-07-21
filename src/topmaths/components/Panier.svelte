@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { PanierItem } from '../services/types'
+  import type { CartItem } from '../services/types'
   import { environment } from '../services/environment'
   import { lancerExercices } from '../services/navigation'
   import { storage } from '../services/storage'
@@ -9,11 +9,11 @@
 
   let lien = ''
   let references = [] as string[]
-  let panier = [] as PanierItem[]
+  let panier = [] as CartItem[]
   MAJLien()
 
-  function retirerDuPanier (panierItem: PanierItem) {
-    const panierTemp = storage.get('panier') as PanierItem[]
+  function retirerDuPanier (panierItem: CartItem) {
+    const panierTemp = storage.get('panier') as CartItem[]
     const nouveauPanier = panierTemp.filter(
       (item) => item.id !== panierItem.id
     )
@@ -30,12 +30,12 @@
   function MAJLien () {
     lien = environment.baseUrl + environment.V3
     references = []
-    panier = storage.get('panier') as PanierItem[]
+    panier = storage.get('panier') as CartItem[]
     for (const panierItem of panier) {
       if (panierItem !== null && panierItem !== undefined) {
         if (panierItem.slug.slice(0, 4) !== 'http' && panierItem.slug !== '') {
           lien = lien.concat(panierItem.slug, '&i=0&')
-          references.push(panierItem.reference)
+          references.push(panierItem.objectiveReference)
         }
       }
     }
@@ -85,11 +85,11 @@
     {#each panier as panierItem}
       <li class="is-size-5">
         {#if panierItem !== null && panierItem !== undefined}
-        <div class="is-{panierItem.objectif.slice(0, 1)}e">
+        <div class="is-{panierItem.label.slice(0, 1)}e">
           <button>
-            <span>{panierItem.reference}</span>
+            <span>{panierItem.objectiveReference}</span>
             <span class="is-size-6">
-              {panierItem.objectif}{panierItem.description ===
+              {panierItem.label}{panierItem.description ===
               "Lancer l'exercice"
                 ? ''
                 : ' - ' + panierItem.description}</span

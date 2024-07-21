@@ -2,19 +2,19 @@ import { readFileSync } from 'fs'
 import * as fs from 'fs'
 import * as path from 'path'
 import { exec } from 'child_process'
-import type { ObjectifFiche, SequenceObjectif, SequenceSequence, StringGrade } from '../src/topmaths/services/types'
+import { type ObjectiveLessonPlan, type UnitObjective, type UnitUnit, type StringGrade, isStringGrade } from '../src/topmaths/services/types'
 
 const niveauxSequences = JSON.parse(readFileSync('./src/topmaths/json/sequences_modifiees.json').toString())
-let fichePrecedenteSequence: ObjectifFiche = {
-  debutDeSeance: [],
-  deroule: [],
-  devoirs: [],
-  finDeSeance: [],
-  materielEleve: [],
-  materielEnseignant: [],
-  niveaux: [],
-  notes: [],
-  prochaineSeance: [],
+let fichePrecedenteSequence: ObjectiveLessonPlan = {
+  startSteps: [],
+  lessonSteps: [],
+  homeworks: [],
+  closureSteps: [],
+  studentMaterialsNeeded: [],
+  teacherMaterialsNeeded: [],
+  grades: [],
+  comments: [],
+  nextSessionSteps: [],
   reference: ''
 }
 const fichesPrecedentes = {
@@ -33,37 +33,37 @@ for (const niveauSequence of niveauxSequences) {
 }
 compilerTyp()
 
-function coursDeUnObjectifTrouve (sequence: SequenceSequence) {
-  for (const objectif of sequence.objectifs) {
-    if (fs.existsSync(`./src/topmaths/typ/cours/objectifs/${objectif.niveau}/${objectif.reference}.typ`)) return true
+function coursDeUnObjectifTrouve (sequence: UnitUnit) {
+  for (const objectif of sequence.objectives) {
+    if (fs.existsSync(`./src/topmaths/typ/cours/objectifs/${objectif.grade}/${objectif.reference}.typ`)) return true
   }
   return false
 }
 
-function genererTypCoursSequence (sequence: SequenceSequence) {
+function genererTypCoursSequence (sequence: UnitUnit) {
   let typCoursSequence = ''
   typCoursSequence += `#import "../../../preambule_sequence.typ": * 
 `
   typCoursSequence += creerEnTete(sequence)
-  for (const objectif of sequence.objectifs) {
+  for (const objectif of sequence.objectives) {
     typCoursSequence += genererTypCoursObjectif(objectif, sequence)
   }
   typCoursSequence = replaceImportedLessons(typCoursSequence, sequence)
-  const directory = `./src/topmaths/typ/cours/sequences/${sequence.niveau}/`
+  const directory = `./src/topmaths/typ/cours/sequences/${sequence.grade}/`
   if (!fs.existsSync(directory)) fs.mkdirSync(directory, { recursive: true })
   fs.writeFileSync(`${directory}${sequence.reference}.typ`, typCoursSequence, 'utf8')
 }
 
-function creerEnTete (sequence: SequenceSequence) {
+function creerEnTete (sequence: UnitUnit) {
   let enTete = `#show: setup-emoji
-#show: doc => sequence(doc, title: "Séquence ${sequence.numero} : ${sequence.titre}")
+#show: doc => sequence(doc, title: "Séquence ${sequence.number} : ${sequence.title}")
 #objectifs()[
 `
-  for (const objectif of sequence.objectifs) {
+  for (const objectif of sequence.objectives) {
     const estObjectifExtra = objectif.reference.slice(1, 2) !== 'X'
     if (estObjectifExtra) {
       enTete += `
-        - ${objectif.reference} : ${objectif.titreSimplifie === undefined || objectif.titreSimplifie === '' ? objectif.titre : objectif.titreSimplifie}`
+        - ${objectif.reference} : ${objectif.title === undefined || objectif.title === '' ? objectif.titleAcademic : objectif.title}`
     }
   }
   enTete += `
@@ -72,22 +72,22 @@ function creerEnTete (sequence: SequenceSequence) {
   return enTete
 }
 
-function genererTypCoursObjectif (objectif: SequenceObjectif, sequence: SequenceSequence) {
-  if (!fs.existsSync(`./src/topmaths/typ/cours/objectifs/${objectif.niveau}/${objectif.reference}.typ`)) return ''
+function genererTypCoursObjectif (objectif: UnitObjective, sequence: UnitUnit) {
+  if (!fs.existsSync(`./src/topmaths/typ/cours/objectifs/${objectif.grade}/${objectif.reference}.typ`)) return ''
   let typObjectif = ''
   const titreObjectif = `
-= ${objectif.titreSimplifie === undefined || objectif.titreSimplifie === '' ? objectif.titre : objectif.titreSimplifie}
+= ${objectif.title === undefined || objectif.title === '' ? objectif.titleAcademic : objectif.title}
 `
-  const coursObjectif = fs.readFileSync(`./src/topmaths/typ/cours/objectifs/${objectif.niveau}/${objectif.reference}.typ`, 'utf8')
+  const coursObjectif = fs.readFileSync(`./src/topmaths/typ/cours/objectifs/${objectif.grade}/${objectif.reference}.typ`, 'utf8')
   if (coursObjectif.includes('image("')) copierImages(objectif, sequence)
   typObjectif += titreObjectif
   typObjectif += coursObjectif
   return typObjectif
 }
 
-function copierImages (objectif: { niveau: string, reference: string }, sequence: SequenceSequence) {
-  const sourceDir = `./src/topmaths/typ/cours/objectifs/${objectif.niveau}/`
-  const destinationDir = `./src/topmaths/typ/cours/sequences/${sequence.niveau}/`
+function copierImages (objectif: { grade: StringGrade; reference: string; }, sequence: UnitUnit) {
+  const sourceDir = `./src/topmaths/typ/cours/objectifs/${objectif.grade}/`
+  const destinationDir = `./src/topmaths/typ/cours/sequences/${sequence.grade}/`
   const filePrefix = objectif.reference
   const fileExtension = '.png'
   fs.readdir(sourceDir, (err, files) => {
@@ -111,12 +111,13 @@ function copierImages (objectif: { niveau: string, reference: string }, sequence
   })
 }
 
-function replaceImportedLessons (text: string, sequence: SequenceSequence) {
+function replaceImportedLessons (text: string, sequence: UnitUnit) {
   const importedLessonReferences = getImportedLessonReferences(text)
   for (const importedLessonReference of importedLessonReferences) {
-    const level = `${importedLessonReference.slice(0, 1)}e`
+    const levelCandidate = `${importedLessonReference.slice(0, 1)}e`
+    const level = isStringGrade(levelCandidate) ? levelCandidate : 'none'
     const importedLesson = fs.readFileSync(`./src/topmaths/typ/cours/objectifs/${level}/${importedLessonReference}.typ`, 'utf8')
-    if (importedLesson.includes('image("')) copierImages({ niveau: level, reference: importedLessonReference }, sequence)
+    if (importedLesson.includes('image("')) copierImages({ grade: level, reference: importedLessonReference }, sequence)
     text = text.replace(new RegExp(`##${importedLessonReference}`, 'g'), importedLesson)
   }
   return text
@@ -138,21 +139,21 @@ function getImportedLessonReferences (text: string) {
   return importedLessonReferences
 }
 
-function genererTypFichesSequence (sequence: SequenceSequence) {
+function genererTypFichesSequence (sequence: UnitUnit) {
   let nbFichesObjectifs = 0
-  for (const objectifSequence of sequence.objectifs) {
-    if (objectifSequence.fiches.length > 0) {
-      genererTypFichesObjectif(objectifSequence, sequence.niveau)
+  for (const objectifSequence of sequence.objectives) {
+    if (objectifSequence.lessonPlans.length > 0) {
+      genererTypFichesObjectif(objectifSequence, sequence.grade)
       nbFichesObjectifs++
     }
   }
   if (nbFichesObjectifs > 0) genererTypFicheSequence(sequence)
 }
 
-function genererTypFichesObjectif (objectif: SequenceObjectif, niveauSequence: StringGrade) {
+function genererTypFichesObjectif (objectif: UnitObjective, niveauSequence: StringGrade) {
   let indiceFiche = 0
-  for (const fiche of objectif.fiches) {
-    if (fiche.niveaux.length === 0 || fiche.niveaux.includes(niveauSequence)) {
+  for (const fiche of objectif.lessonPlans) {
+    if (fiche.grades.length === 0 || fiche.grades.includes(niveauSequence)) {
       genererTypFicheObjectif(niveauSequence, objectif, fiche, indiceFiche)
       fichesPrecedentes[niveauSequence] = fiche
       indiceFiche++
@@ -160,7 +161,7 @@ function genererTypFichesObjectif (objectif: SequenceObjectif, niveauSequence: S
   }
 }
 
-function genererTypFicheObjectif (niveauSequence: StringGrade, objectif: SequenceObjectif, fiche: ObjectifFiche, indiceFiche: number) {
+function genererTypFicheObjectif (niveauSequence: StringGrade, objectif: UnitObjective, fiche: ObjectiveLessonPlan, indiceFiche: number) {
   const nombreTotalDeFiches = getNbFiches(objectif, niveauSequence)
   const plusieursFiches = nombreTotalDeFiches > 1
   const numeroFiche = indiceFiche + 1
@@ -171,31 +172,31 @@ function genererTypFicheObjectif (niveauSequence: StringGrade, objectif: Sequenc
   typObjectif += `#import "../../../preambule_fiche.typ": *
 `
   typObjectif += `#show: setup-emoji
-#show: doc => fiche(doc, titre: "${objectif.reference} : ${objectif.titre}", sousTitre: "${sousTitre}")
+#show: doc => fiche(doc, titre: "${objectif.reference} : ${objectif.title}", sousTitre: "${sousTitre}")
 
 `
-  typObjectif += getTypLignes('Matériel élève', fiche.materielEleve)
-  typObjectif += getTypLignes('Matériel enseignant', fiche.materielEnseignant)
-  if (fichesPrecedentes[niveauSequence].prochaineSeance.length > 0) {
-    typObjectif += getTypLignes('Suite à la séance précédente', fichesPrecedentes[niveauSequence].prochaineSeance)
+  typObjectif += getTypLignes('Matériel élève', fiche.studentMaterialsNeeded)
+  typObjectif += getTypLignes('Matériel enseignant', fiche.teacherMaterialsNeeded)
+  if (fichesPrecedentes[niveauSequence].nextSessionSteps.length > 0) {
+    typObjectif += getTypLignes('Suite à la séance précédente', fichesPrecedentes[niveauSequence].nextSessionSteps)
   }
-  typObjectif += getTypLignes('Début de séance', fiche.debutDeSeance)
-  typObjectif += getTypLignes('Déroulé', fiche.deroule)
-  typObjectif += getTypLignes('Devoirs', fiche.devoirs)
-  typObjectif += getTypLignes('Fin de séance', fiche.finDeSeance)
+  typObjectif += getTypLignes('Début de séance', fiche.startSteps)
+  typObjectif += getTypLignes('Déroulé', fiche.lessonSteps)
+  typObjectif += getTypLignes('Devoirs', fiche.homeworks)
+  typObjectif += getTypLignes('Fin de séance', fiche.closureSteps)
   typObjectif += 'placeholderMateriel'
-  typObjectif += getTypLignes('Notes', fiche.notes)
-  const directory = `./src/topmaths/typ/fiches/objectifs/${objectif.niveau}/`
+  typObjectif += getTypLignes('Notes', fiche.comments)
+  const directory = `./src/topmaths/typ/fiches/objectifs/${objectif.grade}/`
   if (!fs.existsSync(directory)) fs.mkdirSync(directory, { recursive: true })
   fs.writeFileSync(`${directory}${niveauSequence}_${fiche.reference}.typ`, typObjectif, 'utf8')
 }
 
-function getNbFiches (objectif: SequenceObjectif, niveauSequence: string) {
+function getNbFiches (objectif: UnitObjective, niveauSequence: string) {
   let nbFiches = 0
-  for (const fiche of objectif.fiches) {
-    if (fiche.niveaux.length === 0) nbFiches++
+  for (const fiche of objectif.lessonPlans) {
+    if (fiche.grades.length === 0) nbFiches++
     else {
-      for (const niveauFiche of fiche.niveaux) {
+      for (const niveauFiche of fiche.grades) {
         if (niveauFiche === niveauSequence) nbFiches++
       }
     }
@@ -203,14 +204,14 @@ function getNbFiches (objectif: SequenceObjectif, niveauSequence: string) {
   return nbFiches
 }
 
-function remplacerPlaceholderMateriel (fiche: ObjectifFiche, niveauSequence: StringGrade) {
+function remplacerPlaceholderMateriel (fiche: ObjectiveLessonPlan, niveauSequence: StringGrade) {
   const cheminFichePrecedente = `./src/topmaths/typ/fiches/objectifs/${fichesPrecedentes[niveauSequence].reference.slice(0, 1) + 'e'}/${niveauSequence}_${fichesPrecedentes[niveauSequence].reference}.typ`
   const data = fs.readFileSync(cheminFichePrecedente, 'utf8')
   let replacementString = ''
-  if (fiche.materielEleve.length > 0) {
+  if (fiche.studentMaterialsNeeded.length > 0) {
     replacementString += `#titreCategorie("Matériel à emmener la prochaine fois") :\\
 `
-    for (const materiel of fiche.materielEleve) {
+    for (const materiel of fiche.studentMaterialsNeeded) {
       replacementString += `- ${materiel}\\
 `
     }
@@ -263,12 +264,12 @@ function getTypLignes (titre: string, lignes: string[]) {
   }
 }
 
-function genererTypFicheSequence (sequence: SequenceSequence) {
+function genererTypFicheSequence (sequence: UnitUnit) {
   let typSequence = ''
   typSequence += `#import "../../../preambule_fiche.typ": *
 `
   typSequence += `#show: setup-emoji
-#show: doc => fiche(doc, titre: "Séquence ${sequence.numero} : ${sequence.titre}", sousTitre: "Fiche de séquence", paysage: true)
+#show: doc => fiche(doc, titre: "Séquence ${sequence.number} : ${sequence.title}", sousTitre: "Fiche de séquence", paysage: true)
 
 #table(
   columns: 1,
@@ -276,28 +277,28 @@ function genererTypFicheSequence (sequence: SequenceSequence) {
   align: horizon,
   `
   let numeroSeance = 1
-  for (const objectif of sequence.objectifs) {
-    for (const fiche of objectif.fiches) {
-      typSequence += `[ #titreObjectif("Séance ${numeroSeance} - ${objectif.reference} : ${objectif.titre}")\\
+  for (const objectif of sequence.objectives) {
+    for (const fiche of objectif.lessonPlans) {
+      typSequence += `[ #titreObjectif("Séance ${numeroSeance} - ${objectif.reference} : ${objectif.title}")\\
 #v(-2em)
 #block(inset: 10pt, [
 `
-      typSequence += getTypLignes('Matériel élève', fiche.materielEleve)
-      typSequence += getTypLignes('Matériel enseignant', fiche.materielEnseignant)
-      if (fichePrecedenteSequence.prochaineSeance.length > 0) {
-        typSequence += getTypLignes('Suite à la séance précédente', fichePrecedenteSequence.prochaineSeance)
+      typSequence += getTypLignes('Matériel élève', fiche.studentMaterialsNeeded)
+      typSequence += getTypLignes('Matériel enseignant', fiche.teacherMaterialsNeeded)
+      if (fichePrecedenteSequence.nextSessionSteps.length > 0) {
+        typSequence += getTypLignes('Suite à la séance précédente', fichePrecedenteSequence.nextSessionSteps)
       }
-      typSequence += getTypLignes('Début de séance', fiche.debutDeSeance)
-      typSequence += getTypLignes('Déroulé', fiche.deroule)
-      typSequence += getTypLignes('Devoirs', fiche.devoirs)
-      typSequence += getTypLignes('Fin de séance', fiche.finDeSeance)
+      typSequence += getTypLignes('Début de séance', fiche.startSteps)
+      typSequence += getTypLignes('Déroulé', fiche.lessonSteps)
+      typSequence += getTypLignes('Devoirs', fiche.homeworks)
+      typSequence += getTypLignes('Fin de séance', fiche.closureSteps)
       typSequence += '])], '
       fichePrecedenteSequence = fiche
       numeroSeance++
     }
   }
   typSequence = typSequence.slice(0, typSequence.length - 2) + ')'
-  const directory = `./src/topmaths/typ/fiches/sequences/${sequence.niveau}/`
+  const directory = `./src/topmaths/typ/fiches/sequences/${sequence.grade}/`
   if (!fs.existsSync(directory)) fs.mkdirSync(directory, { recursive: true })
   fs.writeFileSync(`${directory}${sequence.reference}.typ`, typSequence, 'utf8')
 }

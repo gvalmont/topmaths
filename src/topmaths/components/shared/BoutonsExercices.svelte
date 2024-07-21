@@ -1,7 +1,7 @@
 <script lang="ts">
   import { lancerExercices } from '../../services/navigation'
   import IconeTooltipSimple from './IconeTooltipSimple.svelte'
-  import type { ObjectifExercice, ObjectifVideo } from '../../services/types'
+  import type { ObjectiveExercise, ObjectiveVideo } from '../../services/types'
   import { modeEnseignant } from '../../services/store'
   import { copierLien, estCoopmaths } from '../../services/outils'
   import { toutAjouterAuPanier } from '../../services/panier'
@@ -13,14 +13,14 @@
   export let titre: string
   export let indiceExercice = -1
   export let exercicesDeBrevet = false
-  export let exercices: ObjectifExercice[]
-  export let videos: ObjectifVideo[] = []
+  export let exercices: ObjectiveExercise[]
+  export let videos: ObjectiveVideo[] = []
   export let reference: string = ''
   export let nomsPanier: string[]
 
-  function presenceExercicesCoopmaths (exercices: ObjectifExercice[]) {
+  function presenceExercicesCoopmaths (exercices: ObjectiveExercise[]) {
     for (const exercice of exercices) {
-      if (estCoopmaths(exercice.lien)) return true
+      if (estCoopmaths(exercice.link)) return true
     }
     return false
   }

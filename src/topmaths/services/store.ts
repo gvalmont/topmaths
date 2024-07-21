@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store'
-import type { CalendrierAnneeEnCours, ObjectifNiveau, SequenceNiveau, SequenceSequenceParticuliere } from './types'
+import type { CalendarCurrentYear, ObjectiveGrade, UnitGrade, UnitSpecialUnit } from './types'
 import type { GlossaryUniteItem } from '../types/glossary'
 
 export const vue = writable<string>('')
@@ -12,15 +12,15 @@ export const urlExercice = writable<string>('')
 
 export const listeDesUrl = writable<string[]>([])
 
-export const niveauxSequences = writable<SequenceNiveau[]>([])
+export const niveauxSequences = writable<UnitGrade[]>([])
 
-export const niveauxObjectifs = writable<ObjectifNiveau[]>([])
+export const niveauxObjectifs = writable<ObjectiveGrade[]>([])
 
-export const sequencesParticulieres = writable<SequenceSequenceParticuliere[]>([])
+export const sequencesParticulieres = writable<UnitSpecialUnit[]>([])
 
 export const lexique = writable<GlossaryUniteItem[]>([])
 
-export const calendrierAnneeEnCours = writable<CalendrierAnneeEnCours>({ annee: 0, jourNumero: 0, periodeNumero: 0, semaineDansLaPeriode: 0, typeDePeriode: 'vacances' })
+export const calendrierAnneeEnCours = writable<CalendarCurrentYear>({ year: 0, dayOfYear: 0, periodNumber: 0, weekInPeriod: 0, typeDePeriode: 'vacances' })
 
 export const modeEnseignant = writable<boolean>(false)
 
