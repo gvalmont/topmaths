@@ -24,6 +24,7 @@ vitetest.config.ts
 _private/
 /src/topmaths/json/objectifs_modifies.json
 /src/topmaths/json/sequences_modifiees.json
+/src/topmaths/json/lexique.json
 /src/topmaths/typ/**/**/*.pdf
 /src/topmaths/typ/cours/sequences/
 /src/topmaths/typ/fiches/**/*.typ
