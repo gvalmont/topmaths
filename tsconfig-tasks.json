@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["tasks/**/*.ts"],
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "outDir": "./tmp"
+  }
+}

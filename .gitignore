@@ -3,6 +3,7 @@
 node_modules/
 dist/
 built/
+tmp/
 pnpm-lock.yaml
 vitetest.config.ts
 /test-results/

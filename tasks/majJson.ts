@@ -224,7 +224,7 @@ function postTraitementSequences (
       ajouterReferenceFiches(sequence)
     }
   }
-  niveauxSequences = majTelechargementsDisponibles(niveauxSequences)
+  niveauxSequences = majTelechargementsDisponibles()
   return niveauxSequences
 }
 
