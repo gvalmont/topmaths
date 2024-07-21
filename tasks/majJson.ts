@@ -1,32 +1,14 @@
 import { readFileSync } from 'fs'
 import * as fs from 'fs'
 import * as path from 'path'
-import { isArray } from 'mathjs'
 import refToUuidJson from '../src/json/refToUuidFR.json' assert { type: 'json' }
+import definitionsJson from '../src/topmaths/json/glossary/definitions.json' assert { type: 'json' }
+import propertiesJson from '../src/topmaths/json/glossary/properties.json' assert { type: 'json' }
+import type { RecursivePartial } from '../src/lib/types.js'
 import { type SequenceNiveau, type ObjectifNiveau, type SequenceSequence, type SequenceObjectif, type ObjectifObjectif, type ObjectifExercice, type ObjectifFiche, type ObjectifSequence, type StringGrade, isStringGrade } from '../src/topmaths/services/types.js'
-
-type NotionLiee = {
-  slug: string,
-  titre: string
-}
-
-type LexiqueItem = {
-  niveau: string,
-  objectifsLies: string[],
-  contenu: string,
-  exemples: string[],
-  remarques: string[],
-  titres: string[],
-  notionsLiees: NotionLiee[],
-  type: string,
-  titre: string,
-  slug: string,
-  avecImage: boolean
-}
-
+import { type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
 const niveauxSequencesJson = JSON.parse(readFileSync('./src/topmaths/json/sequences.json').toString())
 const niveauxObjectifsJson = JSON.parse(readFileSync('./src/topmaths/json/objectifs.json').toString())
-const lexiqueJson = JSON.parse(readFileSync('./src/topmaths/json/lexique.json').toString())
 
 const environment = {
   annee: 2023,
@@ -51,22 +33,22 @@ const listeSitesPresentsPolitiqueDeConfidentialite = [
   'https://www.geogebra.org/',
   'https://www.clicmaclasse.fr/'
 ]
+const definitions: RecursivePartial<GlossaryMasterItem>[] = definitionsJson
+const properties: Partial<GlossaryMasterItem>[] = propertiesJson
 
 let niveauxObjectifs: ObjectifNiveau[] = []
 let niveauxSequences: SequenceNiveau[] = []
-let lexique: LexiqueItem[] = []
 let numeroExercice = 1
 let nombreDeWarnings = 0
 let nombreErreurs = 0
-preChecksDeRoutine()
 miseEnCacheNiveauxEtSequences()
-miseEnCacheLexique()
+const glossary = makeGlossary()
 checksDeRoutine()
 console.warn(nombreDeWarnings + ' warnings')
 console.error(nombreErreurs + ' erreurs')
 ecrireJson('objectifs_modifies', niveauxObjectifs)
 ecrireJson('sequences_modifiees', niveauxSequences)
-ecrireJson('lexique_modifie', lexique)
+ecrireJson('lexique', glossary)
 
 function miseEnCacheNiveauxEtSequences () {
   niveauxSequences = preTraitementSequences(niveauxSequencesJson)
@@ -75,94 +57,12 @@ function miseEnCacheNiveauxEtSequences () {
   postTraitementObjectifs()
 }
 
-function preChecksDeRoutine () {
-  preCheckSequences()
-  preCheckObjectifs()
-  preCheckLexique()
-}
-
-function preCheckSequences () {
-  let numeroSequence = 1
-  for (const niveau of niveauxSequencesJson) {
-    numeroSequence = 1
-    for (const sequence of niveau.sequences) {
-      const referenceSequence = `S${niveau.nom.slice(0, 1)}S${numeroSequence}`
-      if (niveau.nom === '3e' && (sequence.slugEvalBrevet === undefined || sequence.slugEvalBrevet === '')) {
-        console.warn(referenceSequence + ' n\'a pas de slugEvalBrevet')
-        sequence.slugEvalBrevet = ''
-        nombreDeWarnings++
-      }
-      if (sequence.slugEvalBrevet !== undefined && sequence.slugEvalBrevet !== '' && sequence.slugEvalBrevet.slice(0, 3) !== 'ex=') {
-        console.warn('Le slugEvalBrevet de ' + referenceSequence + ' ne commence pas par ex=')
-        nombreDeWarnings++
-      }
-      if (sequence.periode === undefined || isNaN(sequence.periode) || Number(sequence.periode) === 0) {
-        console.warn(referenceSequence + ' n\'a pas de période')
-        sequence.periode = 0
-        nombreDeWarnings++
-      }
-      if (sequence.titre.slice(sequence.titre.length - 1) === '.') {
-        console.warn('Le titre de ' + referenceSequence + ' se termine par un point')
-        nombreDeWarnings++
-      }
-      numeroSequence++
-    }
-  }
-}
-
-function preCheckObjectifs () {
-  for (const niveau of niveauxObjectifsJson) {
-    for (const theme of niveau.themes) {
-      for (const sousTheme of theme.sousThemes) {
-        for (const objectif of sousTheme.objectifs) {
-          if (objectif.titre.slice(objectif.titre.length - 1) === '.') {
-            console.warn('Le titre de ' + objectif.reference + ' se termine par un point')
-            nombreDeWarnings++
-          }
-          for (const exercice of objectif.exercices) {
-            if (exercice.slug.slice(0, 'https://mathsmentales.net'.length) !== 'https://mathsmentales.net' && exercice.slug.includes('i=')) {
-              console.warn('Un slug de ' + objectif.reference + ' contient i=')
-              nombreDeWarnings++
-            }
-            if (exercice.slug.slice(0, 3) === 'ex=') {
-              console.warn('Un slug de ' + objectif.reference + ' commence par ex=')
-              nombreDeWarnings++
-            }
-            if (exercice.slug.slice(0, 4) === '&ex=') {
-              console.warn('Un slug de ' + objectif.reference + ' commence par &ex=')
-              nombreDeWarnings++
-            }
-            if (objectif.exercices.length > 1 && (exercice.description === undefined || exercice.description === '')) {
-              console.warn('Un exercice de ' + objectif.reference + ' ne comporte pas de description alors qu\'il comporte plusieurs exercices')
-              exercice.description = ''
-              nombreDeWarnings++
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-function preCheckLexique () {
-  for (const definition of lexiqueJson.definitions) {
-    preCheckItem(definition)
-  }
-  for (const propriete of lexiqueJson.proprietes) {
-    preCheckItem(propriete)
-  }
-}
-
-function preCheckItem (item: LexiqueItem) {
-  if (isArray(item.notionsLiees)) {
-    if (item.notionsLiees[0] !== undefined && typeof item.notionsLiees[0] !== 'object') {
-      console.error('Les notionsLiees de ' + item.titres[0] + ' ne sont pas des objets')
-      nombreErreurs++
-    }
-  } else {
-    console.error('Les notionsLiees de ' + item.titres[0] + ' n\'est pas un array')
-    nombreErreurs++
-  }
+function makeGlossary () {
+  const formattedMasterDefinitions = definitions.map(item => formatItem(item, 'définition')).filter(isGlossaryMasterItem)
+  const formattedMasterProperties = properties.map(item => formatItem(item, 'propriété')).filter(isGlossaryMasterItem)
+  const glossaryMasterItems = formattedMasterDefinitions.concat(formattedMasterProperties)
+  const glossaryUniteItems = glossaryMasterItems.map(makeUniteItems).flat()
+  return postTraitementItems(glossaryUniteItems)
 }
 
 function preTraitementSequences (niveaux: SequenceNiveau[]) {
@@ -247,27 +147,37 @@ function postTraitementSequences (niveauxSequences: SequenceNiveau[], niveauxObj
   return niveauxSequences
 }
 
-function miseEnCacheLexique () {
-  const items: LexiqueItem[] = []
-  for (const definition of lexiqueJson.definitions) {
-    const item = definition
-    item.type = 'definition'
-    items.push(...traiterItem(item))
+function formatItem (item: RecursivePartial<GlossaryMasterItem>, type: 'définition' | 'propriété') {
+  item.type = type
+  if (item.titles === undefined) return
+  item.comments = item.comments ?? []
+  item.content = item.content ?? ''
+  item.examples = item.examples ?? []
+  item.includesImage = item.includesImage ?? false
+  item.keywords = item.keywords ?? []
+  item.relatedObjectives = item.relatedObjectives ?? []
+  item.slug = item.slug ?? ''
+  item.titles = item.titles ?? []
+  item.comments = interpreterMarkupArray(item.comments)
+  item.content = interpreterMarkupPerso(item.content)
+  item.examples = interpreterMarkupArray(item.examples)
+  const gradeCandidates = item.relatedObjectives
+    .filter(relatedObjective => relatedObjective !== undefined)
+    .map(relatedObjective => relatedObjective.slice(0, 1) + 'e')
+  item.grades = gradeCandidates.filter(isStringGrade)
+  item.relatedItems = item.relatedItems ?? []
+  item.relatedItems = item.relatedItems
+    .filter(relatedItem => relatedItem !== undefined)
+    .map(relatedItem => {
+      relatedItem.slug = relatedItem.slug ?? ''
+      relatedItem.title = relatedItem.title ?? ''
+      return relatedItem
+    })
+  if (!isGlossaryMasterItem(item)) {
+    console.error(item)
+    throw new Error('Item is not a GlossaryItem')
   }
-  for (const propriete of lexiqueJson.proprietes) {
-    const item = propriete
-    item.type = 'propriete'
-    items.push(...traiterItem(item))
-  }
-  lexique = postTraitementItems(items)
-}
-
-function traiterItem (item: LexiqueItem) {
-  item.niveau = item.objectifsLies[0].slice(0, 1) + 'e'
-  item.contenu = interpreterMarkupPerso(item.contenu)
-  item.exemples = interpreterMarkupArray(item.exemples)
-  item.remarques = interpreterMarkupArray(item.remarques)
-  return creerSousItems(item)
+  return item
 }
 
 function interpreterMarkupPerso (contenu: string) {
@@ -280,27 +190,28 @@ function interpreterMarkupPerso (contenu: string) {
   return contenu
 }
 
-function interpreterMarkupArray (array: string[]) {
+function interpreterMarkupArray (array: (string | undefined)[]) {
   if (array === undefined || array.length === 0) {
     return []
   } else {
-    return array.map(item => interpreterMarkupPerso(item))
+    return array
+      .filter(str => str !== undefined)
+      .map(item => interpreterMarkupPerso(item))
   }
 }
 
-function creerSousItems (item: LexiqueItem) {
-  const items: LexiqueItem[] = []
+function makeUniteItems (masterItem: GlossaryMasterItem) {
+  const uniteItems: GlossaryUniteItem[] = []
   const slugsSousItemsDejaCrees: string[] = []
-  for (const titre of item.titres) {
-    const newItem = { ...item }
-    newItem.titre = titre
-    newItem.slug = creerSlug(titre)
-    newItem.avecImage = fs.existsSync(`public/topmaths/img/lexique/${newItem.slug}.png`)
-    newItem.notionsLiees = ajouterSlugsSousItemsDejaCrees(item, slugsSousItemsDejaCrees)
-    slugsSousItemsDejaCrees.push(newItem.slug)
-    items.push(newItem)
+  for (const title of masterItem.titles) {
+    const uniteItem: GlossaryUniteItem = { ...masterItem, title }
+    uniteItem.slug = creerSlug(title)
+    uniteItem.includesImage = fs.existsSync(`public/topmaths/img/lexique/${uniteItem.slug}.png`)
+    uniteItem.relatedItems = ajouterSlugsSousItemsDejaCrees(masterItem, slugsSousItemsDejaCrees)
+    slugsSousItemsDejaCrees.push(uniteItem.slug)
+    uniteItems.push(uniteItem)
   }
-  return items
+  return uniteItems
 }
 
 function creerSlug (titre: string) {
@@ -313,11 +224,11 @@ function creerSlug (titre: string) {
   return slug
 }
 
-function ajouterSlugsSousItemsDejaCrees (item: LexiqueItem, slugsItem: string[]) {
-  return item.notionsLiees.concat(slugsItem.map(slug => ({ titre: '', slug })))
+function ajouterSlugsSousItemsDejaCrees (item: GlossaryMasterItem, slugsItem: string[]) {
+  return item.relatedItems.concat(slugsItem.map(slug => ({ title: '', slug })))
 }
 
-function postTraitementItems (items: LexiqueItem[]) {
+function postTraitementItems (items: GlossaryUniteItem[]) {
   items = completerNotionsLiees(items)
   items = ajouterTitresAuxNotions(items)
   items = rangerNotionsLiees(items)
@@ -325,22 +236,22 @@ function postTraitementItems (items: LexiqueItem[]) {
   return items
 }
 
-function completerNotionsLiees (items: LexiqueItem[]) {
+function completerNotionsLiees (items: GlossaryUniteItem[]) {
   for (const item1 of items) {
-    for (const notionLieeItem1 of item1.notionsLiees) {
+    for (const notionLieeItem1 of item1.relatedItems) {
       let trouve = false
       for (const item2 of items) {
         if (item2.slug === notionLieeItem1.slug) {
           trouve = true
           if (!notionLieeDejaAjoutee(item1.slug, item2)) {
-            const nouvelleNotion = { slug: item1.slug, titre: item1.titre }
-            item2.notionsLiees.push(nouvelleNotion)
+            const nouvelleNotion = { slug: item1.slug, title: item1.title }
+            item2.relatedItems.push(nouvelleNotion)
           }
           break
         }
       }
       if (!trouve) {
-        console.error('La notion liée ' + notionLieeItem1.slug + ' de ' + item1.titre + ' n\'existe pas')
+        console.error('La notion liée ' + notionLieeItem1.slug + ' de ' + item1.title + ' n\'existe pas')
         nombreErreurs++
       }
     }
@@ -348,19 +259,19 @@ function completerNotionsLiees (items: LexiqueItem[]) {
   return items
 }
 
-function notionLieeDejaAjoutee (slugNotion: string, item: LexiqueItem) {
-  for (const notionLiee of item.notionsLiees) {
+function notionLieeDejaAjoutee (slugNotion: string, item: GlossaryUniteItem) {
+  for (const notionLiee of item.relatedItems) {
     if (notionLiee.slug === slugNotion) return true
   }
   return false
 }
 
-function ajouterTitresAuxNotions (items: LexiqueItem[]) {
+function ajouterTitresAuxNotions (items: GlossaryUniteItem[]) {
   for (const item1 of items) {
-    for (const notionLieeItem1 of item1.notionsLiees) {
+    for (const notionLieeItem1 of item1.relatedItems) {
       for (const item2 of items) {
         if (item2.slug === notionLieeItem1.slug) {
-          notionLieeItem1.titre = item2.titre
+          notionLieeItem1.title = item2.title
           break
         }
       }
@@ -369,25 +280,25 @@ function ajouterTitresAuxNotions (items: LexiqueItem[]) {
   return items
 }
 
-function rangerNotionsLiees (items: LexiqueItem[]) {
+function rangerNotionsLiees (items: GlossaryUniteItem[]) {
   for (const item of items) {
-    if (item.notionsLiees === undefined || item.notionsLiees.length === 0) {
-      item.notionsLiees = []
+    if (item.relatedItems === undefined || item.relatedItems.length === 0) {
+      item.relatedItems = []
     } else {
-      item.notionsLiees = item.notionsLiees.sort(comparerTitres)
+      item.relatedItems = item.relatedItems.sort(comparerTitres)
     }
   }
   return items
 }
 
-function comparerTitres (a: NotionLiee, b: NotionLiee) {
-  const titreA = a.titre.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase()
-  const titreB = b.titre.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase()
+function comparerTitres (a: GlossaryRelatedItem, b: GlossaryRelatedItem) {
+  const titleA = a.title.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase()
+  const titleB = b.title.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase()
 
-  if (titreA < titreB) {
+  if (titleA < titleB) {
     return -1
   }
-  if (titreA > titreB) {
+  if (titleA > titleB) {
     return 1
   }
   return 0
@@ -915,7 +826,7 @@ function presenceExerciceMathalea (exercices: ObjectifExercice[]) {
 
 function checkLexique () {
   const slugs: string[] = []
-  for (const item of lexique) {
+  for (const item of glossary) {
     for (const slug of slugs) {
       if (item.slug === slug) {
         console.warn('Slug ' + slug + ' en doublon')

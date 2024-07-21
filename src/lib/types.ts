@@ -1,6 +1,10 @@
 import type { CanOptions, CanSolutionsMode } from './types/can'
 import type { Language } from './types/languages'
 
+export type RecursivePartial<T> = {
+  [P in keyof T]?: RecursivePartial<T[P]>;
+};
+
 /*
 Code inspiré de Sylvain, merci!
 https://stackoverflow.com/questions/55020193/is-it-possible-to-create-a-typescript-type-from-an-array

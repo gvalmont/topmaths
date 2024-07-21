@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store'
-import type { CalendrierAnneeEnCours, LexiqueItem, ObjectifNiveau, SequenceNiveau, SequenceSequenceParticuliere } from './types'
+import type { CalendrierAnneeEnCours, ObjectifNiveau, SequenceNiveau, SequenceSequenceParticuliere } from './types'
+import type { GlossaryUniteItem } from '../types/glossary'
 
 export const vue = writable<string>('')
 
@@ -17,7 +18,7 @@ export const niveauxObjectifs = writable<ObjectifNiveau[]>([])
 
 export const sequencesParticulieres = writable<SequenceSequenceParticuliere[]>([])
 
-export const lexique = writable<LexiqueItem[]>([])
+export const lexique = writable<GlossaryUniteItem[]>([])
 
 export const calendrierAnneeEnCours = writable<CalendrierAnneeEnCours>({ annee: 0, jourNumero: 0, periodeNumero: 0, semaineDansLaPeriode: 0, typeDePeriode: 'vacances' })
 

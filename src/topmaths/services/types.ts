@@ -1,6 +1,6 @@
-export type StringGrade = '6e' | '5e' | '4e' | '3e'
+export type StringGrade = '6e' | '5e' | '4e' | '3e' | 'none'
 export function isStringGrade (str: string): str is StringGrade {
-  return ['6e', '5e', '4e', '3e'].includes(str)
+  return ['6e', '5e', '4e', '3e', 'none'].includes(str)
 }
 
 export type Couleur = 'warning' | 'link' | 'info' | 'danger' | 'primary' | 'success' | 'orange' | 'sponsor' | 'fuchsia' | 'black-and-yellow' | 'green' | 'coopmaths' | 'purple' | 'info-darker' | 'violet' | 'blue' | '6e' | '5e' | '4e' | '3e' | 'tout'
@@ -36,10 +36,6 @@ export interface SequenceSequenceParticuliere {reference: string, titre: string}
 export interface SequenceSequence {niveau: StringGrade, numero: number, reference: string, titre: string, periode: number, objectifs: SequenceObjectif[], calculsMentaux: SequenceCalculMental[], questionsFlash: SequenceQuestionFlash[], lienQuestionsFlash: string, slugEvalBrevet: string, lienEval: string, lienEvalBrevet: string, telechargementsDisponibles: SequenceTelechargementsDisponibles}
 
 export interface SequenceNiveau {nom: StringGrade, sequences: SequenceSequence[]}
-
-export interface LexiqueNotionLiee {titre: string, slug: string}
-
-export interface LexiqueItem {type: 'definition' | 'propriete', niveau: StringGrade, titre: string, slug: string, contenu: string, avecImage: boolean, remarques: string[], exemples: string[], motsCles: string, objectifsLies: string[], notionsLiees: LexiqueNotionLiee[]}
 
 export interface LigneTheme {nom: string, nbObjectifsParPeriode: number[]}
 

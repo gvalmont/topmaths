@@ -1,15 +1,16 @@
-import type { ObjectifNiveau, SequenceNiveau, SequenceSequenceParticuliere, CalendrierAnnee, LexiqueItem } from './types'
+import type { ObjectifNiveau, SequenceNiveau, SequenceSequenceParticuliere, CalendrierAnnee } from './types'
 import { niveauxObjectifs as storeNiveauxObjectifs, niveauxSequences as storeNiveauxSequences, sequencesParticulieres as storeSequencesParticulieres, calendrierAnneeEnCours as storeCalendrierAnneeEnCours, lexique as lexiqueStore } from './store'
 import sequencesModifieesJson from '../../topmaths/json/sequences_modifiees.json'
 import objectifsModifiesJson from '../../topmaths/json/objectifs_modifies.json'
-import lexiqueModifieJson from '../../topmaths/json/lexique_modifie.json'
+import lexiqueModifieJson from '../../topmaths/json/lexique.json'
 import sequencesParticulieresJson from '../../topmaths/json/sequencesParticulieres.json'
 import calendrierJson from '../../topmaths/json/calendrier.json'
+import type { GlossaryUniteItem } from '../types/glossary'
 
 let niveauxObjectifs = [] as ObjectifNiveau[]
 let niveauxSequences = [] as SequenceNiveau[]
 let sequencesParticulieres = [] as SequenceSequenceParticuliere[]
-let lexique = [] as LexiqueItem[]
+let lexique = [] as GlossaryUniteItem[]
 miseEnCacheDesDonnees()
 
 function miseEnCacheDesDonnees () {
@@ -32,7 +33,7 @@ function miseEnCacheSequencesParticulieres () {
 }
 
 function miseEnCacheLexique () {
-  lexique = lexiqueModifieJson as LexiqueItem[]
+  lexique = lexiqueModifieJson as GlossaryUniteItem[]
   lexiqueStore.set(lexique)
 }
 

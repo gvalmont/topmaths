@@ -5,13 +5,13 @@
   } from '../../services/store'
   import { normaliser } from '../../services/outils'
   import { writable, derived } from 'svelte/store'
-  import type { LexiqueItem } from '../../services/types'
   import { afterUpdate, onDestroy, tick } from 'svelte'
   import { mathaleaRenderDiv } from '../../../lib/mathalea'
   import Collapsible from '../shared/Collapsible.svelte'
   import NotionsEtObjectifsLies from '../shared/NotionsEtObjectifsLies.svelte'
+  import type { GlossaryUniteItem } from '../../types/glossary'
 
-  const lexiqueTampon = writable<LexiqueItem[]>([])
+  const lexiqueTampon = writable<GlossaryUniteItem[]>([])
   const lignesFiltrees = derived(
     [texteRecherche, lexiqueTampon],
     ([$texteRecherche, $lexiqueTampon]) =>
@@ -34,14 +34,14 @@
   }
 
   function MAJLexiqueTampon () {
-    const lignes: LexiqueItem[] = []
+    const lignes: GlossaryUniteItem[] = []
     for (const item of $lexiqueStore) {
       lignes.push(item)
     }
     lexiqueTampon.set(lignes)
   }
 
-  function getLignesFiltrees (texteRecherche: string, lignes: LexiqueItem[]): LexiqueItem[] {
+  function getLignesFiltrees (texteRecherche: string, lignes: GlossaryUniteItem[]): GlossaryUniteItem[] {
     if (texteRecherche === '') return lignes
     const motsCherches = normaliser(texteRecherche).split(' ')
     return lignes.filter((ligne) => {
@@ -52,24 +52,18 @@
     })
   }
 
-  function motTrouve (mot: string, ligne: LexiqueItem) {
-    if (
-      ligne.niveau !== undefined &&
-      normaliser(ligne.niveau).includes(mot)
-    ) { return true }
-    if (
-      ligne.titre !== undefined &&
-      normaliser(ligne.titre).includes(mot)
-    ) { return true }
-    if (
-      ligne.motsCles !== undefined &&
-      normaliser(ligne.motsCles).includes(mot)
-    ) { return true }
-    for (const objectifLie of ligne.objectifsLies) {
-      if (
-        ligne.objectifsLies !== undefined &&
-        normaliser(objectifLie).includes(mot)
-      ) { return true }
+  function motTrouve (mot: string, ligne: GlossaryUniteItem) {
+    for (const grade of ligne.grades) {
+      if (normaliser(grade).includes(mot)) return true
+    }
+    if (ligne.title !== undefined && normaliser(ligne.title).includes(mot)) {
+      return true
+    }
+    for (const keyword of ligne.keywords) {
+      if (normaliser(keyword).includes(mot)) return true
+    }
+    for (const relatedObjective of ligne.relatedObjectives) {
+      if (normaliser(relatedObjective).includes(mot)) return true
     }
     return false
   }
@@ -101,26 +95,26 @@
     {#each $lignesFiltrees as ligne}
       <li id="{ligne.slug}" class="box">
         <a href="#{ligne.slug}">
-          <h3 class="font-semibold has-text-link">{ligne.titre}</h3>
+          <h3 class="font-semibold has-text-link">{ligne.title}</h3>
         </a>
         <div class="columns">
           <div class="column p-0 m-3">
-            <div bind:innerHTML={ligne.contenu} contenteditable="false"></div>
-            {#if ligne.exemples !== undefined && ligne.exemples.length > 0}
+            <div bind:innerHTML={ligne.content} contenteditable="false"></div>
+            {#if ligne.examples !== undefined && ligne.examples.length > 0}
               <Collapsible classesSupplementaires={'exemples'}>
-                <h2 slot="header">Exemple{ligne.exemples.length > 1 ? 's' : ''}</h2>
+                <h2 slot="header">Exemple{ligne.examples.length > 1 ? 's' : ''}</h2>
                 <ul slot="content" class="mt-0 ml-3">
-                  {#each ligne.exemples as exemple, i}
+                  {#each ligne.examples as exemple, i}
                     <li bind:innerHTML={exemple} contenteditable="false" style="border-color: #bae6fd; {i > 0 ? 'border-width: 1px 0 0 0' : ''}"></li>
                   {/each}
                 </ul>
               </Collapsible>
             {/if}
-            {#if ligne.remarques !== undefined && ligne.remarques.length > 0}
+            {#if ligne.comments !== undefined && ligne.comments.length > 0}
             <Collapsible classesSupplementaires={'remarques'}>
-              <h2 slot="header">Remarque{ligne.remarques.length > 1 ? 's' : ''}</h2>
+              <h2 slot="header">Remarque{ligne.comments.length > 1 ? 's' : ''}</h2>
               <ul slot="content" class="mt-0 ml-3">
-                {#each ligne.remarques as remarque, i}
+                {#each ligne.comments as remarque, i}
                   <li bind:innerHTML={remarque} contenteditable="false" style="border-color: #bfdbfe; {i > 0 ? 'border-width: 1px 0 0 0' : ''}"></li>
                 {/each}
               </ul>
@@ -131,8 +125,8 @@
             {/if}
           </div>
           <div class="column is-narrow p-0 m-3 is-flex is-align-items-center is-justify-content-center" style="width: 200px">
-            {#if ligne.avecImage}
-              <img src="topmaths/img/lexique/{ligne.slug}.png" alt="Représentation de : {ligne.titre}" />
+            {#if ligne.includesImage}
+              <img src="topmaths/img/lexique/{ligne.slug}.png" alt="Représentation de : {ligne.title}" />
             {/if}
           </div>
         </div>

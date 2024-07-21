@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { LexiqueItem } from '../../services/types'
   import { tick } from 'svelte'
   import { goVue } from '../../services/navigation'
   import { texteRecherche } from '../../services/store'
+  import type { GlossaryUniteItem } from '../../types/glossary'
 
-  export let ligne: LexiqueItem
+  export let ligne: GlossaryUniteItem
 
   async function goHash (event: MouseEvent, hashLocation: string) {
     event.preventDefault()
@@ -25,14 +25,14 @@
       <button class="button is-link is-outlined mt-2 py-0 md:py-1 px-1 md:px-2 rounded">⇧</button>
     </a>
   </li>
-  {#each ligne.notionsLiees as notionLiee}
+  {#each ligne.relatedItems as notionLiee}
   <li>
     <a href="#{notionLiee.slug}" on:click={event => goHash(event, notionLiee.slug)}>
-      <button class="button is-link is-outlined mt-2 ml-2 py-0 md:py-1 px-1 md:px-2 rounded">{notionLiee.titre}</button>
+      <button class="button is-link is-outlined mt-2 ml-2 py-0 md:py-1 px-1 md:px-2 rounded">{notionLiee.title}</button>
     </a>
   </li>
   {/each}
-  {#each ligne.objectifsLies as objectifLie}
+  {#each ligne.relatedObjectives as objectifLie}
   <li>
     <a href="/?v=objectif&ref={objectifLie}" on:click={(event) => goVue(event, 'objectif', objectifLie)}>
       <button class="button is-{objectifLie.slice(0, 1)}e is-outlined mt-2 ml-1 pr-2 py-0 md:py-1 px-1 md:px-2 rounded">

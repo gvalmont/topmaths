@@ -21,7 +21,8 @@ const fichesPrecedentes = {
   '6e': { ...fichePrecedenteSequence },
   '5e': { ...fichePrecedenteSequence },
   '4e': { ...fichePrecedenteSequence },
-  '3e': { ...fichePrecedenteSequence }
+  '3e': { ...fichePrecedenteSequence },
+  none: { ...fichePrecedenteSequence }
 }
 
 for (const niveauSequence of niveauxSequences) {

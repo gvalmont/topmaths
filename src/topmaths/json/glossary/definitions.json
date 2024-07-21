@@ -1,0 +1,591 @@
+[
+  {
+    "titles": [
+      "Droites sécantes",
+      "Point d'intersection"
+    ],
+    "content": "Deux [[droites sécantes]] sont deux droites qui ont un seul point en commun.<br>Le point commun à deux droites sécantes est appelé leur [[point d'intersection]].",
+    "keywords": [],
+    "relatedObjectives": [
+      "6G10",
+      "6G11",
+      "6G12"
+    ],
+    "relatedItems": [
+      {
+        "slug": "droites-perpendiculaires",
+        "title": "Droites perpendiculaires"
+      },
+      {
+        "slug": "droites-paralleles"
+      }
+    ]
+  },
+  {
+    "titles": [
+      "Droites perpendiculaires"
+    ],
+    "content": "Deux [[droites perpendiculaires]] sont deux droites sécantes qui forment un angle droit.",
+    "comments": [
+      "En mathématiques, \"La droite (AB) [[est perpendiculaire à]] la droite (d)\" peut se noter \"(AB) [[⊥]] (d)\""
+    ],
+    "keywords": [
+      "sécantes",
+      "angle droit"
+    ],
+    "relatedObjectives": [
+      "6G10",
+      "6G11",
+      "6G12"
+    ],
+    "relatedItems": []
+  },
+  {
+    "titles": [
+      "Droites parallèles"
+    ],
+    "content": "Deux [[droites parallèles]] sont deux droites qui ne sont pas sécantes.",
+    "comments": [
+      "Deux droites sécantes ont un seul point en commun donc elles sont parallèles si elles n'ont aucun point en commun (si elles ne se touchent jamais) mais aussi si elles en ont plusieurs ! Dans ce cas, elles sont confondues.",
+      "En mathématiques, \"La droite (AB) [[est parallèle à]] la droite (d)\" peut se noter \"(AB) [[//]] (d)\""
+    ],
+    "keywords": [
+      "sécantes"
+    ],
+    "relatedObjectives": [
+      "6G10",
+      "6G11",
+      "6G12"
+    ],
+    "relatedItems": [
+      {
+        "slug": "droites-confondues"
+      }
+    ]
+  },
+  {
+    "titles": [
+      "Droites confondues"
+    ],
+    "content": "Deux [[droites confondues]] sont deux droites qui sont identiques. Elles sont placées au même endroit et ont tous leurs points en commun.",
+    "comments": [
+      "Des droites confondues sont un cas particulier de droites parallèles"
+    ],
+    "keywords": [
+      "sécantes",
+      "parallèles"
+    ],
+    "relatedObjectives": [
+      "6G12"
+    ],
+    "relatedItems": []
+  },
+  {
+    "titles": [
+      "Cercle",
+      "Le rayon"
+    ],
+    "content": "Un [[cercle]] de centre O est formé de tous les points situés à une même distance du point O.<br>Cette distance commune est appelée [[le rayon]] du cercle.",
+    "comments": [
+      "À aucun moment on ne parle de la \"forme\" du cercle dans cette définition. Le fait qu'il ait cette forme qu'on lui connaît est une conséquence d'avoir tous ses points à une même distance du centre",
+      "[[le]] rayon d'un cercle est une longueur, c'est la même distance qu'on retrouve entre tous les points du cercle et son centre. Il ne faut pas le confondre avec [[un]] rayon qui est un segment."
+    ],
+    "keywords": [
+      "centre"
+    ],
+    "relatedObjectives": [
+      "6G20"
+    ],
+    "relatedItems": [
+    ]
+  },
+  {
+    "titles": [
+      "Un rayon"
+    ],
+    "content": "[[Un rayon]] est un segment ayant pour extrémités le centre d'un cercle et un point de ce cercle.",
+    "comments": [
+      "Il y a de nombreux segments qui relient un point d'un cercle à son centre (une infinité), c'est donc un segment parmi d'autres ou \"[[un]] rayon parmi d'autres\", à ne pas confondre avec [[le]] rayon qui n'est pas un segment mais un nombre."
+    ],
+    "keywords": [
+      "cercle",
+      "diamètre"
+    ],
+    "relatedObjectives": [
+      "6G20"
+    ],
+    "relatedItems": [
+      {
+        "slug": "cercle"
+      },
+      {
+        "slug": "le-rayon"
+      }
+    ]
+  },
+  {
+    "titles": [
+      "Corde"
+    ],
+    "content": "Une [[corde]] est un segment dont les extrémités sont deux points du cercle.",
+    "comments": [
+      "Une corde relie deux points d'un cercle peu importe lesquels. Si les deux points sont \"face à face\", autrement dit si la corde passe par le centre du cercle, alors c'est un diamètre. Un diamètre est une corde particulière."
+    ],
+    "keywords": [
+      "cercle",
+      "diametre"
+    ],
+    "relatedObjectives": [
+      "6G20"
+    ],
+    "relatedItems": [
+      {
+        "slug": "cercle"
+      },
+      {
+        "slug": "un-diametre"
+      }
+    ]
+  },
+  {
+    "titles": [
+      "Un diamètre"
+    ],
+    "content": "[[Un diamètre]] est une corde passant par le centre du cercle.",
+    "comments": [
+      "Un diamètre est donc une corde particulière.",
+      "Il y a plein de façons de relier deux points du cercle en passant par le centre (une infinité), ce segment est donc [[un]] diamètre parmi d'autres, à ne pas confondre avec [[le]] diamètre qui est une longueur."
+    ],
+    "keywords": [
+      "cercle"
+    ],
+    "relatedObjectives": [
+      "6G20"
+    ],
+    "relatedItems": [
+      {
+        "slug": "cercle"
+      },
+      {
+        "slug": "le-diametre"
+      }
+    ]
+  },
+  {
+    "titles": [
+      "Le diamètre"
+    ],
+    "content": "[[Le diamètre]] d'un cercle est la longueur commune de tous les diamètres",
+    "comments": [
+      "Il y a plusieurs segments qui relient deux points du cercle en passant par le centre (des diamètres), mais ils ont tous la même longueur : [[le]] diamètre."
+    ],
+    "keywords": [
+      "cercle"
+    ],
+    "relatedObjectives": [
+      "6G20"
+    ],
+    "relatedItems": [
+      {
+        "slug": "cercle"
+      }
+    ]
+  },
+  {
+    "titles": [
+      "Comparer"
+    ],
+    "content": "[[Comparer]] deux nombres, c'est dire s'ils sont égaux ou si l'un est plus petit ou plus grand que l'autre.",
+    "comments": [
+      "a est inférieur (plus petit) à b peut s'écrire $a < b$",
+      "a est supérieur (plus grand) à b peut s'écrire $a > b$"
+    ],
+    "keywords": [
+      "inférieur",
+      "supérieur",
+      "plus petit",
+      "plus grand"
+    ],
+    "relatedObjectives": [
+      "6N11",
+      "6N21"
+    ],
+    "relatedItems": [
+      {
+        "slug": "ranger"
+      },
+      {
+        "slug": "encadrer"
+      },
+      {
+        "slug": "intercaler"
+      }
+    ]
+  },
+  {
+    "titles": [
+      "Ranger"
+    ],
+    "content": "[[Ranger]] une liste de nombres dans l'[[ordre croissant]] signifie les ranger du plus petit au plus grand.<br>[[Ranger]] une liste de nombres dans l'[[ordre décroissant]] signifie les ranger du plus grand au plus petit.",
+    "comments": [],
+    "exemples": [],
+    "keywords": [],
+    "relatedObjectives": [
+      "6N11",
+      "6N21"
+    ],
+    "relatedItems": []
+  },
+  {
+    "titles": [
+      "Encadrer"
+    ],
+    "content": "[[Encadrer]] un nombre, c'est en trouver deux autres, un plus petit et un plus grand.",
+    "comments": [],
+    "exemples": [
+      "$23 < 257 < 3450$ est encadrement \"quelconque\" du nombre 257",
+      "$250 < 257 < 260$ est un encadrement à la dizaine près du nombre 257",
+      "$200 < 257 < 300$ est un encadrement à la centaine près du nombre 257",
+      "2 < 2,143 < 2,7 est un encadrement \"quelconque\"",
+      "2,1 < 2,143 < 2,2 est un encadrement au dixième près",
+      "2,14 < 2,143 < 2,15 est un encadrement au centième près"
+    ],
+    "keywords": [
+      "dixième",
+      "centième"
+    ],
+    "relatedObjectives": [
+      "6N11",
+      "6N21"
+    ],
+    "relatedItems": [
+      {
+        "slug": "intercaler"
+      }
+    ]
+  },
+  {
+    "titles": [
+      "Intercaler"
+    ],
+    "content": "[[Intercaler]] un nombre entre deux nombres donnés, c’est trouver un nombre compris entre les deux.",
+    "comments": [],
+    "exemples": [
+      "Entre 5 et 8, on peut intercaler 7 : 5 < 7 < 8",
+      "Entre 3,458 et 3,459, on peut intercaler 3,4581 : 3,458 < 3,4581 < 3,459"
+    ],
+    "keywords": [],
+    "relatedObjectives": [
+      "6N11",
+      "6N21"
+    ],
+    "relatedItems": []
+  },
+  {
+    "titles": [
+      "Fraction"
+    ],
+    "content": "Une [[fraction]] désigne le rapport entre deux nombres entiers, ou une division.<br>Par exemple pour désigner un rapport de 2 parts sur 3, on peut écrire $\\dfrac23$.<br>Le nombre du haut est appelé [[numérateur]] tandis que le nombre du bas est appelé [[dénominateur]].<br>Dans l'exemple précédent, le numérateur est $2$ et le dénominateur est $3$.",
+    "exemples": [],
+    "keywords": [
+      "numérateur",
+      "dénominateur"
+    ],
+    "relatedObjectives": [
+      "6N31"
+    ],
+    "relatedItems": [
+      {
+        "slug": "fraction-decimale"
+      }
+    ]
+  },
+  {
+    "titles": [
+      "Fraction décimale"
+    ],
+    "content": "Une [[fraction décimale]] est une fraction de dénominateur 10, 100, 1 000, …",
+    "comments": [],
+    "exemples": [
+      "$\\dfrac{1}{100}$",
+      "$\\dfrac{23}{10}$",
+      "$\\dfrac{15}{1000}$"
+    ],
+    "keywords": [
+      "1000"
+    ],
+    "relatedObjectives": [
+      "6N31"
+    ],
+    "relatedItems": [
+      {
+        "slug": "nombre-decimal"
+      }
+    ]
+  },
+  {
+    "titles": [
+      "Nombre décimal",
+      "Écriture décimale"
+    ],
+    "content": "Un [[nombre décimal]] est un nombre qui peut s'écrire sous forme d'une fraction décimale.<br>Un nombre décimal admet une écriture à virgule appelée [[écriture décimale]].",
+    "comments": [
+      "C'est vrai qu'on appelle souvent les nombres décimaux les \"nombres à virgule\" mais ce n'est pas correct. Non seulement les nombres entiers, \"sans virgule\", sont aussi des nombres décimaux (voir l'exemple avec 14) mais il existe aussi des nombres \"à virgule\" qui ne sont pas des nombres décimaux. Par exemple le nombre 0,33333.. avec une infinité de 3 après la virgule s'écrit avec une virgule mais ne peut pas s'écrire sous la forme d'une fraction décimale (ça ferait combien de 3 au numérateur et combien de zéros au dénominateur ?) et donc c'est un nombre à virgule qui n'est pas un nombre décimal."
+    ],
+    "exemples": [
+      "L'écriture décimale de $\\dfrac{23}{10}$ est $2{,}3$",
+      "Comme 14 peut s'écrire $\\dfrac{140}{10}$, alors 14 est un nombre décimal"
+    ],
+    "keywords": [
+      "écriture"
+    ],
+    "relatedObjectives": [
+      "6N31"
+    ],
+    "relatedItems": [
+      {
+        "slug": "fraction-decimale"
+      },
+      {
+        "slug": "partie-entiere"
+      },
+      {
+        "slug": "partie-decimale"
+      }
+    ]
+  },
+  {
+    "titles": [
+      "Partie entière"
+    ],
+    "content": "La partie à gauche de la virgule d'un nombre décimal est sa [[partie entière]].",
+    "comments": [],
+    "exemples": [
+      "La partie entière de 27,31 est 27."
+    ],
+    "keywords": [
+      "décimal"
+    ],
+    "relatedObjectives": [
+      "6N31"
+    ],
+    "relatedItems": []
+  },
+  {
+    "titles": [
+      "Partie décimale"
+    ],
+    "content": "Zéro virgule la partie à droite de la virgule d'un nombre décimal est sa [[partie décimale]].",
+    "comments": [
+      "Attention ! La partie décimale de 27,31 n'est pas 31 !",
+      "L'avantage que la partie décimale de 27,31 soit 0,31 c'est qu'en additionnant partie entière (27) + partie décimale (0,31), on retrouve le nombre décimal (27,31)."
+    ],
+    "exemples": [
+      "La partie décimale de 27,31 est 0,31."
+    ],
+    "keywords": [],
+    "relatedObjectives": [
+      "6N31"
+    ],
+    "relatedItems": []
+  },
+  {
+    "titles": [
+      "Points distincts"
+    ],
+    "content": "Un [[point]] désigne un emplacement.<br>Deux points sont [[distincts]] s'ils ne sont pas situés sur le même emplacement.",
+    "comments": [
+      "Un point se nomme avec une lettre majuscule"
+    ],
+    "exemples": [
+      "A et B"
+    ],
+    "keywords": [],
+    "relatedObjectives": [
+      "6G10"
+    ],
+    "relatedItems": [
+      {
+        "slug": "points-confondus"
+      }
+    ]
+  },
+  {
+    "titles": [
+      "Points confondus"
+    ],
+    "content": "Un [[point]] désigne un emplacement.<br>Deux points sont [[confondus]] s'ils sont situés exactement au même endroit.",
+    "comments": [
+      "Un point se nomme avec une lettre majuscule"
+    ],
+    "exemples": [
+      "A et B"
+    ],
+    "keywords": [],
+    "relatedObjectives": [
+      "6G10"
+    ],
+    "relatedItems": []
+  },
+  {
+    "titles": [
+      "Droite"
+    ],
+    "content": "Une [[droite]] est une ligne droite illimitée des deux côtés.",
+    "comments": [
+      "Une parenthèse signifie qu'on prolonge tandis qu'un crochet signifie qu'on s'arrête.<br>Une droite se prolonge des deux côtés donc se note avec deux parenthèses."
+    ],
+    "exemples": [
+      "(AB)"
+    ],
+    "keywords": [],
+    "relatedObjectives": [
+      "6G10"
+    ],
+    "relatedItems": [
+      {
+        "slug": "demi-droite"
+      },
+      {
+        "slug": "segment"
+      },
+      {
+        "slug": "droites-secantes"
+      },
+      {
+        "slug": "droites-perpendiculaires"
+      },
+      {
+        "slug": "droites-paralleles"
+      },
+      {
+        "slug": "droites-confondues"
+      }
+    ]
+  },
+  {
+    "titles": [
+      "Demi-droite"
+    ],
+    "content": "Une [[demi-droite]] d'[[origine]] A qui passe par le point B est une portion de droite qui commence en A et qui est illimitée du coté de B.",
+    "comments": [
+      "Une parenthèse signifie qu'on prolonge tandis qu'un crochet signifie qu'on s'arrête.<br>Une demi-droite s'arrête d'un côté et se prolonge de l'autre côté, elle se note donc avec un crochet et une parenthèse."
+    ],
+    "exemples": [
+      "[AB)"
+    ],
+    "keywords": [],
+    "relatedObjectives": [
+      "6G10"
+    ],
+    "relatedItems": []
+  },
+  {
+    "titles": [
+      "Segment"
+    ],
+    "content": "Un segment est une portion de droite délimitée des deux côtés.",
+    "comments": [
+      "Une parenthèse signifie qu'on prolonge tandis qu'un crochet signifie qu'on s'arrête.<br>Un segment s'arrête des deux côtés et se note donc avec deux crochets."
+    ],
+    "exemples": [
+      "[AB]"
+    ],
+    "keywords": [],
+    "relatedObjectives": [
+      "6G10"
+    ],
+    "relatedItems": [
+      {
+        "slug": "extremites"
+      },
+      {
+        "slug": "milieu-dun-segment"
+      }
+    ]
+  },
+  {
+    "titles": [
+      "Extremités"
+    ],
+    "content": "Les [[extremités]] d'un segment sont le point du début et le point de la fin du segment.",
+    "comments": [],
+    "exemples": [
+      "Les extrémités du segment [AB] sont les points A et B."
+    ],
+    "keywords": [],
+    "relatedObjectives": [
+      "6G10"
+    ],
+    "relatedItems": []
+  },
+  {
+    "titles": [
+      "Milieu d'un segment"
+    ],
+    "content": "Le [[milieu]] d'un segment est le point de ce segment qui le partage en deux segments de même longueur.",
+    "comments": [],
+    "exemples": [],
+    "keywords": [],
+    "relatedObjectives": [
+      "6G10"
+    ],
+    "relatedItems": []
+  },
+  {
+    "titles": [
+      "Points alignés"
+    ],
+    "content": "Des points sont [[alignés]] s’ils appartiennent à la même droite.",
+    "comments": [
+      "Si on peut tracer une seule droite qui passe par ces différents points en même temps, alors ils sont alignés, sinon ils ne le sont pas."
+    ],
+    "exemples": [
+      "Dans l'image ci-dessus, le point C est aligné avec A et B mais le point D n'est pas aligné avec A et B."
+    ],
+    "keywords": [
+      "droite"
+    ],
+    "relatedObjectives": [
+      "6G10"
+    ],
+    "relatedItems": [
+      {
+        "slug": "droite"
+      }
+    ]
+  },
+  {
+    "titles": [
+      "Polygone"
+    ],
+    "content": "Un [[polygone]] est une figure fermée uniquement composée de segments",
+    "comments": [],
+    "exemples": [],
+    "keywords": [],
+    "relatedObjectives": [
+      "6G10"
+    ],
+    "relatedItems": [
+      {
+        "slug": "segment"
+      },
+      {
+        "slug": "diagonale"
+      }
+    ]
+  },
+  {
+    "titles": [
+      "Diagonale"
+    ],
+    "content": "Une [[diagonale]] est un segment qui relie deux sommets non consécutifs (deux sommets qui ne se suivent pas)",
+    "comments": [],
+    "exemples": [],
+    "keywords": [],
+    "relatedObjectives": [
+      "6G10"
+    ],
+    "relatedItems": []
+  }
+]
