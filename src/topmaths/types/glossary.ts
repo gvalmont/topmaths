@@ -53,3 +53,7 @@ export function isGlossaryUniteItem (obj: unknown): obj is GlossaryUniteItem {
   return isGlossaryItem(obj) &&
   'title' in obj && typeof obj.title === 'string'
 }
+export function isGlossaryUniteItems (obj: unknown): obj is GlossaryUniteItem[] {
+  if (!Array.isArray(obj)) return false
+  return obj.every(isGlossaryUniteItem)
+}

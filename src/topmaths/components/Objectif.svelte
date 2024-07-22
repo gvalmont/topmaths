@@ -2,11 +2,11 @@
   import {
     modeEnseignant,
     modePerso,
-    niveauxObjectifs,
+    objectives,
     niveauxSequences,
     reference
   } from '../services/store'
-  import type { Objective } from '../services/types'
+  import { emptyObjective, isObjective, type Objective } from '../services/types'
   import { getTitre } from '../services/outils'
   import { goVue } from '../services/navigation'
   import { afterUpdate, onDestroy, tick } from 'svelte'
@@ -48,12 +48,12 @@
   }
 
   function surveillerLeChargementDesDonnees () {
-    niveauxObjectifsUnsubscribe = niveauxObjectifs.subscribe(() => MAJPage())
+    niveauxObjectifsUnsubscribe = objectives.subscribe(() => MAJPage())
     onDestroy(niveauxObjectifsUnsubscribe)
   }
 
   function lesDonneesSontChargees () {
-    return $niveauxObjectifs.length > 0 && $niveauxSequences.length > 0
+    return $objectives.length > 0 && $niveauxSequences.length > 0
   }
 
   function MAJPage () {
@@ -65,18 +65,12 @@
   }
 
   function getObjectif () {
-    for (const niveau of $niveauxObjectifs) {
-      for (const theme of niveau.themes) {
-        for (const sousTheme of theme.subThemes) {
-          for (const objectif of sousTheme.objectives) {
-            if (objectif.reference === $reference) {
-              return objectif
-            }
-          }
-        }
-      }
+    const objectiveCandidate = $objectives.find(objectif => objectif.reference === $reference)
+    if (isObjective(objectiveCandidate)) {
+      return objectiveCandidate
     }
-    return {} as Objective
+    console.error('Objectif non trouvé')
+    return emptyObjective
   }
 
   function MAJProprietes () {
@@ -173,7 +167,7 @@
           <div class="image is-16by9">
             <iframe
               class="has-ratio"
-              src={video.slug}
+              src={video.videoLink}
               title="Vidéo d'explication"
               allowfullscreen
             />

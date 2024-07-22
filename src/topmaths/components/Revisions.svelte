@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { calendrierAnneeEnCours, listeDesUrl, niveauxObjectifs, niveauxSequences, vue, vuePrecedente } from '../services/store'
-  import type { ObjectiveGrade } from '../services/types'
+  import { calendrierAnneeEnCours, listeDesUrl, objectives, niveauxSequences, vue, vuePrecedente } from '../services/store'
   import { estCoopmaths } from '../services/outils'
   import { environment } from '../services/environment'
   import { get } from 'svelte/store'
@@ -19,22 +18,22 @@
     }
   }
 
-function lancerExercicesBrevet () {
-  if ($calendrierAnneeEnCours.periodNumber > 0) {
-    const listeExercicesBrevet = getListeExercicesBrevet()
-    if (listeExercicesBrevet.length === 0) {
-      alert('Tu n\'as pas encore d\'exercice de brevet à réviser, reviens plus tard !')
-    } else {
-      lancer(listeExercicesBrevet)
+  function lancerExercicesBrevet () {
+    if ($calendrierAnneeEnCours.periodNumber > 0) {
+      const listeExercicesBrevet = getListeExercicesBrevet()
+      if (listeExercicesBrevet.length === 0) {
+        alert('Tu n\'as pas encore d\'exercice de brevet à réviser, reviens plus tard !')
+      } else {
+        lancer(listeExercicesBrevet)
+      }
     }
   }
-}
 
-function lancer (listeUrls: string[]) {
-  listeDesUrl.set(listeUrls)
-  vuePrecedente.set(get(vue))
-  vue.set('exercices')
-}
+  function lancer (listeUrls: string[]) {
+    listeDesUrl.set(listeUrls)
+    vuePrecedente.set(get(vue))
+    vue.set('exercices')
+  }
 
   function getListeDesReferences (
     niveauChoisi: string
@@ -52,45 +51,22 @@ function lancer (listeUrls: string[]) {
         }
       }
     }
-    return getListeDesUrl(listeDesReferences, $niveauxObjectifs)
+    return getListeDesUrl(listeDesReferences)
   }
 
-function getListeExercicesBrevet () {
-  const listeDesReferences: string[] = []
-  for (const niveau of $niveauxSequences) {
-    if (niveau.name === '3e') {
-      const derniereSequence = getDerniereSequence(niveau.name)
-      for (const sequence of niveau.units) {
-        if (sequence.number <= derniereSequence) {
-          if (sequence.assessmentExamLink !== '') {
-            const entries = new URL(sequence.assessmentExamLink).searchParams.entries()
-            for (const entry of entries) {
-              if (entry[0] === 'uuid') {
-                const uuid = entry[1]
-                listeDesReferences.push(environment.baseUrl + environment.V3 + 'uuid=' + uuid)
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  return listeDesReferences
-}
-
-  function getListeDesUrl (
-    listeDesReferences: string[],
-    niveaux: ObjectiveGrade[]
-  ) {
-    const listeDesUrl: string[] = []
-    for (const niveau of niveaux) {
-      for (const theme of niveau.themes) {
-        for (const sousTheme of theme.subThemes) {
-          for (const objectif of sousTheme.objectives) {
-            for (const reference of listeDesReferences) {
-              if (reference === objectif.reference) {
-                for (const exercice of objectif.exercises) {
-                  if (estCoopmaths(exercice.link)) listeDesUrl.push(exercice.link)
+  function getListeExercicesBrevet () {
+    const listeDesReferences: string[] = []
+    for (const niveau of $niveauxSequences) {
+      if (niveau.name === '3e') {
+        const derniereSequence = getDerniereSequence(niveau.name)
+        for (const sequence of niveau.units) {
+          if (sequence.number <= derniereSequence) {
+            if (sequence.assessmentExamLink !== '') {
+              const entries = new URL(sequence.assessmentExamLink).searchParams.entries()
+              for (const entry of entries) {
+                if (entry[0] === 'uuid') {
+                  const uuid = entry[1]
+                  listeDesReferences.push(environment.baseUrl + environment.V3 + 'uuid=' + uuid)
                 }
               }
             }
@@ -98,12 +74,26 @@ function getListeExercicesBrevet () {
         }
       }
     }
+    return listeDesReferences
+  }
+
+  function getListeDesUrl (listeDesReferences: string[]) {
+    const listeDesUrl: string[] = []
+    listeDesReferences.forEach(reference => {
+      for (const objectif of $objectives) {
+        if (reference === objectif.reference) {
+          for (const exercice of objectif.exercises) {
+            if (estCoopmaths(exercice.link)) listeDesUrl.push(exercice.link)
+          }
+        }
+      }
+    })
     return listeDesUrl
   }
 
   function getDerniereSequence (niveau: string) {
     const numeroPeriode = $calendrierAnneeEnCours.periodNumber
-    const typeDePeriode = $calendrierAnneeEnCours.isHoliday
+    const isHoliday = $calendrierAnneeEnCours.isHoliday
     const semaineDansLaPeriode = $calendrierAnneeEnCours.weekInPeriod
     const nbSequencesCumulees = getNbSequencesCumulees(niveau)
 
@@ -111,7 +101,7 @@ function getListeExercicesBrevet () {
     const nbSequencesDevine = nbSequencesDebutPeriode + semaineDansLaPeriode - 3
     const nbSequencesFinPeriode = nbSequencesCumulees[numeroPeriode] - 1
 
-    if (typeDePeriode === 'cours') {
+    if (!isHoliday) {
       return Math.min(nbSequencesDevine, nbSequencesFinPeriode)
     } else {
       return nbSequencesFinPeriode

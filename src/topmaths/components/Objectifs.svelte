@@ -1,140 +1,59 @@
 <script lang="ts">
-  import { modeEnseignant, niveauxObjectifs, titresProchesDesAttendus } from '../services/store'
+  import { modeEnseignant, objectives, titresProchesDesAttendus } from '../services/store'
   import { normaliser } from '../services/outils'
   import { goVue } from '../services/navigation'
   import { onDestroy } from 'svelte'
-  import type { Unsubscriber } from 'svelte/store'
   import { writable, derived } from 'svelte/store'
-  import type { LineGrade, LineObjective } from '../services/types'
+  import { isLineGrade, type LineGrade, type LineObjective } from '../services/types'
   import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
 
-  const filtre = {
+  type Filter = {
+    grade: LineGrade,
+    period: number
+  }
+
+  const filter: Filter = {
     grade: 'all',
-    period: 0,
-    theme: { name: '', objectivesPerPeriodCount: [] },
-    subTheme: { name: '', objectivesPerPeriodCount: [] },
-    reference: '',
-    titleAcademic: '',
-    title: ''
-  } as LineObjective
+    period: 0
+  }
   const texteRecherche = writable('')
-  const lignes = writable<LineObjective[]>([])
-  const lignesFiltrees = derived(
-    [texteRecherche, lignes],
-    ([$texteRecherche, $lignes]) => getLignesFiltrees($texteRecherche, $lignes)
+  const rows = derived(
+    [texteRecherche, objectives],
+    ([$texteRecherche, $objectives]) => getLignesFiltrees($texteRecherche, $objectives)
   )
 
-  let niveauxObjectifsUnsubscribe: Unsubscriber
-
   updateParamsFromUrl()
-  MAJPage()
-  surveillerLeChargementDesDonnees()
   addEventListener('popstate', updateParamsFromUrl)
   onDestroy(() => {
     removeEventListener('popstate', updateParamsFromUrl)
   })
 
+  function count ({ grade, theme, subTheme, period, filter }: { grade: LineGrade, theme: string, subTheme: string, period: number, filter: Filter }) {
+    return $objectives
+      .filter((objective) => {
+        return (
+          (grade === 'all' || objective.grade === grade) && (filter.grade === 'all' || filter.grade === grade) &&
+          (theme === '' || objective.theme === theme) &&
+          (subTheme === '' || objective.subTheme === subTheme) &&
+          ((period === 0 || objective.period === period) && (filter.period === 0 || filter.period === period))
+        )
+      })
+      .length
+  }
+
   function updateParamsFromUrl () {
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     for (const entry of entries) {
-      if (entry[0] === 'niveau') filtre.grade = entry[1]
-      if (entry[0] === 'periode') filtre.period = Number(entry[1])
+      if (entry[0] === 'niveau') filter.grade = isLineGrade(entry[1]) ? entry[1] : 'all'
+      if (entry[0] === 'periode') filter.period = Number(entry[1])
     }
   }
 
-  function surveillerLeChargementDesDonnees () {
-    niveauxObjectifsUnsubscribe = niveauxObjectifs.subscribe(() => MAJPage())
-    onDestroy(niveauxObjectifsUnsubscribe)
-  }
-
-  function MAJPage () {
-    if (lesDonneesSontChargees()) {
-      MAJLignes()
-    }
-  }
-
-  function lesDonneesSontChargees () {
-    return $niveauxObjectifs.length > 0
-  }
-
-  function MAJLignes () {
-    const lignesTemp: LineObjective[] = []
-    for (const niveau of $niveauxObjectifs) {
-      lignesTemp.push({
-        grade: niveau.name,
-        period: 0,
-        theme: { name: '', objectivesPerPeriodCount: [] },
-        subTheme: { name: '', objectivesPerPeriodCount: [] },
-        reference: '',
-        titleAcademic: '',
-        title: ''
-      })
-      for (const theme of niveau.themes) {
-        lignesTemp.push({
-          grade: niveau.name,
-          period: 0,
-          theme: {
-            name: theme.name,
-            objectivesPerPeriodCount: theme.objectivesPerPeriodCount
-          },
-          subTheme: { name: '', objectivesPerPeriodCount: [] },
-          reference: '',
-          titleAcademic: '',
-          title: ''
-        })
-        for (const sousTheme of theme.subThemes) {
-          lignesTemp.push({
-            grade: niveau.name,
-            period: 0,
-            theme: {
-              name: theme.name,
-              objectivesPerPeriodCount: theme.objectivesPerPeriodCount
-            },
-            subTheme: {
-              name: sousTheme.name,
-              objectivesPerPeriodCount: sousTheme.objectivesPerPeriodCount
-            },
-            reference: '',
-            titleAcademic: '',
-            title: ''
-          })
-          for (const objectif of sousTheme.objectives) {
-            lignesTemp.push({
-              grade: niveau.name,
-              period: objectif.period,
-              theme: {
-                name: theme.name,
-                objectivesPerPeriodCount: theme.objectivesPerPeriodCount
-              },
-              subTheme: {
-                name: sousTheme.name,
-                objectivesPerPeriodCount: sousTheme.objectivesPerPeriodCount
-              },
-              reference: objectif.reference,
-              titleAcademic: objectif.titleAcademic,
-              title: objectif.title
-            })
-          }
-        }
-      }
-      lignesTemp.push({
-        grade: 'fin',
-        period: 0,
-        theme: { name: '', objectivesPerPeriodCount: [] },
-        subTheme: { name: '', objectivesPerPeriodCount: [] },
-        reference: '',
-        titleAcademic: '',
-        title: ''
-      })
-    }
-    lignes.set(lignesTemp)
-  }
-
-  function getLignesFiltrees (texteRecherche: string, lignes: LineObjective[]): LineObjective[] {
-    if (texteRecherche === '') return lignes
+  function getLignesFiltrees (texteRecherche: string, objectives: LineObjective[]): LineObjective[] {
+    if (texteRecherche === '') return objectives
     const motsCherches = normaliser(texteRecherche).split(' ')
-    return lignes.filter((ligne) => {
+    return objectives.filter((ligne) => {
       for (const mot of motsCherches) {
         if (!motTrouve(mot, ligne)) return false
       }
@@ -164,14 +83,14 @@
 
   function clicFiltre (grade: LineGrade, periode?: number) {
     if (grade !== '') {
-      filtre.grade = grade
+      filter.grade = grade
     }
     if (periode !== undefined) {
-      filtre.period === periode
-        ? (filtre.period = 0)
-        : (filtre.period = periode)
+      filter.period === periode
+        ? (filter.period = 0)
+        : (filter.period = periode)
     }
-    window.history.pushState({}, '', `?v=objectifs&niveau=${filtre.grade}&periode=${filtre.period}`)
+    window.history.pushState({}, '', `?v=objectifs&niveau=${filter.grade}&periode=${filter.period}`)
   }
 </script>
 
@@ -181,21 +100,21 @@
 
 <div class="w-screen max-w-screen-lg">
   <LevelsTabsMenu
-    activeLevelTab={filtre.grade}
+    activeLevelTab={filter.grade}
     onLevelsTabsMenuClicked={clicFiltre}
   />
   <div class="is-flex is-justify-content-center pt-2 pb-1" style="overflow:auto">
     <button
       class="button rounded-3xl py-1 px-5 is-link mb-5 mx-1 text-sm md:text-2xl"
-      class:is-light={filtre.period !== null &&
-        filtre.period !== undefined &&
-        filtre.period > 0}
+      class:is-light={filter.period !== null &&
+        filter.period !== undefined &&
+        filter.period > 0}
       on:click={() => clicFiltre('', 0)}>Période</button
     >
     {#each [1, 2, 3, 4, 5] as periode}
       <button
         class="button rounded-3xl py-1 px-5 is-link mb-5 mx-1 text-sm md:text-2xl"
-        class:is-light={filtre.period !== periode}
+        class:is-light={filter.period !== periode}
         on:click={() => clicFiltre('', periode)}>{periode}</button
       >
     {/each}
@@ -217,46 +136,46 @@
   {/if}
   <div><br /></div>
   <div>
-    {#each $lignesFiltrees as ligne, i}
-      {#if ligne.theme.name !== 'Extra'}
+    {#each $rows as row, i}
+      {#if row.theme !== 'Extra' && row.grade !== 'fin'}
         <span>
-          {#if ligne.grade !== '' && ligne.grade !== 'fin' && (filtre.grade === 'all' || filtre.grade === ligne.grade) && ligne.theme.name === '' && ligne.subTheme.name === '' && ligne.reference === ''}
-            <h1 class="title text-2xl md:text-4xl font-semibold p-2 is-{ligne.grade}">
-              {ligne.grade}
+          {#if (i === 0 || $rows[i - 1].grade !== $rows[i].grade) && (filter.grade === 'all' || filter.grade === row.grade)}
+            <h1 class="title text-2xl md:text-4xl font-semibold p-2 is-{row.grade}">
+              {row.grade}
             </h1>
           {/if}
-          {#if ligne.grade !== 'fin' && (filtre.period === 0 || ligne.theme.objectivesPerPeriodCount[filtre.period - 1] > 0) && (filtre.grade === 'all' || filtre.grade === ligne.grade) && (filtre.theme.name === '' || filtre.theme.name === ligne.theme.name) && ligne.theme.name !== '' && ligne.subTheme.name === '' && ligne.reference === ''}
-            <h2 class="subtitle text-xl md:text-3xl pt-2 is-{ligne.grade}">
-              {ligne.theme.name}
+          {#if (i === 0 || $rows[i - 1].theme !== $rows[i].theme) && count({ grade: row.grade, theme: row.theme, subTheme: row.subTheme, period: row.period, filter }) > 0}
+            <h2 class="subtitle text-xl md:text-3xl pt-2 is-{row.grade}">
+              {row.theme}
             </h2>
           {/if}
-          {#if ligne.grade !== 'fin' && (filtre.period === 0 || ligne.subTheme.objectivesPerPeriodCount[filtre.period - 1] > 0) && (filtre.grade === 'all' || filtre.grade === ligne.grade) && (filtre.subTheme.name === '' || filtre.subTheme.name === ligne.subTheme.name) && ligne.subTheme.name !== '' && ligne.reference === ''}
-            <h3 class="subtitle text-lg md:text-2xl p-4 is-{ligne.grade}">
-              {ligne.subTheme.name}
+          {#if (i === 0 || $rows[i - 1].subTheme !== $rows[i].subTheme) && count({ grade: row.grade, theme: row.theme, subTheme: row.subTheme, period: row.period, filter }) > 0}
+            <h3 class="subtitle text-lg md:text-2xl p-4 is-{row.grade}">
+              {row.subTheme}
             </h3>
           {/if}
-          {#if ligne.grade !== 'fin' && (filtre.period === 0 || filtre.period === ligne.period) && (filtre.grade === 'all' || filtre.grade === ligne.grade) && (filtre.theme.name === '' || filtre.theme.name === ligne.theme.name) && (filtre.subTheme.name === '' || filtre.subTheme.name === ligne.subTheme.name) && ligne.reference !== ''}
+          {#if count({ grade: row.grade, theme: row.theme, subTheme: row.subTheme, period: row.period, filter }) > 0}
             <div
-              class="p-1  is-{ligne.grade}"
-              class:is-fin={$texteRecherche === '' && ($lignesFiltrees[i + 1].grade === 'fin' || $lignesFiltrees[i + 1].theme.name === 'Extra')}
+              class="p-1  is-{row.grade}"
+              class:is-fin={$texteRecherche === '' && i < $rows.length - 2 && ($rows[i + 1].grade === 'fin' || $rows[i + 1].theme === 'Extra')}
             >
               <a
-                href="/?v=objectif&ref={ligne.reference}"
+                href="/?v=objectif&ref={row.reference}"
                 on:click={(event) =>
-                  goVue(event, 'objectif', ligne.reference ?? '')}
+                  goVue(event, 'objectif', row.reference ?? '')}
               >
                 <div>
-                  {ligne.reference} : {$titresProchesDesAttendus ||
-                    ligne.title === undefined || ligne.title === ''
-                    ? ligne.titleAcademic
-                    : ligne.title}<br />
+                  {row.reference} : {$titresProchesDesAttendus ||
+                    row.title === undefined || row.title === ''
+                    ? row.titleAcademic
+                    : row.title}<br />
                 </div>
               </a>
             </div>
           {/if}
         </span>
       {/if}
-      {#if i > 0 && ligne.grade === 'fin' && filtre.grade === 'all'}
+      {#if i > 0 && row.grade === 'fin' && filter.grade === 'all'}
         <div>
           <br />
         </div>

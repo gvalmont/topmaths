@@ -1,16 +1,12 @@
-import type { ObjectiveGrade, UnitGrade, UnitSpecialUnit, CalendarYear } from './types'
-import { niveauxObjectifs as storeNiveauxObjectifs, niveauxSequences as storeNiveauxSequences, sequencesParticulieres as storeSequencesParticulieres, calendrierAnneeEnCours as storeCalendrierAnneeEnCours, lexique as lexiqueStore } from './store'
+import { objectives as storeObjectives, niveauxSequences as storeNiveauxSequences, sequencesParticulieres as storeSequencesParticulieres, calendrierAnneeEnCours as storeCalendrierAnneeEnCours, lexique as glossaryStore } from './store'
 import sequencesModifieesJson from '../../topmaths/json/sequences_modifiees.json'
 import objectifsModifiesJson from '../../topmaths/json/objectifs_modifies.json'
-import lexiqueModifieJson from '../../topmaths/json/lexique.json'
+import glossaryJson from '../../topmaths/json/lexique.json'
 import sequencesParticulieresJson from '../../topmaths/json/sequencesParticulieres.json'
 import calendrierJson from '../../topmaths/json/calendrier.json'
-import type { GlossaryUniteItem } from '../types/glossary'
+import { isObjectives, type Objective } from './types'
+import { isGlossaryUniteItems } from '../types/glossary'
 
-let niveauxObjectifs = [] as ObjectiveGrade[]
-let niveauxSequences = [] as UnitGrade[]
-let sequencesParticulieres = [] as UnitSpecialUnit[]
-let lexique = [] as GlossaryUniteItem[]
 miseEnCacheDesDonnees()
 
 function miseEnCacheDesDonnees () {
@@ -21,24 +17,31 @@ function miseEnCacheDesDonnees () {
 }
 
 function miseEnCacheNiveauxEtSequences () {
-  niveauxSequences = sequencesModifieesJson as UnitGrade[]
+  const niveauxSequences = sequencesModifieesJson
   storeNiveauxSequences.set(niveauxSequences)
-  niveauxObjectifs = objectifsModifiesJson as ObjectiveGrade[]
-  storeNiveauxObjectifs.set(niveauxObjectifs)
+  if (!isObjectives(objectifsModifiesJson)) {
+    console.error(objectifsModifiesJson)
+    throw new Error('objectifsModifiesJson is not an array of Objective')
+  }
+  const objectives: Objective[] = objectifsModifiesJson
+  storeObjectives.set(objectives)
 }
 
 function miseEnCacheSequencesParticulieres () {
-  sequencesParticulieres = sequencesParticulieresJson as UnitSpecialUnit[]
+  const sequencesParticulieres = sequencesParticulieresJson
   storeSequencesParticulieres.set(sequencesParticulieres)
 }
 
 function miseEnCacheLexique () {
-  lexique = lexiqueModifieJson as GlossaryUniteItem[]
-  lexiqueStore.set(lexique)
+  if (!isGlossaryUniteItems(glossaryJson)) {
+    console.error(glossaryJson)
+    throw new Error('lexiqueModifieJson is not an array of GlossaryUniteItem')
+  }
+  glossaryStore.set(glossaryJson)
 }
 
 function miseEnCacheCalendrier () {
-  const calendrierAnnees = calendrierJson as CalendarYear[]
+  const calendrierAnnees = calendrierJson
   const annee = new Date().getFullYear()
   const jourNumero = getDayOfYear()
   let periodeNumero: number = 1

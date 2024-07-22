@@ -35,7 +35,7 @@
       }
     }
     for (const video of videos) {
-      lien += 'uuid=video&s=https://www.youtube.com/watch?v=' + video.slug.split('videoId=')[1].split('&')[0] + '&'
+      lien += 'uuid=video&s=https://www.youtube.com/watch?v=' + video.videoLink.split('videoId=')[1].split('&')[0] + '&'
     }
     return lien + 'v=eleve&beta=1&es=011100'
   }

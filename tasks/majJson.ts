@@ -4,11 +4,11 @@ import * as path from 'path'
 import refToUuidJson from '../src/json/refToUuidFR.json' assert { type: 'json' }
 import definitionsJson from '../src/topmaths/json/glossary/definitions.json' assert { type: 'json' }
 import propertiesJson from '../src/topmaths/json/glossary/properties.json' assert { type: 'json' }
+import objectivesMasterJson from '../src/topmaths/json/objectives.json' assert { type: 'json' }
 import type { RecursivePartial } from '../src/lib/types.js'
-import { type UnitGrade, type ObjectiveGrade, type UnitUnit, type UnitObjective, type ObjectiveObjective, type ObjectiveExercise, type ObjectiveLessonPlan, type ObjectiveUnit, type StringGrade, isStringGrade } from '../src/topmaths/services/types.js'
+import { type UnitGrade, type UnitUnit, type UnitObjective, type Objective, type ObjectiveExercise, type ObjectiveLessonPlan, type ObjectiveUnit, type StringGrade, isStringGrade, isObjective } from '../src/topmaths/services/types.js'
 import { type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
 const niveauxSequencesJson = JSON.parse(readFileSync('./src/topmaths/json/sequences.json').toString())
-const niveauxObjectifsJson = JSON.parse(readFileSync('./src/topmaths/json/objectifs.json').toString())
 
 const environment = {
   annee: 2023,
@@ -36,26 +36,21 @@ const listeSitesPresentsPolitiqueDeConfidentialite = [
 const definitions: RecursivePartial<GlossaryMasterItem>[] = definitionsJson
 const properties: Partial<GlossaryMasterItem>[] = propertiesJson
 
-let niveauxObjectifs: ObjectiveGrade[] = []
 let niveauxSequences: UnitGrade[] = []
 let numeroExercice = 1
 let nombreDeWarnings = 0
-let nombreErreurs = 0
-miseEnCacheNiveauxEtSequences()
+let errorCount = 0
+niveauxSequences = preTraitementSequences(niveauxSequencesJson)
+const objectives: Objective[] = makeObjectives()
+niveauxSequences = postTraitementSequences(niveauxSequences, objectives)
+postTraitementObjectifs()
 const glossary = makeGlossary()
 checksDeRoutine()
 console.warn(nombreDeWarnings + ' warnings')
-console.error(nombreErreurs + ' erreurs')
-ecrireJson('objectifs_modifies', niveauxObjectifs)
+console.error(errorCount + ' erreurs')
+ecrireJson('objectifs_modifies', objectives)
 ecrireJson('sequences_modifiees', niveauxSequences)
 ecrireJson('lexique', glossary)
-
-function miseEnCacheNiveauxEtSequences () {
-  niveauxSequences = preTraitementSequences(niveauxSequencesJson)
-  niveauxObjectifs = preTraitementObjectifs(niveauxObjectifsJson)
-  niveauxSequences = postTraitementSequences(niveauxSequences, niveauxObjectifs)
-  postTraitementObjectifs()
-}
 
 function makeGlossary () {
   const formattedMasterDefinitions = definitions.map(item => formatItem(item, 'définition')).filter(isGlossaryMasterItem)
@@ -93,54 +88,83 @@ function preTraitementSequences (niveaux: UnitGrade[]) {
   return niveaux
 }
 
-function preTraitementObjectifs (niveaux: ObjectiveGrade[]) {
-  for (const niveau of niveaux) {
-    for (const theme of niveau.themes) {
-      if (theme.subThemes === undefined) {
-        theme.subThemes = []
-      } else {
-        for (const sousTheme of theme.subThemes) {
-          for (const objectif of sousTheme.objectives) {
-            numeroExercice = 1
-            objectif.reference = objectif.reference ?? '0'
-            objectif.titleAcademic = objectif.titleAcademic ?? ''
-            objectif.title = objectif.title ?? ''
-            objectif.period = trouverPeriode(objectif)
-            objectif.lessonSummaryHTML = objectif.lessonSummaryHTML ?? ''
-            objectif.lessonSummaryImage = getRappelDuCoursImage(objectif)
-            objectif.lessonSummaryInstrumenpoche = objectif.lessonSummaryInstrumenpoche ?? ''
-            objectif.videos = objectif.videos ?? []
-            objectif.exercises = getExercicesAvecLienEtId(objectif.reference, objectif.exercises)
-            objectif.lessonPlans = getFiches(objectif.lessonPlans)
-            objectif.examExercises = getExercicesAvecLienEtId(objectif.reference, objectif.examExercises)
-            objectif.exercisesLink = getLienExercices(objectif.exercises)
-            objectif.examExercisesLink = getLienExercices(objectif.examExercises)
-            objectif.units = getSequences(objectif)
-            objectif.availableDownloads = {
-              isPracticeSheetAvailable: fs.existsSync(cheminFichierLegacy('entrainement', objectif.reference)),
-              isTestSheetAvailable: fs.existsSync(cheminFichierLegacy('test', objectif.reference)),
-              isLessonPlanAvailable: presenceFicheObjectif(objectif),
-              availableLessonPlanGrades: []
-            }
-            objectif.theme = theme.name ?? ''
-            const stringGradeCandidate = objectif.reference.slice(0, 1) + 'e'
-            objectif.grade = isStringGrade(stringGradeCandidate) ? stringGradeCandidate : '6e'
+type ObjectiveSubTheme = {
+  name: string,
+  objectives: Objective[]
+}
+
+type ObjectiveTheme = {
+  name: string,
+  subThemes: ObjectiveSubTheme[]
+}
+
+type ObjectiveGrade = {
+  name: string,
+  themes: ObjectiveTheme[]
+}
+
+function makeObjectives () {
+  const formattedObjectives: Objective[] = []
+  const objectivesMaster: RecursivePartial<ObjectiveGrade>[] = objectivesMasterJson
+  for (const grade of objectivesMaster) {
+    if (grade.name === undefined) { console.error(grade); throw new Error('Grade name is undefined') }
+    if (grade.themes === undefined) { console.error(grade); throw new Error('Grade themes are undefined') }
+    for (const theme of grade.themes) {
+      if (theme === undefined) { console.error(theme); throw new Error('Theme is undefined') }
+      if (theme.name === undefined) { console.error(theme); throw new Error('Theme name is undefined') }
+      if (theme.subThemes === undefined) { console.error(theme); throw new Error('Theme subThemes are undefined') }
+      for (const subTheme of theme.subThemes) {
+        if (subTheme === undefined) { console.error(subTheme); throw new Error('SubTheme is undefined') }
+        if (subTheme.name === undefined) { console.error(subTheme); throw new Error('SubTheme name is undefined') }
+        if (subTheme.objectives === undefined) { console.error(subTheme); throw new Error('SubTheme objectives are undefined') }
+        for (const objective of subTheme.objectives) {
+          if (objective === undefined) { console.error(objective); throw new Error('Objective is undefined') }
+          if (objective.reference === undefined) { console.error(objective); throw new Error('Objective reference is undefined') }
+          numeroExercice = 1
+          objective.availableDownloads = {
+            isPracticeSheetAvailable: fs.existsSync(cheminFichierLegacy('entrainement', objective.reference)),
+            isTestSheetAvailable: fs.existsSync(cheminFichierLegacy('test', objective.reference)),
+            isLessonPlanAvailable: presenceFicheObjectif(objective),
+            availableLessonPlanGrades: []
           }
+          objective.examExercises = getExercicesAvecLienEtId(objective.reference, objective.examExercises)
+          objective.examExercisesLink = getLienExercices(objective.examExercises)
+          objective.exercises = getExercicesAvecLienEtId(objective.reference, objective.exercises)
+          objective.exercisesLink = getLienExercices(objective.exercises)
+          const stringGradeCandidate = objective.reference.slice(0, 1) + 'e'
+          objective.grade = isStringGrade(stringGradeCandidate) ? stringGradeCandidate : 'none'
+          objective.lessonPlans = getFiches(objective.lessonPlans)
+          objective.lessonSummaryHTML = objective.lessonSummaryHTML ?? ''
+          objective.lessonSummaryImage = getRappelDuCoursImage(objective)
+          objective.lessonSummaryInstrumenpoche = objective.lessonSummaryInstrumenpoche ?? ''
+          objective.period = trouverPeriode(objective)
+          objective.reference = objective.reference ?? '0'
+          objective.subTheme = subTheme.name
+          objective.theme = theme.name
+          objective.title = objective.title ?? ''
+          objective.titleAcademic = objective.titleAcademic ?? ''
+          objective.units = getSequences(objective)
+          objective.videos = objective.videos ?? []
+          if (!isObjective(objective)) {
+            console.error(objective)
+            throw new Error('Objective is not an Objective')
+          }
+          formattedObjectives.push(objective)
         }
       }
     }
   }
-  return ajouterObjectifsParThemeParPeriode(niveaux)
+  return formattedObjectives
 }
 
-function postTraitementSequences (niveauxSequences: UnitGrade[], niveauxObjectifs: ObjectiveGrade[]) {
+function postTraitementSequences (niveauxSequences: UnitGrade[], objectives: Objective[]) {
   for (const niveauSequence of niveauxSequences) {
     for (const sequence of niveauSequence.units) {
-      sequence.objectives = getObjectifsAvecInfos(sequence, niveauxObjectifs)
-      sequence.mentalCalculations = getCalculsMentauxAvecInfos(sequence, niveauxObjectifs)
-      sequence.flashQuestions = getQuestionsFlashAvecInfos(sequence, niveauxObjectifs)
-      sequence.assessmentLink = getLienEval(sequence, niveauxObjectifs)
-      ajouterReferenceFiches(sequence)
+      updateUnitObjective(sequence, objectives)
+      updateUnitMentalCalculations(sequence, objectives)
+      updateUnitFlashQuestions(sequence, objectives)
+      updateUnitAssessmentLink(sequence, objectives)
+      updateUnitLessonPlans(sequence)
     }
   }
   niveauxSequences = majTelechargementsDisponibles()
@@ -252,7 +276,7 @@ function completerNotionsLiees (items: GlossaryUniteItem[]) {
       }
       if (!trouve) {
         console.error('La notion liée ' + notionLieeItem1.slug + ' de ' + item1.title + ' n\'existe pas')
-        nombreErreurs++
+        errorCount++
       }
     }
   }
@@ -325,17 +349,7 @@ function getListeReferencesObjectifsSequences () {
 }
 
 function getListeReferencesObjectifs () {
-  const references: string[] = []
-  for (const niveau of niveauxObjectifs) {
-    for (const theme of niveau.themes) {
-      for (const sousTheme of theme.subThemes) {
-        for (const objectif of sousTheme.objectives) {
-          references.push(objectif.reference)
-        }
-      }
-    }
-  }
-  return references
+  return objectives.map(objective => objective.reference)
 }
 
 function getCalculsMentauxAvecLiensEtIdDesExercices (sequence: UnitUnit) {
@@ -343,7 +357,7 @@ function getCalculsMentauxAvecLiensEtIdDesExercices (sequence: UnitUnit) {
   for (const calculMental of sequence.mentalCalculations) {
     for (const exercice of calculMental.exercises) {
       exercice.link = getLienExercice(exercice.slug, true)
-      exercice.uuid = sequence.reference + '-' + numeroExercice
+      exercice.id = sequence.reference + '-' + numeroExercice
       numeroExercice++
     }
   }
@@ -380,7 +394,7 @@ function getLienEvalBrevet (sequence: UnitUnit) {
   return lienEvalBrevet
 }
 
-function trouverPeriode (objectif: UnitObjective) {
+function trouverPeriode (objectif: RecursivePartial<UnitObjective>) {
   for (const niveau of niveauxSequences) {
     for (const sequence of niveau.units) {
       for (const sequenceObjectif of sequence.objectives) {
@@ -393,7 +407,7 @@ function trouverPeriode (objectif: UnitObjective) {
   return 0
 }
 
-function getRappelDuCoursImage (objectif: ObjectiveObjective) {
+function getRappelDuCoursImage (objectif: RecursivePartial<Objective>) {
   if (objectif.lessonSummaryImage === '' || objectif.lessonSummaryImage === undefined) {
     return ''
   } else {
@@ -401,54 +415,60 @@ function getRappelDuCoursImage (objectif: ObjectiveObjective) {
   }
 }
 
-function getLienExercices (exercices: ObjectiveExercise[]) {
-  if (exercices === undefined || exercices.length === 0) return ''
+function getLienExercices (exercises: (RecursivePartial<ObjectiveExercise> | undefined)[] | undefined) {
+  if (exercises === undefined || exercises.length === 0) return ''
   let lienExercices = environment.baseUrl + environment.V3
   let nbExercices = 0
-  for (const exercice of exercices) {
-    const slug = formaterSlug(exercice.slug)
-    if (slug !== '') {
-      lienExercices = lienExercices.concat(slug, '&i=0&')
-      nbExercices++
-    }
-  }
+  exercises
+    .filter(exercice => exercice !== undefined)
+    .forEach(exercice => {
+      const slug = formaterSlug(exercice.slug)
+      if (slug !== '') {
+        lienExercices = lienExercices.concat(slug, '&i=0&')
+        nbExercices++
+      }
+    })
   lienExercices = lienExercices.slice(0, -1)
   if (nbExercices === 0) lienExercices = ''
   return lienExercices
 }
 
-function getExercicesAvecLienEtId (reference: string, exercices: ObjectiveExercise[]) {
+function getExercicesAvecLienEtId (reference: string, exercices: (RecursivePartial<ObjectiveExercise> | undefined)[] | undefined) {
   if (exercices === undefined || exercices.length === 0) return []
-  for (const exercice of exercices) {
-    exercice.uuid = reference + '-' + numeroExercice
-    exercice.slug = formaterSlug(exercice.slug)
-    exercice.link = getLienExercice(exercice.slug)
-    exercice.isInteractive = exercice.isInteractive ?? false
-    exercice.description = exercice.description ?? ''
-    exercice.isInCart = exercice.isInCart ?? false
-    numeroExercice++
-  }
   return exercices
+    .filter(exercice => exercice !== undefined)
+    .map(exercice => {
+      exercice.id = reference + '-' + numeroExercice
+      exercice.slug = formaterSlug(exercice.slug)
+      exercice.link = getLienExercice(exercice.slug)
+      exercice.isInteractive = exercice.isInteractive ?? false
+      exercice.description = exercice.description ?? ''
+      exercice.isInCart = exercice.isInCart ?? false
+      numeroExercice++
+      return exercice
+    })
 }
 
-function getFiches (fiches: ObjectiveLessonPlan[]) {
-  if (fiches === undefined) return []
-  for (const fiche of fiches) {
-    fiche.startSteps = fiche.startSteps ?? []
-    fiche.lessonSteps = fiche.lessonSteps ?? []
-    fiche.homeworks = fiche.homeworks ?? []
-    fiche.closureSteps = fiche.closureSteps ?? []
-    fiche.studentMaterialsNeeded = fiche.studentMaterialsNeeded ?? []
-    fiche.teacherMaterialsNeeded = fiche.teacherMaterialsNeeded ?? []
-    fiche.grades = fiche.grades ?? []
-    fiche.comments = fiche.comments ?? []
-    fiche.nextSessionSteps = fiche.nextSessionSteps ?? []
-    fiche.reference = fiche.reference ?? '0'
-  }
+function getFiches (fiches: (RecursivePartial<ObjectiveLessonPlan> | undefined)[] | undefined) {
+  if (fiches === undefined || fiches.length === 0) return []
   return fiches
+    .filter(fiche => fiche !== undefined)
+    .map(fiche => {
+      fiche.startSteps = fiche.startSteps ?? []
+      fiche.lessonSteps = fiche.lessonSteps ?? []
+      fiche.homeworks = fiche.homeworks ?? []
+      fiche.closureSteps = fiche.closureSteps ?? []
+      fiche.studentMaterialsNeeded = fiche.studentMaterialsNeeded ?? []
+      fiche.teacherMaterialsNeeded = fiche.teacherMaterialsNeeded ?? []
+      fiche.grades = fiche.grades ?? []
+      fiche.comments = fiche.comments ?? []
+      fiche.nextSessionSteps = fiche.nextSessionSteps ?? []
+      fiche.reference = fiche.reference ?? '0'
+      return fiche
+    })
 }
 
-function getSequences (objectif: ObjectiveObjective) {
+function getSequences (objectif: RecursivePartial<Objective>) {
   const listeDesSequences: ObjectiveUnit[] = []
   for (const niveauSequence of niveauxSequences) {
     for (const sequence of niveauSequence.units) {
@@ -465,146 +485,62 @@ function getSequences (objectif: ObjectiveObjective) {
   return listeDesSequences
 }
 
-function ajouterObjectifsParThemeParPeriode (niveaux: ObjectiveGrade[]) {
-  for (const niveau of niveaux) {
-    for (const theme of niveau.themes) {
-      let nbObjectifsThemePeriode1 = 0
-      let nbObjectifsThemePeriode2 = 0
-      let nbObjectifsThemePeriode3 = 0
-      let nbObjectifsThemePeriode4 = 0
-      let nbObjectifsThemePeriode5 = 0
-      for (const sousTheme of theme.subThemes) {
-        let nbObjectifsSousThemePeriode1 = 0
-        let nbObjectifsSousThemePeriode2 = 0
-        let nbObjectifsSousThemePeriode3 = 0
-        let nbObjectifsSousThemePeriode4 = 0
-        let nbObjectifsSousThemePeriode5 = 0
-        for (const objectif of sousTheme.objectives) {
-          switch (objectif.period) {
-            case 1:
-              nbObjectifsThemePeriode1++
-              nbObjectifsSousThemePeriode1++
-              break
-            case 2:
-              nbObjectifsThemePeriode2++
-              nbObjectifsSousThemePeriode2++
-              break
-            case 3:
-              nbObjectifsThemePeriode3++
-              nbObjectifsSousThemePeriode3++
-              break
-            case 4:
-              nbObjectifsThemePeriode4++
-              nbObjectifsSousThemePeriode4++
-              break
-            case 5:
-              nbObjectifsThemePeriode5++
-              nbObjectifsSousThemePeriode5++
-              break
-          }
-        }
-        sousTheme.objectivesPerPeriodCount = [
-          nbObjectifsSousThemePeriode1,
-          nbObjectifsSousThemePeriode2,
-          nbObjectifsSousThemePeriode3,
-          nbObjectifsSousThemePeriode4,
-          nbObjectifsSousThemePeriode5
-        ]
-      }
-      theme.objectivesPerPeriodCount = [
-        nbObjectifsThemePeriode1,
-        nbObjectifsThemePeriode2,
-        nbObjectifsThemePeriode3,
-        nbObjectifsThemePeriode4,
-        nbObjectifsThemePeriode5
-      ]
+function updateUnitObjective (unit: UnitUnit, objectives: Objective[]) {
+  unit.objectives.map(unitObjective => {
+    const objective = objectives.find(objective => objective.reference === unitObjective.reference)
+    if (!objective) {
+      console.error('Objective ' + unitObjective.reference + ' of unit ' + unit.title + ' not found.')
+      errorCount++
+      return unitObjective
     }
-  }
-  return niveaux
+    unitObjective.reference = objective.reference
+    unitObjective.titleAcademic = objective.titleAcademic
+    unitObjective.title = objective.title
+    unitObjective.exercises = objective.exercises
+    unitObjective.examExercises = objective.examExercises
+    unitObjective.theme = objective.theme
+    unitObjective.grade = objective.grade
+    unitObjective.lessonPlans = objective.lessonPlans
+    return unitObjective
+  })
 }
 
-function getObjectifsAvecInfos (sequence: UnitUnit, niveauxObjectifs: ObjectiveGrade[]) {
-  if (sequence.objectives === undefined) return []
-  for (const objectifSequence of sequence.objectives) {
-    for (const niveauObjectif of niveauxObjectifs) {
-      for (const theme of niveauObjectif.themes) {
-        for (const sousTheme of theme.subThemes) {
-          for (const objectif of sousTheme.objectives) {
-            if (objectifSequence.reference === objectif.reference) {
-              objectifSequence.reference = objectif.reference
-              objectifSequence.titleAcademic = objectif.titleAcademic
-              objectifSequence.title = objectif.title
-              objectifSequence.exercises = objectif.exercises
-              objectifSequence.examExercises = objectif.examExercises
-              objectifSequence.theme = objectif.theme
-              objectifSequence.grade = objectif.grade
-              objectifSequence.lessonPlans = objectif.lessonPlans
-              break
-            }
-          }
-        }
-      }
+function updateUnitMentalCalculations (unit: UnitUnit, objectives: Objective[]) {
+  unit.mentalCalculations.map(mentalCalculation => {
+    const relatedObjective = objectives.find(objective => objective.reference === mentalCalculation.reference)
+    if (!relatedObjective) {
+      console.error('Objective ' + mentalCalculation.reference + ' of mental calculation ' + mentalCalculation.title + ' not found.')
+      errorCount++
+      return mentalCalculation
     }
-    if (objectifSequence.titleAcademic === undefined || objectifSequence.titleAcademic === '') {
-      console.error('L\'objectif ' + objectifSequence.reference + ' de la séquence ' + sequence.title + ' n\'a pas été trouvé.')
-      nombreErreurs++
-    }
-  }
-  return sequence.objectives
+    mentalCalculation.titleAcademic = relatedObjective.titleAcademic
+    mentalCalculation.title = relatedObjective.title
+    mentalCalculation.exercises = mentalCalculation.exercises ?? []
+    mentalCalculation.isRelatedObjectivePageAvailable = true
+    mentalCalculation.theme = relatedObjective.theme
+    return mentalCalculation
+  })
 }
 
-function getCalculsMentauxAvecInfos (sequence: UnitUnit, niveauxObjectifs: ObjectiveGrade[]) {
-  if (sequence.mentalCalculations === undefined) return []
-  for (const calculMental of sequence.mentalCalculations) {
-    for (const niveauObjectif of niveauxObjectifs) {
-      for (const theme of niveauObjectif.themes) {
-        for (const sousTheme of theme.subThemes) {
-          for (const objectif of sousTheme.objectives) {
-            if (calculMental.reference === objectif.reference) {
-              if (calculMental.titleAcademic === undefined || calculMental.titleAcademic === '') {
-                calculMental.titleAcademic = objectif.titleAcademic
-                calculMental.title = objectif.title
-              }
-              calculMental.exercises = calculMental.exercises ?? []
-              calculMental.isRelatedObjectivePageAvailable = true
-              calculMental.theme = objectif.theme
-              break
-            }
-          }
-        }
-      }
+function updateUnitFlashQuestions (unit: UnitUnit, objectives: Objective[]) {
+  unit.flashQuestions.map(flashQuestion => {
+    const relatedObjective = objectives.find(objective => objective.reference === flashQuestion.reference)
+    if (!relatedObjective) {
+      console.error('Objective ' + flashQuestion.reference + ' of flash question ' + flashQuestion.title + ' not found.')
+      errorCount++
+      return flashQuestion
     }
-  }
-  return sequence.mentalCalculations
+    flashQuestion.titleAcademic = relatedObjective.titleAcademic
+    flashQuestion.title = relatedObjective.title
+    flashQuestion.slug = flashQuestion.slug ?? ''
+    flashQuestion.isRelatedObjectivePageAvailable = true
+    flashQuestion.theme = relatedObjective.theme
+    return flashQuestion
+  })
 }
 
-function getQuestionsFlashAvecInfos (sequence: UnitUnit, niveauxObjectifs: ObjectiveGrade[]) {
-  if (sequence.flashQuestions === undefined) return []
-  for (const questionFlash of sequence.flashQuestions) {
-    for (const niveauObjectif of niveauxObjectifs) {
-      for (const theme of niveauObjectif.themes) {
-        for (const sousTheme of theme.subThemes) {
-          for (const objectif of sousTheme.objectives) {
-            if (questionFlash.reference === objectif.reference) {
-              if (questionFlash.titleAcademic === undefined || questionFlash.titleAcademic === '') {
-                questionFlash.titleAcademic = objectif.titleAcademic
-                questionFlash.title = objectif.title
-              }
-              questionFlash.slug = questionFlash.slug ?? ''
-              questionFlash.isRelatedObjectivePageAvailable = true
-              questionFlash.theme = objectif.theme
-              break
-            }
-          }
-        }
-      }
-    }
-  }
-  return sequence.flashQuestions
-}
-
-function getLienEval (sequence: UnitUnit, niveauxObjectifs: ObjectiveGrade[]) {
-  const slugsObjectif = getSlugsObjectifsSequence(sequence, niveauxObjectifs)
+function updateUnitAssessmentLink (unit: UnitUnit, objectives: Objective[]) {
+  const slugsObjectif = getSlugsObjectifsSequence(unit, objectives)
   if (slugsObjectif.length === 0) return ''
   let lienEval = environment.baseUrl + environment.V3
   for (const slug of slugsObjectif) {
@@ -614,7 +550,7 @@ function getLienEval (sequence: UnitUnit, niveauxObjectifs: ObjectiveGrade[]) {
   return lienEval
 }
 
-function ajouterReferenceFiches (sequence: UnitUnit) {
+function updateUnitLessonPlans (sequence: UnitUnit) {
   for (const objectifSequence of sequence.objectives) {
     if (objectifSequence.lessonPlans.length > 0) {
       let numeroFiche = 1
@@ -657,15 +593,10 @@ function majTelechargementsDisponibles () {
 }
 
 function postTraitementObjectifs () {
-  for (const niveau of niveauxObjectifs) {
-    for (const theme of niveau.themes) {
-      for (const sousTheme of theme.subThemes) {
-        for (const objectif of sousTheme.objectives) {
-          objectif.availableDownloads.availableLessonPlanGrades = getNiveauxFichesDisponibles(objectif)
-        }
-      }
-    }
-  }
+  objectives.map(objective => {
+    objective.availableDownloads.availableLessonPlanGrades = getNiveauxFichesDisponibles(objective)
+    return objective
+  })
 }
 
 function checkSequences (referencesObjectifsSequences: string[], referencesObjectifs: string[]) {
@@ -724,64 +655,13 @@ function checkDoublonsBrevet () {
 function checkObjectifs (referencesObjectifsSequences: string[], referencesObjectifs: string[]) {
   checkSitesAbsentsPolitiqueDeConfidentialite()
   checkReferencesEnDoublon(referencesObjectifs)
-  for (const niveau of niveauxObjectifs) {
-    for (const theme of niveau.themes) {
-      for (const sousTheme of theme.subThemes) {
-        for (const objectif of sousTheme.objectives) {
-          if (objectif.period < 1) {
-            console.warn(objectif.reference + ' n\'a pas de période')
-            nombreDeWarnings++
-          }
-          if (!referencesObjectifsSequences.includes(objectif.reference)) {
-            console.warn(objectif.reference + ' n\'est lié à aucune séquence')
-            nombreDeWarnings++
-          }
-          if ((objectif.lessonSummaryImage === undefined || objectif.lessonSummaryImage === '') &&
-            (objectif.lessonSummaryHTML === undefined || objectif.lessonSummaryHTML === '') &&
-            (objectif.lessonSummaryInstrumenpoche === undefined || objectif.lessonSummaryInstrumenpoche === '')) {
-            console.warn(objectif.reference + ' n\'a pas de rappel de cours')
-            nombreDeWarnings++
-          }
-          if (objectif.videos.length === 0) {
-            console.warn(objectif.reference + ' n\'a pas de vidéo')
-            nombreDeWarnings++
-          }
-          if (objectif.exercises.length === 0) {
-            console.warn(objectif.reference + ' n\'a pas d\'exercice')
-            nombreDeWarnings++
-          } else {
-            if (presenceExerciceMathalea(objectif.exercises)) {
-              if (objectif.availableDownloads.isPracticeSheetAvailable === false) {
-                console.warn('Entraînement de ' + objectif.reference + ' manquant')
-                nombreDeWarnings++
-              }
-              if (objectif.availableDownloads.isTestSheetAvailable === false) {
-                console.warn('Test de ' + objectif.reference + ' manquant')
-                nombreDeWarnings++
-              }
-            }
-          }
-        }
-      }
-    }
-  }
 }
 
 function checkSitesAbsentsPolitiqueDeConfidentialite () {
-  const listeHTTP: string[] = []
-  for (const niveau of niveauxObjectifs) {
-    for (const theme of niveau.themes) {
-      for (const sousTheme of theme.subThemes) {
-        for (const objectif of sousTheme.objectives) {
-          for (const exercice of objectif.exercises) {
-            if (exercice.slug.slice(0, 4) === 'http') {
-              listeHTTP.push(exercice.slug)
-            }
-          }
-        }
-      }
-    }
-  }
+  const listeHTTP: string[] = objectives
+    .map(objective => objective.exercises
+      .map(exercise => exercise.slug)
+      .filter(slug => slug.slice(0, 4) === 'http')).flat()
   const listeAbsents: string[] = []
   for (const site of listeHTTP) {
     let trouve = false
@@ -815,13 +695,6 @@ function checkReferencesEnDoublon (references: string[]) {
     console.warn('Références en doublon : ', ...referencesEnDoublon)
     nombreDeWarnings += referencesEnDoublon.length
   }
-}
-
-function presenceExerciceMathalea (exercices: ObjectiveExercise[]) {
-  for (const exercice of exercices) {
-    if (exercice.link.slice(0, 'https://coopmaths.fr/'.length) === 'https://coopmaths.fr/') return true
-  }
-  return false
 }
 
 function checkLexique () {
@@ -906,30 +779,17 @@ function conversionV2enV3 (url: string) {
   return url
 }
 
-function getSlugsObjectifsSequence (sequence: UnitUnit, niveauxObjectifs: ObjectiveGrade[]) {
-  const slugsObjectif: string[] = []
-  for (const objectifSequence of sequence.objectives) {
-    for (const niveauObjectif of niveauxObjectifs) {
-      for (const theme of niveauObjectif.themes) {
-        for (const sousTheme of theme.subThemes) {
-          for (const objectif of sousTheme.objectives) {
-            if (objectifSequence.reference === objectif.reference) {
-              for (const exercice of objectif.exercises) {
-                const slug = formaterSlug(exercice.slug)
-                if (slug !== '') slugsObjectif.push(slug)
-              }
-              break
-            }
-          }
-        }
-      }
-    }
-  }
-  return slugsObjectif
+function getSlugsObjectifsSequence (sequence: UnitUnit, objectives: Objective[]) {
+  return objectives
+    .filter(objective => sequence.objectives.map(objectifSequence => objectifSequence.reference).includes(objective.reference))
+    .map(objectif => objectif.exercises)
+    .flat()
+    .map(exercice => formaterSlug(exercice.slug))
+    .filter(slug => slug !== '')
 }
 
-function formaterSlug (slug: string) {
-  if (slug === '') return ''
+function formaterSlug (slug: string | undefined) {
+  if (slug === undefined || slug === '') return ''
   if (slug.slice(0, 4) === 'uuid') return slug
   if (slug.slice(0, 2) === 'id') return ajouterUuid(slug)
   if (slug.slice(0, 4) !== 'http') return conversionV2enV3('ex=' + slug)
@@ -953,11 +813,12 @@ function cheminFichierLegacy (type: string, reference: string) {
   return `./public/topmaths/${type}/${reference.charAt(0) === 'S' ? reference.slice(1, 2) : reference.slice(0, 1)}e/${type.charAt(0).toUpperCase() + type.slice(1)}_${reference}.pdf`
 }
 
-function presenceFicheObjectif (objectif: UnitObjective) {
+function presenceFicheObjectif (objectif: RecursivePartial<UnitObjective>) {
+  if (objectif.lessonPlans === undefined) return false
   return objectif.lessonPlans.length > 0
 }
 
-function getNiveauxFichesDisponibles (objectif: ObjectiveObjective): StringGrade[] {
+function getNiveauxFichesDisponibles (objectif: Objective): StringGrade[] {
   const niveauxDisponibles: StringGrade[] = []
   for (const fiche of objectif.lessonPlans) {
     if (fiche.grades.length === 0) {

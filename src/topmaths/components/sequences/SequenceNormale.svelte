@@ -1,7 +1,7 @@
 <script lang="ts">
   import {
     modePerso,
-    niveauxObjectifs,
+    objectives,
     niveauxSequences
   } from '../../services/store'
   import type { ObjectiveExercise, UnitUnit } from '../../services/types'
@@ -38,7 +38,7 @@
   surveillerLeChargementDesDonnees()
 
   function surveillerLeChargementDesDonnees () {
-    niveauxObjectifsUnsubscribe = niveauxObjectifs.subscribe(() =>
+    niveauxObjectifsUnsubscribe = objectives.subscribe(() =>
       trouverSequence()
     )
     onDestroy(niveauxObjectifsUnsubscribe)
@@ -49,7 +49,7 @@
   }
 
   function lesDonneesSontChargees () {
-    return $niveauxObjectifs.length > 0 && $niveauxSequences.length > 0
+    return $objectives.length > 0 && $niveauxSequences.length > 0
   }
 
   function trouverSequence () {
