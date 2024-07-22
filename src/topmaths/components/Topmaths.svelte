@@ -110,7 +110,7 @@
 </svelte:head>
 
 <svelte:window bind:innerWidth />
-<div id="top" class="is-family-primary pb-6 md:pb-9">
+<div id="top" class="pb-6 md:pb-9">
   <!-- Header -->
   <HeadTabsMenu
     {isMd}

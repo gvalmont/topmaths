@@ -1,5 +1,5 @@
 import { panierDispo } from './store'
-import type { ObjectiveExercise, ObjectiveObjective, CartItem, UnitObjective } from './types'
+import type { ObjectiveExercise, Objective, CartItem, UnitObjective } from './types'
 import { storage } from './storage'
 import { estCoopmaths } from './outils'
 
@@ -43,7 +43,7 @@ export function ajouterAuPanier (exercice: ObjectiveExercise, reference: string,
   panierDispo.set(true)
 }
 
-export function tousLesExercicesSontPresentsDansLePanier (objectif: ObjectiveObjective | UnitObjective, exDeBrevet = false) {
+export function tousLesExercicesSontPresentsDansLePanier (objectif: Objective | UnitObjective, exDeBrevet = false) {
   let exercices: ObjectiveExercise[]
   if (exDeBrevet) exercices = objectif.examExercises
   else exercices = objectif.exercises

@@ -1,5 +1,5 @@
 import { get } from 'svelte/store'
-import type { ObjectiveObjective, UnitObjective } from './types'
+import type { Objective, UnitObjective } from './types'
 import { titresProchesDesAttendus } from './store'
 import { environment } from './environment'
 import { exercicesParams, globalOptions } from '../../lib/stores/generalStore'
@@ -30,7 +30,7 @@ export function supprimerGraines (lien: string): string {
   return url.toString()
 }
 
-export function getTitre (objectif: ObjectiveObjective | UnitObjective): string {
+export function getTitre (objectif: Objective | UnitObjective): string {
   if (get(titresProchesDesAttendus) || objectif.titleAcademic === undefined || objectif.titleAcademic === '') {
     return objectif.titleAcademic
   } else {

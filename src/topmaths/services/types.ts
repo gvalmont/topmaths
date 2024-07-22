@@ -47,41 +47,31 @@ export type ObjectiveAvailableDownloads = {
   availableLessonPlanGrades: StringGrade[]
 }
 
-export type ObjectiveObjective = {
-  reference: string,
-  titleAcademic: string,
-  title: string,
-  period: number,
+export type Objective = {
+  availableDownloads: ObjectiveAvailableDownloads,
+  examExercises: ObjectiveExercise[],
+  examExercisesLink: string,
+  exercises: ObjectiveExercise[],
+  exercisesLink: string,
+  grade: StringGrade
+  lessonPlans: ObjectiveLessonPlan[],
   lessonSummaryHTML: string,
   lessonSummaryImage: string,
   lessonSummaryInstrumenpoche: string,
-  videos: ObjectiveVideo[],
-  exercises: ObjectiveExercise[],
-  lessonPlans: ObjectiveLessonPlan[],
-  examExercises: ObjectiveExercise[],
-  exercisesLink: string,
-  examExercisesLink: string,
+  period: number,
+  reference: string,
+  subTheme: {
+    name: string,
+    objectivesPerPeriodCount: number[]
+  },
+  theme: {
+    name: string,
+    objectivesPerPeriodCount: number[]
+  }
+  title: string,
+  titleAcademic: string,
   units: ObjectiveUnit[],
-  availableDownloads: ObjectiveAvailableDownloads,
-  theme: string,
-  grade: StringGrade
-}
-
-export type ObjectiveSubTheme = {
-  name: string,
-  objectives: ObjectiveObjective[],
-  objectivesPerPeriodCount: number[]
-}
-
-export type ObjectiveTheme = {
-  name: string,
-  subThemes: ObjectiveSubTheme[],
-  objectivesPerPeriodCount: number[]
-}
-
-export type ObjectiveGrade = {
-  name: StringGrade,
-  themes: ObjectiveTheme[]
+  videos: ObjectiveVideo[],
 }
 
 export type UnitObjective = {

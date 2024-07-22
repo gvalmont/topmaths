@@ -6,7 +6,7 @@
     niveauxSequences,
     reference
   } from '../services/store'
-  import type { ObjectiveObjective } from '../services/types'
+  import type { Objective } from '../services/types'
   import { getTitre } from '../services/outils'
   import { goVue } from '../services/navigation'
   import { afterUpdate, onDestroy, tick } from 'svelte'
@@ -23,7 +23,7 @@
   import DownloadLine from './shared/DownloadLine.svelte'
 
   export let title = 'topmaths.fr - Séquence'
-  let objectif = {} as ObjectiveObjective
+  let objectif = {} as Objective
   let tousLesExercicesSontDansLePanier = false
   let niveau = '' as string
   let exercicesDeBrevetDansLePanier = false
@@ -37,7 +37,7 @@
     if (objectif.lessonSummaryHTML !== '') {
       await tick()
       const rappelDuCoursHTML = document.getElementById('rappelDuCoursHTML')
-      if (rappelDuCoursHTML !== null) mathaleaRenderDiv(rappelDuCoursHTML)
+      if (rappelDuCoursHTML !== null) mathaleaRenderDiv(rappelDuCoursHTML, -1)
     }
     if (objectif.lessonSummaryInstrumenpoche !== undefined && objectif.lessonSummaryInstrumenpoche !== '') loadIep()
   })
@@ -76,7 +76,7 @@
         }
       }
     }
-    return {} as ObjectiveObjective
+    return {} as Objective
   }
 
   function MAJProprietes () {
