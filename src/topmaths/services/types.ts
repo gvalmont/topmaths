@@ -5,7 +5,7 @@ export function isStringGrade (str: string): str is StringGrade {
 
 export type Couleur = 'warning' | 'link' | 'info' | 'danger' | 'primary' | 'success' | 'orange' | 'sponsor' | 'fuchsia' | 'black-and-yellow' | 'green' | 'coopmaths' | 'purple' | 'info-darker' | 'violet' | 'blue' | '6e' | '5e' | '4e' | '3e' | 'tout'
 
-export interface ObjectiveVideo {
+export type ObjectiveVideo = {
   title: string,
   slug: string,
   authorName: string,
@@ -13,8 +13,8 @@ export interface ObjectiveVideo {
   videoLink: string
 }
 
-export interface ObjectiveExercise {
-  uuid: string,
+export type ObjectiveExercise = {
+  id: string,
   slug: string,
   link: string,
   isInteractive: boolean,
@@ -22,7 +22,7 @@ export interface ObjectiveExercise {
   isInCart: boolean
 }
 
-export interface ObjectiveLessonPlan {
+export type ObjectiveLessonPlan = {
   startSteps: string[],
   lessonSteps: string[],
   homeworks: string[],
@@ -35,19 +35,19 @@ export interface ObjectiveLessonPlan {
   reference: string
 }
 
-export interface ObjectiveUnit {
+export type ObjectiveUnit = {
   reference: string,
   title: string
 }
 
-export interface ObjectiveAvailableDownloads {
+export type ObjectiveAvailableDownloads = {
   isPracticeSheetAvailable: boolean,
   isTestSheetAvailable: boolean,
   isLessonPlanAvailable: boolean,
   availableLessonPlanGrades: StringGrade[]
 }
 
-export interface ObjectiveObjective {
+export type ObjectiveObjective = {
   reference: string,
   titleAcademic: string,
   title: string,
@@ -67,24 +67,24 @@ export interface ObjectiveObjective {
   grade: StringGrade
 }
 
-export interface ObjectiveSubTheme {
+export type ObjectiveSubTheme = {
   name: string,
   objectives: ObjectiveObjective[],
   objectivesPerPeriodCount: number[]
 }
 
-export interface ObjectiveTheme {
+export type ObjectiveTheme = {
   name: string,
   subThemes: ObjectiveSubTheme[],
   objectivesPerPeriodCount: number[]
 }
 
-export interface ObjectiveGrade {
+export type ObjectiveGrade = {
   name: StringGrade,
   themes: ObjectiveTheme[]
 }
 
-export interface UnitObjective {
+export type UnitObjective = {
   reference: string,
   titleAcademic: string,
   title: string,
@@ -95,7 +95,7 @@ export interface UnitObjective {
   lessonPlans: ObjectiveLessonPlan[]
 }
 
-export interface UnitMentalCalculation {
+export type UnitMentalCalculation = {
   reference: string,
   titleAcademic: string,
   title: string,
@@ -104,7 +104,7 @@ export interface UnitMentalCalculation {
   theme: string
 }
 
-export interface UnitFlashQuestions {
+export type UnitFlashQuestions = {
   reference: string,
   titleAcademic: string,
   title: string,
@@ -113,19 +113,19 @@ export interface UnitFlashQuestions {
   theme: string
 }
 
-export interface UnitAvailableDownloads {
+export type UnitAvailableDownloads = {
   isLessonAvailable: boolean,
   isLessonSummaryAvailable: boolean,
   isMissionAvailable: boolean,
   isLessonPlanAvailable: boolean
 }
 
-export interface UnitSpecialUnit {
+export type UnitSpecialUnit = {
   reference: string,
   title: string
 }
 
-export interface UnitUnit {
+export type UnitUnit = {
   grade: StringGrade,
   number: number,
   reference: string,
@@ -141,19 +141,19 @@ export interface UnitUnit {
   availableDownloads: UnitAvailableDownloads
 }
 
-export interface UnitGrade {
+export type UnitGrade = {
   name: StringGrade,
   units: UnitUnit[]
 }
 
-export interface LineTheme {
+export type LineTheme = {
   name: string,
   objectivesPerPeriodCount: number[]
 }
 
 export type LineGrade = StringGrade | 'all' | 'fin' | ''
 
-export interface LineObjective {
+export type LineObjective = {
   grade: LineGrade,
   period: number,
   theme: LineTheme,
@@ -163,19 +163,19 @@ export interface LineObjective {
   title: string
 }
 
-export interface CalendarPeriod {
+export type CalendarPeriod = {
   number: number,
   startDayOfYear: number,
   endDayOfYear: number,
   isHoliday: boolean
 }
 
-export interface CalendarYear {
+export type CalendarYear = {
   year: number,
   periods: CalendarPeriod[]
 }
 
-export interface CalendarCurrentYear {
+export type CalendarCurrentYear = {
   year: number,
   dayOfYear: number,
   periodNumber: number,
@@ -183,7 +183,7 @@ export interface CalendarCurrentYear {
   isHoliday: boolean
 }
 
-export interface CartItem {
+export type CartItem = {
   id: string,
   label: string,
   description: string,

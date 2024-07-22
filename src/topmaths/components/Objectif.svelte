@@ -95,7 +95,7 @@
   function MAJPanier () {
     for (const exercice of objectif.exercises) {
       if (exercice.slug !== '') {
-        exercice.isInCart = estPresentDansLePanier(exercice.uuid)
+        exercice.isInCart = estPresentDansLePanier(exercice.id)
       }
     }
     tousLesExercicesSontDansLePanier =
@@ -103,7 +103,7 @@
     if (objectif.examExercises !== undefined) {
       for (const exercice of objectif.examExercises) {
         if (exercice.slug !== '') {
-          exercice.isInCart = estPresentDansLePanier(exercice.uuid)
+          exercice.isInCart = estPresentDansLePanier(exercice.id)
         }
       }
       exercicesDeBrevetDansLePanier = tousLesExercicesSontPresentsDansLePanier(

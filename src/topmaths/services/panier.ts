@@ -27,7 +27,7 @@ export function ajouterAuPanier (exercice: ObjectiveExercise, reference: string,
   if (exDeBrevet) description = exercice.slug.split('uuid=')[1].split('&')[0]
   const panierActuel = storage.get('panier')
   const panierItem = {
-    id: exercice.uuid,
+    id: exercice.id,
     reference,
     objectif: nomPanier ?? '',
     description,
