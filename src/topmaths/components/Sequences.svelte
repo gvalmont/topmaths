@@ -1,6 +1,6 @@
 <script lang="ts">
   import {
-    niveauxSequences,
+    units,
     sequencesParticulieres
   } from '../services/store'
   import { onDestroy } from 'svelte'
@@ -9,28 +9,28 @@
   import type { Unsubscriber } from 'svelte/store'
   import { writable, derived } from 'svelte/store'
   import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
+  import { isLineGrade, type LineGrade, type Unit } from '../services/types'
 
   interface Ligne {
-    niveau: string
-    periode: number
-    numero: number
+    grade: LineGrade
+    period: number
+    number: number
     reference: string
-    titre: string
+    title: string
   }
 
-  const filtre = {
-    niveau: 'all',
-    periode: 0,
-    numero: 0,
+  const filter: Ligne = {
+    grade: 'all',
+    period: 0,
+    number: 0,
     reference: '',
-    titre: ''
-  } as Ligne
+    title: ''
+  }
   const texteRecherche = writable<string>('')
-  const lignesSequencesNormales = writable<Ligne[]>([])
-  const lignesFiltreesSequencesNormales = derived(
-    [texteRecherche, lignesSequencesNormales],
-    ([$texteRecherche, $lignesSequencesNormales]) =>
-      getLignesFiltrees($texteRecherche, $lignesSequencesNormales)
+  const rowsRegular = derived(
+    [texteRecherche, units],
+    ([$texteRecherche, $units]) =>
+      getLignesFiltrees($texteRecherche, $units)
   )
 
   let niveauxSequencesUnsubscribe: Unsubscriber
@@ -49,87 +49,56 @@
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     for (const entry of entries) {
-      if (entry[0] === 'niveau') filtre.niveau = entry[1]
-      if (entry[0] === 'periode') filtre.periode = Number(entry[1])
+      if (entry[0] === 'niveau') filter.grade = isLineGrade(entry[1]) ? entry[1] : 'all'
+      if (entry[0] === 'periode') filter.period = Number(entry[1])
     }
   }
 
 function MAJPage () {
   if (lesDonneesSontChargees()) {
     MAJLignesSequencesParticulieres()
-    MAJLignesSequencesNormales()
   }
 }
 
 function lesDonneesSontChargees () {
-  return $sequencesParticulieres.length > 0 && $niveauxSequences.length > 0
+  return $sequencesParticulieres.length > 0 && $units.length > 0
 }
 
   function MAJLignesSequencesParticulieres () {
     lignesSequencesParticulieres = []
     lignesSequencesParticulieres.push({
-      niveau: 'Séquences particulières',
-      periode: 0,
-      numero: 0,
+      grade: 'all',
+      period: 0,
+      number: 0,
       reference: '',
-      titre: ''
+      title: ''
     })
     for (const sequence of $sequencesParticulieres) {
       lignesSequencesParticulieres.push({
-        niveau: 'Séquences particulières',
+        grade: 'all',
         reference: sequence.reference,
-        titre: sequence.title,
-        numero: 0,
-        periode: 1
+        title: sequence.title,
+        number: 0,
+        period: 1
       })
     }
     lignesSequencesParticulieres.push({
-      niveau: 'fin',
-      periode: 0,
-      numero: 0,
+      grade: 'end',
+      period: 0,
+      number: 0,
       reference: '',
-      titre: ''
+      title: ''
     })
-  }
-
-  function MAJLignesSequencesNormales () {
-    const lignes = [] as Ligne[]
-    for (const niveau of $niveauxSequences) {
-      lignes.push({
-        niveau: niveau.name,
-        reference: '',
-        titre: '',
-        periode: 0,
-        numero: 0
-      })
-      for (const sequence of niveau.units) {
-        lignes.push({
-          niveau: niveau.name,
-          reference: sequence.reference,
-          titre: sequence.title,
-          periode: sequence.period,
-          numero: sequence.number
-        })
-      }
-      lignes.push({
-        niveau: 'fin',
-        reference: '',
-        titre: '',
-        periode: 0,
-        numero: 0
-      })
-    }
-    lignesSequencesNormales.set(lignes)
   }
 
   function surveillerChargementDesDonnees () {
     sequencesParticulieresUnsubscribe = sequencesParticulieres.subscribe(() => MAJPage())
-    niveauxSequencesUnsubscribe = niveauxSequences.subscribe(() => MAJPage())
+    niveauxSequencesUnsubscribe = units.subscribe(() => MAJPage())
     onDestroy(niveauxSequencesUnsubscribe)
     onDestroy(sequencesParticulieresUnsubscribe)
   }
 
-  function getLignesFiltrees (texteRecherche: string, lignes: Ligne[]): Ligne[] {
+  function getLignesFiltrees (texteRecherche: string, lignes: Unit[]): Ligne[] {
     if (texteRecherche === '') return lignes
     const motsCherches = normaliser(texteRecherche).split(' ')
     return lignes.filter((ligne) => {
@@ -142,34 +111,34 @@ function lesDonneesSontChargees () {
 
   function motTrouve (mot: string, ligne: Ligne) {
     if (
-      ligne.niveau !== undefined &&
-      normaliser(ligne.niveau).includes(mot)
+      ligne.grade !== undefined &&
+      normaliser(ligne.grade).includes(mot)
     ) { return true }
     if (
-      ligne.numero !== undefined &&
-      normaliser(ligne.numero.toString()).includes(mot)
+      ligne.number !== undefined &&
+      normaliser(ligne.number.toString()).includes(mot)
     ) { return true }
     if (
       ligne.reference !== undefined &&
       normaliser(ligne.reference).includes(mot)
     ) { return true }
     if (
-      ligne.titre !== undefined &&
-      normaliser(ligne.titre).includes(mot)
+      ligne.title !== undefined &&
+      normaliser(ligne.title).includes(mot)
     ) { return true }
     return false
   }
 
-  function clicFiltre (niveau: string, periode?: number) {
+  function clicFiltre (niveau: LineGrade, periode?: number) {
     if (niveau !== '') {
-      filtre.niveau = niveau
+      filter.grade = niveau
     }
     if (periode !== undefined) {
-      filtre.periode === periode
-        ? (filtre.periode = 0)
-        : (filtre.periode = periode)
+      filter.period === periode
+        ? (filter.period = 0)
+        : (filter.period = periode)
     }
-    window.history.pushState({}, '', `?v=sequences&niveau=${filtre.niveau}&periode=${filtre.periode}`)
+    window.history.pushState({}, '', `?v=sequences&niveau=${filter.grade}&periode=${filter.period}`)
   }
 </script>
 
@@ -180,21 +149,21 @@ function lesDonneesSontChargees () {
 <!-- Menu -->
 <div class="w-screen max-w-screen-lg">
   <LevelsTabsMenu
-    activeLevelTab={filtre.niveau}
+    activeLevelTab={filter.grade}
     onLevelsTabsMenuClicked={clicFiltre}
   />
   <div class="is-flex is-justify-content-center pt-2 pb-1" style="overflow:auto">
     <button
       class="button rounded-3xl py-1 px-5 is-link mb-5 mx-1 text-sm md:text-2xl"
-      class:is-light={filtre.periode !== null &&
-        filtre.periode !== undefined &&
-        filtre.periode > 0}
+      class:is-light={filter.period !== null &&
+        filter.period !== undefined &&
+        filter.period > 0}
       on:click={() => clicFiltre('', 0)}>Période</button
     >
     {#each [1, 2, 3, 4, 5] as periode}
       <button
         class="button rounded-3xl py-1 px-5 is-link mb-5 mx-1 text-sm md:text-2xl"
-        class:is-light={filtre.periode !== periode}
+        class:is-light={filter.period !== periode}
         on:click={() => clicFiltre('', periode)}>{periode}</button
       >
     {/each}
@@ -212,10 +181,8 @@ function lesDonneesSontChargees () {
   <!-- Séquences particulières -->
   {#if $texteRecherche === ''}
     <div>
+      <h1 class="title text-2xl md:text-4xl font-semibold p-2 is-tout">Séquences particulières</h1>
       {#each lignesSequencesParticulieres as ligne, i}
-        {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === ''}
-          <h1 class="title text-2xl md:text-4xl font-semibold p-2 is-tout">{ligne.niveau}</h1>
-        {/if}
         {#if ligne.reference !== ''}
           <a
             href="/?v=sequence&ref={ligne.reference}"
@@ -226,9 +193,9 @@ function lesDonneesSontChargees () {
               class="p-1  is-tout"
               class:is-fin={i === lignesSequencesParticulieres.length - 2}
             >
-              {ligne.numero === 0
+              {ligne.number === 0
                 ? ''
-                : 'Séquence ' + ligne.numero + ' : '}{ligne.titre}<br />
+                : 'Séquence ' + ligne.number + ' : '}{ligne.title}<br />
             </div>
           </a>
         {/if}
@@ -236,35 +203,35 @@ function lesDonneesSontChargees () {
     </div>
     <div><br /></div>
   {/if}
-  {#each $lignesFiltreesSequencesNormales as ligne, i}
+  {#each $rowsRegular as row, i}
     <div>
-      {#if ligne.niveau !== '' && ligne.niveau !== 'fin' && ligne.reference === '' && (filtre.niveau === 'all' || filtre.niveau === ligne.niveau)}
-        <h1 class="title text-2xl md:text-4xl font-semibold p-2 is-{ligne.niveau}">
+      {#if (i === 0 || $rowsRegular[i - 1].grade !== $rowsRegular[i].grade) && (filter.grade === 'all' || filter.grade === row.grade)}
+        <h1 class="title text-2xl md:text-4xl font-semibold p-2 is-{row.grade}">
           <span class="has-text-white">
-            {ligne.niveau}
+            {row.grade}
           </span>
         </h1>
       {/if}
-      {#if ligne.reference !== '' && ligne.niveau !== 'fin' && (ligne.periode === filtre.periode || filtre.periode === 0) && (filtre.niveau === 'all' || filtre.niveau === ligne.niveau)}
+      {#if row.reference !== '' && row.grade !== 'end' && (row.period === filter.period || filter.period === 0) && (filter.grade === 'all' || filter.grade === row.grade)}
         <div
-          class="p-1  is-{ligne.niveau}"
-          class:is-fin={i < $lignesSequencesNormales.length && ((filtre.periode > 0 && $lignesSequencesNormales[i].periode !== $lignesSequencesNormales[i + 1].periode) || $lignesSequencesNormales[i + 1].niveau === 'fin')}
+          class="p-1  is-{row.grade}"
+          class:is-fin={i < $rowsRegular.length - 1 && ((filter.period > 0 && $rowsRegular[i].period !== $rowsRegular[i + 1].period) || $rowsRegular[i + 1].grade === 'end')}
         >
           <a
-            href="/?v=sequence&ref={ligne.reference}"
+            href="/?v=sequence&ref={row.reference}"
             on:click={(event) =>
-              goVue(event, 'sequence', ligne.reference)}
+              goVue(event, 'sequence', row.reference)}
           >
             <div>
-              {ligne.numero === 0
+              {row.number === 0
                 ? ''
-                : 'Séquence ' + ligne.numero + ' : '}{ligne.titre}
+                : 'Séquence ' + row.number + ' : '}{row.title}
             </div>
           </a>
         </div>
       {/if}
     </div>
-    {#if ligne.niveau === 'fin' && (filtre.niveau === 'all')}
+    {#if row.grade === 'end' && (filter.grade === 'all')}
       <div><br /></div>
     {/if}
   {/each}

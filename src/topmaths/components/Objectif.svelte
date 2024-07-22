@@ -3,7 +3,7 @@
     modeEnseignant,
     modePerso,
     objectives,
-    niveauxSequences,
+    units,
     reference
   } from '../services/store'
   import { emptyObjective, isObjective, type Objective } from '../services/types'
@@ -53,7 +53,7 @@
   }
 
   function lesDonneesSontChargees () {
-    return $objectives.length > 0 && $niveauxSequences.length > 0
+    return $objectives.length > 0 && $units.length > 0
   }
 
   function MAJPage () {

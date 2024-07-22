@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { calendrierAnneeEnCours, listeDesUrl, objectives, niveauxSequences, vue, vuePrecedente } from '../services/store'
+  import { calendrierAnneeEnCours, listeDesUrl, objectives, units, vue, vuePrecedente } from '../services/store'
   import { estCoopmaths } from '../services/outils'
   import { environment } from '../services/environment'
   import { get } from 'svelte/store'
@@ -39,14 +39,12 @@
     niveauChoisi: string
   ) {
     const listeDesReferences: string[] = []
-    for (const niveau of $niveauxSequences) {
-      if (niveau.name === niveauChoisi || niveauChoisi === 'tout') {
-        const derniereSequence = getDerniereSequence(niveau.name)
-        for (const sequence of niveau.units) {
-          if (sequence.number <= derniereSequence) {
-            for (const objectif of sequence.objectives) {
-              listeDesReferences.push(objectif.reference)
-            }
+    for (const unit of $units) {
+      if (unit.grade === niveauChoisi || niveauChoisi === 'tout') {
+        const derniereSequence = getDerniereSequence(unit.grade)
+        if (unit.number <= derniereSequence) {
+          for (const objectif of unit.objectives) {
+            listeDesReferences.push(objectif.reference)
           }
         }
       }
@@ -56,18 +54,16 @@
 
   function getListeExercicesBrevet () {
     const listeDesReferences: string[] = []
-    for (const niveau of $niveauxSequences) {
-      if (niveau.name === '3e') {
-        const derniereSequence = getDerniereSequence(niveau.name)
-        for (const sequence of niveau.units) {
-          if (sequence.number <= derniereSequence) {
-            if (sequence.assessmentExamLink !== '') {
-              const entries = new URL(sequence.assessmentExamLink).searchParams.entries()
-              for (const entry of entries) {
-                if (entry[0] === 'uuid') {
-                  const uuid = entry[1]
-                  listeDesReferences.push(environment.baseUrl + environment.V3 + 'uuid=' + uuid)
-                }
+    for (const unit of $units) {
+      if (unit.grade === '3e') {
+        const derniereSequence = getDerniereSequence(unit.grade)
+        if (unit.number <= derniereSequence) {
+          if (unit.assessmentExamLink !== '') {
+            const entries = new URL(unit.assessmentExamLink).searchParams.entries()
+            for (const entry of entries) {
+              if (entry[0] === 'uuid') {
+                const uuid = entry[1]
+                listeDesReferences.push(environment.baseUrl + environment.V3 + 'uuid=' + uuid)
               }
             }
           }
@@ -109,12 +105,12 @@
   }
 
   function getNbSequencesCumulees (nomNiveau: string) {
-    const niveau = $niveauxSequences.find(niveauSequence => niveauSequence.name === nomNiveau)
+    const niveau = $units.filter(unit => unit.grade === nomNiveau)
     let periode = 1
     let nbSequences = 0
     const nbSequencesCumulees = [0]
     if (niveau === undefined) return nbSequencesCumulees
-    for (const sequence of niveau.units) {
+    for (const sequence of niveau) {
       if (sequence.period === periode) {
         nbSequences++
       } else {

@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store'
-import { type Objective, type CalendarCurrentYear, type UnitGrade, type UnitSpecialUnit } from './types'
+import { type Objective, type CalendarCurrentYear, type UnitSpecial, type Unit } from './types'
 import type { GlossaryUniteItem } from '../types/glossary'
 
 export const vue = writable<string>('')
@@ -12,11 +12,11 @@ export const urlExercice = writable<string>('')
 
 export const listeDesUrl = writable<string[]>([])
 
-export const niveauxSequences = writable<UnitGrade[]>([])
+export const units = writable<Unit[]>([])
 
 export const objectives = writable<Objective[]>([])
 
-export const sequencesParticulieres = writable<UnitSpecialUnit[]>([])
+export const sequencesParticulieres = writable<UnitSpecial[]>([])
 
 export const lexique = writable<GlossaryUniteItem[]>([])
 

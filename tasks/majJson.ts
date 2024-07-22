@@ -1,14 +1,13 @@
-import { readFileSync } from 'fs'
 import * as fs from 'fs'
 import * as path from 'path'
 import refToUuidJson from '../src/json/refToUuidFR.json' assert { type: 'json' }
 import definitionsJson from '../src/topmaths/json/glossary/definitions.json' assert { type: 'json' }
 import propertiesJson from '../src/topmaths/json/glossary/properties.json' assert { type: 'json' }
 import objectivesMasterJson from '../src/topmaths/json/objectives.json' assert { type: 'json' }
+import unitsMasterJson from '../src/topmaths/json/units.json' assert { type: 'json' }
 import type { RecursivePartial } from '../src/lib/types.js'
-import { type UnitGrade, type UnitUnit, type UnitObjective, type Objective, type ObjectiveExercise, type ObjectiveLessonPlan, type ObjectiveUnit, type StringGrade, isStringGrade, isObjective } from '../src/topmaths/services/types.js'
+import { type Unit, type UnitObjective, type Objective, type ObjectiveExercise, type ObjectiveLessonPlan, type ObjectiveUnit, type StringGrade, isStringGrade, isObjective, isUnit, type UnitMentalCalculation, isUnitMentalCalculations, emptyObjective, emptyUnitFlashQuestion, emptyObjectiveVideo } from '../src/topmaths/services/types.js'
 import { type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
-const niveauxSequencesJson = JSON.parse(readFileSync('./src/topmaths/json/sequences.json').toString())
 
 const environment = {
   annee: 2023,
@@ -36,20 +35,19 @@ const listeSitesPresentsPolitiqueDeConfidentialite = [
 const definitions: RecursivePartial<GlossaryMasterItem>[] = definitionsJson
 const properties: Partial<GlossaryMasterItem>[] = propertiesJson
 
-let niveauxSequences: UnitGrade[] = []
 let numeroExercice = 1
 let nombreDeWarnings = 0
 let errorCount = 0
-niveauxSequences = preTraitementSequences(niveauxSequencesJson)
+const units: Unit[] = makeUnits()
 const objectives: Objective[] = makeObjectives()
-niveauxSequences = postTraitementSequences(niveauxSequences, objectives)
-postTraitementObjectifs()
+updateUnits()
+updateObjectives()
 const glossary = makeGlossary()
 checksDeRoutine()
 console.warn(nombreDeWarnings + ' warnings')
 console.error(errorCount + ' erreurs')
 ecrireJson('objectifs_modifies', objectives)
-ecrireJson('sequences_modifiees', niveauxSequences)
+ecrireJson('sequences_modifiees', units)
 ecrireJson('lexique', glossary)
 
 function makeGlossary () {
@@ -60,32 +58,48 @@ function makeGlossary () {
   return postTraitementItems(glossaryUniteItems)
 }
 
-function preTraitementSequences (niveaux: UnitGrade[]) {
-  for (const niveau of niveaux) {
-    let numeroDeSequence = 1
-    for (const sequence of niveau.units) {
-      sequence.grade = isStringGrade(niveau.name) ? niveau.name : '6e'
-      sequence.number = numeroDeSequence
-      sequence.reference = `S${sequence.grade.slice(0, 1)}S${sequence.number}`
-      sequence.title = sequence.title ?? ''
-      sequence.period = sequence.period ?? 0
-      sequence.objectives = sequence.objectives ?? []
-      sequence.mentalCalculations = getCalculsMentauxAvecLiensEtIdDesExercices(sequence)
-      sequence.flashQuestions = sequence.flashQuestions ?? []
-      sequence.flashQuestionsLink = getLienQuestionsFlash(sequence)
-      sequence.assessmentExamSlug = sequence.assessmentExamSlug ?? ''
-      sequence.assessmentLink = sequence.assessmentLink ?? ''
-      sequence.assessmentExamLink = getLienEvalBrevet(sequence)
-      sequence.availableDownloads = {
+type UnitGrade = {
+  name: string,
+  units: Unit[]
+}
+function makeUnits (): Unit[] {
+  const formattedUnits: Unit[] = []
+  const unitMaster: RecursivePartial<UnitGrade>[] = unitsMasterJson
+  for (const grade of unitMaster) {
+    if (grade.name === undefined) { console.error(grade); throw new Error('Grade name is undefined') }
+    if (grade.units === undefined) { console.error(grade); throw new Error('Grade units is undefined') }
+    let unitNumber = 1
+    for (const unit of grade.units) {
+      if (unit === undefined) { console.error(grade.units); throw new Error('Unit is undefined') }
+      unit.assessmentExamLink = getLienEvalBrevet(unit)
+      unit.assessmentExamSlug = unit.assessmentExamSlug ?? ''
+      unit.assessmentLink = unit.assessmentLink ?? ''
+      unit.availableDownloads = {
         isLessonAvailable: false,
         isLessonSummaryAvailable: false,
         isMissionAvailable: false,
         isLessonPlanAvailable: false
       }
-      numeroDeSequence++
+      unit.flashQuestions = unit.flashQuestions ? unit.flashQuestions.map(flashQuestion => Object.assign({}, emptyUnitFlashQuestion, flashQuestion)) : []
+      unit.flashQuestionsLink = getLienQuestionsFlash(unit)
+      const unitGradeCandidate = grade.name
+      if (!isStringGrade(unitGradeCandidate)) { console.error(grade.name); throw new Error('Grade name incorrect') }
+      unit.grade = unitGradeCandidate
+      unit.mentalCalculations = getCalculsMentauxAvecLiensEtIdDesExercices(unit)
+      unit.number = unitNumber
+      unit.objectives = unit.objectives ? unit.objectives.map(objective => Object.assign({}, emptyObjective, objective)) : []
+      unit.period = unit.period ?? 0
+      unit.reference = `S${unit.grade.slice(0, 1)}S${unit.number}`
+      unit.title = unit.title ?? ''
+      unitNumber++
+      if (!isUnit(unit)) {
+        console.error(unit)
+        throw new Error('Unit is not a Unit')
+      }
+      formattedUnits.push(unit)
     }
   }
-  return niveaux
+  return formattedUnits
 }
 
 type ObjectiveSubTheme = {
@@ -144,7 +158,7 @@ function makeObjectives () {
           objective.title = objective.title ?? ''
           objective.titleAcademic = objective.titleAcademic ?? ''
           objective.units = getSequences(objective)
-          objective.videos = objective.videos ?? []
+          objective.videos = objective.videos ? objective.videos.map(video => Object.assign({}, emptyObjectiveVideo, video)) : []
           if (!isObjective(objective)) {
             console.error(objective)
             throw new Error('Objective is not an Objective')
@@ -157,18 +171,20 @@ function makeObjectives () {
   return formattedObjectives
 }
 
-function postTraitementSequences (niveauxSequences: UnitGrade[], objectives: Objective[]) {
-  for (const niveauSequence of niveauxSequences) {
-    for (const sequence of niveauSequence.units) {
-      updateUnitObjective(sequence, objectives)
-      updateUnitMentalCalculations(sequence, objectives)
-      updateUnitFlashQuestions(sequence, objectives)
-      updateUnitAssessmentLink(sequence, objectives)
-      updateUnitLessonPlans(sequence)
+function updateUnits () {
+  for (const unit of units) {
+    updateUnitObjective(unit, objectives)
+    updateUnitMentalCalculations(unit, objectives)
+    updateUnitFlashQuestions(unit, objectives)
+    updateUnitAssessmentLink(unit, objectives)
+    updateUnitLessonPlans(unit)
+    unit.availableDownloads = {
+      isLessonAvailable: fs.existsSync(cheminFichier('cours', unit.reference)),
+      isLessonSummaryAvailable: fs.existsSync(cheminFichierLegacy('resume', unit.reference)),
+      isMissionAvailable: fs.existsSync(cheminFichierLegacy('mission', unit.reference)),
+      isLessonPlanAvailable: presenceFicheSequence(unit)
     }
   }
-  niveauxSequences = majTelechargementsDisponibles()
-  return niveauxSequences
 }
 
 function formatItem (item: RecursivePartial<GlossaryMasterItem>, type: 'définition' | 'propriété') {
@@ -337,36 +353,54 @@ function checksDeRoutine () {
 }
 
 function getListeReferencesObjectifsSequences () {
-  const references: string[] = []
-  for (const niveau of niveauxSequences) {
-    for (const sequence of niveau.units) {
-      for (const objectif of sequence.objectives) {
-        references.push(objectif.reference)
-      }
-    }
-  }
-  return references
+  return units
+    .map(unit => unit.objectives
+      .map(objectif => objectif.reference))
+    .flat()
 }
 
-function getListeReferencesObjectifs () {
+function getListeReferencesObjectifs (): string[] {
   return objectives.map(objective => objective.reference)
 }
 
-function getCalculsMentauxAvecLiensEtIdDesExercices (sequence: UnitUnit) {
+function getCalculsMentauxAvecLiensEtIdDesExercices (sequence: RecursivePartial<Unit>): UnitMentalCalculation[] {
+  if (sequence.mentalCalculations === undefined) return []
   let numeroExercice = 1
-  for (const calculMental of sequence.mentalCalculations) {
-    for (const exercice of calculMental.exercises) {
-      exercice.link = getLienExercice(exercice.slug, true)
-      exercice.id = sequence.reference + '-' + numeroExercice
-      numeroExercice++
+  for (const mentalCalculation of sequence.mentalCalculations) {
+    if (mentalCalculation !== undefined) {
+      mentalCalculation.exercises = mentalCalculation.exercises ?? []
+      const exercises = mentalCalculation.exercises.filter(exercise => exercise !== undefined)
+      for (const exercice of exercises) {
+        exercice.link = getLienExercice(exercice.slug, true)
+        exercice.id = sequence.reference + '-' + numeroExercice
+        exercice.slug = exercice.slug ?? ''
+        exercice.isInteractive = exercice.isInteractive ?? false
+        exercice.description = exercice.description ?? ''
+        exercice.isInCart = exercice.isInCart ?? false
+        numeroExercice++
+      }
+      mentalCalculation.exercises = exercises
+      mentalCalculation.reference = mentalCalculation.reference ?? ''
+      mentalCalculation.titleAcademic = mentalCalculation.titleAcademic ?? ''
+      mentalCalculation.title = mentalCalculation.title ?? ''
+      mentalCalculation.isRelatedObjectivePageAvailable = mentalCalculation.isRelatedObjectivePageAvailable ?? false
+      mentalCalculation.theme = mentalCalculation.theme ?? ''
     }
   }
-  return sequence.mentalCalculations
+
+  const mentalCalculationsCandidate = sequence.mentalCalculations.filter(mentalCalculation => mentalCalculation !== undefined)
+  if (!isUnitMentalCalculations(mentalCalculationsCandidate)) {
+    console.error(mentalCalculationsCandidate)
+    throw new Error('Mental calculations are not UnitMentalCalculations')
+  }
+  return mentalCalculationsCandidate
 }
 
-function getLienQuestionsFlash (sequence: UnitUnit) {
+function getLienQuestionsFlash (sequence: RecursivePartial<Unit>) {
+  if (!sequence.flashQuestions) return ''
   let lienQuestionsFlash = environment.baseUrl + environment.V3
   for (const questionFlash of sequence.flashQuestions) {
+    if (!questionFlash) continue
     const slug = questionFlash.slug
     if (slug !== '') {
       lienQuestionsFlash = lienQuestionsFlash.concat(formaterSlug(slug), '&')
@@ -376,7 +410,7 @@ function getLienQuestionsFlash (sequence: UnitUnit) {
   return lienQuestionsFlash
 }
 
-function getLienEvalBrevet (sequence: UnitUnit) {
+function getLienEvalBrevet (sequence: RecursivePartial<Unit>): string {
   let lienEvalBrevet = ''
   if (sequence.assessmentExamSlug !== undefined && sequence.assessmentExamSlug !== '') {
     if (sequence.assessmentExamSlug.slice(0, 2) === 'ex') {
@@ -395,12 +429,10 @@ function getLienEvalBrevet (sequence: UnitUnit) {
 }
 
 function trouverPeriode (objectif: RecursivePartial<UnitObjective>) {
-  for (const niveau of niveauxSequences) {
-    for (const sequence of niveau.units) {
-      for (const sequenceObjectif of sequence.objectives) {
-        if (sequenceObjectif.reference === objectif.reference) {
-          return sequence.period
-        }
+  for (const unit of units) {
+    for (const unitObjectif of unit.objectives) {
+      if (unitObjectif.reference === objectif.reference) {
+        return unit.period
       }
     }
   }
@@ -470,22 +502,20 @@ function getFiches (fiches: (RecursivePartial<ObjectiveLessonPlan> | undefined)[
 
 function getSequences (objectif: RecursivePartial<Objective>) {
   const listeDesSequences: ObjectiveUnit[] = []
-  for (const niveauSequence of niveauxSequences) {
-    for (const sequence of niveauSequence.units) {
-      for (const sequenceObjectif of sequence.objectives) {
-        if (objectif.reference === sequenceObjectif.reference) {
-          listeDesSequences.push({
-            reference: sequence.reference,
-            title: sequence.title
-          })
-        }
+  for (const unit of units) {
+    for (const sequenceObjectif of unit.objectives) {
+      if (objectif.reference === sequenceObjectif.reference) {
+        listeDesSequences.push({
+          reference: unit.reference,
+          title: unit.title
+        })
       }
     }
   }
   return listeDesSequences
 }
 
-function updateUnitObjective (unit: UnitUnit, objectives: Objective[]) {
+function updateUnitObjective (unit: Unit, objectives: Objective[]): void {
   unit.objectives.map(unitObjective => {
     const objective = objectives.find(objective => objective.reference === unitObjective.reference)
     if (!objective) {
@@ -505,7 +535,7 @@ function updateUnitObjective (unit: UnitUnit, objectives: Objective[]) {
   })
 }
 
-function updateUnitMentalCalculations (unit: UnitUnit, objectives: Objective[]) {
+function updateUnitMentalCalculations (unit: Unit, objectives: Objective[]) {
   unit.mentalCalculations.map(mentalCalculation => {
     const relatedObjective = objectives.find(objective => objective.reference === mentalCalculation.reference)
     if (!relatedObjective) {
@@ -522,7 +552,7 @@ function updateUnitMentalCalculations (unit: UnitUnit, objectives: Objective[]) 
   })
 }
 
-function updateUnitFlashQuestions (unit: UnitUnit, objectives: Objective[]) {
+function updateUnitFlashQuestions (unit: Unit, objectives: Objective[]) {
   unit.flashQuestions.map(flashQuestion => {
     const relatedObjective = objectives.find(objective => objective.reference === flashQuestion.reference)
     if (!relatedObjective) {
@@ -539,7 +569,7 @@ function updateUnitFlashQuestions (unit: UnitUnit, objectives: Objective[]) {
   })
 }
 
-function updateUnitAssessmentLink (unit: UnitUnit, objectives: Objective[]) {
+function updateUnitAssessmentLink (unit: Unit, objectives: Objective[]) {
   const slugsObjectif = getSlugsObjectifsSequence(unit, objectives)
   if (slugsObjectif.length === 0) return ''
   let lienEval = environment.baseUrl + environment.V3
@@ -550,7 +580,7 @@ function updateUnitAssessmentLink (unit: UnitUnit, objectives: Objective[]) {
   return lienEval
 }
 
-function updateUnitLessonPlans (sequence: UnitUnit) {
+function updateUnitLessonPlans (sequence: Unit) {
   for (const objectifSequence of sequence.objectives) {
     if (objectifSequence.lessonPlans.length > 0) {
       let numeroFiche = 1
@@ -578,21 +608,7 @@ function getNbFiches (objectif: UnitObjective, niveauSequence: string) {
   return nbFiches
 }
 
-function majTelechargementsDisponibles () {
-  for (const niveauSequence of niveauxSequences) {
-    for (const sequence of niveauSequence.units) {
-      sequence.availableDownloads = {
-        isLessonAvailable: fs.existsSync(cheminFichier('cours', sequence.reference)),
-        isLessonSummaryAvailable: fs.existsSync(cheminFichierLegacy('resume', sequence.reference)),
-        isMissionAvailable: fs.existsSync(cheminFichierLegacy('mission', sequence.reference)),
-        isLessonPlanAvailable: presenceFicheSequence(sequence)
-      }
-    }
-  }
-  return niveauxSequences
-}
-
-function postTraitementObjectifs () {
+function updateObjectives () {
   objectives.map(objective => {
     objective.availableDownloads.availableLessonPlanGrades = getNiveauxFichesDisponibles(objective)
     return objective
@@ -601,53 +617,49 @@ function postTraitementObjectifs () {
 
 function checkSequences (referencesObjectifsSequences: string[], referencesObjectifs: string[]) {
   checkDoublonsBrevet()
-  for (const niveau of niveauxSequences) {
-    for (const sequence of niveau.units) {
-      for (const objectif of sequence.objectives) {
-        if (!referencesObjectifs.includes(objectif.reference)) {
-          console.warn(sequence.reference + ' comporte l\'objectif ' + objectif.reference + ' qui n\'existe pas')
-          nombreDeWarnings++
-        }
-      }
-      for (const calculMental of sequence.mentalCalculations) {
-        if ((calculMental.reference !== undefined && calculMental.reference !== '') && (calculMental.titleAcademic === undefined || calculMental.titleAcademic === '')) {
-          console.warn('L\'objectif lié à un calcul mental de ' + sequence.reference + ' n\'existe pas')
-          nombreDeWarnings++
-        }
-      }
-      for (const questionFlash of sequence.flashQuestions) {
-        if (questionFlash.titleAcademic === undefined || questionFlash.titleAcademic === '') {
-          console.warn('L\'objectif lié à une question flash de ' + sequence.reference + ' n\'existe pas')
-          nombreDeWarnings++
-        }
-      }
-      if (sequence.availableDownloads.isLessonAvailable === false) {
-        console.warn('Cours de ' + sequence.reference + ' manquant')
+  for (const sequence of units) {
+    for (const objectif of sequence.objectives) {
+      if (!referencesObjectifs.includes(objectif.reference)) {
+        console.warn(sequence.reference + ' comporte l\'objectif ' + objectif.reference + ' qui n\'existe pas')
         nombreDeWarnings++
       }
+    }
+    for (const calculMental of sequence.mentalCalculations) {
+      if ((calculMental.reference !== undefined && calculMental.reference !== '') && (calculMental.titleAcademic === undefined || calculMental.titleAcademic === '')) {
+        console.warn('L\'objectif lié à un calcul mental de ' + sequence.reference + ' n\'existe pas')
+        nombreDeWarnings++
+      }
+    }
+    for (const questionFlash of sequence.flashQuestions) {
+      if (questionFlash.titleAcademic === undefined || questionFlash.titleAcademic === '') {
+        console.warn('L\'objectif lié à une question flash de ' + sequence.reference + ' n\'existe pas')
+        nombreDeWarnings++
+      }
+    }
+    if (sequence.availableDownloads.isLessonAvailable === false) {
+      console.warn('Cours de ' + sequence.reference + ' manquant')
+      nombreDeWarnings++
     }
   }
 }
 
 function checkDoublonsBrevet () {
   const listeExercicesDeBrevet: string[] = []
-  for (const niveau of niveauxSequences) {
-    for (const sequence of niveau.units) {
-      if (sequence.assessmentExamSlug !== undefined && sequence.assessmentExamSlug !== '') {
-        const listeExosAvecEx = sequence.assessmentExamSlug.split('&')
-        for (const exoAvecEx of listeExosAvecEx) {
-          const exo = exoAvecEx.slice(3)
-          for (const exerciceDeBrevet of listeExercicesDeBrevet) {
-            if (exo === exerciceDeBrevet) {
-              console.warn(exo + ' présent en double')
-              nombreDeWarnings++
-            }
+  for (const sequence of units) {
+    if (sequence.assessmentExamSlug !== undefined && sequence.assessmentExamSlug !== '') {
+      const listeExosAvecEx = sequence.assessmentExamSlug.split('&')
+      for (const exoAvecEx of listeExosAvecEx) {
+        const exo = exoAvecEx.slice(3)
+        for (const exerciceDeBrevet of listeExercicesDeBrevet) {
+          if (exo === exerciceDeBrevet) {
+            console.warn(exo + ' présent en double')
+            nombreDeWarnings++
           }
-          listeExercicesDeBrevet.push(exo)
         }
-      } else {
-        sequence.assessmentExamSlug = ''
+        listeExercicesDeBrevet.push(exo)
       }
+    } else {
+      sequence.assessmentExamSlug = ''
     }
   }
 }
@@ -716,7 +728,8 @@ function checkLexique () {
    * @param calculMental true si utilisation dans un calcul mental pour afficher le diaporama des exercices de MathALEA
    * @returns {string}
    */
-function getLienExercice (slug: string, calculMental = false) {
+function getLienExercice (slug: string | undefined, calculMental = false) {
+  if (slug === undefined) return ''
   let lien = ''
   if (slug !== undefined) {
     if (estMathsMentales(slug)) {
@@ -779,7 +792,7 @@ function conversionV2enV3 (url: string) {
   return url
 }
 
-function getSlugsObjectifsSequence (sequence: UnitUnit, objectives: Objective[]) {
+function getSlugsObjectifsSequence (sequence: Unit, objectives: Objective[]) {
   return objectives
     .filter(objective => sequence.objectives.map(objectifSequence => objectifSequence.reference).includes(objective.reference))
     .map(objectif => objectif.exercises)
@@ -832,7 +845,7 @@ function getNiveauxFichesDisponibles (objectif: Objective): StringGrade[] {
   return niveauxDisponibles
 }
 
-function presenceFicheSequence (sequence: UnitUnit) {
+function presenceFicheSequence (sequence: Unit) {
   for (const objectif of sequence.objectives) {
     if (presenceFicheObjectif(objectif)) return true
   }

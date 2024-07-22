@@ -19,6 +19,12 @@ export function isObjectiveVideo (obj: unknown): obj is ObjectiveVideo {
     'authorName' in obj && typeof obj.authorName === 'string' &&
     'authorLink' in obj && typeof obj.authorLink === 'string'
 }
+export const emptyObjectiveVideo: ObjectiveVideo = {
+  title: '',
+  videoLink: '',
+  authorName: '',
+  authorLink: ''
+}
 
 export type ObjectiveExercise = {
   id: string,
@@ -170,6 +176,17 @@ export type UnitObjective = {
   grade: StringGrade,
   lessonPlans: ObjectiveLessonPlan[]
 }
+export function isUnitObjective (obj: unknown): obj is UnitObjective {
+  if (obj == null || typeof obj !== 'object') return false
+  return 'reference' in obj && typeof obj.reference === 'string' &&
+    'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
+    'title' in obj && typeof obj.title === 'string' &&
+    'exercises' in obj && Array.isArray(obj.exercises) && obj.exercises.every(isObjectiveExercise) &&
+    'examExercises' in obj && Array.isArray(obj.examExercises) && obj.examExercises.every(isObjectiveExercise) &&
+    'theme' in obj && typeof obj.theme === 'string' &&
+    'grade' in obj && isStringGrade(obj.grade) &&
+    'lessonPlans' in obj && Array.isArray(obj.lessonPlans) && obj.lessonPlans.every(isObjectiveLessonPlan)
+}
 
 export type UnitMentalCalculation = {
   reference: string,
@@ -179,14 +196,44 @@ export type UnitMentalCalculation = {
   isRelatedObjectivePageAvailable: boolean,
   theme: string
 }
+export function isUnitMentalCalculation (obj: unknown): obj is UnitMentalCalculation {
+  if (obj == null || typeof obj !== 'object') return false
+  return 'reference' in obj && typeof obj.reference === 'string' &&
+    'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
+    'title' in obj && typeof obj.title === 'string' &&
+    'exercises' in obj && Array.isArray(obj.exercises) && obj.exercises.every(isObjectiveExercise) &&
+    'isRelatedObjectivePageAvailable' in obj && typeof obj.isRelatedObjectivePageAvailable === 'boolean' &&
+    'theme' in obj && typeof obj.theme === 'string'
+}
+export function isUnitMentalCalculations (obj: unknown): obj is UnitMentalCalculation[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isUnitMentalCalculation)
+}
 
-export type UnitFlashQuestions = {
+export type UnitFlashQuestion = {
   reference: string,
   titleAcademic: string,
   title: string,
   slug: string,
   isRelatedObjectivePageAvailable: boolean,
   theme: string
+}
+export function isUnitFlashQuestion (obj: unknown): obj is UnitFlashQuestion {
+  if (obj == null || typeof obj !== 'object') return false
+  return 'reference' in obj && typeof obj.reference === 'string' &&
+    'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
+    'title' in obj && typeof obj.title === 'string' &&
+    'slug' in obj && typeof obj.slug === 'string' &&
+    'isRelatedObjectivePageAvailable' in obj && typeof obj.isRelatedObjectivePageAvailable === 'boolean' &&
+    'theme' in obj && typeof obj.theme === 'string'
+}
+export const emptyUnitFlashQuestion: UnitFlashQuestion = {
+  reference: '',
+  titleAcademic: '',
+  title: '',
+  slug: '',
+  isRelatedObjectivePageAvailable: false,
+  theme: ''
 }
 
 export type UnitAvailableDownloads = {
@@ -195,37 +242,59 @@ export type UnitAvailableDownloads = {
   isMissionAvailable: boolean,
   isLessonPlanAvailable: boolean
 }
+export function isUnitAvailableDownloads (obj: unknown): obj is UnitAvailableDownloads {
+  if (obj == null || typeof obj !== 'object') return false
+  return 'isLessonAvailable' in obj && typeof obj.isLessonAvailable === 'boolean' &&
+    'isLessonSummaryAvailable' in obj && typeof obj.isLessonSummaryAvailable === 'boolean' &&
+    'isMissionAvailable' in obj && typeof obj.isMissionAvailable === 'boolean' &&
+    'isLessonPlanAvailable' in obj && typeof obj.isLessonPlanAvailable === 'boolean'
+}
 
-export type UnitSpecialUnit = {
+export type UnitSpecial = {
   reference: string,
   title: string
 }
 
-export type UnitUnit = {
-  grade: StringGrade,
-  number: number,
-  reference: string,
-  title: string,
-  period: number,
-  objectives: UnitObjective[],
-  mentalCalculations: UnitMentalCalculation[],
-  flashQuestions: UnitFlashQuestions[],
-  flashQuestionsLink: string,
+export type Unit = {
+  assessmentExamLink: string,
   assessmentExamSlug: string,
   assessmentLink: string,
-  assessmentExamLink: string,
   availableDownloads: UnitAvailableDownloads
+  flashQuestions: UnitFlashQuestion[],
+  flashQuestionsLink: string,
+  grade: StringGrade,
+  mentalCalculations: UnitMentalCalculation[],
+  number: number,
+  objectives: UnitObjective[],
+  period: number,
+  reference: string,
+  title: string,
+}
+export function isUnit (obj: unknown): obj is Unit {
+  if (obj == null || typeof obj !== 'object') return false
+  return 'assessmentExamLink' in obj && typeof obj.assessmentExamLink === 'string' &&
+    'assessmentExamSlug' in obj && typeof obj.assessmentExamSlug === 'string' &&
+    'assessmentLink' in obj && typeof obj.assessmentLink === 'string' &&
+    'availableDownloads' in obj && isUnitAvailableDownloads(obj.availableDownloads) &&
+    'flashQuestions' in obj && Array.isArray(obj.flashQuestions) && obj.flashQuestions.every(isUnitFlashQuestion) &&
+    'flashQuestionsLink' in obj && typeof obj.flashQuestionsLink === 'string' &&
+    'grade' in obj && isStringGrade(obj.grade) &&
+    'mentalCalculations' in obj && Array.isArray(obj.mentalCalculations) && obj.mentalCalculations.every(isUnitMentalCalculation) &&
+    'number' in obj && typeof obj.number === 'number' &&
+    'objectives' in obj && Array.isArray(obj.objectives) && obj.objectives.every(isUnitObjective) &&
+    'period' in obj && typeof obj.period === 'number' &&
+    'reference' in obj && typeof obj.reference === 'string' &&
+    'title' in obj && typeof obj.title === 'string'
+}
+export function isUnits (obj: unknown): obj is Unit[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isUnit)
 }
 
-export type UnitGrade = {
-  name: StringGrade,
-  units: UnitUnit[]
-}
-
-export type LineGrade = StringGrade | 'all' | 'fin' | ''
+export type LineGrade = StringGrade | 'all' | 'end' | ''
 export function isLineGrade (obj: unknown): obj is LineGrade {
   if (obj == null || typeof obj !== 'string') return false
-  return isStringGrade(obj) || ['all', 'fin', ''].includes(obj)
+  return isStringGrade(obj) || ['all', 'end', ''].includes(obj)
 }
 
 export type LineObjective = {

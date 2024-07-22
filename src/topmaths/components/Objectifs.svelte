@@ -137,7 +137,7 @@
   <div><br /></div>
   <div>
     {#each $rows as row, i}
-      {#if row.theme !== 'Extra' && row.grade !== 'fin'}
+      {#if row.theme !== 'Extra' && row.grade !== 'end'}
         <span>
           {#if (i === 0 || $rows[i - 1].grade !== $rows[i].grade) && (filter.grade === 'all' || filter.grade === row.grade)}
             <h1 class="title text-2xl md:text-4xl font-semibold p-2 is-{row.grade}">
@@ -157,7 +157,7 @@
           {#if count({ grade: row.grade, theme: row.theme, subTheme: row.subTheme, period: row.period, filter }) > 0}
             <div
               class="p-1  is-{row.grade}"
-              class:is-fin={$texteRecherche === '' && i < $rows.length - 2 && ($rows[i + 1].grade === 'fin' || $rows[i + 1].theme === 'Extra')}
+              class:is-fin={$texteRecherche === '' && i < $rows.length - 2 && ($rows[i + 1].grade === 'end' || $rows[i + 1].theme === 'Extra')}
             >
               <a
                 href="/?v=objectif&ref={row.reference}"
@@ -175,7 +175,7 @@
           {/if}
         </span>
       {/if}
-      {#if i > 0 && row.grade === 'fin' && filter.grade === 'all'}
+      {#if i > 0 && row.grade === 'end' && filter.grade === 'all'}
         <div>
           <br />
         </div>

@@ -2,9 +2,9 @@
   import {
     modePerso,
     objectives,
-    niveauxSequences
+    units
   } from '../../services/store'
-  import type { ObjectiveExercise, UnitUnit } from '../../services/types'
+  import type { ObjectiveExercise, Unit } from '../../services/types'
   import { getTitre } from '../../services/outils'
   import { goVue } from '../../services/navigation'
   import { onDestroy } from 'svelte'
@@ -14,10 +14,10 @@
 
   let niveau = ''
   export let referenceSequence = ''
-  let sequence: UnitUnit = {
+  let sequence: Unit = {
     reference: '',
     title: '',
-    grade: '',
+    grade: 'none',
     number: 0,
     period: 0,
     objectives: [],
@@ -42,31 +42,29 @@
       trouverSequence()
     )
     onDestroy(niveauxObjectifsUnsubscribe)
-    niveauxSequencesUnsubscribe = niveauxSequences.subscribe(() =>
+    niveauxSequencesUnsubscribe = units.subscribe(() =>
       trouverSequence()
     )
     onDestroy(niveauxSequencesUnsubscribe)
   }
 
   function lesDonneesSontChargees () {
-    return $objectives.length > 0 && $niveauxSequences.length > 0
+    return $objectives.length > 0 && $units.length > 0
   }
 
   function trouverSequence () {
     if (lesDonneesSontChargees() && referenceSequence.slice(0, 1) === 'S') {
-      $niveauxSequences.find((niveauSequence) => {
-        return niveauSequence.units.find((sequenceTrouve) => {
-          if (sequenceTrouve.reference === referenceSequence) {
-            niveau = niveauSequence.name
-            sequence = sequenceTrouve
-            title =
+      $units.find((sequenceTrouve) => {
+        if (sequenceTrouve.reference === referenceSequence) {
+          niveau = sequenceTrouve.grade
+          sequence = sequenceTrouve
+          title =
               'Séquence ' +
               sequence.reference.slice(3) +
               ' : ' +
               sequence.title
-          }
-          return sequenceTrouve.reference === referenceSequence
-        })
+        }
+        return sequenceTrouve.reference === referenceSequence
       })
       listerExercices()
     }

@@ -1,10 +1,10 @@
-import { objectives as storeObjectives, niveauxSequences as storeNiveauxSequences, sequencesParticulieres as storeSequencesParticulieres, calendrierAnneeEnCours as storeCalendrierAnneeEnCours, lexique as glossaryStore } from './store'
+import { objectives as storeObjectives, units as storeUnits, sequencesParticulieres as storeSequencesParticulieres, calendrierAnneeEnCours as storeCalendrierAnneeEnCours, lexique as glossaryStore } from './store'
 import sequencesModifieesJson from '../../topmaths/json/sequences_modifiees.json'
 import objectifsModifiesJson from '../../topmaths/json/objectifs_modifies.json'
 import glossaryJson from '../../topmaths/json/lexique.json'
 import sequencesParticulieresJson from '../../topmaths/json/sequencesParticulieres.json'
 import calendrierJson from '../../topmaths/json/calendrier.json'
-import { isObjectives, type Objective } from './types'
+import { isObjectives, isUnits } from './types'
 import { isGlossaryUniteItems } from '../types/glossary'
 
 miseEnCacheDesDonnees()
@@ -17,14 +17,17 @@ function miseEnCacheDesDonnees () {
 }
 
 function miseEnCacheNiveauxEtSequences () {
-  const niveauxSequences = sequencesModifieesJson
-  storeNiveauxSequences.set(niveauxSequences)
+  if (!isUnits(sequencesModifieesJson)) {
+    console.error(sequencesModifieesJson)
+    throw new Error('sequencesModifieesJson is not an array of Unit')
+  }
+  storeUnits.set(sequencesModifieesJson)
+
   if (!isObjectives(objectifsModifiesJson)) {
     console.error(objectifsModifiesJson)
     throw new Error('objectifsModifiesJson is not an array of Objective')
   }
-  const objectives: Objective[] = objectifsModifiesJson
-  storeObjectives.set(objectives)
+  storeObjectives.set(objectifsModifiesJson)
 }
 
 function miseEnCacheSequencesParticulieres () {
