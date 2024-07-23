@@ -39,10 +39,10 @@
   },
   "homepage": "https://github.com/mathalea/mathalea",
   "scripts": {
-    "build": "pnpm makeJson && pnpm update:pdf && vite build",
+    "build": "pnpm makeJson && pnpm build:pdf && vite build",
+    "build:json": "tsc -p tsconfig-tasks.json && node tmp/tasks/build_json.js",
+    "build:pdf": "pnpm build:json && node tmp/tasks/build_pdf.js && node tmp/tasks/build_json.js",
     "update:upstream": "git fetch upstream && git checkout main && git merge upstream/main",
-    "update:json": "tsc -p tsconfig-tasks.json && node tmp/tasks/update_json.js",
-    "update:pdf": "pnpm update:json && node tmp/tasks/update_pdf.js && node tmp/tasks/update_json.js",
     "start": "pnpm makeJson && vite",
     "makeJson": "node tasks/dictionnaireToReferentiel.js && node tasks/updateMenuInternational",
     "getNewUuid": "pnpm makeJson",

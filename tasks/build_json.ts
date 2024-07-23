@@ -12,9 +12,10 @@ import { emptyUnitFlashQuestion, isUnit, isUnitMentalCalculations, type UnitMent
 import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
 
 const ORIGIN = 'https://topmaths.fr'
-const BASE_URL = 'https://coopmaths.fr/'
+const COOPMATHS_URL = 'https://coopmaths.fr/'
 const V2_ADDENDUM = 'mathalea.html?'
 const V3_ADDENDUM = 'alea/?'
+const VIEW_ADDENDUM = '&v=eleve'
 const THIRD_PARTY_WEBSITES = [
   'https://coopmaths.fr/',
   'https://mathsmentales.net/',
@@ -23,26 +24,23 @@ const THIRD_PARTY_WEBSITES = [
   'https://www.clicmaclasse.fr/'
 ]
 
-const definitions: RecursivePartial<GlossaryMasterItem>[] = definitionsJson
-const properties: Partial<GlossaryMasterItem>[] = propertiesJson
-
 let warningCount = 0
-const units: Unit[] = makeUnits()
-const objectives: Objective[] = makeObjectives()
+const units: Unit[] = buildUnits()
+const objectives: Objective[] = buildObjectives()
 updateUnits()
 updateObjectives()
-const glossary = makeGlossary()
+const glossary = buildGlossary()
 routineCheck()
 console.warn(warningCount + ' warning' + (warningCount > 1 ? 's' : ''))
 ecrireJson('objectifs_modifies', objectives)
 ecrireJson('sequences_modifiees', units)
 ecrireJson('lexique', glossary)
 
-type UnitGrade = {
-  name: string,
-  units: Unit[]
-}
-function makeUnits (): Unit[] {
+function buildUnits (): Unit[] {
+  type UnitGrade = {
+    name: string, // StringGrade serait mieux mais ça demanderait beaucoup de travail pour pas grand chose car dans tous les cas on vérifie le vérifie dans isUnit avant le return
+    units: Unit[]
+  }
   const formattedUnits: Unit[] = []
   const unitMaster: RecursivePartial<UnitGrade>[] = unitsMasterJson
   for (const grade of unitMaster) {
@@ -51,7 +49,7 @@ function makeUnits (): Unit[] {
     let unitNumber = 1
     for (const unit of grade.units) {
       if (unit === undefined) { console.error(grade.units); throw new Error('Unit is undefined') }
-      unit.assessmentExamLink = getLienEvalBrevet(unit)
+      unit.assessmentExamLink = buildAssessmentExamLink(unit)
       unit.assessmentExamSlug = unit.assessmentExamSlug ?? ''
       unit.assessmentLink = unit.assessmentLink ?? ''
       unit.availableDownloads = {
@@ -61,15 +59,15 @@ function makeUnits (): Unit[] {
         isLessonPlanAvailable: false
       }
       unit.flashQuestions = unit.flashQuestions ? unit.flashQuestions.map(flashQuestion => Object.assign({}, emptyUnitFlashQuestion, flashQuestion)) : []
-      unit.flashQuestionsLink = getLienQuestionsFlash(unit)
+      unit.flashQuestionsLink = buildFlashQuestionsLink(unit)
       const unitGradeCandidate = grade.name
-      if (!isStringGrade(unitGradeCandidate)) { console.error(grade.name); throw new Error('Grade name incorrect') }
+      if (!isStringGrade(unitGradeCandidate)) { console.error('grade name', grade.name); throw new Error('Grade name incorrect') }
       unit.grade = unitGradeCandidate
-      unit.mentalCalculations = getCalculsMentauxAvecLiensEtIdDesExercices(unit)
+      unit.mentalCalculations = buildMentalCalculations(unit)
       unit.number = unitNumber
       unit.objectives = unit.objectives ? unit.objectives.map(objective => Object.assign({}, emptyObjective, objective)) : []
       unit.period = unit.period ?? 0
-      unit.reference = `S${unit.grade.slice(0, 1)}S${unit.number}`
+      unit.reference = buildUnitReference(unit)
       unit.title = unit.title ?? ''
       unitNumber++
       if (!isUnit(unit)) {
@@ -82,22 +80,19 @@ function makeUnits (): Unit[] {
   return formattedUnits
 }
 
-type ObjectiveSubTheme = {
-  name: string,
-  objectives: Objective[]
-}
-
-type ObjectiveTheme = {
-  name: string,
-  subThemes: ObjectiveSubTheme[]
-}
-
-type ObjectiveGrade = {
-  name: string,
-  themes: ObjectiveTheme[]
-}
-
-function makeObjectives (): Objective[] {
+function buildObjectives (): Objective[] {
+  type ObjectiveSubTheme = {
+    name: string,
+    objectives: Objective[]
+  }
+  type ObjectiveTheme = {
+    name: string,
+    subThemes: ObjectiveSubTheme[]
+  }
+  type ObjectiveGrade = {
+    name: string, // StringGrade serait mieux mais ça demanderait beaucoup de travail pour pas grand chose car dans tous les cas on vérifie le vérifie dans isObjective avant le return
+    themes: ObjectiveTheme[]
+  }
   const formattedObjectives: Objective[] = []
   const objectivesMaster: RecursivePartial<ObjectiveGrade>[] = objectivesMasterJson
   for (const grade of objectivesMaster) {
@@ -115,8 +110,8 @@ function makeObjectives (): Objective[] {
           if (objective === undefined) { console.error(objective); throw new Error('Objective is undefined') }
           if (objective.reference === undefined) { console.error(objective); throw new Error('Objective reference is undefined') }
           objective.availableDownloads = {
-            isPracticeSheetAvailable: fs.existsSync(cheminFichierLegacy('entrainement', objective.reference)),
-            isTestSheetAvailable: fs.existsSync(cheminFichierLegacy('test', objective.reference)),
+            isPracticeSheetAvailable: fs.existsSync(buildFilePathLegacy('entrainement', objective.reference)),
+            isTestSheetAvailable: fs.existsSync(buildFilePathLegacy('test', objective.reference)),
             isLessonPlanAvailable: presenceFicheObjectif(objective),
             availableLessonPlanGrades: []
           }
@@ -158,9 +153,9 @@ function updateUnits (): void {
     updateUnitAssessmentLink(unit, objectives)
     updateUnitLessonPlans(unit)
     unit.availableDownloads = {
-      isLessonAvailable: fs.existsSync(cheminFichier('cours', unit.reference)),
-      isLessonSummaryAvailable: fs.existsSync(cheminFichierLegacy('resume', unit.reference)),
-      isMissionAvailable: fs.existsSync(cheminFichierLegacy('mission', unit.reference)),
+      isLessonAvailable: fs.existsSync(buildFilePath('cours', unit.reference)),
+      isLessonSummaryAvailable: fs.existsSync(buildFilePathLegacy('resume', unit.reference)),
+      isMissionAvailable: fs.existsSync(buildFilePathLegacy('mission', unit.reference)),
       isLessonPlanAvailable: presenceFicheSequence(unit)
     }
   }
@@ -219,7 +214,7 @@ function interpreterMarkupArray (array: (string | undefined)[]): string[] {
   }
 }
 
-function makeUniteItems (masterItem: GlossaryMasterItem): GlossaryUniteItem[] {
+function buildGlossaryUniteItems (masterItem: GlossaryMasterItem): GlossaryUniteItem[] {
   const uniteItems: GlossaryUniteItem[] = []
   const slugsSousItemsDejaCrees: string[] = []
   for (const title of masterItem.titles) {
@@ -315,16 +310,16 @@ function routineCheck (): void {
   checkDuplicatesExamExercises()
 }
 
-function getCalculsMentauxAvecLiensEtIdDesExercices (sequence: RecursivePartial<Unit>): UnitMentalCalculation[] {
-  if (sequence.mentalCalculations === undefined) return []
+function buildMentalCalculations (unit: RecursivePartial<Unit>): UnitMentalCalculation[] {
+  if (unit.mentalCalculations === undefined) return []
   let numeroExercice = 1
-  for (const mentalCalculation of sequence.mentalCalculations) {
+  for (const mentalCalculation of unit.mentalCalculations) {
     if (mentalCalculation !== undefined) {
       mentalCalculation.exercises = mentalCalculation.exercises ?? []
       const exercises = mentalCalculation.exercises.filter(exercise => exercise !== undefined)
       for (const exercice of exercises) {
         exercice.link = getLienExercice(exercice.slug, true)
-        exercice.id = sequence.reference + '-' + numeroExercice
+        exercice.id = unit.reference + '-' + numeroExercice
         exercice.slug = exercice.slug ?? ''
         exercice.isInteractive = exercice.isInteractive ?? false
         exercice.description = exercice.description ?? ''
@@ -339,8 +334,7 @@ function getCalculsMentauxAvecLiensEtIdDesExercices (sequence: RecursivePartial<
       mentalCalculation.theme = mentalCalculation.theme ?? ''
     }
   }
-
-  const mentalCalculationsCandidate = sequence.mentalCalculations.filter(mentalCalculation => mentalCalculation !== undefined)
+  const mentalCalculationsCandidate = unit.mentalCalculations.filter(mentalCalculation => mentalCalculation !== undefined)
   if (!isUnitMentalCalculations(mentalCalculationsCandidate)) {
     console.error(mentalCalculationsCandidate)
     throw new Error('Mental calculations are not UnitMentalCalculations')
@@ -348,36 +342,42 @@ function getCalculsMentauxAvecLiensEtIdDesExercices (sequence: RecursivePartial<
   return mentalCalculationsCandidate
 }
 
-function getLienQuestionsFlash (sequence: RecursivePartial<Unit>): string {
-  if (!sequence.flashQuestions) return ''
-  let lienQuestionsFlash = BASE_URL + V3_ADDENDUM
-  for (const questionFlash of sequence.flashQuestions) {
-    if (!questionFlash) continue
-    const slug = questionFlash.slug
-    if (slug !== '') {
-      lienQuestionsFlash = lienQuestionsFlash.concat(formaterSlug(slug), '&')
-    }
+function buildUnitReference (unit: RecursivePartial<Unit>): string {
+  if (unit.grade === undefined) {
+    console.error(unit)
+    throw new Error('Unit grade is undefined')
   }
-  lienQuestionsFlash.slice(0, -1)
-  return lienQuestionsFlash
+  return `S${unit.grade.slice(0, 1)}S${unit.number}`
 }
 
-function getLienEvalBrevet (sequence: RecursivePartial<Unit>): string {
-  let lienEvalBrevet = ''
-  if (sequence.assessmentExamSlug !== undefined && sequence.assessmentExamSlug !== '') {
-    if (sequence.assessmentExamSlug.slice(0, 2) === 'ex') {
-      lienEvalBrevet = BASE_URL + V2_ADDENDUM
-      lienEvalBrevet += sequence.assessmentExamSlug
-      lienEvalBrevet = conversionV2enV3(lienEvalBrevet)
-    } else if (sequence.assessmentExamSlug.slice(0, 4) === 'uuid') {
-      lienEvalBrevet = BASE_URL + V3_ADDENDUM
-      lienEvalBrevet += sequence.assessmentExamSlug
-    } else {
-      lienEvalBrevet = sequence.assessmentExamSlug
+function buildFlashQuestionsLink (unit: RecursivePartial<Unit>): string {
+  if (!unit.flashQuestions) return ''
+  let flashQuestionsLink = COOPMATHS_URL + V3_ADDENDUM
+  unit.flashQuestions.forEach(flashQuestion => {
+    if (flashQuestion !== undefined && flashQuestion.slug !== '') {
+      flashQuestionsLink += formaterSlug(flashQuestion.slug) + '&'
     }
-    lienEvalBrevet = lienEvalBrevet.concat('&v=eleve')
+  })
+  return flashQuestionsLink.slice(0, -1)
+}
+
+function buildAssessmentExamLink (unit: RecursivePartial<Unit>): string {
+  let assessmentExamLink = ''
+  if (unit.assessmentExamSlug === undefined || unit.assessmentExamSlug === '') {
+    return assessmentExamLink
   }
-  return lienEvalBrevet
+  if (isV2Slug(unit.assessmentExamSlug)) {
+    assessmentExamLink = COOPMATHS_URL + V2_ADDENDUM
+    assessmentExamLink += unit.assessmentExamSlug
+    assessmentExamLink = convertV2ToV3(assessmentExamLink)
+  } else if (isV3Slug(unit.assessmentExamSlug)) {
+    assessmentExamLink = COOPMATHS_URL + V3_ADDENDUM
+    assessmentExamLink += unit.assessmentExamSlug
+  } else {
+    assessmentExamLink = unit.assessmentExamSlug
+  }
+  assessmentExamLink = assessmentExamLink.concat(VIEW_ADDENDUM)
+  return assessmentExamLink
 }
 
 function trouverPeriode (objectif: RecursivePartial<UnitObjective>): number {
@@ -401,7 +401,7 @@ function getRappelDuCoursImage (objectif: RecursivePartial<Objective>): string {
 
 function getLienExercices (exercises: (RecursivePartial<ObjectiveExercise> | undefined)[] | undefined): string {
   if (exercises === undefined || exercises.length === 0) return ''
-  let lienExercices = BASE_URL + V3_ADDENDUM
+  let lienExercices = COOPMATHS_URL + V3_ADDENDUM
   let nbExercices = 0
   exercises
     .filter(exercice => exercice !== undefined)
@@ -538,7 +538,7 @@ function updateUnitAssessmentLink (unit: Unit, objectives: Objective[]): void {
     unit.assessmentLink = ''
     return
   }
-  let lienEval = BASE_URL + V3_ADDENDUM
+  let lienEval = COOPMATHS_URL + V3_ADDENDUM
   for (const slug of slugsObjectif) {
     lienEval = lienEval.concat(slug, '&')
   }
@@ -581,11 +581,13 @@ function updateObjectives (): void {
   })
 }
 
-function makeGlossary (): GlossaryUniteItem[] {
+function buildGlossary (): GlossaryUniteItem[] {
+  const definitions: RecursivePartial<GlossaryMasterItem>[] = definitionsJson
+  const properties: Partial<GlossaryMasterItem>[] = propertiesJson
   const formattedMasterDefinitions = definitions.map(item => formatItem(item, 'définition')).filter(isGlossaryMasterItem)
   const formattedMasterProperties = properties.map(item => formatItem(item, 'propriété')).filter(isGlossaryMasterItem)
   const glossaryMasterItems = formattedMasterDefinitions.concat(formattedMasterProperties)
-  const glossaryUniteItems = glossaryMasterItems.map(makeUniteItems).flat()
+  const glossaryUniteItems = glossaryMasterItems.map(buildGlossaryUniteItems).flat()
   return postTraitementItems(glossaryUniteItems)
 }
 
@@ -656,10 +658,10 @@ function getLienExercice (slug: string | undefined, calculMental = false): strin
     } else if (slug.slice(0, 4) !== 'http') { // c'est un slug
       if (slug.includes(',')) { // c'est un slug V2
         if (!slug.startsWith('id=')) slug = 'ex=' + slug
-        lien = `${BASE_URL + V2_ADDENDUM}${slug},i=0`
-        lien = conversionV2enV3(lien)
+        lien = `${COOPMATHS_URL + V2_ADDENDUM}${slug},i=0`
+        lien = convertV2ToV3(lien)
       } else { // c'est un slug v3
-        lien = BASE_URL + V3_ADDENDUM + formaterSlug(slug) + '&i=0'
+        lien = COOPMATHS_URL + V3_ADDENDUM + formaterSlug(slug) + '&i=0'
       }
       lien = lien.replace(/&uuid=/g, '&i=0&uuid=') // dans le cas où il y aurait plusieurs exercices dans le même slug
       if (calculMental) {
@@ -682,33 +684,39 @@ function estMathsMentales (url: string): boolean {
 }
 
 function estCoopmaths (url: string): boolean {
-  const urlCoopmaths = BASE_URL
-  return url.slice(0, urlCoopmaths.length) === BASE_URL
+  const urlCoopmaths = COOPMATHS_URL
+  return url.slice(0, urlCoopmaths.length) === COOPMATHS_URL
 }
 
-function estV2 (url: string): boolean {
-  const urlV2 = BASE_URL + V2_ADDENDUM
-  return url.slice(0, urlV2.length) === urlV2
+function isV2Slug (slug: string): boolean {
+  return slug.slice(0, 2) === 'ex'
+}
+function isV2Link (url: string): boolean {
+  const V2BaseUrl = COOPMATHS_URL + V2_ADDENDUM
+  return url.slice(0, V2BaseUrl.length) === V2BaseUrl
 }
 
-function estV3 (url: string): boolean {
-  const urlV3 = BASE_URL + V3_ADDENDUM
-  return url.slice(0, urlV3.length) === urlV3
+function isV3Slug (slug: string): boolean {
+  return slug.slice(0, 4) === 'uuid'
+}
+function isV3Link (url: string): boolean {
+  const V3BaseUrl = COOPMATHS_URL + V3_ADDENDUM
+  return url.slice(0, V3BaseUrl.length) === V3BaseUrl
 }
 
-function conversionV2enV3 (url: string): string {
-  url = url.replace(/mathalea\.html/g, 'alea/')
-  url = url.replace(/ex=dnb/g, 'uuid=dnb')
-  url = url.replace(/ex=/g, 'id=')
-  url = url.replace(/,i=/g, '&i=')
-  url = url.replace(/,n=/g, '&n=')
-  url = url.replace(/,v=/g, '&v=')
-  url = url.replace(/,s=/g, '&s=')
-  url = url.replace(/,s2=/g, '&s2=')
-  url = url.replace(/,s3=/g, '&s3=')
-  url = url.replace(/,s4=/g, '&s4=')
-  url = url.replace(/,cd=/g, '&cd=')
-  return url
+function convertV2ToV3 (link: string): string {
+  link = link.replace(/mathalea\.html/g, 'alea/')
+  link = link.replace(/ex=dnb/g, 'uuid=dnb')
+  link = link.replace(/ex=/g, 'id=')
+  link = link.replace(/,i=/g, '&i=')
+  link = link.replace(/,n=/g, '&n=')
+  link = link.replace(/,v=/g, '&v=')
+  link = link.replace(/,s=/g, '&s=')
+  link = link.replace(/,s2=/g, '&s2=')
+  link = link.replace(/,s3=/g, '&s3=')
+  link = link.replace(/,s4=/g, '&s4=')
+  link = link.replace(/,cd=/g, '&cd=')
+  return link
 }
 
 function getSlugsObjectifsSequence (sequence: Unit, objectives: Objective[]): string[] {
@@ -724,9 +732,9 @@ function formaterSlug (slug: string | undefined): string {
   if (slug === undefined || slug === '') return ''
   if (slug.slice(0, 4) === 'uuid') return slug
   if (slug.slice(0, 2) === 'id') return ajouterUuid(slug)
-  if (slug.slice(0, 4) !== 'http') return conversionV2enV3('ex=' + slug)
-  if (estV2(slug)) return ajouterUuid(conversionV2enV3(slug)).slice((BASE_URL + V3_ADDENDUM).length)
-  if (estV3(slug)) return ajouterUuid(slug).slice((BASE_URL + V3_ADDENDUM).length)
+  if (slug.slice(0, 4) !== 'http') return convertV2ToV3('ex=' + slug)
+  if (isV2Link(slug)) return ajouterUuid(convertV2ToV3(slug)).slice((COOPMATHS_URL + V3_ADDENDUM).length)
+  if (isV3Link(slug)) return ajouterUuid(slug).slice((COOPMATHS_URL + V3_ADDENDUM).length)
   else return slug
 }
 
@@ -739,10 +747,6 @@ type RefToUuidMap = {
 function getUuid (id: string): unknown {
   const refToUuid: RefToUuidMap = refToUuidJson
   return refToUuid[id]
-}
-
-function cheminFichierLegacy (type: string, reference: string): string {
-  return `./public/topmaths/${type}/${reference.charAt(0) === 'S' ? reference.slice(1, 2) : reference.slice(0, 1)}e/${type.charAt(0).toUpperCase() + type.slice(1)}_${reference}.pdf`
 }
 
 function presenceFicheObjectif (objectif: RecursivePartial<UnitObjective>): boolean {
@@ -771,8 +775,12 @@ function presenceFicheSequence (sequence: Unit): boolean {
   return false
 }
 
-function cheminFichier (type: string, reference: string): string {
+function buildFilePath (type: 'cours', reference: string): string {
   return `./public/topmaths/${type}/${reference.charAt(0) === 'S' ? reference.slice(1, 2) : reference.slice(0, 1)}e/${reference}_${type.charAt(0).toUpperCase() + type.slice(1)}.pdf`
+}
+
+function buildFilePathLegacy (type: 'entrainement' | 'test' | 'resume' | 'mission', reference: string): string {
+  return `./public/topmaths/${type}/${reference.charAt(0) === 'S' ? reference.slice(1, 2) : reference.slice(0, 1)}e/${type.charAt(0).toUpperCase() + type.slice(1)}_${reference}.pdf`
 }
 
 function ecrireJson (nomDuFichier: string, fichier: unknown): void {
