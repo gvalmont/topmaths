@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { LineGrade } from '../../services/types'
+  import type { LineGrade } from '../../types/shared'
 
   export let activeLevelTab: string
   export let onLevelsTabsMenuClicked: (level: LineGrade) => void

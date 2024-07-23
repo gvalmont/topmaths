@@ -4,8 +4,9 @@ import objectifsModifiesJson from '../../topmaths/json/objectifs_modifies.json'
 import glossaryJson from '../../topmaths/json/lexique.json'
 import sequencesParticulieresJson from '../../topmaths/json/sequencesParticulieres.json'
 import calendrierJson from '../../topmaths/json/calendrier.json'
-import { isObjectives, isUnits } from './types'
 import { isGlossaryUniteItems } from '../types/glossary'
+import { isUnits } from '../types/unit'
+import { isObjectives } from '../types/objective'
 
 miseEnCacheDesDonnees()
 

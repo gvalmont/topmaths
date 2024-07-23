@@ -1,5 +1,6 @@
 import { get } from 'svelte/store'
-import type { Objective, UnitObjective } from './types'
+import type { Objective } from '../types/objective'
+import type { UnitObjective } from '../types/unit'
 import { titresProchesDesAttendus } from './store'
 import { environment } from './environment'
 import { exercicesParams, globalOptions } from '../../lib/stores/generalStore'

@@ -1,6 +1,8 @@
 import { writable } from 'svelte/store'
-import { type Objective, type CalendarCurrentYear, type UnitSpecial, type Unit } from './types'
 import type { GlossaryUniteItem } from '../types/glossary'
+import type { Unit, UnitSpecial } from '../types/unit'
+import type { Objective } from '../types/objective'
+import type { CalendarCurrentYear } from '../types/calendar'
 
 export const vue = writable<string>('')
 

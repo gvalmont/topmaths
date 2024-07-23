@@ -3,8 +3,9 @@
   import { getTheme, normaliser } from '../../services/outils'
   import { goVue } from '../../services/navigation'
   import { writable, derived } from 'svelte/store'
-  import type { UnitMentalCalculation, UnitObjective, UnitFlashQuestion, Unit, LineGrade } from '../../services/types'
+  import type { UnitMentalCalculation, UnitObjective, UnitFlashQuestion, Unit } from '../../types/unit'
   import LevelsTabsMenu from '../shared/LevelsTabsMenu.svelte'
+  import type { LineGrade } from '../../types/shared'
 
   interface Ligne {
     grade: LineGrade

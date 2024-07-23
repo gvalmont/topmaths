@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/lib/types.js", "src/topmaths/services/types.ts", "tasks/**/*.ts"],
+  "include": ["src/lib/types.js", "tasks/**/*.ts"],
   "compilerOptions": {
     "resolveJsonModule": true,
     "outDir": "./tmp",

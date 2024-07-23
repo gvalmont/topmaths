@@ -4,9 +4,17 @@
   import { goVue } from '../services/navigation'
   import { onDestroy } from 'svelte'
   import { writable, derived } from 'svelte/store'
-  import { isLineGrade, type LineGrade, type LineObjective } from '../services/types'
   import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
-
+  import { isLineGrade, type LineGrade } from '../types/shared'
+  type LineObjective = {
+  grade: LineGrade,
+  period: number,
+  theme: string,
+  subTheme: string,
+  reference: string,
+  titleAcademic: string,
+  title: string
+}
   type Filter = {
     grade: LineGrade,
     period: number

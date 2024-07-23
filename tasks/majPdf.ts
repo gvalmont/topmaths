@@ -2,7 +2,9 @@ import { readFileSync } from 'fs'
 import * as fs from 'fs'
 import * as path from 'path'
 import { exec } from 'child_process'
-import { type ObjectiveLessonPlan, type UnitObjective, type Unit, type StringGrade, isStringGrade } from '../src/topmaths/services/types'
+import { isStringGrade, type StringGrade } from '../src/topmaths/types/shared.js'
+import type { ObjectiveLessonPlan } from '../src/topmaths/types/objective.js'
+import type { Unit, UnitObjective } from '../src/topmaths/types/unit.js'
 
 const niveauxSequences = JSON.parse(readFileSync('./src/topmaths/json/sequences_modifiees.json').toString())
 let fichePrecedenteSequence: ObjectiveLessonPlan = {

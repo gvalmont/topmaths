@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Couleur } from 'src/topmaths/services/types'
+  import type { Couleur } from 'src/topmaths/types/shared'
   import { goVue } from '../../services/navigation'
 
   export let vue: string

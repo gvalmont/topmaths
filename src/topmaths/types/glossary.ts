@@ -1,4 +1,4 @@
-import { isStringGrade, type StringGrade } from '../services/types.js'
+import { isStringGrade, type StringGrade } from './shared.js'
 
 export type GlossaryRelatedItem = {
   slug: string,

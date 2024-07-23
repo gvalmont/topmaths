@@ -1,7 +1,7 @@
 <script lang="ts">
   import { lancerExercices } from '../../services/navigation'
   import IconeTooltipSimple from './IconeTooltipSimple.svelte'
-  import type { ObjectiveExercise, ObjectiveVideo } from '../../services/types'
+  import type { ObjectiveExercise, ObjectiveVideo } from '../../types/objective'
   import { modeEnseignant } from '../../services/store'
   import { copierLien, estCoopmaths } from '../../services/outils'
   import { toutAjouterAuPanier } from '../../services/panier'

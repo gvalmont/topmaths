@@ -6,7 +6,7 @@
     units,
     reference
   } from '../services/store'
-  import { emptyObjective, isObjective, type Objective } from '../services/types'
+  import { emptyObjective, isObjective, type Objective } from '../types/objective'
   import { getTitre } from '../services/outils'
   import { goVue } from '../services/navigation'
   import { afterUpdate, onDestroy, tick } from 'svelte'

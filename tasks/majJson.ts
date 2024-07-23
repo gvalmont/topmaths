@@ -6,7 +6,9 @@ import propertiesJson from '../src/topmaths/json/glossary/properties.json' asser
 import objectivesMasterJson from '../src/topmaths/json/objectives.json' assert { type: 'json' }
 import unitsMasterJson from '../src/topmaths/json/units.json' assert { type: 'json' }
 import type { RecursivePartial } from '../src/lib/types.js'
-import { type Unit, type UnitObjective, type Objective, type ObjectiveExercise, type ObjectiveLessonPlan, type ObjectiveUnit, type StringGrade, isStringGrade, isObjective, isUnit, type UnitMentalCalculation, isUnitMentalCalculations, emptyObjective, emptyUnitFlashQuestion, emptyObjectiveVideo, isObjectiveExercises, isObjectiveLessonPlans } from '../src/topmaths/services/types.js'
+import { isStringGrade, type StringGrade } from '../src/topmaths/types/shared.js'
+import { emptyObjective, emptyObjectiveVideo, isObjective, isObjectiveExercises, isObjectiveLessonPlans, type ObjectiveExercise, type ObjectiveUnit, type Objective, type ObjectiveLessonPlan } from '../src/topmaths/types/objective.js'
+import { emptyUnitFlashQuestion, isUnit, isUnitMentalCalculations, type UnitMentalCalculation, type Unit, type UnitObjective } from '../src/topmaths/types/unit.js'
 import { emptyGlossaryMasterItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
 
 const environment = {

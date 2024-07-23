@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { CartItem } from '../services/types'
+  import type { CartItem } from '../types/cart'
   import { environment } from '../services/environment'
   import { lancerExercices } from '../services/navigation'
   import { storage } from '../services/storage'

@@ -4,7 +4,8 @@
     objectives,
     units
   } from '../../services/store'
-  import type { ObjectiveExercise, Unit } from '../../services/types'
+  import type { ObjectiveExercise } from '../../types/objective'
+  import type { Unit } from '../../types/unit'
   import { getTitre } from '../../services/outils'
   import { goVue } from '../../services/navigation'
   import { onDestroy } from 'svelte'
