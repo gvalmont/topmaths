@@ -8,7 +8,7 @@ import unitsMasterJson from '../src/topmaths/json/units.json' assert { type: 'js
 import type { RecursivePartial } from '../src/lib/types.js'
 import { isStringGrade, type StringGrade } from '../src/topmaths/types/shared.js'
 import { emptyObjective, emptyObjectiveVideo, isObjective, isObjectiveExercises, isObjectiveLessonPlans, type ObjectiveExercise, type ObjectiveUnit, type Objective, type ObjectiveLessonPlan } from '../src/topmaths/types/objective.js'
-import { emptyUnitFlashQuestion, isUnit, isUnitMentalCalculations, type UnitMentalCalculation, type Unit, type UnitObjective } from '../src/topmaths/types/unit.js'
+import { emptyUnitFlashQuestion, isUnit, isUnitMentalCalculations, type UnitMentalCalculation, type Unit, type UnitObjective, emptyUnitDownloadLinks } from '../src/topmaths/types/unit.js'
 import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
 
 const ORIGIN = 'https://topmaths.fr'
@@ -28,7 +28,6 @@ let warningCount = 0
 const units: Unit[] = buildUnits()
 const objectives: Objective[] = buildObjectives()
 updateUnits()
-updateObjectives()
 const glossary = buildGlossary()
 routineCheck()
 console.warn(warningCount + ' warning' + (warningCount > 1 ? 's' : ''))
@@ -52,12 +51,7 @@ function buildUnits (): Unit[] {
       unit.assessmentExamLink = buildAssessmentExamLink(unit)
       unit.assessmentExamSlug = unit.assessmentExamSlug ?? ''
       unit.assessmentLink = unit.assessmentLink ?? ''
-      unit.availableDownloads = {
-        isLessonAvailable: false,
-        isLessonSummaryAvailable: false,
-        isMissionAvailable: false,
-        isLessonPlanAvailable: false
-      }
+      unit.downloadLinks = emptyUnitDownloadLinks
       unit.flashQuestions = unit.flashQuestions ? unit.flashQuestions.map(flashQuestion => Object.assign({}, emptyUnitFlashQuestion, flashQuestion)) : []
       unit.flashQuestionsLink = buildFlashQuestionsLink(unit)
       const unitGradeCandidate = grade.name
@@ -109,11 +103,10 @@ function buildObjectives (): Objective[] {
         for (const objective of subTheme.objectives) {
           if (objective === undefined) { console.error(objective); throw new Error('Objective is undefined') }
           if (objective.reference === undefined) { console.error(objective); throw new Error('Objective reference is undefined') }
-          objective.availableDownloads = {
-            isPracticeSheetAvailable: fs.existsSync(buildFilePathLegacy('entrainement', objective.reference)),
-            isTestSheetAvailable: fs.existsSync(buildFilePathLegacy('test', objective.reference)),
-            isLessonPlanAvailable: presenceFicheObjectif(objective),
-            availableLessonPlanGrades: []
+          objective.downloadLinks = {
+            practiceSheetLink: buildDownloadLink('entrainement', objective.reference),
+            testSheetLink: buildDownloadLink('test', objective.reference),
+            lessonPlanLinks: buildLessonPlanDownloadLinks(objective.reference)
           }
           objective.examExercises = getExercicesAvecLienEtId(objective.reference, objective.examExercises)
           objective.examExercisesLink = getLienExercices(objective.examExercises)
@@ -152,11 +145,11 @@ function updateUnits (): void {
     updateUnitFlashQuestions(unit, objectives)
     updateUnitAssessmentLink(unit, objectives)
     updateUnitLessonPlans(unit)
-    unit.availableDownloads = {
-      isLessonAvailable: fs.existsSync(buildFilePath('cours', unit.reference)),
-      isLessonSummaryAvailable: fs.existsSync(buildFilePathLegacy('resume', unit.reference)),
-      isMissionAvailable: fs.existsSync(buildFilePathLegacy('mission', unit.reference)),
-      isLessonPlanAvailable: presenceFicheSequence(unit)
+    unit.downloadLinks = {
+      lessonLink: buildDownloadLink('cours', unit.reference),
+      lessonSummaryLink: buildDownloadLink('resume', unit.reference),
+      missionLink: buildDownloadLink('mission', unit.reference),
+      lessonPlanLink: buildDownloadLink('fiche', unit.reference)
     }
   }
 }
@@ -574,13 +567,6 @@ function getNbFiches (objectif: UnitObjective, niveauSequence: string): number {
   return nbFiches
 }
 
-function updateObjectives (): void {
-  objectives.map(objective => {
-    objective.availableDownloads.availableLessonPlanGrades = getNiveauxFichesDisponibles(objective)
-    return objective
-  })
-}
-
 function buildGlossary (): GlossaryUniteItem[] {
   const definitions: RecursivePartial<GlossaryMasterItem>[] = definitionsJson
   const properties: Partial<GlossaryMasterItem>[] = propertiesJson
@@ -749,38 +735,57 @@ function getUuid (id: string): unknown {
   return refToUuid[id]
 }
 
-function presenceFicheObjectif (objectif: RecursivePartial<UnitObjective>): boolean {
-  if (objectif.lessonPlans === undefined) return false
-  return objectif.lessonPlans.length > 0
+function buildLessonPlanDownloadLinks (reference: string): Record<StringGrade, string> {
+  const lessonPlanGrade = buildGradeFromReference(reference)
+  return {
+    '6e': buildDownloadLink('fiche', `6e_${reference}`, lessonPlanGrade),
+    '5e': buildDownloadLink('fiche', `5e_${reference}`, lessonPlanGrade),
+    '4e': buildDownloadLink('fiche', `4e_${reference}`, lessonPlanGrade),
+    '3e': buildDownloadLink('fiche', `3e_${reference}`, lessonPlanGrade),
+    none: ''
+  }
 }
 
-function getNiveauxFichesDisponibles (objectif: Objective): StringGrade[] {
-  const niveauxDisponibles: StringGrade[] = []
-  for (const fiche of objectif.lessonPlans) {
-    if (fiche.grades.length === 0) {
-      if (!niveauxDisponibles.includes(objectif.grade)) niveauxDisponibles.push(objectif.grade)
+function buildDownloadLink (type: 'cours' | 'entrainement' | 'test' | 'resume' | 'mission' | 'fiche', reference: string, grade?: StringGrade): string {
+  if (!grade) grade = buildGradeFromReference(reference)
+  let basePath = `./public/topmaths/${type}${type === 'fiche' ? 's' : ''}/`
+  if (type === 'fiche') {
+    const isLessonReference = reference.charAt(0) === 'S'
+    if (isLessonReference) {
+      basePath += 'sequences/'
     } else {
-      for (const niveau of fiche.grades) {
-        if (!niveauxDisponibles.includes(niveau)) niveauxDisponibles.push(niveau)
-      }
+      basePath += 'objectifs/'
     }
   }
-  return niveauxDisponibles
-}
-
-function presenceFicheSequence (sequence: Unit): boolean {
-  for (const objectif of sequence.objectives) {
-    if (presenceFicheObjectif(objectif)) return true
+  basePath += `${grade}/`
+  const currentPath = basePath + `${reference}_${upperFirstChar(type)}.pdf`
+  const legacyPath = basePath + `${upperFirstChar(type)}_${reference}.pdf`
+  if (fs.existsSync(currentPath)) {
+    return currentPath
+  } else if (fs.existsSync(legacyPath)) {
+    return legacyPath
+  } else {
+    return ''
   }
-  return false
 }
 
-function buildFilePath (type: 'cours', reference: string): string {
-  return `./public/topmaths/${type}/${reference.charAt(0) === 'S' ? reference.slice(1, 2) : reference.slice(0, 1)}e/${reference}_${type.charAt(0).toUpperCase() + type.slice(1)}.pdf`
+function buildGradeFromReference (reference: string): StringGrade {
+  const isLessonReference = reference.charAt(0) === 'S'
+  let gradeCandidate = ''
+  if (isLessonReference) {
+    gradeCandidate = reference.slice(1, 2) + 'e'
+  } else {
+    gradeCandidate = reference.slice(0, 1) + 'e'
+  }
+  if (!isStringGrade(gradeCandidate)) {
+    console.error('grade', gradeCandidate)
+    throw new Error('Grade from reference incorrect')
+  }
+  return gradeCandidate
 }
 
-function buildFilePathLegacy (type: 'entrainement' | 'test' | 'resume' | 'mission', reference: string): string {
-  return `./public/topmaths/${type}/${reference.charAt(0) === 'S' ? reference.slice(1, 2) : reference.slice(0, 1)}e/${type.charAt(0).toUpperCase() + type.slice(1)}_${reference}.pdf`
+function upperFirstChar (str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
 function ecrireJson (nomDuFichier: string, fichier: unknown): void {

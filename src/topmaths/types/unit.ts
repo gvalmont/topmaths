@@ -97,24 +97,24 @@ export const emptyUnitFlashQuestion: UnitFlashQuestion = {
   theme: ''
 }
 
-export type UnitAvailableDownloads = {
-  isLessonAvailable: boolean,
-  isLessonSummaryAvailable: boolean,
-  isMissionAvailable: boolean,
-  isLessonPlanAvailable: boolean
+export type UnitDownloadLinks = {
+  lessonLink: string,
+  lessonSummaryLink: string,
+  missionLink: string,
+  lessonPlanLink: string
 }
-export function isUnitAvailableDownloads (obj: unknown): obj is UnitAvailableDownloads {
+export function isUnitDownloadLinks (obj: unknown): obj is UnitDownloadLinks {
   if (obj == null || typeof obj !== 'object') return false
-  return 'isLessonAvailable' in obj && typeof obj.isLessonAvailable === 'boolean' &&
-    'isLessonSummaryAvailable' in obj && typeof obj.isLessonSummaryAvailable === 'boolean' &&
-    'isMissionAvailable' in obj && typeof obj.isMissionAvailable === 'boolean' &&
-    'isLessonPlanAvailable' in obj && typeof obj.isLessonPlanAvailable === 'boolean'
+  return 'lessonLink' in obj && typeof obj.lessonLink === 'string' &&
+    'lessonSummaryLink' in obj && typeof obj.lessonSummaryLink === 'string' &&
+    'missionLink' in obj && typeof obj.missionLink === 'string' &&
+    'lessonPlanLink' in obj && typeof obj.lessonPlanLink === 'string'
 }
-export const emptyUnitAvailableDownloads: UnitAvailableDownloads = {
-  isLessonAvailable: false,
-  isLessonSummaryAvailable: false,
-  isMissionAvailable: false,
-  isLessonPlanAvailable: false
+export const emptyUnitDownloadLinks: UnitDownloadLinks = {
+  lessonLink: '',
+  lessonSummaryLink: '',
+  missionLink: '',
+  lessonPlanLink: ''
 }
 
 export type UnitSpecial = {
@@ -139,7 +139,7 @@ export type Unit = {
   assessmentExamLink: string,
   assessmentExamSlug: string,
   assessmentLink: string,
-  availableDownloads: UnitAvailableDownloads
+  downloadLinks: UnitDownloadLinks,
   flashQuestions: UnitFlashQuestion[],
   flashQuestionsLink: string,
   grade: StringGrade,
@@ -155,7 +155,7 @@ export function isUnit (obj: unknown): obj is Unit {
   return 'assessmentExamLink' in obj && typeof obj.assessmentExamLink === 'string' &&
     'assessmentExamSlug' in obj && typeof obj.assessmentExamSlug === 'string' &&
     'assessmentLink' in obj && typeof obj.assessmentLink === 'string' &&
-    'availableDownloads' in obj && isUnitAvailableDownloads(obj.availableDownloads) &&
+    'downloadLinks' in obj && isUnitDownloadLinks(obj.downloadLinks) &&
     'flashQuestions' in obj && isUnitFlashQuestions(obj.flashQuestions) &&
     'flashQuestionsLink' in obj && typeof obj.flashQuestionsLink === 'string' &&
     'grade' in obj && isStringGrade(obj.grade) &&
@@ -174,7 +174,7 @@ export const emptyUnit: Unit = {
   assessmentExamLink: '',
   assessmentExamSlug: '',
   assessmentLink: '',
-  availableDownloads: emptyUnitAvailableDownloads,
+  downloadLinks: emptyUnitDownloadLinks,
   flashQuestions: [],
   flashQuestionsLink: '',
   grade: 'none',

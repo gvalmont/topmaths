@@ -1,4 +1,4 @@
-import { isStringGrade, isStringGrades, isStrings, type StringGrade } from './shared.js'
+import { emptyRecordStringGrade, isRecordStringGrade, isStringGrade, isStringGrades, isStrings, type StringGrade } from './shared.js'
 
 export type ObjectiveVideo = {
   title: string,
@@ -114,28 +114,25 @@ export const emptyObjectiveUnit: ObjectiveUnit = {
   title: ''
 }
 
-export type ObjectiveAvailableDownloads = {
-  isPracticeSheetAvailable: boolean,
-  isTestSheetAvailable: boolean,
-  isLessonPlanAvailable: boolean,
-  availableLessonPlanGrades: StringGrade[]
+export type ObjectiveDownloadLinks = {
+  practiceSheetLink: string,
+  testSheetLink: string,
+  lessonPlanLinks: Record<StringGrade, string>
 }
-export function isObjectiveAvailableDownloads (obj: unknown): obj is ObjectiveAvailableDownloads {
+export function isObjectiveDownloadLinks (obj: unknown): obj is ObjectiveDownloadLinks {
   if (obj == null || typeof obj !== 'object') return false
-  return 'isPracticeSheetAvailable' in obj && typeof obj.isPracticeSheetAvailable === 'boolean' &&
-    'isTestSheetAvailable' in obj && typeof obj.isTestSheetAvailable === 'boolean' &&
-    'isLessonPlanAvailable' in obj && typeof obj.isLessonPlanAvailable === 'boolean' &&
-    'availableLessonPlanGrades' in obj && isStringGrades(obj.availableLessonPlanGrades)
+  return 'practiceSheetLink' in obj && typeof obj.practiceSheetLink === 'string' &&
+    'testSheetLink' in obj && typeof obj.testSheetLink === 'string' &&
+    'lessonPlanLinks' in obj && isRecordStringGrade(obj.lessonPlanLinks)
 }
-export const emptyObjectiveAvailableDownloads: ObjectiveAvailableDownloads = {
-  isPracticeSheetAvailable: false,
-  isTestSheetAvailable: false,
-  isLessonPlanAvailable: false,
-  availableLessonPlanGrades: []
+export const emptyObjectiveDownloadLinks: ObjectiveDownloadLinks = {
+  practiceSheetLink: '',
+  testSheetLink: '',
+  lessonPlanLinks: emptyRecordStringGrade
 }
 
 export type Objective = {
-  availableDownloads: ObjectiveAvailableDownloads,
+  downloadLinks: ObjectiveDownloadLinks,
   examExercises: ObjectiveExercise[],
   examExercisesLink: string,
   exercises: ObjectiveExercise[],
@@ -156,7 +153,7 @@ export type Objective = {
 }
 export function isObjective (obj: unknown): obj is Objective {
   if (obj == null || typeof obj !== 'object') return false
-  return 'availableDownloads' in obj && isObjectiveAvailableDownloads(obj.availableDownloads) &&
+  return 'downloadLinks' in obj && isObjectiveDownloadLinks(obj.downloadLinks) &&
     'examExercises' in obj && isObjectiveExercises(obj.examExercises) &&
     'examExercisesLink' in obj && typeof obj.examExercisesLink === 'string' &&
     'exercises' in obj && isObjectiveExercises(obj.exercises) &&
@@ -180,12 +177,7 @@ export function isObjectives (obj: unknown): obj is Objective[] {
   return obj.every(isObjective)
 }
 export const emptyObjective: Objective = {
-  availableDownloads: {
-    isPracticeSheetAvailable: false,
-    isTestSheetAvailable: false,
-    isLessonPlanAvailable: false,
-    availableLessonPlanGrades: []
-  },
+  downloadLinks: emptyObjectiveDownloadLinks,
   examExercises: [],
   examExercisesLink: '',
   exercises: [],

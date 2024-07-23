@@ -21,6 +21,7 @@
   import iepLoadPromise from 'instrumenpoche'
   import BoutonsExercices from './shared/BoutonsExercices.svelte'
   import DownloadLine from './shared/DownloadLine.svelte'
+  import { isEmptyRecord } from '../types/shared';
 
   export let title = 'topmaths.fr - Séquence'
   let objectif = {} as Objective
@@ -190,8 +191,9 @@
       id="divExercices"
       class="is-{niveau}"
       class:is-fin = {objectif.units.length === 0 &&
-        !objectif.availableDownloads.isPracticeSheetAvailable &&
-        !objectif.availableDownloads.isTestSheetAvailable}
+        !objectif.downloadLinks.practiceSheetLink &&
+        (!$modeEnseignant || !objectif.downloadLinks.testSheetLink) &&
+        (!$modePerso || isEmptyRecord(objectif.downloadLinks.lessonPlanLinks))}
     >
       <h2 class="subtitle text-xl md:text-3xl p-3 is-{niveau}">
         <BoutonsExercices
@@ -249,31 +251,33 @@
       </ul>
     </div>
   {/if}
-  {#if objectif.availableDownloads.isPracticeSheetAvailable || objectif.availableDownloads.isTestSheetAvailable || ($modePerso && objectif.availableDownloads.isLessonPlanAvailable)}
+  {#if objectif.downloadLinks.practiceSheetLink ||
+    ($modeEnseignant && objectif.downloadLinks.testSheetLink) ||
+    ($modePerso && !isEmptyRecord(objectif.downloadLinks.lessonPlanLinks))}
     <div
       class="{objectif.units.length === 0 ? 'is-fin ' : ''}is-{niveau}"
     >
       <h2 class="subtitle text-xl md:text-3xl p-3 is-{niveau}">Téléchargements</h2>
       <ul class="p-6 ">
         <DownloadLine
-          displayCondition={objectif.availableDownloads.isPracticeSheetAvailable}
-          href="topmaths/entrainement/{niveau}/Entrainement_{$reference}.pdf"
+          displayCondition={!!objectif.downloadLinks.practiceSheetLink}
+          href={objectif.downloadLinks.practiceSheetLink}
           label="Télécharger la feuille d'entraînement"
         />
         <DownloadLine
-          displayCondition={$modeEnseignant && objectif.availableDownloads.isTestSheetAvailable}
-          href="topmaths/test/{niveau}/Test_{$reference}.pdf"
+          displayCondition={$modeEnseignant && !!objectif.downloadLinks.testSheetLink}
+          href={objectif.downloadLinks.testSheetLink}
           label="Télécharger les tests"
         />
-        {#if $modePerso && objectif.availableDownloads.isLessonPlanAvailable}
-          {#each objectif.availableDownloads.availableLessonPlanGrades as niveauDisponible}
-            {#each objectif.lessonPlans as fiche}
+        {#if $modePerso && !isEmptyRecord(objectif.downloadLinks.lessonPlanLinks)}
+          {#each Object.keys(objectif.downloadLinks.lessonPlanLinks) as grade}
+            {#if !!objectif.downloadLinks.lessonPlanLinks[grade]}
               <DownloadLine
-                displayCondition={fiche.grades.length === 0 || fiche.grades.includes(niveauDisponible)}
-                href="topmaths/fiches/objectifs/{objectif.grade}/{niveauDisponible}_{fiche.reference.split('-')[1] === undefined ? (fiche.reference + '_Fiche') : fiche.reference.split('-')[0] + '_Fiche-' + fiche.reference.split('-')[1]}.pdf"
-                label="Télécharger la fiche{fiche.reference.split('-')[1] === undefined ? '' : ' ' + fiche.reference.split('-')[1]}{objectif.availableDownloads.availableLessonPlanGrades.length > 1 ? ` (${niveauDisponible})` : ''}"
+                displayCondition={true}
+                href={objectif.downloadLinks.lessonPlanLinks[grade]}
+                label="Télécharger la fiche pour le niveau {grade}"
               />
-            {/each}
+            {/if}
           {/each}
         {/if}
       </ul>

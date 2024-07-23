@@ -5,7 +5,7 @@
     units
   } from '../../services/store'
   import type { ObjectiveExercise } from '../../types/objective'
-  import type { Unit } from '../../types/unit'
+  import { emptyUnitDownloadLinks, type Unit } from '../../types/unit'
   import { getTitre } from '../../services/outils'
   import { goVue } from '../../services/navigation'
   import { onDestroy } from 'svelte'
@@ -28,7 +28,7 @@
     assessmentExamSlug: '',
     assessmentLink: '',
     assessmentExamLink: '',
-    availableDownloads: { isLessonAvailable: false, isLessonSummaryAvailable: false, isMissionAvailable: false, isLessonPlanAvailable: false }
+    downloadLinks: emptyUnitDownloadLinks
   }
   let exercicesSequence: ObjectiveExercise[] = []
   let nomsExercicesSequence: string[] = []
@@ -211,9 +211,7 @@
 {/if}
 <div
   id="divEvaluation"
-  class="is-{niveau} {sequence.availableDownloads.isLessonAvailable ||
-  sequence.availableDownloads.isLessonSummaryAvailable ||
-  sequence.availableDownloads.isMissionAvailable
+  class="is-{niveau} {sequence.downloadLinks.lessonLink || sequence.downloadLinks.lessonSummaryLink || sequence.downloadLinks.missionLink || ($modePerso && sequence.downloadLinks.lessonPlanLink)
     ? ''
     : ' is-fin'}"
 >
@@ -241,28 +239,28 @@
     {/if}
   </div>
 </div>
-{#if sequence.availableDownloads.isLessonAvailable || sequence.availableDownloads.isLessonSummaryAvailable || sequence.availableDownloads.isMissionAvailable || ($modePerso && sequence.availableDownloads.isLessonPlanAvailable) }
+{#if sequence.downloadLinks.lessonLink || sequence.downloadLinks.lessonSummaryLink || sequence.downloadLinks.missionLink || ($modePerso && sequence.downloadLinks.lessonPlanLink) }
   <div class="is-fin is-{niveau}">
     <h2 class="subtitle text-xl md:text-3xl p-3 is-{niveau}">Téléchargements</h2>
     <ul class="p-6 ">
       <DownloadLine
-        displayCondition={sequence.availableDownloads.isLessonAvailable}
-        href="topmaths/cours/{niveau}/{referenceSequence}_Cours.pdf"
+        displayCondition={!!sequence.downloadLinks.lessonLink}
+        href={sequence.downloadLinks.lessonLink}
         label="Télécharger le cours"
       />
       <DownloadLine
-        displayCondition={sequence.availableDownloads.isLessonSummaryAvailable}
-        href="topmaths/resume/{niveau}/Resume_{referenceSequence}.pdf"
+        displayCondition={!!sequence.downloadLinks.lessonSummaryLink}
+        href={sequence.downloadLinks.lessonSummaryLink}
         label="Télécharger le résumé"
       />
       <DownloadLine
-        displayCondition={sequence.availableDownloads.isMissionAvailable}
-        href="topmaths/mission/{niveau}/Mission_{referenceSequence}.pdf"
+        displayCondition={!!sequence.downloadLinks.missionLink}
+        href={sequence.downloadLinks.missionLink}
         label="Télécharger la mission"
       />
       <DownloadLine
-        displayCondition={$modePerso && sequence.availableDownloads.isLessonPlanAvailable}
-        href="topmaths/fiches/sequences/{niveau}/{referenceSequence}_Fiche.pdf"
+        displayCondition={!!($modePerso && sequence.downloadLinks.lessonPlanLink)}
+        href={sequence.downloadLinks.lessonPlanLink}
         label="Télécharger la fiche"
       />
     </ul>
