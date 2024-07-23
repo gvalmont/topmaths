@@ -1,12 +1,11 @@
-import { readFileSync } from 'fs'
 import * as fs from 'fs'
 import * as path from 'path'
 import { exec } from 'child_process'
 import { isStringGrade, type StringGrade } from '../src/topmaths/types/shared.js'
 import type { ObjectiveLessonPlan } from '../src/topmaths/types/objective.js'
-import type { Unit, UnitObjective } from '../src/topmaths/types/unit.js'
+import { isUnits, type Unit, type UnitObjective } from '../src/topmaths/types/unit.js'
+import units from '../src/topmaths/json/sequences_modifiees.json' assert { type: 'json' }
 
-const niveauxSequences = JSON.parse(readFileSync('./src/topmaths/json/sequences_modifiees.json').toString())
 let fichePrecedenteSequence: ObjectiveLessonPlan = {
   startSteps: [],
   lessonSteps: [],
@@ -27,11 +26,14 @@ const fichesPrecedentes = {
   none: { ...fichePrecedenteSequence }
 }
 
-for (const niveauSequence of niveauxSequences) {
-  for (const sequence of niveauSequence.sequences) {
-    if (coursDeUnObjectifTrouve(sequence)) genererTypCoursSequence(sequence)
-    genererTypFichesSequence(sequence)
-  }
+if (!isUnits(units)) {
+  console.error(units)
+  throw new Error('The JSON file does not contain an array of units')
+}
+
+for (const unit of units) {
+  if (coursDeUnObjectifTrouve(unit)) genererTypCoursSequence(unit)
+  genererTypFichesSequence(unit)
 }
 compilerTyp()
 
