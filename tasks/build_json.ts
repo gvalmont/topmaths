@@ -748,7 +748,7 @@ function buildLessonPlanDownloadLinks (reference: string): Record<StringGrade, s
 
 function buildDownloadLink (type: 'cours' | 'entrainement' | 'test' | 'resume' | 'mission' | 'fiche', reference: string, grade?: StringGrade): string {
   if (!grade) grade = buildGradeFromReference(reference)
-  let basePath = `./public/topmaths/${type}${type === 'fiche' ? 's' : ''}/`
+  let basePath = `./public/topmaths/${type}${type === 'cours' ? '' : 's'}/`
   if (type === 'fiche') {
     const isLessonReference = reference.charAt(0) === 'S'
     if (isLessonReference) {
