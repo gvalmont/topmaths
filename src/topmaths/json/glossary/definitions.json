@@ -13,11 +13,11 @@
     ],
     "relatedItems": [
       {
-        "slug": "droites-perpendiculaires",
+        "reference": "droites-perpendiculaires",
         "title": "Droites perpendiculaires"
       },
       {
-        "slug": "droites-paralleles"
+        "reference": "droites-paralleles"
       }
     ]
   },
@@ -59,7 +59,7 @@
     ],
     "relatedItems": [
       {
-        "slug": "droites-confondues"
+        "reference": "droites-confondues"
       }
     ]
   },
@@ -116,10 +116,10 @@
     ],
     "relatedItems": [
       {
-        "slug": "cercle"
+        "reference": "cercle"
       },
       {
-        "slug": "le-rayon"
+        "reference": "le-rayon"
       }
     ]
   },
@@ -140,10 +140,10 @@
     ],
     "relatedItems": [
       {
-        "slug": "cercle"
+        "reference": "cercle"
       },
       {
-        "slug": "un-diametre"
+        "reference": "un-diametre"
       }
     ]
   },
@@ -164,10 +164,10 @@
     ],
     "relatedItems": [
       {
-        "slug": "cercle"
+        "reference": "cercle"
       },
       {
-        "slug": "le-diametre"
+        "reference": "le-diametre"
       }
     ]
   },
@@ -187,7 +187,7 @@
     ],
     "relatedItems": [
       {
-        "slug": "cercle"
+        "reference": "cercle"
       }
     ]
   },
@@ -212,13 +212,13 @@
     ],
     "relatedItems": [
       {
-        "slug": "ranger"
+        "reference": "ranger"
       },
       {
-        "slug": "encadrer"
+        "reference": "encadrer"
       },
       {
-        "slug": "intercaler"
+        "reference": "intercaler"
       }
     ]
   },
@@ -260,7 +260,7 @@
     ],
     "relatedItems": [
       {
-        "slug": "intercaler"
+        "reference": "intercaler"
       }
     ]
   },
@@ -296,7 +296,7 @@
     ],
     "relatedItems": [
       {
-        "slug": "fraction-decimale"
+        "reference": "fraction-decimale"
       }
     ]
   },
@@ -319,7 +319,7 @@
     ],
     "relatedItems": [
       {
-        "slug": "nombre-decimal"
+        "reference": "nombre-decimal"
       }
     ]
   },
@@ -344,13 +344,13 @@
     ],
     "relatedItems": [
       {
-        "slug": "fraction-decimale"
+        "reference": "fraction-decimale"
       },
       {
-        "slug": "partie-entiere"
+        "reference": "partie-entiere"
       },
       {
-        "slug": "partie-decimale"
+        "reference": "partie-decimale"
       }
     ]
   },
@@ -406,7 +406,7 @@
     ],
     "relatedItems": [
       {
-        "slug": "points-confondus"
+        "reference": "points-confondus"
       }
     ]
   },
@@ -444,22 +444,22 @@
     ],
     "relatedItems": [
       {
-        "slug": "demi-droite"
+        "reference": "demi-droite"
       },
       {
-        "slug": "segment"
+        "reference": "segment"
       },
       {
-        "slug": "droites-secantes"
+        "reference": "droites-secantes"
       },
       {
-        "slug": "droites-perpendiculaires"
+        "reference": "droites-perpendiculaires"
       },
       {
-        "slug": "droites-paralleles"
+        "reference": "droites-paralleles"
       },
       {
-        "slug": "droites-confondues"
+        "reference": "droites-confondues"
       }
     ]
   },
@@ -497,10 +497,10 @@
     ],
     "relatedItems": [
       {
-        "slug": "extremites"
+        "reference": "extremites"
       },
       {
-        "slug": "milieu-dun-segment"
+        "reference": "milieu-dun-segment"
       }
     ]
   },
@@ -551,7 +551,7 @@
     ],
     "relatedItems": [
       {
-        "slug": "droite"
+        "reference": "droite"
       }
     ]
   },
@@ -568,10 +568,10 @@
     ],
     "relatedItems": [
       {
-        "slug": "segment"
+        "reference": "segment"
       },
       {
-        "slug": "diagonale"
+        "reference": "diagonale"
       }
     ]
   },

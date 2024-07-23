@@ -93,8 +93,8 @@
   <div><br /></div>
   <ul id="lignes">
     {#each $lignesFiltrees as ligne}
-      <li id="{ligne.slug}" class="box">
-        <a href="#{ligne.slug}">
+      <li id="{ligne.reference}" class="box">
+        <a href="#{ligne.reference}">
           <h3 class="font-semibold has-text-link">{ligne.title}</h3>
         </a>
         <div class="columns">
@@ -126,7 +126,7 @@
           </div>
           <div class="column is-narrow p-0 m-3 is-flex is-align-items-center is-justify-content-center" style="width: 200px">
             {#if ligne.includesImage}
-              <img src="topmaths/img/lexique/{ligne.slug}.png" alt="Représentation de : {ligne.title}" />
+              <img src="topmaths/img/lexique/{ligne.reference}.png" alt="Représentation de : {ligne.title}" />
             {/if}
           </div>
         </div>

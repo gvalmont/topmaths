@@ -1,13 +1,21 @@
 import { isStringGrade, type StringGrade } from './shared.js'
 
 export type GlossaryRelatedItem = {
-  slug: string,
+  reference: string,
   title: string
 }
-export function isGlossaryRelatedItems (obj: unknown): obj is GlossaryRelatedItem {
+export function isGlossaryRelatedItem (obj: unknown): obj is GlossaryRelatedItem {
   if (obj == null || typeof obj !== 'object') return false
-  return 'slug' in obj && typeof obj.slug === 'string' &&
+  return 'reference' in obj && typeof obj.reference === 'string' &&
     'title' in obj && typeof obj.title === 'string'
+}
+export function isGlossaryRelatedItems (obj: unknown): obj is GlossaryRelatedItem[] {
+  if (!Array.isArray(obj)) return false
+  return obj.every(isGlossaryRelatedItem)
+}
+export const emptyGlossaryRelatedItem: GlossaryRelatedItem = {
+  reference: '',
+  title: ''
 }
 
 export type GlossaryItem = {
@@ -17,9 +25,9 @@ export type GlossaryItem = {
   grades: StringGrade[],
   includesImage: boolean,
   keywords: string[],
+  reference: string,
   relatedObjectives: string[],
   relatedItems: GlossaryRelatedItem[],
-  slug: string,
   type: 'définition' | 'propriété'
 }
 export function isGlossaryItem (obj: unknown): obj is GlossaryItem {
@@ -30,10 +38,26 @@ export function isGlossaryItem (obj: unknown): obj is GlossaryItem {
     'grades' in obj && Array.isArray(obj.grades) && obj.grades.every(isStringGrade) &&
     'includesImage' in obj && typeof obj.includesImage === 'boolean' &&
     'keywords' in obj && Array.isArray(obj.keywords) && obj.keywords.every(keyword => typeof keyword === 'string') &&
+    'reference' in obj && typeof obj.reference === 'string' &&
     'relatedObjectives' in obj && Array.isArray(obj.relatedObjectives) && obj.relatedObjectives.every(relatedObjective => typeof relatedObjective === 'string') &&
-    'relatedItems' in obj && Array.isArray(obj.relatedItems) && obj.relatedItems.every(isGlossaryRelatedItems) &&
-    'slug' in obj && typeof obj.slug === 'string' &&
+    'relatedItems' in obj && Array.isArray(obj.relatedItems) && obj.relatedItems.every(isGlossaryRelatedItem) &&
     'type' in obj && (obj.type === 'définition' || obj.type === 'propriété')
+}
+export function isGlossaryItems (obj: unknown): obj is GlossaryItem[] {
+  if (!Array.isArray(obj)) return false
+  return obj.every(isGlossaryItem)
+}
+export const emptyGlossaryItem: GlossaryItem = {
+  comments: [],
+  content: '',
+  examples: [],
+  grades: [],
+  includesImage: false,
+  keywords: [],
+  reference: '',
+  relatedObjectives: [],
+  relatedItems: [],
+  type: 'définition'
 }
 
 export type GlossaryMasterItem = GlossaryItem & {
@@ -57,7 +81,7 @@ export const emptyGlossaryMasterItem: GlossaryMasterItem = {
   keywords: [],
   relatedObjectives: [],
   relatedItems: [],
-  slug: '',
+  reference: '',
   titles: [],
   type: 'définition'
 }
@@ -83,7 +107,7 @@ export const emptyGlossaryUniteItem: GlossaryUniteItem = {
   keywords: [],
   relatedObjectives: [],
   relatedItems: [],
-  slug: '',
+  reference: '',
   title: '',
   type: 'définition'
 }

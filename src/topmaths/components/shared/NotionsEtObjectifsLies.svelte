@@ -27,7 +27,7 @@
   </li>
   {#each ligne.relatedItems as notionLiee}
   <li>
-    <a href="#{notionLiee.slug}" on:click={event => goHash(event, notionLiee.slug)}>
+    <a href="#{notionLiee.reference}" on:click={event => goHash(event, notionLiee.reference)}>
       <button class="button is-link is-outlined mt-2 ml-2 py-0 md:py-1 px-1 md:px-2 rounded">{notionLiee.title}</button>
     </a>
   </li>

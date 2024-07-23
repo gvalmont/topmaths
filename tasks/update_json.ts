@@ -9,56 +9,34 @@ import type { RecursivePartial } from '../src/lib/types.js'
 import { isStringGrade, type StringGrade } from '../src/topmaths/types/shared.js'
 import { emptyObjective, emptyObjectiveVideo, isObjective, isObjectiveExercises, isObjectiveLessonPlans, type ObjectiveExercise, type ObjectiveUnit, type Objective, type ObjectiveLessonPlan } from '../src/topmaths/types/objective.js'
 import { emptyUnitFlashQuestion, isUnit, isUnitMentalCalculations, type UnitMentalCalculation, type Unit, type UnitObjective } from '../src/topmaths/types/unit.js'
-import { emptyGlossaryMasterItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
+import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
 
-const environment = {
-  annee: 2023,
-  origine: 'http://localhost:4200',
-  baseUrl: 'https://coopmaths.fr/',
-  V2: 'mathalea.html?',
-  V3: 'alea/?',
-  production: false
-}
-
-const environmentProd = {
-  origine: 'https://topmaths.fr',
-  baseUrl: 'https://coopmaths.fr/',
-  V2: 'mathalea.html?',
-  V3: 'alea/?',
-  production: true
-}
-const listeSitesPresentsPolitiqueDeConfidentialite = [
+const ORIGIN = 'https://topmaths.fr'
+const BASE_URL = 'https://coopmaths.fr/'
+const V2_ADDENDUM = 'mathalea.html?'
+const V3_ADDENDUM = 'alea/?'
+const THIRD_PARTY_WEBSITES = [
   'https://coopmaths.fr/',
   'https://mathsmentales.net/',
   'https://mathix.org/',
   'https://www.geogebra.org/',
   'https://www.clicmaclasse.fr/'
 ]
+
 const definitions: RecursivePartial<GlossaryMasterItem>[] = definitionsJson
 const properties: Partial<GlossaryMasterItem>[] = propertiesJson
 
-let numeroExercice = 1
-let nombreDeWarnings = 0
-let errorCount = 0
+let warningCount = 0
 const units: Unit[] = makeUnits()
 const objectives: Objective[] = makeObjectives()
 updateUnits()
 updateObjectives()
 const glossary = makeGlossary()
-checksDeRoutine()
-console.warn(nombreDeWarnings + ' warnings')
-console.error(errorCount + ' erreurs')
+routineCheck()
+console.warn(warningCount + ' warning' + (warningCount > 1 ? 's' : ''))
 ecrireJson('objectifs_modifies', objectives)
 ecrireJson('sequences_modifiees', units)
 ecrireJson('lexique', glossary)
-
-function makeGlossary (): GlossaryUniteItem[] {
-  const formattedMasterDefinitions = definitions.map(item => formatItem(item, 'définition')).filter(isGlossaryMasterItem)
-  const formattedMasterProperties = properties.map(item => formatItem(item, 'propriété')).filter(isGlossaryMasterItem)
-  const glossaryMasterItems = formattedMasterDefinitions.concat(formattedMasterProperties)
-  const glossaryUniteItems = glossaryMasterItems.map(makeUniteItems).flat()
-  return postTraitementItems(glossaryUniteItems)
-}
 
 type UnitGrade = {
   name: string,
@@ -136,7 +114,6 @@ function makeObjectives (): Objective[] {
         for (const objective of subTheme.objectives) {
           if (objective === undefined) { console.error(objective); throw new Error('Objective is undefined') }
           if (objective.reference === undefined) { console.error(objective); throw new Error('Objective reference is undefined') }
-          numeroExercice = 1
           objective.availableDownloads = {
             isPracticeSheetAvailable: fs.existsSync(cheminFichierLegacy('entrainement', objective.reference)),
             isTestSheetAvailable: fs.existsSync(cheminFichierLegacy('test', objective.reference)),
@@ -198,7 +175,7 @@ function formatItem (item: RecursivePartial<GlossaryMasterItem>, type: 'définit
   item.includesImage = item.includesImage ?? false
   item.keywords = item.keywords ?? []
   item.relatedObjectives = item.relatedObjectives ?? []
-  item.slug = item.slug ?? ''
+  item.reference = item.reference ?? ''
   item.titles = item.titles ?? []
   item.comments = interpreterMarkupArray(item.comments)
   item.content = interpreterMarkupPerso(item.content)
@@ -211,7 +188,7 @@ function formatItem (item: RecursivePartial<GlossaryMasterItem>, type: 'définit
   item.relatedItems = item.relatedItems
     .filter(relatedItem => relatedItem !== undefined)
     .map(relatedItem => {
-      relatedItem.slug = relatedItem.slug ?? ''
+      relatedItem.reference = relatedItem.reference ?? ''
       relatedItem.title = relatedItem.title ?? ''
       return relatedItem
     })
@@ -247,10 +224,10 @@ function makeUniteItems (masterItem: GlossaryMasterItem): GlossaryUniteItem[] {
   const slugsSousItemsDejaCrees: string[] = []
   for (const title of masterItem.titles) {
     const uniteItem: GlossaryUniteItem = { ...masterItem, title }
-    uniteItem.slug = creerSlug(title)
-    uniteItem.includesImage = fs.existsSync(`public/topmaths/img/lexique/${uniteItem.slug}.png`)
+    uniteItem.reference = creerSlug(title)
+    uniteItem.includesImage = fs.existsSync(`public/topmaths/img/lexique/${uniteItem.reference}.png`)
     uniteItem.relatedItems = ajouterSlugsSousItemsDejaCrees(masterItem, slugsSousItemsDejaCrees)
-    slugsSousItemsDejaCrees.push(uniteItem.slug)
+    slugsSousItemsDejaCrees.push(uniteItem.reference)
     uniteItems.push(uniteItem)
   }
   return uniteItems
@@ -266,53 +243,37 @@ function creerSlug (titre: string): string {
   return slug
 }
 
-function ajouterSlugsSousItemsDejaCrees (item: GlossaryMasterItem, slugsItem: string[]): GlossaryRelatedItem[] {
-  return item.relatedItems.concat(slugsItem.map(slug => ({ title: '', slug })))
+function ajouterSlugsSousItemsDejaCrees (item: GlossaryMasterItem, references: string[]): GlossaryRelatedItem[] {
+  return item.relatedItems.concat(references.map(reference => ({ title: '', reference })))
 }
 
 function postTraitementItems (items: GlossaryUniteItem[]): GlossaryUniteItem[] {
-  items = completerNotionsLiees(items)
+  items = updateRelatedItems(items)
   items = ajouterTitresAuxNotions(items)
   items = rangerNotionsLiees(items)
   items = items.sort(comparerTitres)
   return items
 }
 
-function completerNotionsLiees (items: GlossaryUniteItem[]): GlossaryUniteItem[] {
-  for (const item1 of items) {
-    for (const notionLieeItem1 of item1.relatedItems) {
-      let trouve = false
-      for (const item2 of items) {
-        if (item2.slug === notionLieeItem1.slug) {
-          trouve = true
-          if (!notionLieeDejaAjoutee(item1.slug, item2)) {
-            const nouvelleNotion = { slug: item1.slug, title: item1.title }
-            item2.relatedItems.push(nouvelleNotion)
-          }
-          break
-        }
-      }
-      if (!trouve) {
-        console.error('La notion liée ' + notionLieeItem1.slug + ' de ' + item1.title + ' n\'existe pas')
-        errorCount++
-      }
+function updateRelatedItems (items: GlossaryUniteItem[]): GlossaryUniteItem[] {
+  items.forEach(item1 => item1.relatedItems.forEach(relatedItem1 => {
+    const item2 = items.find(item2 => item2.reference === relatedItem1.reference)
+    if (!item2) {
+      throw new Error(`Glossary item ${relatedItem1.reference} not found`)
     }
-  }
+    relatedItem1.title = item2.title
+    if (!item2.relatedItems.find(relatedItem2 => relatedItem2.reference === item1.reference)) {
+      item2.relatedItems.push({ reference: item1.reference, title: item1.title })
+    }
+  }))
   return items
-}
-
-function notionLieeDejaAjoutee (slugNotion: string, item: GlossaryUniteItem): boolean {
-  for (const notionLiee of item.relatedItems) {
-    if (notionLiee.slug === slugNotion) return true
-  }
-  return false
 }
 
 function ajouterTitresAuxNotions (items: GlossaryUniteItem[]): GlossaryUniteItem[] {
   for (const item1 of items) {
     for (const notionLieeItem1 of item1.relatedItems) {
       for (const item2 of items) {
-        if (item2.slug === notionLieeItem1.slug) {
+        if (item2.reference === notionLieeItem1.reference) {
           notionLieeItem1.title = item2.title
           break
         }
@@ -346,23 +307,12 @@ function comparerTitres (a: GlossaryRelatedItem, b: GlossaryRelatedItem): number
   return 0
 }
 
-function checksDeRoutine (): void {
-  const referencesObjectifsSequences = getListeReferencesObjectifsSequences()
-  const referencesObjectifs = getListeReferencesObjectifs()
-  checkSequences(referencesObjectifsSequences, referencesObjectifs)
-  checkObjectifs(referencesObjectifsSequences, referencesObjectifs)
-  checkLexique()
-}
-
-function getListeReferencesObjectifsSequences (): string[] {
-  return units
-    .map(unit => unit.objectives
-      .map(objectif => objectif.reference))
-    .flat()
-}
-
-function getListeReferencesObjectifs (): string[] {
-  return objectives.map(objective => objective.reference)
+function routineCheck (): void {
+  checkDuplicates(objectives)
+  checkDuplicates(units)
+  checkDuplicates(glossary)
+  checkSitesAbsentsPolitiqueDeConfidentialite()
+  checkDuplicatesExamExercises()
 }
 
 function getCalculsMentauxAvecLiensEtIdDesExercices (sequence: RecursivePartial<Unit>): UnitMentalCalculation[] {
@@ -400,7 +350,7 @@ function getCalculsMentauxAvecLiensEtIdDesExercices (sequence: RecursivePartial<
 
 function getLienQuestionsFlash (sequence: RecursivePartial<Unit>): string {
   if (!sequence.flashQuestions) return ''
-  let lienQuestionsFlash = environment.baseUrl + environment.V3
+  let lienQuestionsFlash = BASE_URL + V3_ADDENDUM
   for (const questionFlash of sequence.flashQuestions) {
     if (!questionFlash) continue
     const slug = questionFlash.slug
@@ -416,11 +366,11 @@ function getLienEvalBrevet (sequence: RecursivePartial<Unit>): string {
   let lienEvalBrevet = ''
   if (sequence.assessmentExamSlug !== undefined && sequence.assessmentExamSlug !== '') {
     if (sequence.assessmentExamSlug.slice(0, 2) === 'ex') {
-      lienEvalBrevet = environment.baseUrl + environment.V2
+      lienEvalBrevet = BASE_URL + V2_ADDENDUM
       lienEvalBrevet += sequence.assessmentExamSlug
       lienEvalBrevet = conversionV2enV3(lienEvalBrevet)
     } else if (sequence.assessmentExamSlug.slice(0, 4) === 'uuid') {
-      lienEvalBrevet = environment.baseUrl + environment.V3
+      lienEvalBrevet = BASE_URL + V3_ADDENDUM
       lienEvalBrevet += sequence.assessmentExamSlug
     } else {
       lienEvalBrevet = sequence.assessmentExamSlug
@@ -451,7 +401,7 @@ function getRappelDuCoursImage (objectif: RecursivePartial<Objective>): string {
 
 function getLienExercices (exercises: (RecursivePartial<ObjectiveExercise> | undefined)[] | undefined): string {
   if (exercises === undefined || exercises.length === 0) return ''
-  let lienExercices = environment.baseUrl + environment.V3
+  let lienExercices = BASE_URL + V3_ADDENDUM
   let nbExercices = 0
   exercises
     .filter(exercice => exercice !== undefined)
@@ -469,6 +419,7 @@ function getLienExercices (exercises: (RecursivePartial<ObjectiveExercise> | und
 
 function getExercicesAvecLienEtId (reference: string, exercices: (RecursivePartial<ObjectiveExercise> | undefined)[] | undefined): ObjectiveExercise[] {
   if (exercices === undefined || exercices.length === 0) return []
+  let numeroExercice = 1
   exercices
     .filter(exercice => exercice !== undefined)
     .map(exercice => {
@@ -531,8 +482,8 @@ function updateUnitObjective (unit: Unit, objectives: Objective[]): void {
   unit.objectives.map(unitObjective => {
     const objective = objectives.find(objective => objective.reference === unitObjective.reference)
     if (!objective) {
-      console.error('Objective ' + unitObjective.reference + ' of unit ' + unit.title + ' not found.')
-      errorCount++
+      console.warn('Objective ' + unitObjective.reference + ' of unit ' + unit.title + ' not found.')
+      warningCount++
       return unitObjective
     }
     unitObjective.reference = objective.reference
@@ -549,15 +500,15 @@ function updateUnitObjective (unit: Unit, objectives: Objective[]): void {
 
 function updateUnitMentalCalculations (unit: Unit, objectives: Objective[]): void {
   unit.mentalCalculations.map(mentalCalculation => {
+    if (mentalCalculation.reference === '') return mentalCalculation
     const relatedObjective = objectives.find(objective => objective.reference === mentalCalculation.reference)
     if (!relatedObjective) {
-      console.error('Objective ' + mentalCalculation.reference + ' of mental calculation ' + mentalCalculation.title + ' not found.')
-      errorCount++
+      console.warn('Objective ' + mentalCalculation.reference + ' of mental calculation ' + mentalCalculation.title + ' not found.')
+      warningCount++
       return mentalCalculation
     }
     mentalCalculation.titleAcademic = relatedObjective.titleAcademic
     mentalCalculation.title = relatedObjective.title
-    mentalCalculation.exercises = mentalCalculation.exercises ?? []
     mentalCalculation.isRelatedObjectivePageAvailable = true
     mentalCalculation.theme = relatedObjective.theme
     return mentalCalculation
@@ -569,7 +520,7 @@ function updateUnitFlashQuestions (unit: Unit, objectives: Objective[]): void {
     const relatedObjective = objectives.find(objective => objective.reference === flashQuestion.reference)
     if (!relatedObjective) {
       console.error('Objective ' + flashQuestion.reference + ' of flash question ' + flashQuestion.title + ' not found.')
-      errorCount++
+      warningCount++
       return flashQuestion
     }
     flashQuestion.titleAcademic = relatedObjective.titleAcademic
@@ -587,7 +538,7 @@ function updateUnitAssessmentLink (unit: Unit, objectives: Objective[]): void {
     unit.assessmentLink = ''
     return
   }
-  let lienEval = environment.baseUrl + environment.V3
+  let lienEval = BASE_URL + V3_ADDENDUM
   for (const slug of slugsObjectif) {
     lienEval = lienEval.concat(slug, '&')
   }
@@ -630,58 +581,29 @@ function updateObjectives (): void {
   })
 }
 
-function checkSequences (referencesObjectifsSequences: string[], referencesObjectifs: string[]): void {
-  checkDoublonsBrevet()
-  for (const sequence of units) {
-    for (const objectif of sequence.objectives) {
-      if (!referencesObjectifs.includes(objectif.reference)) {
-        console.warn(sequence.reference + ' comporte l\'objectif ' + objectif.reference + ' qui n\'existe pas')
-        nombreDeWarnings++
-      }
-    }
-    for (const calculMental of sequence.mentalCalculations) {
-      if ((calculMental.reference !== undefined && calculMental.reference !== '') && (calculMental.titleAcademic === undefined || calculMental.titleAcademic === '')) {
-        console.warn('L\'objectif lié à un calcul mental de ' + sequence.reference + ' n\'existe pas')
-        nombreDeWarnings++
-      }
-    }
-    for (const questionFlash of sequence.flashQuestions) {
-      if (questionFlash.titleAcademic === undefined || questionFlash.titleAcademic === '') {
-        console.warn('L\'objectif lié à une question flash de ' + sequence.reference + ' n\'existe pas')
-        nombreDeWarnings++
-      }
-    }
-    if (sequence.availableDownloads.isLessonAvailable === false) {
-      console.warn('Cours de ' + sequence.reference + ' manquant')
-      nombreDeWarnings++
-    }
-  }
+function makeGlossary (): GlossaryUniteItem[] {
+  const formattedMasterDefinitions = definitions.map(item => formatItem(item, 'définition')).filter(isGlossaryMasterItem)
+  const formattedMasterProperties = properties.map(item => formatItem(item, 'propriété')).filter(isGlossaryMasterItem)
+  const glossaryMasterItems = formattedMasterDefinitions.concat(formattedMasterProperties)
+  const glossaryUniteItems = glossaryMasterItems.map(makeUniteItems).flat()
+  return postTraitementItems(glossaryUniteItems)
 }
 
-function checkDoublonsBrevet (): void {
-  const listeExercicesDeBrevet: string[] = []
-  for (const sequence of units) {
-    if (sequence.assessmentExamSlug !== undefined && sequence.assessmentExamSlug !== '') {
-      const listeExosAvecEx = sequence.assessmentExamSlug.split('&')
-      for (const exoAvecEx of listeExosAvecEx) {
-        const exo = exoAvecEx.slice(3)
-        for (const exerciceDeBrevet of listeExercicesDeBrevet) {
-          if (exo === exerciceDeBrevet) {
-            console.warn(exo + ' présent en double')
-            nombreDeWarnings++
-          }
+function checkDuplicatesExamExercises (): void {
+  const examExercises: string[] = []
+  units
+    .filter(unit => unit.assessmentExamSlug !== '')
+    .map(unit => unit.assessmentExamSlug)
+    .forEach(assessmentExamSlug => {
+      const examExerciseSlugs = assessmentExamSlug.split('&')
+      examExerciseSlugs.forEach(examExerciseSlug => {
+        if (examExercises.includes(examExerciseSlug)) {
+          console.warn(examExerciseSlug + ' found twice')
+          warningCount++
         }
-        listeExercicesDeBrevet.push(exo)
-      }
-    } else {
-      sequence.assessmentExamSlug = ''
-    }
-  }
-}
-
-function checkObjectifs (referencesObjectifsSequences: string[], referencesObjectifs: string[]): void {
-  checkSitesAbsentsPolitiqueDeConfidentialite()
-  checkReferencesEnDoublon(referencesObjectifs)
+        examExercises.push(examExerciseSlug)
+      })
+    })
 }
 
 function checkSitesAbsentsPolitiqueDeConfidentialite (): void {
@@ -692,7 +614,7 @@ function checkSitesAbsentsPolitiqueDeConfidentialite (): void {
   const listeAbsents: string[] = []
   for (const site of listeHTTP) {
     let trouve = false
-    for (const sitePresent of listeSitesPresentsPolitiqueDeConfidentialite) {
+    for (const sitePresent of THIRD_PARTY_WEBSITES) {
       if (site.slice(0, sitePresent.length) === sitePresent) {
         trouve = true
         break
@@ -705,36 +627,18 @@ function checkSitesAbsentsPolitiqueDeConfidentialite (): void {
       'Sites absents de la politique de confidentialité :',
       ...listeAbsents
     )
-    nombreDeWarnings += listeAbsents.length
+    warningCount += listeAbsents.length
   }
 }
 
-function checkReferencesEnDoublon (references: string[]): void {
-  const referencesEnDoublon: string[] = []
-  for (let i = 0; i < references.length - 1; i++) {
-    for (let j = i + 1; j < references.length; j++) {
-      if (references[i] === references[j]) {
-        referencesEnDoublon.push(references[i])
-      }
+function checkDuplicates (array: Objective[] | Unit[] | GlossaryItem[]): void {
+  const foundReferences: string[] = []
+  array.forEach((item: Objective | Unit | GlossaryItem) => {
+    if (foundReferences.includes(item.reference)) {
+      throw new Error(item.reference + ' found twice')
     }
-  }
-  if (referencesEnDoublon.length > 0) {
-    console.warn('Références en doublon : ', ...referencesEnDoublon)
-    nombreDeWarnings += referencesEnDoublon.length
-  }
-}
-
-function checkLexique (): void {
-  const slugs: string[] = []
-  for (const item of glossary) {
-    for (const slug of slugs) {
-      if (item.slug === slug) {
-        console.warn('Slug ' + slug + ' en doublon')
-        nombreDeWarnings++
-      }
-    }
-    slugs.push(item.slug)
-  }
+    foundReferences.push(item.reference)
+  })
 }
 
 /**
@@ -748,14 +652,14 @@ function getLienExercice (slug: string | undefined, calculMental = false): strin
   let lien = ''
   if (slug !== undefined) {
     if (estMathsMentales(slug)) {
-      lien = slug + '&embed=' + environmentProd.origine
+      lien = slug + '&embed=' + ORIGIN
     } else if (slug.slice(0, 4) !== 'http') { // c'est un slug
       if (slug.includes(',')) { // c'est un slug V2
         if (!slug.startsWith('id=')) slug = 'ex=' + slug
-        lien = `${environment.baseUrl + environment.V2}${slug},i=0`
+        lien = `${BASE_URL + V2_ADDENDUM}${slug},i=0`
         lien = conversionV2enV3(lien)
       } else { // c'est un slug v3
-        lien = environment.baseUrl + environment.V3 + formaterSlug(slug) + '&i=0'
+        lien = BASE_URL + V3_ADDENDUM + formaterSlug(slug) + '&i=0'
       }
       lien = lien.replace(/&uuid=/g, '&i=0&uuid=') // dans le cas où il y aurait plusieurs exercices dans le même slug
       if (calculMental) {
@@ -778,17 +682,17 @@ function estMathsMentales (url: string): boolean {
 }
 
 function estCoopmaths (url: string): boolean {
-  const urlCoopmaths = environment.baseUrl
-  return url.slice(0, urlCoopmaths.length) === environment.baseUrl
+  const urlCoopmaths = BASE_URL
+  return url.slice(0, urlCoopmaths.length) === BASE_URL
 }
 
 function estV2 (url: string): boolean {
-  const urlV2 = environment.baseUrl + environment.V2
+  const urlV2 = BASE_URL + V2_ADDENDUM
   return url.slice(0, urlV2.length) === urlV2
 }
 
 function estV3 (url: string): boolean {
-  const urlV3 = environment.baseUrl + environment.V3
+  const urlV3 = BASE_URL + V3_ADDENDUM
   return url.slice(0, urlV3.length) === urlV3
 }
 
@@ -821,8 +725,8 @@ function formaterSlug (slug: string | undefined): string {
   if (slug.slice(0, 4) === 'uuid') return slug
   if (slug.slice(0, 2) === 'id') return ajouterUuid(slug)
   if (slug.slice(0, 4) !== 'http') return conversionV2enV3('ex=' + slug)
-  if (estV2(slug)) return ajouterUuid(conversionV2enV3(slug)).slice((environment.baseUrl + environment.V3).length)
-  if (estV3(slug)) return ajouterUuid(slug).slice((environment.baseUrl + environment.V3).length)
+  if (estV2(slug)) return ajouterUuid(conversionV2enV3(slug)).slice((BASE_URL + V3_ADDENDUM).length)
+  if (estV3(slug)) return ajouterUuid(slug).slice((BASE_URL + V3_ADDENDUM).length)
   else return slug
 }
 
