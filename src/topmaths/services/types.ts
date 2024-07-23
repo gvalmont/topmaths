@@ -43,6 +43,10 @@ export function isObjectiveExercise (obj: unknown): obj is ObjectiveExercise {
     'description' in obj && typeof obj.description === 'string' &&
     'isInCart' in obj && typeof obj.isInCart === 'boolean'
 }
+export function isObjectiveExercises (obj: unknown): obj is ObjectiveExercise[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isObjectiveExercise)
+}
 
 export type ObjectiveLessonPlan = {
   startSteps: string[],
@@ -68,6 +72,10 @@ export function isObjectiveLessonPlan (obj: unknown): obj is ObjectiveLessonPlan
     'comments' in obj && Array.isArray(obj.comments) && obj.comments.every(comment => typeof comment === 'string') &&
     'nextSessionSteps' in obj && Array.isArray(obj.nextSessionSteps) && obj.nextSessionSteps.every(step => typeof step === 'string') &&
     'reference' in obj && typeof obj.reference === 'string'
+}
+export function isObjectiveLessonPlans (obj: unknown): obj is ObjectiveLessonPlan[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isObjectiveLessonPlan)
 }
 
 export type ObjectiveUnit = {

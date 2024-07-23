@@ -44,6 +44,23 @@ export function isGlossaryMasterItem (obj: unknown): obj is GlossaryMasterItem {
   return isGlossaryItem(obj) &&
   'titles' in obj && Array.isArray(obj.titles) && obj.titles.every(title => typeof title === 'string')
 }
+export function isGlossaryMasterItems (obj: unknown): obj is GlossaryMasterItem[] {
+  if (!Array.isArray(obj)) return false
+  return obj.every(isGlossaryMasterItem)
+}
+export const emptyGlossaryMasterItem: GlossaryMasterItem = {
+  comments: [],
+  content: '',
+  examples: [],
+  grades: [],
+  includesImage: false,
+  keywords: [],
+  relatedObjectives: [],
+  relatedItems: [],
+  slug: '',
+  titles: [],
+  type: 'définition'
+}
 
 export type GlossaryUniteItem = GlossaryItem & {
   title: string
@@ -56,4 +73,17 @@ export function isGlossaryUniteItem (obj: unknown): obj is GlossaryUniteItem {
 export function isGlossaryUniteItems (obj: unknown): obj is GlossaryUniteItem[] {
   if (!Array.isArray(obj)) return false
   return obj.every(isGlossaryUniteItem)
+}
+export const emptyGlossaryUniteItem: GlossaryUniteItem = {
+  comments: [],
+  content: '',
+  examples: [],
+  grades: [],
+  includesImage: false,
+  keywords: [],
+  relatedObjectives: [],
+  relatedItems: [],
+  slug: '',
+  title: '',
+  type: 'définition'
 }

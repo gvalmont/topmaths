@@ -33,14 +33,14 @@ for (const niveauSequence of niveauxSequences) {
 }
 compilerTyp()
 
-function coursDeUnObjectifTrouve (sequence: Unit) {
+function coursDeUnObjectifTrouve (sequence: Unit): boolean {
   for (const objectif of sequence.objectives) {
     if (fs.existsSync(`./src/topmaths/typ/cours/objectifs/${objectif.grade}/${objectif.reference}.typ`)) return true
   }
   return false
 }
 
-function genererTypCoursSequence (sequence: Unit) {
+function genererTypCoursSequence (sequence: Unit): void {
   let typCoursSequence = ''
   typCoursSequence += `#import "../../../preambule_sequence.typ": * 
 `
@@ -54,7 +54,7 @@ function genererTypCoursSequence (sequence: Unit) {
   fs.writeFileSync(`${directory}${sequence.reference}.typ`, typCoursSequence, 'utf8')
 }
 
-function creerEnTete (sequence: Unit) {
+function creerEnTete (sequence: Unit): string {
   let enTete = `#show: setup-emoji
 #show: doc => sequence(doc, title: "Séquence ${sequence.number} : ${sequence.title}")
 #objectifs()[
@@ -72,7 +72,7 @@ function creerEnTete (sequence: Unit) {
   return enTete
 }
 
-function genererTypCoursObjectif (objectif: UnitObjective, sequence: Unit) {
+function genererTypCoursObjectif (objectif: UnitObjective, sequence: Unit): string {
   if (!fs.existsSync(`./src/topmaths/typ/cours/objectifs/${objectif.grade}/${objectif.reference}.typ`)) return ''
   let typObjectif = ''
   const titreObjectif = `
@@ -85,7 +85,7 @@ function genererTypCoursObjectif (objectif: UnitObjective, sequence: Unit) {
   return typObjectif
 }
 
-function copierImages (objectif: { grade: StringGrade; reference: string; }, sequence: Unit) {
+function copierImages (objectif: { grade: StringGrade; reference: string; }, sequence: Unit): void {
   const sourceDir = `./src/topmaths/typ/cours/objectifs/${objectif.grade}/`
   const destinationDir = `./src/topmaths/typ/cours/sequences/${sequence.grade}/`
   const filePrefix = objectif.reference
@@ -111,7 +111,7 @@ function copierImages (objectif: { grade: StringGrade; reference: string; }, seq
   })
 }
 
-function replaceImportedLessons (text: string, sequence: Unit) {
+function replaceImportedLessons (text: string, sequence: Unit): string {
   const importedLessonReferences = getImportedLessonReferences(text)
   for (const importedLessonReference of importedLessonReferences) {
     const levelCandidate = `${importedLessonReference.slice(0, 1)}e`
@@ -123,7 +123,7 @@ function replaceImportedLessons (text: string, sequence: Unit) {
   return text
 }
 
-function getImportedLessonReferences (text: string) {
+function getImportedLessonReferences (text: string): string[] {
   const regex = /##(\w+)/g
   const matches: string[] = []
   const importedLessonReferences: string[] = []
@@ -139,7 +139,7 @@ function getImportedLessonReferences (text: string) {
   return importedLessonReferences
 }
 
-function genererTypFichesSequence (sequence: Unit) {
+function genererTypFichesSequence (sequence: Unit): void {
   let nbFichesObjectifs = 0
   for (const objectifSequence of sequence.objectives) {
     if (objectifSequence.lessonPlans.length > 0) {
@@ -150,7 +150,7 @@ function genererTypFichesSequence (sequence: Unit) {
   if (nbFichesObjectifs > 0) genererTypFicheSequence(sequence)
 }
 
-function genererTypFichesObjectif (objectif: UnitObjective, niveauSequence: StringGrade) {
+function genererTypFichesObjectif (objectif: UnitObjective, niveauSequence: StringGrade): void {
   let indiceFiche = 0
   for (const fiche of objectif.lessonPlans) {
     if (fiche.grades.length === 0 || fiche.grades.includes(niveauSequence)) {
@@ -161,7 +161,7 @@ function genererTypFichesObjectif (objectif: UnitObjective, niveauSequence: Stri
   }
 }
 
-function genererTypFicheObjectif (niveauSequence: StringGrade, objectif: UnitObjective, fiche: ObjectiveLessonPlan, indiceFiche: number) {
+function genererTypFicheObjectif (niveauSequence: StringGrade, objectif: UnitObjective, fiche: ObjectiveLessonPlan, indiceFiche: number): void {
   const nombreTotalDeFiches = getNbFiches(objectif, niveauSequence)
   const plusieursFiches = nombreTotalDeFiches > 1
   const numeroFiche = indiceFiche + 1
@@ -191,7 +191,7 @@ function genererTypFicheObjectif (niveauSequence: StringGrade, objectif: UnitObj
   fs.writeFileSync(`${directory}${niveauSequence}_${fiche.reference}.typ`, typObjectif, 'utf8')
 }
 
-function getNbFiches (objectif: UnitObjective, niveauSequence: string) {
+function getNbFiches (objectif: UnitObjective, niveauSequence: string): number {
   let nbFiches = 0
   for (const fiche of objectif.lessonPlans) {
     if (fiche.grades.length === 0) nbFiches++
@@ -204,7 +204,7 @@ function getNbFiches (objectif: UnitObjective, niveauSequence: string) {
   return nbFiches
 }
 
-function remplacerPlaceholderMateriel (fiche: ObjectiveLessonPlan, niveauSequence: StringGrade) {
+function remplacerPlaceholderMateriel (fiche: ObjectiveLessonPlan, niveauSequence: StringGrade): void {
   const cheminFichePrecedente = `./src/topmaths/typ/fiches/objectifs/${fichesPrecedentes[niveauSequence].reference.slice(0, 1) + 'e'}/${niveauSequence}_${fichesPrecedentes[niveauSequence].reference}.typ`
   const data = fs.readFileSync(cheminFichePrecedente, 'utf8')
   let replacementString = ''
@@ -220,7 +220,7 @@ function remplacerPlaceholderMateriel (fiche: ObjectiveLessonPlan, niveauSequenc
   fs.writeFileSync(cheminFichePrecedente, updatedData, 'utf8')
 }
 
-function getTypLignes (titre: string, lignes: string[]) {
+function getTypLignes (titre: string, lignes: string[]): string {
   let typLignes = ''
   if (lignes.length > 0) {
     if (titre !== '') {
@@ -252,19 +252,19 @@ function getTypLignes (titre: string, lignes: string[]) {
     }
   }
   return typLignes
-  function getIndentLevel (str: string) {
+  function getIndentLevel (str: string): number {
     let count = 0
     for (let i = 0; i < str.length && str[i] === '-'; i++) {
       count++
     }
     return count
   }
-  function removeLeadingHyphens (str: string) {
+  function removeLeadingHyphens (str: string): string {
     return str.replace(/^[-]+/, '')
   }
 }
 
-function genererTypFicheSequence (sequence: Unit) {
+function genererTypFicheSequence (sequence: Unit): void {
   let typSequence = ''
   typSequence += `#import "../../../preambule_fiche.typ": *
 `
@@ -303,17 +303,17 @@ function genererTypFicheSequence (sequence: Unit) {
   fs.writeFileSync(`${directory}${sequence.reference}.typ`, typSequence, 'utf8')
 }
 
-function compilerTyp () {
+function compilerTyp (): void {
   runShellScript('tasks/compilerTyp.sh', () => {
     copierAutresPdf()
   })
 }
 
-function copierAutresPdf () {
+function copierAutresPdf (): void {
   runShellScript('tasks/copierAutresPdf.sh', () => {})
 }
 
-function runShellScript (scriptPath: string, callback: () => void) {
+function runShellScript (scriptPath: string, callback: () => void): void {
   const child = exec(scriptPath, (error, stdout, stderr) => {
     if (error) {
       console.error(`Error executing ${scriptPath}: ${error.message}`)

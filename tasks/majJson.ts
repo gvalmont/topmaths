@@ -6,8 +6,8 @@ import propertiesJson from '../src/topmaths/json/glossary/properties.json' asser
 import objectivesMasterJson from '../src/topmaths/json/objectives.json' assert { type: 'json' }
 import unitsMasterJson from '../src/topmaths/json/units.json' assert { type: 'json' }
 import type { RecursivePartial } from '../src/lib/types.js'
-import { type Unit, type UnitObjective, type Objective, type ObjectiveExercise, type ObjectiveLessonPlan, type ObjectiveUnit, type StringGrade, isStringGrade, isObjective, isUnit, type UnitMentalCalculation, isUnitMentalCalculations, emptyObjective, emptyUnitFlashQuestion, emptyObjectiveVideo } from '../src/topmaths/services/types.js'
-import { type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
+import { type Unit, type UnitObjective, type Objective, type ObjectiveExercise, type ObjectiveLessonPlan, type ObjectiveUnit, type StringGrade, isStringGrade, isObjective, isUnit, type UnitMentalCalculation, isUnitMentalCalculations, emptyObjective, emptyUnitFlashQuestion, emptyObjectiveVideo, isObjectiveExercises, isObjectiveLessonPlans } from '../src/topmaths/services/types.js'
+import { emptyGlossaryMasterItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
 
 const environment = {
   annee: 2023,
@@ -50,7 +50,7 @@ ecrireJson('objectifs_modifies', objectives)
 ecrireJson('sequences_modifiees', units)
 ecrireJson('lexique', glossary)
 
-function makeGlossary () {
+function makeGlossary (): GlossaryUniteItem[] {
   const formattedMasterDefinitions = definitions.map(item => formatItem(item, 'définition')).filter(isGlossaryMasterItem)
   const formattedMasterProperties = properties.map(item => formatItem(item, 'propriété')).filter(isGlossaryMasterItem)
   const glossaryMasterItems = formattedMasterDefinitions.concat(formattedMasterProperties)
@@ -117,7 +117,7 @@ type ObjectiveGrade = {
   themes: ObjectiveTheme[]
 }
 
-function makeObjectives () {
+function makeObjectives (): Objective[] {
   const formattedObjectives: Objective[] = []
   const objectivesMaster: RecursivePartial<ObjectiveGrade>[] = objectivesMasterJson
   for (const grade of objectivesMaster) {
@@ -171,7 +171,7 @@ function makeObjectives () {
   return formattedObjectives
 }
 
-function updateUnits () {
+function updateUnits (): void {
   for (const unit of units) {
     updateUnitObjective(unit, objectives)
     updateUnitMentalCalculations(unit, objectives)
@@ -187,9 +187,9 @@ function updateUnits () {
   }
 }
 
-function formatItem (item: RecursivePartial<GlossaryMasterItem>, type: 'définition' | 'propriété') {
+function formatItem (item: RecursivePartial<GlossaryMasterItem>, type: 'définition' | 'propriété'): GlossaryMasterItem {
   item.type = type
-  if (item.titles === undefined) return
+  if (item.titles === undefined) return emptyGlossaryMasterItem
   item.comments = item.comments ?? []
   item.content = item.content ?? ''
   item.examples = item.examples ?? []
@@ -220,7 +220,7 @@ function formatItem (item: RecursivePartial<GlossaryMasterItem>, type: 'définit
   return item
 }
 
-function interpreterMarkupPerso (contenu: string) {
+function interpreterMarkupPerso (contenu: string): string {
   contenu = contenu.replace(/rouge\[\[/g, '<span class=\'rouge\'>')
   contenu = contenu.replace(/vert\[\[/g, '<span class=\'vert\'>')
   contenu = contenu.replace(/noir\[\[/g, '<span class=\'noir\'>')
@@ -230,7 +230,7 @@ function interpreterMarkupPerso (contenu: string) {
   return contenu
 }
 
-function interpreterMarkupArray (array: (string | undefined)[]) {
+function interpreterMarkupArray (array: (string | undefined)[]): string[] {
   if (array === undefined || array.length === 0) {
     return []
   } else {
@@ -240,7 +240,7 @@ function interpreterMarkupArray (array: (string | undefined)[]) {
   }
 }
 
-function makeUniteItems (masterItem: GlossaryMasterItem) {
+function makeUniteItems (masterItem: GlossaryMasterItem): GlossaryUniteItem[] {
   const uniteItems: GlossaryUniteItem[] = []
   const slugsSousItemsDejaCrees: string[] = []
   for (const title of masterItem.titles) {
@@ -254,7 +254,7 @@ function makeUniteItems (masterItem: GlossaryMasterItem) {
   return uniteItems
 }
 
-function creerSlug (titre: string) {
+function creerSlug (titre: string): string {
   const normalizedStr = titre.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
   const slug = normalizedStr
     .replace(/\s+/g, '-')
@@ -264,11 +264,11 @@ function creerSlug (titre: string) {
   return slug
 }
 
-function ajouterSlugsSousItemsDejaCrees (item: GlossaryMasterItem, slugsItem: string[]) {
+function ajouterSlugsSousItemsDejaCrees (item: GlossaryMasterItem, slugsItem: string[]): GlossaryRelatedItem[] {
   return item.relatedItems.concat(slugsItem.map(slug => ({ title: '', slug })))
 }
 
-function postTraitementItems (items: GlossaryUniteItem[]) {
+function postTraitementItems (items: GlossaryUniteItem[]): GlossaryUniteItem[] {
   items = completerNotionsLiees(items)
   items = ajouterTitresAuxNotions(items)
   items = rangerNotionsLiees(items)
@@ -276,7 +276,7 @@ function postTraitementItems (items: GlossaryUniteItem[]) {
   return items
 }
 
-function completerNotionsLiees (items: GlossaryUniteItem[]) {
+function completerNotionsLiees (items: GlossaryUniteItem[]): GlossaryUniteItem[] {
   for (const item1 of items) {
     for (const notionLieeItem1 of item1.relatedItems) {
       let trouve = false
@@ -299,14 +299,14 @@ function completerNotionsLiees (items: GlossaryUniteItem[]) {
   return items
 }
 
-function notionLieeDejaAjoutee (slugNotion: string, item: GlossaryUniteItem) {
+function notionLieeDejaAjoutee (slugNotion: string, item: GlossaryUniteItem): boolean {
   for (const notionLiee of item.relatedItems) {
     if (notionLiee.slug === slugNotion) return true
   }
   return false
 }
 
-function ajouterTitresAuxNotions (items: GlossaryUniteItem[]) {
+function ajouterTitresAuxNotions (items: GlossaryUniteItem[]): GlossaryUniteItem[] {
   for (const item1 of items) {
     for (const notionLieeItem1 of item1.relatedItems) {
       for (const item2 of items) {
@@ -320,7 +320,7 @@ function ajouterTitresAuxNotions (items: GlossaryUniteItem[]) {
   return items
 }
 
-function rangerNotionsLiees (items: GlossaryUniteItem[]) {
+function rangerNotionsLiees (items: GlossaryUniteItem[]): GlossaryUniteItem[] {
   for (const item of items) {
     if (item.relatedItems === undefined || item.relatedItems.length === 0) {
       item.relatedItems = []
@@ -331,7 +331,7 @@ function rangerNotionsLiees (items: GlossaryUniteItem[]) {
   return items
 }
 
-function comparerTitres (a: GlossaryRelatedItem, b: GlossaryRelatedItem) {
+function comparerTitres (a: GlossaryRelatedItem, b: GlossaryRelatedItem): number {
   const titleA = a.title.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase()
   const titleB = b.title.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase()
 
@@ -344,7 +344,7 @@ function comparerTitres (a: GlossaryRelatedItem, b: GlossaryRelatedItem) {
   return 0
 }
 
-function checksDeRoutine () {
+function checksDeRoutine (): void {
   const referencesObjectifsSequences = getListeReferencesObjectifsSequences()
   const referencesObjectifs = getListeReferencesObjectifs()
   checkSequences(referencesObjectifsSequences, referencesObjectifs)
@@ -352,7 +352,7 @@ function checksDeRoutine () {
   checkLexique()
 }
 
-function getListeReferencesObjectifsSequences () {
+function getListeReferencesObjectifsSequences (): string[] {
   return units
     .map(unit => unit.objectives
       .map(objectif => objectif.reference))
@@ -396,7 +396,7 @@ function getCalculsMentauxAvecLiensEtIdDesExercices (sequence: RecursivePartial<
   return mentalCalculationsCandidate
 }
 
-function getLienQuestionsFlash (sequence: RecursivePartial<Unit>) {
+function getLienQuestionsFlash (sequence: RecursivePartial<Unit>): string {
   if (!sequence.flashQuestions) return ''
   let lienQuestionsFlash = environment.baseUrl + environment.V3
   for (const questionFlash of sequence.flashQuestions) {
@@ -428,7 +428,7 @@ function getLienEvalBrevet (sequence: RecursivePartial<Unit>): string {
   return lienEvalBrevet
 }
 
-function trouverPeriode (objectif: RecursivePartial<UnitObjective>) {
+function trouverPeriode (objectif: RecursivePartial<UnitObjective>): number {
   for (const unit of units) {
     for (const unitObjectif of unit.objectives) {
       if (unitObjectif.reference === objectif.reference) {
@@ -439,7 +439,7 @@ function trouverPeriode (objectif: RecursivePartial<UnitObjective>) {
   return 0
 }
 
-function getRappelDuCoursImage (objectif: RecursivePartial<Objective>) {
+function getRappelDuCoursImage (objectif: RecursivePartial<Objective>): string {
   if (objectif.lessonSummaryImage === '' || objectif.lessonSummaryImage === undefined) {
     return ''
   } else {
@@ -447,7 +447,7 @@ function getRappelDuCoursImage (objectif: RecursivePartial<Objective>) {
   }
 }
 
-function getLienExercices (exercises: (RecursivePartial<ObjectiveExercise> | undefined)[] | undefined) {
+function getLienExercices (exercises: (RecursivePartial<ObjectiveExercise> | undefined)[] | undefined): string {
   if (exercises === undefined || exercises.length === 0) return ''
   let lienExercices = environment.baseUrl + environment.V3
   let nbExercices = 0
@@ -465,9 +465,9 @@ function getLienExercices (exercises: (RecursivePartial<ObjectiveExercise> | und
   return lienExercices
 }
 
-function getExercicesAvecLienEtId (reference: string, exercices: (RecursivePartial<ObjectiveExercise> | undefined)[] | undefined) {
+function getExercicesAvecLienEtId (reference: string, exercices: (RecursivePartial<ObjectiveExercise> | undefined)[] | undefined): ObjectiveExercise[] {
   if (exercices === undefined || exercices.length === 0) return []
-  return exercices
+  exercices
     .filter(exercice => exercice !== undefined)
     .map(exercice => {
       exercice.id = reference + '-' + numeroExercice
@@ -479,11 +479,16 @@ function getExercicesAvecLienEtId (reference: string, exercices: (RecursiveParti
       numeroExercice++
       return exercice
     })
+  if (!isObjectiveExercises(exercices)) {
+    console.error(exercices)
+    throw new Error('Exercises are not ObjectiveExercises')
+  }
+  return exercices
 }
 
-function getFiches (fiches: (RecursivePartial<ObjectiveLessonPlan> | undefined)[] | undefined) {
+function getFiches (fiches: (RecursivePartial<ObjectiveLessonPlan> | undefined)[] | undefined): ObjectiveLessonPlan[] {
   if (fiches === undefined || fiches.length === 0) return []
-  return fiches
+  fiches
     .filter(fiche => fiche !== undefined)
     .map(fiche => {
       fiche.startSteps = fiche.startSteps ?? []
@@ -498,9 +503,14 @@ function getFiches (fiches: (RecursivePartial<ObjectiveLessonPlan> | undefined)[
       fiche.reference = fiche.reference ?? '0'
       return fiche
     })
+  if (!isObjectiveLessonPlans(fiches)) {
+    console.error(fiches)
+    throw new Error('Lesson plans are not ObjectiveLessonPlans')
+  }
+  return fiches
 }
 
-function getSequences (objectif: RecursivePartial<Objective>) {
+function getSequences (objectif: RecursivePartial<Objective>): ObjectiveUnit[] {
   const listeDesSequences: ObjectiveUnit[] = []
   for (const unit of units) {
     for (const sequenceObjectif of unit.objectives) {
@@ -535,7 +545,7 @@ function updateUnitObjective (unit: Unit, objectives: Objective[]): void {
   })
 }
 
-function updateUnitMentalCalculations (unit: Unit, objectives: Objective[]) {
+function updateUnitMentalCalculations (unit: Unit, objectives: Objective[]): void {
   unit.mentalCalculations.map(mentalCalculation => {
     const relatedObjective = objectives.find(objective => objective.reference === mentalCalculation.reference)
     if (!relatedObjective) {
@@ -552,7 +562,7 @@ function updateUnitMentalCalculations (unit: Unit, objectives: Objective[]) {
   })
 }
 
-function updateUnitFlashQuestions (unit: Unit, objectives: Objective[]) {
+function updateUnitFlashQuestions (unit: Unit, objectives: Objective[]): void {
   unit.flashQuestions.map(flashQuestion => {
     const relatedObjective = objectives.find(objective => objective.reference === flashQuestion.reference)
     if (!relatedObjective) {
@@ -569,18 +579,21 @@ function updateUnitFlashQuestions (unit: Unit, objectives: Objective[]) {
   })
 }
 
-function updateUnitAssessmentLink (unit: Unit, objectives: Objective[]) {
+function updateUnitAssessmentLink (unit: Unit, objectives: Objective[]): void {
   const slugsObjectif = getSlugsObjectifsSequence(unit, objectives)
-  if (slugsObjectif.length === 0) return ''
+  if (slugsObjectif.length === 0) {
+    unit.assessmentLink = ''
+    return
+  }
   let lienEval = environment.baseUrl + environment.V3
   for (const slug of slugsObjectif) {
     lienEval = lienEval.concat(slug, '&')
   }
   lienEval.slice(0, -1)
-  return lienEval
+  unit.assessmentLink = lienEval
 }
 
-function updateUnitLessonPlans (sequence: Unit) {
+function updateUnitLessonPlans (sequence: Unit): void {
   for (const objectifSequence of sequence.objectives) {
     if (objectifSequence.lessonPlans.length > 0) {
       let numeroFiche = 1
@@ -595,7 +608,7 @@ function updateUnitLessonPlans (sequence: Unit) {
   }
 }
 
-function getNbFiches (objectif: UnitObjective, niveauSequence: string) {
+function getNbFiches (objectif: UnitObjective, niveauSequence: string): number {
   let nbFiches = 0
   for (const fiche of objectif.lessonPlans) {
     if (fiche.grades.length === 0) nbFiches++
@@ -608,14 +621,14 @@ function getNbFiches (objectif: UnitObjective, niveauSequence: string) {
   return nbFiches
 }
 
-function updateObjectives () {
+function updateObjectives (): void {
   objectives.map(objective => {
     objective.availableDownloads.availableLessonPlanGrades = getNiveauxFichesDisponibles(objective)
     return objective
   })
 }
 
-function checkSequences (referencesObjectifsSequences: string[], referencesObjectifs: string[]) {
+function checkSequences (referencesObjectifsSequences: string[], referencesObjectifs: string[]): void {
   checkDoublonsBrevet()
   for (const sequence of units) {
     for (const objectif of sequence.objectives) {
@@ -643,7 +656,7 @@ function checkSequences (referencesObjectifsSequences: string[], referencesObjec
   }
 }
 
-function checkDoublonsBrevet () {
+function checkDoublonsBrevet (): void {
   const listeExercicesDeBrevet: string[] = []
   for (const sequence of units) {
     if (sequence.assessmentExamSlug !== undefined && sequence.assessmentExamSlug !== '') {
@@ -664,12 +677,12 @@ function checkDoublonsBrevet () {
   }
 }
 
-function checkObjectifs (referencesObjectifsSequences: string[], referencesObjectifs: string[]) {
+function checkObjectifs (referencesObjectifsSequences: string[], referencesObjectifs: string[]): void {
   checkSitesAbsentsPolitiqueDeConfidentialite()
   checkReferencesEnDoublon(referencesObjectifs)
 }
 
-function checkSitesAbsentsPolitiqueDeConfidentialite () {
+function checkSitesAbsentsPolitiqueDeConfidentialite (): void {
   const listeHTTP: string[] = objectives
     .map(objective => objective.exercises
       .map(exercise => exercise.slug)
@@ -694,7 +707,7 @@ function checkSitesAbsentsPolitiqueDeConfidentialite () {
   }
 }
 
-function checkReferencesEnDoublon (references: string[]) {
+function checkReferencesEnDoublon (references: string[]): void {
   const referencesEnDoublon: string[] = []
   for (let i = 0; i < references.length - 1; i++) {
     for (let j = i + 1; j < references.length; j++) {
@@ -709,7 +722,7 @@ function checkReferencesEnDoublon (references: string[]) {
   }
 }
 
-function checkLexique () {
+function checkLexique (): void {
   const slugs: string[] = []
   for (const item of glossary) {
     for (const slug of slugs) {
@@ -728,7 +741,7 @@ function checkLexique () {
    * @param calculMental true si utilisation dans un calcul mental pour afficher le diaporama des exercices de MathALEA
    * @returns {string}
    */
-function getLienExercice (slug: string | undefined, calculMental = false) {
+function getLienExercice (slug: string | undefined, calculMental = false): string {
   if (slug === undefined) return ''
   let lien = ''
   if (slug !== undefined) {
@@ -758,26 +771,26 @@ function getLienExercice (slug: string | undefined, calculMental = false) {
   return lien
 }
 
-function estMathsMentales (url: string) {
+function estMathsMentales (url: string): boolean {
   return url.slice(0, 25) === 'https://mathsmentales.net'
 }
 
-function estCoopmaths (url: string) {
+function estCoopmaths (url: string): boolean {
   const urlCoopmaths = environment.baseUrl
   return url.slice(0, urlCoopmaths.length) === environment.baseUrl
 }
 
-function estV2 (url: string) {
+function estV2 (url: string): boolean {
   const urlV2 = environment.baseUrl + environment.V2
   return url.slice(0, urlV2.length) === urlV2
 }
 
-function estV3 (url: string) {
+function estV3 (url: string): boolean {
   const urlV3 = environment.baseUrl + environment.V3
   return url.slice(0, urlV3.length) === urlV3
 }
 
-function conversionV2enV3 (url: string) {
+function conversionV2enV3 (url: string): string {
   url = url.replace(/mathalea\.html/g, 'alea/')
   url = url.replace(/ex=dnb/g, 'uuid=dnb')
   url = url.replace(/ex=/g, 'id=')
@@ -792,7 +805,7 @@ function conversionV2enV3 (url: string) {
   return url
 }
 
-function getSlugsObjectifsSequence (sequence: Unit, objectives: Objective[]) {
+function getSlugsObjectifsSequence (sequence: Unit, objectives: Objective[]): string[] {
   return objectives
     .filter(objective => sequence.objectives.map(objectifSequence => objectifSequence.reference).includes(objective.reference))
     .map(objectif => objectif.exercises)
@@ -801,7 +814,7 @@ function getSlugsObjectifsSequence (sequence: Unit, objectives: Objective[]) {
     .filter(slug => slug !== '')
 }
 
-function formaterSlug (slug: string | undefined) {
+function formaterSlug (slug: string | undefined): string {
   if (slug === undefined || slug === '') return ''
   if (slug.slice(0, 4) === 'uuid') return slug
   if (slug.slice(0, 2) === 'id') return ajouterUuid(slug)
@@ -811,7 +824,7 @@ function formaterSlug (slug: string | undefined) {
   else return slug
 }
 
-function ajouterUuid (slug: string) {
+function ajouterUuid (slug: string): string {
   return 'uuid=' + getUuid(slug.split('&')[0].split(',')[0].split('=')[1]) + '&' + slug
 }
 type RefToUuidMap = {
@@ -822,11 +835,11 @@ function getUuid (id: string): unknown {
   return refToUuid[id]
 }
 
-function cheminFichierLegacy (type: string, reference: string) {
+function cheminFichierLegacy (type: string, reference: string): string {
   return `./public/topmaths/${type}/${reference.charAt(0) === 'S' ? reference.slice(1, 2) : reference.slice(0, 1)}e/${type.charAt(0).toUpperCase() + type.slice(1)}_${reference}.pdf`
 }
 
-function presenceFicheObjectif (objectif: RecursivePartial<UnitObjective>) {
+function presenceFicheObjectif (objectif: RecursivePartial<UnitObjective>): boolean {
   if (objectif.lessonPlans === undefined) return false
   return objectif.lessonPlans.length > 0
 }
@@ -845,17 +858,17 @@ function getNiveauxFichesDisponibles (objectif: Objective): StringGrade[] {
   return niveauxDisponibles
 }
 
-function presenceFicheSequence (sequence: Unit) {
+function presenceFicheSequence (sequence: Unit): boolean {
   for (const objectif of sequence.objectives) {
     if (presenceFicheObjectif(objectif)) return true
   }
   return false
 }
 
-function cheminFichier (type: string, reference: string) {
+function cheminFichier (type: string, reference: string): string {
   return `./public/topmaths/${type}/${reference.charAt(0) === 'S' ? reference.slice(1, 2) : reference.slice(0, 1)}e/${reference}_${type.charAt(0).toUpperCase() + type.slice(1)}.pdf`
 }
 
-function ecrireJson (nomDuFichier: string, fichier: unknown) {
+function ecrireJson (nomDuFichier: string, fichier: unknown): void {
   fs.writeFileSync(path.join('./src', 'topmaths', 'json', nomDuFichier + '.json'), JSON.stringify(fichier, null, 2))
 }
