@@ -7,8 +7,8 @@ import objectivesMasterJson from '../src/topmaths/json/objectives.json' assert {
 import unitsMasterJson from '../src/topmaths/json/units.json' assert { type: 'json' }
 import type { RecursivePartial } from '../src/lib/types.js'
 import { isStringGrade, type StringGrade } from '../src/topmaths/types/shared.js'
-import { emptyObjective, emptyObjectiveVideo, isObjective, isObjectiveExercises, isObjectiveLessonPlans, type ObjectiveExercise, type ObjectiveUnit, type Objective, type ObjectiveLessonPlan } from '../src/topmaths/types/objective.js'
-import { emptyUnitFlashQuestion, isUnit, isUnitMentalCalculations, type UnitMentalCalculation, type Unit, type UnitObjective, emptyUnitDownloadLinks } from '../src/topmaths/types/unit.js'
+import { emptyObjective, emptyObjectiveVideo, isObjective, isObjectiveExercises, isObjectiveLessonPlans, type ObjectiveExercise, type ObjectiveUnit, type Objective, type ObjectiveLessonPlan, emptyObjectiveExercise } from '../src/topmaths/types/objective.js'
+import { isUnit, isUnitMentalCalculations, type UnitMentalCalculation, type Unit, type UnitObjective, emptyUnitDownloadLinks, emptyUnitMentalCalculation, type UnitFlashQuestion, isUnitFlashQuestions } from '../src/topmaths/types/unit.js'
 import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
 
 const ORIGIN = 'https://topmaths.fr'
@@ -25,6 +25,7 @@ const THIRD_PARTY_WEBSITES = [
 ]
 
 let warningCount = 0
+let exerciseNumber = 1
 const units: Unit[] = buildUnits()
 const objectives: Objective[] = buildObjectives()
 updateUnits()
@@ -52,12 +53,12 @@ function buildUnits (): Unit[] {
       unit.assessmentExamSlug = unit.assessmentExamSlug ?? ''
       unit.assessmentLink = unit.assessmentLink ?? ''
       unit.downloadLinks = emptyUnitDownloadLinks
-      unit.flashQuestions = unit.flashQuestions ? unit.flashQuestions.map(flashQuestion => Object.assign({}, emptyUnitFlashQuestion, flashQuestion)) : []
+      unit.flashQuestions = buildFlashQuestions(unit)
       unit.flashQuestionsLink = buildFlashQuestionsLink(unit)
       const unitGradeCandidate = grade.name
       if (!isStringGrade(unitGradeCandidate)) { console.error('grade name', grade.name); throw new Error('Grade name incorrect') }
       unit.grade = unitGradeCandidate
-      unit.mentalCalculations = buildMentalCalculations(unit)
+      unit.mentalCalculations = formatUnitMentalCalculations(unit.mentalCalculations)
       unit.number = unitNumber
       unit.objectives = unit.objectives ? unit.objectives.map(objective => Object.assign({}, emptyObjective, objective)) : []
       unit.period = unit.period ?? 0
@@ -103,14 +104,15 @@ function buildObjectives (): Objective[] {
         for (const objective of subTheme.objectives) {
           if (objective === undefined) { console.error(objective); throw new Error('Objective is undefined') }
           if (objective.reference === undefined) { console.error(objective); throw new Error('Objective reference is undefined') }
+          exerciseNumber = 1
           objective.downloadLinks = {
             practiceSheetLink: buildDownloadLink('entrainement', objective.reference),
             testSheetLink: buildDownloadLink('test', objective.reference),
             lessonPlanLinks: buildLessonPlanDownloadLinks(objective.reference)
           }
-          objective.examExercises = getExercicesAvecLienEtId(objective.reference, objective.examExercises)
+          objective.examExercises = buildExercises(objective.reference, objective.examExercises)
           objective.examExercisesLink = getLienExercices(objective.examExercises)
-          objective.exercises = getExercicesAvecLienEtId(objective.reference, objective.exercises)
+          objective.exercises = buildExercises(objective.reference, objective.exercises)
           objective.exercisesLink = getLienExercices(objective.exercises)
           const stringGradeCandidate = objective.reference.slice(0, 1) + 'e'
           objective.grade = isStringGrade(stringGradeCandidate) ? stringGradeCandidate : 'none'
@@ -145,6 +147,7 @@ function updateUnits (): void {
     updateUnitFlashQuestions(unit, objectives)
     updateUnitAssessmentLink(unit, objectives)
     updateUnitLessonPlans(unit)
+    unit.mentalCalculations = buildMentalCalculations(unit)
     unit.downloadLinks = {
       lessonLink: buildDownloadLink('cours', unit.reference),
       lessonSummaryLink: buildDownloadLink('resume', unit.reference),
@@ -303,6 +306,20 @@ function routineCheck (): void {
   checkDuplicatesExamExercises()
 }
 
+function formatUnitMentalCalculations (mentalCalculations: (RecursivePartial<UnitMentalCalculation> | undefined)[] | undefined): UnitMentalCalculation[] {
+  if (!mentalCalculations) return []
+  return mentalCalculations
+    .filter(mentalCalculation => mentalCalculation !== undefined)
+    .map(mentalCalculation => {
+      let exercises: ObjectiveExercise[] = []
+      if (mentalCalculation.exercises) {
+        exercises = mentalCalculation.exercises.map(exercise => Object.assign({}, emptyObjectiveExercise, exercise))
+      }
+      mentalCalculation.exercises = exercises
+      return Object.assign({}, emptyUnitMentalCalculation, mentalCalculation)
+    })
+}
+
 function buildMentalCalculations (unit: RecursivePartial<Unit>): UnitMentalCalculation[] {
   if (unit.mentalCalculations === undefined) return []
   let numeroExercice = 1
@@ -343,12 +360,32 @@ function buildUnitReference (unit: RecursivePartial<Unit>): string {
   return `S${unit.grade.slice(0, 1)}S${unit.number}`
 }
 
+function buildFlashQuestions (unit: RecursivePartial<Unit>): UnitFlashQuestion[] {
+  if (unit.flashQuestions === undefined) return []
+  const flashQuestions = unit.flashQuestions
+    .filter(flashQuestion => flashQuestion !== undefined)
+    .map(flashQuestion => {
+      flashQuestion.title = flashQuestion.title ?? ''
+      flashQuestion.titleAcademic = flashQuestion.titleAcademic ?? ''
+      flashQuestion.reference = flashQuestion.reference ?? ''
+      flashQuestion.slug = flashQuestion.slug ? formatSlug(flashQuestion.slug) : ''
+      flashQuestion.isRelatedObjectivePageAvailable = flashQuestion.isRelatedObjectivePageAvailable ?? false
+      flashQuestion.theme = flashQuestion.theme ?? ''
+      return flashQuestion
+    })
+  if (!isUnitFlashQuestions(flashQuestions)) {
+    console.error(flashQuestions)
+    throw new Error('Flash questions are not UnitFlashQuestions')
+  }
+  return flashQuestions
+}
+
 function buildFlashQuestionsLink (unit: RecursivePartial<Unit>): string {
   if (!unit.flashQuestions) return ''
   let flashQuestionsLink = COOPMATHS_URL + V3_ADDENDUM
   unit.flashQuestions.forEach(flashQuestion => {
     if (flashQuestion !== undefined && flashQuestion.slug !== '') {
-      flashQuestionsLink += formaterSlug(flashQuestion.slug) + '&'
+      flashQuestionsLink += flashQuestion.slug + '&'
     }
   })
   return flashQuestionsLink.slice(0, -1)
@@ -399,9 +436,8 @@ function getLienExercices (exercises: (RecursivePartial<ObjectiveExercise> | und
   exercises
     .filter(exercice => exercice !== undefined)
     .forEach(exercice => {
-      const slug = formaterSlug(exercice.slug)
-      if (slug !== '') {
-        lienExercices = lienExercices.concat(slug, '&i=0&')
+      if (exercice.slug) {
+        lienExercices = lienExercices.concat(exercice.slug, '&i=0&')
         nbExercices++
       }
     })
@@ -410,26 +446,25 @@ function getLienExercices (exercises: (RecursivePartial<ObjectiveExercise> | und
   return lienExercices
 }
 
-function getExercicesAvecLienEtId (reference: string, exercices: (RecursivePartial<ObjectiveExercise> | undefined)[] | undefined): ObjectiveExercise[] {
-  if (exercices === undefined || exercices.length === 0) return []
-  let numeroExercice = 1
-  exercices
-    .filter(exercice => exercice !== undefined)
-    .map(exercice => {
-      exercice.id = reference + '-' + numeroExercice
-      exercice.slug = formaterSlug(exercice.slug)
-      exercice.link = getLienExercice(exercice.slug)
-      exercice.isInteractive = exercice.isInteractive ?? false
-      exercice.description = exercice.description ?? ''
-      exercice.isInCart = exercice.isInCart ?? false
-      numeroExercice++
-      return exercice
+function buildExercises (reference: string, exercises: (RecursivePartial<ObjectiveExercise> | undefined)[] | undefined): ObjectiveExercise[] {
+  if (exercises === undefined || exercises.length === 0) return []
+  exercises = exercises
+    .filter(exercise => exercise !== undefined)
+    .map(exercise => {
+      exercise.id = reference + '-' + exerciseNumber
+      exercise.slug = formatSlug(exercise.slug)
+      exercise.link = getLienExercice(exercise.slug)
+      exercise.isInteractive = exercise.isInteractive ?? false
+      exercise.description = exercise.description ?? ''
+      exercise.isInCart = exercise.isInCart ?? false
+      exerciseNumber++
+      return exercise
     })
-  if (!isObjectiveExercises(exercices)) {
-    console.error(exercices)
+  if (!isObjectiveExercises(exercises)) {
+    console.error(exercises)
     throw new Error('Exercises are not ObjectiveExercises')
   }
-  return exercices
+  return exercises
 }
 
 function getFiches (fiches: (RecursivePartial<ObjectiveLessonPlan> | undefined)[] | undefined): ObjectiveLessonPlan[] {
@@ -647,7 +682,7 @@ function getLienExercice (slug: string | undefined, calculMental = false): strin
         lien = `${COOPMATHS_URL + V2_ADDENDUM}${slug},i=0`
         lien = convertV2ToV3(lien)
       } else { // c'est un slug v3
-        lien = COOPMATHS_URL + V3_ADDENDUM + formaterSlug(slug) + '&i=0'
+        lien = COOPMATHS_URL + V3_ADDENDUM + slug + '&i=0'
       }
       lien = lien.replace(/&uuid=/g, '&i=0&uuid=') // dans le cas où il y aurait plusieurs exercices dans le même slug
       if (calculMental) {
@@ -710,11 +745,11 @@ function getSlugsObjectifsSequence (sequence: Unit, objectives: Objective[]): st
     .filter(objective => sequence.objectives.map(objectifSequence => objectifSequence.reference).includes(objective.reference))
     .map(objectif => objectif.exercises)
     .flat()
-    .map(exercice => formaterSlug(exercice.slug))
+    .map(exercice => exercice.slug)
     .filter(slug => slug !== '')
 }
 
-function formaterSlug (slug: string | undefined): string {
+function formatSlug (slug: string | undefined): string {
   if (slug === undefined || slug === '') return ''
   if (slug.slice(0, 4) === 'uuid') return slug
   if (slug.slice(0, 2) === 'id') return ajouterUuid(slug)
