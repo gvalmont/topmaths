@@ -1,6 +1,5 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import refToUuidJson from '../src/json/refToUuidFR.json' assert { type: 'json' }
 import definitionsJson from '../src/topmaths/json/glossary/definitions.json' assert { type: 'json' }
 import propertiesJson from '../src/topmaths/json/glossary/properties.json' assert { type: 'json' }
 import objectivesMasterJson from '../src/topmaths/json/objectives.json' assert { type: 'json' }
@@ -712,17 +711,13 @@ function estCoopmaths (url: string): boolean {
 function isV2Slug (slug: string): boolean {
   return slug.slice(0, 2) === 'ex'
 }
-function isV2Link (url: string): boolean {
-  const V2BaseUrl = COOPMATHS_URL + V2_ADDENDUM
-  return url.slice(0, V2BaseUrl.length) === V2BaseUrl
-}
 
 function isV3Slug (slug: string): boolean {
   return slug.slice(0, 4) === 'uuid'
 }
-function isV3Link (url: string): boolean {
-  const V3BaseUrl = COOPMATHS_URL + V3_ADDENDUM
-  return url.slice(0, V3BaseUrl.length) === V3BaseUrl
+
+function isFullLink (link: string): boolean {
+  return link.slice(0, 4) === 'http'
 }
 
 function convertV2ToV3 (link: string): string {
@@ -748,26 +743,10 @@ function getSlugsObjectifsSequence (sequence: Unit, objectives: Objective[]): st
     .map(exercice => exercice.slug)
     .filter(slug => slug !== '')
 }
-
 function formatSlug (slug: string | undefined): string {
   if (slug === undefined || slug === '') return ''
-  if (slug.slice(0, 4) === 'uuid') return slug
-  if (slug.slice(0, 2) === 'id') return ajouterUuid(slug)
-  if (slug.slice(0, 4) !== 'http') return convertV2ToV3('ex=' + slug)
-  if (isV2Link(slug)) return ajouterUuid(convertV2ToV3(slug)).slice((COOPMATHS_URL + V3_ADDENDUM).length)
-  if (isV3Link(slug)) return ajouterUuid(slug).slice((COOPMATHS_URL + V3_ADDENDUM).length)
-  else return slug
-}
-
-function ajouterUuid (slug: string): string {
-  return 'uuid=' + getUuid(slug.split('&')[0].split(',')[0].split('=')[1]) + '&' + slug
-}
-type RefToUuidMap = {
-  [key: string]: string;
-};
-function getUuid (id: string): unknown {
-  const refToUuid: RefToUuidMap = refToUuidJson
-  return refToUuid[id]
+  if (isV3Slug(slug) || isFullLink(slug)) return slug
+  return convertV2ToV3('ex=' + slug)
 }
 
 function buildLessonPlanDownloadLinks (reference: string): Record<StringGrade, string> {
