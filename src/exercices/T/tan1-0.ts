@@ -1,16 +1,16 @@
-import Exercice from '../Exercice'
+import Exercice from '../Exercice.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
-import { texNombre } from '../../lib/outils/texNombre'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { pgcd } from '../../lib/outils/primalite'
-import { fraction } from '../../modules/fractions'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { texNombre } from '../../lib/outils/texNombre.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { pgcd } from '../../lib/outils/primalite.js'
+import { fraction } from '../../modules/fractions.js'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
 
-export const titre = 'Résolution d\'inéquations du type $a^x \\leq b$'
+export const titre = 'Résolution d\'inéquations du type $a^x \\leq b$ avec log'
 export const dateDePublication = '4/5/2024'
 export const dateDeModificationImportante = '18/07/2024'
 export const uuid = '00a7a'
@@ -29,8 +29,12 @@ export const refs = {
 export default class InequationsLog extends Exercice {
   constructor () {
     super()
-    this.consigne = 'Résoudre dans $\\R$ les inéquations suivantes. Les solutions devront être écrites sous la forme d\'un intervalle.'
-    this.nbQuestions = 6
+    this.nbQuestions = 5
+    if (this.nbQuestions === 1) {
+      this.consigne = 'Résoudre l\'inéquation suivante. La solution devra être écrite sous la forme d\'un intervalle.'
+    } else {
+      this.consigne = 'Résoudre les inéquations suivantes. Les solutions devront être écrites sous la forme d\'un intervalle.'
+    }
     this.spacingCorr = 3
     this.sup = '4'
     this.besoinFormulaireTexte = ['Type de question (nombre séparés par des tirets', '1 : Borne rationnelle\n2 : Borne entière\n3 : Borne irrationnelle\n4 : Mélange']
@@ -209,9 +213,8 @@ export default class InequationsLog extends Exercice {
               : `<br>Or, $${logString}(${stringB})=${logString}(${texNombre(base, 5)}^{${quotient[0]}})=${quotient[0]}${logString}(${texNombre(base, 5)})$ et $${logString}(${stringA})=${logString}(${texNombre(base, 5)}^{${quotient[1]}})=${quotient[1]}${logString}(${texNombre(base, 5)})$ donc $\\dfrac{${logString}(${stringB})}{${logString}(${stringA})}=\\dfrac{${quotient[0]}${logString}(${texNombre(base, 5)})}{${quotient[1]}${logString}(${texNombre(base, 5)})}= ${resultat}$. `
           : `<br>Or, $\\dfrac{${logString}(${stringB})}{${logString}(${stringA})}= ${resultat}$.  `
       }
-      texteCorr += `<br>Ainsi $S=${miseEnEvidence(answer)}$`
+      texteCorr += `<br>Ainsi, $S=${miseEnEvidence(answer)}$`
       if (this.interactif) {
-        // @ts-expect-error problème typage
         handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison, options: { intervalle: true } } })
         texte += '<br>$S= $'
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.logPuissance)

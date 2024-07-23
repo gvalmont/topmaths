@@ -65,7 +65,8 @@
     "test:e2e:console_errors": "vitest --config tests/e2e/vitest.config.console_errors.js --run",
     "test:e2e:views": "vitest --config tests/e2e/vitest.config.view.js --run",
     "test:e2e:consistency": "vitest --config tests/e2e/vitest.config.consistency.js --run",
-    "screenshot": "vitest --config tests/e2e/vitest.config.screenshot.js --run"
+    "screenshot": "vitest --config tests/e2e/vitest.config.screenshot.js --run",
+    "prepare": "husky"
   },
   "dependencies": {
     "@bugsnag/js": "^7.25.0",
@@ -82,6 +83,8 @@
     "docdash": "^2.0.2",
     "earcut": "^2.2.4",
     "file-saver": "^2.0.5",
+    "git-precommit-checks": "^3.1.0",
+    "husky": "^9.1.1",
     "instrumenpoche": "git+https://git.sesamath.net/sesamath/instrumenpoche.git",
     "jsdoc": "^4.0.3",
     "jszip": "^3.10.1",
@@ -148,6 +151,37 @@
     "util": "^0.12.5",
     "vite": "^5.3.3"
   },
+  "git-precommit-checks": {
+  "display": {
+    "notifications": true,
+    "offendingContent": true,
+    "rulesSummary": true,
+    "shortStats": true,
+    "verbose": true
+  },
+  "rules": [
+    {
+      "filter": "\\.js$|\\.ts$",
+      "nonBlocking": "true",
+      "message": "🤫 Oula, aurais-tu oublié des `console.log` inopportuns ?",
+      "regex": "console\\.log"
+    },
+    {
+      "message": "😨 On dirait que tu as oublié des marqueurs de conflits",
+      "regex": "/^[<>|=]{4,}/m"
+    },
+    {
+      "message": "🤔 Aurais-tu oublié de finir des développement ?",
+      "nonBlocking": "true",
+      "regex": "(?:FIXME|TODO)"
+    }
+  ]
+},
+"husky": {
+  "hooks": {
+    "pre-commit": "git-precommit-checks"
+  }
+},
   "pnpm": {
     "overrides": {
       "typed-function@<0.10.6": ">=4.0.0",

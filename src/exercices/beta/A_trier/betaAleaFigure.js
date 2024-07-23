@@ -2,7 +2,7 @@ import Exercice from '../../deprecatedExercice.js'
 import { context } from '../../../modules/context.js'
 import { listeQuestionsToContenu } from '../../../modules/outils.js'
 import { parse, create, all, unit } from 'mathjs'
-import { toString, aleaVariables, assignVariables, calculer, toTex, resoudre, aleaName } from '../../../modules/outilsMathjs.js'
+import { toString, aleaVariables, assignVariables, calculer, toTex, resoudre, aleaName } from '../../../modules/outilsMathjs.ts'
 import { GVGraphicView } from '../../../modules/aleaFigure/GraphicView.js'
 import { GVGrandeur } from '../../../modules/aleaFigure/grandeurs.js'
 import { GVLine, GVSegment, GVVector, GVPoint } from '../../../modules/aleaFigure/elements.js'
@@ -83,7 +83,7 @@ export default function ExercicesThales () {
         nquestion = this.sup
       }
       if (dDebug) {
-        console.log(`
+        console.info(`
           ********************************
           Exercice ${i + 1} Case ${nquestion}
           ********************************`)
