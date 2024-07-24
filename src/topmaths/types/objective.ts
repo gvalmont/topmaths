@@ -1,4 +1,4 @@
-import { emptyRecordStringGrade, isRecordStringGrade, isStringGrade, isStringGrades, isStrings, type StringGrade } from './shared.js'
+import { emptyArrayRecordStringGrade, isArrayRecordStringGrade, isStringGrade, isStringGrades, isStrings, type StringGrade } from './shared.js'
 
 export type ObjectiveVideo = {
   title: string,
@@ -9,7 +9,7 @@ export type ObjectiveVideo = {
 export function isObjectiveVideo (obj: unknown): obj is ObjectiveVideo {
   if (obj == null || typeof obj !== 'object') return false
   return 'title' in obj && typeof obj.title === 'string' &&
-    'slug' in obj && typeof obj.slug === 'string' &&
+    'videoLink' in obj && typeof obj.videoLink === 'string' &&
     'authorName' in obj && typeof obj.authorName === 'string' &&
     'authorLink' in obj && typeof obj.authorLink === 'string'
 }
@@ -117,18 +117,18 @@ export const emptyObjectiveUnit: ObjectiveUnit = {
 export type ObjectiveDownloadLinks = {
   practiceSheetLink: string,
   testSheetLink: string,
-  lessonPlanLinks: Record<StringGrade, string>
+  lessonPlanLinks: Record<StringGrade, string[]>
 }
 export function isObjectiveDownloadLinks (obj: unknown): obj is ObjectiveDownloadLinks {
   if (obj == null || typeof obj !== 'object') return false
   return 'practiceSheetLink' in obj && typeof obj.practiceSheetLink === 'string' &&
     'testSheetLink' in obj && typeof obj.testSheetLink === 'string' &&
-    'lessonPlanLinks' in obj && isRecordStringGrade(obj.lessonPlanLinks)
+    'lessonPlanLinks' in obj && isArrayRecordStringGrade(obj.lessonPlanLinks)
 }
 export const emptyObjectiveDownloadLinks: ObjectiveDownloadLinks = {
   practiceSheetLink: '',
   testSheetLink: '',
-  lessonPlanLinks: emptyRecordStringGrade
+  lessonPlanLinks: emptyArrayRecordStringGrade
 }
 
 export type Objective = {

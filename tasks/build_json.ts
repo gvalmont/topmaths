@@ -5,10 +5,11 @@ import propertiesJson from '../src/topmaths/json/glossary/properties.json' asser
 import objectivesMasterJson from '../src/topmaths/json/objectives.json' assert { type: 'json' }
 import unitsMasterJson from '../src/topmaths/json/units.json' assert { type: 'json' }
 import type { RecursivePartial } from '../src/lib/types.js'
-import { isStringGrade, type StringGrade } from '../src/topmaths/types/shared.js'
+import { emptyArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/shared.js'
 import { emptyObjective, emptyObjectiveVideo, isObjective, isObjectiveExercises, isObjectiveLessonPlans, type ObjectiveExercise, type ObjectiveUnit, type Objective, type ObjectiveLessonPlan, emptyObjectiveExercise } from '../src/topmaths/types/objective.js'
 import { isUnit, isUnitMentalCalculations, type UnitMentalCalculation, type Unit, type UnitObjective, emptyUnitDownloadLinks, emptyUnitMentalCalculation, type UnitFlashQuestion, isUnitFlashQuestions } from '../src/topmaths/types/unit.js'
 import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
+import { countLessonPlans } from './helpers/lesson_plans.js'
 
 const ORIGIN = 'https://topmaths.fr'
 const COOPMATHS_URL = 'https://coopmaths.fr/'
@@ -105,17 +106,17 @@ function buildObjectives (): Objective[] {
           if (objective === undefined) { console.error(objective); throw new Error('Objective is undefined') }
           if (objective.reference === undefined) { console.error(objective); throw new Error('Objective reference is undefined') }
           exerciseNumber = 1
+          objective.lessonPlans = buildObjectiveLessonPlans(objective.lessonPlans)
           objective.downloadLinks = {
             practiceSheetLink: buildDownloadLink('entrainement', objective.reference, grade.name),
             testSheetLink: buildDownloadLink('test', objective.reference, grade.name),
-            lessonPlanLinks: buildLessonPlanDownloadLinks(objective.reference, grade.name)
+            lessonPlanLinks: buildLessonPlanDownloadLinks(objective, grade.name)
           }
           objective.examExercises = buildExercises(objective.reference, objective.examExercises)
           objective.examExercisesLink = buildExercisesLink(objective.examExercises)
           objective.exercises = buildExercises(objective.reference, objective.exercises)
           objective.exercisesLink = buildExercisesLink(objective.exercises)
           objective.grade = grade.name
-          objective.lessonPlans = buildObjectiveLessonPlans(objective.lessonPlans)
           objective.lessonSummaryHTML = objective.lessonSummaryHTML ?? ''
           objective.lessonSummaryImage = getRappelDuCoursImage(objective)
           objective.lessonSummaryInstrumenpoche = objective.lessonSummaryInstrumenpoche ?? ''
@@ -145,7 +146,6 @@ function updateUnits (): void {
     updateUnitMentalCalculations(unit, objectives)
     updateUnitFlashQuestions(unit, objectives)
     updateUnitAssessmentLink(unit, objectives)
-    updateUnitLessonPlans(unit)
     unit.mentalCalculations = buildMentalCalculations(unit)
     unit.downloadLinks = {
       lessonLink: buildDownloadLink('cours', unit.reference, unit.grade),
@@ -582,34 +582,6 @@ function updateUnitAssessmentLink (unit: Unit, objectives: Objective[]): void {
   unit.assessmentLink = lienEval
 }
 
-function updateUnitLessonPlans (sequence: Unit): void {
-  for (const objectifSequence of sequence.objectives) {
-    if (objectifSequence.lessonPlans.length > 0) {
-      let numeroFiche = 1
-      for (const fiche of objectifSequence.lessonPlans) {
-        if (fiche.grades.length === 0 || fiche.grades.includes(sequence.grade)) {
-          const nbFiches = getNbFiches(objectifSequence, sequence.grade)
-          fiche.reference = objectifSequence.reference + (nbFiches > 1 ? '-' + numeroFiche : '')
-          numeroFiche++
-        }
-      }
-    }
-  }
-}
-
-function getNbFiches (objectif: UnitObjective, niveauSequence: string): number {
-  let nbFiches = 0
-  for (const fiche of objectif.lessonPlans) {
-    if (fiche.grades.length === 0) nbFiches++
-    else {
-      for (const niveauFiche of fiche.grades) {
-        if (niveauFiche === niveauSequence) nbFiches++
-      }
-    }
-  }
-  return nbFiches
-}
-
 function buildGlossary (): GlossaryUniteItem[] {
   const definitions: RecursivePartial<GlossaryMasterItem>[] = definitionsJson
   const properties: Partial<GlossaryMasterItem>[] = propertiesJson
@@ -758,17 +730,34 @@ function formatSlug (slug: string | undefined): string {
   return convertV2ToV3('ex=' + slug)
 }
 
-function buildLessonPlanDownloadLinks (reference: string, lessonPlanGrade: StringGrade): Record<StringGrade, string> {
-  return {
-    '6e': buildDownloadLink('fiche', `6e_${reference}`, lessonPlanGrade),
-    '5e': buildDownloadLink('fiche', `5e_${reference}`, lessonPlanGrade),
-    '4e': buildDownloadLink('fiche', `4e_${reference}`, lessonPlanGrade),
-    '3e': buildDownloadLink('fiche', `3e_${reference}`, lessonPlanGrade),
-    none: ''
-  }
+function buildLessonPlanDownloadLinks (objective: RecursivePartial<Objective>, objectiveGrade: StringGrade): Record<StringGrade, string[]> {
+  const downloadLinks: Record<StringGrade, string[]> = Object.assign({}, emptyArrayRecordStringGrade)
+  stringGradeValidKeys.forEach(grade => {
+    downloadLinks[grade] = []
+  })
+  if (!objective.lessonPlans || objective.lessonPlans.length === 0) return downloadLinks
+  stringGradeValidKeys.forEach(grade => {
+    if (!objective.lessonPlans) { console.error(objective); throw new Error('Objective lesson plans is undefined') }
+    const lessonPlanCount = countLessonPlans(objective, grade)
+    const isMultipleLessonPlans = lessonPlanCount > 1
+    let lessonPlanNumber = 1
+    objective.lessonPlans.forEach(lessonPlan => {
+      if (!objective.reference) { console.error(objective); throw new Error('Objective reference is undefined') }
+      if (!lessonPlan) { console.error(objective); throw new Error('Lesson plan is undefined') }
+      if (!lessonPlan.grades) { console.error(objective); throw new Error('Lesson plan grades is undefined') }
+      if (lessonPlan.grades.length === 0 || lessonPlan.grades.includes(grade)) {
+        const downloadLink = buildDownloadLink('fiche', `${grade}_${objective.reference}`, objectiveGrade, isMultipleLessonPlans ? `-${lessonPlanNumber}` : '')
+        if (downloadLink !== '') {
+          downloadLinks[grade].push(downloadLink)
+        }
+        lessonPlanNumber++
+      }
+    })
+  })
+  return downloadLinks
 }
 
-function buildDownloadLink (type: 'cours' | 'entrainement' | 'test' | 'resume' | 'mission' | 'fiche', reference: string, grade: StringGrade): string {
+function buildDownloadLink (type: 'cours' | 'entrainement' | 'test' | 'resume' | 'mission' | 'fiche', reference: string, grade: StringGrade, addendum: string = ''): string {
   let basePath = `./public/topmaths/${type}${type === 'cours' ? '' : 's'}/`
   if (type === 'fiche') {
     const isLessonReference = reference.charAt(0) === 'S'
@@ -779,8 +768,8 @@ function buildDownloadLink (type: 'cours' | 'entrainement' | 'test' | 'resume' |
     }
   }
   basePath += `${grade}/`
-  const currentPath = basePath + `${reference}_${upperFirstChar(type)}.pdf`
-  const legacyPath = basePath + `${upperFirstChar(type)}_${reference}.pdf`
+  const currentPath = basePath + `${reference}_${upperFirstChar(type)}${addendum}.pdf`
+  const legacyPath = basePath + `${upperFirstChar(type)}_${reference}${addendum}.pdf`
   if (fs.existsSync(currentPath)) {
     return currentPath.replace('./public/', '')
   } else if (fs.existsSync(legacyPath)) {

@@ -5,6 +5,7 @@ import { isStringGrade, type StringGrade } from '../src/topmaths/types/shared.js
 import type { ObjectiveLessonPlan } from '../src/topmaths/types/objective.js'
 import { isUnits, type Unit, type UnitObjective } from '../src/topmaths/types/unit.js'
 import units from '../src/topmaths/json/sequences_modifiees.json' assert { type: 'json' }
+import { countLessonPlans, getLessonPlanReference } from './helpers/lesson_plans.js'
 
 let fichePrecedenteSequence: ObjectiveLessonPlan = {
   startSteps: [],
@@ -166,11 +167,11 @@ function genererTypFichesObjectif (objectif: UnitObjective, niveauSequence: Stri
 }
 
 function genererTypFicheObjectif (niveauSequence: StringGrade, objectif: UnitObjective, fiche: ObjectiveLessonPlan, indiceFiche: number): void {
-  const nombreTotalDeFiches = getNbFiches(objectif, niveauSequence)
+  const nombreTotalDeFiches = countLessonPlans(objectif, niveauSequence)
   const plusieursFiches = nombreTotalDeFiches > 1
   const numeroFiche = indiceFiche + 1
   const sousTitre = `Fiche de séance${plusieursFiches ? ' ' + numeroFiche + ' / ' + nombreTotalDeFiches : ''}`
-  fiche.reference = objectif.reference + (plusieursFiches ? '-' + numeroFiche : '')
+  fiche.reference = getLessonPlanReference(objectif.reference, numeroFiche, plusieursFiches)
   if (fichesPrecedentes[niveauSequence].reference !== '') remplacerPlaceholderMateriel(fiche, niveauSequence)
   let typObjectif = ''
   typObjectif += `#import "../../../preambule_fiche.typ": *
@@ -193,19 +194,6 @@ function genererTypFicheObjectif (niveauSequence: StringGrade, objectif: UnitObj
   const directory = `./src/topmaths/typ/fiches/objectifs/${objectif.grade}/`
   if (!fs.existsSync(directory)) fs.mkdirSync(directory, { recursive: true })
   fs.writeFileSync(`${directory}${niveauSequence}_${fiche.reference}.typ`, typObjectif, 'utf8')
-}
-
-function getNbFiches (objectif: UnitObjective, niveauSequence: string): number {
-  let nbFiches = 0
-  for (const fiche of objectif.lessonPlans) {
-    if (fiche.grades.length === 0) nbFiches++
-    else {
-      for (const niveauFiche of fiche.grades) {
-        if (niveauFiche === niveauSequence) nbFiches++
-      }
-    }
-  }
-  return nbFiches
 }
 
 function remplacerPlaceholderMateriel (fiche: ObjectiveLessonPlan, niveauSequence: StringGrade): void {

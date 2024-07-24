@@ -16,7 +16,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=IWcz-se9Pj0&vignette=https://i.ytimg.com/vi/IWcz-se9Pj0/hqdefault.jpg&debut=0&fin=458&largeur=200&hauteur=113&st=fr,fr",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=IWcz-se9Pj0&vignette=https://i.ytimg.com/vi/IWcz-se9Pj0/hqdefault.jpg&debut=0&fin=458&largeur=200&hauteur=113&st=fr,fr",
                     "authorName": "Maître Lucas",
                     "authorLink": "https://www.youtube.com/@MaitreLucas"
                   }
@@ -68,7 +68,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=f9MHkY8D7Kw&vignette=https://i.ytimg.com/vi/f9MHkY8D7Kw/hqdefault.jpg&debut=0&fin=109&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=f9MHkY8D7Kw&vignette=https://i.ytimg.com/vi/f9MHkY8D7Kw/hqdefault.jpg&debut=0&fin=109&largeur=200&hauteur=150",
                     "authorName": "Pigerlesmaths",
                     "authorLink": "https://www.youtube.com/c/Pigerlesmaths"
                   }
@@ -109,13 +109,13 @@
                 "videos": [
                   {
                     "title": "Multiplier",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=pPnCPmWGqyo&vignette=https://i.ytimg.com/vi/pPnCPmWGqyo/hqdefault.jpg&debut=0&fin=344&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=pPnCPmWGqyo&vignette=https://i.ytimg.com/vi/pPnCPmWGqyo/hqdefault.jpg&debut=0&fin=344&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   },
                   {
                     "title": "Diviser",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=pLlBl2V1CC4&vignette=https://i.ytimg.com/vi/pLlBl2V1CC4/hqdefault.jpg&debut=0&fin=362&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=pLlBl2V1CC4&vignette=https://i.ytimg.com/vi/pLlBl2V1CC4/hqdefault.jpg&debut=0&fin=362&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -163,13 +163,13 @@
                 "videos": [
                   {
                     "title": "Multiplier par 0,1 ; 0,01 ; 0,001",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=NV-TPaYXXLg&vignette=https://i.ytimg.com/vi/NV-TPaYXXLg/hqdefault.jpg&debut=0&fin=304&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=NV-TPaYXXLg&vignette=https://i.ytimg.com/vi/NV-TPaYXXLg/hqdefault.jpg&debut=0&fin=304&largeur=200&hauteur=113",
                     "authorName": "jean-yves Labouche",
                     "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   },
                   {
                     "title": "Diviser par 0,1 ; 0,01 ; 0,001",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=8PKKNGOVziI&vignette=https://i.ytimg.com/vi/8PKKNGOVziI/hqdefault.jpg&debut=0&fin=128&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=8PKKNGOVziI&vignette=https://i.ytimg.com/vi/8PKKNGOVziI/hqdefault.jpg&debut=0&fin=128&largeur=200&hauteur=113",
                     "authorName": "Maîtresse Cécile",
                     "authorLink": "https://www.youtube.com/@maitressececile4890"
                   }
@@ -209,7 +209,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=2-JfYiX6Wk4&vignette=https://i.ytimg.com/vi/2-JfYiX6Wk4/hqdefault.jpg&debut=0&fin=227&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=2-JfYiX6Wk4&vignette=https://i.ytimg.com/vi/2-JfYiX6Wk4/hqdefault.jpg&debut=0&fin=227&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -252,19 +252,19 @@
                 "videos": [
                   {
                     "title": "Poser une addition ou une soustraction",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=OG36kaybrdw&vignette=https://i.ytimg.com/vi/OG36kaybrdw/hqdefault.jpg&debut=0&fin=177&largeur=200&hauteur=113&st=fr,fr",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=OG36kaybrdw&vignette=https://i.ytimg.com/vi/OG36kaybrdw/hqdefault.jpg&debut=0&fin=177&largeur=200&hauteur=113&st=fr,fr",
                     "authorName": "Maître Lucas",
                     "authorLink": "https://www.youtube.com/@MaitreLucas"
                   },
                   {
                     "title": "Rappel : soustractions avec retenues",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=ZkjHrm0yOkU&vignette=https://i.ytimg.com/vi/ZkjHrm0yOkU/hqdefault.jpg&debut=0&fin=382&largeur=200&hauteur=113&st=fr,fr",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=ZkjHrm0yOkU&vignette=https://i.ytimg.com/vi/ZkjHrm0yOkU/hqdefault.jpg&debut=0&fin=382&largeur=200&hauteur=113&st=fr,fr",
                     "authorName": "Maître Lucas",
                     "authorLink": "https://www.youtube.com/@MaitreLucas"
                   },
                   {
                     "title": "Poser une multiplication",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=4YQi_icWTTI&vignette=https://i.ytimg.com/vi/4YQi_icWTTI/hqdefault.jpg&debut=0&fin=571&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=4YQi_icWTTI&vignette=https://i.ytimg.com/vi/4YQi_icWTTI/hqdefault.jpg&debut=0&fin=571&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -289,13 +289,13 @@
                 "videos": [
                   {
                     "title": "Diviseur à 1 chiffre",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=ZIwmQ3KSMH0&vignette=https://i.ytimg.com/vi/ZIwmQ3KSMH0/hqdefault.jpg&debut=0&fin=392&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=ZIwmQ3KSMH0&vignette=https://i.ytimg.com/vi/ZIwmQ3KSMH0/hqdefault.jpg&debut=0&fin=392&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   },
                   {
                     "title": "Diviseur à 2 chiffres",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=2Ocfhucc58g&vignette=https://i.ytimg.com/vi/2Ocfhucc58g/hqdefault.jpg&debut=0&fin=671&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=2Ocfhucc58g&vignette=https://i.ytimg.com/vi/2Ocfhucc58g/hqdefault.jpg&debut=0&fin=671&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -320,19 +320,19 @@
                 "videos": [
                   {
                     "title": "Diviser un nombre entier",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=RbkDd_p_EVU&vignette=https://i.ytimg.com/vi/RbkDd_p_EVU/hqdefault.jpg&debut=0&fin=436&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=RbkDd_p_EVU&vignette=https://i.ytimg.com/vi/RbkDd_p_EVU/hqdefault.jpg&debut=0&fin=436&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   },
                   {
                     "title": "Diviser un nombre décimal",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=kagPFHfG-ZU&vignette=https://i.ytimg.com/vi/kagPFHfG-ZU/hqdefault.jpg&debut=0&fin=335&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=kagPFHfG-ZU&vignette=https://i.ytimg.com/vi/kagPFHfG-ZU/hqdefault.jpg&debut=0&fin=335&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   },
                   {
                     "title": "Poser une division qui ne s'arrête jamais",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=CnuDwxwNl9k&vignette=https://i.ytimg.com/vi/CnuDwxwNl9k/hqdefault.jpg&debut=0&fin=515&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=CnuDwxwNl9k&vignette=https://i.ytimg.com/vi/CnuDwxwNl9k/hqdefault.jpg&debut=0&fin=515&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -382,7 +382,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=SCcNUEyzRL0&vignette=https://i.ytimg.com/vi/SCcNUEyzRL0/hqdefault.jpg&debut=0&fin=291&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=SCcNUEyzRL0&vignette=https://i.ytimg.com/vi/SCcNUEyzRL0/hqdefault.jpg&debut=0&fin=291&largeur=200&hauteur=150",
                     "authorName": "Laure CAILLY",
                     "authorLink": "https://www.youtube.com/@LaureCAILLY"
                   }
@@ -434,7 +434,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=a-IG_bjKeJc&vignette=https://i.ytimg.com/vi/a-IG_bjKeJc/hqdefault.jpg&debut=0&fin=462&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=a-IG_bjKeJc&vignette=https://i.ytimg.com/vi/a-IG_bjKeJc/hqdefault.jpg&debut=0&fin=462&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -519,7 +519,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=UG4pHmYmwb4&vignette=https://i.ytimg.com/vi/UG4pHmYmwb4/hqdefault.jpg&debut=0&fin=330&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=UG4pHmYmwb4&vignette=https://i.ytimg.com/vi/UG4pHmYmwb4/hqdefault.jpg&debut=0&fin=330&largeur=200&hauteur=113",
                     "authorName": "WizAide",
                     "authorLink": "https://www.youtube.com/c/Lescouleursduprimaire"
                   }
@@ -565,7 +565,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=0J59aZmTwJA&vignette=https://i.ytimg.com/vi/0J59aZmTwJA/hqdefault.jpg&debut=0&fin=201&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=0J59aZmTwJA&vignette=https://i.ytimg.com/vi/0J59aZmTwJA/hqdefault.jpg&debut=0&fin=201&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -621,7 +621,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=0J-qLZArCmo&vignette=https://i.ytimg.com/vi/0J-qLZArCmo/hqdefault.jpg&debut=0&fin=208&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=0J-qLZArCmo&vignette=https://i.ytimg.com/vi/0J-qLZArCmo/hqdefault.jpg&debut=0&fin=208&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -658,13 +658,13 @@
                 "videos": [
                   {
                     "title": "Reconnaître des points alignés",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=IRH-DS-gvuE&vignette=https://i.ytimg.com/vi/IRH-DS-gvuE/hqdefault.jpg&debut=0&fin=49&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=IRH-DS-gvuE&vignette=https://i.ytimg.com/vi/IRH-DS-gvuE/hqdefault.jpg&debut=0&fin=49&largeur=200&hauteur=113",
                     "authorName": "mathasius",
                     "authorLink": "https://www.youtube.com/@mathasius"
                   },
                   {
                     "title": "Utiliser les symboles ∈ et ∉",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=s-KelQ875a8&vignette=https://i.ytimg.com/vi/s-KelQ875a8/hqdefault.jpg&debut=0&fin=309&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=s-KelQ875a8&vignette=https://i.ytimg.com/vi/s-KelQ875a8/hqdefault.jpg&debut=0&fin=309&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -713,7 +713,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=tUzoATZrAmc&vignette=https://i.ytimg.com/vi/tUzoATZrAmc/hqdefault.jpg&debut=0&fin=321&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=tUzoATZrAmc&vignette=https://i.ytimg.com/vi/tUzoATZrAmc/hqdefault.jpg&debut=0&fin=321&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -756,7 +756,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=7RWkYb19FiQ&vignette=https://i.ytimg.com/vi/7RWkYb19FiQ/hqdefault.jpg&debut=0&fin=420&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=7RWkYb19FiQ&vignette=https://i.ytimg.com/vi/7RWkYb19FiQ/hqdefault.jpg&debut=0&fin=420&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -807,7 +807,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=PY4XwGIeJ4s&vignette=https://i.ytimg.com/vi/PY4XwGIeJ4s/hqdefault.jpg&debut=0&fin=230&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=PY4XwGIeJ4s&vignette=https://i.ytimg.com/vi/PY4XwGIeJ4s/hqdefault.jpg&debut=0&fin=230&largeur=200&hauteur=150",
                     "authorName": "jean-yves Labouche",
                     "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   }
@@ -870,13 +870,13 @@
                 "videos": [
                   {
                     "title": "Définitions",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=zXlaaL3Y5vI&vignette=https://i.ytimg.com/vi/zXlaaL3Y5vI/hqdefault.jpg&debut=0&fin=343&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=zXlaaL3Y5vI&vignette=https://i.ytimg.com/vi/zXlaaL3Y5vI/hqdefault.jpg&debut=0&fin=343&largeur=200&hauteur=113",
                     "authorName": "Substratum",
                     "authorLink": "https://www.youtube.com/c/Substratum"
                   },
                   {
                     "title": "Comment nommer un polygone",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=x-dXftoFO1w&vignette=https://i.ytimg.com/vi/x-dXftoFO1w/hqdefault.jpg&debut=41&fin=157&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=x-dXftoFO1w&vignette=https://i.ytimg.com/vi/x-dXftoFO1w/hqdefault.jpg&debut=41&fin=157&largeur=200&hauteur=113",
                     "authorName": "MATHS - VIDEOS",
                     "authorLink": "https://www.youtube.com/c/maths-videos"
                   }
@@ -914,13 +914,13 @@
                 "videos": [
                   {
                     "title": "Triangles particuliers",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=8jm4T3A5iq0&vignette=https://i.ytimg.com/vi/8jm4T3A5iq0/hqdefault.jpg&debut=0&fin=344&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=8jm4T3A5iq0&vignette=https://i.ytimg.com/vi/8jm4T3A5iq0/hqdefault.jpg&debut=0&fin=344&largeur=200&hauteur=113",
                     "authorName": "Math Coaching",
                     "authorLink": "https://www.youtube.com/c/MathCoaching"
                   },
                   {
                     "title": "Quadrilatères particuliers",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=4_RwdgCQg_0&vignette=https://i.ytimg.com/vi/4_RwdgCQg_0/hqdefault.jpg&debut=0&fin=171&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=4_RwdgCQg_0&vignette=https://i.ytimg.com/vi/4_RwdgCQg_0/hqdefault.jpg&debut=0&fin=171&largeur=200&hauteur=113",
                     "authorName": "Chez Maîtresse Nath",
                     "authorLink": "https://www.youtube.com/channel/UCLW5CTI4eVQoFSs3Wv-R0sQ"
                   }
@@ -989,13 +989,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=rlf9CYbPp6Y&vignette=https://i.ytimg.com/vi/rlf9CYbPp6Y/hqdefault.jpg&debut=0&fin=146&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=rlf9CYbPp6Y&vignette=https://i.ytimg.com/vi/rlf9CYbPp6Y/hqdefault.jpg&debut=0&fin=146&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=-7UGauYeTdk&vignette=https://i.ytimg.com/vi/-7UGauYeTdk/hqdefault.jpg&debut=0&fin=159&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=-7UGauYeTdk&vignette=https://i.ytimg.com/vi/-7UGauYeTdk/hqdefault.jpg&debut=0&fin=159&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -1100,7 +1100,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=s5bgn6bzWbg&vignette=https://i.ytimg.com/vi/s5bgn6bzWbg/hqdefault.jpg&debut=0&fin=288&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=s5bgn6bzWbg&vignette=https://i.ytimg.com/vi/s5bgn6bzWbg/hqdefault.jpg&debut=0&fin=288&largeur=200&hauteur=113",
                     "authorName": "MinutesMaths",
                     "authorLink": "https://www.youtube.com/@Minutesmaths_"
                   }
@@ -1121,13 +1121,13 @@
                 "videos": [
                   {
                     "title": "Construire un carré",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=ESpytnoGK-A&vignette=https://i.ytimg.com/vi/ESpytnoGK-A/hqdefault.jpg&debut=0&fin=283&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=ESpytnoGK-A&vignette=https://i.ytimg.com/vi/ESpytnoGK-A/hqdefault.jpg&debut=0&fin=283&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   },
                   {
                     "title": "Construire un rectangle",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=8G3LuAAMyFU&vignette=https://i.ytimg.com/vi/8G3LuAAMyFU/hqdefault.jpg&debut=0&fin=308&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=8G3LuAAMyFU&vignette=https://i.ytimg.com/vi/8G3LuAAMyFU/hqdefault.jpg&debut=0&fin=308&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -1182,7 +1182,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=HUK6mH4arSk&vignette=https://i.ytimg.com/vi/HUK6mH4arSk/hqdefault.jpg&debut=0&fin=360&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=HUK6mH4arSk&vignette=https://i.ytimg.com/vi/HUK6mH4arSk/hqdefault.jpg&debut=0&fin=360&largeur=200&hauteur=113",
                     "authorName": "F. METROT",
                     "authorLink": "https://www.youtube.com/@f.metrot8636"
                   }
@@ -1218,7 +1218,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Re_JIKx5km0&vignette=https://i.ytimg.com/vi/Re_JIKx5km0/hqdefault.jpg&debut=0&fin=165&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=Re_JIKx5km0&vignette=https://i.ytimg.com/vi/Re_JIKx5km0/hqdefault.jpg&debut=0&fin=165&largeur=200&hauteur=113",
                     "authorName": "La classe de Mallory",
                     "authorLink": "https://www.youtube.com/@LaclassedeMallory1"
                   }
@@ -1234,7 +1234,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Re_JIKx5km0&vignette=https://i.ytimg.com/vi/Re_JIKx5km0/hqdefault.jpg&debut=165&fin=241&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=Re_JIKx5km0&vignette=https://i.ytimg.com/vi/Re_JIKx5km0/hqdefault.jpg&debut=165&fin=241&largeur=200&hauteur=113",
                     "authorName": "La classe de Mallory",
                     "authorLink": "https://www.youtube.com/@LaclassedeMallory1"
                   }
@@ -1249,7 +1249,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=DRma4hQ9rfo&vignette=https://i.ytimg.com/vi/DRma4hQ9rfo/hqdefault.jpg&debut=0&fin=107&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=DRma4hQ9rfo&vignette=https://i.ytimg.com/vi/DRma4hQ9rfo/hqdefault.jpg&debut=0&fin=107&largeur=200&hauteur=113",
                     "authorName": "Louise Grolleau",
                     "authorLink": "https://www.youtube.com/@louisegrolleau1809"
                   }
@@ -1264,7 +1264,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=DRma4hQ9rfo&vignette=https://i.ytimg.com/vi/DRma4hQ9rfo/hqdefault.jpg&debut=0&fin=107&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=DRma4hQ9rfo&vignette=https://i.ytimg.com/vi/DRma4hQ9rfo/hqdefault.jpg&debut=0&fin=107&largeur=200&hauteur=113",
                     "authorName": "Louise Grolleau",
                     "authorLink": "https://www.youtube.com/@louisegrolleau1809"
                   }
@@ -1284,13 +1284,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=JHHAakPFvBs&vignette=https://i.ytimg.com/vi/JHHAakPFvBs/hqdefault.jpg&debut=0&fin=210&largeur=16&hauteur=9",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=JHHAakPFvBs&vignette=https://i.ytimg.com/vi/JHHAakPFvBs/hqdefault.jpg&debut=0&fin=210&largeur=16&hauteur=9",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=mCC0H9pNNEY&vignette=https://i.ytimg.com/vi/mCC0H9pNNEY/hqdefault.jpg&debut=0&fin=498&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=mCC0H9pNNEY&vignette=https://i.ytimg.com/vi/mCC0H9pNNEY/hqdefault.jpg&debut=0&fin=498&largeur=200&hauteur=150",
                     "authorName": "Maths et Jeux",
                     "authorLink": "https://www.youtube.com/@MathsetJeux"
                   }
@@ -1337,13 +1337,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=JHHAakPFvBs&vignette=https://i.ytimg.com/vi/JHHAakPFvBs/hqdefault.jpg&debut=0&fin=210&largeur=16&hauteur=9",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=JHHAakPFvBs&vignette=https://i.ytimg.com/vi/JHHAakPFvBs/hqdefault.jpg&debut=0&fin=210&largeur=16&hauteur=9",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=yfCIOM1tqEw&vignette=https://i.ytimg.com/vi/yfCIOM1tqEw/hqdefault.jpg&debut=113&fin=278&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=yfCIOM1tqEw&vignette=https://i.ytimg.com/vi/yfCIOM1tqEw/hqdefault.jpg&debut=113&fin=278&largeur=200&hauteur=150",
                     "authorName": "jean-yves Labouche",
                     "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   }
@@ -1384,19 +1384,19 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=JHHAakPFvBs&vignette=https://i.ytimg.com/vi/JHHAakPFvBs/hqdefault.jpg&debut=0&fin=210&largeur=16&hauteur=9",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=JHHAakPFvBs&vignette=https://i.ytimg.com/vi/JHHAakPFvBs/hqdefault.jpg&debut=0&fin=210&largeur=16&hauteur=9",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Mesurer un angle",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=YqUMin1FQ2c&vignette=https://i.ytimg.com/vi/YqUMin1FQ2c/hqdefault.jpg&debut=0&fin=312&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=YqUMin1FQ2c&vignette=https://i.ytimg.com/vi/YqUMin1FQ2c/hqdefault.jpg&debut=0&fin=312&largeur=200&hauteur=150",
                     "authorName": "jean-yves Labouche",
                     "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   },
                   {
                     "title": "Tracer un angle",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=CIrYkaNIBKE&vignette=https://i.ytimg.com/vi/CIrYkaNIBKE/hqdefault.jpg&debut=0&fin=206&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=CIrYkaNIBKE&vignette=https://i.ytimg.com/vi/CIrYkaNIBKE/hqdefault.jpg&debut=0&fin=206&largeur=200&hauteur=150",
                     "authorName": "jean-yves Labouche",
                     "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   }
@@ -1452,13 +1452,13 @@
                 "videos": [
                   {
                     "title": "Définition",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=41-nginyPbk&vignette=https://i.ytimg.com/vi/41-nginyPbk/hqdefault.jpg&debut=0&fin=224&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=41-nginyPbk&vignette=https://i.ytimg.com/vi/41-nginyPbk/hqdefault.jpg&debut=0&fin=224&largeur=200&hauteur=113",
                     "authorName": "Séverine LEMAITRE",
                     "authorLink": "https://www.youtube.com/channel/UCW4XcuJF3f6uuNGV2BAMX0A"
                   },
                   {
                     "title": "Propriétés",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=-HvUYDfhR0s&vignette=https://i.ytimg.com/vi/-HvUYDfhR0s/hqdefault.jpg&debut=0&fin=290&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=-HvUYDfhR0s&vignette=https://i.ytimg.com/vi/-HvUYDfhR0s/hqdefault.jpg&debut=0&fin=290&largeur=200&hauteur=113",
                     "authorName": "Séverine LEMAITRE",
                     "authorLink": "https://www.youtube.com/channel/UCW4XcuJF3f6uuNGV2BAMX0A"
                   }
@@ -1535,25 +1535,25 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=R6nCp6dt0xc&vignette=https://i.ytimg.com/vi/R6nCp6dt0xc/hqdefault.jpg&debut=0&fin=123&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=R6nCp6dt0xc&vignette=https://i.ytimg.com/vi/R6nCp6dt0xc/hqdefault.jpg&debut=0&fin=123&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Construire le symétrique d'un point",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=JauG01P544k&vignette=https://i.ytimg.com/vi/JauG01P544k/hqdefault.jpg&debut=0&fin=263&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=JauG01P544k&vignette=https://i.ytimg.com/vi/JauG01P544k/hqdefault.jpg&debut=0&fin=263&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   },
                   {
                     "title": "Construire le symétrique d'une figure",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=NILIM-H2tSY&vignette=https://i.ytimg.com/vi/NILIM-H2tSY/hqdefault.jpg&debut=0&fin=280&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=NILIM-H2tSY&vignette=https://i.ytimg.com/vi/NILIM-H2tSY/hqdefault.jpg&debut=0&fin=280&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   },
                   {
                     "title": "Construire le symétrique d'une droite",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=sRcgsiPeIq4&vignette=https://i.ytimg.com/vi/sRcgsiPeIq4/hqdefault.jpg&debut=0&fin=334&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=sRcgsiPeIq4&vignette=https://i.ytimg.com/vi/sRcgsiPeIq4/hqdefault.jpg&debut=0&fin=334&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -1610,7 +1610,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=ZT_2R6jeqgI&vignette=https://i.ytimg.com/vi/ZT_2R6jeqgI/hqdefault.jpg&debut=0&fin=108&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=ZT_2R6jeqgI&vignette=https://i.ytimg.com/vi/ZT_2R6jeqgI/hqdefault.jpg&debut=0&fin=108&largeur=200&hauteur=113",
                     "authorName": "jean-luc delbani",
                     "authorLink": "https://www.youtube.com/@jean-lucdelbani2951"
                   }
@@ -1647,7 +1647,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=xv1lONmklBA&vignette=https://i.ytimg.com/vi/xv1lONmklBA/hqdefault.jpg&debut=0&fin=93&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=xv1lONmklBA&vignette=https://i.ytimg.com/vi/xv1lONmklBA/hqdefault.jpg&debut=0&fin=93&largeur=200&hauteur=113",
                     "authorName": "IDmaths",
                     "authorLink": "https://www.youtube.com/channel/UCzzZOyjuJu0ePPMQFh_B2-A"
                   }
@@ -1734,13 +1734,13 @@
                 "videos": [
                   {
                     "title": "Présentation des solides",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=SYBogG4e43E&vignette=https://i.ytimg.com/vi/SYBogG4e43E/hqdefault.jpg&debut=0&fin=257&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=SYBogG4e43E&vignette=https://i.ytimg.com/vi/SYBogG4e43E/hqdefault.jpg&debut=0&fin=257&largeur=200&hauteur=113",
                     "authorName": "Loïc Cadoret",
                     "authorLink": "https://www.youtube.com/channel/UCDsagbCc_MHFdJZLDwsjwzA"
                   },
                   {
                     "title": "Vue en 3D",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=muK4M7_ej58&vignette=https://i.ytimg.com/vi/muK4M7_ej58/hqdefault.jpg&debut=0&fin=232&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=muK4M7_ej58&vignette=https://i.ytimg.com/vi/muK4M7_ej58/hqdefault.jpg&debut=0&fin=232&largeur=200&hauteur=113",
                     "authorName": "Le prof de maths sciences",
                     "authorLink": "https://www.youtube.com/channel/UCfRhflEKujHRHkYVkX4ZGBg"
                   }
@@ -1788,13 +1788,13 @@
                 "videos": [
                   {
                     "title": "Représenter un pavé droit en perspective cavalière",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=RNWuANuhRig&vignette=https://i.ytimg.com/vi/RNWuANuhRig/hqdefault.jpg&debut=0&fin=262&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=RNWuANuhRig&vignette=https://i.ytimg.com/vi/RNWuANuhRig/hqdefault.jpg&debut=0&fin=262&largeur=200&hauteur=113",
                     "authorName": "Maths et Jeux",
                     "authorLink": "https://www.youtube.com/channel/UCj5z973uER7e6ppaAEvYMHQ"
                   },
                   {
                     "title": "Construire un patron d'un pavé droit",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=WhwYCIcA220&vignette=https://i.ytimg.com/vi/WhwYCIcA220/hqdefault.jpg&debut=0&fin=751&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=WhwYCIcA220&vignette=https://i.ytimg.com/vi/WhwYCIcA220/hqdefault.jpg&debut=0&fin=751&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -1814,7 +1814,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=YGma9dP-HPo&vignette=https://i.ytimg.com/vi/YGma9dP-HPo/hqdefault.jpg&debut=49&fin=1037&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=YGma9dP-HPo&vignette=https://i.ytimg.com/vi/YGma9dP-HPo/hqdefault.jpg&debut=49&fin=1037&largeur=200&hauteur=113",
                     "authorName": "Anica Soleva Paper Crafts",
                     "authorLink": "https://www.youtube.com/@AnicaSolevaPaperCrafts"
                   }
@@ -1835,7 +1835,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=nZ3eLzGGbI4&vignette=https://i.ytimg.com/vi/nZ3eLzGGbI4/hqdefault.jpg&debut=0&fin=527&largeur=200&hauteur=113&st=fr,fr",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=nZ3eLzGGbI4&vignette=https://i.ytimg.com/vi/nZ3eLzGGbI4/hqdefault.jpg&debut=0&fin=527&largeur=200&hauteur=113&st=fr,fr",
                     "authorName": "Maître Lucas",
                     "authorLink": "https://www.youtube.com/@MaitreLucas"
                   }
@@ -1877,7 +1877,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=mD_gFzDJ3rw&vignette=https://i.ytimg.com/vi/mD_gFzDJ3rw/hqdefault.jpg&debut=0&fin=92&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=mD_gFzDJ3rw&vignette=https://i.ytimg.com/vi/mD_gFzDJ3rw/hqdefault.jpg&debut=0&fin=92&largeur=200&hauteur=150",
                     "authorName": "Lallida Cazanove",
                     "authorLink": "https://www.youtube.com/@lallidacazanove1935"
                   }
@@ -1929,7 +1929,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=sBjckuUs0gk&vignette=https://i.ytimg.com/vi/sBjckuUs0gk/hqdefault.jpg&debut=0&fin=65&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=sBjckuUs0gk&vignette=https://i.ytimg.com/vi/sBjckuUs0gk/hqdefault.jpg&debut=0&fin=65&largeur=200&hauteur=150",
                     "authorName": "Lallida Cazanove",
                     "authorLink": "https://www.youtube.com/@lallidacazanove1935"
                   }
@@ -1989,25 +1989,25 @@
                 "videos": [
                   {
                     "title": "Aires du carré et du rectangle en 1 min",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=UCd5hm4NMN4&vignette=https://i.ytimg.com/vi/UCd5hm4NMN4/hqdefault.jpg&debut=0&fin=64&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=UCd5hm4NMN4&vignette=https://i.ytimg.com/vi/UCd5hm4NMN4/hqdefault.jpg&debut=0&fin=64&largeur=200&hauteur=113",
                     "authorName": "Hedacademy",
                     "authorLink": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
                   },
                   {
                     "title": "Aire du triangle rectangle en 1 min",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=6gwJdatGvPo&vignette=https://i.ytimg.com/vi/6gwJdatGvPo/hqdefault.jpg&debut=0&fin=65&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=6gwJdatGvPo&vignette=https://i.ytimg.com/vi/6gwJdatGvPo/hqdefault.jpg&debut=0&fin=65&largeur=200&hauteur=113",
                     "authorName": "Hedacademy",
                     "authorLink": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
                   },
                   {
                     "title": "Cours sur le périmètre",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=9WZIOT5Ulsk&vignette=https://i.ytimg.com/vi/9WZIOT5Ulsk/hqdefault.jpg&debut=0&fin=481&largeur=200&hauteur=113&st=fr,fr",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=9WZIOT5Ulsk&vignette=https://i.ytimg.com/vi/9WZIOT5Ulsk/hqdefault.jpg&debut=0&fin=481&largeur=200&hauteur=113&st=fr,fr",
                     "authorName": "Maître Lucas",
                     "authorLink": "https://www.youtube.com/c/Ma%C3%AEtreLucas"
                   },
                   {
                     "title": "Cours sur l'aire",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=T1iLZzu1Irs&vignette=https://i.ytimg.com/vi/T1iLZzu1Irs/hqdefault.jpg&debut=0&fin=348&largeur=200&hauteur=113&st=fr,fr",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=T1iLZzu1Irs&vignette=https://i.ytimg.com/vi/T1iLZzu1Irs/hqdefault.jpg&debut=0&fin=348&largeur=200&hauteur=113&st=fr,fr",
                     "authorName": "Maître Lucas",
                     "authorLink": "https://www.youtube.com/c/Ma%C3%AEtreLucas"
                   }
@@ -2080,13 +2080,13 @@
                 "videos": [
                   {
                     "title": "Périmètre",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=wNk5XKwEZDw&vignette=https://i.ytimg.com/vi/wNk5XKwEZDw/hqdefault.jpg&debut=0&fin=208&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=wNk5XKwEZDw&vignette=https://i.ytimg.com/vi/wNk5XKwEZDw/hqdefault.jpg&debut=0&fin=208&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "Aire",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=bMSrZjOBwcA&vignette=https://i.ytimg.com/vi/bMSrZjOBwcA/hqdefault.jpg&debut=0&fin=558&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=bMSrZjOBwcA&vignette=https://i.ytimg.com/vi/bMSrZjOBwcA/hqdefault.jpg&debut=0&fin=558&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -2126,13 +2126,13 @@
                 "videos": [
                   {
                     "title": "Identifier base et hauteur",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=sZnBnrkyS2U&vignette=https://i.ytimg.com/vi/sZnBnrkyS2U/hqdefault.jpg&debut=0&fin=257&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=sZnBnrkyS2U&vignette=https://i.ytimg.com/vi/sZnBnrkyS2U/hqdefault.jpg&debut=0&fin=257&largeur=200&hauteur=150",
                     "authorName": "jean-yves Labouche",
                     "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   },
                   {
                     "title": "Calculer l'aire d'un triangle",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=fuyoOV0F-0k&vignette=https://i.ytimg.com/vi/fuyoOV0F-0k/hqdefault.jpg&debut=0&fin=347&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=fuyoOV0F-0k&vignette=https://i.ytimg.com/vi/fuyoOV0F-0k/hqdefault.jpg&debut=0&fin=347&largeur=200&hauteur=150",
                     "authorName": "jean-yves Labouche",
                     "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   }
@@ -2173,7 +2173,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=y-PV5LNmqsM&vignette=https://i.ytimg.com/vi/y-PV5LNmqsM/hqdefault.jpg&debut=0&fin=366&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=y-PV5LNmqsM&vignette=https://i.ytimg.com/vi/y-PV5LNmqsM/hqdefault.jpg&debut=0&fin=366&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -2226,13 +2226,13 @@
                 "videos": [
                   {
                     "title": "Périmètre",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=wm0pfj3U3LI&vignette=https://i.ytimg.com/vi/wm0pfj3U3LI/hqdefault.jpg&debut=0&fin=329&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=wm0pfj3U3LI&vignette=https://i.ytimg.com/vi/wm0pfj3U3LI/hqdefault.jpg&debut=0&fin=329&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "Aire",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=BfOFFFCm5n4&vignette=https://i.ytimg.com/vi/BfOFFFCm5n4/hqdefault.jpg&debut=0&fin=401&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=BfOFFFCm5n4&vignette=https://i.ytimg.com/vi/BfOFFFCm5n4/hqdefault.jpg&debut=0&fin=401&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -2272,7 +2272,7 @@
                 "videos": [
                   {
                     "title": "Volume d'un pavé droit",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=JqS7YBLtksw&vignette=https://i.ytimg.com/vi/JqS7YBLtksw/hqdefault.jpg&debut=0&fin=303&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=JqS7YBLtksw&vignette=https://i.ytimg.com/vi/JqS7YBLtksw/hqdefault.jpg&debut=0&fin=303&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -2326,7 +2326,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=a6rFbX2eRx4&vignette=https://i.ytimg.com/vi/a6rFbX2eRx4/hqdefault.jpg&debut=0&fin=515&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=a6rFbX2eRx4&vignette=https://i.ytimg.com/vi/a6rFbX2eRx4/hqdefault.jpg&debut=0&fin=515&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -2370,7 +2370,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=vZew5Ia03FY&vignette=https://i.ytimg.com/vi/vZew5Ia03FY/hqdefault.jpg&debut=0&fin=404&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=vZew5Ia03FY&vignette=https://i.ytimg.com/vi/vZew5Ia03FY/hqdefault.jpg&debut=0&fin=404&largeur=200&hauteur=150",
                     "authorName": "jean-yves Labouche",
                     "authorLink": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
                   }
@@ -2422,7 +2422,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=WYY360nR14A&vignette=https://i.ytimg.com/vi/WYY360nR14A/hqdefault.jpg&debut=0&fin=470&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=WYY360nR14A&vignette=https://i.ytimg.com/vi/WYY360nR14A/hqdefault.jpg&debut=0&fin=470&largeur=200&hauteur=150",
                     "authorName": "jean-yves Labouche",
                     "authorLink": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
                   }
@@ -2479,7 +2479,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=9IIcLRhI-Qs&vignette=https://i.ytimg.com/vi/9IIcLRhI-Qs/hqdefault.jpg&debut=0&fin=283&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=9IIcLRhI-Qs&vignette=https://i.ytimg.com/vi/9IIcLRhI-Qs/hqdefault.jpg&debut=0&fin=283&largeur=200&hauteur=113",
                     "authorName": "jaicompris Maths",
                     "authorLink": "https://www.youtube.com/channel/UCo-O74A4qVz6nq5cfCIee6w"
                   }
@@ -2515,7 +2515,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=frnQXnbL6yo&vignette=https://i.ytimg.com/vi/frnQXnbL6yo/hqdefault.jpg&debut=0&fin=299&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=frnQXnbL6yo&vignette=https://i.ytimg.com/vi/frnQXnbL6yo/hqdefault.jpg&debut=0&fin=299&largeur=200&hauteur=150",
                     "authorName": "jean-yves Labouche",
                     "authorLink": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
                   }
@@ -2569,7 +2569,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=2dZyuZrov5M&vignette=https://i.ytimg.com/vi/2dZyuZrov5M/hqdefault.jpg&debut=0&fin=198&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=2dZyuZrov5M&vignette=https://i.ytimg.com/vi/2dZyuZrov5M/hqdefault.jpg&debut=0&fin=198&largeur=200&hauteur=113",
                     "authorName": "Khan Academy",
                     "authorLink": "https://www.youtube.com/c/KhanAcademyFrancais"
                   }
@@ -2635,13 +2635,13 @@
                 "videos": [
                   {
                     "title": "Comparer et ranger",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=ZA6E7Z2G2c8&vignette=https://i.ytimg.com/vi/ZA6E7Z2G2c8/hqdefault.jpg&debut=0&fin=213&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=ZA6E7Z2G2c8&vignette=https://i.ytimg.com/vi/ZA6E7Z2G2c8/hqdefault.jpg&debut=0&fin=213&largeur=200&hauteur=113",
                     "authorName": "Ben Explique",
                     "authorLink": "https://www.youtube.com/c/BenExplique"
                   },
                   {
                     "title": "Encadrer",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=xXAZabLniLI&vignette=https://i.ytimg.com/vi/xXAZabLniLI/hqdefault.jpg&debut=0&fin=323&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=xXAZabLniLI&vignette=https://i.ytimg.com/vi/xXAZabLniLI/hqdefault.jpg&debut=0&fin=323&largeur=200&hauteur=113",
                     "authorName": "Classe des CE CM",
                     "authorLink": "https://www.youtube.com/channel/UCFd_S55E7aFKA4ui79qp0Vg"
                   }
@@ -2688,7 +2688,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=tO-2usFPbR4&vignette=https://i.ytimg.com/vi/tO-2usFPbR4/hqdefault.jpg&debut=0&fin=280&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=tO-2usFPbR4&vignette=https://i.ytimg.com/vi/tO-2usFPbR4/hqdefault.jpg&debut=0&fin=280&largeur=200&hauteur=150",
                     "authorName": "Soledad GARNIER",
                     "authorLink": "https://www.youtube.com/@MmeFlip"
                   }
@@ -2740,25 +2740,25 @@
                 "videos": [
                   {
                     "title": "Comparer",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=fr5GemewG4Q&vignette=https://i.ytimg.com/vi/fr5GemewG4Q/hqdefault.jpg&debut=0&fin=316&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=fr5GemewG4Q&vignette=https://i.ytimg.com/vi/fr5GemewG4Q/hqdefault.jpg&debut=0&fin=316&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   },
                   {
                     "title": "Ranger",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=V5fOpdx53R4&vignette=https://i.ytimg.com/vi/V5fOpdx53R4/hqdefault.jpg&debut=0&fin=457&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=V5fOpdx53R4&vignette=https://i.ytimg.com/vi/V5fOpdx53R4/hqdefault.jpg&debut=0&fin=457&largeur=200&hauteur=113",
                     "authorName": "jean-yves Labouche",
                     "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   },
                   {
                     "title": "Encadrer",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=B_U6DOnB-0o&vignette=https://i.ytimg.com/vi/B_U6DOnB-0o/hqdefault.jpg&debut=0&fin=362&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=B_U6DOnB-0o&vignette=https://i.ytimg.com/vi/B_U6DOnB-0o/hqdefault.jpg&debut=0&fin=362&largeur=200&hauteur=113",
                     "authorName": "jean-yves Labouche",
                     "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   },
                   {
                     "title": "Intercaler",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=sXSS3Gmq3q4&vignette=https://i.ytimg.com/vi/sXSS3Gmq3q4/hqdefault.jpg&debut=0&fin=217&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=sXSS3Gmq3q4&vignette=https://i.ytimg.com/vi/sXSS3Gmq3q4/hqdefault.jpg&debut=0&fin=217&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -2817,13 +2817,13 @@
                 "videos": [
                   {
                     "title": "Séparer la partie entière",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=wxIRFRqvpgg&vignette=https://i.ytimg.com/vi/wxIRFRqvpgg/hqdefault.jpg&debut=0&fin=141&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=wxIRFRqvpgg&vignette=https://i.ytimg.com/vi/wxIRFRqvpgg/hqdefault.jpg&debut=0&fin=141&largeur=200&hauteur=150",
                     "authorName": "Noelle Barny",
                     "authorLink": "https://www.youtube.com/channel/UC9_mMk5yn9L2NPKXnqodaaA"
                   },
                   {
                     "title": "Encadrer entre deux nombres entiers",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=dNVihjIWCUY&vignette=https://i.ytimg.com/vi/dNVihjIWCUY/hqdefault.jpg&debut=0&fin=177&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=dNVihjIWCUY&vignette=https://i.ytimg.com/vi/dNVihjIWCUY/hqdefault.jpg&debut=0&fin=177&largeur=200&hauteur=113",
                     "authorName": "Soledad GARNIER",
                     "authorLink": "https://www.youtube.com/channel/UCAYaPNccYMMEzmYGqrfT-Hw"
                   }
@@ -2891,13 +2891,13 @@
                 "videos": [
                   {
                     "title": "Écrire en lettres un nombre décimal",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=mybEQfCJFD0&vignette=https://i.ytimg.com/vi/mybEQfCJFD0/hqdefault.jpg&debut=0&fin=580&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=mybEQfCJFD0&vignette=https://i.ytimg.com/vi/mybEQfCJFD0/hqdefault.jpg&debut=0&fin=580&largeur=200&hauteur=150",
                     "authorName": "La classe de Marion",
                     "authorLink": "https://www.youtube.com/channel/UC1CNz6Kh6hrER1lVD_vwzPg"
                   },
                   {
                     "title": "Passer d'une écriture fractionnaire à l'écriture décimale",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=i75HKdds3Gc&vignette=https://i.ytimg.com/vi/i75HKdds3Gc/hqdefault.jpg&debut=0&fin=403&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=i75HKdds3Gc&vignette=https://i.ytimg.com/vi/i75HKdds3Gc/hqdefault.jpg&debut=0&fin=403&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -2959,7 +2959,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=-xwhkfVwd-o&vignette=https://i.ytimg.com/vi/-xwhkfVwd-o/hqdefault.jpg&debut=0&fin=555&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=-xwhkfVwd-o&vignette=https://i.ytimg.com/vi/-xwhkfVwd-o/hqdefault.jpg&debut=0&fin=555&largeur=200&hauteur=150",
                     "authorName": "Maths et Jeux",
                     "authorLink": "https://www.youtube.com/c/MathsetJeux"
                   }
@@ -3012,13 +3012,13 @@
                 "videos": [
                   {
                     "title": "Situation de proportionnalité",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=B_S57F69GCE&vignette=https://i.ytimg.com/vi/B_S57F69GCE/hqdefault.jpg&debut=0&fin=323&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=B_S57F69GCE&vignette=https://i.ytimg.com/vi/B_S57F69GCE/hqdefault.jpg&debut=0&fin=323&largeur=200&hauteur=150",
                     "authorName": "jean-yves Labouche",
                     "authorLink": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
                   },
                   {
                     "title": "Coefficient de proportionnalité",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=oNruk3vyMHQ&vignette=https://i.ytimg.com/vi/oNruk3vyMHQ/hqdefault.jpg&debut=0&fin=294&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=oNruk3vyMHQ&vignette=https://i.ytimg.com/vi/oNruk3vyMHQ/hqdefault.jpg&debut=0&fin=294&largeur=200&hauteur=150",
                     "authorName": "jean-yves Labouche",
                     "authorLink": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
                   }
@@ -3052,7 +3052,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=r4CYLxVhnhE&vignette=https://i.ytimg.com/vi/r4CYLxVhnhE/hqdefault.jpg&debut=0&fin=257&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=r4CYLxVhnhE&vignette=https://i.ytimg.com/vi/r4CYLxVhnhE/hqdefault.jpg&debut=0&fin=257&largeur=200&hauteur=113",
                     "authorName": "Maths en pause",
                     "authorLink": "https://www.youtube.com/channel/UCA4wk8mKv6tiOwAcOBRo9rA"
                   }
@@ -3090,7 +3090,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Q9Qg8wOaM64&vignette=https://i.ytimg.com/vi/Q9Qg8wOaM64/hqdefault.jpg&debut=0&fin=144&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=Q9Qg8wOaM64&vignette=https://i.ytimg.com/vi/Q9Qg8wOaM64/hqdefault.jpg&debut=0&fin=144&largeur=200&hauteur=150",
                     "authorName": "Genevieve Beaudet",
                     "authorLink": "https://www.youtube.com/channel/UCTkDV8ARPyfjFcwYFoLZuMg"
                   }
@@ -3138,13 +3138,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=gXcwdDYSMeM&vignette=https://i.ytimg.com/vi/gXcwdDYSMeM/hqdefault.jpg&debut=0&fin=122&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=gXcwdDYSMeM&vignette=https://i.ytimg.com/vi/gXcwdDYSMeM/hqdefault.jpg&debut=0&fin=122&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=2UVaPRdSMl0&vignette=https://i.ytimg.com/vi/2UVaPRdSMl0/hqdefault.jpg&debut=0&fin=298&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=2UVaPRdSMl0&vignette=https://i.ytimg.com/vi/2UVaPRdSMl0/hqdefault.jpg&debut=0&fin=298&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -3183,7 +3183,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=YpvIvTScQsw&vignette=https://i.ytimg.com/vi/YpvIvTScQsw/hqdefault.jpg&debut=0&fin=406&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=YpvIvTScQsw&vignette=https://i.ytimg.com/vi/YpvIvTScQsw/hqdefault.jpg&debut=0&fin=406&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -3224,7 +3224,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=CR4lSAfho5A&vignette=https://i.ytimg.com/vi/CR4lSAfho5A/hqdefault.jpg&debut=0&fin=399&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=CR4lSAfho5A&vignette=https://i.ytimg.com/vi/CR4lSAfho5A/hqdefault.jpg&debut=0&fin=399&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -3264,7 +3264,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=gvIZ3bt6gw8&vignette=https://i.ytimg.com/vi/gvIZ3bt6gw8/hqdefault.jpg&debut=0&fin=217&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=gvIZ3bt6gw8&vignette=https://i.ytimg.com/vi/gvIZ3bt6gw8/hqdefault.jpg&debut=0&fin=217&largeur=200&hauteur=113",
                     "authorName": "Math Coaching",
                     "authorLink": "https://www.youtube.com/channel/UCGqY72r3_uGP4VWw8GLSNsQ"
                   }
@@ -3323,19 +3323,19 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=2aSnU0v0k54&vignette=https://i.ytimg.com/vi/2aSnU0v0k54/hqdefault.jpg&debut=0&fin=136&largeur=16&hauteur=9",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=2aSnU0v0k54&vignette=https://i.ytimg.com/vi/2aSnU0v0k54/hqdefault.jpg&debut=0&fin=136&largeur=16&hauteur=9",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Symétrique d'un point",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=bKPMO-5Wv-o&vignette=https://i.ytimg.com/vi/bKPMO-5Wv-o/hqdefault.jpg&debut=0&fin=149&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=bKPMO-5Wv-o&vignette=https://i.ytimg.com/vi/bKPMO-5Wv-o/hqdefault.jpg&debut=0&fin=149&largeur=200&hauteur=113",
                     "authorName": "*Mme Maths*",
                     "authorLink": "https://www.youtube.com/@MmeMaths"
                   },
                   {
                     "title": "Symétrique d'un triangle",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=gQZIWxzOfaE&vignette=https://i.ytimg.com/vi/gQZIWxzOfaE/hqdefault.jpg&debut=0&fin=252&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=gQZIWxzOfaE&vignette=https://i.ytimg.com/vi/gQZIWxzOfaE/hqdefault.jpg&debut=0&fin=252&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -3389,7 +3389,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=p8YGpKEKLvU&vignette=https://i.ytimg.com/vi/p8YGpKEKLvU/hqdefault.jpg&debut=0&fin=189&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=p8YGpKEKLvU&vignette=https://i.ytimg.com/vi/p8YGpKEKLvU/hqdefault.jpg&debut=0&fin=189&largeur=200&hauteur=113",
                     "authorName": "M comme Math(s)",
                     "authorLink": "https://www.youtube.com/channel/UC_-Qld4PgyLveDKXEN_0Fig"
                   }
@@ -3480,7 +3480,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=PZcC4Hkg-X8&vignette=https://i.ytimg.com/vi/PZcC4Hkg-X8/hqdefault.jpg&debut=0&fin=469&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=PZcC4Hkg-X8&vignette=https://i.ytimg.com/vi/PZcC4Hkg-X8/hqdefault.jpg&debut=0&fin=469&largeur=200&hauteur=113",
                     "authorName": "Maths et Jeux",
                     "authorLink": "https://www.youtube.com/channel/UCj5z973uER7e6ppaAEvYMHQ"
                   }
@@ -3520,19 +3520,19 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Pk-dEsXYX7U&vignette=https://i.ytimg.com/vi/Pk-dEsXYX7U/hqdefault.jpg&debut=0&fin=163&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=Pk-dEsXYX7U&vignette=https://i.ytimg.com/vi/Pk-dEsXYX7U/hqdefault.jpg&debut=0&fin=163&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Connaissant 2 longueurs et 1 angle",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=6mFBqacFzws&vignette=https://i.ytimg.com/vi/6mFBqacFzws/hqdefault.jpg&debut=0&fin=223&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=6mFBqacFzws&vignette=https://i.ytimg.com/vi/6mFBqacFzws/hqdefault.jpg&debut=0&fin=223&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "Connaissant 1 longueur et de 2 angles",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=tX-vhEtJJzY&vignette=https://i.ytimg.com/vi/tX-vhEtJJzY/hqdefault.jpg&debut=0&fin=281&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=tX-vhEtJJzY&vignette=https://i.ytimg.com/vi/tX-vhEtJJzY/hqdefault.jpg&debut=0&fin=281&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -3631,13 +3631,13 @@
                 "videos": [
                   {
                     "title": "Deux côtés et un angle",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=4Fq9TKn3ZlE&vignette=https://i.ytimg.com/vi/4Fq9TKn3ZlE/hqdefault.jpg&debut=0&fin=436&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=4Fq9TKn3ZlE&vignette=https://i.ytimg.com/vi/4Fq9TKn3ZlE/hqdefault.jpg&debut=0&fin=436&largeur=200&hauteur=113",
                     "authorName": "MinutesMaths",
                     "authorLink": "https://www.youtube.com/@Minutesmaths_"
                   },
                   {
                     "title": "Un angle et deux côtés",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=9vGH_inS8aQ&vignette=https://i.ytimg.com/vi/9vGH_inS8aQ/hqdefault.jpg&debut=0&fin=494&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=9vGH_inS8aQ&vignette=https://i.ytimg.com/vi/9vGH_inS8aQ/hqdefault.jpg&debut=0&fin=494&largeur=200&hauteur=113",
                     "authorName": "MinutesMaths",
                     "authorLink": "https://www.youtube.com/@Minutesmaths_"
                   }
@@ -3699,19 +3699,19 @@
                 "videos": [
                   {
                     "title": "Angles adjacents, complémentaires, supplémentaires et opposés par le sommet",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=W4LJSSMcMcw&vignette=https://i.ytimg.com/vi/W4LJSSMcMcw/hqdefault.jpg&debut=0&fin=407&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=W4LJSSMcMcw&vignette=https://i.ytimg.com/vi/W4LJSSMcMcw/hqdefault.jpg&debut=0&fin=407&largeur=200&hauteur=113",
                     "authorName": "Les RochDur",
                     "authorLink": "https://www.youtube.com/channel/UC-cKCYnQREQVaAHb-y2bUQg"
                   },
                   {
                     "title": "Angles correspondants",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=ErUq2wdA_PE&vignette=https://i.ytimg.com/vi/ErUq2wdA_PE/hqdefault.jpg&debut=0&fin=529&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=ErUq2wdA_PE&vignette=https://i.ytimg.com/vi/ErUq2wdA_PE/hqdefault.jpg&debut=0&fin=529&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "Angles alternes-internes",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=c8CuPY-KaNM&vignette=https://i.ytimg.com/vi/c8CuPY-KaNM/hqdefault.jpg&debut=0&fin=534&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=c8CuPY-KaNM&vignette=https://i.ytimg.com/vi/c8CuPY-KaNM/hqdefault.jpg&debut=0&fin=534&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -3755,13 +3755,13 @@
                 "videos": [
                   {
                     "title": "Utiliser les angles alternes-internes",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=v7XmtQhOP9I&vignette=https://i.ytimg.com/vi/v7XmtQhOP9I/hqdefault.jpg&debut=0&fin=408&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=v7XmtQhOP9I&vignette=https://i.ytimg.com/vi/v7XmtQhOP9I/hqdefault.jpg&debut=0&fin=408&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "Utiliser les angles correspondants",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=FJVt0P83iCQ&vignette=https://i.ytimg.com/vi/FJVt0P83iCQ/hqdefault.jpg&debut=0&fin=370&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=FJVt0P83iCQ&vignette=https://i.ytimg.com/vi/FJVt0P83iCQ/hqdefault.jpg&debut=0&fin=370&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -3803,13 +3803,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=7CZrbIkWUc4&vignette=https://i.ytimg.com/vi/7CZrbIkWUc4/hqdefault.jpg&debut=0&fin=76&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=7CZrbIkWUc4&vignette=https://i.ytimg.com/vi/7CZrbIkWUc4/hqdefault.jpg&debut=0&fin=76&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=_QIj_-2EzJA&vignette=https://i.ytimg.com/vi/_QIj_-2EzJA/hqdefault.jpg&debut=0&fin=272&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=_QIj_-2EzJA&vignette=https://i.ytimg.com/vi/_QIj_-2EzJA/hqdefault.jpg&debut=0&fin=272&largeur=200&hauteur=113",
                     "authorName": "Maths&Methodes",
                     "authorLink": "https://www.youtube.com/channel/UCb9LSmnMAXQ6LtggV7pD_xw"
                   }
@@ -3862,13 +3862,13 @@
                 "videos": [
                   {
                     "title": "À l'aide des diagonales",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=UHreCqzqgpo&vignette=https://i.ytimg.com/vi/UHreCqzqgpo/hqdefault.jpg&debut=0&fin=310&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=UHreCqzqgpo&vignette=https://i.ytimg.com/vi/UHreCqzqgpo/hqdefault.jpg&debut=0&fin=310&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "À l'aide des côtés parallèles",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=IhBapOhb7m4&vignette=https://i.ytimg.com/vi/IhBapOhb7m4/hqdefault.jpg&debut=0&fin=205&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=IhBapOhb7m4&vignette=https://i.ytimg.com/vi/IhBapOhb7m4/hqdefault.jpg&debut=0&fin=205&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -3918,7 +3918,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=oXH-9TbEczs&vignette=https://i.ytimg.com/vi/oXH-9TbEczs/hqdefault.jpg&debut=0&fin=410&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=oXH-9TbEczs&vignette=https://i.ytimg.com/vi/oXH-9TbEczs/hqdefault.jpg&debut=0&fin=410&largeur=200&hauteur=150",
                     "authorName": "jean-yves Labouche",
                     "authorLink": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
                   }
@@ -3971,13 +3971,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical (périmètre)",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=FW2ifGm_vLM&vignette=https://i.ytimg.com/vi/FW2ifGm_vLM/hqdefault.jpg&debut=0&fin=233&largeur=16&hauteur=9",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=FW2ifGm_vLM&vignette=https://i.ytimg.com/vi/FW2ifGm_vLM/hqdefault.jpg&debut=0&fin=233&largeur=16&hauteur=9",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=EBxKL3W4oaA&vignette=https://i.ytimg.com/vi/EBxKL3W4oaA/hqdefault.jpg&debut=0&fin=359&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=EBxKL3W4oaA&vignette=https://i.ytimg.com/vi/EBxKL3W4oaA/hqdefault.jpg&debut=0&fin=359&largeur=200&hauteur=113",
                     "authorName": "Maths Collège",
                     "authorLink": "https://www.youtube.com/channel/UC7DMcuwXm48dk6l8nObI9vg"
                   }
@@ -4052,19 +4052,19 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=kNicKj-PIB4&vignette=https://i.ytimg.com/vi/kNicKj-PIB4/hqdefault.jpg&debut=0&fin=204&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=kNicKj-PIB4&vignette=https://i.ytimg.com/vi/kNicKj-PIB4/hqdefault.jpg&debut=0&fin=204&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Volume d'un prisme droit",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=lsAWODx566E&vignette=https://i.ytimg.com/vi/lsAWODx566E/hqdefault.jpg&debut=0&fin=423&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=lsAWODx566E&vignette=https://i.ytimg.com/vi/lsAWODx566E/hqdefault.jpg&debut=0&fin=423&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "Volume d'un cylindre",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=eJ8BSaTIpYU&vignette=https://i.ytimg.com/vi/eJ8BSaTIpYU/hqdefault.jpg&debut=0&fin=287&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=eJ8BSaTIpYU&vignette=https://i.ytimg.com/vi/eJ8BSaTIpYU/hqdefault.jpg&debut=0&fin=287&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -4083,7 +4083,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=eL0be1Bu6EI&vignette=https://i.ytimg.com/vi/eL0be1Bu6EI/hqdefault.jpg&debut=0&fin=125&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=eL0be1Bu6EI&vignette=https://i.ytimg.com/vi/eL0be1Bu6EI/hqdefault.jpg&debut=0&fin=125&largeur=200&hauteur=113",
                     "authorName": "M. MULLER",
                     "authorLink": "https://www.youtube.com/channel/UCReQr9ZV7z1DAsI3bAQgMbQ"
                   }
@@ -4109,7 +4109,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=2s2HSdtzBzg&vignette=https://i.ytimg.com/vi/2s2HSdtzBzg/hqdefault.jpg&debut=0&fin=203&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=2s2HSdtzBzg&vignette=https://i.ytimg.com/vi/2s2HSdtzBzg/hqdefault.jpg&debut=0&fin=203&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   }
@@ -4159,7 +4159,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=fpqFXBis5nQ&vignette=https://i.ytimg.com/vi/fpqFXBis5nQ/hqdefault.jpg&debut=0&fin=340&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=fpqFXBis5nQ&vignette=https://i.ytimg.com/vi/fpqFXBis5nQ/hqdefault.jpg&debut=0&fin=340&largeur=200&hauteur=113",
                     "authorName": "*Mme Maths*",
                     "authorLink": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
                   }
@@ -4210,13 +4210,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=7vkgbr-7vws&vignette=https://i.ytimg.com/vi/7vkgbr-7vws/hqdefault.jpg&debut=0&fin=98&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=7vkgbr-7vws&vignette=https://i.ytimg.com/vi/7vkgbr-7vws/hqdefault.jpg&debut=0&fin=98&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=dkE_zaRIeKY&vignette=https://i.ytimg.com/vi/dkE_zaRIeKY/hqdefault.jpg&debut=0&fin=474&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=dkE_zaRIeKY&vignette=https://i.ytimg.com/vi/dkE_zaRIeKY/hqdefault.jpg&debut=0&fin=474&largeur=200&hauteur=113",
                     "authorName": "Maths&Methodes",
                     "authorLink": "https://www.youtube.com/channel/UCb9LSmnMAXQ6LtggV7pD_xw"
                   }
@@ -4260,13 +4260,13 @@
                 "videos": [
                   {
                     "title": "Comparer",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=MVnogrTAGy0&vignette=https://i.ytimg.com/vi/MVnogrTAGy0/hqdefault.jpg&debut=0&fin=362&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=MVnogrTAGy0&vignette=https://i.ytimg.com/vi/MVnogrTAGy0/hqdefault.jpg&debut=0&fin=362&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "Ranger",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=zzRX2N3o6xM&vignette=https://i.ytimg.com/vi/zzRX2N3o6xM/hqdefault.jpg&debut=0&fin=254&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=zzRX2N3o6xM&vignette=https://i.ytimg.com/vi/zzRX2N3o6xM/hqdefault.jpg&debut=0&fin=254&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -4310,7 +4310,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=7vkgbr-7vws&vignette=https://i.ytimg.com/vi/7vkgbr-7vws/hqdefault.jpg&debut=0&fin=98&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=7vkgbr-7vws&vignette=https://i.ytimg.com/vi/7vkgbr-7vws/hqdefault.jpg&debut=0&fin=98&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   }
@@ -4349,13 +4349,13 @@
                 "videos": [
                   {
                     "title": "Comment simplifier des fractions (rappel)",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=7vkgbr-7vws&vignette=https://i.ytimg.com/vi/7vkgbr-7vws/hqdefault.jpg&debut=0&fin=98&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=7vkgbr-7vws&vignette=https://i.ytimg.com/vi/7vkgbr-7vws/hqdefault.jpg&debut=0&fin=98&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Nouvelle méthode (avec les nombres premiers)",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=HkqUaPYgwQM&vignette=https://i.ytimg.com/vi/HkqUaPYgwQM/hqdefault.jpg&debut=0&fin=335&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=HkqUaPYgwQM&vignette=https://i.ytimg.com/vi/HkqUaPYgwQM/hqdefault.jpg&debut=0&fin=335&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -4397,13 +4397,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=TTLRP1Yd4Wk&vignette=https://i.ytimg.com/vi/TTLRP1Yd4Wk/hqdefault.jpg&debut=0&fin=184&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=TTLRP1Yd4Wk&vignette=https://i.ytimg.com/vi/TTLRP1Yd4Wk/hqdefault.jpg&debut=0&fin=184&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=lGShZVQlXMQ&vignette=https://i.ytimg.com/vi/lGShZVQlXMQ/hqdefault.jpg&debut=0&fin=393&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=lGShZVQlXMQ&vignette=https://i.ytimg.com/vi/lGShZVQlXMQ/hqdefault.jpg&debut=0&fin=393&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -4445,7 +4445,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=HKuJUkDbb_w&vignette=https://i.ytimg.com/vi/HKuJUkDbb_w/hqdefault.jpg&debut=0&fin=241&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=HKuJUkDbb_w&vignette=https://i.ytimg.com/vi/HKuJUkDbb_w/hqdefault.jpg&debut=0&fin=241&largeur=200&hauteur=113",
                     "authorName": "Matich Fastich",
                     "authorLink": "https://www.youtube.com/channel/UCcPFyq0PJn0NHlreVBkyZsA"
                   }
@@ -4485,7 +4485,7 @@
                 "videos": [
                   {
                     "title": "(autre méthode)",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=9L4lz1NMPoY&vignette=https://i.ytimg.com/vi/9L4lz1NMPoY/hqdefault.jpg&debut=0&fin=527&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=9L4lz1NMPoY&vignette=https://i.ytimg.com/vi/9L4lz1NMPoY/hqdefault.jpg&debut=0&fin=527&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -4547,7 +4547,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=KuJERDWGMw0&vignette=https://i.ytimg.com/vi/KuJERDWGMw0/hqdefault.jpg&debut=0&fin=202&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=KuJERDWGMw0&vignette=https://i.ytimg.com/vi/KuJERDWGMw0/hqdefault.jpg&debut=0&fin=202&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   }
@@ -4642,7 +4642,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=nrOR9x-9vng&vignette=https://i.ytimg.com/vi/nrOR9x-9vng/hqdefault.jpg&debut=0&fin=358&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=nrOR9x-9vng&vignette=https://i.ytimg.com/vi/nrOR9x-9vng/hqdefault.jpg&debut=0&fin=358&largeur=200&hauteur=150",
                     "authorName": "monProfDeMaths",
                     "authorLink": "https://www.youtube.com/@monProfDeMaths"
                   }
@@ -4700,13 +4700,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=SOVu9C5VhtU&vignette=https://i.ytimg.com/vi/SOVu9C5VhtU/hqdefault.jpg&debut=0&fin=160&largeur=16&hauteur=9",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=SOVu9C5VhtU&vignette=https://i.ytimg.com/vi/SOVu9C5VhtU/hqdefault.jpg&debut=0&fin=160&largeur=16&hauteur=9",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=SImiMoRB0vU&vignette=https://i.ytimg.com/vi/SImiMoRB0vU/hqdefault.jpg&debut=0&fin=310&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=SImiMoRB0vU&vignette=https://i.ytimg.com/vi/SImiMoRB0vU/hqdefault.jpg&debut=0&fin=310&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -4747,13 +4747,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=383BRbN_YzM&vignette=https://i.ytimg.com/vi/383BRbN_YzM/hqdefault.jpg&debut=0&fin=182&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=383BRbN_YzM&vignette=https://i.ytimg.com/vi/383BRbN_YzM/hqdefault.jpg&debut=0&fin=182&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=-S-TZ1eJNKQ&vignette=https://i.ytimg.com/vi/-S-TZ1eJNKQ/hqdefault.jpg&debut=0&fin=249&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=-S-TZ1eJNKQ&vignette=https://i.ytimg.com/vi/-S-TZ1eJNKQ/hqdefault.jpg&debut=0&fin=249&largeur=200&hauteur=113",
                     "authorName": "Yves Le Coadou",
                     "authorLink": "https://www.youtube.com/channel/UCT0wZd0o4uFVKvSi2rE_sKQ"
                   }
@@ -4799,7 +4799,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=-5nTo2PjtKk&vignette=https://i.ytimg.com/vi/-5nTo2PjtKk/hqdefault.jpg&debut=0&fin=121&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=-5nTo2PjtKk&vignette=https://i.ytimg.com/vi/-5nTo2PjtKk/hqdefault.jpg&debut=0&fin=121&largeur=200&hauteur=113",
                     "authorName": "Kristen Montrésor maths channel",
                     "authorLink": "https://www.youtube.com/channel/UChaDNOEhkrQprL-wfMC1dWQ"
                   }
@@ -4840,13 +4840,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=e-noKy-HD0Y&vignette=https://i.ytimg.com/vi/e-noKy-HD0Y/hqdefault.jpg&debut=0&fin=225&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=e-noKy-HD0Y&vignette=https://i.ytimg.com/vi/e-noKy-HD0Y/hqdefault.jpg&debut=0&fin=225&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=JNPT_Nsf9yE&vignette=https://i.ytimg.com/vi/JNPT_Nsf9yE/hqdefault.jpg&debut=0&fin=203&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=JNPT_Nsf9yE&vignette=https://i.ytimg.com/vi/JNPT_Nsf9yE/hqdefault.jpg&debut=0&fin=203&largeur=200&hauteur=113",
                     "authorName": "La classe de Mallory",
                     "authorLink": "https://www.youtube.com/channel/UC9tH3DtBcT2mlEz5FbuRX6A"
                   }
@@ -4889,7 +4889,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=g9PLLhnCv88&vignette=https://i.ytimg.com/vi/g9PLLhnCv88/hqdefault.jpg&debut=0&fin=802&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=g9PLLhnCv88&vignette=https://i.ytimg.com/vi/g9PLLhnCv88/hqdefault.jpg&debut=0&fin=802&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -4936,13 +4936,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=46nTro76sFg&vignette=https://i.ytimg.com/vi/46nTro76sFg/hqdefault.jpg&debut=0&fin=210&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=46nTro76sFg&vignette=https://i.ytimg.com/vi/46nTro76sFg/hqdefault.jpg&debut=0&fin=210&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=BlGaIqNz_pk&vignette=https://i.ytimg.com/vi/BlGaIqNz_pk/hqdefault.jpg&debut=0&fin=370&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=BlGaIqNz_pk&vignette=https://i.ytimg.com/vi/BlGaIqNz_pk/hqdefault.jpg&debut=0&fin=370&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -4992,7 +4992,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=3E7skxYLTCw&vignette=https://i.ytimg.com/vi/3E7skxYLTCw/hqdefault.jpg&debut=0&fin=267&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=3E7skxYLTCw&vignette=https://i.ytimg.com/vi/3E7skxYLTCw/hqdefault.jpg&debut=0&fin=267&largeur=200&hauteur=113",
                     "authorName": "*Mme Maths*",
                     "authorLink": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
                   }
@@ -5048,7 +5048,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=yg4NQylKmTc&vignette=https://i.ytimg.com/vi/yg4NQylKmTc/hqdefault.jpg&debut=0&fin=561&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=yg4NQylKmTc&vignette=https://i.ytimg.com/vi/yg4NQylKmTc/hqdefault.jpg&debut=0&fin=561&largeur=200&hauteur=113",
                     "authorName": "Hedacademy",
                     "authorLink": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
                   }
@@ -5096,13 +5096,13 @@
                 "videos": [
                   {
                     "title": "Partie 1",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=hg-aK8Nrc4c&vignette=https://i.ytimg.com/vi/hg-aK8Nrc4c/hqdefault.jpg&debut=0&fin=283&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=hg-aK8Nrc4c&vignette=https://i.ytimg.com/vi/hg-aK8Nrc4c/hqdefault.jpg&debut=0&fin=283&largeur=200&hauteur=113",
                     "authorName": "*Mme Maths*",
                     "authorLink": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
                   },
                   {
                     "title": "Partie 2",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=W5nYmzIUoKE&vignette=https://i.ytimg.com/vi/W5nYmzIUoKE/hqdefault.jpg&debut=0&fin=238&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=W5nYmzIUoKE&vignette=https://i.ytimg.com/vi/W5nYmzIUoKE/hqdefault.jpg&debut=0&fin=238&largeur=200&hauteur=113",
                     "authorName": "*Mme Maths*",
                     "authorLink": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
                   }
@@ -5141,7 +5141,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=-h9kFZcULz8&vignette=https://i.ytimg.com/vi/-h9kFZcULz8/hqdefault.jpg&debut=0&fin=355&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=-h9kFZcULz8&vignette=https://i.ytimg.com/vi/-h9kFZcULz8/hqdefault.jpg&debut=0&fin=355&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -5181,13 +5181,13 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=8S1LMsmz7Mo&vignette=https://i.ytimg.com/vi/8S1LMsmz7Mo/hqdefault.jpg&debut=0&fin=208&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=8S1LMsmz7Mo&vignette=https://i.ytimg.com/vi/8S1LMsmz7Mo/hqdefault.jpg&debut=0&fin=208&largeur=200&hauteur=113",
                     "authorName": "*Mme Maths*",
                     "authorLink": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
                   },
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=8cBU3mKvTcY&vignette=https://i.ytimg.com/vi/8cBU3mKvTcY/hqdefault.jpg&debut=0&fin=352&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=8cBU3mKvTcY&vignette=https://i.ytimg.com/vi/8cBU3mKvTcY/hqdefault.jpg&debut=0&fin=352&largeur=200&hauteur=113",
                     "authorName": "Maths&Methodes",
                     "authorLink": "https://www.youtube.com/channel/UCb9LSmnMAXQ6LtggV7pD_xw"
                   }
@@ -5229,7 +5229,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=l00ve_5RCX4&vignette=https://i.ytimg.com/vi/l00ve_5RCX4/hqdefault.jpg&debut=0&fin=325&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=l00ve_5RCX4&vignette=https://i.ytimg.com/vi/l00ve_5RCX4/hqdefault.jpg&debut=0&fin=325&largeur=200&hauteur=113",
                     "authorName": "*Mme Maths*",
                     "authorLink": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
                   }
@@ -5281,7 +5281,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=LMwUa5oV1fw&vignette=https://i.ytimg.com/vi/LMwUa5oV1fw/hqdefault.jpg&debut=0&fin=345&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=LMwUa5oV1fw&vignette=https://i.ytimg.com/vi/LMwUa5oV1fw/hqdefault.jpg&debut=0&fin=345&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -5327,7 +5327,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=VvaCZM0I2-E&vignette=https://i.ytimg.com/vi/VvaCZM0I2-E/hqdefault.jpg&debut=0&fin=80&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=VvaCZM0I2-E&vignette=https://i.ytimg.com/vi/VvaCZM0I2-E/hqdefault.jpg&debut=0&fin=80&largeur=200&hauteur=113",
                     "authorName": " Christophe Gombert",
                     "authorLink": "https://www.youtube.com/channel/UCuvHpNCqGDTFaEvO4c0nhZQ"
                   }
@@ -5378,7 +5378,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=uFuFRUt4HRQ&vignette=https://i.ytimg.com/vi/uFuFRUt4HRQ/hqdefault.jpg&debut=0&fin=408&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=uFuFRUt4HRQ&vignette=https://i.ytimg.com/vi/uFuFRUt4HRQ/hqdefault.jpg&debut=0&fin=408&largeur=200&hauteur=150",
                     "authorName": "mathsgrossard",
                     "authorLink": "https://www.youtube.com/channel/UCZ11JDci6xQkBxBC0vg1QBw"
                   }
@@ -5424,19 +5424,19 @@
                 "videos": [
                   {
                     "title": "Construction à la main",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=NZnhF5VDy04&vignette=https://i.ytimg.com/vi/NZnhF5VDy04/hqdefault.jpg&debut=0&fin=275&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=NZnhF5VDy04&vignette=https://i.ytimg.com/vi/NZnhF5VDy04/hqdefault.jpg&debut=0&fin=275&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Qla9YSL99oQ&vignette=https://i.ytimg.com/vi/Qla9YSL99oQ/hqdefault.jpg&debut=0&fin=150&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=Qla9YSL99oQ&vignette=https://i.ytimg.com/vi/Qla9YSL99oQ/hqdefault.jpg&debut=0&fin=150&largeur=200&hauteur=113",
                     "authorName": "Jeremy Navarro",
                     "authorLink": "https://www.youtube.com/channel/UCAD9yVxeKupFV-XftTiSeZw"
                   },
                   {
                     "title": "Construction à l'aide de Libre Office Calc",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=8JvLWkXPQKI&vignette=https://i.ytimg.com/vi/8JvLWkXPQKI/hqdefault.jpg&debut=0&fin=114&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=8JvLWkXPQKI&vignette=https://i.ytimg.com/vi/8JvLWkXPQKI/hqdefault.jpg&debut=0&fin=114&largeur=200&hauteur=113",
                     "authorName": "Professeur ROOKY",
                     "authorLink": "https://www.youtube.com/channel/UC-cePs9J43U6FEfwFY0rMdQ"
                   }
@@ -5476,7 +5476,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=RGaby7Nz5mw&vignette=https://i.ytimg.com/vi/RGaby7Nz5mw/hqdefault.jpg&debut=0&fin=310&largeur=16&hauteur=9",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=RGaby7Nz5mw&vignette=https://i.ytimg.com/vi/RGaby7Nz5mw/hqdefault.jpg&debut=0&fin=310&largeur=16&hauteur=9",
                     "authorName": "Hedacademy",
                     "authorLink": "https://www.youtube.com/@hedacademy"
                   }
@@ -5520,7 +5520,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=RGaby7Nz5mw&vignette=https://i.ytimg.com/vi/RGaby7Nz5mw/hqdefault.jpg&debut=0&fin=310&largeur=16&hauteur=9",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=RGaby7Nz5mw&vignette=https://i.ytimg.com/vi/RGaby7Nz5mw/hqdefault.jpg&debut=0&fin=310&largeur=16&hauteur=9",
                     "authorName": "Hedacademy",
                     "authorLink": "https://www.youtube.com/@hedacademy"
                   }
@@ -5565,7 +5565,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=und3LhXPAPQ&vignette=https://i.ytimg.com/vi/und3LhXPAPQ/hqdefault.jpg&debut=0&fin=44&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=und3LhXPAPQ&vignette=https://i.ytimg.com/vi/und3LhXPAPQ/hqdefault.jpg&debut=0&fin=44&largeur=200&hauteur=150",
                     "authorName": "Toussaint Jean-Charles",
                     "authorLink": "https://www.youtube.com/channel/UC8JZjfitt39IiBLKdRm4xKw"
                   }
@@ -5602,7 +5602,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=XTlxQPG5ehc&vignette=https://i.ytimg.com/vi/XTlxQPG5ehc/hqdefault.jpg&debut=0&fin=479&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=XTlxQPG5ehc&vignette=https://i.ytimg.com/vi/XTlxQPG5ehc/hqdefault.jpg&debut=0&fin=479&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -5669,19 +5669,19 @@
                 "videos": [
                   {
                     "title": "Un premier exemple",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=20-ZHBgiIa0&vignette=https://i.ytimg.com/vi/20-ZHBgiIa0/hqdefault.jpg&debut=0&fin=158&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=20-ZHBgiIa0&vignette=https://i.ytimg.com/vi/20-ZHBgiIa0/hqdefault.jpg&debut=0&fin=158&largeur=200&hauteur=113",
                     "authorName": "REROLLE Aime.les.maths",
                     "authorLink": "https://www.youtube.com/c/REROLLEAimelesmaths"
                   },
                   {
                     "title": "Un deuxième exemple",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=mFNtcd9FDvc&vignette=https://i.ytimg.com/vi/mFNtcd9FDvc/hqdefault.jpg&debut=0&fin=302&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=mFNtcd9FDvc&vignette=https://i.ytimg.com/vi/mFNtcd9FDvc/hqdefault.jpg&debut=0&fin=302&largeur=200&hauteur=113",
                     "authorName": "KhanAcademyFrancophone",
                     "authorLink": "https://www.youtube.com/c/KhanAcademyFrancais"
                   },
                   {
                     "title": "D'autre exemples",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=IWLsBdZr4Bc&vignette=https://i.ytimg.com/vi/IWLsBdZr4Bc/hqdefault.jpg&debut=0&fin=712&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=IWLsBdZr4Bc&vignette=https://i.ytimg.com/vi/IWLsBdZr4Bc/hqdefault.jpg&debut=0&fin=712&largeur=200&hauteur=113",
                     "authorName": "Fatima-Zohra B Maths",
                     "authorLink": "https://www.youtube.com/channel/UCbwDhmflS7WO2KWvexucY4A"
                   }
@@ -5748,19 +5748,19 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=_Ju_sbSnIFI&vignette=https://i.ytimg.com/vi/_Ju_sbSnIFI/hqdefault.jpg&debut=0&fin=156&largeur=16&hauteur=9",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=_Ju_sbSnIFI&vignette=https://i.ytimg.com/vi/_Ju_sbSnIFI/hqdefault.jpg&debut=0&fin=156&largeur=16&hauteur=9",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Image d'un point",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=YzG5ZP9Kp6k&vignette=https://i.ytimg.com/vi/YzG5ZP9Kp6k/hqdefault.jpg&debut=0&fin=221&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=YzG5ZP9Kp6k&vignette=https://i.ytimg.com/vi/YzG5ZP9Kp6k/hqdefault.jpg&debut=0&fin=221&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "Image d'une figure",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=chYUBSVEoFo&vignette=https://i.ytimg.com/vi/chYUBSVEoFo/hqdefault.jpg&debut=0&fin=317&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=chYUBSVEoFo&vignette=https://i.ytimg.com/vi/chYUBSVEoFo/hqdefault.jpg&debut=0&fin=317&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -5779,7 +5779,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=b_22mF3ZbwI&vignette=https://i.ytimg.com/vi/b_22mF3ZbwI/hqdefault.jpg&debut=0&fin=357&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=b_22mF3ZbwI&vignette=https://i.ytimg.com/vi/b_22mF3ZbwI/hqdefault.jpg&debut=0&fin=357&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -5799,7 +5799,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=OX88gEucBY8&vignette=https://i.ytimg.com/vi/OX88gEucBY8/hqdefault.jpg&debut=0&fin=496&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=OX88gEucBY8&vignette=https://i.ytimg.com/vi/OX88gEucBY8/hqdefault.jpg&debut=0&fin=496&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -5823,7 +5823,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=XrSzQ02raSk&vignette=https://i.ytimg.com/vi/XrSzQ02raSk/hqdefault.jpg&debut=0&fin=240&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=XrSzQ02raSk&vignette=https://i.ytimg.com/vi/XrSzQ02raSk/hqdefault.jpg&debut=0&fin=240&largeur=200&hauteur=113",
                     "authorName": "Khan Academy",
                     "authorLink": "http://www.khanacademy.org"
                   }
@@ -5847,7 +5847,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=GNit9hrlbv4&vignette=https://i.ytimg.com/vi/GNit9hrlbv4/hqdefault.jpg&debut=0&fin=276&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=GNit9hrlbv4&vignette=https://i.ytimg.com/vi/GNit9hrlbv4/hqdefault.jpg&debut=0&fin=276&largeur=200&hauteur=150",
                     "authorName": "jean-yves Labouche",
                     "authorLink": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
                   }
@@ -5871,25 +5871,25 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Jv__hIb6Zi4&vignette=https://i.ytimg.com/vi/Jv__hIb6Zi4/hqdefault.jpg&debut=0&fin=185&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=Jv__hIb6Zi4&vignette=https://i.ytimg.com/vi/Jv__hIb6Zi4/hqdefault.jpg&debut=0&fin=185&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Écrire l'égalité de Pythagore",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=h4sXOrqGhRE&vignette=https://i.ytimg.com/vi/h4sXOrqGhRE/hqdefault.jpg&debut=0&fin=237&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=h4sXOrqGhRE&vignette=https://i.ytimg.com/vi/h4sXOrqGhRE/hqdefault.jpg&debut=0&fin=237&largeur=200&hauteur=113",
                     "authorName": "*Mme Maths*",
                     "authorLink": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
                   },
                   {
                     "title": "Calculer la longueur de l'hypoténuse",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=589aaCn3uIE&vignette=https://i.ytimg.com/vi/589aaCn3uIE/hqdefault.jpg&debut=0&fin=242&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=589aaCn3uIE&vignette=https://i.ytimg.com/vi/589aaCn3uIE/hqdefault.jpg&debut=0&fin=242&largeur=200&hauteur=113",
                     "authorName": "*Mme Maths*",
                     "authorLink": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
                   },
                   {
                     "title": "Calculer la longueur d'un côté de l'angle droit",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=T04UI5tw3Ds&vignette=https://i.ytimg.com/vi/T04UI5tw3Ds/hqdefault.jpg&debut=0&fin=287&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=T04UI5tw3Ds&vignette=https://i.ytimg.com/vi/T04UI5tw3Ds/hqdefault.jpg&debut=0&fin=287&largeur=200&hauteur=113",
                     "authorName": "*Mme Maths*",
                     "authorLink": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
                   }
@@ -5921,19 +5921,19 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=F-jkF9xars4&vignette=https://i.ytimg.com/vi/F-jkF9xars4/hqdefault.jpg&debut=0&fin=130&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=F-jkF9xars4&vignette=https://i.ytimg.com/vi/F-jkF9xars4/hqdefault.jpg&debut=0&fin=130&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Réciproque",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=DCc8eCh-2p8&vignette=https://i.ytimg.com/vi/DCc8eCh-2p8/hqdefault.jpg&debut=0&fin=333&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=DCc8eCh-2p8&vignette=https://i.ytimg.com/vi/DCc8eCh-2p8/hqdefault.jpg&debut=0&fin=333&largeur=200&hauteur=113",
                     "authorName": "Mathrix",
                     "authorLink": "https://www.youtube.com/c/Mathrix"
                   },
                   {
                     "title": "Contraposée",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=M0-FRaBZq8U&vignette=https://i.ytimg.com/vi/M0-FRaBZq8U/hqdefault.jpg&debut=0&fin=250&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=M0-FRaBZq8U&vignette=https://i.ytimg.com/vi/M0-FRaBZq8U/hqdefault.jpg&debut=0&fin=250&largeur=200&hauteur=113",
                     "authorName": "Hedacademy",
                     "authorLink": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
                   }
@@ -5974,7 +5974,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=u1rqg_5pL1s&vignette=https://i.ytimg.com/vi/u1rqg_5pL1s/hqdefault.jpg&debut=0&fin=134&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=u1rqg_5pL1s&vignette=https://i.ytimg.com/vi/u1rqg_5pL1s/hqdefault.jpg&debut=0&fin=134&largeur=200&hauteur=113",
                     "authorName": "Mate tes Maths",
                     "authorLink": "https://www.youtube.com/channel/UCedwzeKX8pd-l57Bs3pcy3Q"
                   }
@@ -5993,13 +5993,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=P3pKzIlPqTU&vignette=https://i.ytimg.com/vi/P3pKzIlPqTU/hqdefault.jpg&debut=0&fin=184&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=P3pKzIlPqTU&vignette=https://i.ytimg.com/vi/P3pKzIlPqTU/hqdefault.jpg&debut=0&fin=184&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=pZstMCRchRE&vignette=https://i.ytimg.com/vi/pZstMCRchRE/hqdefault.jpg&debut=0&fin=1113&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=pZstMCRchRE&vignette=https://i.ytimg.com/vi/pZstMCRchRE/hqdefault.jpg&debut=0&fin=1113&largeur=200&hauteur=113",
                     "authorName": "Hedacademy",
                     "authorLink": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
                   }
@@ -6019,13 +6019,13 @@
                 "videos": [
                   {
                     "title": "Réciproque",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=OaladmqeJ40&vignette=https://i.ytimg.com/vi/OaladmqeJ40/hqdefault.jpg&debut=0&fin=510&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=OaladmqeJ40&vignette=https://i.ytimg.com/vi/OaladmqeJ40/hqdefault.jpg&debut=0&fin=510&largeur=200&hauteur=113",
                     "authorName": "Hedacademy",
                     "authorLink": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
                   },
                   {
                     "title": "Contraposée",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=fv9pK3hX6b8&vignette=https://i.ytimg.com/vi/fv9pK3hX6b8/hqdefault.jpg&debut=0&fin=460&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=fv9pK3hX6b8&vignette=https://i.ytimg.com/vi/fv9pK3hX6b8/hqdefault.jpg&debut=0&fin=460&largeur=200&hauteur=113",
                     "authorName": "Hedacademy",
                     "authorLink": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
                   }
@@ -6054,7 +6054,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=8MQ0ecvoSOc&vignette=https://i.ytimg.com/vi/8MQ0ecvoSOc/hqdefault.jpg&debut=0&fin=578&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=8MQ0ecvoSOc&vignette=https://i.ytimg.com/vi/8MQ0ecvoSOc/hqdefault.jpg&debut=0&fin=578&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -6079,7 +6079,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=OTUHNsf1Gek&vignette=https://i.ytimg.com/vi/OTUHNsf1Gek/hqdefault.jpg&debut=0&fin=625&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=OTUHNsf1Gek&vignette=https://i.ytimg.com/vi/OTUHNsf1Gek/hqdefault.jpg&debut=0&fin=625&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -6104,13 +6104,13 @@
                 "videos": [
                   {
                     "title": "Pyramide en perspective cavalière",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=mwSm3aHL9PA&vignette=https://i.ytimg.com/vi/mwSm3aHL9PA/hqdefault.jpg&debut=0&fin=258&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=mwSm3aHL9PA&vignette=https://i.ytimg.com/vi/mwSm3aHL9PA/hqdefault.jpg&debut=0&fin=258&largeur=200&hauteur=113",
                     "authorName": "Amaury ADON",
                     "authorLink": "https://www.youtube.com/c/AmauryADON"
                   },
                   {
                     "title": "Patron d'une pyramide",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=GXkxA__A44A&vignette=https://i.ytimg.com/vi/GXkxA__A44A/hqdefault.jpg&debut=0&fin=683&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=GXkxA__A44A&vignette=https://i.ytimg.com/vi/GXkxA__A44A/hqdefault.jpg&debut=0&fin=683&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -6130,13 +6130,13 @@
                 "videos": [
                   {
                     "title": "Cône en perspective cavalière",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=gAaye2-x8tg&vignette=https://i.ytimg.com/vi/gAaye2-x8tg/hqdefault.jpg&debut=0&fin=287&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=gAaye2-x8tg&vignette=https://i.ytimg.com/vi/gAaye2-x8tg/hqdefault.jpg&debut=0&fin=287&largeur=200&hauteur=113",
                     "authorName": "Amaury ADON",
                     "authorLink": "https://www.youtube.com/c/AmauryADON"
                   },
                   {
                     "title": "Patron d'un cône",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=hepr9p3Svbw&vignette=https://i.ytimg.com/vi/hepr9p3Svbw/hqdefault.jpg&debut=0&fin=959&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=hepr9p3Svbw&vignette=https://i.ytimg.com/vi/hepr9p3Svbw/hqdefault.jpg&debut=0&fin=959&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -6155,19 +6155,19 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=kNicKj-PIB4&vignette=https://i.ytimg.com/vi/kNicKj-PIB4/hqdefault.jpg&debut=0&fin=204&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=kNicKj-PIB4&vignette=https://i.ytimg.com/vi/kNicKj-PIB4/hqdefault.jpg&debut=0&fin=204&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Volume d'une pyramide",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=KKon_cIVd9k&vignette=https://i.ytimg.com/vi/KKon_cIVd9k/hqdefault.jpg&debut=0&fin=412&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=KKon_cIVd9k&vignette=https://i.ytimg.com/vi/KKon_cIVd9k/hqdefault.jpg&debut=0&fin=412&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   },
                   {
                     "title": "Volume d'un cône",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=kMssaNRPXz8&vignette=https://i.ytimg.com/vi/kMssaNRPXz8/hqdefault.jpg&debut=0&fin=616&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=kMssaNRPXz8&vignette=https://i.ytimg.com/vi/kMssaNRPXz8/hqdefault.jpg&debut=0&fin=616&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -6197,13 +6197,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=uSUkEi_Vqgk&vignette=https://i.ytimg.com/vi/uSUkEi_Vqgk/hqdefault.jpg&debut=0&fin=204&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=uSUkEi_Vqgk&vignette=https://i.ytimg.com/vi/uSUkEi_Vqgk/hqdefault.jpg&debut=0&fin=204&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=-RHuYaV5eSI&vignette=https://i.ytimg.com/vi/-RHuYaV5eSI/hqdefault.jpg&debut=0&fin=353&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=-RHuYaV5eSI&vignette=https://i.ytimg.com/vi/-RHuYaV5eSI/hqdefault.jpg&debut=0&fin=353&largeur=200&hauteur=113",
                     "authorName": "Mathrix",
                     "authorLink": "https://www.youtube.com/channel/UCdH4RLzP9UIxV299clvj1rg"
                   }
@@ -6245,25 +6245,25 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=RfNRleqXUZs&vignette=https://i.ytimg.com/vi/RfNRleqXUZs/hqdefault.jpg&debut=0&fin=141&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=RfNRleqXUZs&vignette=https://i.ytimg.com/vi/RfNRleqXUZs/hqdefault.jpg&debut=0&fin=141&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Multiplier deux fractions avec des nombres positifs",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=j27kXXrw3Xk&vignette=https://i.ytimg.com/vi/j27kXXrw3Xk/hqdefault.jpg&debut=0&fin=297&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=j27kXXrw3Xk&vignette=https://i.ytimg.com/vi/j27kXXrw3Xk/hqdefault.jpg&debut=0&fin=297&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "Multiplier un entier par une fraction",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=gReBtrld7xU&vignette=https://i.ytimg.com/vi/gReBtrld7xU/hqdefault.jpg&debut=0&fin=311&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=gReBtrld7xU&vignette=https://i.ytimg.com/vi/gReBtrld7xU/hqdefault.jpg&debut=0&fin=311&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "Multiplications avec des fractions et des nombres relatifs",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=9nwZMLmoag8&vignette=https://i.ytimg.com/vi/9nwZMLmoag8/hqdefault.jpg&debut=0&fin=564&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=9nwZMLmoag8&vignette=https://i.ytimg.com/vi/9nwZMLmoag8/hqdefault.jpg&debut=0&fin=564&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -6292,13 +6292,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=RfNRleqXUZs&vignette=https://i.ytimg.com/vi/RfNRleqXUZs/hqdefault.jpg&debut=0&fin=141&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=RfNRleqXUZs&vignette=https://i.ytimg.com/vi/RfNRleqXUZs/hqdefault.jpg&debut=0&fin=141&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Sr2eUlb04iM&vignette=https://i.ytimg.com/vi/Sr2eUlb04iM/hqdefault.jpg&debut=0&fin=275&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=Sr2eUlb04iM&vignette=https://i.ytimg.com/vi/Sr2eUlb04iM/hqdefault.jpg&debut=0&fin=275&largeur=200&hauteur=113",
                     "authorName": "Hedacademy",
                     "authorLink": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
                   }
@@ -6332,13 +6332,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=GdJmkUJtQS0&vignette=https://i.ytimg.com/vi/GdJmkUJtQS0/hqdefault.jpg&debut=0&fin=199&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=GdJmkUJtQS0&vignette=https://i.ytimg.com/vi/GdJmkUJtQS0/hqdefault.jpg&debut=0&fin=199&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=UL5cgbvDvNQ&vignette=https://i.ytimg.com/vi/UL5cgbvDvNQ/hqdefault.jpg&debut=0&fin=493&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=UL5cgbvDvNQ&vignette=https://i.ytimg.com/vi/UL5cgbvDvNQ/hqdefault.jpg&debut=0&fin=493&largeur=200&hauteur=113",
                     "authorName": "Hedacademy",
                     "authorLink": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
                   }
@@ -6362,7 +6362,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=87S4-an3mgI&vignette=https://i.ytimg.com/vi/87S4-an3mgI/hqdefault.jpg&debut=0&fin=126&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=87S4-an3mgI&vignette=https://i.ytimg.com/vi/87S4-an3mgI/hqdefault.jpg&debut=0&fin=126&largeur=200&hauteur=113",
                     "authorName": "Yves le Coadou",
                     "authorLink": "https://www.youtube.com/channel/UCT0wZd0o4uFVKvSi2rE_sKQ"
                   }
@@ -6381,13 +6381,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=GdJmkUJtQS0&vignette=https://i.ytimg.com/vi/GdJmkUJtQS0/hqdefault.jpg&debut=0&fin=199&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=GdJmkUJtQS0&vignette=https://i.ytimg.com/vi/GdJmkUJtQS0/hqdefault.jpg&debut=0&fin=199&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=5miQxq30zhY&vignette=https://i.ytimg.com/vi/5miQxq30zhY/hqdefault.jpg&debut=0&fin=293&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=5miQxq30zhY&vignette=https://i.ytimg.com/vi/5miQxq30zhY/hqdefault.jpg&debut=0&fin=293&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -6411,19 +6411,19 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=GdJmkUJtQS0&vignette=https://i.ytimg.com/vi/GdJmkUJtQS0/hqdefault.jpg&debut=0&fin=199&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=GdJmkUJtQS0&vignette=https://i.ytimg.com/vi/GdJmkUJtQS0/hqdefault.jpg&debut=0&fin=199&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Puissance simple",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=D5Fe9Fv6CqQ&vignette=https://i.ytimg.com/vi/D5Fe9Fv6CqQ/hqdefault.jpg&debut=0&fin=358&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=D5Fe9Fv6CqQ&vignette=https://i.ytimg.com/vi/D5Fe9Fv6CqQ/hqdefault.jpg&debut=0&fin=358&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "Produit d'un nombre par une puissance",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=vRPOgw3Sfnk&vignette=https://i.ytimg.com/vi/vRPOgw3Sfnk/hqdefault.jpg&debut=0&fin=377&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=vRPOgw3Sfnk&vignette=https://i.ytimg.com/vi/vRPOgw3Sfnk/hqdefault.jpg&debut=0&fin=377&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -6447,7 +6447,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=jVUClY5AyF8&vignette=https://i.ytimg.com/vi/jVUClY5AyF8/hqdefault.jpg&debut=0&fin=208&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=jVUClY5AyF8&vignette=https://i.ytimg.com/vi/jVUClY5AyF8/hqdefault.jpg&debut=0&fin=208&largeur=200&hauteur=113",
                     "authorName": "*Mme Maths*",
                     "authorLink": "https://www.youtube.com/@MmeMaths"
                   }
@@ -6476,13 +6476,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=afiu6VUhngo&vignette=https://i.ytimg.com/vi/afiu6VUhngo/hqdefault.jpg&debut=0&fin=183&largeur=16&hauteur=9",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=afiu6VUhngo&vignette=https://i.ytimg.com/vi/afiu6VUhngo/hqdefault.jpg&debut=0&fin=183&largeur=16&hauteur=9",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=cgw0QhC8XVM&vignette=https://i.ytimg.com/vi/cgw0QhC8XVM/hqdefault.jpg&debut=0&fin=386&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=cgw0QhC8XVM&vignette=https://i.ytimg.com/vi/cgw0QhC8XVM/hqdefault.jpg&debut=0&fin=386&largeur=200&hauteur=113",
                     "authorName": "Mathrix",
                     "authorLink": "https://www.youtube.com/channel/UCdH4RLzP9UIxV299clvj1rg"
                   }
@@ -6524,7 +6524,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=2Ib7SFTws0c&vignette=https://i.ytimg.com/vi/2Ib7SFTws0c/hqdefault.jpg&debut=0&fin=922&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=2Ib7SFTws0c&vignette=https://i.ytimg.com/vi/2Ib7SFTws0c/hqdefault.jpg&debut=0&fin=922&largeur=200&hauteur=113",
                     "authorName": "Hedacademy",
                     "authorLink": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
                   }
@@ -6543,13 +6543,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=46nTro76sFg&vignette=https://i.ytimg.com/vi/46nTro76sFg/hqdefault.jpg&debut=0&fin=210&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=46nTro76sFg&vignette=https://i.ytimg.com/vi/46nTro76sFg/hqdefault.jpg&debut=0&fin=210&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=RBE2wPIKagI&vignette=https://i.ytimg.com/vi/RBE2wPIKagI/hqdefault.jpg&debut=0&fin=541&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=RBE2wPIKagI&vignette=https://i.ytimg.com/vi/RBE2wPIKagI/hqdefault.jpg&debut=0&fin=541&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -6569,7 +6569,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Rr31lJ0OuZE&vignette=https://i.ytimg.com/vi/Rr31lJ0OuZE/hqdefault.jpg&debut=0&fin=498&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=Rr31lJ0OuZE&vignette=https://i.ytimg.com/vi/Rr31lJ0OuZE/hqdefault.jpg&debut=0&fin=498&largeur=200&hauteur=113",
                     "authorName": "La galaxie de Manu",
                     "authorLink": "https://www.youtube.com/channel/UC8OLHC9Bo9LsFjPdlobj_wA"
                   }
@@ -6599,7 +6599,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=NAPagHvwD04&vignette=https://i.ytimg.com/vi/NAPagHvwD04/hqdefault.jpg&debut=0&fin=542&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=NAPagHvwD04&vignette=https://i.ytimg.com/vi/NAPagHvwD04/hqdefault.jpg&debut=0&fin=542&largeur=200&hauteur=113",
                     "authorName": "Maths et Jeux",
                     "authorLink": "https://www.youtube.com/channel/UCj5z973uER7e6ppaAEvYMHQ"
                   }
@@ -6631,7 +6631,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=S_ckQpWzmG8&vignette=https://i.ytimg.com/vi/S_ckQpWzmG8/hqdefault.jpg&debut=0&fin=412&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=S_ckQpWzmG8&vignette=https://i.ytimg.com/vi/S_ckQpWzmG8/hqdefault.jpg&debut=0&fin=412&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -6655,13 +6655,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=otICNqaunUQ&vignette=https://i.ytimg.com/vi/otICNqaunUQ/hqdefault.jpg&debut=0&fin=217&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=otICNqaunUQ&vignette=https://i.ytimg.com/vi/otICNqaunUQ/hqdefault.jpg&debut=0&fin=217&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=URNld8xsXgM&vignette=https://i.ytimg.com/vi/URNld8xsXgM/hqdefault.jpg&debut=0&fin=405&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=URNld8xsXgM&vignette=https://i.ytimg.com/vi/URNld8xsXgM/hqdefault.jpg&debut=0&fin=405&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -6686,13 +6686,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=kz8y9CKvVaI&vignette=https://i.ytimg.com/vi/kz8y9CKvVaI/hqdefault.jpg&debut=0&fin=195&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=kz8y9CKvVaI&vignette=https://i.ytimg.com/vi/kz8y9CKvVaI/hqdefault.jpg&debut=0&fin=195&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=sr_vOR2ALhw&vignette=https://i.ytimg.com/vi/sr_vOR2ALhw/hqdefault.jpg&debut=0&fin=472&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=sr_vOR2ALhw&vignette=https://i.ytimg.com/vi/sr_vOR2ALhw/hqdefault.jpg&debut=0&fin=472&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -6720,7 +6720,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=-iw4OkMhgCA&vignette=https://i.ytimg.com/vi/-iw4OkMhgCA/hqdefault.jpg&debut=0&fin=446&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=-iw4OkMhgCA&vignette=https://i.ytimg.com/vi/-iw4OkMhgCA/hqdefault.jpg&debut=0&fin=446&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -6740,7 +6740,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=PLuSPM6rJKI&vignette=https://i.ytimg.com/vi/PLuSPM6rJKI/hqdefault.jpg&debut=0&fin=290&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=PLuSPM6rJKI&vignette=https://i.ytimg.com/vi/PLuSPM6rJKI/hqdefault.jpg&debut=0&fin=290&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -6765,13 +6765,13 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=l43tTcNaD6k&vignette=https://i.ytimg.com/vi/l43tTcNaD6k/hqdefault.jpg&debut=0&fin=614&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=l43tTcNaD6k&vignette=https://i.ytimg.com/vi/l43tTcNaD6k/hqdefault.jpg&debut=0&fin=614&largeur=200&hauteur=113",
                     "authorName": "Mathrix",
                     "authorLink": "https://www.youtube.com/channel/UCdH4RLzP9UIxV299clvj1rg"
                   },
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=g2byCYDFQ1A&vignette=https://i.ytimg.com/vi/g2byCYDFQ1A/hqdefault.jpg&debut=0&fin=214&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=g2byCYDFQ1A&vignette=https://i.ytimg.com/vi/g2byCYDFQ1A/hqdefault.jpg&debut=0&fin=214&largeur=200&hauteur=113",
                     "authorName": "mathasius",
                     "authorLink": "https://www.youtube.com/channel/UCBjVRypwZe1pOd-Rz2hZ84Q"
                   }
@@ -6792,13 +6792,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Y9lF-ReyeXU&vignette=https://i.ytimg.com/vi/Y9lF-ReyeXU/hqdefault.jpg&debut=0&fin=183&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=Y9lF-ReyeXU&vignette=https://i.ytimg.com/vi/Y9lF-ReyeXU/hqdefault.jpg&debut=0&fin=183&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=uV_EmbYu9_E&vignette=https://i.ytimg.com/vi/uV_EmbYu9_E/hqdefault.jpg&debut=0&fin=658&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=uV_EmbYu9_E&vignette=https://i.ytimg.com/vi/uV_EmbYu9_E/hqdefault.jpg&debut=0&fin=658&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -6828,7 +6828,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Lt3b32bYm1M&vignette=https://i.ytimg.com/vi/Lt3b32bYm1M/hqdefault.jpg&debut=0&fin=350&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=Lt3b32bYm1M&vignette=https://i.ytimg.com/vi/Lt3b32bYm1M/hqdefault.jpg&debut=0&fin=350&largeur=200&hauteur=150",
                     "authorName": "Noelle Barny",
                     "authorLink": "https://www.youtube.com/channel/UC9_mMk5yn9L2NPKXnqodaaA"
                   }
@@ -6847,13 +6847,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=8oqdLF3AN0w&vignette=https://i.ytimg.com/vi/8oqdLF3AN0w/hqdefault.jpg&debut=0&fin=121&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=8oqdLF3AN0w&vignette=https://i.ytimg.com/vi/8oqdLF3AN0w/hqdefault.jpg&debut=0&fin=121&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=gEawD_zsAGI&vignette=https://i.ytimg.com/vi/gEawD_zsAGI/hqdefault.jpg&debut=0&fin=344&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=gEawD_zsAGI&vignette=https://i.ytimg.com/vi/gEawD_zsAGI/hqdefault.jpg&debut=0&fin=344&largeur=200&hauteur=113",
                     "authorName": "Fabien Olicard",
                     "authorLink": "https://www.youtube.com/channel/UCTafEJoRl5myC8A50plIrng"
                   }
@@ -6877,7 +6877,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Z4EObILooJk&vignette=https://i.ytimg.com/vi/Z4EObILooJk/hqdefault.jpg&debut=0&fin=289&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=Z4EObILooJk&vignette=https://i.ytimg.com/vi/Z4EObILooJk/hqdefault.jpg&debut=0&fin=289&largeur=200&hauteur=113",
                     "authorName": "mathsguyon",
                     "authorLink": "https://www.youtube.com/channel/UC8abtgwpiP8-L6EfRkyaItg"
                   }
@@ -6910,7 +6910,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=5LaL_SJVLoI&vignette=https://i.ytimg.com/vi/5LaL_SJVLoI/hqdefault.jpg&debut=0&fin=542&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=5LaL_SJVLoI&vignette=https://i.ytimg.com/vi/5LaL_SJVLoI/hqdefault.jpg&debut=0&fin=542&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -6934,7 +6934,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=23UG33y2Mic&vignette=https://i.ytimg.com/vi/23UG33y2Mic/hqdefault.jpg&debut=114&fin=282&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=23UG33y2Mic&vignette=https://i.ytimg.com/vi/23UG33y2Mic/hqdefault.jpg&debut=114&fin=282&largeur=200&hauteur=113",
                     "authorName": "Khan Academy",
                     "authorLink": "http://www.khanacademy.org"
                   }
@@ -6954,7 +6954,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=DI1hBhEekZ0&vignette=https://i.ytimg.com/vi/DI1hBhEekZ0/hqdefault.jpg&debut=0&fin=221&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=DI1hBhEekZ0&vignette=https://i.ytimg.com/vi/DI1hBhEekZ0/hqdefault.jpg&debut=0&fin=221&largeur=200&hauteur=113",
                     "authorName": "Mate tes Maths",
                     "authorLink": "https://www.youtube.com/channel/UCedwzeKX8pd-l57Bs3pcy3Q"
                   }
@@ -6974,13 +6974,13 @@
                 "videos": [
                   {
                     "title": "Découverte du vocabulaire",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=P_7uC_ZuUvg&vignette=https://i.ytimg.com/vi/P_7uC_ZuUvg/hqdefault.jpg&debut=0&fin=225&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=P_7uC_ZuUvg&vignette=https://i.ytimg.com/vi/P_7uC_ZuUvg/hqdefault.jpg&debut=0&fin=225&largeur=200&hauteur=113",
                     "authorName": "*Mme Maths*",
                     "authorLink": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
                   },
                   {
                     "title": "Événement contraire",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=DWwDpoY4euM&vignette=https://i.ytimg.com/vi/DWwDpoY4euM/hqdefault.jpg&debut=0&fin=165&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=DWwDpoY4euM&vignette=https://i.ytimg.com/vi/DWwDpoY4euM/hqdefault.jpg&debut=0&fin=165&largeur=200&hauteur=113",
                     "authorName": "*Mme Maths*",
                     "authorLink": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
                   }
@@ -7000,13 +7000,13 @@
                 "videos": [
                   {
                     "title": "Calculer une probabilité",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=XTlxQPG5ehc&vignette=https://i.ytimg.com/vi/XTlxQPG5ehc/hqdefault.jpg&debut=0&fin=479&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=XTlxQPG5ehc&vignette=https://i.ytimg.com/vi/XTlxQPG5ehc/hqdefault.jpg&debut=0&fin=479&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "Événement contraire",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=DWwDpoY4euM&vignette=https://i.ytimg.com/vi/DWwDpoY4euM/hqdefault.jpg&debut=0&fin=165&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=DWwDpoY4euM&vignette=https://i.ytimg.com/vi/DWwDpoY4euM/hqdefault.jpg&debut=0&fin=165&largeur=200&hauteur=113",
                     "authorName": "*Mme Maths*",
                     "authorLink": "https://www.youtube.com/channel/UCJm9gdUbZhS0m8xGPQySgzg"
                   }
@@ -7025,7 +7025,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=RGaby7Nz5mw&vignette=https://i.ytimg.com/vi/RGaby7Nz5mw/hqdefault.jpg&debut=0&fin=310&largeur=16&hauteur=9",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=RGaby7Nz5mw&vignette=https://i.ytimg.com/vi/RGaby7Nz5mw/hqdefault.jpg&debut=0&fin=310&largeur=16&hauteur=9",
                     "authorName": "Hedacademy",
                     "authorLink": "https://www.youtube.com/@hedacademy"
                   }
@@ -7055,7 +7055,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=xbtke1wOkFw&vignette=https://i.ytimg.com/vi/xbtke1wOkFw/hqdefault.jpg&debut=0&fin=313&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=xbtke1wOkFw&vignette=https://i.ytimg.com/vi/xbtke1wOkFw/hqdefault.jpg&debut=0&fin=313&largeur=200&hauteur=113",
                     "authorName": "La Mathr'X",
                     "authorLink": "https://www.youtube.com/channel/UC0ivQztwyauz70OESmUeYKg"
                   }
@@ -7074,7 +7074,7 @@
                 "videos": [
                   {
                     "title": "Un exemple",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Ta0fHOtLJKw&vignette=https://i.ytimg.com/vi/Ta0fHOtLJKw/hqdefault.jpg&debut=0&fin=511&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=Ta0fHOtLJKw&vignette=https://i.ytimg.com/vi/Ta0fHOtLJKw/hqdefault.jpg&debut=0&fin=511&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -7104,13 +7104,13 @@
                 "videos": [
                   {
                     "title": "Cours",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=38DTCmRRvUs&vignette=https://i.ytimg.com/vi/38DTCmRRvUs/hqdefault.jpg&debut=0&fin=381&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=38DTCmRRvUs&vignette=https://i.ytimg.com/vi/38DTCmRRvUs/hqdefault.jpg&debut=0&fin=381&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "Exercice",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Z-G-9Q9Vezc&vignette=https://i.ytimg.com/vi/Z-G-9Q9Vezc/hqdefault.jpg&debut=0&fin=336&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=Z-G-9Q9Vezc&vignette=https://i.ytimg.com/vi/Z-G-9Q9Vezc/hqdefault.jpg&debut=0&fin=336&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -7125,19 +7125,19 @@
                 "videos": [
                   {
                     "title": "Construire l'image d'un point",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=BNgjzubShAo&vignette=https://i.ytimg.com/vi/BNgjzubShAo/hqdefault.jpg&debut=0&fin=415&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=BNgjzubShAo&vignette=https://i.ytimg.com/vi/BNgjzubShAo/hqdefault.jpg&debut=0&fin=415&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "Construire l'image d'une figure",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=4H0YCqT93PE&vignette=https://i.ytimg.com/vi/4H0YCqT93PE/hqdefault.jpg&debut=0&fin=253&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=4H0YCqT93PE&vignette=https://i.ytimg.com/vi/4H0YCqT93PE/hqdefault.jpg&debut=0&fin=253&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "Construire l'image d'un cercle",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=n_jsy-104iU&vignette=https://i.ytimg.com/vi/n_jsy-104iU/hqdefault.jpg&debut=0&fin=469&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=n_jsy-104iU&vignette=https://i.ytimg.com/vi/n_jsy-104iU/hqdefault.jpg&debut=0&fin=469&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -7161,19 +7161,19 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=_Ju_sbSnIFI&vignette=https://i.ytimg.com/vi/_Ju_sbSnIFI/hqdefault.jpg&debut=0&fin=156&largeur=16&hauteur=9",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=_Ju_sbSnIFI&vignette=https://i.ytimg.com/vi/_Ju_sbSnIFI/hqdefault.jpg&debut=0&fin=156&largeur=16&hauteur=9",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Construire l'image d'un point",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=xd_-KzMmjwI&vignette=https://i.ytimg.com/vi/xd_-KzMmjwI/hqdefault.jpg&debut=0&fin=386&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=xd_-KzMmjwI&vignette=https://i.ytimg.com/vi/xd_-KzMmjwI/hqdefault.jpg&debut=0&fin=386&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "Construire l'image d'une figure",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=_lr-qTQVtCg&vignette=https://i.ytimg.com/vi/_lr-qTQVtCg/hqdefault.jpg&debut=0&fin=358&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=_lr-qTQVtCg&vignette=https://i.ytimg.com/vi/_lr-qTQVtCg/hqdefault.jpg&debut=0&fin=358&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -7210,19 +7210,19 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=PYRMUqSeNEc&vignette=https://i.ytimg.com/vi/PYRMUqSeNEc/hqdefault.jpg&debut=0&fin=218&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=PYRMUqSeNEc&vignette=https://i.ytimg.com/vi/PYRMUqSeNEc/hqdefault.jpg&debut=0&fin=218&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "L'essentiel",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=BscM5Iti3zI&vignette=https://i.ytimg.com/vi/BscM5Iti3zI/hqdefault.jpg&debut=0&fin=492&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=BscM5Iti3zI&vignette=https://i.ytimg.com/vi/BscM5Iti3zI/hqdefault.jpg&debut=0&fin=492&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   },
                   {
                     "title": "Cours complet",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=DfgUYXB5_jg&vignette=https://i.ytimg.com/vi/DfgUYXB5_jg/hqdefault.jpg&debut=0&fin=965&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=DfgUYXB5_jg&vignette=https://i.ytimg.com/vi/DfgUYXB5_jg/hqdefault.jpg&debut=0&fin=965&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -7243,13 +7243,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=PYRMUqSeNEc&vignette=https://i.ytimg.com/vi/PYRMUqSeNEc/hqdefault.jpg&debut=0&fin=218&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=PYRMUqSeNEc&vignette=https://i.ytimg.com/vi/PYRMUqSeNEc/hqdefault.jpg&debut=0&fin=218&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=md7hgVVKVI0&vignette=https://i.ytimg.com/vi/md7hgVVKVI0/hqdefault.jpg&debut=0&fin=411&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=md7hgVVKVI0&vignette=https://i.ytimg.com/vi/md7hgVVKVI0/hqdefault.jpg&debut=0&fin=411&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -7282,7 +7282,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=cNi_4U6tFWQ&vignette=https://i.ytimg.com/vi/cNi_4U6tFWQ/hqdefault.jpg&debut=0&fin=586&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=cNi_4U6tFWQ&vignette=https://i.ytimg.com/vi/cNi_4U6tFWQ/hqdefault.jpg&debut=0&fin=586&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -7301,13 +7301,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=kNicKj-PIB4&vignette=https://i.ytimg.com/vi/kNicKj-PIB4/hqdefault.jpg&debut=0&fin=204&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=kNicKj-PIB4&vignette=https://i.ytimg.com/vi/kNicKj-PIB4/hqdefault.jpg&debut=0&fin=204&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=pxbelimaItQ&vignette=https://i.ytimg.com/vi/pxbelimaItQ/hqdefault.jpg&debut=0&fin=241&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=pxbelimaItQ&vignette=https://i.ytimg.com/vi/pxbelimaItQ/hqdefault.jpg&debut=0&fin=241&largeur=200&hauteur=113",
                     "authorName": "Paul Olivier",
                     "authorLink": "https://www.youtube.com/channel/UCp0jxeetANhaifijiK7nkoA"
                   }
@@ -7327,7 +7327,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=kNicKj-PIB4&vignette=https://i.ytimg.com/vi/kNicKj-PIB4/hqdefault.jpg&debut=0&fin=204&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=kNicKj-PIB4&vignette=https://i.ytimg.com/vi/kNicKj-PIB4/hqdefault.jpg&debut=0&fin=204&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   }
@@ -7347,19 +7347,19 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=8uLVp6lEiEE&vignette=https://i.ytimg.com/vi/8uLVp6lEiEE/hqdefault.jpg&debut=0&fin=304&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=8uLVp6lEiEE&vignette=https://i.ytimg.com/vi/8uLVp6lEiEE/hqdefault.jpg&debut=0&fin=304&largeur=200&hauteur=113",
                     "authorName": "Grégory MALLET",
                     "authorLink": "https://www.youtube.com/channel/UCULtTY99QXqdYVidEksLx_g"
                   },
                   {
                     "title": "Pavé Droit détaillé",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Ty841PE8T5I&vignette=https://i.ytimg.com/vi/Ty841PE8T5I/hqdefault.jpg&debut=0&fin=462&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=Ty841PE8T5I&vignette=https://i.ytimg.com/vi/Ty841PE8T5I/hqdefault.jpg&debut=0&fin=462&largeur=200&hauteur=113",
                     "authorName": "Maths Mon Collège",
                     "authorLink": "https://www.youtube.com/channel/UCMrNKnPlVxKIfijG2w_ylgg"
                   },
                   {
                     "title": "Cylindre de révolution détaillé",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=7urM6ewSytY&vignette=https://i.ytimg.com/vi/7urM6ewSytY/hqdefault.jpg&debut=0&fin=219&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=7urM6ewSytY&vignette=https://i.ytimg.com/vi/7urM6ewSytY/hqdefault.jpg&debut=0&fin=219&largeur=200&hauteur=113",
                     "authorName": "Maths Mon Collège",
                     "authorLink": "https://www.youtube.com/channel/UCMrNKnPlVxKIfijG2w_ylgg"
                   }
@@ -7384,7 +7384,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=kLs0TiIz7lc&vignette=https://i.ytimg.com/vi/kLs0TiIz7lc/hqdefault.jpg&debut=0&fin=686&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=kLs0TiIz7lc&vignette=https://i.ytimg.com/vi/kLs0TiIz7lc/hqdefault.jpg&debut=0&fin=686&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -7404,7 +7404,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=Z86gfJOKgBg&vignette=https://i.ytimg.com/vi/Z86gfJOKgBg/hqdefault.jpg&debut=0&fin=409&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=Z86gfJOKgBg&vignette=https://i.ytimg.com/vi/Z86gfJOKgBg/hqdefault.jpg&debut=0&fin=409&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -7423,13 +7423,13 @@
                 "videos": [
                   {
                     "title": "Comment simplifier des fractions (rappel)",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=7vkgbr-7vws&vignette=https://i.ytimg.com/vi/7vkgbr-7vws/hqdefault.jpg&debut=0&fin=98&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=7vkgbr-7vws&vignette=https://i.ytimg.com/vi/7vkgbr-7vws/hqdefault.jpg&debut=0&fin=98&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Rendre une fraction irréductible",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=qZaTliAWkA0&vignette=https://i.ytimg.com/vi/qZaTliAWkA0/hqdefault.jpg&debut=0&fin=416&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=qZaTliAWkA0&vignette=https://i.ytimg.com/vi/qZaTliAWkA0/hqdefault.jpg&debut=0&fin=416&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -7458,7 +7458,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=5xesP84UUZ0&vignette=https://i.ytimg.com/vi/5xesP84UUZ0/hqdefault.jpg&debut=0&fin=212&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=5xesP84UUZ0&vignette=https://i.ytimg.com/vi/5xesP84UUZ0/hqdefault.jpg&debut=0&fin=212&largeur=200&hauteur=113",
                     "authorName": "jean-yves Labouche",
                     "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   }
@@ -7482,7 +7482,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=tL0XlvDC-68&vignette=https://i.ytimg.com/vi/tL0XlvDC-68/hqdefault.jpg&debut=0&fin=192&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=tL0XlvDC-68&vignette=https://i.ytimg.com/vi/tL0XlvDC-68/hqdefault.jpg&debut=0&fin=192&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   }
@@ -7511,19 +7511,19 @@
                 "videos": [
                   {
                     "title": "Résumé musical (développer)",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=HiAmsHhvJ4U&vignette=https://i.ytimg.com/vi/HiAmsHhvJ4U/hqdefault.jpg&debut=0&fin=259&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=HiAmsHhvJ4U&vignette=https://i.ytimg.com/vi/HiAmsHhvJ4U/hqdefault.jpg&debut=0&fin=259&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Développer",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=vOKtaQThM3o&vignette=https://i.ytimg.com/vi/vOKtaQThM3o/hqdefault.jpg&debut=0&fin=495&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=vOKtaQThM3o&vignette=https://i.ytimg.com/vi/vOKtaQThM3o/hqdefault.jpg&debut=0&fin=495&largeur=200&hauteur=113",
                     "authorName": "Hedacademy",
                     "authorLink": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
                   },
                   {
                     "title": "Factoriser",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=k9i9d0mAv_Y&vignette=https://i.ytimg.com/vi/k9i9d0mAv_Y/hqdefault.jpg&debut=0&fin=463&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=k9i9d0mAv_Y&vignette=https://i.ytimg.com/vi/k9i9d0mAv_Y/hqdefault.jpg&debut=0&fin=463&largeur=200&hauteur=113",
                     "authorName": "Hedacademy",
                     "authorLink": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
                   }
@@ -7551,7 +7551,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=KoMyPeLRTWg&vignette=https://i.ytimg.com/vi/KoMyPeLRTWg/hqdefault.jpg&debut=0&fin=415&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=KoMyPeLRTWg&vignette=https://i.ytimg.com/vi/KoMyPeLRTWg/hqdefault.jpg&debut=0&fin=415&largeur=200&hauteur=113",
                     "authorName": "Hedacademy",
                     "authorLink": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
                   }
@@ -7571,7 +7571,7 @@
                 "videos": [
                   {
                     "title": "(au collège on ne fait que le a)",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=ef15aeQRs6w&vignette=https://i.ytimg.com/vi/ef15aeQRs6w/hqdefault.jpg&debut=0&fin=393&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=ef15aeQRs6w&vignette=https://i.ytimg.com/vi/ef15aeQRs6w/hqdefault.jpg&debut=0&fin=393&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -7605,13 +7605,13 @@
                 "videos": [
                   {
                     "title": "Calculer un coefficient multiplicateur",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=-5QmcMuzy5I&vignette=https://i.ytimg.com/vi/-5QmcMuzy5I/hqdefault.jpg&debut=0&fin=380&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=-5QmcMuzy5I&vignette=https://i.ytimg.com/vi/-5QmcMuzy5I/hqdefault.jpg&debut=0&fin=380&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "Utiliser un coefficient multiplicateur",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=ehRRTacoo_0&vignette=https://i.ytimg.com/vi/ehRRTacoo_0/hqdefault.jpg&debut=0&fin=645&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=ehRRTacoo_0&vignette=https://i.ytimg.com/vi/ehRRTacoo_0/hqdefault.jpg&debut=0&fin=645&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -7652,7 +7652,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=lv9ZJ8dGn54&vignette=https://i.ytimg.com/vi/lv9ZJ8dGn54/hqdefault.jpg&debut=0&fin=343&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=lv9ZJ8dGn54&vignette=https://i.ytimg.com/vi/lv9ZJ8dGn54/hqdefault.jpg&debut=0&fin=343&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -7671,7 +7671,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=sYo2DpzSbss&vignette=https://i.ytimg.com/vi/sYo2DpzSbss/hqdefault.jpg&debut=0&fin=26&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=sYo2DpzSbss&vignette=https://i.ytimg.com/vi/sYo2DpzSbss/hqdefault.jpg&debut=0&fin=26&largeur=200&hauteur=113",
                     "authorName": "Mathématiques Gutierrez",
                     "authorLink": "https://www.youtube.com/channel/UC7ANpuouenKUzYjpGKyRFCA"
                   }
@@ -7691,7 +7691,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=BJMLHFmTMcE&vignette=https://i.ytimg.com/vi/BJMLHFmTMcE/hqdefault.jpg&debut=0&fin=403&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=BJMLHFmTMcE&vignette=https://i.ytimg.com/vi/BJMLHFmTMcE/hqdefault.jpg&debut=0&fin=403&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -7712,7 +7712,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=5DGQ-49xzgI&vignette=https://i.ytimg.com/vi/5DGQ-49xzgI/hqdefault.jpg&debut=0&fin=445&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=5DGQ-49xzgI&vignette=https://i.ytimg.com/vi/5DGQ-49xzgI/hqdefault.jpg&debut=0&fin=445&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -7736,13 +7736,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=7OlnI4rj8cM&vignette=https://i.ytimg.com/vi/7OlnI4rj8cM/hqdefault.jpg&debut=0&fin=206&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=7OlnI4rj8cM&vignette=https://i.ytimg.com/vi/7OlnI4rj8cM/hqdefault.jpg&debut=0&fin=206&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Résumé pas musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=9DPvnj6Cl78&vignette=https://i.ytimg.com/vi/9DPvnj6Cl78/hqdefault.jpg&debut=0&fin=366&largeur=200&hauteur=113&st=fr,fr",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=9DPvnj6Cl78&vignette=https://i.ytimg.com/vi/9DPvnj6Cl78/hqdefault.jpg&debut=0&fin=366&largeur=200&hauteur=113&st=fr,fr",
                     "authorName": "L'Antisèche",
                     "authorLink": "https://www.youtube.com/c/LAntiseche"
                   }
@@ -7766,7 +7766,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=EOS5bSPTZjg&vignette=https://i.ytimg.com/vi/EOS5bSPTZjg/hqdefault.jpg&debut=0&fin=310&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=EOS5bSPTZjg&vignette=https://i.ytimg.com/vi/EOS5bSPTZjg/hqdefault.jpg&debut=0&fin=310&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -7786,7 +7786,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=gQUt5y8LFKk&vignette=https://i.ytimg.com/vi/gQUt5y8LFKk/hqdefault.jpg&debut=0&fin=681&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=gQUt5y8LFKk&vignette=https://i.ytimg.com/vi/gQUt5y8LFKk/hqdefault.jpg&debut=0&fin=681&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -7806,7 +7806,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=FjqPwHS7vE8&vignette=https://i.ytimg.com/vi/FjqPwHS7vE8/hqdefault.jpg&debut=0&fin=209&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=FjqPwHS7vE8&vignette=https://i.ytimg.com/vi/FjqPwHS7vE8/hqdefault.jpg&debut=0&fin=209&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
@@ -7831,7 +7831,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=E0NTyDRqWfM&vignette=https://i.ytimg.com/vi/E0NTyDRqWfM/hqdefault.jpg&debut=0&fin=716&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=E0NTyDRqWfM&vignette=https://i.ytimg.com/vi/E0NTyDRqWfM/hqdefault.jpg&debut=0&fin=716&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -7855,7 +7855,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=vE392v5-DWk&vignette=https://i.ytimg.com/vi/vE392v5-DWk/hqdefault.jpg&debut=0&fin=290&largeur=200&hauteur=150",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=vE392v5-DWk&vignette=https://i.ytimg.com/vi/vE392v5-DWk/hqdefault.jpg&debut=0&fin=290&largeur=200&hauteur=150",
                     "authorName": "Mme LABASSI",
                     "authorLink": "https://www.youtube.com/channel/UCKBe8LjK0lStt4doSADrDBg"
                   }
@@ -7870,7 +7870,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=y7cqgq1lDos&vignette=https://i.ytimg.com/vi/y7cqgq1lDos/hqdefault.jpg&debut=0&fin=352&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=y7cqgq1lDos&vignette=https://i.ytimg.com/vi/y7cqgq1lDos/hqdefault.jpg&debut=0&fin=352&largeur=200&hauteur=113",
                     "authorName": "Alpha Omega Cours - Maths",
                     "authorLink": "https://www.youtube.com/channel/UC03wsBtWPczoiwthZx4uH9g"
                   }
@@ -7890,13 +7890,13 @@
                 "videos": [
                   {
                     "title": "Résumé musical",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=ZMLcJKVoKAE&vignette=https://i.ytimg.com/vi/ZMLcJKVoKAE/hqdefault.jpg&debut=0&fin=191&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=ZMLcJKVoKAE&vignette=https://i.ytimg.com/vi/ZMLcJKVoKAE/hqdefault.jpg&debut=0&fin=191&largeur=200&hauteur=113",
                     "authorName": "Rapémathiques",
                     "authorLink": "https://www.youtube.com/c/Rap%C3%A9mathiques"
                   },
                   {
                     "title": "Explications détaillées",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=r5f6kS-8ePM&vignette=https://i.ytimg.com/vi/r5f6kS-8ePM/hqdefault.jpg&debut=0&fin=438&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=r5f6kS-8ePM&vignette=https://i.ytimg.com/vi/r5f6kS-8ePM/hqdefault.jpg&debut=0&fin=438&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -7915,7 +7915,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=E0NTyDRqWfM&vignette=https://i.ytimg.com/vi/E0NTyDRqWfM/hqdefault.jpg&debut=0&fin=716&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=E0NTyDRqWfM&vignette=https://i.ytimg.com/vi/E0NTyDRqWfM/hqdefault.jpg&debut=0&fin=716&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -7939,13 +7939,13 @@
                 "videos": [
                   {
                     "title": "Avec des coefficients entiers",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=OQ37ZFZnqZg&vignette=https://i.ytimg.com/vi/OQ37ZFZnqZg/hqdefault.jpg&debut=0&fin=403&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=OQ37ZFZnqZg&vignette=https://i.ytimg.com/vi/OQ37ZFZnqZg/hqdefault.jpg&debut=0&fin=403&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
                     "title": "Avec un coefficient directeur fractionnaire",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=q68CLk2CNik&vignette=https://i.ytimg.com/vi/q68CLk2CNik/hqdefault.jpg&debut=0&fin=418&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=q68CLk2CNik&vignette=https://i.ytimg.com/vi/q68CLk2CNik/hqdefault.jpg&debut=0&fin=418&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -7960,7 +7960,7 @@
                 "videos": [
                   {
                     "title": "",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=0NakIDu5dQU&vignette=https://i.ytimg.com/vi/0NakIDu5dQU/hqdefault.jpg&debut=0&fin=324&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=0NakIDu5dQU&vignette=https://i.ytimg.com/vi/0NakIDu5dQU/hqdefault.jpg&debut=0&fin=324&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
@@ -7979,7 +7979,7 @@
                 "videos": [
                   {
                     "title": "Attention ! y = mx + p est une autre façon de noter f(x) = ab + b",
-                    "slug": "https://ladigitale.dev/digiview/inc/video.php?videoId=dZdrOor_HAA&vignette=https://i.ytimg.com/vi/dZdrOor_HAA/hqdefault.jpg&debut=0&fin=796&largeur=200&hauteur=113",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=dZdrOor_HAA&vignette=https://i.ytimg.com/vi/dZdrOor_HAA/hqdefault.jpg&debut=0&fin=796&largeur=200&hauteur=113",
                     "authorName": "KhanAcademyFrancophone",
                     "authorLink": "https://www.youtube.com/channel/UCxJOha9_0qZHuGf1d4imhyQ"
                   }

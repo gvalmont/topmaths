@@ -21,7 +21,7 @@
   import iepLoadPromise from 'instrumenpoche'
   import BoutonsExercices from './shared/BoutonsExercices.svelte'
   import DownloadLine from './shared/DownloadLine.svelte'
-  import { isEmptyRecord } from '../types/shared';
+  import { isEmptyArrayRecord } from '../types/shared'
 
   export let title = 'topmaths.fr - Séquence'
   let objectif = {} as Objective
@@ -62,6 +62,7 @@
       objectif = getObjectif()
       niveau = objectif.reference.slice(0, 1) + 'e'
       MAJProprietes()
+      console.log(objectif.videos)
     }
   }
 
@@ -193,7 +194,7 @@
       class:is-fin = {objectif.units.length === 0 &&
         !objectif.downloadLinks.practiceSheetLink &&
         (!$modeEnseignant || !objectif.downloadLinks.testSheetLink) &&
-        (!$modePerso || isEmptyRecord(objectif.downloadLinks.lessonPlanLinks))}
+        (!$modePerso || isEmptyArrayRecord(objectif.downloadLinks.lessonPlanLinks))}
     >
       <h2 class="subtitle text-xl md:text-3xl p-3 is-{niveau}">
         <BoutonsExercices
@@ -253,7 +254,7 @@
   {/if}
   {#if objectif.downloadLinks.practiceSheetLink ||
     ($modeEnseignant && objectif.downloadLinks.testSheetLink) ||
-    ($modePerso && !isEmptyRecord(objectif.downloadLinks.lessonPlanLinks))}
+    ($modePerso && !isEmptyArrayRecord(objectif.downloadLinks.lessonPlanLinks))}
     <div
       class="{objectif.units.length === 0 ? 'is-fin ' : ''}is-{niveau}"
     >
@@ -269,14 +270,16 @@
           href={objectif.downloadLinks.testSheetLink}
           label="Télécharger les tests"
         />
-        {#if $modePerso && !isEmptyRecord(objectif.downloadLinks.lessonPlanLinks)}
+        {#if $modePerso && !isEmptyArrayRecord(objectif.downloadLinks.lessonPlanLinks)}
           {#each Object.keys(objectif.downloadLinks.lessonPlanLinks) as grade}
-            {#if !!objectif.downloadLinks.lessonPlanLinks[grade]}
-              <DownloadLine
-                displayCondition={true}
-                href={objectif.downloadLinks.lessonPlanLinks[grade]}
-                label="Télécharger la fiche pour le niveau {grade}"
-              />
+            {#if objectif.downloadLinks.lessonPlanLinks[grade].length > 0}
+              {#each objectif.downloadLinks.lessonPlanLinks[grade] as lessonPlanLink, i}
+                <DownloadLine
+                  displayCondition={true}
+                  href={lessonPlanLink}
+                  label="Télécharger la fiche {objectif.downloadLinks.lessonPlanLinks[grade].length > 1 ? i + 1 : '' } pour le niveau {grade}"
+                />
+              {/each}
             {/if}
           {/each}
         {/if}
