@@ -20,7 +20,7 @@
     title: '',
     grade: 'none',
     number: 0,
-    period: 0,
+    term: 0,
     objectives: [],
     mentalCalculations: [],
     flashQuestions: [],

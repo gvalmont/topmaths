@@ -146,7 +146,7 @@ export type Unit = {
   mentalCalculations: UnitMentalCalculation[],
   number: number,
   objectives: UnitObjective[],
-  period: number,
+  term: number,
   reference: string,
   title: string,
 }
@@ -162,7 +162,7 @@ export function isUnit (obj: unknown): obj is Unit {
     'mentalCalculations' in obj && isUnitMentalCalculations(obj.mentalCalculations) &&
     'number' in obj && typeof obj.number === 'number' &&
     'objectives' in obj && isUnitObjectives(obj.objectives) &&
-    'period' in obj && typeof obj.period === 'number' &&
+    'term' in obj && typeof obj.term === 'number' &&
     'reference' in obj && typeof obj.reference === 'string' &&
     'title' in obj && typeof obj.title === 'string'
 }
@@ -181,7 +181,7 @@ export const emptyUnit: Unit = {
   mentalCalculations: [],
   number: 0,
   objectives: [],
-  period: 0,
+  term: 0,
   reference: '',
   title: ''
 }

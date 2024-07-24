@@ -8,7 +8,7 @@
   import { isLineGrade, type LineGrade } from '../types/shared'
   type LineObjective = {
   grade: LineGrade,
-  period: number,
+  term: number,
   theme: string,
   subTheme: string,
   reference: string,
@@ -17,12 +17,12 @@
 }
   type Filter = {
     grade: LineGrade,
-    period: number
+    term: number
   }
 
   const filter: Filter = {
     grade: 'all',
-    period: 0
+    term: 0
   }
   const texteRecherche = writable('')
   const rows = derived(
@@ -36,14 +36,14 @@
     removeEventListener('popstate', updateParamsFromUrl)
   })
 
-  function count ({ grade, theme, subTheme, period, filter }: { grade: LineGrade, theme: string, subTheme: string, period: number, filter: Filter }) {
+  function count ({ grade, theme, subTheme, term, filter }: { grade: LineGrade, theme: string, subTheme: string, term: number, filter: Filter }) {
     return $objectives
       .filter((objective) => {
         return (
           (grade === 'all' || objective.grade === grade) && (filter.grade === 'all' || filter.grade === grade) &&
           (theme === '' || objective.theme === theme) &&
           (subTheme === '' || objective.subTheme === subTheme) &&
-          ((period === 0 || objective.period === period) && (filter.period === 0 || filter.period === period))
+          ((term === 0 || objective.term === term) && (filter.term === 0 || filter.term === term))
         )
       })
       .length
@@ -54,7 +54,7 @@
     const entries = url.searchParams.entries()
     for (const entry of entries) {
       if (entry[0] === 'niveau') filter.grade = isLineGrade(entry[1]) ? entry[1] : 'all'
-      if (entry[0] === 'periode') filter.period = Number(entry[1])
+      if (entry[0] === 'periode') filter.term = Number(entry[1])
     }
   }
 
@@ -89,16 +89,16 @@
     return false
   }
 
-  function clicFiltre (grade: LineGrade, periode?: number) {
+  function clicFiltre (grade: LineGrade, term?: number) {
     if (grade !== '') {
       filter.grade = grade
     }
-    if (periode !== undefined) {
-      filter.period === periode
-        ? (filter.period = 0)
-        : (filter.period = periode)
+    if (term !== undefined) {
+      filter.term === term
+        ? (filter.term = 0)
+        : (filter.term = term)
     }
-    window.history.pushState({}, '', `?v=objectifs&niveau=${filter.grade}&periode=${filter.period}`)
+    window.history.pushState({}, '', `?v=objectifs&niveau=${filter.grade}&periode=${filter.term}`)
   }
 </script>
 
@@ -114,16 +114,16 @@
   <div class="is-flex is-justify-content-center pt-2 pb-1" style="overflow:auto">
     <button
       class="button rounded-3xl py-1 px-5 is-link mb-5 mx-1 text-sm md:text-2xl"
-      class:is-light={filter.period !== null &&
-        filter.period !== undefined &&
-        filter.period > 0}
+      class:is-light={filter.term !== null &&
+        filter.term !== undefined &&
+        filter.term > 0}
       on:click={() => clicFiltre('', 0)}>Période</button
     >
-    {#each [1, 2, 3, 4, 5] as periode}
+    {#each [1, 2, 3, 4, 5] as term}
       <button
         class="button rounded-3xl py-1 px-5 is-link mb-5 mx-1 text-sm md:text-2xl"
-        class:is-light={filter.period !== periode}
-        on:click={() => clicFiltre('', periode)}>{periode}</button
+        class:is-light={filter.term !== term}
+        on:click={() => clicFiltre('', term)}>{term}</button
       >
     {/each}
   </div>
@@ -152,17 +152,17 @@
               {row.grade}
             </h1>
           {/if}
-          {#if (i === 0 || $rows[i - 1].theme !== $rows[i].theme) && count({ grade: row.grade, theme: row.theme, subTheme: row.subTheme, period: row.period, filter }) > 0}
+          {#if (i === 0 || $rows[i - 1].theme !== $rows[i].theme) && count({ grade: row.grade, theme: row.theme, subTheme: row.subTheme, term: row.term, filter }) > 0}
             <h2 class="subtitle text-xl md:text-3xl pt-2 is-{row.grade}">
               {row.theme}
             </h2>
           {/if}
-          {#if (i === 0 || $rows[i - 1].subTheme !== $rows[i].subTheme) && count({ grade: row.grade, theme: row.theme, subTheme: row.subTheme, period: row.period, filter }) > 0}
+          {#if (i === 0 || $rows[i - 1].subTheme !== $rows[i].subTheme) && count({ grade: row.grade, theme: row.theme, subTheme: row.subTheme, term: row.term, filter }) > 0}
             <h3 class="subtitle text-lg md:text-2xl p-4 is-{row.grade}">
               {row.subTheme}
             </h3>
           {/if}
-          {#if count({ grade: row.grade, theme: row.theme, subTheme: row.subTheme, period: row.period, filter }) > 0}
+          {#if count({ grade: row.grade, theme: row.theme, subTheme: row.subTheme, term: row.term, filter }) > 0}
             <div
               class="p-1  is-{row.grade}"
               class:is-fin={$texteRecherche === '' && i < $rows.length - 2 && ($rows[i + 1].grade === 'end' || $rows[i + 1].theme === 'Extra')}

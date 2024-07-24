@@ -111,12 +111,12 @@
     const nbSequencesCumulees = [0]
     if (niveau === undefined) return nbSequencesCumulees
     for (const sequence of niveau) {
-      if (sequence.period === periode) {
+      if (sequence.term === periode) {
         nbSequences++
       } else {
         nbSequencesCumulees.push(nbSequences)
         nbSequences++
-        periode = sequence.period
+        periode = sequence.term
       }
     }
     nbSequencesCumulees.push(nbSequences)

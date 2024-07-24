@@ -142,7 +142,7 @@ export type Objective = {
   lessonSummaryHTML: string,
   lessonSummaryImage: string,
   lessonSummaryInstrumenpoche: string,
-  period: number,
+  term: number,
   reference: string,
   subTheme: string,
   theme: string
@@ -163,7 +163,7 @@ export function isObjective (obj: unknown): obj is Objective {
     'lessonSummaryHTML' in obj && typeof obj.lessonSummaryHTML === 'string' &&
     'lessonSummaryImage' in obj && typeof obj.lessonSummaryImage === 'string' &&
     'lessonSummaryInstrumenpoche' in obj && typeof obj.lessonSummaryInstrumenpoche === 'string' &&
-    'period' in obj && typeof obj.period === 'number' &&
+    'term' in obj && typeof obj.term === 'number' &&
     'reference' in obj && typeof obj.reference === 'string' &&
     'subTheme' in obj && typeof obj.subTheme === 'string' &&
     'theme' in obj && typeof obj.theme === 'string' &&
@@ -187,7 +187,7 @@ export const emptyObjective: Objective = {
   lessonSummaryHTML: '',
   lessonSummaryImage: '',
   lessonSummaryInstrumenpoche: '',
-  period: 0,
+  term: 0,
   reference: '',
   subTheme: '',
   theme: '',

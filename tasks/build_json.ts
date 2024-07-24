@@ -61,7 +61,7 @@ function buildUnits (): Unit[] {
       unit.mentalCalculations = formatUnitMentalCalculations(unit.mentalCalculations)
       unit.number = unitNumber
       unit.objectives = unit.objectives ? unit.objectives.map(objective => Object.assign({}, emptyObjective, objective)) : []
-      unit.period = unit.period ?? 0
+      unit.term = unit.term ?? 0
       unit.reference = buildUnitReference(unit)
       unit.title = unit.title ?? ''
       unitNumber++
@@ -118,9 +118,9 @@ function buildObjectives (): Objective[] {
           objective.exercisesLink = buildExercisesLink(objective.exercises)
           objective.grade = grade.name
           objective.lessonSummaryHTML = objective.lessonSummaryHTML ?? ''
-          objective.lessonSummaryImage = getRappelDuCoursImage(objective)
+          objective.lessonSummaryImage = objective.lessonSummaryImage ? '../topmaths/img/' + objective.lessonSummaryImage : ''
           objective.lessonSummaryInstrumenpoche = objective.lessonSummaryInstrumenpoche ?? ''
-          objective.period = trouverPeriode(objective)
+          objective.term = findTerm(objective)
           objective.reference = objective.reference ?? '0'
           objective.subTheme = subTheme.name
           objective.theme = theme.name
@@ -418,23 +418,15 @@ function buildAssessmentExamLink (unit: RecursivePartial<Unit>): string {
   return assessmentExamLink
 }
 
-function trouverPeriode (objectif: RecursivePartial<UnitObjective>): number {
-  for (const unit of units) {
-    for (const unitObjectif of unit.objectives) {
-      if (unitObjectif.reference === objectif.reference) {
-        return unit.period
-      }
-    }
+function findTerm (objective: RecursivePartial<UnitObjective>): number {
+  const unit = units
+    .find(unit => unit.objectives
+      .find(unitObjective => unitObjective.reference === objective.reference))
+  if (!unit) {
+    console.error(objective.reference)
+    throw new Error('Unit corresponding to objective not found')
   }
-  return 0
-}
-
-function getRappelDuCoursImage (objectif: RecursivePartial<Objective>): string {
-  if (objectif.lessonSummaryImage === '' || objectif.lessonSummaryImage === undefined) {
-    return ''
-  } else {
-    return '../topmaths/img/' + objectif.lessonSummaryImage
-  }
+  return unit.term
 }
 
 function buildExercisesLink (exercises: (RecursivePartial<ObjectiveExercise> | undefined)[] | undefined): string {

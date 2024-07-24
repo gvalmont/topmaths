@@ -14,7 +14,7 @@
 
   interface Ligne {
     grade: LineGrade
-    period: number
+    term: number
     number: number
     reference: string
     title: string
@@ -22,7 +22,7 @@
 
   const filter: Ligne = {
     grade: 'all',
-    period: 0,
+    term: 0,
     number: 0,
     reference: '',
     title: ''
@@ -51,7 +51,7 @@
     const entries = url.searchParams.entries()
     for (const entry of entries) {
       if (entry[0] === 'niveau') filter.grade = isLineGrade(entry[1]) ? entry[1] : 'all'
-      if (entry[0] === 'periode') filter.period = Number(entry[1])
+      if (entry[0] === 'periode') filter.term = Number(entry[1])
     }
   }
 
@@ -69,7 +69,7 @@ function lesDonneesSontChargees () {
     lignesSequencesParticulieres = []
     lignesSequencesParticulieres.push({
       grade: 'all',
-      period: 0,
+      term: 0,
       number: 0,
       reference: '',
       title: ''
@@ -80,12 +80,12 @@ function lesDonneesSontChargees () {
         reference: sequence.reference,
         title: sequence.title,
         number: 0,
-        period: 1
+        term: 1
       })
     }
     lignesSequencesParticulieres.push({
       grade: 'end',
-      period: 0,
+      term: 0,
       number: 0,
       reference: '',
       title: ''
@@ -130,16 +130,16 @@ function lesDonneesSontChargees () {
     return false
   }
 
-  function clicFiltre (niveau: LineGrade, periode?: number) {
+  function clicFiltre (niveau: LineGrade, term?: number) {
     if (niveau !== '') {
       filter.grade = niveau
     }
-    if (periode !== undefined) {
-      filter.period === periode
-        ? (filter.period = 0)
-        : (filter.period = periode)
+    if (term !== undefined) {
+      filter.term === term
+        ? (filter.term = 0)
+        : (filter.term = term)
     }
-    window.history.pushState({}, '', `?v=sequences&niveau=${filter.grade}&periode=${filter.period}`)
+    window.history.pushState({}, '', `?v=sequences&niveau=${filter.grade}&periode=${filter.term}`)
   }
 </script>
 
@@ -156,16 +156,16 @@ function lesDonneesSontChargees () {
   <div class="is-flex is-justify-content-center pt-2 pb-1" style="overflow:auto">
     <button
       class="button rounded-3xl py-1 px-5 is-link mb-5 mx-1 text-sm md:text-2xl"
-      class:is-light={filter.period !== null &&
-        filter.period !== undefined &&
-        filter.period > 0}
+      class:is-light={filter.term !== null &&
+        filter.term !== undefined &&
+        filter.term > 0}
       on:click={() => clicFiltre('', 0)}>Période</button
     >
-    {#each [1, 2, 3, 4, 5] as periode}
+    {#each [1, 2, 3, 4, 5] as term}
       <button
         class="button rounded-3xl py-1 px-5 is-link mb-5 mx-1 text-sm md:text-2xl"
-        class:is-light={filter.period !== periode}
-        on:click={() => clicFiltre('', periode)}>{periode}</button
+        class:is-light={filter.term !== term}
+        on:click={() => clicFiltre('', term)}>{term}</button
       >
     {/each}
   </div>
@@ -213,10 +213,10 @@ function lesDonneesSontChargees () {
           </span>
         </h1>
       {/if}
-      {#if row.reference !== '' && row.grade !== 'end' && (row.period === filter.period || filter.period === 0) && (filter.grade === 'all' || filter.grade === row.grade)}
+      {#if row.reference !== '' && row.grade !== 'end' && (row.term === filter.term || filter.term === 0) && (filter.grade === 'all' || filter.grade === row.grade)}
         <div
           class="p-1  is-{row.grade}"
-          class:is-fin={i < $rowsRegular.length - 1 && ((filter.period > 0 && $rowsRegular[i].period !== $rowsRegular[i + 1].period) || $rowsRegular[i + 1].grade === 'end')}
+          class:is-fin={i < $rowsRegular.length - 1 && ((filter.term > 0 && $rowsRegular[i].term !== $rowsRegular[i + 1].term) || $rowsRegular[i + 1].grade === 'end')}
         >
           <a
             href="/?v=sequence&ref={row.reference}"

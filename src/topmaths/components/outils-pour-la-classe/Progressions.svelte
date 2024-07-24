@@ -239,7 +239,7 @@
                     {#each ligne.mentalCalculations as calculMental}
                       {#if calculMental.reference !== '' && calculMental.reference !== ''}
                         <div class="columns is-theme-{getTheme(calculMental.reference)} flex-grow"
-                        style="{i < $units.length && ((filtre.period > 0 && $units[i].period !== $units[i + 1].period) || $lignesFiltreesSequencesNormales[i + 1].grade === 'end') ? 'border-radius: 0px 0px 50px 0px;' : ''}">
+                        style="{i < $units.length && ((filtre.period > 0 && $units[i].term !== $units[i + 1].term) || $lignesFiltreesSequencesNormales[i + 1].grade === 'end') ? 'border-radius: 0px 0px 50px 0px;' : ''}">
                           <div class="column is-narrow flex self-center justify-center">
                             <a
                               href="/?v=objectif&ref={calculMental.reference}"

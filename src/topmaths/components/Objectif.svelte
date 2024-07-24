@@ -62,7 +62,6 @@
       objectif = getObjectif()
       niveau = objectif.reference.slice(0, 1) + 'e'
       MAJProprietes()
-      console.log(objectif.videos)
     }
   }
 
