@@ -1,3 +1,11 @@
+/**
+ * function to deep copy an object a.k.a not a reference
+ * does not work with functions, undefined, NaN, Infinity, -Infinity
+ */
+export function deepCopy<T> (obj: T): T {
+  return JSON.parse(JSON.stringify(obj))
+}
+
 export function isEmptyRecord (obj: Record<string | number | symbol, string>): boolean {
   return Object.values(obj).every(value => value === '')
 }

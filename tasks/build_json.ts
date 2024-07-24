@@ -5,7 +5,7 @@ import propertiesJson from '../src/topmaths/json/glossary/properties.json' asser
 import objectivesMasterJson from '../src/topmaths/json/objectives.json' assert { type: 'json' }
 import unitsMasterJson from '../src/topmaths/json/units.json' assert { type: 'json' }
 import type { RecursivePartial } from '../src/lib/types.js'
-import { emptyArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/shared.js'
+import { deepCopy, emptyArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/shared.js'
 import { emptyObjective, emptyObjectiveVideo, isObjective, isObjectiveExercises, isObjectiveLessonPlans, type ObjectiveExercise, type ObjectiveUnit, type Objective, type ObjectiveLessonPlan, emptyObjectiveExercise } from '../src/topmaths/types/objective.js'
 import { isUnit, isUnitMentalCalculations, type UnitMentalCalculation, type Unit, type UnitObjective, emptyUnitDownloadLinks, emptyUnitMentalCalculation, type UnitFlashQuestion, isUnitFlashQuestions } from '../src/topmaths/types/unit.js'
 import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
@@ -52,13 +52,13 @@ function buildUnits (): Unit[] {
       unit.assessmentExamSlug = formatSlug(unit.assessmentExamSlug)
       unit.assessmentExamLink = unit.assessmentExamSlug ? COOPMATHS_BASE_URL + unit.assessmentExamSlug + REGULAR_VIEW_ADDENDUM : ''
       unit.assessmentLink = unit.assessmentLink ?? ''
-      unit.downloadLinks = emptyUnitDownloadLinks
+      unit.downloadLinks = deepCopy(emptyUnitDownloadLinks)
       unit.flashQuestions = buildFlashQuestions(unit)
       unit.flashQuestionsLink = buildFlashQuestionsLink(unit)
       unit.grade = grade.name
       unit.mentalCalculations = formatUnitMentalCalculations(unit.mentalCalculations)
       unit.number = unitNumber
-      unit.objectives = unit.objectives ? unit.objectives.map(objective => Object.assign({}, emptyObjective, objective)) : []
+      unit.objectives = unit.objectives ? unit.objectives.map(objective => Object.assign(deepCopy(emptyObjective), objective)) : []
       unit.term = unit.term ?? 0
       unit.reference = buildUnitReference(unit)
       unit.title = unit.title ?? ''
@@ -125,7 +125,7 @@ function buildObjectives (): Objective[] {
           objective.title = objective.title ?? ''
           objective.titleAcademic = objective.titleAcademic ?? ''
           objective.units = buildObjectiveUnits(objective)
-          objective.videos = objective.videos ? objective.videos.map(video => Object.assign({}, emptyObjectiveVideo, video)) : []
+          objective.videos = objective.videos ? objective.videos.map(video => Object.assign(deepCopy(emptyObjectiveVideo), video)) : []
           if (!isObjective(objective)) {
             console.error(objective)
             throw new Error('Objective is not an Objective')
@@ -169,7 +169,7 @@ function buildGlossary (): GlossaryUniteItem[] {
 
 function formatItem (item: RecursivePartial<GlossaryMasterItem>, type: 'définition' | 'propriété'): GlossaryMasterItem {
   item.type = type
-  if (item.titles === undefined) return emptyGlossaryMasterItem
+  if (item.titles === undefined) return deepCopy(emptyGlossaryMasterItem)
   item.comments = item.comments ?? []
   item.content = item.content ?? ''
   item.examples = item.examples ?? []
@@ -298,10 +298,10 @@ function formatUnitMentalCalculations (mentalCalculations: (RecursivePartial<Uni
     .map(mentalCalculation => {
       let exercises: ObjectiveExercise[] = []
       if (mentalCalculation.exercises) {
-        exercises = mentalCalculation.exercises.map(exercise => Object.assign({}, emptyObjectiveExercise, exercise))
+        exercises = mentalCalculation.exercises.map(exercise => Object.assign(deepCopy(emptyObjectiveExercise), exercise))
       }
       mentalCalculation.exercises = exercises
-      return Object.assign({}, emptyUnitMentalCalculation, mentalCalculation)
+      return Object.assign(deepCopy(emptyUnitMentalCalculation), mentalCalculation)
     })
 }
 
@@ -618,7 +618,7 @@ function formatSlug (slug: string | undefined): string {
 }
 
 function buildLessonPlanDownloadLinks (objective: RecursivePartial<Objective>, objectiveGrade: StringGrade): Record<StringGrade, string[]> {
-  const downloadLinks: Record<StringGrade, string[]> = Object.assign({}, emptyArrayRecordStringGrade)
+  const downloadLinks: Record<StringGrade, string[]> = Object.assign(deepCopy(emptyArrayRecordStringGrade))
   stringGradeValidKeys.forEach(grade => {
     downloadLinks[grade] = []
   })
