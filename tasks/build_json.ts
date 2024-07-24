@@ -16,11 +16,11 @@ const EXERCISE_PARAM_ADDENDUM = '&i=0'
 const REGULAR_VIEW_ADDENDUM = '&v=eleve'
 const SLIDESHOW_VIEW_ADDENDUM = '&v=diaporama'
 const THIRD_PARTY_WEBSITES = [
-  'https://coopmaths.fr/',
-  'https://mathsmentales.net/',
-  'https://mathix.org/',
-  'https://www.geogebra.org/',
-  'https://www.clicmaclasse.fr/'
+  'https://coopmaths.fr',
+  'https://mathsmentales.net',
+  'https://mathix.org',
+  'https://www.geogebra.org',
+  'https://www.clicmaclasse.fr'
 ]
 
 let warningCount = 0
@@ -31,9 +31,9 @@ updateUnits()
 const glossary = buildGlossary()
 routineCheck()
 console.warn(warningCount + ' warning' + (warningCount > 1 ? 's' : ''))
-ecrireJson('objectifs_modifies', objectives)
-ecrireJson('sequences_modifiees', units)
-ecrireJson('lexique', glossary)
+writeJson('objectifs_modifies', objectives)
+writeJson('sequences_modifiees', units)
+writeJson('lexique', glossary)
 
 function buildUnits (): Unit[] {
   type UnitGrade = {
@@ -287,7 +287,7 @@ function routineCheck (): void {
   checkDuplicates(objectives)
   checkDuplicates(units)
   checkDuplicates(glossary)
-  checkSitesAbsentsPolitiqueDeConfidentialite()
+  checkPrivacyPolicyThirdPartyWebsites()
   checkDuplicatesExamExercises()
 }
 
@@ -528,45 +528,34 @@ function updateUnitAssessmentLink (unit: Unit): void {
 }
 
 function checkDuplicatesExamExercises (): void {
-  const examExercises: string[] = []
+  const examExercisesFound: string[] = []
   units
     .filter(unit => unit.assessmentExamSlug !== '')
     .map(unit => unit.assessmentExamSlug)
     .forEach(assessmentExamSlug => {
       const examExerciseSlugs = assessmentExamSlug.split('&')
       examExerciseSlugs.forEach(examExerciseSlug => {
-        if (examExercises.includes(examExerciseSlug)) {
+        if (examExercisesFound.includes(examExerciseSlug)) {
           console.warn(examExerciseSlug + ' found twice')
           warningCount++
         }
-        examExercises.push(examExerciseSlug)
+        examExercisesFound.push(examExerciseSlug)
       })
     })
 }
 
-function checkSitesAbsentsPolitiqueDeConfidentialite (): void {
-  const listeHTTP: string[] = objectives
+function checkPrivacyPolicyThirdPartyWebsites (): void {
+  const fullLinks: string[] = objectives
     .map(objective => objective.exercises
       .map(exercise => exercise.slug)
       .filter(slug => slug.slice(0, 4) === 'http')).flat()
-  const listeAbsents: string[] = []
-  for (const site of listeHTTP) {
-    let trouve = false
-    for (const sitePresent of THIRD_PARTY_WEBSITES) {
-      if (site.slice(0, sitePresent.length) === sitePresent) {
-        trouve = true
-        break
-      }
+  const websites = fullLinks.map(link => link.slice(0, link.indexOf('/', 8)))
+  websites.forEach(website => {
+    if (!THIRD_PARTY_WEBSITES.includes(website)) {
+      console.warn(website + ' not in privacy policy')
+      warningCount++
     }
-    if (!trouve) listeAbsents.push(site)
-  }
-  if (listeAbsents.length > 0) {
-    console.warn(
-      'Sites absents de la politique de confidentialité :',
-      ...listeAbsents
-    )
-    warningCount += listeAbsents.length
-  }
+  })
 }
 
 function checkDuplicates (array: Objective[] | Unit[] | GlossaryItem[]): void {
@@ -681,6 +670,6 @@ function upperFirstChar (str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-function ecrireJson (nomDuFichier: string, fichier: unknown): void {
-  fs.writeFileSync(path.join('./src', 'topmaths', 'json', nomDuFichier + '.json'), JSON.stringify(fichier, null, 2))
+function writeJson (fileName: string, data: unknown): void {
+  fs.writeFileSync(path.join('./src', 'topmaths', 'json', fileName + '.json'), JSON.stringify(data, null, 2))
 }
