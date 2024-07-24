@@ -5389,7 +5389,7 @@
                     "description": "À partir d'une série de valeurs"
                   },
                   {
-                    "slug": "5S13-1,s=1,video=https%3A%2F%2Fyoutu.be%2FGWDDay-mdVA",
+                    "slug": "5S13-1,s=1",
                     "description": "À partir d'une représentation graphique"
                   }
                 ],
@@ -5896,7 +5896,7 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "4G20-1,s=1,s2=3,n=1,video=M9sceJ8gzNc",
+                    "slug": "4G20-1,s=1,s2=3,n=1",
                     "description": "Écrire l'égalité de Pythagore"
                   },
                   {
@@ -5904,11 +5904,11 @@
                     "description": "Rédiger correctement"
                   },
                   {
-                    "slug": "4G20,s2=1,n=1,video=M9sceJ8gzNc",
+                    "slug": "4G20,s2=1,n=1",
                     "description": "Calculer la longueur de l'hypoténuse"
                   },
                   {
-                    "slug": "4G20,s2=2,n=1,video=M9sceJ8gzNc",
+                    "slug": "4G20,s2=2,n=1",
                     "description": "Calculer la longueur d'un côté de l'angle droit"
                   }
                 ]
@@ -6006,7 +6006,7 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "3G20,s=3,n=2,video=j_zZOpLLl9k,cd=1",
+                    "slug": "3G20,s=3,n=2",
                     "description": ""
                   }
                 ]
@@ -6369,7 +6369,7 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "4C34,n=4,video=https%3A%2F%2Fyoutu.be%2F0G9xWLl-0zg"
+                    "slug": "4C34,n=4"
                   }
                 ]
               },
@@ -6727,7 +6727,7 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "4L12,n=1,video=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D-iw4OkMhgCA"
+                    "slug": "4L12,n=1"
                   }
                 ]
               },

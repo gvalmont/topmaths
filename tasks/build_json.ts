@@ -11,12 +11,10 @@ import { isUnit, isUnitMentalCalculations, type UnitMentalCalculation, type Unit
 import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
 import { countLessonPlans } from './helpers/lesson_plans.js'
 
-const ORIGIN = 'https://topmaths.fr'
-const COOPMATHS_URL = 'https://coopmaths.fr/'
-const V2_ADDENDUM = 'mathalea.html?'
-const V3_ADDENDUM = 'alea/?'
+const COOPMATHS_BASE_URL = 'https://coopmaths.fr/alea/?'
 const EXERCISE_PARAM_ADDENDUM = '&i=0'
-const VIEW_ADDENDUM = '&v=eleve'
+const REGULAR_VIEW_ADDENDUM = '&v=eleve'
+const SLIDESHOW_VIEW_ADDENDUM = '&v=diaporama'
 const THIRD_PARTY_WEBSITES = [
   'https://coopmaths.fr/',
   'https://mathsmentales.net/',
@@ -51,8 +49,8 @@ function buildUnits (): Unit[] {
     let unitNumber = 1
     for (const unit of grade.units) {
       if (unit === undefined) { console.error(grade.units); throw new Error('Unit is undefined') }
-      unit.assessmentExamLink = buildAssessmentExamLink(unit)
-      unit.assessmentExamSlug = unit.assessmentExamSlug ?? ''
+      unit.assessmentExamSlug = formatSlug(unit.assessmentExamSlug)
+      unit.assessmentExamLink = unit.assessmentExamSlug ? COOPMATHS_BASE_URL + unit.assessmentExamSlug + REGULAR_VIEW_ADDENDUM : ''
       unit.assessmentLink = unit.assessmentLink ?? ''
       unit.downloadLinks = emptyUnitDownloadLinks
       unit.flashQuestions = buildFlashQuestions(unit)
@@ -126,7 +124,7 @@ function buildObjectives (): Objective[] {
           objective.theme = theme.name
           objective.title = objective.title ?? ''
           objective.titleAcademic = objective.titleAcademic ?? ''
-          objective.units = getSequences(objective)
+          objective.units = buildObjectiveUnits(objective)
           objective.videos = objective.videos ? objective.videos.map(video => Object.assign({}, emptyObjectiveVideo, video)) : []
           if (!isObjective(objective)) {
             console.error(objective)
@@ -142,10 +140,10 @@ function buildObjectives (): Objective[] {
 
 function updateUnits (): void {
   for (const unit of units) {
-    updateUnitObjective(unit, objectives)
-    updateUnitMentalCalculations(unit, objectives)
-    updateUnitFlashQuestions(unit, objectives)
-    updateUnitAssessmentLink(unit, objectives)
+    updateUnitObjective(unit)
+    updateUnitMentalCalculations(unit)
+    updateUnitFlashQuestions(unit)
+    updateUnitAssessmentLink(unit)
     unit.mentalCalculations = buildMentalCalculations(unit)
     unit.downloadLinks = {
       lessonLink: buildDownloadLink('cours', unit.reference, unit.grade),
@@ -154,6 +152,19 @@ function updateUnits (): void {
       lessonPlanLink: buildDownloadLink('fiche', unit.reference, unit.grade)
     }
   }
+}
+
+function buildGlossary (): GlossaryUniteItem[] {
+  const definitions: RecursivePartial<GlossaryMasterItem>[] = definitionsJson
+  const properties: Partial<GlossaryMasterItem>[] = propertiesJson
+  const formattedMasterDefinitions = definitions.map(item => formatItem(item, 'définition'))
+  const formattedMasterProperties = properties.map(item => formatItem(item, 'propriété'))
+  const glossaryMasterItems = formattedMasterDefinitions.concat(formattedMasterProperties)
+  const glossaryUniteItems = glossaryMasterItems.map(buildGlossaryUniteItems).flat()
+  updateRelatedItems(glossaryUniteItems)
+  glossaryUniteItems.forEach(item => item.relatedItems.sort(comparerTitres))
+  glossaryUniteItems.sort(comparerTitres)
+  return glossaryUniteItems
 }
 
 function formatItem (item: RecursivePartial<GlossaryMasterItem>, type: 'définition' | 'propriété'): GlossaryMasterItem {
@@ -246,15 +257,7 @@ function ajouterSlugsSousItemsDejaCrees (item: GlossaryMasterItem, references: s
   return item.relatedItems.concat(references.map(reference => ({ title: '', reference })))
 }
 
-function postTraitementItems (items: GlossaryUniteItem[]): GlossaryUniteItem[] {
-  items = updateRelatedItems(items)
-  items = ajouterTitresAuxNotions(items)
-  items = rangerNotionsLiees(items)
-  items = items.sort(comparerTitres)
-  return items
-}
-
-function updateRelatedItems (items: GlossaryUniteItem[]): GlossaryUniteItem[] {
+function updateRelatedItems (items: GlossaryUniteItem[]): void {
   items.forEach(item1 => item1.relatedItems.forEach(relatedItem1 => {
     const item2 = items.find(item2 => item2.reference === relatedItem1.reference)
     if (!item2) {
@@ -265,32 +268,6 @@ function updateRelatedItems (items: GlossaryUniteItem[]): GlossaryUniteItem[] {
       item2.relatedItems.push({ reference: item1.reference, title: item1.title })
     }
   }))
-  return items
-}
-
-function ajouterTitresAuxNotions (items: GlossaryUniteItem[]): GlossaryUniteItem[] {
-  for (const item1 of items) {
-    for (const notionLieeItem1 of item1.relatedItems) {
-      for (const item2 of items) {
-        if (item2.reference === notionLieeItem1.reference) {
-          notionLieeItem1.title = item2.title
-          break
-        }
-      }
-    }
-  }
-  return items
-}
-
-function rangerNotionsLiees (items: GlossaryUniteItem[]): GlossaryUniteItem[] {
-  for (const item of items) {
-    if (item.relatedItems === undefined || item.relatedItems.length === 0) {
-      item.relatedItems = []
-    } else {
-      item.relatedItems = item.relatedItems.sort(comparerTitres)
-    }
-  }
-  return items
 }
 
 function comparerTitres (a: GlossaryRelatedItem, b: GlossaryRelatedItem): number {
@@ -330,19 +307,19 @@ function formatUnitMentalCalculations (mentalCalculations: (RecursivePartial<Uni
 
 function buildMentalCalculations (unit: RecursivePartial<Unit>): UnitMentalCalculation[] {
   if (unit.mentalCalculations === undefined) return []
-  let numeroExercice = 1
+  let exerciseNumber = 1
   for (const mentalCalculation of unit.mentalCalculations) {
     if (mentalCalculation !== undefined) {
       mentalCalculation.exercises = mentalCalculation.exercises ?? []
       const exercises = mentalCalculation.exercises.filter(exercise => exercise !== undefined)
       for (const exercice of exercises) {
-        exercice.link = getLienExercice(exercice.slug, true)
-        exercice.id = unit.reference + '-' + numeroExercice
-        exercice.slug = exercice.slug ?? ''
+        exercice.slug = formatSlug(exercice.slug)
+        exercice.link = buildExerciseLink(exercice.slug, true)
+        exercice.id = unit.reference + '-' + exerciseNumber
         exercice.isInteractive = exercice.isInteractive ?? false
         exercice.description = exercice.description ?? ''
         exercice.isInCart = exercice.isInCart ?? false
-        numeroExercice++
+        exerciseNumber++
       }
       mentalCalculation.exercises = exercises
       mentalCalculation.reference = mentalCalculation.reference ?? ''
@@ -390,32 +367,13 @@ function buildFlashQuestions (unit: RecursivePartial<Unit>): UnitFlashQuestion[]
 
 function buildFlashQuestionsLink (unit: RecursivePartial<Unit>): string {
   if (!unit.flashQuestions) return ''
-  let flashQuestionsLink = COOPMATHS_URL + V3_ADDENDUM
+  let flashQuestionsLink = COOPMATHS_BASE_URL
   unit.flashQuestions.forEach(flashQuestion => {
     if (flashQuestion !== undefined && flashQuestion.slug !== '') {
       flashQuestionsLink += flashQuestion.slug + '&'
     }
   })
   return flashQuestionsLink.slice(0, -1)
-}
-
-function buildAssessmentExamLink (unit: RecursivePartial<Unit>): string {
-  let assessmentExamLink = ''
-  if (unit.assessmentExamSlug === undefined || unit.assessmentExamSlug === '') {
-    return assessmentExamLink
-  }
-  if (isV2Slug(unit.assessmentExamSlug)) {
-    assessmentExamLink = COOPMATHS_URL + V2_ADDENDUM
-    assessmentExamLink += unit.assessmentExamSlug
-    assessmentExamLink = convertV2ToV3(assessmentExamLink)
-  } else if (isV3Slug(unit.assessmentExamSlug)) {
-    assessmentExamLink = COOPMATHS_URL + V3_ADDENDUM
-    assessmentExamLink += unit.assessmentExamSlug
-  } else {
-    assessmentExamLink = unit.assessmentExamSlug
-  }
-  assessmentExamLink = assessmentExamLink.concat(VIEW_ADDENDUM)
-  return assessmentExamLink
 }
 
 function findTerm (objective: RecursivePartial<UnitObjective>): number {
@@ -431,7 +389,7 @@ function findTerm (objective: RecursivePartial<UnitObjective>): number {
 
 function buildExercisesLink (exercises: (RecursivePartial<ObjectiveExercise> | undefined)[] | undefined): string {
   if (exercises === undefined || exercises.length === 0) return ''
-  let exerciseLink = COOPMATHS_URL + V3_ADDENDUM
+  let exerciseLink = COOPMATHS_BASE_URL
   let exerciseCount = 0
   exercises
     .filter(exercice => exercice !== undefined)
@@ -453,7 +411,7 @@ function buildExercises (reference: string, exercises: (RecursivePartial<Objecti
     .map(exercise => {
       exercise.id = reference + '-' + exerciseNumber
       exercise.slug = formatSlug(exercise.slug)
-      exercise.link = getLienExercice(exercise.slug)
+      exercise.link = buildExerciseLink(exercise.slug)
       exercise.isInteractive = exercise.isInteractive ?? false
       exercise.description = exercise.description ?? ''
       exercise.isInCart = exercise.isInCart ?? false
@@ -491,28 +449,26 @@ function buildObjectiveLessonPlans (lessonPlans: (RecursivePartial<ObjectiveLess
   return lessonPlans
 }
 
-function getSequences (objectif: RecursivePartial<Objective>): ObjectiveUnit[] {
-  const listeDesSequences: ObjectiveUnit[] = []
-  for (const unit of units) {
-    for (const sequenceObjectif of unit.objectives) {
-      if (objectif.reference === sequenceObjectif.reference) {
-        listeDesSequences.push({
-          reference: unit.reference,
-          title: unit.title
-        })
-      }
+function buildObjectiveUnits (objective: RecursivePartial<Objective>): ObjectiveUnit[] {
+  const unitsFound = units
+    .filter(unit => unit.objectives
+      .find(unitObjective => unitObjective.reference === objective.reference))
+  const objectiveUnits: ObjectiveUnit[] = unitsFound.map(unit => {
+    return {
+      reference: unit.reference,
+      title: unit.title
     }
-  }
-  return listeDesSequences
+  })
+  return objectiveUnits
 }
 
-function updateUnitObjective (unit: Unit, objectives: Objective[]): void {
-  unit.objectives.map(unitObjective => {
+function updateUnitObjective (unit: Unit): void {
+  unit.objectives.forEach(unitObjective => {
     const objective = objectives.find(objective => objective.reference === unitObjective.reference)
     if (!objective) {
       console.warn('Objective ' + unitObjective.reference + ' of unit ' + unit.title + ' not found.')
       warningCount++
-      return unitObjective
+      return
     }
     unitObjective.reference = objective.reference
     unitObjective.titleAcademic = objective.titleAcademic
@@ -522,66 +478,53 @@ function updateUnitObjective (unit: Unit, objectives: Objective[]): void {
     unitObjective.theme = objective.theme
     unitObjective.grade = objective.grade
     unitObjective.lessonPlans = objective.lessonPlans
-    return unitObjective
   })
 }
 
-function updateUnitMentalCalculations (unit: Unit, objectives: Objective[]): void {
-  unit.mentalCalculations.map(mentalCalculation => {
-    if (mentalCalculation.reference === '') return mentalCalculation
-    const relatedObjective = objectives.find(objective => objective.reference === mentalCalculation.reference)
-    if (!relatedObjective) {
-      console.warn('Objective ' + mentalCalculation.reference + ' of mental calculation ' + mentalCalculation.title + ' not found.')
-      warningCount++
-      return mentalCalculation
-    }
-    mentalCalculation.titleAcademic = relatedObjective.titleAcademic
-    mentalCalculation.title = relatedObjective.title
-    mentalCalculation.isRelatedObjectivePageAvailable = true
-    mentalCalculation.theme = relatedObjective.theme
-    return mentalCalculation
-  })
+function updateUnitMentalCalculations (unit: Unit): void {
+  unit.mentalCalculations
+    .filter(mentalCalculation => mentalCalculation.reference !== '')
+    .forEach(mentalCalculation => {
+      const relatedObjective = objectives.find(objective => objective.reference === mentalCalculation.reference)
+      if (!relatedObjective) {
+        console.warn('Objective ' + mentalCalculation.reference + ' of mental calculation ' + mentalCalculation.title + ' not found.')
+        warningCount++
+        return
+      }
+      mentalCalculation.isRelatedObjectivePageAvailable = true
+      mentalCalculation.theme = relatedObjective.theme
+      mentalCalculation.titleAcademic = relatedObjective.titleAcademic
+      mentalCalculation.title = relatedObjective.title
+    })
 }
 
-function updateUnitFlashQuestions (unit: Unit, objectives: Objective[]): void {
-  unit.flashQuestions.map(flashQuestion => {
+function updateUnitFlashQuestions (unit: Unit): void {
+  unit.flashQuestions.forEach(flashQuestion => {
     const relatedObjective = objectives.find(objective => objective.reference === flashQuestion.reference)
     if (!relatedObjective) {
       console.error('Objective ' + flashQuestion.reference + ' of flash question ' + flashQuestion.title + ' not found.')
       warningCount++
-      return flashQuestion
+      return
     }
     flashQuestion.titleAcademic = relatedObjective.titleAcademic
     flashQuestion.title = relatedObjective.title
     flashQuestion.slug = flashQuestion.slug ?? ''
     flashQuestion.isRelatedObjectivePageAvailable = true
     flashQuestion.theme = relatedObjective.theme
-    return flashQuestion
   })
 }
 
-function updateUnitAssessmentLink (unit: Unit, objectives: Objective[]): void {
-  const slugsObjectif = getSlugsObjectifsSequence(unit, objectives)
-  if (slugsObjectif.length === 0) {
+function updateUnitAssessmentLink (unit: Unit): void {
+  const objectivesSlugs = getUnitObjectivesSlugs(unit)
+  if (objectivesSlugs.length === 0) {
     unit.assessmentLink = ''
     return
   }
-  let lienEval = COOPMATHS_URL + V3_ADDENDUM
-  for (const slug of slugsObjectif) {
-    lienEval = lienEval.concat(slug, '&')
+  unit.assessmentLink = COOPMATHS_BASE_URL
+  for (const objectiveSlug of objectivesSlugs) {
+    unit.assessmentLink += objectiveSlug + '&'
   }
-  lienEval.slice(0, -1)
-  unit.assessmentLink = lienEval
-}
-
-function buildGlossary (): GlossaryUniteItem[] {
-  const definitions: RecursivePartial<GlossaryMasterItem>[] = definitionsJson
-  const properties: Partial<GlossaryMasterItem>[] = propertiesJson
-  const formattedMasterDefinitions = definitions.map(item => formatItem(item, 'définition')).filter(isGlossaryMasterItem)
-  const formattedMasterProperties = properties.map(item => formatItem(item, 'propriété')).filter(isGlossaryMasterItem)
-  const glossaryMasterItems = formattedMasterDefinitions.concat(formattedMasterProperties)
-  const glossaryUniteItems = glossaryMasterItems.map(buildGlossaryUniteItems).flat()
-  return postTraitementItems(glossaryUniteItems)
+  unit.assessmentLink.slice(0, -1)
 }
 
 function checkDuplicatesExamExercises (): void {
@@ -636,53 +579,17 @@ function checkDuplicates (array: Objective[] | Unit[] | GlossaryItem[]): void {
   })
 }
 
-/**
-   * Construit le lien d'un exercice à partir de son slug
-   * @param slug version raccourcie de l'url dans le cas de MathALEA, lien complet sinon
-   * @param calculMental true si utilisation dans un calcul mental pour afficher le diaporama des exercices de MathALEA
-   * @returns {string}
-   */
-function getLienExercice (slug: string | undefined, calculMental = false): string {
-  if (slug === undefined) return ''
-  let lien = ''
-  if (slug !== undefined) {
-    if (estMathsMentales(slug)) {
-      lien = slug + '&embed=' + ORIGIN
-    } else if (slug.slice(0, 4) !== 'http') { // c'est un slug
-      if (slug.includes(',')) { // c'est un slug V2
-        if (!slug.startsWith('id=')) slug = 'ex=' + slug
-        lien = `${COOPMATHS_URL + V2_ADDENDUM}${slug},i=0`
-        lien = convertV2ToV3(lien)
-      } else { // c'est un slug v3
-        lien = COOPMATHS_URL + V3_ADDENDUM + slug + '&i=0'
-      }
-      lien = lien.replace(/&uuid=/g, '&i=0&uuid=') // dans le cas où il y aurait plusieurs exercices dans le même slug
-      if (calculMental) {
-        lien += '&v=diaporama'
-      }
-    } else if (estCoopmaths(slug)) {
-      lien = slug
-      if (calculMental) {
-        lien += '&v=diaporama'
-      }
-    } else {
-      lien = slug
-    }
+function buildExerciseLink (slug: string | undefined, isSlideshow = false): string {
+  if (!slug) return ''
+  if (isFullLink(slug)) return slug
+  let link = COOPMATHS_BASE_URL + slug + EXERCISE_PARAM_ADDENDUM
+  link = link.replace(/&uuid=/g, EXERCISE_PARAM_ADDENDUM + '&uuid=') // dans le cas où il y aurait plusieurs exercices dans le même slug
+  if (isSlideshow) {
+    link += SLIDESHOW_VIEW_ADDENDUM
+  } else {
+    link += REGULAR_VIEW_ADDENDUM
   }
-  return lien
-}
-
-function estMathsMentales (url: string): boolean {
-  return url.slice(0, 25) === 'https://mathsmentales.net'
-}
-
-function estCoopmaths (url: string): boolean {
-  const urlCoopmaths = COOPMATHS_URL
-  return url.slice(0, urlCoopmaths.length) === COOPMATHS_URL
-}
-
-function isV2Slug (slug: string): boolean {
-  return slug.slice(0, 2) === 'ex'
+  return link
 }
 
 function isV3Slug (slug: string): boolean {
@@ -708,14 +615,13 @@ function convertV2ToV3 (link: string): string {
   return link
 }
 
-function getSlugsObjectifsSequence (sequence: Unit, objectives: Objective[]): string[] {
-  return objectives
-    .filter(objective => sequence.objectives.map(objectifSequence => objectifSequence.reference).includes(objective.reference))
-    .map(objectif => objectif.exercises)
+function getUnitObjectivesSlugs (unit: Unit): string[] {
+  return unit.objectives
+    .map(objective => objective.exercises
+      .map(exercise => exercise.slug))
     .flat()
-    .map(exercice => exercice.slug)
-    .filter(slug => slug !== '')
 }
+
 function formatSlug (slug: string | undefined): string {
   if (slug === undefined || slug === '') return ''
   if (isV3Slug(slug) || isFullLink(slug)) return slug
