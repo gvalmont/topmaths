@@ -14,6 +14,7 @@ const ORIGIN = 'https://topmaths.fr'
 const COOPMATHS_URL = 'https://coopmaths.fr/'
 const V2_ADDENDUM = 'mathalea.html?'
 const V3_ADDENDUM = 'alea/?'
+const EXERCISE_PARAM_ADDENDUM = '&i=0'
 const VIEW_ADDENDUM = '&v=eleve'
 const THIRD_PARTY_WEBSITES = [
   'https://coopmaths.fr/',
@@ -110,11 +111,11 @@ function buildObjectives (): Objective[] {
             lessonPlanLinks: buildLessonPlanDownloadLinks(objective.reference, grade.name)
           }
           objective.examExercises = buildExercises(objective.reference, objective.examExercises)
-          objective.examExercisesLink = getLienExercices(objective.examExercises)
+          objective.examExercisesLink = buildExercisesLink(objective.examExercises)
           objective.exercises = buildExercises(objective.reference, objective.exercises)
-          objective.exercisesLink = getLienExercices(objective.exercises)
+          objective.exercisesLink = buildExercisesLink(objective.exercises)
           objective.grade = grade.name
-          objective.lessonPlans = getFiches(objective.lessonPlans)
+          objective.lessonPlans = buildObjectiveLessonPlans(objective.lessonPlans)
           objective.lessonSummaryHTML = objective.lessonSummaryHTML ?? ''
           objective.lessonSummaryImage = getRappelDuCoursImage(objective)
           objective.lessonSummaryInstrumenpoche = objective.lessonSummaryInstrumenpoche ?? ''
@@ -436,21 +437,21 @@ function getRappelDuCoursImage (objectif: RecursivePartial<Objective>): string {
   }
 }
 
-function getLienExercices (exercises: (RecursivePartial<ObjectiveExercise> | undefined)[] | undefined): string {
+function buildExercisesLink (exercises: (RecursivePartial<ObjectiveExercise> | undefined)[] | undefined): string {
   if (exercises === undefined || exercises.length === 0) return ''
-  let lienExercices = COOPMATHS_URL + V3_ADDENDUM
-  let nbExercices = 0
+  let exerciseLink = COOPMATHS_URL + V3_ADDENDUM
+  let exerciseCount = 0
   exercises
     .filter(exercice => exercice !== undefined)
     .forEach(exercice => {
       if (exercice.slug) {
-        lienExercices = lienExercices.concat(exercice.slug, '&i=0&')
-        nbExercices++
+        exerciseLink = exerciseLink.concat(exercice.slug, EXERCISE_PARAM_ADDENDUM + '&')
+        exerciseCount++
       }
     })
-  lienExercices = lienExercices.slice(0, -1)
-  if (nbExercices === 0) lienExercices = ''
-  return lienExercices
+  exerciseLink = exerciseLink.slice(0, -1)
+  if (exerciseCount === 0) exerciseLink = ''
+  return exerciseLink
 }
 
 function buildExercises (reference: string, exercises: (RecursivePartial<ObjectiveExercise> | undefined)[] | undefined): ObjectiveExercise[] {
@@ -474,28 +475,28 @@ function buildExercises (reference: string, exercises: (RecursivePartial<Objecti
   return exercises
 }
 
-function getFiches (fiches: (RecursivePartial<ObjectiveLessonPlan> | undefined)[] | undefined): ObjectiveLessonPlan[] {
-  if (fiches === undefined || fiches.length === 0) return []
-  fiches
-    .filter(fiche => fiche !== undefined)
-    .map(fiche => {
-      fiche.startSteps = fiche.startSteps ?? []
-      fiche.lessonSteps = fiche.lessonSteps ?? []
-      fiche.homeworks = fiche.homeworks ?? []
-      fiche.closureSteps = fiche.closureSteps ?? []
-      fiche.studentMaterialsNeeded = fiche.studentMaterialsNeeded ?? []
-      fiche.teacherMaterialsNeeded = fiche.teacherMaterialsNeeded ?? []
-      fiche.grades = fiche.grades ?? []
-      fiche.comments = fiche.comments ?? []
-      fiche.nextSessionSteps = fiche.nextSessionSteps ?? []
-      fiche.reference = fiche.reference ?? '0'
-      return fiche
+function buildObjectiveLessonPlans (lessonPlans: (RecursivePartial<ObjectiveLessonPlan> | undefined)[] | undefined): ObjectiveLessonPlan[] {
+  if (lessonPlans === undefined || lessonPlans.length === 0) return []
+  lessonPlans = lessonPlans
+    .filter(lessonPlan => lessonPlan !== undefined)
+    .map(lessonPlan => {
+      lessonPlan.startSteps = lessonPlan.startSteps ?? []
+      lessonPlan.lessonSteps = lessonPlan.lessonSteps ?? []
+      lessonPlan.homeworks = lessonPlan.homeworks ?? []
+      lessonPlan.closureSteps = lessonPlan.closureSteps ?? []
+      lessonPlan.studentMaterialsNeeded = lessonPlan.studentMaterialsNeeded ?? []
+      lessonPlan.teacherMaterialsNeeded = lessonPlan.teacherMaterialsNeeded ?? []
+      lessonPlan.grades = lessonPlan.grades ?? []
+      lessonPlan.comments = lessonPlan.comments ?? []
+      lessonPlan.nextSessionSteps = lessonPlan.nextSessionSteps ?? []
+      lessonPlan.reference = lessonPlan.reference ?? '0'
+      return lessonPlan
     })
-  if (!isObjectiveLessonPlans(fiches)) {
-    console.error(fiches)
+  if (!isObjectiveLessonPlans(lessonPlans)) {
+    console.error(lessonPlans)
     throw new Error('Lesson plans are not ObjectiveLessonPlans')
   }
-  return fiches
+  return lessonPlans
 }
 
 function getSequences (objectif: RecursivePartial<Objective>): ObjectiveUnit[] {
@@ -781,9 +782,9 @@ function buildDownloadLink (type: 'cours' | 'entrainement' | 'test' | 'resume' |
   const currentPath = basePath + `${reference}_${upperFirstChar(type)}.pdf`
   const legacyPath = basePath + `${upperFirstChar(type)}_${reference}.pdf`
   if (fs.existsSync(currentPath)) {
-    return currentPath
+    return currentPath.replace('./public/', '')
   } else if (fs.existsSync(legacyPath)) {
-    return legacyPath
+    return legacyPath.replace('./public/', '')
   } else {
     return ''
   }
