@@ -44,6 +44,7 @@ function buildUnits (): Unit[] {
   const unitMaster: RecursivePartial<UnitGrade>[] = unitsMasterJson
   for (const grade of unitMaster) {
     if (grade.name === undefined) { console.error(grade); throw new Error('Grade name is undefined') }
+    if (!isStringGrade(grade.name)) { console.error('grade name', grade.name); throw new Error('Grade name incorrect') }
     if (grade.units === undefined) { console.error(grade); throw new Error('Grade units is undefined') }
     let unitNumber = 1
     for (const unit of grade.units) {
@@ -54,9 +55,7 @@ function buildUnits (): Unit[] {
       unit.downloadLinks = emptyUnitDownloadLinks
       unit.flashQuestions = buildFlashQuestions(unit)
       unit.flashQuestionsLink = buildFlashQuestionsLink(unit)
-      const unitGradeCandidate = grade.name
-      if (!isStringGrade(unitGradeCandidate)) { console.error('grade name', grade.name); throw new Error('Grade name incorrect') }
-      unit.grade = unitGradeCandidate
+      unit.grade = grade.name
       unit.mentalCalculations = formatUnitMentalCalculations(unit.mentalCalculations)
       unit.number = unitNumber
       unit.objectives = unit.objectives ? unit.objectives.map(objective => Object.assign({}, emptyObjective, objective)) : []
@@ -91,6 +90,7 @@ function buildObjectives (): Objective[] {
   const objectivesMaster: RecursivePartial<ObjectiveGrade>[] = objectivesMasterJson
   for (const grade of objectivesMaster) {
     if (grade.name === undefined) { console.error(grade); throw new Error('Grade name is undefined') }
+    if (!isStringGrade(grade.name)) { console.error('grade name', grade.name); throw new Error('Grade name incorrect') }
     if (grade.themes === undefined) { console.error(grade); throw new Error('Grade themes are undefined') }
     for (const theme of grade.themes) {
       if (theme === undefined) { console.error(theme); throw new Error('Theme is undefined') }
@@ -105,16 +105,15 @@ function buildObjectives (): Objective[] {
           if (objective.reference === undefined) { console.error(objective); throw new Error('Objective reference is undefined') }
           exerciseNumber = 1
           objective.downloadLinks = {
-            practiceSheetLink: buildDownloadLink('entrainement', objective.reference),
-            testSheetLink: buildDownloadLink('test', objective.reference),
-            lessonPlanLinks: buildLessonPlanDownloadLinks(objective.reference)
+            practiceSheetLink: buildDownloadLink('entrainement', objective.reference, grade.name),
+            testSheetLink: buildDownloadLink('test', objective.reference, grade.name),
+            lessonPlanLinks: buildLessonPlanDownloadLinks(objective.reference, grade.name)
           }
           objective.examExercises = buildExercises(objective.reference, objective.examExercises)
           objective.examExercisesLink = getLienExercices(objective.examExercises)
           objective.exercises = buildExercises(objective.reference, objective.exercises)
           objective.exercisesLink = getLienExercices(objective.exercises)
-          const stringGradeCandidate = objective.reference.slice(0, 1) + 'e'
-          objective.grade = isStringGrade(stringGradeCandidate) ? stringGradeCandidate : 'none'
+          objective.grade = grade.name
           objective.lessonPlans = getFiches(objective.lessonPlans)
           objective.lessonSummaryHTML = objective.lessonSummaryHTML ?? ''
           objective.lessonSummaryImage = getRappelDuCoursImage(objective)
@@ -148,10 +147,10 @@ function updateUnits (): void {
     updateUnitLessonPlans(unit)
     unit.mentalCalculations = buildMentalCalculations(unit)
     unit.downloadLinks = {
-      lessonLink: buildDownloadLink('cours', unit.reference),
-      lessonSummaryLink: buildDownloadLink('resume', unit.reference),
-      missionLink: buildDownloadLink('mission', unit.reference),
-      lessonPlanLink: buildDownloadLink('fiche', unit.reference)
+      lessonLink: buildDownloadLink('cours', unit.reference, unit.grade),
+      lessonSummaryLink: buildDownloadLink('resume', unit.reference, unit.grade),
+      missionLink: buildDownloadLink('mission', unit.reference, unit.grade),
+      lessonPlanLink: buildDownloadLink('fiche', unit.reference, unit.grade)
     }
   }
 }
@@ -172,7 +171,7 @@ function formatItem (item: RecursivePartial<GlossaryMasterItem>, type: 'définit
   item.examples = interpreterMarkupArray(item.examples)
   const gradeCandidates = item.relatedObjectives
     .filter(relatedObjective => relatedObjective !== undefined)
-    .map(relatedObjective => relatedObjective.slice(0, 1) + 'e')
+    .map(relatedObjective => buildGradeFromObjectiveReference(relatedObjective))
   item.grades = gradeCandidates.filter(isStringGrade)
   item.relatedItems = item.relatedItems ?? []
   item.relatedItems = item.relatedItems
@@ -207,6 +206,15 @@ function interpreterMarkupArray (array: (string | undefined)[]): string[] {
       .filter(str => str !== undefined)
       .map(item => interpreterMarkupPerso(item))
   }
+}
+
+function buildGradeFromObjectiveReference (reference: string): StringGrade {
+  const grade = reference.slice(0, 1) + 'e'
+  if (!isStringGrade(grade)) {
+    console.error(reference)
+    throw new Error('Grade built from objective reference is incorrect')
+  }
+  return grade
 }
 
 function buildGlossaryUniteItems (masterItem: GlossaryMasterItem): GlossaryUniteItem[] {
@@ -749,8 +757,7 @@ function formatSlug (slug: string | undefined): string {
   return convertV2ToV3('ex=' + slug)
 }
 
-function buildLessonPlanDownloadLinks (reference: string): Record<StringGrade, string> {
-  const lessonPlanGrade = buildGradeFromReference(reference)
+function buildLessonPlanDownloadLinks (reference: string, lessonPlanGrade: StringGrade): Record<StringGrade, string> {
   return {
     '6e': buildDownloadLink('fiche', `6e_${reference}`, lessonPlanGrade),
     '5e': buildDownloadLink('fiche', `5e_${reference}`, lessonPlanGrade),
@@ -760,8 +767,7 @@ function buildLessonPlanDownloadLinks (reference: string): Record<StringGrade, s
   }
 }
 
-function buildDownloadLink (type: 'cours' | 'entrainement' | 'test' | 'resume' | 'mission' | 'fiche', reference: string, grade?: StringGrade): string {
-  if (!grade) grade = buildGradeFromReference(reference)
+function buildDownloadLink (type: 'cours' | 'entrainement' | 'test' | 'resume' | 'mission' | 'fiche', reference: string, grade: StringGrade): string {
   let basePath = `./public/topmaths/${type}${type === 'cours' ? '' : 's'}/`
   if (type === 'fiche') {
     const isLessonReference = reference.charAt(0) === 'S'
@@ -781,21 +787,6 @@ function buildDownloadLink (type: 'cours' | 'entrainement' | 'test' | 'resume' |
   } else {
     return ''
   }
-}
-
-function buildGradeFromReference (reference: string): StringGrade {
-  const isLessonReference = reference.charAt(0) === 'S'
-  let gradeCandidate = ''
-  if (isLessonReference) {
-    gradeCandidate = reference.slice(1, 2) + 'e'
-  } else {
-    gradeCandidate = reference.slice(0, 1) + 'e'
-  }
-  if (!isStringGrade(gradeCandidate)) {
-    console.error('grade', gradeCandidate)
-    throw new Error('Grade from reference incorrect')
-  }
-  return gradeCandidate
 }
 
 function upperFirstChar (str: string): string {
