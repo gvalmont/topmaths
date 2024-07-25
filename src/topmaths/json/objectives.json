@@ -1019,7 +1019,7 @@
                       "6G23_Poly-2 Paille en queue",
                       "6G23_Poly-3 Tortue"
                     ],
-                    "niveaux": [
+                    "grades": [
                       "6e"
                     ],
                     "startSteps": [],
@@ -1044,7 +1044,7 @@
                       "Compas",
                       "Animaux commandés lors de la séance précédente"
                     ],
-                    "niveaux": [
+                    "grades": [
                       "6e"
                     ],
                     "startSteps": [],
@@ -1073,7 +1073,7 @@
                       "5X1_Poly-1_x10 Consigne 1",
                       "S5S3_Cours"
                     ],
-                    "niveaux": [
+                    "grades": [
                       "5e"
                     ],
                     "startSteps": [
@@ -1671,7 +1671,7 @@
                       "Équerre",
                       "Rapporteur"
                     ],
-                    "niveaux": [],
+                    "grades": [],
                     "startSteps": [],
                     "lessonSteps": [
                       "Faire un schéma à main levée d'un triangle rectangle et d'un axe de symétrie puis demander :",
@@ -3240,7 +3240,7 @@
                     "teacherMaterialsNeeded": [
                       "Tablettes"
                     ],
-                    "niveaux": [],
+                    "grades": [],
                     "startSteps": [],
                     "lessonSteps": [
                       "Enseignement explicite de https://topmaths.fr/?uuid=adac4&id=6S10-1&n=1&d=10&s=3&s2=3&v=exercices",
@@ -3283,7 +3283,7 @@
                       "6S11_Poly_x1",
                       "6S11_Presentation"
                     ],
-                    "niveaux": [],
+                    "grades": [],
                     "startSteps": [],
                     "lessonSteps": [
                       "Laisser les élèves faire le premier exercice du poly",
@@ -3414,7 +3414,7 @@
                       "Équerre",
                       "Rapporteur"
                     ],
-                    "niveaux": [],
+                    "grades": [],
                     "startSteps": [],
                     "lessonSteps": [
                       "Faire un schéma à main levée d'un triangle rectangle et d'un centre de symétrie puis demander :",
@@ -3452,7 +3452,7 @@
                     "teacherMaterialsNeeded": [
                       "Tablettes"
                     ],
-                    "niveaux": [],
+                    "grades": [],
                     "startSteps": [
                       "Mathador"
                     ],
