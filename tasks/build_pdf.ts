@@ -23,6 +23,8 @@ const previousLessonPlans: Record<StringGrade, UnitLessonPlan> = {
 }
 
 if (!isUnits(units)) { console.error(units); throw new Error('The JSON file does not contain an array of units') }
+deleteDirectory(`${TYP}/${LESSONS}/${UNITS}/`)
+deleteDirectory(`${TYP}/${LESSON_PLANS}/`)
 for (const unit of units) {
   writeUnitLesson(unit)
   writeUnitLessonPlans(unit)
@@ -273,6 +275,12 @@ function writeUnitLessonPlan (unit: Unit): void {
 function writeFile (directory: string, fileName: string, content: string): void {
   if (!fs.existsSync(directory)) fs.mkdirSync(directory, { recursive: true })
   fs.writeFileSync(`${directory}${fileName}`, content, 'utf8')
+}
+
+function deleteDirectory (directory: string): void {
+  if (fs.existsSync(directory)) {
+    fs.rmdirSync(directory, { recursive: true })
+  }
 }
 
 async function runShellScript (scriptPath: string): Promise<void> {
