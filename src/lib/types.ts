@@ -1,9 +1,12 @@
 import type { CanOptions, CanSolutionsMode } from './types/can'
 import type { Language } from './types/languages'
 
-export type RecursivePartial<T> = {
+/**
+ * Transforme le type d'un objet pouvoir travailler avec des objets complexes encore en cours de construction
+ */
+export type RecursivePartial<T> = T extends string ? string | undefined : {
   [P in keyof T]?: RecursivePartial<T[P]>;
-};
+}
 
 /*
 Code inspiré de Sylvain, merci!
