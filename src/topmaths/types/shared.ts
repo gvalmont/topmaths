@@ -1,6 +1,6 @@
 /**
- * function to deep copy an object a.k.a not a reference
- * does not work with functions, undefined, NaN, Infinity, -Infinity
+ * Deep copy an object, not only the first level.
+ * Does not work with functions, undefined, NaN, Infinity, -Infinity
  */
 export function deepCopy<T> (obj: T): T {
   return JSON.parse(JSON.stringify(obj))

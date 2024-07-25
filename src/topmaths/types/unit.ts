@@ -1,5 +1,21 @@
-import { isObjectiveExercises, isObjectiveLessonPlans, type ObjectiveExercise, type ObjectiveLessonPlan } from './objective.js'
-import { isStringGrade, type StringGrade } from './shared.js'
+import { emptyObjectiveLessonPlan, isObjectiveExercises, isObjectiveLessonPlan, type ObjectiveExercise, type ObjectiveLessonPlan } from './objective.js'
+import { deepCopy, isStringGrade, type StringGrade } from './shared.js'
+
+export type UnitLessonPlan = ObjectiveLessonPlan & {
+  reference: string
+}
+export function isUnitLessonPlan (obj: unknown): obj is UnitLessonPlan {
+  if (obj == null || typeof obj !== 'object') return false
+  return isObjectiveLessonPlan(obj) &&
+    'reference' in obj && typeof obj.reference === 'string'
+}
+export function isUnitLessonPlans (obj: unknown): obj is UnitLessonPlan[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isUnitLessonPlan)
+}
+export const emptyUnitLessonPlan: UnitLessonPlan = Object.assign(deepCopy(emptyObjectiveLessonPlan), {
+  reference: ''
+})
 
 export type UnitObjective = {
   reference: string,
@@ -9,7 +25,7 @@ export type UnitObjective = {
   examExercises: ObjectiveExercise[],
   theme: string,
   grade: StringGrade,
-  lessonPlans: ObjectiveLessonPlan[]
+  lessonPlans: UnitLessonPlan[]
 }
 export function isUnitObjective (obj: unknown): obj is UnitObjective {
   if (obj == null || typeof obj !== 'object') return false
@@ -20,7 +36,7 @@ export function isUnitObjective (obj: unknown): obj is UnitObjective {
     'examExercises' in obj && isObjectiveExercises(obj.examExercises) &&
     'theme' in obj && typeof obj.theme === 'string' &&
     'grade' in obj && isStringGrade(obj.grade) &&
-    'lessonPlans' in obj && isObjectiveLessonPlans(obj.lessonPlans)
+    'lessonPlans' in obj && isUnitLessonPlans(obj.lessonPlans)
 }
 export function isUnitObjectives (obj: unknown): obj is UnitObjective[] {
   if (obj == null || !Array.isArray(obj)) return false

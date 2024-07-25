@@ -4,8 +4,13 @@ function copy_pdf_files() {
   local pdf_directory="$1"
   local destination_directory="$2"
 
+  # Count the total number of .pdf files
+  local total_files=$(find "$pdf_directory" -type f -name "*.pdf" | wc -l | xargs)
+  local current_file=0
+
   # Find all files with .pdf extension in the directory and its subdirectories
   find "$pdf_directory" -type f -name "*.pdf" -print0 | while IFS= read -r -d '' file; do
+    ((current_file++))
     parent_directory=$(dirname "$file")
     parent_directory_name=$(basename "$parent_directory")
     file_name=$(basename "$file" ".pdf")
@@ -15,6 +20,9 @@ function copy_pdf_files() {
 
     # Copy PDF file to the destination directory with the modified name
     cp "$file" "$destination_directory/$parent_directory_name/${file_name}.pdf"
+
+    # Display the progression
+    echo "Copying $current_file of $total_files $destination_directory"
   done
 }
 copy_pdf_files "src/topmaths/pdf/photocopies" "public/topmaths/photocopies"

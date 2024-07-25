@@ -1,106 +1,95 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import { exec } from 'child_process'
-import { isStringGrade, type StringGrade } from '../src/topmaths/types/shared.js'
-import type { ObjectiveLessonPlan } from '../src/topmaths/types/objective.js'
-import { isUnits, type Unit, type UnitObjective } from '../src/topmaths/types/unit.js'
+import { spawn } from 'child_process'
+import { deepCopy, isStringGrade, type StringGrade } from '../src/topmaths/types/shared.js'
+import { emptyUnitLessonPlan, isUnits, type UnitLessonPlan, type Unit, type UnitObjective } from '../src/topmaths/types/unit.js'
 import units from '../src/topmaths/json/sequences_modifiees.json' assert { type: 'json' }
-import { countLessonPlans, getLessonPlanReference } from './helpers/lesson_plans.js'
+import { countLessonPlans } from './helpers/lesson_plans.js'
+import { buildGradeFromObjectiveReference } from '../src/topmaths/services/environment.js'
 
-let fichePrecedenteSequence: ObjectiveLessonPlan = {
-  startSteps: [],
-  lessonSteps: [],
-  homeworks: [],
-  closureSteps: [],
-  studentMaterialsNeeded: [],
-  teacherMaterialsNeeded: [],
-  grades: [],
-  comments: [],
-  nextSessionSteps: [],
-  reference: ''
-}
-const fichesPrecedentes = {
-  '6e': { ...fichePrecedenteSequence },
-  '5e': { ...fichePrecedenteSequence },
-  '4e': { ...fichePrecedenteSequence },
-  '3e': { ...fichePrecedenteSequence },
-  none: { ...fichePrecedenteSequence }
+const TYP = './src/topmaths/typ'
+const LESSONS = 'cours'
+const LESSON_PLANS = 'fiches'
+const UNITS = 'sequences'
+const OBJECTIVES = 'objectifs'
+const FILE_KEYWORDS = ['_Cours', '_Fiche', '_Poly', '_Presentation', 'Entrainement_', '_Diaporama', '_Geogebra']
+
+const previousLessonPlans: Record<StringGrade, UnitLessonPlan> = {
+  '6e': deepCopy(emptyUnitLessonPlan),
+  '5e': deepCopy(emptyUnitLessonPlan),
+  '4e': deepCopy(emptyUnitLessonPlan),
+  '3e': deepCopy(emptyUnitLessonPlan),
+  none: deepCopy(emptyUnitLessonPlan)
 }
 
-if (!isUnits(units)) {
-  console.error(units)
-  throw new Error('The JSON file does not contain an array of units')
-}
-
+if (!isUnits(units)) { console.error(units); throw new Error('The JSON file does not contain an array of units') }
 for (const unit of units) {
-  if (coursDeUnObjectifTrouve(unit)) genererTypCoursSequence(unit)
-  genererTypFichesSequence(unit)
+  writeUnitLesson(unit)
+  writeUnitLessonPlans(unit)
 }
-compilerTyp()
+await runShellScript('tasks/compilerTyp.sh')
+await runShellScript('tasks/copierAutresPdf.sh')
+// end of script
 
-function coursDeUnObjectifTrouve (sequence: Unit): boolean {
-  for (const objectif of sequence.objectives) {
-    if (fs.existsSync(`./src/topmaths/typ/cours/objectifs/${objectif.grade}/${objectif.reference}.typ`)) return true
+function writeUnitLesson (unit: Unit): void {
+  if (!unit.objectives.some(objective => fs.existsSync(`${TYP}/${LESSONS}/${OBJECTIVES}/${objective.grade}/${objective.reference}.typ`))) {
+    return
   }
-  return false
-}
-
-function genererTypCoursSequence (sequence: Unit): void {
-  let typCoursSequence = ''
-  typCoursSequence += `#import "../../../preambule_sequence.typ": * 
-`
-  typCoursSequence += creerEnTete(sequence)
-  for (const objectif of sequence.objectives) {
-    typCoursSequence += genererTypCoursObjectif(objectif, sequence)
+  let content = buildHeader(unit)
+  for (const objectif of unit.objectives) {
+    content += buildObjectiveLesson(objectif, unit)
   }
-  typCoursSequence = replaceImportedLessons(typCoursSequence, sequence)
-  const directory = `./src/topmaths/typ/cours/sequences/${sequence.grade}/`
-  if (!fs.existsSync(directory)) fs.mkdirSync(directory, { recursive: true })
-  fs.writeFileSync(`${directory}${sequence.reference}.typ`, typCoursSequence, 'utf8')
+  content = replaceImportedLessons(content, unit)
+  const directory = `${TYP}/${LESSONS}/${UNITS}/${unit.grade}/`
+  const fileName = `${unit.reference}.typ`
+  writeFile(directory, fileName, content)
 }
 
-function creerEnTete (sequence: Unit): string {
-  let enTete = `#show: setup-emoji
-#show: doc => sequence(doc, title: "Séquence ${sequence.number} : ${sequence.title}")
+function buildHeader (unit: Unit): string {
+  let header = `#import "../../../preambule_sequence.typ": * 
+#show: setup-emoji
+#show: doc => sequence(doc, title: "Séquence ${unit.number} : ${unit.title}")
 #objectifs()[
 `
-  for (const objectif of sequence.objectives) {
-    const estObjectifExtra = objectif.reference.slice(1, 2) !== 'X'
-    if (estObjectifExtra) {
-      enTete += `
-        - ${objectif.reference} : ${objectif.title === undefined || objectif.title === '' ? objectif.titleAcademic : objectif.title}`
+  for (const objective of unit.objectives) {
+    if (!isIgnored(objective)) {
+      header += `
+        - ${objective.reference} : ${objective.title === undefined || objective.title === '' ? objective.titleAcademic : objective.title}`
     }
   }
-  enTete += `
+  header += `
   ]
 `
-  return enTete
+  return header
 }
 
-function genererTypCoursObjectif (objectif: UnitObjective, sequence: Unit): string {
-  if (!fs.existsSync(`./src/topmaths/typ/cours/objectifs/${objectif.grade}/${objectif.reference}.typ`)) return ''
-  let typObjectif = ''
-  const titreObjectif = `
-= ${objectif.title === undefined || objectif.title === '' ? objectif.titleAcademic : objectif.title}
+function isIgnored (objective: UnitObjective): boolean {
+  return objective.reference.slice(1, 2) === 'X'
+}
+
+function buildObjectiveLesson (objective: UnitObjective, unit: Unit): string {
+  const objectiveLessonPath = `${TYP}/${LESSONS}/${OBJECTIVES}/${objective.grade}/${objective.reference}.typ`
+  if (!fs.existsSync(objectiveLessonPath)) return ''
+  const title = `
+= ${objective.title === undefined || objective.title === '' ? objective.titleAcademic : objective.title}
 `
-  const coursObjectif = fs.readFileSync(`./src/topmaths/typ/cours/objectifs/${objectif.grade}/${objectif.reference}.typ`, 'utf8')
-  if (coursObjectif.includes('image("')) copierImages(objectif, sequence)
-  typObjectif += titreObjectif
-  typObjectif += coursObjectif
-  return typObjectif
+  const content = fs.readFileSync(objectiveLessonPath, 'utf8')
+  if (content.includes('image("')) copyImages(objective, unit)
+  return title + content
 }
 
-function copierImages (objectif: { grade: StringGrade; reference: string; }, sequence: Unit): void {
-  const sourceDir = `./src/topmaths/typ/cours/objectifs/${objectif.grade}/`
-  const destinationDir = `./src/topmaths/typ/cours/sequences/${sequence.grade}/`
-  const filePrefix = objectif.reference
+function copyImages (objective: Partial<UnitObjective>, unit: Unit): void {
+  if (objective.grade === undefined) throw new Error('Unit grade is undefined')
+  if (objective.reference === undefined) throw new Error('Unit reference is undefined')
+  const sourceDir = `${TYP}/${LESSONS}/${OBJECTIVES}/${objective.grade}/`
+  const destinationDir = `${TYP}/${LESSONS}/${UNITS}/${unit.grade}/`
+  const filePrefix = objective.reference
   const fileExtension = '.png'
   fs.readdir(sourceDir, (err, files) => {
     if (err) {
       console.error('Error reading directory:', err)
       return
     }
-
     files.forEach(file => {
       if (file.startsWith(filePrefix) && file.endsWith(fileExtension)) {
         const sourceFilePath = path.join(sourceDir, file)
@@ -117,208 +106,195 @@ function copierImages (objectif: { grade: StringGrade; reference: string; }, seq
 }
 
 function replaceImportedLessons (text: string, sequence: Unit): string {
-  const importedLessonReferences = getImportedLessonReferences(text)
-  for (const importedLessonReference of importedLessonReferences) {
-    const levelCandidate = `${importedLessonReference.slice(0, 1)}e`
-    const level = isStringGrade(levelCandidate) ? levelCandidate : 'none'
-    const importedLesson = fs.readFileSync(`./src/topmaths/typ/cours/objectifs/${level}/${importedLessonReference}.typ`, 'utf8')
-    if (importedLesson.includes('image("')) copierImages({ grade: level, reference: importedLessonReference }, sequence)
-    text = text.replace(new RegExp(`##${importedLessonReference}`, 'g'), importedLesson)
+  const importedLessonReferences = findImportedLessonReferences(text)
+  for (const reference of importedLessonReferences) {
+    const grade = buildGradeFromObjectiveReference(reference)
+    if (!isStringGrade(grade)) throw new Error(`Imported lesson reference incorrect: ${grade}`)
+    const importedLesson = fs.readFileSync(`${TYP}/${LESSONS}/${OBJECTIVES}/${grade}/${reference}.typ`, 'utf8')
+    if (importedLesson.includes('image("')) copyImages({ grade, reference }, sequence)
+    text = text.replace(new RegExp(`##${reference}`, 'g'), importedLesson)
   }
   return text
 }
 
-function getImportedLessonReferences (text: string): string[] {
+function findImportedLessonReferences (text: string): string[] {
   const regex = /##(\w+)/g
-  const matches: string[] = []
-  const importedLessonReferences: string[] = []
-
-  let match: RegExpExecArray | null
-  while ((match = regex.exec(text)) !== null) {
-    const name = match[1]
-    if (!importedLessonReferences.includes(name)) {
-      matches.push(name)
-      importedLessonReferences.push(name)
-    }
-  }
-  return importedLessonReferences
+  const matches = text.match(regex) || []
+  const uniqueReferences = new Set(matches.map((match: string) => match.slice(2)))
+  return Array.from(uniqueReferences)
 }
 
-function genererTypFichesSequence (sequence: Unit): void {
-  let nbFichesObjectifs = 0
-  for (const objectifSequence of sequence.objectives) {
-    if (objectifSequence.lessonPlans.length > 0) {
-      genererTypFichesObjectif(objectifSequence, sequence.grade)
-      nbFichesObjectifs++
-    }
+function writeUnitLessonPlans (unit: Unit): void {
+  if (unit.objectives.filter(objective => objective.lessonPlans.length > 0).length === 0) {
+    return
   }
-  if (nbFichesObjectifs > 0) genererTypFicheSequence(sequence)
+  unit.objectives.forEach(objective => writeObjectiveLessonPlans(objective, unit.grade))
+  writeUnitLessonPlan(unit)
 }
 
-function genererTypFichesObjectif (objectif: UnitObjective, niveauSequence: StringGrade): void {
-  let indiceFiche = 0
-  for (const fiche of objectif.lessonPlans) {
-    if (fiche.grades.length === 0 || fiche.grades.includes(niveauSequence)) {
-      genererTypFicheObjectif(niveauSequence, objectif, fiche, indiceFiche)
-      fichesPrecedentes[niveauSequence] = fiche
-      indiceFiche++
-    }
-  }
+function writeObjectiveLessonPlans (objective: UnitObjective, unitGrade: StringGrade): void {
+  let lessonPlanCount = 1
+  objective.lessonPlans
+    .filter(lessonPlan => lessonPlan.grades.length === 0 || lessonPlan.grades.includes(unitGrade))
+    .forEach(lessonPlan => {
+      const content = buildObjectiveLessonPlan(unitGrade, objective, lessonPlan, lessonPlanCount)
+      const directory = `${TYP}/${LESSON_PLANS}/${OBJECTIVES}/${objective.grade}/`
+      const fileName = buildFileName(unitGrade, lessonPlan.reference)
+      writeFile(directory, fileName, content)
+      lessonPlanCount++
+    })
 }
 
-function genererTypFicheObjectif (niveauSequence: StringGrade, objectif: UnitObjective, fiche: ObjectiveLessonPlan, indiceFiche: number): void {
-  const nombreTotalDeFiches = countLessonPlans(objectif, niveauSequence)
-  const plusieursFiches = nombreTotalDeFiches > 1
-  const numeroFiche = indiceFiche + 1
-  const sousTitre = `Fiche de séance${plusieursFiches ? ' ' + numeroFiche + ' / ' + nombreTotalDeFiches : ''}`
-  fiche.reference = getLessonPlanReference(objectif.reference, numeroFiche, plusieursFiches)
-  if (fichesPrecedentes[niveauSequence].reference !== '') remplacerPlaceholderMateriel(fiche, niveauSequence)
-  let typObjectif = ''
-  typObjectif += `#import "../../../preambule_fiche.typ": *
-`
-  typObjectif += `#show: setup-emoji
-#show: doc => fiche(doc, titre: "${objectif.reference} : ${objectif.title}", sousTitre: "${sousTitre}")
-
-`
-  typObjectif += getTypLignes('Matériel élève', fiche.studentMaterialsNeeded)
-  typObjectif += getTypLignes('Matériel enseignant', fiche.teacherMaterialsNeeded)
-  if (fichesPrecedentes[niveauSequence].nextSessionSteps.length > 0) {
-    typObjectif += getTypLignes('Suite à la séance précédente', fichesPrecedentes[niveauSequence].nextSessionSteps)
-  }
-  typObjectif += getTypLignes('Début de séance', fiche.startSteps)
-  typObjectif += getTypLignes('Déroulé', fiche.lessonSteps)
-  typObjectif += getTypLignes('Devoirs', fiche.homeworks)
-  typObjectif += getTypLignes('Fin de séance', fiche.closureSteps)
-  typObjectif += 'placeholderMateriel'
-  typObjectif += getTypLignes('Notes', fiche.comments)
-  const directory = `./src/topmaths/typ/fiches/objectifs/${objectif.grade}/`
-  if (!fs.existsSync(directory)) fs.mkdirSync(directory, { recursive: true })
-  fs.writeFileSync(`${directory}${niveauSequence}_${fiche.reference}.typ`, typObjectif, 'utf8')
+function buildFileName (unitGrade: StringGrade, lessonPlanReference: string): string {
+  return `${unitGrade}_${lessonPlanReference}.typ`
 }
 
-function remplacerPlaceholderMateriel (fiche: ObjectiveLessonPlan, niveauSequence: StringGrade): void {
-  const cheminFichePrecedente = `./src/topmaths/typ/fiches/objectifs/${fichesPrecedentes[niveauSequence].reference.slice(0, 1) + 'e'}/${niveauSequence}_${fichesPrecedentes[niveauSequence].reference}.typ`
-  const data = fs.readFileSync(cheminFichePrecedente, 'utf8')
-  let replacementString = ''
-  if (fiche.studentMaterialsNeeded.length > 0) {
-    replacementString += `#titreCategorie("Matériel à emmener la prochaine fois") :\\
+function buildObjectiveLessonPlan (unitGrade: StringGrade, objective: UnitObjective, lessonPlan: UnitLessonPlan, lessonPlanCount: number): string {
+  const lessonPlanTotalCount = countLessonPlans(objective, unitGrade)
+  const subTitle = `Fiche de séance${lessonPlanTotalCount > 1 ? ` ${lessonPlanCount} / ${lessonPlanTotalCount}` : ''}`
+  let content = `#import "../../../preambule_fiche.typ": *
 `
-    for (const materiel of fiche.studentMaterialsNeeded) {
-      replacementString += `- ${materiel}\\
+  content += `#show: setup-emoji
+#show: doc => fiche(doc, titre: "${objective.reference} : ${objective.title ? objective.title : objective.titleAcademic}", sousTitre: "${subTitle}")
+
 `
-    }
-  }
-  const updatedData = data.replace('placeholderMateriel', replacementString)
-  fs.writeFileSync(cheminFichePrecedente, updatedData, 'utf8')
+  content += buildCategories(lessonPlan, unitGrade)
+  return content
 }
 
-function getTypLignes (titre: string, lignes: string[]): string {
-  let typLignes = ''
-  if (lignes.length > 0) {
-    if (titre !== '') {
-      typLignes += `#titreCategorie("${titre}") :\\
-`
-    }
-    for (const ligne of lignes) {
-      if (titre === 'Matériel enseignant') {
-        if (ligne.includes('_Cours') || ligne.includes('_Fiche') || ligne.includes('_Poly') || ligne.includes('_Presentation') || ligne.includes('Entrainement_') || ligne.includes('_Diaporama') || ligne.includes('_Geogebra')) {
-          const mots = ligne.split(' ')
-          const nomFichier = mots.shift()
-          let reste = ''
-          if (mots[0] !== undefined) reste = mots.join(' ')
-          typLignes += `- #lien("${nomFichier}")${reste !== '' ? ' ' + reste : ''}\\
-`
-        } else {
-          typLignes += `- ${ligne}\\
-`
-        }
-      } else {
-        const indentLevel = getIndentLevel(ligne)
-        const lineWithoutLeadingHyphens = removeLeadingHyphens(ligne)
-        for (let i = 0; i < indentLevel; i++) {
-          typLignes += '  '
-        }
-        typLignes += `  - ${lineWithoutLeadingHyphens}\\
-`
-      }
-    }
+function buildCategories (lessonPlan: UnitLessonPlan, unitGrade: StringGrade): string {
+  if (previousLessonPlans[unitGrade].reference !== '') replaceMaterialPlaceholder(lessonPlan, unitGrade)
+  let content = ''
+  content += buildCategory('Matériel élève', lessonPlan.studentMaterialsNeeded)
+  content += buildCategory('Matériel enseignant', lessonPlan.teacherMaterialsNeeded)
+  if (previousLessonPlans[unitGrade].nextSessionSteps.length > 0) {
+    content += buildCategory('Suite à la séance précédente', previousLessonPlans[unitGrade].nextSessionSteps)
   }
-  return typLignes
-  function getIndentLevel (str: string): number {
-    let count = 0
-    for (let i = 0; i < str.length && str[i] === '-'; i++) {
-      count++
-    }
-    return count
-  }
-  function removeLeadingHyphens (str: string): string {
-    return str.replace(/^[-]+/, '')
-  }
+  content += buildCategory('Début de séance', lessonPlan.startSteps)
+  content += buildCategory('Déroulé', lessonPlan.lessonSteps)
+  content += buildCategory('Devoirs', lessonPlan.homeworks)
+  content += buildCategory('Fin de séance', lessonPlan.closureSteps)
+  content += 'material_placeholder'
+  content += buildCategory('Notes', lessonPlan.comments)
+  previousLessonPlans[unitGrade] = lessonPlan
+  return content
 }
 
-function genererTypFicheSequence (sequence: Unit): void {
-  let typSequence = ''
-  typSequence += `#import "../../../preambule_fiche.typ": *
+function replaceMaterialPlaceholder (lessonPlan: UnitLessonPlan, unitGrade: StringGrade): void {
+  const reference = previousLessonPlans[unitGrade].reference
+  const path = `${TYP}/${LESSON_PLANS}/${OBJECTIVES}/${buildGradeFromObjectiveReference(reference)}/${buildFileName(unitGrade, reference)}`
+  const data = fs.readFileSync(path, 'utf8')
+  const materialNeededString = buildCategory('Matériel à emmener la prochaine fois', lessonPlan.studentMaterialsNeeded)
+  const updatedData = data.replace('material_placeholder', materialNeededString)
+  fs.writeFileSync(path, updatedData, 'utf8')
+}
+
+function buildCategory (categoryName: string, contentLines: string[]): string {
+  let content = ''
+  if (contentLines.length === 0) return content
+  if (categoryName !== '') {
+    content += `#titreCategorie("${categoryName}") :\\
 `
-  typSequence += `#show: setup-emoji
-#show: doc => fiche(doc, titre: "Séquence ${sequence.number} : ${sequence.title}", sousTitre: "Fiche de séquence", paysage: true)
+  }
+  contentLines.forEach(contentLine => {
+    contentLine = addFileLinks(contentLine)
+    content += `${buildIdentation(contentLine)}- ${removeLeadingHyphens(contentLine)}\\
+`
+  })
+  return content
+}
+
+function addFileLinks (content: string): string {
+  if (!FILE_KEYWORDS.some(keyword => content.includes(keyword))) {
+    return content
+  }
+  let words = content.split(' ')
+  words = words.map(word => {
+    if (FILE_KEYWORDS.some(keyword => word.includes(keyword))) {
+      word = `#lien("${word}")`
+    }
+    return word
+  })
+  return words.join(' ')
+}
+
+function buildIdentation (line: string): string {
+  const indentLevelCount = countIndentLevel(line)
+  let indentation = ''
+  for (let i = 0; i < indentLevelCount; i++) {
+    indentation += '  '
+  }
+  indentation += '  '
+  return indentation
+}
+
+function countIndentLevel (str: string): number {
+  let count = 0
+  for (let i = 0; i < str.length && str[i] === '-'; i++) {
+    count++
+  }
+  return count
+}
+
+function removeLeadingHyphens (str: string): string {
+  return str.replace(/^[-]+/, '')
+}
+
+function writeUnitLessonPlan (unit: Unit): void {
+  let content = ''
+  content += `#import "../../../preambule_fiche.typ": *
+`
+  content += `#show: setup-emoji
+#show: doc => fiche(doc, titre: "Séquence ${unit.number} : ${unit.title}", sousTitre: "Fiche de séquence", paysage: true)
 
 #table(
   columns: 1,
   inset: 0pt,
   align: horizon,
   `
-  let numeroSeance = 1
-  for (const objectif of sequence.objectives) {
-    for (const fiche of objectif.lessonPlans) {
-      typSequence += `[ #titreObjectif("Séance ${numeroSeance} - ${objectif.reference} : ${objectif.title}")\\
+  let lessonNumber = 1
+  for (const objective of unit.objectives) {
+    for (const lessonPlan of objective.lessonPlans) {
+      content += `[ #titreObjectif("Séance ${lessonNumber} - ${objective.reference} : ${objective.title === undefined || objective.title === '' ? objective.titleAcademic : objective.title}")\\
 #v(-2em)
 #block(inset: 10pt, [
 `
-      typSequence += getTypLignes('Matériel élève', fiche.studentMaterialsNeeded)
-      typSequence += getTypLignes('Matériel enseignant', fiche.teacherMaterialsNeeded)
-      if (fichePrecedenteSequence.nextSessionSteps.length > 0) {
-        typSequence += getTypLignes('Suite à la séance précédente', fichePrecedenteSequence.nextSessionSteps)
-      }
-      typSequence += getTypLignes('Début de séance', fiche.startSteps)
-      typSequence += getTypLignes('Déroulé', fiche.lessonSteps)
-      typSequence += getTypLignes('Devoirs', fiche.homeworks)
-      typSequence += getTypLignes('Fin de séance', fiche.closureSteps)
-      typSequence += '])], '
-      fichePrecedenteSequence = fiche
-      numeroSeance++
+      content += buildCategories(lessonPlan, unit.grade)
+      content += '])], '
+      lessonNumber++
     }
   }
-  typSequence = typSequence.slice(0, typSequence.length - 2) + ')'
-  const directory = `./src/topmaths/typ/fiches/sequences/${sequence.grade}/`
+  content = content.slice(0, content.length - 2) + ')'
+  const directory = `${TYP}/${LESSON_PLANS}/${UNITS}/${unit.grade}/`
+  const fileName = `${unit.reference}.typ`
+  writeFile(directory, fileName, content)
+}
+
+function writeFile (directory: string, fileName: string, content: string): void {
   if (!fs.existsSync(directory)) fs.mkdirSync(directory, { recursive: true })
-  fs.writeFileSync(`${directory}${sequence.reference}.typ`, typSequence, 'utf8')
+  fs.writeFileSync(`${directory}${fileName}`, content, 'utf8')
 }
 
-function compilerTyp (): void {
-  runShellScript('tasks/compilerTyp.sh', () => {
-    copierAutresPdf()
-  })
-}
-
-function copierAutresPdf (): void {
-  runShellScript('tasks/copierAutresPdf.sh', () => {})
-}
-
-function runShellScript (scriptPath: string, callback: () => void): void {
-  const child = exec(scriptPath, (error, stdout, stderr) => {
-    if (error) {
+async function runShellScript (scriptPath: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const child = spawn(scriptPath, [], { shell: true })
+    child.stdout.on('data', (data) => {
+      console.log(data.toString())
+    })
+    child.stderr.on('data', (data) => {
+      console.error(data.toString())
+    })
+    child.on('error', (error) => {
       console.error(`Error executing ${scriptPath}: ${error.message}`)
-      console.error(stderr) // Log the standard error output
-      return
-    }
-    // Log the standard output
-    console.log(`${scriptPath} output:
-${stdout}`)
-    callback()
-  })
-
-  child.on('exit', (code) => {
-    console.log(`${scriptPath} exited with code ${code}`)
+      reject(error) // Reject the promise on error
+    })
+    child.on('exit', (code) => {
+      console.log(`${scriptPath} exited with code ${code}`)
+      if (code === 0) {
+        resolve() // Resolve the promise on successful exit
+      } else {
+        reject(new Error(`${scriptPath} exited with code ${code}`)) // Reject the promise on error exit code
+      }
+    })
   })
 }

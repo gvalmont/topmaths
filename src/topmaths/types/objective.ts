@@ -63,8 +63,7 @@ export type ObjectiveLessonPlan = {
   teacherMaterialsNeeded: string[],
   grades: StringGrade[],
   comments: string[],
-  nextSessionSteps: string[],
-  reference: string
+  nextSessionSteps: string[]
 }
 export function isObjectiveLessonPlan (obj: unknown): obj is ObjectiveLessonPlan {
   if (obj == null || typeof obj !== 'object') return false
@@ -76,8 +75,7 @@ export function isObjectiveLessonPlan (obj: unknown): obj is ObjectiveLessonPlan
     'teacherMaterialsNeeded' in obj && isStrings(obj.teacherMaterialsNeeded) &&
     'grades' in obj && isStringGrades(obj.grades) &&
     'comments' in obj && isStrings(obj.comments) &&
-    'nextSessionSteps' in obj && isStrings(obj.nextSessionSteps) &&
-    'reference' in obj && typeof obj.reference === 'string'
+    'nextSessionSteps' in obj && isStrings(obj.nextSessionSteps)
 }
 export function isObjectiveLessonPlans (obj: unknown): obj is ObjectiveLessonPlan[] {
   if (obj == null || !Array.isArray(obj)) return false
@@ -92,8 +90,7 @@ export const emptyObjectiveLessonPlan: ObjectiveLessonPlan = {
   teacherMaterialsNeeded: [],
   grades: [],
   comments: [],
-  nextSessionSteps: [],
-  reference: ''
+  nextSessionSteps: []
 }
 
 export type ObjectiveUnit = {
