@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function copy_pdf_files() {
+function copy_precompiled_pdfs() {
   local pdf_directory="$1"
   local destination_directory="$2"
 
@@ -25,4 +25,4 @@ function copy_pdf_files() {
     echo "Copying $current_file of $total_files $destination_directory"
   done
 }
-copy_pdf_files "src/topmaths/pdf/photocopies" "public/topmaths/photocopies"
+copy_precompiled_pdfs "src/topmaths/pdf/photocopies" "public/topmaths/photocopies"

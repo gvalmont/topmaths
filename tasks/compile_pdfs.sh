@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function compile_typ_files() {
+function compile_pdfs() {
   local typ_directory="$1"
   local pdf_directory="$2"
   local suffix="$3"
@@ -48,9 +48,9 @@ function compile_typ_files() {
 }
 
 # Call the function with different directories and suffixes
-compile_typ_files "src/topmaths/typ/fiches/objectifs" "public/topmaths/fiches/objectifs" "Fiche"
-compile_typ_files "src/topmaths/typ/fiches/sequences" "public/topmaths/fiches/sequences" "Fiche"
-compile_typ_files "src/topmaths/typ/cours/sequences" "public/topmaths/cours" "Cours"
-compile_typ_files "src/topmaths/typ/photocopies" "public/topmaths/photocopies" ""
-compile_typ_files "src/topmaths/typ/presentations" "public/topmaths/presentations" ""
-compile_typ_files "src/topmaths/typ/tutos" "public/topmaths/tutos" ""
+compile_pdfs "src/topmaths/typ/fiches/objectifs" "public/topmaths/fiches/objectifs" "Fiche"
+compile_pdfs "src/topmaths/typ/fiches/sequences" "public/topmaths/fiches/sequences" "Fiche"
+compile_pdfs "src/topmaths/typ/cours/sequences" "public/topmaths/cours" "Cours"
+compile_pdfs "src/topmaths/typ/photocopies" "public/topmaths/photocopies" ""
+compile_pdfs "src/topmaths/typ/presentations" "public/topmaths/presentations" ""
+compile_pdfs "src/topmaths/typ/tutos" "public/topmaths/tutos" ""

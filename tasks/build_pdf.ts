@@ -7,7 +7,7 @@ import units from '../src/topmaths/json/sequences_modifiees.json' assert { type:
 import { countLessonPlans } from './helpers/lesson_plans.js'
 import { buildGradeFromObjectiveReference } from '../src/topmaths/services/environment.js'
 
-const TYP = './src/topmaths/typ'
+const SOURCE_ROOT = './src/topmaths/typ'
 const LESSONS = 'cours'
 const LESSON_PLANS = 'fiches'
 const UNITS = 'sequences'
@@ -15,8 +15,8 @@ const OBJECTIVES = 'objectifs'
 const FILE_KEYWORDS = ['_Cours', '_Fiche', '_Poly', '_Presentation', 'Entrainement_', '_Diaporama', '_Geogebra']
 
 if (!isUnits(units)) { console.error(units); throw new Error('The JSON file does not contain an array of units') }
-deleteDirectory(`${TYP}/${LESSONS}/${UNITS}/`)
-deleteDirectory(`${TYP}/${LESSON_PLANS}/`)
+deleteDirectory(`${SOURCE_ROOT}/${LESSONS}/${UNITS}/`)
+deleteDirectory(`${SOURCE_ROOT}/${LESSON_PLANS}/`)
 for (let i = 0; i < units.length; i++) {
   const previousUnit = i === 0 ? emptyUnit : units[i - 1]
   const currentUnit = units[i]
@@ -24,12 +24,12 @@ for (let i = 0; i < units.length; i++) {
   writeUnitLesson(currentUnit)
   writeUnitLessonPlans(previousUnit, currentUnit, nextUnit)
 }
-await runShellScript('tasks/compilerTyp.sh')
-await runShellScript('tasks/copierAutresPdf.sh')
+await runShellScript('tasks/compile_pdfs.sh')
+await runShellScript('tasks/copy_precompiled_pdfs.sh')
 // end of script
 
 function writeUnitLesson (unit: Unit): void {
-  if (!unit.objectives.some(objective => fs.existsSync(`${TYP}/${LESSONS}/${OBJECTIVES}/${objective.grade}/${objective.reference}.typ`))) {
+  if (!unit.objectives.some(objective => fs.existsSync(`${SOURCE_ROOT}/${LESSONS}/${OBJECTIVES}/${objective.grade}/${objective.reference}.typ`))) {
     return
   }
   let content = buildHeader(unit)
@@ -37,7 +37,7 @@ function writeUnitLesson (unit: Unit): void {
     content += buildObjectiveLesson(objectif, unit)
   }
   content = replaceImportedLessons(content, unit)
-  const directory = `${TYP}/${LESSONS}/${UNITS}/${unit.grade}/`
+  const directory = `${SOURCE_ROOT}/${LESSONS}/${UNITS}/${unit.grade}/`
   const fileName = `${unit.reference}.typ`
   writeFile(directory, fileName, content)
 }
@@ -65,7 +65,7 @@ function isIgnored (objective: UnitObjective): boolean {
 }
 
 function buildObjectiveLesson (objective: UnitObjective, unit: Unit): string {
-  const objectiveLessonPath = `${TYP}/${LESSONS}/${OBJECTIVES}/${objective.grade}/${objective.reference}.typ`
+  const objectiveLessonPath = `${SOURCE_ROOT}/${LESSONS}/${OBJECTIVES}/${objective.grade}/${objective.reference}.typ`
   if (!fs.existsSync(objectiveLessonPath)) return ''
   const title = `
 = ${objective.title === undefined || objective.title === '' ? objective.titleAcademic : objective.title}
@@ -78,8 +78,8 @@ function buildObjectiveLesson (objective: UnitObjective, unit: Unit): string {
 function copyImages (objective: Partial<UnitObjective>, unit: Unit): void {
   if (objective.grade === undefined) throw new Error('Unit grade is undefined')
   if (objective.reference === undefined) throw new Error('Unit reference is undefined')
-  const sourceDir = `${TYP}/${LESSONS}/${OBJECTIVES}/${objective.grade}/`
-  const destinationDir = `${TYP}/${LESSONS}/${UNITS}/${unit.grade}/`
+  const sourceDir = `${SOURCE_ROOT}/${LESSONS}/${OBJECTIVES}/${objective.grade}/`
+  const destinationDir = `${SOURCE_ROOT}/${LESSONS}/${UNITS}/${unit.grade}/`
   const filePrefix = objective.reference
   const fileExtension = '.png'
   fs.readdir(sourceDir, (err, files) => {
@@ -107,7 +107,7 @@ function replaceImportedLessons (text: string, sequence: Unit): string {
   for (const reference of importedLessonReferences) {
     const grade = buildGradeFromObjectiveReference(reference)
     if (!isStringGrade(grade)) throw new Error(`Imported lesson reference incorrect: ${grade}`)
-    const importedLesson = fs.readFileSync(`${TYP}/${LESSONS}/${OBJECTIVES}/${grade}/${reference}.typ`, 'utf8')
+    const importedLesson = fs.readFileSync(`${SOURCE_ROOT}/${LESSONS}/${OBJECTIVES}/${grade}/${reference}.typ`, 'utf8')
     if (importedLesson.includes('image("')) copyImages({ grade, reference }, sequence)
     text = text.replace(new RegExp(`##${reference}`, 'g'), importedLesson)
   }
@@ -145,7 +145,7 @@ function writeObjectiveLessonPlans (unitGrade: StringGrade, previousObjective: U
     const nextLessonPlan = i === currentObjectiveLessonPlans.length - 1 ? findFirstLessonPlan(nextObjective, unitGrade) : currentObjectiveLessonPlans[i + 1]
     let content = buildObjectiveLessonPlanHeader(unitGrade, currentObjective, lessonPlanCount)
     content += buildCategories(previousLessonPlan, currentLessonPlan, nextLessonPlan)
-    const directory = `${TYP}/${LESSON_PLANS}/${OBJECTIVES}/${currentObjective.grade}/`
+    const directory = `${SOURCE_ROOT}/${LESSON_PLANS}/${OBJECTIVES}/${currentObjective.grade}/`
     const fileName = buildFileName(unitGrade, currentLessonPlan.reference)
     writeFile(directory, fileName, content)
     lessonPlanCount++
@@ -246,7 +246,7 @@ function removeLeadingHyphens (str: string): string {
 function writeUnitLessonPlan (previousUnit: Unit, currentUnit: Unit, nextUnit: Unit): void {
   let content = buildUnitLessonPlanHeader(currentUnit)
   content += buildUnitLessonPlanGrid(previousUnit, currentUnit, nextUnit)
-  const directory = `${TYP}/${LESSON_PLANS}/${UNITS}/${currentUnit.grade}/`
+  const directory = `${SOURCE_ROOT}/${LESSON_PLANS}/${UNITS}/${currentUnit.grade}/`
   const fileName = `${currentUnit.reference}.typ`
   writeFile(directory, fileName, content)
 }
