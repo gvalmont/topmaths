@@ -1,15 +1,16 @@
-import { writable } from 'svelte/store'
 import type { GlossaryUniteItem } from '../types/glossary'
 import type { Unit, UnitSpecial } from '../types/unit'
 import type { Objective } from '../types/objective'
-import type { CalendarCurrentYear } from '../types/calendar'
+import { writable } from 'svelte/store'
+import { deepCopy } from '../types/shared'
+import { emptyCalendarCurrentYear, type CalendarCurrentYear } from '../types/calendar'
 
 // libraries
 export const units = writable<Unit[]>([])
 export const specialUnits = writable<UnitSpecial[]>([])
 export const objectives = writable<Objective[]>([])
 export const glossary = writable<GlossaryUniteItem[]>([])
-export const calendar = writable<CalendarCurrentYear>({ year: 0, dayOfYear: 0, periodNumber: 0, weekInPeriod: 0, isHoliday: true })
+export const calendar = writable<CalendarCurrentYear>(deepCopy(emptyCalendarCurrentYear))
 
 // url parameters
 export const view = writable<string>('')
