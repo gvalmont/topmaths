@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { modeEnseignant } from '../services/store'
+  import { isTeacherMode } from '../services/store'
   import { storage } from '../services/storage'
   import GrosBouton from './shared/GrosBouton.svelte'
 
-  function activerModeEnseignant () {
-    storage.activerModeEnseignant()
+  function activateTeacherMode () {
+    storage.activateTeacherMode()
   }
 
-  function desactiverModeEnseignant () {
-    storage.desactiverModeEnseignant()
+  function deactivateTeacherMode () {
+    storage.deactivateTeacherMode()
   }
 
 </script>
@@ -30,7 +30,7 @@
     couleur='violet'
     texte='Mathador'
     />
-    {#if $modeEnseignant}
+    {#if $isTeacherMode}
       <GrosBouton
       vue='progressions'
       couleur='sponsor'
@@ -39,7 +39,7 @@
       <br /><br />
       <div>
         <button
-          on:click={() => desactiverModeEnseignant()}
+          on:click={() => deactivateTeacherMode()}
           class="button is-green rounded md:rounded-lg py-1 px-4 md:py-2 md:px-6"
         >
           <p>Désactiver le mode enseignant</p>
@@ -49,7 +49,7 @@
       <br /><br />
       <div>
         <button
-          on:click={() => activerModeEnseignant()}
+          on:click={() => activateTeacherMode()}
           class="button is-green rounded md:rounded-lg py-1 px-4 md:py-2 md:px-6 is-outlined"
         >
           <p>Activer le mode enseignant</p>

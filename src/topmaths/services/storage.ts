@@ -1,29 +1,29 @@
-import { modeEnseignant, modePerso } from './store'
+import { isTeacherMode, isPersonalMode } from './store'
 
 export const storage = {
   getTeacherModeState () {
-    const obj = localStorage.getItem('modeEnseignant')
-    if (obj !== null) modeEnseignant.set(JSON.parse(obj))
+    const obj = localStorage.getItem('teacherMode')
+    if (obj !== null) isTeacherMode.set(JSON.parse(obj))
   },
   getPersoModeState () {
     const obj = localStorage.getItem('modePerso')
-    if (obj !== null) modePerso.set(JSON.parse(obj))
+    if (obj !== null) isPersonalMode.set(JSON.parse(obj))
   },
-  activerModeEnseignant () {
-    localStorage.setItem('modeEnseignant', JSON.stringify(true))
-    modeEnseignant.set(true)
+  activateTeacherMode () {
+    localStorage.setItem('teacherMode', JSON.stringify(true))
+    isTeacherMode.set(true)
   },
-  desactiverModeEnseignant () {
-    localStorage.setItem('modeEnseignant', JSON.stringify(false))
-    modeEnseignant.set(false)
+  deactivateTeacherMode () {
+    localStorage.setItem('teacherMode', JSON.stringify(false))
+    isTeacherMode.set(false)
   },
   activerModePerso () {
     localStorage.setItem('modePerso', JSON.stringify(true))
-    modePerso.set(true)
+    isPersonalMode.set(true)
   },
   desactiverModePerso () {
     localStorage.setItem('modePerso', JSON.stringify(false))
-    modePerso.set(false)
+    isPersonalMode.set(false)
   },
   get (key: string) {
     const obj = sessionStorage.getItem(key)

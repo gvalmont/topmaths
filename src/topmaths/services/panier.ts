@@ -1,4 +1,4 @@
-import { panierDispo } from './store'
+import { isCartEmpty } from './store'
 import type { ObjectiveExercise, Objective } from '../types/objective'
 import { emptyCartItem, type CartItem } from '../types/cart'
 import type { UnitObjective } from '../types/unit'
@@ -37,7 +37,7 @@ export function ajouterAuPanier (exercice: ObjectiveExercise, reference: string,
     panierTemp.push(panierItem)
     storage.set('cart', panierTemp)
   }
-  panierDispo.set(true)
+  isCartEmpty.set(false)
 }
 
 export function tousLesExercicesSontPresentsDansLePanier (objectif: Objective | UnitObjective, exDeBrevet = false): boolean {

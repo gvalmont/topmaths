@@ -1,14 +1,13 @@
 <script lang="ts">
-  import { calendrierAnneeEnCours, listeDesUrl, objectives, units, vue, vuePrecedente } from '../services/store'
+  import { calendar, exerciseLinks, objectives, units, view } from '../services/store'
   import { estCoopmaths } from '../services/outils'
   import { environment } from '../services/environment'
-  import { get } from 'svelte/store'
   import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
 
   let niveauChoisi = 'tout'
 
   function lancerExercicesMathalea () {
-    if ($calendrierAnneeEnCours.periodNumber > 0) {
+    if ($calendar.periodNumber > 0) {
       const listeDesReferences = getListeDesReferences(niveauChoisi)
       if (listeDesReferences.length === 0) {
         alert('Tu n\'as pas encore d\'exercice à réviser, reviens plus tard !')
@@ -19,7 +18,7 @@
   }
 
   function lancerExercicesBrevet () {
-    if ($calendrierAnneeEnCours.periodNumber > 0) {
+    if ($calendar.periodNumber > 0) {
       const listeExercicesBrevet = getListeExercicesBrevet()
       if (listeExercicesBrevet.length === 0) {
         alert('Tu n\'as pas encore d\'exercice de brevet à réviser, reviens plus tard !')
@@ -30,9 +29,8 @@
   }
 
   function lancer (listeUrls: string[]) {
-    listeDesUrl.set(listeUrls)
-    vuePrecedente.set(get(vue))
-    vue.set('exercices')
+    exerciseLinks.set(listeUrls)
+    view.set('exercices')
   }
 
   function getListeDesReferences (
@@ -88,9 +86,9 @@
   }
 
   function getDerniereSequence (niveau: string) {
-    const numeroPeriode = $calendrierAnneeEnCours.periodNumber
-    const isHoliday = $calendrierAnneeEnCours.isHoliday
-    const semaineDansLaPeriode = $calendrierAnneeEnCours.weekInPeriod
+    const numeroPeriode = $calendar.periodNumber
+    const isHoliday = $calendar.isHoliday
+    const semaineDansLaPeriode = $calendar.weekInPeriod
     const nbSequencesCumulees = getNbSequencesCumulees(niveau)
 
     const nbSequencesDebutPeriode = nbSequencesCumulees[numeroPeriode - 1]

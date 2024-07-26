@@ -1,6 +1,6 @@
 <script lang="ts">
   import {
-    modePerso,
+    isPersonalMode,
     objectives,
     units
   } from '../../services/store'
@@ -211,7 +211,7 @@
 {/if}
 <div
   id="divEvaluation"
-  class="is-{niveau} {sequence.downloadLinks.lessonLink || sequence.downloadLinks.lessonSummaryLink || sequence.downloadLinks.missionLink || ($modePerso && sequence.downloadLinks.lessonPlanLink)
+  class="is-{niveau} {sequence.downloadLinks.lessonLink || sequence.downloadLinks.lessonSummaryLink || sequence.downloadLinks.missionLink || ($isPersonalMode && sequence.downloadLinks.lessonPlanLink)
     ? ''
     : ' is-fin'}"
 >
@@ -239,7 +239,7 @@
     {/if}
   </div>
 </div>
-{#if sequence.downloadLinks.lessonLink || sequence.downloadLinks.lessonSummaryLink || sequence.downloadLinks.missionLink || ($modePerso && sequence.downloadLinks.lessonPlanLink) }
+{#if sequence.downloadLinks.lessonLink || sequence.downloadLinks.lessonSummaryLink || sequence.downloadLinks.missionLink || ($isPersonalMode && sequence.downloadLinks.lessonPlanLink) }
   <div class="is-fin is-{niveau}">
     <h2 class="subtitle text-xl md:text-3xl p-3 is-{niveau}">Téléchargements</h2>
     <ul class="p-6 ">
@@ -259,7 +259,7 @@
         label="Télécharger la mission"
       />
       <DownloadLine
-        displayCondition={!!($modePerso && sequence.downloadLinks.lessonPlanLink)}
+        displayCondition={!!($isPersonalMode && sequence.downloadLinks.lessonPlanLink)}
         href={sequence.downloadLinks.lessonPlanLink}
         label="Télécharger la fiche"
       />

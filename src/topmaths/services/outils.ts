@@ -1,7 +1,7 @@
 import { get } from 'svelte/store'
 import type { Objective } from '../types/objective'
 import type { UnitObjective } from '../types/unit'
-import { titresProchesDesAttendus } from './store'
+import { isTitleAcademicPreferred } from './store'
 import { environment } from './environment'
 import { exercicesParams, globalOptions } from '../../lib/stores/generalStore'
 import { showDialogForLimitedTime } from '../../lib/components/dialogs'
@@ -32,7 +32,7 @@ export function supprimerGraines (lien: string): string {
 }
 
 export function getTitre (objectif: Objective | UnitObjective): string {
-  if (get(titresProchesDesAttendus) || objectif.titleAcademic === undefined || objectif.titleAcademic === '') {
+  if (get(isTitleAcademicPreferred) || objectif.titleAcademic === undefined || objectif.titleAcademic === '') {
     return objectif.titleAcademic
   } else {
     return objectif.titleAcademic

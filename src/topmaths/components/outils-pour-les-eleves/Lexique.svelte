@@ -1,6 +1,6 @@
 <script lang="ts">
   import {
-    lexique as lexiqueStore, texteRecherche
+    glossary as lexiqueStore
 
   } from '../../services/store'
   import { normaliser } from '../../services/outils'
@@ -11,9 +11,10 @@
   import NotionsEtObjectifsLies from '../shared/NotionsEtObjectifsLies.svelte'
   import type { GlossaryUniteItem } from '../../types/glossary'
 
+  const searchText = writable<string>('')
   const lexiqueTampon = writable<GlossaryUniteItem[]>([])
   const lignesFiltrees = derived(
-    [texteRecherche, lexiqueTampon],
+    [searchText, lexiqueTampon],
     ([$texteRecherche, $lexiqueTampon]) =>
       getLignesFiltrees($texteRecherche, $lexiqueTampon)
   )
@@ -87,7 +88,7 @@
     aria-describedby="Champ pour rechercher une définition ou une propriété"
     autocomplete="off"
     placeholder="Recherche"
-    bind:value={$texteRecherche}
+    bind:value={$searchText}
     on:input
   />
   <div><br /></div>

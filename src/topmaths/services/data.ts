@@ -1,4 +1,4 @@
-import { objectives as storeObjectives, units as storeUnits, sequencesParticulieres as storeSequencesParticulieres, calendrierAnneeEnCours as storeCalendrierAnneeEnCours, lexique as glossaryStore } from './store'
+import { objectives as storeObjectives, units as storeUnits, specialUnits as storeSequencesParticulieres, calendar as storeCalendrierAnneeEnCours, glossary as glossaryStore } from './store'
 import units from '../../topmaths/json/built_units.json'
 import objectives from '../../topmaths/json/built_objectives.json'
 import glossaryJson from '../../topmaths/json/glossary.json'

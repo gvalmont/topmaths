@@ -2,7 +2,7 @@
   import { lancerExercices } from '../../services/navigation'
   import IconeTooltipSimple from './IconeTooltipSimple.svelte'
   import type { ObjectiveExercise, ObjectiveVideo } from '../../types/objective'
-  import { modeEnseignant } from '../../services/store'
+  import { isTeacherMode } from '../../services/store'
   import { copierLien, estCoopmaths } from '../../services/outils'
   import { toutAjouterAuPanier } from '../../services/panier'
   import { environment } from '../../services/environment'
@@ -56,7 +56,7 @@
   {#if lienExercices === '' && titre !== undefined && titre !== ''}
     <button>{titre}</button>
   {/if}
-  {#if $modeEnseignant && presenceExercicesCoopmaths(exercices)}
+  {#if $isTeacherMode && presenceExercicesCoopmaths(exercices)}
     <span>
       &nbsp;
       <button

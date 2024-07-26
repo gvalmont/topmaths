@@ -1,7 +1,7 @@
 <script lang="ts">
   import {
-    modeEnseignant,
-    modePerso,
+    isTeacherMode,
+    isPersonalMode,
     objectives,
     units,
     reference
@@ -192,8 +192,8 @@
       class="is-{niveau}"
       class:is-fin = {objectif.units.length === 0 &&
         !objectif.downloadLinks.practiceSheetLink &&
-        (!$modeEnseignant || !objectif.downloadLinks.testSheetLink) &&
-        (!$modePerso || isEmptyArrayRecord(objectif.downloadLinks.lessonPlanLinks))}
+        (!$isTeacherMode || !objectif.downloadLinks.testSheetLink) &&
+        (!$isPersonalMode || isEmptyArrayRecord(objectif.downloadLinks.lessonPlanLinks))}
     >
       <h2 class="subtitle text-xl md:text-3xl p-3 is-{niveau}">
         <BoutonsExercices
@@ -252,8 +252,8 @@
     </div>
   {/if}
   {#if objectif.downloadLinks.practiceSheetLink ||
-    ($modeEnseignant && objectif.downloadLinks.testSheetLink) ||
-    ($modePerso && !isEmptyArrayRecord(objectif.downloadLinks.lessonPlanLinks))}
+    ($isTeacherMode && objectif.downloadLinks.testSheetLink) ||
+    ($isPersonalMode && !isEmptyArrayRecord(objectif.downloadLinks.lessonPlanLinks))}
     <div
       class="{objectif.units.length === 0 ? 'is-fin ' : ''}is-{niveau}"
     >
@@ -265,11 +265,11 @@
           label="Télécharger la feuille d'entraînement"
         />
         <DownloadLine
-          displayCondition={$modeEnseignant && !!objectif.downloadLinks.testSheetLink}
+          displayCondition={$isTeacherMode && !!objectif.downloadLinks.testSheetLink}
           href={objectif.downloadLinks.testSheetLink}
           label="Télécharger les tests"
         />
-        {#if $modePerso && !isEmptyArrayRecord(objectif.downloadLinks.lessonPlanLinks)}
+        {#if $isPersonalMode && !isEmptyArrayRecord(objectif.downloadLinks.lessonPlanLinks)}
           {#each Object.keys(objectif.downloadLinks.lessonPlanLinks) as grade}
             {#if objectif.downloadLinks.lessonPlanLinks[grade].length > 0}
               {#each objectif.downloadLinks.lessonPlanLinks[grade] as lessonPlanLink, i}

@@ -21,7 +21,7 @@
   import Revisions from './Revisions.svelte'
   import Telechargements from './outils-pour-les-eleves/Telechargements.svelte'
   import Tutos from './outils-pour-les-eleves/Tutos.svelte'
-  import { modeEnseignant, modePerso, panierDispo, reference, vue } from '../services/store'
+  import { isTeacherMode, isPersonalMode, isCartEmpty, reference, view } from '../services/store'
   import Informations from './Informations.svelte'
   import ExercicesMathalea from './exercices/ExercicesMathalea.svelte'
   import HeadTabsMenu from './presentationalComponents/headTabsMenu/HeadTabsMenu.svelte'
@@ -54,14 +54,14 @@
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     for (const entry of entries) {
-      if (entry[0] === 'v') vue.set(entry[1])
+      if (entry[0] === 'v') view.set(entry[1])
       if (entry[0] === 'ref') reference.set(entry[1])
     }
   }
 
   function updateBasket (): void {
     const basket = storage.get('cart')
-    if (basket !== undefined && basket[0] !== undefined) panierDispo.set(true)
+    if (basket !== undefined && basket[0] !== undefined) isCartEmpty.set(false)
   }
 
   function startTimeInterval (): void {
@@ -87,7 +87,7 @@
   }
 
   function updateTime (): void {
-    if ($modeEnseignant) {
+    if ($isTeacherMode) {
       const timeOverlayDiv = document.getElementById('timeOverlay')
       if (timeOverlayDiv !== null) {
         const date = new Date()
@@ -112,58 +112,58 @@
   <!-- Header -->
   <HeadTabsMenu
     {isMd}
-    vue={$vue}
+    vue={$view}
     onHeadTabsMenuClicked={goVue}
-    isBasketAvailable={$panierDispo}
+    isBasketAvailable={!$isCartEmpty}
   />
 </div>
 <!-- Affichage principal -->
 <div class="flex justify-center">
   <div class="text-center pb-8 mb:pb-20 text-base md:text-xl">
-    {#if $vue === 'exercices'}
+    {#if $view === 'exercices'}
       <ExercicesMathalea {isMd} />
-    {:else if $vue === 'sequence'}
+    {:else if $view === 'sequence'}
       <Sequence />
-    {:else if $vue === 'sequences'}
+    {:else if $view === 'sequences'}
       <Sequences />
-    {:else if $vue === 'objectifs'}
+    {:else if $view === 'objectifs'}
       <Objectifs />
-    {:else if $vue === 'objectif'}
+    {:else if $view === 'objectif'}
       <Objectif />
-    {:else if $vue === 'revisions'}
+    {:else if $view === 'revisions'}
       <Revisions />
-    {:else if $vue === 'outils'}
+    {:else if $view === 'outils'}
       <OutilsPourLaClasse />
-    {:else if $vue === 'mathador'}
+    {:else if $view === 'mathador'}
       <Mathador />
-    {:else if $vue === 'generateur-de-portraits'}
+    {:else if $view === 'generateur-de-portraits'}
       <GenerateurDePortraits />
-    {:else if $vue === 'eleves'}
+    {:else if $view === 'eleves'}
       <OutilsPourLesEleves />
-    {:else if $vue === 'lexique'}
+    {:else if $view === 'lexique'}
       <Lexique />
-    {:else if $vue === 'tutos'}
+    {:else if $view === 'tutos'}
       <Tutos />
-    {:else if $vue === 'telechargements'}
+    {:else if $view === 'telechargements'}
       <Telechargements />
-    {:else if $vue === 'progressions'}
+    {:else if $view === 'progressions'}
       <Progressions />
-    {:else if $vue === 'informations'}
+    {:else if $view === 'informations'}
       <Informations />
-    {:else if $vue === 'panier'}
+    {:else if $view === 'panier'}
       <Panier />
-    {:else if $vue === 'mentions-legales'}
+    {:else if $view === 'mentions-legales'}
       <MentionsLegales />
-    {:else if $vue === 'politique-de-confidentialite'}
+    {:else if $view === 'politique-de-confidentialite'}
       <PolitiqueDeConfidentialite />
-    {:else if $vue === 'cgu'}
+    {:else if $view === 'cgu'}
       <Cgu />
-    {:else if $vue === 'perso'}
+    {:else if $view === 'perso'}
       <div class="has-text-centered">
-        <button class="button" class:is-success = {!$modePerso} class:is-danger = {$modePerso} on:click={() => {
-          $modePerso ? storage.desactiverModePerso() : storage.activerModePerso()
+        <button class="button" class:is-success = {!$isPersonalMode} class:is-danger = {$isPersonalMode} on:click={() => {
+          $isPersonalMode ? storage.desactiverModePerso() : storage.activerModePerso()
         }}>
-          {$modePerso ? 'Désactiver le mode perso' : 'Activer le mode perso'}
+          {$isPersonalMode ? 'Désactiver le mode perso' : 'Activer le mode perso'}
         </button>
       </div>
     {:else}

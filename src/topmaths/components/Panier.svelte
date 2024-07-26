@@ -3,7 +3,7 @@
   import { environment } from '../services/environment'
   import { lancerExercices } from '../services/navigation'
   import { storage } from '../services/storage'
-  import { panierDispo, vue } from '../services/store'
+  import { isCartEmpty, view } from '../services/store'
   import { copierLien } from '../services/outils'
   import { getParamsFromUrl, updateUrlFromParams } from '../services/mathalea'
 
@@ -23,8 +23,8 @@
 
   function viderLePanier (): void {
     storage.set('cart', [])
-    panierDispo.set(false)
-    vue.set('accueil')
+    isCartEmpty.set(true)
+    view.set('accueil')
   }
 
   function MAJLien (): void {

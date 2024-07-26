@@ -1,14 +1,15 @@
 <script lang="ts">
   import { tick } from 'svelte'
   import { goVue } from '../../services/navigation'
-  import { texteRecherche } from '../../services/store'
   import type { GlossaryUniteItem } from '../../types/glossary'
+  import { writable } from 'svelte/store'
 
   export let ligne: GlossaryUniteItem
 
+  const searchText = writable<string>('')
   async function goHash (event: MouseEvent, hashLocation: string) {
     event.preventDefault()
-    texteRecherche.set('')
+    searchText.set('')
     await tick()
     const destinationDiv = document.getElementById(hashLocation)
     if (destinationDiv !== null) {

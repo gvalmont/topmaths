@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { listeDesUrl, modeEnseignant } from '../../../services/store'
+  import { exerciseLinks, isTeacherMode } from '../../../services/store'
   import type TypeExercice from '../../../../exercices/Exercice'
 
   export let exercise: TypeExercice
@@ -29,7 +29,7 @@
     </div>
   </a>
   &nbsp; &nbsp
-  {#if exerciseType !== 'static' || ($listeDesUrl !== undefined && $listeDesUrl.length > 0)}
+  {#if exerciseType !== 'static' || ($exerciseLinks !== undefined && $exerciseLinks.length > 0)}
     <button
       class="button is-coopmaths is-outlined p-1 rounded {isMd ? '' : 'is-small'}"
       on:click={() => { newData(exerciseIndex) }}
@@ -75,7 +75,7 @@
       </i>
     </button>
   </div>
-  {#if $modeEnseignant && exerciseType === 'mathalea'}
+  {#if $isTeacherMode && exerciseType === 'mathalea'}
     <div class="flex flex-row justify-start items-center text-coopmaths-struct dark:text-coopmathsdark-struct">
       <button
         class:invisible={nbCols < 2}

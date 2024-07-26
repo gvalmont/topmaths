@@ -4,32 +4,23 @@ import type { Unit, UnitSpecial } from '../types/unit'
 import type { Objective } from '../types/objective'
 import type { CalendarCurrentYear } from '../types/calendar'
 
-export const vue = writable<string>('')
+// libraries
+export const units = writable<Unit[]>([])
+export const specialUnits = writable<UnitSpecial[]>([])
+export const objectives = writable<Objective[]>([])
+export const glossary = writable<GlossaryUniteItem[]>([])
+export const calendar = writable<CalendarCurrentYear>({ year: 0, dayOfYear: 0, periodNumber: 0, weekInPeriod: 0, isHoliday: true })
 
-export const vuePrecedente = writable<string>('')
-
+// url parameters
+export const view = writable<string>('')
 export const reference = writable<string>('')
 
-export const urlExercice = writable<string>('')
+// display settings
+export const isTitleAcademicPreferred = writable<boolean>(false)
+export const isTeacherMode = writable<boolean>(false)
+export const isPersonalMode = writable<boolean>(false)
+export const isCartEmpty = writable<boolean>(true)
 
-export const listeDesUrl = writable<string[]>([])
-
-export const units = writable<Unit[]>([])
-
-export const objectives = writable<Objective[]>([])
-
-export const sequencesParticulieres = writable<UnitSpecial[]>([])
-
-export const lexique = writable<GlossaryUniteItem[]>([])
-
-export const calendrierAnneeEnCours = writable<CalendarCurrentYear>({ year: 0, dayOfYear: 0, periodNumber: 0, weekInPeriod: 0, isHoliday: true })
-
-export const modeEnseignant = writable<boolean>(false)
-
-export const modePerso = writable<boolean>(false)
-
-export const panierDispo = writable<boolean>(false)
-
-export const titresProchesDesAttendus = writable<boolean>(false)
-
-export const texteRecherche = writable<string>('')
+// other
+export const exerciseLink = writable<string>('')
+export const exerciseLinks = writable<string[]>([])

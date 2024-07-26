@@ -1,7 +1,7 @@
 <script lang="ts">
   import {
     units,
-    sequencesParticulieres
+    specialUnits
   } from '../services/store'
   import { onDestroy } from 'svelte'
   import { normaliser } from '../services/outils'
@@ -62,7 +62,7 @@ function MAJPage () {
 }
 
 function lesDonneesSontChargees () {
-  return $sequencesParticulieres.length > 0 && $units.length > 0
+  return $specialUnits.length > 0 && $units.length > 0
 }
 
   function MAJLignesSequencesParticulieres () {
@@ -74,7 +74,7 @@ function lesDonneesSontChargees () {
       reference: '',
       title: ''
     })
-    for (const sequence of $sequencesParticulieres) {
+    for (const sequence of $specialUnits) {
       lignesSequencesParticulieres.push({
         grade: 'all',
         reference: sequence.reference,
@@ -93,7 +93,7 @@ function lesDonneesSontChargees () {
   }
 
   function surveillerChargementDesDonnees () {
-    sequencesParticulieresUnsubscribe = sequencesParticulieres.subscribe(() => MAJPage())
+    sequencesParticulieresUnsubscribe = specialUnits.subscribe(() => MAJPage())
     niveauxSequencesUnsubscribe = units.subscribe(() => MAJPage())
     onDestroy(niveauxSequencesUnsubscribe)
     onDestroy(sequencesParticulieresUnsubscribe)

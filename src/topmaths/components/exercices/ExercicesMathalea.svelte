@@ -14,7 +14,7 @@
   import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
   import ExerciceMathalea from './exerciceMathalea/ExerciceMathalea.svelte'
   import { getParamsFromUrl, getUrlFromParams, isVueAlreadyInUrl, updateUrlFromParams } from '../../services/mathalea'
-  import { listeDesUrl, urlExercice } from '../../services/store'
+  import { exerciseLinks, exerciseLink } from '../../services/store'
   import HeaderExerciceMathalea from './presentationalComponents/HeaderExerciceMathalea.svelte'
   import seedrandom from 'seedrandom'
   import { randint } from '../../../modules/outils'
@@ -41,8 +41,8 @@
 
   onMount(async () => {
     let url: string
-    if ($listeDesUrl.length > 0) url = $listeDesUrl[randint(0, $listeDesUrl.length - 1)]
-    else if ($urlExercice !== '') url = $urlExercice
+    if ($exerciseLinks.length > 0) url = $exerciseLinks[randint(0, $exerciseLinks.length - 1)]
+    else if ($exerciseLink !== '') url = $exerciseLink
     else url = window.location.href
     initComponent(url)
     if (!isVueAlreadyInUrl('exercices')) updateUrlFromParams('exercices', exercicesParams)
@@ -217,8 +217,8 @@ function spacingUpdate (plusMinus: ('+' | '-'), exerciseIndex: number) {
 }
 
 async function newData (exerciseIndex: number) {
-  if ($listeDesUrl.length > 0) {
-    initComponent($listeDesUrl[randint(0, $listeDesUrl.length - 1)])
+  if ($exerciseLinks.length > 0) {
+    initComponent($exerciseLinks[randint(0, $exerciseLinks.length - 1)])
   } else {
     const exercise = exercisesWithMeta[exerciseIndex].exercise
     if (exercise !== undefined && exercise.uuid !== undefined) {

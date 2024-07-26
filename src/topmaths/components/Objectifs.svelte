@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { modeEnseignant, objectives, titresProchesDesAttendus } from '../services/store'
+  import { isTeacherMode, objectives, isTitleAcademicPreferred } from '../services/store'
   import { normaliser } from '../services/outils'
   import { goVue } from '../services/navigation'
   import { onDestroy } from 'svelte'
@@ -136,9 +136,9 @@
     bind:value={$texteRecherche}
     on:input
   />
-  {#if $modeEnseignant}
+  {#if $isTeacherMode}
   <label class="absolute mt-2 ml-2 text-xs md:text-base">
-    <input type="checkbox" bind:checked={$titresProchesDesAttendus} />
+    <input type="checkbox" bind:checked={$isTitleAcademicPreferred} />
       Intitulés proches des attendus de fin d'année
   </label>
   {/if}
@@ -173,7 +173,7 @@
                   goVue(event, 'objectif', row.reference ?? '')}
               >
                 <div>
-                  {row.reference} : {$titresProchesDesAttendus ||
+                  {row.reference} : {$isTitleAcademicPreferred ||
                     row.title === undefined || row.title === ''
                     ? row.titleAcademic
                     : row.title}<br />

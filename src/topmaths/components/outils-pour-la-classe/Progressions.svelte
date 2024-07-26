@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { modeEnseignant, units, titresProchesDesAttendus } from '../../services/store'
+  import { isTeacherMode, units, isTitleAcademicPreferred } from '../../services/store'
   import { getTheme, normaliser } from '../../services/outils'
   import { goVue } from '../../services/navigation'
   import { writable, derived } from 'svelte/store'
@@ -132,9 +132,9 @@
     bind:value={$texteRecherche}
     on:input
   />
-  {#if $modeEnseignant}
+  {#if $isTeacherMode}
   <label class="absolute mt-2 ml-2 text-xs md:text-base">
-    <input type="checkbox" bind:checked={$titresProchesDesAttendus} />
+    <input type="checkbox" bind:checked={$isTitleAcademicPreferred} />
       Intitulés proches des attendus de fin d'année
   </label>
   {/if}
@@ -206,7 +206,7 @@
                     </div>
                     <div class="column flex self-center justify-center">
                       <div>
-                        {$titresProchesDesAttendus || objectif.title === '' ? objectif.titleAcademic : objectif.title}
+                        {$isTitleAcademicPreferred || objectif.title === '' ? objectif.titleAcademic : objectif.title}
                       </div>
                     </div>
                   </div>
@@ -228,7 +228,7 @@
                             </a>
                           </div>
                           <div class="column flex self-center justify-center">
-                            {$titresProchesDesAttendus || questionFlash.title === '' ? questionFlash.titleAcademic : questionFlash.title}
+                            {$isTitleAcademicPreferred || questionFlash.title === '' ? questionFlash.titleAcademic : questionFlash.title}
                           </div>
                         </div>
                       {/if}
@@ -251,7 +251,7 @@
                           </div>
                           <div class="column flex self-center justify-center">
                             <div>
-                              {$titresProchesDesAttendus || calculMental.title === '' ? calculMental.titleAcademic : calculMental.title}
+                              {$isTitleAcademicPreferred || calculMental.title === '' ? calculMental.titleAcademic : calculMental.title}
                             </div>
                           </div>
                         </div>
