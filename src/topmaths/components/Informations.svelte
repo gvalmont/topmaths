@@ -191,7 +191,7 @@
           "src/json/topmaths/".
           <ul>
             <li>
-              objectif_modifies.json et sequences_modifiees.json sont grisés
+              built_objectives.json et built_units.json sont grisés
               car ils sont générés automatiquement et ne sont pas à modifier
             </li>
             <li>

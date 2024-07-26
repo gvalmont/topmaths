@@ -22,9 +22,9 @@ vitetest.config.ts
 /public/topmaths/tutos
 /public/static
 _private/
-/src/topmaths/json/objectifs_modifies.json
-/src/topmaths/json/sequences_modifiees.json
-/src/topmaths/json/lexique.json
+/src/topmaths/json/built_objectives.json
+/src/topmaths/json/built_units.json
+/src/topmaths/json/glossary.json
 /src/topmaths/typ/**/**/*.pdf
 /src/topmaths/typ/cours/sequences/
 /src/topmaths/typ/fiches/**/*.typ

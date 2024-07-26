@@ -33,9 +33,9 @@ updateObjectives()
 const glossary = buildGlossary()
 routineCheck()
 console.warn(warningCount + ' warning' + (warningCount > 1 ? 's' : ''))
-writeJson('objectifs_modifies', objectives)
-writeJson('sequences_modifiees', units)
-writeJson('lexique', glossary)
+writeJson('built_objectives', objectives)
+writeJson('built_units', units)
+writeJson('glossary', glossary)
 // end of script
 
 function buildUnits (): Unit[] {

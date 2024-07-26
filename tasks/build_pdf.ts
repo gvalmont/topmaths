@@ -3,7 +3,7 @@ import * as path from 'path'
 import { spawn } from 'child_process'
 import { isStringGrade, type StringGrade } from '../src/topmaths/types/shared.js'
 import { isUnits, type UnitLessonPlan, type Unit, type UnitObjective, emptyUnitLessonPlan, emptyUnitObjective, emptyUnit } from '../src/topmaths/types/unit.js'
-import units from '../src/topmaths/json/sequences_modifiees.json' assert { type: 'json' }
+import units from '../src/topmaths/json/built_units.json' assert { type: 'json' }
 import { countLessonPlans } from './helpers/lesson_plans.js'
 import { buildGradeFromObjectiveReference } from '../src/topmaths/services/environment.js'
 

@@ -1,42 +1,49 @@
 import { objectives as storeObjectives, units as storeUnits, sequencesParticulieres as storeSequencesParticulieres, calendrierAnneeEnCours as storeCalendrierAnneeEnCours, lexique as glossaryStore } from './store'
-import sequencesModifieesJson from '../../topmaths/json/sequences_modifiees.json'
-import objectifsModifiesJson from '../../topmaths/json/objectifs_modifies.json'
-import glossaryJson from '../../topmaths/json/lexique.json'
-import sequencesParticulieresJson from '../../topmaths/json/sequencesParticulieres.json'
-import calendrierJson from '../../topmaths/json/calendrier.json'
+import units from '../../topmaths/json/built_units.json'
+import objectives from '../../topmaths/json/built_objectives.json'
+import glossaryJson from '../../topmaths/json/glossary.json'
+import specialUnits from '../../topmaths/json/special_units.json'
+import calendrierJson from '../../topmaths/json/calendar.json'
 import { isGlossaryUniteItems } from '../types/glossary'
-import { isUnits } from '../types/unit'
+import { isUnits, isUnitSpecials } from '../types/unit'
 import { isObjectives } from '../types/objective'
 
-miseEnCacheDesDonnees()
+cacheData()
 
-function miseEnCacheDesDonnees () {
-  miseEnCacheNiveauxEtSequences()
-  miseEnCacheSequencesParticulieres()
-  miseEnCacheLexique()
-  miseEnCacheCalendrier()
+function cacheData (): void {
+  cacheUnits()
+  cacheObjectives()
+  cacheSpecialUnits()
+  cacheGlossary()
+  cacheCalendar()
 }
 
-function miseEnCacheNiveauxEtSequences () {
-  if (!isUnits(sequencesModifieesJson)) {
-    console.error(sequencesModifieesJson)
+function cacheUnits (): void {
+  if (!isUnits(units)) {
+    console.error(units)
     throw new Error('sequencesModifieesJson is not an array of Unit')
   }
-  storeUnits.set(sequencesModifieesJson)
-
-  if (!isObjectives(objectifsModifiesJson)) {
-    console.error(objectifsModifiesJson)
-    throw new Error('objectifsModifiesJson is not an array of Objective')
-  }
-  storeObjectives.set(objectifsModifiesJson)
+  storeUnits.set(units)
 }
 
-function miseEnCacheSequencesParticulieres () {
-  const sequencesParticulieres = sequencesParticulieresJson
+function cacheObjectives (): void {
+  if (!isObjectives(objectives)) {
+    console.error(objectives)
+    throw new Error('objectifsModifiesJson is not an array of Objective')
+  }
+  storeObjectives.set(objectives)
+}
+
+function cacheSpecialUnits (): void {
+  const sequencesParticulieres = specialUnits
+  if (!isUnitSpecials(sequencesParticulieres)) {
+    console.error(sequencesParticulieres)
+    throw new Error('sequencesParticulieres is not an array of UnitSpecial')
+  }
   storeSequencesParticulieres.set(sequencesParticulieres)
 }
 
-function miseEnCacheLexique () {
+function cacheGlossary (): void {
   if (!isGlossaryUniteItems(glossaryJson)) {
     console.error(glossaryJson)
     throw new Error('lexiqueModifieJson is not an array of GlossaryUniteItem')
@@ -44,7 +51,7 @@ function miseEnCacheLexique () {
   glossaryStore.set(glossaryJson)
 }
 
-function miseEnCacheCalendrier () {
+function cacheCalendar (): void {
   const calendrierAnnees = calendrierJson
   const annee = new Date().getFullYear()
   const jourNumero = getDayOfYear()
@@ -67,7 +74,7 @@ function miseEnCacheCalendrier () {
   storeCalendrierAnneeEnCours.set({ year: annee, dayOfYear: jourNumero, periodNumber: periodeNumero, weekInPeriod: semaineDansLaPeriode, isHoliday })
 }
 
-function getDayOfYear () {
+function getDayOfYear (): number {
   const now = new Date()
   const begin = new Date(now.getFullYear(), 0, 0)
   const diff = (now.getTime() - begin.getTime()) + ((begin.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000)
