@@ -1,8 +1,8 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { spawn } from 'child_process'
-import { deepCopy, isStringGrade, type StringGrade } from '../src/topmaths/types/shared.js'
-import { emptyUnitLessonPlan, isUnits, type UnitLessonPlan, type Unit, type UnitObjective } from '../src/topmaths/types/unit.js'
+import { isStringGrade, type StringGrade } from '../src/topmaths/types/shared.js'
+import { isUnits, type UnitLessonPlan, type Unit, type UnitObjective, emptyUnitLessonPlan, emptyUnitObjective, emptyUnit } from '../src/topmaths/types/unit.js'
 import units from '../src/topmaths/json/sequences_modifiees.json' assert { type: 'json' }
 import { countLessonPlans } from './helpers/lesson_plans.js'
 import { buildGradeFromObjectiveReference } from '../src/topmaths/services/environment.js'
@@ -14,20 +14,15 @@ const UNITS = 'sequences'
 const OBJECTIVES = 'objectifs'
 const FILE_KEYWORDS = ['_Cours', '_Fiche', '_Poly', '_Presentation', 'Entrainement_', '_Diaporama', '_Geogebra']
 
-const previousLessonPlans: Record<StringGrade, UnitLessonPlan> = {
-  '6e': deepCopy(emptyUnitLessonPlan),
-  '5e': deepCopy(emptyUnitLessonPlan),
-  '4e': deepCopy(emptyUnitLessonPlan),
-  '3e': deepCopy(emptyUnitLessonPlan),
-  none: deepCopy(emptyUnitLessonPlan)
-}
-
 if (!isUnits(units)) { console.error(units); throw new Error('The JSON file does not contain an array of units') }
 deleteDirectory(`${TYP}/${LESSONS}/${UNITS}/`)
 deleteDirectory(`${TYP}/${LESSON_PLANS}/`)
-for (const unit of units) {
-  writeUnitLesson(unit)
-  writeUnitLessonPlans(unit)
+for (let i = 0; i < units.length; i++) {
+  const previousUnit = i === 0 ? emptyUnit : units[i - 1]
+  const currentUnit = units[i]
+  const nextUnit = i === units.length - 1 ? emptyUnit : units[i + 1]
+  writeUnitLesson(currentUnit)
+  writeUnitLessonPlans(previousUnit, currentUnit, nextUnit)
 }
 await runShellScript('tasks/compilerTyp.sh')
 await runShellScript('tasks/copierAutresPdf.sh')
@@ -126,69 +121,75 @@ function findImportedLessonReferences (text: string): string[] {
   return Array.from(uniqueReferences)
 }
 
-function writeUnitLessonPlans (unit: Unit): void {
-  if (unit.objectives.filter(objective => objective.lessonPlans.length > 0).length === 0) {
+function writeUnitLessonPlans (previousUnit: Unit, currentUnit: Unit, nextUnit: Unit): void {
+  const previousUnitLastObjective = previousUnit.objectives.length > 0 ? previousUnit.objectives[previousUnit.objectives.length - 1] : emptyUnitObjective
+  const nextUnitFirstObjective = nextUnit.objectives.length > 0 ? nextUnit.objectives[0] : emptyUnitObjective
+  if (currentUnit.objectives.length === 0) {
     return
   }
-  unit.objectives.forEach(objective => writeObjectiveLessonPlans(objective, unit.grade))
-  writeUnitLessonPlan(unit)
+  for (let i = 0; i < currentUnit.objectives.length; i++) {
+    const previousObjective = i === 0 ? previousUnitLastObjective : currentUnit.objectives[i - 1]
+    const currentObjective = currentUnit.objectives[i]
+    const nextObjective = i === currentUnit.objectives.length - 1 ? nextUnitFirstObjective : currentUnit.objectives[i + 1]
+    writeObjectiveLessonPlans(currentUnit.grade, previousObjective, currentObjective, nextObjective)
+  }
+  writeUnitLessonPlan(previousUnit, currentUnit, nextUnit)
 }
 
-function writeObjectiveLessonPlans (objective: UnitObjective, unitGrade: StringGrade): void {
+function writeObjectiveLessonPlans (unitGrade: StringGrade, previousObjective: UnitObjective, currentObjective: UnitObjective, nextObjective: UnitObjective): void {
   let lessonPlanCount = 1
-  objective.lessonPlans
-    .filter(lessonPlan => lessonPlan.grades.length === 0 || lessonPlan.grades.includes(unitGrade))
-    .forEach(lessonPlan => {
-      const content = buildObjectiveLessonPlan(unitGrade, objective, lessonPlan, lessonPlanCount)
-      const directory = `${TYP}/${LESSON_PLANS}/${OBJECTIVES}/${objective.grade}/`
-      const fileName = buildFileName(unitGrade, lessonPlan.reference)
-      writeFile(directory, fileName, content)
-      lessonPlanCount++
-    })
+  const currentObjectiveLessonPlans = currentObjective.lessonPlans.filter(lessonPlan => lessonPlan.grades.length === 0 || lessonPlan.grades.includes(unitGrade))
+  for (let i = 0; i < currentObjectiveLessonPlans.length; i++) {
+    const previousLessonPlan = i === 0 ? findLastLessonPlan(previousObjective, unitGrade) : currentObjectiveLessonPlans[i - 1]
+    const currentLessonPlan = currentObjectiveLessonPlans[i]
+    const nextLessonPlan = i === currentObjectiveLessonPlans.length - 1 ? findFirstLessonPlan(nextObjective, unitGrade) : currentObjectiveLessonPlans[i + 1]
+    let content = buildObjectiveLessonPlanHeader(unitGrade, currentObjective, lessonPlanCount)
+    content += buildCategories(previousLessonPlan, currentLessonPlan, nextLessonPlan)
+    const directory = `${TYP}/${LESSON_PLANS}/${OBJECTIVES}/${currentObjective.grade}/`
+    const fileName = buildFileName(unitGrade, currentLessonPlan.reference)
+    writeFile(directory, fileName, content)
+    lessonPlanCount++
+  }
+}
+
+function findLastLessonPlan (objective: UnitObjective, unitGrade: StringGrade): UnitLessonPlan {
+  const objectiveLessonPlans = objective.lessonPlans.filter(lessonPlan => lessonPlan.grades.length === 0 || lessonPlan.grades.includes(unitGrade))
+  const objectiveLastLessonPlan = objectiveLessonPlans.length > 0 ? objectiveLessonPlans[objectiveLessonPlans.length - 1] : emptyUnitLessonPlan
+  return objectiveLastLessonPlan
+}
+
+function findFirstLessonPlan (objective: UnitObjective, unitGrade: StringGrade): UnitLessonPlan {
+  const nextObjectiveLessonPlans = objective.lessonPlans.filter(lessonPlan => lessonPlan.grades.length === 0 || lessonPlan.grades.includes(unitGrade))
+  const nextObjectiveFirstLessonPlan = nextObjectiveLessonPlans.length > 0 ? nextObjectiveLessonPlans[0] : emptyUnitLessonPlan
+  return nextObjectiveFirstLessonPlan
 }
 
 function buildFileName (unitGrade: StringGrade, lessonPlanReference: string): string {
   return `${unitGrade}_${lessonPlanReference}.typ`
 }
 
-function buildObjectiveLessonPlan (unitGrade: StringGrade, objective: UnitObjective, lessonPlan: UnitLessonPlan, lessonPlanCount: number): string {
+function buildObjectiveLessonPlanHeader (unitGrade: StringGrade, objective: UnitObjective, lessonPlanCount: number): string {
   const lessonPlanTotalCount = countLessonPlans(objective, unitGrade)
   const subTitle = `Fiche de séance${lessonPlanTotalCount > 1 ? ` ${lessonPlanCount} / ${lessonPlanTotalCount}` : ''}`
-  let content = `#import "../../../preambule_fiche.typ": *
-`
-  content += `#show: setup-emoji
+  return `#import "../../../preambule_fiche.typ": *
+#show: setup-emoji
 #show: doc => fiche(doc, titre: "${objective.reference} : ${objective.title ? objective.title : objective.titleAcademic}", sousTitre: "${subTitle}")
 
 `
-  content += buildCategories(lessonPlan, unitGrade)
-  return content
 }
 
-function buildCategories (lessonPlan: UnitLessonPlan, unitGrade: StringGrade): string {
-  if (previousLessonPlans[unitGrade].reference !== '') replaceMaterialPlaceholder(lessonPlan, unitGrade)
+function buildCategories (previousLessonPlan: UnitLessonPlan, currentLessonPlan: UnitLessonPlan, nextLessonPlan: UnitLessonPlan): string {
   let content = ''
-  content += buildCategory('Matériel élève', lessonPlan.studentMaterialsNeeded)
-  content += buildCategory('Matériel enseignant', lessonPlan.teacherMaterialsNeeded)
-  if (previousLessonPlans[unitGrade].nextSessionSteps.length > 0) {
-    content += buildCategory('Suite à la séance précédente', previousLessonPlans[unitGrade].nextSessionSteps)
-  }
-  content += buildCategory('Début de séance', lessonPlan.startSteps)
-  content += buildCategory('Déroulé', lessonPlan.lessonSteps)
-  content += buildCategory('Devoirs', lessonPlan.homeworks)
-  content += buildCategory('Fin de séance', lessonPlan.closureSteps)
-  content += 'material_placeholder'
-  content += buildCategory('Notes', lessonPlan.comments)
-  previousLessonPlans[unitGrade] = lessonPlan
+  content += buildCategory('Matériel élève', currentLessonPlan.studentMaterialsNeeded)
+  content += buildCategory('Matériel enseignant', currentLessonPlan.teacherMaterialsNeeded)
+  content += buildCategory('Suite à la séance précédente', previousLessonPlan.nextSessionSteps)
+  content += buildCategory('Début de séance', currentLessonPlan.startSteps)
+  content += buildCategory('Déroulé', currentLessonPlan.lessonSteps)
+  content += buildCategory('Devoirs', currentLessonPlan.homeworks)
+  content += buildCategory('Fin de séance', currentLessonPlan.closureSteps)
+  content += buildCategory('Matériel à emmener la prochaine fois', nextLessonPlan.studentMaterialsNeeded)
+  content += buildCategory('Notes', currentLessonPlan.comments)
   return content
-}
-
-function replaceMaterialPlaceholder (lessonPlan: UnitLessonPlan, unitGrade: StringGrade): void {
-  const reference = previousLessonPlans[unitGrade].reference
-  const path = `${TYP}/${LESSON_PLANS}/${OBJECTIVES}/${buildGradeFromObjectiveReference(reference)}/${buildFileName(unitGrade, reference)}`
-  const data = fs.readFileSync(path, 'utf8')
-  const materialNeededString = buildCategory('Matériel à emmener la prochaine fois', lessonPlan.studentMaterialsNeeded)
-  const updatedData = data.replace('material_placeholder', materialNeededString)
-  fs.writeFileSync(path, updatedData, 'utf8')
 }
 
 function buildCategory (categoryName: string, contentLines: string[]): string {
@@ -242,11 +243,17 @@ function removeLeadingHyphens (str: string): string {
   return str.replace(/^[-]+/, '')
 }
 
-function writeUnitLessonPlan (unit: Unit): void {
-  let content = ''
-  content += `#import "../../../preambule_fiche.typ": *
-`
-  content += `#show: setup-emoji
+function writeUnitLessonPlan (previousUnit: Unit, currentUnit: Unit, nextUnit: Unit): void {
+  let content = buildUnitLessonPlanHeader(currentUnit)
+  content += buildUnitLessonPlanGrid(previousUnit, currentUnit, nextUnit)
+  const directory = `${TYP}/${LESSON_PLANS}/${UNITS}/${currentUnit.grade}/`
+  const fileName = `${currentUnit.reference}.typ`
+  writeFile(directory, fileName, content)
+}
+
+function buildUnitLessonPlanHeader (unit: Unit): string {
+  return `#import "../../../preambule_fiche.typ": *
+#show: setup-emoji
 #show: doc => fiche(doc, titre: "Séquence ${unit.number} : ${unit.title}", sousTitre: "Fiche de séquence", paysage: true)
 
 #table(
@@ -254,22 +261,32 @@ function writeUnitLessonPlan (unit: Unit): void {
   inset: 0pt,
   align: horizon,
   `
+}
+
+function buildUnitLessonPlanGrid (previousUnit: Unit, currentUnit: Unit, nextUnit: Unit): string {
+  let content = ''
   let lessonNumber = 1
-  for (const objective of unit.objectives) {
-    for (const lessonPlan of objective.lessonPlans) {
-      content += `[ #titreObjectif("Séance ${lessonNumber} - ${objective.reference} : ${objective.title === undefined || objective.title === '' ? objective.titleAcademic : objective.title}")\\
+  const previousUnitLastObjective = previousUnit.objectives.length > 0 ? previousUnit.objectives[previousUnit.objectives.length - 1] : emptyUnitObjective
+  const nextUnitFirstObjective = nextUnit.objectives.length > 0 ? nextUnit.objectives[0] : emptyUnitObjective
+  for (let i = 0; i < currentUnit.objectives.length; i++) {
+    const previousObjective = i === 0 ? previousUnitLastObjective : currentUnit.objectives[i - 1]
+    const currentObjective = currentUnit.objectives[i]
+    const nextObjective = i === currentUnit.objectives.length - 1 ? nextUnitFirstObjective : currentUnit.objectives[i + 1]
+    for (let i = 0; i < currentObjective.lessonPlans.length; i++) {
+      const previousLessonPlan = i === 0 ? findLastLessonPlan(previousObjective, currentUnit.grade) : currentObjective.lessonPlans[i - 1]
+      const currentLessonPlan = currentObjective.lessonPlans[i]
+      const nextLessonPlan = i === currentObjective.lessonPlans.length - 1 ? findFirstLessonPlan(nextObjective, currentUnit.grade) : currentObjective.lessonPlans[i + 1]
+      content += `[ #titreObjectif("Séance ${lessonNumber} - ${currentObjective.reference} : ${currentObjective.title === undefined || currentObjective.title === '' ? currentObjective.titleAcademic : currentObjective.title}")\\
 #v(-2em)
 #block(inset: 10pt, [
 `
-      content += buildCategories(lessonPlan, unit.grade)
+      content += buildCategories(previousLessonPlan, currentLessonPlan, nextLessonPlan)
       content += '])], '
       lessonNumber++
     }
   }
   content = content.slice(0, content.length - 2) + ')'
-  const directory = `${TYP}/${LESSON_PLANS}/${UNITS}/${unit.grade}/`
-  const fileName = `${unit.reference}.typ`
-  writeFile(directory, fileName, content)
+  return content
 }
 
 function writeFile (directory: string, fileName: string, content: string): void {
