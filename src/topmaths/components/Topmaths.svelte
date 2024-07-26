@@ -1,7 +1,5 @@
 <script lang="ts">
   import Accueil from './Accueil.svelte'
-  import * as data from '../services/data' // La liste des objectifs et des séquences cesse de fonctionner si on l'enlève
-  import { environment } from '../services/environment'
   import Sequences from './Sequences.svelte'
   import Sequence from './Sequence.svelte'
   import { goVue } from '../services/navigation'
@@ -27,27 +25,32 @@
   import Informations from './Informations.svelte'
   import ExercicesMathalea from './exercices/ExercicesMathalea.svelte'
   import HeadTabsMenu from './presentationalComponents/headTabsMenu/HeadTabsMenu.svelte'
+  import { cacheData } from '../services/data'
 
   if (customElements.get('alea-instrumenpoche') === undefined) {
     customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
   }
 
+  const year = new Date().getFullYear()
   let innerWidth: number
   let isMd: boolean
-
-  const annee = environment.annee
-
   $: isMd = innerWidth >= 768
 
-  function updateParams () {
+  onMount(() => {
+    cacheData()
+    updateParams()
+  })
+
+  addEventListener('popstate', updateParams)
+  function updateParams (): void {
     updateParamsFromUrl()
     updateBasket()
-    lancerHeureInterval()
-    storage.recupererEtatModeEnseignant()
-    storage.recupererEtatModePerso()
+    startTimeInterval()
+    storage.getTeacherModeState()
+    storage.getPersoModeState()
   }
 
-  function updateParamsFromUrl () {
+  function updateParamsFromUrl (): void {
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     for (const entry of entries) {
@@ -56,42 +59,37 @@
     }
   }
 
-  function updateBasket () {
-    const panier = storage.get('panier')
-    if (panier !== undefined && panier[0] !== undefined) panierDispo.set(true)
+  function updateBasket (): void {
+    const basket = storage.get('cart')
+    if (basket !== undefined && basket[0] !== undefined) panierDispo.set(true)
   }
 
-  onMount(() => {
-    updateParams()
-  })
-  addEventListener('popstate', updateParams)
-
-  function lancerHeureInterval () {
-    MAJHeure()
+  function startTimeInterval (): void {
+    updateTime()
     setInterval(() => {
-      MAJHeure()
+      updateTime()
     }, 1000)
   }
 
-  function alternerTailleOverlayHeure () {
-    const overlayHeureDiv = document.getElementById('overlayHeure')
-    if (overlayHeureDiv !== null) {
-      if (overlayHeureDiv.style.width === '240px') {
-        overlayHeureDiv.style.width = '60px'
-        overlayHeureDiv.style.height = '30px'
-        overlayHeureDiv.style.fontSize = '18px'
+  function toggleTimeOverlaySize (): void {
+    const timeOverlayDiv = document.getElementById('timeOverlay')
+    if (timeOverlayDiv !== null) {
+      if (timeOverlayDiv.style.width === '240px') {
+        timeOverlayDiv.style.width = '60px'
+        timeOverlayDiv.style.height = '30px'
+        timeOverlayDiv.style.fontSize = '18px'
       } else {
-        overlayHeureDiv.style.width = '240px'
-        overlayHeureDiv.style.height = '120px'
-        overlayHeureDiv.style.fontSize = '72px'
+        timeOverlayDiv.style.width = '240px'
+        timeOverlayDiv.style.height = '120px'
+        timeOverlayDiv.style.fontSize = '72px'
       }
     }
   }
 
-  function MAJHeure () {
+  function updateTime (): void {
     if ($modeEnseignant) {
-      const divOverlayHeure = document.getElementById('overlayHeure')
-      if (divOverlayHeure !== null) {
+      const timeOverlayDiv = document.getElementById('timeOverlay')
+      if (timeOverlayDiv !== null) {
         const date = new Date()
         let hh = date.getHours().toString()
         let mm = date.getMinutes().toString()
@@ -99,7 +97,7 @@
         hh = hh.length === 1 ? '0' + hh : hh
         mm = mm.length === 1 ? '0' + mm : mm
 
-        divOverlayHeure.innerHTML = hh + ':' + mm
+        timeOverlayDiv.innerHTML = hh + ':' + mm
       }
     }
   }
@@ -110,7 +108,7 @@
 </svelte:head>
 
 <svelte:window bind:innerWidth />
-<div id="top" class="pb-6 md:pb-9">
+<div id="top" class="pb-6 md:pb-9 is-family-primary">
   <!-- Header -->
   <HeadTabsMenu
     {isMd}
@@ -176,7 +174,7 @@
 <!-- Footer -->
 <footer class="p-6 md:p-12 pt-3 md:pt-6 pb-12 md:pb-24 text-center bg-zinc-50 text-xs md:text-base">
   <p>
-    <strong>topmaths</strong> © {annee} de
+    <strong>topmaths</strong> © {year} de
     <a href="https://forge.apps.education.fr/valmontguillaume" target="_blank" rel="noopener noreferrer">Guillaume Valmont</a> et des
     <a href="https://coopmaths.fr/a_propos/" target="_blank" rel="noopener noreferrer">contributeurs de MathALÉA</a>
   </p>
@@ -194,9 +192,9 @@
   class="noprint"
   role="button"
   tabindex="-1"
-  id="overlayHeure"
-  on:click={alternerTailleOverlayHeure}
-  on:keydown={alternerTailleOverlayHeure}
+  id="timeOverlay"
+  on:click={toggleTimeOverlaySize}
+  on:keydown={toggleTimeOverlaySize}
 >
 </div>
 <dialog
@@ -210,7 +208,7 @@
     font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
   }
 
-  #overlayHeure {
+  #timeOverlay {
     position: fixed;
     bottom: 30px;
     right: 30px;

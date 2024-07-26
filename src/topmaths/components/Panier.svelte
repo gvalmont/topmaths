@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { CartItem } from '../types/cart'
+  import { isCartItem, type CartItem } from '../types/cart'
   import { environment } from '../services/environment'
   import { lancerExercices } from '../services/navigation'
   import { storage } from '../services/storage'
@@ -12,25 +12,25 @@
   let panier = [] as CartItem[]
   MAJLien()
 
-  function retirerDuPanier (panierItem: CartItem) {
-    const panierTemp = storage.get('panier') as CartItem[]
+  function retirerDuPanier (panierItem: CartItem): void {
+    const panierTemp = storage.get('cart') as CartItem[]
     const nouveauPanier = panierTemp.filter(
       (item) => item.id !== panierItem.id
     )
-    storage.set('panier', nouveauPanier)
+    storage.set('cart', nouveauPanier)
     MAJLien()
   }
 
-  function viderLePanier () {
-    storage.set('panier', [])
+  function viderLePanier (): void {
+    storage.set('cart', [])
     panierDispo.set(false)
     vue.set('accueil')
   }
 
-  function MAJLien () {
+  function MAJLien (): void {
     lien = environment.baseUrl + environment.V3
     references = []
-    panier = storage.get('panier') as CartItem[]
+    panier = storage.get('cart').filter((item: unknown) => isCartItem(item))
     for (const panierItem of panier) {
       if (panierItem !== null && panierItem !== undefined) {
         if (panierItem.slug.slice(0, 4) !== 'http' && panierItem.slug !== '') {

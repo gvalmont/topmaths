@@ -8,9 +8,7 @@ import { isGlossaryUniteItems } from '../types/glossary'
 import { isUnits, isUnitSpecials } from '../types/unit'
 import { isObjectives } from '../types/objective'
 
-cacheData()
-
-function cacheData (): void {
+export function cacheData (): void {
   cacheUnits()
   cacheObjectives()
   cacheSpecialUnits()

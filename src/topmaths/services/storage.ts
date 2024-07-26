@@ -1,11 +1,11 @@
 import { modeEnseignant, modePerso } from './store'
 
 export const storage = {
-  recupererEtatModeEnseignant () {
+  getTeacherModeState () {
     const obj = localStorage.getItem('modeEnseignant')
     if (obj !== null) modeEnseignant.set(JSON.parse(obj))
   },
-  recupererEtatModePerso () {
+  getPersoModeState () {
     const obj = localStorage.getItem('modePerso')
     if (obj !== null) modePerso.set(JSON.parse(obj))
   },

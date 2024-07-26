@@ -3,7 +3,6 @@ import { isStringGrade, type StringGrade } from '../types/shared.js'
 
 export const environment = {
   appVersion: packageJson.version,
-  annee: 2024,
   devOrigine: 'http://localhost:4200',
   prodOrigine: 'https://topmaths.fr',
   baseUrl: 'https://coopmaths.fr/',
