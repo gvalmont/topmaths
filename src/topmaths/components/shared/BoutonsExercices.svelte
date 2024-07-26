@@ -5,7 +5,7 @@
   import { isTeacherMode } from '../../services/store'
   import { copierLien, estCoopmaths } from '../../services/outils'
   import { toutAjouterAuPanier } from '../../services/panier'
-  import { environment } from '../../services/environment'
+  import { COOPMATHS_BASE_URL } from '../../services/environment'
   import { getParamsFromUrl, updateUrlFromParams } from '../../services/mathalea'
 
   export let lienExercices: string
@@ -26,7 +26,7 @@
   }
 
   function creerLienCapytale () {
-    let lien = environment.baseUrl + environment.V3
+    let lien = COOPMATHS_BASE_URL
     for (const exercice of exercices) {
       if (exercice.slug.includes('&i=0')) {
         lien += exercice.slug.replaceAll('&i=0', '&i=1') + '&'

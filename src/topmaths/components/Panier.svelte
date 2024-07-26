@@ -1,6 +1,6 @@
 <script lang="ts">
   import { isCartItem, type CartItem } from '../types/cart'
-  import { environment } from '../services/environment'
+  import { COOPMATHS_BASE_URL } from '../services/environment'
   import { lancerExercices } from '../services/navigation'
   import { storage } from '../services/storage'
   import { isCartEmpty, view } from '../services/store'
@@ -28,7 +28,7 @@
   }
 
   function MAJLien (): void {
-    lien = environment.baseUrl + environment.V3
+    lien = COOPMATHS_BASE_URL
     references = []
     panier = storage.get('cart').filter((item: unknown) => isCartItem(item))
     for (const panierItem of panier) {

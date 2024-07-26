@@ -2,13 +2,13 @@ import { get } from 'svelte/store'
 import type { Objective } from '../types/objective'
 import type { UnitObjective } from '../types/unit'
 import { isTitleAcademicPreferred } from './store'
-import { environment } from './environment'
+import { COOPMATHS_BASE_URL } from './environment'
 import { exercicesParams, globalOptions } from '../../lib/stores/generalStore'
 import { showDialogForLimitedTime } from '../../lib/components/dialogs'
 
 export function estCoopmaths (url: string) {
-  const urlCoopmaths = environment.baseUrl
-  return url.slice(0, urlCoopmaths.length) === environment.baseUrl
+  const urlCoopmaths = COOPMATHS_BASE_URL
+  return url.slice(0, urlCoopmaths.length) === COOPMATHS_BASE_URL
 }
 
 export function normaliser (chaine: string) {
@@ -49,7 +49,7 @@ export function getTheme (reference: string): 'nombres' | 'gestion' | 'gestionbi
   return 'nombres'
 }
 
-export function copierLien (lien: string, inclureAlea = true, forcerInteractif = false, origineCoopmaths = false) {
+export function copierLien (lien: string, inclureAlea = true, forcerInteractif = false) {
   const url = new URL(lien)
   const params = url.searchParams
 
@@ -61,7 +61,8 @@ export function copierLien (lien: string, inclureAlea = true, forcerInteractif =
       }
     })
   }
-  let lienModifie = origineCoopmaths ? (environment.baseUrl + environment.V3) : (environment.prodOrigine + '/?')
+  console.log(COOPMATHS_BASE_URL)
+  let lienModifie = COOPMATHS_BASE_URL
   lienModifie += params.toString()
 
   navigator.clipboard.writeText(lienModifie)

@@ -1,16 +1,6 @@
-import * as packageJson from '../../../package.json' assert { type: 'json' }
 import { isStringGrade, type StringGrade } from '../types/shared.js'
 
-export const environment = {
-  appVersion: packageJson.version,
-  devOrigine: 'http://localhost:4200',
-  prodOrigine: 'https://topmaths.fr',
-  baseUrl: 'https://coopmaths.fr/',
-  V2: 'mathalea.html?',
-  V3: 'alea/?',
-  production: false,
-  perso: false
-}
+export const COOPMATHS_BASE_URL = 'https://coopmaths.fr/alea/?'
 
 export function buildGradeFromObjectiveReference (reference: string): StringGrade {
   const grade = reference.slice(0, 1) + 'e'

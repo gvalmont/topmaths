@@ -1,7 +1,7 @@
 <script lang="ts">
   import { calendar, exerciseLinks, objectives, units, view } from '../services/store'
   import { estCoopmaths } from '../services/outils'
-  import { environment } from '../services/environment'
+  import { COOPMATHS_BASE_URL } from '../services/environment'
   import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
 
   let niveauChoisi = 'tout'
@@ -61,7 +61,7 @@
             for (const entry of entries) {
               if (entry[0] === 'uuid') {
                 const uuid = entry[1]
-                listeDesReferences.push(environment.baseUrl + environment.V3 + 'uuid=' + uuid)
+                listeDesReferences.push(COOPMATHS_BASE_URL + 'uuid=' + uuid)
               }
             }
           }
