@@ -4,12 +4,14 @@ import definitionsJson from '../src/topmaths/json/glossary/definitions.json' ass
 import propertiesJson from '../src/topmaths/json/glossary/properties.json' assert { type: 'json' }
 import objectivesMasterJson from '../src/topmaths/json/objectives.json' assert { type: 'json' }
 import unitsMasterJson from '../src/topmaths/json/units.json' assert { type: 'json' }
+import calendarSchoolYearMasterJson from '../src/topmaths/json/calendar.json' assert { type: 'json' }
 import type { RecursivePartial } from '../src/lib/types.js'
 import { deepCopy, emptyArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/shared.js'
 import { buildGradeFromObjectiveReference } from '../src/topmaths/services/environment.js'
 import { emptyObjective, emptyObjectiveVideo, isObjective, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveExercise, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks } from '../src/topmaths/types/objective.js'
 import { isUnit, isUnitMentalCalculations, type UnitMentalCalculation, type Unit, type UnitObjective, emptyUnitDownloadLinks, emptyUnitMentalCalculation, type UnitFlashQuestion, isUnitFlashQuestions, type UnitLessonPlan, isUnitLessonPlans } from '../src/topmaths/types/unit.js'
 import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
+import { type CalendarSchoolYearMaster, isCalendarSchoolYearMasters, type CalendarSchoolYear, isCalendarSchoolYears, type CalendarPeriod } from '../src/topmaths/types/calendar.js'
 import { countLessonPlans } from './helpers/lesson_plans.js'
 
 const COOPMATHS_BASE_URL = 'https://coopmaths.fr/alea/?'
@@ -31,11 +33,13 @@ const objectives: Objective[] = buildObjectives()
 updateUnits()
 updateObjectives()
 const glossary = buildGlossary()
+const calendar = buildCalendar()
 routineCheck()
 console.warn(warningCount + ' warning' + (warningCount > 1 ? 's' : ''))
 writeJson('built_objectives', objectives)
 writeJson('built_units', units)
 writeJson('glossary', glossary)
+writeJson('built_calendar', calendar)
 // end of script
 
 function buildUnits (): Unit[] {
@@ -281,6 +285,48 @@ function comparerTitres (a: GlossaryRelatedItem, b: GlossaryRelatedItem): number
     return 1
   }
   return 0
+}
+
+function buildCalendar (): CalendarSchoolYear[] {
+  const calendarMaster: RecursivePartial<CalendarSchoolYearMaster>[] = calendarSchoolYearMasterJson
+  if (!isCalendarSchoolYearMasters(calendarMaster)) { console.error(calendarMaster); throw new Error('Calendar master is not a CalendarSchoolYearMasters') }
+  const formattedCalendar: CalendarSchoolYear[] = []
+  for (let schoolYearIndex = 0; schoolYearIndex < calendarMaster.length; schoolYearIndex++) {
+    const schoolYearMaster = calendarMaster[schoolYearIndex]
+    const startYear = schoolYearMaster.schoolYear.slice(0, 4)
+    const startTermYear = schoolYearMaster.terms[0].start.slice(0, 4)
+    const endYear = schoolYearMaster.schoolYear.slice(5, 9)
+    const endTermYear = schoolYearMaster.terms[schoolYearMaster.terms.length - 1].end.slice(0, 4)
+    if (startYear !== startTermYear || endYear !== endTermYear) { console.error(schoolYearMaster); throw new Error('School year and term years do not match') }
+    const nextSchoolYearMaster = calendarMaster[schoolYearIndex + 1] ?? { schoolYear: '2098-2099', terms: [{ start: '2098-01-01', end: '2099-01-01' }] }
+    const periods = buildPeriods(schoolYearMaster, nextSchoolYearMaster)
+    formattedCalendar.push({
+      schoolYearString: schoolYearMaster.schoolYear,
+      start: periods[0].start,
+      end: periods[periods.length - 1].end,
+      periods
+    })
+  }
+  if (!isCalendarSchoolYears(formattedCalendar)) { console.error(formattedCalendar); throw new Error('Formatted calendar is not a CalendarSchoolYears') }
+  return formattedCalendar
+}
+
+function buildPeriods (schoolYearMaster: CalendarSchoolYearMaster, nextSchoolYearMaster: CalendarSchoolYearMaster): CalendarPeriod[] {
+  const periods: CalendarPeriod[] = []
+  for (let termIndex = 0; termIndex < schoolYearMaster.terms.length; termIndex++) {
+    const term = schoolYearMaster.terms[termIndex]
+    const nextTerm = termIndex === schoolYearMaster.terms.length - 1 ? nextSchoolYearMaster.terms[0] : schoolYearMaster.terms[termIndex + 1]
+    const start = new Date(term.start)
+    const end = new Date(term.end)
+    const nextTermStart = new Date(nextTerm.start)
+    const breakStart = new Date(end)
+    const breakEnd = new Date(nextTermStart)
+    if (end < start) { console.error(term); throw new Error('Term end is before term start') }
+    if (breakEnd < breakStart) { console.error(term); throw new Error('Break end is before break start') }
+    periods.push({ termIndex, start, end, type: 'term' })
+    periods.push({ termIndex, start: breakStart, end: breakEnd, type: 'break' })
+  }
+  return periods
 }
 
 function routineCheck (): void {

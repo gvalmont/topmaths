@@ -24,6 +24,7 @@ vitetest.config.ts
 _private/
 /src/topmaths/json/built_objectives.json
 /src/topmaths/json/built_units.json
+/src/topmaths/json/built_calendar.json
 /src/topmaths/json/glossary.json
 /src/topmaths/typ/**/**/*.pdf
 /src/topmaths/typ/cours/sequences/

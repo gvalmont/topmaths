@@ -1,285 +1,51 @@
 [
   {
-    "year": 2022,
-    "periods": [
+    "schoolYear": "2024-2025",
+    "terms": [
       {
-        "number": 2,
-        "startDayOfYear": 1,
-        "endDayOfYear": 23,
-        "isHoliday": true
+        "start": "2024-08-19",
+        "end": "2024-10-11"
       },
       {
-        "number": 3,
-        "startDayOfYear": 24,
-        "endDayOfYear": 71,
-        "isHoliday": false
+        "start": "2024-10-28",
+        "end": "2024-12-19"
       },
       {
-        "number": 3,
-        "startDayOfYear": 72,
-        "endDayOfYear": 86,
-        "isHoliday": true
+        "start": "2025-01-21",
+        "end": "2025-03-01"
       },
       {
-        "number": 4,
-        "startDayOfYear": 87,
-        "endDayOfYear": 134,
-        "isHoliday": false
+        "start": "2025-03-17",
+        "end": "2025-05-03"
       },
       {
-        "number": 4,
-        "startDayOfYear": 135,
-        "endDayOfYear": 149,
-        "isHoliday": true
-      },
-      {
-        "number": 5,
-        "startDayOfYear": 150,
-        "endDayOfYear": 190,
-        "isHoliday": false
-      },
-      {
-        "number": 5,
-        "startDayOfYear": 191,
-        "endDayOfYear": 227,
-        "isHoliday": true
-      },
-      {
-        "number": 1,
-        "startDayOfYear": 228,
-        "endDayOfYear": 281,
-        "isHoliday": false
-      },
-      {
-        "number": 1,
-        "startDayOfYear": 282,
-        "endDayOfYear": 296,
-        "isHoliday": true
-      },
-      {
-        "number": 2,
-        "startDayOfYear": 297,
-        "endDayOfYear": 351,
-        "isHoliday": false
-      },
-      {
-        "number": 2,
-        "startDayOfYear": 352,
-        "endDayOfYear": 365,
-        "isHoliday": true
+        "start": "2025-05-19",
+        "end": "2025-07-05"
       }
     ]
   },
   {
-    "year": 2023,
-    "periods": [
+    "schoolYear": "2025-2026",
+    "terms": [
       {
-        "number": 2,
-        "startDayOfYear": 1,
-        "endDayOfYear": 22,
-        "isHoliday": true
+        "start": "2025-08-19",
+        "end": "2025-10-11"
       },
       {
-        "number": 3,
-        "startDayOfYear": 23,
-        "endDayOfYear": 70,
-        "isHoliday": false
+        "start": "2025-10-27",
+        "end": "2025-12-19"
       },
       {
-        "number": 3,
-        "startDayOfYear": 71,
-        "endDayOfYear": 85,
-        "isHoliday": true
+        "start": "2026-01-21",
+        "end": "2026-02-28"
       },
       {
-        "number": 4,
-        "startDayOfYear": 86,
-        "endDayOfYear": 133,
-        "isHoliday": false
+        "start": "2026-03-16",
+        "end": "2026-05-02"
       },
       {
-        "number": 4,
-        "startDayOfYear": 134,
-        "endDayOfYear": 149,
-        "isHoliday": true
-      },
-      {
-        "number": 5,
-        "startDayOfYear": 150,
-        "endDayOfYear": 189,
-        "isHoliday": false
-      },
-      {
-        "number": 5,
-        "startDayOfYear": 190,
-        "endDayOfYear": 227,
-        "isHoliday": true
-      },
-      {
-        "number": 1,
-        "startDayOfYear": 228,
-        "endDayOfYear": 281,
-        "isHoliday": false
-      },
-      {
-        "number": 1,
-        "startDayOfYear": 282,
-        "endDayOfYear": 296,
-        "isHoliday": true
-      },
-      {
-        "number": 2,
-        "startDayOfYear": 297,
-        "endDayOfYear": 351,
-        "isHoliday": false
-      },
-      {
-        "number": 2,
-        "startDayOfYear": 352,
-        "endDayOfYear": 365,
-        "isHoliday": true
-      }
-    ]
-  },
-  {
-    "year": 2024,
-    "periods": [
-      {
-        "number": 2,
-        "startDayOfYear": 1,
-        "endDayOfYear": 21,
-        "isHoliday": true
-      },
-      {
-        "number": 3,
-        "startDayOfYear": 22,
-        "endDayOfYear": 61,
-        "isHoliday": false
-      },
-      {
-        "number": 3,
-        "startDayOfYear": 62,
-        "endDayOfYear": 77,
-        "isHoliday": true
-      },
-      {
-        "number": 4,
-        "startDayOfYear": 78,
-        "endDayOfYear": 124,
-        "isHoliday": false
-      },
-      {
-        "number": 4,
-        "startDayOfYear": 125,
-        "endDayOfYear": 141,
-        "isHoliday": true
-      },
-      {
-        "number": 5,
-        "startDayOfYear": 142,
-        "endDayOfYear": 187,
-        "isHoliday": false
-      },
-      {
-        "number": 5,
-        "startDayOfYear": 188,
-        "endDayOfYear": 231,
-        "isHoliday": true
-      },
-      {
-        "number": 1,
-        "startDayOfYear": 232,
-        "endDayOfYear": 285,
-        "isHoliday": false
-      },
-      {
-        "number": 1,
-        "startDayOfYear": 286,
-        "endDayOfYear": 301,
-        "isHoliday": true
-      },
-      {
-        "number": 2,
-        "startDayOfYear": 302,
-        "endDayOfYear": 353,
-        "isHoliday": false
-      },
-      {
-        "number": 2,
-        "startDayOfYear": 354,
-        "endDayOfYear": 365,
-        "isHoliday": true
-      }
-    ]
-  },
-  {
-    "year": 2025,
-    "periods": [
-      {
-        "number": 2,
-        "startDayOfYear": 1,
-        "endDayOfYear": 20,
-        "isHoliday": true
-      },
-      {
-        "number": 3,
-        "startDayOfYear": 21,
-        "endDayOfYear": 59,
-        "isHoliday": false
-      },
-      {
-        "number": 3,
-        "startDayOfYear": 60,
-        "endDayOfYear": 75,
-        "isHoliday": true
-      },
-      {
-        "number": 4,
-        "startDayOfYear": 76,
-        "endDayOfYear": 122,
-        "isHoliday": false
-      },
-      {
-        "number": 4,
-        "startDayOfYear": 123,
-        "endDayOfYear": 138,
-        "isHoliday": true
-      },
-      {
-        "number": 5,
-        "startDayOfYear": 139,
-        "endDayOfYear": 185,
-        "isHoliday": false
-      },
-      {
-        "number": 5,
-        "startDayOfYear": 186,
-        "endDayOfYear": 230,
-        "isHoliday": true
-      },
-      {
-        "number": 1,
-        "startDayOfYear": 231,
-        "endDayOfYear": 283,
-        "isHoliday": false
-      },
-      {
-        "number": 1,
-        "startDayOfYear": 284,
-        "endDayOfYear": 299,
-        "isHoliday": true
-      },
-      {
-        "number": 2,
-        "startDayOfYear": 300,
-        "endDayOfYear": 352,
-        "isHoliday": false
-      },
-      {
-        "number": 2,
-        "startDayOfYear": 353,
-        "endDayOfYear": 365,
-        "isHoliday": true
+        "start": "2026-05-18",
+        "end": "2026-07-04"
       }
     ]
   }
