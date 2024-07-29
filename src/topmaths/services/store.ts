@@ -3,14 +3,14 @@ import type { Unit, UnitSpecial } from '../types/unit'
 import type { Objective } from '../types/objective'
 import { writable } from 'svelte/store'
 import { deepCopy } from '../types/shared'
-import { emptyCalendarCurrentYear, type CalendarCurrentYear } from '../types/calendar'
+import { emptyCalendarSchoolYear, type CalendarSchoolYear } from '../types/calendar'
 
 // libraries
 export const units = writable<Unit[]>([])
 export const specialUnits = writable<UnitSpecial[]>([])
 export const objectives = writable<Objective[]>([])
 export const glossary = writable<GlossaryUniteItem[]>([])
-export const calendar = writable<CalendarCurrentYear>(deepCopy(emptyCalendarCurrentYear))
+export const calendar = writable<CalendarSchoolYear>(deepCopy(emptyCalendarSchoolYear))
 
 // url parameters
 export const view = writable<string>('')

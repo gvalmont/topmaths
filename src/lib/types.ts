@@ -2,11 +2,18 @@ import type { CanOptions, CanSolutionsMode } from './types/can'
 import type { Language } from './types/languages'
 
 /**
- * Transforme le type d'un objet pouvoir travailler avec des objets complexes encore en cours de construction
+ * Recursively make all properties of T optional (to work with unfinished objects)
  */
 export type RecursivePartial<T> = T extends string ? string | undefined : {
   [P in keyof T]?: RecursivePartial<T[P]>;
 }
+
+/**
+ * Recursively replace all Dates and branded strings of T by strings (for JSON import)
+ */
+export type ReplaceDateWithString<T> = {
+  [K in keyof T]: T[K] extends Date ? string : T[K] extends string ? string : T[K] extends object ? ReplaceDateWithString<T[K]> : T[K];
+};
 
 /*
 Code inspiré de Sylvain, merci!
