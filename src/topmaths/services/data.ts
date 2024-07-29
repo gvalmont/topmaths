@@ -7,8 +7,7 @@ import calendarJson from '../../topmaths/json/built_calendar.json'
 import { isGlossaryUniteItems } from '../types/glossary'
 import { isUnits, isUnitSpecials } from '../types/unit'
 import { isObjectives } from '../types/objective'
-import { isCalendarSchoolYear, type CalendarPeriod, type CalendarSchoolYear } from '../types/calendar'
-import type { ReplaceDateWithString } from '../../lib/types'
+import { parseSchoolYear } from './calendar'
 
 export function cacheData (): void {
   cacheUnits()
@@ -54,25 +53,6 @@ function cacheGlossary (): void {
 function cacheCalendar (): void {
   const parsedCalendar = calendarJson.map(parseSchoolYear)
   const now = new Date()
-  const currentYear: CalendarSchoolYear = parsedCalendar.find(schoolYear => schoolYear.start <= now && schoolYear.end >= now) ?? parsedCalendar[0]
+  const currentYear = parsedCalendar.find(schoolYear => schoolYear.start <= now && schoolYear.end >= now) ?? parsedCalendar[0]
   storeCalendar.set(currentYear)
-}
-
-function parseSchoolYear (schoolYear: ReplaceDateWithString<CalendarSchoolYear>): CalendarSchoolYear {
-  const schoolYearCandidate = {
-    schoolYearString: schoolYear.schoolYearString,
-    start: new Date(schoolYear.start),
-    end: new Date(schoolYear.end),
-    periods: schoolYear.periods.map((period: ReplaceDateWithString<CalendarPeriod>) => ({
-      termIndex: period.termIndex,
-      start: new Date(period.start),
-      end: new Date(period.end),
-      type: period.type
-    }))
-  }
-  if (!isCalendarSchoolYear(schoolYearCandidate)) {
-    console.error(schoolYearCandidate)
-    throw new Error('built_calendar.json contains an invalid CalendarSchoolYear')
-  }
-  return schoolYearCandidate
 }

@@ -1,30 +1,31 @@
 <script lang="ts">
-  import { calendar, exerciseLinks, objectives, units, view } from '../services/store'
+  import { exerciseLinks, objectives, units, view } from '../services/store'
   import { estCoopmaths } from '../services/outils'
   import { COOPMATHS_BASE_URL } from '../services/environment'
   import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
+  import { getCurrentTerm, getWeekIndexInCurrentTerm } from '../services/calendar'
 
   let niveauChoisi = 'tout'
+  const currentTerm = getCurrentTerm()
+  const numeroPeriode = currentTerm.termIndex + 1
+  const isHoliday = currentTerm.type === 'break'
+  const semaineDansLaPeriode = getWeekIndexInCurrentTerm()
 
   function lancerExercicesMathalea () {
-    if ($calendar.periodNumber > 0) {
-      const listeDesReferences = getListeDesReferences(niveauChoisi)
-      if (listeDesReferences.length === 0) {
-        alert('Tu n\'as pas encore d\'exercice à réviser, reviens plus tard !')
-      } else {
-        lancer(listeDesReferences)
-      }
+    const listeDesReferences = getListeDesReferences(niveauChoisi)
+    if (listeDesReferences.length === 0) {
+      alert('Tu n\'as pas encore d\'exercice à réviser, reviens plus tard !')
+    } else {
+      lancer(listeDesReferences)
     }
   }
 
   function lancerExercicesBrevet () {
-    if ($calendar.periodNumber > 0) {
-      const listeExercicesBrevet = getListeExercicesBrevet()
-      if (listeExercicesBrevet.length === 0) {
-        alert('Tu n\'as pas encore d\'exercice de brevet à réviser, reviens plus tard !')
-      } else {
-        lancer(listeExercicesBrevet)
-      }
+    const listeExercicesBrevet = getListeExercicesBrevet()
+    if (listeExercicesBrevet.length === 0) {
+      alert('Tu n\'as pas encore d\'exercice de brevet à réviser, reviens plus tard !')
+    } else {
+      lancer(listeExercicesBrevet)
     }
   }
 
@@ -86,13 +87,10 @@
   }
 
   function getDerniereSequence (niveau: string) {
-    const numeroPeriode = $calendar.periodNumber
-    const isHoliday = $calendar.isHoliday
-    const semaineDansLaPeriode = $calendar.weekInPeriod
     const nbSequencesCumulees = getNbSequencesCumulees(niveau)
 
     const nbSequencesDebutPeriode = nbSequencesCumulees[numeroPeriode - 1]
-    const nbSequencesDevine = nbSequencesDebutPeriode + semaineDansLaPeriode - 3
+    const nbSequencesDevine = nbSequencesDebutPeriode + semaineDansLaPeriode - 2
     const nbSequencesFinPeriode = nbSequencesCumulees[numeroPeriode] - 1
 
     if (!isHoliday) {
