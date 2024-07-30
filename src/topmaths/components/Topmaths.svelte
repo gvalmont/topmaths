@@ -26,7 +26,7 @@
   import ExercicesMathalea from './exercices/ExercicesMathalea.svelte'
   import HeadTabsMenu from './presentationalComponents/headTabsMenu/HeadTabsMenu.svelte'
   import { cacheData } from '../services/data'
-  import { isTopmathsView } from '../types/shared'
+  import { isTopmathsView } from '../types/navigation'
 
   if (customElements.get('alea-instrumenpoche') === undefined) {
     customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
