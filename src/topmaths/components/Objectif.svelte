@@ -7,7 +7,7 @@
     reference
   } from '../services/store'
   import { emptyObjective, isObjective, type Objective } from '../types/objective'
-  import { getTitle } from '../services/outils'
+  import { getTitle } from '../services/shared'
   import { goToView } from '../services/navigation'
   import { afterUpdate, onDestroy, tick } from 'svelte'
   import type { Unsubscriber } from 'svelte/store'

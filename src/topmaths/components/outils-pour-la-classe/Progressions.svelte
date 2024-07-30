@@ -1,6 +1,6 @@
 <script lang="ts">
   import { isTeacherMode, units, isTitleAcademicPreferred } from '../../services/store'
-  import { normalize } from '../../services/outils'
+  import { normalize } from '../../services/shared'
   import { buildPdfThemeFromReference } from '../../services/reference'
   import { goToView } from '../../services/navigation'
   import { writable, derived } from 'svelte/store'

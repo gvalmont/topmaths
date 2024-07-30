@@ -1,6 +1,6 @@
 <script lang="ts">
   import { isTeacherMode, objectives, isTitleAcademicPreferred } from '../services/store'
-  import { normalize } from '../services/outils'
+  import { normalize } from '../services/shared'
   import { goToView } from '../services/navigation'
   import { onDestroy } from 'svelte'
   import { writable, derived } from 'svelte/store'

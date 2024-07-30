@@ -1,5 +1,5 @@
 import { exerciseLinks, exerciseLink, view, reference } from './store'
-import { isCoopmaths, removeSeed } from './outils'
+import { isCoopmaths, removeSeed } from './shared'
 import type { TopmathsView } from '../types/shared'
 
 export function goToView (mouseEvent: MouseEvent, destinationView: TopmathsView, ref?: string): void {

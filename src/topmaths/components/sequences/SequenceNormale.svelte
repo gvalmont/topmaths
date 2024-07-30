@@ -6,7 +6,7 @@
   } from '../../services/store'
   import type { ObjectiveExercise } from '../../types/objective'
   import { emptyUnitDownloadLinks, type Unit } from '../../types/unit'
-  import { getTitle } from '../../services/outils'
+  import { getTitle } from '../../services/shared'
   import { goToView } from '../../services/navigation'
   import { onDestroy } from 'svelte'
   import type { Unsubscriber } from 'svelte/store'

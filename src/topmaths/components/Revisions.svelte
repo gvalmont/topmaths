@@ -1,6 +1,6 @@
 <script lang="ts">
   import { exerciseLinks, objectives, units, view } from '../services/store'
-  import { isCoopmaths } from '../services/outils'
+  import { isCoopmaths } from '../services/shared'
   import { COOPMATHS_BASE_URL } from '../services/environment'
   import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
   import { getCurrentTerm, getWeekIndexInCurrentTerm } from '../services/calendar'

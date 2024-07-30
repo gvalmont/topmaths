@@ -4,7 +4,7 @@
     specialUnits
   } from '../services/store'
   import { onDestroy } from 'svelte'
-  import { normalize } from '../services/outils'
+  import { normalize } from '../services/shared'
   import { goToView } from '../services/navigation'
   import type { Unsubscriber } from 'svelte/store'
   import { writable, derived } from 'svelte/store'

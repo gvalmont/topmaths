@@ -3,7 +3,7 @@
     glossary as lexiqueStore
 
   } from '../../services/store'
-  import { normalize } from '../../services/outils'
+  import { normalize } from '../../services/shared'
   import { writable, derived } from 'svelte/store'
   import { afterUpdate, onDestroy, tick } from 'svelte'
   import { mathaleaRenderDiv } from '../../../lib/mathalea'

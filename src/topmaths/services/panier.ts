@@ -3,7 +3,7 @@ import type { ObjectiveExercise, Objective } from '../types/objective'
 import { emptyCartItem, type CartItem } from '../types/cart'
 import type { UnitObjective } from '../types/unit'
 import { storage } from './storage'
-import { isCoopmaths } from './outils'
+import { isCoopmaths } from './shared'
 import { deepCopy } from '../types/shared'
 
 export function toutAjouterAuPanier (exercices: ObjectiveExercise[], reference: string, nomsPanier: string[], indiceExercice = -1, exercicesDeBrevet = false): void {

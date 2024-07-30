@@ -4,7 +4,7 @@
   import { launchExercise } from '../services/navigation'
   import { storage } from '../services/storage'
   import { isCartEmpty, view } from '../services/store'
-  import { copyLink } from '../services/outils'
+  import { copyLink } from '../services/shared'
   import { getParamsFromUrl, updateUrlFromParams } from '../services/mathalea'
 
   let lien = ''
