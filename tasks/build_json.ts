@@ -13,6 +13,7 @@ import { emptyObjective, emptyObjectiveVideo, isObjective, isObjectiveExercises,
 import { isUnit, isUnitMentalCalculations, type UnitMentalCalculation, type Unit, type UnitObjective, emptyUnitDownloadLinks, emptyUnitMentalCalculation, type UnitFlashQuestion, isUnitFlashQuestions, type UnitLessonPlan, isUnitLessonPlans } from '../src/topmaths/types/unit.js'
 import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
 import { type CalendarSchoolYearMaster, isCalendarSchoolYearMasters, type CalendarSchoolYear, isCalendarSchoolYears, type CalendarPeriod } from '../src/topmaths/types/calendar.js'
+import { type Curriculum } from '../src/topmaths/types/curriculum.js'
 import { countLessonPlans } from './helpers/lesson_plans.js'
 
 const COOPMATHS_BASE_URL = 'https://coopmaths.fr/alea/?'
@@ -84,30 +85,30 @@ function buildUnits (): Unit[] {
 }
 
 function buildTermRecord (): Record<StringGrade, number[]> {
-  const curriculum: RecursivePartial<Record<StringGrade, number>[]> = curriculumJson
-  const formattedCurriculum: Record<StringGrade, number>[] = curriculum.map(term => {
-    if (term === undefined) { console.error(term); throw new Error('Term is undefined') }
+  const curriculum: RecursivePartial<Curriculum> = curriculumJson
+  const formattedCurriculum: Curriculum = curriculum.map(grade => {
+    if (grade === undefined) { console.error(grade); throw new Error('Grade is undefined') }
+    if (!isStringGrade(grade.name)) { console.error('grade name', grade.name); throw new Error('Grade name incorrect') }
     return {
-      none: term.none ?? 0,
-      '6e': term['6e'] ?? 0,
-      '5e': term['5e'] ?? 0,
-      '4e': term['4e'] ?? 0,
-      '3e': term['3e'] ?? 0
+      name: grade.name,
+      unitsPerTerm: grade.unitsPerTerm ? grade.unitsPerTerm.map(units => units ?? 0) : []
     }
   })
 
   const termRecord: Record<StringGrade, number[]> = {
-    none: buildTermNumbers(formattedCurriculum.map(term => term.none)),
-    '6e': buildTermNumbers(formattedCurriculum.map(term => term['6e'])),
-    '5e': buildTermNumbers(formattedCurriculum.map(term => term['5e'])),
-    '4e': buildTermNumbers(formattedCurriculum.map(term => term['4e'])),
-    '3e': buildTermNumbers(formattedCurriculum.map(term => term['3e']))
+    none: buildTermNumbers(formattedCurriculum, 'none'),
+    '6e': buildTermNumbers(formattedCurriculum, '6e'),
+    '5e': buildTermNumbers(formattedCurriculum, '5e'),
+    '4e': buildTermNumbers(formattedCurriculum, '4e'),
+    '3e': buildTermNumbers(formattedCurriculum, '3e')
   }
 
   return termRecord
 }
 
-function buildTermNumbers (unitsPerTerms: number[]): number[] {
+function buildTermNumbers (curriculum: Curriculum, grade: StringGrade): number[] {
+  const unitsPerTerms = curriculum.find(curriculumGrade => curriculumGrade.name === grade)?.unitsPerTerm
+  if (!unitsPerTerms) return []
   const termNumbers: number[] = []
   let termNumber = 1
   for (const unitsPerTerm of unitsPerTerms) {
