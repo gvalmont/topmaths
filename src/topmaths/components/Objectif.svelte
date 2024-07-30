@@ -8,7 +8,7 @@
   } from '../services/store'
   import { emptyObjective, isObjective, type Objective } from '../types/objective'
   import { getTitre } from '../services/outils'
-  import { goVue } from '../services/navigation'
+  import { goToView } from '../services/navigation'
   import { afterUpdate, onDestroy, tick } from 'svelte'
   import type { Unsubscriber } from 'svelte/store'
   import {
@@ -298,7 +298,7 @@
               href="/?v=sequence&ref={sequence.reference}"
               style="color: var(--base{sequence.reference.slice(1, 2)}e) !important;"
               on:click={(event) =>
-                goVue(event, 'sequence', sequence.reference)}
+                goToView(event, 'sequence', sequence.reference)}
             >
               {'Séquence ' +
                 sequence.reference.slice(3) +

@@ -20,8 +20,10 @@ export function isStrings (obj: unknown): obj is string[] {
   return obj.every(item => typeof item === 'string')
 }
 
-export type StringGrade = '6e' | '5e' | '4e' | '3e' | 'none'
-export const stringGradeValidKeys: StringGrade[] = ['6e', '5e', '4e', '3e', 'none']
+const stringGradeValidKeys = <const>['6e', '5e', '4e', '3e', 'none']
+type StringGradeValidKeysType = typeof stringGradeValidKeys
+export type StringGrade = StringGradeValidKeysType[number]
+
 export function isStringGrade (obj: unknown): obj is StringGrade {
   if (obj == null || typeof obj !== 'string') return false
   return stringGradeValidKeys.includes(obj as StringGrade)
@@ -111,4 +113,16 @@ export function isLineGrade (obj: unknown): obj is LineGrade {
 export function isLineGrades (obj: unknown): obj is LineGrade[] {
   if (obj == null || !Array.isArray(obj)) return false
   return obj.every(isLineGrade)
+}
+
+const topmathsViewValidKeys = <const>['exercices', 'sequence', 'sequences', 'objectifs', 'objectif', 'revisions', 'outils', 'mathador', 'generateur-de-portraits', 'eleves', 'lexique', 'tutos', 'telechargements', 'progressions', 'informations', 'panier', 'mentions-legales', 'politique-de-confidentialite', 'cgu', 'perso']
+type TopmathsViewValidKeysType = typeof topmathsViewValidKeys
+export type TopmathsView = TopmathsViewValidKeysType[number]
+export function isTopmathsView (obj: unknown): obj is TopmathsView {
+  if (obj == null || typeof obj !== 'string') return false
+  return topmathsViewValidKeys.includes(obj as TopmathsView)
+}
+export function isTopmathsViews (obj: unknown): obj is TopmathsView[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isTopmathsView)
 }

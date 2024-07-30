@@ -1,6 +1,6 @@
 <script lang="ts">
   import { tick } from 'svelte'
-  import { goVue } from '../../services/navigation'
+  import { goToView } from '../../services/navigation'
   import type { GlossaryUniteItem } from '../../types/glossary'
   import { writable } from 'svelte/store'
 
@@ -35,7 +35,7 @@
   {/each}
   {#each ligne.relatedObjectives as objectifLie}
   <li>
-    <a href="/?v=objectif&ref={objectifLie}" on:click={(event) => goVue(event, 'objectif', objectifLie)}>
+    <a href="/?v=objectif&ref={objectifLie}" on:click={(event) => goToView(event, 'objectif', objectifLie)}>
       <button class="button is-{objectifLie.slice(0, 1)}e is-outlined mt-2 ml-1 pr-2 py-0 md:py-1 px-1 md:px-2 rounded">
         {objectifLie}&nbsp;<i><img src="topmaths/img/cc0/exit-svgrepo-com.svg" width="14px" alt="icône de sortie" /></i>
       </button>

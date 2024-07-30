@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { lancerExercices } from '../../services/navigation'
+  import { launchExercise } from '../../services/navigation'
   import IconeTooltipSimple from './IconeTooltipSimple.svelte'
   import type { ObjectiveExercise, ObjectiveVideo } from '../../types/objective'
   import { isTeacherMode } from '../../services/store'
@@ -44,7 +44,7 @@
 
 <div class="flex flex-row justify-center">
   {#if lienExercices !== ''}
-    <button on:click={() => lancerExercices(lienExercices)}>
+    <button on:click={() => launchExercise(lienExercices)}>
       {titre} &nbsp;
       <IconeTooltipSimple
         urlBouton="/topmaths/img/cc0/fullscreen-svgrepo-com.svg"

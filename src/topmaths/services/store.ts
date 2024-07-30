@@ -2,8 +2,9 @@ import type { GlossaryUniteItem } from '../types/glossary'
 import type { Unit, UnitSpecial } from '../types/unit'
 import type { Objective } from '../types/objective'
 import { writable } from 'svelte/store'
-import { deepCopy } from '../types/shared'
+import { deepCopy, type TopmathsView } from '../types/shared'
 import { emptyCalendarSchoolYear, type CalendarSchoolYear } from '../types/calendar'
+import type { VueType } from '../../lib/types'
 
 // libraries
 export const units = writable<Unit[]>([])
@@ -13,7 +14,7 @@ export const glossary = writable<GlossaryUniteItem[]>([])
 export const calendar = writable<CalendarSchoolYear>(deepCopy(emptyCalendarSchoolYear))
 
 // url parameters
-export const view = writable<string>('')
+export const view = writable<VueType | TopmathsView | ''>('')
 export const reference = writable<string>('')
 
 // display settings

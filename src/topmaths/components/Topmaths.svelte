@@ -2,7 +2,7 @@
   import Accueil from './Accueil.svelte'
   import Sequences from './Sequences.svelte'
   import Sequence from './Sequence.svelte'
-  import { goVue } from '../services/navigation'
+  import { goToView } from '../services/navigation'
   import Objectifs from './Objectifs.svelte'
   import Objectif from './Objectif.svelte'
   import { storage } from '../services/storage'
@@ -26,6 +26,7 @@
   import ExercicesMathalea from './exercices/ExercicesMathalea.svelte'
   import HeadTabsMenu from './presentationalComponents/headTabsMenu/HeadTabsMenu.svelte'
   import { cacheData } from '../services/data'
+  import { isTopmathsView } from '../types/shared'
 
   if (customElements.get('alea-instrumenpoche') === undefined) {
     customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
@@ -54,7 +55,12 @@
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     for (const entry of entries) {
-      if (entry[0] === 'v') view.set(entry[1])
+      if (entry[0] === 'v') {
+        const viewCandidate = entry[1]
+        if (isTopmathsView(viewCandidate)) {
+          view.set(viewCandidate)
+        }
+      }
       if (entry[0] === 'ref') reference.set(entry[1])
     }
   }
@@ -113,7 +119,7 @@
   <HeadTabsMenu
     {isMd}
     vue={$view}
-    onHeadTabsMenuClicked={goVue}
+    onHeadTabsMenuClicked={goToView}
     isBasketAvailable={!$isCartEmpty}
   />
 </div>
@@ -179,13 +185,13 @@
     <a href="https://coopmaths.fr/a_propos/" target="_blank" rel="noopener noreferrer">contributeurs de MathALÉA</a>
   </p>
   <p>
-    <button class="has-text-link" on:click={(event) => goVue(event, 'informations')}>Informations sur le site</button>
+    <button class="has-text-link" on:click={(event) => goToView(event, 'informations')}>Informations sur le site</button>
     -
-    <button class="has-text-link" on:click={(event) => goVue(event, 'mentions-legales')}>Mentions légales</button>
+    <button class="has-text-link" on:click={(event) => goToView(event, 'mentions-legales')}>Mentions légales</button>
     -
-    <button class="has-text-link" on:click={(event) => goVue(event, 'politique-de-confidentialite')}>Politique de confidentialité</button>
+    <button class="has-text-link" on:click={(event) => goToView(event, 'politique-de-confidentialite')}>Politique de confidentialité</button>
     -
-    <button class="has-text-link" on:click={(event) => goVue(event, 'cgu')}>CGU</button>
+    <button class="has-text-link" on:click={(event) => goToView(event, 'cgu')}>CGU</button>
   </p>
 </footer>
 <div

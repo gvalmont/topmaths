@@ -7,7 +7,7 @@
   import type { ObjectiveExercise } from '../../types/objective'
   import { emptyUnitDownloadLinks, type Unit } from '../../types/unit'
   import { getTitre } from '../../services/outils'
-  import { goVue } from '../../services/navigation'
+  import { goToView } from '../../services/navigation'
   import { onDestroy } from 'svelte'
   import type { Unsubscriber } from 'svelte/store'
   import BoutonsExercices from '../shared/BoutonsExercices.svelte'
@@ -98,7 +98,7 @@
         <li class=" p-1 md:p-2 is-{niveau}">
           <a
             href="/?v=objectif&ref={objectif.reference}"
-            on:click={(event) => goVue(event, 'objectif', objectif.reference)}
+            on:click={(event) => goToView(event, 'objectif', objectif.reference)}
           >
             {objectif.reference} : {getTitre(objectif)}
           </a>
@@ -123,7 +123,7 @@
                   class="text-sm md:text-base"
                   href="/?v=objectif&ref={calculMental.reference}"
                   on:click={(event) =>
-                    goVue(event, 'objectif', calculMental.reference)}
+                    goToView(event, 'objectif', calculMental.reference)}
                 >
                   {calculMental.reference} : {calculMental.titleAcademic}
                 </a>
@@ -183,7 +183,7 @@
                 <a
                   href="/?v=objectif&ref={questionFlash.reference}"
                   on:click={(event) =>
-                    goVue(event, 'objectif', questionFlash.reference)}
+                    goToView(event, 'objectif', questionFlash.reference)}
                 >
                   <p>
                     {questionFlash.reference} : {questionFlash.titleAcademic}

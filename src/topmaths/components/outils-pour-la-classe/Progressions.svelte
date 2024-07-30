@@ -1,7 +1,7 @@
 <script lang="ts">
   import { isTeacherMode, units, isTitleAcademicPreferred } from '../../services/store'
   import { getTheme, normaliser } from '../../services/outils'
-  import { goVue } from '../../services/navigation'
+  import { goToView } from '../../services/navigation'
   import { writable, derived } from 'svelte/store'
   import type { UnitMentalCalculation, UnitObjective, UnitFlashQuestion, Unit } from '../../types/unit'
   import LevelsTabsMenu from '../shared/LevelsTabsMenu.svelte'
@@ -183,7 +183,7 @@
                 <div class="column is-narrow flex self-center flex-col justify-center" style="width: 150px;">
                   <a
                     href="/?v=sequence&ref={ligne.reference}"
-                    on:click={(event) => goVue(event, 'sequence', ligne.reference)}
+                    on:click={(event) => goToView(event, 'sequence', ligne.reference)}
                     class="colorless"
                   >
                   <div>Séquence {ligne.number}</div>
@@ -198,7 +198,7 @@
                     <div class="column is-narrow flex self-center justify-center">
                       <a
                         href="/?v=objectif&ref={objectif.reference}"
-                        on:click={(event) => goVue(event, 'objectif', objectif.reference)}
+                        on:click={(event) => goToView(event, 'objectif', objectif.reference)}
                         class="colorless"
                       >
                       <div>{objectif.reference}</div>
@@ -221,7 +221,7 @@
                           <div class="column is-narrow flex self-center justify-center">
                             <a
                               href="/?v=objectif&ref={questionFlash.reference}"
-                              on:click={(event) => goVue(event, 'objectif', questionFlash.reference)}
+                              on:click={(event) => goToView(event, 'objectif', questionFlash.reference)}
                               class="colorless"
                             >
                               <div>{questionFlash.reference}</div>
@@ -243,7 +243,7 @@
                           <div class="column is-narrow flex self-center justify-center">
                             <a
                               href="/?v=objectif&ref={calculMental.reference}"
-                              on:click={(event) => goVue(event, 'objectif', calculMental.reference)}
+                              on:click={(event) => goToView(event, 'objectif', calculMental.reference)}
                               class="colorless"
                             >
                             <div>{calculMental.reference}</div>

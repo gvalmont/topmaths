@@ -1,7 +1,7 @@
 <script lang="ts">
   import { isCartItem, type CartItem } from '../types/cart'
   import { COOPMATHS_BASE_URL } from '../services/environment'
-  import { lancerExercices } from '../services/navigation'
+  import { launchExercise } from '../services/navigation'
   import { storage } from '../services/storage'
   import { isCartEmpty, view } from '../services/store'
   import { copierLien } from '../services/outils'
@@ -60,7 +60,7 @@
         <img class="size-12 md:size-16" src="/topmaths/img/cc0/copy-interface-symbol-svgrepo-com.svg" alt="Documents copiés" />
       </i>
     </button>
-    <button class="mx-2 md:mx-4" on:click={() => lancerExercices(lien)}>
+    <button class="mx-2 md:mx-4" on:click={() => launchExercise(lien)}>
       <i>
         <img class="size-12 md:size-16" src="/topmaths/img/cc0/fullscreen-svgrepo-com.svg" alt="Lancer en plein écran" />
       </i>

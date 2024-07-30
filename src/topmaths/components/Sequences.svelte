@@ -5,7 +5,7 @@
   } from '../services/store'
   import { onDestroy } from 'svelte'
   import { normaliser } from '../services/outils'
-  import { goVue } from '../services/navigation'
+  import { goToView } from '../services/navigation'
   import type { Unsubscriber } from 'svelte/store'
   import { writable, derived } from 'svelte/store'
   import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
@@ -188,7 +188,7 @@ function lesDonneesSontChargees () {
           <a
             href="/?v=sequence&ref={ligne.reference}"
             on:click={(event) =>
-              goVue(event, 'sequence', ligne.reference)}
+              goToView(event, 'sequence', ligne.reference)}
           >
             <div
               class="p-1  is-tout"
@@ -221,7 +221,7 @@ function lesDonneesSontChargees () {
           <a
             href="/?v=sequence&ref={row.reference}"
             on:click={(event) =>
-              goVue(event, 'sequence', row.reference)}
+              goToView(event, 'sequence', row.reference)}
           >
             <div>
               {row.number === 0

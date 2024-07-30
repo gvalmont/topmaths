@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { goVue } from '../services/navigation'
+  import { goToView } from '../services/navigation'
 
 </script>
 
@@ -67,7 +67,7 @@
   Voir également la page
   <button
     class="has-text-link"
-    on:click={(event) => goVue(event, 'politique-de-confidentialite')}
+    on:click={(event) => goToView(event, 'politique-de-confidentialite')}
     >Politique de confidentialité</button
   >.
 </p>

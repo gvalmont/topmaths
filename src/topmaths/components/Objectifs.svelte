@@ -1,7 +1,7 @@
 <script lang="ts">
   import { isTeacherMode, objectives, isTitleAcademicPreferred } from '../services/store'
   import { normaliser } from '../services/outils'
-  import { goVue } from '../services/navigation'
+  import { goToView } from '../services/navigation'
   import { onDestroy } from 'svelte'
   import { writable, derived } from 'svelte/store'
   import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
@@ -170,7 +170,7 @@
               <a
                 href="/?v=objectif&ref={row.reference}"
                 on:click={(event) =>
-                  goVue(event, 'objectif', row.reference ?? '')}
+                  goToView(event, 'objectif', row.reference ?? '')}
               >
                 <div>
                   {row.reference} : {$isTitleAcademicPreferred ||

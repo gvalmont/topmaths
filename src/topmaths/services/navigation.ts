@@ -1,29 +1,32 @@
 import { exerciseLinks, exerciseLink, view, reference } from './store'
 import { estCoopmaths, supprimerGraines } from './outils'
+import type { TopmathsView } from '../types/shared'
 
-export function goVue (mouseEvent: MouseEvent, destinationVue: string, ref?: string) {
-  if (mouseEvent.button === 0 && !mouseEvent.ctrlKey && !mouseEvent.metaKey) {
-    mouseEvent.preventDefault()
-    if (ref !== undefined) reference.set(ref)
-    view.set(destinationVue)
-    window.history.pushState({}, '', `?v=${destinationVue}${ref !== undefined ? '&ref=' + ref : ''}`)
+export function goToView (mouseEvent: MouseEvent, destinationView: TopmathsView, ref?: string): void {
+  const isRegularClick = mouseEvent.button === 0 && !mouseEvent.ctrlKey && !mouseEvent.metaKey
+  if (!isRegularClick) {
+    return // to allow right clicks and opening in new tabs
   }
+  mouseEvent.preventDefault()
+  if (ref) reference.set(ref)
+  view.set(destinationView)
+  window.history.pushState({}, '', `?v=${destinationView}${ref ? `&ref=${ref}` : ''}`)
 }
 
-export function lancerExercices (lien: string): void {
+export function launchExercise (link: string): void {
   exerciseLinks.set([])
-  if (estCoopmaths(lien)) {
-    lancerExercicesMathalea(lien)
+  if (estCoopmaths(link)) {
+    launchMathaleaExercise(link)
   } else {
-    naviguerVers(lien)
+    goTo(link)
   }
 }
 
-function lancerExercicesMathalea (lien: string): void {
-  exerciseLink.set(supprimerGraines(lien))
+function launchMathaleaExercise (link: string): void {
+  exerciseLink.set(supprimerGraines(link))
   view.set('exercices')
 }
 
-function naviguerVers (lien: string): void {
-  window.location.href = lien
+function goTo (link: string): void {
+  window.location.href = link
 }
