@@ -28,40 +28,42 @@
   import { cacheData } from '../services/data'
   import { isTopmathsView } from '../types/navigation'
   import Cart from '../modules/Cart'
-    import type { CartItem } from '../types/cart';
+  import type { CartItem } from '../types/cart'
 
   if (customElements.get('alea-instrumenpoche') === undefined) {
     customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
   }
 
   const year = new Date().getFullYear()
-  let isCartEmpty: boolean = false
+  let isCartEmpty: boolean = true
+  let intervalId: ReturnType<typeof setTimeout>
   let innerWidth: number
   let isMd: boolean
   $: isMd = innerWidth >= 768
 
   onMount(() => {
-    cacheData()
-    addEventListener('popstate', updateParams)
     Cart.subscribe(handleCartUpdate)
+    addEventListener('popstate', updateParams)
+    cacheData()
     updateParams()
+    startTimeInterval()
   })
 
   onDestroy(() => {
-    removeEventListener('popstate', updateParams)
+    clearTimeInterval()
     Cart.unsubscribe(handleCartUpdate)
+    removeEventListener('popstate', updateParams)
   })
-
-  function handleCartUpdate (cartItems: CartItem[]): void {
-    isCartEmpty = cartItems.length === 0
-  }
 
   function updateParams (): void {
     updateParamsFromUrl()
     Cart.updateFromStorage()
-    startTimeInterval()
     Storage.getTeacherModeState()
     Storage.getPersoModeState()
+  }
+
+  function handleCartUpdate (cartItems: CartItem[]): void {
+    isCartEmpty = cartItems.length === 0
   }
 
   function updateParamsFromUrl (): void {
@@ -80,9 +82,13 @@
 
   function startTimeInterval (): void {
     updateTime()
-    setInterval(() => {
+    intervalId = setInterval(() => {
       updateTime()
     }, 1000)
+  }
+
+  function clearTimeInterval (): void {
+    clearInterval(intervalId)
   }
 
   function toggleTimeOverlaySize (): void {
