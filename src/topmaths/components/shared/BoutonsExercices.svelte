@@ -3,7 +3,7 @@
   import IconeTooltipSimple from './IconeTooltipSimple.svelte'
   import type { ObjectiveExercise, ObjectiveVideo } from '../../types/objective'
   import { isTeacherMode } from '../../services/store'
-  import { copierLien, estCoopmaths } from '../../services/outils'
+  import { copierLien, isCoopmaths } from '../../services/outils'
   import { toutAjouterAuPanier } from '../../services/panier'
   import { COOPMATHS_BASE_URL } from '../../services/environment'
   import { getParamsFromUrl, updateUrlFromParams } from '../../services/mathalea'
@@ -20,7 +20,7 @@
 
   function presenceExercicesCoopmaths (exercices: ObjectiveExercise[]) {
     for (const exercice of exercices) {
-      if (estCoopmaths(exercice.link)) return true
+      if (isCoopmaths(exercice.link)) return true
     }
     return false
   }

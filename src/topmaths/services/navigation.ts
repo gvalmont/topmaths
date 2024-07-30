@@ -1,5 +1,5 @@
 import { exerciseLinks, exerciseLink, view, reference } from './store'
-import { estCoopmaths, supprimerGraines } from './outils'
+import { isCoopmaths, supprimerGraines } from './outils'
 import type { TopmathsView } from '../types/shared'
 
 export function goToView (mouseEvent: MouseEvent, destinationView: TopmathsView, ref?: string): void {
@@ -15,7 +15,7 @@ export function goToView (mouseEvent: MouseEvent, destinationView: TopmathsView,
 
 export function launchExercise (link: string): void {
   exerciseLinks.set([])
-  if (estCoopmaths(link)) {
+  if (isCoopmaths(link)) {
     launchMathaleaExercise(link)
   } else {
     goTo(link)

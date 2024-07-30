@@ -3,7 +3,7 @@ import type { ObjectiveExercise, Objective } from '../types/objective'
 import { emptyCartItem, type CartItem } from '../types/cart'
 import type { UnitObjective } from '../types/unit'
 import { storage } from './storage'
-import { estCoopmaths } from './outils'
+import { isCoopmaths } from './outils'
 import { deepCopy } from '../types/shared'
 
 export function toutAjouterAuPanier (exercices: ObjectiveExercise[], reference: string, nomsPanier: string[], indiceExercice = -1, exercicesDeBrevet = false): void {
@@ -17,7 +17,7 @@ export function toutAjouterAuPanier (exercices: ObjectiveExercise[], reference: 
 }
 
 export function ajouterAuPanier (exercice: ObjectiveExercise, reference: string, nomPanier: string, exDeBrevet = false, exerciceIndex = -1): void {
-  if (!estCoopmaths(exercice.link)) {
+  if (!isCoopmaths(exercice.link)) {
     console.error('L\'exercice n\'a pas été ajouté au panier car il n\'est pas un exercice MathALÉA')
     return
   }

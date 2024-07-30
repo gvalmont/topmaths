@@ -6,12 +6,12 @@ import { COOPMATHS_BASE_URL } from './environment'
 import { exercicesParams, globalOptions } from '../../lib/stores/generalStore'
 import { showDialogForLimitedTime } from '../../lib/components/dialogs'
 
-export function estCoopmaths (url: string) {
+export function isCoopmaths (url: string): boolean {
   const urlCoopmaths = COOPMATHS_BASE_URL
   return url.slice(0, urlCoopmaths.length) === COOPMATHS_BASE_URL
 }
 
-export function normaliser (chaine: string) {
+export function normaliser (chaine: string): string {
   if (chaine === undefined) return ''
   return chaine
     .normalize('NFD')

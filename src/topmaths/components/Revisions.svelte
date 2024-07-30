@@ -1,6 +1,6 @@
 <script lang="ts">
   import { exerciseLinks, objectives, units, view } from '../services/store'
-  import { estCoopmaths } from '../services/outils'
+  import { isCoopmaths } from '../services/outils'
   import { COOPMATHS_BASE_URL } from '../services/environment'
   import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
   import { getCurrentTerm, getWeekIndexInCurrentTerm } from '../services/calendar'
@@ -78,7 +78,7 @@
       for (const objectif of $objectives) {
         if (reference === objectif.reference) {
           for (const exercice of objectif.exercises) {
-            if (estCoopmaths(exercice.link)) listeDesUrl.push(exercice.link)
+            if (isCoopmaths(exercice.link)) listeDesUrl.push(exercice.link)
           }
         }
       }

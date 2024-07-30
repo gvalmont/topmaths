@@ -7,7 +7,8 @@ import unitsMasterJson from '../src/topmaths/json/units.json' assert { type: 'js
 import curriculumJson from '../src/topmaths/json/curriculum.json' assert { type: 'json' }
 import calendarSchoolYearMasterJson from '../src/topmaths/json/calendar.json' assert { type: 'json' }
 import type { RecursivePartial } from '../src/lib/types.js'
-import { deepCopy, emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/shared.js'
+import { deepCopy } from '../src/topmaths/types/shared.js'
+import { emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/grade.js'
 import { buildGradeFromObjectiveReference } from '../src/topmaths/services/environment.js'
 import { emptyObjective, emptyObjectiveVideo, isObjective, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveExercise, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks } from '../src/topmaths/types/objective.js'
 import { isUnit, isUnitMentalCalculations, type UnitMentalCalculation, type Unit, type UnitObjective, emptyUnitDownloadLinks, emptyUnitMentalCalculation, type UnitFlashQuestion, isUnitFlashQuestions, type UnitLessonPlan, isUnitLessonPlans } from '../src/topmaths/types/unit.js'

@@ -1,6 +1,6 @@
 import { type RecursivePartial } from '../../src/lib/types.js'
 import { type Objective } from '../../src/topmaths/types/objective.js'
-import { type StringGrade } from '../../src/topmaths/types/shared.js'
+import { type StringGrade } from '../../src/topmaths/types/grade.js'
 
 export function countLessonPlans (objective: RecursivePartial<Objective>, grade: StringGrade): number {
   if (!objective.lessonPlans) return 0
