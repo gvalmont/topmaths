@@ -17,7 +17,7 @@
   import {
     estPresentDansLePanier,
     tousLesExercicesSontPresentsDansLePanier
-  } from '../services/panier'
+  } from '../services/cart'
   import iepLoadPromise from 'instrumenpoche'
   import BoutonsExercices from './shared/BoutonsExercices.svelte'
   import DownloadLine from './shared/DownloadLine.svelte'

@@ -4,7 +4,7 @@
   import type { ObjectiveExercise, ObjectiveVideo } from '../../types/objective'
   import { isTeacherMode } from '../../services/store'
   import { copyLink, isCoopmaths } from '../../services/shared'
-  import { toutAjouterAuPanier } from '../../services/panier'
+  import { toutAjouterAuPanier } from '../../services/cart'
   import { COOPMATHS_BASE_URL } from '../../services/environment'
   import { getParamsFromUrl, updateUrlFromParams } from '../../services/mathalea'
 
