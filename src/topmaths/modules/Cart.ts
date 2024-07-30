@@ -57,7 +57,7 @@ export default class Cart {
     return this.items.some(cartItem => cartItem.id === id)
   }
 
-  static isCustomEvent (event: Event): event is CustomEvent<CartItem[]> {
+  private static isCustomEvent (event: Event): event is CustomEvent<CartItem[]> {
     return 'detail' in event && isCartItems(event.detail)
   }
 
