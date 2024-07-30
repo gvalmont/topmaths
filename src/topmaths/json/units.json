@@ -4,7 +4,6 @@
     "units": [
       {
         "title": "Nombres entiers 1",
-        "term": 1,
         "objectives": [
           {
             "reference": "6C10"
@@ -43,7 +42,6 @@
       },
       {
         "title": "Vocabulaire de géométrie",
-        "term": 1,
         "objectives": [
           {
             "reference": "6G10"
@@ -72,7 +70,6 @@
       },
       {
         "title": "Fractions 1",
-        "term": 1,
         "objectives": [
           {
             "reference": "6C14"
@@ -105,7 +102,6 @@
       },
       {
         "title": "Perpendiculaires et parallèles",
-        "term": 1,
         "objectives": [
           {
             "reference": "6G11"
@@ -148,7 +144,6 @@
       },
       {
         "title": "Nombres décimaux 1",
-        "term": 1,
         "objectives": [
           {
             "reference": "6N31"
@@ -187,7 +182,6 @@
       },
       {
         "title": "Polygones particuliers",
-        "term": 1,
         "objectives": [
           {
             "reference": "6G21"
@@ -223,7 +217,6 @@
       },
       {
         "title": "Nombres entiers 2",
-        "term": 2,
         "objectives": [
           {
             "reference": "6C21"
@@ -256,7 +249,6 @@
       },
       {
         "title": "Périmètres et aires 1",
-        "term": 2,
         "objectives": [
           {
             "reference": "6M10"
@@ -292,7 +284,6 @@
       },
       {
         "title": "Nombres décimaux 2",
-        "term": 2,
         "objectives": [
           {
             "reference": "6N22"
@@ -325,7 +316,6 @@
       },
       {
         "title": "Angles",
-        "term": 2,
         "objectives": [
           {
             "reference": "6G40"
@@ -365,7 +355,6 @@
       },
       {
         "title": "Proportionnalité",
-        "term": 2,
         "objectives": [
           {
             "reference": "6P10"
@@ -398,7 +387,6 @@
       },
       {
         "title": "Triangles",
-        "term": 2,
         "objectives": [
           {
             "reference": "6G23"
@@ -431,7 +419,6 @@
       },
       {
         "title": "Nombres décimaux 3",
-        "term": 2,
         "objectives": [
           {
             "reference": "6C22"
@@ -464,7 +451,6 @@
       },
       {
         "title": "Se repérer, se déplacer",
-        "term": 3,
         "objectives": [
           {
             "reference": "6G70"
@@ -500,7 +486,6 @@
       },
       {
         "title": "Fractions 2",
-        "term": 3,
         "objectives": [
           {
             "reference": "6C13"
@@ -533,7 +518,6 @@
       },
       {
         "title": "Statistiques",
-        "term": 3,
         "objectives": [
           {
             "reference": "6S10"
@@ -566,7 +550,6 @@
       },
       {
         "title": "Points et droites",
-        "term": 3,
         "objectives": [
           {
             "reference": "6G13"
@@ -599,7 +582,6 @@
       },
       {
         "title": "Pourcentages",
-        "term": 3,
         "objectives": [
           {
             "reference": "6P12"
@@ -636,7 +618,6 @@
       },
       {
         "title": "Périmètres et aires 2",
-        "term": 3,
         "objectives": [
           {
             "reference": "6M13"
@@ -669,7 +650,6 @@
       },
       {
         "title": "Médiatrice d'un segment",
-        "term": 3,
         "objectives": [
           {
             "reference": "6G50"
@@ -702,7 +682,6 @@
       },
       {
         "title": "Périmètre et aire 3",
-        "term": 4,
         "objectives": [
           {
             "reference": "6M12"
@@ -735,7 +714,6 @@
       },
       {
         "title": "Durées, horaires",
-        "term": 4,
         "objectives": [
           {
             "reference": "6M30"
@@ -772,7 +750,6 @@
       },
       {
         "title": "Solides",
-        "term": 4,
         "objectives": [
           {
             "reference": "6G60"
@@ -802,7 +779,6 @@
       },
       {
         "title": "Agrandissement et réduction",
-        "term": 4,
         "objectives": [
           {
             "reference": "6P14"
@@ -832,7 +808,6 @@
       },
       {
         "title": "Symétrie axiale",
-        "term": 4,
         "objectives": [
           {
             "reference": "6G51"
@@ -871,7 +846,6 @@
       },
       {
         "title": "Volumes",
-        "term": 5,
         "objectives": [
           {
             "reference": "6M15"
@@ -904,7 +878,6 @@
       },
       {
         "title": "Priorités opératoires",
-        "term": 5,
         "objectives": [
           {
             "reference": "6C32"
@@ -937,7 +910,6 @@
       },
       {
         "title": "Patrons",
-        "term": 5,
         "objectives": [
           {
             "reference": "6G61"
@@ -961,7 +933,6 @@
       },
       {
         "title": "Constructions géométriques",
-        "term": 5,
         "objectives": [
           {
             "reference": "6G31"
@@ -1002,7 +973,6 @@
     "units": [
       {
         "title": "Enchaînements d’opérations",
-        "term": 1,
         "objectives": [
           {
             "reference": "6C10"
@@ -1038,7 +1008,6 @@
       },
       {
         "title": "Constructions de triangles",
-        "term": 1,
         "objectives": [
           {
             "reference": "6G23"
@@ -1067,7 +1036,6 @@
       },
       {
         "title": "Nombres relatifs 1",
-        "term": 1,
         "objectives": [
           {
             "reference": "5X1"
@@ -1106,7 +1074,6 @@
       },
       {
         "title": "Proportionnalité",
-        "term": 1,
         "objectives": [
           {
             "reference": "6P10"
@@ -1139,7 +1106,6 @@
       },
       {
         "title": "Symétrie et médiatrice",
-        "term": 1,
         "objectives": [
           {
             "reference": "6G50"
@@ -1179,7 +1145,6 @@
       },
       {
         "title": "Représentation de données",
-        "term": 2,
         "objectives": [
           {
             "reference": "5S10"
@@ -1216,7 +1181,6 @@
       },
       {
         "title": "Nombres relatifs 2",
-        "term": 2,
         "objectives": [
           {
             "reference": "5N33"
@@ -1260,7 +1224,6 @@
       },
       {
         "title": "Symétrie centrale",
-        "term": 2,
         "objectives": [
           {
             "reference": "5G10"
@@ -1296,7 +1259,6 @@
       },
       {
         "title": "Arithmétique 1",
-        "term": 2,
         "objectives": [
           {
             "reference": "5N40"
@@ -1329,7 +1291,6 @@
       },
       {
         "title": "Échelles",
-        "term": 2,
         "objectives": [
           {
             "reference": "6M20"
@@ -1362,7 +1323,6 @@
       },
       {
         "title": "Fractions 1",
-        "term": 2,
         "objectives": [
           {
             "reference": "6P12"
@@ -1395,7 +1355,6 @@
       },
       {
         "title": "Angles",
-        "term": 3,
         "objectives": [
           {
             "reference": "5G30"
@@ -1428,7 +1387,6 @@
       },
       {
         "title": "Arithmétique 2",
-        "term": 3,
         "objectives": [
           {
             "reference": "5N42"
@@ -1461,7 +1419,6 @@
       },
       {
         "title": "Somme des angles d'un triangle",
-        "term": 3,
         "objectives": [
           {
             "reference": "5G32"
@@ -1491,7 +1448,6 @@
       },
       {
         "title": "Calcul littéral 1",
-        "term": 3,
         "objectives": [
           {
             "reference": "5N50"
@@ -1524,7 +1480,6 @@
       },
       {
         "title": "Fractions 2",
-        "term": 3,
         "objectives": [
           {
             "reference": "5N21"
@@ -1557,7 +1512,6 @@
       },
       {
         "title": "Parallélogrammes",
-        "term": 3,
         "objectives": [
           {
             "reference": "5G40"
@@ -1594,7 +1548,6 @@
       },
       {
         "title": "Fractions 3",
-        "term": 4,
         "objectives": [
           {
             "reference": "5N23"
@@ -1627,7 +1580,6 @@
       },
       {
         "title": "Périmètres et aires",
-        "term": 4,
         "objectives": [
           {
             "reference": "5M10"
@@ -1671,7 +1623,6 @@
       },
       {
         "title": "Ratios",
-        "term": 4,
         "objectives": [
           {
             "reference": "5P10"
@@ -1701,7 +1652,6 @@
       },
       {
         "title": "Calcul littéral 2",
-        "term": 4,
         "objectives": [
           {
             "reference": "5N52"
@@ -1738,7 +1688,6 @@
       },
       {
         "title": "Moyennes",
-        "term": 4,
         "objectives": [
           {
             "reference": "5S12"
@@ -1771,7 +1720,6 @@
       },
       {
         "title": "Calcul littéral 3",
-        "term": 4,
         "objectives": [
           {
             "reference": "5N54"
@@ -1808,7 +1756,6 @@
       },
       {
         "title": "Durées, horaires",
-        "term": 5,
         "objectives": [
           {
             "reference": "6M30"
@@ -1845,7 +1792,6 @@
       },
       {
         "title": "Probabilités",
-        "term": 5,
         "objectives": [
           {
             "reference": "5S20"
@@ -1882,7 +1828,6 @@
       },
       {
         "title": "Dépendance entre deux grandeurs",
-        "term": 5,
         "objectives": [
           {
             "reference": "5S30"
@@ -1915,7 +1860,6 @@
       },
       {
         "title": "Volumes",
-        "term": 5,
         "objectives": [
           {
             "reference": "6M22"
@@ -1964,7 +1908,6 @@
     "units": [
       {
         "title": "Statistiques",
-        "term": 1,
         "objectives": [
           {
             "reference": "4S14"
@@ -1996,7 +1939,6 @@
       },
       {
         "title": "Distributivité 1",
-        "term": 1,
         "objectives": [
           {
             "reference": "4N50"
@@ -2024,7 +1966,6 @@
         ]
       },
       {
-        "term": 1,
         "title": "Multiplication et division de nombres relatifs",
         "objectives": [
           {
@@ -2055,7 +1996,6 @@
       },
       {
         "title": "Racine carrée",
-        "term": 1,
         "objectives": [
           {
             "reference": "4G20"
@@ -2092,7 +2032,6 @@
       },
       {
         "title": "Distributivité 2",
-        "term": 1,
         "objectives": [
           {
             "reference": "4N52"
@@ -2125,7 +2064,6 @@
       },
       {
         "title": "Théorème de Pythagore",
-        "term": 1,
         "objectives": [
           {
             "reference": "4G22"
@@ -2155,7 +2093,6 @@
       },
       {
         "title": "Puissances 1",
-        "term": 2,
         "objectives": [
           {
             "reference": "4N30"
@@ -2196,7 +2133,6 @@
       },
       {
         "title": "Proportionnalité et représentation graphique",
-        "term": 2,
         "objectives": [
           {
             "reference": "4P10"
@@ -2237,7 +2173,6 @@
       },
       {
         "title": "Triangles égaux",
-        "term": 2,
         "objectives": [
           {
             "reference": "4G30"
@@ -2267,7 +2202,6 @@
       },
       {
         "title": "Nombres premiers",
-        "term": 2,
         "objectives": [
           {
             "reference": "4N40"
@@ -2307,7 +2241,6 @@
       },
       {
         "title": "Équations 1",
-        "term": 2,
         "objectives": [
           {
             "reference": "4N54"
@@ -2344,7 +2277,6 @@
       },
       {
         "title": "Fractions",
-        "term": 2,
         "objectives": [
           {
             "reference": "4N20"
@@ -2381,7 +2313,6 @@
       },
       {
         "title": "Probabilités",
-        "term": 3,
         "objectives": [
           {
             "reference": "4S12"
@@ -2418,7 +2349,6 @@
       },
       {
         "title": "Équations 2",
-        "term": 3,
         "objectives": [
           {
             "reference": "4N57"
@@ -2455,7 +2385,6 @@
       },
       {
         "title": "Agrandissement et réduction",
-        "term": 3,
         "objectives": [
           {
             "reference": "6P14"
@@ -2492,7 +2421,6 @@
       },
       {
         "title": "Théorème de Thalès",
-        "term": 3,
         "objectives": [
           {
             "reference": "4G31"
@@ -2522,7 +2450,6 @@
       },
       {
         "title": "Puissances 2",
-        "term": 3,
         "objectives": [
           {
             "reference": "4N32"
@@ -2563,7 +2490,6 @@
       },
       {
         "title": "Translation",
-        "term": 4,
         "objectives": [
           {
             "reference": "4G10"
@@ -2620,7 +2546,6 @@
       },
       {
         "title": "Notation scientifique",
-        "term": 4,
         "objectives": [
           {
             "reference": "4N34"
@@ -2661,7 +2586,6 @@
       },
       {
         "title": "Repérage dans un pavé droit",
-        "term": 4,
         "objectives": [
           {
             "reference": "4G50"
@@ -2708,7 +2632,6 @@
       },
       {
         "title": "Réciproques et contraposées",
-        "term": 4,
         "objectives": [
           {
             "reference": "4G23"
@@ -2745,7 +2668,6 @@
       },
       {
         "title": "Grandeurs composées",
-        "term": 4,
         "objectives": [
           {
             "reference": "4P13"
@@ -2798,7 +2720,6 @@
       },
       {
         "title": "Dépendance entre deux grandeurs",
-        "term": 5,
         "objectives": [
           {
             "reference": "4S20"
@@ -2838,7 +2759,6 @@
       },
       {
         "title": "Pyramides et cônes",
-        "term": 5,
         "objectives": [
           {
             "reference": "4G51"
@@ -2895,7 +2815,6 @@
       },
       {
         "title": "Cosinus d'un angle aigu",
-        "term": 5,
         "objectives": [
           {
             "reference": "4G40"
@@ -2934,7 +2853,6 @@
     "units": [
       {
         "title": "Probabilités",
-        "term": 1,
         "objectives": [
           {
             "reference": "4S12"
@@ -2979,7 +2897,6 @@
       },
       {
         "title": "Calcul littéral 1",
-        "term": 1,
         "objectives": [
           {
             "reference": "5N51"
@@ -3016,7 +2933,6 @@
       },
       {
         "title": "Statistiques 1",
-        "term": 1,
         "objectives": [
           {
             "reference": "4S14"
@@ -3057,7 +2973,6 @@
       },
       {
         "title": "Proportionnalité en géométrie 1 (Triangles semblables)",
-        "term": 1,
         "objectives": [
           {
             "reference": "4G30"
@@ -3099,7 +3014,6 @@
       },
       {
         "title": "Calcul littéral 2",
-        "term": 1,
         "objectives": [
           {
             "reference": "3N21"
@@ -3136,7 +3050,6 @@
       },
       {
         "title": "Notion de fonction",
-        "term": 2,
         "objectives": [
           {
             "reference": "3S30"
@@ -3180,7 +3093,6 @@
       },
       {
         "title": "Calcul littéral 3",
-        "term": 2,
         "objectives": [
           {
             "reference": "3N22"
@@ -3215,7 +3127,6 @@
       },
       {
         "title": "Proportionnalité en géométrie 2 (Théorème de Thalès)",
-        "term": 2,
         "objectives": [
           {
             "reference": "4G31"
@@ -3263,7 +3174,6 @@
       },
       {
         "title": "Statistiques 2",
-        "term": 2,
         "objectives": [
           {
             "reference": "5S10"
@@ -3312,7 +3222,6 @@
       },
       {
         "title": "Proportionnalité en géométrie 3 (Trigonométrie 1)",
-        "term": 2,
         "objectives": [
           {
             "reference": "3G20"
@@ -3343,7 +3252,6 @@
       },
       {
         "title": "Nombres premiers",
-        "term": 2,
         "objectives": [
           {
             "reference": "3N10"
@@ -3389,7 +3297,6 @@
       },
       {
         "title": "Proportionnalité en géométrie 4 (Homothétie)",
-        "term": 3,
         "objectives": [
           {
             "reference": "3G11"
@@ -3411,7 +3318,6 @@
       },
       {
         "title": "Fractions",
-        "term": 3,
         "objectives": [
           {
             "reference": "3N11"
@@ -3435,7 +3341,6 @@
       },
       {
         "title": "Fonctions linéaires",
-        "term": 3,
         "objectives": [
           {
             "reference": "3S40"
@@ -3463,7 +3368,6 @@
       },
       {
         "title": "Calcul littéral 4",
-        "term": 3,
         "objectives": [
           {
             "reference": "3N23"
@@ -3488,7 +3392,6 @@
       },
       {
         "title": "Proportionnalité en géométrie 5 (Trigonométrie 2)",
-        "term": 4,
         "objectives": [
           {
             "reference": "3G21"
@@ -3510,7 +3413,6 @@
       },
       {
         "title": "Puissances",
-        "term": 4,
         "objectives": [
           {
             "reference": "4N32"
@@ -3535,7 +3437,6 @@
       },
       {
         "title": "Proportionnalité en géométrie 6 (Réciproque du théorème de Thalès)",
-        "term": 4,
         "objectives": [
           {
             "reference": "4G32"
@@ -3556,7 +3457,6 @@
       },
       {
         "title": "Fonctions affines",
-        "term": 4,
         "objectives": [
           {
             "reference": "3S50"
@@ -3590,7 +3490,6 @@
       },
       {
         "title": "Sphère et boule",
-        "term": 5,
         "objectives": [
           {
             "reference": "3G30"
@@ -3614,7 +3513,6 @@
       },
       {
         "title": "Rotations",
-        "term": 5,
         "objectives": [
           {
             "reference": "3G12"
@@ -3639,7 +3537,6 @@
       },
       {
         "title": "Grandeurs composées",
-        "term": 5,
         "objectives": [
           {
             "reference": "4P14"
@@ -3667,7 +3564,6 @@
       },
       {
         "title": "Solides et sections planes",
-        "term": 5,
         "objectives": [
           {
             "reference": "3G32"

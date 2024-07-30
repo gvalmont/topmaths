@@ -30,7 +30,7 @@ export function isStringGrades (obj: unknown): obj is StringGrade[] {
   if (obj == null || !Array.isArray(obj)) return false
   return obj.every(isStringGrade)
 }
-export function isRecordStringGrade (obj: unknown): obj is Record<StringGrade, string> {
+export function isStringRecordStringGrade (obj: unknown): obj is Record<StringGrade, string> {
   if (obj === null || typeof obj !== 'object') return false
   for (const [key, value] of Object.entries(obj)) {
     if (!isStringGrade(key) || typeof value !== 'string') {
@@ -39,14 +39,18 @@ export function isRecordStringGrade (obj: unknown): obj is Record<StringGrade, s
   }
   return true
 }
-export const emptyRecordStringGrade: Record<StringGrade, string> = {
+export function isStringRecordStringGrades (obj: unknown): obj is Record<StringGrade, string>[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isStringRecordStringGrade)
+}
+export const emptyStringRecordStringGrade: Record<StringGrade, string> = {
   none: '',
   '6e': '',
   '5e': '',
   '4e': '',
   '3e': ''
 }
-export function isArrayRecordStringGrade (obj: unknown): obj is Record<StringGrade, string[]> {
+export function isStringArrayRecordStringGrade (obj: unknown): obj is Record<StringGrade, string[]> {
   if (obj === null || typeof obj !== 'object') return false
   for (const [key, value] of Object.entries(obj)) {
     if (!isStringGrade(key) || !isStrings(value)) {
@@ -55,7 +59,43 @@ export function isArrayRecordStringGrade (obj: unknown): obj is Record<StringGra
   }
   return true
 }
-export const emptyArrayRecordStringGrade: Record<StringGrade, string[]> = {
+export const emptyStringArrayRecordStringGrade: Record<StringGrade, string[]> = {
+  none: [],
+  '6e': [],
+  '5e': [],
+  '4e': [],
+  '3e': []
+}
+export function isNumberRecordStringGrade (obj: unknown): obj is Record<StringGrade, number> {
+  if (obj === null || typeof obj !== 'object') return false
+  for (const [key, value] of Object.entries(obj)) {
+    if (!isStringGrade(key) || typeof value !== 'number') {
+      return false
+    }
+  }
+  return true
+}
+export function isNumberRecordStringGrades (obj: unknown): obj is Record<StringGrade, number>[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isNumberRecordStringGrade)
+}
+export const emptyNumberRecordStringGrade: Record<StringGrade, number> = {
+  none: 0,
+  '6e': 0,
+  '5e': 0,
+  '4e': 0,
+  '3e': 0
+}
+export function isNumberArrayRecordStringGrade (obj: unknown): obj is Record<StringGrade, number[]> {
+  if (obj === null || typeof obj !== 'object') return false
+  for (const [key, value] of Object.entries(obj)) {
+    if (!isStringGrade(key) || !Array.isArray(value) || value.some(item => typeof item !== 'number')) {
+      return false
+    }
+  }
+  return true
+}
+export const emptyNumberArrayRecordStringGrade: Record<StringGrade, number[]> = {
   none: [],
   '6e': [],
   '5e': [],

@@ -1,4 +1,4 @@
-import { emptyArrayRecordStringGrade, isArrayRecordStringGrade, isStringGrade, isStringGrades, isStrings, type StringGrade } from './shared.js'
+import { emptyStringArrayRecordStringGrade, isStringArrayRecordStringGrade, isStringGrade, isStringGrades, isStrings, type StringGrade } from './shared.js'
 
 export type ObjectiveVideo = {
   title: string,
@@ -120,12 +120,12 @@ export function isObjectiveDownloadLinks (obj: unknown): obj is ObjectiveDownloa
   if (obj == null || typeof obj !== 'object') return false
   return 'practiceSheetLink' in obj && typeof obj.practiceSheetLink === 'string' &&
     'testSheetLink' in obj && typeof obj.testSheetLink === 'string' &&
-    'lessonPlanLinks' in obj && isArrayRecordStringGrade(obj.lessonPlanLinks)
+    'lessonPlanLinks' in obj && isStringArrayRecordStringGrade(obj.lessonPlanLinks)
 }
 export const emptyObjectiveDownloadLinks: ObjectiveDownloadLinks = {
   practiceSheetLink: '',
   testSheetLink: '',
-  lessonPlanLinks: emptyArrayRecordStringGrade
+  lessonPlanLinks: emptyStringArrayRecordStringGrade
 }
 
 export type Objective = {

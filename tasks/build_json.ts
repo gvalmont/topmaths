@@ -4,9 +4,10 @@ import definitionsJson from '../src/topmaths/json/glossary/definitions.json' ass
 import propertiesJson from '../src/topmaths/json/glossary/properties.json' assert { type: 'json' }
 import objectivesMasterJson from '../src/topmaths/json/objectives.json' assert { type: 'json' }
 import unitsMasterJson from '../src/topmaths/json/units.json' assert { type: 'json' }
+import curriculumJson from '../src/topmaths/json/curriculum.json' assert { type: 'json' }
 import calendarSchoolYearMasterJson from '../src/topmaths/json/calendar.json' assert { type: 'json' }
 import type { RecursivePartial } from '../src/lib/types.js'
-import { deepCopy, emptyArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/shared.js'
+import { deepCopy, emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/shared.js'
 import { buildGradeFromObjectiveReference } from '../src/topmaths/services/environment.js'
 import { emptyObjective, emptyObjectiveVideo, isObjective, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveExercise, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks } from '../src/topmaths/types/objective.js'
 import { isUnit, isUnitMentalCalculations, type UnitMentalCalculation, type Unit, type UnitObjective, emptyUnitDownloadLinks, emptyUnitMentalCalculation, type UnitFlashQuestion, isUnitFlashQuestions, type UnitLessonPlan, isUnitLessonPlans } from '../src/topmaths/types/unit.js'
@@ -43,6 +44,7 @@ writeJson('built_calendar', calendar)
 // end of script
 
 function buildUnits (): Unit[] {
+  const termRecord = buildTermRecord()
   type UnitGrade = {
     name: StringGrade,
     units: Unit[]
@@ -53,7 +55,8 @@ function buildUnits (): Unit[] {
     if (grade.name === undefined) { console.error(grade); throw new Error('Grade name is undefined') }
     if (!isStringGrade(grade.name)) { console.error('grade name', grade.name); throw new Error('Grade name incorrect') }
     if (grade.units === undefined) { console.error(grade); throw new Error('Grade units is undefined') }
-    let unitNumber = 1
+    if (grade.units.length > termRecord[grade.name].length) { console.error(grade.units.length, termRecord[grade.name].length); throw new Error('Grade units length is greater than term record length') }
+    let unitIndex = 0
     for (const unit of grade.units) {
       if (unit === undefined) { console.error(grade.units); throw new Error('Unit is undefined') }
       unit.assessmentExamSlug = formatSlug(unit.assessmentExamSlug)
@@ -64,12 +67,12 @@ function buildUnits (): Unit[] {
       unit.flashQuestionsLink = buildFlashQuestionsLink(unit)
       unit.grade = grade.name
       unit.mentalCalculations = formatUnitMentalCalculations(unit.mentalCalculations)
-      unit.number = unitNumber
+      unit.number = unitIndex + 1
       unit.objectives = unit.objectives ? unit.objectives.map(objective => Object.assign(deepCopy(emptyObjective), objective)) : []
-      unit.term = unit.term ?? 0
+      unit.term = termRecord[grade.name][unitIndex]
       unit.reference = buildUnitReference(unit)
       unit.title = unit.title ?? ''
-      unitNumber++
+      unitIndex++
       if (!isUnit(unit)) {
         console.error(unit)
         throw new Error('Unit is not a Unit')
@@ -78,6 +81,42 @@ function buildUnits (): Unit[] {
     }
   }
   return formattedUnits
+}
+
+function buildTermRecord (): Record<StringGrade, number[]> {
+  const curriculum: RecursivePartial<Record<StringGrade, number>[]> = curriculumJson
+  const formattedCurriculum: Record<StringGrade, number>[] = curriculum.map(term => {
+    if (term === undefined) { console.error(term); throw new Error('Term is undefined') }
+    return {
+      none: term.none ?? 0,
+      '6e': term['6e'] ?? 0,
+      '5e': term['5e'] ?? 0,
+      '4e': term['4e'] ?? 0,
+      '3e': term['3e'] ?? 0
+    }
+  })
+
+  const termRecord: Record<StringGrade, number[]> = {
+    none: buildTermNumbers(formattedCurriculum.map(term => term.none)),
+    '6e': buildTermNumbers(formattedCurriculum.map(term => term['6e'])),
+    '5e': buildTermNumbers(formattedCurriculum.map(term => term['5e'])),
+    '4e': buildTermNumbers(formattedCurriculum.map(term => term['4e'])),
+    '3e': buildTermNumbers(formattedCurriculum.map(term => term['3e']))
+  }
+
+  return termRecord
+}
+
+function buildTermNumbers (unitsPerTerms: number[]): number[] {
+  const termNumbers: number[] = []
+  let termNumber = 1
+  for (const unitsPerTerm of unitsPerTerms) {
+    for (let i = 0; i < unitsPerTerm; i++) {
+      termNumbers.push(termNumber)
+    }
+    termNumber++
+  }
+  return termNumbers
 }
 
 function buildObjectives (): Objective[] {
@@ -670,7 +709,7 @@ function formatSlug (slug: string | undefined): string {
 }
 
 function buildLessonPlanDownloadLinks (objective: RecursivePartial<Objective>, objectiveGrade: StringGrade): Record<StringGrade, string[]> {
-  const downloadLinks: Record<StringGrade, string[]> = Object.assign(deepCopy(emptyArrayRecordStringGrade))
+  const downloadLinks: Record<StringGrade, string[]> = Object.assign(deepCopy(emptyStringArrayRecordStringGrade))
   stringGradeValidKeys.forEach(grade => {
     downloadLinks[grade] = []
   })
