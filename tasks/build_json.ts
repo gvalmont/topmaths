@@ -14,7 +14,7 @@ import { emptyObjective, emptyObjectiveVideo, isObjective, isObjectiveExercises,
 import { isUnit, isUnitMentalCalculations, type UnitMentalCalculation, type Unit, type UnitObjective, emptyUnitDownloadLinks, emptyUnitMentalCalculation, type UnitFlashQuestion, isUnitFlashQuestions, type UnitLessonPlan, isUnitLessonPlans } from '../src/topmaths/types/unit.js'
 import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
 import { type CalendarSchoolYearMaster, isCalendarSchoolYearMasters, type CalendarSchoolYear, isCalendarSchoolYears, type CalendarPeriod } from '../src/topmaths/types/calendar.js'
-import { type Curriculum } from '../src/topmaths/types/curriculum.js'
+import { type CurriculumGrade, type CurriculumValue, isCurriculum, type Curriculum, emptyCurriculumValue } from '../src/topmaths/types/curriculum.js'
 import { countLessonPlans } from './helpers/lesson_plans.js'
 
 const COOPMATHS_BASE_URL = 'https://coopmaths.fr/alea/?'
@@ -31,6 +31,7 @@ const THIRD_PARTY_WEBSITES = [
 
 let warningCount = 0
 let exerciseNumber = 1
+const curriculum = buildCurriculum()
 const units: Unit[] = buildUnits()
 const objectives: Objective[] = buildObjectives()
 updateUnits()
@@ -43,10 +44,11 @@ writeJson('built_objectives', objectives)
 writeJson('built_units', units)
 writeJson('glossary', glossary)
 writeJson('built_calendar', calendar)
+writeJson('built_curriculum', curriculum)
 // end of script
 
 function buildUnits (): Unit[] {
-  const termRecord = buildTermRecord()
+  const unitsTermsArray = buildUnitsTermsArray()
   type UnitGrade = {
     name: StringGrade,
     units: Unit[]
@@ -57,7 +59,7 @@ function buildUnits (): Unit[] {
     if (grade.name === undefined) { console.error(grade); throw new Error('Grade name is undefined') }
     if (!isStringGrade(grade.name)) { console.error('grade name', grade.name); throw new Error('Grade name incorrect') }
     if (grade.units === undefined) { console.error(grade); throw new Error('Grade units is undefined') }
-    if (grade.units.length > termRecord[grade.name].length) { console.error(grade.units.length, termRecord[grade.name].length); throw new Error('Grade units length is greater than term record length') }
+    if (grade.units.length > unitsTermsArray[grade.name].length) { console.error(grade.units.length, unitsTermsArray[grade.name].length); throw new Error('Grade units length is greater than term record length') }
     let unitIndex = 0
     for (const unit of grade.units) {
       if (unit === undefined) { console.error(grade.units); throw new Error('Unit is undefined') }
@@ -71,7 +73,7 @@ function buildUnits (): Unit[] {
       unit.mentalCalculations = formatUnitMentalCalculations(unit.mentalCalculations)
       unit.number = unitIndex + 1
       unit.objectives = unit.objectives ? unit.objectives.map(objective => Object.assign(deepCopy(emptyObjective), objective)) : []
-      unit.term = termRecord[grade.name][unitIndex]
+      unit.term = unitsTermsArray[grade.name][unitIndex]
       unit.reference = buildUnitReference(unit)
       unit.title = unit.title ?? ''
       unitIndex++
@@ -85,30 +87,18 @@ function buildUnits (): Unit[] {
   return formattedUnits
 }
 
-function buildTermRecord (): Record<StringGrade, number[]> {
-  const curriculum: RecursivePartial<Curriculum> = curriculumJson
-  const formattedCurriculum: Curriculum = curriculum.map(grade => {
-    if (grade === undefined) { console.error(grade); throw new Error('Grade is undefined') }
-    if (!isStringGrade(grade.name)) { console.error('grade name', grade.name); throw new Error('Grade name incorrect') }
-    return {
-      name: grade.name,
-      unitsPerTerm: grade.unitsPerTerm ? grade.unitsPerTerm.map(units => units ?? 0) : []
-    }
-  })
-
-  const termRecord: Record<StringGrade, number[]> = {
-    none: buildTermNumbers(formattedCurriculum, 'none'),
-    '6e': buildTermNumbers(formattedCurriculum, '6e'),
-    '5e': buildTermNumbers(formattedCurriculum, '5e'),
-    '4e': buildTermNumbers(formattedCurriculum, '4e'),
-    '3e': buildTermNumbers(formattedCurriculum, '3e')
+function buildUnitsTermsArray (): Record<StringGrade, number[]> {
+  return {
+    none: buildTermNumbers(curriculum, 'none'),
+    '6e': buildTermNumbers(curriculum, '6e'),
+    '5e': buildTermNumbers(curriculum, '5e'),
+    '4e': buildTermNumbers(curriculum, '4e'),
+    '3e': buildTermNumbers(curriculum, '3e')
   }
-
-  return termRecord
 }
 
 function buildTermNumbers (curriculum: Curriculum, grade: StringGrade): number[] {
-  const unitsPerTerms = curriculum.find(curriculumGrade => curriculumGrade.name === grade)?.unitsPerTerm
+  const unitsPerTerms = curriculum[grade].unitsPerTerm
   if (!unitsPerTerms) return []
   const termNumbers: number[] = []
   let termNumber = 1
@@ -368,6 +358,48 @@ function buildPeriods (schoolYearMaster: CalendarSchoolYearMaster, nextSchoolYea
     periods.push({ termIndex, start: breakStart, end: breakEnd, type: 'break' })
   }
   return periods
+}
+
+function buildCurriculum (): Curriculum {
+  const curriculumGradeArray: RecursivePartial<CurriculumGrade[]> = curriculumJson
+  const formattedGradeArray: CurriculumGrade[] = curriculumGradeArray.map(grade => {
+    if (grade === undefined) { console.error(grade); throw new Error('Grade is undefined') }
+    if (!isStringGrade(grade.name)) { console.error('grade name', grade.name); throw new Error('Grade name incorrect') }
+    const unitsPerTerm = grade.unitsPerTerm?.map(units => units ?? 0) ?? []
+    return {
+      name: grade.name,
+      unitsPerTerm,
+      cumulateUnitsPerTerm: unitsPerTerm
+        ? unitsPerTerm.map((_nbUnits, index) => {
+          return unitsPerTerm.slice(0, index + 1).reduce((sum, nbUnits) => sum + nbUnits)
+        })
+        : []
+    }
+  })
+  const curriculumCandidate = {
+    none: deepCopy(emptyCurriculumValue),
+    '6e': buildCurriculumValue(formattedGradeArray, '6e'),
+    '5e': buildCurriculumValue(formattedGradeArray, '5e'),
+    '4e': buildCurriculumValue(formattedGradeArray, '4e'),
+    '3e': buildCurriculumValue(formattedGradeArray, '3e')
+  }
+  if (!isCurriculum(curriculumCandidate)) {
+    console.error(curriculumCandidate)
+    throw new Error('Curriculum is not a Curriculum')
+  }
+  return curriculumCandidate
+}
+
+function buildCurriculumValue (formattedGradeArray: CurriculumGrade[], grade: StringGrade): CurriculumValue {
+  const curriculumGrade = formattedGradeArray.find(curriculumGrade => curriculumGrade.name === grade)
+  if (!curriculumGrade) {
+    console.error(grade)
+    throw new Error('Curriculum grade not found')
+  }
+  return {
+    unitsPerTerm: curriculumGrade.unitsPerTerm,
+    cumulateUnitsPerTerm: curriculumGrade.cumulateUnitsPerTerm
+  }
 }
 
 function routineCheck (): void {

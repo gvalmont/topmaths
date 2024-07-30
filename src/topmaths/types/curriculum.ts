@@ -1,13 +1,16 @@
 import { isStringGrade, type StringGrade } from './grade.js'
+import { deepCopy } from './shared.js'
 
 export type CurriculumGrade = {
   name: StringGrade
   unitsPerTerm: number[]
+  cumulateUnitsPerTerm: number[]
 }
 export function isCurriculumGrade (obj: unknown): obj is CurriculumGrade {
   if (obj == null || typeof obj !== 'object') return false
   return 'name' in obj && isStringGrade(obj.name) &&
-    'unitsPerTerm' in obj && Array.isArray(obj.unitsPerTerm) && obj.unitsPerTerm.every(item => typeof item === 'number')
+    'unitsPerTerm' in obj && Array.isArray(obj.unitsPerTerm) && obj.unitsPerTerm.every(item => typeof item === 'number') &&
+    'cumulateUnitsPerTerm' in obj && Array.isArray(obj.cumulateUnitsPerTerm) && obj.cumulateUnitsPerTerm.every(item => typeof item === 'number')
 }
 export function isCurriculumGrades (obj: unknown): obj is CurriculumGrade[] {
   if (obj == null || !Array.isArray(obj)) return false
@@ -15,15 +18,41 @@ export function isCurriculumGrades (obj: unknown): obj is CurriculumGrade[] {
 }
 export const emptyCurriculumGrade: CurriculumGrade = {
   name: 'none',
-  unitsPerTerm: []
+  unitsPerTerm: [],
+  cumulateUnitsPerTerm: []
 }
 
-export type Curriculum = CurriculumGrade[]
-export function isCurriculum (obj: unknown): obj is Curriculum {
-  if (obj == null || !Array.isArray(obj)) return false
-  return obj.every(isCurriculumGrade)
+export type CurriculumValue = {
+  unitsPerTerm: number[]
+  cumulateUnitsPerTerm: number[]
 }
-export function isCurriculums (obj: unknown): obj is Curriculum[] {
+export function isCurriculumValue (obj: unknown): obj is CurriculumValue {
+  if (obj == null || typeof obj !== 'object') return false
+  return 'unitsPerTerm' in obj && Array.isArray(obj.unitsPerTerm) && obj.unitsPerTerm.every(item => typeof item === 'number') &&
+    'cumulateUnitsPerTerm' in obj && Array.isArray(obj.cumulateUnitsPerTerm) && obj.cumulateUnitsPerTerm.every(item => typeof item === 'number')
+}
+export function isCurriculumValues (obj: unknown): obj is CurriculumValue[] {
   if (obj == null || !Array.isArray(obj)) return false
-  return obj.every(isCurriculum)
+  return obj.every(isCurriculumValue)
+}
+export const emptyCurriculumValue: CurriculumValue = {
+  unitsPerTerm: [],
+  cumulateUnitsPerTerm: []
+}
+
+export type Curriculum = {
+  // eslint-disable-next-line no-unused-vars
+  [K in StringGrade]: CurriculumValue
+}
+export function isCurriculum (obj: unknown): obj is Curriculum {
+  if (obj == null || typeof obj !== 'object') return false
+  const entries = Object.entries(obj)
+  return entries.every(([key, value]) => isStringGrade(key) && isCurriculumValue(value))
+}
+export const emptyCurriculum: Curriculum = {
+  none: deepCopy(emptyCurriculumValue),
+  '6e': deepCopy(emptyCurriculumValue),
+  '5e': deepCopy(emptyCurriculumValue),
+  '4e': deepCopy(emptyCurriculumValue),
+  '3e': deepCopy(emptyCurriculumValue)
 }

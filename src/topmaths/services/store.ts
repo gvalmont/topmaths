@@ -6,6 +6,7 @@ import { deepCopy } from '../types/shared.js'
 import { type TopmathsView } from '../types/navigation.js'
 import { emptyCalendarSchoolYear, type CalendarSchoolYear } from '../types/calendar.js'
 import type { VueType } from '../../lib/types.js'
+import { emptyCurriculum, type Curriculum } from '../types/curriculum'
 
 // libraries
 export const units = writable<Unit[]>([])
@@ -13,6 +14,7 @@ export const specialUnits = writable<UnitSpecial[]>([])
 export const objectives = writable<Objective[]>([])
 export const glossary = writable<GlossaryUniteItem[]>([])
 export const calendar = writable<CalendarSchoolYear>(deepCopy(emptyCalendarSchoolYear))
+export const curriculum = writable<Curriculum>(emptyCurriculum)
 
 // url parameters
 export const view = writable<VueType | TopmathsView>('accueil')
@@ -24,5 +26,4 @@ export const isTeacherMode = writable<boolean>(false)
 export const isPersonalMode = writable<boolean>(false)
 
 // other
-export const exerciseLink = writable<string>('')
 export const exerciseLinks = writable<string[]>([])

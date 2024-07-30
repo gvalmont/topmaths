@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { exerciseLinks, objectives, units, view } from '../services/store'
+  import { curriculum, exerciseLinks, objectives, units, view } from '../services/store'
   import { isCoopmaths } from '../services/shared'
   import { COOPMATHS_BASE_URL } from '../services/environment'
   import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
   import { getCurrentTerm, getWeekIndexInCurrentTerm } from '../services/calendar'
+  import { type StringGrade } from '../types/grade'
 
-  let niveauChoisi = 'tout'
+  let niveauChoisi = 'all'
   const currentTerm = getCurrentTerm()
-  const numeroPeriode = currentTerm.termIndex + 1
   const isHoliday = currentTerm.type === 'break'
   const semaineDansLaPeriode = getWeekIndexInCurrentTerm()
 
@@ -34,12 +34,10 @@
     view.set('exercices')
   }
 
-  function getListeDesReferences (
-    niveauChoisi: string
-  ) {
+  function getListeDesReferences (niveauChoisi: string) {
     const listeDesReferences: string[] = []
     for (const unit of $units) {
-      if (unit.grade === niveauChoisi || niveauChoisi === 'tout') {
+      if (unit.grade === niveauChoisi || niveauChoisi === 'all') {
         const derniereSequence = getDerniereSequence(unit.grade)
         if (unit.number <= derniereSequence) {
           for (const objectif of unit.objectives) {
@@ -86,38 +84,16 @@
     return listeDesUrl
   }
 
-  function getDerniereSequence (niveau: string) {
-    const nbSequencesCumulees = getNbSequencesCumulees(niveau)
-
-    const nbSequencesDebutPeriode = nbSequencesCumulees[numeroPeriode - 1]
+  function getDerniereSequence (niveau: StringGrade) {
+    const nbSequencesDebutPeriode = $curriculum[niveau].cumulateUnitsPerTerm[currentTerm.termIndex]
     const nbSequencesDevine = nbSequencesDebutPeriode + semaineDansLaPeriode - 2
-    const nbSequencesFinPeriode = nbSequencesCumulees[numeroPeriode] - 1
+    const nbSequencesFinPeriode = $curriculum[niveau].cumulateUnitsPerTerm[currentTerm.termIndex + 1] - 1
 
     if (!isHoliday) {
       return Math.min(nbSequencesDevine, nbSequencesFinPeriode)
     } else {
       return nbSequencesFinPeriode
     }
-  }
-
-  function getNbSequencesCumulees (nomNiveau: string) {
-    const niveau = $units.filter(unit => unit.grade === nomNiveau)
-    let periode = 1
-    let nbSequences = 0
-    const nbSequencesCumulees = [0]
-    if (niveau === undefined) return nbSequencesCumulees
-    for (const sequence of niveau) {
-      if (sequence.term === periode) {
-        nbSequences++
-      } else {
-        nbSequencesCumulees.push(nbSequences)
-        nbSequences++
-        periode = sequence.term
-      }
-    }
-    nbSequencesCumulees.push(nbSequences)
-    nbSequences++
-    return nbSequencesCumulees
   }
 </script>
 

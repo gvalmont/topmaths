@@ -1,13 +1,15 @@
-import { objectives as storeObjectives, units as storeUnits, specialUnits as storeSpecialUnits, calendar as storeCalendar, glossary as storeGlossary } from './store'
+import { objectives as storeObjectives, units as storeUnits, specialUnits as storeSpecialUnits, calendar as storeCalendar, glossary as storeGlossary, curriculum as storeCurriculum } from './store'
 import unitsJson from '../../topmaths/json/built_units.json'
 import objectivesJson from '../../topmaths/json/built_objectives.json'
 import glossaryJson from '../../topmaths/json/glossary.json'
 import specialUnitsJson from '../../topmaths/json/special_units.json'
 import calendarJson from '../../topmaths/json/built_calendar.json'
+import curriculumJson from '../../topmaths/json/built_curriculum.json'
 import { isGlossaryUniteItems } from '../types/glossary'
 import { isUnits, isUnitSpecials } from '../types/unit'
 import { isObjectives } from '../types/objective'
 import { parseSchoolYear } from './calendar'
+import { isCurriculum } from '../types/curriculum'
 
 export function cacheData (): void {
   cacheUnits()
@@ -15,6 +17,7 @@ export function cacheData (): void {
   cacheSpecialUnits()
   cacheGlossary()
   cacheCalendar()
+  cacheCurriculum()
 }
 
 function cacheUnits (): void {
@@ -55,4 +58,13 @@ function cacheCalendar (): void {
   const now = new Date()
   const currentYear = parsedCalendar.find(schoolYear => schoolYear.start <= now && schoolYear.end >= now) ?? parsedCalendar[0]
   storeCalendar.set(currentYear)
+}
+
+function cacheCurriculum (): void {
+  const curriculum = curriculumJson
+  if (!isCurriculum(curriculum)) {
+    console.error(curriculum)
+    throw new Error('curriculum.json is not a Curriculum')
+  }
+  storeCurriculum.set(curriculum)
 }

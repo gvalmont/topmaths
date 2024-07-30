@@ -1,4 +1,4 @@
-import { exerciseLinks, exerciseLink, view, reference } from './store'
+import { exerciseLinks, view, reference } from './store'
 import { isCoopmaths, removeSeed } from './shared'
 import type { TopmathsView } from '../types/navigation'
 
@@ -23,7 +23,7 @@ export function launchExercise (link: string): void {
 }
 
 function launchMathaleaExercise (link: string): void {
-  exerciseLink.set(removeSeed(link))
+  exerciseLinks.set([removeSeed(link)])
   view.set('exercices')
 }
 

@@ -6,7 +6,7 @@ import { isUnits, type UnitLessonPlan, type Unit, type UnitObjective, emptyUnitL
 import units from '../src/topmaths/json/built_units.json' assert { type: 'json' }
 import { countLessonPlans } from './helpers/lesson_plans.js'
 import { buildGradeFromObjectiveReference } from '../src/topmaths/services/reference.js'
-import { getTitle } from '../src/topmaths/services/outils.js'
+import { getTitle } from '../src/topmaths/services/shared.js'
 
 const SOURCE_ROOT = './src/topmaths/typ'
 const LESSONS = 'cours'

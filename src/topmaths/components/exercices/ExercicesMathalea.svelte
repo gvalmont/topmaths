@@ -14,7 +14,7 @@
   import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
   import ExerciceMathalea from './exerciceMathalea/ExerciceMathalea.svelte'
   import { getParamsFromUrl, getUrlFromParams, isVueAlreadyInUrl, updateUrlFromParams } from '../../services/mathalea'
-  import { exerciseLinks, exerciseLink } from '../../services/store'
+  import { exerciseLinks } from '../../services/store'
   import HeaderExerciceMathalea from './presentationalComponents/HeaderExerciceMathalea.svelte'
   import seedrandom from 'seedrandom'
   import { randint } from '../../../modules/outils'
@@ -42,7 +42,6 @@
   onMount(async () => {
     let url: string
     if ($exerciseLinks.length > 0) url = $exerciseLinks[randint(0, $exerciseLinks.length - 1)]
-    else if ($exerciseLink !== '') url = $exerciseLink
     else url = window.location.href
     initComponent(url)
     if (!isVueAlreadyInUrl('exercices')) updateUrlFromParams('exercices', exercicesParams)
