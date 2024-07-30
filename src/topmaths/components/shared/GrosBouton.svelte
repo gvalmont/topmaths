@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { Couleur } from 'src/topmaths/types/shared'
+  import type { ThemeColor } from 'src/topmaths/types/shared'
   import { goToView } from '../../services/navigation'
 
   export let vue: string
   // eslint-disable-next-line no-undef-init
   export let ref: string | undefined = undefined
-  export let couleur: Couleur
+  export let couleur: ThemeColor
   export let texte: string
   export let lienImage: string = ''
   export let altImage: string = ''

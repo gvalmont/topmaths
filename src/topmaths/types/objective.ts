@@ -1,4 +1,5 @@
-import { emptyStringArrayRecordStringGrade, isStringArrayRecordStringGrade, isStringGrade, isStringGrades, isStrings, type StringGrade } from './shared.js'
+import { emptyStringArrayRecordStringGrade, isStringArrayRecordStringGrade, isStringGrade, isStringGrades, type StringGrade } from './grade.js'
+import { isStrings } from './shared.js'
 
 export type ObjectiveVideo = {
   title: string,

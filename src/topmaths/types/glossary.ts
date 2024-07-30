@@ -1,4 +1,4 @@
-import { isStringGrade, type StringGrade } from './shared.js'
+import { isStringGrade, type StringGrade } from './grade.js'
 
 export type GlossaryRelatedItem = {
   reference: string,

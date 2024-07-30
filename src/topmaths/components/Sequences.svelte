@@ -9,7 +9,7 @@
   import type { Unsubscriber } from 'svelte/store'
   import { writable, derived } from 'svelte/store'
   import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
-  import { isLineGrade, type LineGrade } from '../types/shared'
+  import { isLineGrade, type LineGrade } from '../types/grade'
   import type { Unit } from '../types/unit'
 
   interface Ligne {

@@ -1,4 +1,4 @@
-import { isStringGrade, type StringGrade } from '../types/shared.js'
+import { isStringGrade, type StringGrade } from '../types/grade.js'
 
 export const COOPMATHS_BASE_URL = 'https://coopmaths.fr/alea/?'
 

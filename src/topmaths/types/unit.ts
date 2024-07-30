@@ -1,5 +1,6 @@
 import { emptyObjectiveLessonPlan, isObjectiveExercises, isObjectiveLessonPlan, type ObjectiveExercise, type ObjectiveLessonPlan } from './objective.js'
-import { deepCopy, isStringGrade, type StringGrade } from './shared.js'
+import { deepCopy } from './shared.js'
+import { isStringGrade, type StringGrade } from './grade.js'
 
 export type UnitLessonPlan = ObjectiveLessonPlan & {
   reference: string
