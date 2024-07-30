@@ -5,7 +5,7 @@
   import { goToView } from '../services/navigation'
   import Objectifs from './Objectifs.svelte'
   import Objectif from './Objectif.svelte'
-  import { storage } from '../services/storage'
+  import Storage from '../modules/Storage'
   import OutilsPourLaClasse from './OutilsPourLaClasse.svelte'
   import Mathador from './outils-pour-la-classe/Mathador.svelte'
   import GenerateurDePortraits from './outils-pour-la-classe/GenerateurDePortraits.svelte'
@@ -13,7 +13,7 @@
   import MentionsLegales from './MentionsLegales.svelte'
   import PolitiqueDeConfidentialite from './PolitiqueDeConfidentialite.svelte'
   import Panier from './Panier.svelte'
-  import { onMount } from 'svelte'
+  import { onDestroy, onMount } from 'svelte'
   import { ElementInstrumenpoche } from '../../modules/ElementInstrumenpoche'
   import Progressions from './outils-pour-la-classe/Progressions.svelte'
   import OutilsPourLesEleves from './OutilsPourLesEleves.svelte'
@@ -21,34 +21,47 @@
   import Revisions from './Revisions.svelte'
   import Telechargements from './outils-pour-les-eleves/Telechargements.svelte'
   import Tutos from './outils-pour-les-eleves/Tutos.svelte'
-  import { isTeacherMode, isPersonalMode, isCartEmpty, reference, view } from '../services/store'
+  import { isTeacherMode, isPersonalMode, reference, view } from '../services/store'
   import Informations from './Informations.svelte'
   import ExercicesMathalea from './exercices/ExercicesMathalea.svelte'
   import HeadTabsMenu from './presentationalComponents/headTabsMenu/HeadTabsMenu.svelte'
   import { cacheData } from '../services/data'
   import { isTopmathsView } from '../types/navigation'
+  import Cart from '../modules/Cart'
+    import type { CartItem } from '../types/cart';
 
   if (customElements.get('alea-instrumenpoche') === undefined) {
     customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
   }
 
   const year = new Date().getFullYear()
+  let isCartEmpty: boolean = false
   let innerWidth: number
   let isMd: boolean
   $: isMd = innerWidth >= 768
 
   onMount(() => {
     cacheData()
+    addEventListener('popstate', updateParams)
+    Cart.subscribe(handleCartUpdate)
     updateParams()
   })
 
-  addEventListener('popstate', updateParams)
+  onDestroy(() => {
+    removeEventListener('popstate', updateParams)
+    Cart.unsubscribe(handleCartUpdate)
+  })
+
+  function handleCartUpdate (cartItems: CartItem[]): void {
+    isCartEmpty = cartItems.length === 0
+  }
+
   function updateParams (): void {
     updateParamsFromUrl()
-    updateBasket()
+    Cart.updateFromStorage()
     startTimeInterval()
-    storage.getTeacherModeState()
-    storage.getPersoModeState()
+    Storage.getTeacherModeState()
+    Storage.getPersoModeState()
   }
 
   function updateParamsFromUrl (): void {
@@ -63,11 +76,6 @@
       }
       if (entry[0] === 'ref') reference.set(entry[1])
     }
-  }
-
-  function updateBasket (): void {
-    const basket = storage.get('cart')
-    if (basket !== undefined && basket[0] !== undefined) isCartEmpty.set(false)
   }
 
   function startTimeInterval (): void {
@@ -120,7 +128,7 @@
     {isMd}
     vue={$view}
     onHeadTabsMenuClicked={goToView}
-    isBasketAvailable={!$isCartEmpty}
+    isCartAvailable={!isCartEmpty}
   />
 </div>
 <!-- Affichage principal -->
@@ -167,7 +175,7 @@
     {:else if $view === 'perso'}
       <div class="has-text-centered">
         <button class="button" class:is-success = {!$isPersonalMode} class:is-danger = {$isPersonalMode} on:click={() => {
-          $isPersonalMode ? storage.desactiverModePerso() : storage.activerModePerso()
+          $isPersonalMode ? Storage.desactiverModePerso() : Storage.activerModePerso()
         }}>
           {$isPersonalMode ? 'Désactiver le mode perso' : 'Activer le mode perso'}
         </button>

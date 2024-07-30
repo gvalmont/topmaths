@@ -1,45 +1,34 @@
 <script lang="ts">
   import { isCartItem, type CartItem } from '../types/cart'
   import { COOPMATHS_BASE_URL } from '../services/environment'
-  import { launchExercise } from '../services/navigation'
-  import { storage } from '../services/storage'
-  import { isCartEmpty, view } from '../services/store'
+  import { goToView, launchExercise } from '../services/navigation'
+  import Storage from '../modules/Storage'
   import { copyLink } from '../services/shared'
   import { getParamsFromUrl, updateUrlFromParams } from '../services/mathalea'
 
-  let lien = ''
-  let references = [] as string[]
-  let panier = [] as CartItem[]
-  MAJLien()
+  let cartLink = ''
+  let cart: CartItem[] = []
+  updateCart()
 
   function retirerDuPanier (panierItem: CartItem): void {
-    const panierTemp = storage.get('cart') as CartItem[]
+    const panierTemp = Storage.get('cart') as CartItem[]
     const nouveauPanier = panierTemp.filter(
       (item) => item.id !== panierItem.id
     )
-    storage.set('cart', nouveauPanier)
-    MAJLien()
+    Storage.set('cart', nouveauPanier)
+    updateCart()
   }
 
-  function viderLePanier (): void {
-    storage.set('cart', [])
-    isCartEmpty.set(true)
-    view.set('accueil')
+  function viderLePanier (mouseEvent: MouseEvent): void {
+    Storage.set('cart', [])
+    goToView(mouseEvent, 'accueil')
   }
 
-  function MAJLien (): void {
-    lien = COOPMATHS_BASE_URL
-    references = []
-    panier = storage.get('cart').filter((item: unknown) => isCartItem(item))
-    for (const panierItem of panier) {
-      if (panierItem !== null && panierItem !== undefined) {
-        if (panierItem.slug.slice(0, 4) !== 'http' && panierItem.slug !== '') {
-          lien = lien.concat(panierItem.slug, '&i=0&')
-          references.push(panierItem.objectiveReference)
-        }
-      }
-    }
-    lien = lien.concat('v=exercices')
+  function updateCart (): void {
+    cart = Storage.get('cart')
+      .filter(isCartItem)
+      .filter((cartItem: CartItem) => cartItem.slug.slice(0, 4) !== 'http' && cartItem.slug !== '')
+    cartLink = COOPMATHS_BASE_URL + cart.join('&i=0&') + 'v=exercices'
   }
 </script>
 
@@ -55,24 +44,24 @@
     Panier
   </h1>
   <h3 class="title is-2 is-inline-block is-fuchsia p-6 md:p-8">
-    <button class="mx-2 md:mx-4" on:click={() => copyLink(lien, false)}>
+    <button class="mx-2 md:mx-4" on:click={() => copyLink(cartLink, false)}>
       <i>
         <img class="size-12 md:size-16" src="/topmaths/img/cc0/copy-interface-symbol-svgrepo-com.svg" alt="Documents copiés" />
       </i>
     </button>
-    <button class="mx-2 md:mx-4" on:click={() => launchExercise(lien)}>
+    <button class="mx-2 md:mx-4" on:click={() => launchExercise(cartLink)}>
       <i>
         <img class="size-12 md:size-16" src="/topmaths/img/cc0/fullscreen-svgrepo-com.svg" alt="Lancer en plein écran" />
       </i>
     </button>
-    <button class="mx-2 md:mx-4" on:click={() => viderLePanier()}>
+    <button class="mx-2 md:mx-4" on:click={(mouseEvent) => viderLePanier(mouseEvent)}>
       <i>
         <img class="size-12 md:size-16" src="/topmaths/img/cc0/cart-remove-svgrepo-com.svg" alt="Caddie avec une crois à l'intérieur" />
       </i>
     </button>
     <button
       class="mx-2 md:mx-4" on:click={() => {
-        const params = getParamsFromUrl(lien)
+        const params = getParamsFromUrl(cartLink)
         updateUrlFromParams('latex', params)
       }}
     >
@@ -82,7 +71,7 @@
     </button>
   </h3>
   <ul>
-    {#each panier as panierItem}
+    {#each cart as panierItem}
       <li class="is-size-5">
         {#if panierItem !== null && panierItem !== undefined}
         <div class="is-{panierItem.label.slice(0, 1)}e">

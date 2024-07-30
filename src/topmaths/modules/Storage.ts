@@ -1,39 +1,46 @@
-import { isTeacherMode, isPersonalMode } from './store'
+import { isTeacherMode, isPersonalMode } from '../services/store'
 
-export const storage = {
-  getTeacherModeState () {
+export default class Storage {
+  static getTeacherModeState (): void {
     const obj = localStorage.getItem('teacherMode')
     if (obj !== null) isTeacherMode.set(JSON.parse(obj))
-  },
-  getPersoModeState () {
+  }
+
+  static getPersoModeState (): void {
     const obj = localStorage.getItem('modePerso')
     if (obj !== null) isPersonalMode.set(JSON.parse(obj))
-  },
-  activateTeacherMode () {
+  }
+
+  static activateTeacherMode (): void {
     localStorage.setItem('teacherMode', JSON.stringify(true))
     isTeacherMode.set(true)
-  },
-  deactivateTeacherMode () {
+  }
+
+  static deactivateTeacherMode (): void {
     localStorage.setItem('teacherMode', JSON.stringify(false))
     isTeacherMode.set(false)
-  },
-  activerModePerso () {
+  }
+
+  static activerModePerso (): void {
     localStorage.setItem('modePerso', JSON.stringify(true))
     isPersonalMode.set(true)
-  },
-  desactiverModePerso () {
+  }
+
+  static desactiverModePerso (): void {
     localStorage.setItem('modePerso', JSON.stringify(false))
     isPersonalMode.set(false)
-  },
-  get (key: string) {
+  }
+
+  static get (key: string): unknown {
     const obj = sessionStorage.getItem(key)
     if (obj !== null) return JSON.parse(obj)
-  },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  set (key: string, objet: any) {
+  }
+
+  static set (key: string, objet: unknown): void {
     sessionStorage.setItem(key, JSON.stringify(objet))
-  },
-  delete (key: string) {
+  }
+
+  static delete (key: string): void {
     sessionStorage.removeItem(key)
   }
 }

@@ -2,7 +2,7 @@
   import TabsMenuLink from './TabsMenuLink.svelte'
 
   export let isMd: boolean
-  export let isBasketAvailable: boolean
+  export let isCartAvailable: boolean
   export let vue: string
   export let onHeadTabsMenuClicked: (event: MouseEvent, vue: string) => void
 
@@ -66,7 +66,7 @@
     />
     <TabsMenuLink
       destinationVue={'panier'}
-      displayCondition={isBasketAvailable}
+      displayCondition={isCartAvailable}
       activeCondition={vue === 'panier'}
       color={'fuchsia'}
       imgSrc={'topmaths/img/cc0/cart-content-svgrepo-com.svg'}

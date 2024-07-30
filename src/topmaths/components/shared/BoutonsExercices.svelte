@@ -4,7 +4,7 @@
   import type { ObjectiveExercise, ObjectiveVideo } from '../../types/objective'
   import { isTeacherMode } from '../../services/store'
   import { copyLink, isCoopmaths } from '../../services/shared'
-  import { toutAjouterAuPanier } from '../../services/cart'
+  import Cart from '../../modules/Cart'
   import { COOPMATHS_BASE_URL } from '../../services/environment'
   import { getParamsFromUrl, updateUrlFromParams } from '../../services/mathalea'
 
@@ -73,7 +73,7 @@
       </button>
     </span>
     &nbsp;
-    <button on:click={() => copyLink(creerLienCapytale(), false, true, true)}>
+    <button on:click={() => copyLink(creerLienCapytale(), false, true)}>
       <IconeTooltipSimple
         urlBouton="/topmaths/img/gvalmont/capytale.svg"
         texteDropdown = {'Créer un lien pour une utilisation avec CAPYTALE'}
@@ -92,7 +92,7 @@
     {:else}
       <button
         on:click={() => {
-          toutAjouterAuPanier(exercices, reference, nomsPanier, indiceExercice, exercicesDeBrevet)
+          Cart.addExercises(exercices, reference, nomsPanier, indiceExercice, exercicesDeBrevet)
           panierRempli = true
         }}
       >

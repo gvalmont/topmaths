@@ -1,14 +1,14 @@
 <script lang="ts">
   import { isTeacherMode } from '../services/store'
-  import { storage } from '../services/storage'
+  import Storage from '../modules/Storage'
   import GrosBouton from './shared/GrosBouton.svelte'
 
   function activateTeacherMode () {
-    storage.activateTeacherMode()
+    Storage.activateTeacherMode()
   }
 
   function deactivateTeacherMode () {
-    storage.deactivateTeacherMode()
+    Storage.deactivateTeacherMode()
   }
 
 </script>

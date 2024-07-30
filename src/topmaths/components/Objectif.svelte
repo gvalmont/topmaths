@@ -6,7 +6,7 @@
     units,
     reference
   } from '../services/store'
-  import { emptyObjective, isObjective, type Objective } from '../types/objective'
+  import { emptyObjective, isObjective, type Objective, type ObjectiveExercise } from '../types/objective'
   import { getTitle } from '../services/shared'
   import { goToView } from '../services/navigation'
   import { afterUpdate, onDestroy, tick } from 'svelte'
@@ -14,10 +14,7 @@
   import {
     mathaleaRenderDiv
   } from '../../lib/mathalea'
-  import {
-    estPresentDansLePanier,
-    tousLesExercicesSontPresentsDansLePanier
-  } from '../services/cart'
+  import Cart from '../modules/Cart'
   import iepLoadPromise from 'instrumenpoche'
   import BoutonsExercices from './shared/BoutonsExercices.svelte'
   import DownloadLine from './shared/DownloadLine.svelte'
@@ -87,10 +84,22 @@
     }
   }
 
+  function tousLesExercicesSontPresentsDansLePanier (objectif: Objective, exDeBrevet = false): boolean {
+    let exercices: ObjectiveExercise[]
+    if (exDeBrevet) exercices = objectif.examExercises
+    else exercices = objectif.exercises
+    if (exercices !== undefined) {
+      for (const exercice of exercices) {
+        if (!exercice.isInCart) return false
+      }
+    }
+    return true
+  }
+
   function MAJPanier () {
     for (const exercice of objectif.exercises) {
       if (exercice.slug !== '') {
-        exercice.isInCart = estPresentDansLePanier(exercice.id)
+        exercice.isInCart = Cart.includes(exercice.id)
       }
     }
     tousLesExercicesSontDansLePanier =
@@ -98,7 +107,7 @@
     if (objectif.examExercises !== undefined) {
       for (const exercice of objectif.examExercises) {
         if (exercice.slug !== '') {
-          exercice.isInCart = estPresentDansLePanier(exercice.id)
+          exercice.isInCart = Cart.includes(exercice.id)
         }
       }
       exercicesDeBrevetDansLePanier = tousLesExercicesSontPresentsDansLePanier(
