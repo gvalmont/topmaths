@@ -4,6 +4,9 @@ import TypeExercice from '../exercices/Exercice'
 import { mathaleaHandleExerciceSimple } from './mathalea.js'
 import seedrandom from 'seedrandom'
 import { getLang } from './stores/languagesStore'
+import { buildThemeFromReference } from '../topmaths/services/reference'
+import { reference } from '../topmaths/services/store'
+import { get } from 'svelte/store'
 // printPrettier pose problème avec begin{aligned}[t] en ajoutant un saut de ligne problématique
 // import { printPrettier } from 'prettier-plugin-latex/standalone.js'
 
@@ -282,7 +285,7 @@ Correction
         contents.intro += '\n\\clearpage'
       } else {
         contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(latexFileInfos, contents)}\n\n`
-        contents.preamble += `\\Theme[${latexFileInfos.style}]{nombres}{${latexFileInfos.title}}{${latexFileInfos.reference}}{${latexFileInfos.subtitle}}`
+        contents.preamble += `\\Theme[${latexFileInfos.style}]{${buildThemeFromReference(get(reference))}}{${latexFileInfos.title}}{${latexFileInfos.reference}}{${latexFileInfos.subtitle}}`
         contents.intro += '\n\\begin{document}\n'
       }
     }

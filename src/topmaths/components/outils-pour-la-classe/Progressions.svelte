@@ -1,7 +1,7 @@
 <script lang="ts">
   import { isTeacherMode, units, isTitleAcademicPreferred } from '../../services/store'
   import { normalize } from '../../services/shared'
-  import { buildPdfThemeFromReference } from '../../services/reference'
+  import { buildThemeFromReference } from '../../services/reference'
   import { goToView } from '../../services/navigation'
   import { writable, derived } from 'svelte/store'
   import type { UnitMentalCalculation, UnitObjective, UnitFlashQuestion, Unit } from '../../types/unit'
@@ -195,7 +195,7 @@
                 <!-- Objectifs -->
                 <div class="column is-4 flex flex-col">
                   {#each ligne.objectives as objectif}
-                  <div class="columns is-theme-{buildPdfThemeFromReference(objectif.reference)} flex-grow">
+                  <div class="columns is-theme-{buildThemeFromReference(objectif.reference)} flex-grow">
                     <div class="column is-narrow flex self-center justify-center">
                       <a
                         href="/?v=objectif&ref={objectif.reference}"
@@ -218,7 +218,7 @@
                   <div class="column is-4 flex flex-col">
                     {#each ligne.flashQuestions as questionFlash, i}
                       {#if questionFlash.reference !== '' && questionFlash.reference !== '' && (i === 0 || ligne.flashQuestions[i].reference !== ligne.flashQuestions[i - 1].reference)}
-                        <div class="columns is-theme-{buildPdfThemeFromReference(questionFlash.reference)} flex flex-grow">
+                        <div class="columns is-theme-{buildThemeFromReference(questionFlash.reference)} flex flex-grow">
                           <div class="column is-narrow flex self-center justify-center">
                             <a
                               href="/?v=objectif&ref={questionFlash.reference}"
@@ -239,7 +239,7 @@
                   <div class="column flex flex-col">
                     {#each ligne.mentalCalculations as calculMental}
                       {#if calculMental.reference !== '' && calculMental.reference !== ''}
-                        <div class="columns is-theme-{buildPdfThemeFromReference(calculMental.reference)} flex-grow"
+                        <div class="columns is-theme-{buildThemeFromReference(calculMental.reference)} flex-grow"
                         style="{i < $units.length && ((filtre.period > 0 && $units[i].term !== $units[i + 1].term) || $lignesFiltreesSequencesNormales[i + 1].grade === 'end') ? 'border-radius: 0px 0px 50px 0px;' : ''}">
                           <div class="column is-narrow flex self-center justify-center">
                             <a
