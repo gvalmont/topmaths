@@ -4,7 +4,7 @@
   import { launchExercise } from '../services/navigation'
   import { storage } from '../services/storage'
   import { isCartEmpty, view } from '../services/store'
-  import { copierLien } from '../services/outils'
+  import { copyLink } from '../services/outils'
   import { getParamsFromUrl, updateUrlFromParams } from '../services/mathalea'
 
   let lien = ''
@@ -55,7 +55,7 @@
     Panier
   </h1>
   <h3 class="title is-2 is-inline-block is-fuchsia p-6 md:p-8">
-    <button class="mx-2 md:mx-4" on:click={() => copierLien(lien, false)}>
+    <button class="mx-2 md:mx-4" on:click={() => copyLink(lien, false)}>
       <i>
         <img class="size-12 md:size-16" src="/topmaths/img/cc0/copy-interface-symbol-svgrepo-com.svg" alt="Documents copiés" />
       </i>

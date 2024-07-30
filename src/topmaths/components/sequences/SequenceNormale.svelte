@@ -6,7 +6,7 @@
   } from '../../services/store'
   import type { ObjectiveExercise } from '../../types/objective'
   import { emptyUnitDownloadLinks, type Unit } from '../../types/unit'
-  import { getTitre } from '../../services/outils'
+  import { getTitle } from '../../services/outils'
   import { goToView } from '../../services/navigation'
   import { onDestroy } from 'svelte'
   import type { Unsubscriber } from 'svelte/store'
@@ -77,7 +77,7 @@
     for (const objectif of sequence.objectives) {
       for (const exercice of objectif.exercises) {
         exercicesSequence.push(exercice)
-        nomsExercicesSequence.push(objectif.reference + ' ' + getTitre(objectif))
+        nomsExercicesSequence.push(objectif.reference + ' ' + getTitle(objectif))
       }
     }
   }
@@ -100,7 +100,7 @@
             href="/?v=objectif&ref={objectif.reference}"
             on:click={(event) => goToView(event, 'objectif', objectif.reference)}
           >
-            {objectif.reference} : {getTitre(objectif)}
+            {objectif.reference} : {getTitle(objectif)}
           </a>
         </li>
       {/if}

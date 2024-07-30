@@ -5,7 +5,8 @@ import { isStringGrade, type StringGrade } from '../src/topmaths/types/grade.js'
 import { isUnits, type UnitLessonPlan, type Unit, type UnitObjective, emptyUnitLessonPlan, emptyUnitObjective, emptyUnit } from '../src/topmaths/types/unit.js'
 import units from '../src/topmaths/json/built_units.json' assert { type: 'json' }
 import { countLessonPlans } from './helpers/lesson_plans.js'
-import { buildGradeFromObjectiveReference } from '../src/topmaths/services/environment.js'
+import { buildGradeFromObjectiveReference } from '../src/topmaths/services/reference.js'
+import { getTitle } from '../src/topmaths/services/outils.js'
 
 const SOURCE_ROOT = './src/topmaths/typ'
 const LESSONS = 'cours'
@@ -51,7 +52,7 @@ function buildHeader (unit: Unit): string {
   for (const objective of unit.objectives) {
     if (!isIgnored(objective)) {
       header += `
-        - ${objective.reference} : ${objective.title === undefined || objective.title === '' ? objective.titleAcademic : objective.title}`
+        - ${objective.reference} : ${getTitle(objective)}`
     }
   }
   header += `
@@ -68,7 +69,7 @@ function buildObjectiveLesson (objective: UnitObjective, unit: Unit): string {
   const objectiveLessonPath = `${SOURCE_ROOT}/${LESSONS}/${OBJECTIVES}/${objective.grade}/${objective.reference}.typ`
   if (!fs.existsSync(objectiveLessonPath)) return ''
   const title = `
-= ${objective.title === undefined || objective.title === '' ? objective.titleAcademic : objective.title}
+= ${getTitle(objective)}
 `
   const content = fs.readFileSync(objectiveLessonPath, 'utf8')
   if (content.includes('image("')) copyImages(objective, unit)
@@ -173,7 +174,7 @@ function buildObjectiveLessonPlanHeader (unitGrade: StringGrade, objective: Unit
   const subTitle = `Fiche de séance${lessonPlanTotalCount > 1 ? ` ${lessonPlanCount} / ${lessonPlanTotalCount}` : ''}`
   return `#import "../../../preambule_fiche.typ": *
 #show: setup-emoji
-#show: doc => fiche(doc, titre: "${objective.reference} : ${objective.title ? objective.title : objective.titleAcademic}", sousTitre: "${subTitle}")
+#show: doc => fiche(doc, titre: "${objective.reference} : ${getTitle(objective)}", sousTitre: "${subTitle}")
 
 `
 }
@@ -276,7 +277,7 @@ function buildUnitLessonPlanGrid (previousUnit: Unit, currentUnit: Unit, nextUni
       const previousLessonPlan = i === 0 ? findLastLessonPlan(previousObjective, currentUnit.grade) : currentObjective.lessonPlans[i - 1]
       const currentLessonPlan = currentObjective.lessonPlans[i]
       const nextLessonPlan = i === currentObjective.lessonPlans.length - 1 ? findFirstLessonPlan(nextObjective, currentUnit.grade) : currentObjective.lessonPlans[i + 1]
-      content += `[ #titreObjectif("Séance ${lessonNumber} - ${currentObjective.reference} : ${currentObjective.title === undefined || currentObjective.title === '' ? currentObjective.titleAcademic : currentObjective.title}")\\
+      content += `[ #titreObjectif("Séance ${lessonNumber} - ${currentObjective.reference} : ${getTitle(currentObjective)}")\\
 #v(-2em)
 #block(inset: 10pt, [
 `

@@ -1,11 +1,12 @@
 <script lang="ts">
   import { isTeacherMode, units, isTitleAcademicPreferred } from '../../services/store'
-  import { getTheme, normaliser } from '../../services/outils'
+  import { normalize } from '../../services/outils'
+  import { buildPdfThemeFromReference } from '../../services/reference'
   import { goToView } from '../../services/navigation'
   import { writable, derived } from 'svelte/store'
   import type { UnitMentalCalculation, UnitObjective, UnitFlashQuestion, Unit } from '../../types/unit'
   import LevelsTabsMenu from '../shared/LevelsTabsMenu.svelte'
-  import type { LineGrade } from '../../types/shared'
+  import type { LineGrade } from '../../types/grade'
 
   interface Ligne {
     grade: LineGrade
@@ -37,7 +38,7 @@
 
   function getLignesFiltrees (texteRecherche: string, lignes: Unit[]): Ligne[] {
     if (texteRecherche === '') return lignes
-    const motsCherches = normaliser(texteRecherche).split(' ')
+    const motsCherches = normalize(texteRecherche).split(' ')
     return lignes.filter((ligne) => {
       for (const mot of motsCherches) {
         if (!motTrouve(mot, ligne)) return false
@@ -49,40 +50,40 @@
   function motTrouve (mot: string, ligne: Ligne) {
     if (
       ligne.grade !== '' &&
-      normaliser(ligne.grade).includes(mot)
+      normalize(ligne.grade).includes(mot)
     ) { return true }
     if (
       ligne.number !== 0 &&
-      normaliser(ligne.number.toString()).includes(mot)
+      normalize(ligne.number.toString()).includes(mot)
     ) { return true }
     if (
       ligne.reference !== '' &&
-      normaliser(ligne.reference).includes(mot)
+      normalize(ligne.reference).includes(mot)
     ) { return true }
     if (
       ligne.title !== '' &&
-      normaliser(ligne.title).includes(mot)
+      normalize(ligne.title).includes(mot)
     ) { return true }
     if (ligne.objectives.length > 0) {
       for (const objectif of ligne.objectives) {
-        if (normaliser(objectif.reference).includes(mot)) return true
-        if (normaliser(objectif.titleAcademic).includes(mot)) return true
-        if (normaliser(objectif.title).includes(mot)) return true
-        if (normaliser(objectif.theme).includes(mot)) return true
+        if (normalize(objectif.reference).includes(mot)) return true
+        if (normalize(objectif.titleAcademic).includes(mot)) return true
+        if (normalize(objectif.title).includes(mot)) return true
+        if (normalize(objectif.theme).includes(mot)) return true
       }
     }
     if (ligne.mentalCalculations.length > 0) {
       for (const calculMental of ligne.mentalCalculations) {
-        if (normaliser(calculMental.reference).includes(mot)) return true
-        if (normaliser(calculMental.titleAcademic).includes(mot)) return true
-        if (normaliser(calculMental.theme).includes(mot)) return true
+        if (normalize(calculMental.reference).includes(mot)) return true
+        if (normalize(calculMental.titleAcademic).includes(mot)) return true
+        if (normalize(calculMental.theme).includes(mot)) return true
       }
     }
     if (ligne.flashQuestions.length > 0) {
       for (const questionFlash of ligne.flashQuestions) {
-        if (normaliser(questionFlash.reference).includes(mot)) return true
-        if (normaliser(questionFlash.titleAcademic).includes(mot)) return true
-        if (normaliser(questionFlash.theme).includes(mot)) return true
+        if (normalize(questionFlash.reference).includes(mot)) return true
+        if (normalize(questionFlash.titleAcademic).includes(mot)) return true
+        if (normalize(questionFlash.theme).includes(mot)) return true
       }
     }
     return false
@@ -194,7 +195,7 @@
                 <!-- Objectifs -->
                 <div class="column is-4 flex flex-col">
                   {#each ligne.objectives as objectif}
-                  <div class="columns is-theme-{getTheme(objectif.reference)} flex-grow">
+                  <div class="columns is-theme-{buildPdfThemeFromReference(objectif.reference)} flex-grow">
                     <div class="column is-narrow flex self-center justify-center">
                       <a
                         href="/?v=objectif&ref={objectif.reference}"
@@ -217,7 +218,7 @@
                   <div class="column is-4 flex flex-col">
                     {#each ligne.flashQuestions as questionFlash, i}
                       {#if questionFlash.reference !== '' && questionFlash.reference !== '' && (i === 0 || ligne.flashQuestions[i].reference !== ligne.flashQuestions[i - 1].reference)}
-                        <div class="columns is-theme-{getTheme(questionFlash.reference)} flex flex-grow">
+                        <div class="columns is-theme-{buildPdfThemeFromReference(questionFlash.reference)} flex flex-grow">
                           <div class="column is-narrow flex self-center justify-center">
                             <a
                               href="/?v=objectif&ref={questionFlash.reference}"
@@ -238,7 +239,7 @@
                   <div class="column flex flex-col">
                     {#each ligne.mentalCalculations as calculMental}
                       {#if calculMental.reference !== '' && calculMental.reference !== ''}
-                        <div class="columns is-theme-{getTheme(calculMental.reference)} flex-grow"
+                        <div class="columns is-theme-{buildPdfThemeFromReference(calculMental.reference)} flex-grow"
                         style="{i < $units.length && ((filtre.period > 0 && $units[i].term !== $units[i + 1].term) || $lignesFiltreesSequencesNormales[i + 1].grade === 'end') ? 'border-radius: 0px 0px 50px 0px;' : ''}">
                           <div class="column is-narrow flex self-center justify-center">
                             <a

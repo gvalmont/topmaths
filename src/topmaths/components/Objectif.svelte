@@ -7,7 +7,7 @@
     reference
   } from '../services/store'
   import { emptyObjective, isObjective, type Objective } from '../types/objective'
-  import { getTitre } from '../services/outils'
+  import { getTitle } from '../services/outils'
   import { goToView } from '../services/navigation'
   import { afterUpdate, onDestroy, tick } from 'svelte'
   import type { Unsubscriber } from 'svelte/store'
@@ -75,7 +75,7 @@
   }
 
   function MAJProprietes () {
-    title = objectif.reference + ' : ' + getTitre(objectif)
+    title = objectif.reference + ' : ' + getTitle(objectif)
     MakeNomsPanier()
     MAJPanier()
   }
@@ -83,7 +83,7 @@
   function MakeNomsPanier () {
     nomsPanier = []
     for (let i = 0; i < objectif.exercises.length; i++) {
-      nomsPanier.push(objectif.reference + ' ' + getTitre(objectif))
+      nomsPanier.push(objectif.reference + ' ' + getTitle(objectif))
     }
   }
 
@@ -131,7 +131,7 @@
 
 <div class="w-screen max-w-screen-lg">
   <h1 id="titre" class="title text-2xl md:text-4xl font-semibold p-4 is-{niveau}">
-    {objectif.reference + ' : ' + getTitre(objectif)}
+    {objectif.reference + ' : ' + getTitle(objectif)}
   </h1>
   {#if objectif.lessonSummaryHTML !== '' || objectif.lessonSummaryImage !== '' || (objectif.lessonSummaryInstrumenpoche !== undefined && objectif.lessonSummaryInstrumenpoche !== '')}
     <div class="is-{niveau}">
@@ -221,7 +221,7 @@
                   ? 'Exercices de niveau ' + (i + 1)
                   : "Lancer l'exercice"}
               indiceExercice = {i}
-              nomsPanier = {[objectif.reference + ' ' + getTitre(objectif)]}
+              nomsPanier = {[objectif.reference + ' ' + getTitle(objectif)]}
             />
           </li>
         {/each}
@@ -245,7 +245,7 @@
             panierRempli = {exercicesDeBrevetDansLePanier}
             titre = {'Lancer les exercices de brevet'}
             exercicesDeBrevet = {true}
-            nomsPanier = {[objectif.reference + ' ' + getTitre(objectif) + ' Brevet ']}
+            nomsPanier = {[objectif.reference + ' ' + getTitle(objectif) + ' Brevet ']}
           />
         </li>
       </ul>

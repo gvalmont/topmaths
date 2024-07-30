@@ -3,7 +3,7 @@
   import IconeTooltipSimple from './IconeTooltipSimple.svelte'
   import type { ObjectiveExercise, ObjectiveVideo } from '../../types/objective'
   import { isTeacherMode } from '../../services/store'
-  import { copierLien, isCoopmaths } from '../../services/outils'
+  import { copyLink, isCoopmaths } from '../../services/outils'
   import { toutAjouterAuPanier } from '../../services/panier'
   import { COOPMATHS_BASE_URL } from '../../services/environment'
   import { getParamsFromUrl, updateUrlFromParams } from '../../services/mathalea'
@@ -73,7 +73,7 @@
       </button>
     </span>
     &nbsp;
-    <button on:click={() => copierLien(creerLienCapytale(), false, true, true)}>
+    <button on:click={() => copyLink(creerLienCapytale(), false, true, true)}>
       <IconeTooltipSimple
         urlBouton="/topmaths/img/gvalmont/capytale.svg"
         texteDropdown = {'Créer un lien pour une utilisation avec CAPYTALE'}

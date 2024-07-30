@@ -1,5 +1,5 @@
 import { exerciseLinks, exerciseLink, view, reference } from './store'
-import { isCoopmaths, supprimerGraines } from './outils'
+import { isCoopmaths, removeSeed } from './outils'
 import type { TopmathsView } from '../types/shared'
 
 export function goToView (mouseEvent: MouseEvent, destinationView: TopmathsView, ref?: string): void {
@@ -23,7 +23,7 @@ export function launchExercise (link: string): void {
 }
 
 function launchMathaleaExercise (link: string): void {
-  exerciseLink.set(supprimerGraines(link))
+  exerciseLink.set(removeSeed(link))
   view.set('exercices')
 }
 

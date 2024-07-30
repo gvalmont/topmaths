@@ -3,7 +3,7 @@
     glossary as lexiqueStore
 
   } from '../../services/store'
-  import { normaliser } from '../../services/outils'
+  import { normalize } from '../../services/outils'
   import { writable, derived } from 'svelte/store'
   import { afterUpdate, onDestroy, tick } from 'svelte'
   import { mathaleaRenderDiv } from '../../../lib/mathalea'
@@ -44,7 +44,7 @@
 
   function getLignesFiltrees (texteRecherche: string, lignes: GlossaryUniteItem[]): GlossaryUniteItem[] {
     if (texteRecherche === '') return lignes
-    const motsCherches = normaliser(texteRecherche).split(' ')
+    const motsCherches = normalize(texteRecherche).split(' ')
     return lignes.filter((ligne) => {
       for (const mot of motsCherches) {
         if (!motTrouve(mot, ligne)) return false
@@ -55,16 +55,16 @@
 
   function motTrouve (mot: string, ligne: GlossaryUniteItem) {
     for (const grade of ligne.grades) {
-      if (normaliser(grade).includes(mot)) return true
+      if (normalize(grade).includes(mot)) return true
     }
-    if (ligne.title !== undefined && normaliser(ligne.title).includes(mot)) {
+    if (ligne.title !== undefined && normalize(ligne.title).includes(mot)) {
       return true
     }
     for (const keyword of ligne.keywords) {
-      if (normaliser(keyword).includes(mot)) return true
+      if (normalize(keyword).includes(mot)) return true
     }
     for (const relatedObjective of ligne.relatedObjectives) {
-      if (normaliser(relatedObjective).includes(mot)) return true
+      if (normalize(relatedObjective).includes(mot)) return true
     }
     return false
   }

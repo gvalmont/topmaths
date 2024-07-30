@@ -1,6 +1,6 @@
 <script lang="ts">
   import { isTeacherMode, objectives, isTitleAcademicPreferred } from '../services/store'
-  import { normaliser } from '../services/outils'
+  import { normalize } from '../services/outils'
   import { goToView } from '../services/navigation'
   import { onDestroy } from 'svelte'
   import { writable, derived } from 'svelte/store'
@@ -60,7 +60,7 @@
 
   function getLignesFiltrees (texteRecherche: string, objectives: LineObjective[]): LineObjective[] {
     if (texteRecherche === '') return objectives
-    const motsCherches = normaliser(texteRecherche).split(' ')
+    const motsCherches = normalize(texteRecherche).split(' ')
     return objectives.filter((ligne) => {
       for (const mot of motsCherches) {
         if (!motTrouve(mot, ligne)) return false
@@ -72,19 +72,19 @@
   function motTrouve (mot: string, ligne: LineObjective) {
     if (
       ligne.grade !== undefined &&
-      normaliser(ligne.grade).includes(mot)
+      normalize(ligne.grade).includes(mot)
     ) { return true }
     if (
       ligne.reference !== undefined &&
-      normaliser(ligne.reference).includes(mot)
+      normalize(ligne.reference).includes(mot)
     ) { return true }
     if (
       ligne.titleAcademic !== undefined &&
-      normaliser(ligne.titleAcademic).includes(mot)
+      normalize(ligne.titleAcademic).includes(mot)
     ) { return true }
     if (
       ligne.title !== undefined &&
-      normaliser(ligne.title).includes(mot)
+      normalize(ligne.title).includes(mot)
     ) { return true }
     return false
   }

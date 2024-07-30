@@ -1,10 +1,11 @@
-import type { GlossaryUniteItem } from '../types/glossary'
-import type { Unit, UnitSpecial } from '../types/unit'
-import type { Objective } from '../types/objective'
+import type { GlossaryUniteItem } from '../types/glossary.js'
+import type { Unit, UnitSpecial } from '../types/unit.js'
+import type { Objective } from '../types/objective.js'
 import { writable } from 'svelte/store'
-import { deepCopy, type TopmathsView } from '../types/shared'
-import { emptyCalendarSchoolYear, type CalendarSchoolYear } from '../types/calendar'
-import type { VueType } from '../../lib/types'
+import { deepCopy } from '../types/shared.js'
+import { type TopmathsView } from '../types/navigation.js'
+import { emptyCalendarSchoolYear, type CalendarSchoolYear } from '../types/calendar.js'
+import type { VueType } from '../../lib/types.js'
 
 // libraries
 export const units = writable<Unit[]>([])

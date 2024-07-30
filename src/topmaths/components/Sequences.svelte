@@ -4,7 +4,7 @@
     specialUnits
   } from '../services/store'
   import { onDestroy } from 'svelte'
-  import { normaliser } from '../services/outils'
+  import { normalize } from '../services/outils'
   import { goToView } from '../services/navigation'
   import type { Unsubscriber } from 'svelte/store'
   import { writable, derived } from 'svelte/store'
@@ -101,7 +101,7 @@ function lesDonneesSontChargees () {
 
   function getLignesFiltrees (texteRecherche: string, lignes: Unit[]): Ligne[] {
     if (texteRecherche === '') return lignes
-    const motsCherches = normaliser(texteRecherche).split(' ')
+    const motsCherches = normalize(texteRecherche).split(' ')
     return lignes.filter((ligne) => {
       for (const mot of motsCherches) {
         if (!motTrouve(mot, ligne)) return false
@@ -113,19 +113,19 @@ function lesDonneesSontChargees () {
   function motTrouve (mot: string, ligne: Ligne) {
     if (
       ligne.grade !== undefined &&
-      normaliser(ligne.grade).includes(mot)
+      normalize(ligne.grade).includes(mot)
     ) { return true }
     if (
       ligne.number !== undefined &&
-      normaliser(ligne.number.toString()).includes(mot)
+      normalize(ligne.number.toString()).includes(mot)
     ) { return true }
     if (
       ligne.reference !== undefined &&
-      normaliser(ligne.reference).includes(mot)
+      normalize(ligne.reference).includes(mot)
     ) { return true }
     if (
       ligne.title !== undefined &&
-      normaliser(ligne.title).includes(mot)
+      normalize(ligne.title).includes(mot)
     ) { return true }
     return false
   }
