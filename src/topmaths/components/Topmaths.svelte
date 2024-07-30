@@ -58,8 +58,8 @@
   function updateParams (): void {
     updateParamsFromUrl()
     Cart.updateFromStorage()
-    Storage.getTeacherModeState()
-    Storage.getPersoModeState()
+    isTeacherMode.set(Storage.getTeacherMode())
+    isPersonalMode.set(Storage.getPersonalMode())
   }
 
   function handleCartUpdate (cartItems: CartItem[]): void {
@@ -181,7 +181,7 @@
     {:else if $view === 'perso'}
       <div class="has-text-centered">
         <button class="button" class:is-success = {!$isPersonalMode} class:is-danger = {$isPersonalMode} on:click={() => {
-          $isPersonalMode ? Storage.desactiverModePerso() : Storage.activerModePerso()
+          Storage.setPersonalMode(!$isPersonalMode)
         }}>
           {$isPersonalMode ? 'Désactiver le mode perso' : 'Activer le mode perso'}
         </button>

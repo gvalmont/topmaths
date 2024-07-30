@@ -3,14 +3,6 @@
   import Storage from '../modules/Storage'
   import GrosBouton from './shared/GrosBouton.svelte'
 
-  function activateTeacherMode () {
-    Storage.activateTeacherMode()
-  }
-
-  function deactivateTeacherMode () {
-    Storage.deactivateTeacherMode()
-  }
-
 </script>
 
 <svelte:head>
@@ -39,7 +31,7 @@
       <br /><br />
       <div>
         <button
-          on:click={() => deactivateTeacherMode()}
+        on:click={() => Storage.setTeacherMode(false)}
           class="button is-green rounded md:rounded-lg py-1 px-4 md:py-2 md:px-6"
         >
           <p>Désactiver le mode enseignant</p>
@@ -49,7 +41,7 @@
       <br /><br />
       <div>
         <button
-          on:click={() => activateTeacherMode()}
+          on:click={() => Storage.setTeacherMode(true)}
           class="button is-green rounded md:rounded-lg py-1 px-4 md:py-2 md:px-6 is-outlined"
         >
           <p>Activer le mode enseignant</p>

@@ -1,36 +1,30 @@
 import { isTeacherMode, isPersonalMode } from '../services/store'
 
 export default class Storage {
-  static getTeacherModeState (): void {
+  // TeacherMode and PersonalMode are stored in localStorage
+  static getTeacherMode (): boolean {
     const obj = localStorage.getItem('teacherMode')
-    if (obj !== null) isTeacherMode.set(JSON.parse(obj))
+    if (obj == null) return false
+    return JSON.parse(obj)
   }
 
-  static getPersoModeState (): void {
-    const obj = localStorage.getItem('modePerso')
-    if (obj !== null) isPersonalMode.set(JSON.parse(obj))
+  static setTeacherMode (teacherMode: boolean): void {
+    localStorage.setItem('teacherMode', JSON.stringify(teacherMode))
+    isTeacherMode.set(teacherMode)
   }
 
-  static activateTeacherMode (): void {
-    localStorage.setItem('teacherMode', JSON.stringify(true))
-    isTeacherMode.set(true)
+  static getPersonalMode (): boolean {
+    const obj = localStorage.getItem('personalMode')
+    if (obj == null) return false
+    return JSON.parse(obj)
   }
 
-  static deactivateTeacherMode (): void {
-    localStorage.setItem('teacherMode', JSON.stringify(false))
-    isTeacherMode.set(false)
+  static setPersonalMode (personalMode: boolean): void {
+    localStorage.setItem('personalMode', JSON.stringify(personalMode))
+    isPersonalMode.set(personalMode)
   }
 
-  static activerModePerso (): void {
-    localStorage.setItem('modePerso', JSON.stringify(true))
-    isPersonalMode.set(true)
-  }
-
-  static desactiverModePerso (): void {
-    localStorage.setItem('modePerso', JSON.stringify(false))
-    isPersonalMode.set(false)
-  }
-
+  // generic set and get for other data stored in sessionStorage
   static get (key: string): unknown {
     const obj = sessionStorage.getItem(key)
     if (obj !== null) return JSON.parse(obj)
