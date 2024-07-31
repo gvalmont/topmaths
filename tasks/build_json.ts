@@ -89,7 +89,7 @@ function buildUnits (): Unit[] {
 
 function buildUnitsTermsArray (): Record<StringGrade, number[]> {
   return {
-    none: buildTermNumbers(curriculum, 'none'),
+    all: buildTermNumbers(curriculum, 'all'),
     '6e': buildTermNumbers(curriculum, '6e'),
     '5e': buildTermNumbers(curriculum, '5e'),
     '4e': buildTermNumbers(curriculum, '4e'),
@@ -377,11 +377,33 @@ function buildCurriculum (): Curriculum {
     }
   })
   const curriculumCandidate = {
-    none: deepCopy(emptyCurriculumValue),
+    all: deepCopy(emptyCurriculumValue),
     '6e': buildCurriculumValue(formattedGradeArray, '6e'),
     '5e': buildCurriculumValue(formattedGradeArray, '5e'),
     '4e': buildCurriculumValue(formattedGradeArray, '4e'),
     '3e': buildCurriculumValue(formattedGradeArray, '3e')
+  }
+  const maxTermCount = Math.max(
+    curriculumCandidate['6e'].unitsPerTerm.length,
+    curriculumCandidate['5e'].unitsPerTerm.length,
+    curriculumCandidate['4e'].unitsPerTerm.length,
+    curriculumCandidate['3e'].unitsPerTerm.length
+  )
+  const allUnitsPerTerm: number[] = []
+  const allCumulateUnitsPerTerm: number[] = []
+  for (let termIndex = 0; termIndex < maxTermCount; termIndex++) {
+    const unitsPerTerm = [
+      curriculumCandidate['6e'].unitsPerTerm[termIndex] ?? 0,
+      curriculumCandidate['5e'].unitsPerTerm[termIndex] ?? 0,
+      curriculumCandidate['4e'].unitsPerTerm[termIndex] ?? 0,
+      curriculumCandidate['3e'].unitsPerTerm[termIndex] ?? 0
+    ]
+    allUnitsPerTerm.push(unitsPerTerm.reduce((sum, nbUnits) => sum + nbUnits))
+    allCumulateUnitsPerTerm.push(allUnitsPerTerm[termIndex] + (termIndex > 0 ? allCumulateUnitsPerTerm[termIndex - 1] : 0))
+  }
+  curriculumCandidate.all = {
+    unitsPerTerm: allUnitsPerTerm,
+    cumulateUnitsPerTerm: allCumulateUnitsPerTerm
   }
   if (!isCurriculum(curriculumCandidate)) {
     console.error(curriculumCandidate)

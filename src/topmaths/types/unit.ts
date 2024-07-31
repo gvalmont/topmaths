@@ -50,7 +50,7 @@ export const emptyUnitObjective: UnitObjective = {
   exercises: [],
   examExercises: [],
   theme: '',
-  grade: 'none',
+  grade: 'all',
   lessonPlans: []
 }
 
@@ -194,7 +194,7 @@ export const emptyUnit: Unit = {
   downloadLinks: emptyUnitDownloadLinks,
   flashQuestions: [],
   flashQuestionsLink: '',
-  grade: 'none',
+  grade: 'all',
   mentalCalculations: [],
   number: 0,
   objectives: [],

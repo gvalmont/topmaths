@@ -53,6 +53,46 @@ const config = {
         200: '2.00'
       },
       colors: {
+        all: {
+          DEFAULT: '#feb60a',
+          light: '#e1f3e5'
+        },
+        alldark: {
+          DEFAULT: '#feb60a',
+          light: '#e1f3e5'
+        },
+        '6e': {
+          DEFAULT: '#28a745',
+          light: '#e1f3e5'
+        },
+        '6edark': {
+          DEFAULT: '#28a745',
+          light: '#e1f3e5'
+        },
+        '5e': {
+          DEFAULT: '#007bff',
+          light: '#e7f5ff'
+        },
+        '5edark': {
+          DEFAULT: '#007bff',
+          light: '#e7f5ff'
+        },
+        '4e': {
+          DEFAULT: '#6d28d9',
+          light: '#ede9fe'
+        },
+        '4edark': {
+          DEFAULT: '#6d28d9',
+          light: '#ede9fe'
+        },
+        '3e': {
+          DEFAULT: '#e03286',
+          light: '#fce7f3'
+        },
+        '3edark': {
+          DEFAULT: '#e03286',
+          light: '#fce7f3'
+        },
         coopmaths: {
           DEFAULT: '#F15929',
           lightest: '#f87f5c',

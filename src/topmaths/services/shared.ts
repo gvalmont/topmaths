@@ -50,5 +50,5 @@ export function copyLink (link: string, includeSeed = true, forceInteractive = f
     })
   }
   navigator.clipboard.writeText(COOPMATHS_BASE_URL + params.toString())
-  showDialogForLimitedTime('topmathsDialog', 1000, 'Le lien a été copié.')
+  showDialogForLimitedTime('topmaths-info-dialog', 1000, 'Le lien a été copié.')
 }

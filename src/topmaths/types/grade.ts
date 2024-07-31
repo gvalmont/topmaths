@@ -1,6 +1,6 @@
 import { isStrings } from './shared.js'
 
-export const stringGradeValidKeys = <const>['6e', '5e', '4e', '3e', 'none']
+export const stringGradeValidKeys = <const>['6e', '5e', '4e', '3e', 'all']
 type StringGradeValidKeysType = typeof stringGradeValidKeys
 export type StringGrade = StringGradeValidKeysType[number]
 
@@ -26,7 +26,7 @@ export function isStringRecordStringGrades (obj: unknown): obj is Record<StringG
   return obj.every(isStringRecordStringGrade)
 }
 export const emptyStringRecordStringGrade: Record<StringGrade, string> = {
-  none: '',
+  all: '',
   '6e': '',
   '5e': '',
   '4e': '',
@@ -42,7 +42,7 @@ export function isStringArrayRecordStringGrade (obj: unknown): obj is Record<Str
   return true
 }
 export const emptyStringArrayRecordStringGrade: Record<StringGrade, string[]> = {
-  none: [],
+  all: [],
   '6e': [],
   '5e': [],
   '4e': [],
@@ -62,7 +62,7 @@ export function isNumberRecordStringGrades (obj: unknown): obj is Record<StringG
   return obj.every(isNumberRecordStringGrade)
 }
 export const emptyNumberRecordStringGrade: Record<StringGrade, number> = {
-  none: 0,
+  all: 0,
   '6e': 0,
   '5e': 0,
   '4e': 0,
@@ -78,7 +78,7 @@ export function isNumberArrayRecordStringGrade (obj: unknown): obj is Record<Str
   return true
 }
 export const emptyNumberArrayRecordStringGrade: Record<StringGrade, number[]> = {
-  none: [],
+  all: [],
   '6e': [],
   '5e': [],
   '4e': [],

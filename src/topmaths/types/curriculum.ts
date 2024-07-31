@@ -17,7 +17,7 @@ export function isCurriculumGrades (obj: unknown): obj is CurriculumGrade[] {
   return obj.every(isCurriculumGrade)
 }
 export const emptyCurriculumGrade: CurriculumGrade = {
-  name: 'none',
+  name: 'all',
   unitsPerTerm: [],
   cumulateUnitsPerTerm: []
 }
@@ -50,7 +50,7 @@ export function isCurriculum (obj: unknown): obj is Curriculum {
   return entries.every(([key, value]) => isStringGrade(key) && isCurriculumValue(value))
 }
 export const emptyCurriculum: Curriculum = {
-  none: deepCopy(emptyCurriculumValue),
+  all: deepCopy(emptyCurriculumValue),
   '6e': deepCopy(emptyCurriculumValue),
   '5e': deepCopy(emptyCurriculumValue),
   '4e': deepCopy(emptyCurriculumValue),

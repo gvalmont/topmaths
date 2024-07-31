@@ -180,7 +180,7 @@ export const emptyObjective: Objective = {
   examExercisesLink: '',
   exercises: [],
   exercisesLink: '',
-  grade: 'none',
+  grade: 'all',
   lessonPlans: [],
   lessonSummaryHTML: '',
   lessonSummaryImage: '',

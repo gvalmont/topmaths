@@ -252,11 +252,11 @@ function copyLink (exerciseIndex: number) {
   const urlToCopy = getUrlFromParams('exercices', [exercicesParams[exerciseIndex]]).href
   navigator.clipboard.writeText(urlToCopy).then(
     () => {
-      showDialogForLimitedTime('topmathsDialog', 1000, 'Le lien a été copié.')
+      showDialogForLimitedTime('topmaths-info-dialog', 1000, 'Le lien a été copié.')
     },
     (err) => {
       console.error('Async: Could not copy text: ', err)
-      showDialogForLimitedTime('topmathsDialog', 1000, 'Le lien n\'a pas pu être copié.')
+      showDialogForLimitedTime('topmaths-info-dialog', 1000, 'Le lien n\'a pas pu être copié.')
     }
   )
 }

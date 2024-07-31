@@ -29,30 +29,39 @@
   import { isTopmathsView } from '../types/navigation'
   import Cart from '../modules/Cart'
   import type { CartItem } from '../types/cart'
+  import TimeOverlay from './presentationalComponents/TimeOverlay.svelte'
+  import InfoDialog from './presentationalComponents/InfoDialog.svelte'
+  import Footer from './presentationalComponents/Footer.svelte'
+  import Perso from './presentationalComponents/Perso.svelte'
+    import DarkModeToggle from './presentationalComponents/DarkModeToggle.svelte'
 
   if (customElements.get('alea-instrumenpoche') === undefined) {
     customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
   }
 
-  const year = new Date().getFullYear()
   let isCartEmpty: boolean = true
-  let intervalId: ReturnType<typeof setTimeout>
   let innerWidth: number
+  let isDevMode: boolean = false
+  let isDarkMode: boolean = false
   let isMd: boolean
   $: isMd = innerWidth >= 768
 
+  const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+  $: document.documentElement.classList.toggle('dark', isDarkMode)
+
   onMount(() => {
+    isDevMode = window.location.href.startsWith('http://localhost')
     Cart.subscribe(handleCartUpdate)
     addEventListener('popstate', updateParams)
+    addDarkModeListener()
     cacheData()
     updateParams()
-    startTimeInterval()
   })
 
   onDestroy(() => {
-    clearTimeInterval()
     Cart.unsubscribe(handleCartUpdate)
     removeEventListener('popstate', updateParams)
+    removeDarkModeListener()
   })
 
   function updateParams (): void {
@@ -80,46 +89,21 @@
     }
   }
 
-  function startTimeInterval (): void {
-    updateTime()
-    intervalId = setInterval(() => {
-      updateTime()
-    }, 1000)
+  function addDarkModeListener (): void {
+    isDarkMode = darkModeMediaQuery.matches
+    darkModeMediaQuery.addEventListener('change', event => {
+      isDarkMode = event.matches
+    })
   }
 
-  function clearTimeInterval (): void {
-    clearInterval(intervalId)
+  function removeDarkModeListener (): void {
+    darkModeMediaQuery.removeEventListener('change', event => {
+      isDarkMode = event.matches
+    })
   }
 
-  function toggleTimeOverlaySize (): void {
-    const timeOverlayDiv = document.getElementById('timeOverlay')
-    if (timeOverlayDiv !== null) {
-      if (timeOverlayDiv.style.width === '240px') {
-        timeOverlayDiv.style.width = '60px'
-        timeOverlayDiv.style.height = '30px'
-        timeOverlayDiv.style.fontSize = '18px'
-      } else {
-        timeOverlayDiv.style.width = '240px'
-        timeOverlayDiv.style.height = '120px'
-        timeOverlayDiv.style.fontSize = '72px'
-      }
-    }
-  }
-
-  function updateTime (): void {
-    if ($isTeacherMode) {
-      const timeOverlayDiv = document.getElementById('timeOverlay')
-      if (timeOverlayDiv !== null) {
-        const date = new Date()
-        let hh = date.getHours().toString()
-        let mm = date.getMinutes().toString()
-
-        hh = hh.length === 1 ? '0' + hh : hh
-        mm = mm.length === 1 ? '0' + mm : mm
-
-        timeOverlayDiv.innerHTML = hh + ':' + mm
-      }
-    }
+  function setPersonalMode (isPersonalMode: boolean): void {
+    Storage.setPersonalMode(isPersonalMode)
   }
 </script>
 
@@ -128,114 +112,76 @@
 </svelte:head>
 
 <svelte:window bind:innerWidth />
-<div id="top" class="pb-6 md:pb-9 is-family-primary">
-  <!-- Header -->
+<div class="flex flex-col justify-center text-center
+  text-base md:text-xl
+  text-coopmaths-corpus dark:text-coopmathsdark-corpus
+  bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+>
   <HeadTabsMenu
     {isMd}
     vue={$view}
     onHeadTabsMenuClicked={goToView}
     {isCartEmpty}
   />
-</div>
-<!-- Affichage principal -->
-<div class="flex justify-center">
-  <div class="text-center pb-8 mb:pb-20 text-base md:text-xl">
-    {#if $view === 'exercices'}
-      <ExercicesMathalea {isMd} />
-    {:else if $view === 'sequence'}
-      <Sequence />
-    {:else if $view === 'sequences'}
-      <Sequences />
-    {:else if $view === 'objectifs'}
-      <Objectifs />
-    {:else if $view === 'objectif'}
-      <Objectif />
-    {:else if $view === 'revisions'}
-      <Revisions />
-    {:else if $view === 'outils'}
-      <OutilsPourLaClasse />
-    {:else if $view === 'mathador'}
-      <Mathador />
-    {:else if $view === 'generateur-de-portraits'}
-      <GenerateurDePortraits />
-    {:else if $view === 'eleves'}
-      <OutilsPourLesEleves />
-    {:else if $view === 'lexique'}
-      <Lexique />
-    {:else if $view === 'tutos'}
-      <Tutos />
-    {:else if $view === 'telechargements'}
-      <Telechargements />
-    {:else if $view === 'progressions'}
-      <Progressions />
-    {:else if $view === 'informations'}
-      <Informations />
-    {:else if $view === 'panier'}
-      <Panier />
-    {:else if $view === 'mentions-legales'}
-      <MentionsLegales />
-    {:else if $view === 'politique-de-confidentialite'}
-      <PolitiqueDeConfidentialite />
-    {:else if $view === 'cgu'}
-      <Cgu />
-    {:else if $view === 'perso'}
-      <div class="has-text-centered">
-        <button class="button" class:is-success = {!$isPersonalMode} class:is-danger = {$isPersonalMode} on:click={() => {
-          Storage.setPersonalMode(!$isPersonalMode)
-        }}>
-          {$isPersonalMode ? 'Désactiver le mode perso' : 'Activer le mode perso'}
-        </button>
-      </div>
-    {:else}
-      <Accueil />
-    {/if}
-  </div>
-</div>
-<!-- Footer -->
-<footer class="p-6 md:p-12 pt-3 md:pt-6 pb-12 md:pb-24 text-center bg-zinc-50 text-xs md:text-base">
-  <p>
-    <strong>topmaths</strong> © {year} de
-    <a href="https://forge.apps.education.fr/valmontguillaume" target="_blank" rel="noopener noreferrer">Guillaume Valmont</a> et des
-    <a href="https://coopmaths.fr/a_propos/" target="_blank" rel="noopener noreferrer">contributeurs de MathALÉA</a>
-  </p>
-  <p>
-    <button class="has-text-link" on:click={(event) => goToView(event, 'informations')}>Informations sur le site</button>
-    -
-    <button class="has-text-link" on:click={(event) => goToView(event, 'mentions-legales')}>Mentions légales</button>
-    -
-    <button class="has-text-link" on:click={(event) => goToView(event, 'politique-de-confidentialite')}>Politique de confidentialité</button>
-    -
-    <button class="has-text-link" on:click={(event) => goToView(event, 'cgu')}>CGU</button>
-  </p>
-</footer>
-<div
-  class="noprint"
-  role="button"
-  tabindex="-1"
-  id="timeOverlay"
-  on:click={toggleTimeOverlaySize}
-  on:keydown={toggleTimeOverlaySize}
->
-</div>
-<dialog
-  id="topmathsDialog"
-  class="rounded-xl p-6 bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg"
->
-</dialog>
+    <div class="flex flex-col m-auto
+      pb-8 mb:pb-20
+      bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    >
+      {#if $view === 'exercices'}
+        <ExercicesMathalea {isMd} />
+      {:else if $view === 'sequence'}
+        <Sequence />
+      {:else if $view === 'sequences'}
+        <Sequences />
+      {:else if $view === 'objectifs'}
+        <Objectifs />
+      {:else if $view === 'objectif'}
+        <Objectif />
+      {:else if $view === 'revisions'}
+        <Revisions />
+      {:else if $view === 'outils'}
+        <OutilsPourLaClasse />
+      {:else if $view === 'mathador'}
+        <Mathador />
+      {:else if $view === 'generateur-de-portraits'}
+        <GenerateurDePortraits />
+      {:else if $view === 'eleves'}
+        <OutilsPourLesEleves />
+      {:else if $view === 'lexique'}
+        <Lexique />
+      {:else if $view === 'tutos'}
+        <Tutos />
+      {:else if $view === 'telechargements'}
+        <Telechargements />
+      {:else if $view === 'progressions'}
+        <Progressions />
+      {:else if $view === 'informations'}
+        <Informations />
+      {:else if $view === 'panier'}
+        <Panier />
+      {:else if $view === 'mentions-legales'}
+        <MentionsLegales />
+      {:else if $view === 'politique-de-confidentialite'}
+        <PolitiqueDeConfidentialite />
+      {:else if $view === 'cgu'}
+        <Cgu />
+      {:else if $view === 'perso'}
+        <Perso
+          isPersonalMode={$isPersonalMode}
+          {setPersonalMode}
+        />
+      {:else}
+        <Accueil />
+      {/if}
+    </div>
+  <Footer {goToView} />
 
-<style>
-  .is-family-primary {
-    font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
-  }
+  {#if $isTeacherMode}
+    <TimeOverlay />
+  {/if}
+  {#if isDevMode}
+    <DarkModeToggle bind:isDarkMode={isDarkMode} />
+  {/if}
+  <InfoDialog />
 
-  #timeOverlay {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 200;
-    width: 60px;
-    height: 30px;
-    font-size: 18px;
-    transition: width 1s, height 1s, font-size 1s;
-  }
-</style>
+</div>
