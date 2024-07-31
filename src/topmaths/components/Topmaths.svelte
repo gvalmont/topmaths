@@ -134,7 +134,7 @@
     {isMd}
     vue={$view}
     onHeadTabsMenuClicked={goToView}
-    isCartAvailable={!isCartEmpty}
+    {isCartEmpty}
   />
 </div>
 <!-- Affichage principal -->
