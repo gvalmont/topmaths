@@ -6,7 +6,7 @@ import { deepCopy } from '../types/shared.js'
 import { type TopmathsView } from '../types/navigation.js'
 import { emptyCalendarSchoolYear, type CalendarSchoolYear } from '../types/calendar.js'
 import type { VueType } from '../../lib/types.js'
-import { emptyCurriculum, type Curriculum } from '../types/curriculum'
+import { emptyCurriculum, type Curriculum } from '../types/curriculum.js'
 
 // libraries
 export const units = writable<Unit[]>([])
