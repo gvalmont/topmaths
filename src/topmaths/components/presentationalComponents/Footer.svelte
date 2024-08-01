@@ -6,9 +6,8 @@
 </script>
 
 <footer class="text-center
-  p-6 md:p-12
   pt-3 md:pt-6
-  pb-12 md:pb-24
+  pb-6 md:pb-12
   text-xs md:text-base
   bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
 >
