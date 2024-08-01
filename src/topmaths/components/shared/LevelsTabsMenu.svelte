@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { LineGrade } from '../../types/shared'
+  import type { LineGrade } from '../../types/grade'
 
   export let activeLevelTab: string
   export let onLevelsTabsMenuClicked: (level: LineGrade) => void
@@ -7,7 +7,7 @@
   const levels: LineGrade[] = ['all', '6e', '5e', '4e', '3e']
 </script>
 
-<div class="overflow-scrolling-touch flex overflow-hidden overflow-x-auto">
+<div class="flex overflow-hidden overflow-x-auto">
   <ul class="flex flex-grow justify-center tabs-menu is-full-rounded mb-6">
     {#each levels as level}
       <li>

@@ -17,7 +17,7 @@ export const calendar = writable<CalendarSchoolYear>(deepCopy(emptyCalendarSchoo
 export const curriculum = writable<Curriculum>(emptyCurriculum)
 
 // url parameters
-export const view = writable<VueType | TopmathsView>('accueil')
+export const view = writable<VueType | TopmathsView>('home')
 export const reference = writable<string>('')
 
 // display settings

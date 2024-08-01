@@ -19,7 +19,7 @@
   import Tutos from './outils-pour-les-eleves/Tutos.svelte'
   import { isTeacherMode, isPersonalMode, reference, view } from '../services/store'
   import ExercicesMathalea from './exercices/ExercicesMathalea.svelte'
-  import HeadTabsMenu from './presentationalComponents/headTabsMenu/HeadTabsMenu.svelte'
+  import HeaderMenu from './presentationalComponents/HeaderMenu/HeaderMenu.svelte'
   import { cacheData } from '../services/data'
   import { isTopmathsView } from '../types/navigation'
   import Cart from '../modules/Cart'
@@ -113,10 +113,9 @@
   text-coopmaths-corpus dark:text-coopmathsdark-corpus
   bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
 >
-  <HeadTabsMenu
-    {isMd}
-    vue={$view}
-    onHeadTabsMenuClicked={goToView}
+  <HeaderMenu
+    view={$view}
+    {goToView}
     {isCartEmpty}
   />
     <div class="flex flex-col m-auto
