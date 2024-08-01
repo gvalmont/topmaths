@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { TopmathsView } from '../../../types/navigation'
+  import type { View } from '../../../types/navigation'
   import HeaderMenuItem from './HeaderMenuItem.svelte'
 
   export let isCartEmpty: boolean
-  export let view: TopmathsView
-  export let goToView: (event: MouseEvent, view: TopmathsView) => void
+  export let view: View
+  export let goToView: (event: MouseEvent, view: View) => void
 
 </script>
 

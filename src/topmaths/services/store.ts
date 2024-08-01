@@ -3,9 +3,8 @@ import type { Unit, UnitSpecial } from '../types/unit.js'
 import type { Objective } from '../types/objective.js'
 import { writable } from 'svelte/store'
 import { deepCopy } from '../types/shared.js'
-import { type TopmathsView } from '../types/navigation.js'
+import { type View } from '../types/navigation.js'
 import { emptyCalendarSchoolYear, type CalendarSchoolYear } from '../types/calendar.js'
-import type { VueType } from '../../lib/types.js'
 import { emptyCurriculum, type Curriculum } from '../types/curriculum.js'
 
 // libraries
@@ -17,7 +16,7 @@ export const calendar = writable<CalendarSchoolYear>(deepCopy(emptyCalendarSchoo
 export const curriculum = writable<Curriculum>(emptyCurriculum)
 
 // url parameters
-export const view = writable<VueType | TopmathsView>('home')
+export const view = writable<View>('home')
 export const reference = writable<string>('')
 
 // display settings

@@ -1,8 +1,8 @@
 <script lang="ts">
   import { goToView } from '../../services/navigation'
-  import type { ReferenceInfo, TopmathsView } from '../../types/navigation'
+  import type { ReferenceInfo, View } from '../../types/navigation'
 
-  export let view: TopmathsView
+  export let view: View
   export let reference: ReferenceInfo
 
 </script>
