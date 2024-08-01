@@ -1,26 +1,27 @@
 <script lang="ts">
+  import type { ThemeColor } from '../../../types/color'
   import type { TopmathsView } from '../../../types/navigation'
   import ButtonImageHoverInvert from '../../shared/ButtonImageHoverInvert.svelte'
 
   export let isDisplayed: boolean = true
   export let isActive: boolean
-  export let destinationVue: TopmathsView
-  export let color: string
+  export let destinationView: TopmathsView
+  export let color: ThemeColor
   export let imageSrc: string
   export let imageAlt: string
-  export let goToView: (event: MouseEvent, vue: TopmathsView) => void
+  export let goToView: (event: MouseEvent, view: TopmathsView) => void
 
 </script>
 
 {#if isDisplayed}
   <li>
-    <a href='?v={destinationVue}'>
+    <a href='?v={destinationView}'>
       <ButtonImageHoverInvert
         {color}
         {isActive}
         {imageSrc}
         {imageAlt}
-        on:click={(event) => goToView(event, destinationVue)}
+        on:click={(event) => goToView(event, destinationView)}
       />
     </a>
   </li>
