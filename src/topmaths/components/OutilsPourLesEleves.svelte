@@ -1,5 +1,5 @@
 <script lang="ts">
-  import GrosBouton from './shared/GrosBouton.svelte'
+  import GrosBouton from './shared/MainMenuItem.svelte'
 </script>
 
 <svelte:head>
@@ -14,20 +14,20 @@
   </h1>
   <div class="p-8 is-fin" style="background-color: #faf5ff;">
     <GrosBouton
-      vue='lexique'
-      couleur='blue'
-      texte='Lexique'
+      view='lexique'
+      color='blue'
+      text='Lexique'
     />
     <GrosBouton
-      vue='tutos'
+      view='tutos'
       ref='installation-anki'
-      couleur='5e'
-      texte='Tutos'
+      color='5e'
+      text='Tutos'
     />
     <GrosBouton
-      vue='telechargements'
-      couleur='green'
-      texte='Téléchargements'
+      view='telechargements'
+      color='green'
+      text='Téléchargements'
     />
   </div>
 </div>

@@ -10,7 +10,7 @@
 <img
   {src}
   {alt}
-  class="image is-{color} size-8 md:size-12"
+  class="{$$props.class} is-{color} size-8 md:size-12"
 />
 
 <style>

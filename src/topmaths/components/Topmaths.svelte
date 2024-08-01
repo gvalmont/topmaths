@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Accueil from './Accueil.svelte'
+  import Home from './Home/Home.svelte'
   import Sequences from './Sequences.svelte'
   import Sequence from './Sequence.svelte'
   import { goToView } from '../services/navigation'
@@ -158,7 +158,7 @@
           {setPersonalMode}
         />
       {:else}
-        <Accueil />
+        <Home />
       {/if}
     </div>
   <Footer />

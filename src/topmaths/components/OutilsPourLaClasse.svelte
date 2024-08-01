@@ -1,7 +1,7 @@
 <script lang="ts">
   import { isTeacherMode } from '../services/store'
   import Storage from '../modules/Storage'
-  import GrosBouton from './shared/GrosBouton.svelte'
+  import MainMenuItem from './shared/MainMenuItem.svelte'
 
 </script>
 
@@ -17,16 +17,16 @@
   </h1>
   <div style="background-color: #ebfaf1; border-radius: 0px 0px 50px 50px; ">
     <br />
-    <GrosBouton
-    vue='mathador'
-    couleur='violet'
-    texte='Mathador'
+    <MainMenuItem
+    view='mathador'
+    color='violet'
+    text='Mathador'
     />
     {#if $isTeacherMode}
-      <GrosBouton
-      vue='progressions'
-      couleur='sponsor'
-      texte='Progressions'
+      <MainMenuItem
+      view='progressions'
+      color='sponsor'
+      text='Progressions'
       />
       <br /><br />
       <div>

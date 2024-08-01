@@ -22,7 +22,7 @@ export function isInfoReferences (obj: unknown): obj is ReferenceInfo[] {
   return obj.every(isInfoReference)
 }
 
-const referenceValidKeys = referenceInfoValidKeys
+const referenceValidKeys = ['', ...referenceInfoValidKeys]
 type ReferenceValidKeysType = typeof referenceValidKeys
 export type Reference = ReferenceValidKeysType[number]
 export function isReference (obj: unknown): obj is Reference {
