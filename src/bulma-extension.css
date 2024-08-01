@@ -174,7 +174,7 @@ button.button:not(.is-outlined):not(:active):not(:focus) i {
   filter: invert(73%) sepia(96%) saturate(209%) hue-rotate(346deg) brightness(104%) contrast(103%);
 }
 
-.is-link i, a>i {
+.is-link i {
   filter: invert(29%) sepia(98%) saturate(796%) hue-rotate(203deg) brightness(101%) contrast(88%);
 }
 

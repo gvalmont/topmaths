@@ -1,63 +1,79 @@
-<h1 class="title is-1 has-text-centered pt-14">POLITIQUE DE CONFIDENTIALITÉ</h1>
-<h1 class="subtitle is-2 pt-6 has-text-centered">
+<script>
+  import AnchorExternal from '../../shared/AnchorExternal.svelte'
+
+</script>
+<h1>POLITIQUE DE CONFIDENTIALITÉ</h1>
+<h2>
   MISE À DISPOSITION DU SITE WEB ET CRÉATION DE FICHIERS JOURNAUX
-</h1>
-<p class="has-text-justified">
+</h2>
+<p>
   Afin de respecter ses obligations légales, l'hébergeur du site web (HODI)
   collecte et conserve des données techniques relatives à l’utilisation des
   services (IP, User Agent) pour une durée d'un an.
 </p>
-<h1 class="subtitle is-2 pt-6 has-text-centered">UTILISATION DES COOKIES</h1>
-<p class="has-text-justified">topmaths n'utilise aucun cookie.</p>
-<h1 class="subtitle is-2 pt-6 has-text-centered">STOCKAGE DES DONNÉES</h1>
-<p class="has-text-justified">
+<h2>UTILISATION DES COOKIES</h2>
+<p>topmaths n'utilise aucun cookie.</p>
+<h2>STOCKAGE DES DONNÉES</h2>
+<p>
   topmaths ne récupère aucune donnée de ses utilisateurs.<br />
   Certaines données sont stockées localement dans le navigateur mais ne sont à
   aucun moment envoyées sur internet.
 </p>
-<h1 class="subtitle is-2 pt-6 has-text-centered">
+<h2>
   UTILISATION DE SERVICES TIERS
-</h1>
-<p class="has-text-justified">
+</h2>
+<p>
   topmaths affiche des éléments de services tiers qui peuvent éventuellement
   récupérer des données personnelles.
 </p>
 <br />
 <ul>
   <li>
-    Le calcul mental peut venir de <a href="https://mathsmentales.net/cgu.html"
-      >MathsMentales</a
-    >
+    Le calcul mental peut venir de
+    <AnchorExternal href="https://mathsmentales.net/cgu.html">
+      MathsMentales
+    </AnchorExternal>
   </li>
   <li>
-    Les vidéos viennent de <a
-      href="https://policies.google.com/privacy?hl=fr#infocollect">YouTube</a
-    >
+    Les vidéos viennent de
+    <AnchorExternal href="https://policies.google.com/privacy?hl=fr#infocollect">
+      YouTube
+    </AnchorExternal>
     avant d'être filtrées par
-    <a href="https://ladigitale.dev/confidentialite.html">DigiPlay</a>
+    <AnchorExternal href="https://ladigitale.dev/confidentialite.html">
+      DigiView
+    </AnchorExternal>
   </li>
   <li>
-    Certaines activités peuvent provenir de :
+    Certains exercices peuvent venir de :
     <ul>
       <li>
-        - <a href="https://mathix.org/linux/politique-de-confidentialite-2"
-          >mathix</a
-        >
+        <AnchorExternal href="https://mathix.org/linux/politique-de-confidentialite-2">
+          mathix
+        </AnchorExternal>
       </li>
       <li>
-        - <a href="https://www.sesamath.net/index.php?page=mentions_legales"
-          >Sesamath</a
-        >
+        <AnchorExternal href="https://www.sesamath.net/index.php?page=mentions_legales">
+          Sesamath
+        </AnchorExternal>
       </li>
-      <li>- <a href="https://www.geogebra.org/privacy">Geogebra</a></li>
-      <li>- <a href="https://www.clicmaclasse.fr/">clicmaclasse</a></li>
+      <li>
+        <AnchorExternal href="https://www.geogebra.org/privacy">
+          Geogebra
+        </AnchorExternal>
+      </li>
+      <li>
+        <AnchorExternal href="https://www.clicmaclasse.fr/">
+          clicmaclasse
+        </AnchorExternal>
+      </li>
     </ul>
   </li>
 </ul>
-<h1 class="subtitle is-2 pt-6 has-text-centered">
+<h2>
   DROIT D’ACCÈS AUX DONNÉES
-</h1>
-<p class="has-text-justified">
+</h2>
+<p>
   <b>Information et consultation du dossier :</b> conformément à l'Article 15
   du Règlement général sur la protection des données (Cnil.fr), les
   utilisateurs du site et des applications de La Digitale peuvent formuler une

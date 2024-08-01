@@ -1,14 +1,14 @@
-<h1 class="title is-1 has-text-centered pt-14">CONDITIONS GÉNÉRALES D'UTILISATION</h1>
-<h1 class="subtitle is-2 pt-6 has-text-centered">PRÉAMBULE</h1>
+<h1>CONDITIONS GÉNÉRALES D'UTILISATION</h1>
+<h2>PRÉAMBULE</h2>
 <p>
   En utilisant les outils proposés par topmaths sur topmaths.fr, vous acceptez les conditions d'utilisation suivantes.<br>
   topmaths se réserve le droit de mettre à jour et de modifier ces conditions sans préavis.
 </p>
-<h1 class="subtitle is-2 pt-6 has-text-centered">CONDITIONS D'UTILISATION</h1>
-<ul>
-  <li>L’utilisation du service se fait à vos propres risques. Le service est fourni tel quel sans aucune garantie.</li>
-</ul>
-<h1 class="subtitle is-2 pt-6 has-text-centered">MODIFICATION DU SERVICE</h1>
+<h2>CONDITIONS D'UTILISATION</h2>
+<p>
+  L’utilisation du service se fait à vos propres risques. Le service est fourni tel quel sans aucune garantie.
+</p>
+<h2>MODIFICATION DU SERVICE</h2>
 <p>
   topmaths se réserve le droit, à tout moment de modifier ou d’interrompre, temporairement ou définitivement, le service avec ou sans préavis.
   <br>

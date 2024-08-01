@@ -1,7 +1,6 @@
 <script lang="ts">
-  import type { TopmathsView } from '../../types/navigation'
-
-  export let goToView: (event: MouseEvent, view: TopmathsView) => void
+  import AnchorExternal from '../shared/AnchorExternal.svelte'
+  import ButtonInternalLink from '../shared/ButtonInternalLink.svelte'
 
   const year = new Date().getFullYear()
 </script>
@@ -14,37 +13,30 @@
   bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
 >
   <p>
-    <strong>topmaths</strong> © {year} de
-    <a href="https://forge.apps.education.fr/valmontguillaume" target="_blank" rel="noopener noreferrer">Guillaume Valmont</a> et des
-    <a href="https://coopmaths.fr/a_propos/" target="_blank" rel="noopener noreferrer">contributeurs de MathALÉA</a>
+    <b>topmaths</b> © {year} de
+    <AnchorExternal href="https://forge.apps.education.fr/valmontguillaume">
+      Guillaume Valmont
+    </AnchorExternal>
+    et des
+    <AnchorExternal href="https://coopmaths.fr/a_propos/">
+      contributeurs de MathALÉA
+    </AnchorExternal>
   </p>
   <p>
-    <button
-      class=""
-      on:click={(event) => goToView(event, 'informations')}
-    >
+    <ButtonInternalLink view="info" reference="site-info">
       Informations sur le site
-    </button>
+    </ButtonInternalLink>
     -
-    <button
-      class=""
-      on:click={(event) => goToView(event, 'mentions-legales')}
-    >
+    <ButtonInternalLink view="info" reference="legal-notice">
       Mentions légales
-    </button>
+    </ButtonInternalLink>
     -
-    <button
-      class=""
-      on:click={(event) => goToView(event, 'politique-de-confidentialite')}
-    >
+    <ButtonInternalLink view="info" reference="privacy-policy">
       Politique de confidentialité
-    </button>
+    </ButtonInternalLink>
     -
-    <button
-      class=""
-      on:click={(event) => goToView(event, 'cgu')}
-    >
+    <ButtonInternalLink view="info" reference="terms-of-use">
       CGU
-    </button>
+    </ButtonInternalLink>
   </p>
 </footer>

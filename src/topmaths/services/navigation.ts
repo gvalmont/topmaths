@@ -1,8 +1,13 @@
 import { exerciseLinks, view, reference } from './store'
 import { isCoopmaths, removeSeed } from './shared'
-import type { TopmathsView } from '../types/navigation'
+import type { ReferenceInfo, TopmathsView } from '../types/navigation'
 
-export function goToView (mouseEvent: MouseEvent, destinationView: TopmathsView, ref?: string): void {
+export function backToHome (): void {
+  view.set('home')
+  window.history.pushState({}, '', '/')
+}
+
+export function goToView (mouseEvent: MouseEvent, destinationView: TopmathsView, ref?: ReferenceInfo): void {
   const isRegularClick = mouseEvent.button === 0 && !mouseEvent.ctrlKey && !mouseEvent.metaKey
   if (!isRegularClick) {
     return // to allow right clicks and opening in new tabs

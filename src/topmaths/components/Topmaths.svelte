@@ -8,10 +8,6 @@
   import Storage from '../modules/Storage'
   import OutilsPourLaClasse from './OutilsPourLaClasse.svelte'
   import Mathador from './outils-pour-la-classe/Mathador.svelte'
-  import GenerateurDePortraits from './outils-pour-la-classe/GenerateurDePortraits.svelte'
-  import Cgu from './Cgu.svelte'
-  import MentionsLegales from './MentionsLegales.svelte'
-  import PolitiqueDeConfidentialite from './PolitiqueDeConfidentialite.svelte'
   import Panier from './Panier.svelte'
   import { onDestroy, onMount } from 'svelte'
   import { ElementInstrumenpoche } from '../../modules/ElementInstrumenpoche'
@@ -22,7 +18,6 @@
   import Telechargements from './outils-pour-les-eleves/Telechargements.svelte'
   import Tutos from './outils-pour-les-eleves/Tutos.svelte'
   import { isTeacherMode, isPersonalMode, reference, view } from '../services/store'
-  import Informations from './Informations.svelte'
   import ExercicesMathalea from './exercices/ExercicesMathalea.svelte'
   import HeadTabsMenu from './presentationalComponents/headTabsMenu/HeadTabsMenu.svelte'
   import { cacheData } from '../services/data'
@@ -33,7 +28,8 @@
   import InfoDialog from './presentationalComponents/InfoDialog.svelte'
   import Footer from './presentationalComponents/Footer.svelte'
   import Perso from './presentationalComponents/Perso.svelte'
-    import DarkModeToggle from './presentationalComponents/DarkModeToggle.svelte'
+  import DarkModeToggle from './presentationalComponents/DarkModeToggle.svelte'
+  import Info from './Info/Info.svelte'
 
   if (customElements.get('alea-instrumenpoche') === undefined) {
     customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
@@ -143,8 +139,6 @@
         <OutilsPourLaClasse />
       {:else if $view === 'mathador'}
         <Mathador />
-      {:else if $view === 'generateur-de-portraits'}
-        <GenerateurDePortraits />
       {:else if $view === 'eleves'}
         <OutilsPourLesEleves />
       {:else if $view === 'lexique'}
@@ -155,16 +149,10 @@
         <Telechargements />
       {:else if $view === 'progressions'}
         <Progressions />
-      {:else if $view === 'informations'}
-        <Informations />
       {:else if $view === 'panier'}
         <Panier />
-      {:else if $view === 'mentions-legales'}
-        <MentionsLegales />
-      {:else if $view === 'politique-de-confidentialite'}
-        <PolitiqueDeConfidentialite />
-      {:else if $view === 'cgu'}
-        <Cgu />
+      {:else if $view === 'info'}
+        <Info />
       {:else if $view === 'perso'}
         <Perso
           isPersonalMode={$isPersonalMode}
@@ -174,7 +162,7 @@
         <Accueil />
       {/if}
     </div>
-  <Footer {goToView} />
+  <Footer />
 
   {#if $isTeacherMode}
     <TimeOverlay />

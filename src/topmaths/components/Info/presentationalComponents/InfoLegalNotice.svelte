@@ -1,11 +1,12 @@
 <script lang="ts">
-  import { goToView } from '../services/navigation'
+  import { goToView } from '../../../services/navigation'
+  import AnchorExternal from '../../shared/AnchorExternal.svelte'
 
 </script>
 
-<h1 class="title is-1 has-text-centered pt-14">MENTIONS LÉGALES</h1>
-<h1 class="subtitle is-2 pt-6 has-text-centered">IDENTITÉ</h1>
-<p class="has-text-justified">
+<h1>MENTIONS LÉGALES</h1>
+<h2>IDENTITÉ</h2>
+<p>
   <b>Nom du site Web :</b> topmaths<br />
   <b>Adresse :</b> https://topmaths.fr<br />
   <b>Propriétaire :</b> Guillaume VALMONT<br />
@@ -13,8 +14,8 @@
   <b>Conception et réalisation :</b> Guillaume VALMONT<br />
   <b>Hébergement :</b> Hodi SAS - 14 rue Pasteur - 97400 Saint-Denis - La Réunion
 </p>
-<h1 class="subtitle is-2 pt-6 has-text-centered">INFORMATIONS</h1>
-<p class="has-text-justified">
+<h2>INFORMATIONS</h2>
+<p>
   Les informations et documents du site sont présentés à titre indicatif,
   n’ont pas de caractère exhaustif et ne peuvent engager la responsabilité du
   propriétaire du site.
@@ -22,30 +23,25 @@
   Le propriétaire du site ne peut être tenu responsable des dommages directs et
   indirects consécutifs à l’accès au site.
 </p>
-<h1 class="subtitle is-2 pt-6 has-text-centered">PROPRIÉTÉ INTELLECTUELLE</h1>
-<p class="has-text-justified">
-  Le contenu du site est sous licence <a
-    href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr"
-    target="_blank"
-    rel="noopener noreferrer">CC-BY-SA 4.0</a
-  >.<br />
+<h2>PROPRIÉTÉ INTELLECTUELLE</h2>
+<p>
+  Le contenu du site est sous licence
+  <AnchorExternal href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">
+    CC-BY-SA 4.0
+  </AnchorExternal>
+  .<br />
   Le
-  <a
-    href="https://forge.apps.education.fr/valmontguillaume/topmaths"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    code source du site</a
-  >
+  <AnchorExternal href="https://forge.apps.education.fr/valmontguillaume/topmaths">
+    code source du site
+  </AnchorExternal>
   est sous licence
-  <a
-    href="https://www.gnu.org/licenses/agpl-3.0.html"
-    target="_blank"
-    rel="noopener noreferrer">AGPL 3.0</a
-  >.
+  <AnchorExternal href="https://www.gnu.org/licenses/agpl-3.0.html">
+    AGPL 3.0
+  </AnchorExternal>
+  .
 </p>
-<h1 class="subtitle is-2 pt-6 has-text-centered">LIENS</h1>
-<p class="has-text-justified">
+<h2>LIENS</h2>
+<p>
   Le propriétaire du site décline toute responsabilité et n’est pas engagé par
   le référencement via des liens hypertextes, de ressources tierces présentes
   sur Internet, tant en ce qui concerne leur contenu que leur pertinence.
@@ -59,15 +55,17 @@
   Le propriétaire du site se réserve le droit de demander la suppression d’un lien
   s’il estime que le site source ne respecte pas les règles ainsi définies.
 </p>
-<h1 class="subtitle is-2 pt-6 has-text-centered">CONFIDENTIALITÉ</h1>
-<p class="has-text-justified">
+<h2>CONFIDENTIALITÉ</h2>
+<p>
   Le site ne recueille pas d’informations personnelles et n’est pas assujetti à
   déclaration à la CNIL.
   <br />
   Voir également la page
   <button
-    class="has-text-link"
-    on:click={(event) => goToView(event, 'politique-de-confidentialite')}
-    >Politique de confidentialité</button
-  >.
+    class="text-link dark:text-linkdark"
+    on:click={(event) => goToView(event, 'info', 'privacy-policy')}
+  >
+    Politique de confidentialité
+  </button>
+  .
 </p>
