@@ -229,9 +229,9 @@ const config = {
         }
       },
       fontFamily: {
-        sans: ['"Source Sans Pro"', ...defaultTheme.fontFamily.sans],
+        sans: ['"Arial"', ...defaultTheme.fontFamily.sans],
         logo9: 'jelleebold',
-        mono: ['"Source Code Pro"', ...defaultTheme.fontFamily.mono]
+        mono: [...defaultTheme.fontFamily.mono]
       },
       transitionProperty: {
         width: 'width'
