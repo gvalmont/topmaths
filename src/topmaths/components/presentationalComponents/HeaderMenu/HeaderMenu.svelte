@@ -19,8 +19,8 @@
       {goToView}
     />
     <HeaderMenuItem
-      destinationView={'sequences'}
-      isActive={view === 'sequences' || view === 'sequence'}
+      destinationView={'unit'}
+      isActive={view === 'unit'}
       color={'info-darker'}
       imageSrc={'topmaths/img/cc0/guest-book-svgrepo-com.svg'}
       imageAlt={'Livre ouvert'}

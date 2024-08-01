@@ -1,7 +1,6 @@
 <script lang="ts">
   import Home from './Home/Home.svelte'
-  import Sequences from './Sequences.svelte'
-  import Sequence from './Sequence.svelte'
+  import Unit from './Unit/Unit.svelte'
   import { goToView } from '../services/navigation'
   import Objectifs from './Objectifs.svelte'
   import Objectif from './Objectif.svelte'
@@ -118,16 +117,14 @@
     {goToView}
     {isCartEmpty}
   />
-    <div class="flex flex-col m-auto
+    <div class="flex flex-col m-auto max-w-screen-lg
       pb-8 mb:pb-20
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >
       {#if $view === 'exercices'}
         <ExercicesMathalea {isMd} />
-      {:else if $view === 'sequence'}
-        <Sequence />
-      {:else if $view === 'sequences'}
-        <Sequences />
+      {:else if $view === 'unit'}
+        <Unit />
       {:else if $view === 'objectifs'}
         <Objectifs />
       {:else if $view === 'objectif'}

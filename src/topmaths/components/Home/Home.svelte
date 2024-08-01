@@ -12,7 +12,7 @@
 </svelte:head>
 
 <MainMenuItem
-  view='sequences'
+  view='unit'
   color='info-darker'
   text='Séquences'
   imageSrc='topmaths/img/cc0/guest-book-svgrepo-com.svg'

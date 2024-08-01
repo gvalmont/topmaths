@@ -13,7 +13,7 @@ export function goToView (mouseEvent: MouseEvent, destinationView: View, ref?: R
     return // to allow right clicks and opening in new tabs
   }
   mouseEvent.preventDefault()
-  if (ref) reference.set(ref)
+  reference.set(ref ?? '')
   view.set(destinationView)
   window.history.pushState({}, '', `?v=${destinationView}${ref ? `&ref=${ref}` : ''}`)
 }

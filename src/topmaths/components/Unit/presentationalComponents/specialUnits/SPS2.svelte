@@ -1,5 +1,5 @@
 <script lang="ts">
-  import papiersCrayons from '../../../topmaths/json/papiers_crayons.json'
+  import papiersCrayons from '../../../../../topmaths/json/papiers_crayons.json'
 
 </script>
 

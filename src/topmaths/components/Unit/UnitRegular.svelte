@@ -5,7 +5,7 @@
     units
   } from '../../services/store'
   import type { ObjectiveExercise } from '../../types/objective'
-  import { emptyUnitDownloadLinks, type Unit } from '../../types/unit'
+  import { emptyUnit, type Unit } from '../../types/unit'
   import { getTitle } from '../../services/shared'
   import { goToView } from '../../services/navigation'
   import { onDestroy } from 'svelte'
@@ -15,21 +15,7 @@
 
   let niveau = ''
   export let referenceSequence = ''
-  let sequence: Unit = {
-    reference: '',
-    title: '',
-    grade: 'none',
-    number: 0,
-    term: 0,
-    objectives: [],
-    mentalCalculations: [],
-    flashQuestions: [],
-    flashQuestionsLink: '',
-    assessmentExamSlug: '',
-    assessmentLink: '',
-    assessmentExamLink: '',
-    downloadLinks: emptyUnitDownloadLinks
-  }
+  let sequence: Unit = emptyUnit
   let exercicesSequence: ObjectiveExercise[] = []
   let nomsExercicesSequence: string[] = []
   let niveauxObjectifsUnsubscribe: Unsubscriber
@@ -38,7 +24,7 @@
   trouverSequence()
   surveillerLeChargementDesDonnees()
 
-  function surveillerLeChargementDesDonnees () {
+  function surveillerLeChargementDesDonnees (): void {
     niveauxObjectifsUnsubscribe = objectives.subscribe(() =>
       trouverSequence()
     )
@@ -49,11 +35,11 @@
     onDestroy(niveauxSequencesUnsubscribe)
   }
 
-  function lesDonneesSontChargees () {
+  function lesDonneesSontChargees ():boolean {
     return $objectives.length > 0 && $units.length > 0
   }
 
-  function trouverSequence () {
+  function trouverSequence (): void {
     if (lesDonneesSontChargees() && referenceSequence.slice(0, 1) === 'S') {
       $units.find((sequenceTrouve) => {
         if (sequenceTrouve.reference === referenceSequence) {
@@ -71,7 +57,7 @@
     }
   }
 
-  function listerExercices () {
+  function listerExercices ():void {
     exercicesSequence = []
     nomsExercicesSequence = []
     for (const objectif of sequence.objectives) {

@@ -2,15 +2,15 @@
   import {
     units,
     specialUnits
-  } from '../services/store'
+  } from '../../services/store'
   import { onDestroy } from 'svelte'
-  import { normalize } from '../services/shared'
-  import { goToView } from '../services/navigation'
+  import { normalize } from '../../services/shared'
+  import { goToView } from '../../services/navigation'
   import type { Unsubscriber } from 'svelte/store'
   import { writable, derived } from 'svelte/store'
-  import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
-  import { isLineGrade, type LineGrade } from '../types/grade'
-  import type { Unit } from '../types/unit'
+  import LevelsTabsMenu from '../shared/LevelsTabsMenu.svelte'
+  import { isLineGrade, type LineGrade } from '../../types/grade'
+  import type { Unit } from '../../types/unit'
 
   interface Ligne {
     grade: LineGrade
@@ -139,7 +139,7 @@ function lesDonneesSontChargees () {
         ? (filter.term = 0)
         : (filter.term = term)
     }
-    window.history.pushState({}, '', `?v=sequences&niveau=${filter.grade}&periode=${filter.term}`)
+    window.history.pushState({}, '', `?v=unit&niveau=${filter.grade}&periode=${filter.term}`)
   }
 </script>
 
@@ -186,9 +186,9 @@ function lesDonneesSontChargees () {
       {#each lignesSequencesParticulieres as ligne, i}
         {#if ligne.reference !== ''}
           <a
-            href="/?v=sequence&ref={ligne.reference}"
+            href="/?v=unit&ref={ligne.reference}"
             on:click={(event) =>
-              goToView(event, 'sequence', ligne.reference)}
+              goToView(event, 'unit', ligne.reference)}
           >
             <div
               class="p-1  is-tout"
@@ -219,9 +219,9 @@ function lesDonneesSontChargees () {
           class:is-fin={i < $rowsRegular.length - 1 && ((filter.term > 0 && $rowsRegular[i].term !== $rowsRegular[i + 1].term) || $rowsRegular[i + 1].grade === 'end')}
         >
           <a
-            href="/?v=sequence&ref={row.reference}"
+            href="/?v=unit&ref={row.reference}"
             on:click={(event) =>
-              goToView(event, 'sequence', row.reference)}
+              goToView(event, 'unit', row.reference)}
           >
             <div>
               {row.number === 0
