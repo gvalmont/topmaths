@@ -22,7 +22,7 @@
     {text}
     {imageSrc}
     {imageAlt}
-    class="w-[140px] md:w-[260px] button is-{color} is-outlined h-14 md:h-24 rounded md:rounded-lg"
+    class="w-[140px] inline-flex md:w-[260px] button is-{color} h-14 md:h-24 rounded md:rounded-lg border"
     on:click={(event) => goToView(event, view, ref)}
   />
 </a>

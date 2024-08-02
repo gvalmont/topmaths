@@ -129,7 +129,7 @@
   }
 </script>
 
-<div id="appComponent">
+<div id="appComponent" class="antialiased">
   {#if $globalOptions.v === 'diaporama' || $globalOptions.v === 'overview'}
     <Diaporama />
   {:else if $globalOptions.v === 'can'}

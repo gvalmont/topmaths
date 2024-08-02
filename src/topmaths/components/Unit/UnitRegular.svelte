@@ -23,7 +23,7 @@
   <title>Séquence {unit.number} : {unit.title}</title>
 </svelte:head>
 
-<h1 class="font-semibold p-4 bg-{unit.grade} text-white rounded-t-[50px]
+<h1 class="font-semibold p-4 title is-{unit.grade} rounded-t-[50px]
   text-2xl md:text-4xl"
 >
   Séquence {unit.reference.slice(3)} :<br />{unit.title}

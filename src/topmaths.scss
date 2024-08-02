@@ -1,0 +1,80 @@
+$foreground-transform: scale(1, 1);
+$basetout: #feb60a;
+$lighttout: #fffbeb;
+$base6e: #28a745;
+$light6e: #effaf3;
+$base5e: #3273dc;
+$light5e: #eef3fc;
+$base4e: #6d28d9;
+$light4e: #ede9fe;
+$base3e: #e03286;
+$light3e: #fce7f3;
+$colorless: #363636;
+
+@media print {
+  .noprint,
+  .noprint * {
+    display: none !important;
+    padding: 0;
+    margin: 0;
+  }
+  html, body {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+@mixin grade-style($class-name, $main-color, $light-color, $filter) {
+  .#{$class-name} {
+    &:not(a):not(button) {
+      color: $colorless;
+    }
+    background-color: $light-color;
+    a:not(.subtitle *):not(.title *):not(.colorless *),
+    a *:not(.subtitle *):not(.title *):not(.colorless *),
+    button:not(.subtitle *):not(.title *):not(.colorless *),
+    button *:not(.subtitle *):not(.title *):not(.colorless *),
+    .tooltiptext {
+      color: $main-color !important;
+    }
+    .tabs-menu .subtitle:not(:hover):not(.is-active) {
+      background-color: $light-color;
+      color: $main-color;
+    }
+    &.title {
+      border-radius: 50px 50px 0 0;
+    }
+    &.title,
+    &.subtitle,
+    a.subtitle,
+    button.subtitle {
+      background-color: $main-color;
+      color: white;
+    }
+    &.title a,
+    &.subtitle a,
+    &.title button,
+    &.subtitle button {
+      color: white;
+      background-color: inherit;
+    }
+    i {
+      filter: #{$filter};
+    }
+  }
+}
+@include grade-style('is-6e', $base6e, $light6e, 'invert(52%) sepia(26%) saturate(1195%) hue-rotate(81deg) brightness(95%) contrast(94%)');
+@include grade-style('is-5e', $base5e, $light5e, 'invert(35%) sepia(90%) saturate(2748%) hue-rotate(207deg) brightness(95%) contrast(81%)');
+@include grade-style('is-4e', $base4e, $light4e, 'invert(22%) sepia(91%) saturate(2560%) hue-rotate(255deg) brightness(83%) contrast(110%)');
+@include grade-style('is-3e', $base3e, $light3e, 'invert(24%) sepia(75%) saturate(2769%) hue-rotate(313deg) brightness(95%) contrast(83%)');
+@include grade-style('is-tout', $basetout, $lighttout, 'invert(76%) sepia(16%) saturate(6197%) hue-rotate(354deg) brightness(107%) contrast(99%)');
+
+.subtitle {
+  &.is-rounded {
+    border-radius: 25px;
+  }
+}
+
+.is-fin {
+  border-radius: 0 0 50px 50px;
+}
