@@ -165,7 +165,7 @@
           {#if count({ grade: row.grade, theme: row.theme, subTheme: row.subTheme, term: row.term, filter }) > 0}
             <div
               class="p-1  is-{row.grade}"
-              class:is-fin={$texteRecherche === '' && i < $rows.length - 2 && ($rows[i + 1].grade === 'end' || $rows[i + 1].theme === 'Extra')}
+              class:rounded-b-5xl={$texteRecherche === '' && i < $rows.length - 2 && ($rows[i + 1].grade === 'end' || $rows[i + 1].theme === 'Extra')}
             >
               <a
                 href="/?v=objectif&ref={row.reference}"

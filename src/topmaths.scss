@@ -41,9 +41,6 @@ $colorless: #363636;
       background-color: $light-color;
       color: $main-color;
     }
-    &.title {
-      border-radius: 50px 50px 0 0;
-    }
     &.title,
     &.subtitle,
     a.subtitle,
@@ -68,13 +65,3 @@ $colorless: #363636;
 @include grade-style('is-4e', $base4e, $light4e, 'invert(22%) sepia(91%) saturate(2560%) hue-rotate(255deg) brightness(83%) contrast(110%)');
 @include grade-style('is-3e', $base3e, $light3e, 'invert(24%) sepia(75%) saturate(2769%) hue-rotate(313deg) brightness(95%) contrast(83%)');
 @include grade-style('is-tout', $basetout, $lighttout, 'invert(76%) sepia(16%) saturate(6197%) hue-rotate(354deg) brightness(107%) contrast(99%)');
-
-.subtitle {
-  &.is-rounded {
-    border-radius: 25px;
-  }
-}
-
-.is-fin {
-  border-radius: 0 0 50px 50px;
-}

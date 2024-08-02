@@ -182,7 +182,7 @@ function lesDonneesSontChargees () {
   <!-- Séquences particulières -->
   {#if $texteRecherche === ''}
     <div>
-      <h1 class="title text-2xl md:text-4xl font-semibold p-2 is-tout">Séquences particulières</h1>
+      <h1 class="title text-2xl md:text-4xl font-semibold rounded-t-5xl p-2 is-tout">Séquences particulières</h1>
       {#each lignesSequencesParticulieres as ligne, i}
         {#if ligne.reference !== ''}
           <a
@@ -192,7 +192,7 @@ function lesDonneesSontChargees () {
           >
             <div
               class="p-1  is-tout"
-              class:is-fin={i === lignesSequencesParticulieres.length - 2}
+              class:rounded-b-5xl={i === lignesSequencesParticulieres.length - 2}
             >
               {ligne.number === 0
                 ? ''
@@ -207,7 +207,7 @@ function lesDonneesSontChargees () {
   {#each $rowsRegular as row, i}
     <div>
       {#if (i === 0 || $rowsRegular[i - 1].grade !== $rowsRegular[i].grade) && (filter.grade === 'all' || filter.grade === row.grade)}
-        <h1 class="title text-2xl md:text-4xl font-semibold p-2 is-{row.grade}">
+        <h1 class="title text-2xl md:text-4xl font-semibold rounded-t-5xl p-2 is-{row.grade}">
           <span class="has-text-white">
             {row.grade}
           </span>
@@ -216,7 +216,7 @@ function lesDonneesSontChargees () {
       {#if row.reference !== '' && row.grade !== 'end' && (row.term === filter.term || filter.term === 0) && (filter.grade === 'all' || filter.grade === row.grade)}
         <div
           class="p-1  is-{row.grade}"
-          class:is-fin={i < $rowsRegular.length - 1 && ((filter.term > 0 && $rowsRegular[i].term !== $rowsRegular[i + 1].term) || $rowsRegular[i + 1].grade === 'end')}
+          class:rounded-b-5xl={i < $rowsRegular.length - 1 && ((filter.term > 0 && $rowsRegular[i].term !== $rowsRegular[i + 1].term) || $rowsRegular[i + 1].grade === 'end')}
         >
           <a
             href="/?v=unit&ref={row.reference}"

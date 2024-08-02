@@ -28,6 +28,11 @@ const config = {
   ],
   theme: {
     extend: {
+      borderRadius: {
+        '4xl': '32px',
+        '5xl': '40px',
+        '6xl': '48px'
+      },
       gridTemplateColumns: {
         13: 'repeat(13, minmax(0, 1fr))',
         14: 'repeat(14, minmax(0, 1fr))',

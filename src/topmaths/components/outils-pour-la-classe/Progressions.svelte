@@ -175,11 +175,11 @@
         {#if ligne.reference !== '' && ligne.grade !== 'end' && filtre.period !== null && (ligne.period === filtre.period || filtre.period === 0 || filtre.period === 0) && (filtre.grade === 'all' || filtre.grade === ligne.grade)}
           <div
             class="is-{ligne.grade}"
-            class:is-fin={i < $lignesFiltreesSequencesNormales.length - 1 && ((filtre.period > 0 && $lignesFiltreesSequencesNormales[i].period !== $lignesFiltreesSequencesNormales[i + 1].period) || $lignesFiltreesSequencesNormales[i + 1].grade === 'end')}
+            class:rounded-b-5xl={i < $lignesFiltreesSequencesNormales.length - 1 && ((filtre.period > 0 && $lignesFiltreesSequencesNormales[i].period !== $lignesFiltreesSequencesNormales[i + 1].period) || $lignesFiltreesSequencesNormales[i + 1].grade === 'end')}
           >
             <div class="m-3">
               <div class="columns is-{ligne.grade} flex" style="border-bottom: 1px solid; border-left: 1px solid; border-right: 1px solid;  border-color: var(--base{ligne.grade});"
-              class:is-fin={i < $lignesFiltreesSequencesNormales.length - 1 && ((filtre.period > 0 && $lignesFiltreesSequencesNormales[i].period !== $lignesFiltreesSequencesNormales[i + 1].period) || $lignesFiltreesSequencesNormales[i + 1].grade === 'end')}>
+              class:rounded-b-5xl={i < $lignesFiltreesSequencesNormales.length - 1 && ((filtre.period > 0 && $lignesFiltreesSequencesNormales[i].period !== $lignesFiltreesSequencesNormales[i + 1].period) || $lignesFiltreesSequencesNormales[i + 1].grade === 'end')}>
                 <!-- Séquence -->
                 <div class="column is-narrow flex self-center flex-col justify-center" style="width: 150px;">
                   <a
