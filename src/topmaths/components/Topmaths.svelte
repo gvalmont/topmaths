@@ -107,7 +107,7 @@
 </svelte:head>
 
 <svelte:window bind:innerWidth />
-<div class="flex flex-col justify-center text-center
+<div class="flex flex-col items-center text-center
   text-base md:text-xl
   text-coopmaths-corpus dark:text-coopmathsdark-corpus
   bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
@@ -117,47 +117,46 @@
     {goToView}
     {isCartEmpty}
   />
-    <div class="flex flex-col m-auto max-w-screen-lg
-      pb-8 mb:pb-20
-      bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-    >
-      {#if $view === 'exercices'}
-        <ExercicesMathalea {isMd} />
-      {:else if $view === 'unit'}
-        <Unit />
-      {:else if $view === 'objectifs'}
-        <Objectifs />
-      {:else if $view === 'objectif'}
-        <Objectif />
-      {:else if $view === 'revisions'}
-        <Revisions />
-      {:else if $view === 'outils'}
-        <OutilsPourLaClasse />
-      {:else if $view === 'mathador'}
-        <Mathador />
-      {:else if $view === 'eleves'}
-        <OutilsPourLesEleves />
-      {:else if $view === 'lexique'}
-        <Lexique />
-      {:else if $view === 'tutos'}
-        <Tutos />
-      {:else if $view === 'telechargements'}
-        <Telechargements />
-      {:else if $view === 'progressions'}
-        <Progressions />
-      {:else if $view === 'panier'}
-        <Panier />
-      {:else if $view === 'info'}
-        <Info />
-      {:else if $view === 'perso'}
-        <Perso
-          isPersonalMode={$isPersonalMode}
-          {setPersonalMode}
-        />
-      {:else}
-        <Home />
-      {/if}
-    </div>
+  <div class="w-full max-w-screen-lg
+    pb-8 mb:pb-20"
+  >
+    {#if $view === 'exercices'}
+      <ExercicesMathalea {isMd} />
+    {:else if $view === 'unit'}
+      <Unit />
+    {:else if $view === 'objectifs'}
+      <Objectifs />
+    {:else if $view === 'objectif'}
+      <Objectif />
+    {:else if $view === 'revisions'}
+      <Revisions />
+    {:else if $view === 'outils'}
+      <OutilsPourLaClasse />
+    {:else if $view === 'mathador'}
+      <Mathador />
+    {:else if $view === 'eleves'}
+      <OutilsPourLesEleves />
+    {:else if $view === 'lexique'}
+      <Lexique />
+    {:else if $view === 'tutos'}
+      <Tutos />
+    {:else if $view === 'telechargements'}
+      <Telechargements />
+    {:else if $view === 'progressions'}
+      <Progressions />
+    {:else if $view === 'panier'}
+      <Panier />
+    {:else if $view === 'info'}
+      <Info />
+    {:else if $view === 'perso'}
+      <Perso
+        isPersonalMode={$isPersonalMode}
+        {setPersonalMode}
+      />
+    {:else}
+      <Home />
+    {/if}
+  </div>
   <Footer />
 
   {#if $isTeacherMode}
