@@ -1,5 +1,5 @@
 <script lang="ts">
-  import GrosBouton from './shared/MainMenuItem.svelte'
+  import MainMenuItem from './shared/MainMenuItem.svelte'
 </script>
 
 <svelte:head>
@@ -13,21 +13,24 @@
     Outils pour les élèves
   </h1>
   <div class="p-8 is-end" style="background-color: #faf5ff;">
-    <GrosBouton
+    <MainMenuItem
       view='lexique'
       color='blue'
-      text='Lexique'
-    />
-    <GrosBouton
+    >
+      Lexique
+    </MainMenuItem>
+    <MainMenuItem
       view='tutos'
       ref='installation-anki'
       color='5e'
-      text='Tutos'
-    />
-    <GrosBouton
+    >
+      Tutoriels
+    </MainMenuItem>
+    <MainMenuItem
       view='telechargements'
       color='green'
-      text='Téléchargements'
-    />
+    >
+      Téléchargements
+    </MainMenuItem>
   </div>
 </div>

@@ -20,14 +20,16 @@
     <MainMenuItem
     view='mathador'
     color='violet'
-    text='Mathador'
-    />
+    >
+    Mathador
+    </MainMenuItem>
     {#if $isTeacherMode}
       <MainMenuItem
       view='progressions'
       color='sponsor'
-      text='Progressions'
-      />
+      >
+      Progressions
+      </MainMenuItem>
       <br /><br />
       <div>
         <button

@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { ThemeColor } from '../../../types/color'
   import type { View } from '../../../types/navigation'
-  import ButtonImageHoverInvert from '../../shared/ButtonImageHoverInvert.svelte'
+  import ButtonImage from '../../shared/ButtonImage.svelte'
 
   export let isDisplayed: boolean = true
   export let isActive: boolean
@@ -16,7 +16,7 @@
 {#if isDisplayed}
   <li>
     <a href='?v={destinationView}'>
-      <ButtonImageHoverInvert
+      <ButtonImage
         {color}
         {isActive}
         {imageSrc}

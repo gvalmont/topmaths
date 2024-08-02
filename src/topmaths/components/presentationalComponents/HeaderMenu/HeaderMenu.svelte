@@ -9,7 +9,7 @@
 </script>
 
 <div class="flex overflow-hidden overflow-x-auto pb-6 md:pb-9">
-  <ul class="flex flex-grow justify-center tabs-menu hover:text-white">
+  <ul class="flex flex-grow justify-center tabs-menu hover:text-white mx-2">
     <HeaderMenuItem
       destinationView={'home'}
       isActive={view === 'home'}
