@@ -58,6 +58,12 @@ const config = {
         200: '2.00'
       },
       colors: {
+        link: {
+          DEFAULT: '#0284c7'
+        },
+        linkdark: {
+          DEFAULT: '#38bdf8'
+        },
         coopmaths: {
           DEFAULT: '#F15929',
           lightest: '#f87f5c',
