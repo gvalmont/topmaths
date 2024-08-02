@@ -12,13 +12,14 @@
       <li>
         <button
           on:click={() => onLevelsTabsMenuClicked(level)}
-          class="is-hoverable is-{level === 'all' ? 'tout' : level}
+          class="is-tabs-menu is-{level === 'all' ? 'tout' : level}
             text-base md:text-2xl
+            my-1 md:my-4
             py-1 md:py-2
             px-3 md:px-5"
           class:is-active={activeLevelTab === level}
-          class:rounded-l-3xl={level === stringGradeValidKeys[0]}
-          class:rounded-r-3xl={level === stringGradeValidKeys[stringGradeValidKeys.length - 1]}
+          class:is-first={level === stringGradeValidKeys[0]}
+          class:is-last={level === stringGradeValidKeys[stringGradeValidKeys.length - 1]}
         >
           {level === 'all' ? 'Tout' : level}
         </button
