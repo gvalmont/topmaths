@@ -199,7 +199,7 @@
     <div
       id="divExercices"
       class="is-{niveau}"
-      class:rounded-b-5xl = {objectif.units.length === 0 &&
+      class:is-end = {objectif.units.length === 0 &&
         !objectif.downloadLinks.practiceSheetLink &&
         (!$isTeacherMode || !objectif.downloadLinks.testSheetLink) &&
         (!$isPersonalMode || isEmptyArrayRecord(objectif.downloadLinks.lessonPlanLinks))}
@@ -264,7 +264,7 @@
     ($isTeacherMode && objectif.downloadLinks.testSheetLink) ||
     ($isPersonalMode && !isEmptyArrayRecord(objectif.downloadLinks.lessonPlanLinks))}
     <div
-      class="{objectif.units.length === 0 ? 'rounded-b-5xl ' : ''}is-{niveau}"
+      class="{objectif.units.length === 0 ? 'is-end ' : ''}is-{niveau}"
     >
       <h2 class="subtitle text-xl md:text-3xl p-3 is-{niveau}">Téléchargements</h2>
       <ul class="p-6 ">
@@ -295,7 +295,7 @@
     </div>
   {/if}
   {#if objectif.units.length > 0}
-    <div class="rounded-b-5xl is-{niveau}">
+    <div class="is-end is-{niveau}">
       <h2 class="subtitle text-xl md:text-3xl p-3 is-{niveau}">
         Séquence{objectif.units.length > 1 ? 's' : ''}
       </h2>

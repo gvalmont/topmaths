@@ -149,7 +149,7 @@
   id="divEvaluation"
   class="is-{unit.grade} {unit.downloadLinks.lessonLink || unit.downloadLinks.lessonSummaryLink || unit.downloadLinks.missionLink || ($isPersonalMode && unit.downloadLinks.lessonPlanLink)
     ? ''
-    : ' rounded-b-5xl'}"
+    : ' is-end'}"
 >
   <h2 id="Evaluation" class="subtitle text-xl md:text-3xl p-3 is-{unit.grade}">Évaluation</h2>
   <div class="p-6  flex flex-col">
@@ -176,7 +176,7 @@
   </div>
 </div>
 {#if unit.downloadLinks.lessonLink || unit.downloadLinks.lessonSummaryLink || unit.downloadLinks.missionLink || ($isPersonalMode && unit.downloadLinks.lessonPlanLink) }
-  <div class="rounded-b-5xl is-{unit.grade}">
+  <div class="is-end is-{unit.grade}">
     <h2 class="subtitle text-xl md:text-3xl p-3 is-{unit.grade}">Téléchargements</h2>
     <ul class="p-6 ">
       <DownloadLine

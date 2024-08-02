@@ -28,7 +28,6 @@
   /* Tooltip text */
   .tooltip .tooltiptext {
     visibility: hidden;
-    background-color: white;
     text-align: center;
     padding: 5px 0;
     border-radius: 6px;

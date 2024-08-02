@@ -8,7 +8,7 @@
 </svelte:head>
 
 <h1 class="title text-2xl md:text-4xl font-semibold p-4 is-tout">Défis géométriques</h1>
-<div class="is-tout rounded-b-5xl">
+<div class="is-tout is-end">
   <p class="text-slate-700">
     <br />
     Des défis géométriques à relever.<br />

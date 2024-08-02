@@ -1,6 +1,6 @@
 import { isStrings } from './shared.js'
 
-export const stringGradeValidKeys = <const>['6e', '5e', '4e', '3e', 'all']
+export const stringGradeValidKeys = <const>['all', '6e', '5e', '4e', '3e']
 type StringGradeValidKeysType = typeof stringGradeValidKeys
 export type StringGrade = StringGradeValidKeysType[number]
 
@@ -83,14 +83,4 @@ export const emptyNumberArrayRecordStringGrade: Record<StringGrade, number[]> = 
   '5e': [],
   '4e': [],
   '3e': []
-}
-
-export type LineGrade = StringGrade | 'all' | 'end' | ''
-export function isLineGrade (obj: unknown): obj is LineGrade {
-  if (obj == null || typeof obj !== 'string') return false
-  return isStringGrade(obj) || ['all', 'end', ''].includes(obj)
-}
-export function isLineGrades (obj: unknown): obj is LineGrade[] {
-  if (obj == null || !Array.isArray(obj)) return false
-  return obj.every(isLineGrade)
 }

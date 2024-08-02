@@ -105,7 +105,7 @@
   <h1 class="title text-2xl md:text-4xl font-semibold p-4 is-3e">
     Révisions
   </h1>
-  <div class="flex flex-col justify-center p-8 rounded-b-5xl" style="background-color: #fffafa;">
+  <div class="flex flex-col justify-center p-8 is-end" style="background-color: #fffafa;">
     <LevelsTabsMenu
       activeLevelTab={niveauChoisi}
       onLevelsTabsMenuClicked={(clickedLevel) => { niveauChoisi = clickedLevel }}

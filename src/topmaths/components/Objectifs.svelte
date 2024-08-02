@@ -5,9 +5,9 @@
   import { onDestroy } from 'svelte'
   import { writable, derived } from 'svelte/store'
   import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
-  import { isLineGrade, type LineGrade } from '../types/grade'
+  import { isStringGrade, type StringGrade } from '../types/grade'
   type LineObjective = {
-  grade: LineGrade,
+  grade: StringGrade,
   term: number,
   theme: string,
   subTheme: string,
@@ -16,7 +16,7 @@
   title: string
 }
   type Filter = {
-    grade: LineGrade,
+    grade: StringGrade,
     term: number
   }
 
@@ -36,7 +36,7 @@
     removeEventListener('popstate', updateParamsFromUrl)
   })
 
-  function count ({ grade, theme, subTheme, term, filter }: { grade: LineGrade, theme: string, subTheme: string, term: number, filter: Filter }) {
+  function count ({ grade, theme, subTheme, term, filter }: { grade: StringGrade, theme: string, subTheme: string, term: number, filter: Filter }) {
     return $objectives
       .filter((objective) => {
         return (
@@ -53,7 +53,7 @@
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     for (const entry of entries) {
-      if (entry[0] === 'niveau') filter.grade = isLineGrade(entry[1]) ? entry[1] : 'all'
+      if (entry[0] === 'niveau') filter.grade = isStringGrade(entry[1]) ? entry[1] : 'all'
       if (entry[0] === 'periode') filter.term = Number(entry[1])
     }
   }
@@ -165,7 +165,7 @@
           {#if count({ grade: row.grade, theme: row.theme, subTheme: row.subTheme, term: row.term, filter }) > 0}
             <div
               class="p-1  is-{row.grade}"
-              class:rounded-b-5xl={$texteRecherche === '' && i < $rows.length - 2 && ($rows[i + 1].grade === 'end' || $rows[i + 1].theme === 'Extra')}
+              class:is-end={$texteRecherche === '' && i < $rows.length - 2 && ($rows[i + 1].grade === 'end' || $rows[i + 1].theme === 'Extra')}
             >
               <a
                 href="/?v=objectif&ref={row.reference}"

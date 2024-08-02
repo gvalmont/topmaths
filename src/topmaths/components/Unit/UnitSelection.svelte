@@ -9,11 +9,11 @@
   import type { Unsubscriber } from 'svelte/store'
   import { writable, derived } from 'svelte/store'
   import LevelsTabsMenu from '../shared/LevelsTabsMenu.svelte'
-  import { isLineGrade, type LineGrade } from '../../types/grade'
   import type { Unit } from '../../types/unit'
+  import { isStringGrade, type StringGrade } from '../../types/grade'
 
   interface Ligne {
-    grade: LineGrade
+    grade: StringGrade
     term: number
     number: number
     reference: string
@@ -50,7 +50,7 @@
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     for (const entry of entries) {
-      if (entry[0] === 'niveau') filter.grade = isLineGrade(entry[1]) ? entry[1] : 'all'
+      if (entry[0] === 'niveau') filter.grade = isStringGrade(entry[1]) ? entry[1] : 'all'
       if (entry[0] === 'periode') filter.term = Number(entry[1])
     }
   }
@@ -192,7 +192,7 @@ function lesDonneesSontChargees () {
           >
             <div
               class="p-1  is-tout"
-              class:rounded-b-5xl={i === lignesSequencesParticulieres.length - 2}
+              class:is-end={i === lignesSequencesParticulieres.length - 2}
             >
               {ligne.number === 0
                 ? ''
@@ -216,7 +216,7 @@ function lesDonneesSontChargees () {
       {#if row.reference !== '' && row.grade !== 'end' && (row.term === filter.term || filter.term === 0) && (filter.grade === 'all' || filter.grade === row.grade)}
         <div
           class="p-1  is-{row.grade}"
-          class:rounded-b-5xl={i < $rowsRegular.length - 1 && ((filter.term > 0 && $rowsRegular[i].term !== $rowsRegular[i + 1].term) || $rowsRegular[i + 1].grade === 'end')}
+          class:is-end={i < $rowsRegular.length - 1 && ((filter.term > 0 && $rowsRegular[i].term !== $rowsRegular[i + 1].term) || $rowsRegular[i + 1].grade === 'end')}
         >
           <a
             href="/?v=unit&ref={row.reference}"

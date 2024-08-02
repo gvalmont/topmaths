@@ -1,24 +1,24 @@
 <script lang="ts">
-  import type { LineGrade } from '../../types/grade'
+  import { stringGradeValidKeys, type StringGrade } from '../../types/grade'
 
   export let activeLevelTab: string
-  export let onLevelsTabsMenuClicked: (level: LineGrade) => void
+  export let onLevelsTabsMenuClicked: (grade: StringGrade) => void
 
-  const levels: LineGrade[] = ['all', '6e', '5e', '4e', '3e']
 </script>
 
 <div class="flex overflow-hidden overflow-x-auto">
-  <ul class="flex flex-grow justify-center tabs-menu is-full-rounded mb-6">
-    {#each levels as level}
+  <ul class="flex flex-grow justify-center mb-6">
+    {#each stringGradeValidKeys as level}
       <li>
         <button
           on:click={() => onLevelsTabsMenuClicked(level)}
-          class="subtitle text-base py-1 md:py-2 md:text-2xl px-3 md:px-5 is-{level === 'all' ? 'tout' : level}"
+          class="is-hoverable is-{level === 'all' ? 'tout' : level}
+            text-base md:text-2xl
+            py-1 md:py-2
+            px-3 md:px-5"
           class:is-active={activeLevelTab === level}
-          class:rounded-tl-3xl={level === levels[0]}
-          class:rounded-bl-3xl={level === levels[0]}
-          class:rounded-tr-3xl={level === levels[levels.length - 1]}
-          class:rounded-br-3xl={level === levels[levels.length - 1]}
+          class:rounded-l-3xl={level === stringGradeValidKeys[0]}
+          class:rounded-r-3xl={level === stringGradeValidKeys[stringGradeValidKeys.length - 1]}
         >
           {level === 'all' ? 'Tout' : level}
         </button

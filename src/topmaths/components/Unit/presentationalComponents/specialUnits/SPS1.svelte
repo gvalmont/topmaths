@@ -16,7 +16,7 @@
 </svelte:head>
 
 <h1 class="title text-2xl md:text-4xl font-semibold p-4 is-tout">Programmation</h1>
-<div class="is-tout rounded-b-5xl">
+<div class="is-tout is-end">
   <h2 class="subtitle text-xl md:text-3xl p-3 is-tout">Initiation : Lightbot Hour</h2>
   <div class="mb-8">
     <div class="flex flex-col justify-center mb-6">

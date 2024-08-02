@@ -12,7 +12,7 @@
   >
     Outils pour les élèves
   </h1>
-  <div class="p-8 rounded-b-5xl" style="background-color: #faf5ff;">
+  <div class="p-8 is-end" style="background-color: #faf5ff;">
     <GrosBouton
       view='lexique'
       color='blue'
