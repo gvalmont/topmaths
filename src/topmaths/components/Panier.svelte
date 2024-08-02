@@ -78,10 +78,7 @@
           <button>
             <span>{panierItem.objectiveReference}</span>
             <span class="is-size-6">
-              {panierItem.label}{panierItem.description ===
-              "Lancer l'exercice"
-                ? ''
-                : ' - ' + panierItem.description}</span
+              {panierItem.label}</span
             >
             &nbsp;
             <button on:click={() => retirerDuPanier(panierItem)}>

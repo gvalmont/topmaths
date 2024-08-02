@@ -26,7 +26,7 @@ export default class Cart {
     }
   }
 
-  static addExercises (exercises: ObjectiveExercise[], reference: string, cartNames: string[], exerciseIndex?: number, isExamExercises = false): void {
+  static addExercises (exercises: ObjectiveExercise[], reference: string, exerciseIndex?: number, isExamExercises = false): void {
     exercises.forEach(exercise => {
       if (!isCoopmaths(exercise.link)) {
         console.warn('L\'exercice', exercise.link, 'n\'a pas été ajouté au panier car il n\'est pas un exercice MathALÉA')
@@ -37,7 +37,7 @@ export default class Cart {
       const newItem: CartItem = {
         id: exercise.id,
         objectiveReference: reference,
-        label: cartNames[exercises.indexOf(exercise)],
+        label: exercise.id + ' ' + exercise.description,
         description,
         slug: exercise.slug
       }

@@ -16,16 +16,12 @@
   export let exercices: ObjectiveExercise[]
   export let videos: ObjectiveVideo[] = []
   export let reference: string = ''
-  export let nomsPanier: string[]
 
-  function presenceExercicesCoopmaths (exercices: ObjectiveExercise[]) {
-    for (const exercice of exercices) {
-      if (isCoopmaths(exercice.link)) return true
-    }
-    return false
+  function presenceExercicesCoopmaths (exercices: ObjectiveExercise[]): boolean {
+    return isCoopmaths(lienExercices) || exercices.map(exercice => exercice.link).some(isCoopmaths)
   }
 
-  function creerLienCapytale () {
+  function creerLienCapytale (): string {
     let lien = COOPMATHS_BASE_URL
     for (const exercice of exercices) {
       if (exercice.slug.includes('&i=0')) {
@@ -92,7 +88,7 @@
     {:else}
       <button
         on:click={() => {
-          Cart.addExercises(exercices, reference, nomsPanier, indiceExercice, exercicesDeBrevet)
+          Cart.addExercises(exercices, reference, indiceExercice, exercicesDeBrevet)
           panierRempli = true
         }}
       >

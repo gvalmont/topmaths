@@ -12,7 +12,7 @@
 {:else if $reference === 'SPS2'}
   <Sps2 />
 {:else if $reference !== ''}
-  <UnitRegular referenceSequence={$reference} />
+  <UnitRegular unitReference={$reference} />
 {:else}
   <UnitSelection />
 {/if}

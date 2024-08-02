@@ -1,87 +1,39 @@
 <script lang="ts">
   import {
     isPersonalMode,
-    objectives,
     units
   } from '../../services/store'
-  import type { ObjectiveExercise } from '../../types/objective'
   import { emptyUnit, type Unit } from '../../types/unit'
   import { getTitle } from '../../services/shared'
   import { goToView } from '../../services/navigation'
-  import { onDestroy } from 'svelte'
-  import type { Unsubscriber } from 'svelte/store'
+  import { onMount } from 'svelte'
   import BoutonsExercices from '../shared/BoutonsExercices.svelte'
   import DownloadLine from '../shared/DownloadLine.svelte'
 
-  let niveau = ''
-  export let referenceSequence = ''
-  let sequence: Unit = emptyUnit
-  let exercicesSequence: ObjectiveExercise[] = []
-  let nomsExercicesSequence: string[] = []
-  let niveauxObjectifsUnsubscribe: Unsubscriber
-  let niveauxSequencesUnsubscribe: Unsubscriber
-  export let title = 'topmaths.fr - Séquence'
-  trouverSequence()
-  surveillerLeChargementDesDonnees()
+  export let unitReference
+  let unit: Unit = emptyUnit
 
-  function surveillerLeChargementDesDonnees (): void {
-    niveauxObjectifsUnsubscribe = objectives.subscribe(() =>
-      trouverSequence()
-    )
-    onDestroy(niveauxObjectifsUnsubscribe)
-    niveauxSequencesUnsubscribe = units.subscribe(() =>
-      trouverSequence()
-    )
-    onDestroy(niveauxSequencesUnsubscribe)
-  }
+  onMount(() => {
+    unit = $units.find((unitFound) => unitFound.reference === unitReference) || emptyUnit
+  })
 
-  function lesDonneesSontChargees ():boolean {
-    return $objectives.length > 0 && $units.length > 0
-  }
-
-  function trouverSequence (): void {
-    if (lesDonneesSontChargees() && referenceSequence.slice(0, 1) === 'S') {
-      $units.find((sequenceTrouve) => {
-        if (sequenceTrouve.reference === referenceSequence) {
-          niveau = sequenceTrouve.grade
-          sequence = sequenceTrouve
-          title =
-              'Séquence ' +
-              sequence.reference.slice(3) +
-              ' : ' +
-              sequence.title
-        }
-        return sequenceTrouve.reference === referenceSequence
-      })
-      listerExercices()
-    }
-  }
-
-  function listerExercices ():void {
-    exercicesSequence = []
-    nomsExercicesSequence = []
-    for (const objectif of sequence.objectives) {
-      for (const exercice of objectif.exercises) {
-        exercicesSequence.push(exercice)
-        nomsExercicesSequence.push(objectif.reference + ' ' + getTitle(objectif))
-      }
-    }
-  }
 </script>
 
 <svelte:head>
-  <title>{title}</title>
+  <title>Séquence {unit.number} : {unit.title}</title>
 </svelte:head>
 
-<h1 id="titre" class="title text-2xl md:text-4xl font-semibold p-4 is-{niveau}">
-  Séquence {sequence.reference.slice(3)} :<br />{sequence.title}
+<h1 class="font-semibold p-4 bg-{unit.grade} text-white rounded-t-[50px]
+  text-2xl md:text-4xl"
+>
+  Séquence {unit.reference.slice(3)} :<br />{unit.title}
 </h1>
-<div class="is-{niveau}">
-  <h2 class="subtitle text-xl md:text-3xl p-3 is-{niveau}">Objectifs</h2>
+<div class="is-{unit.grade}">
+  <h2 class="subtitle text-xl md:text-3xl p-3 is-{unit.grade}">Objectifs</h2>
   <ul class="p-6">
-    {#each sequence.objectives as objectif}
+    {#each unit.objectives as objectif}
       {#if objectif.reference.slice(1, 2) !== 'X'}
-        <li class=" p-1 md:p-2 is-{niveau}">
+        <li class=" p-1 md:p-2 is-{unit.grade}">
           <a
             href="/?v=objectif&ref={objectif.reference}"
             on:click={(event) => goToView(event, 'objectif', objectif.reference)}
@@ -93,16 +45,16 @@
     {/each}
       </ul>
 </div>
-{#if sequence.mentalCalculations[0] !== undefined && sequence.mentalCalculations[0].reference !== ''}
-  <div class="is-{niveau}">
-    <h2 id="calculMental" class="subtitle text-xl md:text-3xl p-3 is-{niveau}">Calcul Mental</h2>
-    {#if sequence.mentalCalculations[0].reference !== ''}
+{#if unit.mentalCalculations[0] !== undefined && unit.mentalCalculations[0].reference !== ''}
+  <div class="is-{unit.grade}">
+    <h2 id="calculMental" class="subtitle text-xl md:text-3xl p-3 is-{unit.grade}">Calcul Mental</h2>
+    {#if unit.mentalCalculations[0].reference !== ''}
       <div class="p-6">
         <p class="text-sm md:text-base">
           Dans cette séquence, le calcul mental pourra porter sur :
         </p>
         <ul>
-          {#each sequence.mentalCalculations as calculMental}
+          {#each unit.mentalCalculations as calculMental}
             <li class="p-1 md:p-2">
               {#if calculMental.isRelatedObjectivePageAvailable}
                 <a
@@ -130,7 +82,6 @@
                             ? 'Calcul mental de niveau ' + (j + 1)
                             : exercice.description}
                         exercices = {[exercice]}
-                        nomsPanier = {[calculMental.reference + ' ' + calculMental.titleAcademic]}
                       />
                     </h3>
                   </li>
@@ -142,19 +93,19 @@
       </div>
     {/if}
   </div>
-{:else if sequence.mentalCalculations[0].exercises[0] !== undefined && sequence.mentalCalculations[0].exercises[0].description !== ''}
-  <div class="pb-5 is-{niveau}">
-    <h2 class="subtitle text-xl md:text-3xl p-3 is-{niveau}">Calcul Mental</h2>
+{:else if unit.mentalCalculations[0]?.exercises[0] !== undefined && unit.mentalCalculations[0].exercises[0].description !== ''}
+  <div class="pb-5 is-{unit.grade}">
+    <h2 class="subtitle text-xl md:text-3xl p-3 is-{unit.grade}">Calcul Mental</h2>
     <p
       contenteditable="false"
-      bind:innerHTML={sequence.mentalCalculations[0].exercises[0].description}
+      bind:innerHTML={unit.mentalCalculations[0].exercises[0].description}
       class=""
     />
   </div>
 {/if}
-{#if sequence.flashQuestions[0] !== undefined && sequence.flashQuestions[0].slug !== ''}
-  <div class="is-{niveau}">
-    <h2 id="questionsFlash" class="subtitle text-xl md:text-3xl p-3 is-{niveau}">
+{#if unit.flashQuestions[0] !== undefined && unit.flashQuestions[0].slug !== ''}
+  <div class="is-{unit.grade}">
+    <h2 id="questionsFlash" class="subtitle text-xl md:text-3xl p-3 is-{unit.grade}">
       Questions Flash
     </h2>
     <div class="p-6">
@@ -163,7 +114,7 @@
           Dans cette séquence, les questions flash pourront porter sur :
         </p>
         <ul>
-          {#each sequence.flashQuestions as questionFlash}
+          {#each unit.flashQuestions as questionFlash}
             <li class="p-1 md:p-2">
               {#if questionFlash.isRelatedObjectivePageAvailable}
                 <a
@@ -186,10 +137,9 @@
       </div>
       <div class="p-1 md:p-2 ">
         <BoutonsExercices
-          exercices = {[]}
-          lienExercices = {sequence.flashQuestionsLink}
+          exercices = {unit.flashQuestions.map(questionFlash => questionFlash).flat()}
+          lienExercices = {unit.flashQuestionsLink}
           titre = {'S\'entraîner pour les Questions Flash'}
-          nomsPanier = {[sequence.reference + ' Question Flash ']}
         />
       </div>
     </div>
@@ -197,56 +147,56 @@
 {/if}
 <div
   id="divEvaluation"
-  class="is-{niveau} {sequence.downloadLinks.lessonLink || sequence.downloadLinks.lessonSummaryLink || sequence.downloadLinks.missionLink || ($isPersonalMode && sequence.downloadLinks.lessonPlanLink)
+  class="is-{unit.grade} {unit.downloadLinks.lessonLink || unit.downloadLinks.lessonSummaryLink || unit.downloadLinks.missionLink || ($isPersonalMode && unit.downloadLinks.lessonPlanLink)
     ? ''
     : ' is-fin'}"
 >
-  <h2 id="Evaluation" class="subtitle text-xl md:text-3xl p-3 is-{niveau}">Évaluation</h2>
+  <h2 id="Evaluation" class="subtitle text-xl md:text-3xl p-3 is-{unit.grade}">Évaluation</h2>
   <div class="p-6  flex flex-col">
     <div class="p-1 md:p-2">
       <BoutonsExercices
-        exercices = {exercicesSequence}
-        lienExercices = {sequence.assessmentLink}
-        titre = {'S\'entraîner pour l\'évaluation ' + (niveau === '3e' ? ' (Automatismes)' : '')}
-        reference = {sequence.reference}
-        nomsPanier = {nomsExercicesSequence}
+        exercices = {unit.objectives.map(objectif => objectif.exercises).flat()}
+        lienExercices = {unit.assessmentLink}
+        titre = {'S\'entraîner pour l\'évaluation ' + (unit.grade === '3e' ? ' (Automatismes)' : '')}
+        reference = {unit.reference}
+        nomsPanier = {unit.objectives.map(objectif => objectif.reference + ' ' + getTitle(objectif))}
       />
     </div>
-    {#if niveau === '3e' && sequence.assessmentExamLink !== '' && sequence.assessmentExamLink !== undefined}
+    {#if unit.grade === '3e' && unit.assessmentExamLink !== '' && unit.assessmentExamLink !== undefined}
       <div class="p-1 md:p-2">
         <BoutonsExercices
           exercices = {[]}
-          reference = {sequence.reference + ' Brevet '}
-          nomsPanier = {[sequence.reference]}
-          lienExercices = {sequence.assessmentExamLink}
+          reference = {unit.reference + ' Brevet '}
+          nomsPanier = {[unit.reference]}
+          lienExercices = {unit.assessmentExamLink}
           titre = {'S\'entraîner pour l\'évaluation (Exercices de brevet)'}
         />
       </div>
     {/if}
   </div>
 </div>
-{#if sequence.downloadLinks.lessonLink || sequence.downloadLinks.lessonSummaryLink || sequence.downloadLinks.missionLink || ($isPersonalMode && sequence.downloadLinks.lessonPlanLink) }
-  <div class="is-fin is-{niveau}">
-    <h2 class="subtitle text-xl md:text-3xl p-3 is-{niveau}">Téléchargements</h2>
+{#if unit.downloadLinks.lessonLink || unit.downloadLinks.lessonSummaryLink || unit.downloadLinks.missionLink || ($isPersonalMode && unit.downloadLinks.lessonPlanLink) }
+  <div class="is-fin is-{unit.grade}">
+    <h2 class="subtitle text-xl md:text-3xl p-3 is-{unit.grade}">Téléchargements</h2>
     <ul class="p-6 ">
       <DownloadLine
-        displayCondition={!!sequence.downloadLinks.lessonLink}
-        href={sequence.downloadLinks.lessonLink}
+        displayCondition={!!unit.downloadLinks.lessonLink}
+        href={unit.downloadLinks.lessonLink}
         label="Télécharger le cours"
       />
       <DownloadLine
-        displayCondition={!!sequence.downloadLinks.lessonSummaryLink}
-        href={sequence.downloadLinks.lessonSummaryLink}
+        displayCondition={!!unit.downloadLinks.lessonSummaryLink}
+        href={unit.downloadLinks.lessonSummaryLink}
         label="Télécharger le résumé"
       />
       <DownloadLine
-        displayCondition={!!sequence.downloadLinks.missionLink}
-        href={sequence.downloadLinks.missionLink}
+        displayCondition={!!unit.downloadLinks.missionLink}
+        href={unit.downloadLinks.missionLink}
         label="Télécharger la mission"
       />
       <DownloadLine
-        displayCondition={!!($isPersonalMode && sequence.downloadLinks.lessonPlanLink)}
-        href={sequence.downloadLinks.lessonPlanLink}
+        displayCondition={!!($isPersonalMode && unit.downloadLinks.lessonPlanLink)}
+        href={unit.downloadLinks.lessonPlanLink}
         label="Télécharger la fiche"
       />
     </ul>

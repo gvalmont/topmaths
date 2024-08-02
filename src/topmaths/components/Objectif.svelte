@@ -307,7 +307,7 @@
               href="/?v=sequence&ref={sequence.reference}"
               style="color: var(--base{sequence.reference.slice(1, 2)}e) !important;"
               on:click={(event) =>
-                goToView(event, 'sequence', sequence.reference)}
+                goToView(event, 'unit', sequence.reference)}
             >
               {'Séquence ' +
                 sequence.reference.slice(3) +
