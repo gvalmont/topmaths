@@ -1,5 +1,5 @@
 <script lang="ts">
-  import MainMenuItem from './shared/MainMenuItem.svelte'
+  import MainMenuItem from '../shared/MainMenuItem.svelte'
 </script>
 
 <svelte:head>
@@ -14,20 +14,22 @@
   </h1>
   <div class="p-8 is-end" style="background-color: #faf5ff;">
     <MainMenuItem
-      view='lexique'
+      view='student'
+      ref='glossary'
       color='blue'
     >
       Lexique
     </MainMenuItem>
     <MainMenuItem
-      view='tutos'
-      ref='installation-anki'
+      view='student'
+      ref='tuto'
       color='5e'
     >
       Tutoriels
     </MainMenuItem>
     <MainMenuItem
-      view='telechargements'
+      view='student'
+      ref='download'
       color='green'
     >
       Téléchargements

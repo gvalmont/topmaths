@@ -36,7 +36,7 @@
   Révisions
 </MainMenuItem>
 <MainMenuItem
-  view='eleves'
+  view='student'
   color='purple'
   imageSrc='topmaths/img/cc0/backpack-svgrepo-com.svg'
   imageAlt="Sac à dos d'élève"

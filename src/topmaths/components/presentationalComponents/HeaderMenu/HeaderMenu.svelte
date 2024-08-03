@@ -43,8 +43,8 @@
       {goToView}
     />
     <HeaderMenuItem
-      destinationView={'eleves'}
-      isActive={view === 'eleves' || view === 'lexique' || view === 'tutos' || view === 'telechargements'}
+      destinationView={'student'}
+      isActive={view === 'student'}
       color={'purple'}
       imageSrc={'topmaths/img/cc0/backpack-svgrepo-com.svg'}
       imageAlt={'Sac à dos d\'élève'}

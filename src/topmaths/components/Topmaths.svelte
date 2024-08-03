@@ -9,11 +9,8 @@
   import { onDestroy, onMount } from 'svelte'
   import { ElementInstrumenpoche } from '../../modules/ElementInstrumenpoche'
   import Progressions from './outils-pour-la-classe/Progressions.svelte'
-  import OutilsPourLesEleves from './OutilsPourLesEleves.svelte'
-  import Lexique from './outils-pour-les-eleves/Lexique.svelte'
+  import Student from './Student/Student.svelte'
   import Practice from './Practice/Practice.svelte'
-  import Telechargements from './outils-pour-les-eleves/Telechargements.svelte'
-  import Tutos from './outils-pour-les-eleves/Tutos.svelte'
   import { isTeacherMode, isPersonalMode, reference, view } from '../services/store'
   import ExercicesMathalea from './exercices/ExercicesMathalea.svelte'
   import HeaderMenu from './presentationalComponents/HeaderMenu/HeaderMenu.svelte'
@@ -131,14 +128,8 @@
       <OutilsPourLaClasse />
     {:else if $view === 'mathador'}
       <Mathador />
-    {:else if $view === 'eleves'}
-      <OutilsPourLesEleves />
-    {:else if $view === 'lexique'}
-      <Lexique />
-    {:else if $view === 'tutos'}
-      <Tutos />
-    {:else if $view === 'telechargements'}
-      <Telechargements />
+    {:else if $view === 'student'}
+      <Student />
     {:else if $view === 'progressions'}
       <Progressions />
     {:else if $view === 'panier'}

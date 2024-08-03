@@ -18,6 +18,7 @@ export const curriculum = writable<Curriculum>(emptyCurriculum)
 // url parameters
 export const view = writable<View>('home')
 export const reference = writable<string>('')
+export const reference2 = writable<string>('')
 
 // display settings
 export const isTitleAcademicPreferred = writable<boolean>(false)
