@@ -20,7 +20,7 @@
   Séquences
 </MainMenuItem>
 <MainMenuItem
-  view='objectifs'
+  view='objective'
   color='link'
   imageSrc='topmaths/img/cc0/study-2-svgrepo-com.svg'
   imageAlt='Personne lisant un livre'

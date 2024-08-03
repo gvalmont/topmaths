@@ -27,8 +27,8 @@
       {goToView}
     />
     <HeaderMenuItem
-      destinationView={'objectifs'}
-      isActive={view === 'objectifs' || view === 'objectif'}
+      destinationView={'objective'}
+      isActive={view === 'objective'}
       color={'link'}
       imageSrc={'topmaths/img/cc0/study-2-svgrepo-com.svg'}
       imageAlt={'Personne lisant un livre'}

@@ -3,32 +3,30 @@
     isTeacherMode,
     isPersonalMode,
     objectives,
-    units,
-    reference
-  } from '../services/store'
-  import { emptyObjective, isObjective, type Objective, type ObjectiveExercise } from '../types/objective'
-  import { getTitle } from '../services/shared'
-  import { goToView } from '../services/navigation'
+    units
+  } from '../../services/store'
+  import { emptyObjective, isObjective, type Objective, type ObjectiveExercise } from '../../types/objective'
+  import { getTitle } from '../../services/shared'
+  import { goToView } from '../../services/navigation'
   import { afterUpdate, onDestroy, tick } from 'svelte'
   import type { Unsubscriber } from 'svelte/store'
   import {
     mathaleaRenderDiv
-  } from '../../lib/mathalea'
-  import Cart from '../modules/Cart'
+  } from '../../../lib/mathalea'
+  import Cart from '../../modules/Cart'
   import iepLoadPromise from 'instrumenpoche'
-  import BoutonsExercices from './shared/BoutonsExercices.svelte'
-  import DownloadLine from './shared/DownloadLine.svelte'
-  import { isEmptyArrayRecord } from '../types/shared'
+  import BoutonsExercices from '../shared/BoutonsExercices.svelte'
+  import DownloadLine from '../shared/DownloadLine.svelte'
+  import { isEmptyArrayRecord } from '../../types/shared'
 
-  export let title = 'topmaths.fr - Séquence'
+  export let objectiveReference: string
+  let title: string
   let objectif = {} as Objective
   let tousLesExercicesSontDansLePanier = false
   let niveau = '' as string
   let exercicesDeBrevetDansLePanier = false
   let nomsPanier: string[] = []
-  let referenceObjectifUnsubscribe: Unsubscriber
   let niveauxObjectifsUnsubscribe: Unsubscriber
-  surveillerChangementsDeReference()
   surveillerLeChargementDesDonnees()
 
   afterUpdate(async () => {
@@ -40,11 +38,6 @@
     if (objectif.lessonSummaryInstrumenpoche !== undefined && objectif.lessonSummaryInstrumenpoche !== '') loadIep()
   })
 
-  function surveillerChangementsDeReference () {
-    referenceObjectifUnsubscribe = reference.subscribe(() => MAJPage())
-    onDestroy(referenceObjectifUnsubscribe)
-  }
-
   function surveillerLeChargementDesDonnees () {
     niveauxObjectifsUnsubscribe = objectives.subscribe(() => MAJPage())
     onDestroy(niveauxObjectifsUnsubscribe)
@@ -55,7 +48,7 @@
   }
 
   function MAJPage () {
-    if (lesDonneesSontChargees() && $reference.slice(0, 1) !== 'S') {
+    if (lesDonneesSontChargees() && objectiveReference.slice(0, 1) !== 'S') {
       objectif = getObjectif()
       niveau = objectif.reference.slice(0, 1) + 'e'
       MAJProprietes()
@@ -63,7 +56,7 @@
   }
 
   function getObjectif () {
-    const objectiveCandidate = $objectives.find(objectif => objectif.reference === $reference)
+    const objectiveCandidate = $objectives.find(objectif => objectif.reference === objectiveReference)
     if (isObjective(objectiveCandidate)) {
       return objectiveCandidate
     }

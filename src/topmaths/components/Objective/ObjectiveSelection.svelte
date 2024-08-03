@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { isTeacherMode, objectives, isTitleAcademicPreferred } from '../services/store'
-  import { normalize } from '../services/shared'
-  import { goToView } from '../services/navigation'
+  import { isTeacherMode, objectives, isTitleAcademicPreferred } from '../../services/store'
+  import { normalize } from '../../services/shared'
+  import { goToView } from '../../services/navigation'
   import { onDestroy } from 'svelte'
   import { writable, derived } from 'svelte/store'
-  import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
-  import { isStringGrade, type StringGrade } from '../types/grade'
+  import LevelsTabsMenu from '../shared/LevelsTabsMenu.svelte'
+  import { isStringGrade, type StringGrade } from '../../types/grade'
   type LineObjective = {
   grade: StringGrade,
   term: number,
@@ -21,7 +21,7 @@
   }
 
   const filter: Filter = {
-    grade: 'all',
+    grade: 'tout',
     term: 0
   }
   const texteRecherche = writable('')
@@ -40,7 +40,7 @@
     return $objectives
       .filter((objective) => {
         return (
-          (grade === 'all' || objective.grade === grade) && (filter.grade === 'all' || filter.grade === grade) &&
+          (grade === 'tout' || objective.grade === grade) && (filter.grade === 'tout' || filter.grade === grade) &&
           (theme === '' || objective.theme === theme) &&
           (subTheme === '' || objective.subTheme === subTheme) &&
           ((term === 0 || objective.term === term) && (filter.term === 0 || filter.term === term))
@@ -53,7 +53,7 @@
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     for (const entry of entries) {
-      if (entry[0] === 'niveau') filter.grade = isStringGrade(entry[1]) ? entry[1] : 'all'
+      if (entry[0] === 'niveau') filter.grade = isStringGrade(entry[1]) ? entry[1] : 'tout'
       if (entry[0] === 'periode') filter.term = Number(entry[1])
     }
   }
@@ -89,10 +89,8 @@
     return false
   }
 
-  function clicFiltre (grade: LineGrade, term?: number) {
-    if (grade !== '') {
-      filter.grade = grade
-    }
+  function clicFiltre (grade: StringGrade, term?: number) {
+    filter.grade = grade
     if (term !== undefined) {
       filter.term === term
         ? (filter.term = 0)
@@ -117,13 +115,13 @@
       class:is-light={filter.term !== null &&
         filter.term !== undefined &&
         filter.term > 0}
-      on:click={() => clicFiltre('', 0)}>Période</button
+      on:click={() => clicFiltre('tout', 0)}>Période</button
     >
     {#each [1, 2, 3, 4, 5] as term}
       <button
         class="button rounded-3xl py-1 px-5 is-link mb-5 mx-1 text-sm md:text-2xl"
         class:is-light={filter.term !== term}
-        on:click={() => clicFiltre('', term)}>{term}</button
+        on:click={() => clicFiltre('tout', term)}>{term}</button
       >
     {/each}
   </div>
@@ -145,9 +143,9 @@
   <div><br /></div>
   <div>
     {#each $rows as row, i}
-      {#if row.theme !== 'Extra' && row.grade !== 'end'}
+      {#if row.theme !== 'Extra'}
         <span>
-          {#if (i === 0 || $rows[i - 1].grade !== $rows[i].grade) && (filter.grade === 'all' || filter.grade === row.grade)}
+          {#if (i === 0 || $rows[i - 1].grade !== $rows[i].grade) && (filter.grade === 'tout' || filter.grade === row.grade)}
             <h1 class="title text-2xl md:text-4xl font-semibold p-2 is-{row.grade}">
               {row.grade}
             </h1>
@@ -165,12 +163,12 @@
           {#if count({ grade: row.grade, theme: row.theme, subTheme: row.subTheme, term: row.term, filter }) > 0}
             <div
               class="p-1  is-{row.grade}"
-              class:is-end={$texteRecherche === '' && i < $rows.length - 2 && ($rows[i + 1].grade === 'end' || $rows[i + 1].theme === 'Extra')}
+              class:is-end={$texteRecherche === '' && i < $rows.length - 2 && $rows[i + 1].theme === 'Extra'}
             >
               <a
                 href="/?v=objectif&ref={row.reference}"
                 on:click={(event) =>
-                  goToView(event, 'objectif', row.reference ?? '')}
+                  goToView(event, 'objective', row.reference ?? '')}
               >
                 <div>
                   {row.reference} : {$isTitleAcademicPreferred ||
@@ -183,7 +181,7 @@
           {/if}
         </span>
       {/if}
-      {#if i > 0 && row.grade === 'end' && filter.grade === 'all'}
+      {#if i > 0 && filter.grade === 'tout'}
         <div>
           <br />
         </div>

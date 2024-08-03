@@ -2,8 +2,6 @@
   import Home from './Home/Home.svelte'
   import Unit from './Unit/Unit.svelte'
   import { goToView } from '../services/navigation'
-  import Objectifs from './Objectifs.svelte'
-  import Objectif from './Objectif.svelte'
   import Storage from '../modules/Storage'
   import OutilsPourLaClasse from './OutilsPourLaClasse.svelte'
   import Mathador from './outils-pour-la-classe/Mathador.svelte'
@@ -29,6 +27,7 @@
   import Perso from './presentationalComponents/Perso.svelte'
   import DarkModeToggle from './presentationalComponents/DarkModeToggle.svelte'
   import Info from './Info/Info.svelte'
+  import Objective from './Objective/Objective.svelte'
 
   if (customElements.get('alea-instrumenpoche') === undefined) {
     customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
@@ -124,10 +123,8 @@
       <ExercicesMathalea {isMd} />
     {:else if $view === 'unit'}
       <Unit />
-    {:else if $view === 'objectifs'}
-      <Objectifs />
-    {:else if $view === 'objectif'}
-      <Objectif />
+    {:else if $view === 'objective'}
+      <Objective />
     {:else if $view === 'revisions'}
       <Revisions />
     {:else if $view === 'outils'}
