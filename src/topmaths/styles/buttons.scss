@@ -10,7 +10,7 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
     &.is-active {
       background-color: #{$main-color};
       color: #fff;
-      :global(.dark) & {
+      .dark & {
         background-color: $topmathsdark-canvas-default;
         color: $main-color;
         text-shadow: 0 0 0.7rem $main-color;
@@ -47,7 +47,7 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
     }
     &.is-active img {
         filter: $white-filter;
-        :global(.dark) & {
+        .dark & {
           color: #{$main-color};
           filter: $filter drop-shadow(0 0 0.4em $main-color);
         }
