@@ -7,11 +7,11 @@ import unitsMasterJson from '../src/topmaths/json/units.json' assert { type: 'js
 import curriculumJson from '../src/topmaths/json/curriculum.json' assert { type: 'json' }
 import calendarSchoolYearMasterJson from '../src/topmaths/json/calendar.json' assert { type: 'json' }
 import type { RecursivePartial } from '../src/lib/types.js'
-import { deepCopy } from '../src/topmaths/types/shared.js'
+import { deepCopy, type ReplaceReferencesByStrings } from '../src/topmaths/types/shared.js'
 import { emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/grade.js'
 import { buildGradeFromObjectiveReference } from '../src/topmaths/services/reference.js'
-import { emptyObjective, emptyObjectiveVideo, isObjective, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveExercise, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks } from '../src/topmaths/types/objective.js'
-import { isUnit, isUnitMentalCalculations, type UnitMentalCalculation, type Unit, type UnitObjective, emptyUnitDownloadLinks, emptyUnitMentalCalculation, type UnitFlashQuestion, isUnitFlashQuestions, type UnitLessonPlan, isUnitLessonPlans } from '../src/topmaths/types/unit.js'
+import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveExercise, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference } from '../src/topmaths/types/objective.js'
+import { isUnitMentalCalculations, type UnitMentalCalculation, type Unit, type UnitObjective, emptyUnitDownloadLinks, emptyUnitMentalCalculation, type UnitFlashQuestion, isUnitFlashQuestions, type UnitLessonPlan, isUnitLessonPlans, type UnitWithStringReference, type UnitReference, isUnitWithStringReference } from '../src/topmaths/types/unit.js'
 import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
 import { type CalendarSchoolYearMaster, isCalendarSchoolYearMasters, type CalendarSchoolYear, isCalendarSchoolYears, type CalendarPeriod } from '../src/topmaths/types/calendar.js'
 import { type CurriculumGrade, type CurriculumValue, isCurriculum, type Curriculum, emptyCurriculumValue } from '../src/topmaths/types/curriculum.js'
@@ -32,8 +32,8 @@ const THIRD_PARTY_WEBSITES = [
 let warningCount = 0
 let exerciseNumber = 1
 const curriculum = buildCurriculum()
-const units: Unit[] = buildUnits()
-const objectives: Objective[] = buildObjectives()
+const units: UnitWithStringReference[] = buildUnits()
+const objectives: ObjectiveWithStringReference[] = buildObjectives()
 updateUnits()
 updateObjectives()
 const glossary = buildGlossary()
@@ -45,15 +45,17 @@ writeJson('built_units', units)
 writeJson('glossary', glossary)
 writeJson('built_calendar', calendar)
 writeJson('built_curriculum', curriculum)
+writeTs('objectivesReferences', objectives.map(objective => objective.reference))
+writeTs('unitsReferences', units.map(unit => unit.reference))
 // end of script
 
-function buildUnits (): Unit[] {
+function buildUnits (): UnitWithStringReference[] {
   const unitsTermsArray = buildUnitsTermsArray()
   type UnitGrade = {
     name: StringGrade,
     units: Unit[]
   }
-  const formattedUnits: Unit[] = []
+  const formattedUnits: UnitWithStringReference[] = []
   const unitMaster: RecursivePartial<UnitGrade>[] = unitsMasterJson
   for (const grade of unitMaster) {
     if (grade.name === undefined) { console.error(grade); throw new Error('Grade name is undefined') }
@@ -77,7 +79,7 @@ function buildUnits (): Unit[] {
       unit.reference = buildUnitReference(unit)
       unit.title = unit.title ?? ''
       unitIndex++
-      if (!isUnit(unit)) {
+      if (!isUnitWithStringReference(unit)) {
         console.error(unit)
         throw new Error('Unit is not a Unit')
       }
@@ -111,7 +113,7 @@ function buildTermNumbers (curriculum: Curriculum, grade: StringGrade): number[]
   return termNumbers
 }
 
-function buildObjectives (): Objective[] {
+function buildObjectives (): ObjectiveWithStringReference[] {
   type ObjectiveSubTheme = {
     name: string,
     objectives: Objective[]
@@ -124,7 +126,7 @@ function buildObjectives (): Objective[] {
     name: StringGrade,
     themes: ObjectiveTheme[]
   }
-  const formattedObjectives: Objective[] = []
+  const formattedObjectives: ObjectiveWithStringReference[] = []
   const objectivesMaster: RecursivePartial<ObjectiveGrade>[] = objectivesMasterJson
   for (const grade of objectivesMaster) {
     if (grade.name === undefined) { console.error(grade); throw new Error('Grade name is undefined') }
@@ -160,7 +162,7 @@ function buildObjectives (): Objective[] {
           objective.titleAcademic = objective.titleAcademic ?? ''
           objective.units = buildObjectiveUnits(objective)
           objective.videos = objective.videos ? objective.videos.map(video => Object.assign(deepCopy(emptyObjectiveVideo), video)) : []
-          if (!isObjective(objective)) {
+          if (!isObjectiveWithStringReference(objective)) {
             console.error(objective)
             throw new Error('Objective is not an Objective')
           }
@@ -566,7 +568,7 @@ function buildExercises (reference: string, exercises: (RecursivePartial<Objecti
   return exercises
 }
 
-function buildObjectiveLessonPlans (objective: Objective, unitGrade: StringGrade): UnitLessonPlan[] {
+function buildObjectiveLessonPlans (objective: ObjectiveWithStringReference, unitGrade: StringGrade): UnitLessonPlan[] {
   if (objective.lessonPlans.length === 0) return []
   const lessonPlanTotalCount = countLessonPlans(objective, unitGrade)
   const isMultipleLessonPlans = lessonPlanTotalCount > 1
@@ -596,11 +598,11 @@ function buildObjectiveLessonPlans (objective: Objective, unitGrade: StringGrade
   return unitLessonPlans
 }
 
-function buildObjectiveUnits (objective: RecursivePartial<Objective>): ObjectiveUnit[] {
+function buildObjectiveUnits (objective: RecursivePartial<Objective>): ReplaceReferencesByStrings<UnitReference, ObjectiveUnit>[] {
   const unitsFound = units
     .filter(unit => unit.objectives
       .find(unitObjective => unitObjective.reference === objective.reference))
-  const objectiveUnits: ObjectiveUnit[] = unitsFound.map(unit => {
+  const objectiveUnits: ReplaceReferencesByStrings<UnitReference, ObjectiveUnit>[] = unitsFound.map(unit => {
     return {
       reference: unit.reference,
       title: unit.title
@@ -609,7 +611,7 @@ function buildObjectiveUnits (objective: RecursivePartial<Objective>): Objective
   return objectiveUnits
 }
 
-function updateUnitObjectives (unit: Unit): void {
+function updateUnitObjectives (unit: UnitWithStringReference): void {
   unit.objectives.forEach(unitObjective => {
     const objective = objectives.find(objective => objective.reference === unitObjective.reference)
     if (!objective) {
@@ -628,7 +630,7 @@ function updateUnitObjectives (unit: Unit): void {
   })
 }
 
-function updateUnitMentalCalculations (unit: Unit): void {
+function updateUnitMentalCalculations (unit: UnitWithStringReference): void {
   unit.mentalCalculations
     .filter(mentalCalculation => mentalCalculation.reference !== '')
     .forEach(mentalCalculation => {
@@ -645,7 +647,7 @@ function updateUnitMentalCalculations (unit: Unit): void {
     })
 }
 
-function updateUnitFlashQuestions (unit: Unit): void {
+function updateUnitFlashQuestions (unit: UnitWithStringReference): void {
   unit.flashQuestions.forEach(flashQuestion => {
     const relatedObjective = objectives.find(objective => objective.reference === flashQuestion.reference)
     if (!relatedObjective) {
@@ -661,7 +663,7 @@ function updateUnitFlashQuestions (unit: Unit): void {
   })
 }
 
-function updateUnitAssessmentLink (unit: Unit): void {
+function updateUnitAssessmentLink (unit: UnitWithStringReference): void {
   const objectivesSlugs = getUnitObjectivesSlugs(unit)
   if (objectivesSlugs.length === 0) {
     unit.assessmentLink = ''
@@ -705,9 +707,9 @@ function checkPrivacyPolicyThirdPartyWebsites (): void {
   })
 }
 
-function checkDuplicates (array: Objective[] | Unit[] | GlossaryItem[]): void {
+function checkDuplicates (array: ObjectiveWithStringReference[] | UnitWithStringReference[] | GlossaryItem[]): void {
   const foundReferences: string[] = []
-  array.forEach((item: Objective | Unit | GlossaryItem) => {
+  array.forEach((item: ObjectiveWithStringReference | UnitWithStringReference | GlossaryItem) => {
     if (foundReferences.includes(item.reference)) {
       throw new Error(item.reference + ' found twice')
     }
@@ -751,7 +753,7 @@ function convertV2ToV3 (link: string): string {
   return link
 }
 
-function getUnitObjectivesSlugs (unit: Unit): string[] {
+function getUnitObjectivesSlugs (unit: UnitWithStringReference): string[] {
   return unit.objectives
     .map(objective => objective.exercises
       .map(exercise => exercise.slug))
@@ -819,4 +821,8 @@ function upperFirstChar (str: string): string {
 
 function writeJson (fileName: string, data: unknown): void {
   fs.writeFileSync(path.join('./src', 'topmaths', 'json', fileName + '.json'), JSON.stringify(data, null, 2))
+}
+
+function writeTs (fileName: string, data: unknown): void {
+  fs.writeFileSync(path.join('./src', 'topmaths', 'types', fileName + '.ts'), `export const ${fileName} = <const> ${JSON.stringify(data, null, 2)}`)
 }

@@ -17,3 +17,11 @@ export function isEmptyRecord (obj: Record<string | number | symbol, unknown>): 
 export function isEmptyArrayRecord (obj: Record<string | number | symbol, unknown[]>): boolean {
   return Object.values(obj).every(value => value.length === 0)
 }
+
+export type ReplaceReferencesByStrings<R, T> = {
+  [K in keyof T]: T[K] extends R
+    ? string
+    : T[K] extends object
+    ? ReplaceReferencesByStrings<R, T[K]>
+    : T[K];
+}

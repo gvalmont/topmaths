@@ -1,6 +1,19 @@
-import { emptyObjectiveLessonPlan, isObjectiveExercises, isObjectiveLessonPlan, type ObjectiveExercise, type ObjectiveLessonPlan } from './objective.js'
-import { deepCopy } from './shared.js'
+import { isObjectiveExercises, isObjectiveLessonPlan, isObjectiveReference, type ObjectiveExercise, type ObjectiveLessonPlan, type ObjectiveReference } from './objective.js'
 import { isStringGrade, type StringGrade } from './grade.js'
+import { unitsReferences } from './unitsReferences.js'
+import type { ReplaceReferencesByStrings } from './shared'
+
+type UnitsReferencesValidTypes = typeof unitsReferences
+export type UnitReference = UnitsReferencesValidTypes[number]
+export function isUnitReference (obj: unknown): obj is UnitReference {
+  if (obj == null || typeof obj !== 'string') return false
+  return unitsReferences.includes(obj as UnitReference)
+}
+export function isUnitReferences (obj: unknown): obj is UnitReference[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isUnitReference)
+}
+export const emptyUnitReference: UnitReference = unitsReferences[0]
 
 export type UnitLessonPlan = ObjectiveLessonPlan & {
   reference: string
@@ -14,12 +27,21 @@ export function isUnitLessonPlans (obj: unknown): obj is UnitLessonPlan[] {
   if (obj == null || !Array.isArray(obj)) return false
   return obj.every(isUnitLessonPlan)
 }
-export const emptyUnitLessonPlan: UnitLessonPlan = Object.assign(deepCopy(emptyObjectiveLessonPlan), {
+export const emptyUnitLessonPlan: UnitLessonPlan = { // Cannot access 'emptyObjectiveLessonPlan' before initialization
+  startSteps: [],
+  lessonSteps: [],
+  homeworks: [],
+  closureSteps: [],
+  studentMaterialsNeeded: [],
+  teacherMaterialsNeeded: [],
+  grades: [],
+  comments: [],
+  nextSessionSteps: [],
   reference: ''
-})
+}
 
 export type UnitObjective = {
-  reference: string,
+  reference: ObjectiveReference,
   titleAcademic: string,
   title: string,
   exercises: ObjectiveExercise[],
@@ -28,9 +50,9 @@ export type UnitObjective = {
   grade: StringGrade,
   lessonPlans: UnitLessonPlan[]
 }
-export function isUnitObjective (obj: unknown): obj is UnitObjective {
+export function isUnitObjective (obj: unknown, withStringReference: boolean = false): obj is UnitObjective {
   if (obj == null || typeof obj !== 'object') return false
-  return 'reference' in obj && typeof obj.reference === 'string' &&
+  return 'reference' in obj && (withStringReference ? typeof obj.reference === 'string' : isObjectiveReference(obj.reference)) &&
     'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
     'title' in obj && typeof obj.title === 'string' &&
     'exercises' in obj && isObjectiveExercises(obj.exercises) &&
@@ -39,12 +61,12 @@ export function isUnitObjective (obj: unknown): obj is UnitObjective {
     'grade' in obj && isStringGrade(obj.grade) &&
     'lessonPlans' in obj && isUnitLessonPlans(obj.lessonPlans)
 }
-export function isUnitObjectives (obj: unknown): obj is UnitObjective[] {
+export function isUnitObjectives (obj: unknown, withStringReference: boolean = false): obj is UnitObjective[] {
   if (obj == null || !Array.isArray(obj)) return false
-  return obj.every(isUnitObjective)
+  return obj.every(obj => isUnitObjective(obj, withStringReference))
 }
 export const emptyUnitObjective: UnitObjective = {
-  reference: '',
+  reference: '6C10', // Cannot access 'emptyObjectiveReference' before initialization
   titleAcademic: '',
   title: '',
   exercises: [],
@@ -55,25 +77,25 @@ export const emptyUnitObjective: UnitObjective = {
 }
 
 export type UnitMentalCalculation = {
-  reference: string,
+  reference: ObjectiveReference | '',
   titleAcademic: string,
   title: string,
   exercises: ObjectiveExercise[],
   isRelatedObjectivePageAvailable: boolean,
   theme: string
 }
-export function isUnitMentalCalculation (obj: unknown): obj is UnitMentalCalculation {
+export function isUnitMentalCalculation (obj: unknown, withStringReference: boolean = false): obj is UnitMentalCalculation {
   if (obj == null || typeof obj !== 'object') return false
-  return 'reference' in obj && typeof obj.reference === 'string' &&
+  return 'reference' in obj && (withStringReference ? typeof obj.reference === 'string' : (isObjectiveReference(obj.reference) || obj.reference === '')) &&
     'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
     'title' in obj && typeof obj.title === 'string' &&
     'exercises' in obj && isObjectiveExercises(obj.exercises) &&
     'isRelatedObjectivePageAvailable' in obj && typeof obj.isRelatedObjectivePageAvailable === 'boolean' &&
     'theme' in obj && typeof obj.theme === 'string'
 }
-export function isUnitMentalCalculations (obj: unknown): obj is UnitMentalCalculation[] {
+export function isUnitMentalCalculations (obj: unknown, withStringReference: boolean = false): obj is UnitMentalCalculation[] {
   if (obj == null || !Array.isArray(obj)) return false
-  return obj.every(isUnitMentalCalculation)
+  return obj.every(obj => isUnitMentalCalculation(obj, withStringReference))
 }
 export const emptyUnitMentalCalculation: UnitMentalCalculation = {
   reference: '',
@@ -85,28 +107,28 @@ export const emptyUnitMentalCalculation: UnitMentalCalculation = {
 }
 
 export type UnitFlashQuestion = {
-  reference: string,
+  reference: ObjectiveReference,
   titleAcademic: string,
   title: string,
   slug: string,
   isRelatedObjectivePageAvailable: boolean,
   theme: string
 }
-export function isUnitFlashQuestion (obj: unknown): obj is UnitFlashQuestion {
+export function isUnitFlashQuestion (obj: unknown, withStringReference: boolean = false): obj is UnitFlashQuestion {
   if (obj == null || typeof obj !== 'object') return false
-  return 'reference' in obj && typeof obj.reference === 'string' &&
+  return 'reference' in obj && (withStringReference ? typeof obj.reference === 'string' : isObjectiveReference(obj.reference)) &&
     'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
     'title' in obj && typeof obj.title === 'string' &&
     'slug' in obj && typeof obj.slug === 'string' &&
     'isRelatedObjectivePageAvailable' in obj && typeof obj.isRelatedObjectivePageAvailable === 'boolean' &&
     'theme' in obj && typeof obj.theme === 'string'
 }
-export function isUnitFlashQuestions (obj: unknown): obj is UnitFlashQuestion[] {
+export function isUnitFlashQuestions (obj: unknown, withStringReference: boolean = false): obj is UnitFlashQuestion[] {
   if (obj == null || !Array.isArray(obj)) return false
-  return obj.every(isUnitFlashQuestion)
+  return obj.every(obj => isUnitFlashQuestion(obj, withStringReference))
 }
 export const emptyUnitFlashQuestion: UnitFlashQuestion = {
-  reference: '',
+  reference: '6C10', // Cannot access 'emptyObjectiveReference' before initialization
   titleAcademic: '',
   title: '',
   slug: '',
@@ -164,28 +186,28 @@ export type Unit = {
   number: number,
   objectives: UnitObjective[],
   term: number,
-  reference: string,
+  reference: UnitReference,
   title: string,
 }
-export function isUnit (obj: unknown): obj is Unit {
+export function isUnit (obj: unknown, withStringReference: boolean = false): obj is Unit {
   if (obj == null || typeof obj !== 'object') return false
   return 'assessmentExamLink' in obj && typeof obj.assessmentExamLink === 'string' &&
     'assessmentExamSlug' in obj && typeof obj.assessmentExamSlug === 'string' &&
     'assessmentLink' in obj && typeof obj.assessmentLink === 'string' &&
     'downloadLinks' in obj && isUnitDownloadLinks(obj.downloadLinks) &&
-    'flashQuestions' in obj && isUnitFlashQuestions(obj.flashQuestions) &&
+    'flashQuestions' in obj && isUnitFlashQuestions(obj.flashQuestions, withStringReference) &&
     'flashQuestionsLink' in obj && typeof obj.flashQuestionsLink === 'string' &&
     'grade' in obj && isStringGrade(obj.grade) &&
-    'mentalCalculations' in obj && isUnitMentalCalculations(obj.mentalCalculations) &&
+    'mentalCalculations' in obj && isUnitMentalCalculations(obj.mentalCalculations, withStringReference) &&
     'number' in obj && typeof obj.number === 'number' &&
-    'objectives' in obj && isUnitObjectives(obj.objectives) &&
+    'objectives' in obj && isUnitObjectives(obj.objectives, withStringReference) &&
     'term' in obj && typeof obj.term === 'number' &&
-    'reference' in obj && typeof obj.reference === 'string' &&
+    'reference' in obj && (withStringReference ? typeof obj.reference === 'string' : isUnitReference(obj.reference)) &&
     'title' in obj && typeof obj.title === 'string'
 }
-export function isUnits (obj: unknown): obj is Unit[] {
+export function isUnits (obj: unknown, withStringReference: boolean = false): obj is Unit[] {
   if (obj == null || !Array.isArray(obj)) return false
-  return obj.every(isUnit)
+  return obj.every(obj => isUnit(obj, withStringReference))
 }
 export const emptyUnit: Unit = {
   assessmentExamLink: '',
@@ -199,6 +221,15 @@ export const emptyUnit: Unit = {
   number: 0,
   objectives: [],
   term: 0,
-  reference: '',
+  reference: emptyUnitReference,
   title: ''
+}
+
+export type UnitWithStringReference = ReplaceReferencesByStrings<UnitReference, ReplaceReferencesByStrings<ObjectiveReference, Unit>>
+export function isUnitWithStringReference (obj: unknown): obj is UnitWithStringReference {
+  return isUnit(obj, true)
+}
+export function isUnitsWithStringReference (obj: unknown): obj is UnitWithStringReference[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isUnitWithStringReference)
 }

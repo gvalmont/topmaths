@@ -7,6 +7,7 @@ import units from '../src/topmaths/json/built_units.json' assert { type: 'json' 
 import { countLessonPlans } from './helpers/lesson_plans.js'
 import { buildGradeFromObjectiveReference } from '../src/topmaths/services/reference.js'
 import { getTitle } from '../src/topmaths/services/shared.js'
+import { isObjectiveReferences, type ObjectiveReference } from '../src/topmaths/types/objective.js'
 
 const SOURCE_ROOT = './src/topmaths/typ'
 const LESSONS = 'cours'
@@ -104,7 +105,7 @@ function copyImages (objective: Partial<UnitObjective>, unit: Unit): void {
 }
 
 function replaceImportedLessons (text: string, sequence: Unit): string {
-  const importedLessonReferences = findImportedLessonReferences(text)
+  const importedLessonReferences: ObjectiveReference[] = findImportedLessonReferences(text)
   for (const reference of importedLessonReferences) {
     const grade = buildGradeFromObjectiveReference(reference)
     if (!isStringGrade(grade)) throw new Error(`Imported lesson reference incorrect: ${grade}`)
@@ -115,11 +116,13 @@ function replaceImportedLessons (text: string, sequence: Unit): string {
   return text
 }
 
-function findImportedLessonReferences (text: string): string[] {
+function findImportedLessonReferences (text: string): ObjectiveReference[] {
   const regex = /##(\w+)/g
   const matches = text.match(regex) || []
   const uniqueReferences = new Set(matches.map((match: string) => match.slice(2)))
-  return Array.from(uniqueReferences)
+  const importedLessonReferences = Array.from(uniqueReferences)
+  if (!isObjectiveReferences(importedLessonReferences)) throw new Error(`Invalid lesson references: ${importedLessonReferences}`)
+  return importedLessonReferences
 }
 
 function writeUnitLessonPlans (previousUnit: Unit, currentUnit: Unit, nextUnit: Unit): void {

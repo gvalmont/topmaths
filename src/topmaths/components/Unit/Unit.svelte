@@ -1,5 +1,6 @@
 <script lang="ts">
   import { reference } from '../../services/store'
+  import { isUnitReference } from '../../types/unit'
   import Sps1 from './presentationalComponents/specialUnits/SPS1.svelte'
   import Sps2 from './presentationalComponents/specialUnits/SPS2.svelte'
   import UnitRegular from './UnitRegular.svelte'
@@ -11,7 +12,7 @@
   <Sps1 />
 {:else if $reference === 'SPS2'}
   <Sps2 />
-{:else if $reference !== ''}
+{:else if isUnitReference($reference)}
   <UnitRegular unitReference={$reference} />
 {:else}
   <UnitSelection />

@@ -1,3 +1,8 @@
+import type { ObjectiveReference } from './objective.js'
+import { objectivesReferences } from './objectivesReferences.js'
+import type { UnitReference } from './unit.js'
+import { unitsReferences } from './unitsReferences.js'
+
 const viewValidKeys = <const>['home', 'unit', 'objective', 'exercise', 'practice', 'student', 'classroom', 'cart', 'perso', 'info']
 type ViewValidKeysType = typeof viewValidKeys
 export type View = ViewValidKeysType[number]
@@ -21,10 +26,8 @@ export function isInfoReferences (obj: unknown): obj is ReferenceInfo[] {
   if (obj == null || !Array.isArray(obj)) return false
   return obj.every(isInfoReference)
 }
-
-const referenceValidKeys = ['', ...referenceInfoValidKeys]
-type ReferenceValidKeysType = typeof referenceValidKeys
-export type Reference = ReferenceValidKeysType[number]
+const referenceValidKeys = ['', ...referenceInfoValidKeys, ...objectivesReferences, ...unitsReferences]
+export type Reference = ReferenceInfo | ObjectiveReference | UnitReference
 export function isReference (obj: unknown): obj is Reference {
   if (obj == null || typeof obj !== 'string') return false
   return referenceValidKeys.includes(obj as Reference)

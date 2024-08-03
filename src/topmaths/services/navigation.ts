@@ -30,7 +30,7 @@ export function launchExercise (link: string): void {
 
 function launchMathaleaExercise (link: string): void {
   exerciseLinks.set([removeSeed(link)])
-  view.set('exercices')
+  view.set('exercise')
 }
 
 function goTo (link: string): void {

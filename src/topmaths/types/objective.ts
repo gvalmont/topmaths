@@ -1,5 +1,19 @@
 import { emptyStringArrayRecordStringGrade, isStringArrayRecordStringGrade, isStringGrade, isStringGrades, type StringGrade } from './grade.js'
-import { isStrings } from './shared.js'
+import { isStrings, type ReplaceReferencesByStrings } from './shared.js'
+import { objectivesReferences } from './objectivesReferences.js'
+import { isUnitReference, type UnitReference } from './unit.js'
+
+type ObjectivesReferencesValidTypes = typeof objectivesReferences
+export type ObjectiveReference = ObjectivesReferencesValidTypes[number]
+export function isObjectiveReference (obj: unknown): obj is ObjectiveReference {
+  if (obj == null || typeof obj !== 'string') return false
+  return objectivesReferences.includes(obj as ObjectiveReference)
+}
+export function isObjectiveReferences (obj: unknown): obj is ObjectiveReference[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isObjectiveReference)
+}
+export const emptyObjectiveReference: ObjectiveReference = objectivesReferences[0]
 
 export type ObjectiveVideo = {
   title: string,
@@ -95,20 +109,20 @@ export const emptyObjectiveLessonPlan: ObjectiveLessonPlan = {
 }
 
 export type ObjectiveUnit = {
-  reference: string,
+  reference: UnitReference,
   title: string
 }
-export function isObjectiveUnit (obj: unknown): obj is ObjectiveUnit {
+export function isObjectiveUnit (obj: unknown, withStringReference: boolean = false): obj is ObjectiveUnit {
   if (obj == null || typeof obj !== 'object') return false
-  return 'reference' in obj && typeof obj.reference === 'string' &&
+  return 'reference' in obj && (withStringReference ? typeof obj.reference === 'string' : isUnitReference(obj.reference)) &&
     'title' in obj && typeof obj.title === 'string'
 }
-export function isObjectiveUnits (obj: unknown): obj is ObjectiveUnit[] {
+export function isObjectiveUnits (obj: unknown, withStringReference: boolean = false): obj is ObjectiveUnit[] {
   if (obj == null || !Array.isArray(obj)) return false
-  return obj.every(isObjectiveUnit)
+  return obj.every(obj => isObjectiveUnit(obj, withStringReference))
 }
 export const emptyObjectiveUnit: ObjectiveUnit = {
-  reference: '',
+  reference: 'S6S1', // can't access lexical declaration 'emptyUnitReference' before initialization
   title: ''
 }
 
@@ -141,7 +155,7 @@ export type Objective = {
   lessonSummaryImage: string,
   lessonSummaryInstrumenpoche: string,
   term: number,
-  reference: string,
+  reference: ObjectiveReference,
   subTheme: string,
   theme: string
   title: string,
@@ -149,7 +163,7 @@ export type Objective = {
   units: ObjectiveUnit[],
   videos: ObjectiveVideo[],
 }
-export function isObjective (obj: unknown): obj is Objective {
+export function isObjective (obj: unknown, withStringReference: boolean = false): obj is Objective {
   if (obj == null || typeof obj !== 'object') return false
   return 'downloadLinks' in obj && isObjectiveDownloadLinks(obj.downloadLinks) &&
     'examExercises' in obj && isObjectiveExercises(obj.examExercises) &&
@@ -162,17 +176,17 @@ export function isObjective (obj: unknown): obj is Objective {
     'lessonSummaryImage' in obj && typeof obj.lessonSummaryImage === 'string' &&
     'lessonSummaryInstrumenpoche' in obj && typeof obj.lessonSummaryInstrumenpoche === 'string' &&
     'term' in obj && typeof obj.term === 'number' &&
-    'reference' in obj && typeof obj.reference === 'string' &&
+    'reference' in obj && (withStringReference ? typeof obj.reference === 'string' : isObjectiveReference(obj.reference)) &&
     'subTheme' in obj && typeof obj.subTheme === 'string' &&
     'theme' in obj && typeof obj.theme === 'string' &&
     'title' in obj && typeof obj.title === 'string' &&
     'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
-    'units' in obj && isObjectiveUnits(obj.units) &&
+    'units' in obj && isObjectiveUnits(obj.units, withStringReference) &&
     'videos' in obj && isObjectiveVideos(obj.videos)
 }
-export function isObjectives (obj: unknown): obj is Objective[] {
+export function isObjectives (obj: unknown, withStringReference: boolean = false): obj is Objective[] {
   if (obj == null || !Array.isArray(obj)) return false
-  return obj.every(isObjective)
+  return obj.every(obj => isObjective(obj, withStringReference))
 }
 export const emptyObjective: Objective = {
   downloadLinks: emptyObjectiveDownloadLinks,
@@ -186,11 +200,20 @@ export const emptyObjective: Objective = {
   lessonSummaryImage: '',
   lessonSummaryInstrumenpoche: '',
   term: 0,
-  reference: '',
+  reference: emptyObjectiveReference,
   subTheme: '',
   theme: '',
   title: '',
   titleAcademic: '',
   units: [],
   videos: []
+}
+
+export type ObjectiveWithStringReference = ReplaceReferencesByStrings<UnitReference, ReplaceReferencesByStrings<ObjectiveReference, Objective>>
+export function isObjectiveWithStringReference (obj: unknown): obj is ObjectiveWithStringReference {
+  return isObjective(obj, true)
+}
+export function isObjectivesWithStringReference (obj: unknown): obj is ObjectiveWithStringReference[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isObjectiveWithStringReference)
 }
