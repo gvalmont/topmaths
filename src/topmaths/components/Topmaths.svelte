@@ -11,7 +11,7 @@
   import Progressions from './outils-pour-la-classe/Progressions.svelte'
   import OutilsPourLesEleves from './OutilsPourLesEleves.svelte'
   import Lexique from './outils-pour-les-eleves/Lexique.svelte'
-  import Revisions from './Revisions.svelte'
+  import Practice from './Practice/Practice.svelte'
   import Telechargements from './outils-pour-les-eleves/Telechargements.svelte'
   import Tutos from './outils-pour-les-eleves/Tutos.svelte'
   import { isTeacherMode, isPersonalMode, reference, view } from '../services/store'
@@ -125,8 +125,8 @@
       <Unit />
     {:else if $view === 'objective'}
       <Objective />
-    {:else if $view === 'revisions'}
-      <Revisions />
+    {:else if $view === 'practice'}
+      <Practice />
     {:else if $view === 'outils'}
       <OutilsPourLaClasse />
     {:else if $view === 'mathador'}

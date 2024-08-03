@@ -28,7 +28,7 @@
   Objectifs
 </MainMenuItem>
 <MainMenuItem
-  view='revisions'
+  view='practice'
   color='sponsor'
   imageSrc='topmaths/img/gvalmont/automatismes-regular.svg'
   imageAlt="Tête avec un engrenage à l'intérieur"

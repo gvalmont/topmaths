@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { curriculum, exerciseLinks, objectives, units, view } from '../services/store'
-  import { isCoopmaths } from '../services/shared'
-  import { COOPMATHS_BASE_URL } from '../services/environment'
-  import LevelsTabsMenu from './shared/LevelsTabsMenu.svelte'
-  import { getCurrentTerm, getWeekIndexInCurrentTerm } from '../services/calendar'
-  import { type StringGrade } from '../types/grade'
+  import { curriculum, exerciseLinks, objectives, units, view } from '../../services/store'
+  import { isCoopmaths } from '../../services/shared'
+  import { COOPMATHS_BASE_URL } from '../../services/environment'
+  import LevelsTabsMenu from '../shared/LevelsTabsMenu.svelte'
+  import { getCurrentTerm, getWeekIndexInCurrentTerm } from '../../services/calendar'
+  import { type StringGrade } from '../../types/grade'
 
   let niveauChoisi = 'all'
   const currentTerm = getCurrentTerm()

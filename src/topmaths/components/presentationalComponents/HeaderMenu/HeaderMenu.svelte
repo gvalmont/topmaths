@@ -35,8 +35,8 @@
       {goToView}
     />
     <HeaderMenuItem
-      destinationView={'revisions'}
-      isActive={view === 'revisions'}
+      destinationView={'practice'}
+      isActive={view === 'practice'}
       color={'sponsor'}
       imageSrc={'topmaths/img/gvalmont/automatismes-regular.svg'}
       imageAlt={'Tête avec un engrenage à l\'intérieur'}
