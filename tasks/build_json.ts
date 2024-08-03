@@ -89,7 +89,7 @@ function buildUnits (): Unit[] {
 
 function buildUnitsTermsArray (): Record<StringGrade, number[]> {
   return {
-    all: buildTermNumbers(curriculum, 'all'),
+    tout: buildTermNumbers(curriculum, 'tout'),
     '6e': buildTermNumbers(curriculum, '6e'),
     '5e': buildTermNumbers(curriculum, '5e'),
     '4e': buildTermNumbers(curriculum, '4e'),
@@ -376,8 +376,8 @@ function buildCurriculum (): Curriculum {
         : []
     }
   })
-  const curriculumCandidate = {
-    all: deepCopy(emptyCurriculumValue),
+  const curriculumCandidate: Curriculum = {
+    tout: deepCopy(emptyCurriculumValue),
     '6e': buildCurriculumValue(formattedGradeArray, '6e'),
     '5e': buildCurriculumValue(formattedGradeArray, '5e'),
     '4e': buildCurriculumValue(formattedGradeArray, '4e'),
@@ -401,7 +401,7 @@ function buildCurriculum (): Curriculum {
     allUnitsPerTerm.push(unitsPerTerm.reduce((sum, nbUnits) => sum + nbUnits))
     allCumulateUnitsPerTerm.push(allUnitsPerTerm[termIndex] + (termIndex > 0 ? allCumulateUnitsPerTerm[termIndex - 1] : 0))
   }
-  curriculumCandidate.all = {
+  curriculumCandidate.tout = {
     unitsPerTerm: allUnitsPerTerm,
     cumulateUnitsPerTerm: allCumulateUnitsPerTerm
   }

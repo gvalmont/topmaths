@@ -12,7 +12,7 @@
       <li>
         <button
           on:click={() => onLevelsTabsMenuClicked(level)}
-          class="is-tabs-menu is-{level === 'all' ? 'tout' : level}
+          class="is-tabs-menu is-{level}
             text-base md:text-2xl
             my-1 md:my-4
             py-1 md:py-2
@@ -21,7 +21,7 @@
           class:is-first={level === stringGradeValidKeys[0]}
           class:is-last={level === stringGradeValidKeys[stringGradeValidKeys.length - 1]}
         >
-          {level === 'all' ? 'Tout' : level}
+          {level === 'tout' ? 'Tout' : level}
         </button
         >
       </li>
