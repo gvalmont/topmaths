@@ -1,8 +1,8 @@
 @import './tailwind-colors.scss';
 
 @mixin grade-style($class-name, $main-color, $light-color) {
+  $main-color-transparent: mix(rgba($main-color, 0), $main-color, 85%);
   .#{$class-name} {
-    background-color: $light-color;
     a:not(.subtitle *):not(.title *) {
       color: $main-color;
       .dark & {
@@ -12,14 +12,20 @@
         }
       }
     }
-    &.title,
-    &.subtitle {
+    .title {
       color: white;
       background-color: $main-color;
       .dark & {
-        background-color: $topmathsdark-canvas-default;
         color: $main-color;
-        border: 1px solid $main-color;
+        background-color: $main-color-transparent;
+      }
+    }
+    .subtitle {
+      color: white;
+      background-color: $main-color;
+      .dark & {
+        color: $main-color;
+        background: linear-gradient(to top, $topmathsdark-canvas-default -40%, $main-color-transparent 100%);
       }
     }
     .tooltiptext {
@@ -35,6 +41,7 @@
       background-color: $light-color;
       color: $main-color;
       .dark & {
+        background-color: $topmathsdark-canvas-default;
         border-top: 1px solid $main-color;
         border-bottom: 1px solid $main-color;
         border-left: none;
@@ -66,15 +73,11 @@
         }
       }
     }
-    .dark & {
-      background-color: $topmathsdark-canvas-default;
-      color: $light-color;
-      border-right: 1px solid $main-color;
-      border-left: 1px solid $main-color;
-
-      &.is-end {
-        border-bottom: 1px solid $main-color;
-        border-radius: 0 0 48px 48px;
+    &.grade-container {
+      background-color: $light-color;
+      .dark & {
+        background-color: $topmathsdark-canvas-default;
+        border: 1px solid $main-color;
       }
     }
   }
