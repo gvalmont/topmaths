@@ -46,14 +46,15 @@
 </body>
 
 <style>
-  html {
-    background-color: #ffffff /* keep sync with tailwind.config.js topmaths-canvas-default */
+  html, body {
+    background-color: #ffffff !important /* keep sync with tailwind.config.js topmaths-canvas-default */
   }
   @media (prefers-color-scheme: dark) {
-    html {
-      background-color: #18181b; /* keep sync with tailwind.config.js topmathsdark-canvas-default */
+    html, body {
+      background-color: #18181b !important; /* keep sync with tailwind.config.js topmathsdark-canvas-default */
     }
   }
+
   #loading {
     left: 50% !important;
     margin-left: -100px;
