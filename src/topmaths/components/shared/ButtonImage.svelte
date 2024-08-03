@@ -38,7 +38,7 @@
 </button>
 
 <style lang="scss">
-  $darkmode-bg-color: #282a36;
+  @import '../../styles/tailwind-colors.scss';
   $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
   @mixin button-style($class-name, $main-color, $light-color, $filter) {
     &.#{$class-name} {
@@ -51,7 +51,7 @@
         background-color: #{$main-color};
         color: #fff;
         :global(.dark) & {
-          background-color: $darkmode-bg-color;
+          background-color: $topmathsdark-canvas-default;
           color: $main-color;
           text-shadow: 0 0 0.7rem $main-color;
           filter: drop-shadow(0 0 0.3em $main-color);

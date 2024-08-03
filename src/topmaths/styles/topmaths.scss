@@ -1,4 +1,4 @@
-$darkmode-bg-color: #282a36;
+@import './tailwind-colors.scss';
 
 @mixin grade-style($class-name, $main-color, $light-color) {
   .#{$class-name} {
@@ -17,7 +17,7 @@ $darkmode-bg-color: #282a36;
       color: white;
       background-color: $main-color;
       .dark & {
-        background-color: $darkmode-bg-color;
+        background-color: $topmathsdark-canvas-default;
         color: $main-color;
         border: 1px solid $main-color;
       }
@@ -26,7 +26,7 @@ $darkmode-bg-color: #282a36;
       background-color: $light-color;
       color: $main-color;
       .dark & {
-        background-color: $darkmode-bg-color;
+        background-color: $topmathsdark-canvas-default;
         color: $main-color;
         border: 1px solid $main-color;
       }
@@ -59,7 +59,7 @@ $darkmode-bg-color: #282a36;
         background-color: $main-color;
         color: white;
         .dark & {
-          background-color: $darkmode-bg-color;
+          background-color: $topmathsdark-canvas-default;
           color: $main-color;
           text-shadow: 0 0 0.7rem $main-color;
           filter: drop-shadow(0 0 0.3em $main-color);
@@ -67,7 +67,7 @@ $darkmode-bg-color: #282a36;
       }
     }
     .dark & {
-      background-color: $darkmode-bg-color;
+      background-color: $topmathsdark-canvas-default;
       color: $light-color;
       border-right: 1px solid $main-color;
       border-left: 1px solid $main-color;

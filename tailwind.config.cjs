@@ -58,12 +58,38 @@ const config = {
         200: '2.00'
       },
       colors: {
-        link: {
-          DEFAULT: '#0284c7'
+        // Keep in sync with src/topmaths/styles/tailwind-colors.scss
+        topmaths: {
+          DEFAULT: '#ffffff',
+          link: '#0284c7',
+          canvas: {
+            DEFAULT: '#ffffff',
+            dark: '#f6f6f6'
+          },
+          corpus: {
+            DEFAULT: '#1F2429',
+            light: '#45505b',
+            lightest: '#6a7c8d',
+            dark: '#191d21',
+            darkest: '#131619'
+          }
         },
-        linkdark: {
-          DEFAULT: '#38bdf8'
+        topmathsdark: {
+          DEFAULT: '#000000',
+          link: '#0ea5e9',
+          canvas: {
+            DEFAULT: '#18181b',
+            dark: '#1f1f24'
+          },
+          corpus: {
+            DEFAULT: '#b0b0b0',
+            light: '#c8c8c8',
+            lightest: '#dfdfdf',
+            dark: '#7b7b7b',
+            darkest: '#464646'
+          }
         },
+        // end of sync
         coopmaths: {
           DEFAULT: '#F15929',
           lightest: '#f87f5c',

@@ -109,8 +109,8 @@
 <svelte:window bind:innerWidth />
 <div class="flex flex-col items-center text-center
   text-base md:text-xl
-  text-coopmaths-corpus dark:text-coopmathsdark-corpus
-  bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+  text-topmaths-corpus dark:text-topmathsdark-corpus
+  bg-topmaths-canvas dark:bg-topmathsdark-canvas"
 >
   <HeaderMenu
     view={$view}

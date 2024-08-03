@@ -1,6 +1,6 @@
 import 'boxicons/css/boxicons.min.css'
 import './app.css'
-import './topmaths.scss'
+import './topmaths/styles/topmaths.scss'
 import App from './components/App.svelte'
 import './bugsnag'
 
