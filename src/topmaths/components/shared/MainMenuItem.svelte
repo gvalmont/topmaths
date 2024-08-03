@@ -11,21 +11,19 @@
   export let imageAlt: string = ''
 </script>
 
-<a
-  class="block
-    mb-5 md:mb-8"
-  href='?v={view}{ref !== '' ? `&ref=${ref}` : ''}'
->
-  <ButtonImage
-    {color}
-    {imageSrc}
-    {imageAlt}
-    class="w-[140px] inline-flex md:w-[260px] h-14 md:h-24 rounded md:rounded-lg border"
-    on:click={(event) => goToView(event, view, ref)}
-  >
-    <slot />
-  </ButtonImage>
-</a>
+<div class="mb-5 md:mb-8">
+  <a href='?v={view}{ref !== '' ? `&ref=${ref}` : ''}'>
+    <ButtonImage
+      {color}
+      {imageSrc}
+      {imageAlt}
+      class="w-[140px] inline-flex md:w-[260px] h-14 md:h-24 rounded md:rounded-lg border"
+      on:click={(event) => goToView(event, view, ref)}
+    >
+      <slot />
+    </ButtonImage>
+  </a>
+</div>
 
 <style>
 </style>
