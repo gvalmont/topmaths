@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { isCartItem, type CartItem } from '../types/cart'
-  import { COOPMATHS_BASE_URL } from '../services/environment'
-  import { goToView, launchExercise } from '../services/navigation'
-  import Storage from '../modules/Storage'
-  import { copyLink } from '../services/shared'
-  import { getParamsFromUrl, updateUrlFromParams } from '../services/mathalea'
+  import { isCartItem, type CartItem } from '../../types/cart'
+  import { COOPMATHS_BASE_URL } from '../../services/environment'
+  import { goToView, launchExercise } from '../../services/navigation'
+  import Storage from '../../modules/Storage'
+  import { copyLink } from '../../services/shared'
+  import { getParamsFromUrl, updateUrlFromParams } from '../../services/mathalea'
 
   let cartLink = ''
   let cart: CartItem[] = []
@@ -21,7 +21,7 @@
 
   function viderLePanier (mouseEvent: MouseEvent): void {
     Storage.set('cart', [])
-    goToView(mouseEvent, 'accueil')
+    goToView(mouseEvent, 'home')
   }
 
   function updateCart (): void {

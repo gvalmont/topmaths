@@ -3,13 +3,13 @@
   import Unit from './Unit/Unit.svelte'
   import { goToView } from '../services/navigation'
   import Storage from '../modules/Storage'
-  import Panier from './Panier.svelte'
+  import CartComponent from './Cart/Cart.svelte'
   import { onDestroy, onMount } from 'svelte'
   import { ElementInstrumenpoche } from '../../modules/ElementInstrumenpoche'
   import Student from './Student/Student.svelte'
   import Practice from './Practice/Practice.svelte'
   import { isTeacherMode, isPersonalMode, reference, view } from '../services/store'
-  import ExercicesMathalea from './exercices/ExercicesMathalea.svelte'
+  import Exercise from './Exercise/Exercise.svelte'
   import HeaderMenu from './presentationalComponents/HeaderMenu/HeaderMenu.svelte'
   import { cacheData } from '../services/data'
   import { isTopmathsView } from '../types/navigation'
@@ -114,8 +114,8 @@
   <div class="w-full max-w-screen-lg
     pb-8 mb:pb-20"
   >
-    {#if $view === 'exercices'}
-      <ExercicesMathalea {isMd} />
+    {#if $view === 'exercise'}
+      <Exercise {isMd} />
     {:else if $view === 'unit'}
       <Unit />
     {:else if $view === 'objective'}
@@ -126,8 +126,8 @@
       <Student />
     {:else if $view === 'classroom'}
       <Classroom />
-    {:else if $view === 'panier'}
-      <Panier />
+    {:else if $view === 'cart'}
+      <CartComponent />
     {:else if $view === 'info'}
       <Info />
     {:else if $view === 'perso'}

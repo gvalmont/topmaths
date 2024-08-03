@@ -59,9 +59,9 @@
       {goToView}
     />
     <HeaderMenuItem
-      destinationView={'panier'}
+      destinationView={'cart'}
       isDisplayed={!isCartEmpty}
-      isActive={view === 'panier'}
+      isActive={view === 'cart'}
       color={'fuchsia'}
       imageSrc={'topmaths/img/cc0/cart-content-svgrepo-com.svg'}
       imageAlt={'Caddie'}
