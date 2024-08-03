@@ -51,8 +51,8 @@
       {goToView}
     />
     <HeaderMenuItem
-      destinationView={'outils'}
-      isActive={view === 'outils' || view === 'mathador' || view === 'progressions'}
+      destinationView={'classroom'}
+      isActive={view === 'classroom'}
       color={'green'}
       imageSrc={'topmaths/img/cc0/classroom-svgrepo-com.svg'}
       imageAlt={'Enseignant qui montre un tableau à une classe'}

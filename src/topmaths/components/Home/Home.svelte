@@ -45,7 +45,7 @@
   les élèves
 </MainMenuItem>
 <MainMenuItem
-  view='outils'
+  view='classroom'
   color='green'
   imageSrc='topmaths/img/cc0/classroom-svgrepo-com.svg'
   imageAlt="Enseignant montrant un tableau face à une classe"

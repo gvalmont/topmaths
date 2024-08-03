@@ -3,12 +3,9 @@
   import Unit from './Unit/Unit.svelte'
   import { goToView } from '../services/navigation'
   import Storage from '../modules/Storage'
-  import OutilsPourLaClasse from './OutilsPourLaClasse.svelte'
-  import Mathador from './outils-pour-la-classe/Mathador.svelte'
   import Panier from './Panier.svelte'
   import { onDestroy, onMount } from 'svelte'
   import { ElementInstrumenpoche } from '../../modules/ElementInstrumenpoche'
-  import Progressions from './outils-pour-la-classe/Progressions.svelte'
   import Student from './Student/Student.svelte'
   import Practice from './Practice/Practice.svelte'
   import { isTeacherMode, isPersonalMode, reference, view } from '../services/store'
@@ -25,6 +22,7 @@
   import DarkModeToggle from './presentationalComponents/DarkModeToggle.svelte'
   import Info from './Info/Info.svelte'
   import Objective from './Objective/Objective.svelte'
+  import Classroom from './Classroom/Classroom.svelte'
 
   if (customElements.get('alea-instrumenpoche') === undefined) {
     customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
@@ -124,14 +122,10 @@
       <Objective />
     {:else if $view === 'practice'}
       <Practice />
-    {:else if $view === 'outils'}
-      <OutilsPourLaClasse />
-    {:else if $view === 'mathador'}
-      <Mathador />
     {:else if $view === 'student'}
       <Student />
-    {:else if $view === 'progressions'}
-      <Progressions />
+    {:else if $view === 'classroom'}
+      <Classroom />
     {:else if $view === 'panier'}
       <Panier />
     {:else if $view === 'info'}

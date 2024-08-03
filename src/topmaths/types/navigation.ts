@@ -1,4 +1,4 @@
-const viewValidKeys = <const>['exercices', 'unit', 'objective', 'practice', 'outils', 'mathador', 'student', 'progressions', 'panier', 'perso', 'home', 'info']
+const viewValidKeys = <const>['exercices', 'unit', 'objective', 'practice', 'student', 'classroom', 'panier', 'perso', 'home', 'info']
 type ViewValidKeysType = typeof viewValidKeys
 export type View = ViewValidKeysType[number]
 export function isTopmathsView (obj: unknown): obj is View {

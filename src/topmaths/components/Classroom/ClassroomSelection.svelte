@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { isTeacherMode } from '../services/store'
-  import Storage from '../modules/Storage'
-  import MainMenuItem from './shared/MainMenuItem.svelte'
+  import { isTeacherMode } from '../../services/store'
+  import Storage from '../../modules/Storage'
+  import MainMenuItem from '../shared/MainMenuItem.svelte'
 
 </script>
 
@@ -18,14 +18,16 @@
   <div style="background-color: #ebfaf1; border-radius: 0px 0px 50px 50px; ">
     <br />
     <MainMenuItem
-    view='mathador'
+    view='classroom'
+    ref='mathador'
     color='violet'
     >
     Mathador
     </MainMenuItem>
     {#if $isTeacherMode}
       <MainMenuItem
-      view='progressions'
+      view='classroom'
+      ref='curriculum'
       color='sponsor'
       >
       Progressions
