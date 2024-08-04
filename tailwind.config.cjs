@@ -63,7 +63,7 @@ const config = {
           DEFAULT: '#ffffff',
           link: '#0284c7',
           canvas: {
-            DEFAULT: '#ffffff',
+            DEFAULT: '#ffffff', // Keep in sync with index.html html, body background-color
             dark: '#f6f6f6'
           },
           corpus: {
@@ -78,7 +78,7 @@ const config = {
           DEFAULT: '#000000',
           link: '#0ea5e9',
           canvas: {
-            DEFAULT: '#18181b',
+            DEFAULT: '#18181b', // Keep in sync with index.html prefers-color-scheme: dark html, body background-color
             dark: '#1f1f24'
           },
           corpus: {
