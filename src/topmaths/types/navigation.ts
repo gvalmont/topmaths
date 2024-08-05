@@ -8,13 +8,13 @@ import type { SpecialUnitReference } from './specialUnit'
 const viewValidKeys = <const>['home', 'unit', 'objective', 'exercise', 'practice', 'student', 'classroom', 'cart', 'perso', 'info']
 type ViewValidKeysType = typeof viewValidKeys
 export type View = ViewValidKeysType[number]
-export function isTopmathsView (obj: unknown): obj is View {
+export function isView (obj: unknown): obj is View {
   if (obj == null || typeof obj !== 'string') return false
   return viewValidKeys.includes(obj as View)
 }
-export function isTopmathsViews (obj: unknown): obj is View[] {
+export function isViews (obj: unknown): obj is View[] {
   if (obj == null || !Array.isArray(obj)) return false
-  return obj.every(isTopmathsView)
+  return obj.every(isView)
 }
 
 const referenceInfoValidKeys = <const>['site-info', 'legal-notice', 'privacy-policy', 'terms-of-use']
@@ -29,7 +29,7 @@ export function isInfoReferences (obj: unknown): obj is ReferenceInfo[] {
   return obj.every(isInfoReference)
 }
 const referenceValidKeys = ['', ...referenceInfoValidKeys, ...objectivesReferences, ...unitsReferences, ...specialUnitsReferences]
-export type Reference = ReferenceInfo | ObjectiveReference | UnitReference | SpecialUnitReference
+export type Reference = '' | ReferenceInfo | ObjectiveReference | UnitReference | SpecialUnitReference
 export function isReference (obj: unknown): obj is Reference {
   if (obj == null || typeof obj !== 'string') return false
   return referenceValidKeys.includes(obj as Reference)

@@ -12,7 +12,7 @@
   import Exercise from './Exercise/Exercise.svelte'
   import HeaderMenu from './presentationalComponents/HeaderMenu/HeaderMenu.svelte'
   import { cacheData } from '../services/data'
-  import { isTopmathsView } from '../types/navigation'
+  import { isView, isReference, type Reference, type View } from '../types/navigation'
   import Cart from '../modules/Cart'
   import type { CartItem } from '../types/cart'
   import TimeOverlay from './presentationalComponents/TimeOverlay.svelte'
@@ -67,15 +67,24 @@
   function updateParamsFromUrl (): void {
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
+    let newView: View = 'home'
+    let newRef: Reference = ''
     for (const entry of entries) {
       if (entry[0] === 'v') {
         const viewCandidate = entry[1]
-        if (isTopmathsView(viewCandidate)) {
-          view.set(viewCandidate)
+        if (isView(viewCandidate)) {
+          newView = viewCandidate
         }
       }
-      if (entry[0] === 'ref') reference.set(entry[1])
+      if (entry[0] === 'ref') {
+        const refCandidate = entry[1]
+        if (isReference(refCandidate)) {
+          newRef = refCandidate
+        }
+      }
     }
+    view.set(newView)
+    reference.set(newRef)
   }
 
   function addDarkModeListener (): void {
