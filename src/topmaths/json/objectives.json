@@ -4120,12 +4120,12 @@
                     "description": "Calculer en respectant les priorités (2 opérations)"
                   },
                   {
-                    "slug": "5C12,s=3,s2=false,s3=true,s4=true,n=2",
-                    "description": "Calculer en respectant les priorités (3 opérations)"
-                  },
-                  {
                     "slug": "5C12,s=4,s2=false,s3=true,s4=true,n=2",
                     "description": "Calculer en respectant les priorités (4 opérations)"
+                  },
+                  {
+                    "slug": "uuid=e2a95&id=5C12-4&n=2&d=10&s=3&s2=false",
+                    "description": "Trouver les parenthèses manquantes"
                   }
                 ],
                 "lessonPlans": [
