@@ -6,10 +6,11 @@ import specialUnitsJson from '../../topmaths/json/special_units.json'
 import calendarJson from '../../topmaths/json/built_calendar.json'
 import curriculumJson from '../../topmaths/json/built_curriculum.json'
 import { isGlossaryUniteItems } from '../types/glossary'
-import { isUnits, isUnitSpecials } from '../types/unit'
+import { isUnits } from '../types/unit'
 import { isObjectives } from '../types/objective'
 import { parseSchoolYear } from './calendar'
 import { isCurriculum } from '../types/curriculum'
+import { isSpecialUnits } from '../types/specialUnit'
 
 export function cacheData (): void {
   cacheUnits()
@@ -38,7 +39,7 @@ function cacheObjectives (): void {
 
 function cacheSpecialUnits (): void {
   const sequencesParticulieres = specialUnitsJson
-  if (!isUnitSpecials(sequencesParticulieres)) {
+  if (!isSpecialUnits(sequencesParticulieres)) {
     console.error(sequencesParticulieres)
     throw new Error('special_units.json is not an array of UnitSpecial')
   }

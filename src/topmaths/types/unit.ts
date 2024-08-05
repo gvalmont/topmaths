@@ -156,24 +156,6 @@ export const emptyUnitDownloadLinks: UnitDownloadLinks = {
   lessonPlanLink: ''
 }
 
-export type UnitSpecial = {
-  reference: string,
-  title: string
-}
-export function isUnitSpecial (obj: unknown): obj is UnitSpecial {
-  if (obj == null || typeof obj !== 'object') return false
-  return 'reference' in obj && typeof obj.reference === 'string' &&
-    'title' in obj && typeof obj.title === 'string'
-}
-export function isUnitSpecials (obj: unknown): obj is UnitSpecial[] {
-  if (obj == null || !Array.isArray(obj)) return false
-  return obj.every(isUnitSpecial)
-}
-export const emptyUnitSpecial: UnitSpecial = {
-  reference: '',
-  title: ''
-}
-
 export type Unit = {
   assessmentExamLink: string,
   assessmentExamSlug: string,

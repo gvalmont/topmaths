@@ -4,6 +4,7 @@ import definitionsJson from '../src/topmaths/json/glossary/definitions.json' ass
 import propertiesJson from '../src/topmaths/json/glossary/properties.json' assert { type: 'json' }
 import objectivesMasterJson from '../src/topmaths/json/objectives.json' assert { type: 'json' }
 import unitsMasterJson from '../src/topmaths/json/units.json' assert { type: 'json' }
+import specialUnitsJson from '../src/topmaths/json/special_units.json' assert { type: 'json' }
 import curriculumJson from '../src/topmaths/json/curriculum.json' assert { type: 'json' }
 import calendarSchoolYearMasterJson from '../src/topmaths/json/calendar.json' assert { type: 'json' }
 import type { RecursivePartial } from '../src/lib/types.js'
@@ -47,6 +48,7 @@ writeJson('built_calendar', calendar)
 writeJson('built_curriculum', curriculum)
 writeTs('objectivesReferences', objectives.map(objective => objective.reference))
 writeTs('unitsReferences', units.map(unit => unit.reference))
+writeTs('specialUnitsReferences', specialUnitsJson.map(specialUnit => specialUnit.reference))
 // end of script
 
 function buildUnits (): UnitWithStringReference[] {

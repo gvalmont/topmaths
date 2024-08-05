@@ -1,15 +1,16 @@
 import type { GlossaryUniteItem } from '../types/glossary.js'
-import type { Unit, UnitSpecial } from '../types/unit.js'
+import type { Unit } from '../types/unit.js'
 import type { Objective } from '../types/objective.js'
 import { writable } from 'svelte/store'
 import { deepCopy } from '../types/shared.js'
 import { type View } from '../types/navigation.js'
 import { emptyCalendarSchoolYear, type CalendarSchoolYear } from '../types/calendar.js'
 import { emptyCurriculum, type Curriculum } from '../types/curriculum.js'
+import type { SpecialUnit } from '../types/specialUnit.js'
 
 // libraries
 export const units = writable<Unit[]>([])
-export const specialUnits = writable<UnitSpecial[]>([])
+export const specialUnits = writable<SpecialUnit[]>([])
 export const objectives = writable<Objective[]>([])
 export const glossary = writable<GlossaryUniteItem[]>([])
 export const calendar = writable<CalendarSchoolYear>(deepCopy(emptyCalendarSchoolYear))
