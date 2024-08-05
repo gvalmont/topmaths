@@ -60,33 +60,78 @@ const config = {
       colors: {
         // Keep in sync with src/topmaths/styles/tailwind-colors.scss
         topmaths: {
-          DEFAULT: '#ffffff',
-          link: '#0284c7',
+          DEFAULT: '#0284c7',
           canvas: {
             DEFAULT: '#ffffff', // Keep in sync with index.html html, body background-color
             dark: '#f6f6f6'
           },
           corpus: {
             DEFAULT: '#1F2429',
-            light: '#45505b',
-            lightest: '#6a7c8d',
-            dark: '#191d21',
-            darkest: '#131619'
+            light: '#45505b'
           }
         },
         topmathsdark: {
-          DEFAULT: '#000000',
-          link: '#0ea5e9',
+          DEFAULT: '#0ea5e9',
           canvas: {
             DEFAULT: '#18181b', // Keep in sync with index.html prefers-color-scheme: dark html, body background-color
             dark: '#1f1f24'
           },
           corpus: {
             DEFAULT: '#b0b0b0',
-            light: '#c8c8c8',
-            lightest: '#dfdfdf',
-            dark: '#7b7b7b',
-            darkest: '#464646'
+            light: '#c8c8c8'
+          }
+        },
+        is: {
+          DEFAULT: 'transparent',
+          sponsor: {
+            DEFAULT: '#ea4aaa',
+            light: '#c0167c',
+            filter: 'invert(41%) sepia(47%) saturate(2515%) hue-rotate(298deg) brightness(97%) contrast(88%)'
+          },
+          fuchsia: {
+            DEFAULT: '#c75ad5',
+            light: '#c75ad5',
+            filter: 'invert(66%) sepia(95%) saturate(7499%) hue-rotate(280deg) brightness(89%) contrast(100%)'
+          },
+          green: {
+            DEFAULT: '#16A34A',
+            light: '#16A34A',
+            filter: 'invert(43%) sepia(81%) saturate(478%) hue-rotate(89deg) brightness(98%) contrast(91%)'
+          },
+          link: {
+            DEFAULT: '#485fc7',
+            light: '#eff1fa',
+            filter: 'invert(29%) sepia(98%) saturate(796%) hue-rotate(203deg) brightness(101%) contrast(88%)'
+          },
+          info: {
+            DEFAULT: '#3e8ed0',
+            light: '#296fa8',
+            filter: 'invert(49%) sepia(45%) saturate(746%) hue-rotate(165deg) brightness(94%) contrast(83%)',
+            darker: {
+              DEFAULT: '#4175d2',
+              light: '#e93fa5',
+              filter: 'invert(42%) sepia(53%) saturate(1203%) hue-rotate(190deg) brightness(88%) contrast(84%)'
+            }
+          },
+          warning: {
+            DEFAULT: '#ffe08a',
+            light: '#fff3d1',
+            filter: 'invert(73%) sepia(96%) saturate(209%) hue-rotate(346deg) brightness(104%) contrast(103%)'
+          },
+          danger: {
+            DEFAULT: '#f14668',
+            light: '#fcd4dc',
+            filter: 'invert(44%) sepia(73%) saturate(4057%) hue-rotate(324deg) brightness(98%) contrast(92%)'
+          },
+          purple: {
+            DEFAULT: '#9333ea',
+            light: '#e93fa5',
+            filter: 'invert(22%) sepia(70%) saturate(3716%) hue-rotate(264deg) brightness(94%) contrast(95%)'
+          },
+          tout: {
+            DEFAULT: '#feb60a',
+            light: '#fffbeb',
+            filter: 'invert(82%) sepia(18%) saturate(7498%) hue-rotate(354deg) brightness(103%) contrast(99%)'
           }
         },
         // end of sync

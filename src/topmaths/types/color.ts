@@ -1,1 +1,5 @@
-export type ThemeColor = 'white' | 'warning' | 'link' | 'info' | 'danger' | 'primary' | 'success' | 'orange' | 'sponsor' | 'fuchsia' | 'black-and-yellow' | 'green' | 'coopmaths' | 'purple' | 'info-darker' | 'violet' | 'blue' | '6e' | '5e' | '4e' | '3e' | 'tout'
+import type { StringGrade } from './grade'
+
+export type ButtonColor = 'sponsor' | 'fuchsia' | 'green' | 'link' | 'info' | 'warning' | 'danger' | 'purple' | 'info-darker' | 'tout'
+
+export type ThemeColor = StringGrade | ButtonColor

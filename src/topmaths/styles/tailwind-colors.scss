@@ -1,20 +1,52 @@
 // Keep in sync with tailwind.config.js colors
-$topmaths-default: #ffffff;
-$topmaths-link: #0284c7;
+$topmaths-default: #0284c7;
 $topmaths-canvas-default: #ffffff;
 $topmaths-canvas-dark: #f6f6f6;
 $topmaths-corpus-default: #1F2429;
 $topmaths-corpus-light: #45505b;
-$topmaths-corpus-lightest: #6a7c8d;
-$topmaths-corpus-dark: #191d21;
-$topmaths-corpus-darkest: #131619;
 
-$topmathsdark-default: #000000;
-$topmathsdark-link: #0ea5e9;
+$topmathsdark-default: #0ea5e9;
 $topmathsdark-canvas-default: #18181b;
 $topmathsdark-canvas-dark: #1f1f24;
 $topmathsdark-corpus-default: #b0b0b0;
 $topmathsdark-corpus-light: #c8c8c8;
-$topmathsdark-corpus-lightest: #dfdfdf;
-$topmathsdark-corpus-dark: #7b7b7b;
-$topmathsdark-corpus-darkest: #464646;
+
+$is-default: transparent;
+$is-sponsor-default: #ea4aaa;
+$is-sponsor-light: #c0167c;
+$is-sponsor-filter: invert(41%) sepia(47%) saturate(2515%) hue-rotate(298deg) brightness(97%) contrast(88%);
+
+$is-fuchsia-default: #c75ad5;
+$is-fuchsia-light: #c75ad5;
+$is-fuchsia-filter: invert(66%) sepia(95%) saturate(7499%) hue-rotate(280deg) brightness(89%) contrast(100%);
+
+$is-green-default: #16A34A;
+$is-green-light: #16A34A;
+$is-green-filter: invert(43%) sepia(81%) saturate(478%) hue-rotate(89deg) brightness(98%) contrast(91%);
+
+$is-link-default: #485fc7;
+$is-link-light: #eff1fa;
+$is-link-filter: invert(29%) sepia(98%) saturate(796%) hue-rotate(203deg) brightness(101%) contrast(88%);
+
+$is-info-default: #3e8ed0;
+$is-info-light: #296fa8;
+$is-info-filter: invert(49%) sepia(45%) saturate(746%) hue-rotate(165deg) brightness(94%) contrast(83%);
+$is-info-darker-default: #4175d2;
+$is-info-darker-light: #e93fa5;
+$is-info-darker-filter: invert(42%) sepia(53%) saturate(1203%) hue-rotate(190deg) brightness(88%) contrast(84%);
+
+$is-warning-default: #ffe08a;
+$is-warning-light: #fff3d1;
+$is-warning-filter: invert(73%) sepia(96%) saturate(209%) hue-rotate(346deg) brightness(104%) contrast(103%);
+
+$is-danger-default: #f14668;
+$is-danger-light: #fcd4dc;
+$is-danger-filter: invert(44%) sepia(73%) saturate(4057%) hue-rotate(324deg) brightness(98%) contrast(92%);
+
+$is-purple-default: #9333ea;
+$is-purple-light: #e93fa5;
+$is-purple-filter: invert(22%) sepia(70%) saturate(3716%) hue-rotate(264deg) brightness(94%) contrast(95%);
+
+$is-tout-default: #feb60a;
+$is-tout-light: #fffbeb;
+$is-tout-filter: invert(82%) sepia(18%) saturate(7498%) hue-rotate(354deg) brightness(103%) contrast(99%);
