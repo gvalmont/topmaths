@@ -826,5 +826,6 @@ function writeJson (fileName: string, data: unknown): void {
 }
 
 function writeTs (fileName: string, data: unknown): void {
-  fs.writeFileSync(path.join('./src', 'topmaths', 'types', fileName + '.ts'), `export const ${fileName} = <const> ${JSON.stringify(data, null, 2)}`)
+  fs.writeFileSync(path.join('./src', 'topmaths', 'types', fileName + '.ts'), `export const ${fileName} = <const> ${JSON.stringify(data, null, 2).replace(/"/g, '\'')}
+`)
 }
