@@ -5,7 +5,7 @@
   import { goToView } from '../../services/navigation'
   import { writable, derived } from 'svelte/store'
   import type { UnitMentalCalculation, UnitObjective, UnitFlashQuestion, Unit } from '../../types/unit'
-  import LevelsTabsMenu from '../shared/LevelsTabsMenu.svelte'
+  import GradeSelectionTabs from '../shared/GradeSelectionTabs.svelte'
   import type { LineGrade } from '../../types/grade'
 
   interface Ligne {
@@ -104,9 +104,9 @@
 </svelte:head>
 
 <div class="text-center">
-  <LevelsTabsMenu
+  <GradeSelectionTabs
     activeLevelTab={filtre.grade}
-    onLevelsTabsMenuClicked={clicFiltre}
+    onClick={clicFiltre}
   />
   <div class="flex justify-center pt-2 pb-1" style="overflow:auto">
     <button

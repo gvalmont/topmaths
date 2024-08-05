@@ -14,7 +14,7 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
         background-color: $topmathsdark-canvas-default;
         color: $main-color;
         text-shadow: 0 0 0.7rem $main-color;
-        filter: drop-shadow(0 0 0.3em $main-color);
+        filter: drop-shadow(0 0 0.15em $main-color) drop-shadow(0 0 0.3em $main-color);
       }
     }
     &[disabled] {
@@ -31,15 +31,19 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
       }
     }
     &.is-light {
-      background-color: #fdedf6;
-      color: #{$light-color};
+      background-color: #{$light-color};
+      color: #{$main-color};
       &:hover,
       &.is-active,
       &:active,
       &:focus {
-        background-color: #fce1f1;
-        border-color: transparent;
-        color: #{$light-color};
+        background-color: #{$main-color};
+        color: white;
+      }
+      .dark & {
+        background-color: $topmathsdark-canvas-default;
+        border: 1px solid $main-color;
+        color: $main-color;
       }
     }
     img {

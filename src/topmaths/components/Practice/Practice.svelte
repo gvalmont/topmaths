@@ -2,7 +2,7 @@
   import { curriculum, exerciseLinks, objectives, units, view } from '../../services/store'
   import { isCoopmaths } from '../../services/shared'
   import { COOPMATHS_BASE_URL } from '../../services/environment'
-  import LevelsTabsMenu from '../shared/LevelsTabsMenu.svelte'
+  import GradeSelectionTabs from '../shared/GradeSelectionTabs.svelte'
   import { getCurrentTerm, getWeekIndexInCurrentTerm } from '../../services/calendar'
   import { type StringGrade } from '../../types/grade'
 
@@ -106,9 +106,9 @@
     Révisions
   </h1>
   <div class="flex flex-col justify-center p-8 is-end" style="background-color: #fffafa;">
-    <LevelsTabsMenu
+    <GradeSelectionTabs
       activeLevelTab={niveauChoisi}
-      onLevelsTabsMenuClicked={(clickedLevel) => { niveauChoisi = clickedLevel }}
+      onClick={(clickedLevel) => { niveauChoisi = clickedLevel }}
     />
     <button on:click={() => lancerExercicesMathalea()} class="mx-auto p-5 my-4 button is-link is-outlined rounded md:rounded-lg">
       <p class="mx-auto text-sm md:text-2xl shrink-0">Réviser les exercices</p>

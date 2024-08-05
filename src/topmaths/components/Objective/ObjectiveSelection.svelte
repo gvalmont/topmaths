@@ -4,7 +4,7 @@
   import { goToView } from '../../services/navigation'
   import { onDestroy } from 'svelte'
   import { writable, derived } from 'svelte/store'
-  import LevelsTabsMenu from '../shared/LevelsTabsMenu.svelte'
+  import GradeSelectionTabs from '../shared/GradeSelectionTabs.svelte'
   import { isStringGrade, type StringGrade } from '../../types/grade'
   type LineObjective = {
   grade: StringGrade,
@@ -105,9 +105,9 @@
 </svelte:head>
 
 <div class="w-screen max-w-screen-lg">
-  <LevelsTabsMenu
+  <GradeSelectionTabs
     activeLevelTab={filter.grade}
-    onLevelsTabsMenuClicked={clicFiltre}
+    onClick={clicFiltre}
   />
   <div class="is-flex is-justify-content-center pt-2 pb-1" style="overflow:auto">
     <button

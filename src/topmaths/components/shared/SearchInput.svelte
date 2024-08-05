@@ -1,0 +1,18 @@
+<script lang="ts">
+
+  export let searchString: string
+
+</script>
+
+<input
+  class="p-1 text-center
+    md:mb-4
+    rounded-sm md-rounded
+    text-sm md:text-2xl
+    bg-topmaths-canvas dark:bg-topmathsdark-canvas"
+  type="text"
+  aria-describedby="Champ pour rechercher une séquence"
+  autocomplete="off"
+  placeholder="Recherche"
+  bind:value={searchString}
+/>
