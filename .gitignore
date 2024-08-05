@@ -28,6 +28,7 @@ _private/
 /src/topmaths/json/built_curriculum.json
 /src/topmaths/json/glossary.json
 /src/topmaths/types/unitsReferences.ts
+/src/topmaths/types/specialUnitsReferences.ts
 /src/topmaths/types/objectivesReferences.ts
 /src/topmaths/typ/**/**/*.pdf
 /src/topmaths/typ/cours/sequences/
