@@ -89,7 +89,7 @@
     rel="noopener noreferrer"
   >
     <button
-      class="button is-link is-light border rounded p-2 mb-8"
+      class="button is-link is-full border rounded p-2 mb-8"
     >
       Continuer une séance Algorea
     </button>

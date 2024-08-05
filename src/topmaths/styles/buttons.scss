@@ -32,6 +32,19 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
       background-color: transparent;
       border-color: #{$main-color};
       color: #{$main-color};
+      &.is-full {
+        background-color: #{$main-color};
+        color: #fff;
+        .dark & {
+          background-color: $topmathsdark-canvas-default;
+          color: $main-color;
+        }
+        &:focus,
+        &:hover,
+        &.is-active {
+          filter: drop-shadow(0 0 0.15em $main-color);
+        }
+      }
       &:focus,
       &:hover,
       &.is-active {
