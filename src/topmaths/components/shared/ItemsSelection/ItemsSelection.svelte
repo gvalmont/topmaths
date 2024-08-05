@@ -107,7 +107,7 @@
       <div class="is-{grade} grade-container my-8
           rounded-4xl md:rounded-5xl"
       >
-        <h1 class="title p-2
+        <h1 class="title
           text-2xl md:text-4xl
           rounded-t-4xl md:rounded-t-5xl"
         >
@@ -121,13 +121,13 @@
           />
         {:else} <!-- objectives -->
           {#each [...new Set($filteredItems.filter(item => item.grade === grade).map(item => item.theme).filter(theme => !UNLISTED_THEMES.includes(theme ?? '')))] as theme}
-            <h2 class="title p-2
+            <h2 class="title
               text-xl md:text-3xl"
             >
               {theme}
             </h2>
             {#each [...new Set($filteredItems.filter(item => item.grade === grade).filter(item => item.theme === theme).map(item => item.subTheme))] as subTheme}
-              <h3 class="subtitle p-2
+              <h3 class="subtitle
                 text-l md:text-2xl"
               >
                 {subTheme}
