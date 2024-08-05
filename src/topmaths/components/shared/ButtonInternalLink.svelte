@@ -9,19 +9,7 @@
 
 <button
   on:click={(event) => goToView(event, view, reference)}
+  class="interactive"
 >
   <slot />
 </button>
-
-<style lang="scss">
-  button {
-    color: #0284c7;
-    :global(.dark) & {
-      color: #0ea5e9;
-      &:hover,
-      &:focus {
-        text-shadow: 0 0 0.7rem #0ea5e9;
-      }
-    }
-  }
-</style>

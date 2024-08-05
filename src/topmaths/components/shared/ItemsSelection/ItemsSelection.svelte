@@ -1,20 +1,22 @@
 <script lang="ts">
   import { writable, derived, type Writable } from 'svelte/store'
-  import { goToView } from '../../services/navigation'
-  import { isStringGrade, stringGradeValidKeys, type StringGrade } from '../../types/grade'
-  import type { Reference, View } from '../../types/navigation'
-  import GradeSelectionTabs from './GradeSelectionTabs.svelte'
-  import SearchInput from './SearchInput.svelte'
-  import TermSelectionButtons from './TermSelectionButtons.svelte'
+  import { goToView } from '../../../services/navigation'
+  import { isStringGrade, stringGradeValidKeys, type StringGrade } from '../../../types/grade'
+  import type { View } from '../../../types/navigation'
+  import GradeSelectionTabs from '../GradeSelectionTabs.svelte'
+  import SearchInput from '../SearchInput.svelte'
+  import TermSelectionButtons from '../TermSelectionButtons.svelte'
   import { onDestroy, onMount } from 'svelte'
-  import { normalize } from '../../services/shared'
-
-  type Item = { grade: StringGrade, term: number, reference: Reference, title: string, number?: number }
+  import { normalize } from '../../../services/shared'
+  import { emptyItem, type Item } from './types'
+  import Items from './Items.svelte'
+  import { isTeacherMode, isTitleAcademicPreferred } from '../../../services/store'
+  import InputCheckbox from '../InputCheckbox.svelte'
 
   export let view: View
   export let items: Writable<Item[]>
 
-  const emptyItem: Item = { grade: 'tout', term: 0, reference: '', title: '' }
+  const UNLISTED_THEMES = ['Extra']
 
   const filter = writable<Item>(emptyItem)
   const searchString = writable<string>('')
@@ -93,31 +95,52 @@
   <SearchInput
     bind:searchString={$searchString}
   />
+  {#if view === 'objective' && $isTeacherMode}
+  <span class="absolute">
+    <InputCheckbox
+      bind:isChecked={$isTitleAcademicPreferred}
+    />
+  </span>
+  {/if}
   {#each stringGradeValidKeys as grade}
     {#if $filteredItems.filter(item => item.grade === grade).length > 0}
       <div class="is-{grade} grade-container my-8
           rounded-4xl md:rounded-5xl"
       >
-        <h1 class="title font-semibold p-2
+        <h1 class="title p-2
           text-2xl md:text-4xl
           rounded-t-4xl md:rounded-t-5xl"
         >
           {grade === 'tout' ? 'Séquences particulières' : grade}
         </h1>
-        {#each $filteredItems.filter(item => item.grade === grade) as item}
-          <a
-            href="/?v={view}&ref={item.reference}"
-            on:click={(event) => goToView(event, view, item.reference)}
-          >
-            <div class="p-1">
-              {#if item.number !== undefined && item.number > 0}
-                Séquence {item.number} : {item.title}
-              {:else}
-                {item.title}
-              {/if}
-            </div>
-          </a>
-        {/each}
+        {#if $filteredItems[0].theme === undefined} <!-- units -->
+          <Items
+            items={$filteredItems.filter(item => item.grade === grade)}
+            view={view}
+            {goToView}
+          />
+        {:else} <!-- objectives -->
+          {#each [...new Set($filteredItems.filter(item => item.grade === grade).map(item => item.theme).filter(theme => !UNLISTED_THEMES.includes(theme ?? '')))] as theme}
+            <h2 class="title p-2
+              text-xl md:text-3xl"
+            >
+              {theme}
+            </h2>
+            {#each [...new Set($filteredItems.filter(item => item.grade === grade).filter(item => item.theme === theme).map(item => item.subTheme))] as subTheme}
+              <h3 class="subtitle p-2
+                text-l md:text-2xl"
+              >
+                {subTheme}
+              </h3>
+                <Items
+                  items={$filteredItems.filter(item => item.grade === grade).filter(item => item.theme === theme).filter(item => item.subTheme === subTheme)}
+                  view={view}
+                  {goToView}
+                  isTitleAcademicPreferred={$isTitleAcademicPreferred}
+                />
+            {/each}
+          {/each}
+        {/if}
       </div>
     {/if}
   {/each}

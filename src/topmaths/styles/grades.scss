@@ -1,20 +1,16 @@
 @import './tailwind-colors.scss';
+@import './shared.scss';
 
 @mixin grade-style($class-name, $main-color, $light-color) {
   $main-color-transparent: mix(rgba($main-color, 0), $main-color, 85%);
   .#{$class-name} {
     a:not(.subtitle *):not(.title *) {
-      color: $main-color;
-      .dark & {
-        &:hover,
-        &:focus {
-          text-shadow: 0 0 0.7rem $main-color;
-        }
-      }
+      @include interactive($main-color, $main-color, 0.7rem);
     }
     .title {
       color: white;
       background-color: $main-color;
+      font-weight: 600;
       .dark & {
         color: $main-color;
         background-color: $main-color-transparent;
@@ -23,6 +19,7 @@
     .subtitle {
       color: white;
       background-color: $main-color;
+      font-weight: 550;
       .dark & {
         color: $main-color;
         background: linear-gradient(to top, $topmathsdark-canvas-default -40%, $main-color-transparent 100%);
@@ -82,6 +79,7 @@
     }
   }
 }
+// Keep in sync with src/topmaths/types/grade.ts StringGrade
 @include grade-style('is-6e', #28a745 , #effaf3);
 @include grade-style('is-5e', #3273dc , #eef3fc);
 @include grade-style('is-4e', #6d28d9 , #ede9fe);

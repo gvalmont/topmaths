@@ -1,7 +1,7 @@
 <script lang="ts">
   import { writable } from 'svelte/store'
   import { specialUnits, units } from '../../services/store'
-  import ItemsSelection from '../shared/ItemsSelection.svelte'
+  import ItemsSelection from '../shared/ItemsSelection/ItemsSelection.svelte'
   import { deepCopy } from '../../types/shared'
   import { emptyUnit } from '../../types/unit'
 
