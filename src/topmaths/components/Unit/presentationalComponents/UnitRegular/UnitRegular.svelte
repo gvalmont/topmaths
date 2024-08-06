@@ -40,8 +40,10 @@
   <UnitRegularAssessment
     {unit}
   />
-  <UnitRegularDownloads
-    {unit}
-    isPersonalMode={$isPersonalMode}
-  />
+  {#if unit.downloadLinks.lessonLink || unit.downloadLinks.lessonSummaryLink || unit.downloadLinks.missionLink || (isPersonalMode && unit.downloadLinks.lessonPlanLink) }
+    <UnitRegularDownloads
+      {unit}
+      isPersonalMode={$isPersonalMode}
+    />
+  {/if}
 </div>
