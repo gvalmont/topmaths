@@ -155,6 +155,7 @@ function buildObjectives (): ObjectiveWithStringReference[] {
           objective.lessonPlans = objective.lessonPlans ? objective.lessonPlans.map(lessonPlan => Object.assign(deepCopy(emptyObjectiveLessonPlan), lessonPlan)) : []
           objective.lessonSummaryHTML = objective.lessonSummaryHTML ?? ''
           objective.lessonSummaryImage = objective.lessonSummaryImage ? '../topmaths/img/' + objective.lessonSummaryImage : ''
+          objective.lessonSummaryImageAlt = objective.lessonSummaryImageAlt ?? ''
           objective.lessonSummaryInstrumenpoche = objective.lessonSummaryInstrumenpoche ?? ''
           objective.term = findTerm(objective)
           objective.reference = objective.reference ?? '0'
@@ -432,6 +433,7 @@ function routineCheck (): void {
   checkDuplicates(objectives)
   checkDuplicates(units)
   checkDuplicates(glossary)
+  chechImageAlt()
   checkPrivacyPolicyThirdPartyWebsites()
   checkDuplicatesExamExercises()
 }
@@ -717,6 +719,16 @@ function checkDuplicates (array: ObjectiveWithStringReference[] | UnitWithString
     }
     foundReferences.push(item.reference)
   })
+}
+
+function chechImageAlt (): void {
+  objectives
+    .filter(objective => objective.lessonSummaryImage !== '')
+    .filter(objective => objective.lessonSummaryImageAlt === '')
+    .forEach(objective => {
+      console.warn(objective.reference + ' missing image alt')
+      warningCount++
+    })
 }
 
 function buildExerciseLink (slug: string | undefined, isSlideshow = false): string {

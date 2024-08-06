@@ -153,6 +153,7 @@ export type Objective = {
   lessonPlans: ObjectiveLessonPlan[],
   lessonSummaryHTML: string,
   lessonSummaryImage: string,
+  lessonSummaryImageAlt: string,
   lessonSummaryInstrumenpoche: string,
   term: number,
   reference: ObjectiveReference,
@@ -174,6 +175,7 @@ export function isObjective (obj: unknown, withStringReference: boolean = false)
     'lessonPlans' in obj && isObjectiveLessonPlans(obj.lessonPlans) &&
     'lessonSummaryHTML' in obj && typeof obj.lessonSummaryHTML === 'string' &&
     'lessonSummaryImage' in obj && typeof obj.lessonSummaryImage === 'string' &&
+    'lessonSummaryImageAlt' in obj && typeof obj.lessonSummaryImageAlt === 'string' &&
     'lessonSummaryInstrumenpoche' in obj && typeof obj.lessonSummaryInstrumenpoche === 'string' &&
     'term' in obj && typeof obj.term === 'number' &&
     'reference' in obj && (withStringReference ? typeof obj.reference === 'string' : isObjectiveReference(obj.reference)) &&
@@ -198,6 +200,7 @@ export const emptyObjective: Objective = {
   lessonPlans: [],
   lessonSummaryHTML: '',
   lessonSummaryImage: '',
+  lessonSummaryImageAlt: '',
   lessonSummaryInstrumenpoche: '',
   term: 0,
   reference: emptyObjectiveReference,
