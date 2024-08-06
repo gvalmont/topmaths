@@ -1,5 +1,6 @@
-import type { StringGrade } from '../../../types/grade'
-import type { Reference } from '../../../types/navigation'
+import type { Objective } from '../../../types/objective'
+import { deepCopy } from '../../../types/shared'
+import { emptyUnit, type Unit } from '../../../types/unit'
 
-export type Item = { grade: StringGrade, term: number, reference: Reference, title: string, number?: number, titleAcademic?: string, theme?: string, subTheme?: string }
-export const emptyItem: Item = { grade: 'tout', term: 0, reference: '', title: '' }
+export type Item = Objective | Unit
+export const emptyItem: Item = deepCopy(emptyUnit)

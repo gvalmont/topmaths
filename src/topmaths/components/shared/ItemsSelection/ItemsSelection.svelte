@@ -9,14 +9,16 @@
   import { onDestroy, onMount } from 'svelte'
   import { normalize } from '../../../services/shared'
   import { emptyItem, type Item } from './types'
-  import Items from './Items.svelte'
+  import Row from './Row.svelte'
   import { isTeacherMode, isTitleAcademicPreferred } from '../../../services/store'
   import InputCheckbox from '../InputCheckbox.svelte'
+  import { UNLISTED_THEMES } from '../../../services/environment'
+  import { isUnit, type Unit } from '../../../types/unit'
+  import { isObjective, type Objective } from '../../../types/objective'
+  import { isSpecialUnit } from '../../../types/specialUnit'
 
   export let view: View
   export let items: Writable<Item[]>
-
-  const UNLISTED_THEMES = ['Extra']
 
   const filter = writable<Item>(emptyItem)
   const searchString = writable<string>('')
@@ -25,6 +27,12 @@
     ([$searchString, $filter, $items]) =>
       buildFilteredItems($searchString, $filter, $items)
   )
+
+  let objectives: Objective[]
+  $: objectives = $filteredItems.filter(item => isObjective(item))
+
+  let units: Unit[]
+  $: units = $filteredItems.filter(item => isUnit(item) || isSpecialUnit(item))
 
   onMount(() => {
     updateParamsFromUrl()
@@ -65,7 +73,7 @@
 
   function isWordFound (mot: string, item: Item): boolean {
     return normalize(item.grade).includes(mot) ||
-    (item.number !== undefined && normalize(item.number.toString()).includes(mot)) ||
+    (isUnit(item) && normalize(item.number.toString()).includes(mot)) ||
     normalize(item.reference).includes(mot) ||
     normalize(item.title).includes(mot)
   }
@@ -113,34 +121,34 @@
         >
           {grade === 'tout' ? 'Séquences particulières' : grade}
         </h1>
-        {#if $filteredItems[0].theme === undefined} <!-- units -->
-          <Items
-            items={$filteredItems.filter(item => item.grade === grade)}
+        {#each units.filter(unit => unit.grade === grade) as unit}
+          <Row
+            item={unit}
             view={view}
             {goToView}
           />
-        {:else} <!-- objectives -->
-          {#each [...new Set($filteredItems.filter(item => item.grade === grade).map(item => item.theme).filter(theme => !UNLISTED_THEMES.includes(theme ?? '')))] as theme}
-            <h2 class="title
-              text-xl md:text-3xl"
+        {/each}
+        {#each [...new Set(objectives.filter(objective => objective.grade === grade).map(objective => objective.theme).filter(theme => !UNLISTED_THEMES.includes(theme ?? '')))] as theme}
+          <h2 class="title
+            text-xl md:text-3xl"
+          >
+            {theme}
+          </h2>
+          {#each [...new Set(objectives.filter(objective => objective.grade === grade).filter(objective => objective.theme === theme).map(objective => objective.subTheme))] as subTheme}
+            <h3 class="subtitle
+              text-l md:text-2xl"
             >
-              {theme}
-            </h2>
-            {#each [...new Set($filteredItems.filter(item => item.grade === grade).filter(item => item.theme === theme).map(item => item.subTheme))] as subTheme}
-              <h3 class="subtitle
-                text-l md:text-2xl"
-              >
-                {subTheme}
-              </h3>
-                <Items
-                  items={$filteredItems.filter(item => item.grade === grade).filter(item => item.theme === theme).filter(item => item.subTheme === subTheme)}
-                  view={view}
-                  {goToView}
-                  isTitleAcademicPreferred={$isTitleAcademicPreferred}
-                />
+              {subTheme}
+            </h3>
+            {#each objectives.filter(item => item.grade === grade).filter(item => item.theme === theme).filter(item => item.subTheme === subTheme) as objective}
+              <Row
+                item={objective}
+                view={view}
+                {goToView}
+              />
             {/each}
           {/each}
-        {/if}
+        {/each}
       </div>
     {/if}
   {/each}
