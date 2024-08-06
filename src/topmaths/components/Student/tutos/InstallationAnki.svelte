@@ -1,5 +1,5 @@
 <script lang="ts">
-    import DownloadLine from "../../shared/DownloadLine.svelte";
+    import DownloadLine from "../../shared/ListItemPdfDownload.svelte";
 
 </script>
 

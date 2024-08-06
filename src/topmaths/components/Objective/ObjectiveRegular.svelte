@@ -16,7 +16,7 @@
   import Cart from '../../modules/Cart'
   import iepLoadPromise from 'instrumenpoche'
   import BoutonsExercices from '../shared/BoutonsExercices.svelte'
-  import DownloadLine from '../shared/DownloadLine.svelte'
+  import DownloadLine from '../shared/ListItemPdfDownload.svelte'
   import { isEmptyArrayRecord } from '../../types/shared'
 
   export let objectiveReference: string

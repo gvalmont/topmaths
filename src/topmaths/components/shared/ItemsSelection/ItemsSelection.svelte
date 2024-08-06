@@ -88,68 +88,66 @@
 
 </script>
 
-<div class="w-screen max-w-screen-lg">
-  <GradeSelectionTabs
-    activeLevelTab={$filter.grade}
-    onClick={updateFilter}
+<GradeSelectionTabs
+  activeLevelTab={$filter.grade}
+  onClick={updateFilter}
+/>
+<TermSelectionButtons
+  selectedTerm={$filter.term}
+  on:change={(e) => {
+    const term = e.detail
+    updateFilter($filter.grade, term)
+  }}
+/>
+<SearchInput
+  bind:searchString={$searchString}
+/>
+{#if view === 'objective' && $isTeacherMode}
+<span class="absolute">
+  <InputCheckbox
+    bind:isChecked={$isTitleAcademicPreferred}
   />
-  <TermSelectionButtons
-    selectedTerm={$filter.term}
-    on:change={(e) => {
-      const term = e.detail
-      updateFilter($filter.grade, term)
-    }}
-  />
-  <SearchInput
-    bind:searchString={$searchString}
-  />
-  {#if view === 'objective' && $isTeacherMode}
-  <span class="absolute">
-    <InputCheckbox
-      bind:isChecked={$isTitleAcademicPreferred}
-    />
-  </span>
-  {/if}
-  {#each stringGradeValidKeys as grade}
-    {#if $filteredItems.filter(item => item.grade === grade).length > 0}
-      <div class="is-{grade} grade-container my-8
-          rounded-4xl md:rounded-5xl"
+</span>
+{/if}
+{#each stringGradeValidKeys as grade}
+  {#if $filteredItems.filter(item => item.grade === grade).length > 0}
+    <div class="is-{grade} grade-container my-8
+        rounded-4xl md:rounded-5xl"
+    >
+      <h1 class="title
+        text-2xl md:text-4xl
+        rounded-t-4xl md:rounded-t-5xl"
       >
-        <h1 class="title
-          text-2xl md:text-4xl
-          rounded-t-4xl md:rounded-t-5xl"
+        {grade === 'tout' ? 'Séquences particulières' : grade}
+      </h1>
+      {#each units.filter(unit => unit.grade === grade) as unit}
+        <Row
+          item={unit}
+          view={view}
+          {goToView}
+        />
+      {/each}
+      {#each [...new Set(objectives.filter(objective => objective.grade === grade).map(objective => objective.theme).filter(theme => !UNLISTED_THEMES.includes(theme ?? '')))] as theme}
+        <h2 class="title
+          text-xl md:text-3xl"
         >
-          {grade === 'tout' ? 'Séquences particulières' : grade}
-        </h1>
-        {#each units.filter(unit => unit.grade === grade) as unit}
-          <Row
-            item={unit}
-            view={view}
-            {goToView}
-          />
-        {/each}
-        {#each [...new Set(objectives.filter(objective => objective.grade === grade).map(objective => objective.theme).filter(theme => !UNLISTED_THEMES.includes(theme ?? '')))] as theme}
-          <h2 class="title
-            text-xl md:text-3xl"
+          {theme}
+        </h2>
+        {#each [...new Set(objectives.filter(objective => objective.grade === grade).filter(objective => objective.theme === theme).map(objective => objective.subTheme))] as subTheme}
+          <h3 class="subtitle
+            text-l md:text-2xl"
           >
-            {theme}
-          </h2>
-          {#each [...new Set(objectives.filter(objective => objective.grade === grade).filter(objective => objective.theme === theme).map(objective => objective.subTheme))] as subTheme}
-            <h3 class="subtitle
-              text-l md:text-2xl"
-            >
-              {subTheme}
-            </h3>
-            {#each objectives.filter(item => item.grade === grade).filter(item => item.theme === theme).filter(item => item.subTheme === subTheme) as objective}
-              <Row
-                item={objective}
-                view={view}
-                {goToView}
-              />
-            {/each}
+            {subTheme}
+          </h3>
+          {#each objectives.filter(item => item.grade === grade).filter(item => item.theme === theme).filter(item => item.subTheme === subTheme) as objective}
+            <Row
+              item={objective}
+              view={view}
+              {goToView}
+            />
           {/each}
         {/each}
-      </div>
-    {/if}
-  {/each}
-</div>
+      {/each}
+    </div>
+  {/if}
+{/each}
