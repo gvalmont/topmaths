@@ -48,13 +48,17 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
       &:focus,
       &:hover,
       &.is-active {
-        background-color: #{$main-color};
-        color: #fff;
+        &:not(.is-borderless) {
+          background-color: #{$main-color};
+          color: #fff;
+        }
         .dark & {
           background-color: $topmathsdark-canvas-default;
           color: $main-color;
           text-shadow: 0 0 0.7rem $main-color;
-          filter: drop-shadow(0 0 0.15em $main-color) drop-shadow(0 0 0.3em $main-color);
+          &:not(.is-borderless) {
+            filter: drop-shadow(0 0 0.15em $main-color) drop-shadow(0 0 0.3em $main-color);
+          }
         }
       }
       &[disabled] {
@@ -91,6 +95,9 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
       }
       &.is-active img {
         filter: $white-filter;
+        &.is-borderless {
+          filter: $filter
+        }
         .dark & {
           color: #{$main-color};
           filter: $filter drop-shadow(0 0 0.4em $main-color);
@@ -100,13 +107,19 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
   }
 }
 
-@include button-style('is-sponsor', #ea4aaa, #c0167c, invert(41%) sepia(47%) saturate(2515%) hue-rotate(298deg) brightness(97%) contrast(88%));
-@include button-style('is-fuchsia', #c75ad5, #c75ad5, invert(66%) sepia(95%) saturate(7499%) hue-rotate(280deg) brightness(89%) contrast(100%));
-@include button-style('is-green', #16A34A, #16A34A, invert(43%) sepia(81%) saturate(478%) hue-rotate(89deg) brightness(98%) contrast(91%));
-@include button-style('is-link', #485fc7, #eff1fa, invert(29%) sepia(98%) saturate(796%) hue-rotate(203deg) brightness(101%) contrast(88%));
-@include button-style('is-info', #3e8ed0, #296fa8, invert(49%) sepia(45%) saturate(746%) hue-rotate(165deg) brightness(94%) contrast(83%));
-@include button-style('is-warning', #ffe08a, #fff3d1, invert(73%) sepia(96%) saturate(209%) hue-rotate(346deg) brightness(104%) contrast(103%));
-@include button-style('is-danger', #f14668, #fcd4dc, invert(44%) sepia(73%) saturate(4057%) hue-rotate(324deg) brightness(98%) contrast(92%));
-@include button-style('is-purple', #9333ea, #e93fa5, invert(22%) sepia(70%) saturate(3716%) hue-rotate(264deg) brightness(94%) contrast(95%));
-@include button-style('is-info-darker', #4175d2, #e93fa5, invert(42%) sepia(53%) saturate(1203%) hue-rotate(190deg) brightness(88%) contrast(84%));
-@include button-style('is-tout', #feb60a, #fffbeb, invert(82%) sepia(18%) saturate(7498%) hue-rotate(354deg) brightness(103%) contrast(99%));
+@include button-style('is-sponsor', $is-sponsor-default, $is-sponsor-light, $is-sponsor-filter);
+@include button-style('is-fuchsia', $is-fuchsia-default, $is-fuchsia-light, $is-fuchsia-filter);
+@include button-style('is-green', $is-green-default, $is-green-light, $is-green-filter);
+@include button-style('is-link', $is-link-default, $is-link-light, $is-link-filter);
+@include button-style('is-info', $is-info-default, $is-info-light, $is-info-filter);
+@include button-style('is-warning', $is-warning-default, $is-warning-light, $is-warning-filter);
+@include button-style('is-danger', $is-danger-default, $is-danger-light, $is-danger-filter);
+@include button-style('is-purple', $is-purple-default, $is-purple-light, $is-purple-filter);
+@include button-style('is-info-darker', $is-info-darker-default, $is-info-darker-default, $is-info-darker-filter);
+@include button-style('is-tout', $is-warning-default, $is-warning-light, $is-warning-filter);
+
+@include button-style('is-6e', $is-6e-default, $is-6e-light, $is-6e-filter);
+@include button-style('is-5e', $is-5e-default, $is-5e-light, $is-5e-filter);
+@include button-style('is-4e', $is-4e-default, $is-4e-light, $is-4e-filter);
+@include button-style('is-3e', $is-3e-default, $is-3e-light, $is-3e-filter);
+@include button-style('is-tout', $is-tout-default, $is-tout-light, $is-tout-filter);

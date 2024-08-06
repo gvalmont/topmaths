@@ -90,8 +90,8 @@
 }
 // Keep $class-name in sync with src/topmaths/types/grade.ts StringGrade
 // Keep $main-color in sync with index.html .spinner div:nth-child()
-@include grade-style('is-6e', #28a745 , #effaf3);
-@include grade-style('is-5e', #4e8ef6 , #f1f6ff);
-@include grade-style('is-4e', #9f64ff , #f7f1ff);
-@include grade-style('is-3e', #da5e75 , #fbf3f4);
-@include grade-style('is-tout', #feb60a, #fffbeb);
+@include grade-style('is-6e', $is-6e-default, $is-6e-light);
+@include grade-style('is-5e', $is-5e-default, $is-5e-light);
+@include grade-style('is-4e', $is-4e-default, $is-4e-light);
+@include grade-style('is-3e', $is-3e-default, $is-3e-light);
+@include grade-style('is-tout', $is-tout-default, $is-tout-light);
