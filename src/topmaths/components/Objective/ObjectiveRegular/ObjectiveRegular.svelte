@@ -4,20 +4,20 @@
     isPersonalMode,
     objectives,
     units
-  } from '../../services/store'
-  import { emptyObjective, isObjective, type Objective, type ObjectiveExercise } from '../../types/objective'
-  import { getTitle } from '../../services/shared'
-  import { goToView } from '../../services/navigation'
+  } from '../../../services/store'
+  import { emptyObjective, isObjective, type Objective, type ObjectiveExercise } from '../../../types/objective'
+  import { getTitle } from '../../../services/shared'
+  import { goToView } from '../../../services/navigation'
   import { afterUpdate, onDestroy, tick } from 'svelte'
   import type { Unsubscriber } from 'svelte/store'
   import {
     mathaleaRenderDiv
-  } from '../../../lib/mathalea'
-  import Cart from '../../modules/Cart'
+  } from '../../../../lib/mathalea'
+  import Cart from '../../../modules/Cart'
   import iepLoadPromise from 'instrumenpoche'
-  import BoutonsExercices from '../shared/BoutonsExercices.svelte'
-  import DownloadLine from '../shared/ListItemPdfDownload.svelte'
-  import { isEmptyArrayRecord } from '../../types/shared'
+  import BoutonsExercices from '../../shared/BoutonsExercices.svelte'
+  import DownloadLine from '../../shared/ListItemPdfDownload.svelte'
+  import { isEmptyArrayRecord } from '../../../types/shared'
 
   export let objectiveReference: string
   let title: string
