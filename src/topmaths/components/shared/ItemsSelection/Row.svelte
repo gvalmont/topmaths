@@ -3,6 +3,7 @@
   import type { Reference, View } from '../../../types/navigation'
   import { isUnit } from '../../../types/unit'
   import { getTitle } from '../../../services/shared'
+  import { isSpecialUnit } from '../../../types/specialUnit'
 
   export let item: Item
   export let view: View
@@ -15,7 +16,7 @@
   on:click={(event) => goToView(event, view, item.reference)}
 >
   <div class="p-1">
-    {#if isUnit(item)}
+    {#if isUnit(item) || isSpecialUnit(item)}
       {item.number > 0 ? `Séquence ${item.number} : ` : ''}{item.title}
     {:else}
       {item.reference} : {getTitle(item)}
