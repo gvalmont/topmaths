@@ -30,9 +30,11 @@
   >
     <slot />
   </p>
-  <img
-    class="size-8 md:size-12"
-    src={imageSrc}
-    alt={imageAlt}
-  />
+  {#if imageSrc !== ''}
+    <img
+      class="size-8 md:size-12"
+      src={imageSrc}
+      alt={imageAlt}
+    />
+  {/if}
 </button>

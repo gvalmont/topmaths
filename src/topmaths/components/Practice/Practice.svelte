@@ -5,94 +5,82 @@
   import GradeSelectionTabs from '../shared/GradeSelectionTabs.svelte'
   import { getCurrentTerm, getWeekIndexInCurrentTerm } from '../../services/calendar'
   import { type StringGrade } from '../../types/grade'
+  import ButtonImage from '../shared/ButtonImage.svelte'
+  import { showDialogForLimitedTime } from '../../../lib/components/dialogs'
 
-  let niveauChoisi = 'all'
   const currentTerm = getCurrentTerm()
-  const isHoliday = currentTerm.type === 'break'
-  const semaineDansLaPeriode = getWeekIndexInCurrentTerm()
+  const weekIndexInCurrentTerm = getWeekIndexInCurrentTerm()
+  let selectedGrade = 'tout'
 
-  function lancerExercicesMathalea () {
-    const listeDesReferences = getListeDesReferences(niveauChoisi)
-    if (listeDesReferences.length === 0) {
-      alert('Tu n\'as pas encore d\'exercice à réviser, reviens plus tard !')
+  function launchRegularExercises (): void {
+    const regularExercisesLinks = getRegularExercisesLinks()
+    if (regularExercisesLinks.length === 0) {
+      showDialogForLimitedTime('topmaths-info-dialog', 2000, 'Tu n\'as pas encore d\'exercice à réviser, reviens plus tard !')
     } else {
-      lancer(listeDesReferences)
+      launch(regularExercisesLinks)
     }
   }
 
-  function lancerExercicesBrevet () {
-    const listeExercicesBrevet = getListeExercicesBrevet()
-    if (listeExercicesBrevet.length === 0) {
-      alert('Tu n\'as pas encore d\'exercice de brevet à réviser, reviens plus tard !')
+  function launchExamExercises (): void {
+    const examExercisesLinks = getExamExercisesLinks()
+    if (examExercisesLinks.length === 0) {
+      showDialogForLimitedTime('topmaths-info-dialog', 2000, 'Tu n\'as pas encore d\'exercice de brevet à réviser, reviens plus tard !')
     } else {
-      lancer(listeExercicesBrevet)
+      launch(examExercisesLinks)
     }
   }
 
-  function lancer (listeUrls: string[]) {
-    exerciseLinks.set(listeUrls)
-    view.set('exercices')
+  function launch (links: string[]): void {
+    exerciseLinks.set(links)
+    view.set('exercise')
   }
 
-  function getListeDesReferences (niveauChoisi: string) {
-    const listeDesReferences: string[] = []
-    for (const unit of $units) {
-      if (unit.grade === niveauChoisi || niveauChoisi === 'all') {
-        const derniereSequence = getDerniereSequence(unit.grade)
-        if (unit.number <= derniereSequence) {
-          for (const objectif of unit.objectives) {
-            listeDesReferences.push(objectif.reference)
+  function getRegularExercisesLinks (): string[] {
+    const regularExercisesReferences: string[] = $units
+      .filter(unit => unit.grade === selectedGrade || selectedGrade === 'tout')
+      .filter(unit => unit.number <= getLastUnitLearnedNumber(unit.grade))
+      .map(unit => unit.objectives.map(objective => objective.reference))
+      .flat()
+
+    const regularExercisesLinks: string[] = regularExercisesReferences
+      .map(reference => {
+        const objective = $objectives.find(objectif => objectif.reference === reference)
+        if (!objective) { console.error('Objective', reference, 'not found'); return [''] }
+        return objective.exercises
+          .map(exercise => exercise.link)
+          .filter(isCoopmaths)
+      })
+      .flat()
+      .filter(link => link !== '')
+    return regularExercisesLinks
+  }
+
+  function getExamExercisesLinks (): string[] {
+    const listeDesReferences: string[] = $units
+      .filter(unit => unit.grade === selectedGrade || selectedGrade === 'tout')
+      .filter(unit => unit.number <= getLastUnitLearnedNumber(unit.grade))
+      .filter(unit => unit.assessmentExamLink !== '')
+      .map(unit => {
+        const entries = new URL(unit.assessmentExamLink).searchParams.entries()
+        for (const entry of entries) {
+          if (entry[0] === 'uuid') {
+            return COOPMATHS_BASE_URL + 'uuid=' + entry[1]
           }
         }
-      }
-    }
-    return getListeDesUrl(listeDesReferences)
-  }
-
-  function getListeExercicesBrevet () {
-    const listeDesReferences: string[] = []
-    for (const unit of $units) {
-      if (unit.grade === '3e') {
-        const derniereSequence = getDerniereSequence(unit.grade)
-        if (unit.number <= derniereSequence) {
-          if (unit.assessmentExamLink !== '') {
-            const entries = new URL(unit.assessmentExamLink).searchParams.entries()
-            for (const entry of entries) {
-              if (entry[0] === 'uuid') {
-                const uuid = entry[1]
-                listeDesReferences.push(COOPMATHS_BASE_URL + 'uuid=' + uuid)
-              }
-            }
-          }
-        }
-      }
-    }
+        return ''
+      })
+      .filter(link => link !== '')
     return listeDesReferences
   }
 
-  function getListeDesUrl (listeDesReferences: string[]) {
-    const listeDesUrl: string[] = []
-    listeDesReferences.forEach(reference => {
-      for (const objectif of $objectives) {
-        if (reference === objectif.reference) {
-          for (const exercice of objectif.exercises) {
-            if (isCoopmaths(exercice.link)) listeDesUrl.push(exercice.link)
-          }
-        }
-      }
-    })
-    return listeDesUrl
-  }
-
-  function getDerniereSequence (niveau: StringGrade) {
-    const nbSequencesDebutPeriode = $curriculum[niveau].cumulateUnitsPerTerm[currentTerm.termIndex]
-    const nbSequencesDevine = nbSequencesDebutPeriode + semaineDansLaPeriode - 2
-    const nbSequencesFinPeriode = $curriculum[niveau].cumulateUnitsPerTerm[currentTerm.termIndex + 1] - 1
-
-    if (!isHoliday) {
-      return Math.min(nbSequencesDevine, nbSequencesFinPeriode)
+  function getLastUnitLearnedNumber (grade: StringGrade): number {
+    const termStartUnitNumber = $curriculum[grade].cumulateUnitsPerTerm[currentTerm.termIndex - 1] ?? 0
+    const currentWeekGuessUnitNumber = termStartUnitNumber + weekIndexInCurrentTerm - 1
+    const termEndUnitNumber = $curriculum[grade].cumulateUnitsPerTerm[currentTerm.termIndex]
+    if (currentTerm.type === 'break') {
+      return termEndUnitNumber - 1
     } else {
-      return nbSequencesFinPeriode
+      return Math.min(currentWeekGuessUnitNumber, termEndUnitNumber - 1)
     }
   }
 </script>
@@ -101,20 +89,33 @@
   <title>Révisions - topmaths</title>
 </svelte:head>
 
-<div class="w-screen max-w-screen-lg">
-  <h1 class="title text-2xl md:text-4xl font-semibold p-4 is-3e">
+<div class="grade-container is-sponsor
+  rounded-4xl md:rounded-5xl"
+>
+  <h1 class="title
+    text-2xl md:text-4xl
+    rounded-t-4xl md:rounded-t-5xl"
+  >
     Révisions
   </h1>
-  <div class="flex flex-col justify-center p-8 is-end" style="background-color: #fffafa;">
+  <div class="flex flex-col justify-center p-6">
     <GradeSelectionTabs
-      activeLevelTab={niveauChoisi}
-      onClick={(clickedLevel) => { niveauChoisi = clickedLevel }}
+      activeLevelTab={selectedGrade}
+      onClick={(clickedLevel) => { selectedGrade = clickedLevel }}
     />
-    <button on:click={() => lancerExercicesMathalea()} class="mx-auto p-5 my-4 button is-link is-outlined rounded md:rounded-lg">
-      <p class="mx-auto text-sm md:text-2xl shrink-0">Réviser les exercices</p>
-    </button>
-    <button on:click={() => lancerExercicesBrevet()} class="mx-auto p-5 my-4 button is-sponsor is-outlined rounded md:rounded-lg">
-      <p class="mx-auto text-sm md:text-2xl shrink-0">Réviser les exercices de brevet (3e)</p>
-    </button>
+    <ButtonImage
+      color="link"
+      class="mx-auto p-5 my-2 border rounded md:rounded-lg"
+      on:click={() => launchRegularExercises()}
+    >
+      Réviser les exercices
+    </ButtonImage>
+    <ButtonImage
+      color="3e"
+      class="mx-auto p-5 mb-4 mt-8 border rounded md:rounded-lg"
+      on:click={() => launchExamExercises()}
+    >
+    Réviser les exercices de brevet (3e)
+    </ButtonImage>
   </div>
 </div>
