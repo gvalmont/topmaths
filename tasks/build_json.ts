@@ -609,7 +609,8 @@ function buildObjectiveUnits (objective: RecursivePartial<Objective>): ReplaceRe
   const objectiveUnits: ReplaceReferencesByStrings<UnitReference, ObjectiveUnit>[] = unitsFound.map(unit => {
     return {
       reference: unit.reference,
-      title: unit.title
+      title: unit.title,
+      grade: unit.grade
     }
   })
   return objectiveUnits

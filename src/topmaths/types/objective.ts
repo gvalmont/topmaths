@@ -110,12 +110,14 @@ export const emptyObjectiveLessonPlan: ObjectiveLessonPlan = {
 
 export type ObjectiveUnit = {
   reference: UnitReference,
-  title: string
+  title: string,
+  grade: StringGrade
 }
 export function isObjectiveUnit (obj: unknown, withStringReference: boolean = false): obj is ObjectiveUnit {
   if (obj == null || typeof obj !== 'object') return false
   return 'reference' in obj && (withStringReference ? typeof obj.reference === 'string' : isUnitReference(obj.reference)) &&
-    'title' in obj && typeof obj.title === 'string'
+    'title' in obj && typeof obj.title === 'string' &&
+    'grade' in obj && isStringGrade(obj.grade)
 }
 export function isObjectiveUnits (obj: unknown, withStringReference: boolean = false): obj is ObjectiveUnit[] {
   if (obj == null || !Array.isArray(obj)) return false
@@ -123,7 +125,8 @@ export function isObjectiveUnits (obj: unknown, withStringReference: boolean = f
 }
 export const emptyObjectiveUnit: ObjectiveUnit = {
   reference: 'S6S1', // can't access lexical declaration 'emptyUnitReference' before initialization
-  title: ''
+  title: '',
+  grade: 'tout'
 }
 
 export type ObjectiveDownloadLinks = {
