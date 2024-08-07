@@ -11,8 +11,8 @@ import type { RecursivePartial } from '../src/lib/types.js'
 import { deepCopy, type ReplaceReferencesByStrings } from '../src/topmaths/types/shared.js'
 import { emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/grade.js'
 import { buildGradeFromObjectiveReference } from '../src/topmaths/services/reference.js'
-import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveExercise, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference } from '../src/topmaths/types/objective.js'
-import { isUnitMentalCalculations, type UnitMentalCalculation, type Unit, type UnitObjective, emptyUnitDownloadLinks, emptyUnitMentalCalculation, type UnitFlashQuestion, isUnitFlashQuestions, type UnitLessonPlan, isUnitLessonPlans, type UnitWithStringReference, type UnitReference, isUnitWithStringReference } from '../src/topmaths/types/unit.js'
+import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference } from '../src/topmaths/types/objective.js'
+import { type Unit, type UnitObjective, emptyUnitDownloadLinks, type UnitLessonPlan, isUnitLessonPlans, type UnitWithStringReference, type UnitReference, isUnitWithStringReference } from '../src/topmaths/types/unit.js'
 import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
 import { type CalendarSchoolYearMaster, isCalendarSchoolYearMasters, type CalendarSchoolYear, isCalendarSchoolYears, type CalendarPeriod } from '../src/topmaths/types/calendar.js'
 import { type CurriculumGrade, type CurriculumValue, isCurriculum, type Curriculum, emptyCurriculumValue } from '../src/topmaths/types/curriculum.js'
@@ -71,10 +71,7 @@ function buildUnits (): UnitWithStringReference[] {
       unit.assessmentExamLink = unit.assessmentExamSlug ? COOPMATHS_BASE_URL + unit.assessmentExamSlug + REGULAR_VIEW_ADDENDUM : ''
       unit.assessmentLink = unit.assessmentLink ?? ''
       unit.downloadLinks = deepCopy(emptyUnitDownloadLinks)
-      unit.flashQuestions = buildFlashQuestions(unit)
-      unit.flashQuestionsLink = buildFlashQuestionsLink(unit)
       unit.grade = grade.name
-      unit.mentalCalculations = formatUnitMentalCalculations(unit.mentalCalculations)
       unit.number = unitIndex + 1
       unit.objectives = unit.objectives ? unit.objectives.map(objective => Object.assign(deepCopy(emptyObjective), objective)) : []
       unit.term = unitsTermsArray[grade.name][unitIndex]
@@ -180,10 +177,7 @@ function buildObjectives (): ObjectiveWithStringReference[] {
 function updateUnits (): void {
   for (const unit of units) {
     updateUnitObjectives(unit)
-    updateUnitMentalCalculations(unit)
-    updateUnitFlashQuestions(unit)
     updateUnitAssessmentLink(unit)
-    unit.mentalCalculations = buildMentalCalculations(unit)
     unit.downloadLinks = {
       lessonLink: buildDownloadLink('cours', unit.reference, unit.grade),
       lessonSummaryLink: buildDownloadLink('resume', unit.reference, unit.grade),
@@ -438,89 +432,12 @@ function routineCheck (): void {
   checkDuplicatesExamExercises()
 }
 
-function formatUnitMentalCalculations (mentalCalculations: (RecursivePartial<UnitMentalCalculation> | undefined)[] | undefined): UnitMentalCalculation[] {
-  if (!mentalCalculations) return []
-  return mentalCalculations
-    .filter(mentalCalculation => mentalCalculation !== undefined)
-    .map(mentalCalculation => {
-      let exercises: ObjectiveExercise[] = []
-      if (mentalCalculation.exercises) {
-        exercises = mentalCalculation.exercises.map(exercise => Object.assign(deepCopy(emptyObjectiveExercise), exercise))
-      }
-      mentalCalculation.exercises = exercises
-      return Object.assign(deepCopy(emptyUnitMentalCalculation), mentalCalculation)
-    })
-}
-
-function buildMentalCalculations (unit: RecursivePartial<Unit>): UnitMentalCalculation[] {
-  if (unit.mentalCalculations === undefined) return []
-  let exerciseNumber = 1
-  for (const mentalCalculation of unit.mentalCalculations) {
-    if (mentalCalculation !== undefined) {
-      mentalCalculation.exercises = mentalCalculation.exercises ?? []
-      const exercises = mentalCalculation.exercises.filter(exercise => exercise !== undefined)
-      for (const exercice of exercises) {
-        exercice.slug = formatSlug(exercice.slug)
-        exercice.link = buildExerciseLink(exercice.slug, true)
-        exercice.id = unit.reference + '-' + exerciseNumber
-        exercice.isInteractive = exercice.isInteractive ?? false
-        exercice.description = exercice.description ?? ''
-        exercice.isInCart = exercice.isInCart ?? false
-        exerciseNumber++
-      }
-      mentalCalculation.exercises = exercises
-      mentalCalculation.reference = mentalCalculation.reference ?? ''
-      mentalCalculation.titleAcademic = mentalCalculation.titleAcademic ?? ''
-      mentalCalculation.title = mentalCalculation.title ?? ''
-      mentalCalculation.isRelatedObjectivePageAvailable = mentalCalculation.isRelatedObjectivePageAvailable ?? false
-      mentalCalculation.theme = mentalCalculation.theme ?? ''
-    }
-  }
-  const mentalCalculationsCandidate = unit.mentalCalculations.filter(mentalCalculation => mentalCalculation !== undefined)
-  if (!isUnitMentalCalculations(mentalCalculationsCandidate)) {
-    console.error(mentalCalculationsCandidate)
-    throw new Error('Mental calculations are not UnitMentalCalculations')
-  }
-  return mentalCalculationsCandidate
-}
-
 function buildUnitReference (unit: RecursivePartial<Unit>): string {
   if (unit.grade === undefined) {
     console.error(unit)
     throw new Error('Unit grade is undefined')
   }
   return `S${unit.grade.slice(0, 1)}S${unit.number}`
-}
-
-function buildFlashQuestions (unit: RecursivePartial<Unit>): UnitFlashQuestion[] {
-  if (unit.flashQuestions === undefined) return []
-  const flashQuestions = unit.flashQuestions
-    .filter(flashQuestion => flashQuestion !== undefined)
-    .map(flashQuestion => {
-      flashQuestion.title = flashQuestion.title ?? ''
-      flashQuestion.titleAcademic = flashQuestion.titleAcademic ?? ''
-      flashQuestion.reference = flashQuestion.reference ?? ''
-      flashQuestion.slug = flashQuestion.slug ? formatSlug(flashQuestion.slug) : ''
-      flashQuestion.isRelatedObjectivePageAvailable = flashQuestion.isRelatedObjectivePageAvailable ?? false
-      flashQuestion.theme = flashQuestion.theme ?? ''
-      return flashQuestion
-    })
-  if (!isUnitFlashQuestions(flashQuestions)) {
-    console.error(flashQuestions)
-    throw new Error('Flash questions are not UnitFlashQuestions')
-  }
-  return flashQuestions
-}
-
-function buildFlashQuestionsLink (unit: RecursivePartial<Unit>): string {
-  if (!unit.flashQuestions) return ''
-  let flashQuestionsLink = COOPMATHS_BASE_URL
-  unit.flashQuestions.forEach(flashQuestion => {
-    if (flashQuestion !== undefined && flashQuestion.slug !== '') {
-      flashQuestionsLink += flashQuestion.slug + '&'
-    }
-  })
-  return flashQuestionsLink.slice(0, -1)
 }
 
 function findTerm (objective: RecursivePartial<UnitObjective>): number {
@@ -632,39 +549,6 @@ function updateUnitObjectives (unit: UnitWithStringReference): void {
     unitObjective.theme = objective.theme
     unitObjective.grade = objective.grade
     unitObjective.lessonPlans = buildObjectiveLessonPlans(objective, unit.grade)
-  })
-}
-
-function updateUnitMentalCalculations (unit: UnitWithStringReference): void {
-  unit.mentalCalculations
-    .filter(mentalCalculation => mentalCalculation.reference !== '')
-    .forEach(mentalCalculation => {
-      const relatedObjective = objectives.find(objective => objective.reference === mentalCalculation.reference)
-      if (!relatedObjective) {
-        console.warn('Objective ' + mentalCalculation.reference + ' of mental calculation ' + mentalCalculation.title + ' not found.')
-        warningCount++
-        return
-      }
-      mentalCalculation.isRelatedObjectivePageAvailable = true
-      mentalCalculation.theme = relatedObjective.theme
-      mentalCalculation.titleAcademic = relatedObjective.titleAcademic
-      mentalCalculation.title = relatedObjective.title
-    })
-}
-
-function updateUnitFlashQuestions (unit: UnitWithStringReference): void {
-  unit.flashQuestions.forEach(flashQuestion => {
-    const relatedObjective = objectives.find(objective => objective.reference === flashQuestion.reference)
-    if (!relatedObjective) {
-      console.error('Objective ' + flashQuestion.reference + ' of flash question ' + flashQuestion.title + ' not found.')
-      warningCount++
-      return
-    }
-    flashQuestion.titleAcademic = relatedObjective.titleAcademic
-    flashQuestion.title = relatedObjective.title
-    flashQuestion.slug = flashQuestion.slug ?? ''
-    flashQuestion.isRelatedObjectivePageAvailable = true
-    flashQuestion.theme = relatedObjective.theme
   })
 }
 

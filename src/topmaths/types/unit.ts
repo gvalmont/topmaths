@@ -76,66 +76,6 @@ export const emptyUnitObjective: UnitObjective = {
   lessonPlans: []
 }
 
-export type UnitMentalCalculation = {
-  reference: ObjectiveReference | '',
-  titleAcademic: string,
-  title: string,
-  exercises: ObjectiveExercise[],
-  isRelatedObjectivePageAvailable: boolean,
-  theme: string
-}
-export function isUnitMentalCalculation (obj: unknown, withStringReference: boolean = false): obj is UnitMentalCalculation {
-  if (obj == null || typeof obj !== 'object') return false
-  return 'reference' in obj && (withStringReference ? typeof obj.reference === 'string' : (isObjectiveReference(obj.reference) || obj.reference === '')) &&
-    'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
-    'title' in obj && typeof obj.title === 'string' &&
-    'exercises' in obj && isObjectiveExercises(obj.exercises) &&
-    'isRelatedObjectivePageAvailable' in obj && typeof obj.isRelatedObjectivePageAvailable === 'boolean' &&
-    'theme' in obj && typeof obj.theme === 'string'
-}
-export function isUnitMentalCalculations (obj: unknown, withStringReference: boolean = false): obj is UnitMentalCalculation[] {
-  if (obj == null || !Array.isArray(obj)) return false
-  return obj.every(obj => isUnitMentalCalculation(obj, withStringReference))
-}
-export const emptyUnitMentalCalculation: UnitMentalCalculation = {
-  reference: '',
-  titleAcademic: '',
-  title: '',
-  exercises: [],
-  isRelatedObjectivePageAvailable: false,
-  theme: ''
-}
-
-export type UnitFlashQuestion = {
-  reference: ObjectiveReference,
-  titleAcademic: string,
-  title: string,
-  slug: string,
-  isRelatedObjectivePageAvailable: boolean,
-  theme: string
-}
-export function isUnitFlashQuestion (obj: unknown, withStringReference: boolean = false): obj is UnitFlashQuestion {
-  if (obj == null || typeof obj !== 'object') return false
-  return 'reference' in obj && (withStringReference ? typeof obj.reference === 'string' : isObjectiveReference(obj.reference)) &&
-    'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
-    'title' in obj && typeof obj.title === 'string' &&
-    'slug' in obj && typeof obj.slug === 'string' &&
-    'isRelatedObjectivePageAvailable' in obj && typeof obj.isRelatedObjectivePageAvailable === 'boolean' &&
-    'theme' in obj && typeof obj.theme === 'string'
-}
-export function isUnitFlashQuestions (obj: unknown, withStringReference: boolean = false): obj is UnitFlashQuestion[] {
-  if (obj == null || !Array.isArray(obj)) return false
-  return obj.every(obj => isUnitFlashQuestion(obj, withStringReference))
-}
-export const emptyUnitFlashQuestion: UnitFlashQuestion = {
-  reference: '6C10', // Cannot access 'emptyObjectiveReference' before initialization
-  titleAcademic: '',
-  title: '',
-  slug: '',
-  isRelatedObjectivePageAvailable: false,
-  theme: ''
-}
-
 export type UnitDownloadLinks = {
   lessonLink: string,
   lessonSummaryLink: string,
@@ -161,10 +101,7 @@ export type Unit = {
   assessmentExamSlug: string,
   assessmentLink: string,
   downloadLinks: UnitDownloadLinks,
-  flashQuestions: UnitFlashQuestion[],
-  flashQuestionsLink: string,
   grade: StringGrade,
-  mentalCalculations: UnitMentalCalculation[],
   number: number,
   objectives: UnitObjective[],
   term: number,
@@ -177,10 +114,7 @@ export function isUnit (obj: unknown, withStringReference: boolean = false): obj
     'assessmentExamSlug' in obj && typeof obj.assessmentExamSlug === 'string' &&
     'assessmentLink' in obj && typeof obj.assessmentLink === 'string' &&
     'downloadLinks' in obj && isUnitDownloadLinks(obj.downloadLinks) &&
-    'flashQuestions' in obj && isUnitFlashQuestions(obj.flashQuestions, withStringReference) &&
-    'flashQuestionsLink' in obj && typeof obj.flashQuestionsLink === 'string' &&
     'grade' in obj && isStringGrade(obj.grade) &&
-    'mentalCalculations' in obj && isUnitMentalCalculations(obj.mentalCalculations, withStringReference) &&
     'number' in obj && typeof obj.number === 'number' &&
     'objectives' in obj && isUnitObjectives(obj.objectives, withStringReference) &&
     'term' in obj && typeof obj.term === 'number' &&
@@ -196,10 +130,7 @@ export const emptyUnit: Unit = {
   assessmentExamSlug: '',
   assessmentLink: '',
   downloadLinks: emptyUnitDownloadLinks,
-  flashQuestions: [],
-  flashQuestionsLink: '',
   grade: 'tout',
-  mentalCalculations: [],
   number: 0,
   objectives: [],
   term: 0,
