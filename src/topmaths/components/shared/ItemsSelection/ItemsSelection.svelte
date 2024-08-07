@@ -73,9 +73,12 @@
 
   function isWordFound (mot: string, item: Item): boolean {
     return normalize(item.grade).includes(mot) ||
-    (isUnit(item) && normalize(item.number.toString()).includes(mot)) ||
     normalize(item.reference).includes(mot) ||
-    normalize(item.title).includes(mot)
+    normalize(item.title).includes(mot) ||
+    (isUnit(item) && normalize(item.number.toString()).includes(mot)) ||
+    (isObjective(item) && normalize(item.theme).includes(mot)) ||
+    (isObjective(item) && normalize(item.subTheme).includes(mot)) ||
+    (isObjective(item) && normalize(item.titleAcademic).includes(mot))
   }
 
   function updateFilter (grade: StringGrade, term?: number): void {
