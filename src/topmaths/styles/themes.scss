@@ -1,0 +1,212 @@
+@import './tailwind-colors.scss';
+@import './shared.scss';
+
+$white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+
+.button {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  align-items: center;
+  box-shadow: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+}
+
+.interactive {
+  @include interactive($topmaths-default, $topmathsdark-default)
+}
+
+@mixin theme-style($class-name, $main-color, $light-color, $filter) {
+  $main-color-transparent: mix(rgba($main-color, 0), $main-color, 85%);
+  .#{$class-name} {
+    a:not(:has(.button)) {
+      @include interactive($main-color, $main-color, 0.7rem);
+      .title,
+      .subtitle {
+        .dark & {
+          background: none;
+          background-color: $main-color-transparent;
+        }
+      }
+    }
+    .title {
+      color: white;
+      padding: 1rem 1rem 0.5rem;
+      background-color: $main-color;
+      font-weight: 600;
+      .dark & {
+        color: $main-color;
+        background-color: $main-color-transparent;
+      }
+    }
+    .subtitle {
+      color: white;
+      padding: 0.5rem 1rem;
+      background-color: $main-color;
+      font-weight: 550;
+      .dark & {
+        color: $main-color;
+        background: linear-gradient(to top, $topmathsdark-canvas-default -40%, $main-color-transparent 100%);
+      }
+    }
+    .tooltiptext {
+      background-color: $light-color;
+      color: $main-color;
+      .dark & {
+        background-color: $topmathsdark-canvas-default;
+        color: $main-color;
+        border: 1px solid $main-color;
+      }
+    }
+    &.is-tabs-menu {
+      background-color: $light-color;
+      color: $main-color;
+      .dark & {
+        background-color: $topmathsdark-canvas-default;
+        border-top: 1px solid $main-color;
+        border-bottom: 1px solid $main-color;
+        border-left: none;
+        border-right: none;
+        color: $main-color;
+      }
+      &.is-first {
+        border-radius: 1.5rem 0 0 1.5rem;
+        .dark & {
+          border-left: 1px solid $main-color;
+        }
+      }
+      &.is-last {
+        border-radius: 0 1.5rem 1.5rem 0;
+        .dark & {
+          border-right: 1px solid $main-color;
+        }
+      }
+      &:hover,
+      &:focus,
+      &.is-active {
+        background-color: $main-color;
+        color: white;
+        .dark & {
+          background-color: $topmathsdark-canvas-default;
+          color: $main-color;
+          text-shadow: 0 0 0.7rem $main-color;
+          filter: drop-shadow(0 0 0.15em $main-color) drop-shadow(0 0 0.3em $main-color);
+        }
+      }
+    }
+    &.grade-container {
+      background-color: $light-color;
+      .dark & {
+        background-color: $topmathsdark-canvas-default;
+        border: 1px solid $main-color;
+      }
+    }
+    &.interactive {
+      @include interactive($main-color, $main-color);
+    }
+    &.button {
+      background-color: transparent;
+      border-color: #{$main-color};
+      color: #{$main-color};
+      &.is-full {
+        background-color: #{$main-color};
+        color: #fff;
+        .dark & {
+          background-color: $topmathsdark-canvas-default;
+          color: $main-color;
+        }
+        &:focus,
+        &:hover,
+        &.is-active {
+          filter: drop-shadow(0 0 0.15em $main-color);
+        }
+      }
+      &:focus,
+      &:hover,
+      &.is-active {
+        &:not(.is-borderless) {
+          background-color: #{$main-color};
+          color: #fff;
+        }
+        .dark & {
+          background-color: $topmathsdark-canvas-default;
+          color: $main-color;
+          text-shadow: 0 0 0.7rem $main-color;
+          &:not(.is-borderless) {
+            filter: drop-shadow(0 0 0.15em $main-color) drop-shadow(0 0 0.3em $main-color);
+          }
+        }
+      }
+      &[disabled] {
+        background-color: transparent;
+        border-color: #{$main-color};
+        box-shadow: none;
+        color: #{$main-color};
+  
+        &:hover,
+        &.is-active,
+        &:active,
+        &:focus {
+          color: #fff;
+        }
+      }
+      &.is-light {
+        background-color: #{$light-color};
+        color: #{$main-color};
+        &:hover,
+        &.is-active,
+        &:active,
+        &:focus {
+          background-color: #{$main-color};
+          color: white;
+        }
+        .dark & {
+          background-color: $topmathsdark-canvas-default;
+          border: 1px solid $main-color;
+          color: $main-color;
+        }
+      }
+      img {
+        filter: $filter;
+      }
+      &.is-active img {
+        filter: $white-filter;
+        &.is-borderless {
+          filter: $filter
+        }
+        .dark & {
+          color: #{$main-color};
+          filter: $filter drop-shadow(0 0 0.4em $main-color);
+        }
+      }
+    }
+  }
+}
+
+// Keep $class-name in sync src/topmaths/types/color.ts ButtonColor
+@include theme-style('is-sponsor', $is-sponsor-default, $is-sponsor-light, $is-sponsor-filter);
+@include theme-style('is-fuchsia', $is-fuchsia-default, $is-fuchsia-light, $is-fuchsia-filter);
+@include theme-style('is-green', $is-green-default, $is-green-light, $is-green-filter);
+@include theme-style('is-link', $is-link-default, $is-link-light, $is-link-filter);
+@include theme-style('is-info', $is-info-default, $is-info-light, $is-info-filter);
+@include theme-style('is-warning', $is-warning-default, $is-warning-light, $is-warning-filter);
+@include theme-style('is-danger', $is-danger-default, $is-danger-light, $is-danger-filter);
+@include theme-style('is-purple', $is-purple-default, $is-purple-light, $is-purple-filter);
+@include theme-style('is-info-darker', $is-info-darker-default, $is-info-darker-default, $is-info-darker-filter);
+// end of sync
+
+// Keep $class-name in sync with src/topmaths/types/grade.ts StringGrade
+// Keep $main-color in sync with index.html .spinner div:nth-child()
+@include theme-style('is-6e', $is-6e-default, $is-6e-light, $is-6e-filter);
+@include theme-style('is-5e', $is-5e-default, $is-5e-light, $is-5e-filter);
+@include theme-style('is-4e', $is-4e-default, $is-4e-light, $is-4e-filter);
+@include theme-style('is-3e', $is-3e-default, $is-3e-light, $is-3e-filter);
+@include theme-style('is-tout', $is-tout-default, $is-tout-light, $is-tout-filter);
+// end of sync

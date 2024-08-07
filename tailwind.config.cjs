@@ -85,7 +85,7 @@ const config = {
           DEFAULT: 'transparent',
           sponsor: {
             DEFAULT: '#ea4aaa',
-            light: '#c0167c',
+            light: '#fffafa',
             filter: 'invert(41%) sepia(47%) saturate(2515%) hue-rotate(298deg) brightness(97%) contrast(88%)'
           },
           fuchsia: {
