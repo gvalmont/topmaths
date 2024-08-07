@@ -150,11 +150,9 @@
   </div>
   <Footer />
 
+  <DarkModeToggle bind:isDarkMode={isDarkMode} />
   {#if $isTeacherMode}
     <TimeOverlay />
-  {/if}
-  {#if isDevMode}
-    <DarkModeToggle bind:isDarkMode={isDarkMode} />
   {/if}
   <InfoDialog />
 
