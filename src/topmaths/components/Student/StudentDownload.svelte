@@ -1,31 +1,31 @@
 <script lang="ts">
-  const telechargements = [
+  const downloads = [
     {
-      titre: 'Tables de multiplication',
+      title: 'Tables de multiplication',
       slug: 'tables_de_multiplication_anki',
       description: 'Paquet Anki',
       extension: 'apkg'
     },
     {
-      titre: 'Tables de multiplication',
+      title: 'Tables de multiplication',
       slug: 'tables_de_multiplication_A5',
       description: 'Grand format (A5)',
       extension: 'pdf'
     },
     {
-      titre: 'Tables de multiplication',
+      title: 'Tables de multiplication',
       slug: 'tables_de_multiplication_A6',
       description: 'Petit format (A6)',
       extension: 'pdf'
     },
     {
-      titre: 'Tableau de numération',
+      title: 'Tableau de numération',
       slug: 'tableau_de_numeration_decimaux',
       description: 'Nombres décimaux',
       extension: 'pdf'
     },
     {
-      titre: 'Tableau de numération',
+      title: 'Tableau de numération',
       slug: 'tableau_de_numeration_entiers',
       description: 'Nombres entiers',
       extension: 'pdf'
@@ -38,43 +38,37 @@
 </svelte:head>
 
 <div class="flex flex-wrap">
-  {#each telechargements as telechargement}
-    <div class="card m-5 w-[180px] md:w-[240px]">
-      <header class="card-header">
-        <p class="card-header-title">
-          {telechargement.titre}
-          <br>
-          <span style="font-weight: normal;"></span>
-        </p>
-        <button class="card-header-icon is-danger">
-          <span class="icon">
-            {#if telechargement.extension === 'pdf'}
-              <i class="image is-24x24 is-inline-block">
-                <img src="/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg" alt="Icone de PDF" />
-              </i>
-            {:else if telechargement.extension === 'apkg'}
-              <div class="image is-32x32 is-inline-block">
-                <img src="/topmaths/img/gnu/anki-icon.svg" alt="Icone de Anki" />
-              </div>
-            {/if}
-          </span>
+  {#each downloads as download}
+    <div class="m-5 border-2 flex flex-col
+      border-gray-300 dark:border-gray-500
+      rounded-lg md:rounded-xl
+      w-[180px] md:w-[240px]
+      text-base md:text-lg"
+    >
+      <h3 class="flex flex-col">
+        {download.title}
+        <span class="mx-auto">
+          {#if download.extension === 'pdf'}
+            <img class="w-6 md:w-8 icon is-danger" src="/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg" alt="Icone de PDF" />
+          {:else if download.extension === 'apkg'}
+            <img class="w-6 md:w-8" src="/topmaths/img/gnu/anki-icon.svg" alt="Icone de Anki" />
+          {/if}
+        </span>
+      </h3>
+      <img src="/topmaths/telechargements/apercus/{download.slug}.png" alt="Aperçu du {download.extension}">
+      {download.description}
+      <a
+        class="mt-2 mb-4"
+        href="/topmaths/telechargements/{download.slug}.{download.extension}"
+      >
+        <button class="button is-link border
+          rounded md:rounded-lg
+          py-1 md:py-2
+          px-4 md:px-6"
+        >
+          Télécharger
         </button>
-      </header>
-      <div class="card-image">
-        <figure class="image is-4by3">
-          <img src="/topmaths/telechargements/apercus/{telechargement.slug}.png" alt="Aperçu du {telechargement.extension}">
-        </figure>
-      </div>
-      <div class="card-content p-4">
-        <div class="content has-text-centered">
-          {telechargement.description}
-        </div>
-      </div>
-      <footer class="card-footer">
-        <a href="/topmaths/telechargements/{telechargement.slug}.{telechargement.extension}" class="card-footer-item">
-          <button class="button is-link is-outlined rounded md:rounded-lg py-1 px-4 md:py-2 md:px-6">Télécharger</button>
-        </a>
-      </footer>
+      </a>
     </div>
   {/each}
 </div>
