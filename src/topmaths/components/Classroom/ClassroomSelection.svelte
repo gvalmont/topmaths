@@ -9,49 +9,43 @@
   <title>Outils pour la classe - topmaths</title>
 </svelte:head>
 
-<div class="w-screen max-w-screen-lg">
+<div class="grade-container is-6e
+  rounded-4xl md:rounded-5xl"
+>
   <h1
-    class="title text-2xl md:text-4xl font-semibold p-4 is-6e"
+    class="title
+    text-2xl md:text-4xl
+    rounded-t-4xl md:rounded-t-5xl"
   >
     Outils pour la classe
   </h1>
-  <div style="background-color: #ebfaf1; border-radius: 0px 0px 50px 50px; ">
-    <br />
+  <div class="p-6">
     <MainMenuItem
-    view='classroom'
-    ref='mathador'
-    color='violet'
+      view='classroom'
+      ref='mathador'
+      color='purple'
     >
-    Mathador
+      Mathador
     </MainMenuItem>
     {#if $isTeacherMode}
       <MainMenuItem
-      view='classroom'
-      ref='curriculum'
-      color='sponsor'
+        view='classroom'
+        ref='curriculum'
+        color='sponsor'
       >
-      Progressions
+        Progressions
       </MainMenuItem>
-      <br /><br />
-      <div>
-        <button
-        on:click={() => Storage.setTeacherMode(false)}
-          class="button is-green rounded md:rounded-lg py-1 px-4 md:py-2 md:px-6"
-        >
-          <p>Désactiver le mode enseignant</p>
-        </button>
-      </div>
-    {:else}
-      <br /><br />
-      <div>
-        <button
-          on:click={() => Storage.setTeacherMode(true)}
-          class="button is-green rounded md:rounded-lg py-1 px-4 md:py-2 md:px-6 is-outlined"
-        >
-          <p>Activer le mode enseignant</p>
-        </button>
-      </div>
     {/if}
-    <br /><br />
+    <div>
+      <button
+        on:click={() => Storage.setTeacherMode(!$isTeacherMode)}
+        class="button is-green border
+          rounded md:rounded-lg
+          py-1 md:py-2
+          px-4 md:px-6"
+      >
+        {$isTeacherMode ? 'Désactiver' : 'Activer'} le mode enseignant
+      </button>
+    </div>
   </div>
 </div>

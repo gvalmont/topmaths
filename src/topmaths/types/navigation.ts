@@ -41,8 +41,20 @@ export function isStudentReferences (obj: unknown): obj is ReferenceStudent[] {
   return obj.every(isStudentReference)
 }
 
-const referenceValidKeys = ['', ...referenceInfoValidKeys, ...referenceStudentValidKeys, ...objectivesReferences, ...unitsReferences, ...specialUnitsReferences]
-export type Reference = '' | ReferenceInfo | ReferenceStudent | ObjectiveReference | UnitReference | SpecialUnitReference
+const referenceClassroomValidKeys = <const>['mathador', 'curriculum']
+type ReferenceClassroomValidKeysType = typeof referenceClassroomValidKeys
+export type ReferenceClassroom = ReferenceClassroomValidKeysType[number]
+export function isClassroomReference (obj: unknown): obj is ReferenceClassroom {
+  if (obj == null || typeof obj !== 'string') return false
+  return referenceClassroomValidKeys.includes(obj as ReferenceClassroom)
+}
+export function isClassroomReferences (obj: unknown): obj is ReferenceClassroom[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isClassroomReference)
+}
+
+const referenceValidKeys = ['', ...referenceInfoValidKeys, ...referenceStudentValidKeys, ...referenceClassroomValidKeys, ...objectivesReferences, ...unitsReferences, ...specialUnitsReferences]
+export type Reference = '' | ReferenceInfo | ReferenceStudent | ReferenceClassroom | ObjectiveReference | UnitReference | SpecialUnitReference
 export function isReference (obj: unknown): obj is Reference {
   if (obj == null || typeof obj !== 'string') return false
   return referenceValidKeys.includes(obj as Reference)
