@@ -46,6 +46,12 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
         }
       }
     }
+    &.border { // for ClassroomCurriculum.svelte
+      border: 1px solid $main-color;
+    }
+    .border-t { // for ClassroomCurriculum.svelte
+      border-top: 1px solid $main-color;
+    }
     .title {
       color: white;
       padding: 1rem 1rem 0.5rem;

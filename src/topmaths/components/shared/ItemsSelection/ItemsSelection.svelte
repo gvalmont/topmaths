@@ -7,7 +7,7 @@
   import SearchInput from '../SearchInput.svelte'
   import TermSelectionButtons from '../TermSelectionButtons.svelte'
   import { onDestroy, onMount } from 'svelte'
-  import { normalize } from '../../../services/shared'
+  import { getTitle, normalize } from '../../../services/shared'
   import { emptyItem, type Item } from './types'
   import Row from './Row.svelte'
   import { isTeacherMode, isTitleAcademicPreferred } from '../../../services/store'
@@ -16,9 +16,12 @@
   import { isUnit, type Unit } from '../../../types/unit'
   import { isObjective, type Objective } from '../../../types/objective'
   import { isSpecialUnit } from '../../../types/specialUnit'
+  import { emptyCurriculum, type Curriculum } from '../../../types/curriculum'
+  import { buildThemeFromReference } from '../../../services/reference'
 
   export let view: View
   export let items: Writable<Item[]>
+  export let curriculum: Curriculum = emptyCurriculum
 
   const filter = writable<Item>(emptyItem)
   const searchString = writable<string>('')
@@ -88,7 +91,6 @@
     }
     window.history.pushState({}, '', `?v=${view}&grade=${$filter.grade}&term=${$filter.term}`)
   }
-
 </script>
 
 <GradeSelectionTabs
@@ -115,7 +117,8 @@
 {#each stringGradeValidKeys as grade}
   {#if $filteredItems.filter(item => item.grade === grade).length > 0}
     <div class="is-{grade} grade-container my-8
-        rounded-4xl md:rounded-5xl"
+        rounded-4xl md:rounded-5xl
+        {view === 'classroom' ? 'border' : ''}"
     >
       <h1 class="title
         text-2xl md:text-4xl
@@ -123,34 +126,119 @@
       >
         {grade === 'tout' ? 'Séquences particulières' : grade}
       </h1>
-      {#each units.filter(unit => unit.grade === grade) as unit}
-        <Row
-          item={unit}
-          view={view}
-          {goToView}
-        />
-      {/each}
-      {#each [...new Set(objectives.filter(objective => objective.grade === grade).map(objective => objective.theme).filter(theme => !UNLISTED_THEMES.includes(theme ?? '')))] as theme}
-        <h2 class="title
-          text-xl md:text-3xl"
-        >
-          {theme}
-        </h2>
-        {#each [...new Set(objectives.filter(objective => objective.grade === grade).filter(objective => objective.theme === theme).map(objective => objective.subTheme))] as subTheme}
-          <h3 class="subtitle
-            text-l md:text-2xl"
+      {#if view === 'unit'}
+        {#each units.filter(unit => unit.grade === grade) as unit}
+          <Row
+            item={unit}
+            {view}
+            {goToView}
+          />
+        {/each}
+      {/if}
+      {#if view === 'objective'}
+        {#each [...new Set(objectives.filter(objective => objective.grade === grade).map(objective => objective.theme).filter(theme => !UNLISTED_THEMES.includes(theme ?? '')))] as theme}
+          <h2 class="title
+            text-xl md:text-3xl"
           >
-            {subTheme}
-          </h3>
-          {#each objectives.filter(item => item.grade === grade).filter(item => item.theme === theme).filter(item => item.subTheme === subTheme) as objective}
-            <Row
-              item={objective}
-              view={view}
-              {goToView}
-            />
+            {theme}
+          </h2>
+          {#each [...new Set(objectives.filter(objective => objective.grade === grade).filter(objective => objective.theme === theme).map(objective => objective.subTheme))] as subTheme}
+            <h3 class="subtitle
+              text-l md:text-2xl"
+            >
+              {subTheme}
+            </h3>
+            {#each objectives.filter(item => item.grade === grade).filter(item => item.theme === theme).filter(item => item.subTheme === subTheme) as objective}
+              <Row
+                item={objective}
+                view={view}
+                {goToView}
+              />
+            {/each}
           {/each}
         {/each}
-      {/each}
+      {/if}
+      {#if view === 'classroom'}
+        {#each Object.keys(curriculum.tout.unitsPerTerm).map(Number).map(termIndex => termIndex + 1).filter(term => $filteredItems.filter(item => isUnit(item)).filter(unit => unit.grade === grade).filter(unit => unit.term === term).length > 0) as term}
+          <h2 class="title
+            text-xl md:text-3xl"
+          >
+            Période {term}
+          </h2>
+          <div class="flex flex-row">
+            <div class="w-1/4">
+              Séquence
+            </div>
+            <div class="w-3/4">
+              Objectifs
+            </div>
+          </div>
+          {#each $filteredItems.filter(item => isUnit(item)).filter(unit => unit.grade === grade).filter(unit => unit.term === term) as unit}
+          <div class="flex flex-row border-t
+            text-sm md:text-base"
+          >
+            <div class="w-1/4 flex flex-col justify-center items-center">
+              <div class="flex flex-row grow w-full">
+                <div class="w-1/4 flex items-center justify-center">
+                  <a
+                    href='?v=unit&ref={unit.reference}'
+                    on:click={(event) => goToView(event, 'unit', unit.reference)}
+                  >
+                    {unit.reference}
+                  </a>
+                </div>
+                <div class="w-3/4 flex items-center justify-start text-left">
+                  {unit.title}
+                </div>
+              </div>
+            </div>
+            <div class="w-3/4 flex flex-col justify-center items-center">
+                {#each unit.objectives.filter(objective => !UNLISTED_THEMES.includes(objective.theme ?? '')) as objective}
+                  <div class="flex flex-row grow w-full is-theme-{buildThemeFromReference(objective.reference)}">
+                    <div class="w-1/12 flex items-center justify-center">
+                      <a
+                        href='?v=objective&ref={objective.reference}'
+                        on:click={(event) => goToView(event, 'objective', objective.reference)}
+                      >
+                        {objective.reference}
+                      </a>
+                    </div>
+                    <div class="w-11/12 flex items-center justify-start text-left">
+                      {getTitle(objective)}
+                    </div>
+                  </div>
+                {/each}
+            </div>
+          </div>
+          {/each}
+        {/each}
+      {/if}
     </div>
   {/if}
 {/each}
+
+<style lang="scss">
+  @import '../../../styles/tailwind-colors.scss';
+
+  @mixin theme-style($class-name, $main-color, $light-color) {
+    .#{$class-name} {
+      background-color: #{$light-color};
+        a {
+          color: $topmaths-corpus-default;
+          text-decoration: underline;
+          :global(.dark) & {
+            color: #{$main-color};
+          }
+        }
+      :global(.dark) & {
+        background-color: $topmathsdark-canvas-default;
+        color: #{$main-color};
+      }
+    }
+  }
+
+  @include theme-style('is-theme-nombres', #e99384, #f8c8c0);
+  @include theme-style('is-theme-gestion', #9f84e4, #c6b9e7);
+  @include theme-style('is-theme-grandeurs', #deb273, #ffddaf);
+  @include theme-style('is-theme-geo', #7bd9ec, #aff2ff);
+</style>
