@@ -4,8 +4,8 @@
 
 <label
   class="swap swap-rotate fixed right-4 top-4 z-50
-    text-warning hover:text-warning-500
-    dark:text-warning-500 dark:hover:text-warning-400"
+    text-amber-500 hover:text-amber-400
+    dark:text-amber-400 dark:hover:text-amber-300"
 >
   <!-- this hidden checkbox controls the state -->
   <input
