@@ -17,6 +17,9 @@
   <li>
     <a href='?v={destinationView}'>
       <ButtonImage
+        class="
+          px-3 md:px-4
+          py-2 md:py-3"
         {color}
         {isActive}
         {imageSrc}

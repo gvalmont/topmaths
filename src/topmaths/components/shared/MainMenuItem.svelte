@@ -26,7 +26,12 @@
       {color}
       {imageSrc}
       {imageAlt}
-      class="w-[140px] inline-flex md:w-[260px] h-14 md:h-24 rounded md:rounded-lg border"
+      class="inline-flex border
+        px-3 md:px-4
+        py-2 md:py-3
+        w-[140px] md:w-[260px]
+        h-14 md:h-24
+        rounded md:rounded-lg"
       on:click={(event) => goToView(event, view, ref, ref2)}
     >
       <slot />

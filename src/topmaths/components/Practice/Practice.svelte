@@ -105,14 +105,20 @@
     />
     <ButtonImage
       color="link"
-      class="mx-auto p-5 my-2 border rounded md:rounded-lg"
+      class="mx-auto p-5 my-2 border
+      rounded md:rounded-lg
+      px-3 md:px-4
+      py-2 md:py-3"
       on:click={() => launchRegularExercises()}
     >
       Réviser les exercices
     </ButtonImage>
     <ButtonImage
       color="3e"
-      class="mx-auto p-5 mb-4 mt-8 border rounded md:rounded-lg"
+      class="mx-auto p-5 mb-4 mt-8 border
+      rounded md:rounded-lg
+      px-3 md:px-4
+      py-2 md:py-3"
       on:click={() => launchExamExercises()}
     >
     Réviser les exercices de brevet (3e)

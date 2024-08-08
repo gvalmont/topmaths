@@ -5,6 +5,7 @@
   export let imageAlt: string = ''
   export let color: ThemeColor
   export let isActive: boolean = false
+  export let imageClass: string = 'size-8 md:size-12'
 
   let isHovered = false
   let isFocused = false
@@ -13,8 +14,6 @@
 <button
   class="button is-{color}
     {isHovered || isFocused || isActive ? 'is-active' : ''}
-    px-3 md:px-4
-    py-2 md:py-3
     {$$props.class}"
   disabled={$$props.disabled}
   on:mouseenter={() => { isHovered = true }}
@@ -32,7 +31,7 @@
   </p>
   {#if imageSrc !== ''}
     <img
-      class="size-8 md:size-12"
+      class="{imageClass}"
       src={imageSrc}
       alt={imageAlt}
     />

@@ -1,349 +1,230 @@
 <script lang="ts">
-  import { onDestroy, tick } from "svelte";
-  import IconeTooltipSimple from "../shared/IconeTooltipSimple.svelte";
-  import { mathaleaRenderDiv } from "../../../lib/mathalea";
+  import { onDestroy, onMount, tick } from 'svelte'
+  import { mathaleaRenderDiv } from '../../../lib/mathalea'
+  import { randint } from '../../../modules/outils'
+  import { range } from '../../../lib/outils/nombres'
+  import ButtonImage from '../shared/ButtonImage.svelte'
+  import AnchorExternal from '../shared/AnchorExternal.svelte'
 
-  interface Possibilite {
-    nombres: number[];
-    signes: string[];
-    calcul: string;
+  type Calculation = {
+    calculation: string;
+    result: number;
   }
 
-  interface Solution {
-    calculs: string[];
-    redaction: string;
+  type Possibility = {
+    numbers: number[];
+    operations: string[];
+    calculation: string;
   }
 
-  let nombreCible = 0;
-  let donnee1 = 0;
-  let donnee2 = 0;
-  let donnee3 = 0;
-  let donnee4 = 0;
-  let donnee5 = 0;
-  let stringSolutions = "";
-  let nombreDeSolutions = -1;
-  let solutionsAffichees = false;
-  let durees = [] as number[];
-  for (let i = 1; i < 61; i++) {
-    durees.push(i);
+  type Solution = {
+    calculations: string[];
+    writing: string;
   }
-  let tempsRestant = -1;
-  let audioDejaJoue = false;
-  let minuteurInterval: NodeJS.Timeout;
-  let minuteurEnFonctionnement = false;
-  relancer();
-  lancerMinuteurInterval();
 
-  onDestroy(() => clearInterval(minuteurInterval));
+  let targetNumber = 0
+  let number1 = 0
+  let number2 = 0
+  let number3 = 0
+  let number4 = 0
+  let number5 = 0
+  let solutions: Solution[] = []
+  let isSolutionsDisplayed = false
+  let secondsLeft = -1
+  let timerInterval: ReturnType<typeof setTimeout> | undefined
+  let isTimerActive = false
+  let displayTimeDiv: HTMLDivElement
+  let solutionsDiv: HTMLDivElement
+  let audioElement: HTMLAudioElement
+  let pointsInfoBackground: HTMLDivElement
+  let pointsInfoText: HTMLDivElement
 
-  function lancerMinuteurInterval() {
-    minuteurInterval = setInterval(() => {
-      const audioElement = <HTMLAudioElement>(document.getElementById("audioElement"))
-      const divTempsAffiche = document.getElementById("divTempsAffiche")
-      if (audioElement !== null && divTempsAffiche !== null) {
-        if (minuteurEnFonctionnement) {
-          if (tempsRestant > 0) {
-            tempsRestant--
-            MAJTempsAffiche()
-          }
-          if (tempsRestant <= 0) {
-            minuteurEnFonctionnement = false
-            if (!audioDejaJoue) {
-              audioElement.play()
-              audioDejaJoue = true
-            }
+  onMount(() => {
+    reroll()
+    startTimerInterval()
+  })
+
+  onDestroy(() => clearInterval(timerInterval))
+
+  function startTimerInterval (): void {
+    timerInterval = setInterval(() => {
+      if (isTimerActive) {
+        if (secondsLeft > 0) {
+          secondsLeft--
+          updateDisplayedTime()
+        }
+        if (secondsLeft <= 0) {
+          isTimerActive = false
+          if (audioElement) {
+            audioElement.play()
           }
         }
       }
     }, 1000)
   }
 
-  function relancer() {
-    nombreCible = randint(0, 99);
-    donnee1 = randint(1, 4);
-    donnee2 = randint(1, 6);
-    donnee3 = randint(1, 8);
-    donnee4 = randint(1, 12);
-    donnee5 = randint(1, 20);
-    stringSolutions = "";
-    nombreDeSolutions = -1;
-    solutionsAffichees = false;
-    resoudreMathador();
+  function reroll (): void {
+    targetNumber = randint(0, 99)
+    number1 = randint(1, 4)
+    number2 = randint(1, 6)
+    number3 = randint(1, 8)
+    number4 = randint(1, 12)
+    number5 = randint(1, 20)
+    isSolutionsDisplayed = false
+    solutions = solveMathador()
+    if (solutions.length === 0) reroll()
   }
 
-  /**
-   * Renvoie un nombre entier entre min et max inclus
-   * @param min
-   * @param max
-   * @returns nombre entier entre min et max inclus
-   */
-  function randint(min: number, max: number) {
-    return Math.floor(Math.random() * (max + 1 - min) + min);
-  }
-
-  /**
-   * Teste toutes les possibilités de calcul utilisant les 5 nombres et les 4 opérations
-   * Sélectionne les possibilités qui aboutissent au bon résultat
-   * Filtre les possibilités équivalentes (mêmes calculs mais pas dans le même ordre)
-   * Modifie le nombre de solutions et le contenu du div des solutions
-   */
-  function resoudreMathador() {
-    const solutions: Solution[] = [];
-    const possibilites0: Possibilite = {
-      nombres: [donnee1, donnee2, donnee3, donnee4, donnee5],
-      signes: ["+", "-", "*", "/"],
-      calcul: "",
-    };
-    const possibilites1 = determinerPossibilites(
-      possibilites0.nombres,
-      possibilites0.signes
-    );
-    for (const possibilite1 of possibilites1) {
-      if (lesNombresPassentLeFiltre(possibilite1)) {
-        const possibilites2 = determinerPossibilites(
-          possibilite1.nombres,
-          possibilite1.signes
-        );
-        for (const possibilite2 of possibilites2) {
-          if (lesNombresPassentLeFiltre(possibilite2)) {
-            const possibilites3 = determinerPossibilites(
-              possibilite2.nombres,
-              possibilite2.signes
-            );
-            for (const possibilite3 of possibilites3) {
-              if (lesNombresPassentLeFiltre(possibilite3)) {
-                const possibilites4 = determinerPossibilites(
-                  possibilite3.nombres,
-                  possibilite3.signes
-                );
-                for (const possibilite4 of possibilites4) {
-                  if (possibilite4.nombres[0] === nombreCible) {
-                    const calculs = [
-                      possibilite1.calcul,
-                      possibilite2.calcul,
-                      possibilite3.calcul,
-                      possibilite4.calcul,
-                    ];
-                    const redaction =
-                      " $ " +
-                      possibilite1.calcul +
-                      " $ <br> $ " +
-                      possibilite2.calcul +
-                      " $ <br> $ " +
-                      possibilite3.calcul +
-                      " $ <br> $ " +
-                      possibilite4.calcul +
-                      " $ ";
-                    const solutionCandidate = { calculs, redaction };
-                    if (!solutionPresente(solutionCandidate, solutions)) {
-                      solutions.push(solutionCandidate);
-                    }
-                  }
-                }
+  function solveMathador (): Solution[] {
+    const newSolutions: Solution[] = []
+    const possibilities0: Possibility = {
+      numbers: [number1, number2, number3, number4, number5],
+      operations: ['+', '-', '*', '/'],
+      calculation: ''
+    }
+    const possibilities1 = calculatePossibilities(possibilities0.numbers, possibilities0.operations)
+    for (const possibility1 of possibilities1) {
+      const possibilities2 = calculatePossibilities(possibility1.numbers, possibility1.operations)
+      for (const possibility2 of possibilities2) {
+        const possibilities3 = calculatePossibilities(possibility2.numbers, possibility2.operations)
+        for (const possibility3 of possibilities3) {
+          const possibilities4 = calculatePossibilities(possibility3.numbers, possibility3.operations)
+          for (const possibility4 of possibilities4) {
+            if (possibility4.numbers[0] === targetNumber) {
+              const calculations = [
+                possibility1.calculation,
+                possibility2.calculation,
+                possibility3.calculation,
+                possibility4.calculation
+              ]
+              const writing = `
+                $ ${possibility1.calculation} $ <br>
+                $ ${possibility2.calculation} $ <br>
+                $ ${possibility3.calculation} $ <br>
+                $ ${possibility4.calculation} $`
+              const solutionCandidate = { calculations, writing }
+              if (!isSolutionFound(solutionCandidate, newSolutions)) {
+                newSolutions.push(solutionCandidate)
               }
             }
           }
         }
       }
     }
-    stringSolutions = "";
-    nombreDeSolutions = solutions.length;
-    for (const solution of solutions) {
-      stringSolutions += solution.redaction + " <br><br> ";
-    }
-    if (solutions.length === 0) relancer()
+    return newSolutions
   }
 
-  /**
-   * Coeur de la recherche de solutions.
-   * Fait tous les calculs possibles à partir des nombres de poolDeNombres et des signes de signesDisponibles.
-   * Dans chaque cas, reconstitue un nouveau pool de nombres en regroupant les nombres inutilisés et le résultat obtenu
-   * Renvoie tous ces nouveaux pool de nombres ainsi que les signes disponibles restants dans une liste d'objets possibilités
-   * @param poolDeNombres
-   * @param signesDisponibles
-   * @returns possibilites
-   */
-  function determinerPossibilites(
-    poolDeNombres: number[],
-    signesDisponibles: string[]
-  ) {
-    const possibilites: Possibilite[] = [];
-    for (const premierNombre of poolDeNombres) {
-      for (const premierSigne of signesDisponibles) {
-        const nombresSaufPremier = poolDeNombres.filter(function (value) {
-          return value !== premierNombre;
-        });
-        while (nombresSaufPremier.length < poolDeNombres.length - 1)
-          nombresSaufPremier.push(premierNombre); // Si le même nombre apparaissait plusieurs fois on les a tous enlevés. Si c'est le cas, on renfloue nombres1
-        const signesSaufLePremier = signesDisponibles.filter(function (value) {
-          return value !== premierSigne;
-        });
-        for (const deuxiemeNombre of nombresSaufPremier) {
-          const resultatPremierCalcul = calculer(
-            premierNombre,
-            deuxiemeNombre,
-            premierSigne
-          );
-          const nombresSauf1et2 = nombresSaufPremier.filter(function (value) {
-            return value !== deuxiemeNombre;
-          });
-          while (nombresSauf1et2.length < nombresSaufPremier.length - 1)
-            nombresSauf1et2.push(deuxiemeNombre);
-          const nombresSauf1et2AvecResultat1 = nombresSauf1et2;
-          nombresSauf1et2AvecResultat1.push(resultatPremierCalcul.resultat);
-          possibilites.push({
-            nombres: nombresSauf1et2AvecResultat1,
-            signes: signesSaufLePremier,
-            calcul: resultatPremierCalcul.calcul,
-          });
+  function calculatePossibilities (numbers: number[], signs: string[]): Possibility[] {
+    const possibilities: Possibility[] = []
+    for (const firstNumber of numbers) {
+      for (const firstSign of signs) {
+        const numbersWithoutFirst = removeNumberOnce([...numbers], firstNumber)
+        for (const secondNumber of numbersWithoutFirst) {
+          const firstCalculation = calculate(firstNumber, secondNumber, firstSign)
+          const numbersWithout1and2 = removeNumberOnce([...numbersWithoutFirst], secondNumber)
+          possibilities.push({
+            numbers: numbersWithout1and2.concat(firstCalculation.result),
+            operations: signs.filter(value => value !== firstSign),
+            calculation: firstCalculation.calculation
+          })
         }
       }
     }
-    return possibilites;
+    return possibilities.filter(possibility => possibility.numbers.every(number => number >= 0 && number === Math.floor(number)))
   }
 
-  /**
-   * Effectue l'opération entre le max de nombre1 et nombre2 et leur min
-   * @param nombre1
-   * @param nombre2
-   * @param operation
-   * @returns {resultat: number, calcul: string} resultat est un nombre servant pour la suite des calculs et calcul est une version LateX du calcul servant plus tard pour l'affichage des solutions.
-   */
-  function calculer(nombre1: number, nombre2: number, operation: string) {
-    const max = Math.max(nombre1, nombre2);
-    const min = Math.min(nombre1, nombre2);
+  function removeNumberOnce (numbers: number[], numberToRemove: number): number[] {
+    for (const number of numbers) {
+      if (number === numberToRemove) {
+        numbers.splice(numbers.indexOf(number), 1)
+        return numbers
+      }
+    }
+    return numbers
+  }
+
+  function calculate (number1: number, number2: number, operation: string): Calculation {
+    const max = Math.max(number1, number2)
+    const min = Math.min(number1, number2)
     switch (operation) {
-      case "+":
+      case '+':
         return {
-          resultat: max + min,
-          calcul: `${max} + ${min} = ${max + min}`,
-        };
-      case "-":
+          result: max + min,
+          calculation: `${max} + ${min} = ${max + min}`
+        }
+      case '-':
         return {
-          resultat: max - min,
-          calcul: `${max} - ${min} = ${max - min}`,
-        };
-      case "*":
+          result: max - min,
+          calculation: `${max} - ${min} = ${max - min}`
+        }
+      case '*':
         return {
-          resultat: max * min,
-          calcul: `${max} \\times ${min} = ${max * min}`,
-        };
-      case "/":
-        if (max === 0 || min === 0) {
+          result: max * min,
+          calculation: `${max} \\times ${min} = ${max * min}`
+        }
+      case '/':
+        if (number2 === 0) {
           return {
-            resultat: -1000,
-            calcul: "Erreur : signe d'opération inconnu",
-          };
+            result: -1000,
+            calculation: 'Erreur : division par zéro'
+          }
         } else {
           return {
-            resultat: max / min,
-            calcul: `${max} \\div ${min} = ${max / min}`,
-          };
+            result: max / min,
+            calculation: `${max} \\div ${min} = ${max / min}`
+          }
         }
       default:
-        console.error("Signe d'opération inconnu");
+        console.error("Signe d'opération inconnu", number1, number2, operation)
         return {
-          resultat: -1000,
-          calcul: "Erreur : signe d'opération inconnu",
-        };
+          result: -1000,
+          calculation: "Erreur : signe d'opération inconnu"
+        }
     }
   }
 
-  /**
-   * Renvoie false si :
-   * - un nombre n'est pas positif
-   * - un nombre n'est pas entier
-   * Renvoie true sinon
-   * @param possibilite
-   * @returns
-   */
-  function lesNombresPassentLeFiltre(possibilite: Possibilite) {
-    for (const nombre of possibilite.nombres) {
-      if (nombre < 0) {
-        // On vérifie si les nombres sont positifs
-        return false;
-      }
-      if (nombre !== Math.floor(nombre)) {
-        // On vérifie si les nombres sont entiers
-        return false;
-      }
-    }
-    return true;
+  function isSolutionFound (solutionCandidate: Solution, solutions: Solution[]): boolean {
+    return solutions
+      .some(solution => solution.calculations
+        .every(calculation => solutionCandidate.calculations
+          .includes(calculation)))
   }
 
-  /**
-   * Vérifie si une solutionCandidate existe déja dans les solutions
-   * @param solutionCandidate
-   * @param solutions
-   * @returns true si la solutionCandidate existe déjà dans les solutions
-   */
-  function solutionPresente(
-    solutionCandidate: Solution,
-    solutions: Solution[]
-  ) {
-    for (const solution of solutions) {
-      let nombreDeCalculsIdentiques = 0;
-      for (const calculCandidat of solutionCandidate.calculs) {
-        if (solution.calculs.indexOf(calculCandidat) !== -1)
-          nombreDeCalculsIdentiques++;
-      }
-      if (nombreDeCalculsIdentiques === 4) return true;
-    }
-    return false;
+  async function renderSolutionsDiv (): Promise<void> {
+    await tick()
+    if (solutionsDiv) mathaleaRenderDiv(solutionsDiv, -1)
   }
 
-  async function interpreterLaTeX() {
-    await tick();
-    const divSolutions = document.getElementById("divSolutions");
-    if (divSolutions !== null) mathaleaRenderDiv(divSolutions);
+  function setupTimer (minuts: number): void {
+    secondsLeft = minuts * 60
+    isTimerActive = false
+    updateDisplayedTime()
   }
 
-  function setupMinuteur(evenementDuree: Event | undefined) {
-    if (evenementDuree !== undefined) {
-    const dureeEnMin = Number(
-      (evenementDuree.target as HTMLInputElement).value.toString().split(" ")[0]
-    );
-    if (!isNaN(dureeEnMin)) {
-      const divTempsAffiche = document.getElementById("divTempsAffiche");
-      if (divTempsAffiche !== null) {
-        tempsRestant = dureeEnMin * 60;
-        MAJTempsAffiche();
-        minuteurEnFonctionnement = false;
-        audioDejaJoue = false;
-      }
-    }
+  function startTimer (): void {
+    isTimerActive = true
+  }
+
+  function stopTimer (): void {
+    isTimerActive = false
+  }
+
+  function updateDisplayedTime (): void {
+    if (displayTimeDiv) {
+      const minutes = Math.floor(secondsLeft / 60)
+      const seconds = (secondsLeft % 60).toString().padStart(2, '0')
+      displayTimeDiv.textContent = `${minutes} : ${seconds}`
     }
   }
 
-  function lancerMinuteur() {
-    minuteurEnFonctionnement = true;
-  }
-
-  function arreterMinuteur() {
-    minuteurEnFonctionnement = false;
-  }
-
-  function MAJTempsAffiche() {
-    const divTempsAffiche = document.getElementById("divTempsAffiche");
-    if (divTempsAffiche !== null) {
-      divTempsAffiche.innerHTML = `${Math.floor(tempsRestant / 60)} : ${
-        tempsRestant % 60 < 10 ? "0" : ""
-      }${tempsRestant % 60}`;
-    }
-  }
-
-  function alternerAffichagePoints() {
-    const divFondPanneauPoints = document.getElementById("fondPanneauPoints");
-    const divContenuPanneauPoints = document.getElementById(
-      "contenuPanneauPoints"
-    );
-    if (divFondPanneauPoints !== null && divContenuPanneauPoints) {
-      if (divContenuPanneauPoints.style.opacity === "1") {
-        divContenuPanneauPoints.style.opacity = "0%";
-        divFondPanneauPoints.style.opacity = "0%";
+  function toggerPointsInfo (): void {
+    if (pointsInfoBackground && pointsInfoText) {
+      if (pointsInfoText.style.opacity === '1') {
+        pointsInfoText.style.opacity = '0%'
+        pointsInfoBackground.style.opacity = '0%'
       } else {
-        divContenuPanneauPoints.style.opacity = "100%";
-        divFondPanneauPoints.style.opacity = "70%";
+        pointsInfoText.style.opacity = '100%'
+        pointsInfoBackground.style.opacity = '70%'
       }
     }
   }
@@ -353,165 +234,192 @@
   <title>Mathador - topmaths</title>
 </svelte:head>
 
-<div class="w-screen max-w-screen-lg">
-  <div class="">
-    <h1
-      class="title text-2xl md:text-4xl font-semibold p-4 text-white bg-violet-800 rounded-tl-3xl rounded-br-3xl"
-    >
-      Mathador
-    </h1>
-    <div class="text-base md:text-lg p-8">
-      <div class="relative">
-        <div id="boutonPoints" class="is-clickable">
-          <button
-            on:click={alternerAffichagePoints}
-            on:keydown={alternerAffichagePoints}
-          >
-            <img
-              src="topmaths/img/gvalmont/p-circle.svg"
-              alt="Symbole P entouré"
-            />
-          </button>
-        </div>
-        <div id="fondPanneauPoints" />
-        <div id="contenuPanneauPoints" class="text-center text-base md:text-xl ml-2 md:ml-5">
-          <ul>
-            <li>&plus; Addition : 1 pt</li>
-            <li>&times; Multiplication : 1 pt</li>
-            <li>&minus; Soustraction : 2 pts</li>
-            <li>&div; Division : 3 pts</li>
-          </ul>
-        </div>
-        <div class="flex items-center justify-center">
-          Atteindre &nbsp; <figure
-            class="flex items-center justify-center text-2xl md:text-4xl font-semibold size-24 md:size-32 text-black"
-            style="background-image:url('/topmaths/img/cc0/target-svgrepo-com.svg'); background-position:center;"
-          >
-            {nombreCible}
-          </figure>
-        </div>
-      </div>
-      <div class="flex items-center justify-center p-6 md:p-8">
-        En utilisant
-        <div class="text-lg md:text-2xl flex flex-row">
-          <figure
-            class="flex items-center justify-center m-2 carte"
-            style="border-color: #FBBF24;"
-          >
-            {donnee1}
-          </figure>
-          <figure
-            class="flex items-center justify-center m-2 carte"
-            style="border-color: #A3E635;"
-          >
-            {donnee2}
-          </figure>
-          <figure
-            class="flex items-center justify-center m-2 carte"
-            style="border-color: #22D3EE;"
-          >
-            {donnee3}
-          </figure>
-          <figure
-            class="flex items-center justify-center m-2 carte"
-            style="border-color: #A78BFA;"
-          >
-            {donnee4}
-          </figure>
-          <figure
-            class="flex items-center justify-center m-2 carte"
-            style="border-color: #F472B6;"
-          >
-            {donnee5}
-          </figure>
-        </div>
-      </div>
-      <br />
-      <div class="flex flex-row items-center justify-center my-auto text-base md:text-xl">
-        <select on:change={() => setupMinuteur(event)}>
-          <option>Minuteur</option>
-          {#each durees as duree}
-            <option>{duree} min</option>
-          {/each}
-        </select>
-        <div class="is-link ml-2">
-          {#if minuteurEnFonctionnement}
-            <button on:click={arreterMinuteur}>
-              <i>
-                <img class="size-6 md:size-8" src="/topmaths/img/cc0/pause-svgrepo-com.svg" alt="Pause" />
-              </i>
-            </button>
-          {:else if tempsRestant > 0}
-            <button on:click={lancerMinuteur}>
-              <i>
-                <img class="size-6 md:size-8" src="/topmaths/img/cc0/play-button-svgrepo-com.svg" alt="Play" />
-              </i>
-            </button>
-          {/if}
-        </div>
-        <div
-          class="ml-2"
-          id="divTempsAffiche"
-          class:text-red-500={tempsRestant <= 0}
-          class:shake={tempsRestant <= 0}
-        />
-      </div>
-      <br />
-      <p class="has-text-grey">
-        Il {nombreDeSolutions === -1
-          ? "y a ... possibilités"
-          : nombreDeSolutions > 1
-          ? "y a " + nombreDeSolutions + " possibilités"
-          : nombreDeSolutions === 1
-          ? "y a 1 possibilité"
-          : "n'y a aucune possibilité"} de coup Mathador.
-      </p>
-    </div>
-    <button class="button is-warning rounded-lg py-2 px-4" on:click={relancer}>Relancer</button> &nbsp;
-    &nbsp;
-    <button
-      class="button is-success rounded-lg py-2 px-4"
-      class:is-inverted={solutionsAffichees}
-      on:click={() => {
-        solutionsAffichees = !solutionsAffichees;
-        interpreterLaTeX();
-      }}
-    >
-      {solutionsAffichees
-        ? "Cacher les solutions"
-        : "Afficher les solutions"}</button
-    >
-    <br /><br />
-    {#if solutionsAffichees}
-      <p
-        id="divSolutions"
-        contenteditable="false"
-        bind:innerHTML={stringSolutions}
-        class="is-size-5"
+<h1
+  class="title rounded-tl-3xl rounded-br-3xl p-4 font-semibold
+    text-white dark:text-violet-800
+    bg-violet-800 dark:bg-inherit dark:border-violet-800 dark:border-4
+    text-2xl md:text-4xl"
+>
+  Mathador
+</h1>
+<div class="p-8">
+  <div class="relative">
+    <div class="absolute top-0 left-0 z-50">
+      <ButtonImage
+        color="link"
+        imageSrc="/topmaths/img/gvalmont/p-circle.svg"
+        imageAlt="Symbole P entouré"
+        imageClass="size-12"
+        class="border-2 rounded-full p-0"
+        on:click={toggerPointsInfo}
       />
-    {/if}
     </div>
-  <div class="text-base p-8">
-    Si vous ne connaissez pas le super jeu qu'est Mathador, je vous encourage à
-    visiter <a
-      class="has-text-link"
-      href="https://www.mathador.fr/index.php"
-      target="_blank"
-      rel="noopener noreferrer">le site officiel</a
-    > !
-  </div>
-  <div class="text-sm p-4">
-    <i
-      >Mathador est une marque protégée d'Eric Trouillot et de Réseau Canopé,
-      enregistrée en France. Eric Trouillot est le concepteur du jeu Mathador
-      que vous pouvez retrouver sur le site www.mathador.fr. Le site
-      www.topmaths.fr est un site indépendant et n’est pas affilié à
-      www.mathador.fr.</i
+    <div
+      bind:this={pointsInfoBackground}
+      id="points-info-background"
+    />
+    <div
+      bind:this={pointsInfoText}
+      id="points-info-text"
+      class="text-center
+        text-base md:text-xl
+        ml-2 md:ml-5"
     >
+      <ul>
+        <li>&plus; Addition : 1 pt</li>
+        <li>&times; Multiplication : 1 pt</li>
+        <li>&minus; Soustraction : 2 pts</li>
+        <li>&div; Division : 3 pts</li>
+      </ul>
+    </div>
+    <div class="flex items-center justify-center">
+      Atteindre &nbsp;
+      <figure
+        class="flex items-center justify-center font-semibold
+          text-2xl md:text-4xl
+          size-24 md:size-32"
+        style="background-image:url('/topmaths/img/cc0/target-svgrepo-com.svg'); background-position:center;"
+      >
+        {targetNumber}
+      </figure>
+    </div>
   </div>
+  <div class="flex items-center justify-center
+    p-6 md:p-8"
+  >
+    En utilisant
+    <div class="flex flex-row
+      text-lg md:text-2xl"
+    >
+      <figure
+        class="flex items-center justify-center m-2 carte border-[#FBBF24]"
+      >
+        {number1}
+      </figure>
+      <figure
+        class="flex items-center justify-center m-2 carte border-[#A3E635]"
+      >
+        {number2}
+      </figure>
+      <figure
+        class="flex items-center justify-center m-2 carte border-[#22D3EE]"
+      >
+        {number3}
+      </figure>
+      <figure
+        class="flex items-center justify-center m-2 carte border-[#A78BFA]"
+      >
+        {number4}
+      </figure>
+      <figure
+        class="flex items-center justify-center m-2 carte border-[#F472B6]"
+      >
+        {number5}
+      </figure>
+    </div>
+  </div>
+  <div class="flex flex-row justify-center items-center">
+    <div class="is-link interactive">
+      <select class="border border-is-link
+        bg-topmaths-canvas dark:bg-topmathsdark-canvas
+        text-base md:text-lg"
+      >
+        <option>Minuteur</option>
+        {#each range(9) as i}
+          <option on:click={() => setupTimer(i + 1)}>{i + 1} min</option>
+        {/each}
+      </select>
+    </div>
+    <div class="is-link ml-2 flex justify-center">
+      {#if isTimerActive}
+        <ButtonImage
+          color="link"
+          class="border-2"
+          imageSrc="/topmaths/img/cc0/pause-svgrepo-com.svg"
+          imageAlt="Pause"
+          imageClass="size-6 md:size-8"
+          on:click={stopTimer}
+        />
+      {:else if secondsLeft > 0}
+        <ButtonImage
+          color="link"
+          class="border-2"
+          imageSrc="/topmaths/img/cc0/play-button-svgrepo-com.svg"
+          imageAlt="Play"
+          imageClass="size-6 md:size-8"
+          on:click={startTimer}
+        />
+      {/if}
+    </div>
+    <div
+      bind:this={displayTimeDiv}
+      class="ml-2
+        text-lg md:text-2xl
+        {secondsLeft <= 0 ? 'text-red-500 shake' : ''}"
+    />
+  </div>
+  <br />
+  <p class="has-text-grey">
+    Il {solutions.length > 1
+      ? 'y a ' + solutions.length + ' possibilités'
+      : solutions.length === 1
+        ? 'y a 1 possibilité'
+        : "n'y a aucune possibilité"} de coup Mathador.
+  </p>
 </div>
-<div id="sonDejaJoue" class="cache" />
-<audio id="audioElement">
+<button
+  class="button border is-tout is-full rounded-lg py-2 px-4"
+  on:click={reroll}
+>
+  Relancer
+</button>
+<button
+  class="button border is-green is-full rounded-lg py-2 px-4 ml-4 mb-8"
+  on:click={() => {
+    isSolutionsDisplayed = !isSolutionsDisplayed
+    renderSolutionsDiv()
+  }}
+>
+  {isSolutionsDisplayed ? 'Cacher les solutions' : 'Afficher les solutions'}
+</button>
+{#if isSolutionsDisplayed}
+  <p
+    bind:this={solutionsDiv}
+    class="is-size-5"
+  >
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+  {@html solutions.map((solution) => solution.writing).join('<br><br>')}
+  </p>
+{/if}
+<div class="p-8
+  text-sm md:text-base"
+>
+  Si vous ne connaissez pas le super jeu qu'est Mathador, je vous encourage à visiter
+  <AnchorExternal href="https://www.mathador.fr/index.php">
+    le site officiel
+  </AnchorExternal>
+  !
+</div>
+<div class="p-4
+  text-xs md:text-sm"
+>
+  <i>
+    Mathador est une marque protégée d'Eric Trouillot et de Réseau Canopé, enregistrée en France.
+    Eric Trouillot est le concepteur du jeu Mathador que vous pouvez retrouver sur le site
+    <AnchorExternal href="https://www.mathador.fr">
+      www.mathador.fr
+    </AnchorExternal>.
+    Le site
+    <AnchorExternal href="https://topmaths.fr">
+      topmaths.fr
+    </AnchorExternal>
+    est un site indépendant et n’est pas affilié à
+    <AnchorExternal href="https://www.mathador.fr">
+      www.mathador.fr
+    </AnchorExternal>.
+  </i>
+</div>
+<audio bind:this={audioElement}>
   <source
     src="/topmaths/mp3/BELLHand_Sonnette de velo 2 (ID 0275)_LS.mp3"
     type="audio/mpeg"
@@ -519,13 +427,13 @@
   Votre navigateur ne supporte pas les éléments audio.
 </audio>
 
-<style>
+<style lang="scss">
+  @import '../../styles/tailwind-colors.scss';
   .carte {
     width: 35px;
     height: 45px;
     border-style: solid;
     border-width: 5px;
-    color: black;
     border-radius: 10px;
   }
 
@@ -536,31 +444,26 @@
     }
   }
 
-  #boutonPoints {
+  #points-info-background,
+  #points-info-text {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 40px;
-    z-index: 150;
-  }
-
-  #fondPanneauPoints,
-  #contenuPanneauPoints {
-    position: absolute;
-    top: 0;
-    left: 40;
+    left: 25px;
     width: 210px;
     height: 150px;
     pointer-events: none;
     transition: opacity 1s;
   }
 
-  #fondPanneauPoints {
-    background-color: white;
+  #points-info-background {
+    background-color: $topmaths-canvas-default;
     opacity: 0%;
+    :global(.dark) & {
+      background-color: $topmathsdark-canvas-default;
+    }
   }
 
-  #contenuPanneauPoints {
+  #points-info-text {
     opacity: 0%;
     text-align: center;
   }
