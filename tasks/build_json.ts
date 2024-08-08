@@ -11,9 +11,9 @@ import type { RecursivePartial } from '../src/lib/types.js'
 import { deepCopy, type ReplaceReferencesByStrings } from '../src/topmaths/types/shared.js'
 import { emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/grade.js'
 import { buildGradeFromObjectiveReference } from '../src/topmaths/services/reference.js'
-import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference } from '../src/topmaths/types/objective.js'
+import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference } from '../src/topmaths/types/objective.js'
 import { type Unit, type UnitObjective, emptyUnitDownloadLinks, type UnitLessonPlan, isUnitLessonPlans, type UnitWithStringReference, type UnitReference, isUnitWithStringReference } from '../src/topmaths/types/unit.js'
-import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem } from '../src/topmaths/types/glossary.js'
+import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem, isGlossaryUniteItems } from '../src/topmaths/types/glossary.js'
 import { type CalendarSchoolYearMaster, isCalendarSchoolYearMasters, type CalendarSchoolYear, isCalendarSchoolYears, type CalendarPeriod } from '../src/topmaths/types/calendar.js'
 import { type CurriculumGrade, type CurriculumValue, isCurriculum, type Curriculum, emptyCurriculumValue } from '../src/topmaths/types/curriculum.js'
 import { countLessonPlans } from './helpers/lesson_plans.js'
@@ -199,7 +199,7 @@ function updateObjectives (): void {
 
 function buildGlossary (): GlossaryUniteItem[] {
   const definitions: RecursivePartial<GlossaryMasterItem>[] = definitionsJson
-  const properties: Partial<GlossaryMasterItem>[] = propertiesJson
+  const properties: Partial<ReplaceReferencesByStrings<ObjectiveReference, GlossaryMasterItem>>[] = propertiesJson
   const formattedMasterDefinitions = definitions.map(item => formatItem(item, 'définition'))
   const formattedMasterProperties = properties.map(item => formatItem(item, 'propriété'))
   const glossaryMasterItems = formattedMasterDefinitions.concat(formattedMasterProperties)
@@ -207,6 +207,10 @@ function buildGlossary (): GlossaryUniteItem[] {
   updateRelatedItems(glossaryUniteItems)
   glossaryUniteItems.forEach(item => item.relatedItems.sort(comparerTitres))
   glossaryUniteItems.sort(comparerTitres)
+  if (!isGlossaryUniteItems(glossaryUniteItems)) {
+    console.error(glossaryUniteItems)
+    throw new Error('Glossary items are not GlossaryUniteItems')
+  }
   return glossaryUniteItems
 }
 

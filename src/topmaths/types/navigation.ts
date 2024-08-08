@@ -28,8 +28,21 @@ export function isInfoReferences (obj: unknown): obj is ReferenceInfo[] {
   if (obj == null || !Array.isArray(obj)) return false
   return obj.every(isInfoReference)
 }
-const referenceValidKeys = ['', ...referenceInfoValidKeys, ...objectivesReferences, ...unitsReferences, ...specialUnitsReferences]
-export type Reference = '' | ReferenceInfo | ObjectiveReference | UnitReference | SpecialUnitReference
+
+const referenceStudentValidKeys = <const>['glossary', 'tuto', 'download']
+type ReferenceStudentValidKeysType = typeof referenceStudentValidKeys
+export type ReferenceStudent = ReferenceStudentValidKeysType[number]
+export function isStudentReference (obj: unknown): obj is ReferenceStudent {
+  if (obj == null || typeof obj !== 'string') return false
+  return referenceStudentValidKeys.includes(obj as ReferenceStudent)
+}
+export function isStudentReferences (obj: unknown): obj is ReferenceStudent[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isStudentReference)
+}
+
+const referenceValidKeys = ['', ...referenceInfoValidKeys, ...referenceStudentValidKeys, ...objectivesReferences, ...unitsReferences, ...specialUnitsReferences]
+export type Reference = '' | ReferenceInfo | ReferenceStudent | ObjectiveReference | UnitReference | SpecialUnitReference
 export function isReference (obj: unknown): obj is Reference {
   if (obj == null || typeof obj !== 'string') return false
   return referenceValidKeys.includes(obj as Reference)

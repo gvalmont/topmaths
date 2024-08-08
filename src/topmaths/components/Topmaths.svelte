@@ -30,7 +30,6 @@
 
   let isCartEmpty: boolean = true
   let innerWidth: number
-  let isDevMode: boolean = false
   let isDarkMode: boolean = false
   let isMd: boolean
   $: isMd = innerWidth >= 768
@@ -39,7 +38,6 @@
   $: document.documentElement.classList.toggle('dark', isDarkMode)
 
   onMount(() => {
-    isDevMode = window.location.href.startsWith('http://localhost')
     Cart.subscribe(handleCartUpdate)
     addEventListener('popstate', updateParams)
     addDarkModeListener()
@@ -110,10 +108,11 @@
 </svelte:head>
 
 <svelte:window bind:innerWidth />
-<div class="flex flex-col items-center text-center
-  text-base md:text-xl
-  text-topmaths-corpus dark:text-topmathsdark-corpus
-  bg-topmaths-canvas dark:bg-topmathsdark-canvas"
+<div id="top"
+  class="flex flex-col items-center text-center
+    text-base md:text-xl
+    text-topmaths-corpus dark:text-topmathsdark-corpus
+    bg-topmaths-canvas dark:bg-topmathsdark-canvas"
 >
   <HeaderMenu
     view={$view}

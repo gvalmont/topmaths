@@ -1,4 +1,5 @@
 import { isStringGrade, type StringGrade } from './grade.js'
+import { isObjectiveReferences, type ObjectiveReference } from './objective.js'
 
 export type GlossaryRelatedItem = {
   reference: string,
@@ -26,7 +27,7 @@ export type GlossaryItem = {
   includesImage: boolean,
   keywords: string[],
   reference: string,
-  relatedObjectives: string[],
+  relatedObjectives: ObjectiveReference[],
   relatedItems: GlossaryRelatedItem[],
   type: 'définition' | 'propriété'
 }
@@ -39,7 +40,7 @@ export function isGlossaryItem (obj: unknown): obj is GlossaryItem {
     'includesImage' in obj && typeof obj.includesImage === 'boolean' &&
     'keywords' in obj && Array.isArray(obj.keywords) && obj.keywords.every(keyword => typeof keyword === 'string') &&
     'reference' in obj && typeof obj.reference === 'string' &&
-    'relatedObjectives' in obj && Array.isArray(obj.relatedObjectives) && obj.relatedObjectives.every(relatedObjective => typeof relatedObjective === 'string') &&
+    'relatedObjectives' in obj && isObjectiveReferences(obj.relatedObjectives) &&
     'relatedItems' in obj && Array.isArray(obj.relatedItems) && obj.relatedItems.every(isGlossaryRelatedItem) &&
     'type' in obj && (obj.type === 'définition' || obj.type === 'propriété')
 }
