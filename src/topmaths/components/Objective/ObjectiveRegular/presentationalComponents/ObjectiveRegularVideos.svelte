@@ -19,7 +19,7 @@
         {video.title}
       </h3>
     {/if}
-    <div class="aspect-ratio-16-9">
+    <div class="is-16by9">
       <iframe
         src={video.videoLink}
         title="Vidéo d'explication"
@@ -40,18 +40,3 @@
     </p>
   </div>
 {/each}
-
-<style>
-  .aspect-ratio-16-9 {
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%; /* 16:9 ratio */
-  }
-  .aspect-ratio-16-9 iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>

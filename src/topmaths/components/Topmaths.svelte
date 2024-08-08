@@ -8,7 +8,7 @@
   import { ElementInstrumenpoche } from '../../modules/ElementInstrumenpoche'
   import Student from './Student/Student.svelte'
   import Practice from './Practice/Practice.svelte'
-  import { isTeacherMode, isPersonalMode, reference, view } from '../services/store'
+  import { isTeacherMode, isPersonalMode, reference, view, reference2 } from '../services/store'
   import Exercise from './Exercise/Exercise.svelte'
   import HeaderMenu from './presentationalComponents/HeaderMenu/HeaderMenu.svelte'
   import { cacheData } from '../services/data'
@@ -67,6 +67,7 @@
     const entries = url.searchParams.entries()
     let newView: View = 'home'
     let newRef: Reference = ''
+    let newRef2: string = ''
     for (const entry of entries) {
       if (entry[0] === 'v') {
         const viewCandidate = entry[1]
@@ -80,9 +81,13 @@
           newRef = refCandidate
         }
       }
+      if (entry[0] === 'ref2') {
+        newRef2 = entry[1]
+      }
     }
     view.set(newView)
     reference.set(newRef)
+    reference2.set(newRef2)
   }
 
   function addDarkModeListener (): void {

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { goToView } from '../../services/navigation'
   import { reference2 } from '../../services/store'
+  import MainMenuItem from '../shared/MainMenuItem.svelte'
   import InstallationAnki from './tutos/InstallationAnki.svelte'
 </script>
 
@@ -8,25 +8,24 @@
   <title>Tutos - topmaths</title>
 </svelte:head>
 
-<div class="w-screen max-w-screen-lg">
+<div class="grade-container is-5e
+  rounded-4xl md:rounded-5xl"
+>
   {#if $reference2 === ''}
-    <h1
-      style="border-radius: 50px 50px 0px 0px; padding: 5px 50px 5px 50px; margin-bottom: 0px; background-color: #9333ea; color: white; font-size: xx-large; font-weight: 600;"
-    >
+  <h1 class="title mb-8
+    text-2xl md:text-4xl
+    rounded-t-4xl md:rounded-t-5xl">
       Tutos
     </h1>
-    <div style="background-color: #faf5ff; border-radius: 0px 0px 50px 50px; ">
-      <div>
-        <br /><br />
-        <a
-          href="/?v=student&ref=tuto&name=installation-anki"
-          on:click={(event) => goToView(event, 'student', 'tuto', 'installation-anki')}
-        >
-          <button class="button is-large is-5e is-outlined p-6">
-            <p class="enorme">Comment installer Anki</p>
-          </button>
-        </a>
-      </div>
+    <div class="pb-1">
+      <MainMenuItem
+        view='student'
+        ref='tuto'
+        ref2='installation-anki'
+        color='5e'
+      >
+        Comment installer Anki
+      </MainMenuItem>
     </div>
   {:else}
     {#if $reference2 === 'installation-anki'}

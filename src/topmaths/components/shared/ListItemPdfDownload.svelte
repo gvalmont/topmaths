@@ -13,7 +13,11 @@
   <li class="flex justify-center
     p-1 md:p-2"
   >
-    <a {href}>
+    <a
+      {href}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <TextImage
         imageSrc="/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
         imageAlt="Fichier PDF"

@@ -6,19 +6,28 @@
 
   export let view: View
   export let ref: Reference = ''
+  export let ref2: string = ''
   export let color: ThemeColor
   export let imageSrc: string = ''
   export let imageAlt: string = ''
+
+  let href: string
+  $: {
+    let newHref = `?v=${view}`
+    if (ref !== '') newHref += `&ref=${ref}`
+    if (ref2 !== '') newHref += `&ref2=${ref2}`
+    href = newHref
+  }
 </script>
 
 <div class="mb-5 md:mb-8">
-  <a href='?v={view}{ref !== '' ? `&ref=${ref}` : ''}'>
+  <a {href}>
     <ButtonImage
       {color}
       {imageSrc}
       {imageAlt}
       class="w-[140px] inline-flex md:w-[260px] h-14 md:h-24 rounded md:rounded-lg border"
-      on:click={(event) => goToView(event, view, ref)}
+      on:click={(event) => goToView(event, view, ref, ref2)}
     >
       <slot />
     </ButtonImage>
