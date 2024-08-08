@@ -61,6 +61,7 @@ const config = {
         // Keep in sync with src/topmaths/styles/tailwind-colors.scss
         topmaths: {
           DEFAULT: '#0284c7',
+          filter: 'invert(51%) sepia(74%) saturate(6105%) hue-rotate(179deg) brightness(92%) contrast(98%)',
           canvas: {
             DEFAULT: '#ffffff', // Keep in sync with index.html html, body background-color
             dark: '#f6f6f6'
@@ -72,6 +73,7 @@ const config = {
         },
         topmathsdark: {
           DEFAULT: '#0ea5e9',
+          filter: 'invert(53%) sepia(84%) saturate(1728%) hue-rotate(166deg) brightness(92%) contrast(99%)',
           canvas: {
             DEFAULT: '#18181b', // Keep in sync with index.html prefers-color-scheme: dark html, body background-color
             dark: '#1f1f24'
@@ -105,7 +107,7 @@ const config = {
           },
           info: {
             DEFAULT: '#3e8ed0',
-            light: '#296fa8',
+            light: 'e7f4fc',
             filter: 'invert(49%) sepia(45%) saturate(746%) hue-rotate(165deg) brightness(94%) contrast(83%)',
             darker: {
               DEFAULT: '#4175d2',
@@ -125,7 +127,7 @@ const config = {
           },
           purple: {
             DEFAULT: '#9333ea',
-            light: '#e93fa5',
+            light: '#faf5ff',
             filter: 'invert(22%) sepia(70%) saturate(3716%) hue-rotate(264deg) brightness(94%) contrast(95%)'
           },
           tout: {

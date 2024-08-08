@@ -1,11 +1,13 @@
 // Keep in sync with tailwind.config.js colors
 $topmaths-default: #0284c7;
+$topmaths-filter: invert(51%) sepia(74%) saturate(6105%) hue-rotate(179deg) brightness(92%) contrast(98%);
 $topmaths-canvas-default: #ffffff;
 $topmaths-canvas-dark: #f6f6f6;
 $topmaths-corpus-default: #1F2429;
 $topmaths-corpus-light: #45505b;
 
 $topmathsdark-default: #0ea5e9;
+$topmathsdark-filter: invert(53%) sepia(84%) saturate(1728%) hue-rotate(166deg) brightness(92%) contrast(99%);
 $topmathsdark-canvas-default: #18181b;
 $topmathsdark-canvas-dark: #1f1f24;
 $topmathsdark-corpus-default: #b0b0b0;
@@ -29,7 +31,7 @@ $is-link-light: #eff1fa;
 $is-link-filter: invert(29%) sepia(98%) saturate(796%) hue-rotate(203deg) brightness(101%) contrast(88%);
 
 $is-info-default: #3e8ed0;
-$is-info-light: #296fa8;
+$is-info-light: #e7f4fc;
 $is-info-filter: invert(49%) sepia(45%) saturate(746%) hue-rotate(165deg) brightness(94%) contrast(83%);
 $is-info-darker-default: #4175d2;
 $is-info-darker-light: #e93fa5;
@@ -44,7 +46,7 @@ $is-danger-light: #fcd4dc;
 $is-danger-filter: invert(44%) sepia(73%) saturate(4057%) hue-rotate(324deg) brightness(98%) contrast(92%);
 
 $is-purple-default: #9333ea;
-$is-purple-light: #e93fa5;
+$is-purple-light: #faf5ff;
 $is-purple-filter: invert(22%) sepia(70%) saturate(3716%) hue-rotate(264deg) brightness(94%) contrast(95%);
 
 $is-tout-default: #feb60a;
