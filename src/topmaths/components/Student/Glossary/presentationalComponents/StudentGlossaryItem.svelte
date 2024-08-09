@@ -26,7 +26,10 @@
     shadow-3 dark:border dark:border-is-info
     bg-topmaths-canvas dark:bg-topmathsdark-canvas"
 >
-  <a href="#{item.reference}">
+  <a
+    class="is-interactive"
+    href="#{item.reference}"
+  >
     <h3 class="font-semibold">
       {item.title}
     </h3>

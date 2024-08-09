@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { StringGrade } from '../../types/grade'
-  import TextImage from './TextImage.svelte'
 
   // eslint-disable-next-line no-undef-init
   export let displayCondition: boolean | undefined = undefined
@@ -14,17 +13,18 @@
     p-1 md:p-2"
   >
     <a
+      class="is-interactive is-{grade} flex flex-row"
       {href}
       target="_blank"
       rel="noopener noreferrer"
     >
-      <TextImage
-        imageSrc="/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
-        imageAlt="Fichier PDF"
-        color={grade}
-      >
       {label}
-      </TextImage>
+      <img
+        class="ml-2 is-icon
+          size-4 md:size-6"
+        src="/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
+        alt="Fichier PDF"
+      />
     </a>
   </li>
 {/if}

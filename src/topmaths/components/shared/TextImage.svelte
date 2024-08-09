@@ -10,7 +10,7 @@
 </script>
 
 <button
-  class="{$$props.class} flex flex-row button is-{color} is-borderless
+  class="{$$props.class} flex flex-row button is-{color}
     {isHovered || isFocused ? 'is-active' : ''}"
   disabled={$$props.disabled}
   on:mouseenter={() => { isHovered = true }}
@@ -21,7 +21,7 @@
 >
   <slot />
   <img
-    class="ml-2 is-borderless
+    class="ml-2
       size-4 md:size-6"
     src={imageSrc}
     alt={imageAlt}

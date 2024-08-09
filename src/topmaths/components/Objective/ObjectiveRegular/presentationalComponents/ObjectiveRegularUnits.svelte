@@ -18,6 +18,7 @@
   {#each units as unit}
     <li class="p-2 is-{unit.grade}">
       <a
+        class="is-interactive"
         href="/?v=unit&ref={unit.reference}"
         on:click={(event) =>
           goToView(event, 'unit', unit.reference)}

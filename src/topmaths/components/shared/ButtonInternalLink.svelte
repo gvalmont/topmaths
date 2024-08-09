@@ -9,7 +9,7 @@
 
 <button
   on:click={(event) => goToView(event, view, reference)}
-  class="interactive"
+  class="is-interactive is-topmaths"
 >
   <slot />
 </button>

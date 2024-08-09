@@ -68,6 +68,7 @@
     </p>
   </div>
   <a
+    class="is-interactive"
     href="https://concours.castor-informatique.fr/?"
     target="_blank"
     rel="noopener noreferrer"
@@ -89,7 +90,7 @@
     rel="noopener noreferrer"
   >
     <button
-      class="button is-link is-full border rounded p-2 mb-8"
+      class="button is-link border rounded p-2 mb-8"
     >
       Continuer une séance Algorea
     </button>
@@ -97,7 +98,10 @@
   <ul>
     {#each seances as seance, i}
       <li>
-        <a href="https://concours.castor-informatique.fr/?team=seriousg{i + 1}">
+        <a
+          class="is-interactive"
+          href="https://concours.castor-informatique.fr/?team=seriousg{i + 1}"
+        >
           <h2 class="subtitle text-xl md:text-3xl p-3">
             Séance {i + 1} : Algorea - {seance}
           </h2>

@@ -12,6 +12,7 @@
 </script>
 
 <a
+  class="is-interactive"
   href="/?v={view}&ref={item.reference}"
   on:click={(event) => goToView(event, view, item.reference)}
 >

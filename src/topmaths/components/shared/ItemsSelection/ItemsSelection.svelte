@@ -174,13 +174,14 @@
             </div>
           </div>
           {#each $filteredItems.filter(item => isUnit(item)).filter(unit => unit.grade === grade).filter(unit => unit.term === term) as unit}
-          <div class="flex flex-row border-t
+          <div class="flex flex-row border-t is-{unit.grade}
             text-sm md:text-base"
           >
             <div class="w-1/4 flex flex-col justify-center items-center">
               <div class="flex flex-row grow w-full">
                 <div class="w-1/4 flex items-center justify-center">
                   <a
+                    class="is-interactive"
                     href='?v=unit&ref={unit.reference}'
                     on:click={(event) => goToView(event, 'unit', unit.reference)}
                   >
@@ -197,6 +198,7 @@
                   <div class="flex flex-row grow w-full is-theme-{buildThemeFromReference(objective.reference)}">
                     <div class="w-1/12 flex items-center justify-center">
                       <a
+                        class="is-interactive"
                         href='?v=objective&ref={objective.reference}'
                         on:click={(event) => goToView(event, 'objective', objective.reference)}
                       >

@@ -319,7 +319,7 @@
     </div>
   </div>
   <div class="flex flex-row justify-center items-center">
-    <div class="is-link interactive">
+    <div class="is-link is-interactive">
       <select class="border border-is-link
         bg-topmaths-canvas dark:bg-topmathsdark-canvas
         text-base md:text-lg"
@@ -368,13 +368,13 @@
   </p>
 </div>
 <button
-  class="button border is-tout is-full rounded-lg py-2 px-4"
+  class="button border is-tout rounded-lg py-2 px-4"
   on:click={reroll}
 >
   Relancer
 </button>
 <button
-  class="button border is-green is-full rounded-lg py-2 px-4 ml-4 mb-8"
+  class="button border is-green rounded-lg py-2 px-4 ml-4 mb-8"
   on:click={() => {
     isSolutionsDisplayed = !isSolutionsDisplayed
     renderSolutionsDiv()

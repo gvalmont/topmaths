@@ -3,6 +3,7 @@
 $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
 
 .button {
+  background-color: transparent;
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -18,178 +19,88 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
   }
 }
 
-@mixin interactive($main-color, $dark-color, $shadow-size: 0.25em) {
-  color: #{$main-color};
-  .dark & {
-    color: #{$dark-color};
-    &:hover,
-    &:focus {
-      filter: drop-shadow(0 0 $shadow-size $dark-color);
-    }
-  }
-}
-
-.interactive {
-  @include interactive($topmaths-default, $topmathsdark-default)
-}
-
-@mixin theme-style($class-name, $main-color, $light-color, $filter) {
+@mixin theme-style($class-name, $main-color, $light-color, $filter, $dark-color: $main-color) {
   $main-color-transparent: mix(rgba($main-color, 0), $main-color, 85%);
+  $dark-color-transparent: mix(rgba($dark-color, 0), $dark-color, 85%);
   .#{$class-name} {
-    a:not(:has(.button)) {
-      @include interactive($main-color, $main-color, 0.7rem);
-      .title,
-      .subtitle {
-        .dark & {
-          background: none;
-          background-color: $main-color-transparent;
+    border-color: $main-color;
+    .dark & {
+      border-color: $dark-color;
+    }
+    .is-interactive,
+    &.is-interactive {
+      color: $main-color;
+      .is-icon {
+        filter: $filter;
+      }
+      .dark & {
+        color: $dark-color;
+        &:hover,
+        &:focus {
+          filter: drop-shadow(0 0 0.7rem $dark-color);
         }
       }
     }
-    &.border { // for ClassroomCurriculum.svelte
-      border: 1px solid $main-color;
-    }
-    .border-t { // for ClassroomCurriculum.svelte
-      border-top: 1px solid $main-color;
-    }
     .title {
       color: white;
-      padding: 1rem 1rem 0.5rem;
       background-color: $main-color;
       font-weight: 600;
+      padding: 1rem 1rem 0.5rem;
       .dark & {
-        color: $main-color;
-        background-color: $main-color-transparent;
+        color: $dark-color;
+        background-color: $dark-color-transparent;
       }
     }
     .subtitle {
       color: white;
-      padding: 0.5rem 1rem;
       background-color: $main-color;
       font-weight: 550;
+      padding: 0.5rem 1rem;
       .dark & {
-        color: $main-color;
-        background: linear-gradient(to top, $topmathsdark-canvas-default -40%, $main-color-transparent 100%);
+        color: $dark-color;
+        background: linear-gradient(to top, $topmathsdark-canvas-default -40%, $dark-color-transparent 100%);
       }
     }
     .tooltiptext {
-      background-color: $light-color;
       color: $main-color;
-      .dark & {
-        background-color: $topmathsdark-canvas-default;
-        color: $main-color;
-        border: 1px solid $main-color;
-      }
-    }
-    &.is-tabs-menu {
       background-color: $light-color;
-      color: $main-color;
       .dark & {
+        color: $dark-color;
         background-color: $topmathsdark-canvas-default;
-        border-top: 1px solid $main-color;
-        border-bottom: 1px solid $main-color;
-        border-left: none;
-        border-right: none;
-        color: $main-color;
-      }
-      &.is-first {
-        border-radius: 1.5rem 0 0 1.5rem;
-        .dark & {
-          border-left: 1px solid $main-color;
-        }
-      }
-      &.is-last {
-        border-radius: 0 1.5rem 1.5rem 0;
-        .dark & {
-          border-right: 1px solid $main-color;
-        }
-      }
-      &:hover,
-      &:focus,
-      &.is-active {
-        background-color: $main-color;
-        color: white;
-        .dark & {
-          background-color: $topmathsdark-canvas-default;
-          color: $main-color;
-          text-shadow: 0 0 0.7rem $main-color;
-          filter: drop-shadow(0 0 0.15em $main-color) drop-shadow(0 0 0.3em $main-color);
-        }
+        border: 1px solid $dark-color;
       }
     }
     &.grade-container {
       background-color: $light-color;
       .dark & {
         background-color: $topmathsdark-canvas-default;
-        border: 1px solid $main-color;
+        border: 1px solid $dark-color;
       }
-    }
-    &.interactive {
-      @include interactive($main-color, $main-color);
-    }
-    &.icon {
-      filter: $filter;
     }
     &.button {
-      background-color: transparent;
-      border-color: #{$main-color};
-      color: #{$main-color};
-      &.is-full {
-        background-color: #{$main-color};
-        color: #fff;
-        .dark & {
-          background-color: $topmathsdark-canvas-default;
-          color: $main-color;
-        }
-        &:focus,
-        &:hover,
-        &.is-active {
-          filter: drop-shadow(0 0 0.15em $main-color);
-        }
-      }
+      color: $main-color;
       &:focus,
       &:hover,
       &.is-active {
-        &:not(.is-borderless) {
-          background-color: #{$main-color};
-          color: #fff;
-        }
+        color: white;
+        background-color: $main-color;
         .dark & {
+          color: $dark-color;
+          border-color: $dark-color;
           background-color: $topmathsdark-canvas-default;
-          color: $main-color;
-          text-shadow: 0 0 0.7rem $main-color;
-          &:not(.is-borderless) {
-            filter: drop-shadow(0 0 0.15em $main-color) drop-shadow(0 0 0.3em $main-color);
-          }
-        }
-      }
-      &[disabled] {
-        background-color: transparent;
-        border-color: #{$main-color};
-        box-shadow: none;
-        color: #{$main-color};
-  
-        &:hover,
-        &.is-active,
-        &:active,
-        &:focus {
-          color: #fff;
+          text-shadow: 0 0 0.7rem $dark-color;
+          filter: drop-shadow(0 0 0.15em $dark-color) drop-shadow(0 0 0.3em $dark-color);
         }
       }
       &.is-light {
-        background-color: #{$light-color};
-        color: #{$main-color};
+        background-color: $light-color;
+        &:focus,
         &:hover,
-        &.is-active,
-        &:active,
-        &:focus {
-          background-color: #{$main-color};
-          color: white;
+        &.is-active {
+          background-color: $main-color;
         }
         .dark & {
           background-color: $topmathsdark-canvas-default;
-          border: 1px solid $main-color;
-          color: $main-color;
         }
       }
       img {
@@ -197,11 +108,7 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
       }
       &.is-active img {
         filter: $white-filter;
-        &.is-borderless {
-          filter: $filter
-        }
         .dark & {
-          color: #{$main-color};
           filter: $filter drop-shadow(0 0 0.4em $main-color);
         }
       }
@@ -210,6 +117,7 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
 }
 
 // Keep $class-name in sync src/topmaths/types/color.ts ButtonColor
+@include theme-style('is-topmaths', $topmaths-default, $topmaths-light, $topmaths-filter, $topmathsdark-default);
 @include theme-style('is-sponsor', $is-sponsor-default, $is-sponsor-light, $is-sponsor-filter);
 @include theme-style('is-fuchsia', $is-fuchsia-default, $is-fuchsia-light, $is-fuchsia-filter);
 @include theme-style('is-green', $is-green-default, $is-green-light, $is-green-filter);

@@ -23,7 +23,7 @@
 <div class="mt-1 collapsible-container">
   <button
     bind:this={collapsibleButton}
-    class="{$$props.class} button collapsible flex items-center interactive
+    class="{$$props.class} button collapsible flex items-center is-interactive
       bg-sky-100 hover:bg-sky-200
       dark:bg-topmathsdark-canvas dark:hover:bg-topmathsdark-canvas
       dark:border dark:border-is-info"

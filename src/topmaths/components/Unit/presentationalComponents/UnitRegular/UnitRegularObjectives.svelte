@@ -19,6 +19,7 @@
     {#if !UNLISTED_THEMES.includes(objective.theme)}
       <li class="p-1 md:p-2 ">
         <a
+          class="is-interactive"
           href="/?v=objective&ref={objective.reference}"
           on:click={(event) => goToView(event, 'objective', objective.reference)}
         >

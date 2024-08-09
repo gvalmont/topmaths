@@ -61,6 +61,7 @@ const config = {
         // Keep in sync with src/topmaths/styles/tailwind-colors.scss
         topmaths: {
           DEFAULT: '#0284c7',
+          light: '#0284c7',
           filter: 'invert(51%) sepia(74%) saturate(6105%) hue-rotate(179deg) brightness(92%) contrast(98%)',
           canvas: {
             DEFAULT: '#ffffff', // Keep in sync with index.html html, body background-color
@@ -73,6 +74,7 @@ const config = {
         },
         topmathsdark: {
           DEFAULT: '#0ea5e9',
+          light: '#0ea5e9',
           filter: 'invert(53%) sepia(84%) saturate(1728%) hue-rotate(166deg) brightness(92%) contrast(99%)',
           canvas: {
             DEFAULT: '#18181b', // Keep in sync with index.html prefers-color-scheme: dark html, body background-color

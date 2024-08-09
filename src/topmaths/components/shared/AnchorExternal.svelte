@@ -7,7 +7,7 @@
   {href}
   target="_blank"
   rel="noopener noreferrer"
-  class="interactive"
+  class="is-interactive is-topmaths"
 >
   <slot />
   <i class='bx bx-link-external' />
