@@ -1,19 +1,23 @@
 <script lang="ts">
-  export let urlBouton: string
-  export let texteDropdown: string
-  export let texteAlternatif: string
-  export let grandTexte = false
+
+  export let dropdownText: string
+  export let imgSrc: string
+  export let imgAlt: string
 </script>
 
 <div class="tooltip">
-  <i>
-    <img class="size-4 md:size-6" src={urlBouton} alt={texteAlternatif} />
-  </i>
-  {#if texteDropdown !== ''}
-  <span class="tooltiptext text-sm md:text-base"
-  class:grand-texte={grandTexte}
-    >{texteDropdown}</span
-  >
+  <img
+    class="is-icon
+      size-4 md:size-6"
+    src={imgSrc}
+    alt={imgAlt}
+  />
+  {#if dropdownText}
+    <span class="tooltiptext
+      text-sm md:text-base"
+    >
+      {dropdownText}
+    </span>
   {/if}
 </div>
 
@@ -37,12 +41,7 @@
     z-index: 1;
   }
 
-  .tooltiptext.grand-texte {
-    width: 240px;
-    opacity: 1;
-  }
-
-  .tooltiptext:not(.grand-texte) {
+  .tooltiptext {
     width: 120px;
     opacity: 0.92;
   }

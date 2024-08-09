@@ -1,10 +1,22 @@
 <script lang="ts">
+  import { onMount, tick } from 'svelte'
   import { getTitle } from '../../../../services/shared'
   import type { Unit } from '../../../../types/unit'
-  import BoutonsExercices from '../../../shared/BoutonsExercices.svelte'
+  import ExercisesButtons from '../../../shared/ExercisesButtons.svelte'
+  import type { CartItem } from '../../../../types/cart'
 
   export let unit: Unit
 
+  let itemsToAddToCart: CartItem[]
+  onMount(async () => {
+    await tick() // else is doesn't work on page reload
+    itemsToAddToCart = unit.objectives
+      .map(objective => objective.exercises
+        .map(exercise => {
+          return { exercise, label: exercise.description || getTitle(objective), reference: objective.reference }
+        }))
+      .flat()
+  })
 </script>
 
 <h2 class="subtitle
@@ -14,23 +26,20 @@
 </h2>
 <div class="p-6 flex flex-col">
   <div class="p-1 md:p-2">
-    <BoutonsExercices
-      exercices = {unit.objectives.map(objectif => objectif.exercises).flat()}
-      lienExercices = {unit.assessmentLink}
-      titre = {`S'entraîner pour l'évaluation${unit.assessmentExamLink ? ' (Automatismes)' : ''}`}
-      reference = {unit.reference}
-      nomsPanier = {unit.objectives.map(objectif => `${objectif.reference} ${getTitle(objectif)}`)}
-    />
+    <ExercisesButtons
+      {itemsToAddToCart}
+      exercisesLink= {unit.assessmentLink}
+    >
+      S'entraîner pour l'évaluation{unit.assessmentExamLink ? ' (Automatismes)' : ''}
+    </ExercisesButtons>
   </div>
   {#if unit.assessmentExamLink}
     <div class="p-1 md:p-2">
-      <BoutonsExercices
-        exercices = {[]}
-        reference = {unit.reference + ' Brevet '}
-        nomsPanier = {[unit.reference]}
-        lienExercices = {unit.assessmentExamLink}
-        titre = {'S\'entraîner pour l\'évaluation (Exercices de brevet)'}
-      />
+      <ExercisesButtons
+        exercisesLink = {unit.assessmentExamLink}
+      >
+        S'entraîner pour l'évaluation{unit.assessmentExamLink ? ' (Brevet)' : ''}
+      </ExercisesButtons>
     </div>
   {/if}
 </div>

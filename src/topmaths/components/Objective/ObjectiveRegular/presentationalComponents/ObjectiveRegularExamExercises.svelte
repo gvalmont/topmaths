@@ -1,11 +1,23 @@
 <script lang="ts">
-  import type { ObjectiveExercise, ObjectiveVideo } from '../../../../types/objective'
-  import BoutonsExercices from '../../../shared/BoutonsExercices.svelte'
+  import { onMount, tick } from 'svelte'
+  import type { ObjectiveExercise, ObjectiveReference, ObjectiveVideo } from '../../../../types/objective'
+  import ExercisesButtons from '../../../shared/ExercisesButtons.svelte'
+  import type { CartItem } from '../../../../types/cart'
 
   export let examExercises: ObjectiveExercise[]
   export let videos: ObjectiveVideo[]
   export let examExercisesLink: string
   export let isExamExercisesInCart: boolean
+  export let objectiveReference: ObjectiveReference
+
+  let itemsToAddToCart: CartItem[]
+  onMount(async () => {
+    await tick() // else is doesn't work on page reload
+    itemsToAddToCart = examExercises
+      .map(exercise => {
+        return { exercise, label: exercise.slug.split('uuid=')[1].split('&')[0], reference: objectiveReference }
+      })
+  })
 </script>
 
 <h2 class="subtitle
@@ -22,13 +34,11 @@
 </div>
 <ul class="p-6">
   <li class="p-2">
-    <BoutonsExercices
-      exercices = {examExercises}
+    <ExercisesButtons
+      {itemsToAddToCart}
       videos = {videos}
-      lienExercices = {examExercisesLink}
-      panierRempli = {isExamExercisesInCart}
-      titre = {'Lancer les exercices de brevet'}
-      exercicesDeBrevet = {true}
+      exercisesLink = {examExercisesLink}
+      isCartEmpty = {isExamExercisesInCart}
     />
   </li>
 </ul>

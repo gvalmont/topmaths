@@ -1,3 +1,4 @@
+import type { View } from '../topmaths/types/navigation'
 import type { CanOptions, CanSolutionsMode } from './types/can'
 import type { Language } from './types/languages'
 
@@ -34,7 +35,7 @@ export const convertVueType = (type : string) : VueType | undefined => {
  * iframe est un identifiant de l'iframe utilisé par des recorders comme Moodle
  */
 export interface InterfaceGlobalOptions {
-  v?: VueType
+  v?: VueType | View
   z?: string
   durationGlobal?: number
   ds?: string

@@ -5,7 +5,7 @@ import { unitsReferences } from './unitsReferences.js'
 import { specialUnitsReferences } from './specialUnitsReferences.js'
 import type { SpecialUnitReference } from './specialUnit'
 
-const viewValidKeys = <const>['home', 'unit', 'objective', 'exercise', 'practice', 'student', 'classroom', 'cart', 'perso', 'info']
+const viewValidKeys = <const>['home', 'unit', 'objective', 'exercise', 'practice', 'student', 'classroom', 'cart', 'perso', 'info', 'latex']
 type ViewValidKeysType = typeof viewValidKeys
 export type View = ViewValidKeysType[number]
 export function isView (obj: unknown): obj is View {

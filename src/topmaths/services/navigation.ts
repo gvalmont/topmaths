@@ -1,6 +1,8 @@
 import { exerciseLinks, view, reference, reference2 } from './store'
-import { isCoopmaths, removeSeed } from './shared'
+import { removeSeed } from './shared'
 import type { Reference, View } from '../types/navigation'
+import { isTopmaths } from './environment'
+import { getParamsFromUrl, updateUrlFromParams } from './mathalea'
 
 export function backToHome (): void {
   view.set('home')
@@ -8,8 +10,7 @@ export function backToHome (): void {
 }
 
 export function goToView (mouseEvent: MouseEvent, destinationView: View, ref?: Reference, ref2?: string): void {
-  const isRegularClick = mouseEvent.button === 0 && !mouseEvent.ctrlKey && !mouseEvent.metaKey
-  if (!isRegularClick) {
+  if (!isRegularClick(mouseEvent)) {
     return // to allow right clicks and opening in new tabs
   }
   mouseEvent.preventDefault()
@@ -19,13 +20,30 @@ export function goToView (mouseEvent: MouseEvent, destinationView: View, ref?: R
   window.history.pushState({}, '', `?v=${destinationView}${ref ? `&ref=${ref}` : ''}${ref2 ? `&ref2=${ref2}` : ''}`)
 }
 
-export function launchExercise (link: string): void {
+export function GoToLatex (mouseEvent: MouseEvent, exercisesLink: string): void {
+  if (!isRegularClick(mouseEvent)) {
+    return // to allow right clicks and opening in new tabs
+  }
+  mouseEvent.preventDefault()
+  const params = getParamsFromUrl(exercisesLink)
+  updateUrlFromParams('latex', params)
+}
+
+export function launchExercise (mouseEvent: MouseEvent, link: string): void {
+  if (!isRegularClick(mouseEvent)) {
+    return // to allow right clicks and opening in new tabs
+  }
+  mouseEvent.preventDefault()
   exerciseLinks.set([])
-  if (isCoopmaths(link)) {
+  if (isTopmaths(link)) {
     launchMathaleaExercise(link)
   } else {
     goTo(link)
   }
+}
+
+export function isRegularClick (mouseEvent: MouseEvent): boolean {
+  return mouseEvent.button === 0 && !mouseEvent.ctrlKey && !mouseEvent.metaKey
 }
 
 function launchMathaleaExercise (link: string): void {

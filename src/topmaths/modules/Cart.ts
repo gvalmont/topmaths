@@ -1,7 +1,5 @@
-import type { ObjectiveExercise } from '../types/objective'
 import { isCartItem, isCartItems, type CartItem } from '../types/cart'
 import Storage from './Storage'
-import { isCoopmaths } from '../services/shared'
 
 export default class Cart {
   private static _items: CartItem[] = []
@@ -19,31 +17,11 @@ export default class Cart {
   }
 
   static add (cartItem: CartItem): void {
-    if (!this.includes(cartItem.id)) {
+    if (!this.includes(cartItem.exercise.id)) {
       const currentItems = this.items
       currentItems.push(cartItem)
       this.items = currentItems // instead of this.items.push(cartItem) to use the setter checks
     }
-  }
-
-  static addExercises (exercises: ObjectiveExercise[], reference: string, exerciseIndex?: number, isExamExercises = false): void {
-    exercises.forEach(exercise => {
-      if (!isCoopmaths(exercise.link)) {
-        console.warn('L\'exercice', exercise.link, 'n\'a pas été ajouté au panier car il n\'est pas un exercice MathALÉA')
-        return
-      }
-      let description = exercise.description ?? (exerciseIndex ? `Ex. ${exerciseIndex + 1}` : '')
-      if (isExamExercises) description = exercise.slug.split('uuid=')[1].split('&')[0]
-      const newItem: CartItem = {
-        id: exercise.id,
-        objectiveReference: reference,
-        label: exercise.id + ' ' + exercise.description,
-        description,
-        slug: exercise.slug
-      }
-      exercise.isInCart = true
-      this.add(newItem)
-    })
   }
 
   static updateFromStorage (): void {
@@ -54,7 +32,7 @@ export default class Cart {
   }
 
   static includes (id: string): boolean {
-    return this.items.some(cartItem => cartItem.id === id)
+    return this.items.some(cartItem => cartItem.exercise.id === id)
   }
 
   private static isCustomEvent (event: Event): event is CustomEvent<CartItem[]> {

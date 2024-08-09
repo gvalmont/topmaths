@@ -1,43 +1,54 @@
 <script lang="ts">
+  import { onMount, tick } from 'svelte'
   import type { ObjectiveExercise, ObjectiveReference, ObjectiveVideo } from '../../../../types/objective'
-  import BoutonsExercices from '../../../shared/BoutonsExercices.svelte'
+  import ExercisesButtons from '../../../shared/ExercisesButtons.svelte'
+  import type { CartItem } from '../../../../types/cart'
 
   export let reference: ObjectiveReference
   export let exercises: ObjectiveExercise[]
   export let videos: ObjectiveVideo[]
   export let exercisesLink: string
   export let isAllExercisesInCart: boolean
+  export let objectiveTitle: string
 
+  let itemsToAddToCart: CartItem[]
+  onMount(async () => {
+    await tick() // else is doesn't work on page reload
+    itemsToAddToCart = exercises
+      .map(exercise => {
+        return { exercise, label: exercise.slug.split('uuid=')[1].split('&')[0], reference }
+      })
+  })
 </script>
 
 <h2 class="subtitle
   text-xl md:text-3xl"
 >
-  <BoutonsExercices
-    reference = {reference}
-    exercices = {exercises}
+  <ExercisesButtons
+    {itemsToAddToCart}
     videos = {videos}
-    lienExercices = {exercisesLink}
-    panierRempli = {isAllExercisesInCart}
-    titre = {'S\'entraîner'}
-  />
+    exercisesLink = {exercisesLink}
+    isCartEmpty = {isAllExercisesInCart}
+  >
+    S'entraîner
+  </ExercisesButtons>
 </h2>
 <ul class="p-6">
   {#each exercises as exercice, i}
     <li class="p-1 md:p-2">
-      <BoutonsExercices
-        reference = {reference}
-        exercices = {[exercises[i]]}
+      <ExercisesButtons
+        itemsToAddToCart = {[{ exercise: exercises[i], label: objectiveTitle, reference }]}
         videos = {videos}
-        lienExercices = {exercice.link}
-        panierRempli = {exercice.isInCart}
-        titre = {exercice.description !== ''
-          ? exercice.description
-          : exercises.length > 1
-            ? 'Exercices de niveau ' + (i + 1)
-            : "Lancer l'exercice"}
-        indiceExercice = {i}
-      />
+        exercisesLink = {exercice.link}
+        isCartEmpty = {exercice.isInCart}
+        exerciseIndex = {i}
+      >
+    {exercice.description !== ''
+      ? exercice.description
+      : exercises.length > 1
+        ? 'Exercices de niveau ' + (i + 1)
+        : "Lancer l'exercice"}
+      </ExercisesButtons>
     </li>
   {/each}
 </ul>

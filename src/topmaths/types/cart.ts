@@ -1,26 +1,22 @@
+import { emptyObjectiveExercise, emptyObjectiveReference, isObjectiveExercise, isObjectiveReference, type ObjectiveExercise, type ObjectiveReference } from './objective'
+
 export type CartItem = {
-  id: string,
+  exercise: ObjectiveExercise,
   label: string,
-  description: string,
-  slug: string,
-  objectiveReference: string
+  reference: ObjectiveReference
 }
 export function isCartItem (obj: unknown): obj is CartItem {
   if (obj == null || typeof obj !== 'object') return false
-  return 'id' in obj && typeof obj.id === 'string' &&
+  return 'exercise' in obj && isObjectiveExercise(obj.exercise) &&
     'label' in obj && typeof obj.label === 'string' &&
-    'description' in obj && typeof obj.description === 'string' &&
-    'slug' in obj && typeof obj.slug === 'string' &&
-    'objectiveReference' in obj && typeof obj.objectiveReference === 'string'
+    'reference' in obj && isObjectiveReference(obj.reference)
 }
 export function isCartItems (obj: unknown): obj is CartItem[] {
-  if (obj == null || !Array.isArray(obj)) return false
+  if (!Array.isArray(obj)) return false
   return obj.every(isCartItem)
 }
 export const emptyCartItem: CartItem = {
-  id: '',
+  exercise: emptyObjectiveExercise,
   label: '',
-  description: '',
-  slug: '',
-  objectiveReference: ''
+  reference: emptyObjectiveReference
 }

@@ -1,7 +1,6 @@
 <script lang="ts">
   import { curriculum, exerciseLinks, objectives, units, view } from '../../services/store'
-  import { isCoopmaths } from '../../services/shared'
-  import { COOPMATHS_BASE_URL } from '../../services/environment'
+  import { TOPMATHS_BASE_URL, isTopmaths } from '../../services/environment'
   import GradeSelectionTabs from '../shared/GradeSelectionTabs.svelte'
   import { getCurrentTerm, getWeekIndexInCurrentTerm } from '../../services/calendar'
   import { type StringGrade } from '../../types/grade'
@@ -48,7 +47,7 @@
         if (!objective) { console.error('Objective', reference, 'not found'); return [''] }
         return objective.exercises
           .map(exercise => exercise.link)
-          .filter(isCoopmaths)
+          .filter(isTopmaths)
       })
       .flat()
       .filter(link => link !== '')
@@ -64,7 +63,7 @@
         const entries = new URL(unit.assessmentExamLink).searchParams.entries()
         for (const entry of entries) {
           if (entry[0] === 'uuid') {
-            return COOPMATHS_BASE_URL + 'uuid=' + entry[1]
+            return TOPMATHS_BASE_URL + 'uuid=' + entry[1]
           }
         }
         return ''

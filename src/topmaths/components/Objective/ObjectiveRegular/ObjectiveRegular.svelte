@@ -93,6 +93,7 @@
       videos={objective.videos}
       exercisesLink={objective.exercisesLink}
       {isAllExercisesInCart}
+      objectiveTitle={getTitle(objective)}
     />
   {/if}
   {#if objective.examExercisesLink}
@@ -101,6 +102,7 @@
       examExercisesLink={objective.examExercisesLink}
       videos={objective.videos}
       {isExamExercisesInCart}
+      objectiveReference={objective.reference}
     />
   {/if}
   {#if objective.downloadLinks.practiceSheetLink ||

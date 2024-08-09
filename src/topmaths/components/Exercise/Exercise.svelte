@@ -13,7 +13,7 @@
   import Exercice from '../../../exercices/Exercice'
   import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
   import ExerciceMathalea from './exerciceMathalea/ExerciceMathalea.svelte'
-  import { getParamsFromUrl, getUrlFromParams, isVueAlreadyInUrl, updateUrlFromParams } from '../../services/mathalea'
+  import { getParamsFromUrl, getUrlFromParams, updateUrlFromParams } from '../../services/mathalea'
   import { exerciseLinks } from '../../services/store'
   import HeaderExerciceMathalea from './presentationalComponents/HeaderExerciceMathalea.svelte'
   import seedrandom from 'seedrandom'
@@ -44,7 +44,7 @@
     if ($exerciseLinks.length > 0) url = $exerciseLinks[randint(0, $exerciseLinks.length - 1)]
     else url = window.location.href
     initComponent(url)
-    if (!isVueAlreadyInUrl('exercices')) updateUrlFromParams('exercices', exercicesParams)
+    updateUrlFromParams('exercices', exercicesParams)
   })
 
   function getApiGeomUuids () {
