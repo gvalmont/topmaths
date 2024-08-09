@@ -51,12 +51,6 @@ class ExternalApp extends Exercice {
   }
 
   get html () {
-    exercicesParams.update((l) => {
-      if (this.numeroExercice !== undefined) {
-        l[this.numeroExercice].type = 'app'
-      }
-      return l
-    })
     this.handleScore()
     if (this.sup !== undefined) {
       const searchParams = new URLSearchParams(this.sup)
