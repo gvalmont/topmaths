@@ -6,13 +6,14 @@
   export let color: ThemeColor
   export let isActive: boolean = false
   export let imageClass: string = 'size-8 md:size-12'
+  export let textClass: string = 'text-sm md:text-2xl'
 
   let isHovered = false
   let isFocused = false
 </script>
 
 <button
-  class="button is-{color}
+  class="button is-{color} justify-evenly
     {isHovered || isFocused || isActive ? 'is-active' : ''}
     {$$props.class}"
   disabled={$$props.disabled}
@@ -24,8 +25,7 @@
 >
   <p
     class="shrink-0
-      text-sm md:text-2xl
-      {imageSrc !== '' ? 'w-2/3' : 'w-full'}"
+      {textClass}"
   >
     <slot />
   </p>

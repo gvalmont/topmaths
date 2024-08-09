@@ -217,7 +217,7 @@ function spacingUpdate (plusMinus: ('+' | '-'), exerciseIndex: number): void {
 }
 
 async function newData (exerciseIndex: number): Promise<void> {
-  if ($exerciseLinks.length > 0) {
+  if ($exerciseLinks.length > 1) {
     initComponent($exerciseLinks[randint(0, $exerciseLinks.length - 1)])
   } else {
     const exercise = exercisesWithMeta[exerciseIndex].exercise
@@ -250,7 +250,7 @@ function switchCorrectionVisible (exerciseIndex: number): void {
 }
 
 function copyLink (exerciseIndex: number): void {
-  const urlToCopy = getUrlFromParams('exercices', [exercicesParams[exerciseIndex]]).href
+  const urlToCopy = getUrlFromParams('exercise', [exercicesParams[exerciseIndex]]).href
   navigator.clipboard.writeText(urlToCopy).then(
     () => {
       showDialogForLimitedTime('topmaths-info-dialog', 1000, 'Le lien a été copié.')
@@ -273,11 +273,11 @@ function zoomUpdate (plusMinus: '+' | '-', exerciseIndex: number): void {
 
 <div
   id="exercises-list"
-  class="p-4 columns-1 text-left"
+  class="p-4 text-left w-full max-w-screen-lg"
 >
   {#each exercisesWithMeta as exerciseWithMeta}
     <div class="flex flex-col justify-start items-start" id="exercice{exerciseWithMeta.exerciseIndex}">
-      {#if exerciseWithMeta.exerciseType !== 'html'}
+      {#if exerciseWithMeta.exerciseType !== 'html' || $exerciseLinks.length > 1}
         <HeaderExerciceMathalea
           exerciseType={exerciseWithMeta.exerciseType}
           exerciseIndex={exerciseWithMeta.exerciseIndex}
@@ -293,38 +293,36 @@ function zoomUpdate (plusMinus: '+' | '-', exerciseIndex: number): void {
           {zoomUpdate}
         />
       {/if}
-      <div class="break-inside-avoid-column">
-        {#if exerciseWithMeta.exerciseType === 'static'}
-          <ExerciceStatic
-            exerciseIndex={exerciseWithMeta.exerciseIndex}
-            isCorrectionVisible={exerciseWithMeta.isCorrectionVisible}
-            uuid={exerciseWithMeta.uuid}
-            zoomFactor={'1'}
-          />
-        {:else if exerciseWithMeta.exerciseType === 'html'}
-          <ExerciceHtml
-            exercise={exerciseWithMeta.exercise ?? new Exercice()}
-            indiceExercice={exerciseWithMeta.exerciseIndex}
-            indiceLastExercice={exerciseWithMeta.lastExerciseIndex}
-          />
-        {:else if exerciseWithMeta.exerciseType === 'svelte'}
-          <svelte:component
-            this={exerciseWithMeta.exercise}
-            indiceExercice={exerciseWithMeta.exerciseIndex}
-            indiceLastExercice={exerciseWithMeta.lastExerciseIndex}
-          />
-        {:else if exerciseWithMeta.exerciseType === 'mathalea'}
-          <ExerciceMathalea
-            exercise={exerciseWithMeta.exercise ?? new Exercice()}
-            exerciseIndex={exerciseWithMeta.exerciseIndex}
-            {adjustMathalea2dFiguresWidth}
-            nbCols={exerciseWithMeta.nbCols}
-            {newData}
-            isCorrectionVisible={exerciseWithMeta.isCorrectionVisible}
-            zoom={exerciseWithMeta.zoom}
-          />
-        {/if}
-      </div>
+      {#if exerciseWithMeta.exerciseType === 'static'}
+        <ExerciceStatic
+          exerciseIndex={exerciseWithMeta.exerciseIndex}
+          isCorrectionVisible={exerciseWithMeta.isCorrectionVisible}
+          uuid={exerciseWithMeta.uuid}
+          zoomFactor={'1'}
+        />
+      {:else if exerciseWithMeta.exerciseType === 'html'}
+        <ExerciceHtml
+          exercise={exerciseWithMeta.exercise ?? new Exercice()}
+          indiceExercice={exerciseWithMeta.exerciseIndex}
+          indiceLastExercice={exerciseWithMeta.lastExerciseIndex}
+        />
+      {:else if exerciseWithMeta.exerciseType === 'svelte'}
+        <svelte:component
+          this={exerciseWithMeta.exercise}
+          indiceExercice={exerciseWithMeta.exerciseIndex}
+          indiceLastExercice={exerciseWithMeta.lastExerciseIndex}
+        />
+      {:else if exerciseWithMeta.exerciseType === 'mathalea'}
+        <ExerciceMathalea
+          exercise={exerciseWithMeta.exercise ?? new Exercice()}
+          exerciseIndex={exerciseWithMeta.exerciseIndex}
+          {adjustMathalea2dFiguresWidth}
+          nbCols={exerciseWithMeta.nbCols}
+          {newData}
+          isCorrectionVisible={exerciseWithMeta.isCorrectionVisible}
+          zoom={exerciseWithMeta.zoom}
+        />
+      {/if}
     </div>
   {/each}
 </div>

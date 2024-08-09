@@ -133,10 +133,10 @@
   window.onresize = () => adjustMathalea2dFiguresWidth(true)
 </script>
 
-<div class="z-0 flex-1 w-full {exercise.spacing < 1 ? '' : 'mb-10 md:mb-20'}" bind:this={divExercice}>
+<div class="z-0 flex-1 {exercise.spacing < 1 ? '' : 'mb-10 md:mb-20'}" bind:this={divExercice}>
   <div class="flex flex-col">
-    <article class="text-2xl relative w-full" style="font-size: {(zoom || 1).toString()}rem;  line-height: calc({zoom || 1});">
-      <div class="flex flex-col w-full">
+    <article class="text-2xl relative" style="font-size: {(zoom || 1).toString()}rem;  line-height: calc({zoom || 1});">
+      <div class="flex flex-col">
         {#if typeof exercise.consigne !== 'undefined' && exercise.consigne.length !== 0}
           <div>
             <p class="mt-2 mb-2 ml-2 lg:mx-6 text-coopmaths-corpus dark:text-coopmathsdark-corpus">

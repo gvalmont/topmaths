@@ -127,6 +127,7 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
 @include theme-style('is-danger', $is-danger-default, $is-danger-light, $is-danger-filter);
 @include theme-style('is-purple', $is-purple-default, $is-purple-light, $is-purple-filter);
 @include theme-style('is-info-darker', $is-info-darker-default, $is-info-darker-default, $is-info-darker-filter);
+@include theme-style('is-coopmaths', $is-coopmaths-default, $is-coopmaths-light, $is-coopmaths-filter);
 // end of sync
 
 // Keep $class-name in sync with src/topmaths/types/grade.ts StringGrade

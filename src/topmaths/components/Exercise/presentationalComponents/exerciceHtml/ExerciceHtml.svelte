@@ -32,6 +32,6 @@
   }
 </script>
 
-<section id="insert-html-{indiceExercice}" class="mt-6 mb-2 ml-2 lg:mx-5">
+<section id="insert-html-{indiceExercice}" class="mt-6 mb-2 ml-2 lg:mx-5 w-full">
   <div bind:this={divExercice} />
 </section>

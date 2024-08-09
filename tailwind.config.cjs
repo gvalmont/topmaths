@@ -136,6 +136,11 @@ const config = {
             DEFAULT: '#feb60a',
             light: '#fffbeb',
             filter: 'invert(82%) sepia(18%) saturate(7498%) hue-rotate(354deg) brightness(103%) contrast(99%)'
+          },
+          coopmaths: {
+            DEFAULT: '#F15929',
+            light: '#F15929',
+            filter: 'invert(54%) sepia(65%) saturate(5242%) hue-rotate(346deg) brightness(98%) contrast(92%)'
           }
         },
         // end of sync
@@ -246,7 +251,7 @@ const config = {
             darkest: '#464646'
           },
           action: {
-            DEFAULT: '#ffb86c',
+            DEFAULT: '#F15929',
             light: '#ffc689',
             lightest: '#ffd4a7',
             dark: '#ff9523',
@@ -260,7 +265,7 @@ const config = {
             darkest: '#e20082'
           },
           struct: {
-            DEFAULT: '#bd93f9',
+            DEFAULT: '#216D9A',
             light: '#c49efa',
             lightest: '#caa9fa',
             dark: '#a66df7',
