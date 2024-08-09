@@ -4,8 +4,9 @@
   import ItemsSelection from '../shared/ItemsSelection/ItemsSelection.svelte'
   import { deepCopy } from '../../types/shared'
   import { emptyUnit } from '../../types/unit'
+  import { DEFAULT_GRADE } from '../../types/grade'
 
-  const items = writable($units.concat($specialUnits.map((unit) => Object.assign({}, deepCopy(emptyUnit), unit, { grade: 'tout' }))))
+  const items = writable($units.concat($specialUnits.map((unit) => Object.assign({}, deepCopy(emptyUnit), unit, { grade: DEFAULT_GRADE }))))
 
 </script>
 

@@ -9,7 +9,7 @@ import curriculumJson from '../src/topmaths/json/curriculum.json' assert { type:
 import calendarSchoolYearMasterJson from '../src/topmaths/json/calendar.json' assert { type: 'json' }
 import type { RecursivePartial } from '../src/lib/types.js'
 import { deepCopy, type ReplaceReferencesByStrings } from '../src/topmaths/types/shared.js'
-import { emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/grade.js'
+import { DEFAULT_GRADE, emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/grade.js'
 import { buildGradeFromObjectiveReference } from '../src/topmaths/services/reference.js'
 import { TOPMATHS_BASE_URL } from '../src/topmaths/services/environment.js'
 import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference } from '../src/topmaths/types/objective.js'
@@ -90,7 +90,7 @@ function buildUnits (): UnitWithStringReference[] {
 
 function buildUnitsTermsArray (): Record<StringGrade, number[]> {
   return {
-    tout: buildTermNumbers(curriculum, 'tout'),
+    tout: buildTermNumbers(curriculum, DEFAULT_GRADE),
     '6e': buildTermNumbers(curriculum, '6e'),
     '5e': buildTermNumbers(curriculum, '5e'),
     '4e': buildTermNumbers(curriculum, '4e'),

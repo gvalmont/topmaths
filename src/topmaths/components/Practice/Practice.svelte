@@ -3,13 +3,13 @@
   import { TOPMATHS_BASE_URL, isTopmaths } from '../../services/environment'
   import GradeSelectionTabs from '../shared/GradeSelectionTabs.svelte'
   import { getCurrentTerm, getWeekIndexInCurrentTerm } from '../../services/calendar'
-  import { type StringGrade } from '../../types/grade'
+  import { DEFAULT_GRADE, type StringGrade } from '../../types/grade'
   import ButtonImage from '../shared/ButtonImage.svelte'
   import { showDialogForLimitedTime } from '../../../lib/components/dialogs'
 
   const currentTerm = getCurrentTerm()
   const weekIndexInCurrentTerm = getWeekIndexInCurrentTerm()
-  let selectedGrade = 'tout'
+  let selectedGrade = DEFAULT_GRADE
 
   function launchRegularExercises (): void {
     const regularExercisesLinks = getRegularExercisesLinks()
@@ -36,7 +36,7 @@
 
   function getRegularExercisesLinks (): string[] {
     const regularExercisesReferences: string[] = $units
-      .filter(unit => unit.grade === selectedGrade || selectedGrade === 'tout')
+      .filter(unit => unit.grade === selectedGrade || selectedGrade === DEFAULT_GRADE)
       .filter(unit => unit.number <= getLastUnitLearnedNumber(unit.grade))
       .map(unit => unit.objectives.map(objective => objective.reference))
       .flat()
@@ -56,7 +56,7 @@
 
   function getExamExercisesLinks (): string[] {
     const listeDesReferences: string[] = $units
-      .filter(unit => unit.grade === selectedGrade || selectedGrade === 'tout')
+      .filter(unit => unit.grade === selectedGrade || selectedGrade === DEFAULT_GRADE)
       .filter(unit => unit.number <= getLastUnitLearnedNumber(unit.grade))
       .filter(unit => unit.assessmentExamLink !== '')
       .map(unit => {

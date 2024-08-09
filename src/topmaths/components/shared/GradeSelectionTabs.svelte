@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { stringGradeValidKeys, type StringGrade } from '../../types/grade'
+  import { DEFAULT_GRADE, stringGradeValidKeys, type StringGrade } from '../../types/grade'
 
   export let activeLevelTab: string
   export let onClick: (grade: StringGrade) => void
@@ -20,11 +20,11 @@
             my-1 md:my-4
             py-1 md:py-2
             px-3 md:px-5
-            {level === stringGradeValidKeys[0] ? 'rounded-l-[1.5rem] dark:border-l' : ''}
+            {level === DEFAULT_GRADE ? 'rounded-l-[1.5rem] dark:border-l' : ''}
             {level === stringGradeValidKeys[stringGradeValidKeys.length - 1] ? 'rounded-r-[1.5rem] dark:border-r' : ''}"
           class:is-active={activeLevelTab === level}
         >
-          {level === 'tout' ? 'Tout' : level}
+          {level === DEFAULT_GRADE ? 'Tout' : level}
         </button
         >
       </li>

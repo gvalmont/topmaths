@@ -1,6 +1,8 @@
 import { isStrings } from './shared.js'
 
-export const stringGradeValidKeys = <const>['tout', '6e', '5e', '4e', '3e']
+export const DEFAULT_GRADE = 'tout'
+
+export const stringGradeValidKeys = <const>[DEFAULT_GRADE, '6e', '5e', '4e', '3e']
 type StringGradeValidKeysType = typeof stringGradeValidKeys
 export type StringGrade = StringGradeValidKeysType[number]
 

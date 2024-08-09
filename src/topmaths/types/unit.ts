@@ -1,5 +1,5 @@
 import { isObjectiveExercises, isObjectiveLessonPlan, isObjectiveReference, type ObjectiveExercise, type ObjectiveLessonPlan, type ObjectiveReference } from './objective.js'
-import { isStringGrade, type StringGrade } from './grade.js'
+import { DEFAULT_GRADE, isStringGrade, type StringGrade } from './grade.js'
 import { unitsReferences } from './unitsReferences.js'
 import type { ReplaceReferencesByStrings } from './shared'
 
@@ -72,7 +72,7 @@ export const emptyUnitObjective: UnitObjective = {
   exercises: [],
   examExercises: [],
   theme: '',
-  grade: 'tout',
+  grade: DEFAULT_GRADE,
   lessonPlans: []
 }
 
@@ -130,7 +130,7 @@ export const emptyUnit: Unit = {
   assessmentExamSlug: '',
   assessmentLink: '',
   downloadLinks: emptyUnitDownloadLinks,
-  grade: 'tout',
+  grade: DEFAULT_GRADE,
   number: 0,
   objectives: [],
   term: 0,

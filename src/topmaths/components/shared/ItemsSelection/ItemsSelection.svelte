@@ -1,7 +1,7 @@
 <script lang="ts">
   import { writable, derived, type Writable } from 'svelte/store'
   import { goToView } from '../../../services/navigation'
-  import { isStringGrade, stringGradeValidKeys, type StringGrade } from '../../../types/grade'
+  import { DEFAULT_GRADE, isStringGrade, stringGradeValidKeys, type StringGrade } from '../../../types/grade'
   import type { View } from '../../../types/navigation'
   import GradeSelectionTabs from '../GradeSelectionTabs.svelte'
   import SearchInput from '../SearchInput.svelte'
@@ -49,10 +49,10 @@
   function updateParamsFromUrl (): void {
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
-    let newGrade: StringGrade = 'tout'
+    let newGrade: StringGrade = DEFAULT_GRADE
     let newTerm: number = 0
     for (const entry of entries) {
-      if (entry[0] === 'grade') newGrade = isStringGrade(entry[1]) ? entry[1] : 'tout'
+      if (entry[0] === 'grade') newGrade = isStringGrade(entry[1]) ? entry[1] : DEFAULT_GRADE
       if (entry[0] === 'term') newTerm = Number(entry[1])
     }
     $filter.grade = newGrade
@@ -67,7 +67,7 @@
         return words.some((word) => isWordFound(word, item))
       })
       .filter((item) => {
-        return filter.grade === 'tout' || item.grade === filter.grade
+        return filter.grade === DEFAULT_GRADE || item.grade === filter.grade
       })
       .filter((item) => {
         return filter.term === 0 || item.term === filter.term
@@ -124,7 +124,7 @@
         text-2xl md:text-4xl
         rounded-t-4xl md:rounded-t-5xl"
       >
-        {grade === 'tout' ? 'Séquences particulières' : grade}
+        {grade === DEFAULT_GRADE ? 'Séquences particulières' : grade}
       </h1>
       {#if view === 'unit'}
         {#each units.filter(unit => unit.grade === grade) as unit}

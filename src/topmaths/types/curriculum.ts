@@ -1,4 +1,4 @@
-import { isStringGrade, type StringGrade } from './grade.js'
+import { DEFAULT_GRADE, isStringGrade, type StringGrade } from './grade.js'
 import { deepCopy } from './shared.js'
 
 export type CurriculumGrade = {
@@ -17,7 +17,7 @@ export function isCurriculumGrades (obj: unknown): obj is CurriculumGrade[] {
   return obj.every(isCurriculumGrade)
 }
 export const emptyCurriculumGrade: CurriculumGrade = {
-  name: 'tout',
+  name: DEFAULT_GRADE,
   unitsPerTerm: [],
   cumulateUnitsPerTerm: []
 }

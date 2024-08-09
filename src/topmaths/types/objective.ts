@@ -1,4 +1,4 @@
-import { emptyStringArrayRecordStringGrade, isStringArrayRecordStringGrade, isStringGrade, isStringGrades, type StringGrade } from './grade.js'
+import { DEFAULT_GRADE, emptyStringArrayRecordStringGrade, isStringArrayRecordStringGrade, isStringGrade, isStringGrades, type StringGrade } from './grade.js'
 import { isStrings, type ReplaceReferencesByStrings } from './shared.js'
 import { objectivesReferences } from './objectivesReferences.js'
 import { isUnitReference, type UnitReference } from './unit.js'
@@ -126,7 +126,7 @@ export function isObjectiveUnits (obj: unknown, withStringReference: boolean = f
 export const emptyObjectiveUnit: ObjectiveUnit = {
   reference: 'S6S1', // can't access lexical declaration 'emptyUnitReference' before initialization
   title: '',
-  grade: 'tout'
+  grade: DEFAULT_GRADE
 }
 
 export type ObjectiveDownloadLinks = {
@@ -199,7 +199,7 @@ export const emptyObjective: Objective = {
   examExercisesLink: '',
   exercises: [],
   exercisesLink: '',
-  grade: 'tout',
+  grade: DEFAULT_GRADE,
   lessonPlans: [],
   lessonSummaryHTML: '',
   lessonSummaryImage: '',
