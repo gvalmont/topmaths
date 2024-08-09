@@ -7,6 +7,7 @@
   import { COOPMATHS_BASE_URL, isTopmaths } from '../../services/environment'
   import type { CartItem } from '../../types/cart'
   import { copyLink } from '../../services/url'
+  import { onDestroy, onMount, tick } from 'svelte'
 
   export let itemsToAddToCart: CartItem[] = []
   export let exercisesLink: string
@@ -15,6 +16,21 @@
   export let videos: ObjectiveVideo[] = []
 
   let capytaleLink: string = ''
+
+  onMount(async () => {
+    await tick()
+    await tick() // two ticks are necessary to update itemsToAddToCart
+    updateCartEmpty()
+    Cart.subscribe(updateCartEmpty)
+  })
+
+  onDestroy(() => {
+    Cart.unsubscribe(updateCartEmpty)
+  })
+
+  function updateCartEmpty (): void {
+    isCartEmpty = itemsToAddToCart.map(item => item.exercise).some(exercise => !Cart.includes(exercise.id))
+  }
 
   function includesTopmathsExercises (itemsToAddToCart: CartItem[]): boolean {
     return itemsToAddToCart.map(exerciseLabel => exerciseLabel.exercise).map(exercice => exercice.link).some(isTopmaths)
@@ -45,7 +61,6 @@
         console.warn(`L'exercice ${item.reference} ${item.label} n'a pas été ajouté au panier car il n'est pas un exercice MathALÉA`)
         return
       }
-      item.exercise.isInCart = true
       Cart.add(item)
     })
   }

@@ -44,8 +44,7 @@ export type ObjectiveExercise = {
   slug: string,
   link: string,
   isInteractive: boolean,
-  description: string,
-  isInCart: boolean
+  description: string
 }
 export function isObjectiveExercise (obj: unknown): obj is ObjectiveExercise {
   if (obj == null || typeof obj !== 'object') return false
@@ -53,8 +52,7 @@ export function isObjectiveExercise (obj: unknown): obj is ObjectiveExercise {
     'slug' in obj && typeof obj.slug === 'string' &&
     'link' in obj && typeof obj.link === 'string' &&
     'isInteractive' in obj && typeof obj.isInteractive === 'boolean' &&
-    'description' in obj && typeof obj.description === 'string' &&
-    'isInCart' in obj && typeof obj.isInCart === 'boolean'
+    'description' in obj && typeof obj.description === 'string'
 }
 export function isObjectiveExercises (obj: unknown): obj is ObjectiveExercise[] {
   if (obj == null || !Array.isArray(obj)) return false
@@ -65,8 +63,7 @@ export const emptyObjectiveExercise: ObjectiveExercise = {
   slug: '',
   link: '',
   isInteractive: false,
-  description: '',
-  isInCart: false
+  description: ''
 }
 
 export type ObjectiveLessonPlan = {

@@ -479,7 +479,6 @@ function buildExercises (reference: string, exercises: (RecursivePartial<Objecti
       exercise.link = buildExerciseLink(exercise.slug)
       exercise.isInteractive = exercise.isInteractive ?? false
       exercise.description = exercise.description ?? ''
-      exercise.isInCart = exercise.isInCart ?? false
       exerciseNumber++
       return exercise
     })

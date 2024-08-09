@@ -1,3 +1,4 @@
+import { goToView } from '../services/navigation'
 import { isCartItem, isCartItems, type CartItem } from '../types/cart'
 import Storage from './Storage'
 
@@ -24,11 +25,25 @@ export default class Cart {
     }
   }
 
+  static remove (id: string): void {
+    const currentItems = this.items
+    const index = currentItems.findIndex(cartItem => cartItem.exercise.id === id)
+    if (index !== -1) {
+      currentItems.splice(index, 1)
+      this.items = currentItems
+    }
+  }
+
   static updateFromStorage (): void {
     const newCart: unknown = Storage.get('cart')
     if (isCartItems(newCart)) {
       this.items = newCart
     }
+  }
+
+  static clear (): void {
+    this.items = []
+    goToView(new MouseEvent('click'), 'home')
   }
 
   static includes (id: string): boolean {
