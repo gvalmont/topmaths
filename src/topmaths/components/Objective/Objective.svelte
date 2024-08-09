@@ -6,8 +6,10 @@
 
 </script>
 
-{#if isObjectiveReference($reference)}
-  <ObjectiveRegular objectiveReference={$reference} />
-{:else}
-  <ObjectiveSelection />
-{/if}
+<div class="w-full max-w-screen-lg">
+  {#if isObjectiveReference($reference)}
+    <ObjectiveRegular objectiveReference={$reference} />
+  {:else}
+    <ObjectiveSelection />
+  {/if}
+</div>

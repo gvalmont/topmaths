@@ -124,7 +124,7 @@
     {goToView}
     {isCartEmpty}
   />
-  <div class="w-full max-w-screen-lg
+  <div class="w-full flex justify-center
     pb-8 mb:pb-20"
   >
     {#if $view === 'exercise'}

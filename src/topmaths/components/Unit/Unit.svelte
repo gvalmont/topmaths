@@ -9,15 +9,17 @@
 
 </script>
 
-{#if $reference === 'SPS1'}
-  <Sps1 />
-{:else if $reference === 'SPS2'}
-  <Sps2 />
-{:else if isUnitReference($reference)}
-  <UnitRegular
-    unitReference={$reference}
-    {goToView}
-  />
-{:else}
-  <UnitSelection />
-{/if}
+<div class="w-full max-w-screen-lg">
+  {#if $reference === 'SPS1'}
+    <Sps1 />
+  {:else if $reference === 'SPS2'}
+    <Sps2 />
+  {:else if isUnitReference($reference)}
+    <UnitRegular
+      unitReference={$reference}
+      {goToView}
+    />
+  {:else}
+    <UnitSelection />
+  {/if}
+</div>

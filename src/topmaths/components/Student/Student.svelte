@@ -7,12 +7,14 @@
 
 </script>
 
-{#if $reference === 'glossary'}
-  <StudentGlossary />
-{:else if $reference === 'download'}
-  <StudentDownload />
-{:else if $reference === 'tuto'}
-  <StudentTuto />
-{:else}
-  <StudentSelection />
-{/if}
+<div class="w-full max-w-screen-lg">
+  {#if $reference === 'glossary'}
+    <StudentGlossary />
+  {:else if $reference === 'download'}
+    <StudentDownload />
+  {:else if $reference === 'tuto'}
+    <StudentTuto />
+  {:else}
+    <StudentSelection />
+  {/if}
+</div>

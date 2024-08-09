@@ -18,7 +18,7 @@
 
 </script>
 
-<div class="info-container m-10 text-justify">
+<div class="w-full max-w-screen-lg info-container m-10 text-justify">
   {#if $reference === 'site-info'}
     <SiteInfo />
   {:else if $reference === 'legal-notice'}

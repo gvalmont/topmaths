@@ -7,9 +7,15 @@
 </script>
 
 {#if $reference === 'curriculum'}
-  <ClassroomCurriculum />
+  <div class="w-full">
+    <ClassroomCurriculum />
+  </div>
 {:else if $reference === 'mathador'}
-  <ClassroomMathador />
+  <div class="w-full max-w-screen-lg">
+    <ClassroomMathador />
+  </div>
 {:else}
-  <ClassroomSelection />
+  <div class="w-full max-w-screen-lg">
+    <ClassroomSelection />
+  </div>
 {/if}

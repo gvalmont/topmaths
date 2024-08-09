@@ -88,7 +88,7 @@
   <title>Révisions - topmaths</title>
 </svelte:head>
 
-<div class="grade-container is-sponsor
+<div class="grade-container is-sponsor w-full max-w-screen-lg
   rounded-4xl md:rounded-5xl"
 >
   <h1 class="title
