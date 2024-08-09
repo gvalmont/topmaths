@@ -1,18 +1,6 @@
-import { get } from 'svelte/store'
-import type { Objective } from '../types/objective.js'
-import type { UnitObjective } from '../types/unit.js'
-import { isTitleAcademicPreferred } from './store.js'
 import { TOPMATHS_BASE_URL } from './environment.js'
 import { showDialogForLimitedTime } from '../../lib/components/dialogs.js'
 import { isRegularClick } from './navigation'
-
-export function normalize (str: string): string {
-  if (str === undefined) return ''
-  return str
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLocaleLowerCase()
-}
 
 export function removeSeed (link: string): string {
   const url = new URL(link)
@@ -22,12 +10,20 @@ export function removeSeed (link: string): string {
   return url.toString()
 }
 
-export function getTitle (objective: Objective | UnitObjective): string {
-  if (get(isTitleAcademicPreferred) || !objective.title) {
-    return objective.titleAcademic
-  } else {
-    return objective.title
-  }
+export function setSeed (link: string, seed: number): string {
+  const url = new URL(link)
+  const searchParams = url.searchParams
+  searchParams.set('alea', seed.toString())
+  url.search = searchParams.toString()
+  return url.toString()
+}
+
+export function setInteractivity (link: string, isInteractive: boolean): string {
+  const url = new URL(link)
+  const searchParams = url.searchParams
+  searchParams.set('i', isInteractive ? '1' : '0')
+  url.search = searchParams.toString()
+  return url.toString()
 }
 
 type CopyLinkOptions = {

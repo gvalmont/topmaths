@@ -5,7 +5,7 @@
     objectives
   } from '../../../services/store'
   import { emptyObjective, type Objective } from '../../../types/objective'
-  import { getTitle } from '../../../services/shared'
+  import { getTitle } from '../../../services/string'
   import { goToView } from '../../../services/navigation'
   import { onMount } from 'svelte'
   import {

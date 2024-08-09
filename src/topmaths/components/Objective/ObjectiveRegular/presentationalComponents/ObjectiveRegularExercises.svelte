@@ -16,7 +16,7 @@
     await tick() // else is doesn't work on page reload
     itemsToAddToCart = exercises
       .map(exercise => {
-        return { exercise, label: exercise.slug.split('uuid=')[1].split('&')[0], reference }
+        return { exercise, label: exercise.description || objectiveTitle, reference }
       })
   })
 </script>
@@ -37,7 +37,7 @@
   {#each exercises as exercice, i}
     <li class="p-1 md:p-2">
       <ExercisesButtons
-        itemsToAddToCart = {[{ exercise: exercises[i], label: objectiveTitle, reference }]}
+        itemsToAddToCart = {[{ exercise: exercises[i], label: exercises[i].description || objectiveTitle, reference }]}
         videos = {videos}
         exercisesLink = {exercice.link}
         isCartEmpty = {exercice.isInCart}

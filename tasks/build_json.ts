@@ -11,7 +11,7 @@ import type { RecursivePartial } from '../src/lib/types.js'
 import { deepCopy, type ReplaceReferencesByStrings } from '../src/topmaths/types/shared.js'
 import { DEFAULT_GRADE, emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/grade.js'
 import { buildGradeFromObjectiveReference } from '../src/topmaths/services/reference.js'
-import { TOPMATHS_BASE_URL } from '../src/topmaths/services/environment.js'
+import { EXERCISE_PARAM_ADDENDUM, REGULAR_VIEW_ADDENDUM, SLIDESHOW_VIEW_ADDENDUM, TOPMATHS_BASE_URL } from '../src/topmaths/services/environment.js'
 import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference } from '../src/topmaths/types/objective.js'
 import { type Unit, type UnitObjective, emptyUnitDownloadLinks, type UnitLessonPlan, isUnitLessonPlans, type UnitWithStringReference, type UnitReference, isUnitWithStringReference } from '../src/topmaths/types/unit.js'
 import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem, isGlossaryUniteItems } from '../src/topmaths/types/glossary.js'
@@ -19,9 +19,6 @@ import { type CalendarSchoolYearMaster, isCalendarSchoolYearMasters, type Calend
 import { type CurriculumGrade, type CurriculumValue, isCurriculum, type Curriculum, emptyCurriculumValue } from '../src/topmaths/types/curriculum.js'
 import { countLessonPlans } from './helpers/lesson_plans.js'
 
-const EXERCISE_PARAM_ADDENDUM = '&i=0'
-const REGULAR_VIEW_ADDENDUM = '&v=exercise'
-const SLIDESHOW_VIEW_ADDENDUM = '&v=diaporama'
 const THIRD_PARTY_WEBSITES = [
   'https://coopmaths.fr',
   'https://mathsmentales.net',
@@ -463,7 +460,7 @@ function buildExercisesLink (exercises: (RecursivePartial<ObjectiveExercise> | u
     .filter(exercice => exercice !== undefined)
     .forEach(exercice => {
       if (exercice.slug) {
-        exerciseLink = exerciseLink.concat(exercice.slug, EXERCISE_PARAM_ADDENDUM + '&')
+        exerciseLink = exerciseLink.concat(exercice.slug, '&')
         exerciseCount++
       }
     })
@@ -578,8 +575,8 @@ function checkDuplicatesExamExercises (): void {
     .forEach(assessmentExamSlug => {
       const examExerciseSlugs = assessmentExamSlug.split('&')
       examExerciseSlugs.forEach(examExerciseSlug => {
-        if (examExercisesFound.includes(examExerciseSlug)) {
-          console.warn(examExerciseSlug + ' found twice')
+        if (examExercisesFound.includes(examExerciseSlug) && !EXERCISE_PARAM_ADDENDUM.includes(examExerciseSlug)) {
+          console.warn(examExerciseSlug, 'found twice')
           warningCount++
         }
         examExercisesFound.push(examExerciseSlug)
@@ -624,8 +621,7 @@ function chechImageAlt (): void {
 function buildExerciseLink (slug: string | undefined, isSlideshow = false): string {
   if (!slug) return ''
   if (isFullLink(slug)) return slug
-  let link = TOPMATHS_BASE_URL + slug + EXERCISE_PARAM_ADDENDUM
-  link = link.replace(/&uuid=/g, EXERCISE_PARAM_ADDENDUM + '&uuid=') // dans le cas où il y aurait plusieurs exercices dans le même slug
+  let link = TOPMATHS_BASE_URL + slug
   if (isSlideshow) {
     link += SLIDESHOW_VIEW_ADDENDUM
   } else {
@@ -666,8 +662,14 @@ function getUnitObjectivesSlugs (unit: UnitWithStringReference): string[] {
 
 function formatSlug (slug: string | undefined): string {
   if (slug === undefined || slug === '') return ''
-  if (isV3Slug(slug) || isFullLink(slug)) return slug
-  return convertV2ToV3('ex=' + slug)
+  if (isV3Slug(slug) || isFullLink(slug)) return addAddendum(slug)
+  return addAddendum(convertV2ToV3('ex=' + slug))
+}
+
+function addAddendum (slug: string): string {
+  if (!slug.includes(EXERCISE_PARAM_ADDENDUM)) slug += EXERCISE_PARAM_ADDENDUM
+  if (slug === 'i=0') console.log('oo')
+  return slug.replace(/&uuid=/g, EXERCISE_PARAM_ADDENDUM + '&uuid=') // dans le cas où il y aurait plusieurs exercices dans le même slug
 }
 
 function buildLessonPlanDownloadLinks (objective: RecursivePartial<Objective>, objectiveGrade: StringGrade): Record<StringGrade, string[]> {

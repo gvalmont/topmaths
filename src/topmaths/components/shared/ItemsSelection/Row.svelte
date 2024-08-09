@@ -2,7 +2,7 @@
   import type { Item } from './types'
   import type { Reference, View } from '../../../types/navigation'
   import { isUnit } from '../../../types/unit'
-  import { getTitle } from '../../../services/shared'
+  import { getTitle } from '../../../services/string'
   import { isSpecialUnit } from '../../../types/specialUnit'
 
   export let item: Item

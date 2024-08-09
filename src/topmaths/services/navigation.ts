@@ -1,5 +1,5 @@
 import { exerciseLinks, view, reference, reference2 } from './store'
-import { removeSeed } from './shared'
+import { removeSeed } from './url'
 import type { Reference, View } from '../types/navigation'
 import { isTopmaths } from './environment'
 import { getParamsFromUrl, updateUrlFromParams } from './mathalea'

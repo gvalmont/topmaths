@@ -3,10 +3,10 @@
   import IconeTooltipSimple from './IconeTooltipSimple.svelte'
   import type { ObjectiveVideo } from '../../types/objective'
   import { isTeacherMode } from '../../services/store'
-  import { copyLink } from '../../services/shared'
   import Cart from '../../modules/Cart'
   import { COOPMATHS_BASE_URL, isTopmaths } from '../../services/environment'
   import type { CartItem } from '../../types/cart'
+  import { copyLink } from '../../services/url'
 
   export let itemsToAddToCart: CartItem[] = []
   export let exercisesLink: string

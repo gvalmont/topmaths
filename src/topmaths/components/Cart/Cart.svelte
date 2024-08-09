@@ -1,15 +1,19 @@
 <script lang="ts">
-  import { isCartItem, type CartItem } from '../../types/cart'
-  import { TOPMATHS_BASE_URL } from '../../services/environment'
+  import { isCartItems, type CartItem } from '../../types/cart'
+  import { REGULAR_VIEW_ADDENDUM, TOPMATHS_BASE_URL } from '../../services/environment'
   import { goToView, launchExercise } from '../../services/navigation'
   import Storage from '../../modules/Storage'
-  import { copyLink } from '../../services/shared'
+  import { copyLink } from '../../services/url'
   import { getParamsFromUrl, updateUrlFromParams } from '../../services/mathalea'
   import Cart from '../../modules/Cart'
+  import { onMount } from 'svelte'
 
   let cartLink = ''
   let cart: CartItem[] = []
-  updateCart()
+
+  onMount(() => {
+    updateCart()
+  })
 
   function retirerDuPanier (panierItem: CartItem): void {
     const panierTemp = Storage.get('cart') as CartItem[]
@@ -27,10 +31,12 @@
   }
 
   function updateCart (): void {
-    cart = Storage.get('cart')
-      .filter(isCartItem)
-      .filter((cartItem: CartItem) => cartItem.exercise.slug.slice(0, 4) !== 'http' && cartItem.exercise.slug !== '')
-    cartLink = TOPMATHS_BASE_URL + cart.join('&i=0&') + 'v=exercices'
+    const cartCandidate = Storage.get('cart')
+    if (!isCartItems(cartCandidate)) {
+      return
+    }
+    cart = cartCandidate
+    cartLink = TOPMATHS_BASE_URL + cart.map(item => item.exercise.slug).join('&') + REGULAR_VIEW_ADDENDUM
   }
 </script>
 

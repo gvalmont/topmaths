@@ -7,7 +7,7 @@
   import SearchInput from '../SearchInput.svelte'
   import TermSelectionButtons from '../TermSelectionButtons.svelte'
   import { onDestroy, onMount } from 'svelte'
-  import { getTitle, normalize } from '../../../services/shared'
+  import { getTitle, normalize } from '../../../services/string'
   import { emptyItem, type Item } from './types'
   import Row from './Row.svelte'
   import { isTeacherMode, isTitleAcademicPreferred } from '../../../services/store'

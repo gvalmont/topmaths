@@ -1,6 +1,6 @@
 <script lang="ts">
   import { glossary } from '../../../services/store'
-  import { normalize } from '../../../services/shared'
+  import { normalize } from '../../../services/string'
   import { writable, derived } from 'svelte/store'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import type { GlossaryUniteItem } from '../../../types/glossary'

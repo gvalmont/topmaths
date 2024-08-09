@@ -1,6 +1,6 @@
 <script lang="ts">
   import { UNLISTED_THEMES } from '../../../../services/environment'
-  import { getTitle } from '../../../../services/shared'
+  import { getTitle } from '../../../../services/string'
   import type { Reference, View } from '../../../../types/navigation'
   import type { Unit } from '../../../../types/unit'
 

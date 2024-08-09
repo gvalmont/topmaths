@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte'
-  import { getTitle } from '../../../../services/shared'
+  import { getTitle } from '../../../../services/string'
   import type { Unit } from '../../../../types/unit'
   import ExercisesButtons from '../../../shared/ExercisesButtons.svelte'
   import type { CartItem } from '../../../../types/cart'
