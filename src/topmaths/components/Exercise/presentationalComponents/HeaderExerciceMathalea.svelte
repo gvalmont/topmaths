@@ -1,8 +1,9 @@
 <script lang="ts">
   import { exerciseLinks, isTeacherMode } from '../../../services/store'
   import type TypeExercice from '../../../../exercices/Exercice'
+    import type { SvelteComponent } from 'svelte'
 
-  export let exercise: TypeExercice
+  export let exercise: TypeExercice | SvelteComponent
   export let exerciseIndex: number
   export let exerciseType: string
   export let isCorrectionVisible: boolean

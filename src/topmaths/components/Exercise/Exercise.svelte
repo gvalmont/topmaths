@@ -44,16 +44,17 @@
     if ($exerciseLinks.length > 0) url = $exerciseLinks[randint(0, $exerciseLinks.length - 1)]
     else url = window.location.href
     initComponent(url)
-    updateUrlFromParams('exercices', exercicesParams)
+    updateUrlFromParams('exercise', exercicesParams)
   })
 
-  function getApiGeomUuids () {
+  function getApiGeomUuids (): string[] {
     return Object.entries(uuidToUrl)
-      .filter(([uuid, url]) => url.startsWith('geodyn'))
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      .filter(([_uuid, url]) => url.startsWith('geodyn'))
       .map(([uuid]) => uuid)
   }
 
-  async function initComponent (url: string) {
+  async function initComponent (url: string): Promise<void> {
     const tempExercicesWithMeta = []
     exercicesParams = getParamsFromUrl(url)
     let i = 0
@@ -91,7 +92,7 @@
     }
   }
 
-function isStatic (uuid: string) {
+function isStatic (uuid: string): boolean {
   return uuid.startsWith('crpe-') ||
     uuid.startsWith('dnb_') ||
     uuid.startsWith('e3c_') ||
@@ -117,12 +118,12 @@ function getExerciceByUuid (root: object, targetUUID: string): Exercice | null {
   return null
 }
 
-  function isSvelte (uuid: string) {
+  function isSvelte (uuid: string): boolean {
     const urlExercice = uuidToUrl[uuid as keyof typeof uuidToUrl]
-    return urlExercice && urlExercice.includes('.svelte')
+    return !!urlExercice && urlExercice.includes('.svelte')
   }
 
-  async function getSvelteComponent (paramsExercice: InterfaceParams) {
+  async function getSvelteComponent (paramsExercice: InterfaceParams): Promise<SvelteComponent> {
     const urlExercice = uuidToUrl[paramsExercice.uuid as keyof typeof uuidToUrl]
     // Pour l'instant tous les exercices Svelte doivent être dans le dossier src/exercicesInteractifs
     return (await import('../../../exercicesInteractifs/' + urlExercice.replace('.svelte', '') + '.svelte')).default
@@ -144,14 +145,14 @@ function getExerciceByUuid (root: object, targetUUID: string): Exercice | null {
     }
   }
 
-async function updateRoutine (exercise: Exercice, exerciseIndex: number) {
+async function updateRoutine (exercise: Exercice, exerciseIndex: number): Promise<void> {
   initiateExercise(exercise, exerciseIndex)
   exercicesParams[exerciseIndex].alea = exercise.seed
   await adjustMathalea2dFiguresWidth()
   updateChildrenComponents()
 }
 
-function initiateExercise (exercise: Exercice, exerciseIndex: number) {
+function initiateExercise (exercise: Exercice, exerciseIndex: number): void {
   exercise.numeroExercice = exerciseIndex
   if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
   seedrandom(exercise.seed, { global: true })
@@ -159,7 +160,7 @@ function initiateExercise (exercise: Exercice, exerciseIndex: number) {
   else if (typeof exercise.nouvelleVersion === 'function') exercise.nouvelleVersion(exerciseIndex)
 }
 
-function isApiGeom (exercise: Exercice) {
+function isApiGeom (exercise: Exercice): boolean {
   return exercise.uuid !== '' && apiGeomUuids.includes(exercise.uuid)
 }
 
@@ -169,7 +170,7 @@ function isApiGeom (exercise: Exercice) {
  * @param {boolean} initialDimensionsAreNeeded si `true`, les valeurs initiales sont rechargées ()`false` par défaut)
  * @author sylvain
  */
-async function adjustMathalea2dFiguresWidth (initialDimensionsAreNeeded: boolean = false) {
+async function adjustMathalea2dFiguresWidth (initialDimensionsAreNeeded: boolean = false): Promise<void> {
   const mathalea2dFigures = document.getElementsByClassName('mathalea2d')
   if (mathalea2dFigures.length !== 0) {
     await tick()
@@ -193,18 +194,18 @@ async function adjustMathalea2dFiguresWidth (initialDimensionsAreNeeded: boolean
   }
 }
 
-function updateChildrenComponents () {
+function updateChildrenComponents (): void {
   exercisesWithMeta = exercisesWithMeta
 }
 
-function columnsCountUpdate (plusMinus: ('+' | '-'), exerciseIndex: number) {
+function columnsCountUpdate (plusMinus: ('+' | '-'), exerciseIndex: number): void {
   let cols = exercisesWithMeta[exerciseIndex].nbCols ?? 1
   if (plusMinus === '+') cols++
   if (plusMinus === '-') cols--
   exercisesWithMeta[exerciseIndex].nbCols = cols > 1 ? cols : 1
 }
 
-function spacingUpdate (plusMinus: ('+' | '-'), exerciseIndex: number) {
+function spacingUpdate (plusMinus: ('+' | '-'), exerciseIndex: number): void {
   const exercise = exercisesWithMeta[exerciseIndex].exercise
   if (exercise !== undefined) {
     let spacing = exercise.spacing ?? 1
@@ -215,7 +216,7 @@ function spacingUpdate (plusMinus: ('+' | '-'), exerciseIndex: number) {
   }
 }
 
-async function newData (exerciseIndex: number) {
+async function newData (exerciseIndex: number): Promise<void> {
   if ($exerciseLinks.length > 0) {
     initComponent($exerciseLinks[randint(0, $exerciseLinks.length - 1)])
   } else {
@@ -232,7 +233,7 @@ async function newData (exerciseIndex: number) {
   }
 }
 
-function switchCorrectionVisible (exerciseIndex: number) {
+function switchCorrectionVisible (exerciseIndex: number): void {
   const masterExercise = exercisesWithMeta[exerciseIndex]
   const exercise = masterExercise.exercise
   if (exercise !== undefined) {
@@ -248,7 +249,7 @@ function switchCorrectionVisible (exerciseIndex: number) {
   }
 }
 
-function copyLink (exerciseIndex: number) {
+function copyLink (exerciseIndex: number): void {
   const urlToCopy = getUrlFromParams('exercices', [exercicesParams[exerciseIndex]]).href
   navigator.clipboard.writeText(urlToCopy).then(
     () => {
@@ -261,7 +262,7 @@ function copyLink (exerciseIndex: number) {
   )
 }
 
-function zoomUpdate (plusMinus: '+' | '-', exerciseIndex: number) {
+function zoomUpdate (plusMinus: '+' | '-', exerciseIndex: number): void {
   const actualZoom = exercisesWithMeta[exerciseIndex].zoom
   let newZoom = actualZoom
   if (plusMinus === '+') newZoom = Number.parseFloat((actualZoom + 0.1).toFixed(1))

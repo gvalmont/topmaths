@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
+  import { onMount, SvelteComponent } from 'svelte'
   import type TypeExercice from '../../../../../exercices/Exercice'
-  export let exercise: TypeExercice
+  export let exercise: TypeExercice | SvelteComponent
   export let indiceExercice: number
   export let indiceLastExercice: number
 

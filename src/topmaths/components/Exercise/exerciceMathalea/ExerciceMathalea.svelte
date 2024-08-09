@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { afterUpdate, onMount, tick } from 'svelte'
+  import { afterUpdate, onMount, SvelteComponent, tick } from 'svelte'
   import type TypeExercice from '../../../../exercices/Exercice'
   import { exerciceInteractif, prepareExerciceCliqueFigure } from '../../../../lib/interactif/gestionInteractif'
   import { loadMathLive } from '../../../../modules/loaders'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import Question from './presentationalComponents/Question.svelte'
-  export let exercise: TypeExercice
+  export let exercise: TypeExercice | SvelteComponent
   export let exerciseIndex: number
   export let isCorrectionVisible: boolean
   export let nbCols: number = 1
@@ -36,12 +36,12 @@
     if (exercise.interactif && buttonScore) initButtonScore()
   }
 
-  async function countMathField () {
+  async function countMathField (): Promise<void> {
     const answerFields = document.querySelectorAll(`[id^='champTexteEx${exerciseIndex}']`) // IDs de la forme 'champTexteEx1Q0'
     numberOfAnswerFields = answerFields.length
   }
 
-  async function renderExercise () {
+  async function renderExercise (): Promise<void> {
     await tick()
     if (exercise.interactif) {
       loadMathLive()
@@ -52,7 +52,7 @@
     adjustMathalea2dFiguresWidth()
   }
 
-  function isCorrectionSeen () {
+  function isCorrectionSeen (): boolean {
     try {
       if (window.localStorage != null && exercise.id !== undefined && exercise.seed !== undefined && window.localStorage.getItem(`${exercise.id}|${exercise.seed}`) != null) {
         return true
@@ -63,7 +63,7 @@
     return false
   }
 
-  function applyZoomOnScratch () {
+  function applyZoomOnScratch (): void {
     const scratchDivs = divExercice.getElementsByClassName('scratchblocks')
     for (const scratchDiv of scratchDivs) {
       const svgDivs = scratchDiv.getElementsByTagName('svg')
@@ -84,13 +84,13 @@
     }
   }
 
-  function verifExerciceVueEleve () {
+  function verifExerciceVueEleve (): void {
     exercise.isDone = true
     isCorrectionVisible = true
     exerciceInteractif(exercise, divScore, buttonScore)
   }
 
-  function initButtonScore () {
+  function initButtonScore (): void {
     buttonScore.classList.remove(...buttonScore.classList)
     buttonScore.id = `buttonScoreEx${exerciseIndex}`
     buttonScore.classList.add(
