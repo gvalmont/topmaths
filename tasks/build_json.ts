@@ -18,6 +18,7 @@ import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, ty
 import { type CalendarSchoolYearMaster, isCalendarSchoolYearMasters, type CalendarSchoolYear, isCalendarSchoolYears, type CalendarPeriod } from '../src/topmaths/types/calendar.js'
 import { type CurriculumGrade, type CurriculumValue, isCurriculum, type Curriculum, emptyCurriculumValue } from '../src/topmaths/types/curriculum.js'
 import { countLessonPlans } from './helpers/lesson_plans.js'
+import { getTitle } from '../src/topmaths/services/string.js'
 
 const THIRD_PARTY_WEBSITES = [
   'https://coopmaths.fr',
@@ -494,11 +495,11 @@ function buildObjectiveLessonPlans (objective: ObjectiveWithStringReference, uni
   const lessonPlanTotalCount = countLessonPlans(objective, unitGrade)
   const isMultipleLessonPlans = lessonPlanTotalCount > 1
   let lessonPlanNumber = 1
-  const unitLessonPlans: Partial<UnitLessonPlan>[] = deepCopy(objective.lessonPlans)
+  const unitLessonPlans: Partial<ReplaceReferencesByStrings<ObjectiveReference, UnitLessonPlan>>[] = deepCopy(objective.lessonPlans)
     .filter(lessonPlan => lessonPlan !== undefined)
     .filter(lessonPlan => lessonPlan.grades.length === 0 || lessonPlan.grades.includes(unitGrade))
     .map(lessonPlan => {
-      const unitLessonPlan: Partial<UnitLessonPlan> = lessonPlan
+      const unitLessonPlan: Partial<ReplaceReferencesByStrings<ObjectiveReference, UnitLessonPlan>> = lessonPlan
       unitLessonPlan.startSteps = unitLessonPlan.startSteps ?? []
       unitLessonPlan.lessonSteps = unitLessonPlan.lessonSteps ?? []
       unitLessonPlan.homeworks = unitLessonPlan.homeworks ?? []
@@ -508,6 +509,8 @@ function buildObjectiveLessonPlans (objective: ObjectiveWithStringReference, uni
       unitLessonPlan.grades = unitLessonPlan.grades ?? []
       unitLessonPlan.comments = unitLessonPlan.comments ?? []
       unitLessonPlan.nextSessionSteps = unitLessonPlan.nextSessionSteps ?? []
+      unitLessonPlan.objectiveReference = objective.reference
+      unitLessonPlan.objectiveTitle = getTitle(objective)
       unitLessonPlan.reference = `${objective.reference}${isMultipleLessonPlans ? `-${lessonPlanNumber}` : ''}`
       lessonPlanNumber++
       return unitLessonPlan

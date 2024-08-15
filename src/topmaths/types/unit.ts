@@ -16,11 +16,15 @@ export function isUnitReferences (obj: unknown): obj is UnitReference[] {
 export const emptyUnitReference: UnitReference = unitsReferences[0]
 
 export type UnitLessonPlan = ObjectiveLessonPlan & {
+  objectiveReference: ObjectiveReference,
+  objectiveTitle: string,
   reference: string
 }
 export function isUnitLessonPlan (obj: unknown): obj is UnitLessonPlan {
   if (obj == null || typeof obj !== 'object') return false
   return isObjectiveLessonPlan(obj) &&
+    'objectiveReference' in obj && isObjectiveReference(obj.objectiveReference) &&
+    'objectiveTitle' in obj && typeof obj.objectiveTitle === 'string' &&
     'reference' in obj && typeof obj.reference === 'string'
 }
 export function isUnitLessonPlans (obj: unknown): obj is UnitLessonPlan[] {
@@ -37,6 +41,8 @@ export const emptyUnitLessonPlan: UnitLessonPlan = { // Cannot access 'emptyObje
   grades: [],
   comments: [],
   nextSessionSteps: [],
+  objectiveReference: '6C10', // Cannot access 'emptyObjectiveReference' before initialization
+  objectiveTitle: '',
   reference: ''
 }
 

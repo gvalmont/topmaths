@@ -191,6 +191,7 @@ function buildCategories (previousLessonPlan: UnitLessonPlan, currentLessonPlan:
   content += buildCategory('Déroulé', currentLessonPlan.lessonSteps)
   content += buildCategory('Devoirs', currentLessonPlan.homeworks)
   content += buildCategory('Fin de séance', currentLessonPlan.closureSteps)
+  content += buildCategory('Prochain objectif', [`${nextLessonPlan.reference} : ${nextLessonPlan.objectiveTitle}`])
   content += buildCategory('Matériel à emmener la prochaine fois', nextLessonPlan.studentMaterialsNeeded)
   content += buildCategory('Notes', currentLessonPlan.comments)
   return content

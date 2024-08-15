@@ -1,5 +1,5 @@
 import { get } from 'svelte/store'
-import type { Objective } from '../types/objective.js'
+import type { ObjectiveWithStringReference } from '../types/objective.js'
 import type { UnitObjective } from '../types/unit.js'
 import { isTitleAcademicPreferred } from './store.js'
 
@@ -11,7 +11,7 @@ export function normalize (str: string): string {
     .toLocaleLowerCase()
 }
 
-export function getTitle (objective: Objective | UnitObjective): string {
+export function getTitle (objective: ObjectiveWithStringReference | UnitObjective): string {
   if (get(isTitleAcademicPreferred) || !objective.title) {
     return objective.titleAcademic
   } else {
