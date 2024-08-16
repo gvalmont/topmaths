@@ -187,6 +187,8 @@ function buildCategories (previousLessonPlan: UnitLessonPlan, currentLessonPlan:
   content += buildCategory('Matériel élève', currentLessonPlan.studentMaterialsNeeded)
   content += buildCategory('Matériel enseignant', currentLessonPlan.teacherMaterialsNeeded)
   content += buildCategory('Suite à la séance précédente', previousLessonPlan.nextSessionSteps)
+  content += buildCategory('Révisions de consolidation', [currentLessonPlan.consolidationLink])
+  content += buildCategory('Révisions de prérequis', [currentLessonPlan.prerequisiteLink])
   content += buildCategory('Début de séance', currentLessonPlan.startSteps)
   content += buildCategory('Déroulé', currentLessonPlan.lessonSteps)
   content += buildCategory('Devoirs', currentLessonPlan.homeworks)
@@ -199,12 +201,13 @@ function buildCategories (previousLessonPlan: UnitLessonPlan, currentLessonPlan:
 
 function buildCategory (categoryName: string, contentLines: string[]): string {
   let content = ''
-  if (contentLines.length === 0) return content
+  if (contentLines.length === 0 || contentLines.every(line => line === '')) return content
   if (categoryName !== '') {
     content += `#titreCategorie("${categoryName}") :\\
 `
   }
   contentLines.forEach(contentLine => {
+    if (contentLine === '') return
     contentLine = addFileLinks(contentLine)
     content += `${buildIdentation(contentLine)}- ${removeLeadingHyphens(contentLine)}\\
 `

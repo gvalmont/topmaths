@@ -105,6 +105,34 @@ export const emptyObjectiveLessonPlan: ObjectiveLessonPlan = {
   nextSessionSteps: []
 }
 
+type SlugsWithSeed = [string, string, string] // for reviews 4 lessons before, 2 lessons before and the new objective day
+export function isSlugsWithSeed (obj: unknown): obj is SlugsWithSeed {
+  if (obj == null || !Array.isArray(obj) || obj.length !== 3) return false
+  return obj.every(link => typeof link === 'string')
+}
+export const emptySlugsWithSeedType: SlugsWithSeed = ['', '', '']
+
+export type ObjectivePrerequisite = {
+  description: string,
+  objectiveReference: ObjectiveReference,
+  slugsWithSeed: SlugsWithSeed
+}
+export function isObjectivePrerequisite (obj: unknown): obj is ObjectivePrerequisite {
+  if (obj == null || typeof obj !== 'object') return false
+  return 'description' in obj && typeof obj.description === 'string' &&
+    'objectiveReference' in obj && isObjectiveReference(obj.objectiveReference) &&
+    'slugsWithSeed' in obj && isSlugsWithSeed(obj.slugsWithSeed)
+}
+export function isObjectivePrerequisites (obj: unknown): obj is ObjectivePrerequisite[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isObjectivePrerequisite)
+}
+export const emptyObjectivePrerequisite: ObjectivePrerequisite = {
+  description: '',
+  objectiveReference: emptyObjectiveReference,
+  slugsWithSeed: ['', '', '']
+}
+
 export type ObjectiveUnit = {
   reference: UnitReference,
   title: string,
@@ -155,6 +183,7 @@ export type Objective = {
   lessonSummaryImage: string,
   lessonSummaryImageAlt: string,
   lessonSummaryInstrumenpoche: string,
+  prerequisites: ObjectivePrerequisite[],
   term: number,
   reference: ObjectiveReference,
   subTheme: string,
@@ -177,6 +206,7 @@ export function isObjective (obj: unknown, withStringReference: boolean = false)
     'lessonSummaryImage' in obj && typeof obj.lessonSummaryImage === 'string' &&
     'lessonSummaryImageAlt' in obj && typeof obj.lessonSummaryImageAlt === 'string' &&
     'lessonSummaryInstrumenpoche' in obj && typeof obj.lessonSummaryInstrumenpoche === 'string' &&
+    'prerequisites' in obj && isObjectivePrerequisites(obj.prerequisites) &&
     'term' in obj && typeof obj.term === 'number' &&
     'reference' in obj && (withStringReference ? typeof obj.reference === 'string' : isObjectiveReference(obj.reference)) &&
     'subTheme' in obj && typeof obj.subTheme === 'string' &&
@@ -202,6 +232,7 @@ export const emptyObjective: Objective = {
   lessonSummaryImage: '',
   lessonSummaryImageAlt: '',
   lessonSummaryInstrumenpoche: '',
+  prerequisites: [],
   term: 0,
   reference: emptyObjectiveReference,
   subTheme: '',

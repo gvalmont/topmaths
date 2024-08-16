@@ -1,4 +1,4 @@
-import { isObjectiveExercises, isObjectiveLessonPlan, isObjectiveReference, type ObjectiveExercise, type ObjectiveLessonPlan, type ObjectiveReference } from './objective.js'
+import { isObjectiveExercises, isObjectiveLessonPlan, isObjectivePrerequisites, isObjectiveReference, type ObjectiveExercise, type ObjectiveLessonPlan, type ObjectivePrerequisite, type ObjectiveReference } from './objective.js'
 import { DEFAULT_GRADE, isStringGrade, type StringGrade } from './grade.js'
 import { unitsReferences } from './unitsReferences.js'
 import type { ReplaceReferencesByStrings } from './shared'
@@ -15,17 +15,46 @@ export function isUnitReferences (obj: unknown): obj is UnitReference[] {
 }
 export const emptyUnitReference: UnitReference = unitsReferences[0]
 
+export type Review = {
+  description: string,
+  objectiveReference: ObjectiveReference,
+  slug: string
+}
+export function isReview (obj: unknown): obj is Review {
+  if (obj == null || typeof obj !== 'object') return false
+  return 'description' in obj && typeof obj.description === 'string' &&
+    'objectiveReference' in obj && isObjectiveReference(obj.objectiveReference) &&
+    'slug' in obj && typeof obj.slug === 'string'
+}
+export function isReviews (obj: unknown): obj is Review[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isReview)
+}
+export const emptyReview: Review = {
+  description: '',
+  objectiveReference: '6C10', // Cannot access 'emptyObjectiveReference' before initialization
+  slug: ''
+}
+
 export type UnitLessonPlan = ObjectiveLessonPlan & {
   objectiveReference: ObjectiveReference,
   objectiveTitle: string,
-  reference: string
+  reference: string,
+  consolidationReviews: Review[],
+  consolidationLink: string,
+  prerequisiteReviews: Review[],
+  prerequisiteLink: string
 }
 export function isUnitLessonPlan (obj: unknown): obj is UnitLessonPlan {
   if (obj == null || typeof obj !== 'object') return false
   return isObjectiveLessonPlan(obj) &&
     'objectiveReference' in obj && isObjectiveReference(obj.objectiveReference) &&
     'objectiveTitle' in obj && typeof obj.objectiveTitle === 'string' &&
-    'reference' in obj && typeof obj.reference === 'string'
+    'reference' in obj && typeof obj.reference === 'string' &&
+    'consolidationReviews' in obj && isReviews(obj.consolidationReviews) &&
+    'consolidationLink' in obj && typeof obj.consolidationLink === 'string' &&
+    'prerequisiteReviews' in obj && isReviews(obj.prerequisiteReviews) &&
+    'prerequisiteLink' in obj && typeof obj.prerequisiteLink === 'string'
 }
 export function isUnitLessonPlans (obj: unknown): obj is UnitLessonPlan[] {
   if (obj == null || !Array.isArray(obj)) return false
@@ -43,7 +72,11 @@ export const emptyUnitLessonPlan: UnitLessonPlan = { // Cannot access 'emptyObje
   nextSessionSteps: [],
   objectiveReference: '6C10', // Cannot access 'emptyObjectiveReference' before initialization
   objectiveTitle: '',
-  reference: ''
+  reference: '',
+  consolidationReviews: [],
+  consolidationLink: '',
+  prerequisiteReviews: [],
+  prerequisiteLink: ''
 }
 
 export type UnitObjective = {
@@ -54,7 +87,8 @@ export type UnitObjective = {
   examExercises: ObjectiveExercise[],
   theme: string,
   grade: StringGrade,
-  lessonPlans: UnitLessonPlan[]
+  lessonPlans: UnitLessonPlan[],
+  prerequisites: ObjectivePrerequisite[]
 }
 export function isUnitObjective (obj: unknown, withStringReference: boolean = false): obj is UnitObjective {
   if (obj == null || typeof obj !== 'object') return false
@@ -65,7 +99,8 @@ export function isUnitObjective (obj: unknown, withStringReference: boolean = fa
     'examExercises' in obj && isObjectiveExercises(obj.examExercises) &&
     'theme' in obj && typeof obj.theme === 'string' &&
     'grade' in obj && isStringGrade(obj.grade) &&
-    'lessonPlans' in obj && isUnitLessonPlans(obj.lessonPlans)
+    'lessonPlans' in obj && isUnitLessonPlans(obj.lessonPlans) &&
+    'prerequisites' in obj && isObjectivePrerequisites(obj.prerequisites)
 }
 export function isUnitObjectives (obj: unknown, withStringReference: boolean = false): obj is UnitObjective[] {
   if (obj == null || !Array.isArray(obj)) return false
@@ -79,7 +114,8 @@ export const emptyUnitObjective: UnitObjective = {
   examExercises: [],
   theme: '',
   grade: DEFAULT_GRADE,
-  lessonPlans: []
+  lessonPlans: [],
+  prerequisites: []
 }
 
 export type UnitDownloadLinks = {

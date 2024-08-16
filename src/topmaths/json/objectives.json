@@ -1449,6 +1449,17 @@
                 "title": "Connaître et utiliser la définition de la médiatrice",
                 "lessonSummaryHTML": "<p><strong>Définition :</strong><br>La médiatrice d'un segment est la droite qui coupe ce segment perpendiculairement en son milieu.</p><p><strong><strong>Propriété :</strong></strong><br>Si un point appartient à la médiatrice d'un segment, alors il est équidistant (= à la même distance) des deux extrémités de ce segment.</p><p><strong>Propriété :</strong><br>Si un point est équidistant des deux extrémités d'un segment, alors il appartient à la médiatrice de ce segment.</p>",
                 "lessonSummaryImage": "mediatrice.png",
+                "prerequisites": [
+                  {
+                    "description": "Tracer des perpendiculaires",
+                    "objectiveReference": "6G11",
+                    "slugsWithSeed": [
+                      "uuid=7ff97&id=6G11&n=1&s=1&s2=true&alea=gfv4",
+                      "uuid=7ff97&id=6G11&n=1&s=1&s2=true&alea=bL4X",
+                      "uuid=7ff97&id=6G11&n=1&s=1&s2=true&alea=X7Rk"
+                    ]
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Définition",
@@ -3517,6 +3528,26 @@
                 "titleAcademic": "Construire des triangles connaissant des longueurs et des angles",
                 "lessonSummaryHTML": "<ul><li>Je commence par tracer le plus grand côté</li><li>Je mesure les autres longueurs que je connais avec mon compas et trace des arcs de cercle</li><li>Je mesure les angles que je connais avec le rapporteur et trace des demi-droites</li><li>Je trouve le troisième point à l'intersection des arcs de cercle et des demi-droites</li></ul>",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "description": "Construire des triangles connaissant les 3 longueurs",
+                    "objectiveReference": "6G23",
+                    "slugsWithSeed": [
+                      "uuid=36116&id=5G20-0&n=1&s=1&s2=true&alea=yfUV",
+                      "uuid=36116&id=5G20-0&n=1&s=1&s2=true&alea=I0dc",
+                      "uuid=36116&id=5G20-0&n=1&s=1&s2=true&alea=E01R"
+                    ]
+                  },
+                  {
+                    "description": "Utiliser le rapporteur pour tracer un angle",
+                    "objectiveReference": "6G42",
+                    "slugsWithSeed": [
+                      "uuid=34e3c&id=6G23&n=1&d=10&s=3&alea=4K8d&cd=1",
+                      "uuid=34e3c&id=6G23&n=1&d=10&s=3&alea=QrNA&cd=1",
+                      "uuid=34e3c&id=6G23&n=1&d=10&s=3&alea=rt9Z&cd=1"
+                    ]
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -3628,6 +3659,17 @@
                 "titleAcademic": "Construire un triangle connaissant des longueurs et des angles sur Geogebra",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "description": "Construire des triangles connaissant des longueurs et des angles",
+                    "objectiveReference": "5G21",
+                    "slugsWithSeed": [
+                      "uuid=6a1a2&id=5G20-2&n=1&s=false&alea=2AsW",
+                      "uuid=6a1a2&id=5G20-2&n=1&s=false&alea=0T49",
+                      "uuid=6a1a2&id=5G20-2&n=1&s=false&alea=rgf2"
+                    ]
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Deux côtés et un angle",
@@ -4106,6 +4148,26 @@
                 "title": "Calculer en respectant les priorités opératoires",
                 "lessonSummaryHTML": "Pour faire un calcul lorsqu'il y a plusieurs opérations différentes, on fait <strong>d'abord les multiplications et les divisions</strong>. <br> On dit que les multiplications et les divisions sont <strong>prioritaires</strong>.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "description": "Connaître les tables de multiplication",
+                    "objectiveReference": "6C10",
+                    "slugsWithSeed": [
+                      "",
+                      "",
+                      ""
+                    ]
+                  },
+                  {
+                    "description": "Savoir que la multiplication est prioritaire",
+                    "objectiveReference": "6C32",
+                    "slugsWithSeed": [
+                      "uuid=4c10a&id=6C33&n=1&d=10&s=3&s2=true&s3=false&s4=false&alea=AE4W",
+                      "uuid=4c10a&id=6C33&n=1&d=10&s=3&s2=true&s3=false&s4=false&alea=QmSd",
+                      "uuid=4c10a&id=6C33&n=1&d=10&s=3&s2=true&s3=false&s4=false&alea=MIvN"
+                    ]
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -4156,6 +4218,17 @@
                 "title": "Traduire une phrase par un calcul",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "Vocabulaire-des-operations.png",
+                "prerequisites": [
+                  {
+                    "description": "Connaître les priorités opératoires",
+                    "objectiveReference": "5N10",
+                    "slugsWithSeed": [
+                      "uuid=e61fc&id=5C12&n=1&s=4&s2=false&s3=true&s4=true&alea=PEA5",
+                      "uuid=e61fc&id=5C12&n=1&s=4&s2=false&s3=true&s4=true&alea=ajA4",
+                      "uuid=e61fc&id=5C12&n=1&s=4&s2=false&s3=true&s4=true&alea=9gZi"
+                    ]
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",

@@ -9,15 +9,15 @@
   import { onDestroy, onMount } from 'svelte'
   import { getTitle, normalize } from '../../../services/string'
   import { emptyItem, type Item } from './types'
-  import Row from './Row.svelte'
+  import RowRegular from './RowRegular.svelte'
+  import RowCurriculum from './RowCurriculum.svelte'
   import { isTeacherMode, isTitleAcademicPreferred } from '../../../services/store'
   import InputCheckbox from '../InputCheckbox.svelte'
   import { UNLISTED_THEMES } from '../../../services/environment'
-  import { isUnit, type Unit } from '../../../types/unit'
+  import { isUnit, type Review, type Unit } from '../../../types/unit'
   import { isObjective, type Objective } from '../../../types/objective'
   import { isSpecialUnit } from '../../../types/specialUnit'
   import { emptyCurriculum, type Curriculum } from '../../../types/curriculum'
-  import { buildThemeFromReference } from '../../../services/reference'
 
   export let view: View
   export let items: Writable<Item[]>
@@ -91,6 +91,23 @@
     }
     window.history.pushState({}, '', `?v=${view}&grade=${$filter.grade}&term=${$filter.term}`)
   }
+
+  function getFilteredReviews (unit: Unit, type: 'consolidation' | 'prerequisite'): Review[] {
+    return unit.objectives
+      .filter(objective => !UNLISTED_THEMES.includes(objective.theme ?? ''))
+      .map(objective => objective.lessonPlans)
+      .flat()
+      .map(lessonPlan => type === 'consolidation' ? lessonPlan.consolidationReviews : lessonPlan.prerequisiteReviews)
+      .flat()
+      .reduce<{ seen: Set<string>; filtered: Review[] }>((acc, consolidationReview) => {
+        const objectiveReference = consolidationReview.objectiveReference
+        if (!acc.seen.has(objectiveReference)) {
+          acc.seen.add(objectiveReference)
+          acc.filtered.push(consolidationReview)
+        }
+        return acc
+      }, { seen: new Set<string>(), filtered: [] }).filtered
+  }
 </script>
 
 <GradeSelectionTabs
@@ -128,7 +145,7 @@
       </h1>
       {#if view === 'unit'}
         {#each units.filter(unit => unit.grade === grade) as unit}
-          <Row
+          <RowRegular
             item={unit}
             {view}
             {goToView}
@@ -149,7 +166,7 @@
               {subTheme}
             </h3>
             {#each objectives.filter(item => item.grade === grade).filter(item => item.theme === theme).filter(item => item.subTheme === subTheme) as objective}
-              <Row
+              <RowRegular
                 item={objective}
                 view={view}
                 {goToView}
@@ -169,8 +186,14 @@
             <div class="w-1/4">
               Séquence
             </div>
-            <div class="w-3/4">
+            <div class="w-1/4">
               Objectifs
+            </div>
+            <div class="w-1/4">
+              Révisions de consolidation
+            </div>
+            <div class="w-1/4">
+              Révisions de prérequis
             </div>
           </div>
           {#each $filteredItems.filter(item => isUnit(item)).filter(unit => unit.grade === grade).filter(unit => unit.term === term) as unit}
@@ -193,23 +216,32 @@
                 </div>
               </div>
             </div>
-            <div class="w-3/4 flex flex-col justify-center items-center">
+            <div class="w-1/4 flex flex-col justify-center items-center">
                 {#each unit.objectives.filter(objective => !UNLISTED_THEMES.includes(objective.theme ?? '')) as objective}
-                  <div class="flex flex-row grow w-full is-theme-{buildThemeFromReference(objective.reference)}">
-                    <div class="w-1/12 flex items-center justify-center">
-                      <a
-                        class="is-interactive"
-                        href='?v=objective&ref={objective.reference}'
-                        on:click={(event) => goToView(event, 'objective', objective.reference)}
-                      >
-                        {objective.reference}
-                      </a>
-                    </div>
-                    <div class="w-11/12 flex items-center justify-start text-left">
-                      {getTitle(objective)}
-                    </div>
-                  </div>
+                  <RowCurriculum
+                    reference={objective.reference}
+                    title={getTitle(objective)}
+                    {goToView}
+                  />
                 {/each}
+            </div>
+            <div class="w-1/4 flex flex-col justify-center items-center">
+              {#each getFilteredReviews(unit, 'consolidation') as consolidationReview}
+                <RowCurriculum
+                  reference={consolidationReview.objectiveReference}
+                  title={consolidationReview.description}
+                  {goToView}
+                />
+              {/each}
+            </div>
+            <div class="w-1/4 flex flex-col justify-center items-center">
+              {#each getFilteredReviews(unit, 'prerequisite') as prerequisiteReview}
+                <RowCurriculum
+                  reference={prerequisiteReview.objectiveReference}
+                  title={prerequisiteReview.description}
+                  {goToView}
+                />
+              {/each}
             </div>
           </div>
           {/each}
@@ -218,29 +250,3 @@
     </div>
   {/if}
 {/each}
-
-<style lang="scss">
-  @import '../../../styles/tailwind-colors.scss';
-
-  @mixin theme-style($class-name, $main-color, $light-color) {
-    .#{$class-name} {
-      background-color: #{$light-color};
-        a {
-          color: $topmaths-corpus-default;
-          text-decoration: underline;
-          :global(.dark) & {
-            color: #{$main-color};
-          }
-        }
-      :global(.dark) & {
-        background-color: $topmathsdark-canvas-default;
-        color: #{$main-color};
-      }
-    }
-  }
-
-  @include theme-style('is-theme-nombres', #e99384, #f8c8c0);
-  @include theme-style('is-theme-gestion', #9f84e4, #c6b9e7);
-  @include theme-style('is-theme-grandeurs', #deb273, #ffddaf);
-  @include theme-style('is-theme-geo', #7bd9ec, #aff2ff);
-</style>
