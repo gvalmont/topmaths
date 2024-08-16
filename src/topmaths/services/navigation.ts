@@ -1,4 +1,4 @@
-import { exerciseLinks, view, reference, reference2 } from './store'
+import { exerciseLinks, view, reference, reference2, isDoubleView } from './store'
 import { removeSeed } from './url'
 import type { Reference, View } from '../types/navigation'
 import { isTopmaths } from './environment'
@@ -29,14 +29,14 @@ export function GoToLatex (mouseEvent: MouseEvent, exercisesLink: string): void 
   updateUrlFromParams('latex', params)
 }
 
-export function launchExercise (mouseEvent: MouseEvent, link: string): void {
+export function launchExercise (mouseEvent: MouseEvent, link: string, isDoubleView: boolean = false): void {
   if (!isRegularClick(mouseEvent)) {
     return // to allow right clicks and opening in new tabs
   }
   mouseEvent.preventDefault()
   exerciseLinks.set([])
   if (isTopmaths(link)) {
-    launchMathaleaExercise(link)
+    launchMathaleaExercise(link, isDoubleView)
   } else {
     goTo(link)
   }
@@ -46,8 +46,9 @@ export function isRegularClick (mouseEvent: MouseEvent): boolean {
   return mouseEvent.button === 0 && !mouseEvent.ctrlKey && !mouseEvent.metaKey
 }
 
-function launchMathaleaExercise (link: string): void {
+function launchMathaleaExercise (link: string, doubleView: boolean): void {
   exerciseLinks.set([removeSeed(link)])
+  isDoubleView.set(doubleView)
   view.set('exercise')
 }
 

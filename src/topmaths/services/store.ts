@@ -21,10 +21,11 @@ export const view = writable<View>('home')
 export const reference = writable<string>('')
 export const reference2 = writable<string>('')
 
-// display settings
+// topmaths display settings
 export const isTitleAcademicPreferred = writable<boolean>(false)
 export const isTeacherMode = writable<boolean>(false)
 export const isPersonalMode = writable<boolean>(false)
 
-// other
+// exercises
 export const exerciseLinks = writable<string[]>([])
+export const isDoubleView = writable<boolean>(false)

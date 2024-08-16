@@ -8,7 +8,7 @@
   import { ElementInstrumenpoche } from '../../modules/ElementInstrumenpoche'
   import Student from './Student/Student.svelte'
   import Practice from './Practice/Practice.svelte'
-  import { isTeacherMode, isPersonalMode, reference, view, reference2 } from '../services/store'
+  import { isTeacherMode, isPersonalMode, reference, view, reference2, isDoubleView } from '../services/store'
   import Exercise from './Exercise/Exercise.svelte'
   import HeaderMenu from './presentationalComponents/HeaderMenu/HeaderMenu.svelte'
   import { cacheData } from '../services/data'
@@ -128,7 +128,18 @@
     pb-8 mb:pb-20"
   >
     {#if $view === 'exercise'}
-      <Exercise {isMd} />
+      {#if $isDoubleView}
+        <div class="columns-2">
+          <div class="break-inside-avoid-column">
+            <Exercise {isMd} />
+          </div>
+          <div class="break-inside-avoid-column">
+            <Exercise {isMd} />
+          </div>
+        </div>
+      {:else}
+        <Exercise {isMd} />
+      {/if}
     {:else if $view === 'unit'}
       <Unit />
     {:else if $view === 'objective'}

@@ -14,7 +14,7 @@
   import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
   import ExerciceMathalea from './exerciceMathalea/ExerciceMathalea.svelte'
   import { getParamsFromUrl, getUrlFromParams, updateUrlFromParams } from '../../services/mathalea'
-  import { exerciseLinks } from '../../services/store'
+  import { exerciseLinks, isDoubleView } from '../../services/store'
   import HeaderExerciceMathalea from './presentationalComponents/HeaderExerciceMathalea.svelte'
   import seedrandom from 'seedrandom'
   import { randint } from '../../../modules/outils'
@@ -273,7 +273,8 @@ function zoomUpdate (plusMinus: '+' | '-', exerciseIndex: number): void {
 
 <div
   id="exercises-list"
-  class="p-4 text-left w-full max-w-screen-lg"
+  class="text-left w-full max-w-screen-lg
+    {$isDoubleView ? '' : 'p-4'}"
 >
   {#each exercisesWithMeta as exerciseWithMeta}
     <div class="flex flex-col justify-start items-start" id="exercice{exerciseWithMeta.exerciseIndex}">

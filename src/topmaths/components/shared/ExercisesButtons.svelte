@@ -88,17 +88,32 @@
     >
       <button
         class="flex items-center"
-        on:click={(event) => launchExercise(event, exercisesLink)}
+        on:click={(mouseEvent) => launchExercise(mouseEvent, exercisesLink)}
       >
         <slot /> &nbsp;
         <IconeTooltipSimple
           dropdownText = {exerciseIndex < 0 ? 'Lancer les exercices' : 'Lancer l\'exercice'}
           imgSrc="/topmaths/img/cc0/fullscreen-svgrepo-com.svg"
-          imgAlt = "Lancer en plein écran"
+          imgAlt = "Lancer l'exercice"
         />
       </button>
     </a>
     {#if $isTeacherMode && isTopmaths(exercisesLink)}
+      <a
+        href={exercisesLink}
+        class="ml-2 is-interactive"
+      >
+        <button
+          class="flex items-center"
+          on:click={(mouseEvent) => launchExercise(mouseEvent, exercisesLink, true)}
+        >
+          <IconeTooltipSimple
+            dropdownText = {exerciseIndex < 0 ? 'Lancer les exercices en double-vue' : 'Lancer l\'exercice en double-vue'}
+            imgSrc="/topmaths/img/cc0/fullscreen-double-svgrepo-com.svg"
+            imgAlt = "Lancer l'exercice en double-vue"
+          />
+        </button>
+      </a>
       <a
         href={exercisesLink.replace('v=exercise', 'v=latex')}
         class="ml-2 is-interactive"

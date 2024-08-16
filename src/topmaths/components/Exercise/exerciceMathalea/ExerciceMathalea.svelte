@@ -133,13 +133,24 @@
   window.onresize = () => adjustMathalea2dFiguresWidth(true)
 </script>
 
-<div class="z-0 flex-1 {exercise.spacing < 1 ? '' : 'mb-10 md:mb-20'}" bind:this={divExercice}>
+<div
+  bind:this={divExercice}
+  class="z-0 flex-1
+    {exercise.spacing < 1 ? '' : 'mb-10 md:mb-20'}"
+>
   <div class="flex flex-col">
-    <article class="text-2xl relative" style="font-size: {(zoom || 1).toString()}rem;  line-height: calc({zoom || 1});">
+    <article
+      class="text-2xl relative"
+      style="font-size: {(zoom || 1).toString()}rem;
+        line-height: calc({zoom || 1});"
+    >
       <div class="flex flex-col">
         {#if typeof exercise.consigne !== 'undefined' && exercise.consigne.length !== 0}
           <div>
-            <p class="mt-2 mb-2 ml-2 lg:mx-6 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+            <p class="my-2
+              ml-2 lg:ml-6
+              text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+            >
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               {@html exercise.consigne}
             </p>
@@ -147,7 +158,10 @@
         {/if}
         {#if exercise.introduction}
           <div>
-            <p class="mt-2 mb-2 ml-2 lg:mx-6 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+            <p class="my-2
+              ml-2 lg:ml-6
+              text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+            >
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               {@html exercise.introduction}
             </p>
@@ -156,9 +170,11 @@
       </div>
       <div style="columns: {nbCols.toString()}">
         <ul
-          class="{exercise.listeQuestions.length === 1 || !exercise.listeAvecNumerotation
-            ? 'list-none'
-            : 'list-decimal'} list-inside my-2 mx-4 md:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
+          class="list-inside my-2
+            {exercise.listeQuestions.length === 1 || !exercise.listeAvecNumerotation ? 'list-none' : 'list-decimal'}
+            mx-4 md:mx-6
+            marker:font-bold
+            marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct"
         >
           <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
           {#each exercise.listeQuestions as question, questionIndex (questionIndex)}
@@ -170,11 +186,20 @@
             />
           {/each}
         </ul>
-        <div id="divScoreEx{exerciseIndex}" bind:this={divScore}></div>
+        <div
+          id="divScoreEx{exerciseIndex}"
+          bind:this={divScore}
+        />
       </div>
     </article>
     {#if exercise.interactif && !isCorrectionVisible}
-      <button type="submit" on:click={verifExerciceVueEleve} bind:this={buttonScore}>Vérifier {numberOfAnswerFields > 1 ? 'les réponses' : 'la réponse'}</button>
+      <button
+        type="submit"
+        on:click={verifExerciceVueEleve}
+        bind:this={buttonScore}
+      >
+        Vérifier {numberOfAnswerFields > 1 ? 'les réponses' : 'la réponse'}
+      </button>
     {/if}
   </div>
 </div>
