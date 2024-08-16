@@ -167,6 +167,9 @@
   "canExC": {
     "titre": "Nombres complexes"
   },
+  "canT1AN": {
+    "titre": "Analyse"
+  },
   "canExa": {
     "titre": "Sujets (annales/créations)"
   },
@@ -930,6 +933,9 @@
   },
   "TAN1": {
     "titre": "Analyse"
+  },
+  "TC1": {
+    "titre": "Calculs"
   },
   "ExC1": {
     "titre": "Calculs avec nombres complexes",

@@ -1,6 +1,5 @@
 import type { MathfieldElement } from 'mathlive'
 import type { BlockForKeyboard } from '../../../components/keyboard/types/keyboardContent'
-import type { numbersOperations } from '../../../components/keyboard/layouts/keysBlocks'
 
 const KEYBOARD_CATEGORIES = [
   'clavierHms',
@@ -16,12 +15,14 @@ const KEYBOARD_CATEGORIES = [
   'clavierDeBaseAvecVariable',
   'clavierNumbers',
   'clavierEnsemble',
+  'clavierEnsemblePredefini',
   'clavierFullOperations',
   'alphanumericAvecEspace',
   'alphanumeric',
   'longueur',
   'aire',
   'logPuissance',
+  'numeration',
   'volume',
   'masse',
   'clavierProbabilite',
@@ -93,7 +94,9 @@ export const convertKeyboardTypeToBlocks = (
     case KeyboardType.clavierDeBaseAvecVariable:
       return ['numbers', 'basicOperations', 'variables']
     case KeyboardType.clavierEnsemble:
-      return ['numbersX', 'ensemble']
+      return ['numbersX', 'ensemble', 'ensembleDefini']
+    case KeyboardType.clavierEnsemblePredefini:
+      return ['ensembleDefini']
     case KeyboardType.clavierNumbers:
       return ['numbers']
     case KeyboardType.numbersSpace:
@@ -115,6 +118,8 @@ export const convertKeyboardTypeToBlocks = (
       return ['alphanumeric']
     case KeyboardType.longueur:
       return ['numbers', 'lengths']
+    case KeyboardType.numeration:
+      return ['numbers', 'numeration']
     case KeyboardType.aire:
       return ['numbers', 'areas']
     case KeyboardType.volume:
@@ -171,14 +176,14 @@ export const buildDataKeyboardFromStyle = (
         }
       }
     }
-    if (blocks.length !== 0) {
-      const blks = blocks.filter((element, index, array) => {
-        return array.indexOf(element) === index
-      })
-      return blks
-    }
-    return ['numbers', 'fullOperations', 'variables']
   }
+  if (blocks.length !== 0) {
+    const blks = blocks.filter((element, index, array) => {
+      return array.indexOf(element) === index
+    })
+    return blks
+  }
+  return ['numbers', 'fullOperations', 'variables']
 }
 
 type Shortcut = {

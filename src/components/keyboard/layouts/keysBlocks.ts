@@ -57,20 +57,34 @@ const fullOperationCaps: CompleteKeysList = {
 }
 const logPuissanceCaps: CompleteKeysList = {
   inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'LOG', 'LN', 'POW', 'FRAC', 'SEMICOLON', 'COMMA', 'DIV', 'MULT', 'SUB', 'ADD'],
-  block: ['[','LOG', 7, 8, 9, 'DIV',']', 'LN', 4, 5, 6, 'MULT','INFTY', 'POW', 1, 2, 3, 'SUB', 'e^', 'FRAC', 0, 'COMMA', 'SEMICOLON', 'ADD']
+  block: ['[', 'LOG', 7, 8, 9, 'DIV', ']', 'LN', 4, 5, 6, 'MULT', 'INFTY', 'POW', 1, 2, 3, 'SUB', 'e^', 'FRAC', 0, 'COMMA', 'SEMICOLON', 'ADD']
 }
+
+const numerationCaps: CompleteKeysList = {
+  inline: ['MILLION', 'MILLIARD', 'MILLE', 'CENTAINE', 'DIZAINE', 'UNITE', 'DE', 'DIXIEME', 'CENTIEME', 'MILLIEME', 'DIX_MILLIEME', 'CENT_MILLIEME', 'MILLIONIEME', 'HYPHEN', 'DIX', 'VINGT', 'TRENTE', 'QUARANTE', 'CINQUANTE', 'SOIXANTE', 'SOIXANTE_DIX', 'QUATRE_VINGT', 'QUATRE_VINGT_DIX', 'CENT'],
+  block: ['MILLION', 'MILLIARD', 'MILLE', 'CENTAINE', 'DIZAINE', 'UNITE', 'DE', 'DIXIEME', 'CENTIEME', 'MILLIEME', 'DIX_MILLIEME', 'CENT_MILLIEME', 'MILLIONIEME', 'HYPHEN', 'DIX', 'VINGT', 'TRENTE', 'QUARANTE', 'CINQUANTE', 'SOIXANTE', 'SOIXANTE_DIX', 'QUATRE_VINGT', 'QUATRE_VINGT_DIX', 'CENT']
+}
+
 const probabiliteCaps: CompleteKeysList = {
   inline: ['PROB', 'BINOM', 'OVERLINE', 'UNION', 'INTER', 'EMPTY', 'SEMICOLON', 'PARENTHESES', 'POW', 'INDICE', 'QUOTE', '='],
   block: ['PROB', 'BINOM', 'OVERLINE', 'UNION', 'INTER', 'EMPTY', 'SEMICOLON', 'PARENTHESES', 'POW', 'INDICE', 'QUOTE', '=']
 }
+
 const ensembleCaps: CompleteKeysList = {
-  inline: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'EMPTY', 'SEMICOLON', 'FRAC', 'IN', 'UNION', 'INTER'],
-  block: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'EMPTY', 'SEMICOLON', 'FRAC', 'IN', 'UNION', 'INTER']
+  inline: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'IN', 'SEMICOLON', 'FRAC'],
+  block: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'IN', 'SEMICOLON', 'FRAC']
 }
+
+const ensembleDefiniCaps: CompleteKeysList = {
+  inline: ['COMP', 'REAL', 'RATIO', 'DECIMAL', 'REL', 'INTEG', 'EMPTY', 'UNION', 'INTER'],
+  block: ['COMP', 'REAL', 'RATIO', 'DECIMAL', 'REL', 'INTEG', 'EMPTY', 'UNION', 'INTER']
+}
+
 const hmsCaps: CompleteKeysList = {
   inline: ['HOUR', 'MIN', 'SEC'],
   block: ['HOUR', 'MIN', 'SEC']
 }
+
 const greekCaps: CompleteKeysList = {
   inline: ['ALPHA', 'BETA', 'GAMMA', 'DELTA', 'EPSILON', 'THETA', 'LAMBDA', 'OMEGA'],
   block: ['ALPHA', 'BETA', 'GAMMA', 'DELTA', 'EPSILON', 'THETA', 'LAMBDA', 'OMEGA']
@@ -270,6 +284,13 @@ export const logPuissance: KeyboardBlock = {
   isUnits: false
 }
 
+export const numeration: KeyboardBlock = {
+  keycaps: numerationCaps,
+  cols: 6,
+  title: 'Logarithme et puissance',
+  isUnits: false
+}
+
 export const probabilite: KeyboardBlock = {
   keycaps: probabiliteCaps,
   cols: 3,
@@ -293,7 +314,7 @@ export const greek: KeyboardBlock = {
 
 export const compare: KeyboardBlock = {
   keycaps: compareCaps,
-  cols: 2,
+  cols: 3,
   title: 'Comparaison',
   isUnits: false
 }
@@ -343,6 +364,13 @@ export const ensemble: KeyboardBlock = {
   keycaps: ensembleCaps,
   cols: 3,
   title: 'Ensembles',
+  isUnits: false
+}
+
+export const ensembleDefini: KeyboardBlock = {
+  keycaps: ensembleDefiniCaps,
+  cols: 3,
+  title: 'EnsemblesDefinis',
   isUnits: false
 }
 
@@ -415,6 +443,7 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   degre,
   degreCelsius,
   ensemble,
+  ensembleDefini,
   greek,
   fullOperations,
   hms,
@@ -427,6 +456,7 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   numbers2,
   numbersOperations,
   numbersOperationsX,
+  numeration,
   probabilite,
   trigo,
   variables,

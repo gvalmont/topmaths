@@ -1,4 +1,4 @@
-import { colorToLatexOrHTML, fixeBordures, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d, ObjetMathalea2D, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { egal } from '../../modules/outils.js'
 import { arrondi, unSiPositifMoinsUnSinon } from '../outils/nombres'
@@ -186,15 +186,24 @@ export function angle (A, O, B, precision = 2) {
   const OA = longueur(O, A, precision)
   const OB = longueur(O, B, precision)
   const AB = longueur(A, B, precision)
-  const v = vecteur(O, A)
-  const w = vecteur(O, B)
-  if (egal(v.x * w.y - v.y * w.x, 0)) { // vecteurs colinéaires à epsilon près pour éviter les effets de bords dus aux flottants.
-    if (v.x * w.x > 0) return 0
-    else if (v.x * w.x < 0) return 180
-    else if (v.y * w.y > 0) return 0
-    else return 180
+  if (OA > 0 && OB > 0) {
+    const v = vecteur(O, A)
+    const w = vecteur(O, B)
+    if (egal(v.x * w.y - v.y * w.x, 0)) { // vecteurs colinéaires à epsilon près pour éviter les effets de bords dus aux flottants.
+      if (v.x * w.x > 0) return 0
+      else if (v.x * w.x < 0) return 180
+      else if (v.y * w.y > 0) return 0
+      else return 180
+    } else {
+      let cos = (AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB)
+      if (cos < -1) cos = -1
+      if (cos > 1) cos = 1
+      const alpha = Math.acos(cos)
+      return arrondi(alpha * 180 / Math.PI, precision)
+    }
   } else {
-    return arrondi((Math.acos(arrondi((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB), 12)) * 180) / Math.PI, precision)
+    // Ce n'est pas normal de demander la mesure d'un angle dont un côté a une longueur nulle.
+    return 0
   }
 }
 
@@ -235,9 +244,16 @@ export function angleModulo (a) {
  */
 // JSDOC Validee par EE Juin 2022
 export function angleOriente (A, O, B, precision = 2) {
+  const OA = longueur(O, A)
+  const OB = longueur(O, B)
+  if (OA < 1e-12 || OB < 1e-12) { // On considère qu'un côté de l'angle a une longueur nulle, et ce n'est pas normal !
+    // window.notify('angleOriente() a reçu des points confondus pour déterminer l\'angle !', { OA, OB })
+    return 0
+  }
   const A2 = rotation(A, O, 90)
   const v = vecteur(O, B)
   const u = vecteur(O, A2)
+
   return arrondi(unSiPositifMoinsUnSinon(arrondi(v.x * u.x + v.y * u.y, 10)) * angle(A, O, B, precision), precision)
 }
 
@@ -499,9 +515,9 @@ export function cercleTrigo (angle, cosOrSin = 'cos') {
   sOI.epaisseur = 3
   const x = point(M.x, 0)
   const y = point(0, M.y)
-  const sMx = segment(M, x)
+  const sMx = !egal(M.y, 0) ? segment(M, x) : vide2d()
   sMx.pointilles = 5
-  const sMy = segment(M, y)
+  const sMy = !egal(M.x, 0) ? segment(M, y) : vide2d()
   sMy.pointilles = 5
   const texteAngle = latexParPoint(tAngle, M2)
   const Rx = point(M.x, (M.y < 0) ? 1.5 : -1.5)

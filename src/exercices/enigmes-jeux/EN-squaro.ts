@@ -9,6 +9,7 @@ import remove from 'apigeom/src/assets/svg/restart.svg'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { choice } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
+import Element2D from 'apigeom/src/elements/Element2D'
 
 export const dateDePublication = '15/07/2024'
 export const titre = 'Résoudre une grille de SquarO'
@@ -35,6 +36,7 @@ class squaro extends Exercice {
   nbSommets: Array<number>
   longueur:number
   largeur:number
+  blueButton!: HTMLElement
 
   constructor () {
     super()
@@ -54,23 +56,28 @@ class squaro extends Exercice {
       'Hauteur de la grille',
       'Choisir un nombre entier entre 2 et 15.'
     ]
+    this.besoinFormulaire3CaseACocher = ['Aide sur le nombre total de points bleus']
     this.besoinFormulaire4Texte = [
       'Nombre de points bleus déjà affichés',
       '1 : Un seul point\n2 : Deux points\n3 : Trois points\n4 : Le quart des points\n5 : Le tiers des points\n6 : La moitié des points\n7 : Aucun'
     ]
     this.sup = 5
     this.sup2 = 5
+    this.sup3 = true
     this.sup4 = 7
     this.longueur = this.sup
     this.largeur = this.sup2
+    // this.interactif = true
   }
 
   nouvelleVersion (): void {
-    this.consigne = 'Cette grille de SquarO est à compléter en plaçant un certain nombre de points bleus sur les sommets des cases de telle sorte que le chiffre présent dans chaque case indique le nombre de points bleus qui l’entourent parmi les 4 sommets.'
-    this.consigne += '<br>Si vous le souhaitez, vous pouvez placer les points rouges en forme de croix pour signaler des positions impossibles des points bleus.'
-    this.comment = 'Grâce au choix de la longueur et de la hauteur de la grille et grâce à l\'aide ci-dessus sur des points initialement affichés, vous pouvez graduer la difficulté des grilles SquarO proposés.'
-    this.interactif = true
+    this.consigne = 'Cette grille de SquarO est à compléter en plaçant un certain nombre de points bleus dans les ronds vides qui sont sur les sommets des cases. '
+    this.consigne += 'Le chiffre présent dans chaque case indique le nombre de points bleus qui l’entourent parmi les 4 sommets.'
+    this.consigne += this.interactif ? '<br>Si vous le souhaitez, vous pouvez placer les points rouges en forme de croix pour signaler des positions impossibles des points bleus.' : ''
+    this.comment = 'Grâce au choix de la longueur et de la hauteur de la grille et grâce à l\'aide ci-dessus sur des points initialement affichés, vous pouvez graduer la difficulté des grilles SquarO proposées.'
+    this.longueur = Math.max(2, Math.min(parseInt(this.sup), 15)) || 2
     this.largeur = Math.max(2, Math.min(parseInt(this.sup2), 15)) || 2
+
     this.idApigeom = `apigeomEx${this.numeroExercice}EE`
     this.figure = new Figure({
       xMin: -0.25, // On enlève 0.25 unités
@@ -121,6 +128,7 @@ class squaro extends Exercice {
     this.figureCorrection.options.color = orangeMathalea
     this.figureCorrection.options.shape = 'o'
     this.figureCorrection.options.labelIsVisible = false
+    this.figure.options.gridWithTwoPointsOnSamePosition = false // Pour éviter que deux points aient la même position
 
     const drawBluePoint = () => {
       this.figure.options.shape = 'o'
@@ -134,20 +142,29 @@ class squaro extends Exercice {
     }
     const eraseAllPoints = () => {
       for (const element of this.figure.elements.values()) {
-        if (element.type === 'Point') {
+        if (element.type === 'Point' && element instanceof Element2D && element.isVisible) {
           element.remove()
         }
       }
       this.figure.saveState()
+      setTimeout(() => {
+        if (this.blueButton != null) {
+          this.blueButton.click()
+        }
+      }, 500)
+      // this.figure.ui?.send('INIT') // bug apiGeom, l'état INIT ne fonctionne pas et permet toujours de placer des points
+      // this.figure.ui?.send('DRAG')
     }
-    this.figure.addCustomButton({
+    this.blueButton = this.figure.addCustomButton({
       action: drawBluePoint,
       tooltip: 'Placer un point bleu',
+      userMessage: 'Cliquer pour placer un point bleu',
       url: bluePoint
     })
     this.figure.addCustomButton({
       action: drawRedPoint,
-      tooltip: 'Placer un point rouge',
+      tooltip: 'Placer une croix rouge',
+      userMessage: 'Cliquer pour placer une croix rouge',
       url: redPoint
     })
     this.figure.addCustomButton({
@@ -172,29 +189,6 @@ class squaro extends Exercice {
         }
       }
     }
-    let nbPointsAide = 0
-    switch (this.sup4) {
-      case '1' :
-      case '2' :
-      case '3' :
-        nbPointsAide = parseInt(this.sup4)
-        break
-      case '4' :
-        nbPointsAide = this.goodAnswers.length / 4
-        break
-      case '5' :
-        nbPointsAide = this.goodAnswers.length / 3
-        break
-      case '6' :
-        nbPointsAide = this.goodAnswers.length / 2
-        break
-    }
-    let bonnesReponsesEncoreDispo = this.goodAnswers.slice()
-    for (let i = 0; i < nbPointsAide; i++) {
-      const unBonPoint = choice(bonnesReponsesEncoreDispo) as { x: number; y: number }
-      this.figure.create('Point', { x: unBonPoint.x, y: unBonPoint.y })
-      bonnesReponsesEncoreDispo = bonnesReponsesEncoreDispo.filter(obj => !(obj.x === unBonPoint.x && obj.y === unBonPoint.y))
-    }
 
     let enonce = `Cette grille doit contenir ${texteEnCouleurEtGras(this.goodAnswers.length.toString(), 'blue')} `
     enonce += this.goodAnswers.length === 1 ? 'point bleu.' : 'points bleus.'
@@ -217,6 +211,37 @@ class squaro extends Exercice {
         })
       }
     }
+    for (let j = 0; j <= this.largeur; j++) {
+      for (let i = 0; i <= this.longueur; i++) {
+        const center = this.figure.create('Point', { x: i, y: j, isVisible: false, color: 'white' }) // Il ne faut pas qu'ils soient bleus.
+        this.figure.create('Circle', { center, radius: 0.2, fillColor: 'white', color: 'black', fillOpacity: 1 })
+      }
+    }
+
+    let nbPointsAide = 0
+    switch (this.sup4) {
+      case '1' :
+      case '2' :
+      case '3' :
+        nbPointsAide = parseInt(this.sup4)
+        break
+      case '4' :
+        nbPointsAide = this.goodAnswers.length / 4
+        break
+      case '5' :
+        nbPointsAide = this.goodAnswers.length / 3
+        break
+      case '6' :
+        nbPointsAide = this.goodAnswers.length / 2
+        break
+    }
+    let bonnesReponsesEncoreDispo = this.goodAnswers.slice()
+    for (let i = 0; i < nbPointsAide; i++) {
+      const unBonPoint = choice(bonnesReponsesEncoreDispo) as { x: number; y: number }
+      this.figure.create('Point', { x: unBonPoint.x, y: unBonPoint.y, color: 'blue' })
+      bonnesReponsesEncoreDispo = bonnesReponsesEncoreDispo.filter(obj => !(obj.x === unBonPoint.x && obj.y === unBonPoint.y))
+    }
+
     // Besoin de l'aide sur l'affichage du nombre de points
     if (this.interactif) {
       this.figure.divUserMessage.style.textAlign = 'left'
@@ -246,15 +271,35 @@ class squaro extends Exercice {
         ).length
         divNbPoints.innerHTML = `Cette grille contient actuellement ${nbBluePoints} point${nbBluePoints === 1 ? '' : 's'} bleu${nbBluePoints === 1 ? '' : 's'}.`
       })
+      document.addEventListener('exercicesAffiches', () => {
+        this.blueButton.click()
+      })
+    }
+
+    if (!this.interactif) {
+      this.figure.isDynamic = false
+      this.figure.divButtons.style.display = 'none'
+      this.figure.divUserMessage.style.display = 'none'
     }
 
     const texteCorr = 'Voici une solution possible :<br>'
-    this.question = enonce + emplacementPourFigure
+    this.question = (this.sup3 ? enonce : '') + emplacementPourFigure
     this.correction = texteCorr + this.figureCorrection.getStaticHtml()
 
     if (!context.isHtml) {
-      // this.question += 'Mon CODE LaTeX pour la figure'
-      // this.correction += 'Mon CODE LaTeX pour la figure'
+      let persoSquaro = ''
+      for (let ee = 0; ee < codagePoints.length - 1; ee++) {
+        persoSquaro += codagePoints[ee] + ','
+      }
+      persoSquaro += codagePoints[codagePoints.length - 1]
+
+      this.question = (this.sup3 ? ('<br>' + enonce) : '') + `<br><br>\\SquarO[Largeur=${this.largeur},Longueur=${this.longueur},Perso]{`
+      this.question += persoSquaro
+      this.question += '}'
+
+      this.correction = `Voici une solution possible :<br>\\SquarO[Largeur=${this.largeur},Longueur=${this.longueur},Perso,Solution]{`
+      this.correction += persoSquaro
+      this.correction += '}'
     }
   }
 

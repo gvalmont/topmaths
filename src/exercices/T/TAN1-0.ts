@@ -31,9 +31,9 @@ export default class InequationsLog extends Exercice {
     super()
     this.nbQuestions = 5
     if (this.nbQuestions === 1) {
-      this.consigne = 'Résoudre l\'inéquation suivante. La solution devra être écrite sous la forme d\'un intervalle.'
+      this.consigne = 'Résoudre dans $\\R$ l\'inéquation suivante. La solution devra être écrite sous la forme d\'un intervalle.'
     } else {
-      this.consigne = 'Résoudre les inéquations suivantes. Les solutions devront être écrites sous la forme d\'un intervalle.'
+      this.consigne = 'Résoudre dans $\\R$ les inéquations suivantes. Les solutions devront être écrites sous la forme d\'un intervalle.'
     }
     this.spacingCorr = 3
     this.sup = '4'
@@ -201,9 +201,11 @@ export default class InequationsLog extends Exercice {
           break
       }
       texte = `$${texNombre(a, 5)}^x ${signe0} ${stringB}$`
-      texteCorr = `$${logString}{(${stringA}^x)} ${signe0} ${logString}{(${stringB})}$`
-      texteCorr += `<br>$x${logString}{(${stringA})} ${signe0} ${logString}{(${stringB})}$`
-      texteCorr += `<br>$x ${signe1} \\dfrac{${logString}(${stringB})}{${logString}(${stringA})}$ car $${logString}(${stringA}) ${signe2}0$`
+      texteCorr = `On sait que pour tous réels $a$ et $b$ strictement positifs $a ${signe0} b$ si, et seulement si, $${logString}(a) ${signe0} ${logString}(b)$. D'où :`
+      texteCorr += `<br>$${texNombre(a, 5)}^x ${signe0} ${stringB}$`
+      texteCorr += `<br>$ \\iff ${logString}{(${stringA}^x)} ${signe0} ${logString}{(${stringB})}$`
+      texteCorr += `<br>$ \\iff x${logString}{(${stringA})} ${signe0} ${logString}{(${stringB})}$`
+      texteCorr += `<br>$ \\iff x ${signe1} \\dfrac{${logString}(${stringB})}{${logString}(${stringA})}$ car $${logString}(${stringA}) ${signe2}0$`
       if (quotient !== null && base !== null) {
         texteCorr += this.correctionDetaillee
           ? typeof quotient === 'number'

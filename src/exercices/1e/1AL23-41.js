@@ -4,7 +4,7 @@ import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Trinome from '../../modules/Trinome.js'
+import Trinome from '../../modules/Trinome'
 import Exercice from '../Exercice'
 
 export const titre = 'Bilan : équations et inéquations du second degré'
@@ -12,7 +12,6 @@ export const interactifReady = false
 
 export const dateDePublication = '28/10/2022'
 export const dateDeModifImportante = '5/11/2023'
-// Réparation de trinome.js
 
 /**
  * Bilan sur les différentes formes d'équations et d'inéquations
@@ -142,21 +141,21 @@ export default class EquationsEtInequations extends Exercice {
         texteCorr += 'Calculons le discriminant de ce polynôme du second degré : '
         texteCorr += `$\\Delta = ${p.texCalculDiscriminant}$.`
         texteCorr += '<br><br>Le discriminant est strictement positif, donc le polynôme a deux racines.'
-        texteCorr += `<br><br>$${p.texCalculRacine1}$`
-        texteCorr += `<br><br>$${p.texCalculRacine2}$`
+        texteCorr += `<br><br>$${p.texCalculRacine1(true)}$`
+        texteCorr += `<br><br>$${p.texCalculRacine2(true)}$`
         texteCorr += '<br><br>'
         if ((typeInequation === '>' && a > 0) || (typeInequation === '<' && a < 0)) {
           texteCorr += 'On sait que le polynôme est du signe de $a$ à l\'extérieur de ses racines donc '
-          texteCorr += `$S=\\left]-\\infty;${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX1 : p.texX2}\\right[\\cup\\left]${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX2 : p.texX1};+\\infty\\right[$.`
+          texteCorr += `$S=\\left]-\\infty;${p.texX1}\\right[\\cup\\left]${p.texX2};+\\infty\\right[$.`
         } else if ((typeInequation === '<' && a > 0) || (typeInequation === '>' && a < 0)) {
           texteCorr += 'On sait que le polynôme est du signe de $-a$ entre ses racines donc '
-          texteCorr += `$S=\\left]${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX1 : p.texX2};${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX2 : p.texX1}\\right[$.`
+          texteCorr += `$S=\\left]${p.texX1};${p.texX2}\\right[$.`
         } else if ((typeInequation === '\\geq' && a > 0) || (typeInequation === '\\leq' && a < 0)) {
           texteCorr += 'On sait que le polynôme est du signe de $a$ à l\'extérieur de ses racines donc '
-          texteCorr += `$S=\\left]-\\infty;${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX1 : p.texX2}\\right]\\cup\\left[${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX2 : p.texX1};+\\infty\\right[$.`
+          texteCorr += `$S=\\left]-\\infty;${p.texX1}\\right]\\cup\\left[${p.texX2};+\\infty\\right[$.`
         } else {
           texteCorr += 'On sait que le polynôme est du signe de $-a$ entre ses racines donc '
-          texteCorr += `$S=\\left[${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX1 : p.texX2};${p.x1.valeurDecimale < p.x2.valeurDecimale ? p.texX2 : p.texX1}\\right]$.`
+          texteCorr += `$S=\\left[${p.texX1};${p.texX2}\\right]$.`
         }
       } else if (listeTypeQuestions[i] === 'ax2=bx') {
         const a = randint(-5, 5, 0)

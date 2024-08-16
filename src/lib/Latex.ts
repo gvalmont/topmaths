@@ -130,16 +130,21 @@ class Latex {
           if (Number(exercice.nbColsCorr) > 1) {
             contentCorr += `\\begin{multicols}{${exercice.nbColsCorr}}\n`
           }
-          if (Number(exercice.spacingCorr) > 0) {
-            contentCorr += `\n\\begin{enumerate}[itemsep=${exercice.spacingCorr}em]`
-          } else {
-            contentCorr += '\n\\begin{enumerate}'
+          if (Number(exercice.nbQuestions) > 1) {
+            if (Number(exercice.spacingCorr) > 0) {
+              contentCorr += `\n\\begin{enumerate}[itemsep=${exercice.spacingCorr}em]`
+            } else {
+              contentCorr += '\n\\begin{enumerate}'
+            }
           }
-
           for (const correction of exercice.listeCorrections) {
-            contentCorr += `\n\\item \\begin{minipage}[t]{\\linewidth}${format(correction)}\\end{minipage}`
+            if (Number(exercice.nbColsCorr) > 1) {
+              contentCorr += `\n\\item \\begin{minipage}[t]{\\linewidth}${format(correction)}\\end{minipage}`
+            } else {
+              contentCorr += `\n\\item ${format(correction)}`
+            }
           }
-          contentCorr += '\n\\end{enumerate}\n'
+          if (Number(exercice.nbQuestions) > 1) contentCorr += '\n\\end{enumerate}\n'
           if (Number(exercice.nbColsCorr) > 1) {
             contentCorr += '\\end{multicols}\n'
           }
@@ -433,11 +438,19 @@ function writeQuestions (questions: string[], spacing = 1, numbersNeeded: boolea
       content += '[' + specs.join(',') + ']'
     }
     for (const question of questions) {
-      content += '\n\t\\item ' + (nbCols > 1 ? '\\begin{minipage}[t]{\\linewidth}' : '\\begin{minipage}[t]{\\linewidth}') + format(question) + (nbCols > 1 ? '\\end{minipage}' : '\\end{minipage}')
+      if (nbCols > 1) {
+        content += `\n\t\\item \\begin{minipage}[t]{\\linewidth} ${format(question)} \\end{minipage}`
+      } else {
+        content += `\n\t\\item ${format(question)}`
+      }
     }
     content += '\n\\end{enumerate}'
   } else {
-    content += '\n \\begin{minipage}[t]{\\linewidth}' + format(questions[0] + '\\end{minipage}')
+    if (nbCols > 1) {
+      content += `\n \\begin{minipage}[t]{\\linewidth} ${format(questions[0])} \\end{minipage}`
+    } else {
+      content += `\n ${format(questions[0])}`
+    }
   }
   return content
 }

@@ -55,8 +55,8 @@
     "lintSvelte": "eslint src/components/**/* --ext .js,.ts,.svelte --fix",
     "docs": "jsdoc -d docs --configure jsdocConf.json",
     "addDNB": "pnpm --package=git+https://forge.apps.education.fr/coopmaths/dnb -c dlx dnbindex",
-    "test:unit": "vitest tests/unit",
-    "test:src": "vitest src",
+    "test:unit": "vitest tests/unit --run",
+    "test:src": "vitest src --run",
     "test:e2e": "vitest --config tests/e2e/vitest.config.all.js --run",
     "test:e2e:dev": "vitest --config tests/e2e/vitest.config.dev.js --watch",
     "test:e2e:all": "vitest --config tests/e2e/vitest.config.all.js --run",
@@ -66,7 +66,9 @@
     "test:e2e:views": "vitest --config tests/e2e/vitest.config.view.js --run",
     "test:e2e:consistency": "vitest --config tests/e2e/vitest.config.consistency.js --run",
     "screenshot": "vitest --config tests/e2e/vitest.config.screenshot.js --run",
-    "prepare": "husky"
+    "prepare": "husky",
+    "prebuild-unit-tests": "pnpm test:unit && pnpm test:src",
+    "prebuild-e2e-tests": "AUTOTEST=true pnpm test:e2e:views && AUTOTEST=true pnpm test:e2e:interactivity && AUTOTEST=true pnpm test:e2e:consistency"
   },
   "dependencies": {
     "@bugsnag/js": "^7.25.0",
