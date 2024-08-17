@@ -674,7 +674,7 @@ function buildUnitLessonPlans (objective: ObjectiveWithStringReference, unitGrad
       lessonPlanNumber++
       return unitLessonPlan
     })
-  if (!isUnitLessonPlans(unitLessonPlans)) {
+  if (!isUnitLessonPlans(unitLessonPlans, true)) {
     console.error(unitLessonPlans)
     throw new Error('unitLessonPlans is not UnitLessonPlan[]')
   }

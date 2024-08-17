@@ -45,10 +45,10 @@ export type UnitLessonPlan = ObjectiveLessonPlan & {
   prerequisiteReviews: Review[],
   prerequisiteLink: string
 }
-export function isUnitLessonPlan (obj: unknown): obj is UnitLessonPlan {
+export function isUnitLessonPlan (obj: unknown, withStringReference: boolean = false): obj is UnitLessonPlan {
   if (obj == null || typeof obj !== 'object') return false
   return isObjectiveLessonPlan(obj) &&
-    'objectiveReference' in obj && isObjectiveReference(obj.objectiveReference) &&
+    'objectiveReference' in obj && (withStringReference ? typeof obj.objectiveReference === 'string' : isObjectiveReference(obj.objectiveReference)) &&
     'objectiveTitle' in obj && typeof obj.objectiveTitle === 'string' &&
     'reference' in obj && typeof obj.reference === 'string' &&
     'consolidationReviews' in obj && isReviews(obj.consolidationReviews) &&
@@ -56,9 +56,9 @@ export function isUnitLessonPlan (obj: unknown): obj is UnitLessonPlan {
     'prerequisiteReviews' in obj && isReviews(obj.prerequisiteReviews) &&
     'prerequisiteLink' in obj && typeof obj.prerequisiteLink === 'string'
 }
-export function isUnitLessonPlans (obj: unknown): obj is UnitLessonPlan[] {
+export function isUnitLessonPlans (obj: unknown, withStringReference: boolean = false): obj is UnitLessonPlan[] {
   if (obj == null || !Array.isArray(obj)) return false
-  return obj.every(isUnitLessonPlan)
+  return obj.every(unit => isUnitLessonPlan(unit, withStringReference))
 }
 export const emptyUnitLessonPlan: UnitLessonPlan = { // Cannot access 'emptyObjectiveLessonPlan' before initialization
   startSteps: [],
