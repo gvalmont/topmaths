@@ -8,7 +8,6 @@
   export let exercises: ObjectiveExercise[]
   export let videos: ObjectiveVideo[]
   export let exercisesLink: string
-  export let isAllExercisesInCart: boolean
   export let objectiveTitle: string
 
   let itemsToAddToCart: CartItem[]
@@ -28,7 +27,6 @@
     {itemsToAddToCart}
     videos = {videos}
     exercisesLink = {exercisesLink}
-    isCartEmpty = {isAllExercisesInCart}
   >
     S'entraîner
   </ExercisesButtons>
@@ -40,7 +38,6 @@
         itemsToAddToCart = {[{ exercise: exercises[i], label: exercises[i].description || objectiveTitle, reference }]}
         videos = {videos}
         exercisesLink = {exercice.link}
-        isCartEmpty = {exercice.isInCart}
         exerciseIndex = {i}
       >
     {exercice.description !== ''

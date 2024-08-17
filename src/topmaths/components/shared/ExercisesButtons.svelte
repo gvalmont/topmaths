@@ -11,11 +11,11 @@
 
   export let itemsToAddToCart: CartItem[] = []
   export let exercisesLink: string
-  export let isCartEmpty = true
   export let exerciseIndex = -1
   export let videos: ObjectiveVideo[] = []
 
   let capytaleLink: string = ''
+  let isCartEmpty: boolean = true
 
   onMount(async () => {
     await tick()

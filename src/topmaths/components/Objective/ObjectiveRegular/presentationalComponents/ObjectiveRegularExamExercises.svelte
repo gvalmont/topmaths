@@ -7,7 +7,6 @@
   export let examExercises: ObjectiveExercise[]
   export let videos: ObjectiveVideo[]
   export let examExercisesLink: string
-  export let isExamExercisesInCart: boolean
   export let objectiveReference: ObjectiveReference
 
   let itemsToAddToCart: CartItem[]
@@ -38,7 +37,6 @@
       {itemsToAddToCart}
       videos = {videos}
       exercisesLink = {examExercisesLink}
-      isCartEmpty = {isExamExercisesInCart}
     />
   </li>
 </ul>

@@ -11,7 +11,6 @@
   import {
     mathaleaRenderDiv
   } from '../../../../lib/mathalea'
-  import Cart from '../../../modules/Cart'
   import iepLoadPromise from 'instrumenpoche'
   import { isEmptyArrayRecord, deepCopy } from '../../../types/shared'
   import ObjectiveRegularLessonSummary from './presentationalComponents/ObjectiveRegularLessonSummary.svelte'
@@ -24,24 +23,10 @@
   export let objectiveReference: string
 
   let objective: Objective = deepCopy(emptyObjective)
-  let isAllExercisesInCart = false
-  let isExamExercisesInCart = false
 
   onMount(() => {
     objective = $objectives.find(objectif => objectif.reference === objectiveReference) || deepCopy(emptyObjective)
-    updateExercisesInCart()
   })
-
-  function updateExercisesInCart (): void {
-    for (const exercise of objective.exercises) {
-      exercise.isInCart = Cart.includes(exercise.id)
-    }
-    isAllExercisesInCart = objective.exercises.every(exercise => exercise.isInCart)
-    for (const exercise of objective.examExercises) {
-      exercise.isInCart = Cart.includes(exercise.id)
-    }
-    isExamExercisesInCart = objective.examExercises.every(exercise => exercise.isInCart)
-  }
 
   function loadIep (): void {
     const url = `topmaths/data/instrumenpoche/${objective.lessonSummaryInstrumenpoche}.xml`
@@ -92,7 +77,6 @@
       exercises={objective.exercises}
       videos={objective.videos}
       exercisesLink={objective.exercisesLink}
-      {isAllExercisesInCart}
       objectiveTitle={getTitle(objective)}
     />
   {/if}
@@ -101,7 +85,6 @@
       examExercises={objective.examExercises}
       examExercisesLink={objective.examExercisesLink}
       videos={objective.videos}
-      {isExamExercisesInCart}
       objectiveReference={objective.reference}
     />
   {/if}
