@@ -23,7 +23,7 @@
       <iframe
         src={video.videoLink}
         title="Vidéo d'explication"
-        allowfullscreen
+        allow="fullscreen"
       />
     </div>
     <p>
