@@ -11,7 +11,7 @@
   import { emptyItem, type Item } from './types'
   import RowRegular from './RowRegular.svelte'
   import RowCurriculum from './RowCurriculum.svelte'
-  import { isTeacherMode, isTitleAcademicPreferred } from '../../../services/store'
+  import { isReviewsDisplayed, isTeacherMode, isTitleAcademicPreferred } from '../../../services/store'
   import InputCheckbox from '../InputCheckbox.svelte'
   import { UNLISTED_THEMES } from '../../../services/environment'
   import { isUnit, type Review, type Unit } from '../../../types/unit'
@@ -39,7 +39,6 @@
   $: units = $filteredItems.filter(item => isUnit(item) || isSpecialUnit(item))
 
   let isTitleAcademicPreferredUnsubscriber: Unsubscriber
-  let isReviewsDisplayed: boolean = true
 
   onMount(() => {
     updateParamsFromUrl()
@@ -141,7 +140,7 @@
   </InputCheckbox>
   {#if view === 'classroom'}
     <InputCheckbox
-      bind:isChecked={isReviewsDisplayed}
+      bind:isChecked={$isReviewsDisplayed}
     >
       Afficher les révisions
     </InputCheckbox>
@@ -200,13 +199,13 @@
             Période {term}
           </h2>
           <div class="flex flex-row">
-            <div class="{isReviewsDisplayed ? 'w-1/4' : 'w-1/3'}">
+            <div class="{$isReviewsDisplayed ? 'w-1/4' : 'w-1/3'}">
               Séquence
             </div>
-            <div class="{isReviewsDisplayed ? 'w-1/4' : 'w-2/3'}">
+            <div class="{$isReviewsDisplayed ? 'w-1/4' : 'w-2/3'}">
               Objectifs
             </div>
-            {#if isReviewsDisplayed}
+            {#if $isReviewsDisplayed}
               <div class="w-1/4">
                 Révisions de consolidation
               </div>
@@ -220,7 +219,7 @@
             text-sm md:text-base"
           >
             <div class="flex flex-col justify-center items-center
-              {isReviewsDisplayed ? 'w-1/4' : 'w-1/3'}"
+              {$isReviewsDisplayed ? 'w-1/4' : 'w-1/3'}"
             >
               <div class="flex flex-row grow w-full">
                 <div class="w-1/4 flex items-center justify-center">
@@ -238,7 +237,7 @@
               </div>
             </div>
             <div class="flex flex-col justify-center items-center
-              {isReviewsDisplayed ? 'w-1/4' : 'w-2/3'}">
+              {$isReviewsDisplayed ? 'w-1/4' : 'w-2/3'}">
                 {#each unit.objectives.filter(objective => !UNLISTED_THEMES.includes(objective.theme ?? '')) as objective}
                   <RowCurriculum
                     reference={objective.reference}
@@ -248,7 +247,7 @@
                   />
                 {/each}
             </div>
-            {#if isReviewsDisplayed}
+            {#if $isReviewsDisplayed}
               <div class="w-1/4 flex flex-col justify-center items-center">
                 {#each getFilteredReviews(unit, 'consolidation') as consolidationReview}
                   <RowCurriculum
