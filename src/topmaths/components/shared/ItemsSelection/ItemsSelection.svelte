@@ -18,6 +18,7 @@
   import { isObjective, type Objective } from '../../../types/objective'
   import { isSpecialUnit } from '../../../types/specialUnit'
   import { emptyCurriculum, type Curriculum } from '../../../types/curriculum'
+  import type { Unsubscriber } from 'svelte/motion'
 
   export let view: View
   export let items: Writable<Item[]>
@@ -37,13 +38,19 @@
   let units: Unit[]
   $: units = $filteredItems.filter(item => isUnit(item) || isSpecialUnit(item))
 
+  let isTitleAcademicPreferredUnsubscriber: Unsubscriber
+
   onMount(() => {
     updateParamsFromUrl()
     addEventListener('popstate', updateParamsFromUrl)
+    isTitleAcademicPreferredUnsubscriber = isTitleAcademicPreferred.subscribe(() => {
+      filter.set($filter) // to update the view
+    })
   })
 
   onDestroy(() => {
     removeEventListener('popstate', updateParamsFromUrl)
+    isTitleAcademicPreferredUnsubscriber()
   })
 
   function updateParamsFromUrl (): void {
