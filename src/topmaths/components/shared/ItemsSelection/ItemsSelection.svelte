@@ -14,7 +14,7 @@
   import { isReviewsDisplayed, isTeacherMode, isTitleAcademicPreferred } from '../../../services/store'
   import InputCheckbox from '../InputCheckbox.svelte'
   import { UNLISTED_THEMES } from '../../../services/environment'
-  import { isUnit, type Review, type Unit } from '../../../types/unit'
+  import { isReview, isUnit, type Review, type Unit } from '../../../types/unit'
   import { isObjective, type Objective } from '../../../types/objective'
   import { isSpecialUnit } from '../../../types/specialUnit'
   import { emptyCurriculum, type Curriculum } from '../../../types/curriculum'
@@ -81,14 +81,17 @@
       })
   }
 
-  function isWordFound (mot: string, item: Item): boolean {
-    return normalize(item.grade).includes(mot) ||
-    normalize(item.reference).includes(mot) ||
-    normalize(item.title).includes(mot) ||
-    (isUnit(item) && normalize(item.number.toString()).includes(mot)) ||
-    (isObjective(item) && normalize(item.theme).includes(mot)) ||
-    (isObjective(item) && normalize(item.subTheme).includes(mot)) ||
-    (isObjective(item) && normalize(item.titleAcademic).includes(mot))
+  function isWordFound (word: string, item: Item): boolean {
+    return normalize(item.grade).includes(word) ||
+    normalize(item.reference).includes(word) ||
+    normalize(item.title).includes(word) ||
+    (isUnit(item) && normalize(item.number.toString()).includes(word)) ||
+    (isObjective(item) && normalize(item.theme).includes(word)) ||
+    (isObjective(item) && normalize(item.subTheme).includes(word)) ||
+    (isObjective(item) && normalize(item.titleAcademic).includes(word)) ||
+    (isReview(item) && normalize(item.objectiveReference).includes(word)) ||
+    (view === 'classroom' && isUnit(item) && item.objectives.some(objective => normalize(objective.reference).includes(word))) ||
+    (view === 'classroom' && isUnit(item) && item.objectives.some(objective => normalize(getTitle(objective)).includes(word)))
   }
 
   function updateFilter (grade: StringGrade, term?: number): void {
