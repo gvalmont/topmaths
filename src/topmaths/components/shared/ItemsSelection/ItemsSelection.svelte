@@ -50,7 +50,7 @@
 
   onDestroy(() => {
     removeEventListener('popstate', updateParamsFromUrl)
-    isTitleAcademicPreferredUnsubscriber()
+    if (isTitleAcademicPreferredUnsubscriber) isTitleAcademicPreferredUnsubscriber()
   })
 
   function updateParamsFromUrl (): void {
