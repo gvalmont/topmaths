@@ -130,6 +130,15 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
   }
 }
 
+// Keep $class-name in sync with src/topmaths/types/grade.ts StringGrade
+// Keep $main-color in sync with index.html .spinner div:nth-child()
+@include theme-style('is-6e', $is-6e-default, $is-6e-light, $is-6e-filter);
+@include theme-style('is-5e', $is-5e-default, $is-5e-light, $is-5e-filter);
+@include theme-style('is-4e', $is-4e-default, $is-4e-light, $is-4e-filter);
+@include theme-style('is-3e', $is-3e-default, $is-3e-light, $is-3e-filter);
+@include theme-style('is-tout', $is-tout-default, $is-tout-light, $is-tout-filter);
+// end of sync
+
 // Keep $class-name in sync src/topmaths/types/color.ts ButtonColor
 @include theme-style('is-topmaths', $topmaths-default, $topmaths-light, $topmaths-filter, $topmathsdark-default);
 @include theme-style('is-sponsor', $is-sponsor-default, $is-sponsor-light, $is-sponsor-filter);
@@ -142,13 +151,4 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
 @include theme-style('is-purple', $is-purple-default, $is-purple-light, $is-purple-filter);
 @include theme-style('is-info-darker', $is-info-darker-default, $is-info-darker-default, $is-info-darker-filter);
 @include theme-style('is-coopmaths', $is-coopmaths-default, $is-coopmaths-light, $is-coopmaths-filter);
-// end of sync
-
-// Keep $class-name in sync with src/topmaths/types/grade.ts StringGrade
-// Keep $main-color in sync with index.html .spinner div:nth-child()
-@include theme-style('is-6e', $is-6e-default, $is-6e-light, $is-6e-filter);
-@include theme-style('is-5e', $is-5e-default, $is-5e-light, $is-5e-filter);
-@include theme-style('is-4e', $is-4e-default, $is-4e-light, $is-4e-filter);
-@include theme-style('is-3e', $is-3e-default, $is-3e-light, $is-3e-filter);
-@include theme-style('is-tout', $is-tout-default, $is-tout-light, $is-tout-filter);
 // end of sync
