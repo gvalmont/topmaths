@@ -10,12 +10,6 @@
           },
           {
             "reference": "6N10"
-          },
-          {
-            "reference": "6N11"
-          },
-          {
-            "reference": "6C11"
           }
         ]
       },
@@ -31,6 +25,39 @@
         ]
       },
       {
+        "title": "Nombres entiers 2",
+        "objectives": [
+          {
+            "reference": "6N11"
+          },
+          {
+            "reference": "6C11"
+          }
+        ]
+      },
+      {
+        "title": "Perpendiculaires",
+        "objectives": [
+          {
+            "reference": "6G11"
+          },
+          {
+            "reference": "6G31"
+          }
+        ]
+      },
+      {
+        "title": "Proportionnalité 1",
+        "objectives": [
+          {
+            "reference": "6P10"
+          },
+          {
+            "reference": "6P11"
+          }
+        ]
+      },
+      {
         "title": "Fractions 1",
         "objectives": [
           {
@@ -42,19 +69,13 @@
         ]
       },
       {
-        "title": "Perpendiculaires et parallèles",
+        "title": "Parallèles",
         "objectives": [
-          {
-            "reference": "6G11"
-          },
           {
             "reference": "6G15"
           },
           {
             "reference": "6G12"
-          },
-          {
-            "reference": "6G25"
           }
         ]
       },
@@ -66,12 +87,6 @@
           },
           {
             "reference": "6N20"
-          },
-          {
-            "reference": "6N21"
-          },
-          {
-            "reference": "6C12"
           }
         ]
       },
@@ -85,18 +100,18 @@
             "reference": "6G22"
           },
           {
-            "reference": "6G30"
+            "reference": "6G25"
           }
         ]
       },
       {
-        "title": "Nombres entiers 2",
+        "title": "Nombres décimaux 2",
         "objectives": [
           {
-            "reference": "6C21"
+            "reference": "6N21"
           },
           {
-            "reference": "6C30"
+            "reference": "6C12"
           }
         ]
       },
@@ -107,15 +122,34 @@
             "reference": "6M10"
           },
           {
-            "reference": "6M11"
-          },
-          {
             "reference": "6M20"
           }
         ]
       },
       {
-        "title": "Nombres décimaux 2",
+        "title": "Proportionnalité 2",
+        "objectives": [
+          {
+            "reference": "6P12"
+          },
+          {
+            "reference": "6P13"
+          }
+        ]
+      },
+      {
+        "title": "Constructions géométriques 1",
+        "objectives": [
+          {
+            "reference": "6G30"
+          },
+          {
+            "reference": "6G32"
+          }
+        ]
+      },
+      {
+        "title": "Nombres décimaux 3",
         "objectives": [
           {
             "reference": "6N22"
@@ -140,13 +174,13 @@
         ]
       },
       {
-        "title": "Proportionnalité",
+        "title": "Nombres entiers 3",
         "objectives": [
           {
-            "reference": "6P10"
+            "reference": "6C21"
           },
           {
-            "reference": "6P11"
+            "reference": "6C30"
           }
         ]
       },
@@ -162,17 +196,6 @@
         ]
       },
       {
-        "title": "Nombres décimaux 3",
-        "objectives": [
-          {
-            "reference": "6C22"
-          },
-          {
-            "reference": "6C31"
-          }
-        ]
-      },
-      {
         "title": "Se repérer, se déplacer",
         "objectives": [
           {
@@ -183,6 +206,36 @@
           },
           {
             "reference": "6G72"
+          }
+        ]
+      },
+      {
+        "title": "Périmètres et aires 2",
+        "objectives": [
+          {
+            "reference": "6M11"
+          }
+        ]
+      },
+      {
+        "title": "Proportionnalité 3",
+        "objectives": [
+          {
+            "reference": "6P14"
+          },
+          {
+            "reference": "6P15"
+          }
+        ]
+      },
+      {
+        "title": "Points et droites",
+        "objectives": [
+          {
+            "reference": "6G13"
+          },
+          {
+            "reference": "6G14"
           }
         ]
       },
@@ -209,29 +262,7 @@
         ]
       },
       {
-        "title": "Points et droites",
-        "objectives": [
-          {
-            "reference": "6G13"
-          },
-          {
-            "reference": "6G14"
-          }
-        ]
-      },
-      {
-        "title": "Pourcentages",
-        "objectives": [
-          {
-            "reference": "6P12"
-          },
-          {
-            "reference": "6P13"
-          }
-        ]
-      },
-      {
-        "title": "Périmètres et aires 2",
+        "title": "Périmètres et aires 3",
         "objectives": [
           {
             "reference": "6M13"
@@ -242,24 +273,24 @@
         ]
       },
       {
-        "title": "Médiatrice d'un segment",
+        "title": "Pourcentages",
         "objectives": [
           {
-            "reference": "6G50"
+            "reference": "6P16"
           },
           {
-            "reference": "6G32"
+            "reference": "6P17"
           }
         ]
       },
       {
-        "title": "Périmètre et aire 3",
+        "title": "Nombres décimaux 4",
         "objectives": [
           {
-            "reference": "6M12"
+            "reference": "6C22"
           },
           {
-            "reference": "6M14"
+            "reference": "6C31"
           }
         ]
       },
@@ -275,6 +306,28 @@
         ]
       },
       {
+        "title": "Symétrie axiale 1",
+        "objectives": [
+          {
+            "reference": "6G50"
+          },
+          {
+            "reference": "6G54"
+          }
+        ]
+      },
+      {
+        "title": "Périmètre et aire 3",
+        "objectives": [
+          {
+            "reference": "6M12"
+          },
+          {
+            "reference": "6M14"
+          }
+        ]
+      },
+      {
         "title": "Solides",
         "objectives": [
           {
@@ -286,12 +339,12 @@
         "title": "Agrandissement et réduction",
         "objectives": [
           {
-            "reference": "6P14"
+            "reference": "6P18"
           }
         ]
       },
       {
-        "title": "Symétrie axiale",
+        "title": "Symétrie axiale 2",
         "objectives": [
           {
             "reference": "6G51"
@@ -301,9 +354,6 @@
           },
           {
             "reference": "6G53"
-          },
-          {
-            "reference": "6G54"
           }
         ]
       },
@@ -337,20 +387,6 @@
           },
           {
             "reference": "6G62"
-          }
-        ]
-      },
-      {
-        "title": "Constructions géométriques",
-        "objectives": [
-          {
-            "reference": "6G31"
-          },
-          {
-            "reference": "6G33"
-          },
-          {
-            "reference": "6G34"
           }
         ]
       }
@@ -497,7 +533,7 @@
         "title": "Fractions 1",
         "objectives": [
           {
-            "reference": "6P12"
+            "reference": "6P16"
           },
           {
             "reference": "5N20"
@@ -840,7 +876,7 @@
         "title": "Agrandissement et réduction",
         "objectives": [
           {
-            "reference": "6P14"
+            "reference": "6P18"
           },
           {
             "reference": "4P12"
