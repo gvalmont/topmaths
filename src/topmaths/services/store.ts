@@ -23,7 +23,7 @@ export const reference2 = writable<string>('')
 
 // topmaths display settings
 export const isTitleAcademicPreferred = writable<boolean>(false)
-export const isReviewsDisplayed = writable<boolean>(true)
+export const isReviewsDisplayed = writable<boolean>(false)
 export const isTeacherMode = writable<boolean>(false)
 export const isPersonalMode = writable<boolean>(false)
 
