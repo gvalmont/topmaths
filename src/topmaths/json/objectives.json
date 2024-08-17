@@ -11,6 +11,7 @@
               {
                 "reference": "6C10",
                 "titleAcademic": "Connaître les tables de multiplication",
+                "isKey": true,
                 "lessonSummaryHTML": "Pour apprendre les tables de multiplication, il n'y a pas de méthode facile, encore moins des méthodes magiques, en revanche il y a des bonnes méthodes et des mauvaises méthodes.<br><br>Pour apprendre les tables de multiplication, il ne faut <b>pas</b> :<br><span style='text-decoration: line-through;'>- les lire<br>- les réciter l'une après l'autre comme une poésie ou une chanson<br>- utiliser des techniques avec les doigts</span><br><br>En revanche, il <b>faut</b> :<br>- essayer de se rappeler des résultats dans le désordre.<br>- s'entraîner pas longtemps mais souvent, un petit peu tous les jours par exemple<br><br>Pour le faire, vous pouvez télécharger <a href='/topmaths/telechargements/Tables_de_multiplication.pdf'>les tables de multiplication</a> et vous entraîner avec le lien sous la vidéo.<br><br><a href='https://www.multimaths.net/defitables.php'><img src='https://www.multimaths.net/img/applis/icones/dt.png' class='inline-block' /></a><br>Vous pouvez aussi utiliser l'application <a href='https://www.multimaths.net/defitables.php'>Défi Tables</a> disponible sur <a href='https://play.google.com/store/apps/details?id=air.com.multimaths.DefiTables&hl=fr'>téléphone et tablette Android</a> ainsi que sur <a href='https://apps.apple.com/fr/app/d%C3%A9fi-tables/id1335090081?l=fr&ls=1'>iPad</a>.",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -204,6 +205,7 @@
               {
                 "reference": "6C14",
                 "titleAcademic": "Ajouter ou soustraire des fractions de même dénominateur",
+                "isKey": true,
                 "lessonSummaryHTML": "Pour additionner ou soustraire des fractions de même dénominateur :<br>- on additionne ou on soustrait les numérateurs ;<br>- on garde le même dénominateur.",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -429,6 +431,7 @@
               {
                 "reference": "6C32",
                 "titleAcademic": "Calculer en respectant la priorité de la multiplication",
+                "isKey": true,
                 "lessonSummaryHTML": "Pour faire un calcul lorsqu'il y a des additions, des soustractions et des multipliations, on fait d'abord les <b><i>multiplications</i></b>.<br>On dit que les multiplications sont <b><i>prioritaires</i></b>.",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -514,6 +517,7 @@
               {
                 "reference": "6G10",
                 "titleAcademic": "Connaître le vocabulaire et les notations des droites, des demi-droites et des segments",
+                "isKey": true,
                 "lessonSummaryHTML": "] = on s'arrête.<br>) = on prolonge.<br>Un <b><i>segment</i></b> s'arrête des deux côtés, on le note donc avec deux crochets, par exemple [AB].<br>Une <b><i>droite</i></b> se prolonge des deux côtés, on la note donc avec deux parenthèses, par exemple (AB).<br>Une <b><i>demi-droite</i></b> commence en un point et se prolonge en passant par un autre point, on la note donc avec un crochet et une parenthèse. Par exemple [AB).",
                 "lessonSummaryImage": "droite-demi-droite-segment.png",
                 "videos": [
@@ -1279,6 +1283,7 @@
               {
                 "reference": "6G40",
                 "titleAcademic": "Connaître le vocabulaire et les notations des angles",
+                "isKey": true,
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "6G40-RDC.png",
                 "videos": [
@@ -1995,6 +2000,7 @@
               {
                 "reference": "6M10",
                 "titleAcademic": "Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle",
+                "isKey": true,
                 "lessonSummaryHTML": "Le <b><i>périmètre</i></b> d'une figure est la longueur de son contour.<br>L'<b><i>aire</i></b> d'une figure est la mesure de la surface à l'intérieur de son contour, on la calcule souvent en utilisant une formule :",
                 "lessonSummaryImage": "Aire-carre-rectangle-triangle-rectangle.png",
                 "videos": [
@@ -2332,6 +2338,7 @@
               {
                 "reference": "6M20",
                 "titleAcademic": "Convertir des longueurs",
+                "isKey": true,
                 "lessonSummaryHTML": "Utilise le tableau ci-dessous ou fais-en un sur ta feuille pour t'aider à convertir !<br><iframe width='800px' height='350px' src='https://sesaprof.sesamath.net/doc/outils_tableaux/minified/unites_longueur.html'></iframe>",
                 "lessonSummaryImage": "utiliser-convertisseur-de-longueurs.png",
                 "videos": [
@@ -2823,6 +2830,7 @@
               {
                 "reference": "6N30",
                 "titleAcademic": "Faire le lien entre les fractions et les nombres entiers",
+                "isKey": true,
                 "lessonSummaryHTML": "$\\cfrac{17}{5} = \\cfrac{15}{5} + \\cfrac25 = \\cfrac{3 {\\color{red} \\times 5}}{\\color{red} 5} + \\cfrac25 = 3 + \\cfrac25$<br><br>Comme $\\cfrac{17}5 = 3 + \\text{\"un petit peu\"}$, alors $3 < \\cfrac{17}5 < 4$",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -3058,6 +3066,7 @@
               {
                 "reference": "6P11",
                 "titleAcademic": "Résoudre un problème de proportionnalité",
+                "isKey": true,
                 "lessonSummaryHTML": "<p>Pour résoudre une situation de proportionnalité, on peut s'aider d'un schéma.</p><p><strong>Exemple : </strong><br>Nawel lit sur sa recette de crêpes pour 3 personnes qu'il faut 150 g de farine. <br>Elle veut adapter sa recette pour 21 personnes. <br>Quelle masse de farine doit-elle prévoir ?</p>",
                 "lessonSummaryImage": "schema-proportionnalite.png",
                 "videos": [
@@ -3096,6 +3105,7 @@
               {
                 "reference": "6P12",
                 "titleAcademic": "Relier fractions, proportions et pourcentages",
+                "isKey": true,
                 "lessonSummaryHTML": "Au lieu d'écrire \"sur 100\", on peut écrire \"%\".<br><br>Par exemple : $ \\cfrac{35}{100} = 35 \\% $ <br><br>On peut alors passer de l'écriture décimale à l'écriture en pourcentage en multipliant par 100.<br><br>Par exemple : $0{,}513 = 51{,}3 \\%$<br><br>(car $0{,}513 = \\cfrac{0{,}513 \\times 100}{100} = \\cfrac{51{,}3}{100} = 51{,}3 \\%$)",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -4146,6 +4156,7 @@
                 "reference": "5N10",
                 "titleAcademic": "Effectuer un enchaînement d'opérations en respectant les priorités opératoires",
                 "title": "Calculer en respectant les priorités opératoires",
+                "isKey": true,
                 "lessonSummaryHTML": "Pour faire un calcul lorsqu'il y a plusieurs opérations différentes, on fait <strong>d'abord les multiplications et les divisions</strong>. <br> On dit que les multiplications et les divisions sont <strong>prioritaires</strong>.",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -4280,6 +4291,7 @@
                 "titleAcademic": "Reconnaître et produire des fractions égales",
                 "lessonSummaryHTML": "$\\cfrac{a}{b} = \\cfrac{a {\\color{red} \\times k}}{b {\\color{red} \\times k}}$",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -4467,6 +4479,7 @@
                 "titleAcademic": "Additionner ou soustraire des fractions dont les dénominateurs sont égaux ou multiples l'un de l'autre",
                 "lessonSummaryHTML": "Pour additionner ou soustraire deux fractions :<br>- on commence par les mettre sur le même dénominateur ;<br>- puis on additionne ou on soustrait les numérateurs.",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -4555,6 +4568,7 @@
                 "titleAcademic": "Effectuer une somme algébrique",
                 "lessonSummaryHTML": "<p>On peut utiliser les signes + et - pour simplifier un programme de calcul.</p><p>Pour simplifier l'écriture du programme de calcul, « à un nombre, on ajoute 45 et on soustrait 46 »,<br>On aurait pu écrire : ... + 45 – 46 = ... –1.<br>On a préféré écrire : +45 – 46 = –1</p>",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "(autre méthode)",
@@ -4617,6 +4631,7 @@
                 "titleAcademic": "Additionner des nombres relatifs",
                 "lessonSummaryHTML": "+7 + (+4) = 7 + 4;<br>+7 + (–4) = 7 – 4;<br>–7 + (+4) = –7 + 4;<br>–7 + (–4) = –7 – 4.<br>Dans une somme de relatifs, il est plus simple de supprimer les parenthèses et les signes + d'addition afin de pouvoir calculer comme dans les programmes de calcul.",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -4712,6 +4727,7 @@
                 "titleAcademic": "Soustraire des nombres relatifs",
                 "lessonSummaryHTML": "Pour soustraire un nombre relatif, on ajoute son opposé.",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -4959,6 +4975,7 @@
                 "titleAcademic": "Reconnaître les nombres premiers inférieurs ou égaux à 30",
                 "lessonSummaryHTML": "Un <b><i>nombre premier</i></b> est un nombre qui possède exactement deux diviseurs : 1 et lui-même.",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -5062,6 +5079,7 @@
                 "titleAcademic": "Simplifier l'écriture d'une expression littérale",
                 "lessonSummaryHTML": "On n'est pas obligé d'écrire le $\\times$ lorsqu'il est devant une lettre ou une parenthèse :<br> $3 \\times x = 3x$ <br> $7 \\times (2 + x) = 7(2 + x)$ <br> Mais $x \\times 5 \\not = x5$ parce que le $\\times$ est devant un chiffre (pas une lettre ni une parenthèse).<br>De plus : <br> $a^2 = a \\times a$ <br> $a^3 = a \\times a \\times a$",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -5118,6 +5136,7 @@
                 "titleAcademic": "Réduire une expression littérale",
                 "lessonSummaryHTML": "$2$ <img src='https://freesvg.org/img/taco.png' width='20px' class='inline-block'/> $+ 3$ <img src='https://freesvg.org/img/taco.png' width='20px' class='inline-block'/> $= 5$ <img src='https://freesvg.org/img/taco.png' width='20px' class='inline-block'/> <br> $2t + 3t = 5t$ <br><br> $3$ <img src='https://freesvg.org/img/taco.png' width='20px' class='inline-block'/> $+ 4$ <img src='https://cdn.pixabay.com/photo/2021/07/26/16/14/burger-6494672_960_720.png' width='20px' class='inline-block'/> $=3$ <img src='https://freesvg.org/img/taco.png' width='20px' class='inline-block'/> $+ 4$ <img src='https://cdn.pixabay.com/photo/2021/07/26/16/14/burger-6494672_960_720.png' width='20px' class='inline-block'/> <br> $3t + 4h = 3t + 4h$",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -5251,6 +5270,7 @@
                 "titleAcademic": "Calculer la valeur d'une expression littérale",
                 "lessonSummaryHTML": "Pour calculer la valeur d'une expression littérale, on commence par la recopier en remplaçant les lettres par les valeurs données dans l'énoncé puis on calcule.",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -5672,6 +5692,7 @@
                 "title": "Calculer des probabilités",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -6267,6 +6288,7 @@
                 "title": "Multiplier et diviser des nombres relatifs",
                 "lessonSummaryHTML": "<strong>MÉMÉ</strong>, c'est la <strong>+</strong> vieille : deux fois le <strong>MÊME</strong> signe, ça fait <strong>+</strong>",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -6315,6 +6337,7 @@
                 "title": "Multiplier des fractions",
                 "lessonSummaryHTML": "Pour multiplier des fractions, on multiplie les numérateurs entre eux et les dénominateurs entre eux :<br><br> $\\cfrac{a}{b} \\times \\cfrac{c}{d} = \\cfrac{a \\times c}{b \\times d}$ ou avec des chiffres $\\cfrac{2}{3} \\times \\cfrac{4}{5} = \\cfrac{2 \\times 4}{3 \\times 5} = \\cfrac{8}{15}$",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -6362,6 +6385,7 @@
                 "title": "Diviser des fractions",
                 "lessonSummaryHTML": "Pour <i><b>diviser</b></i> par une fraction, on <i><b>multiplie par son inverse</i></b>.<br>L'<i><b>inverse</b></i> d'une fraction c'est la même fraction, mais retournée !<br><br> $\\cfrac{a}{b} {\\color{red} \\div \\cfrac{c}{d}} = \\cfrac{a}{b} {\\color{red} \\times \\cfrac{d}{c}} = \\cfrac{a \\times d}{b \\times c}$ ou avec des chiffres $\\cfrac{2}{3} {\\color{red} \\div \\cfrac{4}{5}} = \\cfrac{2}{3} {\\color{red} \\times \\cfrac{5}{4}} = \\cfrac{2 \\times 5}{3 \\times 4} = \\cfrac{10}{12}$",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -6402,6 +6426,7 @@
                 "title": "Simplifier l'écriture de produits à l'aide des puissances",
                 "lessonSummaryHTML": "<center> $ a^n = \\underbrace{a \\times a \\times a \\times ... \\times a}_{\\text{Le } a \\text{ apparaît } n \\text{ fois}} $ </center>",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -6432,6 +6457,7 @@
                 "titleAcademic": "Calculs utilisant les priorités opératoires et les puissances",
                 "lessonSummaryHTML": "Priorités de calculs (<strong>PEMDAS</strong>)<br>1) <strong>P</strong>arenthèses<br>2) <strong>E</strong>xposants (puissances)<br>3) <strong>M</strong>ultiplications, <strong>D</strong>ivisions<br>4) <strong>A</strong>dditions, <strong>S</strong>oustractions",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -6451,6 +6477,7 @@
                 "titleAcademic": "Utiliser les puissances d'exposant relatif",
                 "lessonSummaryHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='?v=objectif&ref=4N30'>4N30</a><br><br><center> $ a^{-n} = \\cfrac{1}{a^n} = \\cfrac{1}{\\underbrace{a \\times a \\times a \\times ... \\times a}_{\\text{Le } a \\text{ apparaît } n \\text{ fois}}} $ </center>",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -6594,6 +6621,7 @@
                 "title": "Reconnaître les nombres premiers jusqu'à 100",
                 "lessonSummaryHTML": "Pour savoir si un nombre inférieur à 100 est premier, il suffit de vérifier qu'il n'est pas divisible par 2, 3, 5, ni 7.<br>Vous pouvez aussi revoir <a href='/?v=objectif&ref=5N42' title='5N42 : Déterminer les nombres premiers inférieurs ou égaux à 30'>5N42 : Déterminer les nombres premiers inférieurs ou égaux à 30</a> si besoin.",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -6701,6 +6729,7 @@
                 "titleAcademic": "Développer une expression littérale avec des nombres positifs",
                 "lessonSummaryHTML": "Développer, c'est transformer un produit en une somme ou une différence.<br><b><i>k</i></b>(a + b) = <b><i>k</i></b>a + <b><i>k</i></b>b<br><b><i>k</i></b>(a – b) = <b><i>k</i></b>a – <b><i>k</i></b>b",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -6862,6 +6891,7 @@
                 "title": "Résoudre une équation du premier degré",
                 "lessonSummaryHTML": "On cherche à avoir les $x$ à gauche et les nombres à droite.<br>Pour cela, on peut :<br>- ajouter ou enlever la <i>même</i> quantité des deux côtés ;<br>- multiplier ou diviser par un <i>même</i> nombre des deux côtés.",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -6917,6 +6947,7 @@
                 "titleAcademic": "Calculer une quatrième proportionnelle par la procédure de son choix",
                 "lessonSummaryHTML": "Voir aussi <a href='?v=objectif&ref=6P11'>6P11</a> pour d'autres méthodes.",
                 "lessonSummaryImage": "regle-de-trois.png",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -7454,6 +7485,7 @@
                 "titleAcademic": "Déterminer si un nombre est premier",
                 "lessonSummaryHTML": "Vous pouvez aussi revoir <a href='/?v=objectif&ref=4N40' title='4N40 : Déterminer la liste des nombres premiers inférieurs à 100'>4N40 : Déterminer la liste des nombres premiers inférieurs à 100</a> si besoin",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -7552,6 +7584,7 @@
                 "titleAcademic": "Développer par double distributivité",
                 "lessonSummaryHTML": "$ ({\\color{red} a} + {\\color{blue} b})({\\color{green} c} + d) = {\\color{red} a} \\times {\\color{green} c} + {\\color{red} a} \\times d + {\\color{blue} b} \\times {\\color{green} c} + {\\color{blue} b} \\times d$",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -7806,6 +7839,7 @@
                 "titleAcademic": "Utiliser les notations et le vocabulaire fonctionnels",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -7856,6 +7890,7 @@
                 "titleAcademic": "Lire graphiquement une image et un antécédent",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "",

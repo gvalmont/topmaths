@@ -220,6 +220,7 @@
                 {#each unit.objectives.filter(objective => !UNLISTED_THEMES.includes(objective.theme ?? '')) as objective}
                   <RowCurriculum
                     reference={objective.reference}
+                    isKey={objective.isKey}
                     title={getTitle(objective)}
                     {goToView}
                   />

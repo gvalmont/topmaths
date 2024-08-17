@@ -2,8 +2,10 @@
   import { buildThemeFromReference } from '../../../services/reference'
   import type { View } from '../../../types/navigation'
   import type { ObjectiveReference } from '../../../types/objective'
+  import Tooltip from '../Tooltip.svelte'
 
   export let reference: ObjectiveReference
+  export let isKey: boolean = false
   export let title: string
   export let goToView: (event: MouseEvent, view: View, reference: ObjectiveReference) => void
 
@@ -11,13 +13,28 @@
 
 <div class="flex flex-row grow w-full is-theme-{buildThemeFromReference(reference)}">
   <div class="w-2/12 flex items-center justify-center">
-    <a
-      class="is-interactive"
-      href='?v=objective&ref={reference}'
-      on:click={(event) => goToView(event, 'objective', reference)}
-    >
-      {reference}
-    </a>
+    {#if isKey}
+      <Tooltip
+        dropdownText="Idée maîtresse"
+        class="is-danger m-0.5 border border-is-danger rounded"
+      >
+        <a
+          class="is-interactive p-1"
+          href='?v=objective&ref={reference}'
+          on:click={(event) => goToView(event, 'objective', reference)}
+        >
+          {reference}
+        </a>
+      </Tooltip>
+    {:else}
+      <a
+        class="is-interactive p-1 m-0.5"
+        href='?v=objective&ref={reference}'
+        on:click={(event) => goToView(event, 'objective', reference)}
+      >
+        {reference}
+      </a>
+    {/if}
   </div>
   <div class="w-10/12 flex items-center justify-start text-left">
     {title}

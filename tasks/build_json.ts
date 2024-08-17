@@ -147,6 +147,7 @@ function buildObjectives (): ObjectiveWithStringReference[] {
           objective.exercises = buildExercises(objective.reference, objective.exercises)
           objective.exercisesLink = buildLinkFromSlugs(objective.exercises.map(exercise => exercise?.slug))
           objective.grade = grade.name
+          objective.isKey = objective.isKey ?? false
           objective.lessonPlans = objective.lessonPlans ? objective.lessonPlans.map(lessonPlan => Object.assign(deepCopy(emptyObjectiveLessonPlan), lessonPlan)) : []
           objective.lessonSummaryHTML = objective.lessonSummaryHTML ?? ''
           objective.lessonSummaryImage = objective.lessonSummaryImage ? '../topmaths/img/' + objective.lessonSummaryImage : ''
@@ -711,6 +712,7 @@ function updateUnitObjectives (unit: UnitWithStringReference): void {
     unitObjective.grade = objective.grade
     unitObjective.lessonPlans = buildUnitLessonPlans(objective, unit.grade)
     unitObjective.prerequisites = objective.prerequisites
+    unitObjective.isKey = objective.isKey
   })
 }
 
