@@ -663,9 +663,6 @@
         "objectives": [
           {
             "reference": "5N54"
-          },
-          {
-            "reference": "5N55"
           }
         ]
       },
@@ -688,6 +685,14 @@
           },
           {
             "reference": "5S21"
+          }
+        ]
+      },
+      {
+        "title": "Calcul littéral 4",
+        "objectives": [
+          {
+            "reference": "5N55"
           }
         ]
       },
