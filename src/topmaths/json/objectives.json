@@ -6442,6 +6442,26 @@
                     "description": "Divisions avec des nombres relatifs"
                   }
                 ]
+              },
+              {
+                "reference": "4N22",
+                "titleAcademic": "Additionner ou soustraire des fractions",
+                "title": "",
+                "lessonSummaryHTML": "",
+                "lessonSummaryImage": "",
+                "isKey": true,
+                "videos": [
+                ],
+                "exercises": [
+                  {
+                    "slug": "4C22-1,s=4,n=2",
+                    "description": "Avec des nombres positifs"
+                  },
+                  {
+                    "slug": "4C22-2,s=1,n=2",
+                    "description": "Avec des nombres relatifs"
+                  }
+                ]
               }
             ]
           },
@@ -7530,26 +7550,6 @@
               },
               {
                 "reference": "3N11",
-                "titleAcademic": "Calculer avec les nombres rationnels relatifs",
-                "title": "Calculs avec des fractions",
-                "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
-                "videos": [
-                  {
-                    "title": "",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=Z86gfJOKgBg&vignette=https://i.ytimg.com/vi/Z86gfJOKgBg/hqdefault.jpg&debut=0&fin=409&largeur=200&hauteur=113",
-                    "authorName": "Yvan Monka",
-                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  }
-                ],
-                "exercises": [
-                  {
-                    "slug": "4C23-1,s=3,s2=true,n=4,cd=1"
-                  }
-                ]
-              },
-              {
-                "reference": "3N12",
                 "titleAcademic": "Simplifier une fraction pour la rendre irréductible",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",

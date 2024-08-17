@@ -829,6 +829,17 @@
         ]
       },
       {
+        "title": "Fractions 1",
+        "objectives": [
+          {
+            "reference": "4N20"
+          },
+          {
+            "reference": "4N21"
+          }
+        ]
+      },
+      {
         "title": "Équations 1",
         "objectives": [
           {
@@ -840,17 +851,6 @@
         ]
       },
       {
-        "title": "Fractions",
-        "objectives": [
-          {
-            "reference": "4N20"
-          },
-          {
-            "reference": "4N21"
-          }
-        ]
-      },
-      {
         "title": "Probabilités",
         "objectives": [
           {
@@ -858,6 +858,14 @@
           },
           {
             "reference": "4S13"
+          }
+        ]
+      },
+      {
+        "title": "Fractions 2",
+        "objectives": [
+          {
+            "reference": "4N22"
           }
         ]
       },
@@ -1161,10 +1169,10 @@
         "title": "Fractions",
         "objectives": [
           {
-            "reference": "3N11"
+            "reference": "4N22"
           },
           {
-            "reference": "3N12"
+            "reference": "3N11"
           }
         ]
       },
