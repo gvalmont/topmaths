@@ -17,7 +17,7 @@
   <span class="
     text-xs md:text-base"
   >
-    Intitulés proches des attendus de fin d'année
+    <slot />
   </span>
 </label>
 

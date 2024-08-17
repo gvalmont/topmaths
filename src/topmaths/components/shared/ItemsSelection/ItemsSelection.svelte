@@ -39,6 +39,7 @@
   $: units = $filteredItems.filter(item => isUnit(item) || isSpecialUnit(item))
 
   let isTitleAcademicPreferredUnsubscriber: Unsubscriber
+  let isReviewsDisplayed: boolean = true
 
   onMount(() => {
     updateParamsFromUrl()
@@ -135,7 +136,16 @@
 <span class="absolute">
   <InputCheckbox
     bind:isChecked={$isTitleAcademicPreferred}
-  />
+  >
+    Intitulés proches des attendus de fin d'année
+  </InputCheckbox>
+  {#if view === 'classroom'}
+    <InputCheckbox
+      bind:isChecked={isReviewsDisplayed}
+    >
+      Afficher les révisions
+    </InputCheckbox>
+  {/if}
 </span>
 {/if}
 {#each stringGradeValidKeys as grade}
@@ -190,24 +200,28 @@
             Période {term}
           </h2>
           <div class="flex flex-row">
-            <div class="w-1/4">
+            <div class="{isReviewsDisplayed ? 'w-1/4' : 'w-1/3'}">
               Séquence
             </div>
-            <div class="w-1/4">
+            <div class="{isReviewsDisplayed ? 'w-1/4' : 'w-2/3'}">
               Objectifs
             </div>
-            <div class="w-1/4">
-              Révisions de consolidation
-            </div>
-            <div class="w-1/4">
-              Révisions de prérequis
-            </div>
+            {#if isReviewsDisplayed}
+              <div class="w-1/4">
+                Révisions de consolidation
+              </div>
+              <div class="w-1/4">
+                Révisions de prérequis
+              </div>
+            {/if}
           </div>
           {#each $filteredItems.filter(item => isUnit(item)).filter(unit => unit.grade === grade).filter(unit => unit.term === term) as unit}
           <div class="flex flex-row border-t is-{unit.grade}
             text-sm md:text-base"
           >
-            <div class="w-1/4 flex flex-col justify-center items-center">
+            <div class="flex flex-col justify-center items-center
+              {isReviewsDisplayed ? 'w-1/4' : 'w-1/3'}"
+            >
               <div class="flex flex-row grow w-full">
                 <div class="w-1/4 flex items-center justify-center">
                   <a
@@ -223,7 +237,8 @@
                 </div>
               </div>
             </div>
-            <div class="w-1/4 flex flex-col justify-center items-center">
+            <div class="flex flex-col justify-center items-center
+              {isReviewsDisplayed ? 'w-1/4' : 'w-2/3'}">
                 {#each unit.objectives.filter(objective => !UNLISTED_THEMES.includes(objective.theme ?? '')) as objective}
                   <RowCurriculum
                     reference={objective.reference}
@@ -233,24 +248,26 @@
                   />
                 {/each}
             </div>
-            <div class="w-1/4 flex flex-col justify-center items-center">
-              {#each getFilteredReviews(unit, 'consolidation') as consolidationReview}
-                <RowCurriculum
-                  reference={consolidationReview.objectiveReference}
-                  title={consolidationReview.description}
-                  {goToView}
-                />
-              {/each}
-            </div>
-            <div class="w-1/4 flex flex-col justify-center items-center">
-              {#each getFilteredReviews(unit, 'prerequisite') as prerequisiteReview}
-                <RowCurriculum
-                  reference={prerequisiteReview.objectiveReference}
-                  title={prerequisiteReview.description}
-                  {goToView}
-                />
-              {/each}
-            </div>
+            {#if isReviewsDisplayed}
+              <div class="w-1/4 flex flex-col justify-center items-center">
+                {#each getFilteredReviews(unit, 'consolidation') as consolidationReview}
+                  <RowCurriculum
+                    reference={consolidationReview.objectiveReference}
+                    title={consolidationReview.description}
+                    {goToView}
+                  />
+                {/each}
+              </div>
+              <div class="w-1/4 flex flex-col justify-center items-center">
+                {#each getFilteredReviews(unit, 'prerequisite') as prerequisiteReview}
+                  <RowCurriculum
+                    reference={prerequisiteReview.objectiveReference}
+                    title={prerequisiteReview.description}
+                    {goToView}
+                  />
+                {/each}
+              </div>
+            {/if}
           </div>
           {/each}
         {/each}
