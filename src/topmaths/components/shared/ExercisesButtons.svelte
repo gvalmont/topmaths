@@ -1,6 +1,6 @@
 <script lang="ts">
   import { GoToLatex, launchExercise } from '../../services/navigation'
-  import IconeTooltipSimple from './IconeTooltipSimple.svelte'
+  import TooltipIcon from './TooltipIcon.svelte'
   import type { ObjectiveVideo } from '../../types/objective'
   import { isTeacherMode } from '../../services/store'
   import Cart from '../../modules/Cart'
@@ -91,7 +91,7 @@
         on:click={(mouseEvent) => launchExercise(mouseEvent, exercisesLink)}
       >
         <slot /> &nbsp;
-        <IconeTooltipSimple
+        <TooltipIcon
           dropdownText = {exerciseIndex < 0 ? 'Lancer les exercices' : 'Lancer l\'exercice'}
           imgSrc="/topmaths/img/cc0/fullscreen-svgrepo-com.svg"
           imgAlt = "Lancer l'exercice"
@@ -107,7 +107,7 @@
           class="flex items-center"
           on:click={(mouseEvent) => launchExercise(mouseEvent, exercisesLink, true)}
         >
-          <IconeTooltipSimple
+          <TooltipIcon
             dropdownText = {exerciseIndex < 0 ? 'Lancer les exercices en double-vue' : 'Lancer l\'exercice en double-vue'}
             imgSrc="/topmaths/img/cc0/fullscreen-double-svgrepo-com.svg"
             imgAlt = "Lancer l'exercice en double-vue"
@@ -122,7 +122,7 @@
           class="flex items-center"
           on:click={(mouseEvent) => GoToLatex(mouseEvent, exercisesLink)}
         >
-          <IconeTooltipSimple
+          <TooltipIcon
             imgSrc="/topmaths/img/cc0/printing-document-svgrepo-com.svg"
             imgAlt="Imprimante"
             dropdownText="Exporter en PDF pour une impression"
@@ -138,7 +138,7 @@
           class="flex items-center"
           on:click={(mouseEvent) => copyCapytaleLink(mouseEvent)}
         >
-          <IconeTooltipSimple
+          <TooltipIcon
             imgSrc="/topmaths/img/gvalmont/capytale.svg"
             dropdownText = {'Créer un lien pour une utilisation avec CAPYTALE'}
             imgAlt = {'"PY" dans un cercle'}
@@ -153,7 +153,7 @@
             }}
             class="is-interactive flex items-center ml-1"
           >
-            <IconeTooltipSimple
+            <TooltipIcon
               imgSrc="/topmaths/img/cc0/cart-plus-svgrepo-com.svg"
               dropdownText={itemsToAddToCart.length > 1 ? 'Ajouter tous les exercices au panier' : 'Ajouter l\'exercice au panier'}
               imgAlt="Caddie avec un signe + à l'intérieur"
@@ -163,7 +163,7 @@
           <button
             class="is-interactive flex items-center ml-1"
           >
-            <IconeTooltipSimple
+            <TooltipIcon
               imgSrc="/topmaths/img/cc0/cart-check-svgrepo-com.svg"
               dropdownText={itemsToAddToCart.length > 1 ? 'Les exercices sont déjà tous dans le panier' : 'L\'exercice est déjà présent dans le panier'}
               imgAlt="Caddie rempli"

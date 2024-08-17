@@ -1,17 +1,12 @@
 <script lang="ts">
 
   export let dropdownText: string
-  export let imgSrc: string
-  export let imgAlt: string
 </script>
 
-<div class="tooltip">
-  <img
-    class="is-icon
-      size-4 md:size-6"
-    src={imgSrc}
-    alt={imgAlt}
-  />
+<div class="tooltip
+  {$$props.class}"
+>
+  <slot />
   {#if dropdownText}
     <span class="tooltiptext
       text-sm md:text-base"
