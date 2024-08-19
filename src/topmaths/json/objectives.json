@@ -3018,8 +3018,7 @@
                     "description": ""
                   }
                 ],
-                "lessonPlans": [
-                ]
+                "lessonPlans": []
               },
               {
                 "reference": "6P11",
@@ -3042,8 +3041,7 @@
                     "description": ""
                   }
                 ],
-                "lessonPlans": [
-                ]
+                "lessonPlans": []
               },
               {
                 "reference": "6P12",
@@ -3066,8 +3064,7 @@
                     "description": ""
                   }
                 ],
-                "lessonPlans": [
-                ]
+                "lessonPlans": []
               },
               {
                 "reference": "6P13",
@@ -3090,8 +3087,7 @@
                     "description": ""
                   }
                 ],
-                "lessonPlans": [
-                ]
+                "lessonPlans": []
               },
               {
                 "reference": "6P14",
@@ -3100,16 +3096,14 @@
                 "isKey": true,
                 "lessonSummaryHTML": "<p>Pour résoudre une situation de proportionnalité, on peut s'aider d'un schéma.</p><p><strong>Exemple : </strong><br>Nawel lit sur sa recette de crêpes pour 3 personnes qu'il faut 150 g de farine. <br>Elle veut adapter sa recette pour 21 personnes. <br>Quelle masse de farine doit-elle prévoir ?</p>",
                 "lessonSummaryImage": "schema-proportionnalite.png",
-                "videos": [
-                ],
+                "videos": [],
                 "exercises": [
                   {
                     "slug": "uuid=2d5eb&id=6P15&n=1&d=10&s=1",
                     "description": ""
                   }
                 ],
-                "lessonPlans": [
-                ]
+                "lessonPlans": []
               },
               {
                 "reference": "6P15",
@@ -3132,8 +3126,7 @@
                     "description": ""
                   }
                 ],
-                "lessonPlans": [
-                ]
+                "lessonPlans": []
               },
               {
                 "reference": "6P16",
@@ -6471,8 +6464,7 @@
                 "isKey": true,
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
-                "videos": [
-                ],
+                "videos": [],
                 "exercises": [
                   {
                     "slug": "4C22-1,s=4,n=2",
@@ -7345,7 +7337,7 @@
               },
               {
                 "reference": "3G11",
-                "titleAcademic": "Transformer une figure par homothétie et comprendre l'effet d'une homothétie",
+                "titleAcademic": "Transformer une figure par homothétie",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "methode_homothetie.png",
                 "videos": [
@@ -7372,10 +7364,6 @@
                   {
                     "slug": "3G11,s=3",
                     "description": "Transformer une figure par homothétie"
-                  },
-                  {
-                    "slug": "uuid=6f383&id=3G13&n=3&d=10&s=12&s2=3&s3=3&s4=true",
-                    "description": "Comprendre l'effet d'une homothétie"
                   }
                 ]
               },
@@ -7420,6 +7408,20 @@
                 "exercises": [
                   {
                     "slug": "3G12,s=1,s2=false,s3=7,n=3"
+                  }
+                ]
+              },
+              {
+                "reference": "3G14",
+                "title": "Utiliser le rapport d'une homothétie",
+                "titleAcademic": "Comprendre l'effet d'une homothétie",
+                "lessonSummaryHTML": "",
+                "lessonSummaryImage": "",
+                "videos": [],
+                "exercises": [
+                  {
+                    "slug": "uuid=6f383&id=3G13&n=3&d=10&s=12&s2=3&s3=3&s4=true",
+                    "description": ""
                   }
                 ]
               }
@@ -8061,6 +8063,21 @@
             "objectives": [
               {
                 "reference": "3S40",
+                "titleAcademic": "Identifier les paramètres d'une fonction linéaire à partir de son expression",
+                "lessonSummaryHTML": "",
+                "lessonSummaryImage": "",
+                "videos": [
+                  {
+                    "title": "",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=vE392v5-DWk&vignette=https://i.ytimg.com/vi/vE392v5-DWk/hqdefault.jpg&debut=0&fin=290&largeur=200&hauteur=150",
+                    "authorName": "Mme LABASSI",
+                    "authorLink": "https://www.youtube.com/channel/UCKBe8LjK0lStt4doSADrDBg"
+                  }
+                ],
+                "exercises": []
+              },
+              {
+                "reference": "3S41",
                 "titleAcademic": "Identifier les paramètres d'une fonction linéaire à partir de sa courbe représentative",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
@@ -8084,7 +8101,17 @@
                 ]
               },
               {
-                "reference": "3S41",
+                "reference": "3S42",
+                "titleAcademic": "Déterminer de manière algébrique l'antécédent par une fonction linéaire",
+                "lessonSummaryHTML": "",
+                "lessonSummaryImage": "",
+                "videos": [
+                ],
+                "exercises": [
+                ]
+              },
+              {
+                "reference": "3S43",
                 "titleAcademic": "Représenter graphiquement une fonction linéaire",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
@@ -8099,7 +8126,7 @@
                 "exercises": []
               },
               {
-                "reference": "3S42",
+                "reference": "3S44",
                 "titleAcademic": "Modéliser une situation de proportionnalité à l'aide d'une fonction linéaire",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
@@ -8190,7 +8217,7 @@
               },
               {
                 "reference": "3S53",
-                "titleAcademic": "Déterminer de manière algébrique l'antécédent par une fonction",
+                "titleAcademic": "Déterminer de manière algébrique l'antécédent par une fonction affine",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -8209,7 +8236,7 @@
               },
               {
                 "reference": "3S54",
-                "titleAcademic": "Modéliser un phénomène continu par une fonction",
+                "titleAcademic": "Modéliser un phénomène continu par une fonction affine",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [
