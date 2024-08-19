@@ -185,8 +185,8 @@ function updateUnits (): void {
       lessonPlanLink: buildDownloadLink('fiche', unit.reference, unit.grade)
     }
   }
-  updateUnitConsolidationReviews()
   updateUnitPrerequisiteReviews()
+  updateUnitConsolidationReviews()
   updateUnitLessonPlansLinks()
 }
 
@@ -206,7 +206,10 @@ function updateUnitConsolidationReviews (): void {
         const lastExerciseSlug = exerciseSlugs[exerciseSlugs.length - 1]
         const nextReviewLessonPlan = gradeUnitObjectivesLessonPlans[i + 2 ** j].lessonPlan
         j++
-        if (isFullLink(lastExerciseSlug)) continue
+        if (isFullLink(lastExerciseSlug)) continue // only add mathalea slugs
+        if (nextReviewLessonPlan.prerequisiteReviews.map(review => review.objectiveReference).includes(currentObjective.reference)) {
+          continue // to avoid reviewing items already reviewed in prerequisites
+        }
         nextReviewLessonPlan.consolidationReviews.push({
           description: getTitle(currentObjective),
           objectiveReference: currentObjective.reference,
@@ -248,54 +251,31 @@ function updateParam (slug: string, param: string, value: string): string {
 function updateUnitPrerequisiteReviews (): void {
   stringGradeValidKeys.forEach(grade => {
     const gradeUnitObjectivesLessonPlans = getGradeUnitObjectivesLessonsPlans(grade)
-    for (let currentIndex = 0; currentIndex < gradeUnitObjectivesLessonPlans.length; currentIndex++) {
-      const currentPrerequisites = gradeUnitObjectivesLessonPlans[currentIndex].objective.prerequisites
+    for (let currentLessonIndex = 0; currentLessonIndex < gradeUnitObjectivesLessonPlans.length; currentLessonIndex++) {
+      const currentPrerequisites = gradeUnitObjectivesLessonPlans[currentLessonIndex].objective.prerequisites
       currentPrerequisites.forEach(currentPrerequisite => {
-        const isObjectiveLearnedRecently = isObjectiveLearnedBetween(currentPrerequisite.objectiveReference, currentIndex - 4, currentIndex, gradeUnitObjectivesLessonPlans)
-        const isPrerequisiteReviewedRecently = isPrerequisiteReviewedBetween(currentPrerequisite.objectiveReference, currentIndex - 4, currentIndex, gradeUnitObjectivesLessonPlans)
-        if (isObjectiveLearnedRecently || isPrerequisiteReviewedRecently) return
-        pushPrerequisiteReview(currentPrerequisite, currentIndex, gradeUnitObjectivesLessonPlans, 0)
-        pushPrerequisiteReview(currentPrerequisite, currentIndex, gradeUnitObjectivesLessonPlans, 1)
-        pushPrerequisiteReview(currentPrerequisite, currentIndex, gradeUnitObjectivesLessonPlans, 2)
+        const objectiveLearnedLessonIndex = gradeUnitObjectivesLessonPlans.findIndex(lessonPlan => lessonPlan.objective.reference === currentPrerequisite.objectiveReference)
+        pushPrerequisiteReview(currentPrerequisite, currentLessonIndex, gradeUnitObjectivesLessonPlans, 0, objectiveLearnedLessonIndex)
+        pushPrerequisiteReview(currentPrerequisite, currentLessonIndex, gradeUnitObjectivesLessonPlans, 1, objectiveLearnedLessonIndex)
+        pushPrerequisiteReview(currentPrerequisite, currentLessonIndex, gradeUnitObjectivesLessonPlans, 2, objectiveLearnedLessonIndex)
       })
     }
   })
 }
 
-function pushPrerequisiteReview (currentPrerequisite: TuplesToArraysRecursive<ReplaceReferencesByStrings<ObjectiveReference, ObjectivePrerequisite>>, currentIndex: number, gradeUnitObjectivesLessonPlans: GradeUnitObjectiveLessonPlan[], reviewIndex: number): void {
+function pushPrerequisiteReview (currentPrerequisite: TuplesToArraysRecursive<ReplaceReferencesByStrings<ObjectiveReference, ObjectivePrerequisite>>, currentIndex: number, gradeUnitObjectivesLessonPlans: GradeUnitObjectiveLessonPlan[], reviewIndex: number, objectiveLearnedLessonIndex: number): void {
   const slugWithSeed = currentPrerequisite.slugsWithSeed[reviewIndex]
   if (slugWithSeed === '' || isFullLink(slugWithSeed)) return
-  const destinationLessonPlan = gradeUnitObjectivesLessonPlans[currentIndex - 2 * reviewIndex] ? gradeUnitObjectivesLessonPlans[currentIndex - 2 * reviewIndex].lessonPlan : gradeUnitObjectivesLessonPlans[0].lessonPlan
+  const destinationIndex = Math.max(currentIndex - 2 * reviewIndex, 0)
+  const destinationLessonPlan = gradeUnitObjectivesLessonPlans[destinationIndex].lessonPlan
   const destinationLessonPlanIncludesObjectiveReference = destinationLessonPlan.prerequisiteReviews.map(prerequisite => prerequisite.objectiveReference).includes(currentPrerequisite.objectiveReference)
-  if (destinationLessonPlanIncludesObjectiveReference) return
+  if (destinationLessonPlanIncludesObjectiveReference) return // to avoid duplicates
+  if (objectiveLearnedLessonIndex >= destinationIndex) return // to avoid reviews of future lessons
   destinationLessonPlan.prerequisiteReviews.push({
     description: currentPrerequisite.description,
     objectiveReference: currentPrerequisite.objectiveReference,
     slug: updateParam(slugWithSeed, 'n', '1')
   })
-}
-
-function isObjectiveLearnedBetween (objectiveReference: string, minIndex: number, maxIndex: number, gradeUnitObjectivesLessonPlans: GradeUnitObjectiveLessonPlan[]): boolean {
-  for (let k = minIndex; k < maxIndex; k++) {
-    if (!gradeUnitObjectivesLessonPlans[k]) continue
-    const reference = gradeUnitObjectivesLessonPlans[k].objective.reference
-    if (reference === objectiveReference) {
-      return true
-    }
-  }
-  return false
-}
-
-function isPrerequisiteReviewedBetween (objectiveReference: string, minIndex: number, maxIndex: number, gradeUnitObjectivesLessonPlans: GradeUnitObjectiveLessonPlan[]): boolean {
-  for (let k = minIndex; k < maxIndex; k++) {
-    if (!gradeUnitObjectivesLessonPlans[k]) continue
-    const references = gradeUnitObjectivesLessonPlans[k].lessonPlan.prerequisiteReviews
-      .map(prerequisiteToReview => prerequisiteToReview.objectiveReference)
-    if (references.includes(objectiveReference)) {
-      return true
-    }
-  }
-  return false
 }
 
 function updateUnitLessonPlansLinks (): void {
