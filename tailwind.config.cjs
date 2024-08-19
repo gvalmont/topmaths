@@ -68,7 +68,7 @@ const config = {
             dark: '#f6f6f6'
           },
           corpus: {
-            DEFAULT: '#1F2429',
+            DEFAULT: '#1d1d1d',
             light: '#45505b'
           }
         },
