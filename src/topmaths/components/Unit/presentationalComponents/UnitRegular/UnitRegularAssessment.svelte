@@ -9,7 +9,7 @@
 
   let itemsToAddToCart: CartItem[]
   onMount(async () => {
-    await tick() // else is doesn't work on page reload
+    await tick() // else it doesn't work on page reload
     itemsToAddToCart = unit.objectives
       .map(objective => objective.exercises
         .map(exercise => {

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { GoToLatex, launchExercise } from '../../services/navigation'
+  import { goToCoopmathsView, launchExercise } from '../../services/navigation'
   import TooltipIcon from './TooltipIcon.svelte'
   import type { ObjectiveVideo } from '../../types/objective'
   import { isTeacherMode } from '../../services/store'
@@ -78,7 +78,7 @@
 
 </script>
 
-<div class="flex flex-row justify-center items-center">
+<div class="flex flex-row justify-center items-center {$$props.class}">
   {#if exercisesLink === ''}
     <button><slot /></button>
   {:else}
@@ -98,7 +98,7 @@
         />
       </button>
     </a>
-    {#if $isTeacherMode && isTopmaths(exercisesLink)}
+    {#if $isTeacherMode && isTopmaths(exercisesLink) && !exercisesLink.includes('&v=diaporama')}
       <a
         href={exercisesLink}
         class="ml-2 is-interactive"
@@ -114,13 +114,15 @@
           />
         </button>
       </a>
+      {/if}
+      {#if $isTeacherMode && isTopmaths(exercisesLink)}
       <a
         href={exercisesLink.replace('v=exercise', 'v=latex')}
         class="ml-2 is-interactive"
       >
         <button
           class="flex items-center"
-          on:click={(mouseEvent) => GoToLatex(mouseEvent, exercisesLink)}
+          on:click={(mouseEvent) => goToCoopmathsView(mouseEvent, exercisesLink, 'latex')}
         >
           <TooltipIcon
             imgSrc="/topmaths/img/cc0/printing-document-svgrepo-com.svg"

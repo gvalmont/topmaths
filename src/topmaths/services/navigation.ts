@@ -3,6 +3,7 @@ import { removeSeed } from './url'
 import type { Reference, View } from '../types/navigation'
 import { isTopmaths } from './environment'
 import { getParamsFromUrl, updateUrlFromParams } from './mathalea'
+import type { VueType } from '../../lib/types'
 
 export function backToHome (): void {
   view.set('home')
@@ -20,13 +21,13 @@ export function goToView (mouseEvent: MouseEvent, destinationView: View, ref?: R
   window.history.pushState({}, '', `?v=${destinationView}${ref ? `&ref=${ref}` : ''}${ref2 ? `&ref2=${ref2}` : ''}`)
 }
 
-export function GoToLatex (mouseEvent: MouseEvent, exercisesLink: string): void {
+export function goToCoopmathsView (mouseEvent: MouseEvent, exercisesLink: string, coopmathsView: VueType): void {
   if (!isRegularClick(mouseEvent)) {
     return // to allow right clicks and opening in new tabs
   }
   mouseEvent.preventDefault()
   const params = getParamsFromUrl(exercisesLink)
-  updateUrlFromParams('latex', params)
+  updateUrlFromParams(coopmathsView, params)
 }
 
 export function launchExercise (mouseEvent: MouseEvent, link: string, isDoubleView: boolean = false): void {
@@ -36,7 +37,11 @@ export function launchExercise (mouseEvent: MouseEvent, link: string, isDoubleVi
   mouseEvent.preventDefault()
   exerciseLinks.set([])
   if (isTopmaths(link)) {
-    launchMathaleaExercise(link, isDoubleView)
+    if (link.includes('&v=diaporama')) {
+      goTo(link)
+    } else {
+      launchMathaleaExercise(link, isDoubleView)
+    }
   } else {
     goTo(link)
   }

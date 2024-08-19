@@ -9,6 +9,7 @@
   import type { Reference, View } from '../../../../types/navigation'
   import UnitRegularAssessment from './UnitRegularAssessment.svelte'
   import UnitRegularDownloads from './UnitRegularDownloads.svelte'
+  import UnitRegularReviews from './UnitRegularReviews.svelte'
 
   export let unitReference
   export let goToView: (event: MouseEvent, view: View, reference: Reference) => void
@@ -36,6 +37,9 @@
   <UnitRegularObjectives
     {unit}
     {goToView}
+  />
+  <UnitRegularReviews
+    {unit}
   />
   <UnitRegularAssessment
     {unit}

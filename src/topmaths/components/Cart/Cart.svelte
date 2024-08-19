@@ -1,6 +1,6 @@
 <script lang="ts">
   import { REGULAR_VIEW_ADDENDUM, TOPMATHS_BASE_URL } from '../../services/environment'
-  import { GoToLatex as goToLatex, launchExercise } from '../../services/navigation'
+  import { goToCoopmathsView, launchExercise } from '../../services/navigation'
   import { copyLink } from '../../services/url'
   import Cart from '../../modules/Cart'
   import { onDestroy, onMount } from 'svelte'
@@ -77,7 +77,7 @@
     <button
       class="is-fuchsia is-interactive
         mx-2 md:mx-4"
-        on:click={(mouseEvent) => goToLatex(mouseEvent, cartLink)}
+        on:click={(mouseEvent) => goToCoopmathsView(mouseEvent, cartLink, 'latex')}
     >
     <img
       class="is-icon
