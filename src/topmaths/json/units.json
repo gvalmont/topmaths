@@ -410,16 +410,10 @@
         ]
       },
       {
-        "title": "Constructions de triangles",
+        "title": "Constructions de triangles 1",
         "objectives": [
           {
             "reference": "6G23"
-          },
-          {
-            "reference": "5G21"
-          },
-          {
-            "reference": "5G22"
           },
           {
             "reference": "5G20"
@@ -444,17 +438,6 @@
         ]
       },
       {
-        "title": "Proportionnalité",
-        "objectives": [
-          {
-            "reference": "6P10"
-          },
-          {
-            "reference": "6P15"
-          }
-        ]
-      },
-      {
         "title": "Symétrie et médiatrice",
         "objectives": [
           {
@@ -469,13 +452,35 @@
         ]
       },
       {
-        "title": "Représentation de données",
+        "title": "Calcul littéral 1",
         "objectives": [
           {
-            "reference": "5S10"
+            "reference": "5N50"
           },
           {
-            "reference": "5S11"
+            "reference": "5N51"
+          }
+        ]
+      },
+      {
+        "title": "Proportionnalité",
+        "objectives": [
+          {
+            "reference": "6P10"
+          },
+          {
+            "reference": "6P15"
+          }
+        ]
+      },
+      {
+        "title": "Constructions de triangles 2",
+        "objectives": [
+          {
+            "reference": "5G21"
+          },
+          {
+            "reference": "5G22"
           }
         ]
       },
@@ -494,6 +499,17 @@
         ]
       },
       {
+        "title": "Représentation de données",
+        "objectives": [
+          {
+            "reference": "5S10"
+          },
+          {
+            "reference": "5S11"
+          }
+        ]
+      },
+      {
         "title": "Symétrie centrale",
         "objectives": [
           {
@@ -504,28 +520,6 @@
           },
           {
             "reference": "5G12"
-          }
-        ]
-      },
-      {
-        "title": "Arithmétique 1",
-        "objectives": [
-          {
-            "reference": "5N40"
-          },
-          {
-            "reference": "5N41"
-          }
-        ]
-      },
-      {
-        "title": "Échelles",
-        "objectives": [
-          {
-            "reference": "6M20"
-          },
-          {
-            "reference": "5P11"
           }
         ]
       },
@@ -541,6 +535,28 @@
         ]
       },
       {
+        "title": "Échelles",
+        "objectives": [
+          {
+            "reference": "6M20"
+          },
+          {
+            "reference": "5P11"
+          }
+        ]
+      },
+      {
+        "title": "Arithmétique 1",
+        "objectives": [
+          {
+            "reference": "5N40"
+          },
+          {
+            "reference": "5N41"
+          }
+        ]
+      },
+      {
         "title": "Angles",
         "objectives": [
           {
@@ -548,69 +564,6 @@
           },
           {
             "reference": "5G31"
-          }
-        ]
-      },
-      {
-        "title": "Arithmétique 2",
-        "objectives": [
-          {
-            "reference": "5N42"
-          },
-          {
-            "reference": "5N43"
-          }
-        ]
-      },
-      {
-        "title": "Somme des angles d'un triangle",
-        "objectives": [
-          {
-            "reference": "5G32"
-          }
-        ]
-      },
-      {
-        "title": "Calcul littéral 1",
-        "objectives": [
-          {
-            "reference": "5N50"
-          },
-          {
-            "reference": "5N51"
-          }
-        ]
-      },
-      {
-        "title": "Fractions 2",
-        "objectives": [
-          {
-            "reference": "5N21"
-          },
-          {
-            "reference": "5N22"
-          }
-        ]
-      },
-      {
-        "title": "Parallélogrammes",
-        "objectives": [
-          {
-            "reference": "5G40"
-          },
-          {
-            "reference": "5G42"
-          }
-        ]
-      },
-      {
-        "title": "Fractions 3",
-        "objectives": [
-          {
-            "reference": "5N23"
-          },
-          {
-            "reference": "5N24"
           }
         ]
       },
@@ -629,6 +582,58 @@
         ]
       },
       {
+        "title": "Calcul littéral 2",
+        "objectives": [
+          {
+            "reference": "5N52"
+          },
+          {
+            "reference": "5N53"
+          }
+        ]
+      },
+      {
+        "title": "Somme des angles d'un triangle",
+        "objectives": [
+          {
+            "reference": "5G32"
+          }
+        ]
+      },
+      {
+        "title": "Fractions 2",
+        "objectives": [
+          {
+            "reference": "5N21"
+          },
+          {
+            "reference": "5N22"
+          }
+        ]
+      },
+      {
+        "title": "Parallélogrammes",
+        "objectives": [
+          {
+            "reference": "5G42"
+          },
+          {
+            "reference": "5G40"
+          }
+        ]
+      },
+      {
+        "title": "Arithmétique 2",
+        "objectives": [
+          {
+            "reference": "5N42"
+          },
+          {
+            "reference": "5N43"
+          }
+        ]
+      },
+      {
         "title": "Ratios",
         "objectives": [
           {
@@ -637,13 +642,10 @@
         ]
       },
       {
-        "title": "Calcul littéral 2",
+        "title": "Calcul littéral 3",
         "objectives": [
           {
-            "reference": "5N52"
-          },
-          {
-            "reference": "5N53"
+            "reference": "5N54"
           }
         ]
       },
@@ -659,10 +661,13 @@
         ]
       },
       {
-        "title": "Calcul littéral 3",
+        "title": "Fractions 3",
         "objectives": [
           {
-            "reference": "5N54"
+            "reference": "5N23"
+          },
+          {
+            "reference": "5N24"
           }
         ]
       },
@@ -697,17 +702,6 @@
         ]
       },
       {
-        "title": "Dépendance entre deux grandeurs",
-        "objectives": [
-          {
-            "reference": "5S30"
-          },
-          {
-            "reference": "5S31"
-          }
-        ]
-      },
-      {
         "title": "Volumes",
         "objectives": [
           {
@@ -718,6 +712,17 @@
           },
           {
             "reference": "5M21"
+          }
+        ]
+      },
+      {
+        "title": "Dépendance entre deux grandeurs",
+        "objectives": [
+          {
+            "reference": "5S30"
+          },
+          {
+            "reference": "5S31"
           }
         ]
       }
