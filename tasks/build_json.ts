@@ -565,6 +565,10 @@ function buildObjectivePrerequisites (objective: RecursivePartial<TuplesToArrays
         console.error(prerequisite.slugsWithSeed)
         throw new Error('Slugs with seed are not SlugsWithSeed')
       }
+      if (prerequisite.slugsWithSeed.some(slug => isFullLink(slug))) {
+        console.error(prerequisite.slugsWithSeed)
+        throw new Error('Slugs with seed contain full links')
+      }
       prerequisite.title = ''
       prerequisite.titleAcademic = ''
       return prerequisite
