@@ -44,7 +44,7 @@
   <UnitRegularAssessment
     {unit}
   />
-  {#if unit.downloadLinks.lessonLink || unit.downloadLinks.lessonSummaryLink || unit.downloadLinks.missionLink || (isPersonalMode && unit.downloadLinks.lessonPlanLink) }
+  {#if unit.downloadLinks.lessonLink || unit.downloadLinks.lessonSummaryLink || unit.downloadLinks.missionLink || ($isPersonalMode && unit.downloadLinks.lessonPlanLink) }
     <UnitRegularDownloads
       {unit}
       isPersonalMode={$isPersonalMode}
