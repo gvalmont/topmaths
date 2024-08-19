@@ -177,7 +177,12 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "can6C24,s=3,n=8"
+                    "slug": "uuid=47a54&id=6C30-4&n=4&d=10&s=false",
+                    "description": "Placer la virgule"
+                  },
+                  {
+                    "slug": "uuid=021f3&id=6C30-5&n=4&d=10&s=false&s2=4",
+                    "description": "Compléter les pointillés"
                   }
                 ],
                 "lessonPlans": [
@@ -7376,6 +7381,7 @@
               },
               {
                 "reference": "3G12",
+                "title": "Transformer une figure par rotation",
                 "titleAcademic": "Transformer une figure par rotation et comprendre l'effet d'une rotation",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "methode_rotation.png",
@@ -7855,14 +7861,6 @@
                     "description": "Appliquer un taux d'évolution"
                   }
                 ]
-              },
-              {
-                "reference": "3P11",
-                "titleAcademic": "Vérifier la cohérence des résultats du point de vue des unités pour les calculs de grandeurs simples ou composées",
-                "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
-                "videos": [],
-                "exercises": []
               }
             ]
           },
