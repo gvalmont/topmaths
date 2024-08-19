@@ -1421,7 +1421,7 @@
               {
                 "reference": "6G50",
                 "titleAcademic": "Connaître et utiliser la définition de la médiatrice d'un segment, ainsi que sa caractérisation",
-                "title": "Connaître et utiliser la définition de la médiatrice",
+                "title": "Définir et utiliser les propriétés de la médiatrice",
                 "prerequisites": [
                   {
                     "description": "Tracer des perpendiculaires",
@@ -2061,7 +2061,7 @@
               },
               {
                 "reference": "6M11",
-                "titleAcademic": "Calculer le périmètre et l'aire d'une figure composée de triangles et rectangles",
+                "titleAcademic": "Calculer le périmètre et l'aire d'une figure composée de triangles et de rectangles",
                 "lessonSummaryHTML": "Pour calculer l'aire d'une figure complexe, on la découpe en figures dont on sait calculer l'aire.",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -3877,6 +3877,7 @@
               },
               {
                 "reference": "5G32",
+                "title": "Calculer des mesures d'angles dans un triangle",
                 "titleAcademic": "Connaître et utiliser la somme des angles d'un triangle",
                 "lessonSummaryHTML": "La somme des angles d'un triangle fait (toujours) 180°.",
                 "lessonSummaryImage": "",
@@ -3936,6 +3937,7 @@
             "objectives": [
               {
                 "reference": "5G40",
+                "title": "Construire un parallélogramme",
                 "titleAcademic": "Connaître et construire un parallélogramme",
                 "lessonSummaryHTML": "Un <b><i>parallélogramme</i></b> est un quadrilatère dont les côtés opposés sont deux à deux parallèles.<br>Les diagonales d'un parallélogramme se coupent en leur milieu.",
                 "lessonSummaryImage": "",
@@ -3992,6 +3994,7 @@
               },
               {
                 "reference": "5G42",
+                "title": "Reconnaître un parallélogramme",
                 "titleAcademic": "Connaître et utiliser les propriétés des parallélogrammes",
                 "lessonSummaryHTML": "Si un quadrilatère a ses diagonales qui se coupent en leur milieu, alors c'est un parallélogramme.<br>Si un quadrilatère non croisé a ses côtés opposés de même longueur, alors c'est un parallélogramme.<br>Si un quadrilatère non croisé a deux côtés parallèles et de même longueur, alors c'est un parallélogramme.<br>Si un quadrilatère non croisé a ses angles opposés de même mesure, alors c'est un parallélogramme.",
                 "lessonSummaryImage": "",
@@ -6100,6 +6103,7 @@
             "objectives": [
               {
                 "reference": "4G30",
+                "title": "Reconnaître des triangles égaux",
                 "titleAcademic": "Connaître et utiliser une définition et une propriété caractéristique des triangles égaux",
                 "lessonSummaryHTML": "Deux triangles sont <b><i>égaux</i></b> lorsqu'ils ont <i>leurs trois côtés deux à deux de même longueur</i>.<br><br>Pour montrer que des triangles sont égaux, on n'a pas forcément besoin de vérifier les trois côtés.<br>On peut aussi vérifier, au choix :<br>- <i>un côté entre deux angles</i><br>ou<br>- <i>un angle entre deux côtés</i>",
                 "lessonSummaryImage": "",
@@ -6180,6 +6184,7 @@
             "objectives": [
               {
                 "reference": "4G40",
+                "title": "Calculer une longueur à l'aide du cosinus d'un angle",
                 "titleAcademic": "Savoir calculer une longueur avec le cosinus d'un angle",
                 "lessonSummaryHTML": "$\\text{cos (angle)} = \\cfrac{\\color{green}\\text{Adjacent}}{\\color{red}\\text{Hypothénuse}}$",
                 "lessonSummaryImage": "",
@@ -6512,6 +6517,7 @@
               },
               {
                 "reference": "4N31",
+                "title": "Calculer en respectant les priorités opératoires avec des puissances",
                 "titleAcademic": "Calculs utilisant les priorités opératoires et les puissances",
                 "isKey": true,
                 "lessonSummaryHTML": "Priorités de calculs (<strong>PEMDAS</strong>)<br>1) <strong>P</strong>arenthèses<br>2) <strong>E</strong>xposants (puissances)<br>3) <strong>M</strong>ultiplications, <strong>D</strong>ivisions<br>4) <strong>A</strong>dditions, <strong>S</strong>oustractions",
@@ -7320,6 +7326,7 @@
             "objectives": [
               {
                 "reference": "3G10",
+                "title": "Reconnaître des triangles semblables",
                 "titleAcademic": "Connaître et utiliser une définition et une propriété caractéristique des triangles semblables",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
@@ -7563,7 +7570,7 @@
               {
                 "reference": "3G33",
                 "titleAcademic": "Construire et mettre en relation différentes représentations des solides étudiés au cours du cycle (représentations en perspective cavalière, vues de face, de dessus, en coupe, patrons) et leurs sections planes",
-                "title": "Connaître les sections planes de solides",
+                "title": "Utiliser les propriétés des sections planes de solides",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [
