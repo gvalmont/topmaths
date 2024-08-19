@@ -1,7 +1,6 @@
-import type { InterfaceParams } from '../../lib/types'
+import type { InterfaceParams, VueType } from '../../lib/types'
 import refToUuid from '../../json/refToUuidFR.json'
 import { globalOptions } from '../../lib/stores/generalStore'
-import type { View } from '../types/navigation'
 let urlToWrite: URL
 let timerId: ReturnType<typeof setTimeout> | undefined
 
@@ -54,12 +53,12 @@ export function getParamsFromUrl (urlString: string): InterfaceParams[] {
   return newListeExercice
 }
 
-export function updateUrlFromParams (v: View, exercicesParams: InterfaceParams[]): void {
+export function updateUrlFromParams (v: VueType, exercicesParams: InterfaceParams[]): void {
   urlToWrite = getUrlFromParams(v, exercicesParams)
   updateUrl(v, urlToWrite.href)
 }
 
-export function getUrlFromParams (v: string, exercicesParams: InterfaceParams[]): URL {
+export function getUrlFromParams (v: VueType, exercicesParams: InterfaceParams[]): URL {
   const url = new URL(window.location.protocol + '//' + window.location.host)
   for (const ex of exercicesParams) {
     url.searchParams.append('uuid', ex.uuid)
@@ -79,7 +78,7 @@ export function getUrlFromParams (v: string, exercicesParams: InterfaceParams[])
   return url
 }
 
-export function updateUrl (v: View, urlToWrite: string): void {
+export function updateUrl (v: VueType, urlToWrite: string): void {
   // On ne met à jour l'url qu'une fois toutes les 0,1 s
   // pour éviter l'erreur Attempt to use history.pushState() more than 100 times per 30 seconds
   if (timerId === undefined) {
