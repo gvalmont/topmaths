@@ -1422,8 +1422,6 @@
                 "reference": "6G50",
                 "titleAcademic": "Connaître et utiliser la définition de la médiatrice d'un segment, ainsi que sa caractérisation",
                 "title": "Connaître et utiliser la définition de la médiatrice",
-                "lessonSummaryHTML": "<p><strong>Définition :</strong><br>La médiatrice d'un segment est la droite qui coupe ce segment perpendiculairement en son milieu.</p><p><strong><strong>Propriété :</strong></strong><br>Si un point appartient à la médiatrice d'un segment, alors il est équidistant (= à la même distance) des deux extrémités de ce segment.</p><p><strong>Propriété :</strong><br>Si un point est équidistant des deux extrémités d'un segment, alors il appartient à la médiatrice de ce segment.</p>",
-                "lessonSummaryImage": "mediatrice.png",
                 "prerequisites": [
                   {
                     "description": "Tracer des perpendiculaires",
@@ -1435,6 +1433,8 @@
                     ]
                   }
                 ],
+                "lessonSummaryHTML": "<p><strong>Définition :</strong><br>La médiatrice d'un segment est la droite qui coupe ce segment perpendiculairement en son milieu.</p><p><strong><strong>Propriété :</strong></strong><br>Si un point appartient à la médiatrice d'un segment, alors il est équidistant (= à la même distance) des deux extrémités de ce segment.</p><p><strong>Propriété :</strong><br>Si un point est équidistant des deux extrémités d'un segment, alors il appartient à la médiatrice de ce segment.</p>",
+                "lessonSummaryImage": "mediatrice.png",
                 "videos": [
                   {
                     "title": "Définition",
@@ -2552,9 +2552,9 @@
                 "reference": "6N10",
                 "titleAcademic": "Connaître le système décimal",
                 "title": "Lire et écrire des grands nombres entiers",
+                "isKey": true,
                 "lessonSummaryHTML": "En France, on écrit les grand nombres en faisant des \"paquets de 3\" qu'on appelle des <i>classes</i><br>Il y a la <i>classe des unités</i>, la <i>classe des milliers</i>, la <i>classe des millions</i> etc.<br><img src='/topmaths/img/tableau-de-numeration-entiers.png' /><br><br>Pour écrire un nombre en chiffres, il y a quelques règles à connaître :<ul><li>On place un <i>trait d'union entre tous les mots</i> qui composent le nombre.</li><li><i>Vingt et cent s'accordent</i> au pluriel lorsqu'ils ne sont <i><b>pas suivis</b> d'un autre nombre</i></li><li><i>Mille est invariable</i> (il ne s'accorde jamais)</li><li><i>Million et milliard s'accordent</i> au pluriel</li></ul>",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -3564,8 +3564,6 @@
               {
                 "reference": "5G21",
                 "titleAcademic": "Construire des triangles connaissant des longueurs et des angles",
-                "lessonSummaryHTML": "<ul><li>Je commence par tracer le plus grand côté</li><li>Je mesure les autres longueurs que je connais avec mon compas et trace des arcs de cercle</li><li>Je mesure les angles que je connais avec le rapporteur et trace des demi-droites</li><li>Je trouve le troisième point à l'intersection des arcs de cercle et des demi-droites</li></ul>",
-                "lessonSummaryImage": "",
                 "prerequisites": [
                   {
                     "description": "Construire des triangles connaissant les 3 longueurs",
@@ -3586,6 +3584,8 @@
                     ]
                   }
                 ],
+                "lessonSummaryHTML": "<ul><li>Je commence par tracer le plus grand côté</li><li>Je mesure les autres longueurs que je connais avec mon compas et trace des arcs de cercle</li><li>Je mesure les angles que je connais avec le rapporteur et trace des demi-droites</li><li>Je trouve le troisième point à l'intersection des arcs de cercle et des demi-droites</li></ul>",
+                "lessonSummaryImage": "",
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -3695,8 +3695,6 @@
               {
                 "reference": "5G22",
                 "titleAcademic": "Construire un triangle connaissant des longueurs et des angles sur Geogebra",
-                "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
                 "prerequisites": [
                   {
                     "description": "Construire des triangles connaissant des longueurs et des angles",
@@ -3708,6 +3706,8 @@
                     ]
                   }
                 ],
+                "lessonSummaryHTML": "",
+                "lessonSummaryImage": "",
                 "videos": [
                   {
                     "title": "Deux côtés et un angle",
@@ -4185,8 +4185,6 @@
                 "titleAcademic": "Effectuer un enchaînement d'opérations en respectant les priorités opératoires",
                 "title": "Calculer en respectant les priorités opératoires",
                 "isKey": true,
-                "lessonSummaryHTML": "Pour faire un calcul lorsqu'il y a plusieurs opérations différentes, on fait <strong>d'abord les multiplications et les divisions</strong>. <br> On dit que les multiplications et les divisions sont <strong>prioritaires</strong>.",
-                "lessonSummaryImage": "",
                 "prerequisites": [
                   {
                     "description": "Connaître les tables de multiplication",
@@ -4207,6 +4205,8 @@
                     ]
                   }
                 ],
+                "lessonSummaryHTML": "Pour faire un calcul lorsqu'il y a plusieurs opérations différentes, on fait <strong>d'abord les multiplications et les divisions</strong>. <br> On dit que les multiplications et les divisions sont <strong>prioritaires</strong>.",
+                "lessonSummaryImage": "",
                 "videos": [
                   {
                     "title": "",
@@ -4255,8 +4255,6 @@
                 "reference": "5N11",
                 "titleAcademic": "Traduire un enchaînement d'opérations à l'aide d'une expression avec des parenthèses",
                 "title": "Traduire une phrase par un calcul",
-                "lessonSummaryHTML": "",
-                "lessonSummaryImage": "Vocabulaire-des-operations.png",
                 "prerequisites": [
                   {
                     "description": "Connaître les priorités opératoires",
@@ -4268,6 +4266,8 @@
                     ]
                   }
                 ],
+                "lessonSummaryHTML": "",
+                "lessonSummaryImage": "Vocabulaire-des-operations.png",
                 "videos": [
                   {
                     "title": "",
@@ -4317,9 +4317,9 @@
               {
                 "reference": "5N20",
                 "titleAcademic": "Reconnaître et produire des fractions égales",
+                "isKey": true,
                 "lessonSummaryHTML": "$\\cfrac{a}{b} = \\cfrac{a {\\color{red} \\times k}}{b {\\color{red} \\times k}}$",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -4505,9 +4505,9 @@
               {
                 "reference": "5N24",
                 "titleAcademic": "Additionner ou soustraire des fractions dont les dénominateurs sont égaux ou multiples l'un de l'autre",
+                "isKey": true,
                 "lessonSummaryHTML": "Pour additionner ou soustraire deux fractions :<br>- on commence par les mettre sur le même dénominateur ;<br>- puis on additionne ou on soustrait les numérateurs.",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -4594,9 +4594,9 @@
               {
                 "reference": "5N31",
                 "titleAcademic": "Effectuer une somme algébrique",
+                "isKey": true,
                 "lessonSummaryHTML": "<p>On peut utiliser les signes + et - pour simplifier un programme de calcul.</p><p>Pour simplifier l'écriture du programme de calcul, « à un nombre, on ajoute 45 et on soustrait 46 »,<br>On aurait pu écrire : ... + 45 – 46 = ... –1.<br>On a préféré écrire : +45 – 46 = –1</p>",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "(autre méthode)",
@@ -4657,9 +4657,9 @@
               {
                 "reference": "5N32",
                 "titleAcademic": "Additionner des nombres relatifs",
+                "isKey": true,
                 "lessonSummaryHTML": "+7 + (+4) = 7 + 4;<br>+7 + (–4) = 7 – 4;<br>–7 + (+4) = –7 + 4;<br>–7 + (–4) = –7 – 4.<br>Dans une somme de relatifs, il est plus simple de supprimer les parenthèses et les signes + d'addition afin de pouvoir calculer comme dans les programmes de calcul.",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -4753,9 +4753,9 @@
               {
                 "reference": "5N33",
                 "titleAcademic": "Soustraire des nombres relatifs",
+                "isKey": true,
                 "lessonSummaryHTML": "Pour soustraire un nombre relatif, on ajoute son opposé.",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -5001,9 +5001,9 @@
               {
                 "reference": "5N42",
                 "titleAcademic": "Reconnaître les nombres premiers inférieurs ou égaux à 30",
+                "isKey": true,
                 "lessonSummaryHTML": "Un <b><i>nombre premier</i></b> est un nombre qui possède exactement deux diviseurs : 1 et lui-même.",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -5105,9 +5105,9 @@
               {
                 "reference": "5N50",
                 "titleAcademic": "Simplifier l'écriture d'une expression littérale",
+                "isKey": true,
                 "lessonSummaryHTML": "On n'est pas obligé d'écrire le $\\times$ lorsqu'il est devant une lettre ou une parenthèse :<br> $3 \\times x = 3x$ <br> $7 \\times (2 + x) = 7(2 + x)$ <br> Mais $x \\times 5 \\not = x5$ parce que le $\\times$ est devant un chiffre (pas une lettre ni une parenthèse).<br>De plus : <br> $a^2 = a \\times a$ <br> $a^3 = a \\times a \\times a$",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -5162,9 +5162,20 @@
               {
                 "reference": "5N51",
                 "titleAcademic": "Réduire une expression littérale",
+                "isKey": true,
+                "prerequisites": [
+                  {
+                    "description": "Savoir que 2a c'est 2×a",
+                    "objectiveReference": "5N50",
+                    "slugsWithSeed": [
+                      "uuid=e2e64&id=5L16&n=4&s=3&s2=true&alea=s7UX",
+                      "uuid=e2e64&id=5L16&n=4&s=3&s2=true&alea=Jhti",
+                      "uuid=e2e64&id=5L16&n=4&s=3&s2=true&alea=Y49K"
+                    ]
+                  }
+                ],
                 "lessonSummaryHTML": "$2$ <img src='https://freesvg.org/img/taco.png' width='20px' class='inline-block'/> $+ 3$ <img src='https://freesvg.org/img/taco.png' width='20px' class='inline-block'/> $= 5$ <img src='https://freesvg.org/img/taco.png' width='20px' class='inline-block'/> <br> $2t + 3t = 5t$ <br><br> $3$ <img src='https://freesvg.org/img/taco.png' width='20px' class='inline-block'/> $+ 4$ <img src='https://cdn.pixabay.com/photo/2021/07/26/16/14/burger-6494672_960_720.png' width='20px' class='inline-block'/> $=3$ <img src='https://freesvg.org/img/taco.png' width='20px' class='inline-block'/> $+ 4$ <img src='https://cdn.pixabay.com/photo/2021/07/26/16/14/burger-6494672_960_720.png' width='20px' class='inline-block'/> <br> $3t + 4h = 3t + 4h$",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -5296,9 +5307,9 @@
               {
                 "reference": "5N54",
                 "titleAcademic": "Calculer la valeur d'une expression littérale",
+                "isKey": true,
                 "lessonSummaryHTML": "Pour calculer la valeur d'une expression littérale, on commence par la recopier en remplaçant les lettres par les valeurs données dans l'énoncé puis on calcule.",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -6312,10 +6323,10 @@
               {
                 "reference": "4N10",
                 "titleAcademic": "Effectuer des produits ou des quotients avec des nombres relatifs",
+                "isKey": true,
                 "title": "Multiplier et diviser des nombres relatifs",
                 "lessonSummaryHTML": "<strong>MÉMÉ</strong>, c'est la <strong>+</strong> vieille : deux fois le <strong>MÊME</strong> signe, ça fait <strong>+</strong>",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -6362,9 +6373,9 @@
                 "reference": "4N20",
                 "titleAcademic": "Multiplier des nombres relatifs en écriture fractionnaire",
                 "title": "Multiplier des fractions",
+                "isKey": true,
                 "lessonSummaryHTML": "Pour multiplier des fractions, on multiplie les numérateurs entre eux et les dénominateurs entre eux :<br><br> $\\cfrac{a}{b} \\times \\cfrac{c}{d} = \\cfrac{a \\times c}{b \\times d}$ ou avec des chiffres $\\cfrac{2}{3} \\times \\cfrac{4}{5} = \\cfrac{2 \\times 4}{3 \\times 5} = \\cfrac{8}{15}$",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -6410,9 +6421,9 @@
                 "reference": "4N21",
                 "titleAcademic": "Diviser des nombres relatifs en écriture fractionnaire",
                 "title": "Diviser des fractions",
+                "isKey": true,
                 "lessonSummaryHTML": "Pour <i><b>diviser</b></i> par une fraction, on <i><b>multiplie par son inverse</i></b>.<br>L'<i><b>inverse</b></i> d'une fraction c'est la même fraction, mais retournée !<br><br> $\\cfrac{a}{b} {\\color{red} \\div \\cfrac{c}{d}} = \\cfrac{a}{b} {\\color{red} \\times \\cfrac{d}{c}} = \\cfrac{a \\times d}{b \\times c}$ ou avec des chiffres $\\cfrac{2}{3} {\\color{red} \\div \\cfrac{4}{5}} = \\cfrac{2}{3} {\\color{red} \\times \\cfrac{5}{4}} = \\cfrac{2 \\times 5}{3 \\times 4} = \\cfrac{10}{12}$",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -6446,9 +6457,9 @@
                 "reference": "4N22",
                 "titleAcademic": "Additionner ou soustraire des fractions",
                 "title": "",
+                "isKey": true,
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                 ],
                 "exercises": [
@@ -6471,9 +6482,9 @@
                 "reference": "4N30",
                 "titleAcademic": "Utiliser les puissances d'exposant strictement positif d'un nombre pour simplifier l'écriture des produits",
                 "title": "Simplifier l'écriture de produits à l'aide des puissances",
+                "isKey": true,
                 "lessonSummaryHTML": "<center> $ a^n = \\underbrace{a \\times a \\times a \\times ... \\times a}_{\\text{Le } a \\text{ apparaît } n \\text{ fois}} $ </center>",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -6502,9 +6513,9 @@
               {
                 "reference": "4N31",
                 "titleAcademic": "Calculs utilisant les priorités opératoires et les puissances",
+                "isKey": true,
                 "lessonSummaryHTML": "Priorités de calculs (<strong>PEMDAS</strong>)<br>1) <strong>P</strong>arenthèses<br>2) <strong>E</strong>xposants (puissances)<br>3) <strong>M</strong>ultiplications, <strong>D</strong>ivisions<br>4) <strong>A</strong>dditions, <strong>S</strong>oustractions",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -6522,9 +6533,9 @@
               {
                 "reference": "4N32",
                 "titleAcademic": "Utiliser les puissances d'exposant relatif",
+                "isKey": true,
                 "lessonSummaryHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='?v=objectif&ref=4N30'>4N30</a><br><br><center> $ a^{-n} = \\cfrac{1}{a^n} = \\cfrac{1}{\\underbrace{a \\times a \\times a \\times ... \\times a}_{\\text{Le } a \\text{ apparaît } n \\text{ fois}}} $ </center>",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -6666,9 +6677,9 @@
                 "reference": "4N40",
                 "titleAcademic": "Déterminer la liste des nombres premiers inférieurs à 100",
                 "title": "Reconnaître les nombres premiers jusqu'à 100",
+                "isKey": true,
                 "lessonSummaryHTML": "Pour savoir si un nombre inférieur à 100 est premier, il suffit de vérifier qu'il n'est pas divisible par 2, 3, 5, ni 7.<br>Vous pouvez aussi revoir <a href='/?v=objectif&ref=5N42' title='5N42 : Déterminer les nombres premiers inférieurs ou égaux à 30'>5N42 : Déterminer les nombres premiers inférieurs ou égaux à 30</a> si besoin.",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -6774,9 +6785,9 @@
               {
                 "reference": "4N51",
                 "titleAcademic": "Développer une expression littérale avec des nombres positifs",
+                "isKey": true,
                 "lessonSummaryHTML": "Développer, c'est transformer un produit en une somme ou une différence.<br><b><i>k</i></b>(a + b) = <b><i>k</i></b>a + <b><i>k</i></b>b<br><b><i>k</i></b>(a – b) = <b><i>k</i></b>a – <b><i>k</i></b>b",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -6787,11 +6798,11 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "uuid=71dd8&id=4L10&n=4&d=10&s=2&s2=2&s3=7&s4=false",
+                    "slug": "uuid=71dd8&id=4L10&n=4&d=10&s=1&s2=2&s3=1-2&s4=false",
                     "description": "Expressions simples"
                   },
                   {
-                    "slug": "uuid=71dd8&id=4L10&n=4&d=10&s=2&s2=2&s3=9&s4=false",
+                    "slug": "uuid=71dd8&id=4L10&n=4&d=10&s=1&s2=2&s3=3-4-5-6&s4=false",
                     "description": "Expressions complexes"
                   }
                 ]
@@ -6799,6 +6810,35 @@
               {
                 "reference": "4N52",
                 "titleAcademic": "Développer une expression littérale avec des nombres relatifs",
+                "prerequisites": [
+                  {
+                    "description": "Développer une expression littérale avec des nombres positifs",
+                    "objectiveReference": "4N51",
+                    "slugsWithSeed": [
+                      "uuid=71dd8&id=4L10&n=2&d=10&s=1&s2=2&s3=1-2&s4=false&alea=Toxj",
+                      "uuid=71dd8&id=4L10&n=2&d=10&s=1&s2=2&s3=1-2&s4=false&alea=1234",
+                      "uuid=71dd8&id=4L10&n=2&d=10&s=1&s2=2&s3=1-2&s4=false&alea=5678"
+                    ]
+                  },
+                  {
+                    "description": "Effectuer une somme algébrique",
+                    "objectiveReference": "5N31",
+                    "slugsWithSeed": [
+                      "uuid=cbc26&id=5R20&n=4&s=20&s2=true&s3=false&alea=bsc5",
+                      "uuid=cbc26&id=5R20&n=4&s=20&s2=true&s3=false&alea=Zjze",
+                      "uuid=cbc26&id=5R20&n=4&s=20&s2=true&s3=false&alea=UJY5"
+                    ]
+                  },
+                  {
+                    "description": "Multiplier et diviser des nombres relatifs",
+                    "objectiveReference": "4N10",
+                    "slugsWithSeed": [
+                      "uuid=0b020&id=4C10-7&n=4&d=12&s=true&s2=1-2&s3=10&alea=TSZ5&cd=1",
+                      "uuid=0b020&id=4C10-7&n=4&d=12&s=true&s2=1-2&s3=10&alea=bIfo&cd=1",
+                      "uuid=0b020&id=4C10-7&n=4&d=12&s=true&s2=1-2&s3=10&alea=xx6T&cd=1"
+                    ]
+                  }
+                ],
                 "lessonSummaryHTML": "Développer, c'est transformer un produit en une somme ou une différence.<br><b><i>k</i></b>(a + b) = <b><i>k</i></b>a + <b><i>k</i></b>b<br><b><i>k</i></b>(a – b) = <b><i>k</i></b>a – <b><i>k</i></b>b",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -6817,11 +6857,11 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "uuid=71dd8&id=4L10&n=4&d=10&s=3&s2=2&s3=7&s4=false",
+                    "slug": "uuid=71dd8&id=4L10&n=4&d=10&s=3&s2=2&s3=1-2&s4=false",
                     "description": "Expressions simples"
                   },
                   {
-                    "slug": "uuid=71dd8&id=4L10&n=4&d=10&s=3&s2=2&s3=9&s4=false",
+                    "slug": "uuid=71dd8&id=4L10&n=4&d=10&s=3&s2=2&s3=3-4-5-6&s4=false",
                     "description": "Expressions complexes"
                   }
                 ]
@@ -6830,6 +6870,17 @@
                 "reference": "4N53",
                 "titleAcademic": "Utiliser la propriété de distributivité simple pour factoriser une somme",
                 "title": "Factoriser une expression littérale",
+                "prerequisites": [
+                  {
+                    "description": "Développer par simple distributivité",
+                    "objectiveReference": "4N52",
+                    "slugsWithSeed": [
+                      "uuid=71dd8&id=4L10&n=2&d=10&s=3&s2=2&s3=1-2&s4=false&alea=1111",
+                      "uuid=71dd8&id=4L10&n=2&d=10&s=3&s2=2&s3=1-2&s4=false&alea=2222",
+                      "uuid=71dd8&id=4L10&n=2&d=10&s=3&s2=2&s3=1-2&s4=false&alea=3333"
+                    ]
+                  }
+                ],
                 "lessonSummaryHTML": "Factoriser, c'est transformer une somme ou une différence en un produit.<br><strong>k</strong>a + <strong>k</strong>b = <strong>k</strong>(a + b)<br><strong>k</strong>a – <strong>k</strong>b = <strong>k</strong>(a – b)",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -6936,9 +6987,29 @@
                 "reference": "4N57",
                 "titleAcademic": "Résoudre algébriquement une équation du premier degré",
                 "title": "Résoudre une équation du premier degré",
+                "isKey": true,
+                "prerequisites": [
+                  {
+                    "description": "Savoir que 2a c'est 2×a",
+                    "objectiveReference": "5N50",
+                    "slugsWithSeed": [
+                      "uuid=e2e64&id=5L16&n=4&s=3&s2=true&alea=s7UX",
+                      "uuid=e2e64&id=5L16&n=4&s=3&s2=true&alea=Jhti",
+                      "uuid=e2e64&id=5L16&n=4&s=3&s2=true&alea=Y49K"
+                    ]
+                  },
+                  {
+                    "description": "Calculer avec des nombres relatifs",
+                    "objectiveReference": "4N10",
+                    "slugsWithSeed": [
+                      "uuid=0b020&id=4C10-7&n=8&d=12&s=false&s2=5&s3=10&alea=jeql&cd=1",
+                      "uuid=0b020&id=4C10-7&n=8&d=12&s=false&s2=5&s3=10&alea=2pCr&cd=1",
+                      "uuid=0b020&id=4C10-7&n=8&d=12&s=false&s2=5&s3=10&alea=DZS7&cd=1"
+                    ]
+                  }
+                ],
                 "lessonSummaryHTML": "On cherche à avoir les $x$ à gauche et les nombres à droite.<br>Pour cela, on peut :<br>- ajouter ou enlever la <i>même</i> quantité des deux côtés ;<br>- multiplier ou diviser par un <i>même</i> nombre des deux côtés.",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -6992,9 +7063,9 @@
               {
                 "reference": "4P11",
                 "titleAcademic": "Calculer une quatrième proportionnelle par la procédure de son choix",
+                "isKey": true,
                 "lessonSummaryHTML": "Voir aussi <a href='?v=objectif&ref=6P11'>6P11</a> pour d'autres méthodes.",
                 "lessonSummaryImage": "regle-de-trois.png",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -7530,9 +7601,9 @@
               {
                 "reference": "3N10",
                 "titleAcademic": "Déterminer si un nombre est premier",
+                "isKey": true,
                 "lessonSummaryHTML": "Vous pouvez aussi revoir <a href='/?v=objectif&ref=4N40' title='4N40 : Déterminer la liste des nombres premiers inférieurs à 100'>4N40 : Déterminer la liste des nombres premiers inférieurs à 100</a> si besoin",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -7587,6 +7658,17 @@
                 "titleAcademic": "Déterminer l'opposé d'une expression littérale",
                 "lessonSummaryHTML": "L'opposé d'une expression littérale est la somme des opposés de chacun de ses termes.<br> $-(a + b) = -a - b$ <br> $ -(a - b) = -a + b$ <br> $-(-a - b) = a + b$",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "description": "Développer par simple distributivité",
+                    "objectiveReference": "4N52",
+                    "slugsWithSeed": [
+                      "uuid=71dd8&id=4L10&n=2&d=10&s=3&s2=2&s3=1-2&s4=false&alea=4444",
+                      "uuid=71dd8&id=4L10&n=2&d=10&s=3&s2=2&s3=1-2&s4=false&alea=5555",
+                      "uuid=71dd8&id=4L10&n=2&d=10&s=3&s2=2&s3=1-2&s4=false&alea=6666"
+                    ]
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -7609,9 +7691,20 @@
               {
                 "reference": "3N21",
                 "titleAcademic": "Développer par double distributivité",
+                "isKey": true,
+                "prerequisites": [
+                  {
+                    "description": "Développer par simple distributivité",
+                    "objectiveReference": "4N52",
+                    "slugsWithSeed": [
+                      "uuid=71dd8&id=4L10&n=2&d=10&s=3&s2=2&s3=1-2&s4=false&alea=eXNj",
+                      "uuid=71dd8&id=4L10&n=2&d=10&s=3&s2=2&s3=1-2&s4=false&alea=9ee6",
+                      "uuid=71dd8&id=4L10&n=2&d=10&s=3&s2=2&s3=1-2&s4=false&alea=M9um"
+                    ]
+                  }
+                ],
                 "lessonSummaryHTML": "$ ({\\color{red} a} + {\\color{blue} b})({\\color{green} c} + d) = {\\color{red} a} \\times {\\color{green} c} + {\\color{red} a} \\times d + {\\color{blue} b} \\times {\\color{green} c} + {\\color{blue} b} \\times d$",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "",
@@ -7840,6 +7933,17 @@
                 "reference": "3S20",
                 "titleAcademic": "Calculer des probabilités pour des expériences aléatoires simples à deux épreuves à partir de dénombrements",
                 "title": "Calculer des probabilités dans une expérience aléatoire à deux épreuves",
+                "prerequisites": [
+                  {
+                    "description": "Calculer des probabilités dans une expérience aléatoire à une épreuve",
+                    "objectiveReference": "4S13",
+                    "slugsWithSeed": [
+                      "uuid=69e1f&id=5S21&n=1&s=1&alea=ZHdh",
+                      "uuid=69e1f&id=5S21&n=1&s=1&alea=16u8",
+                      "uuid=69e1f&id=5S21&n=1&s=1&alea=eZLL"
+                    ]
+                  }
+                ],
                 "lessonSummaryHTML": "Pour calculer la probabilité d'un événement lors d'une expérience aléatoire à deux épreuves, c'est à dire avec deux \"tirages\", on peut utiliser la même formule que lorsqu'il y a une épreuve : $\\text{Probabilité} = \\cfrac{\\text{Nombre de cas favorables}}{\\text{Nombre de cas possibles}}$<br>et s'aider d'un tableau pour compter le \"nombre de cas favorables\"<br>",
                 "lessonSummaryImage": "3S20-RDC.png",
                 "videos": [
@@ -7864,9 +7968,9 @@
               {
                 "reference": "3S30",
                 "titleAcademic": "Utiliser les notations et le vocabulaire fonctionnels",
+                "isKey": true,
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -7915,9 +8019,9 @@
               {
                 "reference": "3S32",
                 "titleAcademic": "Lire graphiquement une image et un antécédent",
+                "isKey": true,
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
-                "isKey": true,
                 "videos": [
                   {
                     "title": "",
