@@ -113,6 +113,8 @@ export function isSlugsWithSeed (obj: unknown): obj is SlugsWithSeed {
 export const emptySlugsWithSeedType: SlugsWithSeed = ['', '', '']
 
 export type ObjectivePrerequisite = {
+  title: string,
+  titleAcademic: string,
   description: string,
   objectiveReference: ObjectiveReference,
   slugsWithSeed: SlugsWithSeed
@@ -120,6 +122,8 @@ export type ObjectivePrerequisite = {
 export function isObjectivePrerequisite (obj: unknown): obj is ObjectivePrerequisite {
   if (obj == null || typeof obj !== 'object') return false
   return 'description' in obj && typeof obj.description === 'string' &&
+    'title' in obj && typeof obj.title === 'string' &&
+    'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
     'objectiveReference' in obj && isObjectiveReference(obj.objectiveReference) &&
     'slugsWithSeed' in obj && isSlugsWithSeed(obj.slugsWithSeed)
 }
@@ -128,6 +132,8 @@ export function isObjectivePrerequisites (obj: unknown): obj is ObjectivePrerequ
   return obj.every(isObjectivePrerequisite)
 }
 export const emptyObjectivePrerequisite: ObjectivePrerequisite = {
+  title: '',
+  titleAcademic: '',
   description: '',
   objectiveReference: emptyObjectiveReference,
   slugsWithSeed: ['', '', '']

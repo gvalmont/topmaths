@@ -7,7 +7,7 @@
   import { emptyObjective, type Objective } from '../../../types/objective'
   import { getTitle } from '../../../services/string'
   import { goToView } from '../../../services/navigation'
-  import { onMount } from 'svelte'
+  import { onDestroy, onMount } from 'svelte'
   import {
     mathaleaRenderDiv
   } from '../../../../lib/mathalea'
@@ -19,14 +19,25 @@
   import ObjectiveRegularExamExercises from './presentationalComponents/ObjectiveRegularExamExercises.svelte'
   import ObjectiveRegularDownloads from './presentationalComponents/ObjectiveRegularDownloads.svelte'
   import ObjectiveRegularUnits from './presentationalComponents/ObjectiveRegularUnits.svelte'
+  import ObjectiveRegularPrerequisites from './presentationalComponents/ObjectiveRegularPrerequisites.svelte'
+  import type { Unsubscriber, Writable } from 'svelte/store'
 
-  export let objectiveReference: string
+  export let objectiveReference: Writable<string>
 
   let objective: Objective = deepCopy(emptyObjective)
+  let objectiveReferenceUnsubscriber: Unsubscriber
 
   onMount(() => {
-    objective = $objectives.find(objectif => objectif.reference === objectiveReference) || deepCopy(emptyObjective)
+    objectiveReferenceUnsubscriber = objectiveReference.subscribe(updateObjective)
   })
+
+  onDestroy(() => {
+    objectiveReferenceUnsubscriber()
+  })
+
+  function updateObjective (): void {
+    objective = $objectives.find(objectif => objectif.reference === $objectiveReference) || deepCopy(emptyObjective)
+  }
 
   function loadIep (): void {
     const url = `topmaths/data/instrumenpoche/${objective.lessonSummaryInstrumenpoche}.xml`
@@ -56,6 +67,12 @@
   >
     {objective.reference + ' : ' + getTitle(objective)}
   </h1>
+  {#if objective.prerequisites.length > 0}
+    <ObjectiveRegularPrerequisites
+      prerequisites={objective.prerequisites}
+      {goToView}
+    />
+  {/if}
   {#if objective.lessonSummaryHTML || objective.lessonSummaryImage || objective.lessonSummaryInstrumenpoche}
     <ObjectiveRegularLessonSummary
       lessonSummaryHTML={objective.lessonSummaryHTML}

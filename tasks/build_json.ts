@@ -296,6 +296,15 @@ function updateObjectives (): void {
       testSheetLink: buildDownloadLink('test', objective.reference, objective.grade),
       lessonPlanLinks: buildLessonPlanDownloadLinks(objective, objective.grade)
     }
+    objective.prerequisites.forEach(prerequisite => {
+      const prerequisiteObjective = objectives.find(objective => objective.reference === prerequisite.objectiveReference)
+      if (!prerequisiteObjective) {
+        console.error(prerequisite.objectiveReference)
+        throw new Error('Prerequisite ObjectiveReference not found')
+      }
+      prerequisite.title = prerequisiteObjective.title
+      prerequisite.titleAcademic = prerequisiteObjective.titleAcademic
+    })
   })
 }
 
@@ -556,11 +565,13 @@ function buildObjectivePrerequisites (objective: RecursivePartial<TuplesToArrays
         console.error(prerequisite.slugsWithSeed)
         throw new Error('Slugs with seed are not SlugsWithSeed')
       }
+      prerequisite.title = ''
+      prerequisite.titleAcademic = ''
       return prerequisite
     })
   if (!isObjectivePrerequisites(objective.prerequisites)) {
     console.error(objective.prerequisites)
-    throw new Error('Prior knowledges are not ObjectivePrerequisites')
+    throw new Error('Objective Prerequisites are not ObjectivePrerequisites')
   }
   return objective.prerequisites
 }
