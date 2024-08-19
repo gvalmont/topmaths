@@ -13,7 +13,7 @@ import { DEFAULT_GRADE, emptyStringArrayRecordStringGrade, isStringGrade, string
 import { buildGradeFromObjectiveReference } from '../src/topmaths/services/reference.js'
 import { EXERCISE_PARAM_ADDENDUM, isMathalea, REGULAR_VIEW_ADDENDUM, SLIDESHOW_VIEW_ADDENDUM, TOPMATHS_BASE_URL } from '../src/topmaths/services/environment.js'
 import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference, isObjectivePrerequisites, isSlugsWithSeed, type ObjectivePrerequisite } from '../src/topmaths/types/objective.js'
-import { type Unit, type UnitObjective, emptyUnitDownloadLinks, type UnitLessonPlan, isUnitLessonPlans, type UnitWithStringReference, type UnitReference, isUnitWithStringReference, emptyUnitLessonPlan } from '../src/topmaths/types/unit.js'
+import { type Unit, type UnitObjective, emptyUnitDownloadLinks, type UnitLessonPlan, isUnitLessonPlans, type UnitWithStringReference, type UnitReference, isUnitWithStringReference, emptyUnitLessonPlan, isUnitReference } from '../src/topmaths/types/unit.js'
 import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem, isGlossaryUniteItems } from '../src/topmaths/types/glossary.js'
 import { type CalendarSchoolYearMaster, isCalendarSchoolYearMasters, type CalendarSchoolYear, isCalendarSchoolYears, type CalendarPeriod } from '../src/topmaths/types/calendar.js'
 import { type CurriculumGrade, type CurriculumValue, isCurriculum, type Curriculum, emptyCurriculumValue } from '../src/topmaths/types/curriculum.js'
@@ -871,8 +871,7 @@ function buildLessonPlanDownloadLinks (objective: RecursivePartial<Objective>, o
 function buildDownloadLink (type: 'cours' | 'entrainement' | 'test' | 'resume' | 'mission' | 'fiche', reference: string, grade: StringGrade, addendum: string = ''): string {
   let basePath = `./public/topmaths/${type}${type === 'cours' ? '' : 's'}/`
   if (type === 'fiche') {
-    const isLessonReference = reference.charAt(0) === 'S'
-    if (isLessonReference) {
+    if (isUnitReference(reference)) {
       basePath += 'sequences/'
     } else {
       basePath += 'objectifs/'
