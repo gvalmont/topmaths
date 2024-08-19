@@ -16,7 +16,7 @@
 <p class="pt-8">
   Avant de viser cet objectif, il faut d'abord maîtriser {prerequisites.length > 1 ? 'les objectifs suivants' : 'l\'objectif suivant'} :
 </p>
-<ul class="pt-4 pb-6">
+<ul class="pt-2 pb-6">
   {#each prerequisites as prerequisite}
     <li class="p-2 is-{buildGradeFromObjectiveReference(prerequisite.objectiveReference)}">
       <a

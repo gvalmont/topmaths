@@ -14,7 +14,7 @@
 <p class="pt-8">
   Cet objectif fait partie de :
 </p>
-<ul class="pt-4 pb-6">
+<ul class="pt-2 pb-6">
   {#each units as unit}
     <li class="p-2 is-{unit.grade}">
       <a
