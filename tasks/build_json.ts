@@ -694,9 +694,7 @@ function updateUnitObjectives (unit: UnitWithStringReference): void {
   unit.objectives.forEach(unitObjective => {
     const objective = objectives.find(objective => objective.reference === unitObjective.reference)
     if (!objective) {
-      console.warn('Objective ' + unitObjective.reference + ' of unit ' + unit.title + ' not found.')
-      warningCount++
-      return
+      throw new Error('Objective ' + unitObjective.reference + ' of unit ' + unit.title + ' not found.')
     }
     unitObjective.reference = objective.reference
     unitObjective.titleAcademic = objective.titleAcademic
