@@ -20,7 +20,7 @@
 <h2 class="subtitle
   text-xl md:text-3xl"
 >
-  Rappel du cours
+  Résumé du cours
 </h2>
 <div class="p-6">
   <div bind:this={lessonSummaryDiv} />
