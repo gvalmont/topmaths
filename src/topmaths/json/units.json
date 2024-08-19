@@ -251,13 +251,13 @@
         ]
       },
       {
-        "title": "Statistiques",
+        "title": "Pourcentages",
         "objectives": [
           {
-            "reference": "6S10"
+            "reference": "6P16"
           },
           {
-            "reference": "6S11"
+            "reference": "6P17"
           }
         ]
       },
@@ -273,13 +273,13 @@
         ]
       },
       {
-        "title": "Pourcentages",
+        "title": "Statistiques",
         "objectives": [
           {
-            "reference": "6P16"
+            "reference": "6S10"
           },
           {
-            "reference": "6P17"
+            "reference": "6S11"
           }
         ]
       },
@@ -510,6 +510,17 @@
         ]
       },
       {
+        "title": "Calcul littéral 2",
+        "objectives": [
+          {
+            "reference": "5N52"
+          },
+          {
+            "reference": "5N53"
+          }
+        ]
+      },
+      {
         "title": "Symétrie centrale",
         "objectives": [
           {
@@ -557,13 +568,18 @@
         ]
       },
       {
-        "title": "Angles",
+        "title": "Somme des angles d'un triangle",
         "objectives": [
           {
-            "reference": "5G30"
-          },
+            "reference": "5G32"
+          }
+        ]
+      },
+      {
+        "title": "Calcul littéral 3",
+        "objectives": [
           {
-            "reference": "5G31"
+            "reference": "5N54"
           }
         ]
       },
@@ -582,25 +598,6 @@
         ]
       },
       {
-        "title": "Calcul littéral 2",
-        "objectives": [
-          {
-            "reference": "5N52"
-          },
-          {
-            "reference": "5N53"
-          }
-        ]
-      },
-      {
-        "title": "Somme des angles d'un triangle",
-        "objectives": [
-          {
-            "reference": "5G32"
-          }
-        ]
-      },
-      {
         "title": "Fractions 2",
         "objectives": [
           {
@@ -612,13 +609,13 @@
         ]
       },
       {
-        "title": "Parallélogrammes",
+        "title": "Angles",
         "objectives": [
           {
-            "reference": "5G42"
+            "reference": "5G30"
           },
           {
-            "reference": "5G40"
+            "reference": "5G31"
           }
         ]
       },
@@ -630,55 +627,6 @@
           },
           {
             "reference": "5N43"
-          }
-        ]
-      },
-      {
-        "title": "Ratios",
-        "objectives": [
-          {
-            "reference": "5P10"
-          }
-        ]
-      },
-      {
-        "title": "Calcul littéral 3",
-        "objectives": [
-          {
-            "reference": "5N54"
-          }
-        ]
-      },
-      {
-        "title": "Moyennes",
-        "objectives": [
-          {
-            "reference": "5S12"
-          },
-          {
-            "reference": "5S13"
-          }
-        ]
-      },
-      {
-        "title": "Fractions 3",
-        "objectives": [
-          {
-            "reference": "5N23"
-          },
-          {
-            "reference": "5N24"
-          }
-        ]
-      },
-      {
-        "title": "Durées, horaires",
-        "objectives": [
-          {
-            "reference": "6M30"
-          },
-          {
-            "reference": "6M31"
           }
         ]
       },
@@ -702,16 +650,54 @@
         ]
       },
       {
-        "title": "Volumes",
+        "title": "Ratios",
         "objectives": [
           {
-            "reference": "6M22"
+            "reference": "5P10"
+          }
+        ]
+      },
+      {
+        "title": "Fractions 3",
+        "objectives": [
+          {
+            "reference": "5N23"
           },
           {
-            "reference": "5M20"
+            "reference": "5N24"
+          }
+        ]
+      },
+      {
+        "title": "Moyennes",
+        "objectives": [
+          {
+            "reference": "5S12"
           },
           {
-            "reference": "5M21"
+            "reference": "5S13"
+          }
+        ]
+      },
+      {
+        "title": "Durées, horaires",
+        "objectives": [
+          {
+            "reference": "6M30"
+          },
+          {
+            "reference": "6M31"
+          }
+        ]
+      },
+      {
+        "title": "Parallélogrammes",
+        "objectives": [
+          {
+            "reference": "5G42"
+          },
+          {
+            "reference": "5G40"
           }
         ]
       },
@@ -723,6 +709,20 @@
           },
           {
             "reference": "5S31"
+          }
+        ]
+      },
+      {
+        "title": "Volumes",
+        "objectives": [
+          {
+            "reference": "6M22"
+          },
+          {
+            "reference": "5M20"
+          },
+          {
+            "reference": "5M21"
           }
         ]
       }
@@ -776,21 +776,18 @@
         ]
       },
       {
-        "title": "Distributivité 2",
+        "title": "Équations 1",
         "objectives": [
           {
-            "reference": "4N52"
-          },
-          {
-            "reference": "4N53"
+            "reference": "4N55"
           }
         ]
       },
       {
-        "title": "Théorème de Pythagore",
+        "title": "Repérage dans un pavé droit",
         "objectives": [
           {
-            "reference": "4G22"
+            "reference": "4G50"
           }
         ]
       },
@@ -817,24 +814,21 @@
         ]
       },
       {
-        "title": "Triangles égaux",
+        "title": "Distributivité 2",
         "objectives": [
           {
-            "reference": "4G30"
+            "reference": "4N52"
+          },
+          {
+            "reference": "4N53"
           }
         ]
       },
       {
-        "title": "Nombres premiers",
+        "title": "Théorème de Pythagore",
         "objectives": [
           {
-            "reference": "4N40"
-          },
-          {
-            "reference": "4N41"
-          },
-          {
-            "reference": "4N42"
+            "reference": "4G22"
           }
         ]
       },
@@ -850,13 +844,21 @@
         ]
       },
       {
-        "title": "Équations 1",
+        "title": "Translation 1",
         "objectives": [
           {
-            "reference": "4N54"
+            "reference": "4G10"
           },
           {
-            "reference": "4N55"
+            "reference": "4G11"
+          }
+        ]
+      },
+      {
+        "title": "Équations 2",
+        "objectives": [
+          {
+            "reference": "4N57"
           }
         ]
       },
@@ -872,40 +874,21 @@
         ]
       },
       {
-        "title": "Fractions 2",
+        "title": "Nombres premiers 1",
         "objectives": [
           {
-            "reference": "4N22"
-          }
-        ]
-      },
-      {
-        "title": "Équations 2",
-        "objectives": [
-          {
-            "reference": "4N57"
+            "reference": "4N40"
           },
           {
-            "reference": "4N56"
+            "reference": "4N41"
           }
         ]
       },
       {
-        "title": "Agrandissement et réduction",
+        "title": "Triangles égaux",
         "objectives": [
           {
-            "reference": "6P18"
-          },
-          {
-            "reference": "4P12"
-          }
-        ]
-      },
-      {
-        "title": "Théorème de Thalès",
-        "objectives": [
-          {
-            "reference": "4G31"
+            "reference": "4G30"
           }
         ]
       },
@@ -921,21 +904,71 @@
         ]
       },
       {
-        "title": "Translation",
+        "title": "Agrandissement et réduction 1",
         "objectives": [
           {
-            "reference": "4G10"
-          },
+            "reference": "6P18"
+          }
+        ]
+      },
+      {
+        "title": "Fractions 2",
+        "objectives": [
           {
-            "reference": "4G11"
-          },
+            "reference": "4N22"
+          }
+        ]
+      },
+      {
+        "title": "Translation 2",
+        "objectives": [
           {
             "reference": "4G12"
           }
         ]
       },
       {
-        "title": "Notation scientifique",
+        "title": "Équations 3",
+        "objectives": [
+          {
+            "reference": "4N56"
+          }
+        ]
+      },
+      {
+        "title": "Dépendance entre deux grandeurs 1",
+        "objectives": [
+          {
+            "reference": "5S31"
+          }
+        ]
+      },
+      {
+        "title": "Théorème de Thalès",
+        "objectives": [
+          {
+            "reference": "4G31"
+          }
+        ]
+      },
+      {
+        "title": "Nombres premiers 2",
+        "objectives": [
+          {
+            "reference": "4N42"
+          }
+        ]
+      },
+      {
+        "title": "Cosinus d'un angle aigu",
+        "objectives": [
+          {
+            "reference": "4G40"
+          }
+        ]
+      },
+      {
+        "title": "Puissances 3",
         "objectives": [
           {
             "reference": "4N34"
@@ -946,10 +979,18 @@
         ]
       },
       {
-        "title": "Repérage dans un pavé droit",
+        "title": "Agrandissement et réduction 2",
         "objectives": [
           {
-            "reference": "4G50"
+            "reference": "4P12"
+          }
+        ]
+      },
+      {
+        "title": "Équations 4",
+        "objectives": [
+          {
+            "reference": "4N54"
           }
         ]
       },
@@ -968,27 +1009,10 @@
         "title": "Grandeurs composées",
         "objectives": [
           {
-            "reference": "4P13"
-          },
-          {
             "reference": "4P14"
           },
           {
             "reference": "4N36"
-          }
-        ]
-      },
-      {
-        "title": "Dépendance entre deux grandeurs",
-        "objectives": [
-          {
-            "reference": "4S20"
-          },
-          {
-            "reference": "4S21"
-          },
-          {
-            "reference": "5S31"
           }
         ]
       },
@@ -1007,10 +1031,13 @@
         ]
       },
       {
-        "title": "Cosinus d'un angle aigu",
+        "title": "Dépendance entre deux grandeurs 2",
         "objectives": [
           {
-            "reference": "4G40"
+            "reference": "4S20"
+          },
+          {
+            "reference": "4S21"
           }
         ]
       }

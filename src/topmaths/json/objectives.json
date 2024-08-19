@@ -5952,6 +5952,7 @@
             "objectives": [
               {
                 "reference": "4G20",
+                "title": "Calculer la racine carrée d'un nombre positif",
                 "titleAcademic": "Connaître la définition de la racine carrée d'un nombre positif",
                 "lessonSummaryHTML": "$a$ désigne un nombre positif.<br>La carré de $a$ est le produit de $a$ par lui-même ($a \\times a$). Il est noté $a^2$.<br>La racine carrée de $a$ est le nombre positif dont le carré est $a$.<br>Ce nombre est noté $\\sqrt{a}$ et $(\\sqrt{a})^2=a$",
                 "lessonSummaryImage": "",
@@ -7120,15 +7121,6 @@
                     "description": "Aires et volumes, rapports décimaux"
                   }
                 ]
-              },
-              {
-                "reference": "4P13",
-                "titleAcademic": "Utiliser une formule liant deux grandeurs dans une situation de proportionnalité",
-                "title": "Utiliser une formule donnée",
-                "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
-                "videos": [],
-                "exercises": []
               },
               {
                 "reference": "4P14",
