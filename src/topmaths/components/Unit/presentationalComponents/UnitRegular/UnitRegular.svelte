@@ -1,6 +1,7 @@
 <script lang="ts">
   import {
     isPersonalMode,
+    isTeacherMode,
     units
   } from '../../../../services/store'
   import { emptyUnit, type Unit } from '../../../../types/unit'
@@ -38,9 +39,11 @@
     {unit}
     {goToView}
   />
-  <UnitRegularReviews
-    {unit}
-  />
+  {#if $isTeacherMode}
+    <UnitRegularReviews
+      {unit}
+    />
+  {/if}
   <UnitRegularAssessment
     {unit}
   />
