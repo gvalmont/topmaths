@@ -213,7 +213,7 @@ function updateUnitConsolidationReviews (): void {
         nextReviewLessonPlan.consolidationReviews.push({
           description: getTitle(currentObjective),
           objectiveReference: currentObjective.reference,
-          slug: updateParam(lastExerciseSlug, 'n', '1')
+          slug: lastExerciseSlug
         })
       }
     }
