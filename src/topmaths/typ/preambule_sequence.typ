@@ -141,7 +141,10 @@
   set text(couleurPrincipale, font: "Source Sans Pro", weight: "medium",lang: "fr", hyphenate: false)
   set page(footer: footerTopmaths(fonctionCouleurLiens: normal))
   set figure(supplement: none, numbering: none)
-  show math.equation: set text(font: "STIX Two Math")
+  show math.equation: eq => {
+    set text(font: "STIX Two Math")
+    eq
+  }
   show math.frac: it => math.display(it) // Pour avoir de grosses fractions partout
   set math.mat(delim: none)
   set par(justify: true)
