@@ -116,13 +116,13 @@
         ]
       },
       {
-        "title": "Périmètres et aires 1",
+        "title": "Constructions géométriques",
         "objectives": [
           {
-            "reference": "6M10"
+            "reference": "6G30"
           },
           {
-            "reference": "6M20"
+            "reference": "6G32"
           }
         ]
       },
@@ -138,13 +138,13 @@
         ]
       },
       {
-        "title": "Constructions géométriques 1",
+        "title": "Périmètres et aires 1",
         "objectives": [
           {
-            "reference": "6G30"
+            "reference": "6M10"
           },
           {
-            "reference": "6G32"
+            "reference": "6M20"
           }
         ]
       },
@@ -196,10 +196,13 @@
         ]
       },
       {
-        "title": "Nombres décimaux 4",
+        "title": "Proportionnalité 3",
         "objectives": [
           {
-            "reference": "6C13"
+            "reference": "6P14"
+          },
+          {
+            "reference": "6P15"
           }
         ]
       },
@@ -226,13 +229,10 @@
         ]
       },
       {
-        "title": "Proportionnalité 3",
+        "title": "Nombres décimaux 4",
         "objectives": [
           {
-            "reference": "6P14"
-          },
-          {
-            "reference": "6P15"
+            "reference": "6C13"
           }
         ]
       },
@@ -278,6 +278,17 @@
         ]
       },
       {
+        "title": "Nombres décimaux 5",
+        "objectives": [
+          {
+            "reference": "6C22"
+          },
+          {
+            "reference": "6C31"
+          }
+        ]
+      },
+      {
         "title": "Statistiques",
         "objectives": [
           {
@@ -285,17 +296,6 @@
           },
           {
             "reference": "6S11"
-          }
-        ]
-      },
-      {
-        "title": "Nombres décimaux 4",
-        "objectives": [
-          {
-            "reference": "6C22"
-          },
-          {
-            "reference": "6C31"
           }
         ]
       },
@@ -322,7 +322,18 @@
         ]
       },
       {
-        "title": "Périmètre et aire 3",
+        "title": "Priorités opératoires",
+        "objectives": [
+          {
+            "reference": "6C32"
+          },
+          {
+            "reference": "6C33"
+          }
+        ]
+      },
+      {
+        "title": "Périmètres et aires 4",
         "objectives": [
           {
             "reference": "6M12"
@@ -370,17 +381,6 @@
           },
           {
             "reference": "6M22"
-          }
-        ]
-      },
-      {
-        "title": "Priorités opératoires",
-        "objectives": [
-          {
-            "reference": "6C32"
-          },
-          {
-            "reference": "6C33"
           }
         ]
       },
