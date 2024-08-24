@@ -34,6 +34,7 @@
     /* Position the tooltip text - see examples below! */
     position: absolute;
     z-index: 1;
+    pointer-events: none;
   }
 
   .tooltiptext {

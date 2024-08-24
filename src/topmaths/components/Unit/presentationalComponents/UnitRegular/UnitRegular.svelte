@@ -42,6 +42,7 @@
   {#if $isTeacherMode}
     <UnitRegularReviews
       {unit}
+      {goToView}
     />
   {/if}
   <UnitRegularAssessment
