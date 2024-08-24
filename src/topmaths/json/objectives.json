@@ -4261,9 +4261,9 @@
                     "description": "Connaître les priorités opératoires",
                     "objectiveReference": "5N10",
                     "slugsWithSeed": [
-                      "uuid=e61fc&id=5C12&n=1&s=4&s2=false&s3=true&s4=true&alea=PEA5",
-                      "uuid=e61fc&id=5C12&n=1&s=4&s2=false&s3=true&s4=true&alea=ajA4",
-                      "uuid=e61fc&id=5C12&n=1&s=4&s2=false&s3=true&s4=true&alea=9gZi"
+                      "uuid=e61fc&id=5C12&n=4&s=4&s2=false&s3=true&s4=true&alea=PEA5",
+                      "uuid=e61fc&id=5C12&n=4&s=4&s2=false&s3=true&s4=true&alea=ajA4",
+                      "uuid=e61fc&id=5C12&n=4&s=4&s2=false&s3=true&s4=true&alea=9gZi"
                     ]
                   }
                 ],
