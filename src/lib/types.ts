@@ -20,7 +20,7 @@ export type ReplaceDateWithString<T> = {
 Code inspiré de Sylvain, merci!
 https://stackoverflow.com/questions/55020193/is-it-possible-to-create-a-typescript-type-from-an-array
 */
-const VueTypeArray = <const>['diaporama', 'can', 'eleve', 'latex', 'confeleve', 'amc', 'anki', 'moodle', 'l', 'l2', 'overview', 'start']
+const VueTypeArray = <const>['exercise', 'diaporama', 'can', 'eleve', 'latex', 'confeleve', 'amc', 'anki', 'moodle', 'l', 'l2', 'overview', 'start']
 type VueTypeArrayType = typeof VueTypeArray
 export type VueType = VueTypeArrayType[number] // equiv to diaporama' | 'can' | 'eleve' | 'latex' | 'confeleve' | 'amc' | 'anki' | 'moodle' | 'l' | 'l2' | 'overview'
 
