@@ -21,7 +21,7 @@
 
 <div
   id="exercise{exerciseIndex}"
-  class="flex flex-row content-center items-center justify-center my-3 h-10
+  class="flex flex-row flex-wrap content-center items-center justify-center my-3 h-10
     text-xs md:text-base"
 >
   <a href="#exercise{exerciseIndex}">
