@@ -25,38 +25,49 @@
                 "exercises": [
                   {
                     "slug": "uuid=challengeTables",
-                    "description": ""
+                    "description": "Lancer l'application"
+                  },
+                  {
+                    "slug": "uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10-11-12&s2=1-2&s3=false&alea=Cj8R",
+                    "description": "Lancer l'exerice"
                   }
                 ],
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
                     "teacherMaterialsNeeded": [
-                      "Tablettes",
-                      "6C10_Poly_x4"
+                      "Tablettes (1 par personne)"
                     ],
                     "startSteps": [
                       "Calcul mental sur les tables de multiplication"
                     ],
                     "lessonSteps": [
-                      "Apprendre la météo des émotions",
-                      "Expliquer l’importance de connaître les tables de multiplication",
-                      "Distribuer les tables",
-                      "Demander comment apprendre et guider si besoin : beaucoup d’un coup ? dans l’ordre ?",
-                      "Défi tables #rouge()[(observer les élèves pour déterminer le nombre et les critères des évaluations qu’on fera sur Défi Tables)]",
-                      "Arrêter 10 min avant la fin",
-                      "Ranger les tablettes",
-                      "Montrer les documents qui sont sur Pronote (pdf, lien pour télécharger Défi Tables)",
-                      "Expliquer qu’on fera du Défi Tables chaque semaine et qu’ils seront évalués dessus en précisant le nombre et les critères observés précédemment."
+                      "Distribuer 1 tablette par personne",
+                      "On attend que tout le monde ait allumé et déverrouillé la tablette",
+                      "On lance Défi Tables en mode Entraînement - 10 calculs - Table de 2 (on laisse les autres réglages par défaut à savoir 20 secondes classique et à trou)",
+                      "Lorsqu'ils ont terminé ils m'appellent et me montrent le score",
+                      "S'ils ont 9/10 ou 10/10, ils peuvent passer à la table suivante, sinon ils recommencent",
+                      "Lorsque je vois qu'il y en a plusieurs qui échouent, je les fais arrêter et leur explique qu'il ne faut pas directement passer au suivant lorsqu'ils se trompent (s'ils font ça ils ne vont rien apprendre et continuer à répéter les mêmes erreurs) mais répéter plusieurs fois la bonne réponse dans sa tête avant",
+                      "Ainsi de suite jusqu'à la fin de l'heure"
                     ],
                     "homeworks": [
-                      "S'entraîner tous les jours pour connaître ses tables de multiplication sur Défi Tables ou Challenge Tables",
-                      "https://www.multimaths.net/defitables.php",
+                      "Lien sur Pronote avec les tables en question sur Challenge Tables",
+                      "Lien sur Pronote pour télécharger Défi Tables",
                       "https://coopmaths.fr/challenge/?type=tables&params=%7B%22numberOfQuestions%22%3A10%2C%22timePerQuestion%22%3A10%2C%22tables%22%3A%5B2%2C3%2C4%2C5%2C6%2C7%2C8%2C9%2C10%2C11%2C12%5D%7D"
                     ],
                     "closureSteps": [],
                     "nextSessionSteps": [
-                      "Calcul mental sur les tables de multiplication"
+                    ]
+                  },
+                  {
+                    "teacherMaterialsNeeded": [
+                      "Tablettes (1 par personne)",
+                      "6C10_Poly_x4"
+                    ],
+                    "lessonSteps": [
+                      "Suite de la séance précédente",
+                      "Lorsque des élèves ont fini toutes les tables, ils peuvent se défier entre eux en attendant que les autres finissent",
+                      "Un peu avant la fin de l'heure, les encourager à poursuivre l'entraînement à la maison et distribuer les poly qu'il pourront utiliser en cas de trou de mémoire"
                     ]
                   }
                 ]
@@ -4191,9 +4202,9 @@
                     "description": "Connaître les tables de multiplication",
                     "objectiveReference": "6C10",
                     "slugsWithSeed": [
-                      "",
-                      "",
-                      ""
+                      "uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10-11-12&s2=1-2&s3=false&alea=0001",
+                      "uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10-11-12&s2=1-2&s3=false&alea=0002",
+                      "uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10-11-12&s2=1-2&s3=false&alea=0003"
                     ]
                   },
                   {
