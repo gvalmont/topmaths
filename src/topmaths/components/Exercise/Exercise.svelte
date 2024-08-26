@@ -157,7 +157,7 @@ function initiateExercise (exercise: Exercice, exerciseIndex: number): void {
   if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
   seedrandom(exercise.seed, { global: true })
   if (exercise.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercise, isApiGeom(exercise), exerciseIndex)
-  else if (typeof exercise.nouvelleVersion === 'function') exercise.nouvelleVersion(exerciseIndex)
+  else if (typeof exercise.nouvelleVersionWrapper === 'function') exercise.nouvelleVersionWrapper(exerciseIndex)
 }
 
 function isApiGeom (exercise: Exercice): boolean {
