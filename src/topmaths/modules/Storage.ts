@@ -1,4 +1,4 @@
-import { isTeacherMode, isPersonalMode } from '../services/store'
+import { isTeacherMode, isPersonalMode, isDarkMode } from '../services/store'
 
 export default class Storage {
   // TeacherMode and PersonalMode are stored in localStorage
@@ -22,6 +22,17 @@ export default class Storage {
   static setPersonalMode (personalMode: boolean): void {
     localStorage.setItem('personalMode', JSON.stringify(personalMode))
     isPersonalMode.set(personalMode)
+  }
+
+  static getDarkMode (): boolean | undefined {
+    const obj = localStorage.getItem('darkMode')
+    if (obj == null) return undefined
+    return JSON.parse(obj)
+  }
+
+  static setDarkMode (darkMode: boolean): void {
+    localStorage.setItem('darkMode', JSON.stringify(darkMode))
+    isDarkMode.set(darkMode)
   }
 
   // generic set and get for other data stored in sessionStorage

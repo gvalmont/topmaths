@@ -8,7 +8,7 @@
   import { ElementInstrumenpoche } from '../../modules/ElementInstrumenpoche'
   import Student from './Student/Student.svelte'
   import Practice from './Practice/Practice.svelte'
-  import { isTeacherMode, isPersonalMode, reference, view, reference2, isDoubleView } from '../services/store'
+  import { isTeacherMode, isPersonalMode, reference, view, reference2, isDoubleView, isDarkMode } from '../services/store'
   import Exercise from './Exercise/Exercise.svelte'
   import HeaderMenu from './presentationalComponents/HeaderMenu/HeaderMenu.svelte'
   import { cacheData } from '../services/data'
@@ -30,12 +30,11 @@
 
   let isCartEmpty: boolean = true
   let innerWidth: number
-  let isDarkMode: boolean = false
   let isMd: boolean
   $: isMd = innerWidth >= 768
 
   const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-  $: document.documentElement.classList.toggle('dark', isDarkMode)
+  $: document.documentElement.classList.toggle('dark', $isDarkMode)
 
   onMount(() => {
     Cart.subscribe(handleCartUpdate)
@@ -91,16 +90,20 @@
   }
 
   function addDarkModeListener (): void {
-    isDarkMode = darkModeMediaQuery.matches
+    setDarkMode(Storage.getDarkMode() ?? darkModeMediaQuery.matches)
     darkModeMediaQuery.addEventListener('change', event => {
-      isDarkMode = event.matches
+      setDarkMode(event.matches)
     })
   }
 
   function removeDarkModeListener (): void {
     darkModeMediaQuery.removeEventListener('change', event => {
-      isDarkMode = event.matches
+      setDarkMode(event.matches)
     })
+  }
+
+  function setDarkMode (isDarkMode: boolean): void {
+    Storage.setDarkMode(isDarkMode)
   }
 
   function setPersonalMode (isPersonalMode: boolean): void {
@@ -165,7 +168,10 @@
   </div>
   <Footer />
 
-  <DarkModeToggle bind:isDarkMode={isDarkMode} />
+  <DarkModeToggle
+    isDarkMode={$isDarkMode}
+    {setDarkMode}
+  />
   {#if $isTeacherMode}
     <TimeOverlay />
   {/if}

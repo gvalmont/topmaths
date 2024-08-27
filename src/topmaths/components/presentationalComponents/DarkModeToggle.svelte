@@ -1,5 +1,6 @@
 <script lang="ts">
-  export let isDarkMode: boolean | undefined
+  export let isDarkMode: boolean
+  export let setDarkMode: (value: boolean) => void
 </script>
 
 <label
@@ -12,7 +13,7 @@
     id="hidden-checkbox-for-darkmode"
     type="checkbox"
     class="invisible"
-    bind:checked={isDarkMode}
+    on:change={() => setDarkMode(!isDarkMode)}
   />
   <div class="swap-on"><i class="bx bx-sm bx-sun" /></div>
   <div class="swap-off"><i class="bx bx-sm bx-moon" /></div>
