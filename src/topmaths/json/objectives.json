@@ -4305,7 +4305,9 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "5N11_Presentation"
+                    ],
                     "startSteps": [],
                     "lessonSteps": [
                       "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5N11"
