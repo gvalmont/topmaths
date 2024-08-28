@@ -5,7 +5,7 @@ function linkUpdate (rawTitle) {
     if (isValid(reference)) {
       const linkContainerDiv = document.getElementById('topmaths-link-container')
       if (linkContainerDiv !== null) {
-        linkContainerDiv.innerHTML = `<a href="https://topmaths.fr/?v=objectif&ref=${reference}">${title}</a>`
+        linkContainerDiv.innerHTML = `<a href="https://topmaths.fr/?v=objective&ref=${reference}">${title}</a>`
       }
     }
   } catch (error) {

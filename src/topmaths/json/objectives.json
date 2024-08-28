@@ -419,7 +419,7 @@
               {
                 "reference": "6C31",
                 "titleAcademic": "Résoudre des problèmes avec des nombres décimaux",
-                "lessonSummaryHTML": "Si besoin, vous pouvez revoir <a href='/?v=objectif&ref=6C30' title='6C30 : Résoudre des problèmes avec des nombres entiers'>6C30 : Résoudre des problèmes avec des nombres entiers</a> pour vous rappeler comment modéliser et résoudre un problème.<br><br>Vous pouvez aussi revoir <a href='/?v=objectif&ref=6C20' title='6C20 : Additionner et soustraire des nombres décimaux'>6C20 : Additionner et soustraire des nombres décimaux</a>, <a href='/?v=objectif&ref=6C20' title='6C21 : Poser une multiplication'>6C21 : Poser une multiplication</a> et <a href='/?v=objectif&ref=6C20' title='6C22 : Effectuer une division décimale'>6C22 : Effectuer une division décimale</a> pour revoir comment faire les différents calculs.",
+                "lessonSummaryHTML": "Si besoin, vous pouvez revoir <a href='/?v=objective&ref=6C30' title='6C30 : Résoudre des problèmes avec des nombres entiers'>6C30 : Résoudre des problèmes avec des nombres entiers</a> pour vous rappeler comment modéliser et résoudre un problème.<br><br>Vous pouvez aussi revoir <a href='/?v=objective&ref=6C20' title='6C20 : Additionner et soustraire des nombres décimaux'>6C20 : Additionner et soustraire des nombres décimaux</a>, <a href='/?v=objective&ref=6C20' title='6C21 : Poser une multiplication'>6C21 : Poser une multiplication</a> et <a href='/?v=objective&ref=6C20' title='6C22 : Effectuer une division décimale'>6C22 : Effectuer une division décimale</a> pour revoir comment faire les différents calculs.",
                 "lessonSummaryImage": "",
                 "videos": [],
                 "exercises": [
@@ -1115,7 +1115,7 @@
               {
                 "reference": "6G24",
                 "titleAcademic": "Construire un triangle connaissant les 3 longueurs à l'aide d'une application",
-                "lessonSummaryHTML": "<p>Il s'agit ici de faire la même chose que <a href='?v=objectif&ref=6G23'>6G23 : Construire des triangles connaissant les 3 longueurs</a> mais sur une application de géométrie.</p>",
+                "lessonSummaryHTML": "<p>Il s'agit ici de faire la même chose que <a href='?v=objective&ref=6G23'>6G23 : Construire des triangles connaissant les 3 longueurs</a> mais sur une application de géométrie.</p>",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
@@ -1135,7 +1135,7 @@
               {
                 "reference": "6G25",
                 "titleAcademic": "Tracer des rectangles et des carrés de longueurs données",
-                "lessonSummaryHTML": "Un carré n'étant constitué que de segments perpendiculaires, si vous savez <a href='/?v=objectif&ref=6G11' title='6G11 : Tracer des droites perpendiculaires'>tracer des droites perpendiculaires</a> vous devriez y arriver !",
+                "lessonSummaryHTML": "Un carré n'étant constitué que de segments perpendiculaires, si vous savez <a href='/?v=objective&ref=6G11' title='6G11 : Tracer des droites perpendiculaires'>tracer des droites perpendiculaires</a> vous devriez y arriver !",
                 "lessonSummaryImage": "",
                 "lessonSummaryInstrumenpoche": "",
                 "videos": [
@@ -2224,7 +2224,7 @@
               {
                 "reference": "6M14",
                 "titleAcademic": "Calculer le périmètre et l'aire d'un assemblage de figures",
-                "lessonSummaryHTML": "Revoir si besoin :<br><a href='?v=objectif&ref=6M10'>6M10 : Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle</a><br><a href='?v=objectif&ref=6M12'>6M12 : Déterminer le périmètre et l'aire d'un triangle quelconque</a><br><a href='?v=objectif&ref=6M13'>6M13 : Déterminer le périmètre et l'aire d'un disque</a><br><a href='?v=objectif&ref=6M11'>6M11 : Calculer le périmètre et l'aire d'une figure composée de triangles et rectangles</a>",
+                "lessonSummaryHTML": "Revoir si besoin :<br><a href='?v=objective&ref=6M10'>6M10 : Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle</a><br><a href='?v=objective&ref=6M12'>6M12 : Déterminer le périmètre et l'aire d'un triangle quelconque</a><br><a href='?v=objective&ref=6M13'>6M13 : Déterminer le périmètre et l'aire d'un disque</a><br><a href='?v=objective&ref=6M11'>6M11 : Calculer le périmètre et l'aire d'une figure composée de triangles et rectangles</a>",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
@@ -4058,7 +4058,7 @@
               {
                 "reference": "5M10",
                 "titleAcademic": "Calculer le périmètre et l'aire d'une figure usuelle",
-                "lessonSummaryHTML": "Rappels de 6e :<br><a href='?v=objectif&ref=6M10' title='Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle'>6M10 : Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle</a><br><a href='?v=objectif&ref=6M12' title='Déterminer le périmètre et l'aire d'un triangle quelconque'>6M12 : Déterminer le périmètre et l'aire d'un triangle quelconque</a><br><a href='?v=objectif&ref=6M13' title='Déterminer le périmètre et l'aire d'un disque'>6M13 : Déterminer le périmètre et l'aire d'un disque</a>",
+                "lessonSummaryHTML": "Rappels de 6e :<br><a href='?v=objective&ref=6M10' title='Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle'>6M10 : Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle</a><br><a href='?v=objective&ref=6M12' title='Déterminer le périmètre et l'aire d'un triangle quelconque'>6M12 : Déterminer le périmètre et l'aire d'un triangle quelconque</a><br><a href='?v=objective&ref=6M13' title='Déterminer le périmètre et l'aire d'un disque'>6M13 : Déterminer le périmètre et l'aire d'un disque</a>",
                 "lessonSummaryImage": "RDC_S5S19.png",
                 "videos": [
                   {
@@ -5655,7 +5655,7 @@
               {
                 "reference": "5S13",
                 "titleAcademic": "Calculer et interpréter la moyenne pondérée d'une série de données",
-                "lessonSummaryHTML": "Lorsqu'on veut calculer une <b><a href='?v=objectif&ref=5S12'>moyenne</a></b>, si une <i>valeur</i> se répète plusieurs fois, on peut aller plus vite en multipliant cette valeur par son <i>effectif</i> (le nombre de fois où elle se répète).<br>Dans ce cas, on dit que la <i>moyenne</i> est <i>pondérée</i> par les effectifs.",
+                "lessonSummaryHTML": "Lorsqu'on veut calculer une <b><a href='?v=objective&ref=5S12'>moyenne</a></b>, si une <i>valeur</i> se répète plusieurs fois, on peut aller plus vite en multipliant cette valeur par son <i>effectif</i> (le nombre de fois où elle se répète).<br>Dans ce cas, on dit que la <i>moyenne</i> est <i>pondérée</i> par les effectifs.",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
@@ -5804,7 +5804,7 @@
               {
                 "reference": "5S31",
                 "titleAcademic": "Produire une formule littérale représentant la dépendance de deux grandeurs",
-                "lessonSummaryHTML": "Vous trouverez plusieurs vidéos ci-dessous.<br>Vous pouvez aussi revoir <a href='?v=objectif&ref=5N52'>5N52 : Produire une expression littérale pour élaborer une formule ou traduire un programme de calcul</a>.",
+                "lessonSummaryHTML": "Vous trouverez plusieurs vidéos ci-dessous.<br>Vous pouvez aussi revoir <a href='?v=objective&ref=5N52'>5N52 : Produire une expression littérale pour élaborer une formule ou traduire un programme de calcul</a>.",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
@@ -6545,7 +6545,7 @@
                 "reference": "4N32",
                 "titleAcademic": "Utiliser les puissances d'exposant relatif",
                 "isKey": true,
-                "lessonSummaryHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='?v=objectif&ref=4N30'>4N30</a><br><br><center> $ a^{-n} = \\cfrac{1}{a^n} = \\cfrac{1}{\\underbrace{a \\times a \\times a \\times ... \\times a}_{\\text{Le } a \\text{ apparaît } n \\text{ fois}}} $ </center>",
+                "lessonSummaryHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='?v=objective&ref=4N30'>4N30</a><br><br><center> $ a^{-n} = \\cfrac{1}{a^n} = \\cfrac{1}{\\underbrace{a \\times a \\times a \\times ... \\times a}_{\\text{Le } a \\text{ apparaît } n \\text{ fois}}} $ </center>",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
@@ -6575,7 +6575,7 @@
               {
                 "reference": "4N33",
                 "titleAcademic": "Utiliser les puissances de 10 d'exposant relatif",
-                "lessonSummaryHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='?v=objectif&ref=4N30' title='Les puissances, c'est quoi ?'>4N30</a> et <a href='?v=objectif&ref=4N32' title='Puissances positives et négatives'>4N32</a>.<br><br><center> $ 10^n = \\underbrace{10 \\times 10 \\times 10 \\times ... \\times 10}_{\\text{Le } 10 \\text{ apparaît } n \\text{ fois}} = {1}\\underbrace{00 ... 0}_{\\text{Il y a } n \\text{ zéros}} $ </center><br><center> $ 10^{-n} = \\cfrac{1}{\\underbrace{10 \\times 10 \\times 10 \\times ... \\times 10}_{\\text{Le } 10 \\text{ apparaît } n \\text{ fois}}} = \\underbrace{0,00 ... 0}_{\\text{Il y a } n \\text{ zéros}}1 $ </center>",
+                "lessonSummaryHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='?v=objective&ref=4N30' title='Les puissances, c'est quoi ?'>4N30</a> et <a href='?v=objective&ref=4N32' title='Puissances positives et négatives'>4N32</a>.<br><br><center> $ 10^n = \\underbrace{10 \\times 10 \\times 10 \\times ... \\times 10}_{\\text{Le } 10 \\text{ apparaît } n \\text{ fois}} = {1}\\underbrace{00 ... 0}_{\\text{Il y a } n \\text{ zéros}} $ </center><br><center> $ 10^{-n} = \\cfrac{1}{\\underbrace{10 \\times 10 \\times 10 \\times ... \\times 10}_{\\text{Le } 10 \\text{ apparaît } n \\text{ fois}}} = \\underbrace{0,00 ... 0}_{\\text{Il y a } n \\text{ zéros}}1 $ </center>",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
@@ -6640,7 +6640,7 @@
                 "reference": "4N35",
                 "titleAcademic": "Associer dans le cas des nombres décimaux, écriture décimale, écriture fractionnaire et notation scientifique",
                 "title": "Écrire des nombres en notation scientifique",
-                "lessonSummaryHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='?v=objectif&ref=4N30' title='Les puissances, c'est quoi ?'>4N30</a>, <a href='?v=objectif&ref=4N32' title='Puissances positives et négatives'>4N32</a> et <a href='?v=objectif&ref=4N33' title='Les puissances de 10'>4N33</a>.<br><br>La <i>notation scientifique</i> d'un nombre est de la forme :<br> $a,... \\times 10^n$ avec $a$ qui est un chiffre entre 1 et 9.",
+                "lessonSummaryHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='?v=objective&ref=4N30' title='Les puissances, c'est quoi ?'>4N30</a>, <a href='?v=objective&ref=4N32' title='Puissances positives et négatives'>4N32</a> et <a href='?v=objective&ref=4N33' title='Les puissances de 10'>4N33</a>.<br><br>La <i>notation scientifique</i> d'un nombre est de la forme :<br> $a,... \\times 10^n$ avec $a$ qui est un chiffre entre 1 et 9.",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
@@ -6689,7 +6689,7 @@
                 "titleAcademic": "Déterminer la liste des nombres premiers inférieurs à 100",
                 "title": "Reconnaître les nombres premiers jusqu'à 100",
                 "isKey": true,
-                "lessonSummaryHTML": "Pour savoir si un nombre inférieur à 100 est premier, il suffit de vérifier qu'il n'est pas divisible par 2, 3, 5, ni 7.<br>Vous pouvez aussi revoir <a href='/?v=objectif&ref=5N42' title='5N42 : Déterminer les nombres premiers inférieurs ou égaux à 30'>5N42 : Déterminer les nombres premiers inférieurs ou égaux à 30</a> si besoin.",
+                "lessonSummaryHTML": "Pour savoir si un nombre inférieur à 100 est premier, il suffit de vérifier qu'il n'est pas divisible par 2, 3, 5, ni 7.<br>Vous pouvez aussi revoir <a href='/?v=objective&ref=5N42' title='5N42 : Déterminer les nombres premiers inférieurs ou égaux à 30'>5N42 : Déterminer les nombres premiers inférieurs ou égaux à 30</a> si besoin.",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
@@ -6734,7 +6734,7 @@
                 "reference": "4N42",
                 "titleAcademic": "Modéliser et résoudre des problèmes mettant en jeu la divisibilité (engrenages, conjonction de phénomènes…)",
                 "title": "Résoudre des problèmes à l'aide des nombres premiers",
-                "lessonSummaryHTML": "Voir <a href='?v=objectif&ref=4N41'>4N41 : Décomposer un nombre entier en produit de facteurs premiers</a>",
+                "lessonSummaryHTML": "Voir <a href='?v=objective&ref=4N41'>4N41 : Décomposer un nombre entier en produit de facteurs premiers</a>",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
@@ -6764,7 +6764,7 @@
                 "reference": "4N50",
                 "titleAcademic": "Identifier la structure d'une expression littérale",
                 "title": "Reconnaître si c'est une somme, une différence, un produit ou un quotient",
-                "lessonSummaryHTML": "<p>La <b><i>somme</i></b> est le résultat d'une <b><i>addition</i></b>.<br>La <b><i>différence</i></b> est le résultat d'une <b><i>soustraction</i></b>.<br>Le <b><i>produit</i></b> est le résultat d'une <b><i>multiplication</i></b>.<br>Le <b><i>quotient</i></b> est le résultat d'une <b><i>division</i></b>.</p><p>La <b><i>structure d'une expression</i></b> est déterminée par l'<b><i>opération</i></b> qu'on réaliserait <b><i>en dernier</i></b> si on voulait faire les calculs.</p><p>Si vous ne savez plus dans quel ordre on fait les calculs, vous pouvez aller voir <a href='?v=objectif&ref=5N10'>5N10 – Effectuer un enchaînement d'opérations en respectant les priorités opératoires.</a> et <a href='?v=objectif&ref=5N11'>5N11 – Traduire un enchaînement d'opérations à l'aide d'une expression avec des parenthèses.</a></p>",
+                "lessonSummaryHTML": "<p>La <b><i>somme</i></b> est le résultat d'une <b><i>addition</i></b>.<br>La <b><i>différence</i></b> est le résultat d'une <b><i>soustraction</i></b>.<br>Le <b><i>produit</i></b> est le résultat d'une <b><i>multiplication</i></b>.<br>Le <b><i>quotient</i></b> est le résultat d'une <b><i>division</i></b>.</p><p>La <b><i>structure d'une expression</i></b> est déterminée par l'<b><i>opération</i></b> qu'on réaliserait <b><i>en dernier</i></b> si on voulait faire les calculs.</p><p>Si vous ne savez plus dans quel ordre on fait les calculs, vous pouvez aller voir <a href='?v=objective&ref=5N10'>5N10 – Effectuer un enchaînement d'opérations en respectant les priorités opératoires.</a> et <a href='?v=objective&ref=5N11'>5N11 – Traduire un enchaînement d'opérations à l'aide d'une expression avec des parenthèses.</a></p>",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
@@ -7075,7 +7075,7 @@
                 "reference": "4P11",
                 "titleAcademic": "Calculer une quatrième proportionnelle par la procédure de son choix",
                 "isKey": true,
-                "lessonSummaryHTML": "Voir aussi <a href='?v=objectif&ref=6P11'>6P11</a> pour d'autres méthodes.",
+                "lessonSummaryHTML": "Voir aussi <a href='?v=objective&ref=6P11'>6P11</a> pour d'autres méthodes.",
                 "lessonSummaryImage": "regle-de-trois.png",
                 "videos": [
                   {
@@ -7616,7 +7616,7 @@
                 "reference": "3N10",
                 "titleAcademic": "Déterminer si un nombre est premier",
                 "isKey": true,
-                "lessonSummaryHTML": "Vous pouvez aussi revoir <a href='/?v=objectif&ref=4N40' title='4N40 : Déterminer la liste des nombres premiers inférieurs à 100'>4N40 : Déterminer la liste des nombres premiers inférieurs à 100</a> si besoin",
+                "lessonSummaryHTML": "Vous pouvez aussi revoir <a href='/?v=objective&ref=4N40' title='4N40 : Déterminer la liste des nombres premiers inférieurs à 100'>4N40 : Déterminer la liste des nombres premiers inférieurs à 100</a> si besoin",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
