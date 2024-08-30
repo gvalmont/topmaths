@@ -4286,16 +4286,12 @@
                     "description": "Traduire un calcul par une phrase"
                   },
                   {
-                    "slug": "5C11,s=1,s2=false,s3=true,s4=true,n=1",
+                    "slug": "uuid=9d15d&id=5C11&n=1&d=10&s=1&s2=false&s3=true&s4=1",
                     "description": "Traduire une phrase par un calcul (1 opération)"
                   },
                   {
-                    "slug": "5C12-1,s=2,s2=false,s3=true,s4=true,n=1",
-                    "description": "Traduire une phrase et faire le calcul (2 opérations)"
-                  },
-                  {
-                    "slug": "5C12-1,s=3,s2=false,s3=true,s4=true,n=1",
-                    "description": "Traduire une phrase et faire le calcul (3 opérations)"
+                    "slug": "uuid=9d15d&id=5C11&n=1&d=10&s=1&s2=false&s3=true&s4=2",
+                    "description": "Traduire une phrase par un calcul (2 opérations)"
                   }
                 ],
                 "lessonPlans": [
@@ -4306,7 +4302,20 @@
                     ],
                     "startSteps": [],
                     "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5N11"
+                      "Noter le cours et premier exercice de https://topmaths.fr/?v=objective&ref=5N11"
+                    ],
+                    "homeworks": [],
+                    "closureSteps": [],
+                    "nextSessionSteps": [],
+                    "comments": []
+                  },
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                    ],
+                    "startSteps": [],
+                    "lessonSteps": [
+                      "Deuxième et troisième exercices de https://topmaths.fr/?v=objective&ref=5N11"
                     ],
                     "homeworks": [],
                     "closureSteps": [],
