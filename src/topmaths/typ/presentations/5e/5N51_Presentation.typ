@@ -6,10 +6,11 @@
 #slide()[
   #propriete()[
     $a$ et $b$ désignent des nombres.\
-    $a #vert($x$) + b #vert($x$) = (a + b)#vert($x$)$
+    $a #vert("x") + b #vert("x") = (a + b)#vert("x")$
   ]
-  #exemples()[
-    $A = 2 times a = 2a$\
-    $B = 2x + 3x = 5x$
+  #exemple()[
+    $C = 2#vert("x") + 3#rouge("x")$\
+    $C = #vert("x") + #vert("x") + #rouge("x") + #rouge("x") + #rouge("x")$ \
+    $C = 5x$
   ]
 ]

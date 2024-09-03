@@ -573,6 +573,21 @@
                     "closureSteps": [],
                     "nextSessionSteps": [],
                     "comments": []
+                  },
+                  {
+                    "lessonSteps": [
+                      "Apprendre à reconnaître une droite, une demi-droite et un segment (premier exercice de https://topmaths.fr/?v=objective&ref=6G10)"
+                    ]
+                  },
+                  {
+                    "lessonSteps": [
+                      "Décrire avec des mots une droite, une demi-droite et un segment (deuxième exercice de https://topmaths.fr/?v=objective&ref=6G10)"
+                    ]
+                  },
+                  {
+                    "lessonSteps": [
+                      "Utiliser la notation mathématique dans le deuxième exercice de https://topmaths.fr/?v=objective&ref=6G10"
+                    ]
                   }
                 ]
               },
@@ -5218,7 +5233,8 @@
                     ],
                     "startSteps": [],
                     "lessonSteps": [
-                      "Demander combien fait $2x + 3x$, $2x + 3$, $2x times 3$ en remettant les $x$ à chaque fois pour vérifier l'équivalence ou non des réponses proposées.",
+                      "Démontrer que $2x + 3x = 5x$ en remplaçant $2x$ par $x + x$ et $3x$ par $x + x + x$",
+                      "Montrer de la même façon que $2x + 3$ ne peut pas être réduit",
                       "Noter le cours",
                       "S’entraîner sur https://topmaths.fr/?v=objective&ref=5N51",
                       "- Dans le premier exercice, on a juste à mettre ensemble ceux qui vont ensemble",
