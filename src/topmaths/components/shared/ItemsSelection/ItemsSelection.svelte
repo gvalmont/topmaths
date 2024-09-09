@@ -13,7 +13,6 @@
   import RowCurriculum from './RowCurriculum.svelte'
   import { isReviewsDisplayed, isTeacherMode, isTitleAcademicPreferred } from '../../../services/store'
   import InputCheckbox from '../InputCheckbox.svelte'
-  import { UNLISTED_THEMES } from '../../../services/environment'
   import { isReview, isUnit, type Review, type Unit } from '../../../types/unit'
   import { isObjective, type Objective } from '../../../types/objective'
   import { isSpecialUnit } from '../../../types/specialUnit'
@@ -104,7 +103,6 @@
 
   function getFilteredReviews (unit: Unit, type: 'consolidation' | 'prerequisite'): Review[] {
     return unit.objectives
-      .filter(objective => !UNLISTED_THEMES.includes(objective.theme ?? ''))
       .map(objective => objective.lessonPlans)
       .flat()
       .map(lessonPlan => type === 'consolidation' ? lessonPlan.consolidationReviews : lessonPlan.prerequisiteReviews)
@@ -172,7 +170,7 @@
         {/each}
       {/if}
       {#if view === 'objective'}
-        {#each [...new Set(objectives.filter(objective => objective.grade === grade).map(objective => objective.theme).filter(theme => !UNLISTED_THEMES.includes(theme ?? '')))] as theme}
+        {#each [...new Set(objectives.filter(objective => objective.grade === grade).map(objective => objective.theme))] as theme}
           <h2 class="title
             text-xl md:text-3xl"
           >
@@ -241,7 +239,7 @@
             </div>
             <div class="flex flex-col justify-center items-center
               {$isReviewsDisplayed ? 'w-1/4' : 'w-2/3'}">
-                {#each unit.objectives.filter(objective => !UNLISTED_THEMES.includes(objective.theme ?? '')) as objective}
+                {#each unit.objectives as objective}
                   <RowCurriculum
                     reference={objective.reference}
                     isKey={objective.isKey}

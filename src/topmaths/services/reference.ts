@@ -14,7 +14,7 @@ export function buildGradeFromObjectiveReference (reference: string): StringGrad
  */
 export function buildThemeFromReference (reference: string): 'nombres' | 'gestion' | 'gestionbis' | 'grandeurs' | 'geo' | 'algo' {
   const lettre = reference.slice(1, 2)
-  if (lettre === 'C' || lettre === 'N' || lettre === 'X') return 'nombres'
+  if (lettre === 'C' || lettre === 'N') return 'nombres'
   if (lettre === 'G') return 'geo'
   if (lettre === 'M') return 'grandeurs'
   if (lettre === 'P' || lettre === 'S') return 'gestion'

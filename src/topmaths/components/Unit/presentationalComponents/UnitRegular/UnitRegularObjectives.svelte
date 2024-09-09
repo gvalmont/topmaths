@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { UNLISTED_THEMES } from '../../../../services/environment'
   import { getTitle } from '../../../../services/string'
   import type { Reference, View } from '../../../../types/navigation'
   import type { Unit } from '../../../../types/unit'
@@ -16,16 +15,14 @@
 </h2>
 <ul class="m-6">
   {#each unit.objectives as objective}
-    {#if !UNLISTED_THEMES.includes(objective.theme)}
-      <li class="p-1 md:p-2 ">
-        <a
-          class="is-interactive"
-          href="/?v=objective&ref={objective.reference}"
-          on:click={(event) => goToView(event, 'objective', objective.reference)}
-        >
-          {objective.reference} : {getTitle(objective)}
-        </a>
-      </li>
-    {/if}
+    <li class="p-1 md:p-2 ">
+      <a
+        class="is-interactive"
+        href="/?v=objective&ref={objective.reference}"
+        on:click={(event) => goToView(event, 'objective', objective.reference)}
+      >
+        {objective.reference} : {getTitle(objective)}
+      </a>
+    </li>
   {/each}
 </ul>

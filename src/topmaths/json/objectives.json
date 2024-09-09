@@ -5746,24 +5746,6 @@
             ]
           }
         ]
-      },
-      {
-        "name": "Extra",
-        "subThemes": [
-          {
-            "name": "5X : Extra",
-            "objectives": [
-              {
-                "reference": "5X1",
-                "titleAcademic": "Rendre plus simple des calculs pour calculer mentalement",
-                "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
-                "videos": [],
-                "exercises": []
-              }
-            ]
-          }
-        ]
       }
     ]
   },
