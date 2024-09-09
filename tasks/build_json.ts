@@ -65,7 +65,7 @@ function buildUnits (): UnitWithStringReference[] {
     let unitIndex = 0
     for (const unit of grade.units) {
       if (unit === undefined) { console.error(grade.units); throw new Error('Unit is undefined') }
-      unit.assessmentExamSlug = formatSlug(unit.assessmentExamSlug)
+      unit.assessmentExamSlug = unit.assessmentExamSlug ?? ''
       unit.assessmentExamLink = unit.assessmentExamSlug ? TOPMATHS_BASE_URL + unit.assessmentExamSlug + REGULAR_VIEW_ADDENDUM : ''
       unit.assessmentLink = unit.assessmentLink ?? ''
       unit.downloadLinks = deepCopy(emptyUnitDownloadLinks)
@@ -731,7 +731,7 @@ function checkDuplicatesExamExercises (): void {
     .forEach(assessmentExamSlug => {
       const examExerciseSlugs = assessmentExamSlug.split('&')
       examExerciseSlugs.forEach(examExerciseSlug => {
-        if (examExercisesFound.includes(examExerciseSlug) && !EXERCISE_PARAM_ADDENDUM.includes(examExerciseSlug)) {
+        if (examExercisesFound.includes(examExerciseSlug)) {
           console.warn(examExerciseSlug, 'found twice')
           warningCount++
         }
@@ -834,8 +834,7 @@ function formatSlug (slug: string | undefined): string {
 }
 
 function addAddendum (slug: string): string {
-  if (!slug.includes(EXERCISE_PARAM_ADDENDUM)) slug += EXERCISE_PARAM_ADDENDUM
-  if (slug === 'i=0') console.log('oo')
+  if (!slug.includes(EXERCISE_PARAM_ADDENDUM) && !isFullLink(slug) && slug !== '') slug += EXERCISE_PARAM_ADDENDUM
   return slug.replace(/&uuid=/g, EXERCISE_PARAM_ADDENDUM + '&uuid=') // dans le cas où il y aurait plusieurs exercices dans le même slug
 }
 
