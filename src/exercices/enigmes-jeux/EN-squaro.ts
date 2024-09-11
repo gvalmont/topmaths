@@ -67,7 +67,6 @@ class squaro extends Exercice {
     this.sup4 = 7
     this.longueur = this.sup
     this.largeur = this.sup2
-    // this.interactif = true
   }
 
   nouvelleVersion (): void {
@@ -77,8 +76,8 @@ class squaro extends Exercice {
     this.comment = 'Grâce au choix de la longueur et de la hauteur de la grille et grâce à l\'aide ci-dessus sur des points initialement affichés, vous pouvez graduer la difficulté des grilles SquarO proposées.'
     this.longueur = Math.max(2, Math.min(parseInt(this.sup), 15)) || 2
     this.largeur = Math.max(2, Math.min(parseInt(this.sup2), 15)) || 2
-
-    this.idApigeom = `apigeomEx${this.numeroExercice}EE`
+    // Quand on duplique un exercice le numeroExercice ne semble pas se mettre à jour
+    this.idApigeom = `apigeomEx${this.numeroExercice}EE${new Date().getTime()}`
     this.figure = new Figure({
       xMin: -0.25, // On enlève 0.25 unités
       yMin: -0.25,
@@ -271,12 +270,12 @@ class squaro extends Exercice {
         ).length
         divNbPoints.innerHTML = `Cette grille contient actuellement ${nbBluePoints} point${nbBluePoints === 1 ? '' : 's'} bleu${nbBluePoints === 1 ? '' : 's'}.`
       })
-      document.addEventListener('exercicesAffiches', () => {
+      const handleExercicesAffiches = () => {
         this.blueButton.click()
-      })
-    }
-
-    if (!this.interactif) {
+        document.removeEventListener('exercicesAffiches', handleExercicesAffiches)
+      }
+      document.addEventListener('exercicesAffiches', handleExercicesAffiches)
+    } else {
       this.figure.isDynamic = false
       this.figure.divButtons.style.display = 'none'
       this.figure.divUserMessage.style.display = 'none'

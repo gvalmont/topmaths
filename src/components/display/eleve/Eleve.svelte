@@ -35,6 +35,7 @@
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
   import { buildExercisesList, splitExercisesIntoQuestions } from '../../../lib/components/exercisesUtils'
+  import { resizeContent } from '../../../lib/components/sizeTools'
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -160,6 +161,11 @@
       bubbles: true
     })
     document.dispatchEvent(exercicesAffiches)
+    if (eleveSection) {
+      const params = $globalOptions
+      const zoom = Number(params.z) ?? 1
+      resizeContent(eleveSection, zoom)
+    }
   })
 
   $: questionTitle = buildQuestionTitle(currentWindowWidth, questions.length)
@@ -457,6 +463,7 @@
                 >
                   {questionTitle}
                   {i + 1}
+                  {#if $resultsByExercice[i] !== undefined}
                   <div
                     class="absolute left-0 right-0 mx-auto bottom-1 h-2 w-2 rounded-full bg-coopmaths-warn
                       {resultsByQuestion[i] === true ? '' : 'invisible'}"
@@ -465,6 +472,7 @@
                     class="absolute left-0 right-0 mx-auto bottom-1 h-2 w-2 rounded-full bg-red-600
                       {resultsByQuestion[i] === false ? '' : 'invisible'}"
                   />
+                  {/if}
                 </div>
                 <span
                   class="absolute -bottom-1 left-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
@@ -637,6 +645,7 @@
           {/each}
         </div>
       {:else if $globalOptions.presMode === 'une_question_par_page'}
+        <div>
         {#each questions as question, k (k + '_' + question)}
           <div class="flex flex-col">
             <div class={$isMenuNeededForQuestions ? '' : 'hidden'}>
@@ -653,27 +662,22 @@
                 >
                   Question {k + 1}
                   <div
-                    class="relative ml-2 h-2 w-2 rounded-full {currentIndex ===
-                    k
+                    class="relative ml-2 h-2 w-2 rounded-full {currentIndex === k
                       ? 'bg-coopmaths-canvas-darkest'
                       : 'bg-coopmaths-canvas-dark'} group-hover:bg-coopmaths-canvas-darkest"
                   >
+                  {#if $resultsByExercice[k] !== undefined}
                     <div
-                      class="absolute h-2 w-2 rounded-full bg-coopmaths-warn {resultsByQuestion[
-                        k
-                      ] === true
+                      class="absolute h-2 w-2 rounded-full bg-coopmaths-warn {resultsByQuestion[k] === true
                         ? ''
                         : 'hidden'}"
                     />
                     <div
-                      class="absolute h-2 w-2 rounded-full bg-red-600 {resultsByQuestion[
-                        k
-                      ] === false
-                        ? ''
-                        : 'hidden'}"
+                      class="absolute h-2 w-2 rounded-full bg-red-600 {resultsByQuestion[k] === false ? '' : 'hidden'}"
                     />
-                  </div>
+                  {/if}
                 </div>
+              </div>
               </button>
             </div>
             <div
@@ -761,6 +765,7 @@
             </div>
           </div>
         {/each}
+        </div>
       {:else if $globalOptions.presMode === 'cartes'}
         <div
           class="grid grid-flow-row gri-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-auto gap-6"

@@ -3,6 +3,7 @@
 import type Grandeur from '../modules/Grandeur'
 import { exportedApplyNewSeed, exportedNouvelleVersionWrapper, exportedQuestionJamaisPosee, exportedReinit } from './exerciseMethods'
 import type { AutoCorrection } from '../lib/interactif/gestionInteractif'
+import type { OptionsComparaisonType } from '../lib/interactif/comparisonFunctions'
 
 /**
  *
@@ -43,6 +44,8 @@ export default class Exercice {
   formatChampTexte?: string // Seulement pour les exercices de type simple
   optionsChampTexte?: object // Seulement pour les exercices de type simple
   compare?: ((input: string, goodAnswer: string) => { isOk: boolean, feedback?: string }) | ((input: string, goodAnswer: Grandeur) => { isOk: boolean, feedback?: string }) // Seulement pour les exercices de type simple
+  // optionsDeComparaison?: { [key in keyof OptionsComparaisonType]?: boolean }
+  optionsDeComparaison?:Partial<OptionsComparaisonType>
   formatInteractif?: string // Options par défaut pour les champs Mathlive (très utile dans les exercices simples)
   contenu?: string
   contenuCorrection?: string
@@ -99,6 +102,7 @@ export default class Exercice {
   contentCorr?: string // Pour les exercices statiques
   comment?: string // Commentaire facultatif de l'auteur de l'exercice
   answers?: { [key: string]: string } // Réponses de l'élève
+  dragAndDrops?: DragAndDrop[]
   isDone?: boolean
   private _html: HTMLElement = document.createElement('div')
   score?: number

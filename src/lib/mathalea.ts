@@ -617,6 +617,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
   exercice.interactif = isInteractif
   for (let i = 0, cptSecours = 0; i < exercice.nbQuestions && cptSecours < 50;) {
     const compare = exercice.compare == null ? calculCompare : exercice.compare
+    const options = exercice.optionsDeComparaison == null ? {} : exercice.optionsDeComparaison
     seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
     if (exercice.nouvelleVersion && typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion(numeroExercice)
     if (exercice.questionJamaisPosee(i, String(exercice.question))) {
@@ -624,21 +625,21 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
         let reponse = {}
         if (typeof exercice.reponse !== 'string') {
           if (exercice.reponse instanceof FractionEtendue) {
-            reponse = { reponse: { value: exercice.reponse.texFraction, compare } }
+            reponse = { reponse: { value: exercice.reponse.texFraction, compare, options } }
           } else if (exercice.reponse instanceof Decimal) {
-            reponse = { reponse: { value: exercice.reponse.toString(), compare } }
+            reponse = { reponse: { value: exercice.reponse.toString(), compare, options } }
           } else if (exercice.reponse instanceof Grandeur) {
-            reponse = { reponse: { value: exercice.reponse, compare } }
+            reponse = { reponse: { value: exercice.reponse, compare, options } }
           } else if (typeof exercice.reponse === 'object') { // Si c'est handleAnswer qu'on veut utiliser directement avec un fillInTheBlank par exemple, on met l'objet reponse complet dans this.reponse
             reponse = exercice.reponse
           } else if (Array.isArray(exercice.reponse)) {
             reponse = { reponse: { value: exercice.reponse[0] } }
           } else {
             window.notify(`MathaleaHandleExerciceSimple n'a pas réussi à déterminer le type de exercice.reponse, dans ${exercice?.numeroExercice + 1} - ${exercice.titre} ${JSON.stringify(exercice.reponse)}, on Stingifie, mais c'est sans doute une erreur à rectifier`, { exercice: JSON.stringify(exercice) })
-            reponse = { reponse: { value: String(exercice.reponse), compare } }
+            reponse = { reponse: { value: String(exercice.reponse), compare, options } }
           }
         } else {
-          reponse = { reponse: { value: exercice.reponse, compare } }
+          reponse = { reponse: { value: exercice.reponse, compare, options } }
         }
         handleAnswers(exercice, i, reponse, { formatInteractif: exercice.formatInteractif ?? 'mathlive' }) /// // PROCHAIN LA : La partie ci-dessus sera à supprimer quand il n'y aura plus de this.compare
       } else if (exercice.reponse instanceof Object && exercice.reponse.reponse != null && exercice.reponse.reponse.value != null && typeof exercice.reponse.reponse.value === 'string') {
@@ -748,30 +749,52 @@ export function mathaleaHandleComponentChange (oldComponent: string, newComponen
 
 export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: string }) {
   for (const answer in answers) {
-    // La réponse correspond à un champs texte
+    // La réponse correspond à un champs texte ?
     const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement | HTMLInputElement
     if (field !== null) {
       if ('setValue' in field) {
         // C'est un MathfieldElement (créé avec ajouteChampTexteMathLive)
         field.setValue(answers[answer])
-      }
-    } else {
-      // La réponse correspond à une case à cocher qui doit être cochée
-      const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
-      if (checkBox !== null && answers[answer] === '1') {
-        checkBox.checked = true
       } else {
-      // La réponse correspond à une liste déroulante
-        const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
-        if (select !== null) {
-          select.value = answers[answer]
-        }
+        // C'est un champ texte classique
+        field.value = answers[answer]
       }
+      continue
+    }
+    // La réponse correspond à une case à cocher qui doit être cochée ?
+    const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
+    if (checkBox !== null && answers[answer] === '1') {
+      checkBox.checked = true
+      continue
+    }
+    // La réponse correspond à une liste déroulante ?
+    const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
+    if (select !== null) {
+      select.value = answers[answer]
+      continue
     }
     if (answer.includes('apigeom')) {
       // La réponse correspond à une figure
       const event = new CustomEvent(answer, { detail: answers[answer] })
       document.dispatchEvent(event)
+      continue
+    }
+    if (answer.includes('rectangle')) {
+      // ATTENTION le test est-il assez spécifique ? Une réponse "rectangle", une figure apigeom avec un texte rectangle...
+      try {
+        // On n'est pas sûr que la chaine `div#${answer}` soit un sélecteur valide
+        const rectangle = document.querySelector(`div#${answer}`)
+        if (rectangle !== null) {
+          const etiquette = document.querySelector(`div#${answers[answer]}`)
+          if (etiquette !== null) {
+            // Remet l'étiquette à la bonne réponse
+            rectangle.appendChild(etiquette)
+          }
+          continue
+        }
+      } catch (error) {
+        console.error('L\'exercice a été reconnu, sans doute à tort, comme un exercice de glisser-déposer')
+      }
     }
   }
 }
