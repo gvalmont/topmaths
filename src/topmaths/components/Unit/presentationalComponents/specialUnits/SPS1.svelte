@@ -43,8 +43,8 @@
           rel="noopener noreferrer"
         >
           <img
-            class="h-16 md:h-20"
-            src="https://play.google.com/intl/en_us/badges/static/images/badges/fr_badge_web_generic.png"
+            class="h-12 md:h-16"
+            src="/topmaths/img/sps1/GetItOnGooglePlay_Badge_Web_color_French.png"
             alt="Disponible sur Google Play"
           />
         </a>
