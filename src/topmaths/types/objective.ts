@@ -69,25 +69,21 @@ export const emptyObjectiveExercise: ObjectiveExercise = {
 export type ObjectiveLessonPlan = {
   startSteps: string[],
   lessonSteps: string[],
-  homeworks: string[],
   closureSteps: string[],
   studentMaterialsNeeded: string[],
   teacherMaterialsNeeded: string[],
   grades: StringGrade[],
-  comments: string[],
-  nextSessionSteps: string[]
+  comments: string[]
 }
 export function isObjectiveLessonPlan (obj: unknown): obj is ObjectiveLessonPlan {
   if (obj == null || typeof obj !== 'object') return false
   return 'startSteps' in obj && isStrings(obj.startSteps) &&
     'lessonSteps' in obj && isStrings(obj.lessonSteps) &&
-    'homeworks' in obj && isStrings(obj.homeworks) &&
     'closureSteps' in obj && isStrings(obj.closureSteps) &&
     'studentMaterialsNeeded' in obj && isStrings(obj.studentMaterialsNeeded) &&
     'teacherMaterialsNeeded' in obj && isStrings(obj.teacherMaterialsNeeded) &&
     'grades' in obj && isStringGrades(obj.grades) &&
-    'comments' in obj && isStrings(obj.comments) &&
-    'nextSessionSteps' in obj && isStrings(obj.nextSessionSteps)
+    'comments' in obj && isStrings(obj.comments)
 }
 export function isObjectiveLessonPlans (obj: unknown): obj is ObjectiveLessonPlan[] {
   if (obj == null || !Array.isArray(obj)) return false
@@ -96,13 +92,11 @@ export function isObjectiveLessonPlans (obj: unknown): obj is ObjectiveLessonPla
 export const emptyObjectiveLessonPlan: ObjectiveLessonPlan = {
   startSteps: [],
   lessonSteps: [],
-  homeworks: [],
   closureSteps: [],
   studentMaterialsNeeded: [],
   teacherMaterialsNeeded: [],
   grades: [],
-  comments: [],
-  nextSessionSteps: []
+  comments: []
 }
 
 type SlugsWithSeed = [string, string, string] // for reviews 4 lessons before, 2 lessons before and the new objective day
