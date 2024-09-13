@@ -12,7 +12,7 @@ import { deepCopy, type TuplesToArraysRecursive, type ReplaceReferencesByStrings
 import { DEFAULT_GRADE, emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/grade.js'
 import { buildGradeFromObjectiveReference } from '../src/topmaths/services/reference.js'
 import { EXERCISE_PARAM_ADDENDUM, isMathalea, REGULAR_VIEW_ADDENDUM, SLIDESHOW_VIEW_ADDENDUM, TOPMATHS_BASE_URL } from '../src/topmaths/services/environment.js'
-import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference, isObjectivePrerequisites, isSlugsWithSeed, type ObjectivePrerequisite } from '../src/topmaths/types/objective.js'
+import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference, isObjectivePrerequisites, isSlugsWithSeed, type ObjectivePrerequisite, type ObjectiveLessonPlan, emptyObjectiveLessonPlanSegment } from '../src/topmaths/types/objective.js'
 import { type Unit, type UnitObjective, emptyUnitDownloadLinks, type UnitLessonPlan, isUnitLessonPlans, type UnitWithStringReference, type UnitReference, isUnitWithStringReference, emptyUnitLessonPlan, isUnitReference } from '../src/topmaths/types/unit.js'
 import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem, isGlossaryUniteItems } from '../src/topmaths/types/glossary.js'
 import { type CalendarSchoolYearMaster, isCalendarSchoolYearMasters, type CalendarSchoolYear, isCalendarSchoolYears, type CalendarPeriod } from '../src/topmaths/types/calendar.js'
@@ -148,7 +148,7 @@ function buildObjectives (): ObjectiveWithStringReference[] {
           objective.exercisesLink = buildLinkFromSlugs(objective.exercises.map(exercise => exercise?.slug))
           objective.grade = grade.name
           objective.isKey = objective.isKey ?? false
-          objective.lessonPlans = objective.lessonPlans ? objective.lessonPlans.map(lessonPlan => Object.assign(deepCopy(emptyObjectiveLessonPlan), lessonPlan)) : []
+          objective.lessonPlans = objective.lessonPlans ? objective.lessonPlans.map(lessonPlan => buildObjectiveLessonPlan(lessonPlan)) : []
           objective.lessonSummaryHTML = objective.lessonSummaryHTML ?? ''
           objective.lessonSummaryImage = objective.lessonSummaryImage ? '../topmaths/img/' + objective.lessonSummaryImage : ''
           objective.lessonSummaryImageAlt = objective.lessonSummaryImageAlt ?? ''
@@ -163,7 +163,7 @@ function buildObjectives (): ObjectiveWithStringReference[] {
           objective.units = buildObjectiveUnits(objective)
           objective.videos = objective.videos ? objective.videos.map(video => Object.assign(deepCopy(emptyObjectiveVideo), video)) : []
           if (!isObjectiveWithStringReference(objective)) {
-            console.error(objective)
+            console.error(...objective.lessonPlans.map(lessonPlan => lessonPlan?.segments))
             throw new Error('Objective is not an Objective')
           }
           formattedObjectives.push(objective)
@@ -556,6 +556,12 @@ function buildUnitReference (unit: RecursivePartial<Unit>): string {
   return `S${unit.grade.slice(0, 1)}S${unit.number}`
 }
 
+function buildObjectiveLessonPlan (lessonPlan: undefined | RecursivePartial<ObjectiveLessonPlan>): ObjectiveLessonPlan {
+  const filledLessonPlan = Object.assign(deepCopy(emptyObjectiveLessonPlan), lessonPlan)
+  filledLessonPlan.segments = filledLessonPlan.segments.map(segment => Object.assign(deepCopy(emptyObjectiveLessonPlanSegment), segment))
+  return filledLessonPlan
+}
+
 function buildObjectivePrerequisites (objective: RecursivePartial<TuplesToArraysRecursive<Objective>>): ObjectivePrerequisite[] {
   if (objective.prerequisites === undefined) return []
   objective.prerequisites = objective.prerequisites
@@ -651,14 +657,12 @@ function buildUnitLessonPlans (objective: ObjectiveWithStringReference, unitGrad
     .map(lessonPlan => {
       const unitLessonPlan: Partial<ReplaceReferencesByStrings<ObjectiveReference, UnitLessonPlan>> = lessonPlan
       unitLessonPlan.startSteps = lessonPlan.startSteps ?? []
-      unitLessonPlan.lessonSteps = lessonPlan.lessonSteps ?? []
-      unitLessonPlan.homeworks = lessonPlan.homeworks ?? []
+      unitLessonPlan.segments = lessonPlan.segments ?? []
       unitLessonPlan.closureSteps = lessonPlan.closureSteps ?? []
       unitLessonPlan.studentMaterialsNeeded = lessonPlan.studentMaterialsNeeded ?? []
       unitLessonPlan.teacherMaterialsNeeded = lessonPlan.teacherMaterialsNeeded ?? []
       unitLessonPlan.grades = lessonPlan.grades ?? []
       unitLessonPlan.comments = lessonPlan.comments ?? []
-      unitLessonPlan.nextSessionSteps = lessonPlan.nextSessionSteps ?? []
       unitLessonPlan.objectiveReference = objective.reference
       unitLessonPlan.objectiveTitle = getTitle(objective)
       unitLessonPlan.reference = `${objective.reference}${isMultipleLessonPlans ? `-${lessonPlanNumber}` : ''}`

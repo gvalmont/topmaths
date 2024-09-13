@@ -36,32 +36,33 @@
                   {
                     "studentMaterialsNeeded": [],
                     "teacherMaterialsNeeded": [
-                      "Tablettes (1 par personne)"
+                      "Tablettes (1 par personne)",
+                      "6C10_Poly_x4"
                     ],
                     "startSteps": [
                       "Calcul mental sur les tables de multiplication"
                     ],
-                    "lessonSteps": [
-                      "Distribuer 1 tablette par personne",
-                      "On attend que tout le monde ait allumé et déverrouillé la tablette",
-                      "On lance Défi Tables en mode Entraînement - 10 calculs - Table de 2 (on laisse les autres réglages par défaut à savoir 20 secondes classique et à trou)",
-                      "Lorsqu'ils ont terminé ils m'appellent et me montrent le score",
-                      "S'ils ont 9/10 ou 10/10, ils peuvent passer à la table suivante, sinon ils recommencent",
-                      "Lorsque je vois qu'il y en a plusieurs qui échouent, je les fais arrêter et leur explique qu'il ne faut pas directement passer au suivant lorsqu'ils se trompent (s'ils font ça ils ne vont rien apprendre et continuer à répéter les mêmes erreurs) mais répéter plusieurs fois la bonne réponse dans sa tête avant",
-                      "Ainsi de suite jusqu'à la fin de l'heure"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Distribuer 1 tablette par personne",
+                          "On attend que tout le monde ait allumé et déverrouillé la tablette",
+                          "On lance Défi Tables en mode Entraînement - 10 calculs - Table de 2 (on laisse les autres réglages par défaut à savoir 20 secondes classique et à trou)",
+                          "Lorsqu'ils ont terminé ils m'appellent et me montrent le score",
+                          "S'ils ont 9/10 ou 10/10, ils peuvent passer à la table suivante, sinon ils recommencent",
+                          "Lorsque je vois qu'il y en a plusieurs qui échouent, je les fais arrêter et leur explique qu'il ne faut pas directement passer au suivant lorsqu'ils se trompent (s'ils font ça ils ne vont rien apprendre et continuer à répéter les mêmes erreurs) mais répéter plusieurs fois la bonne réponse dans sa tête avant",
+                          "Ainsi de suite jusqu'à la fin de l'heure"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Suite de la séance précédente",
+                          "Lorsque des élèves ont fini toutes les tables, ils peuvent se défier entre eux en attendant que les autres finissent",
+                          "Un peu avant la fin de l'heure, les encourager à poursuivre l'entraînement à la maison et distribuer les poly qu'il pourront utiliser en cas de trou de mémoire"
+                        ]
+                      }
                     ],
                     "closureSteps": []
-                  },
-                  {
-                    "teacherMaterialsNeeded": [
-                      "Tablettes (1 par personne)",
-                      "6C10_Poly_x4"
-                    ],
-                    "lessonSteps": [
-                      "Suite de la séance précédente",
-                      "Lorsque des élèves ont fini toutes les tables, ils peuvent se défier entre eux en attendant que les autres finissent",
-                      "Un peu avant la fin de l'heure, les encourager à poursuivre l'entraînement à la maison et distribuer les poly qu'il pourront utiliser en cas de trou de mémoire"
-                    ]
                   }
                 ]
               },
@@ -97,8 +98,12 @@
                     "studentMaterialsNeeded": [],
                     "teacherMaterialsNeeded": [],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "https://create.kahoot.it/details/7d427e55-8ccb-4b84-8c58-5078f49d6c61"
+                    "segments": [
+                      {
+                        "steps": [
+                          "https://create.kahoot.it/details/7d427e55-8ccb-4b84-8c58-5078f49d6c61"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -144,12 +149,16 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Aujourd'hui on va faire plein de calcul mental en ajoutant une difficulté à la fois et à la fin on fera un Kahoot.",
-                      "#link(\"https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=8NE4~o=0,1,2,3,4,5,6,7,8~q=0.-1.-2.-3.-4.-5.-6.-7.-8.~p=~t=18~n=8\")[Calcul mental en faisant pause autant que nécessaire puis relancer sans pause (multiplications)]",
-                      "#link(\"https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=8NE5~o=0,1,2,3,4,5,6,7,8~q=0.-1.-2.-3.-4.-5.-6.-7.-8.~p=~t=18~n=8\")[Calcul mental en faisant pause autant que nécessaire puis relancer sans pause (divisions)]",
-                      "#link(\"https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=8NE5~o=0,1,2,3,4,5,6,7,8~q=0.-1.-2.-3.-4.-5.-6.-7.-8.~p=~t=18~n=4_i=8NE4~o=0,1,2,3,4,5,6,7,8~q=0.-1.-2.-3.-4.-5.-6.-7.-8.~p=~t=18~n=4\")[Montrer la correction puis lancer sans pause (multiplications et divisions)]",
-                      "#link(\"https://create.kahoot.it/details/011898f2-77c4-484c-9d6f-65e9d4938e41\")[Kahoot]"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Aujourd'hui on va faire plein de calcul mental en ajoutant une difficulté à la fois et à la fin on fera un Kahoot.",
+                          "#link(\"https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=8NE4~o=0,1,2,3,4,5,6,7,8~q=0.-1.-2.-3.-4.-5.-6.-7.-8.~p=~t=18~n=8\")[Calcul mental en faisant pause autant que nécessaire puis relancer sans pause (multiplications)]",
+                          "#link(\"https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=8NE5~o=0,1,2,3,4,5,6,7,8~q=0.-1.-2.-3.-4.-5.-6.-7.-8.~p=~t=18~n=8\")[Calcul mental en faisant pause autant que nécessaire puis relancer sans pause (divisions)]",
+                          "#link(\"https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=false_i=8NE5~o=0,1,2,3,4,5,6,7,8~q=0.-1.-2.-3.-4.-5.-6.-7.-8.~p=~t=18~n=4_i=8NE4~o=0,1,2,3,4,5,6,7,8~q=0.-1.-2.-3.-4.-5.-6.-7.-8.~p=~t=18~n=4\")[Montrer la correction puis lancer sans pause (multiplications et divisions)]",
+                          "#link(\"https://create.kahoot.it/details/011898f2-77c4-484c-9d6f-65e9d4938e41\")[Kahoot]"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -193,12 +202,16 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Demander s'ils savent combien ça fait $845 times 0,1$",
-                      "Démontrer que multiplier par 0,1 revient à diviser par 10",
-                      "Noter le cours",
-                      "Entraînement sur https://topmaths.fr/?v=objective&ref=6C13",
-                      "Kahoot https://create.kahoot.it/details/7fbca177-375b-41f0-a6ee-367c94a0301a"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Demander s'ils savent combien ça fait $845 times 0,1$",
+                          "Démontrer que multiplier par 0,1 revient à diviser par 10",
+                          "Noter le cours",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=6C13",
+                          "Kahoot https://create.kahoot.it/details/7fbca177-375b-41f0-a6ee-367c94a0301a"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -231,10 +244,14 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6C14",
-                      "Kahoot avec réponses aléatoires https://create.kahoot.it/share/copie-de-5n24-additionner-ou-soustraire-des-fractions-dont-les-denominateurs-sont-egaux-ou-multiples-l/462d229c-17ef-4f84-b4f8-3eb12d40677a",
-                      "#rouge()[Erreurs aux questions 4, 9, 10 du Kahoot]"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6C14",
+                          "Kahoot avec réponses aléatoires https://create.kahoot.it/share/copie-de-5n24-additionner-ou-soustraire-des-fractions-dont-les-denominateurs-sont-egaux-ou-multiples-l/462d229c-17ef-4f84-b4f8-3eb12d40677a",
+                          "#rouge()[Erreurs aux questions 4, 9, 10 du Kahoot]"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -357,14 +374,18 @@
                     "startSteps": [
                       "Mathador"
                     ],
-                    "lessonSteps": [
-                      "Laisser faire https://topmaths.fr/?uuid=bbcac&id=6C21&n=1&s=2&alea=lzm4&v=eleve",
-                      "Faire ensemble https://topmaths.fr/?uuid=294bb&id=6C31&n=2&s=1&alea=4xKG&v=eleve",
-                      "Relancer",
-                      "Laisser faire https://topmaths.fr/?uuid=294bb&id=6C31&n=2&s=2&alea=5UJW&v=eleve",
-                      "Lorsqu'ils se rendent compte de l'entourloupe, expliquer que dans certains cas la division ne s'arrête jamais. Ici l'énoncé dit de s'arrêter au millième près",
-                      "Laisser faire le deuxième calcul",
-                      "Relancer"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Laisser faire https://topmaths.fr/?uuid=bbcac&id=6C21&n=1&s=2&alea=lzm4&v=eleve",
+                          "Faire ensemble https://topmaths.fr/?uuid=294bb&id=6C31&n=2&s=1&alea=4xKG&v=eleve",
+                          "Relancer",
+                          "Laisser faire https://topmaths.fr/?uuid=294bb&id=6C31&n=2&s=2&alea=5UJW&v=eleve",
+                          "Lorsqu'ils se rendent compte de l'entourloupe, expliquer que dans certains cas la division ne s'arrête jamais. Ici l'énoncé dit de s'arrêter au millième près",
+                          "Laisser faire le deuxième calcul",
+                          "Relancer"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -418,8 +439,12 @@
                     "startSteps": [
                       "Questions Flash"
                     ],
-                    "lessonSteps": [
-                      "Enseignement explicite de https://topmaths.fr/?v=objective&ref=6C31"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicite de https://topmaths.fr/?v=objective&ref=6C31"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -455,14 +480,18 @@
                       "6C32_Presentation"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Afficher des calculs de https://topmaths.fr/?v=objective&ref=6C32",
-                      "Demander d’essayer de faire de tête",
-                      "Vérifier à la calculatrice",
-                      "Faire deviner la priorité",
-                      "Relancer",
-                      "Noter la propriété et les exemples",
-                      "Kahoot avec réponses aléatoires https://create.kahoot.it/details/c186ae88-a804-4bf4-91c3-5422074a3f4b"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Afficher des calculs de https://topmaths.fr/?v=objective&ref=6C32",
+                          "Demander d’essayer de faire de tête",
+                          "Vérifier à la calculatrice",
+                          "Faire deviner la priorité",
+                          "Relancer",
+                          "Noter la propriété et les exemples",
+                          "Kahoot avec réponses aléatoires https://create.kahoot.it/details/c186ae88-a804-4bf4-91c3-5422074a3f4b"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -487,11 +516,15 @@
                     "startSteps": [
                       "Mathador"
                     ],
-                    "lessonSteps": [
-                      "Prendre le calcul le plus simple qui a été proposé. Demander comment on pourrait faire pour effectuer ces calculs en une seule ligne au lieu de plusieurs.",
-                      "Parler des parenthèses si l'idée de vient pas",
-                      "Convertir de la même façon les calculs plus compliqués",
-                      "Entraînement sur https://topmaths.fr/?v=objective&ref=6C33"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Prendre le calcul le plus simple qui a été proposé. Demander comment on pourrait faire pour effectuer ces calculs en une seule ligne au lieu de plusieurs.",
+                          "Parler des parenthèses si l'idée de vient pas",
+                          "Convertir de la même façon les calculs plus compliqués",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=6C33"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -539,30 +572,34 @@
                       "6G10_Poly-2_x1"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Distribuer les photocopies 1 et les coller partie exercice",
-                      "Correction en commençant par le plus facile d’après eux et en justifiant ses réponses",
-                      "Confronter les avis s’il y en a qui divergent",
-                      "Montrer la photocopie 2 et insister sur le rôle et la signification des crochets et des parenthèses",
-                      "Distribuer et coller les photocopies 2 partie cours"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Distribuer les photocopies 1 et les coller partie exercice",
+                          "Correction en commençant par le plus facile d’après eux et en justifiant ses réponses",
+                          "Confronter les avis s’il y en a qui divergent",
+                          "Montrer la photocopie 2 et insister sur le rôle et la signification des crochets et des parenthèses",
+                          "Distribuer et coller les photocopies 2 partie cours"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Apprendre à reconnaître une droite, une demi-droite et un segment (premier exercice de https://topmaths.fr/?v=objective&ref=6G10)"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Décrire avec des mots une droite, une demi-droite et un segment (deuxième exercice de https://topmaths.fr/?v=objective&ref=6G10)"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Utiliser la notation mathématique dans le deuxième exercice de https://topmaths.fr/?v=objective&ref=6G10"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
-                  },
-                  {
-                    "lessonSteps": [
-                      "Apprendre à reconnaître une droite, une demi-droite et un segment (premier exercice de https://topmaths.fr/?v=objective&ref=6G10)"
-                    ]
-                  },
-                  {
-                    "lessonSteps": [
-                      "Décrire avec des mots une droite, une demi-droite et un segment (deuxième exercice de https://topmaths.fr/?v=objective&ref=6G10)"
-                    ]
-                  },
-                  {
-                    "lessonSteps": [
-                      "Utiliser la notation mathématique dans le deuxième exercice de https://topmaths.fr/?v=objective&ref=6G10"
-                    ]
                   }
                 ]
               },
@@ -598,18 +635,22 @@
                       "Entrainement_6G11"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Présentation",
-                      "Distribuer les photocopies d'entraînement",
-                      "Apprentissage explicite de la méthode",
-                      "lorsqu’un élève a réussi les deux exercices il peut vérifier pour les autres élèves",
-                      "lorsque tout le monde a réussi chacun repart à sa place",
-                      "Montrer les photocopies Pokémon et expliquer",
-                      "Insister sur le fait qu’il ne doivent tracer que des droites perpendiculaires, il faut qu’il n’y ait que des angles droits (ne pas parler de droites parallèles)",
-                      "La première droite peut être comme ils veulent mais toutes les autres doivent être perpendiculaires (ils ne peuvent pas se \"téléporter\" à l’autre bout du dessin mais doivent y aller progressivement en faisant plusieurs angles droits)",
-                      "Distribuer les photocopies",
-                      "Travail pendant l’heure, je vérifie au fur et à mesure que les droites sont toutes bien perpendiculaires",
-                      "À la fin de l’heure, je récupère les commandes pour les imprimer en A4 pour la prochaine fois et les donner en DM."
+                    "segments": [
+                      {
+                        "steps": [
+                          "Présentation",
+                          "Distribuer les photocopies d'entraînement",
+                          "Apprentissage explicite de la méthode",
+                          "lorsqu’un élève a réussi les deux exercices il peut vérifier pour les autres élèves",
+                          "lorsque tout le monde a réussi chacun repart à sa place",
+                          "Montrer les photocopies Pokémon et expliquer",
+                          "Insister sur le fait qu’il ne doivent tracer que des droites perpendiculaires, il faut qu’il n’y ait que des angles droits (ne pas parler de droites parallèles)",
+                          "La première droite peut être comme ils veulent mais toutes les autres doivent être perpendiculaires (ils ne peuvent pas se \"téléporter\" à l’autre bout du dessin mais doivent y aller progressivement en faisant plusieurs angles droits)",
+                          "Distribuer les photocopies",
+                          "Travail pendant l’heure, je vérifie au fur et à mesure que les droites sont toutes bien perpendiculaires",
+                          "À la fin de l’heure, je récupère les commandes pour les imprimer en A4 pour la prochaine fois et les donner en DM."
+                        ]
+                      }
                     ],
                     "closureSteps": [
                       "Mettre Entrainement_6G11 sur Pronote"
@@ -646,8 +687,12 @@
                     ],
                     "teacherMaterialsNeeded": [],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6G12"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6G12"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -692,16 +737,20 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Noter les définitions",
-                      "Apprentissage explicite du premier exercice de https://topmaths.fr/?v=objective&ref=6G13",
-                      "Les élèves font le premier exercice du poly",
-                      "Correction",
-                      "Noter les notations",
-                      "Apprentissage explicite du deuxième exercice de https://topmaths.fr/?v=objective&ref=6G13",
-                      "Les élèves font le deuxième exercice du poly",
-                      "Correction",
-                      "https://create.kahoot.it/details/884d7fd4-f0a3-4930-96b4-9a0ca8b3ca01 "
+                    "segments": [
+                      {
+                        "steps": [
+                          "Noter les définitions",
+                          "Apprentissage explicite du premier exercice de https://topmaths.fr/?v=objective&ref=6G13",
+                          "Les élèves font le premier exercice du poly",
+                          "Correction",
+                          "Noter les notations",
+                          "Apprentissage explicite du deuxième exercice de https://topmaths.fr/?v=objective&ref=6G13",
+                          "Les élèves font le deuxième exercice du poly",
+                          "Correction",
+                          "https://create.kahoot.it/details/884d7fd4-f0a3-4930-96b4-9a0ca8b3ca01 "
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -737,11 +786,15 @@
                     "startSteps": [
                       "Mathador"
                     ],
-                    "lessonSteps": [
-                      "Noter le cours",
-                      "Les élèves font les exercices du poly",
-                      "Correction",
-                      "Kahoot sur une ancienne leçon pour terminer l'heure : https://create.kahoot.it/details/9bbd1a11-d91c-484e-9233-bd4f0dc29d2c"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Noter le cours",
+                          "Les élèves font les exercices du poly",
+                          "Correction",
+                          "Kahoot sur une ancienne leçon pour terminer l'heure : https://create.kahoot.it/details/9bbd1a11-d91c-484e-9233-bd4f0dc29d2c"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -779,13 +832,17 @@
                       "6G11_Poly_x18 Pokémon commandées la séance précédente"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Faire ressortir les dessins de la séance précédente.",
-                      "Laisser ceux qui veulent montrer leur dessin au reste de la classe grâce à la caméra.",
-                      "Faire remarquer qu’en voulant tracer des droites perpendiculaires, ils ont aussi tracé des droites parallèles.",
-                      "Les amener à énoncer la propriété que deux droites perpendiculaires à une troisième sont parallèles entre elles.",
-                      "Montrer le cours et insister sur le fait de ne pas apprendre par coeur les propriétés mais comprendre le lien très étroit entre perpendiculaires et parallèles",
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6G15"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Faire ressortir les dessins de la séance précédente.",
+                          "Laisser ceux qui veulent montrer leur dessin au reste de la classe grâce à la caméra.",
+                          "Faire remarquer qu’en voulant tracer des droites perpendiculaires, ils ont aussi tracé des droites parallèles.",
+                          "Les amener à énoncer la propriété que deux droites perpendiculaires à une troisième sont parallèles entre elles.",
+                          "Montrer le cours et insister sur le fait de ne pas apprendre par coeur les propriétés mais comprendre le lien très étroit entre perpendiculaires et parallèles",
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6G15"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -821,35 +878,33 @@
                     "studentMaterialsNeeded": [],
                     "teacherMaterialsNeeded": [
                       "2 règles d’1m",
-                      "Téléphone"
-                    ],
-                    "startSteps": [],
-                    "lessonSteps": [
-                      "Aller dans la cour à côté de l’escalier près de la salle des profs avec deux règles d’1m",
-                      "Faire deux groupes (1 groupe garçons et 1 groupe filles)",
-                      "Dans chaque groupe, choisir un élève au centre, lui dire de ne surtout pas bouger et dire aux autres de se placer à 1m de lui (ils peuvent placer la règle sur leur front pour que la mesure soit régulière)",
-                      "Monter, prendre les photos à bout de bras, me les envoyer par mail, rentrer en classe",
-                      "Récupérer les photos en demandant aux élèves d’après eux ça aura quelle forme ?",
-                      "Afficher les photos et demander pourquoi ça a cette forme ? (parce que je ne leur ai pas dit de se positionner en cercle) → Faire ressortir que cette forme est la conséquence de l’équidistance",
-                      "Noter la définition du cercle et du rayon"
-                    ],
-                    "closureSteps": [],
-                    "comments": []
-                  },
-                  {
-                    "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
+                      "Téléphone",
                       "Photos prises lors de la séance précédente",
                       "6G20_Poly"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Ressortir les photos prises lors de la séance précédente",
-                      "Mettre une lettre sur la tête de chaque élève",
-                      "Demander aux élèves de donner un rayon, un diamètre, le rayon, le diamètre en laissant les élèves argumenter en cas d’avis divergents",
-                      "Noter à chaque fois avec les bons crochets et/ou parenthèses",
-                      "Introduire le mot corde",
-                      "Distribuer le poly et le coller partie cours"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Aller dans la cour à côté de l’escalier près de la salle des profs avec deux règles d’1m",
+                          "Faire deux groupes (1 groupe garçons et 1 groupe filles)",
+                          "Dans chaque groupe, choisir un élève au centre, lui dire de ne surtout pas bouger et dire aux autres de se placer à 1m de lui (ils peuvent placer la règle sur leur front pour que la mesure soit régulière)",
+                          "Monter, prendre les photos à bout de bras, me les envoyer par mail, rentrer en classe",
+                          "Récupérer les photos en demandant aux élèves d’après eux ça aura quelle forme ?",
+                          "Afficher les photos et demander pourquoi ça a cette forme ? (parce que je ne leur ai pas dit de se positionner en cercle) → Faire ressortir que cette forme est la conséquence de l’équidistance",
+                          "Noter la définition du cercle et du rayon"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Ressortir les photos prises lors de la séance précédente",
+                          "Mettre une lettre sur la tête de chaque élève",
+                          "Demander aux élèves de donner un rayon, un diamètre, le rayon, le diamètre en laissant les élèves argumenter en cas d’avis divergents",
+                          "Noter à chaque fois avec les bons crochets et/ou parenthèses",
+                          "Introduire le mot corde",
+                          "Distribuer le poly et le coller partie cours"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -888,9 +943,13 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6G21",
-                      "Kahoot https://create.kahoot.it/share/enter-kahoot-title/e49241b9-d49f-482e-8200-6bd4ae3b9122"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6G21",
+                          "Kahoot https://create.kahoot.it/share/enter-kahoot-title/e49241b9-d49f-482e-8200-6bd4ae3b9122"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -929,40 +988,38 @@
                     "teacherMaterialsNeeded": [
                       "Carré découpé",
                       "Losange découpé",
-                      "6G22_Presentation"
-                    ],
-                    "startSteps": [],
-                    "lessonSteps": [
-                      "Montrer le carré et demander c’est quoi comme figure (ils devraient tous répondre un carré)",
-                      "Le faire pivoter de 45°et reposer la question (certains répondront toujours un carré d’autres un losange)",
-                      "\"C’était un carré et maintenant c’est un losange ?\"",
-                      "Montrer le losange et demander c’est quoi comme figure (ils devraient tous répondre un losange)",
-                      "Le faire pivoter de 45°et reposer la question (ils répondent toujours un losange)",
-                      "\"Alors le carré quand le fait tourner, ça devient un losange mais le losange quand on le fait tourner il reste un losange ?\"",
-                      "Vous vous rendez compte qu'il y a un bug. Le problème c'est que vos définitions du carré et du losange ne sont pas assez claires.",
-                      "Le but de la séance d'aujourd'hui c'est que d'ici la fin de l'heure vous sachiez les définitions du carré, du rectangle et du losange.",
-                      "Afficher le mur de polygones",
-                      "\"En science, lorsqu’on veut donner du sens, on commence par ranger, par regrouper\"",
-                      "\"J’ai affiché ici plein de polygones, je vous laisse trouver des idées sur comment on pourrait les ranger, les regrouper, 2 min seul, et après on le fait ensemble.\"",
-                      "Fonctionnement prévu :",
-                      "- mettre le nombre de côté dans chaque polygone",
-                      "- effacer les non quadrilatères",
-                      "- coder les angles droits",
-                      "- coder les côtés de même longueur",
-                      "- résumer les résultats dans un diagramme en patates",
-                      "- le noter partie cours"
-                    ],
-                    "closureSteps": [],
-                    "comments": []
-                  },
-                  {
-                    "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
+                      "6G22_Presentation",
                       "6G22_Poly_x1"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage explicite de la feuille d'entraînement de 6G22"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Montrer le carré et demander c’est quoi comme figure (ils devraient tous répondre un carré)",
+                          "Le faire pivoter de 45°et reposer la question (certains répondront toujours un carré d’autres un losange)",
+                          "\"C’était un carré et maintenant c’est un losange ?\"",
+                          "Montrer le losange et demander c’est quoi comme figure (ils devraient tous répondre un losange)",
+                          "Le faire pivoter de 45°et reposer la question (ils répondent toujours un losange)",
+                          "\"Alors le carré quand le fait tourner, ça devient un losange mais le losange quand on le fait tourner il reste un losange ?\"",
+                          "Vous vous rendez compte qu'il y a un bug. Le problème c'est que vos définitions du carré et du losange ne sont pas assez claires.",
+                          "Le but de la séance d'aujourd'hui c'est que d'ici la fin de l'heure vous sachiez les définitions du carré, du rectangle et du losange.",
+                          "Afficher le mur de polygones",
+                          "\"En science, lorsqu’on veut donner du sens, on commence par ranger, par regrouper\"",
+                          "\"J’ai affiché ici plein de polygones, je vous laisse trouver des idées sur comment on pourrait les ranger, les regrouper, 2 min seul, et après on le fait ensemble.\"",
+                          "Fonctionnement prévu :",
+                          "- mettre le nombre de côté dans chaque polygone",
+                          "- effacer les non quadrilatères",
+                          "- coder les angles droits",
+                          "- coder les côtés de même longueur",
+                          "- résumer les résultats dans un diagramme en patates",
+                          "- le noter partie cours"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Apprentissage explicite de la feuille d'entraînement de 6G22"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -1005,32 +1062,19 @@
                       "6e"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6G23",
-                      "En fin de séance leur faire choisir un animal triangulé qui sera à faire à la maison"
-                    ],
-                    "closureSteps": [],
-                    "comments": [
-                      "Animaux triangulés de Sarah ABDOUL KAID https://twitter.com/KaidAbdoul/status/1525429605838241792"
-                    ]
-                  },
-                  {
-                    "studentMaterialsNeeded": [
-                      "Règle",
-                      "Compas"
-                    ],
-                    "teacherMaterialsNeeded": [
-                      "Règle",
-                      "Compas",
-                      "Animaux commandés lors de la séance précédente"
-                    ],
-                    "grades": [
-                      "6e"
-                    ],
-                    "startSteps": [],
-                    "lessonSteps": [
-                      "Distribuer les animaux triangulés commandés lors de la séance précédente",
-                      "Commencer à les faire ensemble"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6G23",
+                          "En fin de séance leur faire choisir un animal triangulé qui sera à faire à la maison"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Distribuer les animaux triangulés commandés lors de la séance précédente",
+                          "Commencer à les faire ensemble"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": [
@@ -1058,8 +1102,12 @@
                       "S'il y en a qui ont des doutes, un élève peut vérifier à la calculatrice",
                       "Écriture du I.1. du cours Nombres Relatifs 1 et distribuer la Consigne 1 qui n'est pas à recopier mais à coller"
                     ],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6G23"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6G23"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -1125,11 +1173,15 @@
                       "6G25_Poly pour montrer la correction quand je récupère les dessins"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6G25",
-                      "Montrer les photocopies, expliquer",
-                      "Distribuer les poly à coller",
-                      "Distribuer les poly à rendre dans quelques jours"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6G25",
+                          "Montrer les photocopies, expliquer",
+                          "Distribuer les poly à coller",
+                          "Distribuer les poly à rendre dans quelques jours"
+                        ]
+                      }
                     ],
                     "closureSteps": [
                       "Mettre le poly sur Pronote"
@@ -1170,8 +1222,12 @@
                       "6G30_Poly_x1"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6G30"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6G30"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -1246,14 +1302,18 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Afficher l'image d'angle et demander :",
-                      "Comment s'appelle cet angle ?",
-                      "Quel est son sommet ?",
-                      "Quels sont ses côtés ?",
-                      "Noter les réponses et expliquer au fur et à mesure",
-                      "Noter le cours (slide 3 complétée au tableau ou slide 4)",
-                      "Kahoot : https://create.kahoot.it/details/9bbd1a11-d91c-484e-9233-bd4f0dc29d2c"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Afficher l'image d'angle et demander :",
+                          "Comment s'appelle cet angle ?",
+                          "Quel est son sommet ?",
+                          "Quels sont ses côtés ?",
+                          "Noter les réponses et expliquer au fur et à mesure",
+                          "Noter le cours (slide 3 complétée au tableau ou slide 4)",
+                          "Kahoot : https://create.kahoot.it/details/9bbd1a11-d91c-484e-9233-bd4f0dc29d2c"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -1288,10 +1348,14 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Présentation",
-                      "Coller la photocopie partie cours",
-                      "Kahoot : https://create.kahoot.it/details/516d515b-060f-45e7-b528-bdbf7cfeeb5a"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Présentation",
+                          "Coller la photocopie partie cours",
+                          "Kahoot : https://create.kahoot.it/details/516d515b-060f-45e7-b528-bdbf7cfeeb5a"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -1340,8 +1404,12 @@
                       "6G42_Poly_x4"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "https://mathix.org/permis_rapporteur/"
+                    "segments": [
+                      {
+                        "steps": [
+                          "https://mathix.org/permis_rapporteur/"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -1404,41 +1472,35 @@
                     "teacherMaterialsNeeded": [
                       "6G50_Presentation-1",
                       "6G50_Poly_x1 à imprimer",
-                      "6G50_Poly_x0 à mettre sur Pronote"
+                      "6G50_Poly_x0 à mettre sur Pronote",
+                      "6G50_Presentation-2"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage de la définition de la médiatrice d'un segment",
-                      "Noter le cours",
-                      "Apprentissage explicite de la méthode de construction de la médiatrice d'un segment et application sur le poly"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage de la définition de la médiatrice d'un segment",
+                          "Noter le cours",
+                          "Apprentissage explicite de la méthode de construction de la médiatrice d'un segment et application sur le poly"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Ouvrir Geogebra",
+                          "Construire la médiatrice d'un segment",
+                          "Placer un point sur la médiatrice",
+                          "Mesurer la distance entre ce point et les extrémités du segment",
+                          "Noter la première propriété et le premier exemple du cours",
+                          "Faire la première figure du deuxième exemple et faire deviner aux élèves la seconde propriété",
+                          "La noter ainsi que l'exemple",
+                          "Parler de la méthode pour construire la médiatrice d'un segment à l'aide du compas et de la règle",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=6G50"
+                        ]
+                      }
                     ],
                     "closureSteps": [
                       "Mettre la correction sur Pronote"
                     ],
-                    "comments": []
-                  },
-                  {
-                    "studentMaterialsNeeded": [
-                      "Règle",
-                      "Compas",
-                      "Équerre"
-                    ],
-                    "teacherMaterialsNeeded": [
-                      "6G50_Presentation-2"
-                    ],
-                    "startSteps": [],
-                    "lessonSteps": [
-                      "Ouvrir Geogebra",
-                      "Construire la médiatrice d'un segment",
-                      "Placer un point sur la médiatrice",
-                      "Mesurer la distance entre ce point et les extrémités du segment",
-                      "Noter la première propriété et le premier exemple du cours",
-                      "Faire la première figure du deuxième exemple et faire deviner aux élèves la seconde propriété",
-                      "La noter ainsi que l'exemple",
-                      "Parler de la méthode pour construire la médiatrice d'un segment à l'aide du compas et de la règle",
-                      "Entraînement sur https://topmaths.fr/?v=objective&ref=6G50"
-                    ],
-                    "closureSteps": [],
                     "comments": []
                   }
                 ]
@@ -1500,8 +1562,12 @@
                       "6G51_Poly-2_x2 à imprimer"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Enseignement explicite de https://topmaths.fr/?v=objective&ref=6G51 sur le poly"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicite de https://topmaths.fr/?v=objective&ref=6G51 sur le poly"
+                        ]
+                      }
                     ],
                     "closureSteps": [
                       "Distribuer le Poly-2_x2",
@@ -1537,9 +1603,13 @@
                       "Tablettes ou Ordinateurs"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Enseignement explicite de https://topmaths.fr/?v=objective&ref=6G52",
-                      "Lancer les élèves sur https://topmaths.fr/?v=sequence&ref=SPS2 pendant le reste du temps"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicite de https://topmaths.fr/?v=objective&ref=6G52",
+                          "Lancer les élèves sur https://topmaths.fr/?v=sequence&ref=SPS2 pendant le reste du temps"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -1580,16 +1650,20 @@
                     ],
                     "grades": [],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Faire un schéma à main levée d'un triangle rectangle et d'un axe de symétrie puis demander :",
-                      "- Puisqu'on a un angle droit en ce sommet, qu'est-ce qu'on peut déduire sur le symétrique ?",
-                      "- Si ce côté mesure 3 cm, combien va mesurer son symétrique ?",
-                      "- Si ce côté mesure 4 cm, combien va mesurer son symétrique ?",
-                      "- Si une droite est parallèle à AB et passe par C, que peut-on dire de sa symétrique ?",
-                      "Une figure et sa symétrique ont les mêmes longueurs, les mêmes angles et les mêmes parallèles, on dit que la symétrie conserve le parallélisme, les longueurs et les angles",
-                      "Faire ensemble https://topmaths.fr/?uuid=07d1a&id=5G13&n=1&s=1&s2=3&alea=V65G&v=eleve",
-                      "Distribuer le poly et leur dire de faire l'exercice similaire en recopiant les phrases en adaptant les lettres",
-                      "Faire ensemble l'autre exercice du poly"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Faire un schéma à main levée d'un triangle rectangle et d'un axe de symétrie puis demander :",
+                          "- Puisqu'on a un angle droit en ce sommet, qu'est-ce qu'on peut déduire sur le symétrique ?",
+                          "- Si ce côté mesure 3 cm, combien va mesurer son symétrique ?",
+                          "- Si ce côté mesure 4 cm, combien va mesurer son symétrique ?",
+                          "- Si une droite est parallèle à AB et passe par C, que peut-on dire de sa symétrique ?",
+                          "Une figure et sa symétrique ont les mêmes longueurs, les mêmes angles et les mêmes parallèles, on dit que la symétrie conserve le parallélisme, les longueurs et les angles",
+                          "Faire ensemble https://topmaths.fr/?uuid=07d1a&id=5G13&n=1&s=1&s2=3&alea=V65G&v=eleve",
+                          "Distribuer le poly et leur dire de faire l'exercice similaire en recopiant les phrases en adaptant les lettres",
+                          "Faire ensemble l'autre exercice du poly"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -1615,9 +1689,13 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6G54",
-                      "Kahoot : https://create.kahoot.it/details/15c263dd-8cdb-4752-99e4-49241c22c794"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6G54",
+                          "Kahoot : https://create.kahoot.it/details/15c263dd-8cdb-4752-99e4-49241c22c794"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -1668,12 +1746,16 @@
                     "startSteps": [
                       "Mathador"
                     ],
-                    "lessonSteps": [
-                      "Diaporama ensemble en défilement manuel https://coopmaths.fr/alea/?uuid=051aa&id=6G44-1&n=10&d=20&s=8&s2=false&s3=false&alea=X1q4&v=diaporama&selectedExercises=%7B%22isActive%22%3Afalse%2C%22indexes%22%3A%5B0%5D%7D&questionsOrder=%7B%22isQuestionsShuffled%22%3Afalse%2C%22indexes%22%3A%5B0%2C1%2C2%2C3%2C4%2C5%2C6%2C7%2C8%5D%7D",
-                      "Distribuer et coller le cours",
-                      "Relancer le diaporama tout seul",
-                      "Enseignement explicite du deuxième exercice de https://topmaths.fr/?v=objective&ref=6G60",
-                      "Kahoot : https://create.kahoot.it/details/fa5b51ed-6945-4d22-9e14-c08dd66f5d31"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Diaporama ensemble en défilement manuel https://coopmaths.fr/alea/?uuid=051aa&id=6G44-1&n=10&d=20&s=8&s2=false&s3=false&alea=X1q4&v=diaporama&selectedExercises=%7B%22isActive%22%3Afalse%2C%22indexes%22%3A%5B0%5D%7D&questionsOrder=%7B%22isQuestionsShuffled%22%3Afalse%2C%22indexes%22%3A%5B0%2C1%2C2%2C3%2C4%2C5%2C6%2C7%2C8%5D%7D",
+                          "Distribuer et coller le cours",
+                          "Relancer le diaporama tout seul",
+                          "Enseignement explicite du deuxième exercice de https://topmaths.fr/?v=objective&ref=6G60",
+                          "Kahoot : https://create.kahoot.it/details/fa5b51ed-6945-4d22-9e14-c08dd66f5d31"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -1752,15 +1834,19 @@
                     "startSteps": [
                       "Mathador"
                     ],
-                    "lessonSteps": [
-                      "Ouvrir le fichier Geogebra",
-                      "Faire bouger le Happy de droite en leur demandant s'il a tourné vers la droite ou la gauche par rapport à celui de gauche",
-                      "Répéter plusieurs fois",
-                      "Recommencer avec le Happy de gauche dans d'autres positions",
-                      "Mettre le Happy de droite debout et poser la même question en faisant bouger celui de gauche",
-                      "Répéter plusieurs fois",
-                      "Recommencer avec le Happy de droite dans d'autres positions",
-                      "Kahoot : https://create.kahoot.it/share/6g70-se-reperer-decrire-ou-executer-des-deplacements/cf0d0c45-9662-4272-a9cb-562834448c4f"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Ouvrir le fichier Geogebra",
+                          "Faire bouger le Happy de droite en leur demandant s'il a tourné vers la droite ou la gauche par rapport à celui de gauche",
+                          "Répéter plusieurs fois",
+                          "Recommencer avec le Happy de gauche dans d'autres positions",
+                          "Mettre le Happy de droite debout et poser la même question en faisant bouger celui de gauche",
+                          "Répéter plusieurs fois",
+                          "Recommencer avec le Happy de droite dans d'autres positions",
+                          "Kahoot : https://create.kahoot.it/share/6g70-se-reperer-decrire-ou-executer-des-deplacements/cf0d0c45-9662-4272-a9cb-562834448c4f"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -1802,15 +1888,19 @@
                       "6G71_Poly_x1"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage explicite du premier exercice de https://topmaths.fr/?v=objective&ref=6G71",
-                      "Distribuer le poly",
-                      "Laisser les élèves faire le recto",
-                      "Corriger",
-                      "Apprentissage explicite du deuxième exercice de https://topmaths.fr/?v=objective&ref=6G71",
-                      "Laisser les élèves faire le verso",
-                      "Corriger",
-                      "S'il y a le temps, distribuer les tablettes pour qu'ils fassent l'activité avec la voiture, sinon juste leur montrer et leur encourager à le faire à la maison"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite du premier exercice de https://topmaths.fr/?v=objective&ref=6G71",
+                          "Distribuer le poly",
+                          "Laisser les élèves faire le recto",
+                          "Corriger",
+                          "Apprentissage explicite du deuxième exercice de https://topmaths.fr/?v=objective&ref=6G71",
+                          "Laisser les élèves faire le verso",
+                          "Corriger",
+                          "S'il y a le temps, distribuer les tablettes pour qu'ils fassent l'activité avec la voiture, sinon juste leur montrer et leur encourager à le faire à la maison"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -1852,14 +1942,18 @@
                       "6G72_Poly_x1"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage explicite du premier exercice de https://topmaths.fr/?v=objective&ref=6G72",
-                      "Distribuer le poly et laisser les élèves faire le recto",
-                      "Corriger",
-                      "Apprentissage explicite du deuxième exercice de https://topmaths.fr/?v=objective&ref=6G72",
-                      "Laisser les élèves faire le verso",
-                      "Corriger",
-                      "S'il y a le temps, distribuer les tablettes pour qu'ils fassent l'activité avec la voiture, sinon juste leur montrer et leur encourager à le faire à la maison"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite du premier exercice de https://topmaths.fr/?v=objective&ref=6G72",
+                          "Distribuer le poly et laisser les élèves faire le recto",
+                          "Corriger",
+                          "Apprentissage explicite du deuxième exercice de https://topmaths.fr/?v=objective&ref=6G72",
+                          "Laisser les élèves faire le verso",
+                          "Corriger",
+                          "S'il y a le temps, distribuer les tablettes pour qu'ils fassent l'activité avec la voiture, sinon juste leur montrer et leur encourager à le faire à la maison"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -1920,45 +2014,44 @@
                     "teacherMaterialsNeeded": [
                       "6M10_Presentation-1",
                       "6M10_Poly-1_x1",
-                      "6M10_Poly-2_x2 avec quelques exemplaires supplémentaires pour ceux qui veulent"
-                    ],
-                    "startSteps": [],
-                    "lessonSteps": [
-                      "Projeter la présentation",
-                      "Demander s'ils savent ce qu'est le contour d'une figure",
-                      "Demander s'ils savent le nom qu'on donne à la longueur du contour d'une figure, écrire \"Périmètre = longueur du contour\"",
-                      "Demander s'ils savent comment on appelle l'intérieur d'une figure, écrire \"Surface\" avec une flèche",
-                      "Demander s'ils savent comment on appelle la mesure de la surface, écrire \"Aire = mesure de la surface\"",
-                      "Distribuer la première moitié du poly (jusqu'au deuxième exemple)",
-                      "La compléter ensemble avec les couleurs",
-                      "Demander s'ils savent calculer le périmètre",
-                      "Le faire ensemble",
-                      "Expliquer comment calculer l'aire d'une figure et le sens des unités d'aire",
-                      "Distribuer la deuxième moitié du poly et la compléter ensemble",
-                      "Expliquer les règles de la guerre des champs :",
-                      "- Chacun son tour :",
-                      "- on lance deux dés",
-                      "  - on doit dessiner un rectangle de longueur et de largeur les résultats des dés collé à un de nos rectangles existants",
-                      "- on calcule l'aire et le périmètre du rectangle et on les écrit à l'intérieur",
-                      "- au tour de l'autre",
-                      "Quand les deux joueurs échouent à dessiner un rectangle, la partie s'arrête et on compte les points :",
-                      "- 1 point pour pour l'aire la plus grande",
-                      "- 1 point pour le périmètre le plus grand",
-                      "- 1 point pour le rectangle qui a la plus grande aire"
-                    ],
-                    "closureSteps": []
-                  },
-                  {
-                    "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
+                      "6M10_Poly-2_x2 avec quelques exemplaires supplémentaires pour ceux qui veulent",
                       "6M10_Presentation-2",
                       "6M10_Poly-3_x15"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Faire la présentation",
-                      "Distribuer et faire coller le résumé",
-                      "Entraînement sur https://topmaths.fr/?v=objective&ref=6M10"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Projeter la présentation",
+                          "Demander s'ils savent ce qu'est le contour d'une figure",
+                          "Demander s'ils savent le nom qu'on donne à la longueur du contour d'une figure, écrire \"Périmètre = longueur du contour\"",
+                          "Demander s'ils savent comment on appelle l'intérieur d'une figure, écrire \"Surface\" avec une flèche",
+                          "Demander s'ils savent comment on appelle la mesure de la surface, écrire \"Aire = mesure de la surface\"",
+                          "Distribuer la première moitié du poly (jusqu'au deuxième exemple)",
+                          "La compléter ensemble avec les couleurs",
+                          "Demander s'ils savent calculer le périmètre",
+                          "Le faire ensemble",
+                          "Expliquer comment calculer l'aire d'une figure et le sens des unités d'aire",
+                          "Distribuer la deuxième moitié du poly et la compléter ensemble",
+                          "Expliquer les règles de la guerre des champs :",
+                          "- Chacun son tour :",
+                          "- on lance deux dés",
+                          "  - on doit dessiner un rectangle de longueur et de largeur les résultats des dés collé à un de nos rectangles existants",
+                          "- on calcule l'aire et le périmètre du rectangle et on les écrit à l'intérieur",
+                          "- au tour de l'autre",
+                          "Quand les deux joueurs échouent à dessiner un rectangle, la partie s'arrête et on compte les points :",
+                          "- 1 point pour pour l'aire la plus grande",
+                          "- 1 point pour le périmètre le plus grand",
+                          "- 1 point pour le rectangle qui a la plus grande aire"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Faire la présentation",
+                          "Distribuer et faire coller le résumé",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=6M10"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -1998,10 +2091,14 @@
                     "startSteps": [
                       "Mathador"
                     ],
-                    "lessonSteps": [
-                      "Faire ensemble https://topmaths.fr/?uuid=5999f&id=6M11-2&n=2&s=1-2-3&s2=true&s3=1&alea=fOP7&cd=1&v=eleve",
-                      "Coller la photocopie partie cours",
-                      "Entraînement sur https://topmaths.fr/?v=objective&ref=6M11"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Faire ensemble https://topmaths.fr/?uuid=5999f&id=6M11-2&n=2&s=1-2-3&s2=true&s3=1&alea=fOP7&cd=1&v=eleve",
+                          "Coller la photocopie partie cours",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=6M11"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -2043,11 +2140,15 @@
                     "startSteps": [
                       "Question Flash https://coopmaths.fr/mathalea.html?ex=6M11-1,s=4,s2=3,s3=true,n=1,i=0&serie=492e&v=l&z=1.5"
                     ],
-                    "lessonSteps": [
-                      "Les laisser essayer de calculer périmètre et aire du premier triangle https://coopmaths.fr/mathalea.html?ex=6M20,n=2,cd=1,i=0&serie=X67G&v=e&z=1.5",
-                      "Démonstration, relance, ensemble, relance, seul",
-                      "Exercice avec la base en dehors du triangle",
-                      "Noter le cours ou Kahoot en mode réponses aléatoires https://create.kahoot.it/details/a54bee52-0398-460a-b341-8d21f2fd106c"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Les laisser essayer de calculer périmètre et aire du premier triangle https://coopmaths.fr/mathalea.html?ex=6M20,n=2,cd=1,i=0&serie=X67G&v=e&z=1.5",
+                          "Démonstration, relance, ensemble, relance, seul",
+                          "Exercice avec la base en dehors du triangle",
+                          "Noter le cours ou Kahoot en mode réponses aléatoires https://create.kahoot.it/details/a54bee52-0398-460a-b341-8d21f2fd106c"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -2079,25 +2180,29 @@
                       "6M13_Presentation"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Demander s’ils se rappellent la définition d’un cercle",
-                      "- La rappeler si besoin",
-                      "Demander s’ils savent ce qu’est un disque",
-                      "- un cercle est vide à l’intérieur, on dit qu’il est creux alors qu’un disque est rempli à l’intérieur, on dit qu’il est plein",
-                      "- Imagine que tu commandes une pizza",
-                      "-- Si on te livre que la croûte, on te livre un cercle",
-                      "-- Si on te livre la croûte et aussi ce qu’il y a à l’intérieur, on te livre un disque",
-                      "Noter la remarque du cours",
-                      "Demander s’ils se rappellent comment calculer le périmètre d’un cercle",
-                      "- Après avoir écrit la formule, demander s’ils savent combien vaut ce nombre ($pi$)",
-                      "- Montrer comment obtenir une valeur approchée de $pi$ sur la calculatrice",
-                      "Demander s’ils ont une idée de comment calculer la surface d’un disque",
-                      "- partager un disque en $4$ \"carrés\" et montrer que l’aire d’un disque est égale à un peu moins de $4 r^2$",
-                      "- Dire qu’en fait la formule est $pi r^2$",
-                      "- Note Propriétés et Exemple du cours",
-                      "Entraînement sur https://topmaths.fr/?v=objective&ref=6M13",
-                      "Montrer les premières décimales de $pi$ sur http://www.gecif.net/articles/mathematiques/pi/pi_decimales.html",
-                      "Rechercher des dates de naissance et autres sur https://www.angio.net/pi/piquery.html "
+                    "segments": [
+                      {
+                        "steps": [
+                          "Demander s’ils se rappellent la définition d’un cercle",
+                          "- La rappeler si besoin",
+                          "Demander s’ils savent ce qu’est un disque",
+                          "- un cercle est vide à l’intérieur, on dit qu’il est creux alors qu’un disque est rempli à l’intérieur, on dit qu’il est plein",
+                          "- Imagine que tu commandes une pizza",
+                          "-- Si on te livre que la croûte, on te livre un cercle",
+                          "-- Si on te livre la croûte et aussi ce qu’il y a à l’intérieur, on te livre un disque",
+                          "Noter la remarque du cours",
+                          "Demander s’ils se rappellent comment calculer le périmètre d’un cercle",
+                          "- Après avoir écrit la formule, demander s’ils savent combien vaut ce nombre ($pi$)",
+                          "- Montrer comment obtenir une valeur approchée de $pi$ sur la calculatrice",
+                          "Demander s’ils ont une idée de comment calculer la surface d’un disque",
+                          "- partager un disque en $4$ \"carrés\" et montrer que l’aire d’un disque est égale à un peu moins de $4 r^2$",
+                          "- Dire qu’en fait la formule est $pi r^2$",
+                          "- Note Propriétés et Exemple du cours",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=6M13",
+                          "Montrer les premières décimales de $pi$ sur http://www.gecif.net/articles/mathematiques/pi/pi_decimales.html",
+                          "Rechercher des dates de naissance et autres sur https://www.angio.net/pi/piquery.html "
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -2136,13 +2241,17 @@
                       "6M14_Poly_x2"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Donner à faire https://topmaths.fr/?uuid=5999f&id=6M11-2&n=2&s=1-2-3&s2=true&s3=1&cd=1&v=exercices",
-                      "Pour les 5e, coller la photocopie dans le cours",
-                      "Enseignement explicite de https://topmaths.fr/?v=objective&ref=6M14",
-                      "Distribuer le devoir maison",
-                      "Réfléchir à la stratégie (parler de l'échelle notamment)",
-                      "Laisser les élèves commencer s'il y a le temps, finir à la maison (noté)"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Donner à faire https://topmaths.fr/?uuid=5999f&id=6M11-2&n=2&s=1-2-3&s2=true&s3=1&cd=1&v=exercices",
+                          "Pour les 5e, coller la photocopie dans le cours",
+                          "Enseignement explicite de https://topmaths.fr/?v=objective&ref=6M14",
+                          "Distribuer le devoir maison",
+                          "Réfléchir à la stratégie (parler de l'échelle notamment)",
+                          "Laisser les élèves commencer s'il y a le temps, finir à la maison (noté)"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -2183,13 +2292,17 @@
                       "6M15_Poly_x4"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Demander s'ils savent ce qu'est un volume",
-                      "S'ils ne savent pas, essayer de deviner si on parle d'un grand volume ou d'un petit volume de quelque chose",
-                      "Noter la définition",
-                      "Faire l'exemple ensemble (comme pour calculer la surface on partageait la figure en petits carrés, pour calculer le volume on partage la figure en petits cubes)",
-                      "Coller l'exemple",
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6M15"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Demander s'ils savent ce qu'est un volume",
+                          "S'ils ne savent pas, essayer de deviner si on parle d'un grand volume ou d'un petit volume de quelque chose",
+                          "Noter la définition",
+                          "Faire l'exemple ensemble (comme pour calculer la surface on partageait la figure en petits carrés, pour calculer le volume on partage la figure en petits cubes)",
+                          "Coller l'exemple",
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6M15"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -2232,11 +2345,15 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Afficher un exercice de https://topmaths.fr/?v=objective&ref=6M20",
-                      "Distribuer les poly",
-                      "Enseignement explicite",
-                      "Kahoot : https://create.kahoot.it/details/d1f73255-561b-4670-a4fb-7fb92da53955"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Afficher un exercice de https://topmaths.fr/?v=objective&ref=6M20",
+                          "Distribuer les poly",
+                          "Enseignement explicite",
+                          "Kahoot : https://create.kahoot.it/details/d1f73255-561b-4670-a4fb-7fb92da53955"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -2278,15 +2395,19 @@
                       "6M21_Poly_x5 (il y a 2 tableaux par élève)"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "\"Aujourd’hui, on va convertir des unités d’aires\"",
-                      "\"En quelle unité se mesure une aire ?\" Noter les réponses au tableau",
-                      "\"Et $1 \"dm\"^2$ par exemple, ça fait combien de $\"cm\"^2$ ?\"",
-                      "Faire un carré de côté $1 \"dm\"$ de côté et le partager en rectangles de largeur $1 \"cm\"$ de largeur puis en carrés de $1 \"cm\"$ de côté pour voir que $1 \"dm\"^2 = 100 \"cm\"^2$ $->$ C’est pour ça que dans le tableau de conversion des unités d’aires, on met 2 colonnes dans chaque unité.",
-                      "Afficher le tableau et le décrire \"$1 \"m \"^2$ c’est $100 \"dm\"^2$ etc.\"",
-                      "Copier le cours",
-                      "Coller le deuxième tableau partie exercice",
-                      "Entraînement sur https://topmaths.fr/?v=objective&ref=6M21"
+                    "segments": [
+                      {
+                        "steps": [
+                          "\"Aujourd’hui, on va convertir des unités d’aires\"",
+                          "\"En quelle unité se mesure une aire ?\" Noter les réponses au tableau",
+                          "\"Et $1 \"dm\"^2$ par exemple, ça fait combien de $\"cm\"^2$ ?\"",
+                          "Faire un carré de côté $1 \"dm\"$ de côté et le partager en rectangles de largeur $1 \"cm\"$ de largeur puis en carrés de $1 \"cm\"$ de côté pour voir que $1 \"dm\"^2 = 100 \"cm\"^2$ $->$ C’est pour ça que dans le tableau de conversion des unités d’aires, on met 2 colonnes dans chaque unité.",
+                          "Afficher le tableau et le décrire \"$1 \"m \"^2$ c’est $100 \"dm\"^2$ etc.\"",
+                          "Copier le cours",
+                          "Coller le deuxième tableau partie exercice",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=6M21"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -2328,15 +2449,19 @@
                       "6M22_Poly_x5 (il y a 2 tableaux par élève)"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "\"Aujourd’hui, on va convertir des unités de volume\"",
-                      "\"En quelle unité se mesure un volume ?\" Noter les réponses au tableau",
-                      "\"Et $1 \"dm\"^3$ par exemple, ça fait combien de $\"cm\"^3$ ?\"",
-                      "Faire un cube de côté $1 \"dm\"$ d'arête et le partager en couches de hauteur $1 \"cm\"$ puis en colonnes de $1 \"cm\"$ de largeur puis en cubes d'arête $1 \"cm\"$ pour voir que $1 \"dm\"^3 = 1000 \"cm\"^3$ $->$ C’est pour ça que dans le tableau de conversion des unités de volume, on met 3 colonnes dans chaque unité.",
-                      "Afficher le tableau et le décrire \"$1 \"m \"^3$ c’est $1000 \"dm\"^3$ etc.\"",
-                      "Copier le cours",
-                      "Coller le deuxième tableau partie exercice",
-                      "Entraînement sur https://topmaths.fr/?v=objective&ref=6M22"
+                    "segments": [
+                      {
+                        "steps": [
+                          "\"Aujourd’hui, on va convertir des unités de volume\"",
+                          "\"En quelle unité se mesure un volume ?\" Noter les réponses au tableau",
+                          "\"Et $1 \"dm\"^3$ par exemple, ça fait combien de $\"cm\"^3$ ?\"",
+                          "Faire un cube de côté $1 \"dm\"$ d'arête et le partager en couches de hauteur $1 \"cm\"$ puis en colonnes de $1 \"cm\"$ de largeur puis en cubes d'arête $1 \"cm\"$ pour voir que $1 \"dm\"^3 = 1000 \"cm\"^3$ $->$ C’est pour ça que dans le tableau de conversion des unités de volume, on met 3 colonnes dans chaque unité.",
+                          "Afficher le tableau et le décrire \"$1 \"m \"^3$ c’est $1000 \"dm\"^3$ etc.\"",
+                          "Copier le cours",
+                          "Coller le deuxième tableau partie exercice",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=6M22"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -2374,8 +2499,12 @@
                     ],
                     "teacherMaterialsNeeded": [],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Enseignement explicite de https://topmaths.fr/?v=objective&ref=6M30"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicite de https://topmaths.fr/?v=objective&ref=6M30"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -2416,8 +2545,12 @@
                     "startSteps": [
                       "https://topmaths.fr/?uuid=4f8f4&id=6D13&n=2&s=3&alea=XRnd&cd=1&v=exercices"
                     ],
-                    "lessonSteps": [
-                      "Enseignement explicite de https://topmaths.fr/?v=objective&ref=6M31"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicite de https://topmaths.fr/?v=objective&ref=6M31"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -2463,8 +2596,12 @@
                     "studentMaterialsNeeded": [],
                     "teacherMaterialsNeeded": [],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Enseignement explicite de deux premiers exercices de https://topmaths.fr/?v=objective&ref=6N10"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicite de deux premiers exercices de https://topmaths.fr/?v=objective&ref=6N10"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -2501,17 +2638,6 @@
                   {
                     "slug": "6N11-4,s=3,n=1",
                     "description": "Ranger"
-                  }
-                ],
-                "lessonPlans": [
-                  {
-                    "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [],
-                    "startSteps": [],
-                    "lessonSteps": [
-                      "Enseignement explicite de https://topmaths.fr/?v=objective&ref=6N11"
-                    ],
-                    "closureSteps": []
                   }
                 ]
               }
@@ -2557,14 +2683,18 @@
                       "https://topmaths.fr/?uuid=c1888&id=6N30&n=3&s=4&i=1&uuid=8418e&id=6N30-1&n=3&s=3-4-5&i=1&uuid=e528e&id=6N30-2&n=3&s=4&i=1&v=eleve"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "En groupe",
-                      "Distribuer les tablettes",
-                      "Tout le monde scanne le code",
-                      "On s'assure qu'on a tous la même page aux variables près et qu'on va rester sur cette page pendant toute l'heure",
-                      "Apprentissage explicite du premier exercice",
-                      "Ils s'entraînent, quand c'est trop facile ils me font une démonstration et si elle est concluante ils peuvent aller aider les autres",
-                      "Quand tout le monde y arrive on fait pareil pour l'exercice suivant, puis celui d'après"
+                    "segments": [
+                      {
+                        "steps": [
+                          "En groupe",
+                          "Distribuer les tablettes",
+                          "Tout le monde scanne le code",
+                          "On s'assure qu'on a tous la même page aux variables près et qu'on va rester sur cette page pendant toute l'heure",
+                          "Apprentissage explicite du premier exercice",
+                          "Ils s'entraînent, quand c'est trop facile ils me font une démonstration et si elle est concluante ils peuvent aller aider les autres",
+                          "Quand tout le monde y arrive on fait pareil pour l'exercice suivant, puis celui d'après"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -2623,9 +2753,13 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6N21",
-                      "#link(\"https://create.kahoot.it/details/9fb1044c-1541-4336-9cd7-8fdc532df304\")[Kahoot]"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6N21",
+                          "#link(\"https://create.kahoot.it/details/9fb1044c-1541-4336-9cd7-8fdc532df304\")[Kahoot]"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -2684,34 +2818,30 @@
                   {
                     "studentMaterialsNeeded": [],
                     "teacherMaterialsNeeded": [
-                      "6N30_Poly_x1"
-                    ],
-                    "startSteps": [],
-                    "lessonSteps": [
-                      "Distribuer le poly",
-                      "Premières questions de l’ex.1 ensemble",
-                      "Les autres seul, je passe dans les rangs et aide/vérifie",
-                      "Quand un élève a tout bon pour l’exercice 1 il peut continuer au verso ou aider les autres"
-                    ],
-                    "closureSteps": [],
-                    "comments": []
-                  },
-                  {
-                    "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
+                      "6N30_Poly_x1",
                       "6N30_Poly_corrige"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Reprendre le poly de la dernière fois",
-                      "Premières questions de l’ex.2 ensemble",
-                      "Les autres seul, je passe dans les rangs et aide/vérifie",
-                      "Quand un élève a tout bon pour l’exercice 2 il peut continuer au verso ou aider les autres",
-                      "Même chose pour l'exercice 3"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Distribuer le poly",
+                          "Premières questions de l’ex.1 ensemble",
+                          "Les autres seul, je passe dans les rangs et aide/vérifie",
+                          "Quand un élève a tout bon pour l’exercice 1 il peut continuer au verso ou aider les autres"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Reprendre le poly de la dernière fois",
+                          "Premières questions de l’ex.2 ensemble",
+                          "Les autres seul, je passe dans les rangs et aide/vérifie",
+                          "Quand un élève a tout bon pour l’exercice 2 il peut continuer au verso ou aider les autres",
+                          "Même chose pour l'exercice 3"
+                        ]
+                      }
                     ],
-                    "closureSteps": [
-                      "Mettre le poly corrigé sur Pronote"
-                    ],
+                    "closureSteps": [],
                     "comments": []
                   }
                 ]
@@ -2759,21 +2889,20 @@
                     "studentMaterialsNeeded": [],
                     "teacherMaterialsNeeded": [],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Enseignement explicitte des 3 premiers exercices de https://topmaths.fr/?v=objective&ref=6N31"
-                    ],
-                    "closureSteps": [],
-                    "comments": []
-                  },
-                  {
-                    "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [],
-                    "startSteps": [],
-                    "lessonSteps": [
-                      "Rappel des 3 premiers exercices de https://topmaths.fr/?v=objective&ref=6N31",
-                      "Enseignement explicite du 4e exercice",
-                      "https://create.kahoot.it/details/e18d795c-e4ab-4565-b3c8-e73c1e47beec",
-                      "#rouge()[Repasser sur le kahoot pour mélanger les questions]"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicitte des 3 premiers exercices de https://topmaths.fr/?v=objective&ref=6N31"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Rappel des 3 premiers exercices de https://topmaths.fr/?v=objective&ref=6N31",
+                          "Enseignement explicite du 4e exercice",
+                          "https://create.kahoot.it/details/e18d795c-e4ab-4565-b3c8-e73c1e47beec",
+                          "#rouge()[Repasser sur le kahoot pour mélanger les questions]"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -2808,14 +2937,18 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Demander $4 times \"combien\" = 12$ ? ",
-                      "$2 times \"combien\" = 3$ ?",
-                      "$3 times \"combien\" = 5$ ?",
-                      "Faire la démonstration",
-                      "Noter le cours",
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6N32",
-                      "Kahoot https://create.kahoot.it/details/37e47a8c-ca05-4777-97a2-b6a56f2925ca"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Demander $4 times \"combien\" = 12$ ? ",
+                          "$2 times \"combien\" = 3$ ?",
+                          "$3 times \"combien\" = 5$ ?",
+                          "Faire la démonstration",
+                          "Noter le cours",
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6N32",
+                          "Kahoot https://create.kahoot.it/details/37e47a8c-ca05-4777-97a2-b6a56f2925ca"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -2997,11 +3130,15 @@
                       "6P16_Presentation"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage de la définition de pourcentage",
-                      "Noter le cours",
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6P16",
-                      "Kahoot : https://create.kahoot.it/details/a20ca179-7920-471b-9baf-19243758a82f"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage de la définition de pourcentage",
+                          "Noter le cours",
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6P16",
+                          "Kahoot : https://create.kahoot.it/details/a20ca179-7920-471b-9baf-19243758a82f"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -3034,11 +3171,15 @@
                       "6P17_Presentation"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Faire ensemble https://topmaths.fr/?uuid=064ce&id=6P13&n=1&s=3&s2=true&alea=CYBq&v=exercices",
-                      "Relancer",
-                      "Noter le cours",
-                      "Vérifier la bonne application des pourcentages de réduction sur https://lapub.re/index.awp"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Faire ensemble https://topmaths.fr/?uuid=064ce&id=6P13&n=1&s=3&s2=true&alea=CYBq&v=exercices",
+                          "Relancer",
+                          "Noter le cours",
+                          "Vérifier la bonne application des pourcentages de réduction sur https://lapub.re/index.awp"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -3071,9 +3212,13 @@
                       "6P18_Presentation"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6P18",
-                      "Noter le cours"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6P18",
+                          "Noter le cours"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -3110,12 +3255,16 @@
                     ],
                     "grades": [],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Enseignement explicite de https://topmaths.fr/?uuid=adac4&id=6S10-1&n=1&d=10&s=3&s2=3&v=exercices",
-                      "Enseignement explicite de https://topmaths.fr/?uuid=adac4&id=6S10-1&n=1&d=10&s=3&s2=4&v=exercices",
-                      "Enseignement explicite de https://topmaths.fr/?uuid=adac4&id=6S10-1&n=1&d=10&s=3&s2=2&v=exercices",
-                      "Enseignement explicite de https://topmaths.fr/?uuid=adac4&id=6S10-1&n=1&d=10&s=3&s2=1&v=exercices",
-                      "Kahoot avec les questions aléatoires et les réponses dans l'ordre : https://create.kahoot.it/details/1f2bc80c-a6b3-47b7-8f72-2002c4984e02"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicite de https://topmaths.fr/?uuid=adac4&id=6S10-1&n=1&d=10&s=3&s2=3&v=exercices",
+                          "Enseignement explicite de https://topmaths.fr/?uuid=adac4&id=6S10-1&n=1&d=10&s=3&s2=4&v=exercices",
+                          "Enseignement explicite de https://topmaths.fr/?uuid=adac4&id=6S10-1&n=1&d=10&s=3&s2=2&v=exercices",
+                          "Enseignement explicite de https://topmaths.fr/?uuid=adac4&id=6S10-1&n=1&d=10&s=3&s2=1&v=exercices",
+                          "Kahoot avec les questions aléatoires et les réponses dans l'ordre : https://create.kahoot.it/details/1f2bc80c-a6b3-47b7-8f72-2002c4984e02"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -3151,12 +3300,16 @@
                     ],
                     "grades": [],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Laisser les élèves faire le premier exercice du poly",
-                      "Correction",
-                      "Deuxième exercice",
-                      "Correction",
-                      "Présentation"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Laisser les élèves faire le premier exercice du poly",
+                          "Correction",
+                          "Deuxième exercice",
+                          "Correction",
+                          "Présentation"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -3220,17 +3373,21 @@
                       "5G10_Poly-3_x1"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "\"Décalquer\" le triangle au tableau et construire son symétrique par rapport à un axe",
-                      "Dire d'imaginer comment on ferait si, au lieu de tracer le symétrique par raport à une droite, on essayait de le faire par rapport à un point",
-                      "Construire l'image du triangle par une symétrie centrale :",
-                      "- on ne peut pas tracer de perpendiculaire mais on peut tracer une demi-droite",
-                      "- on peut reporter les longueurs comme pour la symétrie axiale",
-                      "Reprendre le triangle découpé",
-                      "En tenant le triangle avec le compas, montrer qu'on peut obtenir le symétrique en faisant un demi-tour",
-                      "Noter le cours de la présentation",
-                      "Enseignement explicite du poly 3",
-                      "Passer dans les rangs, quand un a réussi il peut faire le 2e ou aider les autres"
+                    "segments": [
+                      {
+                        "steps": [
+                          "\"Décalquer\" le triangle au tableau et construire son symétrique par rapport à un axe",
+                          "Dire d'imaginer comment on ferait si, au lieu de tracer le symétrique par raport à une droite, on essayait de le faire par rapport à un point",
+                          "Construire l'image du triangle par une symétrie centrale :",
+                          "- on ne peut pas tracer de perpendiculaire mais on peut tracer une demi-droite",
+                          "- on peut reporter les longueurs comme pour la symétrie axiale",
+                          "Reprendre le triangle découpé",
+                          "En tenant le triangle avec le compas, montrer qu'on peut obtenir le symétrique en faisant un demi-tour",
+                          "Noter le cours de la présentation",
+                          "Enseignement explicite du poly 3",
+                          "Passer dans les rangs, quand un a réussi il peut faire le 2e ou aider les autres"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -3272,17 +3429,21 @@
                     ],
                     "grades": [],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Faire un schéma à main levée d'un triangle rectangle et d'un centre de symétrie puis demander :",
-                      "- Puisqu'on a un angle droit en ce sommet, qu'est-ce qu'on peut déduire sur le symétrique ?",
-                      "- Si ce côté mesure 3 cm, combien va mesurer son symétrique ?",
-                      "- Si ce côté mesure 4 cm, combien va mesurer son symétrique ?",
-                      "- Si une droite est parallèle à AB et passe par C, que peut-on dire de sa symétrique ?",
-                      "Est-ce que vous vous rappelez comment est-ce qu'on peut résumer ça ? \"la symétrie centrale conserve le parallélisme, les longueurs et les angles\"",
-                      "Noter le cours via la présentation",
-                      "Faire ensemble https://topmaths.fr/?uuid=07d1a&id=5G13&n=1&s=2&s2=3&alea=xzdZ&v=eleve&es=021000",
-                      "Distribuer le poly et leur dire de faire l'exercice similaire en recopiant les phrases en adaptant les lettres",
-                      "Faire ensemble l'autre exercice du poly"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Faire un schéma à main levée d'un triangle rectangle et d'un centre de symétrie puis demander :",
+                          "- Puisqu'on a un angle droit en ce sommet, qu'est-ce qu'on peut déduire sur le symétrique ?",
+                          "- Si ce côté mesure 3 cm, combien va mesurer son symétrique ?",
+                          "- Si ce côté mesure 4 cm, combien va mesurer son symétrique ?",
+                          "- Si une droite est parallèle à AB et passe par C, que peut-on dire de sa symétrique ?",
+                          "Est-ce que vous vous rappelez comment est-ce qu'on peut résumer ça ? \"la symétrie centrale conserve le parallélisme, les longueurs et les angles\"",
+                          "Noter le cours via la présentation",
+                          "Faire ensemble https://topmaths.fr/?uuid=07d1a&id=5G13&n=1&s=2&s2=3&alea=xzdZ&v=eleve&es=021000",
+                          "Distribuer le poly et leur dire de faire l'exercice similaire en recopiant les phrases en adaptant les lettres",
+                          "Faire ensemble l'autre exercice du poly"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -3310,9 +3471,13 @@
                     "startSteps": [
                       "Mathador"
                     ],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5G12",
-                      "Kahoot : https://create.kahoot.it/share/enter-kahoot-title/9c85354b-9056-4734-b009-81e79b0c89f3"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5G12",
+                          "Kahoot : https://create.kahoot.it/share/enter-kahoot-title/9c85354b-9056-4734-b009-81e79b0c89f3"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -3353,9 +3518,13 @@
                     "startSteps": [
                       "Consigne 5 ou Consigne 4 si elle n'a pas encore été faite"
                     ],
-                    "lessonSteps": [
-                      "Présentation",
-                      "S'entraîner à la rédaction sur https://topmaths.fr/?v=objective&ref=5G20"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Présentation",
+                          "S'entraîner à la rédaction sur https://topmaths.fr/?v=objective&ref=5G20"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -3423,7 +3592,8 @@
                       "S5S3_Cours",
                       "5G21_Poly-1 Baleine",
                       "5G21_Poly-2 Hypocampe",
-                      "5G21_Poly-3 Endormi"
+                      "5G21_Poly-3 Endormi",
+                      "5X1_Poly-3_x8 Consigne 3"
                     ],
                     "startSteps": [
                       "Diaporama Consigne 2, on corrige au fur et à mesure",
@@ -3434,46 +3604,31 @@
                       "S'il y en a qui ne trouvent pas cela assez rigoureux, on peut aussi détailler en écrivant 4374 + 61 – 62 = 4373 + 1 + 61 – 62 = 4373 + 62 – 62 = 4373 donc 4374 + 61 – 62 = 4374 – 1",
                       "Écriture du 2. du cours"
                     ],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5G21",
-                      "Faire choisir des animaux triangulés pour la prochaine fois"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5G21",
+                          "Faire choisir des animaux triangulés pour la prochaine fois"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Travail individuel sur la photocopie de la consigne 3 : les élèves notent au crayon leurs résultats en face de chacun des calculs proposés.",
+                          "Qu'est-ce que vous avez remarqué ? \"C’est toujours le nombre de départ moins 1, Ça revient à enlever (ou soustraire) 1, etc.\"",
+                          "Qu’est-ce qui fait qu’on est amené à soustraire 1 ? (puisque ce n’était pas le cas dans des calculs des consignes 1 et 2)",
+                          "On va noter cela dans le cours, en utilisant une notation un peu particulière.",
+                          "Écriture du 3. du cours"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Distribuer les animaux commandés",
+                          "Les aider à démarrer"
+                        ]
+                      }
                     ],
                     "closureSteps": [
                       "Réserver la salle informatique pour https://topmaths.fr/?v=objective&ref=5G22"
-                    ],
-                    "comments": [
-                      "Animaux triangulés de Sarah ABDOUL KAID https://twitter.com/KaidAbdoul/status/1525429605838241792"
-                    ]
-                  },
-                  {
-                    "studentMaterialsNeeded": [
-                      "Règle",
-                      "Compas",
-                      "Rapporteur"
-                    ],
-                    "teacherMaterialsNeeded": [
-                      "Règle",
-                      "Compas",
-                      "Rapporteur",
-                      "5X1_Poly-3_x8 Consigne 3",
-                      "S5S3_Cours",
-                      "5G21_Poly-1 de Baleine commandées la dernière fois",
-                      "5G21_Poly-2 d'Hypocampe commandées la dernière fois",
-                      "5G21_Poly-3 d'Endormi commandées la dernière fois"
-                    ],
-                    "startSteps": [
-                      "Travail individuel sur la photocopie de la consigne 3 : les élèves notent au crayon leurs résultats en face de chacun des calculs proposés.",
-                      "Qu'est-ce que vous avez remarqué ? \"C’est toujours le nombre de départ moins 1, Ça revient à enlever (ou soustraire) 1, etc.\"",
-                      "Qu’est-ce qui fait qu’on est amené à soustraire 1 ? (puisque ce n’était pas le cas dans des calculs des consignes 1 et 2)",
-                      "On va noter cela dans le cours, en utilisant une notation un peu particulière.",
-                      "Écriture du 3. du cours"
-                    ],
-                    "lessonSteps": [
-                      "Distribuer les animaux commandés",
-                      "Les aider à démarrer"
-                    ],
-                    "closureSteps": [
-                      "Mettre les animaux triangulés sur Pronote"
                     ],
                     "comments": [
                       "Animaux triangulés de Sarah ABDOUL KAID https://twitter.com/KaidAbdoul/status/1525429605838241792"
@@ -3544,9 +3699,13 @@
                     "startSteps": [
                       "Consigne 5 ou Consigne 4 si elle n'a pas encore été faite"
                     ],
-                    "lessonSteps": [
-                      "Montrer comment faire le premier triangle de https://topmaths.fr/?v=objective&ref=5G22",
-                      "Quand ils ont terminé ils peuvent faire les défis de https://topmaths.fr/?v=sequence&ref=SPS2"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Montrer comment faire le premier triangle de https://topmaths.fr/?v=objective&ref=5G22",
+                          "Quand ils ont terminé ils peuvent faire les défis de https://topmaths.fr/?v=sequence&ref=SPS2"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -3601,11 +3760,15 @@
                       "5G30_Poly_x1"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Expliquer les différentes définitions",
-                      "Distribuer le poly et le coller",
-                      "Entraînement sur https://topmaths.fr/?v=objective&ref=5G30",
-                      "Kahoot avec réponses dans l'ordre : https://create.kahoot.it/share/5g30-reconnaitre-des-angles-opposes-par-le-sommet-supplementaires-correspondants-alternes/5dc0af29-c9f3-4a91-a200-c309e732c428"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Expliquer les différentes définitions",
+                          "Distribuer le poly et le coller",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=5G30",
+                          "Kahoot avec réponses dans l'ordre : https://create.kahoot.it/share/5g30-reconnaitre-des-angles-opposes-par-le-sommet-supplementaires-correspondants-alternes/5dc0af29-c9f3-4a91-a200-c309e732c428"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -3649,9 +3812,13 @@
                       "5G31_Poly_x1"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Copier le cours en distribuant les photocopies au fur et à mesure #text(red)[=> C'était trop long, il ne restait que 15 min lorsqu'on a fini d'écrire le cours (et on n'a pas écrit les remarques). => Fusionner les propriétés 1 et 2 et pourquoi pas juste mettre la remarque au lieu des propriétés 3 et 4 ?]",
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5G31"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Copier le cours en distribuant les photocopies au fur et à mesure #text(red)[=> C'était trop long, il ne restait que 15 min lorsqu'on a fini d'écrire le cours (et on n'a pas écrit les remarques). => Fusionner les propriétés 1 et 2 et pourquoi pas juste mettre la remarque au lieu des propriétés 3 et 4 ?]",
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5G31"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -3687,18 +3854,22 @@
                       "5G32_Presentation"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Distribuer les huitièmes de feuilles blances",
-                      "Dire aux élèves de dessiner un triangle : peu importe sa taille, peu importe sa forme",
-                      "Colorier les 3 angles de 3 couleurs différentes (faire un exemple au tableau)",
-                      "Découper le triangle",
-                      "Séparer les 3 angles (montrer comment au tableau)",
-                      "Rassembler les trois angles colorés (montrer la procédure au tableau avec des flèches)",
-                      "Qu'est-ce qu'ils remarquent ?",
-                      "La consigne ne donnait aucune condition sur les angles pourtant, c'est parce que ça marche sur tous les triangles !",
-                      "Faire la démonstration",
-                      "Noter le cours",
-                      "Entraînement sur https://topmaths.fr/?v=objective&ref=5G32"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Distribuer les huitièmes de feuilles blances",
+                          "Dire aux élèves de dessiner un triangle : peu importe sa taille, peu importe sa forme",
+                          "Colorier les 3 angles de 3 couleurs différentes (faire un exemple au tableau)",
+                          "Découper le triangle",
+                          "Séparer les 3 angles (montrer comment au tableau)",
+                          "Rassembler les trois angles colorés (montrer la procédure au tableau avec des flèches)",
+                          "Qu'est-ce qu'ils remarquent ?",
+                          "La consigne ne donnait aucune condition sur les angles pourtant, c'est parce que ça marche sur tous les triangles !",
+                          "Faire la démonstration",
+                          "Noter le cours",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=5G32"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -3748,13 +3919,17 @@
                       "5G40_Presentation"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Demander s'ils savent ce qu'est un parallélogramme",
-                      "Noter la définition",
-                      "Faire deviner les propriétés",
-                      "Les noter",
-                      "Faire ensemble quelques exercices de https://topmaths.fr/?v=objective&ref=5G40 pour qu'ils voient comment utiliser les propriétés pour construire des parallélogrammes",
-                      "Exercices du poly"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Demander s'ils savent ce qu'est un parallélogramme",
+                          "Noter la définition",
+                          "Faire deviner les propriétés",
+                          "Les noter",
+                          "Faire ensemble quelques exercices de https://topmaths.fr/?v=objective&ref=5G40 pour qu'ils voient comment utiliser les propriétés pour construire des parallélogrammes",
+                          "Exercices du poly"
+                        ]
+                      }
                     ],
                     "closureSteps": [
                       "Mettre le poly-2 sur Pronote"
@@ -3789,16 +3964,20 @@
                       "5G42_Poly_x1"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Coller le poly",
-                      "Expliquer comment lire une propriété en mathématiques : Plusieurs fois, en visualisant, en modifiant l'énoncé pour voir ce que ça change (chaque mot est important)",
-                      "Construire en direct sur Geogebra une figure qui respecte la condition de cette propriété et la malmener pour vérifier si on obtient toujours un parallélogramme",
-                      "Enlever des mots de la propriété pour voir si elle fonctionne toujours",
-                      "Recommencer pour les autres propriétés (sauf la dernière avec les angles pour gagner du temps)",
-                      "Entraînement à l'oral sur https://topmaths.fr/?v=objective&ref=5G42",
-                      "Noter partie cours un exemple de rédaction Vrai et un exemple de rédaction Faux",
-                      "Les élèves en font un autre - correction - un autre",
-                      "Kahoot : https://create.kahoot.it/details/d96faad3-d4fe-41b9-b636-4baa6a6592a4"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Coller le poly",
+                          "Expliquer comment lire une propriété en mathématiques : Plusieurs fois, en visualisant, en modifiant l'énoncé pour voir ce que ça change (chaque mot est important)",
+                          "Construire en direct sur Geogebra une figure qui respecte la condition de cette propriété et la malmener pour vérifier si on obtient toujours un parallélogramme",
+                          "Enlever des mots de la propriété pour voir si elle fonctionne toujours",
+                          "Recommencer pour les autres propriétés (sauf la dernière avec les angles pour gagner du temps)",
+                          "Entraînement à l'oral sur https://topmaths.fr/?v=objective&ref=5G42",
+                          "Noter partie cours un exemple de rédaction Vrai et un exemple de rédaction Faux",
+                          "Les élèves en font un autre - correction - un autre",
+                          "Kahoot : https://create.kahoot.it/details/d96faad3-d4fe-41b9-b636-4baa6a6592a4"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -3844,37 +4023,32 @@
                       "Calculatrice"
                     ],
                     "teacherMaterialsNeeded": [
-                      "5M10_Poly_x8"
-                    ],
-                    "startSteps": [],
-                    "lessonSteps": [
-                      "L'idéal est de revoir les calculs d'aire et de périmètre de 6e en question flash au fil de l'année",
-                      "Si cela a été fait, on peut zapper cette séance et directement passer à la suivante",
-                      "Sinon, enseignement explicite des rappels de 6e https://topmaths.fr/?v=objective&ref=5M10 puis coller le cours et noter en remarque que la formule pour calculer le périmètre d'un cercle est $cal(P) = 2 pi r$"
-                    ],
-                    "closureSteps": [],
-                    "comments": []
-                  },
-                  {
-                    "studentMaterialsNeeded": [
-                      "Calculatrice"
-                    ],
-                    "teacherMaterialsNeeded": [
+                      "5M10_Poly_x8",
                       "5M10_Presentation"
                     ],
-                    "startSteps": [
-                      "https://topmaths.fr/?uuid=83be1&id=6M10&n=3&d=30&s=1-2-3&s2=false&s3=true&s4=false&alea=VZlb&uuid=06b1a&id=6M20&n=1&d=30&s=3&s4=false&alea=9sGF&uuid=f9a02&id=6M22-1&n=1&d=30&s=3&s2=true&s3=4&s4=3&alea=QPti&v=diaporama&selectedExercises=%7B%22isActive%22%3Afalse%2C%22indexes%22%3A%5B0%2C1%2C2%5D%7D&questionsOrder=%7B%22isQuestionsShuffled%22%3Afalse%2C%22indexes%22%3A%5B0%2C1%2C2%2C3%2C4%5D%7D"
-                    ],
-                    "lessonSteps": [
-                      "Demander de faire https://topmaths.fr/?uuid=d6cd1&id=5M10&n=1&alea=HoSd&v=exercices",
-                      "Ils devraient réussir pour le périmètre mais pas pour l'aire",
-                      "Par découpage et recollage, montrer que l'aire du parallélogramme égale l'aire d'un rectangle",
-                      "Demander comment pourrait se nommer ce $4 \"cm\"$",
-                      "Si ça ne vient pas, leur demander s'ils ne voient pas un lien avec les triangles",
-                      "Écrire la formule au tableau",
-                      "Relancer, ensemble",
-                      "Relancer, seul",
-                      "Noter le cours"
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "L'idéal est de revoir les calculs d'aire et de périmètre de 6e en question flash au fil de l'année",
+                          "Si cela a été fait, on peut zapper cette séance et directement passer à la suivante",
+                          "Sinon, enseignement explicite des rappels de 6e https://topmaths.fr/?v=objective&ref=5M10 puis coller le cours et noter en remarque que la formule pour calculer le périmètre d'un cercle est $cal(P) = 2 pi r$"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "https://topmaths.fr/?uuid=83be1&id=6M10&n=3&d=30&s=1-2-3&s2=false&s3=true&s4=false&alea=VZlb&uuid=06b1a&id=6M20&n=1&d=30&s=3&s4=false&alea=9sGF&uuid=f9a02&id=6M22-1&n=1&d=30&s=3&s2=true&s3=4&s4=3&alea=QPti&v=diaporama&selectedExercises=%7B%22isActive%22%3Afalse%2C%22indexes%22%3A%5B0%2C1%2C2%5D%7D&questionsOrder=%7B%22isQuestionsShuffled%22%3Afalse%2C%22indexes%22%3A%5B0%2C1%2C2%2C3%2C4%5D%7D",
+                          "Demander de faire https://topmaths.fr/?uuid=d6cd1&id=5M10&n=1&alea=HoSd&v=exercices",
+                          "Ils devraient réussir pour le périmètre mais pas pour l'aire",
+                          "Par découpage et recollage, montrer que l'aire du parallélogramme égale l'aire d'un rectangle",
+                          "Demander comment pourrait se nommer ce $4 \"cm\"$",
+                          "Si ça ne vient pas, leur demander s'ils ne voient pas un lien avec les triangles",
+                          "Écrire la formule au tableau",
+                          "Relancer, ensemble",
+                          "Relancer, seul",
+                          "Noter le cours"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -3983,11 +4157,15 @@
                       "QR Codes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Expliquer le fonctionnement de QCM Cam",
-                      "Tester sur les priorités avec QCM Cam",
-                      "Entraînement sur https://topmaths.fr/?v=objective&ref=5N10",
-                      "#link(\"https://create.kahoot.it/details/c186ae88-a804-4bf4-91c3-5422074a3f4b\")[Kahoot avec réponses aléatoires]"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Expliquer le fonctionnement de QCM Cam",
+                          "Tester sur les priorités avec QCM Cam",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=5N10",
+                          "#link(\"https://create.kahoot.it/details/c186ae88-a804-4bf4-91c3-5422074a3f4b\")[Kahoot avec réponses aléatoires]"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -4040,18 +4218,17 @@
                       "5N11_Presentation"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Noter le cours et premier exercice de https://topmaths.fr/?v=objective&ref=5N11"
-                    ],
-                    "closureSteps": [],
-                    "comments": []
-                  },
-                  {
-                    "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [],
-                    "startSteps": [],
-                    "lessonSteps": [
-                      "Deuxième et troisième exercices de https://topmaths.fr/?v=objective&ref=5N11"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Noter le cours et premier exercice de https://topmaths.fr/?v=objective&ref=5N11"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Deuxième et troisième exercices de https://topmaths.fr/?v=objective&ref=5N11"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -4091,16 +4268,20 @@
                       "5N20_Presentation"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Écrire $2/5$ au tableau et les représenter en pizza",
-                      "Partager chaque part en 2 et demander quelle fraction de la pizza est coloriée",
-                      "Demander dans quel cas est-ce qu'on mange plus de pizzas : si on mange 2 parts d'une pizza partagée en 5 ou si on mange 4 parts d'une pizza partagée en 10 ?",
-                      "Expliquer à ceux qui ne l'auraient pas remarqué que dans les deux cas on mange la même quantité : oui on mange deux fois plus de part mais comme la pizza est partagée en 2 fois plus de part elles sont deux fois plus petites donc au final ça reivent à manger la même chose",
-                      "Dans quel cas est-ce qu'on mange plus : si on mange 2 parts d'une pizza partagée en 5 ou 6 parts d'une pizza partagée en 15 ?",
-                      "Faire la représentation et répondre",
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5N20",
-                      "Noter le cours si on a le temps",
-                      "Kahoot : https://create.kahoot.it/details/0f120553-eaa9-4eb7-944d-c82ea5ca908b"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Écrire $2/5$ au tableau et les représenter en pizza",
+                          "Partager chaque part en 2 et demander quelle fraction de la pizza est coloriée",
+                          "Demander dans quel cas est-ce qu'on mange plus de pizzas : si on mange 2 parts d'une pizza partagée en 5 ou si on mange 4 parts d'une pizza partagée en 10 ?",
+                          "Expliquer à ceux qui ne l'auraient pas remarqué que dans les deux cas on mange la même quantité : oui on mange deux fois plus de part mais comme la pizza est partagée en 2 fois plus de part elles sont deux fois plus petites donc au final ça reivent à manger la même chose",
+                          "Dans quel cas est-ce qu'on mange plus : si on mange 2 parts d'une pizza partagée en 5 ou 6 parts d'une pizza partagée en 15 ?",
+                          "Faire la représentation et répondre",
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5N20",
+                          "Noter le cours si on a le temps",
+                          "Kahoot : https://create.kahoot.it/details/0f120553-eaa9-4eb7-944d-c82ea5ca908b"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -4142,12 +4323,16 @@
                       "5N21_Presentation"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Afficher https://topmaths.fr/?uuid=234a7&id=5N14&n=2&s=11&s2=false&alea=1dMU&v=exercices",
-                      "Rappeler ce que signifie \"Comparer\"",
-                      "Apprentissage explicite",
-                      "Apprentissage explicite de https://topmaths.fr/?uuid=ce9ca&id=5N14-2&n=1&s=false&alea=s60Z&v=exercices",
-                      "Noter le cours (ne pas noter les exemples si on manque de temps)"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Afficher https://topmaths.fr/?uuid=234a7&id=5N14&n=2&s=11&s2=false&alea=1dMU&v=exercices",
+                          "Rappeler ce que signifie \"Comparer\"",
+                          "Apprentissage explicite",
+                          "Apprentissage explicite de https://topmaths.fr/?uuid=ce9ca&id=5N14-2&n=1&s=false&alea=s60Z&v=exercices",
+                          "Noter le cours (ne pas noter les exemples si on manque de temps)"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -4173,10 +4358,14 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Noter le cours",
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5N22",
-                      "Kahoot : https://create.kahoot.it/share/5n22-simplifier-des-fractions-simples/406e9e82-1c1a-4956-9ed5-f001767de715"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Noter le cours",
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5N22",
+                          "Kahoot : https://create.kahoot.it/share/5n22-simplifier-des-fractions-simples/406e9e82-1c1a-4956-9ed5-f001767de715"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -4211,14 +4400,18 @@
                     "startSteps": [
                       "https://topmaths.fr/?id=5N13&s=11&s2=true&n=3&serie=7fc9&v=exercices"
                     ],
-                    "lessonSteps": [
-                      "Afficher https://topmaths.fr/?uuid=612b9&id=4C24&n=1&s=3&v=exercices",
-                      "On se rend compte qu’on a besoin d’une autre méthode.",
-                      "On sait que pour pouvoir simplifier, il faut « casser » les nombres et les transformer en multiplication. Et si on multiplie en haut et en bas par un même nombre, alors on peut simplifier.",
-                      "Est-ce que vous avez une idée de comment on pourrait casser ces nombres en plein de multiplications ?",
-                      "Correction",
-                      "Relance, on fait ensemble",
-                      "Relance, ils font seuls"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Afficher https://topmaths.fr/?uuid=612b9&id=4C24&n=1&s=3&v=exercices",
+                          "On se rend compte qu’on a besoin d’une autre méthode.",
+                          "On sait que pour pouvoir simplifier, il faut « casser » les nombres et les transformer en multiplication. Et si on multiplie en haut et en bas par un même nombre, alors on peut simplifier.",
+                          "Est-ce que vous avez une idée de comment on pourrait casser ces nombres en plein de multiplications ?",
+                          "Correction",
+                          "Relance, on fait ensemble",
+                          "Relance, ils font seuls"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -4252,9 +4445,13 @@
                     "startSteps": [
                       "https://topmaths.fr/?id=5N13&s=11&s2=true&n=3&serie=7fc9&v=exercices"
                     ],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5N24",
-                      "Kahoot : https://create.kahoot.it/details/279e7e5a-38ac-41d2-af2e-1ff5ad5ff854"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5N24",
+                          "Kahoot : https://create.kahoot.it/details/279e7e5a-38ac-41d2-af2e-1ff5ad5ff854"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -4292,11 +4489,15 @@
                     "startSteps": [
                       "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true~d=normal~at=10_i=5NC1~o=1~q=1.~p=~t=18~n=8"
                     ],
-                    "lessonSteps": [
-                      "Terminer d'écrire le III du cours",
-                      "Entraînement sur https://topmaths.fr/?v=objective&ref=5N30",
-                      "#link(\"https://create.kahoot.it/details/44e5416e-7fe0-4c47-b0d9-b5949976fd2e\")[Kahoot]",
-                      "#rouge()[Enlever le \"il faut cocher cette case\"]"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Terminer d'écrire le III du cours",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=5N30",
+                          "#link(\"https://create.kahoot.it/details/44e5416e-7fe0-4c47-b0d9-b5949976fd2e\")[Kahoot]",
+                          "#rouge()[Enlever le \"il faut cocher cette case\"]"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -4328,34 +4529,31 @@
                     "teacherMaterialsNeeded": [
                       "5X1_Poly-6_x8 Consigne 6",
                       "5X1_Poly-7–x10 Consigne 7",
-                      "S5S3_Cours"
-                    ],
-                    "startSteps": [
-                      "Consigne 6"
-                    ],
-                    "lessonSteps": [
-                      "À l’issue de cette série de calculs une remarque devrait être faite par les élèves :",
-                      "Lorsqu’on change l’ordre dans un programme de calcul, on obtient un programme de calcul équivalent, propriété que l’on note.",
-                      "On note le II du cours",
-                      "Consigne 7",
-                      "Commencer à écrire la première définition et la première remarque du III du cours"
-                    ],
-                    "closureSteps": [],
-                    "comments": []
-                  },
-                  {
-                    "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
+                      "S5S3_Cours",
                       "S5S3_Cours",
                       "Tablettes"
                     ],
                     "startSteps": [
-                      "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true~d=normal~at=10_i=5NC11~o=2~q=2.0,1~p=~t=18~n=8"
+                      "Consigne 6"
                     ],
-                    "lessonSteps": [
-                      "Terminer d'écrire la première défitniion et la première remarque du III du cours",
-                      "Entraînement sur https://topmaths.fr/?v=objective&ref=5N31",
-                      "Kahoot avec réponses aléatoires https://create.kahoot.it/details/f4584729-6124-4226-a8a9-56095537beb3"
+                    "segments": [
+                      {
+                        "steps": [
+                          "À l’issue de cette série de calculs une remarque devrait être faite par les élèves :",
+                          "Lorsqu’on change l’ordre dans un programme de calcul, on obtient un programme de calcul équivalent, propriété que l’on note.",
+                          "On note le II du cours",
+                          "Consigne 7",
+                          "Commencer à écrire la première définition et la première remarque du III du cours"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true~d=normal~at=10_i=5NC11~o=2~q=2.0,1~p=~t=18~n=8",
+                          "Terminer d'écrire la première défitniion et la première remarque du III du cours",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=5N31",
+                          "Kahoot avec réponses aléatoires https://create.kahoot.it/details/f4584729-6124-4226-a8a9-56095537beb3"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -4379,66 +4577,55 @@
                     "studentMaterialsNeeded": [],
                     "teacherMaterialsNeeded": [
                       "S5S3_Cours",
-                      "5X1_Poly-8_x12"
-                    ],
-                    "startSteps": [
-                      "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8&embed=http://localhost:4200"
-                    ],
-                    "lessonSteps": [
-                      "Aujourd’hui, on va voir comment ça se passe si on veut additionner des nombres relatifs.",
-                      "Consigne 8",
-                      "Correction :",
-                      "La colonne de gauche se calcule en enlevant le signe + des nombres positifs.",
-                      "Même s’ils ont réussi à les faire, les calculs +7 + (–2) et –7 + (–2) posent problème, le raisonnement qu’ils ont employé s’applique à 7 – 2 et à –7 – 2 mais le passage à +7 + (–2) et à –7 + (–2) n’est pas évident.",
-                      "D’ailleurs, le fait qu’ils n’arrivent pas à faire les deux derniers calculs montre qu’il faut qu’on éclaircisse ce point",
-                      "La technique consiste à introduire 0 dans le calcul :",
-                      "+7 + (–2) = 7 + 0 + (–2)",
-                      "On a vu par exemple que – 8 + 8 = 0,",
-                      "– 5 + 5 = 0, – 4 + 4 = 0 etc.",
-                      "On pourrait donc remplacer 0 par – 8 + 8 ou par – 5 + 5 par exemple mais ça ne nous permettrait pas beaucoup d’avancer.",
-                      "Ici, par quoi est-ce qu’on pourrait remplacer 0 ?",
-                      "On fait ensemble au tableau les 4 calculs en remplaçant 0 par – 7 + 7, par + 7 – 7, par – 2 + 2 et par + 2 – 2.",
-                      "On remarque qu’aucun des calculs ne permet d’aboutir au résultat, mais que le résultat (5) apparaît dans l’un d’entre eux.",
-                      "C’est là qu’intervient la deuxième astuce, si on peut remplacer 0 par la somme de deux opposés, on peut aussi remplacer la somme de deux opposés par 0.",
-                      "On remplace alors 2 par (+2) puis (+2) + (-2) par 0",
-                      "Avec des couleurs :",
-                      "\\+ 7 + (–2) = 7 #rouge()[\\+ #h(3mm) 0] #h(3mm) + (–2)",
-                      "#h(1.5cm)= 7 #rouge()[\\– 2 +   2]    + (–2)",
-                      "#h(1.5cm)= #h(3mm) #bleu()[5] #h(3mm) +   #vert()[2]    + (–2)",
-                      "#h(1.5cm)= #h(3mm) #bleu()[5] #h(3mm) + #vert()[(+2)] + (–2)",
-                      "#h(1.5cm)= #h(3mm) #bleu()[5] #h(3mm) + #h(6mm) #rouge()[0]",
-                      "Faire le calcul de -7 + (–2) ensemble",
-                      "Commencer à noter les exemples du IV"
-                    ],
-                    "closureSteps": [],
-                    "comments": []
-                  },
-                  {
-                    "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
+                      "5X1_Poly-8_x12",
                       "S5S3_Cours",
                       "Tablettes"
                     ],
                     "startSteps": [
                       "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8&embed=http://localhost:4200"
                     ],
-                    "lessonSteps": [
-                      "Noter la fin du IV",
-                      "Défi relatifs quand ils ont terminé"
-                    ],
-                    "closureSteps": [],
-                    "comments": []
-                  },
-                  {
-                    "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "Tablettes"
-                    ],
-                    "startSteps": [
-                      "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true~d=normal~at=10_i=5NC1~o=0~q=0.~p=~t=18~n=8"
-                    ],
-                    "lessonSteps": [
-                      "Défi relatifs"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Aujourd’hui, on va voir comment ça se passe si on veut additionner des nombres relatifs.",
+                          "Consigne 8",
+                          "Correction :",
+                          "La colonne de gauche se calcule en enlevant le signe + des nombres positifs.",
+                          "Même s’ils ont réussi à les faire, les calculs +7 + (–2) et –7 + (–2) posent problème, le raisonnement qu’ils ont employé s’applique à 7 – 2 et à –7 – 2 mais le passage à +7 + (–2) et à –7 + (–2) n’est pas évident.",
+                          "D’ailleurs, le fait qu’ils n’arrivent pas à faire les deux derniers calculs montre qu’il faut qu’on éclaircisse ce point",
+                          "La technique consiste à introduire 0 dans le calcul :",
+                          "+7 + (–2) = 7 + 0 + (–2)",
+                          "On a vu par exemple que – 8 + 8 = 0,",
+                          "– 5 + 5 = 0, – 4 + 4 = 0 etc.",
+                          "On pourrait donc remplacer 0 par – 8 + 8 ou par – 5 + 5 par exemple mais ça ne nous permettrait pas beaucoup d’avancer.",
+                          "Ici, par quoi est-ce qu’on pourrait remplacer 0 ?",
+                          "On fait ensemble au tableau les 4 calculs en remplaçant 0 par – 7 + 7, par + 7 – 7, par – 2 + 2 et par + 2 – 2.",
+                          "On remarque qu’aucun des calculs ne permet d’aboutir au résultat, mais que le résultat (5) apparaît dans l’un d’entre eux.",
+                          "C’est là qu’intervient la deuxième astuce, si on peut remplacer 0 par la somme de deux opposés, on peut aussi remplacer la somme de deux opposés par 0.",
+                          "On remplace alors 2 par (+2) puis (+2) + (-2) par 0",
+                          "Avec des couleurs :",
+                          "\\+ 7 + (–2) = 7 #rouge()[\\+ #h(3mm) 0] #h(3mm) + (–2)",
+                          "#h(1.5cm)= 7 #rouge()[\\– 2 +   2]    + (–2)",
+                          "#h(1.5cm)= #h(3mm) #bleu()[5] #h(3mm) +   #vert()[2]    + (–2)",
+                          "#h(1.5cm)= #h(3mm) #bleu()[5] #h(3mm) + #vert()[(+2)] + (–2)",
+                          "#h(1.5cm)= #h(3mm) #bleu()[5] #h(3mm) + #h(6mm) #rouge()[0]",
+                          "Faire le calcul de -7 + (–2) ensemble",
+                          "Commencer à noter les exemples du IV"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5NC1~o=1~q=1.~p=~t=18~n=8&embed=http://localhost:4200",
+                          "Noter la fin du IV",
+                          "Défi relatifs quand ils ont terminé"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true~d=normal~at=10_i=5NC1~o=0~q=0.~p=~t=18~n=8",
+                          "Défi relatifs"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -4470,30 +4657,26 @@
                     "studentMaterialsNeeded": [],
                     "teacherMaterialsNeeded": [
                       "S5S7_Cours",
-                      "5N33_Presentation"
+                      "5N33_Presentation",
+                      "Tablettes"
                     ],
                     "startSteps": [
                       "Consigne 9 de la présentation en calcul mental"
                     ],
-                    "lessonSteps": [
-                      "Correction en faisant la démonstration du cours",
-                      "Continuer la présentation en expliquant et en notant le cours au fur et à mesure",
-                      "Kahoot : https://create.kahoot.it/details/5e1b0884-ed10-4eed-83d5-97b1c0ed33bb",
-                      "#rouge()[Repasser sur le Kahoot car il n'y a pas assez de fois deux fois le même signe]"
-                    ],
-                    "closureSteps": [],
-                    "comments": []
-                  },
-                  {
-                    "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "Tablettes"
-                    ],
-                    "startSteps": [
-                      "https://topmaths.fr/?uuid=070b4&id=5R22-2&n=4&s=20&alea=E28r&v=eleve"
-                    ],
-                    "lessonSteps": [
-                      "Défi relatifs"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Correction en faisant la démonstration du cours",
+                          "Continuer la présentation en expliquant et en notant le cours au fur et à mesure",
+                          "Kahoot : https://create.kahoot.it/details/5e1b0884-ed10-4eed-83d5-97b1c0ed33bb",
+                          "#rouge()[Repasser sur le Kahoot car il n'y a pas assez de fois deux fois le même signe]"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Défi relatifs"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -4530,9 +4713,13 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5N34",
-                      "Kahoot : https://create.kahoot.it/details/3b5b7397-552b-4a88-97d1-727d4bbca794"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5N34",
+                          "Kahoot : https://create.kahoot.it/details/3b5b7397-552b-4a88-97d1-727d4bbca794"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -4566,11 +4753,15 @@
                       "5N35_Presentation"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Afficher la première slide de la présentation et demander les coordonnées des différents points en insistant sur les mots Abscisse, Ordonnée et Coordonnées",
-                      "Noter le cours présent sur les slides suivantes",
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5N35 s'il y a le temps",
-                      "20 min avant la fin, Kahoot : https://create.kahoot.it/details/badfd379-d45f-4096-8205-1bfcdc91394f"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Afficher la première slide de la présentation et demander les coordonnées des différents points en insistant sur les mots Abscisse, Ordonnée et Coordonnées",
+                          "Noter le cours présent sur les slides suivantes",
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5N35 s'il y a le temps",
+                          "20 min avant la fin, Kahoot : https://create.kahoot.it/details/badfd379-d45f-4096-8205-1bfcdc91394f"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -4609,14 +4800,18 @@
                       "5N40_Presentation"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Affichage d'un exercice de https://topmaths.fr/?v=objective&ref=5N40",
-                      "Rappel du sens de multiple, divisible et diviseur #rouge()[à retravailler, il faut que je trouve une façon plus efficace d'expliquer (Un tableau avec 3 colonnes ?)]",
-                      "Noter le cours",
-                      "Relancer https://topmaths.fr/?v=objective&ref=5N40",
-                      "Faire",
-                      "Corriger",
-                      "Kahoot https://create.kahoot.it/details/a2d2b9f7-394f-49d6-8059-739cf3d0e3ff"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Affichage d'un exercice de https://topmaths.fr/?v=objective&ref=5N40",
+                          "Rappel du sens de multiple, divisible et diviseur #rouge()[à retravailler, il faut que je trouve une façon plus efficace d'expliquer (Un tableau avec 3 colonnes ?)]",
+                          "Noter le cours",
+                          "Relancer https://topmaths.fr/?v=objective&ref=5N40",
+                          "Faire",
+                          "Corriger",
+                          "Kahoot https://create.kahoot.it/details/a2d2b9f7-394f-49d6-8059-739cf3d0e3ff"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -4649,15 +4844,19 @@
                       "5N41_Poly_x6"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Distribuer le poly et le projeter",
-                      "Compléter ensemble le début la colonne de 10, ils finissent, on corrige",
-                      "Compléter ensemble le début la colonne de 2 et de 5, ils finissent, on corrige",
-                      "Expliquer le critère de divisibilité par 3",
-                      "En faire 2 ou 3 ensemble, ils finissent le reste",
-                      "Copier le cours",
-                      "Rapémathiques pendant qu'on distribue les tablettes",
-                      "Kahoot : https://create.kahoot.it/details/e1cba728-397f-4079-929d-81bf4f815c7d"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Distribuer le poly et le projeter",
+                          "Compléter ensemble le début la colonne de 10, ils finissent, on corrige",
+                          "Compléter ensemble le début la colonne de 2 et de 5, ils finissent, on corrige",
+                          "Expliquer le critère de divisibilité par 3",
+                          "En faire 2 ou 3 ensemble, ils finissent le reste",
+                          "Copier le cours",
+                          "Rapémathiques pendant qu'on distribue les tablettes",
+                          "Kahoot : https://create.kahoot.it/details/e1cba728-397f-4079-929d-81bf4f815c7d"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -4691,18 +4890,22 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Expliquer qu'aujourd'hui, on va \"casser\" des nombres",
-                      "Montrer comment décomposer 15 en plusieurs paquets identiques",
-                      "Laisser les élèves le faire pour 12",
-                      "Corriger",
-                      "Laisser les élèves le faire pour 7",
-                      "Corriger",
-                      "Faire le lien avec les tables de multiplication si personne ne le fait",
-                      "Expliquer que tous les nombres peuvent se décomposer en $1 times \"lui\"$ et en $\"lui\" times 1$ si personne ne le fait remarquer",
-                      "Présenter les nombres premiers comme des nombres \"incassables\" en quelque sorte (c'est ceux qu'on peut le moins casser)",
-                      "Noter le cours",
-                      "Kahoot : https://create.kahoot.it/details/5f3c844e-c108-4d9d-ac7e-bd978307957d"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Expliquer qu'aujourd'hui, on va \"casser\" des nombres",
+                          "Montrer comment décomposer 15 en plusieurs paquets identiques",
+                          "Laisser les élèves le faire pour 12",
+                          "Corriger",
+                          "Laisser les élèves le faire pour 7",
+                          "Corriger",
+                          "Faire le lien avec les tables de multiplication si personne ne le fait",
+                          "Expliquer que tous les nombres peuvent se décomposer en $1 times \"lui\"$ et en $\"lui\" times 1$ si personne ne le fait remarquer",
+                          "Présenter les nombres premiers comme des nombres \"incassables\" en quelque sorte (c'est ceux qu'on peut le moins casser)",
+                          "Noter le cours",
+                          "Kahoot : https://create.kahoot.it/details/5f3c844e-c108-4d9d-ac7e-bd978307957d"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -4737,15 +4940,19 @@
                       "5N43_Presentation"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Calcul mental : https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=20~n=8 ",
-                      "Décomposer un nombre qui va bien parmi ceux qui sont tombés en calcul mental (idéalement produit de 3 facteurs premiers) et montrer qu’à chaque fois on aboutit à la même décomposition",
-                      "Essayer de décomposer 69",
-                      "Dire que décomposer comme ça ça va bien mais on ne va pas faire comme ça pour décomposer un 1 150",
-                      "Afficher l’exercice 1 du sujet de brevet réunion juillet 2019",
-                      "Appliquer la méthode de décomposition au 1 150 et les accompagner pour le 4 140",
-                      "Noter le cours",
-                      "Entraînement sur https://topmaths.fr/?v=objective&ref=5N43"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Calcul mental : https://mathsmentales.net/?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true_i=5ND5~o=0~q=0.~p=~t=20~n=8 ",
+                          "Décomposer un nombre qui va bien parmi ceux qui sont tombés en calcul mental (idéalement produit de 3 facteurs premiers) et montrer qu’à chaque fois on aboutit à la même décomposition",
+                          "Essayer de décomposer 69",
+                          "Dire que décomposer comme ça ça va bien mais on ne va pas faire comme ça pour décomposer un 1 150",
+                          "Afficher l’exercice 1 du sujet de brevet réunion juillet 2019",
+                          "Appliquer la méthode de décomposition au 1 150 et les accompagner pour le 4 140",
+                          "Noter le cours",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=5N43"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -4793,19 +5000,23 @@
                     "startSteps": [
                       "Quelque chose de rapide"
                     ],
-                    "lessonSteps": [
-                      "Noter le cours jusqu’aux règles d’écriture",
-                      "Distribuer le poly (la moitié de la classe a un calcul, l’autre moitié l’autre)",
-                      "Le coller partie exercice et recopier",
-                      "Ramasser 3 cahiers",
-                      "- 1 cahier mal écrit avec le premier calcul",
-                      "- 1 cahier mal écrit avec le deuxième calcul",
-                      "- 1 cahier bien écrit",
-                      "Leur montrer les deux cahiers mal écrits à l’aide de la caméra et voir s'ils remarquent la différence",
-                      "Montrer le cahier bien écrit et expliquer l'importance de bien courber ses $x$",
-                      "Noter la remarque",
-                      "Kahoot : https://create.kahoot.it/details/441f1b6c-0311-4992-8eec-2c23995fda85",
-                      "- À la question 11 : préciser qu’à partir de maintenant, ça pourra aller dans les deux sens, des fois il faudra enlever les $times$, des fois il faudra en rajouter"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Noter le cours jusqu’aux règles d’écriture",
+                          "Distribuer le poly (la moitié de la classe a un calcul, l’autre moitié l’autre)",
+                          "Le coller partie exercice et recopier",
+                          "Ramasser 3 cahiers",
+                          "- 1 cahier mal écrit avec le premier calcul",
+                          "- 1 cahier mal écrit avec le deuxième calcul",
+                          "- 1 cahier bien écrit",
+                          "Leur montrer les deux cahiers mal écrits à l’aide de la caméra et voir s'ils remarquent la différence",
+                          "Montrer le cahier bien écrit et expliquer l'importance de bien courber ses $x$",
+                          "Noter la remarque",
+                          "Kahoot : https://create.kahoot.it/details/441f1b6c-0311-4992-8eec-2c23995fda85",
+                          "- À la question 11 : préciser qu’à partir de maintenant, ça pourra aller dans les deux sens, des fois il faudra enlever les $times$, des fois il faudra en rajouter"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -4855,16 +5066,20 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Démontrer que $2x + 3x = 5x$ en remplaçant $2x$ par $x + x$ et $3x$ par $x + x + x$",
-                      "Montrer de la même façon que $2x + 3$ ne peut pas être réduit",
-                      "Noter le cours",
-                      "S’entraîner sur https://topmaths.fr/?v=objective&ref=5N51",
-                      "- Dans le premier exercice, on a juste à mettre ensemble ceux qui vont ensemble",
-                      "- Dans le deuxième exercice il faut faire attention :",
-                      "-- S’il y a une multiplication, on multiplie les nombres entre eux et les lettres entre elles",
-                      "-- S’il y a une addition, on ne peut pas additionner des nombres avec des lettres",
-                      "Kahoot https://create.kahoot.it/details/51214d6d-f43b-4bba-aa67-b43a92b97dad"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Démontrer que $2x + 3x = 5x$ en remplaçant $2x$ par $x + x$ et $3x$ par $x + x + x$",
+                          "Montrer de la même façon que $2x + 3$ ne peut pas être réduit",
+                          "Noter le cours",
+                          "S’entraîner sur https://topmaths.fr/?v=objective&ref=5N51",
+                          "- Dans le premier exercice, on a juste à mettre ensemble ceux qui vont ensemble",
+                          "- Dans le deuxième exercice il faut faire attention :",
+                          "-- S’il y a une multiplication, on multiplie les nombres entre eux et les lettres entre elles",
+                          "-- S’il y a une addition, on ne peut pas additionner des nombres avec des lettres",
+                          "Kahoot https://create.kahoot.it/details/51214d6d-f43b-4bba-aa67-b43a92b97dad"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -4905,9 +5120,13 @@
                     "studentMaterialsNeeded": [],
                     "teacherMaterialsNeeded": [],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5N52",
-                      "Travail sur les programmes de calcul des exercices de brevet : https://topmaths.fr/?uuid=dnb_2022_09_polynesie_4&uuid=dnb_2022_06_polynesie_4&uuid=dnb_2022_06_asie_1&uuid=dnb_2022_06_ameriquenord_5&uuid=dnb_2021_06_etrangers_3&uuid=dnb_2019_09_metropole_5&uuid=dnb_2019_07_metropole_6&uuid=dnb_2019_06_metropole_5&serie=zTi7&z=1&v=exercices"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5N52",
+                          "Travail sur les programmes de calcul des exercices de brevet : https://topmaths.fr/?uuid=dnb_2022_09_polynesie_4&uuid=dnb_2022_06_polynesie_4&uuid=dnb_2022_06_asie_1&uuid=dnb_2022_06_ameriquenord_5&uuid=dnb_2021_06_etrangers_3&uuid=dnb_2019_09_metropole_5&uuid=dnb_2019_07_metropole_6&uuid=dnb_2019_06_metropole_5&serie=zTi7&z=1&v=exercices"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -4935,17 +5154,21 @@
                       "5N53_Presentation"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Demander, en s'appuyant sur ce qu'on a vu la dernière fois, comment on pourrait écrire les nombres pairs",
-                      "Les guider progressivement à l'aide des indices suivants :",
-                      "- C'est quoi un nombre pair ? (un nombre qui est dans la table de 2, un multiple de 2)",
-                      "- Comment écrire le double d'un nombre ?",
-                      "- Comment est-ce qu'on pourrait dire qu'un nombre est dans la table de 2 / un multiple de 2 ?",
-                      "Noter les propriétés",
-                      "Faire le premier exemple ensemble",
-                      "Les laisser faire le deuxième exemple",
-                      "Corriger",
-                      "Pour les plus rapides, demander de montrer que la somme de trois entiers consécutifs est paire"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Demander, en s'appuyant sur ce qu'on a vu la dernière fois, comment on pourrait écrire les nombres pairs",
+                          "Les guider progressivement à l'aide des indices suivants :",
+                          "- C'est quoi un nombre pair ? (un nombre qui est dans la table de 2, un multiple de 2)",
+                          "- Comment écrire le double d'un nombre ?",
+                          "- Comment est-ce qu'on pourrait dire qu'un nombre est dans la table de 2 / un multiple de 2 ?",
+                          "Noter les propriétés",
+                          "Faire le premier exemple ensemble",
+                          "Les laisser faire le deuxième exemple",
+                          "Corriger",
+                          "Pour les plus rapides, demander de montrer que la somme de trois entiers consécutifs est paire"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -4991,9 +5214,13 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5N54",
-                      "Kahoot : https://create.kahoot.it/details/195256f9-a45e-4f7e-8d9d-7cd47cabb03f"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5N54",
+                          "Kahoot : https://create.kahoot.it/details/195256f9-a45e-4f7e-8d9d-7cd47cabb03f"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -5031,9 +5258,13 @@
                       "5N55_Presentation"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Présentation (ne noter que le titre et à partir de la définition de tester une égalité)",
-                      "Entraînement sur https://topmaths.fr/?v=objective&ref=5N55"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Présentation (ne noter que le titre et à partir de la définition de tester une égalité)",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=5N55"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -5085,8 +5316,12 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5P10"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5P10"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -5121,16 +5356,20 @@
                       "5P11_Presentation"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Afficher la slide sans règle",
-                      "Demander comment faire si on veut savoir quelle est la distance entre Saint Denis et Sainte Marie ? (il faut mesurer)",
-                      "Afficher la slide avec règle",
-                      "Donc la distance entre Saint Denis et Sainte Marie est de 6,2 cm ? Ça fait un peu petit.",
-                      "Les faire remarquer l'échelle s'ils ne la remarquent pas",
-                      "Montrer comment calculer la distance réelle à l'aide d'un tableau de proportionnalité",
-                      "Distribuer les poly et leur demander de mesurer différentes distances",
-                      "#rouge()[Ce n'était pas efficace, les élèves étaient trop distraits à chercher leur maison etc. Finalement ce serait mieux de garder ce genre de carte pour des DM et en classe de travailler sur une carte plus impersonnelle]",
-                      "Une fois qu'ils ont compris, passer aux exercices sans carte comme ceux de https://topmaths.fr/?v=objective&ref=5P11"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Afficher la slide sans règle",
+                          "Demander comment faire si on veut savoir quelle est la distance entre Saint Denis et Sainte Marie ? (il faut mesurer)",
+                          "Afficher la slide avec règle",
+                          "Donc la distance entre Saint Denis et Sainte Marie est de 6,2 cm ? Ça fait un peu petit.",
+                          "Les faire remarquer l'échelle s'ils ne la remarquent pas",
+                          "Montrer comment calculer la distance réelle à l'aide d'un tableau de proportionnalité",
+                          "Distribuer les poly et leur demander de mesurer différentes distances",
+                          "#rouge()[Ce n'était pas efficace, les élèves étaient trop distraits à chercher leur maison etc. Finalement ce serait mieux de garder ce genre de carte pour des DM et en classe de travailler sur une carte plus impersonnelle]",
+                          "Une fois qu'ils ont compris, passer aux exercices sans carte comme ceux de https://topmaths.fr/?v=objective&ref=5P11"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -5175,10 +5414,14 @@
                       "5S10_Poly_x6"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5S10",
-                      "Exercice polycopié",
-                      "Noter le I du cours"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5S10",
+                          "Exercice polycopié",
+                          "Noter le I du cours"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -5228,8 +5471,12 @@
                     ],
                     "teacherMaterialsNeeded": [],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5S11"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5S11"
+                        ]
+                      }
                     ],
                     "closureSteps": [],
                     "comments": []
@@ -5263,16 +5510,20 @@
                       "5S12_Presentation"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Distribuer les haricots",
-                      "Écrire au tableau : #table(columns: 5, [Amine], [Béatrice], [Krishna], [Emma], [Robin], [8], [5], [12], [3], [17])",
-                      "Si chacun avait le même nombre d'haricots, combien chacun en aurait ?",
-                      "Qui veut expliquer comment il a fait ?",
-                      "Comment pourrait-on faire sans haricots, juste avec les nombres ?",
-                      "Ce nombre qu'on a obtenu, c'est ce qu'on appelle la moyenne.",
-                      "La moyenne est le nombre qu'on aurait si chacun avait la même chose",
-                      "Entraînement sur https://topmaths.fr/?v=objective&ref=5S12",
-                      "Noter le cours"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Distribuer les haricots",
+                          "Écrire au tableau : #table(columns: 5, [Amine], [Béatrice], [Krishna], [Emma], [Robin], [8], [5], [12], [3], [17])",
+                          "Si chacun avait le même nombre d'haricots, combien chacun en aurait ?",
+                          "Qui veut expliquer comment il a fait ?",
+                          "Comment pourrait-on faire sans haricots, juste avec les nombres ?",
+                          "Ce nombre qu'on a obtenu, c'est ce qu'on appelle la moyenne.",
+                          "La moyenne est le nombre qu'on aurait si chacun avait la même chose",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=5S12",
+                          "Noter le cours"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -5304,13 +5555,17 @@
                       "5S13_Presentation"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Demander de calculer la moyenne de la série suivante : 3 ; 3 ; 3 ; 3 ; 3 ; 3 ; 3 ; 3 ; 3 ; 4 ; 4 ; 4 ; 5 ; 5 ; 5 ; 5 ; 5 : 5 : 5 : 5",
-                      "Corriger sans l'astuce",
-                      "Corriger avec l'astuce",
-                      "Expliquer que certaines valeurs ont plus de poids que d'autres, ce qui fait qu'on appelle ce type de moyenne des moyennes pondérées (imaginer une balance, avec 3 d'un côté et 5 de l'autre côté)",
-                      "Entraînement sur https://topmaths.fr/?v=objective&ref=5S13",
-                      "Noter le cours"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Demander de calculer la moyenne de la série suivante : 3 ; 3 ; 3 ; 3 ; 3 ; 3 ; 3 ; 3 ; 3 ; 4 ; 4 ; 4 ; 5 ; 5 ; 5 ; 5 ; 5 : 5 : 5 : 5",
+                          "Corriger sans l'astuce",
+                          "Corriger avec l'astuce",
+                          "Expliquer que certaines valeurs ont plus de poids que d'autres, ce qui fait qu'on appelle ce type de moyenne des moyennes pondérées (imaginer une balance, avec 3 d'un côté et 5 de l'autre côté)",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=5S13",
+                          "Noter le cours"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -5347,9 +5602,13 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Expliquer et noter le cours au fur et à mesure",
-                      "https://create.kahoot.it/details/c6c6ad85-5a8d-4cab-ba9e-2e64bbd8fc2c"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Expliquer et noter le cours au fur et à mesure",
+                          "https://create.kahoot.it/details/c6c6ad85-5a8d-4cab-ba9e-2e64bbd8fc2c"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -5382,10 +5641,14 @@
                       "Tablettes"
                     ],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Enseignement explicite de https://topmaths.fr/?v=objective&ref=5S21",
-                      "Noter le cours",
-                      "https://create.kahoot.it/details/08dee843-7a0f-4071-9c92-2aea5d8a787f"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicite de https://topmaths.fr/?v=objective&ref=5S21",
+                          "Noter le cours",
+                          "https://create.kahoot.it/details/08dee843-7a0f-4071-9c92-2aea5d8a787f"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -5412,8 +5675,12 @@
                     "studentMaterialsNeeded": [],
                     "teacherMaterialsNeeded": [],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Enseignement explicite de https://topmaths.fr/?v=objective&ref=5S30"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicite de https://topmaths.fr/?v=objective&ref=5S30"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }
@@ -5454,9 +5721,13 @@
                     "studentMaterialsNeeded": [],
                     "teacherMaterialsNeeded": [],
                     "startSteps": [],
-                    "lessonSteps": [
-                      "Enseignement explicite de https://topmaths.fr/?v=objective&ref=5S31",
-                      "#rouge()[Les élèves ont trouvé cet exercice \"trop facile\", prévoir un Kahoot pour le reste de la séance !]"
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicite de https://topmaths.fr/?v=objective&ref=5S31",
+                          "#rouge()[Les élèves ont trouvé cet exercice \"trop facile\", prévoir un Kahoot pour le reste de la séance !]"
+                        ]
+                      }
                     ],
                     "closureSteps": []
                   }

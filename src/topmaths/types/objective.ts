@@ -66,9 +66,27 @@ export const emptyObjectiveExercise: ObjectiveExercise = {
   description: ''
 }
 
+export type ObjectiveLessonPlanSegment = {
+  steps: string[]
+  title: string
+}
+export function isObjectiveLessonPlanSegment (obj: unknown): obj is ObjectiveLessonPlanSegment {
+  if (obj == null || typeof obj !== 'object') return false
+  return 'steps' in obj && isStrings(obj.steps) &&
+    'title' in obj && typeof obj.title === 'string'
+}
+export function isObjectiveLessonPlanSegments (obj: unknown): obj is ObjectiveLessonPlanSegment[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isObjectiveLessonPlanSegment)
+}
+export const emptyObjectiveLessonPlanSegment: ObjectiveLessonPlanSegment = {
+  steps: [],
+  title: ''
+}
+
 export type ObjectiveLessonPlan = {
   startSteps: string[],
-  lessonSteps: string[],
+  segments: ObjectiveLessonPlanSegment[],
   closureSteps: string[],
   studentMaterialsNeeded: string[],
   teacherMaterialsNeeded: string[],
@@ -78,7 +96,7 @@ export type ObjectiveLessonPlan = {
 export function isObjectiveLessonPlan (obj: unknown): obj is ObjectiveLessonPlan {
   if (obj == null || typeof obj !== 'object') return false
   return 'startSteps' in obj && isStrings(obj.startSteps) &&
-    'lessonSteps' in obj && isStrings(obj.lessonSteps) &&
+    'segments' in obj && isObjectiveLessonPlanSegments(obj.segments) &&
     'closureSteps' in obj && isStrings(obj.closureSteps) &&
     'studentMaterialsNeeded' in obj && isStrings(obj.studentMaterialsNeeded) &&
     'teacherMaterialsNeeded' in obj && isStrings(obj.teacherMaterialsNeeded) &&
@@ -91,7 +109,7 @@ export function isObjectiveLessonPlans (obj: unknown): obj is ObjectiveLessonPla
 }
 export const emptyObjectiveLessonPlan: ObjectiveLessonPlan = {
   startSteps: [],
-  lessonSteps: [],
+  segments: [],
   closureSteps: [],
   studentMaterialsNeeded: [],
   teacherMaterialsNeeded: [],

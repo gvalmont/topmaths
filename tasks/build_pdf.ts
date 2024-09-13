@@ -174,7 +174,7 @@ function buildFileName (unitGrade: StringGrade, lessonPlanReference: string): st
 
 function buildObjectiveLessonPlanHeader (unitGrade: StringGrade, objective: UnitObjective, lessonPlanCount: number): string {
   const lessonPlanTotalCount = countLessonPlans(objective, unitGrade)
-  const subTitle = `Fiche de séance${lessonPlanTotalCount > 1 ? ` ${lessonPlanCount} / ${lessonPlanTotalCount}` : ''}`
+  const subTitle = `Fiche de leçon${lessonPlanTotalCount > 1 ? ` ${lessonPlanCount} / ${lessonPlanTotalCount}` : ''}`
   return `#import "../../../preambule_fiche.typ": *
 #show: setup-emoji
 #show: doc => fiche(doc, titre: "${objective.reference} : ${getTitle(objective)}", sousTitre: "${subTitle}")
@@ -186,12 +186,12 @@ function buildCategories (previousLessonPlan: UnitLessonPlan, currentLessonPlan:
   let content = ''
   content += buildCategory('Matériel élève', currentLessonPlan.studentMaterialsNeeded)
   content += buildCategory('Matériel enseignant', currentLessonPlan.teacherMaterialsNeeded)
-  content += buildCategory('Suite à la séance précédente', previousLessonPlan.nextSessionSteps)
   content += buildCategory('Révisions de consolidation', [currentLessonPlan.consolidationLink])
   content += buildCategory('Révisions de prérequis', [currentLessonPlan.prerequisiteLink])
   content += buildCategory('Début de séance', currentLessonPlan.startSteps)
-  content += buildCategory('Déroulé', currentLessonPlan.lessonSteps)
-  content += buildCategory('Devoirs', currentLessonPlan.homeworks)
+  currentLessonPlan.segments.forEach((segment, i) => {
+    content += buildCategory(segment.title || `Segment ${i + 1}`, segment.steps)
+  })
   content += buildCategory('Fin de séance', currentLessonPlan.closureSteps)
   content += buildCategory('Prochain objectif', [`${nextLessonPlan.reference} : ${nextLessonPlan.objectiveTitle}`])
   content += buildCategory('Matériel à emmener la prochaine fois', nextLessonPlan.studentMaterialsNeeded)

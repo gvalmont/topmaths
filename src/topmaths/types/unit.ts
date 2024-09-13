@@ -62,14 +62,12 @@ export function isUnitLessonPlans (obj: unknown, withStringReference: boolean = 
 }
 export const emptyUnitLessonPlan: UnitLessonPlan = { // Cannot access 'emptyObjectiveLessonPlan' before initialization
   startSteps: [],
-  lessonSteps: [],
-  homeworks: [],
+  segments: [],
   closureSteps: [],
   studentMaterialsNeeded: [],
   teacherMaterialsNeeded: [],
   grades: [],
   comments: [],
-  nextSessionSteps: [],
   objectiveReference: '6C10', // Cannot access 'emptyObjectiveReference' before initialization
   objectiveTitle: '',
   reference: '',
