@@ -12,7 +12,7 @@ import { deepCopy, type TuplesToArraysRecursive, type ReplaceReferencesByStrings
 import { DEFAULT_GRADE, emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/grade.js'
 import { buildGradeFromObjectiveReference, isReferenceIgnored } from '../src/topmaths/services/reference.js'
 import { EXERCISE_PARAM_ADDENDUM, isMathalea, REGULAR_VIEW_ADDENDUM, SLIDESHOW_VIEW_ADDENDUM, TOPMATHS_BASE_URL } from '../src/topmaths/services/environment.js'
-import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference, isObjectivePrerequisites, isSlugsWithSeed, type ObjectivePrerequisite, type ObjectiveLessonPlan, emptyObjectiveLessonPlanSegment } from '../src/topmaths/types/objective.js'
+import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference, isObjectivePrerequisites, isSlugsWithSeed, type ObjectivePrerequisite, type ObjectiveLessonPlan, emptyObjectiveLessonPlanSegment, isObjectiveReference } from '../src/topmaths/types/objective.js'
 import { type Unit, type UnitObjective, emptyUnitDownloadLinks, type UnitLessonPlan, isUnitLessonPlans, type UnitWithStringReference, type UnitReference, isUnitWithStringReference, emptyUnitLessonPlan, isUnitReference } from '../src/topmaths/types/unit.js'
 import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem, isGlossaryUniteItems } from '../src/topmaths/types/glossary.js'
 import { type CalendarSchoolYearMaster, isCalendarSchoolYearMasters, type CalendarSchoolYear, isCalendarSchoolYears, type CalendarPeriod } from '../src/topmaths/types/calendar.js'
@@ -195,7 +195,8 @@ function updateUnitConsolidationReviews (): void {
     const gradeUnitObjectivesLessonPlans = getGradeUnitObjectivesLessonsPlans(grade)
     for (let i = 0; i < gradeUnitObjectivesLessonPlans.length; i++) {
       const currentObjective = gradeUnitObjectivesLessonPlans[i].objective
-      if (isReferenceIgnored(currentObjective.reference)) continue
+      const reference = currentObjective.reference
+      if (isObjectiveReference(reference) && isReferenceIgnored(reference)) continue
       const currentLessonPlan = gradeUnitObjectivesLessonPlans[i].lessonPlan
       if (gradeUnitObjectivesLessonPlans[i + 1] && currentLessonPlan.objectiveReference === gradeUnitObjectivesLessonPlans[i + 1].lessonPlan.objectiveReference) {
         continue // To avoid duplicated reviews when an objective has multiple lesson plans
@@ -229,7 +230,10 @@ function getGradeUnitObjectivesLessonsPlans (grade: StringGrade): GradeUnitObjec
   const gradeUnits = units.filter(unit => unit.grade === grade)
   const gradeUnitObjectivesLessonPlans = gradeUnits
     .map(unit => unit.objectives
-      .filter(objective => !isReferenceIgnored(objective.reference))
+      .filter(objective => {
+        const reference = objective.reference
+        return isObjectiveReference(reference) && !isReferenceIgnored(reference)
+      })
       .map(objective => {
         return objective.lessonPlans
           .map(lessonPlan => {
@@ -343,7 +347,9 @@ function formatItem (item: RecursivePartial<GlossaryMasterItem>, type: 'définit
   item.examples = interpreterMarkupArray(item.examples)
   const gradeCandidates = item.relatedObjectives
     .filter(relatedObjective => relatedObjective !== undefined)
-    .map(relatedObjective => buildGradeFromObjectiveReference(relatedObjective))
+    .map(relatedObjective => {
+      return isObjectiveReference(relatedObjective) && buildGradeFromObjectiveReference(relatedObjective)
+    })
   item.grades = gradeCandidates.filter(isStringGrade)
   item.relatedItems = item.relatedItems ?? []
   item.relatedItems = item.relatedItems
