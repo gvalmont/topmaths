@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { isReferenceIgnored } from '../../../../services/reference'
   import { getTitle } from '../../../../services/string'
   import type { Reference, View } from '../../../../types/navigation'
   import type { Unit } from '../../../../types/unit'
@@ -14,7 +15,7 @@
   Objectifs
 </h2>
 <ul class="m-6">
-  {#each unit.objectives as objective}
+  {#each unit.objectives.filter(objective => !isReferenceIgnored(objective.reference)) as objective}
     <li class="p-1 md:p-2 ">
       <a
         class="is-interactive"

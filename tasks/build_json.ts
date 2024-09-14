@@ -10,7 +10,7 @@ import calendarSchoolYearMasterJson from '../src/topmaths/json/calendar.json' as
 import type { RecursivePartial } from '../src/lib/types.js'
 import { deepCopy, type TuplesToArraysRecursive, type ReplaceReferencesByStrings } from '../src/topmaths/types/shared.js'
 import { DEFAULT_GRADE, emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/grade.js'
-import { buildGradeFromObjectiveReference } from '../src/topmaths/services/reference.js'
+import { buildGradeFromObjectiveReference, isReferenceIgnored } from '../src/topmaths/services/reference.js'
 import { EXERCISE_PARAM_ADDENDUM, isMathalea, REGULAR_VIEW_ADDENDUM, SLIDESHOW_VIEW_ADDENDUM, TOPMATHS_BASE_URL } from '../src/topmaths/services/environment.js'
 import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference, isObjectivePrerequisites, isSlugsWithSeed, type ObjectivePrerequisite, type ObjectiveLessonPlan, emptyObjectiveLessonPlanSegment } from '../src/topmaths/types/objective.js'
 import { type Unit, type UnitObjective, emptyUnitDownloadLinks, type UnitLessonPlan, isUnitLessonPlans, type UnitWithStringReference, type UnitReference, isUnitWithStringReference, emptyUnitLessonPlan, isUnitReference } from '../src/topmaths/types/unit.js'
@@ -195,6 +195,7 @@ function updateUnitConsolidationReviews (): void {
     const gradeUnitObjectivesLessonPlans = getGradeUnitObjectivesLessonsPlans(grade)
     for (let i = 0; i < gradeUnitObjectivesLessonPlans.length; i++) {
       const currentObjective = gradeUnitObjectivesLessonPlans[i].objective
+      if (isReferenceIgnored(currentObjective.reference)) continue
       const currentLessonPlan = gradeUnitObjectivesLessonPlans[i].lessonPlan
       if (gradeUnitObjectivesLessonPlans[i + 1] && currentLessonPlan.objectiveReference === gradeUnitObjectivesLessonPlans[i + 1].lessonPlan.objectiveReference) {
         continue // To avoid duplicated reviews when an objective has multiple lesson plans
@@ -228,6 +229,7 @@ function getGradeUnitObjectivesLessonsPlans (grade: StringGrade): GradeUnitObjec
   const gradeUnits = units.filter(unit => unit.grade === grade)
   const gradeUnitObjectivesLessonPlans = gradeUnits
     .map(unit => unit.objectives
+      .filter(objective => !isReferenceIgnored(objective.reference))
       .map(objective => {
         return objective.lessonPlans
           .map(lessonPlan => {

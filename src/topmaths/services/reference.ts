@@ -1,6 +1,7 @@
 import { isStringGrade, type StringGrade } from '../types/grade.js'
+import type { ObjectiveReference } from '../types/objective'
 
-export function buildGradeFromObjectiveReference (reference: string): StringGrade {
+export function buildGradeFromObjectiveReference (reference: ObjectiveReference): StringGrade {
   const grade = reference.slice(0, 1) + 'e'
   if (!isStringGrade(grade)) {
     console.error(reference)
@@ -12,7 +13,7 @@ export function buildGradeFromObjectiveReference (reference: string): StringGrad
 /**
  * To be used in Curriculum.svelte and LaTeX export in Coopmaths style
  */
-export function buildThemeFromReference (reference: string): 'nombres' | 'gestion' | 'gestionbis' | 'grandeurs' | 'geo' | 'algo' {
+export function buildThemeFromReference (reference: ObjectiveReference): 'nombres' | 'gestion' | 'gestionbis' | 'grandeurs' | 'geo' | 'algo' {
   const lettre = reference.slice(1, 2)
   if (lettre === 'C' || lettre === 'N') return 'nombres'
   if (lettre === 'G') return 'geo'
@@ -20,4 +21,8 @@ export function buildThemeFromReference (reference: string): 'nombres' | 'gestio
   if (lettre === 'P' || lettre === 'S') return 'gestion'
   console.warn('Thème lié à la référence', reference, 'non trouvé')
   return 'nombres'
+}
+
+export function isReferenceIgnored (reference: ObjectiveReference): boolean {
+  return reference.slice(1, 2) === 'X'
 }

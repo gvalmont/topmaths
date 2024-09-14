@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { buildGradeFromObjectiveReference } from '../../../../services/reference'
+  import { buildGradeFromObjectiveReference, isReferenceIgnored } from '../../../../services/reference'
   import type { Reference, View } from '../../../../types/navigation'
   import type { Unit } from '../../../../types/unit'
   import ExercisesButtons from '../../../shared/ExercisesButtons.svelte'
@@ -16,10 +16,10 @@
   Révisions
 </h2>
 <div class="p-6 flex flex-col">
-  {#each unit.objectives.map(objective => objective.lessonPlans).flat() as lessonPlan, i}
+  {#each unit.objectives.filter(objective => !isReferenceIgnored(objective.reference)).map(objective => objective.lessonPlans).flat() as lessonPlan, i}
     {#if lessonPlan.consolidationLink !== '' || lessonPlan.prerequisiteLink !== ''}
       <div class="flex flex-row flex-wrap justify-center">
-        Séance {i + 1} :
+        Leçon {i + 1} :
         {#if lessonPlan.consolidationLink !== ''}
           <ExercisesButtons
             class="ml-2"

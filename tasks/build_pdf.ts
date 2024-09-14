@@ -5,7 +5,7 @@ import { isStringGrade, type StringGrade } from '../src/topmaths/types/grade.js'
 import { isUnits, type UnitLessonPlan, type Unit, type UnitObjective, emptyUnitLessonPlan, emptyUnitObjective, emptyUnit } from '../src/topmaths/types/unit.js'
 import units from '../src/topmaths/json/built_units.json' assert { type: 'json' }
 import { countLessonPlans } from './helpers/lesson_plans.js'
-import { buildGradeFromObjectiveReference } from '../src/topmaths/services/reference.js'
+import { buildGradeFromObjectiveReference, isReferenceIgnored } from '../src/topmaths/services/reference.js'
 import { getTitle } from '../src/topmaths/services/string.js'
 import { isObjectiveReferences, type ObjectiveReference } from '../src/topmaths/types/objective.js'
 
@@ -132,8 +132,9 @@ function writeUnitLessonPlans (previousUnit: Unit, currentUnit: Unit, nextUnit: 
     return
   }
   for (let i = 0; i < currentUnit.objectives.length; i++) {
-    const previousObjective = i === 0 ? previousUnitLastObjective : currentUnit.objectives[i - 1]
     const currentObjective = currentUnit.objectives[i]
+    if (isReferenceIgnored(currentObjective.reference)) continue
+    const previousObjective = i === 0 ? previousUnitLastObjective : currentUnit.objectives[i - 1]
     const nextObjective = i === currentUnit.objectives.length - 1 ? nextUnitFirstObjective : currentUnit.objectives[i + 1]
     writeObjectiveLessonPlans(currentUnit.grade, previousObjective, currentObjective, nextObjective)
   }
@@ -281,10 +282,11 @@ function buildUnitLessonPlanGrid (previousUnit: Unit, currentUnit: Unit, nextUni
     const currentObjective = currentUnit.objectives[i]
     const nextObjective = i === currentUnit.objectives.length - 1 ? nextUnitFirstObjective : currentUnit.objectives[i + 1]
     for (let i = 0; i < currentObjective.lessonPlans.length; i++) {
-      const previousLessonPlan = i === 0 ? findLastLessonPlan(previousObjective, currentUnit.grade) : currentObjective.lessonPlans[i - 1]
       const currentLessonPlan = currentObjective.lessonPlans[i]
+      if (isReferenceIgnored(currentObjective.reference)) continue
+      const previousLessonPlan = i === 0 ? findLastLessonPlan(previousObjective, currentUnit.grade) : currentObjective.lessonPlans[i - 1]
       const nextLessonPlan = i === currentObjective.lessonPlans.length - 1 ? findFirstLessonPlan(nextObjective, currentUnit.grade) : currentObjective.lessonPlans[i + 1]
-      content += `[ #titreObjectif("Séance ${lessonNumber} - ${currentObjective.reference} : ${getTitle(currentObjective)}")\\
+      content += `[ #titreObjectif("Leçon ${lessonNumber} - ${currentObjective.reference} : ${getTitle(currentObjective)}")\\
 #v(-2em)
 #block(inset: 10pt, [
 `

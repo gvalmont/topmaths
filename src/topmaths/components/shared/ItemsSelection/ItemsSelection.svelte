@@ -18,6 +18,7 @@
   import { isSpecialUnit } from '../../../types/specialUnit'
   import { emptyCurriculum, type Curriculum } from '../../../types/curriculum'
   import type { Unsubscriber } from 'svelte/motion'
+    import { isReferenceIgnored } from '../../../services/reference';
 
   export let view: View
   export let items: Writable<Item[]>
@@ -170,7 +171,7 @@
         {/each}
       {/if}
       {#if view === 'objective'}
-        {#each [...new Set(objectives.filter(objective => objective.grade === grade).map(objective => objective.theme))] as theme}
+        {#each [...new Set(objectives.filter(objective => objective.grade === grade && !isReferenceIgnored(objective.reference)).map(objective => objective.theme))] as theme}
           <h2 class="title
             text-xl md:text-3xl"
           >
@@ -239,7 +240,7 @@
             </div>
             <div class="flex flex-col justify-center items-center
               {$isReviewsDisplayed ? 'w-1/4' : 'w-2/3'}">
-                {#each unit.objectives as objective}
+                {#each unit.objectives.filter(objective => !isReferenceIgnored(objective.reference)) as objective}
                   <RowCurriculum
                     reference={objective.reference}
                     isKey={objective.isKey}
