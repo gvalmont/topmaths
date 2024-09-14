@@ -67,6 +67,7 @@
     let newView: View = 'home'
     let newRef: Reference = ''
     let newRef2: string = ''
+    let newIsDoubleView: boolean = false
     for (const entry of entries) {
       if (entry[0] === 'v') {
         const viewCandidate = entry[1]
@@ -83,10 +84,14 @@
       if (entry[0] === 'ref2') {
         newRef2 = entry[1]
       }
+      if (entry[0] === 'dv') {
+        newIsDoubleView = !!entry[1]
+      }
     }
     view.set(newView)
     reference.set(newRef)
     reference2.set(newRef2)
+    isDoubleView.set(newIsDoubleView)
   }
 
   function addDarkModeListener (): void {

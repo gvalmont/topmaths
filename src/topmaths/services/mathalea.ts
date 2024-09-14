@@ -1,6 +1,8 @@
 import type { InterfaceParams, VueType } from '../../lib/types'
 import refToUuid from '../../json/refToUuidFR.json'
 import { globalOptions } from '../../lib/stores/generalStore'
+import { get } from 'svelte/store'
+import { isDoubleView } from './store'
 let urlToWrite: URL
 let timerId: ReturnType<typeof setTimeout> | undefined
 
@@ -75,6 +77,7 @@ export function getUrlFromParams (v: VueType, exercicesParams: InterfaceParams[]
     if (ex.cols != null) url.searchParams.append('cols', ex.cols.toString())
   }
   url.searchParams.append('v', v)
+  if (get(isDoubleView)) url.searchParams.append('dv', 'true')
   return url
 }
 
