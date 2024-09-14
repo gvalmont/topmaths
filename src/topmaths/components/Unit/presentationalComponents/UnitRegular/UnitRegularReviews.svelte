@@ -16,10 +16,10 @@
   Révisions
 </h2>
 <div class="p-6 flex flex-col">
-  {#each lessonPlans as lessonPlan, i}
+  {#each lessonPlans as lessonPlan}
     {#if lessonPlan.consolidationLink !== '' || lessonPlan.prerequisiteLink !== ''}
       <div class="flex flex-row flex-wrap justify-center">
-        Leçon {i + 1} :
+        Révisions avant {lessonPlan.objectiveReference} :
         {#if lessonPlan.consolidationLink !== ''}
           <ExercisesButtons
             class="ml-2"
