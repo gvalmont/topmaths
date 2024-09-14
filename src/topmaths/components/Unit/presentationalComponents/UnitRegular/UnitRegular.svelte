@@ -4,20 +4,27 @@
     isTeacherMode,
     units
   } from '../../../../services/store'
-  import { emptyUnit, type Unit } from '../../../../types/unit'
+  import { emptyUnit, type Unit, type UnitLessonPlan } from '../../../../types/unit'
   import { onMount } from 'svelte'
   import UnitRegularObjectives from './UnitRegularObjectives.svelte'
   import type { Reference, View } from '../../../../types/navigation'
   import UnitRegularAssessment from './UnitRegularAssessment.svelte'
   import UnitRegularDownloads from './UnitRegularDownloads.svelte'
   import UnitRegularReviews from './UnitRegularReviews.svelte'
+  import { isReferenceIgnored } from '../../../../services/reference'
 
   export let unitReference
   export let goToView: (event: MouseEvent, view: View, reference: Reference) => void
   let unit: Unit = emptyUnit
+  let lessonPlansWithReviews: UnitLessonPlan[] = []
 
   onMount(() => {
     unit = $units.find((unitFound) => unitFound.reference === unitReference) || emptyUnit
+    lessonPlansWithReviews = unit.objectives
+      .filter(objective => !isReferenceIgnored(objective.reference))
+      .map(objective => objective.lessonPlans)
+      .flat()
+      .filter(lessonPlan => lessonPlan.consolidationLink !== '' || lessonPlan.prerequisiteLink !== '')
   })
 
 </script>
@@ -39,9 +46,9 @@
     {unit}
     {goToView}
   />
-  {#if $isTeacherMode}
+  {#if $isTeacherMode && lessonPlansWithReviews.length > 0}
     <UnitRegularReviews
-      {unit}
+      lessonPlans={lessonPlansWithReviews}
       {goToView}
     />
   {/if}

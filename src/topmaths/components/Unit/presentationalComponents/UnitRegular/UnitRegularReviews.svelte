@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { buildGradeFromObjectiveReference, isReferenceIgnored } from '../../../../services/reference'
+  import { buildGradeFromObjectiveReference } from '../../../../services/reference'
   import type { Reference, View } from '../../../../types/navigation'
-  import type { Unit } from '../../../../types/unit'
+  import type { UnitLessonPlan } from '../../../../types/unit'
   import ExercisesButtons from '../../../shared/ExercisesButtons.svelte'
   import Tooltip from '../../../shared/Tooltip.svelte'
 
-  export let unit: Unit
+  export let lessonPlans: UnitLessonPlan[]
   export let goToView: (event: MouseEvent, view: View, reference: Reference) => void
 
 </script>
@@ -16,7 +16,7 @@
   Révisions
 </h2>
 <div class="p-6 flex flex-col">
-  {#each unit.objectives.filter(objective => !isReferenceIgnored(objective.reference)).map(objective => objective.lessonPlans).flat() as lessonPlan, i}
+  {#each lessonPlans as lessonPlan, i}
     {#if lessonPlan.consolidationLink !== '' || lessonPlan.prerequisiteLink !== ''}
       <div class="flex flex-row flex-wrap justify-center">
         Leçon {i + 1} :
