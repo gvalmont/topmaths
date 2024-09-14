@@ -2639,6 +2639,64 @@
                     "slug": "6N11-4,s=3,n=1",
                     "description": "Ranger"
                   }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "title": "Utiliser > et <",
+                        "steps": [
+                          "Comparer deux nombres c'est quoi ?",
+                          "Comparer deux nombres c'est dire si l'un est plus petit, plus grand ou égal à l'autre",
+                          "_Interroger des élèves au hasard en leur demandant ce que ça veut dire de comparer des nombres_",
+                          "_Pincer les doigts puis les écarter en demandant :_ lequel est le plus grand, comme ça ou comme ça ?",
+                          "Écrire 2 > 1 et 1 < 2 au tableau",
+                          "_Refaire le geste en suivant le symbole en montrant que > va du plus grand vers le plus petit et que < va du plus petit vers le plus grand_",
+                          "Demander d'écrire sur l'ardoise des commes comme \"5 est plus grand que 3\""
+                        ]
+                      },
+                      {
+                        "title": "Comparer des nombres avec un nombre de chiffres différents",
+                        "steps": [
+                          "https://topmaths.fr/?uuid=a7aa7&id=6N11-5&n=4&d=10&s=1&alea=NgGH&cd=1&v=exercise&dv=true",
+                          "Dans le premier nombre il y a $x$ chiffres, dans le deuxième il y a $y$ chiffres",
+                          "$x$ est plus grand que $y$ donc le premier nombre est plus grand que le deuxième",
+                          "Vous répondez tous ensemble :",
+                          "- Le premier nombre contient combien de chiffres ?",
+                          "- Le deuxième nombre contient combien de chiffres ?",
+                          "- Lequel est le plus grand, x ou y ?",
+                          "- Lequel est le plus grand, le premier ou le deuxième nombre ?",
+                          "Continuer à l'ardoise avec de moins en moins d'étayage"
+                        ]
+                      },
+                      {
+                        "title": "Comparer deux nombres avec le même nombre de chiffres",
+                        "steps": [
+                          "https://topmaths.fr/?uuid=a7aa7&id=6N11-5&n=4&d=10&s=2&alea=NgGH&cd=1&v=exercise&dv=true",
+                          "Dans le premier nombre il y a $x$ chiffres, dans le deuxième il y a $x$ chiffres",
+                          "Lequel est le plus grand ?",
+                          "Les deux nombres ont le même nombre de chiffres, on va donc comparer les chiffres un par un, de gauche à droite",
+                          "_Mettre un point sous le premier chiffre du premier nombre, un point sous le premier chiffre du deuxième nombre_",
+                          "Ils sont pareils, on continue",
+                          "_Faire la même chose pour le deuxième chiffre et ainsi de suite_",
+                          "$x$ < $y$ donc le premier nombre est plus petit que le deuxième",
+                          "Continuer à l'ardoise avec de moins en moins d'étayage"
+                        ]
+                      },
+                      {
+                        "title": "Comparer deux nombres",
+                        "steps": [
+                          "https://topmaths.fr/?uuid=a7aa7&id=6N11-5&n=4&d=10&s=3&alea=NgGH&cd=1&v=exercise&dv=true",
+                          "Si besoin, aiguiller en faisant remarquer si le nombre de chiffres est le même ou pas"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
+                  }
                 ]
               }
             ]
@@ -5743,7 +5801,8 @@
             ]
           }
         ]
-      }, {
+      },
+      {
         "name": "Extras",
         "subThemes": [
           {
