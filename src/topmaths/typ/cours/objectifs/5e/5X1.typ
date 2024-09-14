@@ -83,3 +83,14 @@ Ainsi : 458 #rouge()[\+ 45 – 46] = 458 #rouge()[– 1] = 457
 
 +124 – 125 = –1 	ainsi 15 627 + 124 – 125 = 15 627 – 1 = 15 626\
 etc.
+
+== Communativité
+
+#propriete()[
+  Si on change l’ordre des opérations dans un programme de calcul contenant des additions et des soustractions, on obtient un programme de calcul équivalent.
+]
+
+#exemples()[
+  \+ 7 – 11 = – 11 + 7 = – 4\
+  \– 3 + 8 = + 8 – 3 = + 5
+]

@@ -4493,9 +4493,7 @@
                       {
                         "steps": [
                           "Terminer d'écrire le III du cours",
-                          "Entraînement sur https://topmaths.fr/?v=objective&ref=5N30",
-                          "#link(\"https://create.kahoot.it/details/44e5416e-7fe0-4c47-b0d9-b5949976fd2e\")[Kahoot]",
-                          "#rouge()[Enlever le \"il faut cocher cette case\"]"
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=5N30"
                         ]
                       }
                     ],
@@ -4533,25 +4531,34 @@
                       "S5S3_Cours",
                       "Tablettes"
                     ],
-                    "startSteps": [
-                      "Consigne 6"
-                    ],
+                    "startSteps": [],
                     "segments": [
                       {
+                        "title": "Communativité",
                         "steps": [
+                          "Consigne 6",
                           "À l’issue de cette série de calculs une remarque devrait être faite par les élèves :",
                           "Lorsqu’on change l’ordre dans un programme de calcul, on obtient un programme de calcul équivalent, propriété que l’on note.",
-                          "On note le II du cours",
+                          "Noter le II du cours"
+                        ]
+                      },
+                      {
+                        "title": "Entraînement à la simplification de programmes de calculs",
+                        "steps": [
+                          "Entraînement sur https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true~d=normal~at=10_i=5NC11~o=2~q=2.0,1~p=~t=18~n=8"
+                        ]
+                      },
+                      {
+                        "title": "Somme algébrique",
+                        "steps": [
                           "Consigne 7",
-                          "Commencer à écrire la première définition et la première remarque du III du cours"
+                          "Noter la première définition du III"
                         ]
                       },
                       {
                         "steps": [
-                          "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true~d=normal~at=10_i=5NC11~o=2~q=2.0,1~p=~t=18~n=8",
-                          "Terminer d'écrire la première défitniion et la première remarque du III du cours",
-                          "Entraînement sur https://topmaths.fr/?v=objective&ref=5N31",
-                          "Kahoot avec réponses aléatoires https://create.kahoot.it/details/f4584729-6124-4226-a8a9-56095537beb3"
+                          "Noter la première remarque du II du cours et la définition d'un nombre positif",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=5N31"
                         ]
                       }
                     ],
@@ -5732,6 +5739,25 @@
                     "closureSteps": []
                   }
                 ]
+              }
+            ]
+          }
+        ]
+      }, {
+        "name": "Extras",
+        "subThemes": [
+          {
+            "name": "Cours supplémentaires",
+            "objectives": [
+              {
+                "reference": "5X1",
+                "titleAcademic": "Placeholder pour insérer du cours entre des objectifs",
+                "title": "Programmes de calcul Somme et différence"
+              },
+              {
+                "reference": "5X2",
+                "titleAcademic": "Placeholder pour insérer du cours entre des objectifs",
+                "title": "De nouveaux nombres"
               }
             ]
           }

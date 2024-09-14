@@ -429,7 +429,13 @@
         "title": "Nombres relatifs 1",
         "objectives": [
           {
+            "reference": "5X1"
+          },
+          {
             "reference": "5N31"
+          },
+          {
+            "reference": "5X2"
           },
           {
             "reference": "5N30"
