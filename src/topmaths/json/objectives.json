@@ -2692,6 +2692,107 @@
                           "https://topmaths.fr/?uuid=a7aa7&id=6N11-5&n=4&d=10&s=3&alea=NgGH&cd=1&v=exercise&dv=true",
                           "Si besoin, aiguiller en faisant remarquer si le nombre de chiffres est le même ou pas"
                         ]
+                      },
+                      {
+                        "title": "Encadrer un nombre",
+                        "steps": [
+                          "Est-ce que vous savez ce que ça veut dire encadrer un nombre en mathématiques ?",
+                          "Encadrer en français, c'est faire ça _écrire un nombre au tableau et l'encadrer_ mais encadrer en mathématiques ça veut dire quoi ?",
+                          "Encadrer un nombre c'est trouver deux autres nombres, un plus petit et un plus grand",
+                          "Par exemple on peut encadrer 5 entre 2 et 10, _continuer avec d'autres exemples_",
+                          "_Interroger des élèves au hasard en leur demandant d'encadrer des nombres_",
+                          "En général, on écrit un encadrement de cette façon : Écrire $2 < 5 < 10$",
+                          "Demander d'encadrer des nombres sur l'ardoise"
+                        ]
+                      },
+                      {
+                        "title": "La signification de \"consécutives\"",
+                        "steps": [
+                          "https://topmaths.fr/?uuid=b9582&id=can6N18&n=2&v=exercise",
+                          "_Lire la consigne_",
+                          "_Demander si quelqu'un sait ce que veut dire consécutif (au féminin c'est consécutive mais au masculin c'est consécutif)_",
+                          "Ça veut dire \"qui se suivent\"",
+                          "Par exemple 2 nombres consécutifs c'est 2 et 3, 7 et 8, 15 et 16",
+                          "_Interroger des élèves au hasard en leur demandant de me donner deux nombres consécutifs_",
+                          "_Faire la même chose avec des dizaines et des centaines consécutives_"
+                        ]
+                      },
+                      {
+                        "title": "Encadrer entre deux dizaines/centaines consécutives",
+                        "steps": [
+                          "Par exemple, on va encadrer 24 entre deux dizaines consécutives",
+                          "_Écrire 24_",
+                          "On cherche à savoir $24$ est plus grand que combien de dizaines et plus petit que combien de dizaines",
+                          "24 c'est 2 dizaines et 4 unités _Écrire $20 + 5$ sous $24$_ donc il est plus grand que 2 dizaines, c'est à dire 20",
+                          "_Compléter $20 < 24$_",
+                          "On veut encadrer entre deux dizaines consécutives, quelle est la dizaine consécutive à 20 ?",
+                          "_Compléter $20 < 24 < 30$_",
+                          "_Encadrer de la même façon $51$_",
+                          "_Demander à des élèves d'encadrer sur l'ardoise d'autres nombres inférieurs à 100 entre deux dizaines consécutives_",
+                          "_Le faire ensuite pour des nombres supérieurs à 100_",
+                          "_Montrer un exemple d'encadrement entre deux centaines consécutives_",
+                          "_Entraînement sur l'ardoise_",
+                          "https://topmaths.fr/?uuid=b9582&id=can6N18&n=4&v=exercise"
+                        ]
+                      },
+                      {
+                        "title": "La signification de \"croissant\" et de \"décroissant\"",
+                        "steps": [
+                          "https://topmaths.fr/?uuid=3bba9&id=6N11-4&n=1&s=3&alea=vEfx&v=exercise",
+                          "_Lire la consigne_",
+                          "Demander s'ils savent ce que signifie le mot \"croissant\"",
+                          "Croissant vient du verbe \"croître\" qui veut dire \"grandir\" _Écrire \"Croissant ↗\" au tableau_",
+                          "Décroissant c'est le contraire, ça veut dire \"diminuer\" _Écrire \"Décroissant ↘\" au tableau_",
+                          "_Relire Croissant et Décroissant avec une intonation montante et descendante_",
+                          "_Demander aux élèves de répéter avec l'intonation montante et descendante_",
+                          "_Interroger des élèves au hasard en demandant de lire l'un des deux avec l'intonation correspondante_",
+                          "Noter dans le cours les définitions : #rouge()[Croissant] signifie du plus petit au plus grand ↗ et #rouge()[Décroissant] signifie du plus grand au plus petit ↘"
+                        ]
+                      },
+                      {
+                        "title": "Ranger des petits nombres dans l'ordre croissant",
+                        "steps": [
+                          "https://topmaths.fr/?uuid=3bba9&id=6N11-4&n=1&s=3&alea=vEfx&v=exercise",
+                          "_Lire la consigne_",
+                          "Avant de se lancer dans cet exercice, on va voir comment faire avec des nombres plus petits",
+                          "_Écrire au tableau 5 nombres inférieurs à 20_",
+                          "On veut les ranger dans l'ordre croissant, ça veut dire quoi ordre croissant ? _piocher un élève au hasard_",
+                          "On veut les ranger du plus petit au plus grand, on commence donc par le plus petit pour aller vers le plus grand",
+                          "Quel est le plus petit ici ?",
+                          "Le recopier en dessous et barrer l'original",
+                          "Ce nombre est plus petit que lequel ? _écrire <_",
+                          "Parmi ceux qui restent, lequel est le plus petit ?",
+                          "Recopier, barrer, ainsi de suite",
+                          "À vous de jouer",
+                          "_Écrire 5 nouveaux nombres inférieurs à 20_",
+                          "Ranger ces nombres dans l'ordre croissant",
+                          "Entraînement sur l'ardoise"
+                        ]
+                      },
+                      {
+                        "title": "Ranger des petits nombres dans l'ordre décroissant",
+                        "steps": [
+                          "_Écrire au tableau 5 nombres inférieurs à 20_",
+                          "On veut les ranger dans l'ordre décroissant, ça veut dire quoi ordre décroissant ? _piocher un élève au hasard_",
+                          "On veut les ranger du plus grand au plus petit, on commence donc par le plus grand pour aller vers le plus petit",
+                          "Quel est le plus grand ici ?",
+                          "Le recopier en dessous et barrer l'original",
+                          "Ce nombre est plus grand que lequel ? _écrire >_",
+                          "Parmi ceux qui restent, lequel est le plus grand ?",
+                          "Recopier, barrer, ainsi de suite",
+                          "À vous de jouer",
+                          "_Écrire 5 nouveaux nombres inférieurs à 20_",
+                          "Ranger ces nombres dans l'ordre décroissant",
+                          "Entraînement sur l'ardoise"
+                        ]
+                      },
+                      {
+                        "title": "Ranger des grands nombres",
+                        "steps": [
+                          "https://topmaths.fr/?uuid=3bba9&id=6N11-4&n=1&s=3&alea=vEfx&v=exercise&dv=true",
+                          "_Lire la consigne, montrer comment faire à gauche, les laisser faire à droite sur l'ardoise_",
+                          "_Entraînement_"
+                        ]
                       }
                     ],
                     "closureSteps": [],
