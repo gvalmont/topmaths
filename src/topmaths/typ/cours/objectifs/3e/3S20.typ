@@ -50,6 +50,7 @@
       ], [Bleu (B)], [Bleu (B)], [Rouge (R)], [Rouge (R)], [Rouge (R)],
       [Bleu], [(B ; B)], [(B ; B)], [(B ; R)], [(B ; R)], [(B ; R)],
       [Bleu], [(B ; B)], [(B ; B)], [(B ; R)], [(B ; R)], [(B ; R)],
+      [Bleu], [(B ; B)], [(B ; B)], [(B ; R)], [(B ; R)], [(B ; R)],
       [Rouge], [(R ; B)], [(R ; B)], [(R ; R)], [(R ; R)], [(R ; R)],
       [Vert], [(V ; B)], [(V ; B)], [(V ; R)], [(V ; R)], [(V ; R)],
       [Vert], [(V ; B)], [(V ; B)], [(V ; R)], [(V ; R)], [(V ; R)]
@@ -57,11 +58,11 @@
   ]
 
 
-  + On peut lire sur le tableau qu’il y a $3$ possibilités pour qu’il soit tout en rouge sur un total de $25$ possibilités. La probabilité qu’il soit habillé tout en rouge est donc $3/25$.
+  + On peut lire sur le tableau qu’il y a $3$ possibilités pour qu’il soit tout en rouge sur un total de $30$ possibilités. La probabilité qu’il soit habillé tout en rouge est donc $3/30$.
   + On peut lire sur le tableau qu’il y a~:
-    - 4 possibilités pour qu’il soit tout en bleu~;
+    - 6 possibilités pour qu’il soit tout en bleu~;
     - 3 possibilités pour qu’il soit tout en rouge~;
     - 0 possibilités pour qu’il soit tout en vert~;
-    sur un total de 25 possibilités.\
-    La probabilité qu’il soit habillé entièrement de la même couleur est donc $(4+3+0)/25 = 7/25$
+    sur un total de 30 possibilités.\
+    La probabilité qu’il soit habillé entièrement de la même couleur est donc $(6+3+0)/30 = 9/30$
 ]
