@@ -1247,7 +1247,12 @@
                     "authorLink": "https://www.youtube.com/@LaclassedeMallory1"
                   }
                 ],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=df825&id=6G11-1&n=1&d=10&s=1&s2=5",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6G32",
