@@ -6486,11 +6486,11 @@
                 "videos": [],
                 "exercises": [
                   {
-                    "slug": "4C22-1,s=4,n=2",
+                    "slug": "uuid=5e8fc&id=4C21-1&n=2&d=10&s=2&s2=false&s3=false",
                     "description": "Avec des nombres positifs"
                   },
                   {
-                    "slug": "4C22-2,s=1,n=2",
+                    "slug": "uuid=5e8fc&id=4C21-1&n=2&d=10&s=2&s2=true&s3=false",
                     "description": "Avec des nombres relatifs"
                   }
                 ]
