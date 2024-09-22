@@ -61,14 +61,15 @@
       .filter(unit => unit.assessmentExamLink !== '')
       .map(unit => {
         const entries = new URL(unit.assessmentExamLink).searchParams.entries()
+        const references = []
         for (const entry of entries) {
           if (entry[0] === 'uuid') {
-            return TOPMATHS_BASE_URL + 'uuid=' + entry[1]
+            references.push(TOPMATHS_BASE_URL + 'uuid=' + entry[1])
           }
         }
-        return ''
+        return references
       })
-      .filter(link => link !== '')
+      .flat()
     return listeDesReferences
   }
 
