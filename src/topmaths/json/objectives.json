@@ -2614,7 +2614,7 @@
               },
               {
                 "reference": "6N11",
-                "titleAcademic": "Comparer, ranger, encadrer, repérer des grands nombres entiers",
+                "titleAcademic": "Comparer, ranger, encadrer des grands nombres entiers",
                 "lessonSummaryHTML": "<i><b>Comparer</b></i> deux nombres entiers, c'est dire s'ils sont égaux ou si l'un est plus petit ou plus grand que l'autre.<br><i><b>Encadrer</i></b> un nombre, c'est en trouver deux autres, un plus petit et un plus grand.<br><i><b>Ordre croissant</i></b> signifie « du plus petit au plus grand ».<br><i><b>Ordre décroissant</i></b> signifie « du plus grand au plus petit ».",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -6036,7 +6036,8 @@
               },
               {
                 "reference": "4G21",
-                "titleAcademic": "Encadrer la racine carrée d'un nombre positif entre deux entiers",
+                "title": "Encadrer une racine carrée",
+                "titleAcademic": "Déterminer une valeur approchée de la racine carrée d’un nombre positif",
                 "lessonSummaryHTML": "<p>Pour encadrer une racine carrée, il suffit d'en déterminer une valeur approchée et d'encadrer cette dernière.<br>(Encadrer, c'est trouver un nombre plus petit et un nombre plus grand, par exemple on peut encadrer 2,7 par 2 et 3.<br>On écrit alors 2 &lt; 2,7 &lt; 3)</p><p>On peut aussi le faire de tête si on connaît les carrés parfaits&nbsp;!</p>",
                 "lessonSummaryImage": "",
                 "videos": [
