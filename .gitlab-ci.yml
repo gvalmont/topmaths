@@ -18,7 +18,7 @@ build:
   stage: build
   script:
     - npx vite build               # Build the project using Vite
-    - zip -r dist.zip dist/         # Zip the dist folder into dist.zip
+    - zip -r dist.zip dist/ --exclude \*.map  # Zip the dist folder, excluding .map files
   artifacts:
     paths:
       - dist.zip                    # Upload the zipped dist folder as an artifact
