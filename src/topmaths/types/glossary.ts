@@ -1,5 +1,6 @@
 import { isStringGrade, type StringGrade } from './grade.js'
 import { isObjectiveReferences, type ObjectiveReference } from './objective.js'
+import { isStrings, type ReplaceReferencesByStrings } from './shared.js'
 
 export type GlossaryRelatedItem = {
   reference: string,
@@ -31,7 +32,7 @@ export type GlossaryItem = {
   relatedItems: GlossaryRelatedItem[],
   type: 'définition' | 'propriété'
 }
-export function isGlossaryItem (obj: unknown): obj is GlossaryItem {
+export function isGlossaryItem (obj: unknown, withStringReference = false): obj is GlossaryItem {
   if (obj == null || typeof obj !== 'object') return false
   return 'comments' in obj && Array.isArray(obj.comments) && obj.comments.every(comment => typeof comment === 'string') &&
     'content' in obj && typeof obj.content === 'string' &&
@@ -40,13 +41,13 @@ export function isGlossaryItem (obj: unknown): obj is GlossaryItem {
     'includesImage' in obj && typeof obj.includesImage === 'boolean' &&
     'keywords' in obj && Array.isArray(obj.keywords) && obj.keywords.every(keyword => typeof keyword === 'string') &&
     'reference' in obj && typeof obj.reference === 'string' &&
-    'relatedObjectives' in obj && isObjectiveReferences(obj.relatedObjectives) &&
+    'relatedObjectives' in obj && (withStringReference ? isStrings(obj.relatedObjectives) : isObjectiveReferences(obj.relatedObjectives)) &&
     'relatedItems' in obj && Array.isArray(obj.relatedItems) && obj.relatedItems.every(isGlossaryRelatedItem) &&
     'type' in obj && (obj.type === 'définition' || obj.type === 'propriété')
 }
-export function isGlossaryItems (obj: unknown): obj is GlossaryItem[] {
+export function isGlossaryItems (obj: unknown, withStringReference = false): obj is GlossaryItem[] {
   if (!Array.isArray(obj)) return false
-  return obj.every(isGlossaryItem)
+  return obj.every(obj => isGlossaryItem(obj, withStringReference))
 }
 export const emptyGlossaryItem: GlossaryItem = {
   comments: [],
@@ -61,17 +62,26 @@ export const emptyGlossaryItem: GlossaryItem = {
   type: 'définition'
 }
 
+export type GlossaryItemWithStringReference = ReplaceReferencesByStrings<ObjectiveReference, GlossaryItem>
+export function isGlossaryItemWithStringReference (obj: unknown): obj is GlossaryItemWithStringReference {
+  return isGlossaryItems(obj, true)
+}
+export function isGlossaryItemsWithStringReference (obj: unknown): obj is GlossaryItemWithStringReference[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isGlossaryItemWithStringReference)
+}
+
 export type GlossaryMasterItem = GlossaryItem & {
   titles: string[]
 }
-export function isGlossaryMasterItem (obj: unknown): obj is GlossaryMasterItem {
+export function isGlossaryMasterItem (obj: unknown, withStringReference = false): obj is GlossaryMasterItem {
   if (obj == null || typeof obj !== 'object') return false
-  return isGlossaryItem(obj) &&
+  return isGlossaryItem(obj, withStringReference) &&
   'titles' in obj && Array.isArray(obj.titles) && obj.titles.every(title => typeof title === 'string')
 }
-export function isGlossaryMasterItems (obj: unknown): obj is GlossaryMasterItem[] {
+export function isGlossaryMasterItems (obj: unknown, withStringReference = false): obj is GlossaryMasterItem[] {
   if (!Array.isArray(obj)) return false
-  return obj.every(isGlossaryMasterItem)
+  return obj.every(obj => isGlossaryMasterItem(obj, withStringReference))
 }
 export const emptyGlossaryMasterItem: GlossaryMasterItem = {
   comments: [],
@@ -87,17 +97,26 @@ export const emptyGlossaryMasterItem: GlossaryMasterItem = {
   type: 'définition'
 }
 
+export type GlossaryMasterItemWithStringReference = ReplaceReferencesByStrings<ObjectiveReference, GlossaryMasterItem>
+export function isGlossaryMasterItemWithStringReference (obj: unknown): obj is GlossaryMasterItemWithStringReference {
+  return isGlossaryMasterItem(obj, true)
+}
+export function isGlossaryMasterItemsWithStringReference (obj: unknown): obj is GlossaryMasterItemWithStringReference[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isGlossaryMasterItemWithStringReference)
+}
+
 export type GlossaryUniteItem = GlossaryItem & {
   title: string
 }
-export function isGlossaryUniteItem (obj: unknown): obj is GlossaryUniteItem {
+export function isGlossaryUniteItem (obj: unknown, withStringReference = false): obj is GlossaryUniteItem {
   if (obj == null || typeof obj !== 'object') return false
-  return isGlossaryItem(obj) &&
+  return isGlossaryItem(obj, withStringReference) &&
   'title' in obj && typeof obj.title === 'string'
 }
-export function isGlossaryUniteItems (obj: unknown): obj is GlossaryUniteItem[] {
+export function isGlossaryUniteItems (obj: unknown, withStringReference = false): obj is GlossaryUniteItem[] {
   if (!Array.isArray(obj)) return false
-  return obj.every(isGlossaryUniteItem)
+  return obj.every(obj => isGlossaryUniteItem(obj, withStringReference))
 }
 export const emptyGlossaryUniteItem: GlossaryUniteItem = {
   comments: [],
@@ -111,4 +130,13 @@ export const emptyGlossaryUniteItem: GlossaryUniteItem = {
   reference: '',
   title: '',
   type: 'définition'
+}
+
+export type GlossaryUniteItemWithStringReference = ReplaceReferencesByStrings<ObjectiveReference, GlossaryUniteItem>
+export function isGlossaryUniteItemWithStringReference (obj: unknown): obj is GlossaryUniteItemWithStringReference {
+  return isGlossaryUniteItem(obj, true)
+}
+export function isGlossaryUniteItemsWithStringReference (obj: unknown): obj is GlossaryUniteItemWithStringReference[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isGlossaryUniteItemWithStringReference)
 }

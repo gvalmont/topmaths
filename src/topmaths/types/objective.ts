@@ -131,17 +131,17 @@ export type ObjectivePrerequisite = {
   objectiveReference: ObjectiveReference,
   slugsWithSeed: SlugsWithSeed
 }
-export function isObjectivePrerequisite (obj: unknown): obj is ObjectivePrerequisite {
+export function isObjectivePrerequisite (obj: unknown, withStringReference: boolean = false): obj is ObjectivePrerequisite {
   if (obj == null || typeof obj !== 'object') return false
   return 'description' in obj && typeof obj.description === 'string' &&
     'title' in obj && typeof obj.title === 'string' &&
     'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
-    'objectiveReference' in obj && isObjectiveReference(obj.objectiveReference) &&
+    'objectiveReference' in obj && (withStringReference ? typeof obj.objectiveReference === 'string' : isObjectiveReference(obj.objectiveReference)) &&
     'slugsWithSeed' in obj && isSlugsWithSeed(obj.slugsWithSeed)
 }
-export function isObjectivePrerequisites (obj: unknown): obj is ObjectivePrerequisite[] {
+export function isObjectivePrerequisites (obj: unknown, withStringReference: boolean = false): obj is ObjectivePrerequisite[] {
   if (obj == null || !Array.isArray(obj)) return false
-  return obj.every(isObjectivePrerequisite)
+  return obj.every(obj => isObjectivePrerequisite(obj, withStringReference))
 }
 export const emptyObjectivePrerequisite: ObjectivePrerequisite = {
   title: '',
@@ -149,6 +149,15 @@ export const emptyObjectivePrerequisite: ObjectivePrerequisite = {
   description: '',
   objectiveReference: emptyObjectiveReference,
   slugsWithSeed: ['', '', '']
+}
+
+export type ObjectivePrerequisiteWithStringReference = ReplaceReferencesByStrings<UnitReference, ReplaceReferencesByStrings<ObjectiveReference, ObjectivePrerequisite>>
+export function isObjectivePrerequisiteWithStringReference (obj: unknown): obj is ObjectivePrerequisiteWithStringReference {
+  return isObjectivePrerequisite(obj, true)
+}
+export function isObjectivePrerequisitesWithStringReference (obj: unknown): obj is ObjectivePrerequisiteWithStringReference[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isObjectivePrerequisiteWithStringReference)
 }
 
 export type ObjectiveUnit = {
@@ -226,7 +235,7 @@ export function isObjective (obj: unknown, withStringReference: boolean = false)
     'lessonSummaryImage' in obj && typeof obj.lessonSummaryImage === 'string' &&
     'lessonSummaryImageAlt' in obj && typeof obj.lessonSummaryImageAlt === 'string' &&
     'lessonSummaryInstrumenpoche' in obj && typeof obj.lessonSummaryInstrumenpoche === 'string' &&
-    'prerequisites' in obj && isObjectivePrerequisites(obj.prerequisites) &&
+    'prerequisites' in obj && isObjectivePrerequisites(obj.prerequisites, withStringReference) &&
     'term' in obj && typeof obj.term === 'number' &&
     'reference' in obj && (withStringReference ? typeof obj.reference === 'string' : isObjectiveReference(obj.reference)) &&
     'subTheme' in obj && typeof obj.subTheme === 'string' &&

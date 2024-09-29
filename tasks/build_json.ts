@@ -12,9 +12,9 @@ import { deepCopy, type TuplesToArraysRecursive, type ReplaceReferencesByStrings
 import { DEFAULT_GRADE, emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/grade.js'
 import { buildGradeFromObjectiveReference, isReferenceIgnored } from '../src/topmaths/services/reference.js'
 import { EXERCISE_PARAM_ADDENDUM, isMathalea, REGULAR_VIEW_ADDENDUM, SLIDESHOW_VIEW_ADDENDUM, TOPMATHS_BASE_URL } from '../src/topmaths/services/environment.js'
-import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference, isObjectivePrerequisites, isSlugsWithSeed, type ObjectivePrerequisite, type ObjectiveLessonPlan, emptyObjectiveLessonPlanSegment, isObjectiveReference } from '../src/topmaths/types/objective.js'
+import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference, isSlugsWithSeed, type ObjectivePrerequisite, type ObjectiveLessonPlan, emptyObjectiveLessonPlanSegment, isObjectiveReference, type ObjectivePrerequisiteWithStringReference, isObjectivePrerequisitesWithStringReference } from '../src/topmaths/types/objective.js'
 import { type Unit, type UnitObjective, emptyUnitDownloadLinks, type UnitLessonPlan, isUnitLessonPlans, type UnitWithStringReference, type UnitReference, isUnitWithStringReference, emptyUnitLessonPlan, isUnitReference } from '../src/topmaths/types/unit.js'
-import { emptyGlossaryMasterItem, type GlossaryItem, type GlossaryMasterItem, type GlossaryRelatedItem, type GlossaryUniteItem, isGlossaryMasterItem, isGlossaryUniteItems } from '../src/topmaths/types/glossary.js'
+import { emptyGlossaryMasterItem, type GlossaryItemWithStringReference, type GlossaryMasterItem, type GlossaryMasterItemWithStringReference, type GlossaryRelatedItem, type GlossaryUniteItemWithStringReference, isGlossaryMasterItemWithStringReference, isGlossaryUniteItemsWithStringReference } from '../src/topmaths/types/glossary.js'
 import { type CalendarSchoolYearMaster, isCalendarSchoolYearMasters, type CalendarSchoolYear, isCalendarSchoolYears, type CalendarPeriod } from '../src/topmaths/types/calendar.js'
 import { type CurriculumGrade, type CurriculumValue, isCurriculum, type Curriculum, emptyCurriculumValue } from '../src/topmaths/types/curriculum.js'
 import { countLessonPlans } from './helpers/lesson_plans.js'
@@ -314,9 +314,9 @@ function updateObjectives (): void {
   })
 }
 
-function buildGlossary (): GlossaryUniteItem[] {
-  const definitions: RecursivePartial<GlossaryMasterItem>[] = definitionsJson
-  const properties: Partial<ReplaceReferencesByStrings<ObjectiveReference, GlossaryMasterItem>>[] = propertiesJson
+function buildGlossary (): GlossaryUniteItemWithStringReference[] {
+  const definitions: RecursivePartial<GlossaryMasterItemWithStringReference>[] = definitionsJson
+  const properties: Partial<GlossaryMasterItemWithStringReference>[] = propertiesJson
   const formattedMasterDefinitions = definitions.map(item => formatItem(item, 'définition'))
   const formattedMasterProperties = properties.map(item => formatItem(item, 'propriété'))
   const glossaryMasterItems = formattedMasterDefinitions.concat(formattedMasterProperties)
@@ -324,14 +324,14 @@ function buildGlossary (): GlossaryUniteItem[] {
   updateRelatedItems(glossaryUniteItems)
   glossaryUniteItems.forEach(item => item.relatedItems.sort(comparerTitres))
   glossaryUniteItems.sort(comparerTitres)
-  if (!isGlossaryUniteItems(glossaryUniteItems)) {
+  if (!isGlossaryUniteItemsWithStringReference(glossaryUniteItems)) {
     console.error(glossaryUniteItems)
     throw new Error('Glossary items are not GlossaryUniteItems')
   }
   return glossaryUniteItems
 }
 
-function formatItem (item: RecursivePartial<GlossaryMasterItem>, type: 'définition' | 'propriété'): GlossaryMasterItem {
+function formatItem (item: RecursivePartial<GlossaryMasterItem>, type: 'définition' | 'propriété'): GlossaryMasterItemWithStringReference {
   item.type = type
   if (item.titles === undefined) return deepCopy(emptyGlossaryMasterItem)
   item.comments = item.comments ?? []
@@ -360,7 +360,7 @@ function formatItem (item: RecursivePartial<GlossaryMasterItem>, type: 'définit
       relatedItem.title = relatedItem.title ?? ''
       return relatedItem
     })
-  if (!isGlossaryMasterItem(item)) {
+  if (!isGlossaryMasterItemWithStringReference(item)) {
     console.error(item)
     throw new Error('Item is not a GlossaryItem')
   }
@@ -390,11 +390,11 @@ function interpreterMarkupArray (array: (string | undefined)[]): string[] {
   }
 }
 
-function buildGlossaryUniteItems (masterItem: GlossaryMasterItem): GlossaryUniteItem[] {
-  const uniteItems: GlossaryUniteItem[] = []
+function buildGlossaryUniteItems (masterItem: GlossaryMasterItemWithStringReference): GlossaryUniteItemWithStringReference[] {
+  const uniteItems: GlossaryUniteItemWithStringReference[] = []
   const slugsSousItemsDejaCrees: string[] = []
   for (const title of masterItem.titles) {
-    const uniteItem: GlossaryUniteItem = { ...masterItem, title }
+    const uniteItem: GlossaryUniteItemWithStringReference = { ...masterItem, title }
     uniteItem.reference = creerSlug(title)
     uniteItem.includesImage = fs.existsSync(`public/topmaths/img/lexique/${uniteItem.reference}.png`)
     uniteItem.relatedItems = ajouterSlugsSousItemsDejaCrees(masterItem, slugsSousItemsDejaCrees)
@@ -414,11 +414,11 @@ function creerSlug (titre: string): string {
   return slug
 }
 
-function ajouterSlugsSousItemsDejaCrees (item: GlossaryMasterItem, references: string[]): GlossaryRelatedItem[] {
+function ajouterSlugsSousItemsDejaCrees (item: GlossaryMasterItemWithStringReference, references: string[]): GlossaryRelatedItem[] {
   return item.relatedItems.concat(references.map(reference => ({ title: '', reference })))
 }
 
-function updateRelatedItems (items: GlossaryUniteItem[]): void {
+function updateRelatedItems (items: GlossaryUniteItemWithStringReference[]): void {
   items.forEach(item1 => item1.relatedItems.forEach(relatedItem1 => {
     const item2 = items.find(item2 => item2.reference === relatedItem1.reference)
     if (!item2) {
@@ -574,7 +574,7 @@ function buildObjectiveLessonPlan (lessonPlan: undefined | RecursivePartial<Obje
   return filledLessonPlan
 }
 
-function buildObjectivePrerequisites (objective: RecursivePartial<TuplesToArraysRecursive<Objective>>): ObjectivePrerequisite[] {
+function buildObjectivePrerequisites (objective: RecursivePartial<TuplesToArraysRecursive<Objective>>): ObjectivePrerequisiteWithStringReference[] {
   if (objective.prerequisites === undefined) return []
   objective.prerequisites = objective.prerequisites
     .filter(prerequisite => prerequisite !== undefined)
@@ -592,7 +592,7 @@ function buildObjectivePrerequisites (objective: RecursivePartial<TuplesToArrays
       prerequisite.titleAcademic = ''
       return prerequisite
     })
-  if (!isObjectivePrerequisites(objective.prerequisites)) {
+  if (!isObjectivePrerequisitesWithStringReference(objective.prerequisites)) {
     console.error(objective.prerequisites)
     throw new Error('Objective Prerequisites are not ObjectivePrerequisites')
   }
@@ -772,9 +772,9 @@ function checkPrivacyPolicyThirdPartyWebsites (): void {
   })
 }
 
-function checkDuplicates (array: ObjectiveWithStringReference[] | UnitWithStringReference[] | GlossaryItem[]): void {
+function checkDuplicates (array: ObjectiveWithStringReference[] | UnitWithStringReference[] | GlossaryItemWithStringReference[]): void {
   const foundReferences: string[] = []
-  array.forEach((item: ObjectiveWithStringReference | UnitWithStringReference | GlossaryItem) => {
+  array.forEach((item: ObjectiveWithStringReference | UnitWithStringReference | GlossaryItemWithStringReference) => {
     if (foundReferences.includes(item.reference)) {
       throw new Error(item.reference + ' found twice')
     }
