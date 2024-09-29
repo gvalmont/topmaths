@@ -5,7 +5,11 @@ before_script:
   - npm ci
 pages:
   script:
-    - npm run build
+    - npm run makeJson
+    - npm run build:json
+    - node tmp/tasks/build_pdf.js
+    - npm run build:json
+    - vite build
   artifacts:
     paths:
       # The folder that contains the files to be exposed at the Page URL
