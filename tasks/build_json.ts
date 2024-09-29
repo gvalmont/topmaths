@@ -355,6 +355,7 @@ function formatItem (item: RecursivePartial<GlossaryMasterItem>, type: 'définit
   item.relatedItems = item.relatedItems
     .filter(relatedItem => relatedItem !== undefined)
     .map(relatedItem => {
+      if (relatedItem === undefined) throw new Error('Related item is undefined')
       relatedItem.reference = relatedItem.reference ?? ''
       relatedItem.title = relatedItem.title ?? ''
       return relatedItem
@@ -382,7 +383,10 @@ function interpreterMarkupArray (array: (string | undefined)[]): string[] {
   } else {
     return array
       .filter(str => str !== undefined)
-      .map(item => interpreterMarkupPerso(item))
+      .map(str => {
+        if (str === undefined) throw new Error('str is undefined')
+        return interpreterMarkupPerso(str)
+      })
   }
 }
 
@@ -575,6 +579,7 @@ function buildObjectivePrerequisites (objective: RecursivePartial<TuplesToArrays
   objective.prerequisites = objective.prerequisites
     .filter(prerequisite => prerequisite !== undefined)
     .map(prerequisite => {
+      if (prerequisite === undefined) throw new Error('Prerequisite is undefined')
       if (!isSlugsWithSeed(prerequisite.slugsWithSeed)) {
         console.error(prerequisite.slugsWithSeed)
         throw new Error('Slugs with seed are not SlugsWithSeed')
@@ -631,6 +636,7 @@ function buildExercises (reference: string, exercises: (RecursivePartial<Objecti
   exercises = exercises
     .filter(exercise => exercise !== undefined)
     .map(exercise => {
+      if (exercise === undefined) throw new Error('Exercise is undefined')
       exercise.id = reference + '-' + exerciseNumber
       exercise.slug = formatSlug(exercise.slug)
       exercise.link = buildExerciseLink(exercise.slug)

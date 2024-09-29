@@ -3,12 +3,14 @@ image: node:lts
 # Functions that should be executed before the build script is run
 before_script:
   - npm ci
+  - npm run makeJson
+  - tsc -p tsconfig-tasks.json
+  - node tmp/tasks/build_json.js
+  - node tmp/tasks/build_pdf.js
+  - tsc -p tsconfig-tasks.json
+  - node tmp/tasks/build_json.js
 pages:
   script:
-    - npm run makeJson
-    - npm run build:json
-    - node tmp/tasks/build_pdf.js
-    - npm run build:json
     - vite build
   artifacts:
     paths:
