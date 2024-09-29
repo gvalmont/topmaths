@@ -12,7 +12,7 @@ before_script:
   - node tmp/tasks/build_json.js
 pages:
   script:
-    - vite build
+    - npx vite build
   artifacts:
     paths:
       # The folder that contains the files to be exposed at the Page URL
