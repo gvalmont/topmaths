@@ -17,8 +17,9 @@ before_script:
 build:
   stage: build
   script:
-    - npx vite build               # Build the project using Vite
-    - zip -r dist.zip dist/ --exclude \*.map  # Zip the dist folder, excluding .map files
+    - npx vite build                # Build the project using Vite
+    - du -sh dist/                  # Check the size of the dist folder
+    - zip -9 -r dist.zip dist/ --exclude \*.map --exclude dist/static  # Zip the dist folder, excluding .map files and static folder
   artifacts:
     paths:
       - dist.zip                    # Upload the zipped dist folder as an artifact
