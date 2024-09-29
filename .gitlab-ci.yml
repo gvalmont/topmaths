@@ -22,6 +22,9 @@ build:
   artifacts:
     paths:
       - dist.zip                    # Upload the zipped dist folder as an artifact
+  rules:
+    # Only run this job for commits on the default branch
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
 
 # Pages job to deploy the unzipped artifacts
 pages:
@@ -34,3 +37,4 @@ pages:
   rules:
     # Only run this job for commits on the default branch
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  publish: dist
