@@ -4,6 +4,7 @@ image: node:lts
 before_script:
   - npm ci
   - npm run makeJson
+  - node tasks/build_prepare.js
   - ./node_modules/.bin/tsc -p tsconfig-tasks.json
   - node tmp/tasks/build_json.js
   - node tmp/tasks/build_pdf.js
