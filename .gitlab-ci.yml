@@ -4,10 +4,10 @@ image: node:lts
 before_script:
   - npm ci
   - npm run makeJson
-  - tsc -p tsconfig-tasks.json
+  - ./node_modules/.bin/tsc -p tsconfig-tasks.json
   - node tmp/tasks/build_json.js
   - node tmp/tasks/build_pdf.js
-  - tsc -p tsconfig-tasks.json
+  - ./node_modules/.bin/tsc -p tsconfig-tasks.json
   - node tmp/tasks/build_json.js
 pages:
   script:
