@@ -3,7 +3,7 @@ image: node:lts
 
 # Functions that should be executed before the build script is run
 before_script:
-  - apt-get update && apt-get install -y zip   # Install zip to zip the dist folder
+  - apt-get update && apt-get install -y curl zip  # Install curl and zip
   - npm ci
   - npm run makeJson
   - node tasks/build_prepare.js
@@ -27,15 +27,8 @@ build:
     # Only run this job for commits on the default branch
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
 
-# Pages job to deploy the unzipped artifacts
-pages:
+# Upload files to the FTP server
+deploy:
   stage: deploy
   script:
-    - unzip dist.zip                # Unzip the artifact
-  artifacts:
-    paths:
-      - dist/                       # The unzipped dist folder to be deployed
-  rules:
-    # Only run this job for commits on the default branch
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-  publish: dist
+    - curl -T dist.zip ftp://$FTP_URL/alloeva.topmaths.fr/ --user $FTP_USERNAME:$FTP_PASSWORD  # Upload using curl
