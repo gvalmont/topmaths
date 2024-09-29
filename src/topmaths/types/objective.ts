@@ -13,7 +13,7 @@ export function isObjectiveReferences (obj: unknown): obj is ObjectiveReference[
   if (obj == null || !Array.isArray(obj)) return false
   return obj.every(isObjectiveReference)
 }
-export const emptyObjectiveReference: ObjectiveReference = objectivesReferences[0]
+export const emptyObjectiveReference: ObjectiveReference = objectivesReferences[0] // keep in sync with build_prepare.ts
 
 export type ObjectiveVideo = {
   title: string,
@@ -192,7 +192,7 @@ export function isObjectiveDownloadLinks (obj: unknown): obj is ObjectiveDownloa
     'testSheetLink' in obj && typeof obj.testSheetLink === 'string' &&
     'lessonPlanLinks' in obj && isStringArrayRecordStringGrade(obj.lessonPlanLinks)
 }
-export const emptyObjectiveDownloadLinks: ObjectiveDownloadLinks = {
+export const emptyObjectiveDownloadLinks: ObjectiveDownloadLinks = { // keep in sync with build_prepare.ts
   practiceSheetLink: '',
   testSheetLink: '',
   lessonPlanLinks: emptyStringArrayRecordStringGrade
@@ -249,7 +249,7 @@ export function isObjectives (obj: unknown, withStringReference: boolean = false
   if (obj == null || !Array.isArray(obj)) return false
   return obj.every(obj => isObjective(obj, withStringReference))
 }
-export const emptyObjective: Objective = {
+export const emptyObjective: Objective = { // keep in sync with build_prepare.ts
   downloadLinks: emptyObjectiveDownloadLinks,
   examExercises: [],
   examExercisesLink: '',

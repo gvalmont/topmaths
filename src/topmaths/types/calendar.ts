@@ -16,7 +16,7 @@ export function toSchoolYearString (year: string): SchoolYearString {
   }
   return year
 }
-export const emptySchoolYearString: SchoolYearString = toSchoolYearString('2000-2001')
+export const emptySchoolYearString: SchoolYearString = toSchoolYearString('2000-2001') // keep in sync with build_prepare.ts
 
 export type ISO8601DateString = string & { // YYYY-MM-DD
   __brand: 'ISO8601DateString'
@@ -112,7 +112,7 @@ export function isCalendarSchoolYears (obj: unknown): obj is CalendarSchoolYear[
   if (obj == null || !Array.isArray(obj)) return false
   return obj.every(isCalendarSchoolYear)
 }
-export const emptyCalendarSchoolYear: CalendarSchoolYear = {
+export const emptyCalendarSchoolYear: CalendarSchoolYear = { // keep in sync with build_prepare.ts
   schoolYearString: emptySchoolYearString,
   start: new Date(),
   end: new Date(),

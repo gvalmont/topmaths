@@ -1,6 +1,6 @@
 import { isStrings } from './shared.js'
 
-export const DEFAULT_GRADE = 'tout'
+export const DEFAULT_GRADE = 'tout' // keep in sync with build_prepare.ts
 
 export const stringGradeValidKeys = <const>[DEFAULT_GRADE, '6e', '5e', '4e', '3e']
 type StringGradeValidKeysType = typeof stringGradeValidKeys

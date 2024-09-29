@@ -13,7 +13,7 @@ export function isUnitReferences (obj: unknown): obj is UnitReference[] {
   if (obj == null || !Array.isArray(obj)) return false
   return obj.every(isUnitReference)
 }
-export const emptyUnitReference: UnitReference = unitsReferences[0]
+export const emptyUnitReference: UnitReference = unitsReferences[0] // keep in sync with build_prepare.ts
 
 export type Review = {
   description: string,
@@ -132,7 +132,7 @@ export function isUnitDownloadLinks (obj: unknown): obj is UnitDownloadLinks {
     'missionLink' in obj && typeof obj.missionLink === 'string' &&
     'lessonPlanLink' in obj && typeof obj.lessonPlanLink === 'string'
 }
-export const emptyUnitDownloadLinks: UnitDownloadLinks = {
+export const emptyUnitDownloadLinks: UnitDownloadLinks = { // keep in sync with build_prepare.ts
   lessonLink: '',
   lessonSummaryLink: '',
   missionLink: '',
@@ -168,7 +168,7 @@ export function isUnits (obj: unknown, withStringReference: boolean = false): ob
   if (obj == null || !Array.isArray(obj)) return false
   return obj.every(obj => isUnit(obj, withStringReference))
 }
-export const emptyUnit: Unit = {
+export const emptyUnit: Unit = { // keep in sync with build_prepare.ts
   assessmentExamLink: '',
   assessmentExamSlug: '',
   assessmentLink: '',

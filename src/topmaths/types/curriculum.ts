@@ -35,7 +35,7 @@ export function isCurriculumValues (obj: unknown): obj is CurriculumValue[] {
   if (obj == null || !Array.isArray(obj)) return false
   return obj.every(isCurriculumValue)
 }
-export const emptyCurriculumValue: CurriculumValue = {
+export const emptyCurriculumValue: CurriculumValue = { // keep in sync with build_prepare.ts
   unitsPerTerm: [],
   cumulateUnitsPerTerm: []
 }
@@ -49,7 +49,7 @@ export function isCurriculum (obj: unknown): obj is Curriculum {
   const entries = Object.entries(obj)
   return entries.every(([key, value]) => isStringGrade(key) && isCurriculumValue(value))
 }
-export const emptyCurriculum: Curriculum = {
+export const emptyCurriculum: Curriculum = { // keep in sync with build_prepare.ts
   tout: deepCopy(emptyCurriculumValue),
   '6e': deepCopy(emptyCurriculumValue),
   '5e': deepCopy(emptyCurriculumValue),

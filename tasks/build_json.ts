@@ -39,6 +39,7 @@ const glossary = buildGlossary()
 const calendar = buildCalendar()
 routineCheck()
 console.warn(warningCount + ' warning' + (warningCount > 1 ? 's' : ''))
+// synchronise them with build_prepare.ts
 writeJson('built_objectives', objectives)
 writeJson('built_units', units)
 writeJson('glossary', glossary)

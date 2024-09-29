@@ -118,7 +118,7 @@ export function isGlossaryUniteItems (obj: unknown, withStringReference = false)
   if (!Array.isArray(obj)) return false
   return obj.every(obj => isGlossaryUniteItem(obj, withStringReference))
 }
-export const emptyGlossaryUniteItem: GlossaryUniteItem = {
+export const emptyGlossaryUniteItem: GlossaryUniteItem = { // keep in sync with build_prepare.ts
   comments: [],
   content: '',
   examples: [],
