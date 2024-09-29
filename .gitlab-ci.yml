@@ -1,5 +1,6 @@
 # The Docker image that will be used to build your app
 image: node:lts
+
 # Functions that should be executed before the build script is run
 before_script:
   - npm ci
@@ -10,14 +11,25 @@ before_script:
   - node tmp/tasks/build_pdf.js
   - ./node_modules/.bin/tsc -p tsconfig-tasks.json
   - node tmp/tasks/build_json.js
-pages:
+
+# Build the project and zip the dist/ folder
+build:
+  stage: build
   script:
-    - npx vite build
+    - npx vite build               # Build the project using Vite
+    - zip -r dist.zip dist/         # Zip the dist folder into dist.zip
   artifacts:
     paths:
-      # The folder that contains the files to be exposed at the Page URL
-      - dist
+      - dist.zip                    # Upload the zipped dist folder as an artifact
+
+# Pages job to deploy the unzipped artifacts
+pages:
+  stage: deploy
+  script:
+    - unzip dist.zip                # Unzip the artifact
+  artifacts:
+    paths:
+      - dist/                       # The unzipped dist folder to be deployed
   rules:
-    # This ensures that only pushes to the default branch will trigger
-    # a pages deploy
+    # Only run this job for commits on the default branch
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
