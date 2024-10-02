@@ -638,6 +638,21 @@
                     "segments": [
                       {
                         "steps": [
+                          "Apprendre ce qu'est un angle droit",
+                          "Interroger des élèves au hasard pour qu'ils donnent des exemples d'angle droit visibles dans la classe",
+                          "Écrire au tableau la consigne \"Tracer deux droites perpendiculaires\"",
+                          "Apprendre le sens du mot \"perpendiculaire\"",
+                          "Tracer deux droites perpendiculaires dans le cahier, partie exercice",
+                          "Lorsque quelqu'un a réussi 2 fois, il peut aider les autres",
+                          "Quand tout le monde a réussi 2 fois, présentation",
+                          "Distribuer les photocopies Pokémon, les laisser faire des échanges",
+                          "On trace le premier trait ensemble (montrer l'exemple au tableau)",
+                          "Montrer comment faire la suite en insistant sur le mot perpendiculaires et en évitant le mot parallèles",
+                          "À terminer à la maison et à colorier, noté"
+                        ]
+                      },
+                      {
+                        "steps": [
                           "Présentation",
                           "Distribuer les photocopies d'entraînement",
                           "Apprentissage explicite de la méthode",
@@ -3132,8 +3147,19 @@
               {
                 "reference": "6P10",
                 "titleAcademic": "Reconnaître une situation de proportionnalité",
-                "lessonSummaryHTML": "<p>Deux grandeurs (longueur, prix, masse, durée etc.) sont <i>proportionnelles</i> si les valeurs de l'une s'obtiennent en multipliant les valeurs de l'autre par un même nombre appelé <i>coefficient de proportionnalité.</i></p>",
+                "lessonSummaryHTML": "<p>Deux grandeurs (longueur, prix, masse, durée etc.) sont <i>proportionnelles</i> si elles se multiplient de la même façon (si les valeurs de l'une s'obtiennent en multipliant les valeurs de l'autre par un même nombre appelé <i>coefficient de proportionnalité</i>).</p>",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "description": "Connaître les tables de multiplication",
+                    "objectiveReference": "6C10",
+                    "slugsWithSeed": [
+                      "uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10-11-12&s2=1-2&s3=false&alea=L8M5",
+                      "uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10-11-12&s2=1-2&s3=false&alea=Pxfd",
+                      "uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10-11-12&s2=1-2&s3=false&alea=TJ1z"
+                    ]
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -3148,7 +3174,42 @@
                     "description": ""
                   }
                 ],
-                "lessonPlans": []
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "6P10_Presentation-1",
+                      "6P10_Presentation-2"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "title": "Apprendre à identifier des grandeurs",
+                        "steps": [
+                          "Expliquer ce qu'est une grandeur",
+                          "Demander à des élèves au hasard de répéter",
+                          "Demander à des élèves au hasard de donner des exemples de grandeurs",
+                          "Relancer plusieurs fois https://topmaths.fr/?v=objective&ref=6P10 en demandant à des élèves au hasard d'identifier les grandeurs",
+                          "Noter le cours"
+                        ]
+                      },
+                      {
+                        "title": "Reconnaître une situation de proportionnalité",
+                        "steps": [
+                          "J'identifie les deux grandeurs",
+                          "Je ne regarde qu'une grandeur",
+                          "Je regarde il y en a combien avant, et combien après",
+                          "Je me demande \"après, c'est combien de fois avant ?\" (s'il n'y a pas de valeur pour après, j'imagine qu'il y en a par exemple 10 fois plus)",
+                          "Je regarde l'autre grandeur",
+                          "J'imagine ce qui se passerait si je multipliais par le même nombre que la première grandeur",
+                          "Si ça m'a l'air réaliste, je pense que c'est proportionnel, si ça m'a l'air impossible, je pense que ce n'est pas proportionnel",
+                          "Noter le cours"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
+                  }
+                ]
               },
               {
                 "reference": "6P11",
@@ -3171,7 +3232,27 @@
                     "description": ""
                   }
                 ],
-                "lessonPlans": []
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "title": "",
+                        "steps": [
+                          "_En le schématisant au fur et à mesure_",
+                          "J'identifie les deux grandeurs",
+                          "Je ne regarde pour quelle grandeur on a des informations pour avant et après",
+                          "Je me demande \"après, c'est combien de fois avant ?\" (s'il n'y a pas de valeur pour après, j'imagine qu'il y en a par exemple 10 fois plus)",
+                          "Je regarde l'autre grandeur",
+                          "Je multiple par le même nombre que la première grandeur"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
+                  }
+                ]
               },
               {
                 "reference": "6P12",
