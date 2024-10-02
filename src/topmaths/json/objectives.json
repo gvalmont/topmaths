@@ -7867,25 +7867,6 @@
             "name": "3S1 Statistiques",
             "objectives": [
               {
-                "reference": "3S10",
-                "titleAcademic": "Calculer et interpréter la médiane d'une série de données",
-                "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
-                "videos": [
-                  {
-                    "title": "",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=lv9ZJ8dGn54&vignette=https://i.ytimg.com/vi/lv9ZJ8dGn54/hqdefault.jpg&debut=0&fin=343&largeur=200&hauteur=113",
-                    "authorName": "Yvan Monka",
-                    "authorLink": "https://www.youtube.com/c/YMONKA"
-                  }
-                ],
-                "exercises": [
-                  {
-                    "slug": "uuid=7c068&id=4S11&n=2&d=10&s=1"
-                  }
-                ]
-              },
-              {
                 "reference": "3S11",
                 "titleAcademic": "Calculer et interpréter l'étendue d'une série de données",
                 "lessonSummaryHTML": "<b><i>L'étendue</i></b> est l'écart entre la plus grande et la plus petite valeur d'une série.",
