@@ -12,7 +12,7 @@ import { deepCopy, type TuplesToArraysRecursive, type ReplaceReferencesByStrings
 import { DEFAULT_GRADE, emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/grade.js'
 import { buildGradeFromObjectiveReference, isReferenceIgnored } from '../src/topmaths/services/reference.js'
 import { EXERCISE_PARAM_ADDENDUM, isMathalea, REGULAR_VIEW_ADDENDUM, SLIDESHOW_VIEW_ADDENDUM, TOPMATHS_BASE_URL } from '../src/topmaths/services/environment.js'
-import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference, isSlugsWithSeed, type ObjectivePrerequisite, type ObjectiveLessonPlan, emptyObjectiveLessonPlanSegment, isObjectiveReference, type ObjectivePrerequisiteWithStringReference, isObjectivePrerequisitesWithStringReference } from '../src/topmaths/types/objective.js'
+import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference, isSlugsWithSeed, type ObjectivePrerequisite, type ObjectiveLessonPlan, emptyObjectiveLessonPlanSegment, type ObjectivePrerequisiteWithStringReference, isObjectivePrerequisitesWithStringReference } from '../src/topmaths/types/objective.js'
 import { type Unit, type UnitObjective, emptyUnitDownloadLinks, type UnitLessonPlan, isUnitLessonPlans, type UnitWithStringReference, type UnitReference, isUnitWithStringReference, emptyUnitLessonPlan, isUnitReference } from '../src/topmaths/types/unit.js'
 import { emptyGlossaryMasterItem, type GlossaryItemWithStringReference, type GlossaryMasterItem, type GlossaryMasterItemWithStringReference, type GlossaryRelatedItem, type GlossaryUniteItemWithStringReference, isGlossaryMasterItemWithStringReference, isGlossaryUniteItemsWithStringReference } from '../src/topmaths/types/glossary.js'
 import { type CalendarSchoolYearMaster, isCalendarSchoolYearMasters, type CalendarSchoolYear, isCalendarSchoolYears, type CalendarPeriod } from '../src/topmaths/types/calendar.js'
@@ -197,7 +197,7 @@ function updateUnitConsolidationReviews (): void {
     for (let i = 0; i < gradeUnitObjectivesLessonPlans.length; i++) {
       const currentObjective = gradeUnitObjectivesLessonPlans[i].objective
       const reference = currentObjective.reference
-      if (isObjectiveReference(reference) && isReferenceIgnored(reference)) continue
+      if (isReferenceIgnored(reference as ObjectiveReference)) continue // objectiveReferences.ts is not populated yet
       const currentLessonPlan = gradeUnitObjectivesLessonPlans[i].lessonPlan
       if (gradeUnitObjectivesLessonPlans[i + 1] && currentLessonPlan.objectiveReference === gradeUnitObjectivesLessonPlans[i + 1].lessonPlan.objectiveReference) {
         continue // To avoid duplicated reviews when an objective has multiple lesson plans
@@ -233,7 +233,7 @@ function getGradeUnitObjectivesLessonsPlans (grade: StringGrade): GradeUnitObjec
     .map(unit => unit.objectives
       .filter(objective => {
         const reference = objective.reference
-        return isObjectiveReference(reference) && !isReferenceIgnored(reference)
+        return !isReferenceIgnored(reference as ObjectiveReference) // objectiveReferences.ts is not populated yet
       })
       .map(objective => {
         return objective.lessonPlans
@@ -349,7 +349,7 @@ function formatItem (item: RecursivePartial<GlossaryMasterItem>, type: 'définit
   const gradeCandidates = item.relatedObjectives
     .filter(relatedObjective => relatedObjective !== undefined)
     .map(relatedObjective => {
-      return isObjectiveReference(relatedObjective) && buildGradeFromObjectiveReference(relatedObjective)
+      return buildGradeFromObjectiveReference(relatedObjective as ObjectiveReference) // objectiveReferences.ts is not populated yet
     })
   item.grades = gradeCandidates.filter(isStringGrade)
   item.relatedItems = item.relatedItems ?? []
