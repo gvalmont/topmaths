@@ -19,6 +19,7 @@
   import seedrandom from 'seedrandom'
   import { randint } from '../../../modules/outils'
   import { showDialogForLimitedTime } from '../../../lib/components/dialogs'
+    import { premiereLettreEnMajuscule } from '../../../lib/outils/outilString';
 
   export let isMd: boolean
 
@@ -270,6 +271,12 @@ function zoomUpdate (plusMinus: '+' | '-', exerciseIndex: number): void {
   exercisesWithMeta[exerciseIndex].zoom = newZoom
 }
 </script>
+
+<svelte:head>
+  <title>
+    {exercisesWithMeta.map(exerciseWithMeta => premiereLettreEnMajuscule(exerciseWithMeta.exercise?.titre)).join(' - ')}
+  </title>
+</svelte:head>
 
 <div
   id="exercises-list"
