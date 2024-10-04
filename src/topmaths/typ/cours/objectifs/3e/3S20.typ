@@ -28,6 +28,7 @@
 
   + Quelle est la probabilité qu’il soit habillé tout en rouge ?
   + Quelle est la probabilité qu’il soit habillé entièrement de la même couleur~?
+  + Quelle est la probabilité qu'il soit habillé de deux couleurs différentes~?
 
   #set text(couleurPrincipale)
   On peut noter toutes les issues dans un tableau à double entrée :
@@ -41,28 +42,26 @@
     #show "V": vert
     #show "Vert": vert
     #table(
-      columns: 6,
+      columns: 3,
       align: horizon + center,
       [
         #place(top + right)[Tee-shirt]
         #place(bottom + left)[Short]
         #math.cancel(inverted: true)[#phantom()[Tee-shirt - Short\ Tee-shirt - Short]]
-      ], [Bleu (B)], [Bleu (B)], [Rouge (R)], [Rouge (R)], [Rouge (R)],
-      [Bleu], [(B ; B)], [(B ; B)], [(B ; R)], [(B ; R)], [(B ; R)],
-      [Bleu], [(B ; B)], [(B ; B)], [(B ; R)], [(B ; R)], [(B ; R)],
-      [Bleu], [(B ; B)], [(B ; B)], [(B ; R)], [(B ; R)], [(B ; R)],
-      [Rouge], [(R ; B)], [(R ; B)], [(R ; R)], [(R ; R)], [(R ; R)],
-      [Vert], [(V ; B)], [(V ; B)], [(V ; R)], [(V ; R)], [(V ; R)],
-      [Vert], [(V ; B)], [(V ; B)], [(V ; R)], [(V ; R)], [(V ; R)]
+      ], [Bleu (B)], [Rouge (R)],
+      [Bleu], [(B ; B)], [(B ; R)],
+      [Rouge], [(R ; B)], [(R ; R)],
+      [Vert], [(V ; B)], [(V ; R)]
     )
   ]
 
 
-  + On peut lire sur le tableau qu’il y a $3$ possibilités pour qu’il soit tout en rouge sur un total de $30$ possibilités. La probabilité qu’il soit habillé tout en rouge est donc $3/30$.
+  + On peut lire sur le tableau qu’il y a $1$ possibilité pour qu’il soit tout en rouge sur un total de $6$ possibilités. La probabilité qu’il soit habillé tout en rouge est donc $1/6$.
   + On peut lire sur le tableau qu’il y a~:
-    - 6 possibilités pour qu’il soit tout en bleu~;
-    - 3 possibilités pour qu’il soit tout en rouge~;
-    - 0 possibilités pour qu’il soit tout en vert~;
-    sur un total de 30 possibilités.\
-    La probabilité qu’il soit habillé entièrement de la même couleur est donc $(6+3+0)/30 = 9/30$
+    - 1 possibilité pour qu’il soit tout en bleu~;
+    - 1 possibilité pour qu’il soit tout en rouge~;
+    sur un total de 6 possibilités.\
+    La probabilité qu’il soit habillé entièrement de la même couleur est donc $(1+1)/6 = 2/6$
+  + On peut lire sur le tableau qu'il y a 4 possibilités pour qu'il soit habillé de deux couleurs différentes sur un total de 6 possibilités.\
+    La probabilité qu'il soit habillé de deux couleurs différentes est donc $4/6$.
 ]
