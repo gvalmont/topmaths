@@ -28,7 +28,7 @@ export const refs = {
   'fr-fr': ['3A13-5'],
   'fr-ch': ['9NO4-25']
 }
-export default function DivisionEuclienneEtAjout () {
+export default function DivisionEuclidienneEtAjout () {
   Exercice.call(this)
   this.spacing = 1
   this.nbQuestions = 5
@@ -90,7 +90,7 @@ export default function DivisionEuclienneEtAjout () {
 
       if (this.interactif) {
         setReponse(this, i, reponse)
-        texte += '<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur15')
+        texte += '<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur01')
       }
       if (context.isAmc) {
         this.autoCorrection[i] = this.sup

@@ -4,6 +4,7 @@ import {
   type Parser,
   type LatexDictionaryEntry
 } from '@cortex-js/compute-engine'
+import { abs } from '../../lib/outils/nombres'
 // import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
@@ -30,6 +31,7 @@ export type OptionsComparaisonType = {
   calculSeulementEtNonOperation?: boolean
   ensembleDeNombres ?:boolean
   kUplet ? :boolean
+  suiteDeNombres ?:boolean
   HMS?: boolean
   intervalle?: boolean
   estDansIntervalle?: boolean
@@ -508,7 +510,8 @@ export function fonctionComparaison (
     operationSeulementEtNonCalcul, // Documenté
     calculSeulementEtNonOperation, // Documenté
     ensembleDeNombres, // Documenté
-    kUplet,
+    kUplet, // Documenté
+    suiteDeNombres,
     HMS,
     intervalle,
     estDansIntervalle,
@@ -535,6 +538,7 @@ export function fonctionComparaison (
     calculSeulementEtNonOperation: false,
     ensembleDeNombres: false,
     kUplet: false,
+    suiteDeNombres: false,
     HMS: false,
     intervalle: false,
     estDansIntervalle: false,
@@ -569,6 +573,7 @@ export function fonctionComparaison (
   if (egaliteExpression) return egaliteCompare(input, goodAnswer)
   if (nombreAvecEspace) return numberWithSpaceCompare(input, goodAnswer)
   if (ensembleDeNombres || kUplet) return ensembleNombres(input, goodAnswer, { kUplet }) // ensembleDeNombres est non trié alors que kUplet nécessite le tri
+  if (suiteDeNombres) return ensembleNombres(input, goodAnswer, { avecAccolades: false })
   if (fractionSimplifiee || fractionReduite || fractionIrreductible || fractionDecimale || fractionEgale) return comparaisonFraction(input, goodAnswer, { fractionReduite, fractionIrreductible, fractionDecimale, fractionEgale }) // feedback OK
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer, {
@@ -1317,19 +1322,24 @@ export function setsCompare (input: string, goodAnswer: string): ResultType {
  * @author Eric Elter
  */
 export function ensembleNombres (input: string, goodAnswer: string, {
-  kUplet = false
+  kUplet = false, avecAccolades = true
 }
 = {}): ResultType {
   const clean = generateCleaner(['virgules', 'fractions', 'parentheses'])
   const cleanInput = clean(input)
   if (goodAnswer === '\\emptyset' && cleanInput === goodAnswer) return { isOk: true }
   if (goodAnswer === '\\emptyset' && cleanInput.includes('\\emptyset')) return { isOk: false, feedback: 'Résultat incorrect car $\\emptyset doit être écrit seul.' }
-
-  console.log(cleanInput, goodAnswer, goodAnswer.length)
-  if (cleanInput[1] !== '{') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit commencer par une accolade.' }
-  if (cleanInput[cleanInput.length - 1] !== '}') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit se terminer par une accolade.' }
-  const splitInput = cleanInput.replaceAll('\\{', '').replaceAll('\\}', '').split(';')
-  const splitGoodAnswer = clean(goodAnswer).replaceAll('\\{', '').replaceAll('\\}', '').split(';')
+  let splitInput
+  let splitGoodAnswer
+  if (avecAccolades) {
+    if (cleanInput[1] !== '{') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit commencer par une accolade.' }
+    if (cleanInput[cleanInput.length - 1] !== '}') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit se terminer par une accolade.' }
+    splitInput = cleanInput.replaceAll('\\{', '').replaceAll('\\}', '').split(';')
+    splitGoodAnswer = clean(goodAnswer).replaceAll('\\{', '').replaceAll('\\}', '').split(';')
+  } else {
+    splitInput = cleanInput.split(';')
+    splitGoodAnswer = clean(goodAnswer).split(';')
+  }
 
   // Pour vérifier la présence de doublons
   if (new Set(splitInput).size !== splitInput.length) return { isOk: false, feedback: 'Résultat incorrect car cet ensemble contient des valeurs redondantes.' }
@@ -1382,6 +1392,7 @@ function intervalsCompare (input: string, goodAnswer: string) {
   const borneAndOpReponse = localGoodAnswer.match(extractBornesAndOp)
   const crochetsSaisie = localInput.match(extractCrochets)
   const crochetsReponse = localGoodAnswer.match(extractCrochets)
+  // console.log(localInput, localGoodAnswer, borneAndOpSaisie, borneAndOpReponse)
   if (
     borneAndOpSaisie != null &&
     borneAndOpReponse != null &&
@@ -1393,8 +1404,9 @@ function intervalsCompare (input: string, goodAnswer: string) {
     }
     // On teste les bornes et les opérateurs
     let i: number
+    isOk1 = true
     for (i = 0; i < borneAndOpSaisie.length; i++) {
-      isOk1 = fonctionComparaison(
+      isOk1 &&= fonctionComparaison(
         borneAndOpSaisie[i],
         borneAndOpReponse[i]
       ).isOk
@@ -1867,14 +1879,15 @@ export function numberWithSpaceCompare (
   input: string,
   goodAnswer: string
 ): ResultType {
+  const inputCleanFirst = input.replaceAll(/(\s{2,})(?=\d{3})/g, ' ').trim() // EE : l'élève peut avoir un saisi un espace avant ou après le nombre et avoir saisi des doubles espaces sans qu'on lui en tienne rigueur tant qu'ils séparent bien les classes, évidemment.
   const clean = generateCleaner(['espaces'])
   const inputClean = clean(input)
   const goodAnswerClean = clean(goodAnswer)
   let feedback = ''
-  if (input !== goodAnswer && inputClean === goodAnswerClean) {
+  if (inputCleanFirst !== goodAnswer && inputClean === goodAnswerClean) {
     feedback = 'Le nombre est mal écrit, il faut faire attention aux espaces.'
   }
-  return { isOk: input === goodAnswer, feedback }
+  return { isOk: inputCleanFirst === goodAnswer, feedback }
 }
 
 export function exprCompare (
@@ -1938,4 +1951,94 @@ export function exprCompare (
     }
   }
   return { isOk, feedback }
+}
+
+export function checkLeCompteEstBon ( // Ne fonctionne que si numbers est un tableau de nombres POSITIFS.
+  input: string,
+  numbers: number[],
+  target: number,
+  quatreOperationsObligatoires:boolean
+): ResultType {
+  const clean = generateCleaner([
+    'virgules',
+    'parentheses',
+    'fractions',
+    'divisions'
+  ])
+  const inputClean = clean(input)
+
+  // At first, check that the value of the expression is correct
+  const answer = engine.parse(inputClean, { canonical: false }) as BoxedExpression
+  const value = answer.value
+  if (value !== target) { return { isOk: false, feedback: `L'expression vaut ${value} et non ${target}.` } }
+
+  // Count each operator
+  let addCount = 0
+  let multiplyCount = 0
+  let divideCount = 0
+  let subtractCount = 0
+
+  let tropDeNombres = false
+  let nombresEnDoublon = false
+  let mauvaisNombre = false
+  let symboleNonAutorise = false
+  let operationNonAutorisee = false
+
+  const listeNombresEnonce = [...numbers]
+  const visit: (node: BoxedExpression) => void = (node) => {
+    if (node.numericValue !== null) {
+      if (listeNombresEnonce.length === 0) {
+        if (numbers.includes(abs(node.value as number))) { // abs obligatoire car sinon, poir 5-3, il tente de chercher -3.
+          nombresEnDoublon = true
+          return 'Au moins un nombre en doublon'
+        } else {
+          tropDeNombres = true
+          return 'Au moins un nombre en trop'
+        }
+      } else if (listeNombresEnonce.includes(abs(node.value as number))) {
+        // J'enlève cet élément de la liste
+        listeNombresEnonce.splice(listeNombresEnonce.indexOf(abs(node.value)), 1)
+      } else {
+        mauvaisNombre = true
+        return 'Au moins un mauvais nombre parmi ceux proposés'
+      }
+    }
+
+    if (node.symbol) {
+      symboleNonAutorise = true
+      return 'L\'expression contient un symbole non autorisé.'
+    }
+    if (node.head) {
+      if (node.head !== 'Number' && node.head !== 'Delimiter') {
+        switch (node.head) {
+          case 'Add':
+            addCount++
+            break
+          case 'Multiply':
+            multiplyCount++
+            break
+          case 'Divide':
+            divideCount++
+            break
+          case 'Subtract':
+            subtractCount++
+            break
+          default:
+            operationNonAutorisee = true
+        }
+      }
+      if (node.ops !== null) node.ops!.forEach(visit)
+      else return ('OK')
+    }
+  }
+
+  visit(answer)
+  if (tropDeNombres) return { isOk: false, feedback: 'L\'expression utilise plus de nombres que demandés.' }
+  if (nombresEnDoublon) return { isOk: false, feedback: 'L\'expression utilise plusieurs fois un même nombre parmi ceux proposés.' }
+  if (mauvaisNombre) return { isOk: false, feedback: 'L\'expression utilise au moins un nombre non autorisé.' }
+  if (symboleNonAutorise) return { isOk: false, feedback: 'L\'expression contient un symbole non autorisé.' }
+  if (operationNonAutorisee) return { isOk: false, feedback: 'L\'expression de doit contenir que des additions, des soustractions, des multiplications, des divisions ou des parenthèses.' }
+  if (quatreOperationsObligatoires && !(addCount === 1 && divideCount === 1 && subtractCount === 1 && multiplyCount === 1)) return { isOk: false, feedback: 'L\'expression doit contenir une addition, une soustraction, une multiplication et une division.' }
+
+  return { isOk: true, feedback: '' } // L'expression est correcte.
 }

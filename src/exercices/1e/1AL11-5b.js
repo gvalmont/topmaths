@@ -2,7 +2,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { randint } from '../../modules/outils.js'
-export const titre = 'Somme des termes d\'une suite arithmétique'
+export const titre = 'Calculer la somme des termes d\'une suite arithmétique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -14,9 +14,9 @@ export const dateDePublication = '30/11/2021'
  * Référence 1N12
 */
 export const uuid = 'cfac9'
-export const ref = '1AL11-41'
+export const ref = '1AL11-5b'
 export const refs = {
-  'fr-fr': ['1AL11-41'],
+  'fr-fr': ['1AL11-5b'],
   'fr-ch': []
 }
 export default class SommeSuiteArithmetique extends Exercice {

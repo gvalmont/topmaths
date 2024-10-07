@@ -2,7 +2,7 @@ import { milieu, point, tracePoint } from '../../lib/2d/points.js'
 import { cone as cone2d, sphere2d } from '../../lib/2d/projections3d.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { homothetie } from '../../lib/2d/transformations.js'
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
 import {
   arc3d,
@@ -48,7 +48,7 @@ export default class ReconnaitreDesSolides extends Exercice {
     super()
     this.nbQuestions = 5
     this.nbCols = 4
-    this.formatChampTexte = 'largeur15 inline'
+    this.formatChampTexte = 'largeur01 inline'
     this.sup = '8' // Type de question
     this.sup2 = false // qcm
     this.sup3 = false // axes

@@ -4,7 +4,7 @@ import { texNombre, stringNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { max } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -306,16 +306,15 @@ export default function SommeFractionsDecimales () {
       if (this.interactif) {
         if (this.sup2 === 3) {
           texte += remplisLesBlancs(this, i, '= ~  %{champ1} ~ = ~ %{champ2}', 'inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction, '\\ldots\\ldots')
-          //   texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline', { texteAvant: `${sp(6)}=` })
-        //  texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline', { texteAvant: `${sp(6)}=` })
+          //   texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline', { texteAvant: `${sp(6)}=` })
+        //  texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline', { texteAvant: `${sp(6)}=` })
         } else {
           // texte += remplisLesBlancs(this, i, '= ~ %{champ1}', 'inline nospacebefore ' + this.sup2 === 1 ? KeyboardType.clavierNumbers : KeyboardType.clavierDeBaseAvecFraction, '\\ldots\\ldots')
           texte += remplisLesBlancs(this, i, '= ~ %{champ1}', 'inline nospacebefore ' + (this.sup2 === 1 ? KeyboardType.clavierNumbers : KeyboardType.clavierDeBaseAvecFraction), '\\ldots\\ldots')
-          // texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: `${sp(6)}=` })
+          // texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: `${sp(6)}=` })
         }
       }
 
-      texte += ajouteFeedback(this, i)
       if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

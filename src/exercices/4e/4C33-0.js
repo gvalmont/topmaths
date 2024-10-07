@@ -3,7 +3,10 @@ import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Utiliser la notation puissance'
 export const interactifReady = true
@@ -116,6 +119,10 @@ export default function NotationPuissance () {
       exposant < 0 ? exp = `{${exposant}}` : exp = `${exposant}` // distinction importante pour comparer les chaînes de caractères en interactif
       puissances.push(`${listeSignes[i] + pl + mantisse + pr}^${exp}`) // réponse de base
       exposant % 2 === 0 ? puissances.push(`${listeSignes[i] + apl + -mantisse + apr}^${exp}`) : puissances.push(`${signeContraire + apl + -mantisse + apr}^${exp}`) // si l'exposant est pair, on peut changer le signe de la mantisse sans changer le signe devant et s'il est impair, on peut changer les deux signes
+      if (exposant < 0) {
+        puissances.push(`\\frac{1}{${listeSignes[i] + pl + mantisse + pr}^${-exposant}}`)
+        exposant % 2 === 0 ? puissances.push(`\\frac{1}{${listeSignes[i] + apl + -mantisse + apr}^${-exposant}}`) : puissances.push(`\\frac{1}{${signeContraire + apl + -mantisse + apr}^${-exposant}}`) // si l'exposant est pair, on peut changer le signe de la mantisse sans changer le signe devant et s'il est impair, on peut changer les deux signes
+      }
       produit = `${pl + mantisse + pr}`
       produitSansParenthesesInitiales = `${mantisse}`
       produitAlt = produit
@@ -169,12 +176,12 @@ export default function NotationPuissance () {
           }
           texte = this.sup === 3 ? `Simplifier ${enonce} en utilisant la notation puissance` : enonce
           texteCorr = correction
-          setReponse(this, i, puissances, { formatInteractif: 'ignorerCasse' })
+          handleAnswers(this, i, { reponse: { value: puissances, compare: fonctionComparaison, options: { puissance: true } } })
           break
         }
       }
 
-      texte += this.interactif ? ' = ' + ajouteChampTexteMathLive(this, i, 'inline largeur01', { tailleExtensible: true }) : ''
+      texte += this.interactif ? (this.sup === 3 ? ' : ' : ' = ') + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore ' + KeyboardType.clavierFullOperations) : ''
       if (this.sup === 3) texte += '.'
 
       if (context.isAmc) {
@@ -182,6 +189,21 @@ export default function NotationPuissance () {
         this.autoCorrection[i].enonce = this.sup === 3 ? texte + ' $=\\ldots$<br>' : ('Compléter : ' + texte + ' $=\\ldots$')
         this.autoCorrection[i].propositions = [{ statut: 1, sanscadre: true, texte: texteCorr }]
       }
+
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+
+      // Fin de cette uniformisation
+
       // Si la question n'mantisse jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, mantisse, exposant, listeTypeDeQuestions[i], listeSignesExposants[i], listeSignes[i])) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple mantisse, exposant, c et d)
         this.listeQuestions.push(texte)

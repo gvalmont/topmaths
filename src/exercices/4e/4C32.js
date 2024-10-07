@@ -9,6 +9,7 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Associer un nombre décimal à sa notation scientifique'
 export const interactifReady = true
@@ -104,15 +105,15 @@ export default function NotationScientifique () {
       }
       texte = texteAMC + `$${sp()}=$`
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore')
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore ' + (this.sup === 2 ? KeyboardType.clavierDeBase : KeyboardType.clavierFullOperations))
       } else {
         texte += `$${sp()}\\dots$`
       }
 
-      if (this.questionJamaisPosee(i, texte)) {
+      if (this.questionJamaisPosee(i, mantisse, exp)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        if (parseInt(this.sup) === 1) {
+        if (this.sup === 1) {
           setReponse(this, i, reponse.replace(/\\thickspace /g, '').replace(/ /g, ''), {
             formatInteractif: 'ecritureScientifique',
             digits: listeTypeDeQuestions[i] + 1,
@@ -165,6 +166,10 @@ export default function NotationScientifique () {
         i++
       }
       cpt++
+    }
+    if (this.can) {
+      this.listeQuestions[0] = `${this.consigne.substring(0, this.consigne.length - 1)} : ${this.listeQuestions[0]}`
+      this.consigne = ''
     }
     listeQuestionsToContenu(this)
   }

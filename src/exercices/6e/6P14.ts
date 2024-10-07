@@ -122,7 +122,7 @@ class AgrandirReduireFigure extends Exercice {
             }, fixeBordures(objets)), objets)
             texte += enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               setReponse(this, i + ii, reponse)
             } else if (!context.isAmc) {
               texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du triangle ${nom}.`
@@ -213,7 +213,7 @@ class AgrandirReduireFigure extends Exercice {
             }, fixeBordures(objets)), objets)
             texte += enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               setReponse(this, i + ii, reponse)
             } else if (!context.isAmc) {
               texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du carré ${nom}.`
@@ -275,7 +275,6 @@ class AgrandirReduireFigure extends Exercice {
           case 3: { // Triangle avec coefficient de réduction ou d'agrandissement
             const absC = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB]) : 2 * randint(4, 7, [arrondi(absB / 2, 0)])
             // Le code ci-dessous ne permet pas dans certains cas de trouver une valeur aléatoire
-            // absD = Object.values(aleaVariables({ absD: true, test: `absD>0 and absD<${absB + absC} and ${absB}<absD+${absC} and ${absC}<absD+${absB}` }, { valueOf: true }))[0]
             const absD = choixAgrandissementOuReduction < 4 ? randint(1 + Math.abs(absB - absC), absB + absC - 1, [6, 9, absB, absC]) : 2 * randint(4, 7, [arrondi(absB / 2, 0), arrondi(absC / 2, 0)])
             const reponse = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absB, 1)
             const reponse1 = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absC, 1)
@@ -310,13 +309,13 @@ class AgrandirReduireFigure extends Exercice {
             if (this.interactif) {
               texte = enonceInit
               texte += enonceAMC
-              texte += '<br> Dans le nouveau triangle, la plus petite longueur sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += '<br> Dans le nouveau triangle, la plus petite longueur sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               setReponse(this, i + ii, min(reponse, reponse1, reponse2))
               ii++
-              texte += '<br> Dans le nouveau triangle, la plus grande longueur sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += '<br> Dans le nouveau triangle, la plus grande longueur sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               setReponse(this, i + ii, max(reponse, reponse1, reponse2))
               ii++
-              texte += '<br> Dans le nouveau triangle, la dernière longueur sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += '<br> Dans le nouveau triangle, la dernière longueur sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               let derniereReponse = [reponse, reponse1, reponse2].slice([reponse, reponse1, reponse2].indexOf(min(reponse, reponse1, reponse2)))
               derniereReponse = derniereReponse.slice(derniereReponse.indexOf(max(reponse, reponse1, reponse2)))
               setReponse(this, i + ii, derniereReponse)
@@ -424,7 +423,6 @@ class AgrandirReduireFigure extends Exercice {
           case 4: { // Triangle avec longueur initiale et longueur finale
             const absC = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB]) : 2 * randint(4, 7, [arrondi(absB / 2, 0)])
             // Le code ci-dessous ne permet pas dans certains cas de trouver une valeur aléatoire
-            // absD = Object.values(aleaVariables({ absD: true, test: `absD>0 and absD<${absB + absC} and ${absB}<absD+${absC} and ${absC}<absD+${absB}` }, { valueOf: true }))[0]
             const absD = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB, absC]) : 2 * randint(4, 7, [arrondi(absB / 2, 0), arrondi(absC / 2, 0)])
             const reponse = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absB, 1)
             const reponse1 = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absC, 1)
@@ -459,10 +457,10 @@ class AgrandirReduireFigure extends Exercice {
             if (this.interactif) {
               texte = enonceInit
               texte += enonceAMC
-              texte += '<br> Dans le nouveau triangle, la plus petite longueur à trouver sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += '<br> Dans le nouveau triangle, la plus petite longueur à trouver sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               setReponse(this, i + ii, min(reponse, reponse1))
               ii++
-              texte += '<br> Dans le nouveau triangle, la plus grande longueur à trouver sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += '<br> Dans le nouveau triangle, la plus grande longueur à trouver sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               setReponse(this, i + ii, max(reponse, reponse1))
             } else if (!context.isAmc) {
               texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC)}] mesurera $${texNombre(reponse2)}$.`
@@ -585,10 +583,10 @@ class AgrandirReduireFigure extends Exercice {
             if (this.interactif) {
               texte = enonceInit
               texte += enonceAMC
-              texte += '<br> Dans le nouveau rectangle, le côté le moins long aura pour longueur : ' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += '<br> Dans le nouveau rectangle, le côté le moins long aura pour longueur : ' + ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               setReponse(this, i + ii, min(reponse, reponse1))
               ii++
-              texte += '<br> Dans le nouveau rectangle, le côté le plus long aura pour longueur : ' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += '<br> Dans le nouveau rectangle, le côté le plus long aura pour longueur : ' + ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               setReponse(this, i + ii, max(reponse, reponse1))
             } else if (!context.isAmc) {
               texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du rectangle ${nom}.`
@@ -710,7 +708,7 @@ class AgrandirReduireFigure extends Exercice {
             }, fixeBordures(objets)), objets)
             if (this.interactif) {
               texte = enonceInit
-              texte += ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               texte += enonceAMC
               setReponse(this, i + ii, reponse1)
             } else if (!context.isAmc) {

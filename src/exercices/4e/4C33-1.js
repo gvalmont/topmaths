@@ -11,6 +11,7 @@ import Exercice from '../deprecatedExercice.js'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Effectuer des calculs avec des puissances'
 export const interactifReady = true
@@ -64,9 +65,7 @@ export function reorganiseProduitPuissance (b1, b2, e, couleur1, couleur2) {
 
 export default function PuissancesDunRelatif1 () {
   Exercice.call(this)
-  context.isHtml
-    ? (this.consigne = 'Écrire sous la forme $\\mathbf{a^n}$.')
-    : (this.consigne = 'Écrire sous la forme $a^n$.')
+  this.consigne = 'Écrire sous la forme $a^n$.'
   context.isHtml ? (this.spacing = 3) : (this.spacing = 2)
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.nbQuestions = 5
@@ -75,7 +74,6 @@ export default function PuissancesDunRelatif1 () {
   this.sup = 5
   this.sup2 = 1
   this.classe = 4
-
 
   // une fonction pour des infos supp sur les exposants
   function remarquesPuissances (base, baseUtile, exposant) {
@@ -358,7 +356,7 @@ export default function PuissancesDunRelatif1 () {
 
       if (this.interactif && !context.isAmc) {
         handleAnswers(this, i, { reponse: { value: reponseInteractive, compare: fonctionComparaison, options: { puissance: true } } })
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: ' $=$' })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline ' + KeyboardType.clavierFullOperations, { texteAvant: ' $=$' })
       }
       if (context.isAmc) {
         setReponse(this, i, reponseInteractive, {

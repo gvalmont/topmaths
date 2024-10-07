@@ -5,20 +5,19 @@ import {
   type AnswerType
 } from '../../lib/interactif/gestionInteractif'
 import {
-  ajouteFeedback,
   remplisLesBlancs
 } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import {
-  aleaVariables,
   assignVariables,
-  calculer,
-  type Variables
+  calculer
 } from '../../modules/outilsMathjs'
 import Exercice from '../Exercice'
 import { evaluate } from 'mathjs'
 import engine from '../../lib/interactif/comparisonFunctions'
+import { type Fraction } from 'mathjs'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -34,10 +33,14 @@ export const refs = {
  * Placer des parenthèses mais pas inutilement dans une expression pour qu'elle vérifie une égalité
  */
 
-type Materiel = { expSP: string; expAP: string; test: string }
+type Materiel = { expSP: string; expAP: string; test: (a:number, b:number, c:number, d:number)=>boolean}
+
+type ListeVariableExo = 'a'| 'b'| 'c'| 'd'
+type VariablesExo =Partial<Record<ListeVariableExo, string|number|boolean|Fraction|object>>
+
 // Les tirets bas sont placés là où il n'y a pas de parenthèses mais qu'il pourrait y en avoir une. Cela sert à placer les placeholders et à savoir à quelle position on a quelle parenthèse
 // Pour l'analyse et l'utilisation de l'expression, ces tirets bas sont remplacés par du vide.
-// test est la valeur qui vient compléter a,b,c et d dans aleaVariables afin d'obtenir des données aux petits oignons
+// test est la valeur qui vient compléter a,b,c et d afin d'obtenir des données aux petits oignons
 const dicoDesExpressions: {
   troisSignesToutPositif: Materiel[]
   troisSignesRelatifs: Materiel[]
@@ -45,87 +48,87 @@ const dicoDesExpressions: {
   quatreSignesRelatifs: Materiel[]
 } = {
   troisSignesToutPositif: [
-    { expSP: '_a*_b_+c_', expAP: '_a*(b_+c)', test: 'a*b+c != a*(b+c)' },
-    { expSP: '_a+_b_*c_', expAP: '(a+_b)*c_', test: 'a+b*c != (a+b)*c' },
+    { expSP: '_a*_b_+c_', expAP: '_a*(b_+c)', test: (a, b, c) => a * b + c !== a * (b + c) },
+    { expSP: '_a+_b_*c_', expAP: '(a+_b)*c_', test: (a, b, c) => a + b * c !== (a + b) * c },
     {
       expSP: '_a*_b_-c_',
       expAP: '_a*(b_-c)',
-      test: 'a*b-c != a*(b-c) and b>c'
+      test: (a, b, c) => a * b - c !== a * (b - c) && b > c
     },
     {
       expSP: '_a-_b_*c_',
       expAP: '(a-_b)*c_',
-      test: 'a-b*c != (a-b)*c and a>b*c'
+      test: (a, b, c) => a - b * c !== (a - b) * c && a > b * c
     }
   ],
   troisSignesRelatifs: [
-    { expSP: '_a*_b_+c_', expAP: '_a*(b_+c)', test: 'a*b+c != a*(b+c)' },
-    { expSP: '_a+_b_*c_', expAP: '(a+_b)*c_', test: 'a+b*c != (a+b)*c' },
-    { expSP: '_a*_b_-c_', expAP: '_a*(b_-c)', test: 'a*b-c != a*(b-c)' },
-    { expSP: '_a-_b_*c_', expAP: '(a-_b)*c_', test: 'a-b*c != (a-b)*c' }
+    { expSP: '_a*_b_+c_', expAP: '_a*(b_+c)', test: (a, b, c) => a * b + c !== a * (b + c) },
+    { expSP: '_a+_b_*c_', expAP: '(a+_b)*c_', test: (a, b, c) => a + b * c !== (a + b) * c },
+    { expSP: '_a*_b_-c_', expAP: '_a*(b_-c)', test: (a, b, c) => a * b - c !== a * (b - c) },
+    { expSP: '_a-_b_*c_', expAP: '(a-_b)*c_', test: (a, b, c) => a - b * c !== (a - b) * c }
   ],
   quatreSignesToutPositif: [
     {
       expSP: '_a+_b_*_c_+d_',
       expAP: '(a+_b)*(c_+d)',
-      test: '(a+b)*(c+d)!=a+b*c+d and (a+b)*(c+d)!=(a+b)*c+d and (a+b)*(c+d)!=a+b*(c+d)'
+      test: (a, b, c, d) => (a + b) * (c + d) !== a + b * c + d && (a + b) * (c + d) !== (a + b) * c + d && (a + b) * (c + d) !== a + b * (c + d)
     },
     {
       expSP: '_a+_b_*_c_+d_',
       expAP: '_a+_b_*(c_+d)',
-      test: 'a+b*(c+d)!=a+b*c+d and a+b*(c+d)!=(a+b)*(c+d) and a+b*(c+d)!=(a+b)*c+d'
+      test: (a, b, c, d) => a + b * (c + d) !== a + b * c + d && a + b * (c + d) !== (a + b) * (c + d) && a + b * (c + d) !== (a + b) * c + d
     },
     {
       expSP: '_a+_b_*_c_+d_',
       expAP: '(a+_b)*_c_+d_',
-      test: '(a+b)*c+d!=a+b*c+d and (a+b)*c+d!=(a+b)*(c+d) and (a+b)*c+d!=a+b*(c+d)'
+      test: (a, b, c, d) => (a + b) * c + d !== a + b * c + d && (a + b) * c + d !== (a + b) * (c + d) && (a + b) * c + d !== a + b * (c + d)
     },
     {
       expSP: '_a-_b_*_c_+d_',
       expAP: '(a-_b)*(c_+d)',
-      test: '(a-b)*(c+d)!=a-b*c+d and (a-b)*(c+d)!=(a-b)*c+d and (a-b)*(c+d)!=a-b*(c+d) and a>b*c'
+      test: (a, b, c, d) => (a - b) * (c + d) !== a - b * c + d && (a - b) * (c + d) !== (a - b) * c + d && (a - b) * (c + d) !== a - b * (c + d) && a > b * c
     },
     {
       expSP: '_a-_b_*_c_+d_',
       expAP: '_a-_b_*(c_+d)',
-      test: 'a-b*(c+d)!=a-b*c+d and a-b*(c+d)!=(a-b)*(c+d) and a-b*(c+d)!=(a-b)*c+d and a>b*(c+d)'
+      test: (a, b, c, d) => a - b * (c + d) !== a - b * c + d && a - b * (c + d) !== (a - b) * (c + d) && a - b * (c + d) !== (a - b) * c + d && a > b * (c + d)
     },
     {
       expSP: '_a-_b_*_c_+d_',
       expAP: '(a-_b)*_c_+d_',
-      test: '(a-b)*c+d!=a-b*c+d and (a-b)*c+d!=(a-b)*(c+d) and (a-b)*c+d!=a-b*(c+d) and a>b*c'
+      test: (a, b, c, d) => (a - b) * c + d !== a - b * c + d && (a - b) * c + d !== (a - b) * (c + d) && (a - b) * c + d !== a - b * (c + d) && a > b * c
     }
   ],
   quatreSignesRelatifs: [
     {
       expSP: '_a+_b_*_c_+d_',
       expAP: '(a+_b)*(c_+d)',
-      test: '(a+b)*(c+d)!=a+b*c+d and (a+b)*(c+d)!=(a+b)*c+d and (a+b)*(c+d)!=a+b*(c+d)'
+      test: (a, b, c, d) => (a + b) * (c + d) !== a + b * c + d && (a + b) * (c + d) !== (a + b) * c + d && (a + b) * (c + d) !== a + b * (c + d)
     },
     {
       expSP: '_a+_b_*_c_+d_',
       expAP: '_a+_b_*(c_+d)',
-      test: 'a+b*(c+d)!=a+b*c+d and a+b*(c+d)!=(a+b)*(c+d) and a+b*(c+d)!=(a+b)*c+d'
+      test: (a, b, c, d) => a + b * (c + d) !== a + b * c + d && a + b * (c + d) !== (a + b) * (c + d) && a + b * (c + d) !== (a + b) * c + d
     },
     {
       expSP: '_a+_b_*_c_+d_',
       expAP: '(a+_b)*_c_+d_',
-      test: '(a+b)*c+d!=a+b*c+d and (a+b)*c+d!=(a+b)*(c+d) and (a+b)*c+d!=a+b*(c+d)'
+      test: (a, b, c, d) => (a + b) * c + d !== a + b * c + d && (a + b) * c + d !== (a + b) * (c + d) && (a + b) * c + d !== a + b * (c + d)
     },
     {
       expSP: '_a-_b_*_c_+d_',
       expAP: '(a-_b)*(c_+d)',
-      test: '(a-b)*(c+d)!=a-b*c+d and (a-b)*(c+d)!=(a-b)*c+d and (a-b)*(c+d)!=a-b*(c+d)'
+      test: (a, b, c, d) => (a - b) * (c + d) !== a - b * c + d && (a - b) * (c + d) !== (a - b) * c + d && (a - b) * (c + d) !== a - b * (c + d)
     },
     {
       expSP: '_a-_b_*_c_+d_',
       expAP: '_a-_b_*(c_+d)',
-      test: 'a-b*(c+d)!=a-b*c+d and a-b*(c+d)!=(a-b)*(c+d) and a-b*(c+d)!=(a-b)*c+d'
+      test: (a, b, c, d) => a - b * (c + d) !== a - b * c + d && a - b * (c + d) !== (a - b) * (c + d) && a - b * (c + d) !== (a - b) * c + d
     },
     {
       expSP: '_a-_b_*_c_+d_',
       expAP: '(a-_b)*_c_+d_',
-      test: '(a-b)*c+d!=a-b*c+d and (a-b)*c+d!=(a-b)*(c+d) and (a-b)*c+d!=a-b*(c+d)'
+      test: (a, b, c, d) => (a - b) * c + d !== a - b * c + d && (a - b) * c + d !== (a - b) * (c + d) && (a - b) * c + d !== a - b * (c + d)
     }
   ]
 }
@@ -180,13 +183,23 @@ class MettreDesParentheses extends Exercice {
       // Les données de la question (expression sans parenthèse, expression avec parenthèses, test )
       const materiel = choice(choix)
       // l'objet qui sert à assigner les valeurs dans l'expression
-      const assignations: Variables = aleaVariables({
+      /* const assignations = aleaVariables({
         a: `${this.sup2 ? 'pickRandom([-1,1])' : '1'}*randomInt(1,10)`,
         b: 'randomInt(1,10)',
         c: `${this.sup2 ? 'pickRandom([-1,1])' : '1'}*randomInt(1,10)`,
         d: 'randomInt(1,10)',
         test: materiel.test
-      })
+      }) */
+      let assignations
+      do {
+        assignations = {
+          a: (this.sup2 ? choice([-1, 1]) : 1) * randint(1, 10),
+          b: randint(1, 10),
+          c: (this.sup2 ? choice([-1, 1]) : 1) * randint(1, 10),
+          d: randint(1, 10)
+        }
+      } while (!materiel.test(assignations.a, assignations.b, assignations.c, assignations.d))
+
       const a = Number(assignations.a)
       const b = Number(assignations.b)
       const c = Number(assignations.c)
@@ -209,7 +222,7 @@ class MettreDesParentheses extends Exercice {
         if (char === '+' || char === '-') content += `~${char}`
         if (char === '*') content += '~\\times'
         if (['a', 'b', 'c', 'd'].includes(char)) {
-          const value = Number(assignations[char as keyof Variables])
+          const value = Number(assignations[char as keyof VariablesExo])
           if (value < 0) content += `~(${value})`
           else content += `~${value}`
         }
@@ -217,14 +230,13 @@ class MettreDesParentheses extends Exercice {
       }
       content += `~=~${resultat}`
       texte += remplisLesBlancs(this, i, content)
-      texte += ajouteFeedback(this, i)
       // on élimine test des assignations, car on n'en a pas besoin pour la suite, le nouvel objet contenant les opérandes s'appelle valeurs
       const valeurs = {
         a: assignations.a,
         b: assignations.b,
         c: assignations.c,
-        d: assignations.d,
-        test: assignations.test
+        d: assignations.d
+        // test: assignations.test
       }
       // La fonction calculer() de Frédéric Piou fournit la correction, mais elle fournit aussi le résultat, et bien d'autres choses que je n'utilise pas...
       const answer = parentheses

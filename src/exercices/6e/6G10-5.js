@@ -11,7 +11,6 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom.ts'
-import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -120,10 +119,10 @@ export default class constructionElementaire extends Exercice {
             labelY: false
           })
         } */
-        this.A = figure.create('Point', { x: A.x, y: A.y, label: A.nom })
-        this.B = figure.create('Point', { x: B.x, y: B.y, label: B.nom })
-        this.C = figure.create('Point', { x: C.x, y: C.y, label: C.nom })
-        this.D = figure.create('Point', { x: D.x, y: D.y, label: D.nom })
+        this.A = figure.create('Point', { x: A.x, y: A.y, label: A.nom, isFree: true })
+        this.B = figure.create('Point', { x: B.x, y: B.y, label: B.nom, isFree: true })
+        this.C = figure.create('Point', { x: C.x, y: C.y, label: C.nom, isFree: true })
+        this.D = figure.create('Point', { x: D.x, y: D.y, label: D.nom, isFree: true })
         this.A.isDeletable = false
         this.B.isDeletable = false
         this.C.isDeletable = false
@@ -131,7 +130,7 @@ export default class constructionElementaire extends Exercice {
         this.Enom = E.nom
         this.Fnom = F.nom
 
-        figure.setToolbar({ tools: ['POINT', 'LINE', 'SEGMENT', 'RAY', 'POINT_INTERSECTION', 'POINT_ON', 'NAME_POINT', 'MOVE_LABEL', 'DRAG', 'REMOVE', 'SET_OPTIONS'] })
+        figure.setToolbar({ tools: ['POINT', 'LINE', 'SEGMENT', 'RAY', 'POINT_INTERSECTION', 'POINT_ON', 'NAME_POINT', 'MOVE_LABEL', 'DRAG', 'REMOVE', 'SHAKE', 'SET_OPTIONS'] })
         const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure })
         enonce += emplacementPourFigure
       } else {
@@ -176,7 +175,6 @@ export default class constructionElementaire extends Exercice {
       )
 
       correction += anim.htmlBouton(this.numeroExercice, i)
-      enonce += ajouteFeedback(this, i)
 
       if (context.isAmc) {
       /** ********************** AMC Hybride *****************************/
@@ -262,6 +260,7 @@ export default class constructionElementaire extends Exercice {
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'
+    figure.buttons.get('SHAKE')?.click()
 
     // Sauvegarde de la réponse pour Capytale
     if (this.answers == null) this.answers = {}

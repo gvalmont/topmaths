@@ -80,7 +80,7 @@ class EquaDiffs extends Exercice {
           texteCorr = 'On sait que la solution générale d\'une équation de la forme $\\boxed{y^\\prime+ay=b}$ est $\\boxed{y(x)=ke^{-ax}+\\dfrac{b}{a}}$ .<br>'
           texteCorr += `Donc $y(x)=ke^{${texNombre(-a, 0)}x}${bSurA.ecritureAlgebrique}$.<br>`
           texteCorr += `De plus, $y(0)=${texNombre(y0, 0)}$, par conséquent : $${texNombre(y0, 0)}=ke^0${bSurA.ecritureAlgebrique}=k${bSurA.ecritureAlgebrique}$.<br>`
-          kString = new FractionEtendue(a * y0 - b, a).simplifie().texFSD
+          kString = new FractionEtendue(a * y0 + b, a).simplifie().texFSD
           texteCorr += `On en déduit que $k=${texNombre(y0, 0)}${bSurA.multiplieEntier(-1).ecritureAlgebrique}=${kString}$.<br>`
           reponse = `${kString}e^{${texNombre(-a, 0)}x}${bSurA.ecritureAlgebrique}`
           texteCorr += `La solution de l'équation différentielle $y^\\prime${ecritureAlgebrique(a)}y=${texNombre(b, 0)}$ telle que $y(0)=${texNombre(y0, 0)}$ est :<br>$y(x)=${miseEnEvidence(reponse)}$.<br>`
@@ -131,7 +131,7 @@ class EquaDiffs extends Exercice {
       // C'est fini... sauf pour la correction détaillée ci-dessous.
       if (this.questionJamaisPosee(i, a)) {
         if (this.interactif && context.isHtml) {
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 nospacebefore', { texteAvant: '$y=$ ' })
+          texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore', { texteAvant: '$y=$ ' })
           handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
         }
         this.listeQuestions.push(texte)

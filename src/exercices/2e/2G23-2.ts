@@ -3,7 +3,7 @@ import { repere } from '../../lib/2d/reperes.js'
 import { longueur, nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { latexParPoint, texteParPosition } from '../../lib/2d/textes.js'
 import { homothetie } from '../../lib/2d/transformations.js'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice'
@@ -205,8 +205,8 @@ export default class TranslationEtCoordonnes extends Exercice {
       if (this.correctionDetaillee) {
         texteCorr += mathalea2d(Object.assign({ zoom: 1, scale: 0.6 }, fixeBordures(objets)), objets) // On trace le graphique
       }
-      // texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', {texteAvant: '<br><br>Abscisse du point :' })
-      // texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', {texteAvant: '<br><br>Ordonnée du point :' })
+      // texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline', {texteAvant: '<br><br>Abscisse du point :' })
+      // texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline', {texteAvant: '<br><br>Ordonnée du point :' })
       // setReponse(this, 2 * i, AbsRep)
       // setReponse(this, 2 * i + 1, OrdRep)
       if (this.questionJamaisPosee(i, xA, yA, xB, yB)) { // Si la question n'a jamais été posée, on en créé une autre

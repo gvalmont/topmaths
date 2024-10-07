@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { ComputeEngine } from '@cortex-js/compute-engine'
@@ -61,7 +61,6 @@ export default function FractionVersPourcentage () {
       if (this.sup === 1) {
         this.interactifType = 'custom'
         texte = remplisLesBlancs(this, i, `\\dfrac{${num}}{${den}}=\\dfrac{%{champ1}}{%{champ2}}=\\dfrac{%{champ3}}{100}=%{champ4}\\%`, 'clavierDeBase', '\\ldots\\ldots')
-        texte += ajouteFeedback(this, i)
         if (den < 100) {
           texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\times${100 / den}}}{${den}{\\color{blue}\\times${100 / den}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
         } else {
@@ -70,7 +69,7 @@ export default function FractionVersPourcentage () {
         handleAnswers(this, i, { champ1: { value: den }, champ2: { value: num }, champ3: { value: String(percenti) }, champ4: { value: String(percenti) } }, { formatInteractif: 'fillInTheBlank', digits: 3, decimals: 0 })
       } else {
         this.interactifType = 'mathLive'
-        texte = `$\\dfrac{${percenti}}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline clavierDeBaseAvecFraction', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
+        texte = `$\\dfrac{${percenti}}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline clavierDeBaseAvecFraction', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
         texteCorr = `$\\dfrac{${texNombre(percenti, 0)}}{100}=${texNombre(percenti, 0)}~\\%$`
         setReponse(this, i, percenti, { formatInteractif: 'calcul', digits: 3, decimals: 0 })
       }

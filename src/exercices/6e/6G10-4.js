@@ -12,7 +12,7 @@ import Exercice from '../deprecatedExercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context.js'
 import { clone } from 'mathjs'
@@ -284,18 +284,17 @@ export default function VocabulaireDuCercle () {
                 reponses = ajouterAlternatives(segmentAlternatif, reponses)
                 break
             }
-            texte += ajouteChampTexteMathLive(this, i * questions.length + j, 'inline largeur25 nospacebefore college6eme alphanumericAvecEspace')
+            texte += ajouteChampTexteMathLive(this, i * questions.length + j, 'inline largeur01 nospacebefore college6eme alphanumericAvecEspace')
             setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'texteAvecEspace' })
           }
           if (question.sens === '[AB] est ...') {
             reponses = [question.nature]
-            texte += ajouteChampTexteMathLive(this, i * questions.length + j, 'inline largeur25 nospacebefore college6eme alphanumericAvecEspace')
+            texte += ajouteChampTexteMathLive(this, i * questions.length + j, 'inline largeur01 nospacebefore college6eme alphanumericAvecEspace')
             //  setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'ignorerCasse' })
             setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'texteAvecEspace' })
           }
         }
         texte += '<br>'
-        texte += ajouteFeedback(this, i)
 
         if (this.correctionDetaillee) texteCorr += '<br>'
         j++

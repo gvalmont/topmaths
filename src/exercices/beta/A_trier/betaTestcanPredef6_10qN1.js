@@ -1,9 +1,9 @@
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
-import { choice, combinaisonListesSansChangerOrdre } from '../../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListesSansChangerOrdre } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
-import { range1 } from '../../../lib/outils/nombres.js'
+import { range1 } from '../../../lib/outils/nombres'
 import { prenomF } from '../../../lib/outils/Personne.js'
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
@@ -268,31 +268,31 @@ export default function Can10Questions6N1 () {
         if (!this.interactif) {
           texte += '.... minutes'
         } else {
-          texte += ajouteChampTexteMathLive(this, i, 'inline largeur15') + 'min'
+          texte += ajouteChampTexteMathLive(this, i, 'inline largeur01') + 'min'
         }
       } else {
         if (typeQuestionsDisponibles[listeIndex[i]] === '8') {
           if (!this.interactif) {
             texte += ''
           } else {
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur15') + '€'
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01') + '€'
           }
         } else {
           if (typeQuestionsDisponibles[listeIndex[i]] === '9') {
             if (!this.interactif) {
               texte += ''
             } else {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur15') + 'ans'
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur01') + 'ans'
             }
           } else {
             if (typeQuestionsDisponibles[listeIndex[i]] === '10') {
               if (!this.interactif) {
                 texte += '... m'
               } else {
-                texte += ajouteChampTexteMathLive(this, i, 'inline largeur15') + ' m'
+                texte += ajouteChampTexteMathLive(this, i, 'inline largeur01') + ' m'
               }
             } else {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur15')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur01')
             }
           }
         }

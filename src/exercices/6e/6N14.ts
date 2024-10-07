@@ -8,7 +8,6 @@ import { fraction } from '../../modules/fractions.js'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom.js'
 import CircleFractionDiagram from 'apigeom/src/elements/diagrams/CircleFractionDiagram.js'
-import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 export const titre = 'Représenter des fractions'
 export const amcReady = true
 export const interactifReady = true
@@ -80,7 +79,6 @@ export default class RepresenterUneFraction extends Exercice {
           num = randint(1, den * 3)
           break
       }
-      num = randint(1, den * 3)
       f = fraction(num, den)
       texte = `Sachant qu'un disque représente une unité, représenter la fraction $${f.texFraction}$ en coloriant la part correspondante.<br>`
       if (this.interactif) {
@@ -94,7 +92,6 @@ export default class RepresenterUneFraction extends Exercice {
         this.idApigeom[i] = `apiGeomEx${numeroExercice}F${i}`
         texte += figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure })
         figure.divButtons.style.display = 'none' // Doit apparaitre après figureApigeom
-        texte += ajouteFeedback(this, i)
       } else {
         texte += mathalea2d(params, fraction(den * 3, den).representation(0, 0, 2, 0, 'gateau', 'white'))
       }

@@ -7,7 +7,7 @@ import { pgcd } from '../../lib/outils/primalite'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import Exercice from '../deprecatedExercice.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -205,10 +205,9 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
       }
       if (!(new FractionEtendue(num, den).estIrreductible)) texteCorr += ' (On a réduit le plus possible la fraction.)'
 
-      texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texteAvant: '=' })
+      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: '=' })
       reponse = this.sup3 ? fraction(num, den).simplifie() : fraction(num, den)
       handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionEgale: !this.sup3, fractionIrreductible: this.sup3 } } })
-      texte += ajouteFeedback(this, i)
 
       if (context.isAmc) {
         texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte

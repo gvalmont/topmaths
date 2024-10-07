@@ -32,7 +32,7 @@
   let order: number[]
   $: {
     const questionsNb = slideshow.selectedQuestionsNumber || slideshow.slides.length
-    order = $globalOptions.order || [...Array(questionsNb).keys()]
+    order = $globalOptions.order === undefined || $globalOptions.order.length === 0 ? [...Array(questionsNb).keys()] : $globalOptions.order
   }
 
   let series: Serie[] = []
@@ -121,7 +121,7 @@
     const newZoom = Number((plusMinus === '+' ? oldZoom + 0.1 : oldZoom - 0.1).toFixed(1))
     $globalOptions.z = newZoom.toString()
     const main = document.querySelector('main')
-    mathaleaRenderDiv(main)
+    tick().then(() => mathaleaRenderDiv(main))
     mathaleaUpdateUrlFromExercicesParams()
   }
 </script>

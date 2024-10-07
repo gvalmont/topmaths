@@ -2,7 +2,7 @@ import { rienSi1 } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
-export const titre = 'Calculer avec  une puissance de 10'
+export const titre = 'Calculer avec une puissance de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -25,7 +25,7 @@ export default function CalculPuissance10 () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     const a = randint(1, 6)
     const n = calculANePlusJamaisUtiliser(2 * randint(1, 6) + 1) / 2

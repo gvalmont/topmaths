@@ -280,14 +280,14 @@ export function tableauColonneLigne (tabEntetesColonnes: (string | number)[],
   tabLignes: (string | number)[],
   arraystretch = 1,
   latex = true,
-  exo = randint(0, 9999999),
-  question = randint(0, 9999999),
+  exo = 0,
+  question = 0,
   isInteractif = false,
   style: {[key: string]: string} = {}): string {
   // on définit le nombre de colonnes
-  const nbColonnes = tabEntetesColonnes.length > 0 ? tabEntetesColonnes.length : tabLignes.length / tabEntetesLignes.length
+  const nbColonnes = tabEntetesColonnes.length > 0 ? tabEntetesColonnes.length : (tabLignes.length / tabEntetesLignes.length + 1)
   // on définit le nombre de lignes
-  const nbLignes = tabEntetesLignes.length > 0 ? tabEntetesLignes.length : tabLignes.length / tabEntetesColonnes.length
+  const nbLignes = tabEntetesLignes.length > 0 ? tabEntetesLignes.length : (tabLignes.length / tabEntetesColonnes.length + 1)
   // On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
   if (context.isHtml) {
     const tableauCL = AddTabDbleEntryMathlive.create(exo, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEntetesColonnes, tabEntetesLignes, tabLignes), 'tableauMathlive', isInteractif, style)
