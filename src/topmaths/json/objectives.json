@@ -3184,13 +3184,17 @@
                     "startSteps": [],
                     "segments": [
                       {
-                        "title": "Apprendre à identifier des grandeurs",
+                        "title": "Différencier Nombre, Unité et Grandeur",
                         "steps": [
-                          "Expliquer ce qu'est une grandeur",
-                          "Demander à des élèves au hasard de répéter",
-                          "Demander à des élèves au hasard de donner des exemples de grandeurs",
-                          "Relancer plusieurs fois https://topmaths.fr/?v=objective&ref=6P10 en demandant à des élèves au hasard d'identifier les grandeurs",
-                          "Noter le cours"
+                          "Afficher https://topmaths.fr/?uuid=850d5&id=6P10&n=2&d=10&s=1-2-5&alea=uK0r&cd=1&v=exercise",
+                          "Sur le tableau de droite, faire 3 colonnes : Nombre, Unité et Grandeur",
+                          "Expliquer que le plus facile à trouver, c'est le nombre : parcourir les énoncés et compléter la colonne des nombres",
+                          "Expliquer que l'unité accompagne le nombre et répond à la question \"c'est {nombre} quoi ?\" : parcourir les nombres de l'énoncé en posant à chaque fois la question : \"Je vois {nombre}. C'est {nombre} quoi ?\" et compléter la colonne Unité",
+                          "Avant de compléter la colonne Grandeur, il faudrait savoir ce qu'est une grandeur. Une grandeur est quelque chose qu'on peut compter ou qu'on peut mesurer.",
+                          "Elle est plus difficile à trouver car souvent elle n'est pas marquée. Pour la trouver, on se pose la question \"{nombre} {unité}, ça compte quoi ou ça mesure quoi ?\". Parcourir les nombres de l'énoncé en posant à chaque fois cette question et compléter la colonne Grandeur",
+                          "Demander aux élève de faire les 3 colonnes Nombre, Unité et Grandeur sur leur ardoise",
+                          "Relancer https://topmaths.fr/?uuid=850d5&id=6P10&n=1&d=10&s=1-2&alea=7Isu&cd=1&v=exercise et demander aux élèves d'abord de ne compléter que la colonne Nombre, puis Nombre et Unité, puis Nombre, Unité et Grandeur",
+                          "Noter la définition de grandeur"
                         ]
                       },
                       {
