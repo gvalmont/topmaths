@@ -31,7 +31,6 @@ export const refs = {
 type goodAnswer = { label: string, x: number }[]
 
 class PlacerPointsAbscissesFractionnairesBis extends Exercice {
-  figures!: Figure[]
   goodAnswers!: goodAnswer[]
   constructor () {
     super()
@@ -57,8 +56,6 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     const typeDeQuestions = gestionnaireFormulaireTexte({

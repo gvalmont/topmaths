@@ -11,7 +11,6 @@ import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGe
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { pickRandom } from 'mathjs'
-import { aleaVariables } from '../../modules/outilsMathjs.ts'
 import { miseEnEvidence, texteEnCouleurEtGras, texteGras } from '../../lib/outils/embellissements'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { abs } from '../../lib/outils/nombres'
@@ -106,8 +105,6 @@ export default function ExercicesAnglesAIC () {
   this.nbQuestions = 3
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // À placer même si l'exercice n'a pas vocation à être corrigé
     const nquestion = gestionnaireFormulaireTexte({
       saisie: this.sup,

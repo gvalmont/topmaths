@@ -50,10 +50,8 @@ export default function DivisionFraction () {
   this.sup = 1
   // this.sup2 = false
   this.sup3 = '10'
-  
+
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({

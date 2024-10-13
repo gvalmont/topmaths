@@ -44,9 +44,6 @@ export default class RepresenterUneFraction extends Exercice {
   }
 
   nouvelleVersion (numeroExercice: number) {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let sc
     const ppc = 20
     if (context.isHtml) {
@@ -83,14 +80,14 @@ export default class RepresenterUneFraction extends Exercice {
       texte = `Sachant qu'un disque représente une unité, représenter la fraction $${f.texFraction}$ en coloriant la part correspondante.<br>`
       if (this.interactif) {
         this.numerators[i] = num
-        const figure = new Figure({ xMin: -2, yMin: -2, width: 600, height: 95 })
+        const figure = new Figure({ xMin: -2, yMin: -1.6, width: 600, height: 95 })
         this.figures[i] = figure
         figure.options.color = 'blue'
         figure.setToolbar({ tools: ['FILL'], position: 'top' })
         if (figure.ui) figure.ui.send('FILL')
-        this.diagrammes[i] = new CircleFractionDiagram(figure, { denominator: den, numberOfCircle: 3, radius: 1 })
+        this.diagrammes[i] = figure.create('CircleFractionDiagram', { denominator: den, numberOfCircle: 3, radius: 1.5 })
         this.idApigeom[i] = `apiGeomEx${numeroExercice}F${i}`
-        texte += figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure })
+        texte += figureApigeom({ exercice: this, question: i, idApigeom: this.idApigeom[i], figure })
         figure.divButtons.style.display = 'none' // Doit apparaitre après figureApigeom
       } else {
         texte += mathalea2d(params, fraction(den * 3, den).representation(0, 0, 2, 0, 'gateau', 'white'))
@@ -99,7 +96,7 @@ export default class RepresenterUneFraction extends Exercice {
       if (this.interactif) {
         const figureCorr = new Figure({ xMin: -2, yMin: -2, width: 600, height: 95 })
         figureCorr.options.color = 'blue'
-        const diagrammeCorr = new CircleFractionDiagram(figureCorr, { denominator: den, numberOfCircle: 3, radius: 1 })
+        const diagrammeCorr = figureCorr.create('CircleFractionDiagram', { denominator: den, numberOfCircle: 3, radius: 1 })
         diagrammeCorr.numerator = num
         texteCorr += figureCorr.getStaticHtml()
       } else {
@@ -112,6 +109,7 @@ export default class RepresenterUneFraction extends Exercice {
           enonceAvantUneFois: false, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
           propositions: [
             {
+              // @ts-expect-error typage pour les QCM
               type: 'AMCOpen', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
               propositions: [
                 {
@@ -141,17 +139,17 @@ export default class RepresenterUneFraction extends Exercice {
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.idApigeom[i]] = this.figures[i].json
     let result = 'KO'
-    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
+    const divCheck = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`)
     if (this.diagrammes[i].numerator === this.numerators[i]) {
-      if (divFeedback) divFeedback.innerHTML = '😎'
+      if (divCheck) divCheck.innerHTML = '😎'
       result = 'OK'
     } else {
-      const p1 = document.createElement('p')
-      p1.innerText = '☹️'
-      const p2 = document.createElement('p')
-      p2.innerText = `Tu as colorié $\\dfrac{${this.diagrammes[i].numerator}}{${this.diagrammes[i].denominator}}$.`
-      if (divFeedback) divFeedback.appendChild(p1)
-      if (divFeedback) divFeedback.appendChild(p2)
+      if (divCheck) divCheck.innerHTML = '☹️'
+      const p = document.createElement('p')
+      p.innerText = `Tu as colorié $\\dfrac{${this.diagrammes[i].numerator}}{${this.diagrammes[i].denominator}}$.`
+      if (divFeedback) divFeedback.appendChild(p)
+      result = 'KO'
     }
     this.figures[i].isDynamic = false
     this.figures[i].divUserMessage.style.display = 'none'

@@ -1,8 +1,7 @@
+/* eslint-disable no-undef */
 import {
   ComputeEngine,
-  type BoxedExpression,
-  type Parser,
-  type LatexDictionaryEntry
+  type BoxedExpression
 } from '@cortex-js/compute-engine'
 import { abs } from '../../lib/outils/nombres'
 // import FractionEtendue from '../../modules/FractionEtendue'
@@ -10,7 +9,6 @@ import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
 // import { texFractionFromString } from '../outils/deprecatedFractions'
 import type { Expression } from 'mathlive'
-import type { ParserOptions } from 'svelte/types/compiler/interfaces'
 import { areSameArray } from '../outils/arrayOutils'
 
 const engine = new ComputeEngine()
@@ -32,6 +30,7 @@ export type OptionsComparaisonType = {
   ensembleDeNombres ?:boolean
   kUplet ? :boolean
   suiteDeNombres ?:boolean
+  suiteRangeeDeNombres?:boolean
   HMS?: boolean
   intervalle?: boolean
   estDansIntervalle?: boolean
@@ -512,6 +511,7 @@ export function fonctionComparaison (
     ensembleDeNombres, // Documenté
     kUplet, // Documenté
     suiteDeNombres,
+    suiteRangeeDeNombres,
     HMS,
     intervalle,
     estDansIntervalle,
@@ -539,6 +539,7 @@ export function fonctionComparaison (
     ensembleDeNombres: false,
     kUplet: false,
     suiteDeNombres: false,
+    suiteRangeeDeNombres: false,
     HMS: false,
     intervalle: false,
     estDansIntervalle: false,
@@ -573,9 +574,12 @@ export function fonctionComparaison (
   if (egaliteExpression) return egaliteCompare(input, goodAnswer)
   if (nombreAvecEspace) return numberWithSpaceCompare(input, goodAnswer)
   if (ensembleDeNombres || kUplet) return ensembleNombres(input, goodAnswer, { kUplet }) // ensembleDeNombres est non trié alors que kUplet nécessite le tri
-  if (suiteDeNombres) return ensembleNombres(input, goodAnswer, { avecAccolades: false })
+  if (suiteDeNombres || suiteRangeeDeNombres) return ensembleNombres(input, goodAnswer, { kUplet: suiteRangeeDeNombres, avecAccolades: false })
   if (fractionSimplifiee || fractionReduite || fractionIrreductible || fractionDecimale || fractionEgale) return comparaisonFraction(input, goodAnswer, { fractionReduite, fractionIrreductible, fractionDecimale, fractionEgale }) // feedback OK
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
+  if (calculSeulementEtNonOperation) {
+    input = input.replace('(', '').replace(')', '').replace('\\lparen', '').replace('\\rparen', '') // Utile pour 5R20
+  }
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer, {
     expressionsForcementReduites,
     avecSigneMultiplier,
@@ -823,8 +827,16 @@ function expressionDeveloppeeEtReduiteCompare (
       ? 'numérique'
       : 'littérale'
 
-  // La ligne du dessous est inutile mais il faut la laisser pour bien indiquer qu'elle est inutile
-  // if (saisieParsed.isEqual(reponseParsed) && !(saisieParsed.isSame(reponseParsed))) { // On va essayer de traiter ici tous les feedbacks de façon exhaustive
+  if (saisieParsed.isEqual(reponseParsed) && !(saisieParsed.isSame(reponseParsed))) { // On va essayer de traiter ici tous les feedbacks de façon exhaustive
+  // La saisie est égale à la réponse mais il faut vérifier que cela correspond l'option prévue
+    if (calculSeulementEtNonOperation) { // L'un peut être décimal et l'autre peut être fractionnaire ou les deux fractionnaires : Ex. 4C10
+      if ((saisieParsed.isNumber && reponseParsed.head === 'Divide' && reponseParsed.ops?.length === 2) ||
+      (reponseParsed.isNumber && saisieParsed.head === 'Divide' && saisieParsed.ops?.length === 2) ||
+      (saisieParsed.head === 'Divide' && saisieParsed.ops?.length === 2 && reponseParsed.head === 'Divide' && reponseParsed.ops?.length === 2)) {
+        return { isOk: true, feedback: '' }
+      }
+    }
+  }
   if (!(saisieParsed.isSame(reponseParsed))) { // On va essayer de traiter ici tous les feedbacks de façon exhaustive
     if (calculSeulementEtNonOperation || nombreDecimalSeulement) { // On veut un résultat numérique et pas un enchaînement de calculs
       const saisieCalculeeParsed = customCanonical(
@@ -837,6 +849,7 @@ function expressionDeveloppeeEtReduiteCompare (
           calculSeulementEtNonOperation: false
         }
       )
+
       if (saisieCalculeeParsed.isSame(reponseParsed)) feedback = 'Résultat incorrect car une valeur numérique est attendue.' // Sous-entendu : Et pas une opération
       else feedback = 'Résultat incorrect.'
     } else if (operationSeulementEtNonCalcul) { // On veut un enchaînement de calculs et pas un résultat numérique
@@ -992,15 +1005,15 @@ function comparaisonExpressions (expr1: string, expr2: string): ResultType { // 
  * @return ResultType
  */
 function texteAvecCasseCompare (input: string, goodAnswer: string): ResultType {
-  const cleaner = generateCleaner(['parentheses', 'mathrm'])
+  const cleaner = generateCleaner(['parentheses', 'mathrm', 'fractions'])
   const localInput = cleaner(input)
   const localGoodAnswer = cleaner(goodAnswer)
-
+  const isOk = localGoodAnswer === localInput
   // Cette commande ci-dessous est mauvaise. Je la laisse pour expliquer pourquoi elle est mauvaise.
   // Autant, elle serait utile pour comparer 'aucun' et 'Aucun'
   // mais elle ne le serait plus pour comparer [AB] et [ab] ce qui serait dommage.
   // return { isOk: input.toLowerCase() === goodAnswer.toLowerCase() }
-  return { isOk: localGoodAnswer === localInput }
+  return { isOk }
 }
 
 /**
@@ -1351,11 +1364,11 @@ export function ensembleNombres (input: string, goodAnswer: string, {
   if (splitInput.length < splitGoodAnswer.length) {
     return { isOk: false, feedback: 'Résultat incorrect car cet ensemble ne contient pas assez de nombres.' }
   }
-
+  /* Cette fonction trie mais parfois on attend en fait la saisie comme l'ordre des réponses (comme 6G26 mais pas forcément dans l'ordre croissant)
   function sortMathExpressions (arr: string[]): string[] { // Nécessaire pour trier les racines carrées en LaTeX, par exemple.
     return arr.sort((a, b) => {
-      const aValue = engine.parse(a).value
-      const bValue = engine.parse(b).value
+      const aValue = engine.parse(a).value as number
+      const bValue = engine.parse(b).value as number
       return aValue - bValue
     })
   }
@@ -1363,12 +1376,24 @@ export function ensembleNombres (input: string, goodAnswer: string, {
   const inputSorted = sortMathExpressions(splitInputBis)
   const goodAnswerSorted = sortMathExpressions(splitGoodAnswer)
   const hasDifferentValues = !(inputSorted.every((value, index) => engine.parse(value).isSame(engine.parse(goodAnswerSorted[index]))))
+*/
+  const inputSorted = splitInput
+  const goodAnswerSorted = splitGoodAnswer
 
-  if (hasDifferentValues) {
+  const AllExist = inputSorted.every(value => {
+    for (let index = 0; index < goodAnswerSorted.length; index++) {
+      if (engine.parse(value).isSame(engine.parse(goodAnswerSorted[index]))) {
+        return true // L'élément est trouvé
+      }
+    }
+    return false // L'élément n'est pas trouvé
+  })
+
+  if (!AllExist) {
     return { isOk: false, feedback: 'Résultat incorrect car cet ensemble n\'a pas toutes les valeurs attendues.' }
   }
   if (kUplet && !(splitInput.every((value, index) => engine.parse(value).isSame(engine.parse(goodAnswerSorted[index]))))) {
-    return { isOk: false, feedback: 'Résultat incorrect car les nombres ne sont pas rangés par ordre croissant.' }
+    return { isOk: false, feedback: 'Résultat incorrect car les nombres ne sont pas rangés dans le bon ordre.' }
   }
   return { isOk: true }
 }
@@ -1866,7 +1891,7 @@ export function egaliteCompare (input: string, goodAnswer: string): ResultType {
   const { isOk: isOk2 } = fonctionComparaison(m1, goodAnswerMb1)
   const { isOk: isOk3 } = fonctionComparaison(m2, goodAnswerMb2)
   const { isOk: isOk4 } = fonctionComparaison(m1, goodAnswerMb2)
-  return { isOk: (isOk1 || isOk2) && (isOk3 || isOk4) }
+  return { isOk: (isOk1 && isOk4) || (isOk3 && isOk2) }
 }
 
 /**

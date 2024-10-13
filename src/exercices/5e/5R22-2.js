@@ -7,6 +7,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context.js'
 import { sp } from '../../lib/outils/outilString.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -37,9 +38,6 @@ export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
 
   this.nouvelleVersion = function () {
     this.consigne = this.interactif ? 'Calculer (mentalement ou au brouillon) et indiquer seulement le résultat final.' : 'Écrire sous la forme d\'une expression algébrique sans parenthèses puis calculer.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let liste = [[-1, -1, -1], [-1, -1, 1], [-1, 1, -1], [-1, 1, 1], [1, -1, -1], [1, -1, 1], [1, 1, -1], [1, 1, 1]]
     liste = combinaisonListes(liste, this.nbQuestions)
     for (let i = 0, a, b, s, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
@@ -66,7 +64,7 @@ export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
         texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + a + ecritureAlgebrique(s * b) + ' = ' + miseEnEvidence(a - b) + ' $'
         setReponse(this, i, a - b, { digits: 2, signe: true })
       }
-      texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore largeur01', { texteAvant: `$${sp()}=$` })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: `$${sp()}=$` })
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

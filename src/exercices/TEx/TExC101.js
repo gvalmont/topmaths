@@ -19,7 +19,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 export const uuid = '88241'
 export const ref = 'ExC101'
 export const refs = {
-  'fr-fr': ['ExC101'],
+  'fr-fr': ['TExC101'],
   'fr-ch': []
 }
 export default class nomExercice extends Exercice {
@@ -35,9 +35,6 @@ export default class nomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3'] // On créé 3 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, nblignes, nbcolonnes, n, m, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question

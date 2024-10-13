@@ -1,6 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { warnMessage } from '../../lib/format/message.js'
 import { nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { personne } from '../../lib/outils/Personne'
 import { listeNombresPremiersStrictJusqua } from '../../lib/outils/primalite'
@@ -8,9 +7,9 @@ import { nombreAvecEspace } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { svgEngrenages } from '../../modules/macroSvgJs.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -44,7 +43,7 @@ export default function ProblemesEvenementsRecurrents () {
   this.correctionDetailleeDisponible = true
   this.interactif = false
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -263,10 +262,12 @@ export default function ProblemesEvenementsRecurrents () {
         default:
           break
       }
+      /*
       let txtIntro = ''
       if (context.isHtml && saveurs[i] === 'engrenages') {
         // eslint-disable-next-line no-var
         var pourcentage = '100%'
+
         const idUnique = `${numeroExercice}_${Date.now()}`
         const idDivIntro = `divIntro${idUnique}`
         txtIntro += warnMessage('Attention, les roues ci-dessous ne comportent pas le nombre de dents de l\'énoncé!', 'nombres', 'Coup de pouce')
@@ -276,6 +277,7 @@ export default function ProblemesEvenementsRecurrents () {
         txtIntro = ''
       }
       this.introduction = txtIntro
+      */
       switch (this.sup) {
         case 1:
           decompositionCommun = texteEnCouleurEtGras(nombreAvecEspace(Commun), 'blue')
@@ -363,12 +365,12 @@ export default function ProblemesEvenementsRecurrents () {
       if (this.interactif && !context.isAmc) { // Si l'exercice est interactif
         if (typeDeQuestion > 1) {
           if (saveurs[i] === 'engrenages') {
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur 25', { texteApres: ' tours' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 ' + KeyboardType.clavierNumbers, { texteApres: ' tours' })
           } else {
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur 25', { texteApres: ' fois' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 ' + KeyboardType.clavierNumbers, { texteApres: ' fois' })
           }
         } else {
-          texte += ajouteChampTexteMathLive(this, i, 'inline largeur 25', { texteApres: ' ' + unite })
+          texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 ' + KeyboardType.clavierNumbers, { texteApres: ' ' + unite })
         }
       }
       if (context.isAmc) {

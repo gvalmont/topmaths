@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
-import Trinome from '../../src/modules/Trinome'
-import FractionEtendue from '../../src/modules/FractionEtendue'
+import Trinome from './Trinome'
+import FractionEtendue from './FractionEtendue'
 
 const p1 = new Trinome(1, 2, 1)
 
@@ -191,6 +191,26 @@ describe('Trinome', () => {
       if (x2 instanceof FractionEtendue) x2 = x2.valeurDecimale
       expect(x1).toBe(2)
       expect(x2).toBe(2)
+    })
+  })
+
+  describe('texFormeFactorisee', () => {
+    test('Devrait retourner la forme factorisée', () => {
+      const trinome1 = new Trinome(1, 2, 1)
+      expect(trinome1.texFormeFactorisee).toBe('(x+1)^2')
+      const trinome2 = new Trinome(3, -9, 6)
+      expect(trinome2.texFormeFactorisee).toBe('3(x-1)(x-2)')
+    })
+  })
+
+  describe('texCalculX1', () => {
+    test('Devrait retourner le calcul de la 1re racine', () => {
+      const trinome1 = new Trinome(3, -9, 6)
+      expect(trinome1.texCalculRacine1()).toBe('x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}=\\dfrac{9-\\sqrt{9}}{2\\times3}=\\dfrac{6}{6}=1')
+      expect(trinome1.texCalculRacine2()).toBe('x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}=\\dfrac{9+\\sqrt{9}}{2\\times3}=\\dfrac{12}{6}=2')
+      const trinome2 = new Trinome(-2, -20, -47)
+      expect(trinome2.texCalculRacine1()).toBe('x_1 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}=\\dfrac{20+\\sqrt{24}}{2\\times\\left(-2\\right)}=\\dfrac{-20-\\sqrt{24}}{4}\\approx-6{,}225')
+      expect(trinome2.texCalculRacine1(true)).toBe('x_1 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}=\\dfrac{20+\\sqrt{24}}{2\\times\\left(-2\\right)}=\\dfrac{-20-\\sqrt{24}}{4}=\\dfrac{-10- \\sqrt{6}}{2}')
     })
   })
 })

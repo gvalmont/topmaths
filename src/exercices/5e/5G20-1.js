@@ -1,6 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lampeMessage } from '../../lib/format/message.js'
-import { modalTexteLong } from '../../lib/outils/modales.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { Triangle } from '../../modules/Triangle.js'
 import Exercice from '../deprecatedExercice.js'
@@ -38,10 +37,9 @@ export default function VocabulaireDesTriangles () {
   }
   this.classe = 5
 
-
   let typeDeQuestionsDisponibles
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     let texteIntro = ''
     // eslint-disable-next-line no-undef
     if (context.isHtml) {
@@ -62,13 +60,6 @@ export default function VocabulaireDesTriangles () {
         texteIntro += '<br>'
         texteIntro += '- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.'
       }
-      this.boutonAide = modalTexteLong(
-        numeroExercice,
-        '<i class="info circle icon"></i> Quelques définitions',
-        texteIntro,
-        'Aide',
-        'info circle'
-      )
     } else {
       if (this.classe === 6) {
         texteIntro = texEnumerateSansNumero(
@@ -122,9 +113,6 @@ export default function VocabulaireDesTriangles () {
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     // let listeTypeDeQuestions = typesDeQuestionsDisponibles // Tous les types de questions sont posées --> à remettre comme ci-dessus
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     for (let i = 0, texte, texteCorr, l1, l2, l3, a1, a2, a3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on fixe longueur min et max en cm
       const longueurMin = 2

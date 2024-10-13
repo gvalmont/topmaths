@@ -9,6 +9,7 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Calculs utilisant les priorités opératoires'
 export const interactifReady = true
@@ -68,8 +69,6 @@ export default function PrioritesEtRelatifs () {
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let listeQuestionsDisponibles
     if (this.sup === 1) {
       listeQuestionsDisponibles = range1(11)
@@ -400,7 +399,7 @@ export default function PrioritesEtRelatifs () {
           setReponse(this, i, (a + b + c) * d)
           break
       }
-      texte += ajouteChampTexteMathLive(this, i)
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
       if (this.sup2) {
         texte = `${lettreDepuisChiffre(i + 1)} = ${texte.substring(0, texte.length - 2) + '$'}`
         // On découpe

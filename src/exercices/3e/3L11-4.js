@@ -6,8 +6,9 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, printlatex } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Factoriser une expression'
 export const interactifReady = true
@@ -39,8 +40,6 @@ export default function FactoriserParNombreOux () {
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Factoriser les expressions suivantes.' : 'Factoriser l\'expression suivante.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     let typesDeQuestionsDisponibles
@@ -139,7 +138,7 @@ export default function FactoriserParNombreOux () {
       }
       if (!context.isAmc) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: ' $=$' })
-        setReponse(this, i, reponse)
+        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true } } })
       } else {
         this.autoCorrection[i] = {
           enonce: texte,

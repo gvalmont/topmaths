@@ -32,10 +32,7 @@ export const refs = {
 }
 export default function Calculercoordonneesvecteurs () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 2
-  this.nbCols = 1
-  this.nbColsCorr = 1
   this.sup = 1
   this.correctionDetaillee = false
   this.correctionDetailleeDisponible = true
@@ -77,7 +74,7 @@ export default function Calculercoordonneesvecteurs () {
           texteCorr += `On applique ici aux données de l'énoncé : $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$.<br>`
           texteCorr += `Ce qui donne au final : $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${miseEnEvidence(xABFraction.texFraction)}\\\\${miseEnEvidence(yABFraction.texFraction)}\\end{pmatrix}$.<br><br>`
         }
-      } else if (this.sup === 2) {
+      } else {
         const listeFractions1 = [[1, 2], [3, 2], [5, 2], [1, 3], [2, 3], [4, 3], [5, 3], [1, 4], [3, 4], [5, 4], [1, 5], [2, 5], [3, 5], [4, 5], [1, 6], [5, 6]]
         const frac1 = choice(listeFractions1)
         xA = new FractionEtendue(frac1[0], frac1[1])
@@ -90,9 +87,9 @@ export default function Calculercoordonneesvecteurs () {
         r = repere({
           xUnite: 1,
           yUnite: 1,
-          xMin: Math.min(-2, Math.trunc(xA - 2.5), Math.trunc(xB - 2.5), 2),
+          xMin: Math.min(-2, Math.trunc(xA.valeurDecimale - 2.5), Math.trunc(xB.valeurDecimale - 2.5), 2),
           yMin: Math.min(-2, Math.trunc(yA.valeurDecimale - 2.5), Math.trunc(yB - 2.5), 2),
-          xMax: Math.max(-2, Math.trunc(xA + 2.5), Math.trunc(xB + 2.5), 2),
+          xMax: Math.max(-2, Math.trunc(xA.valeurDecimale + 2.5), Math.trunc(xB.valeurDecimale + 2.5), 2),
           yMax: Math.max(-2, Math.trunc(yA.valeurDecimale + 2.5), Math.trunc(yB + 2.5), 2),
           thickHauteur: 0.1,
           yLabelEcart: 0.4,
@@ -102,10 +99,10 @@ export default function Calculercoordonneesvecteurs () {
           grilleSecondaire: true,
           grilleSecondaireXDistance: 1 / frac1[1],
           grilleSecondaireYDistance: 1 / frac2[1],
-          grilleSecondaireYMin: Math.min(-2, Math.trunc(yA - 2.5), Math.trunc(yB - 2.5), 2),
-          grilleSecondaireYMax: Math.max(-2, Math.trunc(yA + 2.5), Math.trunc(yB + 2.5), 2),
-          grilleSecondaireXMin: Math.min(-2, Math.trunc(xA - 2.5), Math.trunc(xB - 2.5), 2),
-          grilleSecondaireXMax: Math.max(-2, Math.trunc(xA + 2.5), Math.trunc(xB + 2.5), 2)
+          grilleSecondaireYMin: Math.min(-2, Math.trunc(yA.valeurDecimale - 2.5), Math.trunc(yB - 2.5), 2),
+          grilleSecondaireYMax: Math.max(-2, Math.trunc(yA.valeurDecimale + 2.5), Math.trunc(yB + 2.5), 2),
+          grilleSecondaireXMin: Math.min(-2, Math.trunc(xA.valeurDecimale - 2.5), Math.trunc(xB.valeurDecimale - 2.5), 2),
+          grilleSecondaireXMax: Math.max(-2, Math.trunc(xA.valeurDecimale + 2.5), Math.trunc(xB.valeurDecimale + 2.5), 2)
         }) // On définit le repère
 
         texte = `Dans un repère orthonormé $\\big(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath\\big)$, on donne les points suivants : $${nomsPoints[0]}\\left(${xA.texFSD}\\,;\\,${yA.texFSD}\\right)$ et $${nomsPoints[1]}\\left(${xB.texFSD}\\,;\\,${yB}\\right)$.<br>`
@@ -118,9 +115,13 @@ export default function Calculercoordonneesvecteurs () {
           texteCorr += `Ce qui donne au final : $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${miseEnEvidence(xABFraction.texFraction)}\\\\[0.7em]${miseEnEvidence(yABFraction.texFraction)}\\end{pmatrix}$.<br><br>`
         }
       }
+const xDeA = xA instanceof FractionEtendue ? xA.valeurDecimale : xA // On récupère la valeur décimale de xA
+const yDeA = yA instanceof FractionEtendue ? yA.valeurDecimale : yA // On récupère la valeur décimale de yA
+const xDeB = xB instanceof FractionEtendue ? xB.valeurDecimale : xB // On récupère la valeur décimale de xB
+const yDeB = yB instanceof FractionEtendue ? yB.valeurDecimale : yB // On récupère la valeur décimale de yB
 
-      const A = point(xA, yA, nomsPoints[0]) // On définit et on trace le point A
-      const B = point(xB, yB, nomsPoints[1]) // On définit et on trace le point B
+      const A = point(xDeA, yDeA, nomsPoints[0]) // On définit et on trace le point A
+      const B = point(xDeB, yDeB, nomsPoints[1]) // On définit et on trace le point B
       const traceAetB = tracePoint(A, B, 'red') // Variable qui trace les points avec une croix
       traceAetB.taille = 1.5
       const labelAetB = labelPoint(A, B, 'red') // Variable qui trace les noms A et B

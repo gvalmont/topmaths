@@ -1,14 +1,12 @@
 import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { katexPopup2, lampeMessage, warnMessage } from '../../lib/format/message.js'
-import { modalPdf } from '../../lib/outils/modales.js'
+import { katexPopup2 } from '../../lib/format/message.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { decompositionFacteursPremiers, pgcd } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, ppcm } from '../../modules/outils.js'
-import { svgEngrenages } from '../../modules/macroSvgJs.js'
 export const titre = 'Résoudre un exercice d\'engrenages'
 export const dateDeModifImportante = '01/04/2023'
 /**
@@ -33,26 +31,17 @@ export default function PpcmEngrenages () {
   this.nbColsCorr = 1
   this.sup = false
 
-  const numEx = '3A12' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
-
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
-    if (context.isHtml) { // les boutons d'aide uniquement pour la version html
-      // this.boutonAide = '';
-      this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A13.pdf', 'Aide-mémoire - Arithmétique (Sébastien Lozano)', 'Aide-mémoire')
-    } else { // sortie LaTeX
-    }
-
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
 
     const typesDeQuestionsDisponibles = [1, 2, 3]
-    // const typesDeQuestionsDisponibles = [2]
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
-    let txtIntro = 'Boîte de vitesse, transmission de vélo, de moto, perceuse électrique, tout cela fonctionne avec des engrenages ! Mais au fait, comment ça fonctionne, les engrenages ?'
+    /*
+    const txtIntro = 'Boîte de vitesse, transmission de vélo, de moto, perceuse électrique, tout cela fonctionne avec des engrenages ! Mais au fait, comment ça fonctionne, les engrenages ?'
     if (context.isHtml) {
+      const numEx = '3A12' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
       const idUnique = `${numEx}_${Date.now()}`
       const idDivIntro = `divIntro${idUnique}`
       // On ajoute un customElement au registre via la fonction svgEngrenages()
@@ -67,6 +56,7 @@ export default function PpcmEngrenages () {
       texte: txtIntro,
       couleur: 'nombres'
     })
+    */
 
     for (let i = 0, texte, texteCorr, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]

@@ -12,7 +12,7 @@ type numberOrFraction = number | FractionEtendue
  *  - this.texX1, this.texCalculRacine1 sont relatifs à la plus petite des deux racines, this.texX2 et this.texCalculRacine2 à la plus grande.
  * @author Rémi Angot
  */
-class Trinome {
+export default class Trinome {
   a: FractionEtendue
   b: FractionEtendue
   c: FractionEtendue
@@ -69,7 +69,7 @@ class Trinome {
   }
 
   /** Renvoie ce trinome multiplié par un scalaire */
-  mul (k: number) {
+  mul (k: number | FractionEtendue) {
     return new Trinome(this.a.produitFraction(k), this.b.produitFraction(k), this.c.produitFraction(k))
   }
 
@@ -197,6 +197,7 @@ class Trinome {
   /** Calcul détaillée de la première racine avec résultat exact si l'option est true et valeur approchée sinon */
   texCalculRacine1 (exact = false) {
     if (this.discriminant.s === -1) return ''
+    if (this.discriminant.valeurDecimale === 0) return this.texCalculRacineDouble
     let result = 'x_1 = '
     if (this.a.valeurDecimale > 0) {
       const discriminantRacineCarree = this.discriminant.racineCarree() as FractionEtendue
@@ -240,7 +241,7 @@ class Trinome {
           ? `=\\dfrac{${this.a.s === -1 ? this.b.differenceFraction(discriminantRacineCarree).texFractionSimplifiee : this.b.oppose().sommeFraction(discriminantRacineCarree).texFractionSimplifiee}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
           : `=\\dfrac{${this.a.s === -1 ? this.b.texFractionSimplifiee : this.b.oppose().texFractionSimplifiee}${this.a.s === -1 ? '-' : '+'}${this.discriminant.estParfaite ? discriminantRacineCarree.texFractionSimplifiee : `\\sqrt{${this.discriminant.texFractionSimplifiee}}`}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
       }
-      if (this.x1 instanceof FractionEtendue) result += `=${this.x1.texFractionSimplifiee}`
+      if (this.x1 instanceof FractionEtendue) result += `=${this.x1.texFraction}`
       else if (!exact) {
         result += `\\approx${this.x1.toString().replace('.', '{,}')}`
       } else {
@@ -400,10 +401,12 @@ class Trinome {
       }
       return this.b.oppose().sommeFraction(racineDeDelta).produitFraction(unSurDeuxA).simplifie()
     }
+    let result: number
     if (this.a.valeurDecimale > 0) {
-      return Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+      result = Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
     }
-    return Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+    result = Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+    return result
   }
 
   /** Deuxième racine du trinome */
@@ -418,10 +421,12 @@ class Trinome {
       }
       return this.b.oppose().differenceFraction(racineDeDelta).produitFraction(unSurDeuxA).simplifie()
     }
+    let result: number
     if (this.a.valeurDecimale > 0) {
-      return Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+      result = Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
     }
-    return Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+    result = Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+    return result
   }
 
   /**
@@ -496,7 +501,13 @@ class Trinome {
    * @type {string}
    */
   get texFormeFactorisee () {
-    if (typeof this.x1 === 'boolean' || typeof this.x2 === 'boolean' || typeof this.a === 'boolean') throw Error
+    if (typeof this.x1 === 'boolean' || typeof this.x1 === 'number' || typeof this.x2 === 'number' || typeof this.x2 === 'boolean' || typeof this.a === 'boolean') throw Error
+    if (this.discriminant.valeurDecimale === 0) {
+      if (this.a.valeurDecimale === 1) return `(x${this.x1.oppose().simplifie().texFractionSignee})^2`
+      else if (this.a.valeurDecimale === -1) return `-(x${this.x1.oppose().simplifie().texFractionSignee})^2`
+      else if (this.a.den === 1) return `${this.a.num}(x${this.x1.oppose().simplifie().texFractionSignee})^2`
+      else return `${this.a.texFractionSimplifiee}(x${this.x1.oppose().simplifie().texFractionSignee})^2`
+    }
     if (this.x1 instanceof FractionEtendue) {
       if (this.x1.valeurDecimale === 0) {
         if (this.a.valeurDecimale === 1) return `x(x${this.x2.oppose().simplifie().texFractionSignee})`
@@ -544,5 +555,3 @@ class Trinome {
     return result
   }
 }
-
-export default Trinome
