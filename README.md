@@ -1,49 +1,51 @@
-```
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%                                                    %%%
-%%%                                                    %%%
-%%% LE PROJET EST MAINTENU SUR FORGE.APPS.EDUCATION.FR %%%
-%%%                                                    %%%
-%%%                                                    %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-```
+# Topmaths
 
+Code source du site [topmaths.fr](https://topmaths.fr) dont le but est d'organiser ma sélection d'exercices de [mathalea](https://coopmaths.fr/alea) pour les rendre facilement accessibles à mes élèves et moi.
 
+Vous pouvez avoir votre propre version de topmaths avec vos propres sélections d'exercices / progressions etc. en modifiant juste quelques fichiers comme expliqué [ici](https://topmaths.fr/?v=info&ref=site-info#own-version)
 
-# MathALÉA
+## Avoir votre propre version de Topmaths
 
-MathALÉA est un générateur d'exercices de mathématiques qui suit le programme actuel de mathématiques en France.
+### Résumé
 
-Il propose plusieurs utilisations possibles : 
+Pour adapter topmaths à vos progressions, il suffit de télécharger le code disponible sur ce dépôt et de modifier les quelques fichiers suivants :
 
-* Affichage des exercices dans le navigateur
-* Export LaTeX des énoncés des exercices
-* Création de liens personnalisés à destination des élèves
-* Exercices avec ou sans interactivité
-* Affichage des questions en mode diaporama
-* Annales d'examens accessibles par mots-clés
-* Course aux nombres
-* ...
+- [calendar.json](https://forge.apps.education.fr/valmontguillaume/topmaths/-/blob/main/src/topmaths/json/calendar.json?ref_type=heads) avec le calendrier scolaire de votre établissement
+- [curriculum.json](https://forge.apps.education.fr/valmontguillaume/topmaths/-/blob/main/src/topmaths/json/curriculum.json?ref_type=heads) avec le nombre de séquences par période
+- [objectives.json](https://forge.apps.education.fr/valmontguillaume/topmaths/-/blob/main/src/topmaths/json/objectives.json?ref_type=heads) avec les liens des exercices de [MathALÉA](https://coopmaths.fr/alea/) correspondants à chacun des objectifs de vos séquences
+- [units.json](https://forge.apps.education.fr/valmontguillaume/topmaths/-/blob/main/src/topmaths/json/units.json?ref_type=heads) indiquant les noms des séquences et les objectifs associés
+- [special_units.json](https://forge.apps.education.fr/valmontguillaume/topmaths/-/blob/main/src/topmaths/json/special_units.json?ref_type=heads) pour référencer des pages HTML à part qui apparaîtront dans les "Séquences particulières".
 
-Le moteur développé depuis 2018 connait un développement régulier grâce à une communauté de professeurs de mathématiques en exercice qui améliorent l'interface et proposent toujours de nouveaux exercices.
+Tout le site se construit automatiquement à partir de ces fichiers. Il n'est pas exclu de faire une interface graphique de configuration mais je trouve les fichiers texte comme ceux-ci tellement plus pratiques 😇.
 
+### Procédure détaillée
 
-## Utilisation en local
+- Je vous conseille d'installer [Visual Studio Code](https://code.visualstudio.com/Download) pour modifier plus efficacement ces fichiers et pour les manipulations suivantes
+- Pour pouvoir télécharger et installer toutes les dépendances nécessaires, vous aurez besoin de Node.js.
+  - Pour Windows et MacOS, téléchargez et installez la version LTS en suivant ce lien : [https://nodejs.org/fr](https://nodejs.org/fr).
+  - Pour Linux, vous trouverez les instructions d'installation ici : [https://github.com/nodesource/distributions/blob/master/README.md](https://github.com/nodesource/distributions/blob/master/README.md).
+- Télécharger [topmaths-main.zip](https://forge.apps.education.fr/valmontguillaume/topmaths/-/archive/main/topmaths-main.zip), le décompresser et l'ouvrir dans Visual Studio Code.
+- Pour installer toutes les dépendances, il faudra ouvrir le terminal s'il ne l'est pas déjà (CTRL + J ou CMD + J)
+  - Sur Windows, saisir :
+    - `Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser`
+    - `npm install -g pnpm`
+    - `pnpm install`
+  - Sur Mac et Linux, saisir :
+    - `sudo npm install -g pnpm`
+    - `pnpm install`
+- Tout le nécessaire est maintenant installé !
+  - Il ne reste plus qu'à modifier les fichiers suivants dans le dossier `src/topmaths/json/` :
+    - [calendar.json](https://forge.apps.education.fr/valmontguillaume/topmaths/-/blob/main/src/topmaths/json/calendar.json?ref_type=heads) avec le calendrier scolaire de votre établissement
+    - [curriculum.json](https://forge.apps.education.fr/valmontguillaume/topmaths/-/blob/main/src/topmaths/json/curriculum.json?ref_type=heads) avec le nombre de séquences par période
+    - [objectives.json](https://forge.apps.education.fr/valmontguillaume/topmaths/-/blob/main/src/topmaths/json/objectives.json?ref_type=heads) avec les liens des exercices de [MathALÉA](https://coopmaths.fr/alea/) correspondants à chacun des objectifs de vos séquences
+    - [units.json](https://forge.apps.education.fr/valmontguillaume/topmaths/-/blob/main/src/topmaths/json/units.json?ref_type=heads) indiquant les noms des séquences et les objectifs associés
+    - [special_units.json](https://forge.apps.education.fr/valmontguillaume/topmaths/-/blob/main/src/topmaths/json/special_units.json?ref_type=heads) pour référencer des pages HTML à part qui apparaîtront dans les "Séquences particulières".
+    - (Des fichiers sont grisés car ils sont générés automatiquement et ne sont pas à modifier)
+  - Vous pouvez visualiser vos modifications en direct grâce à `pnpm start`
+  - Pour mettre votre site en ligne, il suffit de faire `pnpm build` et d'envoyer sur votre site tous les fichiers du dossier "dist" via votre logiciel FTP préféré (le mien c'est FileZilla 😁).
 
-La dernière version est disponible sur https://coopmaths.fr/alea.
+## Participer au projet
 
-Vous pouvez récupérer une copie du dépot et l'utiliser en local. Pour cela, vous aurez besoin d'une version récente de NodeJS afin d'exécuter les commandes suivantes.
+N'hésitez pas à [ouvrir un ticket](https://forge.apps.education.fr/valmontguillaume/topmaths/-/issues/new) si vous rencontrez un problème ou voulez me faire part d'une idée d'amélioration.
 
-De notre côté, on utilise pnpm, mais vous pouvez le remplacer par npm.
-
-```
-pnpm install
-pnpm start
-```
-
-## Participer au développement
-
-La communauté de développeur autour de MathALEA est ouverte et prête à accompagner toutes les bonnes volontés intéressées pour améliorer l'outil.
-
-La documentation est disponible sur https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/home. 
-Vous pouvez nous contacter à contact@coopmaths.fr.
+Vous pouvez aussi m'envoyer un mail à contact@topmaths.fr

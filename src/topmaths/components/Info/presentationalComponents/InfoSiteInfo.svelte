@@ -233,24 +233,24 @@
         <li>
           Les fichiers de configuration permettant de paramétrer vos
           progressions et vos choix d'exercices sont situés dans le dossier
-          "src/json/topmaths/".
+          "src/topmaths/json/".
           <ul>
             <li>
-              built_objectives.json et built_units.json sont grisés
+              Des fichiers sont grisés
               car ils sont générés automatiquement et ne sont pas à modifier
             </li>
             <li>
-              sequences.json liste l'ensemble de vos séquences et le moteur
+              units.json liste l'ensemble de vos séquences et le moteur
               ira chercher les détails de chacun de leurs objectifs dans le
-              fichier objectifs.json à partir de leur référence.
+              fichier objectives.json à partir de leur référence.
             </li>
             <li>
-              sequencesParticulieres.json permet de lister des séquences
+              special_units.json permet de lister des séquences
               supplémentaires, hors de cette moulinette, qui seraient donc à
               coder en HTML
             </li>
             <li>
-              calendrier.json permet d'avoir des exercices au hasard qui
+              calendar.json permet d'avoir des exercices au hasard qui
               collent à votre progression et serait probablement à modifier
               car j'y ai mis le calendrier scolaire de la Réunion 😅
             </li>
