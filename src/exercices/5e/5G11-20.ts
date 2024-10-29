@@ -4,6 +4,7 @@ import { shuffle } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { context } from '../../modules/context'
 import figureApigeom from '../../lib/figureApigeom'
+import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
 import type PointApigeom from 'apigeom/src/elements/points/Point'
 import SuperFigure from 'apigeom'
 import { rotationCoord } from 'apigeom/src/elements/calculus/Coords'
@@ -52,7 +53,6 @@ function checkDistance (points: {x: number, y:number}[]) {
  * @author Jean-Claude Lhote
  */
 class ConstructionsSymetrieCentraleFigures extends Exercice {
-  idApigeom!: string[]
   antecedents!: PointApigeom[][]
   labels!: string[][]
   centres!: PointApigeom[]
@@ -63,8 +63,9 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
   constructor () {
     super()
     this.exoCustomResultat = true
-    this.nbQuestions = 2
-    this.spacingCorr = 1
+    this.nbQuestions = 6
+    this.spacing = context.isHtml ? 1 : 0.1
+    this.spacingCorr = context.isHtml ? 1 : 0.1
     this.besoinFormulaireNumerique = [
       'Type d\'aide',
       4,
@@ -75,7 +76,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
     this.sup2 = '6'
   }
 
-  nouvelleVersion (numeroExercice: number) {
+  nouvelleVersion () {
     const marks: string[] = ['//', 'o', '||']
     const colors: string[] = context.isHtml ? ['red', 'green', 'purple', 'blue', 'gray'] : ['gray', 'gray', 'gray', 'gray', 'gray']
     this.answers = {}
@@ -83,7 +84,6 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
     this.listeCorrections = []
     this.autoCorrection = []
     this.figuresApiGeom = []
-    this.idApigeom = []
     this.antecedents = []
     this.labels = []
     this.centres = []
@@ -106,11 +106,11 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
       let enonce = `Construire par symétrie de centre $${labelCentre}$, l'image `
       // Les antécédents sont des points nommés
 
-      const options = { }
+      const options = {}
       if (this.sup === 1) Object.assign(options, { snapGrid: true, dx: 1, dy: 1 })
 
-      this.figuresApiGeom[i] = new SuperFigure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300 }))
-      this.figuresApiGeom[i].scale = 0.5
+      this.figuresApiGeom[i] = new SuperFigure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300, scale: 0.5 }))
+      this.figuresApiGeom[i].options.latexHeight = 20
       this.figuresApiGeom[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'CIRCLE_CENTER_POINT', 'RAY', 'LINE', 'SEGMENT', 'POLYGON', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
       this.centres[i] = this.figuresApiGeom[i].create('Point', { x: 0, y: 0, isVisible: true, isSelectable: true, label: labelCentre })
       this.antecedents[i] = nuage.map((el, k) => this.figuresApiGeom[i].create('Point', { x: el.x, y: el.y, isVisible: true, isSelectable: true, label: this.labels[i][k] }))
@@ -124,7 +124,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           break
         case 'droite':
           this.nbPoints[i] = 2
-          enonce += enonce += `de la droite $(${this.labels[i][0]}${this.labels[i][1]})$.`
+          enonce += `de la droite $(${this.labels[i][0]}${this.labels[i][1]})$.`
 
           this.figuresApiGeom[i].create('Line', { point1: this.antecedents[i][0], point2: this.antecedents[i][1], isVisible: true })
 
@@ -175,21 +175,19 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
         }
       }
       this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
-      this.idApigeom[i] = `apiGeomEx${numeroExercice}F${i}`
-      const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure: this.figuresApiGeom[i], question: i })
       if (context.isHtml) {
         if (this.interactif) {
-          this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure)
+          this.listeQuestions.push(enonce + '<br>' + figureApigeom({ exercice: this, figure: this.figuresApiGeom[i], i, isDynamic: true, defaultAction: 'NAME_POINT' }))
         } else {
-          this.listeQuestions.push(enonce + '<br><br>' + this.figuresApiGeom[i].getStaticHtml())
+          this.listeQuestions.push(enonce + '<br>' + wrapperApigeomToMathalea(this.figuresApiGeom[i]))
         }
       } else {
-        this.figuresApiGeom[i].scale = 0.5
         this.listeQuestions.push(enonce + '<br><br>' + this.figuresApiGeom[i].tikz())
       }
       // On crée la figure pour la correction
-      const correctionFig = new SuperFigure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300 }))
-      correctionFig.scale = 0.5
+      const correctionFig = new SuperFigure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300, scale: 0.5, isDynamic: false }))
+      correctionFig.setToolbar({ tools: ['UNDO'], position: 'top' })
+      correctionFig.options.latexHeight = 20
       const sym: PointApigeom[] = []
       const centreCorrection = correctionFig.create('Point', { x: 0, y: 0, isVisible: true, isSelectable: false, label: this.centres[i].label })
       const copyAntecedents = this.antecedents[i].map((el, k) => correctionFig.create('Point', { x: el.x, y: el.y, isVisible: true, isSelectable: false, label: this.labels[i][k] }))
@@ -198,7 +196,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
       }
       for (let k = 0; k < (this.typesDeQuestions[i] === 'triangle' ? 3 : 2); k++) {
         sym[k] = copyAntecedents[k].rotate(centreCorrection, 180, { label: this.antecedents[i][k].label + '\'' })
-        correctionFig.create('Segment', { point1: copyAntecedents[k], point2: sym[k], isDashed: true, color: 'grey' })
+        correctionFig.create('Segment', { point1: copyAntecedents[k], point2: sym[k], isDashed: true, color: 'gray' })
         correctionFig.create('MarkBetweenPoints', { point1: sym[k], point2: centreCorrection, text: marks[k], fontSize: '10px', color: colors[k] })
         correctionFig.create('MarkBetweenPoints', { point2: copyAntecedents[k], point1: centreCorrection, text: marks[k], fontSize: '10px', color: colors[k] })
       }
@@ -248,14 +246,14 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           throw new Error('Type de question inconnu')
       }
 
-      this.listeCorrections.push(correctionFig.getStaticHtml())
+      this.listeCorrections.push(context.isHtml ? wrapperApigeomToMathalea(correctionFig) : correctionFig.tikz())
     }
   }
 
   correctionInteractive = (i: number) => {
     if (this.answers === undefined) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.idApigeom[i]] = this.figuresApiGeom[i].json
+    this.answers[this.figuresApiGeom[i].id] = this.figuresApiGeom[i].json
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
     const typefigure = this.typesDeQuestions[i]
     const cords1 = rotationCoord(this.antecedents[i][0], this.centres[i], 180)

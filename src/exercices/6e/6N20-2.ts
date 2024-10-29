@@ -13,6 +13,7 @@ import erase from 'apigeom/src/assets/svg/erase.svg'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { generateCleaner } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import TextByPosition from 'apigeom/src/elements/text/TextByPosition'
 
 export const titre = "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale"
 export const interactifReady = true
@@ -70,7 +71,7 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
 
     if (this.sup2) {
       const figure = getDynamicFractionDiagram()
-      this.introduction = figureApigeom({ exercice: this, idApigeom: `apiGeomEx${this.numeroExercice}`, figure })
+      this.introduction = figureApigeom({ exercice: this, i: 0, figure })
       figure.isDynamic = true
       figure.divButtons.style.display = 'grid'
       if (figure.ui) figure.ui.send('FILL')
@@ -204,28 +205,49 @@ export function getDynamicFractionDiagram () {
   figure.options.color = 'blue'
   // figure.options.limitNumberOfElement.set('Point', 0)
 
-  const d = new RectangleFractionDiagram(figure, { denominator: 2, numberOfRectangles: 5 })
+  figure.create('RectangleFractionDiagram', { denominator: 2, numberOfRectangles: 5 })
 
   function decreaseDenominator (): void {
-    if (d.denominator === 2) return
-    const num = d.numerator
-    d.denominator--
-    d.redraw()
-    d.numerator = num
-    text.text = `L'unité est partagée en ${d.denominator} parts égales.`
+    let denominator = 2
+    figure.elements.forEach((ele) => {
+      if (ele.type === 'RectangleFractionDiagram' && ele instanceof RectangleFractionDiagram) {
+        if (ele.denominator === 2) return
+        const num = ele.numerator
+        ele.denominator--
+        denominator = ele.denominator
+        ele.redraw()
+        ele.numerator = num
+      }
+      if (ele.type === 'TextByPosition' && ele instanceof TextByPosition) {
+        ele.text = `L'unité est partagée en ${denominator} parts égales.`
+      }
+    })
   }
 
   function increaseNumerator (): void {
-    const num = d.numerator
-    d.denominator++
-    d.redraw()
-    d.numerator = num
-    text.text = `L'unité est partagée en ${d.denominator} parts égales.`
+    let denominator = 2
+    figure.elements.forEach((ele) => {
+      if (ele.type === 'RectangleFractionDiagram' && ele instanceof RectangleFractionDiagram) {
+        const num = ele.numerator
+        ele.denominator++
+        denominator = ele.denominator
+        ele.redraw()
+        ele.numerator = num
+      }
+      if (ele.type === 'TextByPosition' && ele instanceof TextByPosition) {
+        ele.text = `L'unité est partagée en ${denominator} parts égales.`
+      }
+    })
   }
 
   function clearFill (): void {
-    d.numerator = 0
+    figure.elements.forEach((ele) => {
+      if (ele.type === 'RectangleFractionDiagram' && ele instanceof RectangleFractionDiagram) {
+        ele.numerator = 0
+      }
+    })
   }
+
   figure.setToolbar({ position: 'top', tools: ['FILL'] })
   const p = document.createElement('p')
   p.innerHTML = 'Brouillon non évalué'
@@ -235,6 +257,6 @@ export function getDynamicFractionDiagram () {
   figure.addCustomButton({ action: clearFill, tooltip: 'Réinitialiser le coloriage', url: erase })
   figure.divButtons.appendChild(p)
   figure.container.classList.add('border-2', 'border-coopmaths-struct', 'p-2', 'rounded-md')
-  const text = figure.create('TextByPosition', { text: `L'unité est partagée en ${d.denominator} parts égales.`, x: 0, y: -1.5, anchor: 'bottomLeft', isChild: true })
+  figure.create('TextByPosition', { text: `L'unité est partagée en ${2} parts égales.`, x: 0, y: -1.5, anchor: 'bottomLeft', isChild: false })
   return figure
 }

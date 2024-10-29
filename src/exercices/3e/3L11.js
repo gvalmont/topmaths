@@ -51,7 +51,7 @@ export const refs = {
 export default function ExerciceDevelopper () {
   Exercice.call(this)
   this.sup = 3 // difficulté
-  this.sup2 = 1 // consigne
+  this.sup2 = 2 // consigne
   this.sup3 = 7 // forme de développement
   this.sup4 = false
   this.nbQuestions = 6
@@ -163,7 +163,7 @@ export default function ExerciceDevelopper () {
 
       texteCorr += ` $${lettreDepuisChiffre(i + 1)}=${reponseRed}$`
       if (!context.isAmc) {
-        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')) : ''
+        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, ' ')) : ''
       } else {
         this.autoCorrection[i] = {
           enonce: '',

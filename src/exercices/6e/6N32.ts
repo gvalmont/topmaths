@@ -6,8 +6,8 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import Figure from 'apigeom'
-import LineFractionDiagram from 'apigeom/src/elements/diagrams/LineFractionDiagram'
 import figureApigeom from '../../lib/figureApigeom.js'
+import LineFractionDiagram from 'apigeom/src/elements/diagrams/LineFractionDiagram'
 export const titre = 'Représenter une fraction de l\'unité'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -28,9 +28,7 @@ export const refs = {
 }
 export default class FractionsDunite extends Exercice {
   goodAnswers: number[] = []
-  diagrams: LineFractionDiagram[] = []
   figuresApigeom: Figure[] = []
-  idsApigeom: string[] = []
   constructor () {
     super()
     this.nbQuestions = 5
@@ -99,13 +97,14 @@ export default class FractionsDunite extends Exercice {
       }
 
       if (this.interactif) {
-        const figure = new Figure({ xMin: -0.5, yMin: -0.3, height: 40, width: 600 })
+        const figure = new Figure({ xMin: -0.5, yMin: -0.3, height: 60, width: 600 })
         this.figuresApigeom[i] = figure
         figure.setToolbar({ position: 'top', tools: ['FILL'] })
         figure.options.color = 'blue'
-        this.diagrams[i] = new LineFractionDiagram(figure, { denominator: unit, max: 3, width: 6 })
-        this.idsApigeom[i] = `apigeomEx${this.numeroExercice}EE${new Date().getTime()}`
-        texte += figureApigeom({ exercice: this, figure, defaultAction: 'FILL', question: i, idApigeom: this.idsApigeom[i] })
+        figure.create('LineFractionDiagram', { denominator: unit, max: 3, width: 6 })
+        texte += figureApigeom({ exercice: this, figure, defaultAction: 'FILL', i })
+        figure.divButtons.style.display = 'none'
+        figure.divUserMessage.style.display = 'none'
       }
 
       texteCorr = mathalea2d({ xmin: 0, ymin: 0, xmax: 26, ymax: 2, pixelsParCm: 20, scale: sc }, frac.representation(1, 1, unit, 0, 'segment', 'blue', 0, 1), g, carreaux)
@@ -145,12 +144,17 @@ export default class FractionsDunite extends Exercice {
     const figure = this.figuresApigeom[i]
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[`#apigeomEx${this.numeroExercice}F${i}`] = figure.json
+    this.answers[figure.id] = figure.json
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'
     const divFeedback = document.querySelector(`#feedback${`Ex${this.numeroExercice}Q${i}`}`)
-    const result = (this.diagrams[i].numerator === this.goodAnswers[i] && this.diagrams[i].numerator === this.diagrams[i].indiceLastInColor)
+    let result = false
+    figure.elements.forEach((ele) => {
+      if (ele.type === 'LineFractionDiagram' && ele instanceof LineFractionDiagram) {
+        result = (ele.numerator === this.goodAnswers[i] && ele.numerator === ele.indiceLastInColor)
+      }
+    })
     if (divFeedback != null) {
       if (result) {
         divFeedback.innerHTML = '😎'

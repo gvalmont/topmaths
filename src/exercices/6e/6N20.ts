@@ -19,7 +19,6 @@ export const dateDeModifImportante = '24/01/2024' // Brouillon interactif
 
 /**
  * @author Rémi Angot
- * 6N20
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '6c8a1'
@@ -36,11 +35,9 @@ export default class ExerciceFractionsDecomposer extends Exercice {
           "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1."
     this.spacing = 2
     this.spacingCorr = 2
-    this.sup = false // Donner l'écriture décimale
-    this.sup2 = false
+    this.sup2 = true
     this.sup3 = '11'
     this.sup4 = true
-    this.besoinFormulaire2CaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
     this.besoinFormulaire3Texte = ['Dénominateurs à choisir', 'Nombres séparés par des tirets\n2: demis\n4: quarts\n5: cinquièmes\n8: huitièmes\n10: dixièmes\n11: Mélange']
     this.besoinFormulaire4CaseACocher = ['Brouillon interactif']
   }
@@ -48,9 +45,7 @@ export default class ExerciceFractionsDecomposer extends Exercice {
   nouvelleVersion () {
     if (this.sup4) {
       const figure = getDynamicFractionDiagram()
-      this.introduction = figureApigeom({ exercice: this, idApigeom: `apiGeomEx${this.numeroExercice}`, figure })
-      figure.isDynamic = true
-      figure.divButtons.style.display = 'grid'
+      this.introduction = figureApigeom({ exercice: this, i: 0, figure })
       if (figure.ui) figure.ui.send('FILL')
     } else {
       this.introduction = ''
@@ -157,7 +152,7 @@ export default class ExerciceFractionsDecomposer extends Exercice {
                 '$ ' + texFraction(a, b) + ' = ' + n + '+' + texFraction(c, b) + ' $'
 
       if (this.interactif) {
-        texte = remplisLesBlancs(this, i, `\\dfrac{${a}}{${b}}~=~%{champ1} + \\dfrac{%{champ2}}{%{champ3}}`, 'inline clavierDeBaseAvecFraction fillInTheBlank')
+        texte = remplisLesBlancs(this, i, `\\dfrac{${a}}{${b}}~=~%{champ1} + \\dfrac{%{champ2}}{%{champ3}}`, ' clavierDeBaseAvecFraction fillInTheBlank')
         handleAnswers(this, i, {
           champ1: { value: String(n) },
           champ2: { value: String(c) },
@@ -170,10 +165,12 @@ export default class ExerciceFractionsDecomposer extends Exercice {
           enonceAvant: false, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
           enonceAvantUneFois: false, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
           melange: false, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
+          // @ts-expect-error typage de AMC
           options: { multicols: true, barreseparation: true, numerotationEnonce: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
           // barreseparation (par défaut à false) permet de mettre une barre de séparation entre les deux colonnes.
           propositions: [
             {
+              // @ts-expect-error typage de AMC
               type: 'AMCNum', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
               propositions: [ // une ou plusieurs (Qcms) 'propositions'
                 {
@@ -195,6 +192,7 @@ export default class ExerciceFractionsDecomposer extends Exercice {
               ]
             },
             {
+              // @ts-expect-error typage de AMC
               type: 'AMCNum', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
               propositions: [ // une ou plusieurs (Qcms) 'propositions'
                 {

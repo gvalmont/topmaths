@@ -139,14 +139,13 @@ export function chercheIntervalles (fonc: Polynome, soluces: number[], inferieur
 class resolutionEquationInequationGraphique extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
-  idApigeom!: string
 
   constructor () {
     super()
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     // Pour un exercice de type simple qui n'utilise pas le champ de réponse
-    this.formatChampTexte = 'largeur01 inline'
+    this.formatChampTexte = ''
     this.exoCustomResultat = true
     this.answers = {}
     this.sup2 = 10
@@ -158,7 +157,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     this.besoinFormulaire3CaseACocher = ['Avec point mobile', false]
   }
 
-  nouvelleVersion (numeroExercice: number): void {
+  nouvelleVersion (): void {
     // on va chercher une spline aléatoire
     this.listeQuestions = []
     this.listeCorrections = ['']
@@ -456,7 +455,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     this.figure.options.automaticUserMessage = false
     if (this.sup3) this.figure.userMessage = 'Cliquer sur le point $M$ pour le déplacer.'
     this.figure.create('Grid')
-    this.figure.options.limitNumberOfElement.set('Point', this.sup3 ? 1 : 0)
+    // this.figure.options.limitNumberOfElement.set('Point', this.sup3 ? 1 : 0)
 
     // on s'occupe de la fonction 1 et du point mobile dessus on trace tout ça.
     // Maintenant, la fonction1 n'est jamais une spline !
@@ -538,7 +537,6 @@ class resolutionEquationInequationGraphique extends Exercice {
     this.figure.create('Segment', { point1: p1A, point2: p1B, color: 'blue', thickness: 2 })
     this.figure.create('Segment', { point1: p2A, point2: p2B, color: 'red', thickness: 2 })
 
-    this.idApigeom = `apigeomEx${numeroExercice}F0`
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
     let enonce = `On considère les fonctions $${f1}$ et $${f2}$ définies sur $\\R$ et dont on a représenté ci-dessous une partie de leurs courbes respectives.<br><br>`
     // let diff
@@ -570,7 +568,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     let indexQuestion = 0
     if (soluces != null) {
       if (this.sup === 1 || this.sup === 3) {
-        if (this.interactif) enonce += `L'ensemble de solutions de l'équation $${f1}(x)${miseEnEvidence('~=~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}] est : ` + ajouteChampTexteMathLive(this, indexQuestion, 'inline15 lycee ml-2') + '<br><br>' // '$\\{' + Array.from(soluces).join(' ; ') + '\\}$'//
+        if (this.interactif) enonce += `L'ensemble de solutions de l'équation $${f1}(x)${miseEnEvidence('~=~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}] est : ` + ajouteChampTexteMathLive(this, indexQuestion, '  lycee ml-2') + '<br><br>' // '$\\{' + Array.from(soluces).join(' ; ') + '\\}$'//
         handleAnswers(this, indexQuestion, {
           reponse: {
             value: `\\{${Array.from(soluces).join(';')}\\}`,
@@ -585,7 +583,7 @@ class resolutionEquationInequationGraphique extends Exercice {
       enonce += `Résoudre graphiquement l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}].<br>`
       if (this.interactif) {
         enonce += 'On peut taper \'union\' au clavier ou utiliser le clavier virtuel pour le signe $\\cup$.<br>'
-        enonce += `L'ensemble des solutions de l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}] est : ` + ajouteChampTexteMathLive(this, indexQuestion, 'inline15 lycee ml-2') + '<br><br>'
+        enonce += `L'ensemble des solutions de l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}] est : ` + ajouteChampTexteMathLive(this, indexQuestion, '  lycee ml-2') + '<br><br>'
       }
       const soluces2: string = chercheIntervalles(polyDiff, soluces, Boolean(inferieur), xMin, xMin + 10)
 
@@ -602,9 +600,17 @@ class resolutionEquationInequationGraphique extends Exercice {
     }
     this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
     if (this.figure.ui) this.figure.ui.send('DRAG')
-    // Il est impératif de choisir les boutons avant d'utiliser figureApigeom
-    const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure: this.figure })
     this.figure.isDynamic = true
+    if (!this.sup3) {
+      const callback = () => {
+        this.figure.divButtons.style.display = 'none'
+        document.removeEventListener('exercicesAffiches', callback)
+      }
+      document.addEventListener('exercicesAffiches', callback)
+    }
+    // Il est impératif de choisir les boutons avant d'utiliser figureApigeom
+    const emplacementPourFigure = figureApigeom({ exercice: this, i: 0, figure: this.figure })
+
     this.figure.divButtons.style.display = 'flex'
     if (context.isHtml) {
       this.listeQuestions = [enonce + emplacementPourFigure]

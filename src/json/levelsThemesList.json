@@ -167,13 +167,13 @@
   "canTExC": {
     "titre": "Nombres complexes"
   },
-  "canT1AN": {
+  "canTSpeAN": {
     "titre": "Analyse"
   },
-  "canT1S": {
+  "canTSpeS": {
     "titre": "Suites"
   },
-  "canT1E": {
+  "canTSpeE": {
     "titre": "Espace"
   },
   "canExa": {
@@ -760,6 +760,28 @@
     "titre": "Algorithmique",
     "sousThemes": {}
   },
+  "3QCM": {
+    "titre": "Qcms en version aléatoire ou pas",
+    "sousThemes": {
+      "3QCMF": "Fonctions",
+      "3QCMG": "Géométrie",
+      "3QCMN": "Nombres et calculs",
+      "3QCMS": "Statistiques",
+      "3QCMProb": "Probabilités",
+      "3QCMA": "Arithmétique",
+      "3QCMR": "Relatifs",
+      "3QCML": "Calcul littéral",
+      "3QCMProp": "Proportionnalité",
+      "3QCMThal": "Théorème de Thalès",
+      "3QCMPyth": "Théorème de Pythagore",
+      "3QCMTrig": "Trigonométrie",
+      "3QCMH": "Homothétie",
+      "3QCME": "Espace",
+      "3QCMP": "Puissances",
+      "3QCMAlgo": "Algorithmique",
+      "3QCMO": "Opérations"
+    }
+  },
   "200": {
     "titre": "Automatismes"
   },
@@ -937,15 +959,31 @@
   "PEG2": {
     "titre": "À la règle et au compas"
   },
-  "TAN1": {
+  "TSpeAN1": {
     "titre": "Analyse"
   },
-  "TC1": {
+  "TSpeC1": {
     "titre": "Calculs"
+  },
+  "TSpeS1": {
+    "titre": "Suites"
+  },
+  "TSpeF1": {
+    "titre": "Fonctions"
   },
   "TExC1": {
     "titre": "Calculs avec nombres complexes",
     "sousThemes": {}
+  },
+  "TQCM": {
+    "titre": "Qcm du bac",
+    "sousThemes": {
+      "TQCMF": "Fonctions",
+      "TQCMS": "Statistiques",
+      "TQCMProb": "Probabilités",
+      "TQCMAN": "Analyse",
+      "TQCME": "Espace"
+    }
   },
   "ExE1": {
     "titre": "Équations",

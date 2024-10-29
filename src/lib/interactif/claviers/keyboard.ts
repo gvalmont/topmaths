@@ -336,5 +336,9 @@ const shortcutsByKeyboards = {
 
   numbersOperations: {
     '/': { mode: 'math', value: '\\div' }
+  },
+
+  numbersSpace: {
+    ' ': '\\,'
   }
 } as ShortcutsByKeyboards

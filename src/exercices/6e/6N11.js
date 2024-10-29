@@ -2,7 +2,7 @@ import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import {
@@ -11,13 +11,14 @@ import {
   randint
 } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexte, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
   handleAnswers
 } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 import { latex2d } from '../../lib/2d/textes'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = "Lire l'abscisse entière d'un point (grands nombres)"
 export const interactifReady = true
@@ -41,15 +42,10 @@ export default function LireAbscisseEntiere2d () {
   Exercice.call(this)
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
   this.sup = 4
   this.interactif = false
 
   this.nouvelleVersion = function () {
-    // numeroExercice est 0 pour l'exercice 1
     this.consigne = "Lire l'abscisse de chacun des points suivants."
     if (this.interactif) { this.consigne += texteGras(' Penser à mettre les espaces nécessaires.') }
     let typesDeQuestions
@@ -175,33 +171,28 @@ export default function LireAbscisseEntiere2d () {
       if (this.interactif && context.isHtml) {
         handleAnswers(this, 3 * i, {
           reponse: {
-            value: stringNombre(reponse1, 0),
+            value: texNombre(reponse1, 0),
             compare: fonctionComparaison,
             options: { nombreAvecEspace: true }
           }
         })
         handleAnswers(this, 3 * i + 1, {
           reponse: {
-            value: stringNombre(reponse2, 0),
+            value: texNombre(reponse2, 0),
             compare: fonctionComparaison,
             options: { nombreAvecEspace: true }
           }
         })
         handleAnswers(this, 3 * i + 2, {
           reponse: {
-            value: stringNombre(reponse3, 0),
+            value: texNombre(reponse3, 0),
             compare: fonctionComparaison,
             options: { nombreAvecEspace: true }
           }
         })
-        texte += `<br>${ajouteChampTexte(this, 3 * i, 'largeur01', { texteAvant: `${l1}(`, texteApres: ')' })}`
-        texte += ajouteFeedback(this, 3 * i)
-
-        texte += `<br>${ajouteChampTexte(this, 3 * i + 1, 'largeur01', { texteAvant: `${l2}(`, texteApres: ')' })}`
-        texte += ajouteFeedback(this, 3 * i + 1)
-
-        texte += `<br>${ajouteChampTexte(this, 3 * i + 2, 'largeur01', { texteAvant: `${l3}(`, texteApres: ')' })}`
-        texte += ajouteFeedback(this, 3 * i + 2)
+        texte += `<br>${ajouteChampTexteMathLive(this, 3 * i, KeyboardType.numbersSpace, { texteAvant: `${l1}(`, texteApres: ')' })}`
+        texte += `<br>${ajouteChampTexteMathLive(this, 3 * i + 1, KeyboardType.numbersSpace, { texteAvant: `${l2}(`, texteApres: ')' })}`
+        texte += `<br>${ajouteChampTexteMathLive(this, 3 * i + 2, KeyboardType.numbersSpace, { texteAvant: `${l3}(`, texteApres: ')' })}`
       } else if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
@@ -267,7 +258,7 @@ export default function LireAbscisseEntiere2d () {
         }
       }
 
-      if (this.questionJamaisPosee(i, texte)) {
+      if (this.questionJamaisPosee(i, abs0, x1, x2, x3)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

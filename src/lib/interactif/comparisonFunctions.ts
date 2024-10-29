@@ -3,7 +3,7 @@ import {
   ComputeEngine,
   type BoxedExpression
 } from '@cortex-js/compute-engine'
-import { abs } from '../../lib/outils/nombres'
+import type { Parser, ParseLatexOptions, LatexDictionaryEntry } from 'node_modules/@cortex-js/compute-engine/dist/types/compute-engine/latex-syntax/public.d.ts'
 // import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
@@ -29,6 +29,8 @@ export type OptionsComparaisonType = {
   calculSeulementEtNonOperation?: boolean
   ensembleDeNombres ?:boolean
   kUplet ? :boolean
+  seulementCertainesPuissances? :boolean
+  sansExposantUn? :boolean
   suiteDeNombres ?:boolean
   suiteRangeeDeNombres?:boolean
   HMS?: boolean
@@ -52,6 +54,16 @@ export type CompareFunction = (
   options: OptionsComparaisonType,
 ) => ResultType
 
+interface BoxedExpressionWithHead extends BoxedExpression {
+  head: string
+}
+function expressionWithHead (expr: BoxedExpression) {
+  if ('head' in expr) {
+    return expr as BoxedExpressionWithHead
+  }
+  // ne devrait jamais avoir lieu d'après la doc de computeEngine, toutes les boxedExpressions ont un head
+  return { ...expr, head: 'Symbol' } as BoxedExpressionWithHead
+}
 type CleaningOperation =
   | 'fractions'
   | 'fractionsMemesNegatives'
@@ -82,17 +94,13 @@ function cleanFractions (str: string): string {
  * @author Eric Elter
  */
 function cleanFractionsMemesNegatives (str: string): string { // EE :
-  let modif
+  let modif: string
   modif = str.replaceAll(/dfrac/g, 'frac')
 
   // regex made by Mathieu Degrange
-  modif = modif.replace(/^-\\frac(?:(\d)(\d)|{(-?\d+)}{(-?\d+)})$/i, function (match, p1, p2, p3, p4) {
-    return '\\frac{' + ((p1 || p3) * (p2 || p4) > 0 ? '-' : '') + Math.abs(p1 || p3) + '}{' + Math.abs(p2 || p4) + '}'
-  }) // Permet de transformer -\frac{13}{15} en \frac{-13}{15} et -\frac{-13}{15} en \frac{13}{15}
+  modif = modif.replace(/^-\\frac(?:(\d)(\d)|{(-?\d+)}{(-?\d+)})$/i, (match, p1, p2, p3, p4) => `\\frac{${(p1 || p3) * (p2 || p4) > 0 ? '-' : ''}${Math.abs(p1 || p3)}}{${Math.abs(p2 || p4)}}`) // Permet de transformer -\frac{13}{15} en \frac{-13}{15} et -\frac{-13}{15} en \frac{13}{15}
 
-  modif = modif.replace(/^\\frac(?:(\d)(\d)|{(-?\d+)}{(-?\d+)})$/i, function (match, p1, p2, p3, p4) {
-    return '\\frac{' + ((p1 || p3) * (p2 || p4) < 0 ? '-' : '') + Math.abs(p1 || p3) + '}{' + Math.abs(p2 || p4) + '}'
-  }) // Permet de transformer \frac{-13}{-15} en \frac{13}{15}
+  modif = modif.replace(/^\\frac(?:(\d)(\d)|{(-?\d+)}{(-?\d+)})$/i, (match, p1, p2, p3, p4) => `\\frac{${(p1 || p3) * (p2 || p4) < 0 ? '-' : ''}${Math.abs(p1 || p3)}}{${Math.abs(p2 || p4)}}`) // Permet de transformer \frac{-13}{-15} en \frac{13}{15}
 
   return modif
 }
@@ -261,80 +269,6 @@ function inputToGrandeur (input: string): Grandeur | false {
   return false
 }
 
-/* Cette fonction n'est pas correcte, voir la suivante.
-/**
- * Permet de valider des 'opérations' par exemple : '4+8' ou '4\\times 5' ou encore '3\\times 5 + 4'
- * @deprecated (EE : je la laisse un peu avant de la supprimer)
- * Cette fonction est déprécieé au profit de expressionDeveloppeeEtReduiteCompare (qui fait la même avec du calcul littéral)
- * @param {string} input
- * @param {string} goodAnswer
-
-export function operationCompare (input: string, goodAnswer: string):ResultType {
-  const clean = generateCleaner(['virgules', 'parentheses', 'fractions', 'espaces'])
-  const saisie = clean(input)
-  const saisieParsed = engine.parse(saisie, { canonical: ['InvisibleOperator', 'Multiply', 'Power', 'Number', 'Add', 'Flatten', 'Order'] })
-  const answer = engine.parse(clean(goodAnswer), { canonical: ['InvisibleOperator', 'Multiply', 'Power', 'Number', 'Add', 'Flatten', 'Order'] })
-
-  // Pb : 3+5 est accepté correct pour 2+6
-  const evaluationAnswer = answer.evaluate()
-  const evaluationSaisie = saisieParsed.evaluate()
-  const isOk1 = evaluationAnswer.isEqual(evaluationSaisie)
-  const isOk2 = String(answer.head) === String(saisieParsed.head)
-  return { isOk: isOk1 && isOk2 } // Une précaution pour éviter de valider 64/8 à la place de 2*4
-}
-*/
-
-/*
- * Comparaison des enchainements de calculs NUMERIQUES (mais pas leurs résultats)
- * Permet de valider des 'opérations' par exemple : '4+8' ou '4\\times 5' ou encore '3\\times 5 + 4'
- * @param {string} input
- * @param {string} goodAnswer
- * @author  Eric Elter
- * @return ResultType
-
-export function operationCompare (input: string, goodAnswer: string):ResultType {
-  return expressionDeveloppeeEtReduiteCompare(input, goodAnswer, { operationSeulementEtNonCalcul: true })
-}
-*/
-
-// Suppression de numberCompare
-/*
-export function numberCompare (input: string, goodAnswer: string): ResultType {
-  const clean = generateCleaner(['espaces', 'virgules', 'parentheses', 'fractions'])
-  const inputParsed = engine.parse(clean(input))
-
-  // Rajout EE : Sans cela, toute opération (aboutissant au bon résultat) était considéré correcte. (29/04/2024)
-  if (inputParsed.head !== 'Number' || input.includes('div')) { // Besoin de préciser pour div car sinon c'est pris pour une fraction et c'est accepté or c'est une opération.
-    return { isOk: false, feedback: 'Un nombre (et non une opération) doit être saisi' }
-  }
-  // Fin de rajout EE
-
-  if (input.includes('frac') && inputParsed.isInteger) { // EE : Ce if ne convient pas car reponse est 4/5 mais input est 40/50, on n'a pas de feedback.
-    return { isOk: inputParsed.isEqual(engine.parse(clean(goodAnswer))), feedback: `La fraction $${input}$ aurait pu être simplifiée en $${inputParsed.latex}$<br>` }
-  } else {
-    return { isOk: inputParsed.isEqual(engine.parse(clean(goodAnswer))) }
-  }
-}
-*/
-
-/* Ancienne fonction au profit de la nouvelle ci-dessous
-/**
- * comparaison d'expressions
- * @param {string} input
- * @param {string} goodAnswer
- * @author Jean-Claude Lhote
- * @return ResultType
-////////////  -> Mettre etoile /
-export function calculCompare (input: string, goodAnswer: string): ResultType {
-
-  const clean = generateCleaner(['virgules', 'espaces', 'parentheses', 'puissances', 'fractions'])
-  const saisieClean = clean(input)
-  const reponseClean = clean(goodAnswer)
-  console.log(engine.parse(saisieClean).json, engine.parse(reponseClean).json)
-  return { isOk: engine.parse(saisieClean).isSame(engine.parse(reponseClean)) }
-}
-*/
-
 /**
  * Couteau suisse de la comparaison. Devrait correspondre à une très grosse majorité des comparaisons.
  * Comparaison de nombres ou bien d'expressions : c'est la fonction qui choisit.
@@ -367,10 +301,59 @@ export function factorisationCompare (
     'fractions',
     'parentheses'
   ])
+  const flatten = (expr: BoxedExpressionWithHead): BoxedExpressionWithHead => {
+    if (expr.head === 'Multiply') {
+      if (expr.ops == null) {
+        window.notify('flatten a rencontré un problème avec une multiplication sans opérandes', { expr })
+        return engine.parse(expr.latex) as BoxedExpressionWithHead
+      }
+      return engine.box([
+        'Multiply',
+        ...(expr.ops as BoxedExpressionWithHead[]).map((op) => flatten(op))
+      ]) as BoxedExpressionWithHead
+    }
+    const base = ['Power', 'Square'].includes(expressionWithHead(expr.op1).head) ? flatten(expressionWithHead(expr.op1)) : expr.op1
+    if (expr.head === 'Square') {
+      return expressionWithHead(engine.box(['Multiply', base, base], { canonical: true }))
+    }
+    if (expr.head === 'Power' && expressionWithHead(expr.op2).head === 'Number') {
+      const expo = Number(expr.op2.value)
+      const exprs = []
+      for (let i = 0; i < expo; i++) {
+        exprs.push(base)
+      }
+      return expressionWithHead(engine.box(['Multiply', ...exprs], { canonical: true }))
+    }
+    return expr
+  }
+
+  const allFactorsMatch = (ops1: readonly BoxedExpression[], ops2: readonly BoxedExpression[], signe: boolean): {isOk: boolean, feedback: string} => {
+    let signeCurrent = signe
+    for (const op of ops1) {
+      let match = false
+      for (const op2 of ops2) {
+        if (op2.isSame(op)) {
+          match = true
+          break
+        }
+        const newOp = engine.box(['Subtract', '0', op.json], { canonical: true })
+        if (op2.isSame(newOp)) {
+          signeCurrent = !signeCurrent
+          match = true
+          break
+        }
+      }
+      if (!match) return { isOk: false, feedback: `On pouvait mettre $${op.latex}$ en facteur` }
+    }
+    return { isOk: signeCurrent, feedback: signeCurrent ? '' : 'Il y a un problème de signe' }
+  }
+
+  let signe = true
   const aCleaned = clean(input)
   const bCleaned = clean(goodAnswer)
-  const saisieParsed = engine.parse(aCleaned, { canonical: true })
-  const reponseParsed = engine.parse(bCleaned, { canonical: true })
+  let saisieParsed = expressionWithHead(engine.parse(aCleaned, { canonical: true }))
+  let reponseParsed = expressionWithHead(engine.parse(bCleaned, { canonical: true }))
+
   if (saisieParsed == null || reponseParsed == null) {
     window.notify(
       'factorisationCompare a rencontré un problème en analysant la réponse ou la saisie ',
@@ -378,6 +361,24 @@ export function factorisationCompare (
     )
     return { isOk: false }
   }
+  let saisieHead = saisieParsed.head
+  let answerHead = reponseParsed.head
+  if (saisieHead === 'Negate' && answerHead === 'Negate') { // on gère le cas où la saisie et la réponse commence par le signe moins
+    saisieParsed = expressionWithHead(saisieParsed.op1)
+    saisieHead = saisieParsed.head
+    reponseParsed = expressionWithHead(reponseParsed.op1)
+    answerHead = reponseParsed.head
+  } else if (saisieHead === 'Negate') {
+    saisieParsed = expressionWithHead(saisieParsed.op1)
+    saisieHead = saisieParsed.head
+    signe = false
+  } else if (answerHead === 'Negate') {
+    reponseParsed = expressionWithHead(reponseParsed.op1)
+    answerHead = reponseParsed.head
+    signe = false
+  }
+
+  // isOk1 atteste que le développement de la saisie et de la reponse attendue sont égales
   const saisieDev = engine
     .box(['ExpandAll', saisieParsed])
     .evaluate()
@@ -387,47 +388,23 @@ export function factorisationCompare (
     .evaluate()
     .simplify().canonical
   const isOk1 = saisieDev.isEqual(reponseDev)
-  let isOk2: boolean
-  const head = String(saisieParsed.head)
-  if (head === 'Negate') {
-    if (saisieParsed.ops && Array.isArray(saisieParsed.ops)) {
-      const operationFinale = String(saisieParsed.ops[0].head)
-      isOk2 = ['Multiply', 'Square', 'Power', 'Divide'].includes(
-        operationFinale
-      )
-    } else {
-      isOk2 = false
-    }
-  } else {
-    // @fixme Est-ce qu'une division finale est bien représentative d'une expression factorisée (une division, c'est une multiplication par l'inverse, donc a le même statut que Multiply en théorie)
-    isOk2 =
-      ['Multiply', 'Square', 'Power', 'Divide'].includes(head) ||
-      (head.length === 1 && head.match(/^[a-z]/) != null)
+
+  if (!['Multiply', 'Power', 'Square'].includes(saisieHead)) {
+    return { isOk: false, feedback: 'L\'expression n\'est pas factorisée' }
   }
-  return { isOk: isOk1 && isOk2 }
+  const reponseFactors = flatten(reponseParsed).ops
+  const saisieFactors = flatten(saisieParsed).ops
+  if (reponseFactors == null) {
+    window.notify('factorisationCompare a rencontré un problème en analysant la réponse ', { reponse: goodAnswer })
+    return { isOk: false, feedback: 'Un problème a eu lieu lors de la comparaison' }
+  }
+  if (saisieFactors == null) return { isOk: false, feedback: 'L\'expression n\'a pas le format attendu' }
+  if (saisieFactors.length !== reponseFactors.length) {
+    if (isOk1) return { isOk: false, feedback: 'L\'expression est insuffisamment factorisée' }
+    return { isOk: false, feedback: 'Il manque des facteurs' }
+  }
+  return allFactorsMatch(reponseFactors, saisieFactors, signe)
 }
-
-/* Cette fonction ne sert plus.
-/**
- * comparaison d'expressions developpées'
- * @param {string} input
- * @param {string} goodAnswer
- * @return ResultType
-
-export const developmentCompare = function (input: string, goodAnswer:string) {
-
-  const clean = generateCleaner(['puissances', 'virgules', 'fractions', 'parentheses', 'foisUn'])
-  const aCleaned = clean(input)
-  const bCleaned = clean(goodAnswer)
-  const saisieParsed = engine.parse(aCleaned, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
-  const reponseParsed = engine.parse(bCleaned, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
-  if (saisieParsed == null || reponseParsed == null) {
-    window.notify('factorisationCompare a rencontré un problème en analysant la réponse ou la saisie ', { saisie: input, reponse: goodAnswer })
-    return { isOk: false }
-  }
-  const saisieDev = engine.box(['ExpandAll', saisieParsed]).evaluate().simplify().canonical
-  return { isOk: ['Add', 'Subtract'].includes(String(saisieParsed.head)) && saisieDev.isSame(saisieParsed.simplify().canonical) && saisieParsed.isEqual(reponseParsed) }
-} */
 
 /**
  * comparaison de durées
@@ -443,40 +420,19 @@ function hmsCompare (input: string, goodAnswer: string): ResultType {
   const goodAnswerHms = Hms.fromString(goodAnswer)
   return { isOk: goodAnswerHms.isTheSame(inputHms) }
 }
-/* Suppression de cette fonction jamais utilisée et inutile avec les nouvelles fonctions EE
-/**
- * comparaison d'expressions développées
- * @param {string} input
- * @param {string} goodAnswer
- * @return ResultType
-
-export function expandedFormCompare (input: string, goodAnswer: string): ResultType {
-
-  const clean = generateCleaner(['espaces', 'virgules', 'fractions', 'parentheses'])
-  input = clean(input)
-  const saisieParsed = engine.parse(input).canonical
-  const isSomme = ['Add', 'Subtract'].includes(saisieParsed.head as string)
-  const isNumber = !isNaN(Number(saisieParsed.numericValue))
-  const reponseParsed = engine.parse(clean(goodAnswer)).canonical
-  const isOk = reponseParsed.isSame(saisieParsed) && (isSomme || isNumber)
-  return { isOk }
-}
-*/
-
-// Travail ci-dessous de EE
 
 engine.latexDictionary = [
   ...engine.latexDictionary.filter((x) => x.name !== 'Subtract'),
   {
-    ...engine.latexDictionary.find((x) => x.name === 'Subtract'),
-    parse: (parser: Parser, lhs: Expression, terminator: ParserOptions) => {
-      // Go back one token: we'll parse the '-' as part of the rhs so we
-      // can keep the expression an 'Add'.
+    ...(engine.latexDictionary.find((x) => x.name === 'Subtract') as unknown as LatexDictionaryEntry),
+    parse: (parser: Parser, lhs: Expression, terminator: ParseLatexOptions) => {
+      // Reculer d'un jeton : nous allons analyser le '-' comme faisant partie du rhs afin de
+      // pouvoir conserver l'expression en tant que 'Add'.
       parser.index -= 1
       const rhs = parser.parseExpression({ ...terminator, minPrec: 275 + 3 })
       return ['Add', lhs, rhs]
     }
-  } as LatexDictionaryEntry // Pas réussi à faire mieux pour typer.
+  } as unknown as LatexDictionaryEntry // Conversion en 'unknown' puis en 'LatexDictionaryEntry'
 ]
 
 /****************************************************************************************************
@@ -512,13 +468,15 @@ export function fonctionComparaison (
     kUplet, // Documenté
     suiteDeNombres,
     suiteRangeeDeNombres,
+    puissance, // Documenté
+    seulementCertainesPuissances, // Documenté
+    sansExposantUn, // Documenté
     HMS,
     intervalle,
     estDansIntervalle,
     ecritureScientifique,
     unite,
     precisionUnite,
-    puissance,
     texteAvecCasse,
     texteSansCasse,
     nombreAvecEspace,
@@ -538,6 +496,8 @@ export function fonctionComparaison (
     calculSeulementEtNonOperation: false,
     ensembleDeNombres: false,
     kUplet: false,
+    seulementCertainesPuissances: false,
+    sansExposantUn: false,
     suiteDeNombres: false,
     suiteRangeeDeNombres: false,
     HMS: false,
@@ -568,7 +528,7 @@ export function fonctionComparaison (
   if (estDansIntervalle) return intervalCompare(input, goodAnswer)
   if (ecritureScientifique) return scientificCompare(input, goodAnswer)
   if (unite) { return unitsCompare(input, goodAnswer, { precision: precisionUnite }) }
-  if (puissance) return powerCompare(input, goodAnswer)
+  if (puissance || seulementCertainesPuissances || sansExposantUn) return comparaisonPuissances(input, goodAnswer, { seulementCertainesPuissances, sansExposantUn })
   if (texteAvecCasse) return texteAvecCasseCompare(input, goodAnswer)
   if (texteSansCasse) return texteSansCasseCompare(input, goodAnswer)
   if (egaliteExpression) return egaliteCompare(input, goodAnswer)
@@ -577,10 +537,11 @@ export function fonctionComparaison (
   if (suiteDeNombres || suiteRangeeDeNombres) return ensembleNombres(input, goodAnswer, { kUplet: suiteRangeeDeNombres, avecAccolades: false })
   if (fractionSimplifiee || fractionReduite || fractionIrreductible || fractionDecimale || fractionEgale) return comparaisonFraction(input, goodAnswer, { fractionReduite, fractionIrreductible, fractionDecimale, fractionEgale }) // feedback OK
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
-  if (calculSeulementEtNonOperation) {
-    input = input.replace('(', '').replace(')', '').replace('\\lparen', '').replace('\\rparen', '') // Utile pour 5R20
-  }
-  return expressionDeveloppeeEtReduiteCompare(input, goodAnswer, {
+  const inputNew = calculSeulementEtNonOperation
+    ? input.replace('(', '').replace(')', '').replace('\\lparen', '').replace('\\rparen', '') // Utile pour 5R20
+    : input
+
+  return expressionDeveloppeeEtReduiteCompare(inputNew, goodAnswer, {
     expressionsForcementReduites,
     avecSigneMultiplier,
     avecFractions,
@@ -606,21 +567,20 @@ function customCanonical (
     operationSeulementEtNonCalcul = false,
     nombreDecimalSeulement = false,
     calculSeulementEtNonOperation = false
-  } = {}
-): BoxedExpression {
-  let expression = expr
+  } = {}): BoxedExpression {
+  let expression = expressionWithHead(expr)
   if (calculSeulementEtNonOperation || nombreDecimalSeulement) { // Fonctionnement : On retourne le calcul
     return expression
-  } else if (!operationSeulementEtNonCalcul) { // Fonctionnement par défaut : Tout est accepté si l'expression est un nombre
+  }
+  if (!operationSeulementEtNonCalcul) { // Fonctionnement par défaut : Tout est accepté si l'expression est un nombre
     // Ci-dessous, on accepte le résultat d'un calcul mais pas un autre enchaînement Ici, si 4+2 est attendu, alors 4+2=6 mais 4+2!=5+1. C'est la valeur par défaut
     if (typeof expression.value === 'number') { // L'expression est une expression numérique, les expressions littérales ne sont pas traitées ici
-      if (fractionIrreductible
-      ) {
+      if (fractionIrreductible) {
         if ((expression.head === 'Divide' || expression.head === 'Rational') && ( // L'expression contient une division ou une fraction fractionIrreductible
           expression.engine.box(['GCD', expression.op1, expression.op2]).value !== 1 || expression.op2.value === 1)) return expression
 
         if (expression.head === 'Number') { // Ce cas est si un élève note 1.4 pour une fraction de 7/5 par exemple.
-          return engine.parse('\\frac{' + expression.value + '}{1}', { canonical: false })
+          return engine.parse(`\\frac{${expression.value}}{1}`, { canonical: false })
         }
       }
       return expression.engine.number(expression.value)
@@ -646,7 +606,7 @@ function customCanonical (
   }
   if (expression.head === 'Divide' || expression.head === 'Rational') {
     // Pour enlever les divisions éventuelles par 1
-    if (expression.op2.value === 1) expression = expression.op1
+    if (expression.op2.value === 1) expression = expressionWithHead(expression.op1)
   }
   if (expression.ops) {
     // Pour ne pas accepter les +0, les \\times1, pour ne pas se soucier de l'ordre
@@ -693,50 +653,63 @@ function comparaisonFraction (
 
   const cleanIput = clean(input)
   const cleanGoodAnswer = clean(goodAnswer)
-  const saisieNativeParsed = engine.parse(cleanIput, { canonical: false }) as BoxedExpression
-  const reponseNativeParsed = engine.parse(cleanGoodAnswer, { canonical: false }) as BoxedExpression
-  const reponseParsed = reponseNativeParsed.engine.number(reponseNativeParsed.value) // Ici, c'est la valeur numérique (même approchée) de cleanGoodAnswer.
+  const saisieNativeParsed = expressionWithHead(engine.parse(cleanIput, { canonical: false }))
+  const reponseNativeParsed = expressionWithHead(engine.parse(cleanGoodAnswer, { canonical: false }))
+  const reponseParsed = reponseNativeParsed.engine.number(Number(reponseNativeParsed.value)) // Ici, c'est la valeur numérique (même approchée) de cleanGoodAnswer.
   if (saisieNativeParsed.isEqual(reponseNativeParsed)) {
     if (saisieNativeParsed.head === 'Number' && reponseParsed.isInteger) { // réponse est égale à un entier et saisie est un nombre entier (2) ou décimal (2.0).
       return { isOk: true }
-    } else if (fractionEgale) {
-      if ((saisieNativeParsed.head === 'Divide' || saisieNativeParsed.head === 'Rational') && // saisie doit être une fraction (ou une division)
-        saisieNativeParsed.op1.isInteger && saisieNativeParsed.op2.isInteger) { // reponse doit avoir des numérateur/dénominateur multiples de ceux de saisie ou bien fractionReduite est true
-        return { isOk: true }
-      } else if ((saisieNativeParsed.head === 'Divide' || saisieNativeParsed.head === 'Rational')) {
+    }
+    if (fractionEgale) {
+      if (saisieNativeParsed.head === 'Divide' || saisieNativeParsed.head === 'Rational') { // saisie doit être une fraction (ou une division)
+        // reponse doit avoir des numérateur/dénominateur multiples de ceux de saisie ou bien fractionReduite est true
+        const num = saisieNativeParsed.op1.evaluate().numericValue
+        const den = saisieNativeParsed.op2.evaluate().numericValue
+        if (Number.isInteger(num) && Number.isInteger(den)) {
+          return { isOk: true }
+        }
         return { isOk: false, feedback: 'Résultat incorrect car dénominateur et numérateur doivent être entiers.' }
-      } else {
-        return { isOk: false, feedback: 'Résultat incorrect car une fraction est attendue' }
       }
-    } else if (fractionDecimale) {
+      return { isOk: false, feedback: 'Résultat incorrect car une fraction est attendue' }
+    }
+    if (fractionDecimale) {
       if ((saisieNativeParsed.head === 'Divide' || saisieNativeParsed.head === 'Rational') &&
-        Number.isInteger(Math.log10(saisieNativeParsed.op2.value)) &&
-        Math.log10(saisieNativeParsed.op2.value) >= 0) {
+        Number.isInteger(Math.log10(Number(saisieNativeParsed.op2.value))) &&
+        Math.log10(Number(saisieNativeParsed.op2.value)) >= 0) {
         return { isOk: true }
-      } else return { isOk: false, feedback: 'Résultat incorrect car une fraction décimale est attendue.' } // Sous-entendu : Et pas une autre fraction qu'irréductible
-    } else if (fractionIrreductible) {
+      }
+      return { isOk: false, feedback: 'Résultat incorrect car une fraction décimale est attendue.' } // Sous-entendu : Et pas une autre fraction qu'irréductible
+    }
+    if (fractionIrreductible) {
       if ((saisieNativeParsed.head === 'Divide' || saisieNativeParsed.head === 'Rational') && (
         saisieNativeParsed.engine.box(['GCD', saisieNativeParsed.op1, saisieNativeParsed.op2]).value === 1)) {
         return { isOk: true }
-      } else return { isOk: false, feedback: 'Résultat incorrect car une fraction irréductible est attendue.' } // Sous-entendu : Et pas une autre fraction qu'irréductible
-    } else if ((saisieNativeParsed.head === 'Divide' || saisieNativeParsed.head === 'Rational') && // saisie doit être une fraction (ou une division)
-    Math.abs(saisieNativeParsed.op1.value) < Math.abs(reponseNativeParsed.op1.value) && // saisie doit avoir des numérateur/dénominateur plus petits que reponse. Les valeurs absolues gèrent le cas des fractions négatives.
+      }
+      return { isOk: false, feedback: 'Résultat incorrect car une fraction irréductible est attendue.' } // Sous-entendu : Et pas une autre fraction qu'irréductible
+    }
+    if ((saisieNativeParsed.head === 'Divide' || saisieNativeParsed.head === 'Rational') && // saisie doit être une fraction (ou une division)
+    Math.abs(Number(saisieNativeParsed.op1.value)) < Math.abs(Number(reponseNativeParsed.op1.value)) && // saisie doit avoir des numérateur/dénominateur plus petits que reponse. Les valeurs absolues gèrent le cas des fractions négatives.
   saisieNativeParsed.op1.isInteger && saisieNativeParsed.op2.isInteger && // saisie doit avoir des numérateur/dénominateur entiers
-  (fractionReduite || reponseNativeParsed.op1.value % saisieNativeParsed.op1.value === 0)) { // reponse doit avoir des numérateur/dénominateur multiples de ceux de saisie ou bien fractionReduite est true
+  (fractionReduite || Number(reponseNativeParsed.op1.value) % Number(saisieNativeParsed.op1.value) === 0)) { // reponse doit avoir des numérateur/dénominateur multiples de ceux de saisie ou bien fractionReduite est true
       return { isOk: true }
       /// Ci-dessous : le traitement des feedback : les saisies sont égales aux réponses mais la saisie ne convient tout de même pas.
-    } else if ((!saisieNativeParsed.op1.value) && (!reponseParsed.isInteger)) { // Si pas de op1.value, c'est que saisie est un nombre alors que reponse n'est pas entier.
+    }
+    if ((!saisieNativeParsed.op1.value) && (!reponseParsed.isInteger)) { // Si pas de op1.value, c'est que saisie est un nombre alors que reponse n'est pas entier.
       return { isOk: false, feedback: 'Résultat incorrect car une fraction est attendue.' } // Sous-entendu : Et pas un nombre
-    } else if (saisieNativeParsed.head === 'Divide' || saisieNativeParsed.head === 'Rational') {
-      if (Math.abs(saisieNativeParsed.op1.value) >= Math.abs(reponseNativeParsed.op1.value)) {
+    }
+    if (saisieNativeParsed.head === 'Divide' || saisieNativeParsed.head === 'Rational') {
+      if (Math.abs(Number(saisieNativeParsed.op1.value)) >= Math.abs(Number(reponseNativeParsed.op1.value))) {
         return { isOk: false, feedback: 'Résultat incorrect car une fraction simplifiée est attendue.' } // Sous-entendu : Et pas numérateur/dénominateur plus grands ou égaux que reponse.  Les valeurs absolues gèrent le cas des fractions négatives.
-      } else if (!saisieNativeParsed.op1.isInteger || !saisieNativeParsed.op2.isInteger) {
-        return { isOk: false, feedback: 'Résultat incorrect car dénominateur et numérateur doivent être entiers.' } // Sous-entendu : Et pas numérateur/dénominateur décimaux pour au moins l'un d'entre eux
-      } else { // if (reponseNativeParsed.op1.value % saisieNativeParsed.op1.value !== 0) {
-        return { isOk: false, feedback: 'Résultat incorrect car une fraction réduite est attendue.' } // Sous-entendu : Et pas numérateur/dénominateur de reponse non multiples de ceux de saisie
       }
-    } else return { isOk: false, feedback: 'Résultat incorrect car une fraction est attendue.' } // Sous-entendu : Et pas une opération autre qu'une division
-  } else return { isOk: false, feedback: 'Résultat incorrect.' }
+      if (!saisieNativeParsed.op1.isInteger || !saisieNativeParsed.op2.isInteger) {
+        return { isOk: false, feedback: 'Résultat incorrect car dénominateur et numérateur doivent être entiers.' } // Sous-entendu : Et pas numérateur/dénominateur décimaux pour au moins l'un d'entre eux
+      }
+      // if (reponseNativeParsed.op1.value % saisieNativeParsed.op1.value !== 0) {
+      return { isOk: false, feedback: 'Résultat incorrect car une fraction réduite est attendue.' } // Sous-entendu : Et pas numérateur/dénominateur de reponse non multiples de ceux de saisie
+    }
+    return { isOk: false, feedback: 'Résultat incorrect car une fraction est attendue.' } // Sous-entendu : Et pas une opération autre qu'une division
+  }
+  return { isOk: false, feedback: 'Résultat incorrect.' }
 }
 
 // Définir le type pour les substitutions
@@ -786,10 +759,10 @@ function expressionDeveloppeeEtReduiteCompare (
   const localInput = clean(input)
   const localGoodAnswer = clean(goodAnswer)
   if (nombreDecimalSeulement) {
-    const saisieParsed = engine.parse(localInput, { canonical: false })
+    const saisieParsed = expressionWithHead(engine.parse(localInput, { canonical: false }))
     if (saisieParsed.head !== 'Number') return { isOk: false, feedback: 'Résultat incorrect car une valeur décimale (ou entière) est attendue.' }
   }
-  const saisieParsed = customCanonical(
+  const saisieParsed = expressionWithHead(customCanonical(
     engine.parse(localInput, { canonical: false }),
     {
       expressionsForcementReduites,
@@ -797,9 +770,9 @@ function expressionDeveloppeeEtReduiteCompare (
       operationSeulementEtNonCalcul,
       nombreDecimalSeulement,
       calculSeulementEtNonOperation
-    }
+    })
   )
-  const reponseParsed = customCanonical(
+  const reponseParsed = expressionWithHead(customCanonical(
     engine.parse(localGoodAnswer, { canonical: false }),
     {
       expressionsForcementReduites,
@@ -807,7 +780,7 @@ function expressionDeveloppeeEtReduiteCompare (
       operationSeulementEtNonCalcul,
       nombreDecimalSeulement,
       calculSeulementEtNonOperation
-    }
+    })
   )
   /// Code JCL
   // Ci-dessous, si on a une comparaison fausse mais que l'expression donnée est mathématiquement correcte, on fait un feedback.
@@ -897,7 +870,7 @@ function expressionDeveloppeeEtReduiteCompare (
       )
       if (saisieCalculeeParsed.isSame(reponseCalculeeParsed)) {
         // Ci-dessous, ce n'est pas saisieParsed car saisieParsed n'est jamais un nombre à cause de customCanonical et fractionIrreductible.
-        if (engine.parse(localInput, { canonical: false }).head === 'Number') feedback = 'Résultat incorrect car une fraction est attendue.' // Sous-entendu : Et pas une valeur numérique
+        if (expressionWithHead(engine.parse(localInput, { canonical: false })).head === 'Number') feedback = 'Résultat incorrect car une fraction est attendue.' // Sous-entendu : Et pas une valeur numérique
         else feedback = 'Résultat incorrect car une fraction irréductible est attendue.' // Sous-entendu : La bonne opération
       } else feedback = 'Résultat incorrect.'
     } else if ( // Code JCL
@@ -989,14 +962,16 @@ function scientificCompare (input: string, goodAnswer: string): ResultType {
   }
   return { isOk: false }
 }
-
+/* Je commente en attendant de voir si on en a besoin
 function comparaisonExpressions (expr1: string, expr2: string): ResultType { // Dysfonctionnement de compute-engine : @ArnoG est sur le coup
   // Convertir les équations en MathJSON
   const mathJson1 = engine.parse(expr1) as BoxedExpression
   const mathJson2 = engine.parse(expr2) as BoxedExpression
 
-  return { isOk: mathJson1.isEqual(mathJson2) }
+  return { isOk: mathJson1.isEqual(mathJson2) ?? false }
 }
+*/
+
 /**
  * comparaison de textes... ben parce qu'il en faut une
  * @param {string} input
@@ -1083,8 +1058,8 @@ export function simplerFractionCompare (
 ): ResultType {
   const cleaner = generateCleaner(['fractions', 'espaces'])
   const localGoodAnswer = cleaner(goodAnswer)
-  const goodAnswerParsed = engine.parse(localGoodAnswer, { canonical: false })
-  const inputParsed = engine.parse(input, { canonical: false })
+  const goodAnswerParsed = expressionWithHead(engine.parse(localGoodAnswer, { canonical: false }))
+  const inputParsed = expressionWithHead(engine.parse(input, { canonical: false }))
   if (inputParsed.head === 'Divide' && goodAnswerParsed.head === 'Divide') {
     const num = (inputParsed.json as [string, number, number])[1] as number
     const numGoodAnswer = (
@@ -1104,50 +1079,6 @@ export function simplerFractionCompare (
   }
   return { isOk: false }
 }
-
-/* Suppression de cette fonction au profit de fonctionComparaison
-/**
- * comparaison de fraction en valeur acceptant la valeur décimale
- * @param {string} input
- * @param {string} goodAnswer
- * @return ResultType
- * @author Jean-Claude Lhote
-
-export function equalFractionCompare (input: string, goodAnswer: string): ResultType {
-  const cleaner = generateCleaner(['fractions', 'virgules', 'espaces'])
-  goodAnswer = cleaner(goodAnswer)
-  input = cleaner(input)
-  const fReponse = engine.parse(goodAnswer)
-
-  /* EE : Suppression de cette partie au profit de la suivante (pour prise en compte des racines carrées dans 2N32-7) - 26/04/2024
-  if (!isNaN(parseFloat(cleanStringBeforeParse(input)))) {
-    // La saisie est faite sous forme décimale (non, pas forcément avec des racines carrées)
-    const newFraction = new FractionEtendue(parseFloat(cleanStringBeforeParse(input)), 1)
-    if (engine.parse(`${newFraction.toLatex().replace('dfrac', 'frac')}`).canonical.isSame(fReponse.canonical)) return { isOk: true }
-  } else {
-    // La saisie est une fraction
-    if (engine.parse(cleanStringBeforeParse(input)).canonical.canonical.isEqual(fReponse.canonical)) return { isOk: true }
-  }
-
-  if (input.includes('\\frac')) {
-    // La saisie est une fraction
-    if (engine.parse(input).canonical.isEqual(fReponse.canonical)) return { isOk: true }
-  } else {
-    // La saisie n'est pas une fraction
-    if (String(parseFloat(input)) === input) {
-      // La saisie est un décimal
-      const newFractionAvecDecimal = new FractionEtendue(parseFloat(input), 1)
-      if (engine.parse(`${newFractionAvecDecimal.toLatex().replace('dfrac', 'frac')}`).canonical.isSame(fReponse.canonical)) return { isOk: true }
-    } else {
-      // La saisie n'est pas un décimal, peut-être possède-t-elle une racine carrée... comme dans 2N32-7
-      let newFractionSansDecimal = texFractionFromString(input, 1)
-      newFractionSansDecimal = cleaner(newFractionSansDecimal)
-      if (engine.parse(newFractionSansDecimal).canonical.isSame(fReponse.canonical)) return { isOk: true }
-    }
-  }
-
-  return { isOk: false }
-} */
 
 /**
  * Comparaison de fraction en acceptant toute valeur (y compris la valeur décimale) mais n'acceptant de racine carrée au dénominateur
@@ -1175,155 +1106,70 @@ export function equalFractionCompareSansRadical (
   return { isOk: false }
 }
 
-/* Suppression de cette fonction au profit de fonctionComparaison
-c'est traité avec fractionIrreductible et avec fractionDecimale
-
 /**
- * comparaison de fraction à l'identique (pour les fraction irréductibles par exemple ou pour les fractions décimales)
- * Pour le premier, c'est traité avec fractionIrreductible, Pour le second, c'est traité avec fractionDecimale avec handleAnswers et fonctionComparaison
- * @param {string} input
- * @param {string} goodAnswer // Doit être au format texFSD ! le signe devant, numérateur et dénominateur positifs !!!
- * @author Jean-Claude Lhote
- * @deprecated
- * @return ResultType
-
-function fractionCompare (input: string, goodAnswer: string): ResultType { // Ne fonctionne pas si input=-\\dfrac23 par exemple.
-  const clean = generateCleaner(['espaces', 'fractions', 'virgules'])
-  const inputParsed = engine.parse(clean(input), { canonical: false })
-  let newFraction: BoxedExpression
-  if (inputParsed.head === 'Divide') {
-    const num = Number(inputParsed.op1.numericValue)
-    const den = Number(inputParsed.op2.numericValue)
-    if (num * den < 0) {
-      newFraction = engine.parse(
-        `-\\frac{${Math.abs(num)}}{${Math.abs(den)}}`,
-        { canonical: false }
-      )
-    } else {
-      newFraction = engine.parse(`\\frac{${Math.abs(num)}}{${Math.abs(den)}}`, {
-        canonical: false
-      })
-    }
-  } else {
-    newFraction = inputParsed
-  }
-  const goodAnswerParsed = engine.parse(clean(goodAnswer), { canonical: false })
-  return { isOk: newFraction.isSame(goodAnswerParsed) }
-}
-*/
-/**
- * comparaison d'expression de puissances
+ * Comparaison de puissances
  * @param {string} input
  * @param {string} goodAnswer
+ * @param {Object} [options={}] - Options pour la comparaison.
+ * @param {boolean} [options.seulementCertainesPuissances=false] - Si false, toutes les formes de puissances seront acceptées.
+ * @param {boolean} [options.sansExposantUn=false] - Si false, l'exposant 1 sera accepté comme valide.
  * @return ResultType
- * @author Jean-Claude Lhote
- */
-function powerCompare (input: string, goodAnswer: string): ResultType {
+ * @author Eric Elter
+*/
+function comparaisonPuissances (input: string, goodAnswer: string, { seulementCertainesPuissances = false, sansExposantUn = false } = {}): ResultType {
   const clean = generateCleaner(['virgules', 'puissances'])
-  let formatOK = false
-  let formatKO = false
   const nombreSaisi = clean(input).split('^')
-  const mantisseSaisie = nombreSaisi[0].replace(/\\lparen(.*?)\\rparen/g, '$1')
-  // const mantisseS = Number(mantisseSaisie)
-  const expoSaisi = nombreSaisi[1] ? nombreSaisi[1].replace(/[{}]/g, '') : '1'
-  // const expoS = Number(expoSaisi)
-  const nombreAttendu = clean(goodAnswer).split('^')
-  const mantisseReponse = nombreAttendu[0].replace(/[()]/g, '')
-  const mantisseR = Number(mantisseReponse)
-  const expoReponse = nombreAttendu[1]
-    ? nombreAttendu[1].replace(/[{}]/g, '')
-    : '1'
-  const expoR = Number(expoReponse)
-  if (input.indexOf('^') !== -1) {
-    if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
-      formatOK = true
-    }
-    // gérer le cas mantisse négative a et exposant impair e, -a^e est correct mais pas du format attendu
-    // si la mantisse attendue est négative on nettoie la chaine des parenthèses
-    if (mantisseR < 0 && expoR % 2 === 1) {
-      if (
-        input === `${mantisseReponse}^{${expoReponse}}` ||
-        input === `${mantisseReponse}^${expoReponse}`
-      ) {
-        formatKO = true
-      }
-    }
-    // si l'exposant est négatif, il se peut qu'on ait une puissance au dénominateur
-    if (expoR < 0) {
-      // Si la mantisse est positive
-      if (
-        input === `\\frac{1}{${mantisseR}^{${-expoR}}` ||
-        input === `\\frac{1}{${mantisseR}^${-expoR}}`
-      ) {
-        formatKO = true
-      }
-    }
-  } else {
-    // Dans tous ces cas on est sûr que le format n'est pas bon
-    // Toutefois la valeur peut l'être donc on vérifie
-    if (expoR < 0) {
-      // Si la mantisse est positive
-      if (nombreSaisi[0] === `\\frac{1}{${mantisseR ** -expoR}}`) {
-        formatKO = true
-      }
-      // Si elle est négative, le signe - peut être devant la fraction ou au numérateur  ou au dénominateur
-      if (mantisseR < 0 && -expoR % 2 === 1) {
-        if (
-          nombreSaisi[0] === `-\\frac{1}{${(-mantisseR) ** -expoR}}` ||
-          nombreSaisi[0] === `\\frac{-1}{${(-mantisseR) ** -expoR}}` ||
-          nombreSaisi[0] === `\\frac{1}{-${(-mantisseR) ** -expoR}}`
-        ) {
-          formatKO = true
-        }
-      }
-    } else if (expoR > 0) {
-      if (nombreSaisi[0] === `${mantisseR ** expoR}`) {
-        if (expoR !== 1) formatKO = true
-        else formatOK = true // Au cas où l'exposant soit 1
-      }
-    }
-    if (expoR === 0) {
-      if (nombreSaisi[0] === '1') {
-        formatKO = true
-      }
-    }
-  }
-  if (formatOK) {
-    return { isOk: true }
-  }
-  if (formatKO) return { isOk: false, feedback: 'essaieEncorePuissance' }
 
-  return { isOk: false }
-}
-/* Remplacé par ensembleNombres
-/**
- * Comparaison d'ensembles de solutions séparés par des ; dans des {} comme {-5;4;10}
- * @param {string} input
- * @param {string} goodAnswer
- * @return ResultType
- * @author Jean-Claude Lhote
+  // input n'est pas une puissance
+  if (nombreSaisi.length === 1) return { isOk: false, feedback: 'Une puissance est attendue.' }
 
-export function setsCompare (input: string, goodAnswer: string): ResultType {
-  const clean = generateCleaner(['virgules', 'fractions', 'parentheses'])
-  // const cleanUp = (s: string) => s.replace('{.}', '.').replace(',', '.') // @fixme vérifier si on a besoin d'éliminer ce {.} ? si oui, l'intégrer au cleauner 'virgules'
-  console.log(clean(input).replaceAll('\\{', '').replaceAll('\\}', '').split(';'), clean(goodAnswer))
-  const elements1 = clean(input)
-    .split(';')
-    .sort((a: string, b: string) => Number(a) - Number(b))
-  const elements2 = clean(goodAnswer)
-    .split(';')
-    .sort((a: string, b: string) => Number(a) - Number(b))
-  if (elements1.length !== elements2.length) return { isOk: false }
-  let ok = true
-  for (let i = 0; i < elements1.length; i++) {
-    if (!engine.parse(elements1[i]).isEqual(engine.parse(elements2[i]))) {
-      ok = false
-      break
+  // input n'est pas une puissance de puissance
+  if (seulementCertainesPuissances && nombreSaisi.length > 2) return { isOk: false, feedback: 'Un seul exposant est attendu.' }
+
+  let mantisseSaisie = nombreSaisi[0]
+  mantisseSaisie = mantisseSaisie.replace(/\\lparen|\\rparen|\(|\)/g, '')// Pour enlever les parenthèses afin que (-4)^2 soit acceptée
+  mantisseSaisie = mantisseSaisie.replace(/--/g, '') // Pour accepter les deux - consécutifs.
+
+  // La mantisse saisie est-elle un nombre ?
+  if (isNaN(Number(mantisseSaisie))) return { isOk: false, feedback: 'Avant l\'exposant, on attend un nombre unique.' } // Pour éviter 1\times4^2
+
+  let exposantSaisi = nombreSaisi[1]
+  exposantSaisi = exposantSaisi.replace(/\\lparen|\\rparen|\(|\)/g, '')// Pour enlever les parenthèses
+  exposantSaisi = exposantSaisi.replace(/--/g, '') // Pour accepter les deux - consécutifs.
+  exposantSaisi = exposantSaisi.replace(/[{}]/g, '') // Pour enlever les accolades (possible si exposant décimal ou négatif)
+  const exposantSaisiNumber = Number(exposantSaisi)
+  // L'exposant saisi est-il un nombre ?
+  if (isNaN(exposantSaisiNumber)) return { isOk: false, feedback: 'On attend un nombre unique comme exposant.' } // Pour éviter 4^{1+1}
+
+  const goodAnswerSplit = clean(goodAnswer).split('^')
+
+  // goodAnswer n'est pas une puissance donc toute puissance égale à goodAnswer est correcte (modulo sansExposantUn)
+  if (goodAnswerSplit.length === 1) {
+    if (sansExposantUn && exposantSaisiNumber === 1) return { isOk: false, feedback: 'On attend un exposant différent de 1.' }
+    const isOk = engine.parse(clean(input)).isEqual(engine.parse(clean(goodAnswer)))
+    return { isOk: !!isOk, feedback: isOk ? '' : 'La puissance n\'est pas égale au résultat attendu.' }
+  }
+
+  // goodAnswer et input sont des puissances alors deux cas se présentent.
+  if (sansExposantUn) {
+  // On accepte un input avec un exposant de 1 que si goodAnswer en a un aussi.
+    let exposantGoodAnswer = goodAnswerSplit[1]
+    exposantGoodAnswer = exposantGoodAnswer.replace(/\\lparen|\\rparen|\(|\)/g, '')// Pour enlever les parenthèses
+    exposantGoodAnswer = exposantGoodAnswer.replace(/--/g, '') // Pour accepter les deux - consécutifs.
+    const exposantGoodAnswerNumber = Number(exposantGoodAnswer)
+    if (exposantSaisiNumber === 1) {
+      if (exposantGoodAnswerNumber !== 1) return { isOk: false, feedback: 'On attend un exposant différent de 1.' } // Très important car parfois, par le calcul, on attend 4^1
     }
   }
-  return { isOk: ok }
+  // Ou bien on n'accepte que si goodAnswer et input sont parfaitement identiques : seulementCertainesPuissances = true
+  // Ou bien on n'accepte toute égalité entre goodAnswer et input : seulementCertainesPuissances = false
+  const isOk = !seulementCertainesPuissances ? engine.parse(clean(input)).isEqual(engine.parse(clean(goodAnswer))) : engine.parse(clean(input)).isSame(engine.parse(clean(goodAnswer)))
+  if (!isOk) {
+    if (engine.parse(clean(input)).isEqual(engine.parse(clean(goodAnswer)))) return { isOk: false, feedback: 'La puissance est égale au résultat attendu mais ne correspond pas à l\'énoncé.' }
+    return { isOk: false, feedback: 'La puissance n\'est pas égale au résultat attendu.' }
+  }
+  return { isOk: true }
 }
-*/
 
 /**
  * Comparaison d'ensembles de solutions séparés par des ; dans des {} comme {-5;4;10}
@@ -1342,41 +1188,37 @@ export function ensembleNombres (input: string, goodAnswer: string, {
   const cleanInput = clean(input)
   if (goodAnswer === '\\emptyset' && cleanInput === goodAnswer) return { isOk: true }
   if (goodAnswer === '\\emptyset' && cleanInput.includes('\\emptyset')) return { isOk: false, feedback: 'Résultat incorrect car $\\emptyset doit être écrit seul.' }
-  let splitInput
-  let splitGoodAnswer
+  let splitInput: string[]
+  let splitGoodAnswer: string[]
   if (avecAccolades) {
     if (cleanInput[1] !== '{') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit commencer par une accolade.' }
     if (cleanInput[cleanInput.length - 1] !== '}') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit se terminer par une accolade.' }
     splitInput = cleanInput.replaceAll('\\{', '').replaceAll('\\}', '').split(';')
     splitGoodAnswer = clean(goodAnswer).replaceAll('\\{', '').replaceAll('\\}', '').split(';')
   } else {
+    if (cleanInput.includes('{') ||
+    cleanInput.includes('}') ||
+    cleanInput.includes('(') ||
+    cleanInput.includes(')') ||
+    cleanInput.includes('[') ||
+    cleanInput.includes(']') ||
+    cleanInput.includes('paren')) return { isOk: false, feedback: 'Résultat incorrect car cette suite ne doit comporter que des nombres et des points-virgules.' }
     splitInput = cleanInput.split(';')
     splitGoodAnswer = clean(goodAnswer).split(';')
   }
+  if (splitGoodAnswer.length > 1 && !cleanInput.includes(';')) return { isOk: false, feedback: 'Un point-virgule doit séparé chaque valeur.' }
 
   // Pour vérifier la présence de doublons
-  if (new Set(splitInput).size !== splitInput.length) return { isOk: false, feedback: 'Résultat incorrect car cet ensemble contient des valeurs redondantes.' }
+  if (new Set(splitInput).size !== splitInput.length) return { isOk: false, feedback: 'Résultat incorrect car il y a des valeurs redondantes.' }
 
   // Pour vérifier si les tableaux sont de la même taille
   if (splitInput.length > splitGoodAnswer.length) {
-    return { isOk: false, feedback: 'Résultat incorrect car cet ensemble contient trop de nombres.' }
+    return { isOk: false, feedback: 'Résultat incorrect car il y a trop de nombres.' }
   }
   if (splitInput.length < splitGoodAnswer.length) {
-    return { isOk: false, feedback: 'Résultat incorrect car cet ensemble ne contient pas assez de nombres.' }
+    return { isOk: false, feedback: 'Résultat incorrect car il n\'y a pas assez de nombres.' }
   }
-  /* Cette fonction trie mais parfois on attend en fait la saisie comme l'ordre des réponses (comme 6G26 mais pas forcément dans l'ordre croissant)
-  function sortMathExpressions (arr: string[]): string[] { // Nécessaire pour trier les racines carrées en LaTeX, par exemple.
-    return arr.sort((a, b) => {
-      const aValue = engine.parse(a).value as number
-      const bValue = engine.parse(b).value as number
-      return aValue - bValue
-    })
-  }
-  const splitInputBis = [...splitInput]
-  const inputSorted = sortMathExpressions(splitInputBis)
-  const goodAnswerSorted = sortMathExpressions(splitGoodAnswer)
-  const hasDifferentValues = !(inputSorted.every((value, index) => engine.parse(value).isSame(engine.parse(goodAnswerSorted[index]))))
-*/
+
   const inputSorted = splitInput
   const goodAnswerSorted = splitGoodAnswer
 
@@ -1390,7 +1232,7 @@ export function ensembleNombres (input: string, goodAnswer: string, {
   })
 
   if (!AllExist) {
-    return { isOk: false, feedback: 'Résultat incorrect car cet ensemble n\'a pas toutes les valeurs attendues.' }
+    return { isOk: false, feedback: 'Résultat incorrect car il n\'y a pas toutes les valeurs attendues.' }
   }
   if (kUplet && !(splitInput.every((value, index) => engine.parse(value).isSame(engine.parse(goodAnswerSorted[index]))))) {
     return { isOk: false, feedback: 'Résultat incorrect car les nombres ne sont pas rangés dans le bon ordre.' }
@@ -1442,9 +1284,15 @@ function intervalsCompare (input: string, goodAnswer: string) {
       }
     }
     // on teste maintenant les crochets
-    for (i = 0; i < crochetsSaisie.length; i++) {
-      isOk2 = crochetsSaisie[i] === crochetsReponse[i]
-      if (!isOk2) { feedback += `Le crochet placé en position ${i + 1} est mal orienté.<br>` }
+    isOk2 = crochetsSaisie.length === crochetsReponse.length
+    if (!isOk2) {
+      feedback += 'Il y a une erreur avec les crochets.'
+    }
+    if (isOk2) {
+      for (i = 0; i < crochetsSaisie.length; i++) {
+        isOk2 = crochetsSaisie[i] === crochetsReponse[i] && isOk2
+        if (crochetsSaisie[i] !== crochetsReponse[i]) { feedback += `Le crochet placé en position ${i + 1} est mal orienté.<br>` }
+      }
     }
     return { isOk: isOk1 && isOk2, feedback }
   }
@@ -1453,34 +1301,7 @@ function intervalsCompare (input: string, goodAnswer: string) {
     feedback: "Il faut donner un intervalle ou une réunion d'intervalles"
   }
 }
-// Fonction devenue inutile
-/*
- * comparaison d'expression développées et réduite pour les tests d'Éric Elter
- * @param {string} input
- * @param {string} goodAnswer
- * @param {{strict: boolean}} [options]
- * @return ResultType
- * @author Jean-Claude Lhote
 
-export function expandedAndReductedCompare (input: string, goodAnswer: string, { strict = true } = { }): ResultType {
-  const expr = goodAnswer
-  let clean
-  let feedback = ''
-  if (!strict) {
-    // on va virer les multiplications par 1 de variables.
-    clean = generateCleaner(['fractions', 'virgules', 'puissances', 'foisUn'])
-  } else {
-    clean = generateCleaner(['fractions', 'virgules', 'puissances'])
-  }
-  if (input.match(/\D*1[a-z]/)) feedback = 'La multiplication par 1 est inutile.<br>'
-  const saisieCleaned = clean(input)
-  const saisie = engine.parse(saisieCleaned, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
-  const answer = engine.parse(clean(expr), { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
-  // console.log(`saisie : ${saisie.latex} et answer : ${answer.latex}`)
-  const isOk1 = saisie.isSame(answer)
-  const isOk2 = saisie.isEqual(answer)
-  return { isOk: isOk1 && isOk2, feedback: isOk1 && isOk2 ? feedback : isOk2 ? feedback + 'L\'expression est développée mais pas réduite.<br>' : feedback }
-} */
 /**
  * Comparaison de chaînes (principalement des noms de classes
  * @param {string} input ce que saisit l'élève
@@ -1633,12 +1454,11 @@ function intervalCompare (
     })
     return { isOk: false, feedback: 'Un problème avec goodAnswer !' }
   }
-  const borneInf = Number(bornes[1])
-  const borneSup = Number(bornes[2])
-  // Si on veut accepter une expressio :
-  // const inputNumber = Number(engine.parse(cleanStringBeforeParse(input)).N())
   const clean = generateCleaner(['virgules', 'fractions', 'espaces'])
-  const inputNumber = Number(clean(input))
+  const borneInf = Number(engine.parse(clean(bornes[1])).N())
+  const borneSup = Number(engine.parse(clean(bornes[2])).N())
+  const inputNumber = Number(engine.parse(clean(input)).N())
+  // @todo vérifier que l'élève a bien saisi un nombre
   if (Number.isNaN(inputNumber)) return { isOk: false }
   const okGauche = strictGauche
     ? inputNumber > borneInf
@@ -1723,7 +1543,6 @@ export function consecutiveCompare (
     }
   }
   const isOk1 = true
-  // const isOk2 = numberCompare(String(entierInf), String(goodAnswerEntierInf)).isOk && numberCompare(String(entierSup), String(goodAnswerEntierSup)).isOk
   const isOk2 =
     expressionDeveloppeeEtReduiteCompare(
       String(entierInf),
@@ -1904,15 +1723,17 @@ export function numberWithSpaceCompare (
   input: string,
   goodAnswer: string
 ): ResultType {
-  const inputCleanFirst = input.replaceAll(/(\s{2,})(?=\d{3})/g, ' ').trim() // EE : l'élève peut avoir un saisi un espace avant ou après le nombre et avoir saisi des doubles espaces sans qu'on lui en tienne rigueur tant qu'ils séparent bien les classes, évidemment.
+  let inputCleanFirst = input.replaceAll(/(\s{2,})(?=\d{3})/g, ' ').trim() // EE : l'élève peut avoir un saisi un espace avant ou après le nombre et avoir saisi des doubles espaces sans qu'on lui en tienne rigueur tant qu'ils séparent bien les classes, évidemment.
+  inputCleanFirst = inputCleanFirst.replaceAll(/\\,/g, ' ') // EE : Permet à input que les espaces ressemblent uniquement à ' ' et non à '\,'.
   const clean = generateCleaner(['espaces'])
   const inputClean = clean(input)
   const goodAnswerClean = clean(goodAnswer)
+  const goodAnswerNew = goodAnswer.replaceAll(/\\,/g, ' ') // EE : Permet à goodAnswer que les espaces ressemblent uniquement à ' ' et non à '\,'.
   let feedback = ''
-  if (inputCleanFirst !== goodAnswer && inputClean === goodAnswerClean) {
+  if (inputCleanFirst !== goodAnswerNew && inputClean === goodAnswerClean) {
     feedback = 'Le nombre est mal écrit, il faut faire attention aux espaces.'
   }
-  return { isOk: inputCleanFirst === goodAnswer, feedback }
+  return { isOk: inputCleanFirst === goodAnswerNew, feedback }
 }
 
 export function exprCompare (
@@ -1933,8 +1754,8 @@ export function exprCompare (
   const answerClean = clean(goodAnswer) ?? ''
   let feedback = ''
   let isOk = true
-  const nbParenInput = inputClean.match(/([()])/g)?.length
-  const nbParenAnswer = answerClean.match(/([()])/g)?.length
+  const nbParenInput = inputClean.match(/([[()\]])/g)?.length
+  const nbParenAnswer = answerClean.match(/([[()\]])/g)?.length
   const numbersInput = inputClean
     .match(/\d+/g)
     ?.sort((a, b) => Number(a) - Number(b))
@@ -1958,13 +1779,13 @@ export function exprCompare (
     .parse(inputClean)
     .isEqual(engine.parse(clean(goodAnswer))) // doit obligatoirement être true
   if (noUselessParen && inputClean != null && answerClean !== null) {
-    isOk = isOk1 && isOk2 && isOk3 && isOk4
+    isOk = (isOk1 && isOk2 && isOk3 && isOk4) ?? false
     if (!isOk1 && isOk4) {
       feedback =
         "L'expression donne le bon résultat mais n'a pas la forme attendue."
     }
   } else {
-    isOk = isOk2 && isOk3 && isOk4
+    isOk = (isOk2 && isOk3 && isOk4) ?? false
     if (!isOk) {
       if (!isOk4) {
         feedback = "L'expression ne donne pas le bon résultat."
@@ -2010,19 +1831,19 @@ export function checkLeCompteEstBon ( // Ne fonctionne que si numbers est un tab
   let operationNonAutorisee = false
 
   const listeNombresEnonce = [...numbers]
-  const visit: (node: BoxedExpression) => void = (node) => {
+  const visit: (node: BoxedExpressionWithHead) => void = (node) => {
     if (node.numericValue !== null) {
       if (listeNombresEnonce.length === 0) {
-        if (numbers.includes(abs(node.value as number))) { // abs obligatoire car sinon, poir 5-3, il tente de chercher -3.
+        if (numbers.includes(Math.abs(Number(node.value)))) { // abs obligatoire car sinon, poir 5-3, il tente de chercher -3.
           nombresEnDoublon = true
           return 'Au moins un nombre en doublon'
-        } else {
-          tropDeNombres = true
-          return 'Au moins un nombre en trop'
         }
-      } else if (listeNombresEnonce.includes(abs(node.value as number))) {
+        tropDeNombres = true
+        return 'Au moins un nombre en trop'
+      }
+      if (listeNombresEnonce.includes(Math.abs(Number(node.value)))) {
         // J'enlève cet élément de la liste
-        listeNombresEnonce.splice(listeNombresEnonce.indexOf(abs(node.value)), 1)
+        listeNombresEnonce.splice(listeNombresEnonce.indexOf(Math.abs(Number(node.value))), 1)
       } else {
         mauvaisNombre = true
         return 'Au moins un mauvais nombre parmi ceux proposés'
@@ -2052,12 +1873,13 @@ export function checkLeCompteEstBon ( // Ne fonctionne que si numbers est un tab
             operationNonAutorisee = true
         }
       }
-      if (node.ops !== null) node.ops!.forEach(visit)
-      else return ('OK')
+      if (node.ops !== null) {
+        for (const op of node.ops) { visit(expressionWithHead(op)) }
+      } else return ('OK')
     }
   }
 
-  visit(answer)
+  visit(expressionWithHead(answer))
   if (tropDeNombres) return { isOk: false, feedback: 'L\'expression utilise plus de nombres que demandés.' }
   if (nombresEnDoublon) return { isOk: false, feedback: 'L\'expression utilise plusieurs fois un même nombre parmi ceux proposés.' }
   if (mauvaisNombre) return { isOk: false, feedback: 'L\'expression utilise au moins un nombre non autorisé.' }

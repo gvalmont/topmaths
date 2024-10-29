@@ -37,7 +37,6 @@ export const refs = {
 class LireImageParApiGeom extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
-  idApigeom!: string
   nbImages: number
   X: number[]
   Y: number[]
@@ -46,7 +45,7 @@ class LireImageParApiGeom extends Exercice {
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     // Pour un exercice de type simple qui n'utilise pas le champ de réponse
-    this.formatChampTexte = 'largeur01 inline'
+    this.formatChampTexte = ''
     this.besoinFormulaireNumerique = ['Nombre d\'images à trouver (de 1 à 5)', 5]
     this.besoinFormulaire2CaseACocher = ['Utiliser des valeurs entières', false]
     this.sup = 3
@@ -58,17 +57,16 @@ class LireImageParApiGeom extends Exercice {
     this.answers = {}
   }
 
-  nouvelleVersion (numeroExercice: number): void {
+  nouvelleVersion (): void {
     // on va chercher une spline aléatoire
     this.listeCorrections = []
     this.listeQuestions = []
     const noeuds = this.sup2 ? noeudsSplineAleatoire(12, false, -6, 2, 1) : noeudsSplineAleatoire(12, false, -6, 2)
     const spline = new Spline(noeuds)
     this.nbImages = this.sup
-    this.idApigeom = `apigeomEx${numeroExercice}F0`
     this.figure = new Figure({ xMin: -6.3, yMin: -6.3, width: 378, height: 378 })
     this.figure.create('Grid')
-    this.figure.options.limitNumberOfElement.set('Point', 1)
+    // this.figure.options.limitNumberOfElement.set('Point', 1)
     this.listeQuestions = []
     this.listeCorrections = ['']
     this.autoCorrection = []
@@ -126,7 +124,7 @@ class LireImageParApiGeom extends Exercice {
       index++
     }
     for (let i = 0; i < this.nbImages; i++) {
-    //  enonce += `${numAlpha(i)} $${texNombre(this.X[i], 1)}$ ?` + ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: '  ' }) + '<br>'
+    //  enonce += `${numAlpha(i)} $${texNombre(this.X[i], 1)}$ ?` + ajouteChampTexteMathLive(this, i, '', { texteApres: '  ' }) + '<br>'
       const image = spline.fonction(this.X[i]) as FractionEtendue
       this.Y[i] = Math.round(10 * Number(image)) / 10
     }
@@ -161,7 +159,7 @@ class LireImageParApiGeom extends Exercice {
     this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
     if (this.figure.ui) this.figure.ui.send('DRAG')
     // Il est impératif de choisir les boutons avant d'utiliser figureApigeom
-    const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure: this.figure })
+    const emplacementPourFigure = figureApigeom({ exercice: this, i: 0, figure: this.figure })
     this.figure.isDynamic = true
     this.figure.divButtons.style.display = 'flex'
     const repere = new RepereBuilder({ xMin: -6.3, yMin: -6.3, xMax: 6.3, yMax: 6.3 })

@@ -24,7 +24,7 @@ export default class PerimetreRectangleCM2 extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     // this.formatInteractif = 'calcul'
-    this.formatChampTexte = 'largeur01'
+    this.formatChampTexte = ''
     this.optionsChampTexte = { texteApres: ' cm' }
     this.canOfficielle = false
     this.compare = fonctionComparaison

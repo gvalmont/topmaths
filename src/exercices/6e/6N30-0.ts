@@ -16,7 +16,7 @@ import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { numberWithSpaceCompare } from '../../lib/interactif/comparisonFunctions'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 export const titre = 'Repérer des nombres décimaux sur une droite graduée'
 export const uuid = '50614'
 export const refs = {
@@ -30,6 +30,8 @@ export const dateDePublication = '26/08/2024'
 /**
  * @author Jean-Claude Lhote
  */
+
+let listesPas: Array<[number, number][]>
 
 class ReperageEntiersOuDecimaux extends Exercice {
   version:string
@@ -46,12 +48,7 @@ class ReperageEntiersOuDecimaux extends Exercice {
     this.besoinFormulaire2CaseACocher = ['Zéro visible', false]
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = false
-  }
-
-  nouvelleVersion () {
-    // Listes de pas [pasPrincipal, Subdivision] selon degré de difficulté
-    const nbDecimales = this.version === 'entiers' ? 0 : 3
-    const listesPas: Array<[number, number][]> = this.version === 'entiers'
+    listesPas = this.version === 'entiers'
       ? [
           [// Liste facile
             [2, 2], [3, 3], [4, 4], [5, 5] // ici le pas secondaire vaut 1, les entiers sont consécutifs
@@ -66,21 +63,43 @@ class ReperageEntiersOuDecimaux extends Exercice {
             [45, 5], [200, 5], [15, 5], [200, 8], [150, 5], [24, 6] // Pas secondaire farfelu
           ]
         ]
-      : [
-          [
-            // Liste facile
-            [1, 2], [2, 4], [5, 2], [1, 10], [0.1, 10], [0.01, 10], [4, 8]
-          ],
-          [
-            [3, 2], [6, 4], [1, 5], [2, 10], [0.1, 5], [0.2, 10], [3, 10]
-          ],
-          [
-            [0.01, 5], [0.02, 10], [0.3, 10], [10, 4], [5, 4]
-          ],
-          [
-            [0.4, 5], [0.6, 3], [1.2, 4], [1.6, 8]
+      : this.version === 'decimaux'
+        ? [
+            [
+              // Liste facile
+              [1, 2], [2, 4], [5, 2], [1, 10], [0.1, 10], [0.01, 10], [4, 8]
+            ],
+            [
+              [3, 2], [6, 4], [1, 5], [2, 10], [0.1, 5], [0.2, 10], [3, 10]
+            ],
+            [
+              [0.01, 5], [0.02, 10], [0.3, 10], [10, 4], [5, 4]
+            ],
+            [
+              [0.4, 5], [0.6, 3], [1.2, 4], [1.6, 8]
+            ]
           ]
-        ]
+        : [ // Liste pour c3N11-1
+            [
+              // Liste facile
+              [10, 10], [100, 10], [1000, 10], [10000, 10]
+            ],
+            [
+              [10, 2], [100, 2], [1000, 2], [10000, 2]
+            ],
+            [
+              [10, 5], [100, 5], [1000, 5], [10000, 5]
+            ],
+            [
+              [200, 8], [1000, 4], [100, 4], [1000, 8]
+            ]
+          ]
+  }
+
+  nouvelleVersion () {
+    if (this.interactif) { this.consigne = texteGras(' Penser à mettre les espaces nécessaires.') }
+    // Listes de pas [pasPrincipal, Subdivision] selon degré de difficulté
+    const nbDecimales = this.version === 'entiers' ? 0 : 3
 
     this.reinit()
     const choix = gestionnaireFormulaireTexte({
@@ -206,7 +225,7 @@ class ReperageEntiersOuDecimaux extends Exercice {
       guide.styleExtremites = '->'
       guide.color = colorToLatexOrHTML(orangeMathalea)
       guide.epaisseur = 2
-      guide.pointilles = 2
+      guide.pointilles = '2'
       const pointATrouver = point(xPoint, 0, lettreDepuisChiffre(i + 1))
       const trace = tracePoint(pointATrouver)
       const label = labelPoint(pointATrouver)
@@ -220,7 +239,7 @@ class ReperageEntiersOuDecimaux extends Exercice {
         label
       ]
       // fin fabrication droite graduée
-      let texte = `Donner l'abscisse du point $${lettreDepuisChiffre(i + 1)}$${ajouteChampTexteMathLive(this, i, `inline nospacebefore ${KeyboardType.numbersSpace}`, { texteAvant: ' (ne pas oublier les espaces si nécessaire) :' })}.<br>`
+      let texte = `Donner l'abscisse du point $${lettreDepuisChiffre(i + 1)}$${ajouteChampTexteMathLive(this, i, `  ${KeyboardType.numbersSpace}`)}.<br>`
       texte += mathalea2d(
         Object.assign(
           { pixelsParCm: 30, scale: 1 },

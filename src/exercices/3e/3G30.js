@@ -15,8 +15,8 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import Grandeur from '../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const interactifReady = true
@@ -41,32 +41,37 @@ export const refs = {
   'fr-fr': ['3G30'],
   'fr-ch': []
 }
-export default function CalculDeLongueur () {
-  Exercice.call(this)
-  this.nbQuestions = 3
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = false
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
-  this.interactif = false
-  if (context.isHtml) {
-    this.spacing = 2
-    this.spacingCorr = 3
-  } else {
-    this.spacing = 2
-    this.spacingCorr = 2
+export default class CalculDeLongueur extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 3
+    this.nbCols = 1
+    this.nbColsCorr = 1
+    this.sup = false
+    this.sup2 = '7'
+    this.sup3 = 1
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+    this.interactif = false
+    if (context.isHtml) {
+      this.spacing = 2
+      this.spacingCorr = 3
+    } else {
+      this.spacing = 2
+      this.spacingCorr = 2
+    }
+    this.besoinFormulaireCaseACocher = ['Figure à main levée', false]
+    this.besoinFormulaire2Texte = ['Types de questions', '(nombre séparés par des tirets)\n1 : Côté adjacent (cosinus)\n2 : Côté opposé (sinus)\n3 : Côté opposé (tangente)\n4 : Hypoténuse (cosinus)\n5 : Hypoténuse (sinus)\n 6 : Côté adjacent (tangente)\n7 : Mélange']
+    this.besoinFormulaire3Numerique = ['Types de correction', 2, '1 : Avec produit en croix\n2 : Sans produit en croix']
   }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = ''
-    this.autoCorrection = []
-    this.listeQuestions = []
-    this.listeCorrections = []
     let reponse
     let listeDeNomsDePolygones
-    let typeQuestionsDisponibles = ['cosinus', 'sinus', 'tangente', 'invCosinus', 'invSinus', 'invTangente']
-    if (this.level === 4) typeQuestionsDisponibles = ['cosinus', 'invCosinus']
+    const typeQuestionsDisponibles = (this.level === 4)
+      ? gestionnaireFormulaireTexte({ saisie: this.sup2, nbQuestions: this.nbQuestions, min: 1, max: 2, melange: 3, defaut: 3, listeOfCase: ['cosinus', 'invCosinus'] })
+      : gestionnaireFormulaireTexte({ saisie: this.sup2, nbQuestions: this.nbQuestions, min: 1, max: 6, melange: 7, defaut: 7, listeOfCase: ['cosinus', 'sinus', 'tangente', 'invCosinus', 'invSinus', 'invTangente'] })
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0; i < this.nbQuestions; i++) {
@@ -256,10 +261,15 @@ export default function CalculDeLongueur () {
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\dfrac{\\cos\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(nom[0] + nom[1], bc)}$<br>`
-          texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
-          texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle('\\color{red}{1}', bc, `\\cos\\left(${angleABC}^\\circ\\right)`)}$`
-          texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
+          if (this.sup3 === 1) {
+            texteCorr += `$\\dfrac{\\cos\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(nom[0] + nom[1], bc)}$<br>`
+            texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
+            texteCorr += `$${nom[0] + nom[1]}=${bc} \\times \\cos\\left(${angleABC}^\\circ\\right)$`
+          } else {
+            texteCorr += `$\\cos\\left(${angleABC}^\\circ\\right)=${texFractionFromString(nom[0] + nom[1], bc)}$<br>`
+            texteCorr += `$${nom[0] + nom[1]}=${bc} \\times \\cos\\left(${angleABC}^\\circ\\right)$`
+          }
+          texteCorr += `<br>soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
           reponse = ab.toDP(1)
           nomLongueur = `$${nom[0] + nom[1]}$`
           calcul0 = `$${nom[1] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
@@ -274,10 +284,15 @@ export default function CalculDeLongueur () {
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${texFractionFromString(nom[0] + nom[2], nom[1] + nom[2])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\dfrac{\\sin\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(nom[0] + nom[2], bc)}$<br>`
-          texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
-          texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', bc, `\\sin\\left(${angleABC}^\\circ\\right)`)}$`
-          texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
+          if (this.sup3 === 1) {
+            texteCorr += `$\\dfrac{\\sin\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(nom[0] + nom[2], bc)}$<br>`
+            texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
+            texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', bc, `\\sin\\left(${angleABC}^\\circ\\right)`)}$`
+          } else {
+            texteCorr += `$\\sin\\left(${angleABC}^\\circ\\right)=${texFractionFromString(nom[0] + nom[2], bc)}$<br>`
+            texteCorr += `$${nom[0] + nom[2]}=${bc} \\times \\sin\\left(${angleABC}^\\circ\\right)$`
+          }
+          texteCorr += `<br>soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
           reponse = ac.toDP(1)
           nomLongueur = `$${nom[0] + nom[2]}$`
           calcul0 = `$${nom[1] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
@@ -292,10 +307,15 @@ export default function CalculDeLongueur () {
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${texFractionFromString(nom[0] + nom[2], nom[0] + nom[1])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\dfrac{\\tan\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(nom[0] + nom[2], ab)}$<br>`
-          texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
-          texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', ab, `\\tan\\left(${angleABC}^\\circ\\right)`)}$`
-          texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
+          if (this.sup3 === 1) {
+            texteCorr += `$\\dfrac{\\tan\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(nom[0] + nom[2], ab)}$<br>`
+            texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
+            texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', ab, `\\tan\\left(${angleABC}^\\circ\\right)`)}$`
+          } else {
+            texteCorr += `$\\tan\\left(${angleABC}^\\circ\\right)=${texFractionFromString(nom[0] + nom[2], ab)}$<br>`
+            texteCorr += `$${nom[0] + nom[2]}=${ab} \\times \\tan\\left(${angleABC}^\\circ\\right)$`
+          }
+          texteCorr += `<br>soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
           reponse = ac.toDP(1)
           nomLongueur = `$${nom[0] + nom[2]}$`
           calcul0 = `$${nom[0] + nom[1]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
@@ -310,10 +330,15 @@ export default function CalculDeLongueur () {
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\dfrac{\\cos\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(ab, nom[1] + nom[2])}$<br>`
-          texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
-          texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\cos\\left(${angleABC}^\\circ\\right)`, ab, '\\color{red}{1}')}$`
-          texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
+          if (this.sup3 === 1) {
+            texteCorr += `$\\dfrac{\\cos\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(ab, nom[1] + nom[2])}$<br>`
+            texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
+            texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\cos\\left(${angleABC}^\\circ\\right)`, ab, '\\color{red}{1}')}$`
+          } else {
+            texteCorr += `$\\cos\\left(${angleABC}^\\circ\\right)=${texFractionFromString(ab, nom[1] + nom[2])}$<br>`
+            texteCorr += `$${nom[1] + nom[2]}= \\dfrac{${ab}}{\\cos\\left(${angleABC}^\\circ\\right)}$`
+          }
+          texteCorr += `<br>soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
           reponse = bc.toDP(1)
           nomLongueur = `$${nom[1] + nom[2]}$`
           calcul0 = `$${nom[0] + nom[1]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
@@ -328,10 +353,15 @@ export default function CalculDeLongueur () {
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${texFractionFromString(nom[0] + nom[2], nom[1] + nom[2])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\dfrac{\\sin\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(ac, nom[1] + nom[2])}$<br>`
-          texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
-          texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\sin\\left(${angleABC}^\\circ\\right)`, ac, '\\color{red}{1}')}$`
-          texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
+          if (this.sup3 === 1) {
+            texteCorr += `$\\dfrac{\\sin\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(ac, nom[1] + nom[2])}$<br>`
+            texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
+            texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\sin\\left(${angleABC}^\\circ\\right)`, ac, '\\color{red}{1}')}$`
+          } else {
+            texteCorr += `$\\sin\\left(${angleABC}^\\circ\\right)=${texFractionFromString(ac, nom[1] + nom[2])}$<br>`
+            texteCorr += `$${nom[1] + nom[2]}=\\dfrac{${ac}}{\\sin\\left(${angleABC}^\\circ\\right)}$`
+          }
+          texteCorr += `<br>soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
           reponse = bc.toDP(1)
           nomLongueur = `$${nom[1] + nom[2]}$`
           calcul0 = `$${nom[0] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
@@ -346,10 +376,15 @@ export default function CalculDeLongueur () {
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${texFractionFromString(nom[0] + nom[2], nom[0] + nom[1])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\dfrac{\\tan\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(ac, nom[0] + nom[1])}$<br>`
-          texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
-          texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle(`\\tan\\left(${angleABC}^\\circ\\right)`, ac, '\\color{red}{1}')}$`
-          texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
+          if (this.sup3 === 1) {
+            texteCorr += `$\\dfrac{\\tan\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(ac, nom[0] + nom[1])}$<br>`
+            texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
+            texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle(`\\tan\\left(${angleABC}^\\circ\\right)`, ac, '\\color{red}{1}')}$`
+          } else {
+            texteCorr += `$\\tan\\left(${angleABC}^\\circ\\right)=${texFractionFromString(ac, nom[0] + nom[1])}$<br>`
+            texteCorr += `$${nom[0] + nom[1]}=\\dfrac{${ac}}{\\tan\\left(${angleABC}^\\circ\\right)}$`
+          }
+          texteCorr += `<br>soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
           reponse = ab.toDP(1)
           nomLongueur = `$${nom[0] + nom[1]}$`
           calcul0 = `$${nom[0] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
@@ -439,7 +474,7 @@ export default function CalculDeLongueur () {
         }
       }
       if (context.isHtml && !context.isAmc) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline unites[Longueur]')
+        texte += ajouteChampTexteMathLive(this, i, ' unites[Longueur]')
         setReponse(this, i, new Grandeur(reponse, unite), { formatInteractif: 'unites' })
       }
       this.listeQuestions.push(texte)
@@ -447,6 +482,4 @@ export default function CalculDeLongueur () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-
-  this.besoinFormulaireCaseACocher = ['Figure à main levée', false]
 }

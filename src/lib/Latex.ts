@@ -33,6 +33,7 @@ export type LatexFileInfos = {
   fontOption: 'StandardFont'| 'DysFont'
   correctionOption: 'AvecCorrection' | 'SansCorrection'
   qrcodeOption: 'AvecQrcode' | 'SansQrcode'
+  durationCanOption: string
   signal?: AbortSignal | undefined
 }
 
@@ -150,7 +151,7 @@ class Latex {
           }
           contentCorr += '\n\\end{EXO}\n'
           content += `\n% @see : ${getUrlFromExercice(exercice)}`
-          content += `\n\\begin{EXO}{${format(exercice.consigne)}}{${String(exercice.id).replace('.js', '')}}\n`
+          content += `\n\\begin{EXO}{}{${String(exercice.id).replace('.js', '')}}\n${format(exercice.consigne)}\n`
           content += writeIntroduction(exercice.introduction)
           content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, Boolean(exercice.listeAvecNumerotation), Number(exercice.nbCols)), Number(exercice.nbCols))
           content += '\n\\end{EXO}\n'
@@ -283,7 +284,9 @@ Correction
       if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted in getContents of Latex.ts', 'AbortError') }
       if (latexFileInfos.style === 'Can') {
         contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(latexFileInfos, contents)}\n\n`
-        contents.preamble += '\n\\Theme[CAN]{}{}{}{}'
+        contents.preamble += '\n\\newbool{correctionDisplay}'
+        contents.preamble += `\n\\setbool{correctionDisplay}{${latexFileInfos.correctionOption === 'AvecCorrection' ? 'true' : 'false'}}`
+        contents.preamble += '\n\\Theme[CAN]{}{}{' + latexFileInfos.durationCanOption + '}{}'
         contents.intro += '\n\\begin{document}'
         contents.intro += '\n\\setcounter{nbEx}{1}'
         contents.intro += '\n\\pageDeGardeCan{nbEx}'
@@ -387,6 +390,9 @@ ${latexFileInfos.qrcodeOption === 'AvecQrcode' ? '\n\\tcbset{\n  tikzfiche/.appe
     latexWithoutPreamble += content
     if (latexFileInfos.style === 'ProfMaquette' || latexFileInfos.style === 'ProfMaquetteQrcode') {
       latexWithoutPreamble += '\n\\end{document}'
+    } else if (latexFileInfos.style === 'Can') {
+      latexWithoutPreamble += '\n\n\\clearpage\n\n\\ifbool{correctionDisplay}{\\begin{Correction}' + contentCorr + '\n\\clearpage\n\\end{Correction}}{}\n\\end{document}'
+      latexWithoutPreamble += '\n\n% Local Variables:\n% TeX-engine: luatex\n% End:'
     } else {
       latexWithoutPreamble += '\n\n\\clearpage\n\n\\begin{Correction}' + contentCorr + '\n\\clearpage\n\\end{Correction}\n\\end{document}'
       latexWithoutPreamble += '\n\n% Local Variables:\n% TeX-engine: luatex\n% End:'

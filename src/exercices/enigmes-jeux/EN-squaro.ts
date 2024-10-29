@@ -10,6 +10,7 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { choice } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
 import Element2D from 'apigeom/src/elements/Element2D'
+import Circle from 'apigeom/src/elements/lines/Circle'
 
 export const dateDePublication = '15/07/2024'
 export const titre = 'Résoudre une grille de SquarO'
@@ -31,7 +32,6 @@ class squaro extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   figureCorrection!: Figure
-  idApigeom!: string
   goodAnswers: Array<{ x: number; y: number }>
   nbSommets: Array<number>
   longueur:number
@@ -77,7 +77,6 @@ class squaro extends Exercice {
     this.longueur = Math.max(2, Math.min(parseInt(this.sup), 15)) || 2
     this.largeur = Math.max(2, Math.min(parseInt(this.sup2), 15)) || 2
     // Quand on duplique un exercice le numeroExercice ne semble pas se mettre à jour
-    this.idApigeom = `apigeomEx${this.numeroExercice}EE${new Date().getTime()}`
     this.figure = new Figure({
       xMin: -0.25, // On enlève 0.25 unités
       yMin: -0.25,
@@ -173,7 +172,7 @@ class squaro extends Exercice {
     })
     const emplacementPourFigure = figureApigeom({
       exercice: this,
-      idApigeom: this.idApigeom,
+      i: 0,
       figure: this.figure
     })
     this.goodAnswers = []
@@ -212,10 +211,15 @@ class squaro extends Exercice {
     }
     for (let j = 0; j <= this.largeur; j++) {
       for (let i = 0; i <= this.longueur; i++) {
-        const center = this.figure.create('Point', { x: i, y: j, isVisible: false, color: 'white' }) // Il ne faut pas qu'ils soient bleus.
-        this.figure.create('Circle', { center, radius: 0.2, fillColor: 'white', color: 'black', fillOpacity: 1 })
+        const center = this.figure.create('Point', { x: i, y: j, isVisible: false, color: 'white', isSelectable: false }) // Il ne faut pas qu'ils soient bleus.
+        this.figure.create('Circle', { center, radius: 0.2, fillColor: 'white', color: 'black', fillOpacity: 1, isSelectable: false })
       }
     }
+    this.figure.elements.forEach((ele) => {
+      if (ele instanceof Circle) {
+        ele.isDeletable = false
+      }
+    })
 
     let nbPointsAide = 0
     switch (this.sup4) {
@@ -303,9 +307,9 @@ class squaro extends Exercice {
   }
 
   correctionInteractive = () => {
-    this.answers = {}
+    if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.idApigeom] = this.figure.json
+    this.answers[this.figure.id] = this.figure.json
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${0}`) as HTMLDivElement
     let isValid = true
     let validUnPoint = true

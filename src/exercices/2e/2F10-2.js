@@ -77,11 +77,12 @@ export default function Lecturefonctionaffine () {
             yLabelMin: -4,
             axeXStyle: '->',
             axeYStyle: '->',
+            grilleXDistance: 2,
             yLabelDistance: 1,
             yLabelEcart: 0.6,
-            grilleSecondaire: true,
+            grilleSecondaire: false,
             grilleSecondaireYDistance: 1,
-            grilleSecondaireXDistance: 1,
+            grilleSecondaireXDistance: 2,
             grilleSecondaireYMin: -5,
             grilleSecondaireYMax: 6,
             grilleSecondaireXMin: -8,
@@ -98,8 +99,8 @@ export default function Lecturefonctionaffine () {
           texte = 'Déterminer graphiquement l\'expression algébrique de la fonction affine $f$ représentée ci-dessous :<br>'
           texte += mathalea2d({
             xmin: -8,
-            ymin: -5,
-            xmax: 8,
+            ymin: -5.1,
+            xmax: 8.1,
             ymax: 6,
             pixelsParCm: 25,
             scale: 0.6
@@ -191,8 +192,8 @@ export default function Lecturefonctionaffine () {
               if (a !== 0) {
                 texteCorr += mathalea2d({
                   xmin: -8,
-                  ymin: -5,
-                  xmax: 8,
+                  ymin: -5.1,
+                  xmax: 8.1,
                   ymax: 6,
                   scale: 0.5
                 }, r, s1, s2, t, c, l, o, labs, lord)//, labs, lord
@@ -236,8 +237,8 @@ export default function Lecturefonctionaffine () {
           texte = 'Déterminer graphiquement l\'expression algébrique de la fonction affine $f$ représentée ci-dessous :<br>'
           texte += mathalea2d({
             xmin: -8,
-            ymin: -6,
-            xmax: 8,
+            ymin: -6.1,
+            xmax: 8.1,
             ymax: 6,
             pixelsParCm: 25,
             scale: 0.6
@@ -371,8 +372,8 @@ export default function Lecturefonctionaffine () {
             if (a !== 0) {
               texteCorr += mathalea2d({
                 xmin: -8,
-                ymin: -6,
-                xmax: 8,
+                ymin: -6.1,
+                xmax: 8.1,
                 ymax: 6,
                 scale: 0.5
 

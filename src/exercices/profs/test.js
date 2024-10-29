@@ -1,10 +1,9 @@
 // import { ComputeEngine } from '@cortex-js/compute-engine'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ensembleNombres, fonctionComparaison } from '../../lib/interactif/comparisonFunctions.ts'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.ts'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import FractionEtendue from '../../modules/FractionEtendue'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 
@@ -19,9 +18,8 @@ export const refs = {
 
 export const uuid = 'testEE'
 
-/*
 const engine = new ComputeEngine()
-// export engine
+/* // export engine
 
 function customCanonicalEE (expr) {
   if (typeof expr.value === 'number') {
@@ -40,8 +38,12 @@ function customCanonicalEE (expr) {
   return expr.canonical
 }
 */
-const engine = new ComputeEngine()
-
+// const engine = new ComputeEngine()
+/* console.log(engine.parse('2^6').isEqual(engine.parse('2^6'))) // -> true OK of course
+console.log(engine.parse('2^6').isEqual(engine.parse('-2^6'))) // -> false OK
+console.log(engine.parse('(-2)^6').isEqual(engine.parse('2^6'))) // -> true
+console.log(engine.parse('(-2)^6').isSame(engine.parse('-2^6'))) // -> false
+*/
 function comparaisonFractionArnoG (input, goodAnswer) {
   const saisie = engine.parse(input, { canonical: false })
   const reponse = engine.parse(goodAnswer, { canonical: false })
@@ -168,16 +170,8 @@ export default function desTestsPourInteractivité () {
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   // this.consigne = 'Quel est le résultat des calculs suivants ?'
-  this.consigne = 'Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4. Ranger ces nombres par ordre croissant.'
+  this.consigne = 'Compléter l\'égalité par une puissance d\'un nombre avec un exposant autre que 1.'
   this.nouvelleVersion = function () {
-    // console.info(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).json)
-    // console.info(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).json)
-    // console.info(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).toString())
-    // console.info(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).toString())
-    // console.info(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).ops[0].head)
-    // console.info(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).ops[0].head)
-    // .isSame(customCanonicalEE(engine.parse('5\\times4c+1', { canonical: false }))))
-
     for (let i = 0, texte, texteCorr, cpt = 0, a, b; i < this.nbQuestions && cpt < 50;) {
       a = randint(1, 12)
       b = randint(2, 12)
@@ -203,21 +197,23 @@ export default function desTestsPourInteractivité () {
       // const reponse = '3x+2'
       // const enonce = 0.4
       // const reponse = new FractionEtendue(6, 8).toLatex()
-      const reponse = '\\{1;3;2\\}'
+      // console.log(fonctionComparaison('16^1', '16', { sansExposantUn: true }).isOk)
+
+      const reponse = '4096'
       // const reponse = new FractionEtendue(-20, 50).valeurDecimale
       // const enonce = '$Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4 +' + reponse + '$ : $'
       // const enonce = '$Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4 :$'
-      const enonce = ''
+      const enonce = '2^{12} = '
       // const enonce = '$Donner une valeur numér égale à 0.4 : $'
       // reponse = reponse.toString()
       texteCorr = ''
-      // texte = `$${enonce}=$` + ajouteChampTexteMathLive(this, i, 'inline15 college6eme ' + KeyboardType.clavierDeBaseAvecFraction)
-      texte = `$${enonce}$` + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction)
-      // texte += `$${enonce}$` + ajouteChampTexteMathLive(this, i + 1, 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction)
+      // texte = `$${enonce}=$` + ajouteChampTexteMathLive(this, i, '  college6eme ' + KeyboardType.clavierDeBaseAvecFraction)
+      texte = `$${enonce}$` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)
+      // texte += `$${enonce}$` + ajouteChampTexteMathLive(this, i + 1, KeyboardType.clavierDeBaseAvecFraction)
       // texte += ajouteFeedback(this, i + 1)
       // handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
       // handleAnswers(this, i, { reponse: { value: reponse } })
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { kUplet: true } } })
+      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { puissance: true, exposant1Accepte: false } } })
       // handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
 
       if (this.questionJamaisPosee(i, a, b)) {
