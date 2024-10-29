@@ -83,45 +83,22 @@
   ]
 }
 
-#let titre1(titre, numero: 0) = {
-  let chiffresRomains = ("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X")
+#let titre1(titre) = {
   block(
     text(
       underline(
-        text(
-          red, font: "STIX Two Text", size: 1.05em, 
-              chiffresRomains.at(
-                numero
-              )
-        ) + " " + titre, stroke: 1pt + red, offset: 2pt
+        text(red, font: "STIX Two Text", size: 1.05em, context counter(heading).display("I")) + " " + titre,
+        stroke: 1pt + red, offset: 2pt
       ), weight: "regular", size: 1.02em
     )
   )
 }
 
-#let titre2(titre, numero: 0) = {
+#let titre2(titre) = {
   block(
     text(
-      text(
-        size: 1.03em, 
-          str(numero)
-      ) + ". " + titre, black, weight: "regular", size: 1.02em
-    )
-  )
-}
-
-#let titre3(titre, numeroPrincipal: 0, numeroSecondaire: 0) = {
-  let lettres = "abcdefghijklmnopqrstuvwxyz"
-  block(
-    text(
-      text(
-        size: 1.03em,
-          str(numeroPrincipal)
-      ) + "." +
-      text(
-        size: 1.02em,
-          lettres.at(numeroSecondaire - 1)
-      ) + ") " + titre, black, weight: "regular"
+      text(size: 1.03em, context counter(heading).display().at(2)) + ". " + titre,
+      black, weight: "regular", size: 1.02em
     )
   )
 }
@@ -155,21 +132,11 @@
   show heading: it => block(it.body)
   show heading.where(level: 1): it => {
     counter(heading).step(level: 1)
-    locate(loc => {
-      titre1(it.body, numero: counter(heading).at(loc).at(0))
-    })
+    titre1(it.body)
   }
   show heading.where(level: 2): it => {
     counter(heading).step(level: 2)
-    locate(loc => {
-      titre2(it.body, numero: counter(heading).at(loc).at(1))
-    })
-  }
-  show heading.where(level: 3): it => {
-    counter(heading).step(level: 3)
-    locate(loc => {
-      titre3(it.body, numeroPrincipal: counter(heading).at(loc).at(1), numeroSecondaire: counter(heading).at(loc).at(2))
-    })
+    titre2(it.body)
   }
   if title != "" {
     titrePrincipal(title)
