@@ -234,7 +234,12 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "6C23,s=4,n=4"
+                    "slug": "uuid=64422&id=6C23&n=2&d=10&s=1",
+                    "description": "Additionner des fractions"
+                  },
+                  {
+                    "slug": "uuid=64422&id=6C23&n=2&d=10&s=2",
+                    "description": "Soustraire des fractions"
                   }
                 ],
                 "lessonPlans": [
