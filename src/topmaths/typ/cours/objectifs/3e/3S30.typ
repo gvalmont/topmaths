@@ -7,19 +7,17 @@
 ]
 
 #remarque()[
-  L’image d’un nombre par une fonction est unique mais un même nombre peut avoir plusieurs antécédents.
+  On dit "l'image" car un nombre ne peut avoir qu'une seule image mais on dit "un antécédent" car un même nombre peut avoir plusieurs antécédents.
 ]
 
 #exemple()[
   Une fonction $f$ associe à $x$ son carré.\
-  On note f : $x -> x^2$ (qui se lit $f$, la fonction qui, à $x$ associe $x^2$);\
+  On note $f : x -> x^2$ (qui se lit $f$, la fonction qui, à $x$ associe $x^2$);\
   ou encore $f(x) = x^2$ (qui se lit l’image de $x$ par la fonction f est $x^2$).
 
   $f(5) = 25$. L’image de $5$ par la fonction $f$ est $25$.\
   $f(–5) = 25$. L’image de $–5$ par la fonction $f$ est $25$.\
   $25$ a donc deux antécédents par la fonction $f$ qui sont $5$ et $–5$.
-
-  $–3$ n’a pas d’antécédent par $f$, car un carré est toujours positif.
 ]
 
 #remarque()[

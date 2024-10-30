@@ -7970,7 +7970,7 @@
                 "lessonSummaryImage": "",
                 "videos": [
                   {
-                    "title": "Résumé pas musical",
+                    "title": "",
                     "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=9DPvnj6Cl78&vignette=https://i.ytimg.com/vi/9DPvnj6Cl78/hqdefault.jpg&debut=0&fin=366&largeur=200&hauteur=113&st=fr,fr",
                     "authorName": "L'Antisèche",
                     "authorLink": "https://www.youtube.com/c/LAntiseche"
@@ -7978,12 +7978,67 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "uuid=0eecd&id=3F10-1&n=4&d=10&s=3",
+                    "slug": "uuid=0eecd&id=3F10-1&n=4&d=10&s=1&cd=1",
                     "description": "QCM"
                   },
                   {
-                    "slug": "3F10-3,s=5,n=3",
-                    "description": "Écrire une égalité ou une phrase"
+                    "slug": "uuid=4daef&id=3F10-3&n=2&d=10&s=2",
+                    "description": "Écrire une égalité"
+                  },
+                  {
+                    "slug": "uuid=4daef&id=3F10-3&n=2&d=10&s=1",
+                    "description": "Écrire une phrase"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "3S30_Presentation-1",
+                      "3S30_Presentation-2"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "title": "Vocabulaire : Image et antécédent",
+                        "steps": [
+                          "Expliquer qu'aujourd'hui on a découvrir ce qu'est une fonction",
+                          "Les grandes nouveautés de 5e étaient le calcul littéral et le calcul avec les nombres relatifs",
+                          "La grande nouveauté de 4e était le théorème de Pythagore",
+                          "La grande nouveauté de 3e, c'est les fonctions",
+                          "Une fonction est une suite d'instructions qui transforme un nombre en un autre nombre",
+                          "Par exemple, imaginons une fonction qui double les nombres",
+                          "Si tel nombre entre, quel nombre va sortir ?",
+                          "Répéter plusieurs fois",
+                          "Si un nombre $x$ entre, quel nombre va sortir ?",
+                          "On peut dire que cette fonction transforme le nombre $x$ en le nombre $2x$",
+                          "En mathématiques, on la note : $f : x -> 2x$",
+                          "Depuis tout à l'heure, on parle du nombre qui entre et du nombre qui sort, maintenant on va les nommer :",
+                          "- le nombre qui entre, c'est celui qui vient avant, on l'appelle un antécédent, comme en français",
+                          "- le nombre qui sort, c'est celui qui vient après, on l'appelle l'image, comme pour l'image par une symétrie. On transforme une figure pour obtenir son image par une symétrie, on transforme un nombre pour obtenir son image",
+                          "Demander de trouver des images et des antécédants par cette fonction",
+                          "Demander de trouver des images et des antécédants par $f : x -> x + 1$",
+                          "Demander de trouver des images et des antécédants par $f : x -> x - 1$",
+                          "Noter le cours de la présentation 1",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=3S30"
+                        ]
+                      },
+                      {
+                        "title": "Traduire une phrase par une égalité",
+                        "steps": [
+                          "Entraînement sur https://topmaths.fr/?uuid=4daef&id=3F10-3&n=2&d=10&s=2&alea=aKO1&cd=1&v=exercise"
+                        ]
+                      },
+                      {
+                        "title": "Traduire une égalité par une phrase",
+                        "steps": [
+                          "Faire remarquer que depuis le début, je dis \"l'image\" mais je dis \"un antécédent\". Pourquoi ?",
+                          "Noter le cours de la présentation 2",
+                          "Entraînement sur https://topmaths.fr/?uuid=4daef&id=3F10-3&n=2&d=10&s=1&alea=R0zn&cd=1&v=exercise"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
                   }
                 ]
               },
