@@ -3019,20 +3019,24 @@
                     "startSteps": [],
                     "segments": [
                       {
+                        "title": "Calculer en s'aidant d'un schéma",
                         "steps": [
-                          "Distribuer le poly",
-                          "Premières questions de l’ex.1 ensemble",
-                          "Les autres seul, je passe dans les rangs et aide/vérifie",
-                          "Quand un élève a tout bon pour l’exercice 1 il peut continuer au verso ou aider les autres"
+                          "Faire le lien entre la représentation en disque et la représentation en rectangle",
+                          "Donner des additions de fractions à faire et faire dessiner des rectangles pour s'aider",
+                          "Apprentissage explicite du poly",
+                          "Objectif : réussir à faire les exercices du poly sans schéma donné"
                         ]
                       },
                       {
+                        "title": "Séparer la partie entière",
                         "steps": [
-                          "Reprendre le poly de la dernière fois",
-                          "Premières questions de l’ex.2 ensemble",
-                          "Les autres seul, je passe dans les rangs et aide/vérifie",
-                          "Quand un élève a tout bon pour l’exercice 2 il peut continuer au verso ou aider les autres",
-                          "Même chose pour l'exercice 3"
+                          "Deuxième exercice de https://topmaths.fr/?v=objective&ref=6N30"
+                        ]
+                      },
+                      {
+                        "title": "Encadrer entre deux nombres entiers",
+                        "steps": [
+                          "Troisième exercice de https://topmaths.fr/?v=objective&ref=6N30"
                         ]
                       }
                     ],
