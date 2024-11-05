@@ -36,6 +36,7 @@ export default class SujetZero2024Ex5Q1 extends ExerciceQcm {
 
   constructor () {
     super()
+    this.options = { vertical: true, ordered: false }
     this.versionOriginale()
   }
 }

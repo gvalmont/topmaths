@@ -38,6 +38,7 @@ Quelle est la probabilité d'obtenir au plus deux fois "pile" dans cette liste ?
 
   constructor () {
     super()
+    this.options = { vertical: true, ordered: false }
     this.versionOriginale()
   }
 }

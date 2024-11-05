@@ -185,6 +185,13 @@ async function readInfos (
                     type: ''
                   }
                 }
+                const matchQcm = data.match(/extends ExerciceQcm/)
+                if (matchQcm) {
+                  infos.features.qcm = {
+                    isActive: true,
+                    type: ''
+                  }
+                }
                 infos.typeExercice = 'alea'
                 if (infos.id !== undefined) {
                   exercicesShuffled[infos.id] = { ...infos }

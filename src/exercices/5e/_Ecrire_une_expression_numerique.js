@@ -269,7 +269,7 @@ export default function EcrireUneExpressionNumerique () {
             }
           } else {
             texte += '<br>' + ajouteChampTexteMathLive(this, i, '', { texteAvant: ' Calcul : ' })
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true } } })
+            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { operationSeulementEtNonResultat: true } } })
           }
         }
 

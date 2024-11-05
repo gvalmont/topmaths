@@ -11,6 +11,7 @@
   export let trash: () => void
   export let setFullScreen: (isFullScreen: boolean) => void
   export let handleExport: (vue: VueType) => void
+  export let exportQcmCam: () => Promise<void>
 
 </script>
 
@@ -34,6 +35,7 @@
   >
     <ExportButtons
       {handleExport}
+      {exportQcmCam}
     />
   </div>
 </ButtonsDeck>

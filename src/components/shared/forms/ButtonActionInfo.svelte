@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { downloadFile } from '../../../lib/files'
   import BasicInfoModal from '../modal/BasicInfoModal.svelte'
   import ButtonIconTooltip from './ButtonIconTooltip.svelte'
   import ButtonTextAction from './ButtonTextAction.svelte'
@@ -26,13 +27,13 @@
   let contentDisplayed: 'success' | 'error' | 'none' = 'none'
 
   let actionFunction: () => void
-  $: actionFunction = action === 'copy' ? copyToClipboard : downloadFile
+  $: actionFunction = action === 'copy' ? copyToClipboard : download
 
   // Reactive statement to update actionFunction when textToCopy changes
   $: if (action === 'copy') {
     actionFunction = copyToClipboard
   } else {
-    actionFunction = downloadFile
+    actionFunction = download
   }
 
   function copyToClipboard () {
@@ -52,26 +53,15 @@
     )
   }
 
-  async function downloadFile () {
+  function download () {
     if (urlToDownload === '') {
       console.error('L\'URL à télécharger est vide')
-      contentDisplayed = 'error'
       return
     }
-    try {
-      const text = `<html><head><meta http-equiv="refresh" content="0;URL=${encodeURI(urlToDownload)}"></head></html>`
-      const element = document.createElement('a')
-      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
-      element.setAttribute('download', fileName + '.html')
-      element.style.display = 'none'
-      document.body.appendChild(element)
-      element.click()
-      document.body.removeChild(element)
-      contentDisplayed = 'success'
-    } catch (error) {
-      console.error('Impossible de télécharger le fichier', error)
-      contentDisplayed = 'error'
-    }
+    const text = `<html><head><meta http-equiv="refresh" content="0;URL=${encodeURI(urlToDownload)}"></head></html>`
+    downloadFile(text, `${fileName}.html`).then(
+      (returnString) => { contentDisplayed = returnString }
+    )
   }
 
 </script>

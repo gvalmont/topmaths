@@ -4,11 +4,8 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDeModifImportante = '01/11/2014'
 /**
- * Lire des nombres déciamux sur une portion de droite graduée
- * Une question demande la forme décimale, une autre, la partie entière plus la fraction décimale, et une troisième demande une seule fraction décimale.
- * ref 6N23-2
- *
  * @author Jean-Claude Lhote
  */
 export const uuid = 'b259a'

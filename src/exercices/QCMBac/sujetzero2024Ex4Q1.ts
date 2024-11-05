@@ -66,6 +66,7 @@ $\\overrightarrow{\\imath} = \\overrightarrow{\\mathrm{AB}} ;\\quad \\overrighta
 
   constructor () {
     super()
+    this.options = { vertical: true, ordered: false }
     this.versionOriginale()
   }
 }

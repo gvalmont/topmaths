@@ -128,7 +128,7 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
         }
       } else {
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
-        handleAnswers(this, i, { reponse: { value: (arrondi(a + b)).toString(), compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
+        handleAnswers(this, i, { reponse: { value: (arrondi(a + b)).toString(), compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
       }
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions.push(texte)

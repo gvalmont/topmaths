@@ -119,7 +119,7 @@ export default class ExerciceSoustractionsRelatifs extends Exercice {
             digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(arrondi(a - b))),
             decimals: 0
           })
-        } else handleAnswers(this, i, { reponse: { value: (arrondi(a - b)).toString(), compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
+        } else handleAnswers(this, i, { reponse: { value: (arrondi(a - b)).toString(), compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
 
         i++
       }

@@ -1,4 +1,4 @@
-import DivisionsEuclidiennes from './6C11.js'
+import DivisionsEuclidiennesEgaliteFondamentale from './6C11b'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const interactifReady = true
@@ -7,7 +7,6 @@ export const titre = 'Effectuer divisions euclidiennes - Niveau 2'
 
 /**
  * @author Rémi Angot
- * référence 6C21
 */
 
 export const uuid = 'bbcac'
@@ -17,7 +16,7 @@ export const refs = {
   'fr-ch': ['9NO3-4']
 }
 export default function DivisionsEuclidiennesNiv2 () {
-  DivisionsEuclidiennes.call(this)
+  DivisionsEuclidiennesEgaliteFondamentale.call(this)
   this.sup = 3
   this.titre = titre
   this.tailleDiaporama = 3

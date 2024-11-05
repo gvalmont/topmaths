@@ -9,12 +9,11 @@
   import { onMount, onDestroy } from 'svelte'
   import { shuffle } from '../../../lib/components/shuffle'
   import {
+    getExercisesFromExercicesParams,
     mathaleaFormatExercice,
     mathaleaGenerateSeed,
     mathaleaHandleExerciceSimple,
-    mathaleaHandleParamOfOneExercice,
     mathaleaHandleSup,
-    mathaleaLoadExerciceFromUuid,
     mathaleaUpdateUrlFromExercicesParams
   } from '../../../lib/mathalea'
   import {
@@ -64,17 +63,6 @@
 
   async function forceUpdate () {
     updateExercises()
-  }
-
-  async function getExercisesFromExercicesParams () {
-    const exercises = []
-    for (const paramsExercice of $exercicesParams) {
-      const exercise: Exercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
-      mathaleaHandleParamOfOneExercice(exercise, paramsExercice)
-      exercise.duration = paramsExercice.duration ?? 10
-      exercises.push(exercise)
-    }
-    return exercises
   }
 
   async function updateExercises () {

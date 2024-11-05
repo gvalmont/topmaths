@@ -491,7 +491,7 @@ export default function ModelisationProblemes () {
       }
 
       if (this.sup3 === 1) {
-        handleAnswers(this, i, { reponse: { value: correctionSansSchema, compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true } } })
+        handleAnswers(this, i, { reponse: { value: correctionSansSchema, compare: fonctionComparaison, options: { operationSeulementEtNonResultat: true } } })
         texteCorr += "L'opération qui peut résoudre le problème est : "
         texteCorr += `$${miseEnEvidence(correctionSansSchemaLatex)}$`
         colonne1 += ajouteChampTexteMathLive(this, i, ' college6eme', { texteAvant: sp(5) + '<br>Opération :' })

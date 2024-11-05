@@ -579,7 +579,7 @@ export default function LireUneAbscisseAvecZoom () {
       texte += mathalea2d(fenetre, objets)
       if (this.interactif) {
         handleAnswers(this, 3 * i, { reponse: { value: reponse1, compare: fonctionComparaison } })
-        handleAnswers(this, 3 * i + 1, { reponse: { value: `${reponse2A}+${reponse2B.toLatex()}`, compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true } } })
+        handleAnswers(this, 3 * i + 1, { reponse: { value: `${reponse2A}+${reponse2B.toLatex()}`, compare: fonctionComparaison, options: { operationSeulementEtNonResultat: true } } })
         handleAnswers(this, 3 * i + 2, { reponse: { value: reponse1, compare: fonctionComparaison, options: { fractionDecimale: true } } })
 
         texte += ajouteChampTexteMathLive(this, i * 3, `  ${KeyboardType.numbersSpace}`, {

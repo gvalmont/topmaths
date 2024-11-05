@@ -17,7 +17,7 @@ export const uuid = '00a7a'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
-  'fr-fr': ['TSpeAN1-0'],
+  'fr-fr': ['TSA5-00'],
   'fr-ch': []
 }
 

@@ -1,32 +1,59 @@
 import type Exercice from '../../exercices/Exercice'
-import ExerciceQcm from '../../exercices/ExerciceQcm'
 import { lettreDepuisChiffre } from '../outils/outilString'
 
-export function qcmCamExport (exercice: Exercice): string {
-  const laQuestion = exercice.listeQuestions[0]
-  const [enonce, qcm] = laQuestion.split('<br>')
-  const correction = exercice.listeCorrections[0]
-  const [qcmCorr] = correction.split('<br>')
-  const props = qcm.split('</div></div>')
-  const propsCorr = qcmCorr.split('<label id="labelEx')
-  const listeElements:{bonneReponse:boolean, prop:string}[] = []
-  let question = `<h3 data-translate="{&quot;html&quot;:&quot;questions.defaultquestion&quot;}">${enonce.replaceAll(/\$([^$]*)\$/g, '<span class="math-tex">$1</span>')}</h3><ol>`
-  let reponse = ''
-  for (let i = 0; i < props.length - 1; i++) {
-    if (exercice.autoCorrection != null && exercice.autoCorrection[0] != null && exercice.autoCorrection[0].propositions != null) {
-      const prop = exercice.autoCorrection[0]?.propositions[i]?.texte.replaceAll(/\$([^$]*)\$/g, '<span class="math-tex">$1</span>')
-      const bonneReponse = propsCorr[i].includes('checked')
+export function shuffleJusquaWithIndexes (array: unknown[], lastChoice:number) {
+  // Créer une copie du tableau d'entrée
+  const newArray = array.map(item => JSON.parse(JSON.stringify(item)))
+  const indexes = Array.from({ length: array.length }, (_, i) => i)
+
+  // Mélanger les éléments jusqu'à l'index lastChoice
+  for (let i = lastChoice; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    [indexes[i], indexes[j]] = [indexes[j], indexes[i]]
+  }
+
+  // Retourner le tableau mélangé et les index
+  return { shuffledArray: newArray, indexes }
+}
+
+export function qcmCamExport (exercice: Exercice): {question: string, reponse: string}[] {
+  const questions: {question: string, reponse: string}[] = []
+  for (let j = 0; j < exercice.autoCorrection.length; j++) {
+    const propositions = exercice.autoCorrection[j].propositions
+    if (propositions == null) continue
+    const laConsigne = exercice.consigne.replaceAll(/\$([^$]*)\$/g, '<span class="math-tex">$1</span>') ?? ''
+    const laQuestion = exercice.listeQuestions[j]
+    const enonce = exercice.autoCorrection[j].enonce
+      ? `${laConsigne} ${exercice.autoCorrection[j].enonce?.replaceAll(/&nbsp;/g, ' ')}`
+      : laQuestion.split('<div class="my-3">')[0]
+    const props = propositions.map(prop => prop.texte)
+    const statuts = propositions.map(prop => prop.statut)
+    let question = `<h3 data-translate="{&quot;html&quot;:&quot;questions.defaultquestion&quot;}">${enonce?.replaceAll(/\$([^$]*)\$/g, '<span class="math-tex">$1</span>')}</h3><ol>`
+    let reponse = ''
+    for (let i = 0; i < props.length; i++) {
+      const prop = props[i].replaceAll(/\$([^$]*)\$/g, '<span class="math-tex">$1</span>')
+      const bonneReponse = statuts[i]
       question += `<li${bonneReponse ? ' class="rondvert"' : ''}>${prop}</li>`
-      listeElements.push({ bonneReponse, prop })
       if (bonneReponse) reponse = lettreDepuisChiffre(i + 1)
     }
+    question += '</ol>'
+    questions.push({ question, reponse })
   }
-  question += '</ol>'
-  const sortie = JSON.stringify({ question, reponse })
-  return sortie
+  return questions
 }
 
 export function qcmCamExportAll (exercices: Exercice[]): string {
-  const questionnaire = exercices.filter(exo => exo instanceof ExerciceQcm).map((exercice, index) => [String(index), qcmCamExport(exercice)])
-  return JSON.stringify(Object.fromEntries(questionnaire))
+  const questionnaire = []
+  const listExercices = exercices.filter(exo => exo.interactifType === 'qcm')
+  let index = 0
+  for (const exo of listExercices) {
+    const materiel = qcmCamExport(exo)
+    for (const { question, reponse } of materiel) {
+      questionnaire.push([String(index++), { question, reponse }])
+    }
+  }
+  const questions = questionnaire.map(([index, exo]) => `"${index}":${JSON.stringify(exo)}`)
+  const leJson = `{${questions.join(',')}}`
+  return leJson
 }

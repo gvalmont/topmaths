@@ -68,7 +68,7 @@ export default function ÉcrireUneExpressionMathador () {
       }
 
       texteCorr += `L'expression correspondante au calcul de ${quidam} est :<br>$${miseEnEvidence(expression)}$ ou $${miseEnEvidence(solutionMathador[4])}$.`
-      if (!this.sup) handleAnswers(this, i, { reponse: { value: [expression, solutionMathador[4]], compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true } } })
+      if (!this.sup) handleAnswers(this, i, { reponse: { value: [expression, solutionMathador[4]], compare: fonctionComparaison, options: { operationSeulementEtNonResultat: true } } })
       if (context.isAmc) {
         this.autoCorrection[i] =
         {

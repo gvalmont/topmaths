@@ -6,7 +6,9 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.ts'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Effectuer des calculs littéraux avec des puissances et leurs règles de calculs'
 
@@ -202,8 +204,8 @@ export default function PuissancesDUnRelatif2 () {
           break
       }
       if (this.interactif && !context.isAmc) {
-        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance' })
-        texte += ajouteChampTexteMathLive(this, i, '')
+        handleAnswers(this, i, { reponse: { value: reponseInteractive, compare: fonctionComparaison, options: { puissance: true } } })
+        texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: ' $=$' })
       }
       if (context.isAmc) {
         setReponse(this, i, reponseInteractive, {
@@ -212,7 +214,19 @@ export default function PuissancesDUnRelatif2 () {
           exposantPuissance: exposantInteractif
         })
       }
-      if (this.questionJamaisPosee(i, texte)) {
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+      // Fin de cette uniformisation
+
+      if (this.questionJamaisPosee(i, exp, base)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

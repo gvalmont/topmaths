@@ -121,7 +121,7 @@ export default function MultiplierPar001 () {
               statut: false
             },
             {
-              texte: `$${texNombre2(10 ** (coef - 1))}$`,
+              texte: `$${texNombre2(10 ** (coef - 2))}$`,
               statut: false
             },
             {

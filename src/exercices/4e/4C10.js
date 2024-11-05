@@ -77,12 +77,12 @@ export default function ProduitsEtQuotientRelatifs () {
           if (listeTypesDeNombre[i] < 3) {
             texte = `$${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(b)} = $${ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)}`
             texteCorr = texte.split('=')[0] + ' = ' + texNombre(a.mul(b), 1) + '$'
-            handleAnswers(this, i, { reponse: { value: listeTypesDeNombre[i] < 3 ? a.mul(b) : a.produitFraction(b), compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
+            handleAnswers(this, i, { reponse: { value: listeTypesDeNombre[i] < 3 ? a.mul(b) : a.produitFraction(b), compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
           } else {
             texte = `$${a.texFSD}\\times ${b.texFSP} = $${ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)}`
             texteCorr = texte.split('=')[0] + ' = ' + a.texProduitFraction(b, true) + '$'
             // setReponse(this, i, a.produitFraction(b), { formatInteractif: 'fractionEgale' })
-            handleAnswers(this, i, { reponse: { value: a.produitFraction(b).texFraction, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
+            handleAnswers(this, i, { reponse: { value: a.produitFraction(b).texFraction, compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
           }
           break
 

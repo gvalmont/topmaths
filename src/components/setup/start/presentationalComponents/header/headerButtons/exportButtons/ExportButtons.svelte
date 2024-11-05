@@ -6,8 +6,11 @@
   import type { VueType } from '../../../../../../../lib/types'
   import ButtonActionInfo from '../../../../../../shared/forms/ButtonActionInfo.svelte'
   import ButtonIconTooltip from '../../../../../../shared/forms/ButtonIconTooltip.svelte'
+  import QcmCamIcon from '../../../../../../shared/icons/QcmCamIcon.svelte'
 
   export let handleExport: (vue: VueType) => void
+  export let exportQcmCam: () => Promise<void>
+
 </script>
 
 <ButtonIconTooltip
@@ -23,7 +26,6 @@
   on:click={() => handleExport('confeleve')}
 />
 <button
-  type="button"
   class="tooltip tooltip-bottom tooltip-neutral"
   data-tip="LaTeX"
   on:click={() => handleExport('latex')}
@@ -33,7 +35,6 @@
   />
 </button>
 <button
-  type="button"
   class="tooltip tooltip-bottom tooltip-neutral"
   data-tip="AMC"
   on:click={() => handleExport('amc')}
@@ -43,7 +44,6 @@
   />
 </button>
 <button
-  type="button"
   class="tooltip tooltip-bottom tooltip-neutral"
   data-tip="Anki"
   on:click={() => handleExport('anki')}
@@ -53,12 +53,20 @@
   />
 </button>
 <button
-  type="button"
   class="tooltip tooltip-bottom tooltip-neutral"
   data-tip="Moodle"
   on:click={() => handleExport('moodle')}
 >
   <MoodleIcon
+    class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+  />
+</button>
+<button
+  class="tooltip tooltip-bottom tooltip-neutral"
+  data-tip="QCM Cam"
+  on:click={exportQcmCam}
+>
+  <QcmCamIcon
     class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
   />
 </button>

@@ -44,6 +44,7 @@ export default class PolynesieJuin2024Ex2Q5 extends ExerciceQcm {
 
   constructor () {
     super()
+    this.options = { vertical: true, ordered: false }
     this.versionOriginale()
   }
 }

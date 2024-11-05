@@ -91,6 +91,14 @@ export function texteEnCouleurEtGras (texte: string, couleur = '#f15929') {
   }
 }
 
+export function barreTexte (text: string) {
+  if (context.isHtml) {
+    return `<span class="oblique-strike">${text}</span>`
+  } else {
+    return `\\strike{${text}}`
+  }
+}
+
 /**
  * couleurAleatoire() renvoie le code d'une couleur au hasard
  *

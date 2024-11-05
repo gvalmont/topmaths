@@ -878,3 +878,14 @@ function animationLoading (state: boolean) {
     document.getElementById('loading')?.classList.add('hidden')
   }
 }
+
+export async function getExercisesFromExercicesParams () {
+  const exercises = []
+  for (const paramsExercice of get(exercicesParams)) {
+    const exercise: TypeExercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
+    mathaleaHandleParamOfOneExercice(exercise, paramsExercice)
+    exercise.duration = paramsExercice.duration ?? 10
+    exercises.push(exercise)
+  }
+  return exercises
+}

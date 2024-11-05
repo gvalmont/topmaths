@@ -537,7 +537,8 @@
       "4C22": "Multiplier ou diviser des nombres relatifs en écriture fractionnaire",
       "4C23": "Effectuer un calcul avec des nombres relatifs et fractionnaires",
       "4C24": "Utiliser les nombres premiers pour reconnaître et produire des fractions égales ; pour simplifier des fractions",
-      "4C25": "Résoudre des problèmes avec des nombres rationnels"
+      "4C25": "Résoudre des problèmes avec des nombres rationnels",
+      "4C2QCM": "QCM"
     }
   },
   "4C3": {
@@ -604,7 +605,8 @@
       "4G10": "Transformer une figure par translation",
       "4G11": "Identifier des translations dans des frises et des pavages",
       "4G12": "Comprendre et utiliser l’effet d’une translation : conservation du parallélisme, des longueurs, des aires et des angles",
-      "4G13": "Mener des raisonnements en utilisant des propriétés des figures, des configurations et de la translation"
+      "4G13": "Mener des raisonnements en utilisant des propriétés des figures, des configurations et de la translation",
+      "4G1QCM": "QCM"
     }
   },
   "4G2": {
@@ -628,7 +630,8 @@
     "sousThemes": {
       "4G40": "Calculer une longueur avec le cosinus d'un angle",
       "4G41": "Calculer la mesure d'un angle à partir de son cosinus",
-      "4G42": "Résoudre un problème géométrique"
+      "4G42": "Résoudre un problème géométrique",
+      "4G2QCM": "QCM"
     }
   },
   "4G5": {
@@ -641,8 +644,7 @@
     }
   },
   "4I1": {
-    "titre": "Algorithmique",
-    "sousThemes": {}
+    "titre": "Algorithmique"
   },
   "3L1": {
     "titre": "Calcul littéral",
@@ -653,7 +655,8 @@
       "3L13": "Résoudre algébriquement une équation du premier degré",
       "3L14": "Résoudre algébriquement une équation produit",
       "3L15": "Résoudre algébriquement une équations de la forme x2= a sur des exemples simples",
-      "3L16": "Résoudre des problèmes se ramenant à une équation, qui peuvent être internes aux mathématiques ou en lien avec d’autres disciplines"
+      "3L16": "Résoudre des problèmes se ramenant à une équation, qui peuvent être internes aux mathématiques ou en lien avec d’autres disciplines",
+      "3L1QCM": "QCM"
     }
   },
   "3A1": {
@@ -661,7 +664,8 @@
     "sousThemes": {
       "3A10": "Décomposer un nombre entier en produit de facteurs premiers (à la main, à l’aide d’un tableur ou d’un logiciel de programmation)",
       "3A11": "Simplifier une fraction pour la rendre irréductible",
-      "3A12": "Modéliser et résoudre des problèmes mettant en jeu la divisibilité (engrenages, conjonction de phénomènes...)"
+      "3A12": "Modéliser et résoudre des problèmes mettant en jeu la divisibilité (engrenages, conjonction de phénomènes...)",
+      "3A1QCM": "QCM"
     }
   },
   "3C1": {
@@ -673,7 +677,8 @@
       "3N10": "Utiliser les puissances d’exposants positifs ou négatifs pour simplifier l’écriture des produits",
       "3N11": "Calcule avec les nombres rationnels, notamment dans le cadre de résolution de problèmes",
       "3N12": "Résoudre des problèmes mettant en jeu des racines carrées",
-      "3N13": "Résoudre des problèmes avec des puissances, notamment en utilisant la notation scientifique"
+      "3N13": "Résoudre des problèmes avec des puissances, notamment en utilisant la notation scientifique",
+      "3N1QCM": "QCM"
     }
   },
   "3F1": {
@@ -684,7 +689,8 @@
       "3F12": "Déterminer, à partir de tous les modes de représentation, l’image d’un nombre",
       "3F13": "Déterminer un antécédent à partir d'une représentation graphique ou d’un tableau de valeurs d’une fonction",
       "3F14": "Modéliser un phénomène continu par une fonction",
-      "3F15": "Résoudre des problèmes modélisés par des fonctions en utilisant un ou plusieurs modes de représentation"
+      "3F15": "Résoudre des problèmes modélisés par des fonctions en utilisant un ou plusieurs modes de représentation",
+      "3F1QCM": "QCM"
     }
   },
   "3F2": {
@@ -693,7 +699,8 @@
       "3F20": "Représenter graphiquement une fonction linéaire, une fonction affine",
       "3F21": "Interpréter les paramètres d’une fonction affine suivant l’allure de sa courbe représentative",
       "3F22": "Modéliser une situation de proportionnalité à l’aide d’une fonction linéaire",
-      "3F23": "Déterminer de manière algébrique l’antécédent par une fonction, dans des cas se ramenant à la résolution d’une équation du premier degré"
+      "3F23": "Déterminer de manière algébrique l’antécédent par une fonction, dans des cas se ramenant à la résolution d’une équation du premier degré",
+      "3F2QCM": "QCM"
     }
   },
   "3P1": {
@@ -703,7 +710,8 @@
       "3P11": "Mener des calculs sur des grandeurs mesurables, notamment des grandeurs composées, et exprimer les résultats dans les unités adaptées",
       "3P12": "Résoudre des problèmes utilisant les conversions d’unités sur des grandeurs composées",
       "3P13": "Vérifier la cohérence des résultats du point de vue des unités pour les calculs de grandeurs simples ou composées",
-      "3P14": "Résoudre des problèmes en utilisant la proportionnalité dans le cadre de la géométrie"
+      "3P14": "Résoudre des problèmes en utilisant la proportionnalité dans le cadre de la géométrie",
+      "3P1QCM": "QCM"
     }
   },
   "3S1": {
@@ -711,14 +719,16 @@
     "sousThemes": {
       "3S10": "Lire, interpréter et représenter des données sous forme d’histogrammes pour des classes de même amplitude",
       "3S11": "Calculer et interpréter l’étendue d’une série présentée sous forme de données brutes, d’un tableau, d’un diagramme en bâtons, d’un diagramme circulaire ou d’un histogramme",
-      "3S12": "Calculer des effectifs et des fréquences"
+      "3S12": "Calculer des effectifs et des fréquences",
+      "3S1QCM": "QCM"
     }
   },
   "3S2": {
     "titre": "Probabilités",
     "sousThemes": {
       "3S20": "À partir de dénombrements, calculer des probabilités pour des expériences aléatoires simples à une ou deux épreuves",
-      "3S21": "Faire le lien entre stabilisation des fréquences et probabilités"
+      "3S21": "Faire le lien entre stabilisation des fréquences et probabilités",
+      "3S2QCM": "QCM"
     }
   },
   "3G1": {
@@ -728,7 +738,8 @@
       "3G11": "Transformer une figure par homothétie et comprendre l’effet d’une homothétie",
       "3G12": "Identifier des rotations et des homothéties dans des frises, des pavages et des rosaces",
       "3G13": "Mobiliser les connaissances des figures, des configurations, de la rotation et de l’homothétie pour déterminer des grandeurs géométriques",
-      "3G14": "Calculer des grandeurs géométriques (longueurs, aires et volumes) en utilisant les transformations (symétries, rotations, translations, homothétie)"
+      "3G14": "Calculer des grandeurs géométriques (longueurs, aires et volumes) en utilisant les transformations (symétries, rotations, translations, homothétie)",
+      "3G1QCM": "QCM"
     }
   },
   "3G2": {
@@ -736,7 +747,8 @@
     "sousThemes": {
       "3G20": "Calculer une longueur avec le théorème de Thalès",
       "3G21": "Démontrer que des droites sont parallèles avec le théorème de Thalès",
-      "3G22": "Connaître et utiliser une définition et une propriété caractéristique des triangles semblables"
+      "3G22": "Connaître et utiliser une définition et une propriété caractéristique des triangles semblables",
+      "3G2QCM": "QCM"
     }
   },
   "3G3": {
@@ -744,7 +756,8 @@
     "sousThemes": {
       "3G30": "Calculer une longueur dans un triangle rectangle",
       "3G31": "Calculer la mesure d'un angle dans un triangle rectangle",
-      "3G32": "Résoudre un problème géométrique"
+      "3G32": "Résoudre un problème géométrique",
+      "3G3QCM": "QCM"
     }
   },
   "3G4": {
@@ -753,34 +766,12 @@
       "3G40": "Se repérer sur une sphère (latitude, longitude)",
       "3G41": "Construire et mettre en relation différentes représentations des solides étudiés au cours du cycle (représentations en perspective cavalière, vues de face, de dessus, en coupe, patrons) et leurs sections planes",
       "3G42": "Calculer le volume d’une boule",
-      "3G43": "Calculer les volumes d’assemblages de solides étudiés au cours du cycle"
+      "3G43": "Calculer les volumes d’assemblages de solides étudiés au cours du cycle",
+      "3G4QCM": "QCM"
     }
   },
   "3I1": {
-    "titre": "Algorithmique",
-    "sousThemes": {}
-  },
-  "3QCM": {
-    "titre": "Qcms en version aléatoire ou pas",
-    "sousThemes": {
-      "3QCMF": "Fonctions",
-      "3QCMG": "Géométrie",
-      "3QCMN": "Nombres et calculs",
-      "3QCMS": "Statistiques",
-      "3QCMProb": "Probabilités",
-      "3QCMA": "Arithmétique",
-      "3QCMR": "Relatifs",
-      "3QCML": "Calcul littéral",
-      "3QCMProp": "Proportionnalité",
-      "3QCMThal": "Théorème de Thalès",
-      "3QCMPyth": "Théorème de Pythagore",
-      "3QCMTrig": "Trigonométrie",
-      "3QCMH": "Homothétie",
-      "3QCME": "Espace",
-      "3QCMP": "Puissances",
-      "3QCMAlgo": "Algorithmique",
-      "3QCMO": "Opérations"
-    }
+    "titre": "Algorithmique"
   },
   "200": {
     "titre": "Automatismes"
@@ -959,18 +950,51 @@
   "PEG2": {
     "titre": "À la règle et au compas"
   },
-  "TSpeAN1": {
-    "titre": "Analyse"
+  "TSA1": {
+    "titre": "Les suites numériques"
   },
-  "TSpeC1": {
-    "titre": "Calculs"
+  "TSA2": {
+    "titre":"Compléments sur la dérivation"
   },
-  "TSpeS1": {
-    "titre": "Suites"
-  },
-  "TSpeF1": {
-    "titre": "Fonctions"
-  },
+      "TSA3": {
+        "titre":"Limites de fonctions"
+      },
+      "TSA4": {
+      "titre":"Continuité des fonctions"
+    },
+      "TSA5": {
+        "titre":"Fonction logarithme népérien"
+      },
+      "TSA6": {
+      "titre":"Primitives et équations différentielles"
+    },
+      "TSA7": {
+        "titre":"Intégration"
+      },
+      "TSA8": {
+      "titre":"Fonction sinus et cosinus"
+    },
+      "TSP1": {
+        "titre":"Variables aléatoires discrètes finies"
+      },
+      "TSP2": {
+      "titre":"Sommes de variables aléatoires"
+    },
+      "TSP3": {
+        "titre":"Concentration, loi des grands nombres"
+      },
+      "TSG1": {
+      "titre":"Combinatoire et dénombrement"
+    },
+      "TSG2": {
+        "titre":"Vecteurs, des droites et des plans de l'espace"
+      },
+      "TSG3": {
+      "titre":"Orthogonalité et distances dans l'espace"
+    },
+    "TSG4": {
+      "titre":"Représentation paramétriques et équations cartésiennes"
+    },
   "TExC1": {
     "titre": "Calculs avec nombres complexes",
     "sousThemes": {}

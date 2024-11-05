@@ -26,6 +26,7 @@
   export let isExercisesListEmpty: boolean
   export let isSidenavOpened: boolean
   export let toggleSidenav: (test: boolean) => void
+  export let exportQcmCam: () => Promise<void>
 
   let reorderModalDisplayed: boolean
 
@@ -92,6 +93,7 @@
           {trash}
           {setFullScreen}
           {handleExport}
+          {exportQcmCam}
         />
       </div>
     </div>

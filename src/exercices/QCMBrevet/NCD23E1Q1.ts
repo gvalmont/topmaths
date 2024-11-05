@@ -3,14 +3,14 @@ import ExerciceQcm from '../ExerciceQcm'
 
 export const uuid = '6483e'
 export const refs = {
-  'fr-fr': ['3QCMProbNC23-1'],
+  'fr-fr': ['3S2QCM-1'],
   'fr-ch': []
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM Probabilité (issu du brevet décembre 2023 Nouvelle Calédonie)'
+export const titre = 'Probabilité (12/2023 Nouvelle Calédonie)'
 export const dateDePublication = '28/10/2024'
 
 export default class NouvelleCaledonieDec23Exo1Q1 extends ExerciceQcm {

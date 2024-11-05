@@ -46,6 +46,7 @@ $\\bullet~~$ Le plan $\\mathcal{Q}$ d'équation cartésienne : $-6 x-4 y-2 z+7=0
 
   constructor () {
     super()
+    this.options = { vertical: true, ordered: false }
     this.versionOriginale()
   }
 }

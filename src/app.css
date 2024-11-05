@@ -684,3 +684,19 @@ div.etiquettes {
 min-height: 60px;
   margin-bottom: 5px;
 }
+
+.oblique-strike {
+  position: relative;
+  display: inline-block;
+}
+
+.oblique-strike::after {
+  content: "";
+  position: absolute;
+  top: 50%; /* Positionnement vertical */
+  left: -15%;
+  width: 130%;
+  height: 2px; /* Épaisseur de la ligne */
+  background-color: black; /* Couleur de la ligne */
+  transform: rotate(-15deg); /* Angle de la ligne */
+}

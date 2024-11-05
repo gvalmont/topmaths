@@ -138,7 +138,7 @@ export default function FactoriserParNombreOux () {
       }
       if (!context.isAmc) {
         texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: ' $=$' })
-        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true } } })
+        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { operationSeulementEtNonResultat: true } } })
       } else {
         this.autoCorrection[i] = {
           enonce: texte,

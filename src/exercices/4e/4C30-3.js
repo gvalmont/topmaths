@@ -64,7 +64,7 @@ export default function EcritureDecimalePuissance () {
           n = listeDeCalculs[i][1]
           texte = `$${a}^{${n}}$`
           texteCorr = `$${a}^{${n}}=${puissanceEnProduit(a, n)}=${miseEnEvidence(texNombre(a ** n, 0))}$`
-          handleAnswers(this, i, { reponse: { value: a ** n, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
+          handleAnswers(this, i, { reponse: { value: a ** n, compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
 
           break
         case '-':

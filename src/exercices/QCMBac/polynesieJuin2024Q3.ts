@@ -35,6 +35,7 @@ $\\displaystyle\\int_0^2 g'(x)\\:\\text{d}x = \\left[x^2 \\ln \\left(x^2 + 4\\ri
 
   constructor () {
     super()
+    this.options = { vertical: true, ordered: false }
     this.versionOriginale()
   }
 }

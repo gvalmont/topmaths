@@ -1662,18 +1662,6 @@ export const dictionnaireE3C = {
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet29_4_cor.tex',
     tags: ['Suites', 'Python']
   },
-  e3c_2020_00_sujet29_5: {
-    annee: '2020',
-    lieu: 'sujet29',
-    mois: '',
-    numeroInitial: '5',
-    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet29_5.png',
-    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet29_5_cor.png',
-    typeExercice: 'e3c',
-    url: 'static/e3c/2020/tex/e3c_2020_00_sujet29_5.tex',
-    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet29_5_cor.tex',
-    tags: ['Suites', 'Python']
-  },
   e3c_2020_00_sujet30_1: {
     annee: '2020',
     lieu: 'sujet30',
@@ -2262,7 +2250,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet42_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet42_1_cor.tex',
-    tags: ['']
+    tags: ['QCM', 'Dérivation', 'Produit scalaire', 'Géométrie repérée', 'Suites', 'Python']
   },
   e3c_2020_00_sujet42_2: {
     annee: '2020',
@@ -2274,7 +2262,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet42_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet42_2_cor.tex',
-    tags: ['']
+    tags: ['Probabilités conditionnelles']
   },
   e3c_2020_00_sujet42_3: {
     annee: '2020',
@@ -2286,7 +2274,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet42_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet42_3_cor.tex',
-    tags: ['']
+    tags: ['Second degré', 'Dérivation']
   },
   e3c_2020_00_sujet42_4: {
     annee: '2020',
@@ -2298,7 +2286,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet42_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet42_4_cor.tex',
-    tags: ['']
+    tags: ['Trigonométrie']
   },
   e3c_2020_00_sujet43_1: {
     annee: '2020',
@@ -2310,7 +2298,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet43_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet43_1_cor.tex',
-    tags: ['']
+    tags: ['QCM', 'Dérivée', 'Second degré', 'Dérivation', 'Géométrie repérée', 'Trigonométrie']
   },
   e3c_2020_00_sujet43_2: {
     annee: '2020',
@@ -2322,7 +2310,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet43_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet43_2_cor.tex',
-    tags: ['']
+    tags: ['Suites', 'Python']
   },
   e3c_2020_00_sujet43_3: {
     annee: '2020',
@@ -2334,7 +2322,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet43_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet43_3_cor.tex',
-    tags: ['']
+    tags: ['Géométrie repérée', 'Produit scalaire']
   },
   e3c_2020_00_sujet43_4: {
     annee: '2020',
@@ -2346,7 +2334,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet43_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet43_4_cor.tex',
-    tags: ['']
+    tags: ['Probabilités', 'Variables aléatoires']
   },
   e3c_2020_00_sujet44_1: {
     annee: '2020',
@@ -2358,7 +2346,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet44_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet44_1_cor.tex',
-    tags: ['']
+    tags: ['QCM', 'Trigonométrie', 'Géométrie repérée', 'Second degré']
   },
   e3c_2020_00_sujet44_2: {
     annee: '2020',
@@ -2370,7 +2358,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet44_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet44_2_cor.tex',
-    tags: ['']
+    tags: ['Polynômes', 'Dérivation', 'Second degré']
   },
   e3c_2020_00_sujet44_3: {
     annee: '2020',
@@ -2382,7 +2370,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet44_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet44_3_cor.tex',
-    tags: ['']
+    tags: ['Probabilités conditionnelles']
   },
   e3c_2020_00_sujet44_4: {
     annee: '2020',
@@ -2394,19 +2382,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet44_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet44_4_cor.tex',
-    tags: ['']
-  },
-  e3c_2020_00_sujet44_5: {
-    annee: '2020',
-    lieu: 'sujet44',
-    mois: '',
-    numeroInitial: '5',
-    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet44_5.png',
-    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet44_5_cor.png',
-    typeExercice: 'e3c',
-    url: 'static/e3c/2020/tex/e3c_2020_00_sujet44_5.tex',
-    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet44_5_cor.tex',
-    tags: ['']
+    tags: ['Suites', 'Python']
   },
   e3c_2020_00_sujet45_1: {
     annee: '2020',
@@ -2418,7 +2394,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet45_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet45_1_cor.tex',
-    tags: ['']
+    tags: ['QCM', 'Produit scalaire', 'Géométrie repérée', 'Trigonométrie', 'Python']
   },
   e3c_2020_00_sujet45_2: {
     annee: '2020',
@@ -2430,7 +2406,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet45_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet45_2_cor.tex',
-    tags: ['']
+    tags: ['Probabilités', 'Variables aléatoires']
   },
   e3c_2020_00_sujet45_3: {
     annee: '2020',
@@ -2442,7 +2418,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet45_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet45_3_cor.tex',
-    tags: ['']
+    tags: ['Suites']
   },
   e3c_2020_00_sujet45_4: {
     annee: '2020',
@@ -2454,7 +2430,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet45_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet45_4_cor.tex',
-    tags: ['']
+    tags: ['Polynômes', 'Dérivation', 'Second degré']
   },
   e3c_2020_00_sujet46_1: {
     annee: '2020',
@@ -2466,7 +2442,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet46_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet46_1_cor.tex',
-    tags: ['']
+    tags: ['QCM', 'Produit scalaire', 'Géométrie repérée', 'Dérivation', 'Second degré']
   },
   e3c_2020_00_sujet46_2: {
     annee: '2020',
@@ -2478,7 +2454,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet46_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet46_2_cor.tex',
-    tags: ['']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires']
   },
   e3c_2020_00_sujet46_3: {
     annee: '2020',
@@ -2490,7 +2466,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet46_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet46_3_cor.tex',
-    tags: ['']
+    tags: ['Suites', 'Python']
   },
   e3c_2020_00_sujet46_4: {
     annee: '2020',
@@ -2502,6 +2478,488 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet46_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet46_4_cor.tex',
+    tags: ['Polynômes', 'Dérivation', 'Second degré']
+  },
+
+  e3c_2020_00_sujet50_1: {
+    annee: '2020',
+    lieu: 'sujet50',
+    mois: '',
+    numeroInitial: '1',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet50_1.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet50_1_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet50_1.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet50_1_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet50_2: {
+    annee: '2020',
+    lieu: 'sujet50',
+    mois: '',
+    numeroInitial: '2',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet50_2.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet50_2_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet50_2.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet50_2_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet50_3: {
+    annee: '2020',
+    lieu: 'sujet50',
+    mois: '',
+    numeroInitial: '3',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet50_3.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet50_3_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet50_3.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet50_3_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet50_4: {
+    annee: '2020',
+    lieu: 'sujet50',
+    mois: '',
+    numeroInitial: '4',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet50_4.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet50_4_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet50_4.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet50_4_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet51_1: {
+    annee: '2020',
+    lieu: 'sujet51',
+    mois: '',
+    numeroInitial: '1',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet51_1.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet51_1_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet51_1.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet51_1_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet51_2: {
+    annee: '2020',
+    lieu: 'sujet51',
+    mois: '',
+    numeroInitial: '2',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet51_2.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet51_2_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet51_2.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet51_2_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet51_3: {
+    annee: '2020',
+    lieu: 'sujet51',
+    mois: '',
+    numeroInitial: '3',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet51_3.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet51_3_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet51_3.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet51_3_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet51_4: {
+    annee: '2020',
+    lieu: 'sujet51',
+    mois: '',
+    numeroInitial: '4',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet51_4.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet51_4_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet51_4.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet51_4_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet52_1: {
+    annee: '2020',
+    lieu: 'sujet52',
+    mois: '',
+    numeroInitial: '1',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet52_1.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet52_1_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet52_1.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet52_1_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet52_2: {
+    annee: '2020',
+    lieu: 'sujet52',
+    mois: '',
+    numeroInitial: '2',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet52_2.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet52_2_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet52_2.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet52_2_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet52_3: {
+    annee: '2020',
+    lieu: 'sujet52',
+    mois: '',
+    numeroInitial: '3',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet52_3.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet52_3_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet52_3.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet52_3_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet52_4: {
+    annee: '2020',
+    lieu: 'sujet52',
+    mois: '',
+    numeroInitial: '4',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet52_4.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet52_4_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet52_4.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet52_4_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet53_1: {
+    annee: '2020',
+    lieu: 'sujet53',
+    mois: '',
+    numeroInitial: '1',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet53_1.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet53_1_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet53_1.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet53_1_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet53_2: {
+    annee: '2020',
+    lieu: 'sujet53',
+    mois: '',
+    numeroInitial: '2',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet53_2.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet53_2_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet53_2.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet53_2_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet53_3: {
+    annee: '2020',
+    lieu: 'sujet53',
+    mois: '',
+    numeroInitial: '3',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet53_3.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet53_3_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet53_3.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet53_3_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet53_4: {
+    annee: '2020',
+    lieu: 'sujet53',
+    mois: '',
+    numeroInitial: '4',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet53_4.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet53_4_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet53_4.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet53_4_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet54_1: {
+    annee: '2020',
+    lieu: 'sujet54',
+    mois: '',
+    numeroInitial: '1',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet54_1.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet54_1_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet54_1.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet54_1_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet54_2: {
+    annee: '2020',
+    lieu: 'sujet54',
+    mois: '',
+    numeroInitial: '2',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet54_2.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet54_2_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet54_2.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet54_2_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet54_3: {
+    annee: '2020',
+    lieu: 'sujet54',
+    mois: '',
+    numeroInitial: '3',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet54_3.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet54_3_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet54_3.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet54_3_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet54_4: {
+    annee: '2020',
+    lieu: 'sujet54',
+    mois: '',
+    numeroInitial: '4',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet54_4.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet54_4_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet54_4.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet54_4_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet55_1: {
+    annee: '2020',
+    lieu: 'sujet55',
+    mois: '',
+    numeroInitial: '1',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet55_1.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet55_1_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet55_1.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet55_1_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet55_2: {
+    annee: '2020',
+    lieu: 'sujet55',
+    mois: '',
+    numeroInitial: '2',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet55_2.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet55_2_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet55_2.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet55_2_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet55_3: {
+    annee: '2020',
+    lieu: 'sujet55',
+    mois: '',
+    numeroInitial: '3',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet55_3.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet55_3_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet55_3.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet55_3_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet55_4: {
+    annee: '2020',
+    lieu: 'sujet55',
+    mois: '',
+    numeroInitial: '4',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet55_4.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet55_4_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet55_4.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet55_4_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet56_1: {
+    annee: '2020',
+    lieu: 'sujet56',
+    mois: '',
+    numeroInitial: '1',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet56_1.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet56_1_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet56_1.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet56_1_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet56_2: {
+    annee: '2020',
+    lieu: 'sujet56',
+    mois: '',
+    numeroInitial: '2',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet56_2.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet56_2_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet56_2.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet56_2_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet56_3: {
+    annee: '2020',
+    lieu: 'sujet56',
+    mois: '',
+    numeroInitial: '3',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet56_3.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet56_3_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet56_3.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet56_3_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet56_4: {
+    annee: '2020',
+    lieu: 'sujet56',
+    mois: '',
+    numeroInitial: '4',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet56_4.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet56_4_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet56_4.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet56_4_cor.tex',
+    tags: ['']
+  },
+
+  e3c_2020_00_sujet47_1: {
+    annee: '2020',
+    lieu: 'sujet47',
+    mois: '',
+    numeroInitial: '1',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet47_1.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet47_1_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet47_1.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet47_1_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet47_2: {
+    annee: '2020',
+    lieu: 'sujet47',
+    mois: '',
+    numeroInitial: '2',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet47_2.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet47_2_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet47_2.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet47_2_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet47_3: {
+    annee: '2020',
+    lieu: 'sujet47',
+    mois: '',
+    numeroInitial: '3',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet47_3.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet47_3_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet47_3.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet47_3_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet47_4: {
+    annee: '2020',
+    lieu: 'sujet47',
+    mois: '',
+    numeroInitial: '4',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet47_4.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet47_4_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet47_4.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet47_4_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet48_1: {
+    annee: '2020',
+    lieu: 'sujet48',
+    mois: '',
+    numeroInitial: '1',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet48_1.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet48_1_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet48_1.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet48_1_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet48_2: {
+    annee: '2020',
+    lieu: 'sujet48',
+    mois: '',
+    numeroInitial: '2',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet48_2.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet48_2_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet48_2.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet48_2_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet48_3: {
+    annee: '2020',
+    lieu: 'sujet48',
+    mois: '',
+    numeroInitial: '3',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet48_3.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet48_3_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet48_3.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet48_3_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet48_4: {
+    annee: '2020',
+    lieu: 'sujet48',
+    mois: '',
+    numeroInitial: '4',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet48_4.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet48_4_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet48_4.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet48_4_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet49_1: {
+    annee: '2020',
+    lieu: 'sujet49',
+    mois: '',
+    numeroInitial: '1',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet49_1.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet49_1_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet49_1.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet49_1_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet49_2: {
+    annee: '2020',
+    lieu: 'sujet49',
+    mois: '',
+    numeroInitial: '2',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet49_2.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet49_2_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet49_2.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet49_2_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet49_3: {
+    annee: '2020',
+    lieu: 'sujet49',
+    mois: '',
+    numeroInitial: '3',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet49_3.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet49_3_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet49_3.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet49_3_cor.tex',
+    tags: ['']
+  },
+  e3c_2020_00_sujet49_4: {
+    annee: '2020',
+    lieu: 'sujet49',
+    mois: '',
+    numeroInitial: '4',
+    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet49_4.png',
+    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet49_4_cor.png',
+    typeExercice: 'e3c',
+    url: 'static/e3c/2020/tex/e3c_2020_00_sujet49_4.tex',
+    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet49_4_cor.tex',
     tags: ['']
   },
 

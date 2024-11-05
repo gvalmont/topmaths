@@ -1,13 +1,15 @@
 import { droiteParPointEtPente } from '../../lib/2d/droites.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
+
+export const dateDeModifImportante = '01/11/2024'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -15,10 +17,9 @@ export const amcType = 'qcmMult'
 export const titre = 'Utiliser le vocabulaire et les notations des fonctions (généralités)'
 
 /**
-* Répndre à des questions sur les fonctions.
+* Répondre à des questions sur les fonctions.
 *
 * @author Jean-Claude Lhote
-* 3F10-1
 */
 export const uuid = '0eecd'
 export const ref = '3F10-1'
@@ -84,6 +85,7 @@ export default function VocabulaireNotationsFonctions () {
           break
 
         case 'notations':
+          if (this.sup2 && sousChoix[i] === 3) sousChoix[i] = choice([0, 1, 2, 4])
           switch (sousChoix[i]) {
             case 0:
               enonce = `On sait que $f(${x})=${y}$, alors pour la fonction $f$ :`
@@ -145,4 +147,5 @@ export default function VocabulaireNotationsFonctions () {
     3,
     '1 : Vocabulaire\n2 : Notations \n3 : Mélange'
   ]
+  this.besoinFormulaire2CaseACocher = ['Avec éventuellement un graphique', false]
 }

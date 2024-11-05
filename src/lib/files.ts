@@ -65,3 +65,19 @@ export async function downloadTexWithImagesZip (zipFileName: string, latexFile: 
     })
   }
 }
+
+export async function downloadFile (content: string, fileName: string): Promise<'success' | 'error'> {
+  try {
+    const element = document.createElement('a')
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content))
+    element.setAttribute('download', fileName)
+    element.style.display = 'none'
+    document.body.appendChild(element)
+    element.click()
+    document.body.removeChild(element)
+  } catch (error) {
+    console.error('Impossible de télécharger le fichier', error)
+    return 'error'
+  }
+  return 'success'
+}

@@ -5,7 +5,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
+import { choice, combinaisonListes } from '../../../lib/outils/arrayOutils'
 import Decimal from 'decimal.js'
 import { abs } from '../../../lib/outils/nombres'
 export const titre = 'Calculer avec des puissances de 10'
@@ -34,6 +34,7 @@ export default class calculsAvecPuissance10 extends Exercice {
     this.autoCorrection = []
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
+    const typesDeQuestionsDisponibles = combinaisonListes([1, 2, 3], this.nbQuestions) // EE : tu mets ici toutes les possibiiltés et tu les mélanges jusqu'à obtenir au moins nbQuestions
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
@@ -41,7 +42,8 @@ export default class calculsAvecPuissance10 extends Exercice {
       let reponse
       const exp = randint(-4, 4, 0)
       const expABS = abs(exp)
-      switch (randint(1, 3)) { // 1,2, 3
+
+      switch (typesDeQuestionsDisponibles[i]) {
         case 1:
           a = choice([new Decimal(randint(2, 99)), new Decimal(randint(1, 99)).div(10), new Decimal(randint(101, 9999)).div(100)])
           reponse = texNombre(exp, 0)

@@ -35,6 +35,7 @@ un tel groupe de 5 élèves ?`
 
   constructor () {
     super()
+    this.options = { vertical: true, ordered: false }
     this.versionOriginale()
   }
 }

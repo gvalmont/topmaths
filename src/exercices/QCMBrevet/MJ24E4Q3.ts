@@ -6,14 +6,14 @@ import ExerciceQcm from '../ExerciceQcm'
 
 export const uuid = 'b57a9'
 export const refs = {
-  'fr-fr': ['3QCMG4-3'],
+  'fr-fr': ['4G1QCM-1'],
   'fr-ch': []
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM image par translation (issu du brevet 202 Métropole)'
+export const titre = 'Image par translation (2024 Métropole)'
 export const dateDePublication = '28/10/2024'
 
 export default class MetropoleJuin24Exo4Q3 extends ExerciceQcm {

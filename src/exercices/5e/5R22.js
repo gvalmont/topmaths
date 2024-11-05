@@ -129,7 +129,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         if (!this.sup2) {
-          handleAnswers(this, i, { reponse: { value: a + s1 * b + s2 * c + s3 * d + s4 * e, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
+          handleAnswers(this, i, { reponse: { value: a + s1 * b + s2 * c + s3 * d + s4 * e, compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: '',
@@ -168,7 +168,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
             }
           }
         } else {
-          handleAnswers(this, i, { reponse: { value: a + b + c + d + e, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
+          handleAnswers(this, i, { reponse: { value: a + b + c + d + e, compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: '',

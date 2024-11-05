@@ -104,8 +104,8 @@ export default function GraphiquesEtProportionnalite2 () {
           grilleSecondaireYMin: 0,
           grilleSecondaireXMax: situation.qte_max + 1,
           grilleSecondaireYMax: premierMultipleSuperieur(yscale, (situation.qte_max + 1) * situation.prix_unitaire + yscale),
-          yLegendePosition: [0, premierMultipleSuperieur(yscale, (situation.qte_max + 1) * situation.prix_unitaire + yscale) / yscale + 0.5],
-          xLegendePosition: [situation.qte_max + 1 + 0.2, 0]
+          yLegendePosition: [1, premierMultipleSuperieur(yscale, (situation.qte_max + 1) * situation.prix_unitaire + yscale) / yscale + 0.5],
+          xLegendePosition: [situation.qte_max + 1 + 0.2, -1]
         })
       ]
       const f = x => situation.prix_unitaire * x
@@ -114,7 +114,7 @@ export default function GraphiquesEtProportionnalite2 () {
       const fig = mathalea2d(
         {
           xmin: -xscale,
-          ymin: -1,
+          ymin: -1.5,
           xmax: situation.qte_max / xscale + 3,
           ymax: ((situation.qte_max + 1) * situation.prix_unitaire + yscale) / yscale + 2,
           pixelsParCm: 30

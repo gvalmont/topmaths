@@ -172,7 +172,7 @@ $${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[1]} ${nombre
       const texte = `${prenom()} a obtenu le nombre ${nombreCible} à partir des nombres suivants : ${tirage.join(' ; ')}.<br>
 Voici ses calculs :<br>${enonce.slice(0, nbOps[i]).join('\n')}
 Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, ' college6eme')}`
-      handleAnswers(this, i, { reponse: { value: redaction, compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true } } })
+      handleAnswers(this, i, { reponse: { value: redaction, compare: fonctionComparaison, options: { operationSeulementEtNonResultat: true } } })
       //   if (!this.correctionDetaillee) texteCorr = ''
       //   texteCorr += `$${miseEnEvidence(redaction)} = ${nombreCible}$`
 

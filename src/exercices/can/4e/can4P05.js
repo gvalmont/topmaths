@@ -2,8 +2,10 @@ import { courbeSpline } from '../../../lib/2d/courbes.js'
 import { droiteParPointEtPente } from '../../../lib/2d/droites.js'
 import { point } from '../../../lib/2d/points.js'
 import { repere } from '../../../lib/2d/reperes.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { splineCatmullRom } from '../../../lib/mathFonctions/SplineCatmullRom.js'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
@@ -12,7 +14,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Reconnaître sur un graphique une situation de proportionnalité ou de non proportionnalité'
 export const dateDePublication = '23/01/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '23/01/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '02/11/2024' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 /**
  * @author Guillaume Valmont
  */
@@ -25,8 +27,11 @@ export const refs = {
 export default function ImageSpline () {
   Exercice.call(this)
   this.typeExercice = 'simple'
+  this.spacing = 1.5
+  this.spacingCorr = 1.5
   this.nbQuestions = 1
   this.formatChampTexte = ''
+  this.formatChampTexte = KeyboardType.vFON
   this.nouvelleVersion = function () {
     const r = repere({ xMin: -7, xMax: 7, yMin: -6, yMax: 6 })
     let c
@@ -36,8 +41,9 @@ export default function ImageSpline () {
         const pente = (randint(-15, 15, 0)) / 5
         const OrdX0 = 0
         c = droiteParPointEtPente(point(0, OrdX0), pente, '', 'blue')
-        this.reponse = 'oui'
-        this.correction = 'C\'est une droite qui passe par l\'origine.<br>Ce graphique représente donc une situation de proportionnalité.'
+        this.reponse = ['O', 'Oui', 'oui', 'o', 'OUI']
+        this.correction = `C'est une droite qui passe par l'origine.<br>Ce graphique représente donc une situation de proportionnalité.<br>
+         Réponse : OUI (${texteEnCouleurEtGras('O')}) `
       }
         break
       case 'affine': {
@@ -45,8 +51,9 @@ export default function ImageSpline () {
         this.lineaire = false
         const OrdX0 = randint(Math.round(-1 + pente), Math.round(1 + pente), [pente, 0])
         c = droiteParPointEtPente(point(0, OrdX0), pente, '', 'blue')
-        this.reponse = 'non'
-        this.correction = 'C\'est bien une droite mais elle ne passe pas par l\'origine.<br>Ce graphique ne représente donc pas une situation de proportionnalité.'
+        this.reponse = ['N', 'Non', 'NON', 'non']
+        this.correction = `C'est bien une droite mais elle ne passe pas par l'origine.<br>Ce graphique ne représente donc pas une situation de proportionnalité.<br>
+        Réponse : NON (${texteEnCouleurEtGras('N')}) `
       }
         break
       default: {
@@ -56,14 +63,19 @@ export default function ImageSpline () {
         }
         const f = splineCatmullRom({ tabY: Y, x0: -6, step: 6 })
         c = courbeSpline(f, { repere: r, step: 0.1, color: 'blue', xMin: -6, xMax: 6, traceNoeuds: false })
-        this.reponse = 'non'
-        this.correction = 'Ce n\'est pas une droite.<br>Ce graphique ne représente donc pas une situation de proportionnalité.'
+        this.reponse = ['N', 'Non', 'NON', 'non']
+        this.correction = `Ce n'est pas une droite.<br>Ce graphique ne représente donc pas une situation de proportionnalité.<br>
+        Réponse : NON (${texteEnCouleurEtGras('N')}) `
       }
         break
     }
+
     this.question = `Ce graphique représente-t-il une situation de proportionnalité ?<br>
     
     ${mathalea2d({ xmin: -7, xmax: 7, ymin: -6, ymax: 6, pixelsParCm: 17, style: 'margin: auto', scale: 0.6 }, r, c)}`
+    if (this.interactif) {
+      this.question += '<br> Répondre par OUI (saisir O) ou NON (saisir N).<br>'
+    }
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }

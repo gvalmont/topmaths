@@ -38,7 +38,6 @@ export const refs = {
 }
 export default function MultiplierDecimauxPar101001000 () {
   Exercice.call(this)
-  this.consigne = 'Calculer et donner le résultat sous forme d\'un nombre décimal.'
   this.sup = 3
   this.sup2 = false
   this.sup3 = true
@@ -48,7 +47,7 @@ export default function MultiplierDecimauxPar101001000 () {
   this.nbQuestions = 8
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+    this.consigne = this.sup === 1 ? 'Calculer et donner le résultat sous forme d\'un nombre décimal.' : this.sup === 2 ? 'Calculer et donner le résultat sous forme d\'un nombre fractionnaire.' : ''
     let typesDeQuestionsDisponibles = []
     let typesDeQuestions
     if (this.sup === 1 && !this.sup2) typesDeQuestionsDisponibles = [1, 2]
@@ -65,7 +64,7 @@ export default function MultiplierDecimauxPar101001000 () {
     if (this.sup === 3 && this.sup2) {
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     }
-    if (this.sup2) this.consigne = 'Calculer et compléter.'
+    if (this.sup2) this.consigne = 'Compléter.'
     let reponse
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -75,12 +74,15 @@ export default function MultiplierDecimauxPar101001000 () {
       [10, 100, 1000],
       this.nbQuestions
     )
-
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, den;
       i < this.nbQuestions && cpt < 50;
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
+      if (this.sup === 3) {
+        if ([1, 2, 5, 6].includes(typesDeQuestions)) texte = 'Calculer et donner le résultat sous forme d\'un nombre décimal.<br>'
+        else texte = 'Calculer et donner le résultat sous forme d\'un nombre fractionnaire.<br>'
+      } else texte = ''
       switch (typesDeQuestions) {
         case 1: // a,abcd × 10
           a = choice([randint(11, 99), randint(100, 999)])
@@ -92,7 +94,7 @@ export default function MultiplierDecimauxPar101001000 () {
             }
           }
           b = facteurs[i]
-          texte = `$${texNombre(a)}\\times${texNombre(b)}= ${this.interactif ? '' : '\\ldots'}$`
+          texte += `$${texNombre(a)}\\times${texNombre(b)}= ${this.interactif ? '' : '\\ldots'}$`
           texteCorr = `$${texNombre(a)} \\times ${texNombre(
                         b
                     )} = ${miseEnEvidence(texNombre(a * b))}$`
@@ -108,7 +110,7 @@ export default function MultiplierDecimauxPar101001000 () {
             }
           }
           b = facteurs[i]
-          texte = `$${texNombre(b)}\\times${texNombre(a)}= ${this.interactif ? '' : '\\ldots'}$`
+          texte += `$${texNombre(b)}\\times${texNombre(a)}= ${this.interactif ? '' : '\\ldots'}$`
           texteCorr = `$${texNombre(b)} \\times ${texNombre(
                         a
                     )} = ${miseEnEvidence(texNombre(a * b))}$`
@@ -125,7 +127,7 @@ export default function MultiplierDecimauxPar101001000 () {
           } else {
             den = choice([10, 100, 1000])
           }
-          texte = `$${texFractionFromString(a, den)}\\times${texNombre(b)}= ${this.interactif ? '' : '\\ldots'}$`
+          texte += `$${texFractionFromString(a, den)}\\times${texNombre(b)}= ${this.interactif ? '' : '\\ldots'}$`
           texteCorr = `$${texFractionFromString(a, den)} \\times ${texNombre(
                         b
                     )} = ${texFractionFromString(a * b, den)} = ${miseEnEvidence(texNombre((a / den) * b))}$`
@@ -142,7 +144,7 @@ export default function MultiplierDecimauxPar101001000 () {
           } else {
             den = choice([10, 100, 1000])
           }
-          texte = `$${texNombre(b)}\\times${texFractionFromString(a, den)}= ${this.interactif ? '' : '\\ldots'}$`
+          texte += `$${texNombre(b)}\\times${texFractionFromString(a, den)}= ${this.interactif ? '' : '\\ldots'}$`
           texteCorr = `$${texNombre(b)} \\times ${texFractionFromString(
                         a,
                         den
@@ -159,7 +161,7 @@ export default function MultiplierDecimauxPar101001000 () {
             }
           }
           b = facteurs[i]
-          texte = `$\\ldots \\times${texNombre(b)} = ${texNombre(a * b)}$`
+          texte += `$\\ldots \\times${texNombre(b)} = ${texNombre(a * b)}$`
           texteCorr = `$${miseEnEvidence(
                         texNombre(a)
                     )} \\times ${texNombre(b)} = ${texNombre(a * b)}$`
@@ -175,7 +177,7 @@ export default function MultiplierDecimauxPar101001000 () {
             }
           }
           b = facteurs[i]
-          texte = `$${texNombre(b)} \\times \\ldots = ${texNombre(a * b)}$`
+          texte += `$${texNombre(b)} \\times \\ldots = ${texNombre(a * b)}$`
           texteCorr = `$${texNombre(b)} \\times ${miseEnEvidence(
                         texNombre(a)
                     )}  = ${texNombre(a * b)}$`
@@ -192,7 +194,7 @@ export default function MultiplierDecimauxPar101001000 () {
           } else {
             den = choice([10, 100, 1000])
           }
-          texte = `$${texFractionFromString(a, den)}\\times \\ldots = ${texNombre(
+          texte += `$${texFractionFromString(a, den)}\\times \\ldots = ${texNombre(
                         (a / den) * b
                     )}$`
           texteCorr = `$${texFractionFromString(a, den)} \\times ${miseEnEvidence(
@@ -211,7 +213,7 @@ export default function MultiplierDecimauxPar101001000 () {
           } else {
             den = choice([10, 100, 1000])
           }
-          texte = `$ \\ldots \\times${texFractionFromString(a, den)}= ${texNombre(
+          texte += `$ \\ldots \\times${texFractionFromString(a, den)}= ${texNombre(
                         (a / den) * b
                     )}$`
           texteCorr = `$${miseEnEvidence(
@@ -233,7 +235,7 @@ export default function MultiplierDecimauxPar101001000 () {
           } else {
             den = choice([10, 100, 1000])
           }
-          texte = `$${texFractionFromString(a, '\\ldots')}\\times${texNombre(
+          texte += `$${texFractionFromString(a, '\\ldots')}\\times${texNombre(
                         b
                     )} = ${texNombre((a / den) * b)}$`
           texteCorr = `$${texFractionFromString(
@@ -256,7 +258,7 @@ export default function MultiplierDecimauxPar101001000 () {
           } else {
             den = choice([10, 100, 1000])
           }
-          texte = `$${texNombre(b)}\\times${texFractionFromString(
+          texte += `$${texNombre(b)}\\times${texFractionFromString(
                         a,
                         '\\ldots'
                     )} = ${texNombre((a / den) * b)}$`

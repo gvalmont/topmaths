@@ -61,7 +61,7 @@ export default function TermeDUneSuiteDefinieParRecurrence () {
     for (let i = 0, texte, texteCorr, cpt = 0, u, a, b, reponse, k; i < this.nbQuestions && cpt < 50;) {
       const nomSuite = ['u', 'v', 'w']
       const s = choice(nomSuite)
-      k = this.sup2 === 1 ? 1 : this.sup2 === 2 ? randint(2, 4) : choice([1, 1, 2, 3, 4, 5])
+      k = this.sup2 === 1 ? 1 : this.sup2 === 2 ? randint(2, 4) : choice([1, 1, 2, 3, 4])
       switch (listeTypeDeQuestions[i]) {
         case 1: // suite arithmétique
           a = randint(1, 15) * choice([-1, 1])

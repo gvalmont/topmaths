@@ -50,6 +50,7 @@ $\\widehat{\\mathrm{ABC}}\\approx 34^{\\circ}$.<br>`
 
   constructor () {
     super()
+    this.options = { vertical: true, ordered: false }
     this.versionOriginale()
   }
 }

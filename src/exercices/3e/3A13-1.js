@@ -1,4 +1,4 @@
-import DivisionsEuclidiennes from '../6e/6C11.js'
+import DivisionsEuclidiennesEgaliteFondamentale from '../6e/6C11b'
 export const titre = 'Poser divisions euclidiennes'
 export const dateDePublication = '14/09/2022'
 export const amcReady = true
@@ -19,7 +19,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function DivisionsEuclidiennes3e () {
-  DivisionsEuclidiennes.call(this)
+  DivisionsEuclidiennesEgaliteFondamentale.call(this)
   this.classe = 3
   this.sup = 2
 }

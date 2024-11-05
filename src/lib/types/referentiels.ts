@@ -22,14 +22,16 @@ export interface FeatureParams {
 
 /**
  * Fonctionnalités supplémentaires d'un exercice.
- * @remark **Au 2023-09-26, ces fonctionnalités sont au nombre de deux seulement**
+ * @remark **Au 2024-11-03, ces fonctionnalités sont au nombre de trois seulement**
  * @interface Features
  * @property {FeatureParams} interactif : interactivité dans l'exercice
  * @property {FeatureParams} amc : possibilité d'exportation pour utilisation dans AMC
+ * @property {FeatureParams} qcm : possibilité d'exportation pour utilisation dans AMC
  */
 export interface Features {
   interactif?: FeatureParams
   amc?: FeatureParams
+  qcm?: FeatureParams
 }
 
 /**

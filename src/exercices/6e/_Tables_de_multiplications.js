@@ -69,7 +69,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
           texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) : '\\ldots\\ldots$'
           texteCorr = `$ ${texNombre(b, 0)}\\times ${texNombre(a, 0)} = ${miseEnEvidence(texNombre(reponse, 0))}$`
         }
-        handleAnswers(this, i, { reponse: { value: a * b, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
+        handleAnswers(this, i, { reponse: { value: a * b, compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
       } else if (typeDeQuestion === 'a_trous') {
         if (choix) {
           texte = '$' + a.toString() + '\\times '
@@ -79,7 +79,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
           texte = (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ` $\\times ${b.toString()} = ${(a * b).toString()}$` }) : `$ \\ldots\\ldots \\times ${b.toString()} =${(a * b).toString()}$`
           reponse = a
         }
-        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
+        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
         texteCorr = choix
           ? `$${a.toString()} \\times ${miseEnEvidence(reponse.toString())} =${(a * b).toString()}$`
           : `$${miseEnEvidence(reponse.toString())}\\times ${b.toString()} =${(a * b).toString()}$`
@@ -88,7 +88,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
         texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) : '\\ldots\\ldots$'
         texteCorr = `$ ${texNombre(a * b, 0)}\\div ${texNombre(a, 0)} = ${miseEnEvidence(texNombre(b, 0))}$`
         reponse = b
-        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
+        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
       }
       if (context.isAmc) {
         this.autoCorrection[i] = {
