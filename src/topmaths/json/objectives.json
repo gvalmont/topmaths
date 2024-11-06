@@ -6191,20 +6191,90 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "4G20-1,s=1,s2=3,n=1",
-                    "description": "Écrire l'égalité de Pythagore"
-                  },
+                    "slug": "4G20,s2=3,n=1",
+                    "description": ""
+                  }
+                ],
+                "lessonPlans": [
                   {
-                    "slug": "https://mathix.org/thpythagore/",
-                    "description": "Rédiger correctement"
-                  },
-                  {
-                    "slug": "4G20,s2=1,n=1",
-                    "description": "Calculer la longueur de l'hypoténuse"
-                  },
-                  {
-                    "slug": "4G20,s2=2,n=1",
-                    "description": "Calculer la longueur d'un côté de l'angle droit"
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "title": "Introduction",
+                        "steps": [
+                          "À planifier"
+                        ]
+                      },
+                      {
+                        "title": "Utiliser le théorème de Pythagore",
+                        "steps": [
+                          "Afficher https://topmaths.fr/?uuid=bd660&id=4G20&n=1&s2=3&v=exercise",
+                          "Expliquer pourquoi on écrit que le triangle est rectangle en tel angle",
+                          "Expliquer pourquoi on écrit d'après le théorème et Pythagore",
+                          "Rappeler que c'est toujours le grand carré qui est tout seul :",
+                          "- Dessiner des carrés au tableau et montrer que c'est forcément le grand carré qui est égal au petit + le moyen ou le moyen + le petit, que ça n'a pas de sens de mettre le petit ou le moyen tout seul",
+                          "- Ecrire l'égalité avec des carrés",
+                          "- Ecrire l'égalité avec les lettres",
+                          "Les élèves font sur l'ardoise",
+                          "Répéter autant que besoin en veillant à ce que les élèves effacent bien l'ardoise entre chaque tentative"
+                        ]
+                      },
+                      {
+                        "title": "Calculer le carré de la longueur de l'hypoténuse",
+                        "steps": [
+                          "Afficher https://topmaths.fr/?uuid=bd660&id=4G20&n=1&s2=1&v=exercise",
+                          "Faire écrire les phrases et l'égalité vues la fois précédente",
+                          "Montrer comment on remplace les lettres par les valeurs",
+                          "Rappeler comment se calcule un carré",
+                          "Arriver jusqu'au carré de la longueur de l'hypoténuse",
+                          "Les élèves font sur l'ardoise autant de fois que nécessaire (sans les deux phrases du début pour gagner du temps et ne se concentrer que sur les calculs"
+                        ]
+                      },
+                      {
+                        "title": "Calculer la longueur de l'hypoténuse",
+                        "steps": [
+                          "Afficher https://topmaths.fr/?uuid=bd660&id=4G20&n=1&s2=1&v=exercise",
+                          "Demander aux élèves d'écrire les phrases et les calculs",
+                          "Expliquer qu'on cherche un nombre dont le carré est... Est-ce que ça leur rappelle quelque chose ?",
+                          "Rappeler la définition de la racine carrée",
+                          "Interroger des élèves au hasard en leur demandant quel est la racine de [petits carrés parfaits]",
+                          "Revenir à notre problème, on ne veut pas ... au carré, on veut ce nombre sans le carré, autrement dit, on cherche quel est le nombre dont le carré est ...",
+                          "Ecrire la racine du nombre",
+                          "Rappeler comment faire la racine carrée sur la calculatrice",
+                          "Vérifier que tout le monde a compris en leur demandant de calculer des racines carrées et en vérifiant leurs ardoises",
+                          "Quand tout le monde sait calculer des racines carrées, laisser l'exemple au tableau et demander de faire un autre exercice similaire",
+                          "Entraînement autant que nécessaire"
+                        ]
+                      },
+                      {
+                        "title": "Calculer la longueur d'un côté de l'angle droit",
+                        "steps": [
+                          "Demander de faire https://topmaths.fr/?uuid=bd660&id=4G20&n=1&s2=1&v=exercise",
+                          "Afficher https://topmaths.fr/?uuid=bd660&id=4G20&n=1&s2=2&v=exercise",
+                          "Demander de faire et de s'arrêter après avoir écrit l'égalité de Pythagore",
+                          "Relancer plusieurs fois https://topmaths.fr/?uuid=bd660&id=4G20&n=1&s2=3&v=exercise en demandant de n'écrire que l'égalité de Pythagore",
+                          "Relancer https://topmaths.fr/?uuid=bd660&id=4G20&n=1&s2=2&v=exercise et le faire jusqu'à l'égalité de Pythagore",
+                          "Remplacer les lettres par les valeurs",
+                          "On se rend compte que la valeur manquante n'est pas toute seule",
+                          "Se rappeler des opérations à trou du primaire, demander aux élèves de trouver le nombre manquant dans des équations simples comme $2 + ... = 5$",
+                          "Demander : si on ne devine pas directement le résultat, par quel calcul peut-on y arriver ?",
+                          "Refaire le même exercice mais cette fois en écrivant le calcul au lieu du résultat",
+                          "*On sait trouver un nombre manquant, revenons à notre exercice*",
+                          "Isoler la longueur inconnue, terminer l'exercice",
+                          "Laisser l'exemple au tableau, les élèves en font un autre",
+                          "Relancer autant que nécessaire"
+                        ]
+                      },
+                      {
+                        "title": "Calculer la longueur manquante",
+                        "steps": [
+                          "Entraînement sur https://topmaths.fr/?uuid=bd660&id=4G20&n=1&s2=3&v=exercise"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
                   }
                 ]
               },
