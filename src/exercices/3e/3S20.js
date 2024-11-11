@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import {
-  texFractionFromString, fractionSimplifiee,
+  texFractionFromString,
   simplificationDeFractionAvecEtapes,
   texFractionReduite
 } from '../../lib/outils/deprecatedFractions.js'
@@ -8,8 +8,15 @@ import { numAlpha } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, ppcm, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { createList } from '../../lib/format/lists.ts'
+import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts' // fonction qui va préparer l'analyse de la saisie
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js' // fonctions de mise en place des éléments interactifs
+import { fonctionComparaison, generateCleaner } from '../../lib/interactif/comparisonFunctions.ts'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
+import { fraction } from '../../modules/fractions.js'
+export const interactifReady = true
 export const titre = 'Calculer des probabilités dans une expérience aléatoire à deux épreuves'
 export const dateDeModifImportante = '20/06/2024'
 
@@ -23,6 +30,7 @@ export const refs = {
   'fr-fr': ['3S20'],
   'fr-ch': ['11NO2-13']
 }
+
 export default function FonctionsProbabilite2 () {
   Exercice.call(this)
   this.besoinFormulaireTexte = ['Type de questions : ', 'Nombres séparés par des tirets\n1 : Yaourts\n2 : Cartes\n3 : Chaussettes\n4 : Dé\n5 : Mélange']
@@ -37,7 +45,7 @@ export default function FonctionsProbabilite2 () {
   this.nouvelleVersion = function () {
     // const indexDisponibles = [0, 1, 2, 3]
     // const listeIndex = combinaisonListes(indexDisponibles, this.nbQuestions)
-    const listeIndex = gestionnaireFormulaireTexte({
+    let listeIndex = gestionnaireFormulaireTexte({
       saisie: this.sup,
       nbQuestions: this.nbQuestions,
       min: 1,
@@ -45,6 +53,10 @@ export default function FonctionsProbabilite2 () {
       melange: 5,
       defaut: 5
     })
+    if (this.interactif) {
+      // Les questions de type 4 sont trop compliqués à rendre interactives: on les passe
+      listeIndex = listeIndex.map(i => i === 4 ? randint(1, 3) : i)
+    }
     const qualites = [[]]
     const Initiale = []
     const Couleurs = ['red', 'green', 'blue', 'gray', 'brown', 'orange', 'magenta', 'pink', 'black', 'lightgray']
@@ -55,11 +67,12 @@ export default function FonctionsProbabilite2 () {
     qualites[4] = ['rouges', 'verts', 'bleus', 'noirs', 'jaunes']
     qualites[5] = ['rouges', 'verts', 'bleus', 'noirs', 'blancs']
     qualites[6] = ['rouges', 'verts', 'bleus', 'noirs', 'jaunes']
-    for (let i = 0, p, q, r, e, f, g, somme1, somme2, quidame, quidam, n = [], m = [], fra1 = [], fra2 = [], p1 = [], p2 = [], p3 = [], den, trouve, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, p, q, r, somme1, somme2, quidame, quidam, n = [], m = [], fra1 = [], fra2 = [], p1 = [], p2 = [], trouve, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       quidame = prenomF()
       quidam = prenomM()
       switch (listeIndex[i] - 1) {
         case 0:
+        {
           Initiale[0] = 'F'
           Initiale[1] = 'V'
           Initiale[2] = 'A'
@@ -72,152 +85,244 @@ export default function FonctionsProbabilite2 () {
           n[q] = randint(1, 6) + 2
           n[r] = randint(1, 3) * 2
 
-          // n[3]=randint(1,4)+2;
-          // n[4]=randint(2,5);
-          somme1 = n[p] + n[q] + n[r] // +n[3]+n[4];
+          somme1 = n[p] + n[q] + n[r]
+
           texte = `Dans le frigo, il y a ${somme1} yaourts. ${n[p]} sont ${qualites[0][p]}, ${n[q]} sont ${qualites[0][q]} et ${n[r]} sont ${qualites[0][r]}.<br>` //  ${n[3]} sont ${qualites[index1][3]} et ${n[4]} sont ${qualites[index1][4]}.<br> `;
           texte += `${quidame} en choisit un au hasard. Son frère ${quidam} en choisit un au hasard à son tour.<br>`
-          texte += numAlpha(0) + ' Combien d\'issues possède cette experience aléatoire ? Donner un exemple d\'issue.<br>'
-          texte += numAlpha(1) + ' Est-ce une expérience en situation d\'équiprobabilité ? Justifier.<br>'
-          texte += numAlpha(2) + ` Calculer la probabilité que ${quidame} et ${quidam} aient choisi tous les deux un yaourt ${qualites[0][p]}.<br>`
-          texte += numAlpha(3) + ' Calculer la probabilité qu\'ils aient choisi des yaourts aux parfums identiques.<br>'
-          texte += numAlpha(4) + ' Calculer la probabilité qu\'ils aient choisi des yaourts aux parfums différents.<br>'
+          texte += createList(
+            {
+              items: [
+                  `Combien d'issues possède cette experience aléatoire ?${this.interactif ? ' ' + ajouteChampTexteMathLive(this, 6 * i) : ''} Donner un exemple d'issue.${this.interactif ? ' ' + ajouteChampTexteMathLive(this, 6 * i + 1, '', { texteAvant: `<br>On donnera la réponse sous la forme $(X,Y)$ avec $X,Y$ deux lettres parmi $${Initiale[p]}$, $${Initiale[q]}$ et $${Initiale[r]}$ : ` }) : ''}`,
+                  'Est-ce une expérience en situation d\'équiprobabilité ?' + (!this.interactif ? ' Justifier.' : choixDeroulant(this, 6 * i + 2, ['oui', 'non', 'je sais pas'], 'une réponse')),
+                  `Calculer la probabilité que ${quidame} et ${quidam} aient choisi tous les deux un yaourt ${qualites[0][p]}.` + (this.interactif ? ajouteChampTexteMathLive(this, 6 * i + 3) : ''),
+                  ' Calculer la probabilité qu\'ils aient choisi des yaourts aux parfums identiques.' + (this.interactif ? ajouteChampTexteMathLive(this, 6 * i + 4) : ''),
+                  ' Calculer la probabilité qu\'ils aient choisi des yaourts aux parfums différents.' + (this.interactif ? ajouteChampTexteMathLive(this, 6 * i + 5) : '')
+              ],
+              style: 'alpha'
+            }
+          )
           texteCorr = ''
+          // Question a
           texteCorr += numAlpha(0) + ` ${quidame} peut avoir choisi un yaourt ${qualites[0][p]}, ${qualites[0][q]} ou ${qualites[0][r]}. Une fois qu'elle a choisi, et comme il y a au moins 2 yaourts de chaque sorte, ${quidam} a les mêmes 3 possibilités. Il y a donc $3\\times3=9$ issues possibles.<br>`
           texteCorr += `Par exemple : ${quidame} a pris un yaourt ${qualites[0][p]} et ${quidam} un yaourt ${qualites[0][q]}. Ce qu'on peut noter (${Initiale[p]},${Initiale[q]}).<br>`
           texteCorr += 'Les 9 issues sont : '
+          let issues = ''
           for (const j of [p, q, r]) {
-            for (const k of [p, q, r]) { texteCorr += `(${Initiale[j]},${Initiale[k]}) ` }
+            for (const k of [p, q, r]) { issues += `(${Initiale[j]},${Initiale[k]}) ` }
           }
+          texteCorr += issues
           texteCorr += '.<br>'
+          // Question b
           if (n[0] === n[1] && n[1] === n[2]) {
             texteCorr += numAlpha(1) + ` Comme le nombre de yaourts de chaque sorte est le même, alors ${quidame} a la même probabilité de choisir n'importe quel parfum, mais ensuite son frère aura un yaourt de moins de l'un des parfums. Il est donc moins probable qu'il choisisse le même parfum que sa sœur que l'un des deux autres parfums.<br>`
             texteCorr += `l'issue (${Initiale[p]},${Initiale[p]}) est donc moins probable que l'issue (${Initiale[p]},${Initiale[q]}). Ce n'est donc pas une situation d'équiprobabilité.`
           } else {
             texteCorr += numAlpha(1) + ` Comme le nombre de yaourts est différent d'un parfum à l'autre, ${quidame} n'a pas la même probabilité de choisir n'importe quel parfum. On en déduit qu'il est impossible que les issues (${Initiale[p]},${Initiale[p]}), (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}) aient la même probabilité.<br>`
           }
-          texteCorr += numAlpha(2) + ` Il y a ${n[p]} yaourts ${qualites[0][p]}, et ${somme1} yaourts en tout, la probabilité que ${quidame} choisisse un yaourt ${qualites[0][p]} est : $${texFractionFromString(n[p], somme1)}${simplificationDeFractionAvecEtapes(n[p], somme1)}$.<br>`
-          texteCorr += `Ensuite, il reste ${n[p] - 1} yaourts ${qualites[0][p]} pour ${quidam} sur un total de ${somme1 - 1} yaourts.<br> La probabilité qu'il choisisse à son tour et dans ces conditions ce parfum est : $${texFractionFromString(n[p] - 1, somme1 - 1)}${simplificationDeFractionAvecEtapes(n[p] - 1, somme1 - 1)}$.<br>`
-          texteCorr += `La probabilité de l'issue (${Initiale[p]},${Initiale[p]}) est le produit de ces deux probabilités, donc : $${texFractionFromString(n[p], somme1)}\\times${texFractionFromString(n[p] - 1, somme1 - 1)}=${texFractionFromString(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}${simplificationDeFractionAvecEtapes(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}$.<br>`
+          // Question c
+          const probaTirage1 = fraction(n[p], somme1)
+          const probaTirage2 = fraction(n[p] - 1, somme1 - 1)
+          const probaMemeSaveurParticuliere = probaTirage1.produitFraction(probaTirage2)
+
+          texteCorr += numAlpha(2) + ` Il y a ${n[p]} yaourts ${qualites[0][p]}, et ${somme1} yaourts en tout, la probabilité que ${quidame} choisisse un yaourt ${qualites[0][p]} est : $${probaTirage1.texFSD}${probaTirage1.texSimplificationAvecEtapes()}$.<br>`
+          texteCorr += `Ensuite, il reste ${n[p] - 1} yaourts ${qualites[0][p]} pour ${quidam} sur un total de ${somme1 - 1} yaourts.<br>`
+          texteCorr += `La probabilité qu'il choisisse à son tour et dans ces conditions ce parfum est : $${probaTirage2.texFSD}${probaTirage2.texSimplificationAvecEtapes()}$.<br>`
+          texteCorr += `La probabilité de l'issue (${Initiale[p]},${Initiale[p]}) est le produit de ces deux probabilités, donc : $${probaTirage1.texFSD}\\times${probaTirage2.texFSD}${probaMemeSaveurParticuliere.texSimplificationAvecEtapes()}$.<br>`
+          // Question d
+          const tirages = []
+          for (const x of [p, q, r]) {
+            const tirage1 = fraction(n[x], somme1)
+            const tirage2 = fraction(n[x] - 1, somme1 - 1)
+            tirages.push([tirage1, tirage2])
+          }
+          const probas = tirages.map(
+            ([t1, t2]) => t1.produitFraction(t2)
+          )
+          const probaMemeSaveur = fraction(0).sommeFractions(...probas)
           texteCorr += numAlpha(3) + ` Les probabilités des issues (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}) peuvent être respectivement calculées de la même façon qu'à la question c) :<br>`
-          texteCorr += `$${texFractionFromString(n[q], somme1)}\\times${texFractionFromString(n[q] - 1, somme1 - 1)}=${texFractionFromString(n[q] * (n[q] - 1), somme1 * (somme1 - 1))}$,<br>`
-          texteCorr += `$${texFractionFromString(n[r], somme1)}\\times${texFractionFromString(n[r] - 1, somme1 - 1)}=${texFractionFromString(n[r] * (n[r] - 1), somme1 * (somme1 - 1))}$.<br>`
+          texteCorr += `$${tirages[1][0].texFSD}\\times${tirages[1][1].texFSD}=${probas[1].texFSD}$,<br>`
+          texteCorr += `$${tirages[2][0].texFSD}\\times${tirages[2][1].texFSD}=${probas[2].texFSD}$.<br>`
           texteCorr += `La probabilité qu'ils choisissent le même parfum est la somme des probabilités des issues (${Initiale[p]},${Initiale[p]}), (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}), soit :<br>`
-          texteCorr += `$${texFractionFromString(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}+${texFractionFromString(n[q] * (n[q] - 1), somme1 * (somme1 - 1))}+${texFractionFromString(n[r] * (n[r] - 1), somme1 * (somme1 - 1))}=${texFractionFromString(n[p] * (n[p] - 1) + n[q] * (n[q] - 1) + n[r] * (n[r] - 1), somme1 * (somme1 - 1))}${simplificationDeFractionAvecEtapes(n[p] * (n[p] - 1) + n[q] * (n[q] - 1) + n[r] * (n[r] - 1), somme1 * (somme1 - 1))}$.<br>`
+          texteCorr += `$${probas.map(p => p.texFSD).join('+')}${probaMemeSaveur.texSimplificationAvecEtapes()}$.<br>`
+          // Question e
           texteCorr += numAlpha(4) + ' Choisir des parfums différents est l\'événement contraire de l\'événement dont on a calculé la probabilité à la question d).<br>'
-          fra1 = fractionSimplifiee(n[p] * (n[p] - 1) + n[q] * (n[q] - 1) + n[r] * (n[r] - 1), somme1 * (somme1 - 1))
-          texteCorr += `La probabilité de cet événement est donc : $1-${texFractionFromString(fra1[0], fra1[1])}=${texFractionFromString(fra1[1], fra1[1])}-${texFractionFromString(fra1[0], fra1[1])}=${texFractionFromString(fra1[1] - fra1[0], fra1[1])}${simplificationDeFractionAvecEtapes(fra1[1] - fra1[0], fra1[1])}$.`
+          const probaContraire = fraction(1).sommeFraction(probaMemeSaveur.oppose())
+
+          const num = probaMemeSaveur.num
+          const den = probaMemeSaveur.den
+          texteCorr += `La probabilité de cet événement est donc : $1-${probaMemeSaveur.texFraction}=${fraction(den, den).texFraction}-${probaMemeSaveur.texFraction}=${fraction(den - num, den).texFraction}${probaContraire.texSimplificationAvecEtapes()}$.`
+          // question a
+          handleAnswers(this, 6 * i, { reponse: { value: 9, compare: fonctionComparaison } })
+          handleAnswers(this, 6 * i + 1, {
+            reponse: {
+              value: 9,
+              compare: (input, _goodAnswer) => {
+                const clean = generateCleaner(['latex', 'espaces', 'parentheses', 'virgules'])
+                const inputCleaned = clean(input).toUpperCase().replace('.', ',') // le cleaner virgules remplace la virgule latex par un point simple
+                const isOk = issues.split(' ').includes(inputCleaned) || issues.split(' ').includes(inputCleaned.split('').reverse().join(''))
+                return { isOk }
+              }
+            }
+          })
+          // questions b, c, d, e
+          handleAnswers(this, 6 * i + 2, { reponse: { value: 'non' } })
+          handleAnswers(this, 6 * i + 3, { reponse: { value: probaMemeSaveurParticuliere.texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, 6 * i + 4, { reponse: { value: probaMemeSaveur.texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, 6 * i + 5, { reponse: { value: probaContraire.texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
           break
+        }
         case 1:
-          p = randint(0, 3)
+        { p = randint(0, 3)
           if (randint(0, 1) === 0) { q = 32 } else { q = 52 }
           r = Math.floor(q / 33)
           Initiale[0] = choice(['sept', 'huit', 'neuf', 'dix', 'valet', 'roi', 'as'])
           Initiale[1] = choice(['deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix', 'valet', 'roi', 'as'])
           texte = `On considère l'expérience consistant à tirer deux cartes dans un jeu de ${q} cartes.<br>`
           texte += 'Partie 1 : On effectue le tirage de la deuxième carte après remise de la première dans le jeu.<br>'
-          texte += numAlpha(0) + ' Quelle est la probabilité de tirer 2 cartes de la même couleur (Rouge/Rouge ou Noire/Noire) ?<br>'
-          texte += numAlpha(1) + ` Quelle est la probabilité de tirer 2 ${Initiale[r]}`
-          if (Initiale[r] === 'valet' || Initiale[r] === 'roi') { texte += 's' }
-          texte += ' ?<br>'
-          texte += numAlpha(2) + ` Quelle est la probabilité de tirer 2 cartes de ${qualites[1][p]} ?<br>`
+          texte += createList({
+            items: [
+              'Quelle est la probabilité de tirer 2 cartes de la même couleur (Rouge/Rouge ou Noire/Noire) ?' + (this.interactif ? ajouteChampTexteMathLive(this, 6 * i) : ''),
+              ` Quelle est la probabilité de tirer 2 ${Initiale[r]}${Initiale[r] === 'valet' || Initiale[r] === 'roi' ? 's' : ''} ?` + (this.interactif ? ajouteChampTexteMathLive(this, 6 * i + 1) : ''),
+              ` Quelle est la probabilité de tirer 2 cartes de ${qualites[1][p]} ?` + (this.interactif ? ajouteChampTexteMathLive(this, 6 * i + 2) : '')
+            ],
+            style: 'alpha'
+          })
           texte += 'Partie 2 : On effectue le tirage de la deuxième carte sans remise de la première dans le jeu.<br>'
-          texte += '    Reprendre les 3 questions de la partie 1 dans cette nouvelle expérience.'
+          if (!this.interactif) {
+            texte += '    Reprendre les 3 questions de la partie 1 dans cette nouvelle expérience.'
+          } else {
+            texte += createList({
+              items: [
+                'Quelle est la probabilité de tirer 2 cartes de la même couleur (Rouge/Rouge ou Noire/Noire) ?' + (this.interactif ? ajouteChampTexteMathLive(this, 6 * i + 3) : ''),
+              ` Quelle est la probabilité de tirer 2 ${Initiale[r]}${Initiale[r] === 'valet' || Initiale[r] === 'roi' ? 's' : ''} ?` + (this.interactif ? ajouteChampTexteMathLive(this, 6 * i + 4) : ''),
+              ` Quelle est la probabilité de tirer 2 cartes de ${qualites[1][p]} ?` + (this.interactif ? ajouteChampTexteMathLive(this, 6 * i + 5) : '')
+              ],
+              style: 'alpha'
+            })
+          }
+
+          // PARTIE 1
+
           texteCorr = 'Partie 1.<br>    '
+          // Question a)
           texteCorr += numAlpha(0) + ` On ne s'intéresse ici qu'au tirage de la deuxième carte. En effet, pour réaliser l'événement, il faudra que cette carte soit de la même couleur que la première. Il y a deux couleurs (rouge et noire) et le nombre de cartes rouges est le même que le nombre de cartes noires : ${q / 2}.<br>`
-          texteCorr += `    La probabilité que la deuxième carte soit de la même couleur que la première est donc : $${texFractionFromString(q / 2, q)}=${texFractionFromString(1, 2)}$.<br>`
+          texteCorr += `    La probabilité que la deuxième carte soit de la même couleur que la première est donc : $${fraction(q / 2, q).texFraction}=${fraction(1, 2).texFraction}$.<br>`
+          // Question b)
+          const quatreCartes = fraction(4, q)
           texteCorr += numAlpha(1) + ` Il y a 4 ${Initiale[r]}`
           if (Initiale[r] === 'valet' || Initiale[r] === 'roi') { texteCorr += 's' }
-          texteCorr += ` dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${Initiale[r]} est donc de $${texFractionFromString(4, q)}=${texFractionReduite(4, q)}$.<br>`
+          texteCorr += ` dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${Initiale[r]} est donc de $${quatreCartes.texFraction}=${quatreCartes.texFractionSimplifiee}$.<br>`
           texteCorr += `    Comme la deuxième carte est tirée dans le jeu complet (après remise de la première), la probabilité de tirer un ${Initiale[r]} est la même pour cette carte.<br>`
           texteCorr += `    La probabilité de tirer 2 ${Initiale[r]}`
           if (Initiale[r] === 'valet' || Initiale[r] === 'roi') { texteCorr += 's' }
-          texteCorr += ` est donc : $${texFractionReduite(4, q)}\\times${texFractionReduite(4, q)}=${texFractionReduite(16, q * q)}$.<br>`
-          texteCorr += numAlpha(2) + ` Il y a ${q / 4} cartes de ${qualites[1][p]} dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${qualites[1][p]} est donc de $${texFractionFromString(q / 4, q)}=${texFractionFromString(1, 4)}$.<br>`
+          texteCorr += ` est donc : $${quatreCartes.texFractionSimplifiee}\\times${quatreCartes.texFractionSimplifiee}=${quatreCartes.produitFraction(quatreCartes).texFractionSimplifiee}$.<br>`
+          // Question c)
+          const quart = fraction(1, 4)
+          texteCorr += numAlpha(2) + ` Il y a ${q / 4} cartes de ${qualites[1][p]} dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${qualites[1][p]} est donc de $${fraction(q / 4, q).texFraction}=${quart.texFraction}$.<br>`
           texteCorr += `    Comme la deuxième carte est tirée dans le jeu complet (après remise de la première) la probabilité de tirer un ${qualites[1][p]} est la même pour cette carte.<br>`
-          texteCorr += `    La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${texFractionFromString(1, 4)}\\times${texFractionFromString(1, 4)}=${texFractionFromString(1, 16)}$.<br>`
+          texteCorr += `    La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${quart.texFraction}\\times${quart.texFraction}=${quart.produitFraction(quart).texFraction}$.<br>`
+
+          // PARTIE 2
+
           texteCorr += 'Partie 2.<br>'
+          // Question a)
           texteCorr += numAlpha(0) + ` On ne s'intéresse ici qu'au tirage de la deuxième carte. En effet, pour réaliser l'événement, il faudra que cette carte soit de la même couleur que la première. Il y a maintenant une carte en moins dans la couleur désirée, soit  ${q / 2 - 1}, et il y a une carte en moins dans le jeu, soit ${q - 1}.<br>`
-          texteCorr += `    La probabilité que la deuxième carte soit de la même couleur que la première est donc : $${texFractionFromString(q / 2 - 1, q - 1)}$.<br>`
+          const memeCouleur = fraction(q / 2 - 1, q - 1)
+          texteCorr += `    La probabilité que la deuxième carte soit de la même couleur que la première est donc : $${memeCouleur.texFraction}$.<br>`
+          // Question b)
+          const troisCartes = fraction(3, q - 1)
           texteCorr += numAlpha(1) + ` Il y a 4 ${Initiale[r]}`
           if (Initiale[r] === 'valet' || Initiale[r] === 'roi') { texteCorr += 's' }
-          texteCorr += ` dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${Initiale[r]} est donc de $${texFractionFromString(4, q)}=${texFractionReduite(4, q)}$.<br>`
+          texteCorr += ` dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${Initiale[r]} est donc de $${quatreCartes.texFraction}=${quatreCartes.texFractionSimplifiee}$.<br>`
           texteCorr += `    Pour que l'événement se réalise la deuxième carte est tirée dans les ${q - 1} cartes restantes dans lesquelles il manque un ${Initiale[r]}.<br>`
-          texteCorr += `    La probabilité de tirer un deuxième ${Initiale[r]} est donc : $${texFractionFromString(3, q - 1)}$.`
-          if (q === 52) { texteCorr += `$=${texFractionFromString(1, 17)}$.` }
+          texteCorr += `    La probabilité de tirer un deuxième ${Initiale[r]} est donc : $${troisCartes.texFraction}$.`
+          if (q === 52) { texteCorr += `$=${fraction(1, 17).texFraction}$.` }
           texteCorr += `<br> La probabilité de tirer 2 ${Initiale[r]}`
           if (Initiale[r] === 'valet' || Initiale[r] === 'roi') { texteCorr += 's' }
-          texteCorr += ` est donc : $${texFractionReduite(4, q)}\\times${texFractionReduite(3, q - 1)}=${texFractionReduite(12, q * (q - 1))}$.<br>`
-          texteCorr += numAlpha(2) + ` Il y a ${q / 4} cartes de ${qualites[1][p]} dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${qualites[1][p]} est donc de $${texFractionFromString(q / 4, q)}=${texFractionFromString(1, 4)}$.<br>`
+          texteCorr += ` est donc : $${quatreCartes.texFractionSimplifiee}\\times${troisCartes.texFractionSimplifiee}=${quatreCartes.produitFraction(troisCartes).texFractionSimplifiee}$.<br>`
+          // Question c)
+          texteCorr += numAlpha(2) + ` Il y a ${q / 4} cartes de ${qualites[1][p]} dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${qualites[1][p]} est donc de $${fraction(q / 4, q).texFraction}=${quart.texFraction}$.<br>`
           texteCorr += `    Pour que l'événement se réalise, la deuxième carte est tirée dans les ${q - 1} cartes restantes dans lesquelles il manque un ${qualites[1][p]}.<br>`
-          texteCorr += `    La probabilité de tirer un deuxième ${qualites[1][p]} est donc : $${texFractionFromString(q / 4 - 1, q - 1)}$.`
-          if (q === 52) { texteCorr += `$=${texFractionFromString(4, 17)}$<br>La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${texFractionFromString(1, 4)}\\times${texFractionFromString(4, 17)}=${texFractionFromString(1, 17)}$.` } else { texteCorr += `<br>La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${texFractionFromString(1, 4)}\\times${texFractionReduite(7, 31)}=${texFractionFromString(7, 124)}$.` }
-          break
+          texteCorr += `    La probabilité de tirer un deuxième ${qualites[1][p]} est donc : $${fraction(q / 4 - 1, q - 1).texFraction}$.`
+          if (q === 52) { texteCorr += `$=${fraction(4, 17).texFraction}$<br>La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${fraction(1, 4).texFraction}\\times${fraction(4, 17).texFraction}=${fraction(1, 17).texFraction}$.` } else { texteCorr += `<br>La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${quart.texFraction}\\times${fraction(7, 31).texFractionSimplifiee}=${fraction(7, 124).texFraction}$.` }
+          // Partie 1
+          handleAnswers(this, 6 * i + 0, { reponse: { value: fraction(1, 2).texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, 6 * i + 1, { reponse: { value: quatreCartes.produitFraction(quatreCartes).texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, 6 * i + 2, { reponse: { value: quart.produitFraction(quart).texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
+          // Partie 2
+          handleAnswers(this, 6 * i + 3, { reponse: { value: memeCouleur.texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, 6 * i + 4, { reponse: { value: quatreCartes.produitFraction(troisCartes).texFractionSimplifiee, compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, 6 * i + 5, { reponse: { value: fraction(7, 124).texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
+          break }
         case 2:
-          n[0] = randint(2, 5); m[0] = randint(2, 5)
+        { n[0] = randint(2, 5); m[0] = randint(2, 5)
           n[1] = randint(1, 6) + 1; m[1] = randint(1, 6) + 1
           n[2] = randint(1, 3) * 2; m[2] = randint(1, 3) * 2
-          n[3] = randint(1, 4) + 2; m[3] = randint(1, 4) + 2
-          n[4] = randint(2, 5); m[4] = randint(2, 5)
-          somme1 = n[0] + n[1] + n[2] + n[3] + n[4]
-          somme2 = m[0] + m[1] + m[2] + m[3] + m[4]
-          r = randint(0, 4)
-          p = randint(0, 4, [r])
-          q = randint(0, 4, [p, r])
+          somme1 = n[0] + n[1] + n[2]
+          somme2 = m[0] + m[1] + m[2]
+          r = randint(0, 2)
+          p = randint(0, 2, [r])
+          q = randint(0, 2, [p, r])
           texte = `Dans sa commode, ${quidam} a mis dans le premier tiroir des paires de chaussettes. Il y a `
           for (let j = 0; j < 3; j++) {
-            texte += `${n[j]} paires de chaussettes ${qualites[2][j]}, `
+            texte += `${n[j]} paires de chaussettes ${qualites[2][j]}${j === 2 ? '.<br>' : ', '}`
           }
-          texte += `${n[3]} paires de chaussettes ${qualites[2][3]} et ${n[4]} paires de chaussettes ${qualites[2][4]}.<br>`
+          // texte += `${n[3]} paires de chaussettes ${qualites[2][3]} et ${n[4]} paires de chaussettes ${qualites[2][4]}.<br>`
           texte += `Dans le deuxième tiroir, ${quidam} a mis des T-shirt. Il y a `
           for (let j = 0; j < 3; j++) {
-            texte += `${m[j]} T-shirt ${qualites[5][j]}, `
+            texte += `${m[j]} T-shirt ${qualites[5][j]}${j === 2 ? '.<br>' : ', '}`
           }
-          texte += `${m[3]} T-shirt ${qualites[5][3]} et ${m[4]} T-shirt ${qualites[5][4]}.<br>`
+          // texte += `${m[3]} T-shirt ${qualites[5][3]} et ${m[4]} T-shirt ${qualites[5][4]}.<br>`
           texte += `Un matin, il y a une panne de courant et ${quidam} prend au hasard une paire de chaussettes dans le premier tiroir et un T-shirt dans le deuxième.<br>`
-          texte += numAlpha(0) + ` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt ${qualites[5][r]} ?<br>`
-          texte += numAlpha(1) + ` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt de la même couleur ?<br>`
-          texte += numAlpha(2) + ` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt de couleurs différentes ?`
+          texte += createList({
+            items: [
+              ` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt ${qualites[5][r]} ?` + (this.interactif ? ajouteChampTexteMathLive(this, 3 * i) : ''),
+              ` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt de la même couleur ?` + (this.interactif ? ajouteChampTexteMathLive(this, 3 * i + 1) : ''),
+                ` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt de couleurs différentes ?` + (this.interactif ? ajouteChampTexteMathLive(this, 3 * i + 2) : '')
+            ],
+            style: 'alpha'
+          })
+          // Question a)
+          fra1 = fraction(n[r], somme1)
+          fra2 = fraction(m[r], somme2)
+          const produit1 = fra1.produitFraction(fra2)
           texteCorr = numAlpha(0) + ` Il y a ${n[r]} paires de chaussettes ${qualites[2][r]} et il y a ${somme1} paires de chaussettes possibles. `
-          texteCorr += `La probabilité de choisir une paire de chaussettes ${qualites[2][r]} est : $${texFractionFromString(n[r], somme1)}${simplificationDeFractionAvecEtapes(n[r], somme1)}$.<br>`
+          texteCorr += `La probabilité de choisir une paire de chaussettes ${qualites[2][r]} est : $${fra1.texFraction}${fra1.texSimplificationAvecEtapes()}$.<br>`
           texteCorr += `Il y a ${m[r]} T-shirt ${qualites[5][r]} et il y a ${somme2} T-shirt possibles. `
-          texteCorr += `La probabilité de choisir un des T-shirt ${qualites[5][r]} est : $${texFractionFromString(m[r], somme2)}${simplificationDeFractionAvecEtapes(m[r], somme2)}$.<br>`
-          texteCorr += `${quidam} a donc $${texFractionReduite(m[r], somme2)}$ de `
-          fra1 = fractionSimplifiee(n[r], somme1)
-          fra2 = fractionSimplifiee(m[r], somme2)
-          if (fra1[0] === 1) { texteCorr += 'une chance ' } else { texteCorr += `$${fra1[0]}$ chances ` }
-          texteCorr += `sur $${fra1[1]}$ de choisir des chaussettes et un T-shirt ${qualites[5][r]}.<br>`
-          texteCorr += `Soit $${texFractionReduite(m[r], somme2)}\\times${texFractionReduite(n[r], somme1)}=\\dfrac{${fra2[0]}\\times${fra1[0]}}{${fra2[1]}\\times${fra1[1]}}=${texFractionFromString(fra1[0] * fra2[0], fra1[1] * fra2[1])}${simplificationDeFractionAvecEtapes(fra1[0] * fra2[0], fra1[1] * fra2[1])}$.<br>`
-          p1 = fractionSimplifiee(fra1[0] * fra2[0], fra1[1] * fra2[1])
-          fra1 = fractionSimplifiee(n[p], somme1)
-          fra2 = fractionSimplifiee(m[p], somme2)
-          texteCorr += numAlpha(1) + ` La probabilité de choisir une paire de chaussettes ${qualites[2][p]} est : $${texFractionFromString(n[p], somme1)}${simplificationDeFractionAvecEtapes(n[p], somme1)}$ et `
-          texteCorr += `la probabilité de choisir l'un des T-shirt ${qualites[5][p]} est : $${texFractionFromString(m[p], somme2)}${simplificationDeFractionAvecEtapes(m[p], somme2)}$.<br>`
-          texteCorr += `Donc la probabilité de choisir des chaussettes et un T-shirt ${qualites[5][p]} est : $${texFractionReduite(m[p], somme2)}\\times${texFractionReduite(n[p], somme1)}=\\dfrac{${fra2[0]}\\times${fra1[0]}}{${fra2[1]}\\times${fra1[1]}}=${texFractionFromString(fra1[0] * fra2[0], fra1[1] * fra2[1])}${simplificationDeFractionAvecEtapes(fra1[0] * fra2[0], fra1[1] * fra2[1])}$.<br>`
-          p2 = fractionSimplifiee(fra1[0] * fra2[0], fra1[1] * fra2[1])
-          fra1 = fractionSimplifiee(n[q], somme1)
-          fra2 = fractionSimplifiee(m[q], somme2)
-          texteCorr += `La probabilité de choisir une paire de chaussettes ${qualites[2][q]} est : $${texFractionFromString(n[q], somme1)}${simplificationDeFractionAvecEtapes(n[q], somme1)}$ et `
-          texteCorr += `la probabilité de choisir l'un des T-shirt ${qualites[5][q]} est : $${texFractionFromString(m[q], somme2)}${simplificationDeFractionAvecEtapes(m[q], somme2)}$.<br>`
-          texteCorr += `Donc la probabilité de choisir des chaussettes et un T-shirt ${qualites[5][q]} est : $${texFractionReduite(m[q], somme2)}\\times${texFractionReduite(n[q], somme1)}=\\dfrac{${fra2[0]}\\times${fra1[0]}}{${fra2[1]}\\times${fra1[1]}}=${texFractionFromString(fra1[0] * fra2[0], fra1[1] * fra2[1])}${simplificationDeFractionAvecEtapes(fra1[0] * fra2[0], fra1[1] * fra2[1])}$.<br>`
-          p3 = fractionSimplifiee(fra1[0] * fra2[0], fra1[1] * fra2[1])
+          texteCorr += `La probabilité de choisir un des T-shirt ${qualites[5][r]} est : $${fra2.texFraction}${fra2.texSimplificationAvecEtapes()}$.<br>`
+          texteCorr += `${quidam} a donc $${fra2.texFraction}$ de `
+          if (fra1.numIrred === 1) { texteCorr += 'une chance ' } else { texteCorr += `$${fra1.numIrred}$ chances ` }
+          texteCorr += `sur $${fra1.denIrred}$ de choisir des chaussettes et un T-shirt ${qualites[5][r]}.<br>`
+          texteCorr += `Soit $${fra1.texProduitFraction(fra2, 'none')}$.<br>`
+          /// / Question b)
+          fra1 = fraction(n[p], somme1)
+          fra2 = fraction(m[p], somme2)
+          const produit2 = fra1.produitFraction(fra2)
+          texteCorr += numAlpha(1) + ` La probabilité de choisir une paire de chaussettes ${qualites[2][p]} est : $${fra1.texFraction}${fra1.texSimplificationAvecEtapes()}$ et `
+          texteCorr += `la probabilité de choisir l'un des T-shirt ${qualites[5][p]} est : $${fra2.texFraction}${fra2.texSimplificationAvecEtapes()}$.<br>`
+          texteCorr += `Donc la probabilité de choisir des chaussettes et un T-shirt ${qualites[5][p]} est : $${fra1.texProduitFraction(fra2, 'none')}$.<br>`
+          fra1 = fraction(n[q], somme1)
+          fra2 = fraction(m[q], somme2)
+          const produit3 = fra1.produitFraction(fra2)
+          const produits = [produit1, produit2, produit3]
+
+          // INFO: cela permet de ne pas réduire le résultat automatiquement comme le ferais fraction(0).sommeFractions(...produits)
+          const probaTotale = fraction(produits.map(p => p.num).reduce((prev, curr) => prev + curr), produit1.den)
+          texteCorr += `La probabilité de choisir une paire de chaussettes ${qualites[2][q]} est : $${fra1.texFraction}${fra1.texSimplificationAvecEtapes()}$ et `
+          texteCorr += `la probabilité de choisir l'un des T-shirt ${qualites[5][q]} est : $${fra2.texFraction}${fra2.texSimplificationAvecEtapes()}$.<br>`
+          texteCorr += `Donc la probabilité de choisir des chaussettes et un T-shirt ${qualites[5][q]} est : $${fra1.texProduitFraction(fra2, 'none')}$.<br>`
           texteCorr += 'On en déduit que la probabilité de choisir des chaussettes et un T-shirt de la même couleur est :<br>'
-          texteCorr += `$${texFractionFromString(p1[0], p1[1])}+${texFractionFromString(p2[0], p2[1])}+${texFractionFromString(p3[0], p3[1])}=`
-          if (p1[1] === p2[1] && p2[1] === p3[1]) {
-            texteCorr += `\\dfrac{${p1[0]}+${p2[0]}+${p3[0]}}{${p1[1]}}=${texFractionFromString(p1[0] + p2[0] + p3[0], p1[1])}${simplificationDeFractionAvecEtapes(p1[0] + p2[0] + p3[0], p1[1])}$`
-            fra1 = fractionSimplifiee(p1[0] + p2[0] + p3[0], p1[1])
-          } else {
-            den = ppcm(p1[1], ppcm(p2[1], p3[1]))
-            e = den / p1[1]
-            f = den / p2[1]
-            g = den / p3[1]
-            texteCorr += `${texFractionFromString(p1[0] * e, den)}+${texFractionFromString(p2[0] * f, den)}+${texFractionFromString(p3[0] * g, den)}=${texFractionFromString(p1[0] * e + p2[0] * f + p3[0] * g, den)}${simplificationDeFractionAvecEtapes(p1[0] * e + p2[0] * f + p3[0] * g, den)}$`
-            fra1 = fractionSimplifiee(p1[0] * e + p2[0] * f + p3[0] * g, den)
-          }
+          texteCorr += `$${produits.map(p => p.texFraction).join('+')}=\\dfrac{${produits.map(p => p.num).join('+')}}{${produit1.den}}=${probaTotale.texFraction}${probaTotale.texSimplificationAvecEtapes()}$`
           texteCorr += '.<br>'
+          // Question c)
+          const probaContraire = fraction(1).sommeFraction(probaTotale.oppose())
           texteCorr += numAlpha(2) + ' L\'événement "choisir des chaussettes et un T-shirt de couleurs différentes" est l\'événement contraire de l\'événement "choisir des chaussettes et un T-shirt de même couleur".<br>'
-          texteCorr += `Donc sa probabilité est : $1-${texFractionFromString(fra1[0], fra1[1])}=\\dfrac{${fra1[1]}-${fra1[0]}}{${fra1[1]}}=${texFractionFromString(fra1[1] - fra1[0], fra1[1])}${simplificationDeFractionAvecEtapes(fra1[1] - fra1[0], fra1[1])}$.<br>`
-          break
+          texteCorr += `Donc sa probabilité est : $1-${probaTotale.texFractionSimplifiee}=${fraction(1).texSommeFraction(probaTotale.oppose())}$.<br>`
+
+          handleAnswers(this, 3 * i + 0, { reponse: { value: produit1.texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, 3 * i + 1, { reponse: { value: probaTotale.texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, 3 * i + 2, { reponse: { value: probaContraire.texFraction, compare: fonctionComparaison, options: { fractionEgale: true } } })
+          break }
         case 3:
           quidam = prenomM()
           quidame = prenomF()
@@ -254,12 +359,17 @@ export default function FonctionsProbabilite2 () {
 
           texte = `${quidam} dispose d'un dé à ${n[0]} faces numérotées de 1 à ${n[0]} et d'un dé à ${m[0]} faces numérotées de 1 à ${m[0]}.<br>`
           texte += 'Il lance ses deux dés et en fait la somme.<br>'
-          texte += numAlpha(0) + ' Reporter dans un tableau les issues possibles de cette expérience aléatoire et leurs probabilités respectives.<br>'
-          texte += numAlpha(1) + ` ${quidame} dispose d'un dé à ${n[1]} faces numérotées de 1 à ${n[1]} et d'un dé à ${m[1]} faces numérotées de 1 à ${m[1]}.<br>`
-          texte += `Elle décide de proposer un défi à ${quidam} : "On choisit un nombre cible entre 2 et ${r}, on lance nos deux dés en même temps. Le premier dont la somme des dés est la cible a gagné."<br>`
-          texte += `${quidam} qui connaît les probabilités calculées au ${numAlpha(0)} propose alors de choisir ${n[0] + 1} comme nombre cible. Il pense avoir plus de chances de gagner que ${quidame}. A-t-il raison ?<br>`
-          texte += numAlpha(2) + `Si oui, quel nombre doit choisir ${quidame} pour avoir un défi qui lui soit favorable et si non, y a-t-il un meilleur choix pour ${quidam} ?<br>`
-          texte += numAlpha(3) + ' Y a-t-il un nombre cible qui donne un jeu équitable où chacun aura la même probabilité de gagner ?<br>'
+          texte += createList({
+            items: [
+              ' Reporter dans un tableau les issues possibles de cette expérience aléatoire et leurs probabilités respectives.',
+              ` ${quidame} dispose d'un dé à ${n[1]} faces numérotées de 1 à ${n[1]} et d'un dé à ${m[1]} faces numérotées de 1 à ${m[1]}.`,
+              `Elle décide de proposer un défi à ${quidam} : "On choisit un nombre cible entre 2 et ${r}, on lance nos deux dés en même temps. Le premier dont la somme des dés est la cible a gagné."`,
+              `${quidam} qui connaît les probabilités calculées à la question a. propose alors de choisir ${n[0] + 1} comme nombre cible. Il pense avoir plus de chances de gagner que ${quidame}. A-t-il raison ?`,
+              `Si oui, quel nombre doit choisir ${quidame} pour avoir un défi qui lui soit favorable et si non, y a-t-il un meilleur choix pour ${quidam} ?`,
+              ' Y a-t-il un nombre cible qui donne un jeu équitable où chacun aura la même probabilité de gagner ?'
+            ],
+            style: 'alpha'
+          })
           texte += '$\\textit {Exercice inspiré des problèmes DuDu (mathix.org)}$'
           texteCorr = numAlpha(0) + ` Les différents résultats de l'expérience de ${quidam} sont présentés dans cette table :<br>`
           // tableau d'addition des dé

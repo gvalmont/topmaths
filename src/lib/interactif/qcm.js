@@ -95,9 +95,6 @@ export function verifQuestionQcm (exercice, i) {
     } else if (nbBonnesReponses === 0 && nbMauvaisesReponses > 0) {
       // Que du faux
       message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
-      /* } else { // Aucune réponse
-              message = ''
-            */
     }
   } else {
     message = ''
@@ -116,7 +113,7 @@ export function verifQuestionQcm (exercice, i) {
 /**
  * @param {exercice}
  * @param {number} i indice de la question
- * @param {{style: string, format: string}} options
+ * @param {{style: string, format: string}} [options]
  * @returns {{texte: string, texteCorr: string}} {texte, texteCorr} le texte à ajouter pour la question traitée
  */
 export function propositionsQcm (exercice, i, options) {
@@ -160,7 +157,7 @@ export function propositionsQcm (exercice, i, options) {
   }
   // Mélange les propositions du QCM sauf celles à partir de lastchoice (inclus)
   if (exercice?.autoCorrection[i]?.options !== undefined) {
-    const lastChoice = Math.min(exercice.autoCorrection[i].options.lastChoice, exercice.autoCorrection[i].propositions.length - 1)
+    const lastChoice = Math.min(exercice.autoCorrection[i].options.lastChoice ?? exercice.autoCorrection[i].propositions.length, exercice.autoCorrection[i].propositions.length - 1)
     vertical = exercice.autoCorrection[i].options.vertical // est-ce qu'on veut une présentation en colonnes ?
     nbCols =
       exercice.autoCorrection[i].options.nbCols > 1
@@ -182,30 +179,6 @@ export function propositionsQcm (exercice, i, options) {
     )
     exercice.autoCorrection[i].propositions = melange.shuffledArray
     indexes.push(...melange.indexes)
-  }
-
-  // Crée un élément temporaire pour mesurer la largeur d'un caractère
-  const element = document.createElement('span')
-  element.style.font = '16px monospace' // Choisir la police et la taille désirées
-  element.style.visibility = 'hidden' // Masquer l'élément
-  element.textContent = 'Abcdefghijkl' // Utiliser un caractère pour mesurer la largeur
-
-  document.body.appendChild(element)
-  const largeurCaractere = element.offsetWidth / 12 // Largeur du caractère en pixels
-  document.body.removeChild(element)
-
-  // Calculer le nombre de caractères affichables dans la largeur de la fenêtre
-  const largeurTerminal = window.innerWidth
-  const nombreCaracteres = Math.floor(largeurTerminal / largeurCaractere)
-
-  const longueurTotale = exercice.autoCorrection[i].propositions.reduce(
-    (acc, prop) => acc + prop.texte.length,
-    0
-  )
-  const longueurMaxHtml = Math.max(40, nombreCaracteres - 10)// Pour les cases à cocher et autres
-  const longueurMaxLatex = 60
-  if (longueurTotale > (context.isHtml ? longueurMaxHtml : longueurMaxLatex)) {
-    vertical = true
   }
   if (!context.isHtml) {
     const formateQ = (format, rep) => {
@@ -231,7 +204,6 @@ export function propositionsQcm (exercice, i, options) {
     }
     texte += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
     texteCorr += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
-    // texte += '\\\\\n\t'
     for (
       let rep = 0;
       rep < exercice.autoCorrection[i].propositions.length;
@@ -261,7 +233,6 @@ export function propositionsQcm (exercice, i, options) {
         return `<label ${classCss} >${texteGras(lettreDepuisChiffre(rep + 1))}.</label>`
       }
       return `<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" id="checkEx${exercice.numeroExercice}Q${i}R${rep}"><label ${classCss} >${lettreDepuisChiffre(rep + 1)}.</label>`
-      // return `${lettreDepuisChiffre(rep + 1)}$\\square\\;$`
     }
     const formateRV = (format, rep) => {
       if (format == null || format === 'case') return '<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" checked>'
@@ -286,11 +257,11 @@ export function propositionsQcm (exercice, i, options) {
       rep++
     ) {
       if (nbCols > 1 && rep % nbCols === 0) texte += '<br>'
-      texte += `<div class="ex${exercice.numeroExercice} ${vertical ? '' : 'inline'} my-2">
+      texte += `<div class="ex${exercice.numeroExercice} ${vertical ? '' : 'inline-block'} my-2 align-top">
       ${formateQ(options?.format, rep)}
       <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" ${classCss} >${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
       <div id="feedbackEx${exercice.numeroExercice}Q${i}R${rep}" ${vertical ? '' : 'class="inline"'}></div></div>`
-      texteCorr += `<div class="${vertical ? '' : 'inline'}">
+      texteCorr += `<div class="${vertical ? '' : 'inline-block'}">
     ${exercice.autoCorrection[i].propositions[rep].statut
      ? formateRV(options?.format, rep)
      : formateRF(options?.format, rep)

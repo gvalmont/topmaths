@@ -164,9 +164,15 @@ function normalizeFraction (n: number|Decimal, d:number): [number, number] {
  * Pour créer une instance de la classe FractionEtendue on peut utiliser la fonction fraction() qui se trouve dans le fichier modules/fractions.js
  * Ou utiliser la syntaxe f = new FractionEtendue () qui crée une  FractionMathjs  nulle.
  * On peut utiliser tous les arguments utilisables par  FractionMathjs  :
- * f = new FractionEtendue ('0.(3)') // crée la  FractionMathjs  $\frac{1}{3}$
- * f = fraction(12,15) // crée la  FractionMathjs  $\frac{12}{15}$ (Remarque : new FractionEtendue(12,15) crée $\frac{4}{5}$)
- * f = fraction(0.4) // crée la  FractionMathjs  $\frac{2}{5}$
+ * @example
+ * // crée la  FractionMathjs  $\frac{1}{3}$
+ * f = new FractionEtendue ('0.(3)')
+ * @example
+ * // crée la  FractionMathjs  $\frac{12}{15}$ (Remarque : new FractionEtendue(12,15) crée $\frac{4}{5}$)
+ * f = fraction(12,15)
+ * @example
+ * // crée la  FractionMathjs  $\frac{2}{5}$
+ * f = fraction(0.4)
  */
 class FractionEtendue {
   num: number

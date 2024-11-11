@@ -557,7 +557,7 @@ export function Arc (
   let code
 
   this.svgml = (coeff) => {
-    const width = longueur(M, Omega) * coeff
+    const width = longueur(M, Omega) * coeff * 2
     const height = width
     const closed = rayon
     const A = point(Omega.x + 1, Omega.y)

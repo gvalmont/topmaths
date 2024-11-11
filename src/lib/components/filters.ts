@@ -139,7 +139,7 @@ export class AtLeastOneOfCriteria<T> implements Criterion<T> {
   ```
  */
 export function featuresCriteria (
-  specs: ('interactif' | 'amc')[]
+  specs: ('interactif' | 'amc'|'qcm')[]
 ): Criterion<ResourceAndItsPath> {
   // construction du critère pour la spécification `amc`
   const amcCriterion: Criterion<ResourceAndItsPath> = {
@@ -149,6 +149,25 @@ export function featuresCriteria (
           if (
             item.resource.features.amc &&
             item.resource.features.amc.isActive
+          ) {
+            return true
+          } else {
+            return false
+          }
+        } else {
+          return false
+        }
+      })
+    }
+  }
+  // construction du critère pour la spécification `qcm`
+  const qcmCriterion: Criterion<ResourceAndItsPath> = {
+    meetCriterion (items: ResourceAndItsPath[]): ResourceAndItsPath[] {
+      return items.filter((item: ResourceAndItsPath) => {
+        if (isExerciceItemInReferentiel(item.resource)) {
+          if (
+            item.resource.features.qcm &&
+            item.resource.features.qcm.isActive
           ) {
             return true
           } else {
@@ -197,6 +216,8 @@ export function featuresCriteria (
         return amcCriterion
       case 'interactif':
         return interactifCriterion
+      case 'qcm':
+        return qcmCriterion
     }
   } else {
     // les deux spécifications sont présents, on renvoie l'intersection des deux critères

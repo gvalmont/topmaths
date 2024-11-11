@@ -1,0 +1,53 @@
+import Exercice from '../../Exercice'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import Decimal from 'decimal.js'
+export const titre = ''
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const uuid = 'cd736'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
+/**
+ * Modèle d'exercice très simple pour la course aux nombres
+ * @author Gilles Mora
+ * Référence
+*/
+export default class CalculDivers extends Exercice {
+  constructor () {
+    super()
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierDeBase
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  }
+
+  nouvelleVersion () {
+    this.listeCanEnonces = []
+    this.listeCanReponsesACompleter = []
+    const a = randint(1, 9)
+    const d = new Decimal(a).div(10)
+    const c = new Decimal(a).div(100)
+    switch (randint(1, 2)) {
+      case 1 :
+        this.question = `Quel nombre obtient-on en retranchant $${a}$ ${a === 1 ? 'dixième' : 'dixièmes'} à $${texNombre(2025, 0)}$ ?`
+        this.reponse = texNombre(new Decimal(2025).sub(d), 1)
+        this.correction = `$${texNombre(2025, 0)} -${texNombre(d, 1)}=${miseEnEvidence(this.reponse)}$`
+        break
+      case 2 :
+        this.question = `Quel nombre obtient-on en retranchant $${a}$ ${a === 1 ? 'centième' : 'centièmes'} à $${texNombre(2025, 0)}$ ?`
+        this.reponse = texNombre(new Decimal(2025).sub(c), 2)
+        this.correction = `$${texNombre(2025)} -${texNombre(c, 2)}=${miseEnEvidence(this.reponse)}$`
+        break
+    }
+    if (this.interactif) { this.question += '<br>' }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
+  }
+}

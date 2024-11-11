@@ -208,9 +208,8 @@
       "TSP2": {},
       "TSP3": {},
       "TSG1": {},
-      "TSG2": {},
-      "TSG3": {}
-    },
+      "TSG2": {}
+          },
     "Terminale Expert": {
       "TEC": {},
       "TEA": {},
@@ -218,10 +217,6 @@
     },
     "TermComplem": {},
     "TermTechno": {}
-  },
-  "techno1": {
-    "techno1E": {},
-    "techno1P": {}
   },
   "HP": {
     "HPC1": {}

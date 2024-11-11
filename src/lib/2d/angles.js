@@ -254,7 +254,7 @@ export function angleOriente (A, O, B, precision = 2) {
   const v = vecteur(O, B)
   const u = vecteur(O, A2)
 
-  return arrondi(unSiPositifMoinsUnSinon(arrondi(v.x * u.x + v.y * u.y, 10)) * angle(A, O, B, precision), precision)
+  return arrondi(unSiPositifMoinsUnSinon(arrondi(v.x * u.x + v.y * u.y, 10)) * angle(A, O, B, 10), precision)
 }
 
 /**

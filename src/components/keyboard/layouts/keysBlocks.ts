@@ -81,8 +81,8 @@ const ensembleDefiniCaps: CompleteKeysList = {
 }
 
 const hmsCaps: CompleteKeysList = {
-  inline: ['HOUR', 'MIN', 'SEC'],
-  block: ['HOUR', 'MIN', 'SEC']
+  inline: ['WEEK', 'DAY', 'HOUR', 'MIN', 'SEC'],
+  block: ['WEEK', 'DAY', 'HOUR', 'MIN', 'SEC']
 }
 
 const greekCaps: CompleteKeysList = {

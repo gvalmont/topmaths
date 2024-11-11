@@ -9,7 +9,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Trinome from '../../modules/Trinome'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { factorisationCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import type { MathfieldElement } from 'mathlive'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -22,7 +22,6 @@ export const dateDeModifImportante = '9/10/2024'
 /**
  *
  * @author Rémi Angot et Stéphane Guyon
- * Référence 1E14
  */
 export const uuid = 'a8e1b'
 export const ref = '1AL21-41'
@@ -33,8 +32,6 @@ export const refs = {
 export default class ResoudreEquationDegre2 extends Exercice {
   constructor () {
     super()
-    this.titre = titre
-    this.consigne = 'Factoriser, si cela est possible, ' + (this.nbQuestions !== 1 ? 'chaque' : 'le') + ' polynôme $P$ suivant défini pour tout $x$ de $\\mathbb R$ par : '
     this.nbQuestions = 4
     this.nbCols = 2
     this.nbColsCorr = 2
@@ -43,7 +40,7 @@ export default class ResoudreEquationDegre2 extends Exercice {
   }
 
   nouvelleVersion () {
-    this.sup = Number(this.sup)
+    this.consigne = 'Factoriser, si cela est possible, ' + (this.nbQuestions !== 1 ? 'chaque' : 'le') + ' polynôme $P$ suivant défini pour tout $x$ de $\\mathbb R$ par : '
     const listeTypeDeQuestions = combinaisonListes(['solutionsEntieres', 'solutionsEntieres', 'identiteRemarquable', 'pasDeSolution'], this.nbQuestions)
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -69,7 +66,7 @@ export default class ResoudreEquationDegre2 extends Exercice {
 
         texte = `$P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
 
-        texteCorr = `On a $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
+        texteCorr = `On a $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
         texteCorr += '<br>On reconnaît un polynôme du second degré. On cherche ses éventuelles racines en calculant son discriminant.'
         texteCorr += `<br>$\\Delta = ${trinome.texCalculDiscriminant}$`
         texteCorr += '<br>$\\Delta>0$ donc $P(x)$ admet deux racines :'
@@ -77,7 +74,7 @@ export default class ResoudreEquationDegre2 extends Exercice {
         texteCorr += `<br>$${trinome.texCalculRacine2()}$.`
         texteCorr += '<br>On peut donc factoriser le polynôme sous la forme : $P(x)=a(x-x_1)(x-x_2)$.'
         texteCorr += `<br>$P(x)=${miseEnEvidence(trinome.texFormeFactorisee)}$`
-        handleAnswers(this, i, { reponse: { value: trinome.texFormeFactorisee, compare: factorisationCompare } })
+        handleAnswers(this, i, { reponse: { value: trinome.texFormeFactorisee, compare: fonctionComparaison, options: { factorisation: true } } })
       } else if (listeTypeDeQuestions[i] === 'identiteRemarquable') {
         // k(x-x1)(x-x1)
         x1 = randint(-5, 2, [0])
@@ -91,14 +88,14 @@ export default class ResoudreEquationDegre2 extends Exercice {
 
         texte = `$P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
 
-        texteCorr = `On a $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
+        texteCorr = `On a $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
         texteCorr += '<br>On reconnaît un polynôme du second degré. On cherche ses éventuelles racines en calculant son discriminant.'
         texteCorr += `<br>$\\Delta = ${trinome.texCalculDiscriminant}$`
         texteCorr += '<br>$\\Delta=0$ donc $P(x)$ admet une unique racine :'
         texteCorr += `<br> $x_0 = ${trinome.texCalculRacine1()}$.`
         texteCorr += '<br>On peut donc factoriser le polynôme sous la forme : $P(x)=a(x-x_0)^2$.'
         texteCorr += `<br>$P(x)=${miseEnEvidence(trinome.texFormeFactorisee)}$`
-        handleAnswers(this, i, { reponse: { value: trinome.texFormeFactorisee, compare: factorisationCompare } })
+        handleAnswers(this, i, { reponse: { value: trinome.texFormeFactorisee, compare: fonctionComparaison, options: { factorisation: true } } })
       } else { // listeTypeDeQuestions[i] === 'pasDeSolution'
         k = randint(1, 5)
         x1 = randint(-3, 3, [0])
@@ -120,7 +117,7 @@ export default class ResoudreEquationDegre2 extends Exercice {
         texteCorr += `<br>D'après le cours, il n'est ${texteEnCouleurEtGras('pas factorisable')}.`
         handleAnswers(this, i, { reponse: { value: '\\text{Pas factorisable}' } })
       }
-      texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecX)
+      texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecX, { texteAvant: '$P(x)=$' })
 
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)

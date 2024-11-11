@@ -3,7 +3,7 @@ import { listeQuestionsToContenu } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { calculCompare, fonctionComparaison, factorisationCompare } from '../../../lib/interactif/comparisonFunctions'
+import { calculCompare, fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { context } from '../../../modules/context'
 import { sp } from '../../../lib/outils/outilString'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -297,7 +297,7 @@ export default class nomExercice extends Exercice {
     i = 26
     this.listeQuestions[i] = 'Factoriser $x^2-25$.<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecX)
     this.listeCorrections[i] = `On utilise l'identité remarquable $a^2-b^2=(a+b)(a-b)$ pour obtenir : $x^2 - 25 = x^2 - 5^2 = ${miseEnEvidence('(x+5)(x-5)')} $`
-    handleAnswers(this, i, { reponse: { value: '(x+5)(x-5)', compare: factorisationCompare } })
+    handleAnswers(this, i, { reponse: { value: '(x+5)(x-5)', compare: fonctionComparaison, options: { factorisation: true } } })
 
     i = 27
     const noeuds = [

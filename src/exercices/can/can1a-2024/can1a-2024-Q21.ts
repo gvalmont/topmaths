@@ -32,17 +32,17 @@ export default class SommeTermesSG extends Exercice {
       // ToDo sujet non officiel
     }
     this.correction = `Il s'agit de la somme des termes d'une suite géométrique de raison $q$ et de premier terme ${premierTerme === '1' ? '$1$ ' : '$q$ '}.<br>
-   Comme cette somme se calcule par $\\dfrac{1-q^{\\text{nombre de termes}}}{1-q}$, 
+   Comme cette somme se calcule par $\\text{(premier terme)}\\times \\dfrac{1-q^{\\text{nombre de termes}}}{1-q}$, 
    on obtient ${premierTerme === '1'
 ? `$1+q+q^2+\\ldots+q^{${n}}=${miseEnEvidence(`\\dfrac{1-q^{${n + 1}}}{1-q}`)}$ `
-   : `$q+q^2+\\ldots+q^{${n}}=${miseEnEvidence(`\\dfrac{1-q^{${n}}}{1-q}`)}$ `}`
+   : `$q+q^2+\\ldots+q^{${n}}=q\\times \\dfrac{1-q^{${n}}}{1-q}=${miseEnEvidence(`\\dfrac{q-q^{${n + 1}}}{1-q}`)}$ `}`
     const question = `$q\\neq 1$ <br>${premierTerme === '1' ? `$1+q+q^2+\\ldots+q^{${n}}=$ ` : `$q+q^2+\\ldots+q^{${n}}=$ `}`
     this.autoCorrection[0] = {
       options: { ordered: true },
       enonce: question,
       propositions: [
         {
-          texte: `$\\dfrac{1-q^{${n}}}{1-q}$ `,
+          texte: `$\\dfrac{q-q^{${n + 1}}}{1-q}$ `,
           statut: premierTerme !== '1'
         },
         {
@@ -58,6 +58,6 @@ export default class SommeTermesSG extends Exercice {
 
     this.canEnonce = `$q\\neq 1$ <br>
     ${premierTerme === '1' ? `$1+q+q^2+\\ldots+q^{${n}}=$ ` : `$q+q^2+\\ldots+q^{${n}}=$ `}`
-    this.canReponseACompleter = `$\\Box$ $\\dfrac{1-q^{${n + 1}}}{1-q}$ <br>$\\Box$ $\\dfrac{1-q^{${n}}}{1-q}$`
+    this.canReponseACompleter = `$\\Box$ $\\dfrac{1-q^{${n + 1}}}{1-q}$ <br>$\\Box$ $\\dfrac{q-q^{${n + 1}}}{1-q}$`
   }
 }

@@ -7,10 +7,12 @@ import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Associer une mesure d\'angle à un  point du cercle trigonométrique '
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '31/10/2022'
+export const dateDeModifImportante = '06/11/2024'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
@@ -83,202 +85,202 @@ export default function PointSurCercleTrigo () {
     const objet = mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.5, ymax: r + 1, pixelsParCm: 15, scale: 0.45, style: 'margin: auto' }, c, s1, s2, sA1A2, sB1B2, sC1C2, sD1D2, sE1E2, sF1F2, g, o, nom)
     switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])) { //, 2, 3, 4, 5
       case 1:// point I
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
+        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
         this.question = `Quel réel de $${choix}$  a pour point-image le point $I$ ?<br>
 
         `
         this.question += `${objet}`
         if (choix === '[\\pi\\,;\\,3\\pi[') {
-          this.correction = `Le réel $2\\pi$ est associé au point $I$ dans $${choix}$.   `
+          this.correction = `Le réel $${miseEnEvidence('2\\pi')}$ est associé au point $I$ dans $${choix}$.   `
           this.reponse = '2\\pi'
         } else {
-          this.correction = `Le réel $0$ est associé au point $I$ dans $${choix}$.   `
+          this.correction = `Le réel $${miseEnEvidence(0)}$ est associé au point $I$ dans $${choix}$.   `
           this.reponse = '0'
         }
 
         break
       case 2:// point A
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
+        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $A$ ?<br>
 
         `
         this.question += `${objet}`
         if (choix === '[0\\,;\\,2\\pi[' || choix === ']-\\pi\\,;\\,\\pi]') {
-          this.correction = `Le réel $\\dfrac{\\pi}{6}$  est associé au point $A$ dans $${choix}$.   `
+          this.correction = `Le réel $${miseEnEvidence('\\dfrac{\\pi}{6}')}$  est associé au point $A$ dans $${choix}$.   `
           this.reponse = '\\dfrac{\\pi}{6}'
         }
         if (choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le point $A$ est le point-image de $\\dfrac{\\pi}{6}$.<br>
             $\\dfrac{\\pi}{6}+2\\pi=\\dfrac{13\\pi}{6}\\in ${choix}$.<br>
-             Le réel $\\dfrac{13\\pi}{6}$  est associé au point $A$ dans $${choix}$.   `
+             Le réel $${miseEnEvidence('\\dfrac{13\\pi}{6}')}$  est associé au point $A$ dans $${choix}$.   `
           this.reponse = '\\dfrac{13\\pi}{6}'
         }
-        if (choix === ']-2\\pi\\;\\ 0]') {
+        if (choix === ']-2\\pi\\,;\\,0]') {
           this.correction = `Le point $A$ est le point-image de $\\dfrac{\\pi}{6}$.<br>
             $\\dfrac{\\pi}{6}-2\\pi=-\\dfrac{11\\pi}{6}\\in ${choix}$.<br>
-             Le réel $-\\dfrac{11\\pi}{6}$  est associé au point $A$ dans $${choix}$.   `
+             Le réel $${miseEnEvidence('-\\dfrac{11\\pi}{6}')}$  est associé au point $A$ dans $${choix}$.   `
           this.reponse = '-\\dfrac{11\\pi}{6}'
         }
         break
 
       case 3:// point B
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
+        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $B$ ?<br>
 
         `
         this.question += `${objet}`
         if (choix === '[0\\,;\\,2\\pi[' || choix === ']-\\pi\\,;\\,\\pi]') {
-          this.correction = `Le réel $\\dfrac{\\pi}{4}$  est associé au point $B$ dans $${choix}$.   `
+          this.correction = `Le réel $${miseEnEvidence('\\dfrac{\\pi}{4}')}$  est associé au point $B$ dans $${choix}$.   `
           this.reponse = '\\dfrac{\\pi}{4}'
         }
         if (choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le point $B$ est le point-image de $\\dfrac{\\pi}{4}$.<br>
             $\\dfrac{\\pi}{4}+2\\pi=\\dfrac{9\\pi}{4}\\in ${choix}$.<br>
-             Le réel $\\dfrac{9\\pi}{4}$  est associé au point $B$ dans $${choix}$.   `
+             Le réel $${miseEnEvidence('\\dfrac{9\\pi}{4}')}$  est associé au point $B$ dans $${choix}$.   `
           this.reponse = '\\dfrac{9\\pi}{4}'
         }
-        if (choix === ']-2\\pi\\;\\ 0]') {
+        if (choix === ']-2\\pi\\,;\\,0]') {
           this.correction = `Le point $B$ est le point-image de $\\dfrac{\\pi}{4}$.<br>
             $\\dfrac{\\pi}{4}-2\\pi=-\\dfrac{7\\pi}{4}\\in ${choix}$.<br>
-             Le réel $-\\dfrac{7\\pi}{4}$  est associé au point $B$ dans $${choix}$.   `
+             Le réel $${miseEnEvidence('-\\dfrac{7\\pi}{4}')}$  est associé au point $B$ dans $${choix}$.   `
           this.reponse = '-\\dfrac{7\\pi}{4}'
         }
 
         break
 
       case 4:// point C
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
+        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $C$ ?<br>
 
         `
         this.question += `${objet}`
         if (choix === '[0\\,;\\,2\\pi[' || choix === ']-\\pi\\,;\\,\\pi]') {
-          this.correction = `Le réel $\\dfrac{\\pi}{3}$  est associé au point $C$ dans $${choix}$.   `
+          this.correction = `Le réel $${miseEnEvidence('\\dfrac{\\pi}{3}')}$  est associé au point $C$ dans $${choix}$.   `
           this.reponse = '\\dfrac{\\pi}{3}'
         }
         if (choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le point $C$ est le point-image de $\\dfrac{\\pi}{3}$.<br>
             $\\dfrac{\\pi}{3}+2\\pi=\\dfrac{7\\pi}{3}\\in ${choix}$.<br>
-             Le réel $\\dfrac{7\\pi}{3}$  est associé au point $C$ dans $${choix}$.   `
+             Le réel $${miseEnEvidence('\\dfrac{7\\pi}{3}')}$  est associé au point $C$ dans $${choix}$.   `
           this.reponse = '\\dfrac{7\\pi}{3}'
         }
-        if (choix === ']-2\\pi\\;\\ 0]') {
+        if (choix === ']-2\\pi\\,;\\,0]') {
           this.correction = `Le point $C$ est le point-image de $\\dfrac{\\pi}{3}$.<br>
             $\\dfrac{\\pi}{3}-2\\pi=-\\dfrac{5\\pi}{3}\\in ${choix}$.<br>
-             Le réel $-\\dfrac{5\\pi}{3}$  est associé au point $C$ dans $${choix}$.   `
+             Le réel $${miseEnEvidence('-\\dfrac{5\\pi}{3}')}$  est associé au point $C$ dans $${choix}$.   `
           this.reponse = '-\\dfrac{5\\pi}{3}'
         }
 
         break
 
       case 5:// point J
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
+        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
         this.question = `Quel réel de $${choix}$  a pour point-image le point $J$ ?<br>
 
         `
         this.question += `${objet}`
         if (choix === '[0\\,;\\,2\\pi[' || choix === ']-\\pi\\,;\\,\\pi]') {
-          this.correction = `Le réel $\\dfrac{\\pi}{2}$  est associé au point $J$ dans $${choix}$.   `
+          this.correction = `Le réel $${miseEnEvidence('\\dfrac{\\pi}{2}')}$  est associé au point $J$ dans $${choix}$.   `
           this.reponse = '\\dfrac{\\pi}{2}'
         }
         if (choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le point $J$ est le point-image de $\\dfrac{\\pi}{2}$.<br>
             $\\dfrac{\\pi}{2}+2\\pi=\\dfrac{5\\pi}{2}\\in ${choix}$.<br>
-             Le réel $\\dfrac{5\\pi}{2}$  est associé au point $J$ dans $${choix}$.   `
+             Le réel $${miseEnEvidence('\\dfrac{5\\pi}{2}')}$  est associé au point $J$ dans $${choix}$.   `
           this.reponse = '\\dfrac{5\\pi}{2}'
         }
-        if (choix === ']-2\\pi\\;\\ 0]') {
+        if (choix === ']-2\\pi\\,;\\,0]') {
           this.correction = `Le point $J$ est le point-image de $\\dfrac{\\pi}{2}$.<br>
             $\\dfrac{\\pi}{2}-2\\pi=-\\dfrac{3\\pi}{2}\\in ${choix}$.<br>
-             Le réel $-\\dfrac{3\\pi}{2}$  est associé au point $J$ dans $${choix}$.   `
+             Le réel $${miseEnEvidence('-\\dfrac{3\\pi}{2}')}$  est associé au point $J$ dans $${choix}$.   `
           this.reponse = '-\\dfrac{3\\pi}{2}'
         }
 
         break
 
       case 6:// point D
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
+        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $D$ ?<br>
 
         `
         this.question += `${objet}`
         if (choix === '[0\\,;\\,2\\pi[' || choix === ']-\\pi\\,;\\,\\pi]') {
-          this.correction = `Le réel $\\dfrac{2\\pi}{3}$  est associé au point $D$ dans $${choix}$.   `
+          this.correction = `Le réel $${miseEnEvidence('\\dfrac{2\\pi}{3}')}$  est associé au point $D$ dans $${choix}$.   `
           this.reponse = '\\dfrac{2\\pi}{3}'
         }
         if (choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le point $D$ est le point-image de $\\dfrac{2\\pi}{3}$.<br>
             $\\dfrac{2\\pi}{3}+2\\pi=\\dfrac{8\\pi}{3}\\in ${choix}$.<br>
-             Le réel $\\dfrac{8\\pi}{3}$  est associé au point $D$ dans $${choix}$.   `
+             Le réel $${miseEnEvidence('\\dfrac{8\\pi}{3}')}$  est associé au point $D$ dans $${choix}$.   `
           this.reponse = '\\dfrac{8\\pi}{3}'
         }
-        if (choix === ']-2\\pi\\;\\ 0]') {
+        if (choix === ']-2\\pi\\,;\\,0]') {
           this.correction = `Le point $D$ est le point-image de $\\dfrac{2\\pi}{3}$.<br>
             $\\dfrac{2\\pi}{3}-2\\pi=-\\dfrac{4\\pi}{3}\\in ${choix}$.<br>
-             Le réel $-\\dfrac{4\\pi}{3}$  est associé au point $D$ dans $${choix}$.   `
+             Le réel $${miseEnEvidence('-\\dfrac{4\\pi}{3}')}$  est associé au point $D$ dans $${choix}$.   `
           this.reponse = '-\\dfrac{4\\pi}{3}'
         }
 
         break
 
       case 7:// point E
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
+        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $E$ ?<br>
 
         `
         this.question += `${objet}`
         if (choix === '[0\\,;\\,2\\pi[' || choix === ']-\\pi\\,;\\,\\pi]') {
-          this.correction = `Le réel $\\dfrac{3\\pi}{4}$  est associé au point $E$ dans $${choix}$.   `
+          this.correction = `Le réel $${miseEnEvidence('\\dfrac{3\\pi}{4}')}$  est associé au point $E$ dans $${choix}$.   `
           this.reponse = '\\dfrac{3\\pi}{4}'
         }
         if (choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le point $E$ est le point-image de $\\dfrac{3\\pi}{4}$.<br>
             $\\dfrac{3\\pi}{4}+2\\pi=\\dfrac{11\\pi}{4}\\in ${choix}$.<br>
-             Le réel $\\dfrac{11\\pi}{4}$  est associé au point $E$ dans $${choix}$.   `
+             Le réel $${miseEnEvidence('\\dfrac{11\\pi}{4}')}$  est associé au point $E$ dans $${choix}$.   `
           this.reponse = '\\dfrac{11\\pi}{4}'
         }
-        if (choix === ']-2\\pi\\;\\ 0]') {
+        if (choix === ']-2\\pi\\,;\\, 0]') {
           this.correction = `Le point $E$ est le point-image de $\\dfrac{3\\pi}{4}$.<br>
             $\\dfrac{3\\pi}{4}-2\\pi=-\\dfrac{5\\pi}{4}\\in ${choix}$.<br>
-             Le réel $-\\dfrac{5\\pi}{4}$  est associé au point $E$ dans $${choix}$.   `
+             Le réel $${miseEnEvidence('-\\dfrac{5\\pi}{4}')}$  est associé au point $E$ dans $${choix}$.   `
           this.reponse = '-\\dfrac{5\\pi}{4}'
         }
 
         break
 
       case 8:// point F
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
+        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $F$ ?<br>
 
         `
         this.question += `${objet}`
         if (choix === '[0\\,;\\,2\\pi[' || choix === ']-\\pi\\,;\\,\\pi]') {
-          this.correction = `Le réel $\\dfrac{5\\pi}{6}$  est associé au point $F$ dans $${choix}$.   `
+          this.correction = `Le réel $${miseEnEvidence('\\dfrac{5\\pi}{6}')}$  est associé au point $F$ dans $${choix}$.   `
           this.reponse = '\\dfrac{5\\pi}{6}'
         }
         if (choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le point $F$ est le point-image de $\\dfrac{5\\pi}{6}$.<br>
             $\\dfrac{5\\pi}{6}+2\\pi=\\dfrac{17\\pi}{6}\\in ${choix}$.<br>
-             Le réel $\\dfrac{17\\pi}{6}$  est associé au point $F$ dans $${choix}$.   `
+             Le réel $${miseEnEvidence('\\dfrac{17\\pi}{6}')}$  est associé au point $F$ dans $${choix}$.   `
           this.reponse = '\\dfrac{17\\pi}{6}'
         }
-        if (choix === ']-2\\pi\\;\\ 0]') {
+        if (choix === ']-2\\pi\\,;\\,0]') {
           this.correction = `Le point $F$ est le point-image de $\\dfrac{5\\pi}{6}$.<br>
             $\\dfrac{5\\pi}{6}-2\\pi=-\\dfrac{7\\pi}{6}\\in ${choix}$.<br>
-             Le réel $-\\dfrac{7\\pi}{6}$  est associé au point $F$ dans $${choix}$.   `
+             Le réel $${miseEnEvidence('-\\dfrac{7\\pi}{6}')}$  est associé au point $F$ dans $${choix}$.   `
           this.reponse = '-\\dfrac{7\\pi}{6}'
         }
 
         break
 
       case 9:// point K
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
+        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $K$ ?<br>
 
         `
         this.question += `${objet}`
-        if (choix === ']-2\\pi\\;\\ 0]') {
-          this.correction = `Le réel $-\\pi$ est associé au point $K$ dans $${choix}$.   `
+        if (choix === ']-2\\pi\\,;\\,0]') {
+          this.correction = `Le réel $${miseEnEvidence('-\\pi')}$ est associé au point $K$ dans $${choix}$.   `
           this.reponse = '-\\pi'
         } else {
           this.correction = `Le réel $\\pi$ est associé au point $K$ dans $${choix}$.   `
@@ -288,19 +290,19 @@ export default function PointSurCercleTrigo () {
         break
 
       case 10:// point G
-        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
+        choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $G$ ?<br>
 
         `
         this.question += `${objet}`
         if (choix === '[0\\,;\\,2\\pi[' || choix === '[\\pi\\,;\\,3\\pi[') {
-          this.correction = `Le réel $\\dfrac{7\\pi}{6}$  est associé au point $G$ dans $${choix}$.   `
+          this.correction = `Le réel $${miseEnEvidence('\\dfrac{7\\pi}{6}')}$  est associé au point $G$ dans $${choix}$.   `
           this.reponse = '\\dfrac{7\\pi}{6}'
         }
-        if (choix === ']-\\pi\\,;\\,\\pi]' || choix === ']-2\\pi\\;\\ 0]') {
+        if (choix === ']-\\pi\\,;\\,\\pi]' || choix === ']-2\\pi\\,;\\,0]') {
           this.correction = `Le point $G$ est le point-image de $\\dfrac{7\\pi}{6}$.<br>
             $\\dfrac{7\\pi}{6}-2\\pi=-\\dfrac{5\\pi}{6}\\in ${choix}$.<br>
-             Le réel $-\\dfrac{5\\pi}{6}$  est associé au point $G$ dans $${choix}$.   `
+             Le réel $${miseEnEvidence('-\\dfrac{5\\pi}{6}')}$  est associé au point $G$ dans $${choix}$.   `
           this.reponse = '-\\dfrac{5\\pi}{6}'
         }
 
@@ -312,13 +314,13 @@ export default function PointSurCercleTrigo () {
         `
         this.question += `${objet}`
         if (choix === '[0\\,;\\,2\\pi[' || choix === '[\\pi\\,;\\,3\\pi[') {
-          this.correction = `Le réel $\\dfrac{5\\pi}{4}$  est associé au point $H$ dans $${choix}$.   `
+          this.correction = `Le réel $${miseEnEvidence('\\dfrac{5\\pi}{4}')}$  est associé au point $H$ dans $${choix}$.   `
           this.reponse = '\\dfrac{5\\pi}{4}'
         }
         if (choix === ']-\\pi\\,;\\,\\pi]' || choix === ']-2\\pi\\;\\ 0]') {
           this.correction = `Le point $H$ est le point-image de $\\dfrac{5\\pi}{4}$.<br>
             $\\dfrac{5\\pi}{4}-2\\pi=-\\dfrac{3\\pi}{4}\\in ${choix}$.<br>
-             Le réel $-\\dfrac{3\\pi}{4}$  est associé au point $H$ dans $${choix}$.   `
+             Le réel $${miseEnEvidence('-\\dfrac{3\\pi}{4}')}$  est associé au point $H$ dans $${choix}$.   `
           this.reponse = '-\\dfrac{3\\pi}{4}'
         }
 
@@ -331,13 +333,13 @@ export default function PointSurCercleTrigo () {
         `
         this.question += `${objet}`
         if (choix === '[0\\,;\\,2\\pi[' || choix === '[\\pi\\,;\\,3\\pi[') {
-          this.correction = `Le réel $\\dfrac{4\\pi}{3}$  est associé au point $M$ dans $${choix}$.   `
+          this.correction = `Le réel $${miseEnEvidence('\\dfrac{4\\pi}{3}')}$  est associé au point $M$ dans $${choix}$.   `
           this.reponse = '\\dfrac{4\\pi}{3}'
         }
         if (choix === ']-\\pi\\,;\\,\\pi]' || choix === ']-2\\pi\\;\\ 0]') {
           this.correction = `Le point $M$ est le point-image de $\\dfrac{4\\pi}{3}$.<br>
             $\\dfrac{4\\pi}{3}-2\\pi=-\\dfrac{2\\pi}{3}\\in ${choix}$.<br>
-             Le réel $-\\dfrac{2\\pi}{3}$  est associé au point $M$ dans $${choix}$.   `
+             Le réel $${miseEnEvidence('-\\dfrac{2\\pi}{3}')}$  est associé au point $M$ dans $${choix}$.   `
           this.reponse = '-\\dfrac{2\\pi}{3}'
         }
 
@@ -350,11 +352,11 @@ export default function PointSurCercleTrigo () {
         `
         this.question += `${objet}`
         if (choix === '[0\\,;\\,2\\pi[' || choix === '[\\pi\\,;\\,3\\pi[') {
-          this.correction = `Le réel $\\dfrac{3\\pi}{2}$  est associé au point $L$ dans $${choix}$.   `
+          this.correction = `Le réel $${miseEnEvidence('\\dfrac{3\\pi}{2}')}$  est associé au point $L$ dans $${choix}$.   `
           this.reponse = '\\dfrac{3\\pi}{2}'
         }
         if (choix === ']-\\pi\\,;\\,\\pi]' || choix === ']-2\\pi\\;\\ 0]') {
-          this.correction = `Le réel $-\\dfrac{\\pi}{2}$  est associé au point $L$ dans $${choix}$.   `
+          this.correction = `Le réel $${miseEnEvidence('-\\dfrac{\\pi}{2}')}$  est associé au point $L$ dans $${choix}$.   `
           this.reponse = '-\\dfrac{\\pi}{2}'
         }
 
@@ -369,11 +371,11 @@ export default function PointSurCercleTrigo () {
         if (choix === '[0\\,;\\,2\\pi[' || choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le point $N$ est le point-image de $-\\dfrac{\\pi}{3}$.<br>
           $-\\dfrac{\\pi}{3}+2\\pi=\\dfrac{5\\pi}{3}\\in ${choix}$.<br>
-           Le réel $\\dfrac{5\\pi}{3}$  est associé au point $N$ dans $${choix}$.   `
+           Le réel $${miseEnEvidence('\\dfrac{5\\pi}{3}')}$  est associé au point $N$ dans $${choix}$.   `
           this.reponse = '\\dfrac{5\\pi}{3}'
         }
         if (choix === ']-\\pi\\,;\\,\\pi]' || choix === ']-2\\pi\\;\\ 0]') {
-          this.correction = `Le réel $-\\dfrac{\\pi}{3}$  est associé au point $N$ dans $${choix}$.   `
+          this.correction = `Le réel $${miseEnEvidence('-\\dfrac{\\pi}{3}')}$  est associé au point $N$ dans $${choix}$.   `
           this.reponse = '-\\dfrac{\\pi}{3}'
         }
 
@@ -388,11 +390,11 @@ export default function PointSurCercleTrigo () {
         if (choix === '[0\\,;\\,2\\pi[' || choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le point $P$ est le point-image de $-\\dfrac{\\pi}{4}$.<br>
           $-\\dfrac{\\pi}{4}+2\\pi=\\dfrac{7\\pi}{4}\\in ${choix}$.<br>
-           Le réel $\\dfrac{7\\pi}{4}$  est associé au point $P$ dans $${choix}$.   `
+           Le réel $${miseEnEvidence('\\dfrac{7\\pi}{4}')}$  est associé au point $P$ dans $${choix}$.   `
           this.reponse = '\\dfrac{7\\pi}{4}'
         }
         if (choix === ']-\\pi\\,;\\,\\pi]' || choix === ']-2\\pi\\;\\ 0]') {
-          this.correction = `Le réel $-\\dfrac{\\pi}{4}$  est associé au point $P$ dans $${choix}$.   `
+          this.correction = `Le réel $${miseEnEvidence('-\\dfrac{\\pi}{4}')}$  est associé au point $P$ dans $${choix}$.   `
           this.reponse = '-\\dfrac{\\pi}{4}'
         }
 
@@ -407,11 +409,11 @@ export default function PointSurCercleTrigo () {
         if (choix === '[0\\,;\\,2\\pi[' || choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le point $Q$ est le point-image de $-\\dfrac{\\pi}{6}$.<br>
           $-\\dfrac{\\pi}{6}+2\\pi=\\dfrac{11\\pi}{6}\\in ${choix}$.<br>
-           Le réel $\\dfrac{11\\pi}{6}$  est associé au point $Q$ dans $${choix}$.   `
+           Le réel $${miseEnEvidence('\\dfrac{11\\pi}{6}')}$  est associé au point $Q$ dans $${choix}$.   `
           this.reponse = '\\dfrac{11\\pi}{6}'
         }
         if (choix === ']-\\pi\\,;\\,\\pi]' || choix === ']-2\\pi\\;\\ 0]') {
-          this.correction = `Le réel $-\\dfrac{\\pi}{6}$  est associé au point $Q$ dans $${choix}$.   `
+          this.correction = `Le réel $${miseEnEvidence('-\\dfrac{\\pi}{6}')}$  est associé au point $Q$ dans $${choix}$.   `
           this.reponse = '-\\dfrac{\\pi}{6}'
         }
 

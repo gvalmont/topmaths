@@ -146,7 +146,7 @@ export default class nomExercice extends Exercice {
   constructor () {
     super()
     this.consigne = ''
-    this.nbQuestions = 10
+    this.nbQuestions = 5
   }
 
   nouvelleVersion () {
@@ -154,16 +154,19 @@ export default class nomExercice extends Exercice {
     this.listeCorrections = []
     this.autoCorrection = []
 
-    const questions = [questionPointvNorm, questionPointvDir, questionDeuxPoints, questionHauteur, questionMediatrice]
+    const questions = [questionPointvNorm,
+		       questionPointvDir,
+		       questionDeuxPoints,
+		       questionHauteur,
+		       questionMediatrice]
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-	    const [texte, texteCorr] = questions[i](i)
-	    if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
-        i++
-	    }
-	    cpt++
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
+      const [texte, texteCorr] = questions[i%questions.length](i)
+      if (this.questionJamaisPosee(i, texte)) {
+	this.listeQuestions.push(texte)
+	this.listeCorrections.push(texteCorr)
+	i++
+      }
     }
     listeQuestionsToContenu(this)
   }

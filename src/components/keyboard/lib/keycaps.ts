@@ -339,6 +339,8 @@ const basicKeys = {
     insert: '\\omega'
   },
   // ================== hours, minutes, secondes
+  WEEK: { display: '$\\tiny\\text{semaines}$', insert: '{\\:\\text{semaines}\\:}' },
+  DAY: { display: 'j', insert: '{\\:\\text{j}\\:}' },
   HOUR: { display: 'h', insert: '{\\:\\text{h}\\:}' },
   MIN: { display: 'min', insert: '{\\:\\text{min}\\:}' },
   SEC: { display: 's', insert: '{\\:\\text{s}\\:}' },

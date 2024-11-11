@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
-import { factorisationCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Factoriser une expression'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,7 +25,7 @@ export default function Factoriser () {
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = ''
-  this.compare = factorisationCompare
+  this.compare = fonctionComparaison
   this.nouvelleVersion = function () {
     const r = choice([2, 3, 5])
     const couplenm = choice([[2, 3], [3, 4], [2, 5], [3, 5], [4, 5], [5, 6], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [3, 8], [5, 8], [7, 8], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [3, 10], [7, 10], [9, 10]]) // n et m sont premiers entre eux

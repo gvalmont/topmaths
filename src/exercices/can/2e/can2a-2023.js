@@ -11,7 +11,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/ou
 import { texPrix } from '../../../lib/format/style'
 import { abs, arrondi, range1 } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString.js'
-import { factorisationCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -145,7 +145,7 @@ export default function SujetCAN2023Seconde () {
           n = couplenm[0]
           m = couplenm[1] * choice([-1, 1])
           f = choice(['a', 'b', 'y', 'x'])
-          handleAnswers(this, index, { reponse: { value: `${f}(${n}${ecritureAlgebrique(m)}${f})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: `${f}(${n}${ecritureAlgebrique(m)}${f})`, compare: fonctionComparaison } }, { formatInteractif: 'calcul' })
           // reponse = [`${f}(${n}+${m}${f})`, `${f}(${m}${f}+${n})`]
           if (choice([true, false])) {
             texte = ` Factoriser $${n}${f}${ecritureAlgebrique(m)}${f}^2$`

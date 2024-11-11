@@ -1,0 +1,69 @@
+import Exercice from '../../Exercice'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+export const titre = 'Calculer avec les chiffres'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const uuid = '24246'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
+/**
+ * Modèle d'exercice très simple pour la course aux nombres
+ * @author Eric Elter - Gilles Mora
+ * Référence
+*/
+export default class calcAvecChiffresPrio extends Exercice {
+  constructor () {
+    super()
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.nbQuestions = 1
+    this.optionsChampTexte = { texteAvant: ' $=$' }
+    this.formatChampTexte = KeyboardType.clavierDeBase
+    this.compare = fonctionComparaison
+    //this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  }
+
+  nouvelleVersion () {
+    this.listeCanEnonces = []
+    this.listeCanReponsesACompleter = []
+    const choix = choice([1, 2, 3, 4, 5, 6])
+
+    if (choix === 1) {
+      this.question = '$2\\times 0+2 \\times 5$'
+      this.correction = `$2\\times 0+2 \\times 5=${miseEnEvidence(texNombre(10, 0))}$`
+      this.reponse = 10
+    }
+    if (choix === 2) {
+      this.question = '$20 \\times 2+5$'
+      this.correction = `$20 \\times 2+5=${miseEnEvidence(texNombre(45, 0))}$`
+      this.reponse = 45
+    }
+    if (choix === 3) {
+      this.question = '$20+2\\times 5$'
+      this.correction = `$20+2\\times 5=${miseEnEvidence(texNombre(30, 0))}$`
+      this.reponse = 30
+    }
+    if (choix === 4) {
+      this.question = '$2+ 0 \\times 25$'
+      this.correction = `$2+ 0 \\times 25=${miseEnEvidence(texNombre(2, 0))}$`
+      this.reponse = 2
+    }
+    if (choix === 5) {
+      this.question = '$2\\times (0+2+ 5)$'
+      this.correction = `$2\\times (0+2+ 5)=${miseEnEvidence(texNombre(14, 0))}$`
+      this.reponse = 14
+    }
+    if (choix === 6) {
+      this.question = '$(20+2)\\times 5$'
+      this.correction = `$(20+2)\\times 5=${miseEnEvidence(texNombre(110, 0))}$`
+      this.reponse = 110
+    }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
+  }
+}

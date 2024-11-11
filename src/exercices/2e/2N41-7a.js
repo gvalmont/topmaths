@@ -6,7 +6,9 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { pgcd } from '../../lib/outils/primalite'
 import { rienSi1 } from '../../lib/outils/ecritures'
-import { factorisationCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Factoriser avec les identités remarquables'
 export const interactifReady = true
@@ -15,7 +17,6 @@ export const interactifType = 'mathLive'
 /**
  * Factoriser en utilisant les 3 identités remarquables
 * @author Jean-Claude Lhote
-* 2N41-7a
 */
 export const uuid = '0bd00'
 export const ref = '2N41-7a'
@@ -23,13 +24,9 @@ export const refs = {
   'fr-fr': ['2N41-7a'],
   'fr-ch': ['11FA3-5']
 }
-// fonction de comparaison de deux expressions factorisées
-// @todo à déplacer dans comparisonFunctions.ts lors de la fusion de handleAnswer
 
 export default function FactoriserIdentitesRemarquables2 () {
   Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Factoriser les expressions suivantes.'
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 1
@@ -38,7 +35,7 @@ export default function FactoriserIdentitesRemarquables2 () {
   this.sup = 1
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+    this.consigne = this.nbQuestions === 1 ? 'Factoriser l\'expression suivante.' : 'Factoriser les expressions suivantes.'
     const listeFractions = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],
       [1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8],
       [1, 9], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]]
@@ -139,9 +136,20 @@ export default function FactoriserIdentitesRemarquables2 () {
           break
       }
       reponseAttendue = reponseAttendue.replaceAll('dfrac', 'frac')
-      texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, '  college6e ml-2')
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable, { texteAvant: ' $=$' })
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '')
 
-      handleAnswers(this, i, { reponse: { value: reponseAttendue, compare: factorisationCompare } }, { formatInteractif: 'mathlive' })
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+      // Fin de cette uniformisation
+
+      handleAnswers(this, i, { reponse: { value: reponseAttendue, compare: fonctionComparaison, options: { factorisation: true } } })
       if (this.questionJamaisPosee(i, a, b, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

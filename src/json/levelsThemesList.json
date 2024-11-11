@@ -987,14 +987,8 @@
       "titre":"Combinatoire et dénombrement"
     },
       "TSG2": {
-        "titre":"Vecteurs, des droites et des plans de l'espace"
+        "titre":"Géométrie dans l'espace"
       },
-      "TSG3": {
-      "titre":"Orthogonalité et distances dans l'espace"
-    },
-    "TSG4": {
-      "titre":"Représentation paramétriques et équations cartésiennes"
-    },
   "TExC1": {
     "titre": "Calculs avec nombres complexes",
     "sousThemes": {}

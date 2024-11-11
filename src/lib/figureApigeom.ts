@@ -44,14 +44,25 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
 
   // Pour revoir la copie de l'élève dans Capytale
   // Attention, la clé de answers[] doit contenir apigeom, c'est pourquoi l'id est généré par cette fonction
-  document.addEventListener(idApigeom, (event: Event) => {
+  function idApigeomFunct (event: Event) : void {
+    if (!figure.container) {
+      // figure effacée, donc on annule la mise à jour...
+      document.removeEventListener(idApigeom, idApigeomFunct)
+      return
+    }
     const customEvent = event as CustomEvent
     const json = customEvent.detail
     figure.loadJson(JSON.parse(json))
-  })
+  }
+  document.addEventListener(idApigeom, idApigeomFunct)
 
   let oldZoom = 1
   function updateZoom (event: Event) : void {
+    if (!figure.container) {
+      // figure effacée, donc on annule la mise à jour...
+      document.removeEventListener('zoomChanged', updateZoom)
+      return
+    }
     // console.log('ExZoom:' + idApigeom)
     const customEvent = event as CustomEvent
     const zoom = Number(customEvent.detail.zoom)
@@ -64,6 +75,13 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
   document.addEventListener('zoomChanged', updateZoom)
 
   function updateAffichage (): void {
+    if (!figure.container) {
+      // figure effacée, donc on annule la mise à jour...
+      document.removeEventListener('exercicesAffiches', updateAffichage)
+      document.removeEventListener('zoomChanged', updateZoom)
+      document.removeEventListener(idApigeom, idApigeomFunct)
+      return
+    }
     // console.log('ExAff:' + idApigeom)
     if (!context.isHtml) {
       // document.removeEventListener('exercicesAffiches', updateAffichage)

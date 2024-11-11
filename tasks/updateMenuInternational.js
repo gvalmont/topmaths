@@ -164,7 +164,7 @@ async function readInfos (
                 if (matchInteractif && matchInteractif[1] === 'true') {
                   infos.features.interactif = {
                     isActive: true,
-                    type: matchInteractifType[1] || ''
+                    type: matchInteractifType?.[1] || ''
                   }
                 } else {
                   infos.features.interactif = {
@@ -185,7 +185,7 @@ async function readInfos (
                     type: ''
                   }
                 }
-                const matchQcm = data.match(/extends ExerciceQcm/)
+                const matchQcm = data.match(/(= propositionsQcm\()|(extends ExerciceQcm)/)
                 if (matchQcm) {
                   infos.features.qcm = {
                     isActive: true,
@@ -315,10 +315,38 @@ const createFiles = (
     )
     delete referentiel['Géométrie dynamique']
   }
+  sortQcmInReferentiel(referentiel, codePays)
   fs.writeFile(
     'src/json/referentiel2022' + codePays + '.json',
     JSON.stringify(referentiel, null, 2).replaceAll('"c3"', '"CM1/CM2"')
   )
+}
+
+function sortQcmInReferentiel (referentiel, codePays) {
+  /**
+   * Seulement pour le référentiel français
+   * On suppose que le référentiel est de la forme level > theme > exercice
+   * On ne gère donc pas le référentiel CAN
+   * Si un exercice a un id qui contient 'QCM', on le déplace dans le sous-thème QCM
+   */
+  if (codePays !== 'FR') {
+    return
+  }
+  for (const level in referentiel) {
+    if (level === 'CAN') continue
+    for (const theme in referentiel[level]) {
+      for (const exercice in referentiel[level][theme]) {
+        if (referentiel[level][theme][exercice]?.id && referentiel[level][theme][exercice]?.id.includes('QCM')) {
+          const exerciceQcm = referentiel[level][theme][exercice]
+          if (referentiel[level][theme].QCM === undefined) {
+            referentiel[level][theme].QCM = {}
+          }
+          referentiel[level][theme].QCM[exerciceQcm.id] = { ...exerciceQcm }
+          delete referentiel[level][theme][exercice]
+        }
+      }
+    }
+  }
 }
 
 /**

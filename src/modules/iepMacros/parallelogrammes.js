@@ -32,7 +32,7 @@ export function parallelogramme3sommetsConsecutifs (A, B, C, nomD = '', descript
   if (description) {
     this.textePosition(`${A.nom + B.nom + C.nom + D.nom} est un parallélogramme donc ses côtés opposés sont de même longueur.`, xMin - 1, yMin - 1)
   }
-   this.compasEcarter2Points(B, A)
+  this.compasEcarter2Points(B, A)
   this.textePosition(`${B.nom + A.nom} = ${C.nom + D.nom}`, xMin - 1, yMin - 2)
   this.compasTracerArcCentrePoint(C, D)
   this.compasEcarter2Points(B, C)

@@ -19,17 +19,16 @@ export const refs = {
 export const uuid = 'testEE'
 
 const engine = new ComputeEngine()
-console.info(JSON.stringify(engine.parse('12+(-2)', { canonical: false }).json))
-console.log(JSON.stringify(engine.parse('12+(-2)', { canonical: false }).json).includes('Negate'))
-console.log(JSON.stringify(engine.parse('12+(-2)', { canonical: false }).json).includes('Delimiter'))
-console.log(JSON.stringify(engine.parse('12+(-2)', { canonical: false }).json).includes('Negate') && !JSON.stringify(engine.parse('12+(-2)', { canonical: false }).json).includes('Delimiter'))
-console.log(JSON.stringify(engine.parse('12-2', { canonical: false }).json).includes('Negate') && !JSON.stringify(engine.parse('12-2', { canonical: false }).json).includes('Delimiter'))
+const toto = engine.parse('12+0', { canonical: false })
+console.info(toto.ops, toto.ops[1], toto.ops[1].value)
+console.info(engine.parse('12+0', { canonical: true }))
+
 // -> ["Add",12,["Delimiter",["Negate",2]]]
 
-// console.log(engine.parse('(2+x)^2').isEqual(engine.parse('(2+x)(2+x)'))) // -> true OK of course
-/* console.log(engine.parse('2^6').isEqual(engine.parse('-2^6'))) // -> false OK
-console.log(engine.parse('(-2)^6').isEqual(engine.parse('2^6'))) // -> true
-console.log(engine.parse('(-2)^6').isSame(engine.parse('-2^6'))) // -> false
+// console.info(engine.parse('(2+x)^2').isEqual(engine.parse('(2+x)(2+x)'))) // -> true OK of course
+/* console.info(engine.parse('2^6').isEqual(engine.parse('-2^6'))) // -> false OK
+console.info(engine.parse('(-2)^6').isEqual(engine.parse('2^6'))) // -> true
+console.info(engine.parse('(-2)^6').isSame(engine.parse('-2^6'))) // -> false
 */
 
 /* console.info('-\\dfrac12'.replace(/^-\\dfrac(?:(\d)(\d)|{(-?\d+)}{(-?\d+)})$/i, function (match, p1, p2, p3, p4) {
@@ -57,7 +56,7 @@ export default function desTestsPourInteractivité () {
       a = randint(1, 12)
       b = randint(2, 12)
 
-      // console.log(fonctionComparaison('16^1', '16', { sansExposantUn: true }).isOk)
+      // console.info(fonctionComparaison('16^1', '16', { sansExposantUn: true }).isOk)
 
       const reponse = '4+6'
       // const reponse = new FractionEtendue(-20, 50).valeurDecimale

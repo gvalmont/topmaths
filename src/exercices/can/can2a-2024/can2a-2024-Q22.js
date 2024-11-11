@@ -31,7 +31,7 @@ export default class NomExercice extends Exercice {
       this.question = `On lance un dé à six faces numérotées de 1 à 6. <br>
         La probabilité d’obtenir un nombre  premier est : `
 
-      this.correction = `Comme il y a $3$ nombres premiers inférieurs ou égaux à $6$ ($2$, $3$ et $5$), la probabilité d'obtenir un nombre premier  est $\\dfrac{3}{6}=${miseEnEvidence(this.reponse)}$.`
+      this.correction = `Comme il y a $3$ nombres premiers inférieurs ou égaux à $6$ ($2$, $3$ et $5$), la probabilité d'obtenir un nombre premier est $\\dfrac{3}{6}=${miseEnEvidence(this.reponse)}$.`
       this.canEnonce = `On lance un dé à six faces numérotées de 1 à 6. <br>
       La probabilité d’obtenir un nombre  premier est : `
       this.canReponseACompleter = '$\\ldots$'
@@ -72,7 +72,7 @@ export default class NomExercice extends Exercice {
           this.reponse = new FractionEtendue(5, 6).texFraction
           this.question = `On lance un dé cubique équilibré.<br> 
                       La probabilité d’obtenir un  diviseur de $12$  est : `
-          this.correction = `Comme il y a $5$ diviseurs de $12$, la probabilité d'obtenir undiviseur de $12$  est $${miseEnEvidence(this.reponse)}$.`
+          this.correction = `Comme il y a $5$ diviseurs de $12$, la probabilité d'obtenir un diviseur de $12$  est $${miseEnEvidence(this.reponse)}$.`
           this.canEnonce = `On lance un dé cubique équilibré.<br> 
           La probabilité d’obtenir un  diviseur de $12$  est : `
           this.canReponseACompleter = '$\\ldots$'

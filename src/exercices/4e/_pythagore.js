@@ -1,6 +1,7 @@
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { arrondi } from '../../lib/outils/nombres'
+import { orangeMathalea } from '../../lib/colors'
 
 /**
    * Crée une rédaction du théorème de Pythagore adaptée à la recherche de l'hypoténuse ou d'un côté de l'angle droit
@@ -21,10 +22,11 @@ import { arrondi } from '../../lib/outils/nombres'
    * @author Eric Elter
    * @return {[string, string]} // Le premier élément du tableau est la rédaction complète, le second élément du tableau est le signe égal (ou arrondi) qui peut être utilisé si besoin pour introduire l'interactif.
    */
-export function RedactionPythagore (A = 'A', B = 'B', C = 'C', rechercheHypotenuse = 1, AB = 3, AC = 4, BC = 5, unite = 'cm', couleurReponse = '#f15929') {
+export function RedactionPythagore (A = 'A', B = 'B', C = 'C', rechercheHypotenuse = 1, AB = 3, AC = 4, BC = 5, unite = 'cm', couleurReponse = orangeMathalea) {
   let texte, signeEgal
   texte = `Le triangle $${A + B + C}$ est rectangle en $${A}$ donc d'après le théorème de Pythagore, on a : `
-  texte += `<br> $${B + C}^2=${A + B}^2+${A + C}^2$`
+  if (rechercheHypotenuse === 1 || rechercheHypotenuse === 2) texte += `<br> $${B + C}^2=${A + B}^2+${A + C}^2$`
+  else texte += `<br> $${miseEnEvidence(`${B + C}^2=${A + B}^2+${A + C}^2`)}$`
   if (rechercheHypotenuse === 1) {
     texte += `<br> $${B + C}^2=${texNombre(AB, 2)}^2+${texNombre(AC, 2)}^2$`
     texte += `<br> $${B + C}^2=${texNombre(AB ** 2)}+${texNombre(AC ** 2)}$`

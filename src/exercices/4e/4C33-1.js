@@ -17,7 +17,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const dateDeModifImportante = '14/09/2023'
+export const dateDeModifImportante = '05/11/2024'
 /**
  * Puissances d'un relatif (1)
  * * L\'objectif est de travailler le sens des règles de calcul sur les puissances plutôt que les formules magiques
@@ -69,7 +69,6 @@ export default function PuissancesDunRelatif1 () {
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.nbQuestions = 5
   this.correctionDetailleeDisponible = true
-  this.nbColsCorr = 1
   this.sup = 5
   this.sup2 = 1
   this.classe = 4
@@ -146,7 +145,7 @@ export default function PuissancesDunRelatif1 () {
 
       switch (listeTypeDeQuestions[i]) {
         case 1: // produit de puissances de même base
-          texte = `$${lettre}=${baseUtile}^${exp[0]}\\times ${baseUtile}^${exp[1]}$`
+          texte = `$${lettre}=${baseUtile}^{${exp[0]}}\\times ${baseUtile}^{${exp[1]}}$`
 
           // texteCorr += `$${lettre}=${baseUtile}^${exp[0]}\\times ${baseUtile}^${exp[1]}$`
           if (this.correctionDetaillee) {
@@ -166,10 +165,10 @@ export default function PuissancesDunRelatif1 () {
           }
           texteCorr += remarquesPuissances(base, baseUtile, exp[1] + exp[0])
           if (base < 0 && ((exp[0] + exp[1]) % 2) === 0) {
-            reponseInteractive = [`${baseUtile}^${exp[1] + exp[0]}`, `${-base}^${exp[1] + exp[0]}`]
+            reponseInteractive = [`${baseUtile}^{${exp[1] + exp[0]}}`, `${-base}^{${exp[1] + exp[0]}}`]
             baseUtileBisAMC = -base
           } else {
-            reponseInteractive = `${baseUtile}^${exp[1] + exp[0]}`
+            reponseInteractive = `${baseUtile}^{${exp[1] + exp[0]}}`
           }
           exposantInteractif = exp[1] + exp[0]
           break
@@ -183,7 +182,7 @@ export default function PuissancesDunRelatif1 () {
             couleurExp1 = coul0
           }
 
-          texte = `$${lettre}=\\dfrac{${baseUtile}^${exp[0]}}{${baseUtile}^${exp[1]}}$`
+          texte = `$${lettre}=\\dfrac{${baseUtile}^{${exp[0]}}}{${baseUtile}^{${exp[1]}}}$`
 
           if (this.correctionDetaillee) {
             texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(baseUtile, exp[0], couleurExp0)}}{${eclatePuissance(baseUtile, exp[1], couleurExp1)}}$`
@@ -257,20 +256,20 @@ export default function PuissancesDunRelatif1 () {
           }
           texteCorr += remarquesPuissances(base, baseUtile, exp[0] - exp[1])
           if (base < 0 && ((exp[0] - exp[1]) % 2) === 0) {
-            reponseInteractive = [`${baseUtile}^${exp[0] - exp[1]}`, `${-base}^${exp[0] - exp[1]}`]
+            reponseInteractive = [`${baseUtile}^{${exp[0] - exp[1]}}`, `${-base}^{${exp[0] - exp[1]}}`]
             baseUtileBisAMC = -base
           } else {
-            reponseInteractive = `${baseUtile}^${exp[0] - exp[1]}`
+            reponseInteractive = `${baseUtile}^{${exp[0] - exp[1]}}`
           }
           exposantInteractif = exp[0] - exp[1]
           break
         case 3: // exponentiation
           exp = [randint(2, 4), randint(2, 4)] // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues et pour éviter 1
-          texte = `$${lettre}=(${baseUtile}^${exp[0]})^{${exp[1]}}$`
+          texte = `$${lettre}=(${baseUtile}^{${exp[0]}})^{${exp[1]}}$`
 
           if (this.correctionDetaillee) {
             texteCorr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(
-                            `(${baseUtile}^${exp[0]})`,
+                            `(${baseUtile}^{${exp[0]}})`,
                             exp[1],
                             coul0
                         )}}_{${exp[1]}\\thickspace\\text{facteurs}}}$`
@@ -298,10 +297,10 @@ export default function PuissancesDunRelatif1 () {
           }
           texteCorr += remarquesPuissances(base, baseUtile, exp[0] * exp[1])
           if (base < 0 && (exp[0] * exp[1] % 2) === 0) {
-            reponseInteractive = [`${baseUtile}^${exp[0] * exp[1]}`, `${-base}^${exp[0] * exp[1]}`]
+            reponseInteractive = [`${baseUtile}^{${exp[0] * exp[1]}}`, `${-base}^{${exp[0] * exp[1]}}`]
             baseUtileBisAMC = -base
           } else {
-            reponseInteractive = `${baseUtile}^${exp[0] * exp[1]}`
+            reponseInteractive = `${baseUtile}^{${exp[0] * exp[1]}}`
           }
           exposantInteractif = exp[0] * exp[1]
           break
@@ -310,8 +309,8 @@ export default function PuissancesDunRelatif1 () {
           base1 = randint(2, 8, [4, 6, base0])
           base = [base0, base1] // on choisit 2 bases différentes c'est mieux
           exp = randint(2, 5, 6) // on choisit un exposant
-          texte = `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`
-          texteCorr += `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`
+          texte = `$${lettre}=${base[0]}^{${exp}}\\times ${base[1]}^{${exp}}$`
+          texteCorr += `$${lettre}=${base[0]}^{${exp}}\\times ${base[1]}^{${exp}}$`
 
           if (this.correctionDetaillee) {
             texteCorr += '<br>'
@@ -332,9 +331,9 @@ export default function PuissancesDunRelatif1 () {
           texteCorr += '<br>'
           texteCorr += `$${lettre}= (\\color{${coul0}}{\\mathbf{${base[0]
                     }}} \\color{black}{\\times} \\color{${coul1}}{\\mathbf{${base[1]
-                    }}}\\color{black}{)^{${exp}}}=${miseEnEvidence(`${base[0] * base[1]}^${exp}`)}$`
+                    }}}\\color{black}{)^{${exp}}}=${miseEnEvidence(`${base[0] * base[1]}^{${exp}}`)}$`
           // Ici la base ne peut jamais être négative
-          reponseInteractive = `${base[0] * base[1]}^${exp}`
+          reponseInteractive = `${base[0] * base[1]}^{${exp}}`
           baseUtile = base[0] * base[1]
           baseUtileBisAMC = base[0] * base[1] // juste pour ne pas avoir à ajouter une batterie de lignes spécifiques pour ce cas, je mets deux fois la même chose
           base = baseUtile

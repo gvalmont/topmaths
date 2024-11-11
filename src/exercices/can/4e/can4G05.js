@@ -4,7 +4,6 @@ import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellisseme
 import { texRacineCarree } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer la diagonale d’un carré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,7 +26,6 @@ export default class DiagonaleCarre extends Exercice {
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
     // this.formatInteractif = 'calcul'
     this.compare = fonctionComparaison
   }

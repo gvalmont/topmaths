@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { factorisationCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../../lib/outils/ecritures'
 export const titre = 'Factoriser avec un facteur commun'
@@ -23,7 +23,7 @@ export default class Fatorisation1 extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
     this.formatInteractif = 'calcul'
-    this.compare = factorisationCompare
+    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {

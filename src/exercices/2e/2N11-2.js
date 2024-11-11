@@ -39,9 +39,8 @@ export default function UnionEtIntersectionIntervallesDeR () {
     for (let i = 0, a, b, c, d, s, e, f, test, A, B, C, D, c1, c2, c3, c4, int, int1, int2, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typeDeQuestion = listeTypeDeQuestions[i]
       test = randint(1, 6)
-      texte = 'Donner, si possible, une écriture simplifiée de '
+      texte = 'Donner une écriture simplifiée, si possible, de '
       // variables qui alternent les ouvertures de crochets
-      texte += typeDeQuestion
       switch (typeDeQuestion) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
@@ -814,7 +813,7 @@ export default function UnionEtIntersectionIntervallesDeR () {
       }, listeObjets)
       if (this.questionJamaisPosee(i, a, b, c)) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i, ` ${KeyboardType.clavierCompare} ${KeyboardType.clavierEnsemble}`)
+          texte += ajouteChampTexteMathLive(this, i, ` ${KeyboardType.clavierCompare} ${KeyboardType.clavierEnsemble}`, { texteAvant: '<br>$I=$' })
           handleAnswers(this, i, { reponse: { value: aRemplacer, compare: fonctionComparaison, options: { intervalle: true } } })
         }
         this.listeQuestions.push(texte)

@@ -191,7 +191,7 @@ export default class MetaExercice extends Exercice {
           const objetReponse = this.autoCorrection[indexQuestion]
           const enonce = 'enonce' in objetReponse ? objetReponse.enonce : ''
           this.listeQuestions[indexQuestion] = consigne + enonce + monQcm.texte
-          this.listeCorrections[indexQuestion] = monQcm.texteCorr
+          if (this.listeCorrections[indexQuestion] == null) this.listeCorrections[indexQuestion] = monQcm.texteCorr
         }
         indexQuestion++
       }

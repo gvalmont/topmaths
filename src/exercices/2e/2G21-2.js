@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
@@ -22,20 +22,41 @@ export const refs = {
   'fr-fr': ['2G21-2'],
   'fr-ch': []
 }
-export default function SommeDeVecteurs () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1
 
-  this.nouvelleVersion = function () {
+export default class SommeDeVecteurs extends Exercice {
+  /**
+     * @type {Figure[]}
+  */
+  figureApig = []
+  /**
+     * @type {Figure[]}
+   */
+  figureApigCorr = []
+
+  constructor () {
+    super()
+    this.nbQuestions = 1
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 1
+    this.besoinFormulaireTexte = ['Situations différentes ', '1 : 2 vecteurs depuis l\'origine\n2 : 1 seul vecteur depuis l\'origine\n3 : Aucun vecteur depuis l\'origine\n4 : Mélange']
+  }
+
+  nouvelleVersion = function () {
     this.longueur = 10
     this.largeur = 10
-    /**
-     * @type {Figure[]}
-     */
-    this.figure = []
+    this.figureApig.forEach((fig) => {
+      fig.clearHtml()
+      fig.svg = null
+      fig.container = null
+    })
+    this.figureApigCorr.forEach((fig) => {
+      fig.clearHtml()
+      fig.svg = null
+      fig.container = null
+    })
+    this.figureApig = []
+    this.figureApigCorr = []
     let choix = 1
     let choixU
     let choixV
@@ -73,7 +94,7 @@ export default function SommeDeVecteurs () {
           choixV = 'pas0rigine'
           break
       }
-      this.figure[i] = new Figure({
+      this.figureApig[i] = new Figure({
         xMin: -this.longueur - 0.25, // On enlève 0.25 unités
         yMin: -this.largeur - 0.25,
         width: 0.65 * (this.longueur * 2 * 30 + 20), // On ajoute 20 pixels
@@ -83,7 +104,7 @@ export default function SommeDeVecteurs () {
       })
 
       // Préparation de la correction animée
-      const figureCorrection = new Figure({
+      this.figureApigCorr[i] = new Figure({
         xMin: -this.longueur - 0.25, // On enlève 0.25 unités
         yMin: -this.largeur - 0.25,
         width: 0.65 * (this.longueur * 2 * 30 + 20), // On ajoute 20 pixels
@@ -92,7 +113,7 @@ export default function SommeDeVecteurs () {
         scale: 0.65
       })
 
-      this.figure[i].grid = this.figure[i].create('Grid', {
+      this.figureApig[i].grid = this.figureApig[i].create('Grid', {
         strokeWidthGrid: 1,
         yMin: -this.largeur + 0.1,
         yMax: this.largeur - 0.1,
@@ -105,7 +126,7 @@ export default function SommeDeVecteurs () {
         repereOij: true
       })
 
-      figureCorrection.grid = figureCorrection.create('Grid', {
+      this.figureApigCorr[i].grid = this.figureApigCorr[i].create('Grid', {
         strokeWidthGrid: 1,
         yMin: -this.largeur + 0.1,
         yMax: this.largeur - 0.1,
@@ -118,14 +139,14 @@ export default function SommeDeVecteurs () {
         repereOij: true
       })
 
-      this.figure[i].snapGrid = true
-      this.figure[i].setToolbar({
+      this.figureApig[i].snapGrid = true
+      this.figureApig[i].setToolbar({
         tools: ['DRAG', 'REMOVE', 'VECTOR', 'POINT', 'SET_OPTIONS', 'NAME_POINT', 'ZOOM_IN', 'ZOOM_OUT', 'GRID']
         // position: 'top'
       })
-      this.figure[i].options.thickness = 3
-      this.figure[i].options.color = 'blue'
-      this.figure[i].buttons.get('POINT')?.click()
+      this.figureApig[i].options.thickness = 3
+      this.figureApig[i].options.color = 'blue'
+      this.figureApig[i].buttons.get('POINT')?.click()
 
       /*
       On construit au hasard :
@@ -138,95 +159,157 @@ export default function SommeDeVecteurs () {
       let xOrigin
       let yOrigin
       xSomme[i] = randint(0, 14) * choice([-1, 1])
-      ySomme[i] = randint(0, 14) * choice([-1, 1])
-      if (xSomme[i] <= -10) xOrigin = randint(5, 9)
-      else if (xSomme[i] <= -6) xOrigin = randint(1, 9)
-      else if (xSomme[i] <= -2) xOrigin = choice(rangeMinMax(-3, 9))
-      else if (xSomme[i] >= 10) xOrigin = choice(rangeMinMax(-9, -5))
-      else if (xSomme[i] >= 6) xOrigin = choice(rangeMinMax(-9, -1))
-      else if (xSomme[i] >= 2) xOrigin = choice(rangeMinMax(-9, 3))
-      else xOrigin = choice(rangeMinMax(-9, 8))
-      if (ySomme[i] <= -10) yOrigin = randint(5, 9)
-      else if (ySomme[i] <= -6) yOrigin = randint(1, 9)
-      else if (ySomme[i] <= -2) yOrigin = choice(rangeMinMax(-3, 9))
-      else if (ySomme[i] >= 10) yOrigin = choice(rangeMinMax(-9, -5))
-      else if (ySomme[i] >= 6) yOrigin = choice(rangeMinMax(-9, -1))
-      else if (ySomme[i] >= 2) yOrigin = choice(rangeMinMax(-9, 3))
-      else yOrigin = choice(rangeMinMax(-9, 8))
+      // il faut que le vecteur somme ait une longueur supérieure au moins à 5 unités par exemple
+      const val = 25 - xSomme[i] * xSomme[i]
+      ySomme[i] = (val <= 0) ? randint(0, 14) * choice([-1, 1]) : randint(Math.ceil(Math.sqrt(val)), 14) * choice([-1, 1])
+      const longueurVecteurSomme = Math.sqrt(xSomme[i] * xSomme[i] + ySomme[i] * ySomme[i])
+
+      if (xSomme[i] <= -10) xOrigin = randint(5, 8)
+      else if (xSomme[i] <= -6) xOrigin = randint(1, 8)
+      else if (xSomme[i] <= -2) xOrigin = randint(-3, 8)
+      else if (xSomme[i] >= 10) xOrigin = randint(-8, -5)
+      else if (xSomme[i] >= 6) xOrigin = randint(-8, -1)
+      else if (xSomme[i] >= 2) xOrigin = randint(-8, 3)
+      else xOrigin = randint(-6, 6)
+      if (ySomme[i] <= -10) yOrigin = randint(5, 8)
+      else if (ySomme[i] <= -6) yOrigin = randint(1, 8)
+      else if (ySomme[i] <= -2) yOrigin = randint(-3, 8)
+      else if (ySomme[i] >= 10) yOrigin = randint(-8, -5)
+      else if (ySomme[i] >= 6) yOrigin = randint(-8, -1)
+      else if (ySomme[i] >= 2) yOrigin = randint(-8, 3)
+      else yOrigin = randint(-6, 6)
 
       const numeroOrigine = randint(1, 26, [15]) // 15 : Pour éviter le point O
       const nomOrigine = lettreDepuisChiffre(numeroOrigine)
       const numeroExtremite = randint(1, 26, [15, numeroOrigine])
       nomExtremite[i] = lettreDepuisChiffre(numeroExtremite)
-      let pointOrigine = this.figure[i].create('Point', { x: xOrigin, y: yOrigin, label: nomOrigine, color: 'black', thickness: 3, isSelectable: false })
-      const pointOrigineCorrection = figureCorrection.create('Point', { x: xOrigin, y: yOrigin, label: nomOrigine, color: 'black', thickness: 3, isSelectable: false })
-      pointExtremite[i] = this.figure[i].create('Point', { x: xOrigin + xSomme[i], y: yOrigin + ySomme[i], isVisible: false })
-      const longueurVecteurSomme = Math.sqrt(xSomme[i] * xSomme[i] + ySomme[i] * ySomme[i])
+      let pointOrigine = this.figureApig[i].create('Point', { x: xOrigin, y: yOrigin, label: nomOrigine, color: 'black', thickness: 3, isSelectable: false })
+      const pointOrigineCorrection = this.figureApigCorr[i].create('Point', { x: xOrigin, y: yOrigin, label: nomOrigine, color: 'black', thickness: 3, isSelectable: false })
+      pointExtremite[i] = this.figureApig[i].create('Point', { x: xOrigin + xSomme[i], y: yOrigin + ySomme[i], isVisible: false })
 
-      let PointIntermediaire
       let distanceOrigineProjOrthogonal
       let distancePointIntermediaireProjOrthogonal
       let distanceVecteurSommeProfOrthogonal
-      let vecteur1
-      let vecteur2
-      let xPointIntermediaire
-      let yPointIntermediaire
-
+      let xPointIntermediaire, xPointSecondIntermediaire
+      let yPointIntermediaire, yPointSecondIntermediaire
+      let indice = 0
+      const vecteur2 = {}
+      const limitxgauche = pointOrigine.x + 9
+      const limitxdroite = 9 - pointOrigine.x
+      const limitygauche = pointOrigine.y + 9
+      const limitydroite = 9 - pointOrigine.y
       do {
-        xPointIntermediaire = choice(rangeMinMax(-9, 9, xOrigin))
-        yPointIntermediaire = choice(rangeMinMax(-9, 9, yOrigin))
-        PointIntermediaire = this.figure[i].create('Point', { x: xPointIntermediaire, y: yPointIntermediaire, isVisible: false })
-        distanceOrigineProjOrthogonal = ((PointIntermediaire.x - pointOrigine.x) * xSomme[i] + (PointIntermediaire.y - pointOrigine.y) * ySomme[i]) / Math.sqrt(xSomme[i] * xSomme[i] + ySomme[i] * ySomme[i])
-        distancePointIntermediaireProjOrthogonal = Math.sqrt((PointIntermediaire.x - pointOrigine.x) * (PointIntermediaire.x - pointOrigine.x) + (PointIntermediaire.y - pointOrigine.y) * (PointIntermediaire.y - pointOrigine.y))
-        vecteur1 = this.figure[i].create('VectorByPoints', { point1: pointOrigine, point2: PointIntermediaire, isVisible: false })
-        vecteur2 = this.figure[i].create('VectorByPoints', { point1: PointIntermediaire, point2: pointExtremite[i], isVisible: false })
+        // console.info('longueurVecteurSomme:', longueurVecteurSomme)
+        // console.info('limitxgauche:', limitxgauche)
+        // console.info('limitxdroite:', limitxdroite)
+        // console.info('limitygauche:', limitygauche)
+        // console.info('limitydroite:', limitydroite)
+        if (pointExtremite[i].x >= pointOrigine.x) {
+          xPointIntermediaire = randint(pointOrigine.x, pointOrigine.x + limitxdroite)
+          xPointSecondIntermediaire = pointExtremite[i].x + pointOrigine.x - xPointIntermediaire
+          // console.info('xPointIntermediaire:', xPointIntermediaire)
+          // console.info('xPointSecondIntermediaire:', xPointSecondIntermediaire)
+        } else {
+          xPointIntermediaire = randint(pointOrigine.x - limitxgauche, pointOrigine.x)
+          xPointSecondIntermediaire = pointExtremite[i].x + pointOrigine.x - xPointIntermediaire
+          // console.info('xPointIntermediaire:', xPointIntermediaire)
+          // console.info('xPointSecondIntermediaire:', xPointSecondIntermediaire)
+        }
+        while (xPointSecondIntermediaire > 9) {
+          xPointSecondIntermediaire--
+          xPointIntermediaire++
+          // console.info('while xPointIntermediaire:', xPointIntermediaire)
+          // console.info('while xPointSecondIntermediaire:', xPointSecondIntermediaire)
+        }
+        while (xPointSecondIntermediaire < -9) {
+          xPointSecondIntermediaire++
+          xPointIntermediaire--
+        }
+        if (pointExtremite[i].y >= pointOrigine.y) {
+          yPointIntermediaire = randint(pointOrigine.y, pointOrigine.y + limitydroite)
+          yPointSecondIntermediaire = pointExtremite[i].y + pointOrigine.y - yPointIntermediaire
+          // console.info('yPointIntermediaire:', yPointIntermediaire)
+          // console.info('yPointSecondIntermediaire:', yPointSecondIntermediaire)
+        } else {
+          yPointIntermediaire = randint(pointOrigine.y - limitygauche, pointOrigine.y)
+          yPointSecondIntermediaire = pointExtremite[i].y + pointOrigine.y - yPointIntermediaire
+          // console.info('yPointIntermediaire:', yPointIntermediaire)
+          // console.info('yPointSecondIntermediaire:', yPointSecondIntermediaire)
+        }
+        while (yPointSecondIntermediaire > 9) {
+          yPointSecondIntermediaire--
+          yPointIntermediaire++
+          // console.info('whileyPointIntermediaire:', yPointIntermediaire)
+          // console.info('whileyPointSecondIntermediaire:', yPointSecondIntermediaire)
+        }
+        while (yPointSecondIntermediaire < -9) {
+          yPointSecondIntermediaire++
+          yPointIntermediaire--
+          // console.info('whileyPointIntermediaire:', yPointIntermediaire)
+          // console.info('whileyPointSecondIntermediaire:', yPointSecondIntermediaire)
+        }
+        distanceOrigineProjOrthogonal = Math.abs(((xPointIntermediaire - pointOrigine.x) * xSomme[i] + (yPointIntermediaire - pointOrigine.y) * ySomme[i]) / Math.sqrt(xSomme[i] * xSomme[i] + ySomme[i] * ySomme[i]))
+        distancePointIntermediaireProjOrthogonal = Math.sqrt((xPointIntermediaire - pointOrigine.x) * (xPointIntermediaire - pointOrigine.x) + (yPointIntermediaire - pointOrigine.y) * (yPointIntermediaire - pointOrigine.y))
         distanceVecteurSommeProfOrthogonal = Math.sqrt(distancePointIntermediaireProjOrthogonal * distancePointIntermediaireProjOrthogonal - distanceOrigineProjOrthogonal * distanceOrigineProjOrthogonal)
-      } while (!(distanceVecteurSommeProfOrthogonal > 1 && distanceVecteurSommeProfOrthogonal * longueurVecteurSomme / 2 > 4 && pointOrigine.x + vecteur2.x < 9 && pointOrigine.x + vecteur2.x > -9 && pointOrigine.y + vecteur2.y < 9 && pointOrigine.y + vecteur2.y > -9))
+        // console.info('distanceVecteurSommeProfOrthogonal:', distanceVecteurSommeProfOrthogonal)
+        vecteur2.x = pointExtremite[i].x - xPointIntermediaire
+        vecteur2.y = pointExtremite[i].y - yPointIntermediaire
+        // console.info('aire:', distanceVecteurSommeProfOrthogonal * longueurVecteurSomme / 2)
+        // console.info('indice:', indice)
+        indice++
+      } while (indice < 50 && !(distanceVecteurSommeProfOrthogonal > 1 && distanceVecteurSommeProfOrthogonal * longueurVecteurSomme / 2 > 4 && pointOrigine.x + vecteur2.x <= 9 && pointOrigine.x + vecteur2.x >= -9 && pointOrigine.y + vecteur2.y <= 9 && pointOrigine.y + vecteur2.y >= -9))
       /* Explications des conditions du while
       distanceVecteurSommeProfOrthogonal > 1 : Pour que le projeté orthogonal de point1 sur le vecteur somme soit assez loin du vecteur (pour éviter des vecteurs presque colinéaires)
       distanceVecteurSommeProfOrthogonal * longueurVecteurSomme / 2 > 4 : Pour que le triangle formé par vecteur1, vecteur2 et vecteurSomme ait une aire suffisamment grande (pour éviter des vecteurs presque colinéaires)
       Autres conditions : pour que le PointIntermediaire soit sur la grille
       */
+      if (indice >= 50) {
+        window.notify('On a un problème houston!', { exercice: JSON.stringify(this) })
+      }
+      const vecteur1 = {}
+      vecteur1.x = xPointIntermediaire - pointOrigine.x
+      vecteur1.y = yPointIntermediaire - pointOrigine.y
+
       let pointOrigineChoix2X
       let pointOrigineChoix2Y
       let pointOrigineChoix2
       if (choixU === 'origine') {
-        this.figure[i].create('Vector', { origin: pointOrigine, x: vecteur1.x, y: vecteur1.y, color: 'blue', thickness: 3, label: '\\vec{u}', isSelectable: false })
-        figureCorrection.create('Vector', { origin: pointOrigine, x: vecteur1.x, y: vecteur1.y, color: 'blue', thickness: 3, label: '\\vec{u}', isSelectable: false })
+        this.figureApig[i].create('Vector', { origin: pointOrigine, x: vecteur1.x, y: vecteur1.y, color: 'blue', thickness: 3, label: '\\vec{u}', isSelectable: false })
+        this.figureApigCorr[i].create('Vector', { origin: pointOrigine, x: vecteur1.x, y: vecteur1.y, color: 'blue', thickness: 3, label: '\\vec{u}', isSelectable: false })
       } else {
         pointOrigineChoix2X = choice(rangeMinMax(Math.max(-9, -9 - vecteur1.x), Math.min(9, 9 - vecteur1.x), xOrigin))
         pointOrigineChoix2Y = choice(rangeMinMax(Math.max(-9, -9 - vecteur1.y), Math.min(9, 9 - vecteur1.y), yOrigin))
-        pointOrigineChoix2 = this.figure[i].create('Point', { x: pointOrigineChoix2X, y: pointOrigineChoix2Y, isVisible: false })
-        this.figure[i].create('Vector', { origin: pointOrigineChoix2, x: vecteur1.x, y: vecteur1.y, color: 'blue', thickness: 3, label: '\\vec{u}', isSelectable: false })
-        figureCorrection.create('Vector', { origin: pointOrigineChoix2, x: vecteur1.x, y: vecteur1.y, color: 'blue', thickness: 3, label: '\\vec{u}', isSelectable: false })
+        pointOrigineChoix2 = this.figureApig[i].create('Point', { x: pointOrigineChoix2X, y: pointOrigineChoix2Y, isVisible: false })
+        this.figureApig[i].create('Vector', { origin: pointOrigineChoix2, x: vecteur1.x, y: vecteur1.y, color: 'blue', thickness: 3, label: '\\vec{u}', isSelectable: false })
+        this.figureApigCorr[i].create('Vector', { origin: pointOrigineChoix2, x: vecteur1.x, y: vecteur1.y, color: 'blue', thickness: 3, label: '\\vec{u}', isSelectable: false })
       }
 
       let pointOrigineChoix3X
       let pointOrigineChoix3Y
       let pointOrigineChoix3
       if (choixV === 'origine') {
-        this.figure[i].create('Vector', { origin: pointOrigine, x: vecteur2.x, y: vecteur2.y, color: 'blue', thickness: 3, label: '\\vec{v}', isSelectable: false })
-        figureCorrection.create('Vector', { origin: pointOrigine, x: vecteur2.x, y: vecteur2.y, color: 'blue', thickness: 3, label: '\\vec{v}', isSelectable: false })
+        this.figureApig[i].create('Vector', { origin: pointOrigine, x: vecteur2.x, y: vecteur2.y, color: 'blue', thickness: 3, label: '\\vec{v}', isSelectable: false })
+        this.figureApigCorr[i].create('Vector', { origin: pointOrigine, x: vecteur2.x, y: vecteur2.y, color: 'blue', thickness: 3, label: '\\vec{v}', isSelectable: false })
       } else {
         pointOrigineChoix3X = choice(rangeMinMax(Math.max(-9, -9 - vecteur2.x), Math.min(9, 9 - vecteur2.x), xOrigin))
         pointOrigineChoix3Y = choice(rangeMinMax(Math.max(-9, -9 - vecteur2.y), Math.min(9, 9 - vecteur2.y), yOrigin))
-        pointOrigineChoix3 = this.figure[i].create('Point', { x: pointOrigineChoix3X, y: pointOrigineChoix3Y, isVisible: false })
-        this.figure[i].create('Vector', { origin: pointOrigineChoix3, x: vecteur2.x, y: vecteur2.y, color: 'blue', thickness: 3, label: '\\vec{v}', isSelectable: false })
-        figureCorrection.create('Vector', { origin: pointOrigineChoix3, x: vecteur2.x, y: vecteur2.y, color: 'blue', thickness: 3, label: '\\vec{v}', isSelectable: false })
+        pointOrigineChoix3 = this.figureApig[i].create('Point', { x: pointOrigineChoix3X, y: pointOrigineChoix3Y, isVisible: false })
+        this.figureApig[i].create('Vector', { origin: pointOrigineChoix3, x: vecteur2.x, y: vecteur2.y, color: 'blue', thickness: 3, label: '\\vec{v}', isSelectable: false })
+        this.figureApigCorr[i].create('Vector', { origin: pointOrigineChoix3, x: vecteur2.x, y: vecteur2.y, color: 'blue', thickness: 3, label: '\\vec{v}', isSelectable: false })
       }
 
-      pointOrigine = this.figure[i].create('Point', { x: xOrigin, y: yOrigin, label: nomOrigine, color: 'black', thickness: 3, isSelectable: false })
-      figureCorrection.create('Point', { x: xOrigin, y: yOrigin, label: nomOrigine, color: 'black', thickness: 3, isSelectable: false })
+      pointOrigine = this.figureApig[i].create('Point', { x: xOrigin, y: yOrigin, label: nomOrigine, color: 'black', thickness: 3, isSelectable: false })
+      this.figureApigCorr[i].create('Point', { x: xOrigin, y: yOrigin, label: nomOrigine, color: 'black', thickness: 3, isSelectable: false })
       texte = `Construire le point $${nomExtremite[i]}$ tel que $\\overrightarrow{${nomOrigine}${nomExtremite[i]}} = \\vec{u} + \\vec{v}$.<br>`
       texte += figureApigeom({
         exercice: this,
-        figure: this.figure[i],
+        figure: this.figureApig[i],
         i
       })
 
-      figureCorrection.options.animationStepInterval = 250
-      figureCorrection.grid.color = 'gray'
-      figureCorrection.grid.colorLabel = 'gray'
+      this.figureApigCorr[i].options.animationStepInterval = 250
+      this.figureApigCorr[i].grid.color = 'gray'
+      this.figureApigCorr[i].grid.colorLabel = 'gray'
 
       /* const vectorsBlue = [...figureCorrection.elements.values()].filter(e => e.color === 'blue')
       for (let ee = 0; ee < vectorsBlue.length; ee++) {
@@ -234,7 +317,7 @@ export default function SommeDeVecteurs () {
           vectorsBlue[ee].opacity = 0.5
         }
       } */
-      figureCorrection.setToolbar({ position: 'top', tools: ['RESTART', 'PLAY_SKIP_BACK', 'PLAY', 'PLAY_SKIP_FORWARD', 'PAUSE'] })
+      this.figureApigCorr[i].setToolbar({ position: 'top', tools: ['RESTART', 'PLAY_SKIP_BACK', 'PLAY', 'PLAY_SKIP_FORWARD', 'PAUSE'] })
       // figureCorrection.grid.isVisible = false
       // const visibleGrid = () => {
       // figureCorrection.grid.isVisible = !figureCorrection.grid.isVisible
@@ -246,67 +329,68 @@ export default function SommeDeVecteurs () {
         tooltip: 'Cacher/Afficher la grille',
         url: 'toto'
       }) */
-
+      this.figureApigCorr[i].stackUndo = []
+      this.figureApigCorr[i].stackRedo = []
+      this.figureApigCorr[i].saveState()
       const pointAnimation = []
       const vecteurAnimation = []
       if (choixV === 'origine' && choixU === 'origine') {
         for (let ee = 0; ee < 11; ee++) {
-          pointAnimation[ee] = figureCorrection.create('Point', { x: xOrigin + (xPointIntermediaire - xOrigin) * ee / 10, y: yOrigin + (yPointIntermediaire - yOrigin) * ee / 10, isVisible: false })
-          vecteurAnimation[ee] = figureCorrection.create('Vector', { origin: pointAnimation[ee], x: vecteur2.x, y: vecteur2.y, color: 'green', thickness: 3, label: '\\vec{v}' })
-          figureCorrection.saveState()
+          pointAnimation[ee] = this.figureApigCorr[i].create('Point', { x: xOrigin + (xPointIntermediaire - xOrigin) * ee / 10, y: yOrigin + (yPointIntermediaire - yOrigin) * ee / 10, isVisible: false })
+          vecteurAnimation[ee] = this.figureApigCorr[i].create('Vector', { origin: pointAnimation[ee], x: vecteur2.x, y: vecteur2.y, color: 'green', thickness: 3, label: '\\vec{v}' })
+          this.figureApigCorr[i].saveState()
           if (ee !== 10) vecteurAnimation[ee].hide()
         }
       } else if (choixV === 'origine' && choixU !== 'origine') {
         for (let ee = 0; ee < 11; ee++) {
-          pointAnimation[ee] = figureCorrection.create('Point', { x: pointOrigineChoix2X + (xOrigin + vecteur2.x - pointOrigineChoix2X) * ee / 10, y: pointOrigineChoix2Y + (yOrigin + vecteur2.y - pointOrigineChoix2Y) * ee / 10, isVisible: false })
-          vecteurAnimation[ee] = figureCorrection.create('Vector', { origin: pointAnimation[ee], x: vecteur1.x, y: vecteur1.y, color: 'green', thickness: 3, label: '\\vec{u}' })
-          figureCorrection.saveState()
+          pointAnimation[ee] = this.figureApigCorr[i].create('Point', { x: pointOrigineChoix2X + (xOrigin + vecteur2.x - pointOrigineChoix2X) * ee / 10, y: pointOrigineChoix2Y + (yOrigin + vecteur2.y - pointOrigineChoix2Y) * ee / 10, isVisible: false })
+          vecteurAnimation[ee] = this.figureApigCorr[i].create('Vector', { origin: pointAnimation[ee], x: vecteur1.x, y: vecteur1.y, color: 'green', thickness: 3, label: '\\vec{u}' })
+          this.figureApigCorr[i].saveState()
           if (ee !== 10) vecteurAnimation[ee].hide()
         }
       } else if (choixV !== 'origine' && choixU === 'origine') {
         for (let ee = 0; ee < 11; ee++) {
-          pointAnimation[ee] = figureCorrection.create('Point', { x: pointOrigineChoix3X + (xPointIntermediaire - pointOrigineChoix3X) * ee / 10, y: pointOrigineChoix3Y + (yPointIntermediaire - pointOrigineChoix3Y) * ee / 10, isVisible: false })
-          vecteurAnimation[ee] = figureCorrection.create('Vector', { origin: pointAnimation[ee], x: vecteur2.x, y: vecteur2.y, color: 'green', thickness: 3, label: '\\vec{v}' })
-          figureCorrection.saveState()
+          pointAnimation[ee] = this.figureApigCorr[i].create('Point', { x: pointOrigineChoix3X + (xPointIntermediaire - pointOrigineChoix3X) * ee / 10, y: pointOrigineChoix3Y + (yPointIntermediaire - pointOrigineChoix3Y) * ee / 10, isVisible: false })
+          vecteurAnimation[ee] = this.figureApigCorr[i].create('Vector', { origin: pointAnimation[ee], x: vecteur2.x, y: vecteur2.y, color: 'green', thickness: 3, label: '\\vec{v}' })
+          this.figureApigCorr[i].saveState()
           if (ee !== 10) vecteurAnimation[ee].hide()
         }
       } else { // (choixV !== 'origine' && choixU !== 'origine')
         for (let ee = 0; ee < 11; ee++) {
-          pointAnimation[ee] = figureCorrection.create('Point', { x: pointOrigineChoix2X + (xOrigin - pointOrigineChoix2X) * ee / 10, y: pointOrigineChoix2Y + (yOrigin - pointOrigineChoix2Y) * ee / 10, isVisible: false })
-          vecteurAnimation[ee] = figureCorrection.create('Vector', { origin: pointAnimation[ee], x: vecteur1.x, y: vecteur1.y, color: 'green', thickness: 3, label: '\\vec{u}' })
-          figureCorrection.saveState()
+          pointAnimation[ee] = this.figureApigCorr[i].create('Point', { x: pointOrigineChoix2X + (xOrigin - pointOrigineChoix2X) * ee / 10, y: pointOrigineChoix2Y + (yOrigin - pointOrigineChoix2Y) * ee / 10, isVisible: false })
+          vecteurAnimation[ee] = this.figureApigCorr[i].create('Vector', { origin: pointAnimation[ee], x: vecteur1.x, y: vecteur1.y, color: 'green', thickness: 3, label: '\\vec{u}' })
+          this.figureApigCorr[i].saveState()
           if (ee !== 10) vecteurAnimation[ee].hide()
         }
         for (let ee = 0; ee < 11; ee++) {
-          pointAnimation[ee] = figureCorrection.create('Point', { x: pointOrigineChoix3X + (xPointIntermediaire - pointOrigineChoix3X) * ee / 10, y: pointOrigineChoix3Y + (yPointIntermediaire - pointOrigineChoix3Y) * ee / 10, isVisible: false })
-          vecteurAnimation[ee] = figureCorrection.create('Vector', { origin: pointAnimation[ee], x: vecteur2.x, y: vecteur2.y, color: 'green', thickness: 3, label: '\\vec{v}' })
-          figureCorrection.saveState()
+          pointAnimation[ee] = this.figureApigCorr[i].create('Point', { x: pointOrigineChoix3X + (xPointIntermediaire - pointOrigineChoix3X) * ee / 10, y: pointOrigineChoix3Y + (yPointIntermediaire - pointOrigineChoix3Y) * ee / 10, isVisible: false })
+          vecteurAnimation[ee] = this.figureApigCorr[i].create('Vector', { origin: pointAnimation[ee], x: vecteur2.x, y: vecteur2.y, color: 'green', thickness: 3, label: '\\vec{v}' })
+          this.figureApigCorr[i].saveState()
           if (ee !== 10) vecteurAnimation[ee].hide()
         }
       }
 
-      figureCorrection.create('Vector', { origin: pointOrigineCorrection, x: xSomme[i], y: ySomme[i], color: orangeMathalea, thickness: 3 })
-      figureCorrection.create('Point', { x: pointExtremite[i].x, y: pointExtremite[i].y, colorLabel: orangeMathalea, color: orangeMathalea, label: nomExtremite[i] })
+      this.figureApigCorr[i].create('Vector', { origin: pointOrigineCorrection, x: xSomme[i], y: ySomme[i], color: orangeMathalea, thickness: 3 })
+      this.figureApigCorr[i].create('Point', { x: pointExtremite[i].x, y: pointExtremite[i].y, colorLabel: orangeMathalea, color: orangeMathalea, label: nomExtremite[i] })
 
-      figureCorrection.saveState()
+      this.figureApigCorr[i].saveState()
 
-      const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idAddendum: 'Correction', figure: figureCorrection })
-      texteCorr = emplacementPourFigureCorrection
-      texteCorr += `Le point $${nomExtremite[i]}$ tel que $\\overrightarrow{${nomOrigine}${nomExtremite[i]}} = \\vec{u} + \\vec{v}$ a pour coordonnées ${texteEnCouleurEtGras('(' + pointExtremite[i].x + ' ; ' + pointExtremite[i].y + ')')}.<br>`
+      texteCorr = figureApigeom({ animation: true, exercice: this, i, idAddendum: 'Correction', figure: this.figureApigCorr[i] })
+      texteCorr += `Le point $${nomExtremite[i]}$ tel que $\\overrightarrow{${nomOrigine}${nomExtremite[i]}} = \\vec{u} + \\vec{v}$ a pour coordonnées ${texteEnCouleurEtGras(`( ${pointExtremite[i].x} ; ${pointExtremite[i].y} )`)}.<br>`
 
       this.correctionInteractive = (i) => {
         if (this.answers == null) this.answers = {}
         // Sauvegarde de la réponse pour Capytale
-        this.answers[this.figure[i].json] = this.figure[i].json
+        this.answers[this.figureApig[i].json] = this.figureApig[i].json
         const divFeedback = document.querySelector(
           `#feedbackEx${this.numeroExercice}Q${i}`
         )
         const divCheck = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
 
-        this.figure[i].isDynamic = false
-        this.figure[i].divButtons.style.display = 'none'
-        this.figure[i].divUserMessage.style.display = 'none'
-        const nbPoints = [...this.figure[i].elements.values()].filter(
+        this.figureApig[i].isDynamic = false
+        this.figureApig[i].divButtons.style.display = 'none'
+        this.figureApig[i].divUserMessage.style.display = 'none'
+        const nbPoints = [...this.figureApig[i].elements.values()].filter(
           (e) => e.type === 'Point' && e.isVisible && !e.isChild
         ).length
         const onePointWasAdded = nbPoints >= 3
@@ -318,7 +402,7 @@ export default function SommeDeVecteurs () {
           return 'KO'
         }
 
-        const resultatCheck = this.figure[i].checkCoords({ label: nomExtremite[i], x: pointExtremite[i].x, y: pointExtremite[i].y })
+        const resultatCheck = this.figureApig[i].checkCoords({ label: nomExtremite[i], x: pointExtremite[i].x, y: pointExtremite[i].y })
         divFeedback.innerHTML = resultatCheck.message
         if (divCheck) divCheck.innerHTML = resultatCheck.isValid ? '😎' : '☹️'
         return resultatCheck.isValid ? 'OK' : 'KO'
@@ -333,5 +417,4 @@ export default function SommeDeVecteurs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Situations différentes ', '1 : 2 vecteurs depuis l\'origine\n2 : 1 seul vecteur depuis l\'origine\n3 : Aucun vecteur depuis l\'origine\n4 : Mélange']
 }

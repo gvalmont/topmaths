@@ -9,11 +9,15 @@
  *
  */
 class Hms {
+  week: number
+  day: number
   hour: number
   minute: number
   second: number
   sign: '' | '+' | '-'
-  constructor ({ hour = 0, minute = 0, second = 0, sign = '' }: { hour?: number, minute?: number, second?: number, sign?: '+' | '-' | '' } = {}) {
+  constructor ({ week = 0, day = 0, hour = 0, minute = 0, second = 0, sign = '' }: { week?: number, day?: number, hour?: number, minute?: number, second?: number, sign?: '+' | '-' | '' } = {}) {
+    this.week = week
+    this.day = day
     this.hour = hour
     this.minute = minute
     this.second = second
@@ -24,22 +28,41 @@ class Hms {
     const hms = new Hms()
     text = text.replaceAll(' ', '')
     text = text.replaceAll('&nbsp;', '')
+    text = text.replaceAll('{\\:\\text{semaines}\\:}', 'semaines')
+    text = text.replaceAll('{\\:\\text{j}\\:}', 'j')
     text = text.replaceAll('{\\:\\text{h}\\:}', 'h')
     text = text.replaceAll('{\\:\\text{min}\\:}', 'min')
     text = text.replaceAll('{\\:\\text{s}\\:}', 's')
-    if (text.includes('min') && !text.includes('s')) {
+    text = text.replaceAll('sem', 'semaines')
+    // Format avec semaines et jours
+    const regexComplete = /(?:(?<sign>[+,-]))?(?:(?<week>\d+)\s*semaines\s*)?(?:(?<day>\d+)\s*j\s*)?(?:(?<hour>\d+)\s*h\s*)?(?:(?<minute>\d+)\s*min\s*)?(?:(?<second>\d+)\s*s)?/gm
+    for (const match of text.matchAll(regexComplete)) {
+      if (match.groups !== undefined) {
+        if (Number.isInteger(parseInt(match.groups.week))) hms.week = parseInt(match.groups.week)
+        if (Number.isInteger(parseInt(match.groups.day))) hms.day = parseInt(match.groups.day)
+        if (Number.isInteger(parseInt(match.groups.hour))) hms.hour = parseInt(match.groups.hour)
+        if (Number.isInteger(parseInt(match.groups.minute))) hms.minute = parseInt(match.groups.minute)
+        if (Number.isInteger(parseInt(match.groups.second))) hms.second = parseInt(match.groups.second)
+        if (match.groups.sign === '+' || match.groups.sign === '-') hms.sign = match.groups.sign
+      }
+    }
+    if (text.includes('min') && !text.endsWith('s')) {
       // Format sans le s pour les secondes 4min33, 5h3min15
-      const regex = /(?:(?<sign>[+,-]))?(?:(?<hour>\d+)\s*h\s*)?(?:(?<minute>\d+)\s*min\s*)?(?:(?<second>\d+))?/gm
+      const regex = /(?:(?<sign>[+,-]))?(?:(?<week>\d+)\s*semaines\s*)?(?:(?<day>\d+)\s*j\s*)?(?:(?<hour>\d+)\s*h\s*)?(?:(?<minute>\d+)\s*min\s*)?(?:(?<second>\d+))?/gm
       for (const match of text.matchAll(regex)) {
+        if (match.groups !== undefined && Number.isInteger(parseInt(match.groups.week))) hms.week = parseInt(match.groups.week)
+        if (match.groups !== undefined && Number.isInteger(parseInt(match.groups.day))) hms.day = parseInt(match.groups.day)
         if (match.groups !== undefined && Number.isInteger(parseInt(match.groups.hour))) hms.hour = parseInt(match.groups.hour)
         if (match.groups !== undefined && Number.isInteger(parseInt(match.groups.minute))) hms.minute = parseInt(match.groups.minute)
         if (match.groups !== undefined && Number.isInteger(parseInt(match.groups.second))) hms.second = parseInt(match.groups.second)
         if (match.groups !== undefined && (match.groups.sign === '+' || match.groups.sign === '-')) hms.sign = match.groups.sign
       }
-    } else if (text.includes('h') && !text.includes('min') && !text.includes('s')) {
+    } else if (text.includes('h') && !text.includes('min') && !text.endsWith('s')) {
       // Format sans le min pour les minutes 5h13
-      const regex = /(?:(?<sign>[+,-]))?(?:(?<hour>\d+)\s*h\s*)?(?:(?<minute>\d+))?/gm
+      const regex = /(?:(?<sign>[+,-]))?(?:(?<week>\d+)\s*semaines\s*)?(?:(?<day>\d+)\s*j\s*)?(?:(?<hour>\d+)\s*h\s*)?(?:(?<minute>\d+))?/gm
       for (const match of text.matchAll(regex)) {
+        if (match.groups !== undefined && Number.isInteger(parseInt(match.groups.week))) hms.week = parseInt(match.groups.week)
+        if (match.groups !== undefined && Number.isInteger(parseInt(match.groups.day))) hms.day = parseInt(match.groups.day)
         if (match.groups !== undefined && Number.isInteger(parseInt(match.groups.hour))) hms.hour = parseInt(match.groups.hour)
         if (match.groups !== undefined && Number.isInteger(parseInt(match.groups.minute))) hms.minute = parseInt(match.groups.minute)
         if (match.groups !== undefined && Number.isInteger(parseInt(match.groups.second))) hms.second = parseInt(match.groups.second)
@@ -47,8 +70,10 @@ class Hms {
       }
     } else {
       // Format HMS classique
-      const regex = /(?:(?<sign>[+,-]))?(?:(?<hour>\d+)\s*h\s*)?(?:(?<minute>\d+)\s*min\s*)?(?:(?<second>\d+)\s*s)?/gm
+      const regex = /(?:(?<sign>[+,-]))?(?:(?<week>\d+)\s*semaines\s*)?(?:(?<day>\d+)\s*j\s*)?(?:(?<hour>\d+)\s*h\s*)?(?:(?<minute>\d+)\s*min\s*)?(?:(?<second>\d+)\s*s)?/gm
       for (const match of text.matchAll(regex)) {
+        if (match.groups !== undefined && Number.isInteger(parseInt(match.groups.week))) hms.week = parseInt(match.groups.week)
+        if (match.groups !== undefined && Number.isInteger(parseInt(match.groups.day))) hms.day = parseInt(match.groups.day)
         if (match.groups !== undefined && Number.isInteger(parseInt(match.groups.hour))) hms.hour = parseInt(match.groups.hour)
         if (match.groups !== undefined && Number.isInteger(parseInt(match.groups.minute))) hms.minute = parseInt(match.groups.minute)
         if (match.groups !== undefined && Number.isInteger(parseInt(match.groups.second))) hms.second = parseInt(match.groups.second)
@@ -60,8 +85,15 @@ class Hms {
 
   toString (): string {
     let result = ''
+    if (this.week > 0) {
+      result += `${this.week} semaines `
+      if (this.day > 0 || this.hour > 0 || this.minute > 0 || this.second > 0) result += ' '
+    }
+    if (this.day > 0) {
+      result += `${this.day} jours `
+      if (this.hour > 0 || this.minute > 0 || this.second > 0) result += ' '
+    }
     if (this.hour > 0) {
-      // Ce code fait buguer le build:dicos de la v2 : this.hour % 24 ?? 0
       if (this.hour % 24 === 0) {
         result += '0 h'
       } else {
@@ -99,9 +131,12 @@ class Hms {
   * 1 min et 60 s => false
   */
   isTheSame (time: Hms): boolean {
-    return (this.hour === time.hour && this.minute === time.minute && this.second === time.second)
+    return (this.week === time.week && this.day === time.day && this.hour === time.hour && this.minute === time.minute && this.second === time.second)
   }
 
+  /**
+   * Durée identiques
+   */
   isEquivalentToString (text: string): boolean {
     return Hms.fromString(text).toSeconds() === this.toSeconds()
   }
@@ -111,7 +146,7 @@ class Hms {
   }
 
   toSeconds (): number {
-    return this.hour * 3600 + this.minute * 60 + this.second
+    return this.week * 604800 + this.day * 86400 + this.hour * 3600 + this.minute * 60 + this.second
   }
 
   /**

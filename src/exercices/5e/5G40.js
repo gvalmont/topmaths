@@ -108,6 +108,7 @@ export default function ConstructionsParallelogrammes () {
       let P
       const animIEP = new Alea2iep()
       animIEP.recadre(xMin, yMax) // Il faut recadrer en première étape pour bien calculer les coordonnées des points
+      animIEP.taille((xMax - xMin) * 30, (yMax - yMin) * 30)
       const reponseLettres = ['A', 'B', 'C', 'D', 'E']
       const reponseChiffres = ['1', '2', '3', '4', '5']
       switch (listeTypeQuestions[i]) {

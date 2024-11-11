@@ -48,6 +48,7 @@
   import { qcmCamExportAll } from '../../../lib/amc/qcmCam'
   import { downloadFile } from '../../../lib/files'
   import ExerciceQcm from '../../../exercices/ExerciceQcm'
+    import Exercice from '../../shared/exercice/Exercice.svelte';
 
   let isNavBarVisible: boolean = true
   let innerWidth = 0
@@ -336,16 +337,22 @@
 
   async function exportQcmCam (): Promise<void> {
     const exercises = await getExercisesFromExercicesParams()
-    const exercisesQcms = exercises.filter((exercise) => exercise.interactifType === 'qcm')
+    const exercisesQcms = exercises.filter((exercise) => {
+      exercise.nouvelleVersion()
+      const questionsQcm = exercise.autoCorrection.filter((el)=>el.reponse?.param?.formatInteractif === 'qcm' && el.propositions !=null && el.propositions?.length >1).length
+      return questionsQcm !==0
+  })
+    
     if (exercisesQcms.length === 0) {
       alert('Il n\'y a pas encore d\'export vers QCM Cam pour les exercices sélectionnés')
       return
     }
-    exercisesQcms.forEach((exercise) => {
-      exercise.nouvelleVersion()
-    })
     const content = qcmCamExportAll(exercisesQcms)
-    downloadFile(content, 'questions.txt')
+    if (content==='{}') {
+      alert('Il n\'y a pas encore d\'export vers QCM Cam pour les exercices sélectionnés')
+      return
+    }
+    downloadFile(content, 'questions.txt') // @todo Si possible, il faudrait l'nvoyer directement à travers l'ouverture d'un nouvel onglet qcmcam.net avec le lien vers ce fichier en argument.
   }
 </script>
 

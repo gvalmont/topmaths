@@ -14,7 +14,7 @@ export const dateDePublication = '01/01/2024'
 /**
  * CAN Spéciale année 2024 pour les CM2
  *
- * @author Eric Elter - Gilles Mora
+ * @author Gilles Mora
  */
 
 export default function CourseAuxNombresSpeciale2024CM () {

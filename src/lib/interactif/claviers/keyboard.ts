@@ -283,6 +283,8 @@ const shortcutsByKeyboards = {
 
   hms: {
     D: { mode: 'math', value: 'd' },
+    sem: { mode: 'text', value: '{\\:\\text{semaines}\\:}' },
+    j: { mode: 'text', value: '{\\:\\text{j}\\:}' },
     h: { mode: 'text', value: '{\\:\\text{h}\\:}' },
     H: { mode: 'text', value: '{\\:\\text{h}\\:}' },
     min: { mode: 'text', value: '{\\:\\text{min}\\:}' },

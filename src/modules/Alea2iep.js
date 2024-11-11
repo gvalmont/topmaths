@@ -564,7 +564,7 @@ export default class Alea2iep {
 
   /**
  * Crééer un point avec la croix pour le situer et son nom en bas à droite par défaut. L'id sera sauvegardé dans l'objet point. S'il n'est pas défini alors on prend le premier entier disponible.
- * @param {point} A
+ * @param {Point} A
  * @param {objet} options { label: A.nom, tempo: this.tempo, couleur: this.couleurPoint, couleurLabel: this.couleurTexte, id }
  *
  */
@@ -1073,8 +1073,8 @@ export default class Alea2iep {
 
   /**
    * Trace au crayon le segment [AB] sans tempo et avec une vitesse multipliée par 1 000
-   * @param {point} A Première extrémité
-   * @param {point} B Deuxième extrémité
+   * @param {Point} A Première extrémité
+   * @param {Point} B Deuxième extrémité
    * @param {*} options
    * @return {id} id utilisée pour le tracé
    */

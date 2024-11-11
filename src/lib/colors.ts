@@ -51,5 +51,5 @@ export const coopmathsCanvasMoreDark = '#c8c8c8'
 // alias
 export const orangeMathalea = coopmathsAction
 export const bleuMathalea = coopmathsStruct
-export const vertMathalea = coopmathsWarn
+export const vertMathalea = coopmathsWarn1100
 export const noirMathalea = coopmathsCorpus

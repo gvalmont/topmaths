@@ -14,7 +14,7 @@ export const dateDePublication = '01/01/2024'
 /**
  * CAN Spéciale année 2024 pour les Terminales
  *
- * @author Eric Elter - Gilles Mora
+ * @author Gilles Mora
  */
 
 export default class CourseAuxNombresSpeciale2024Terminale extends CourseAuxNombresSpeciale2024 {

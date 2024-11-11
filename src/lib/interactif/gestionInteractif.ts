@@ -105,7 +105,8 @@ export interface AutoCorrection {
   }
   options?: {
     ordered?: boolean,
-    vertical?: boolean
+    vertical?: boolean,
+    lastChoice?: number
   }
 }
 

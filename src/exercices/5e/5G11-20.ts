@@ -111,6 +111,8 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
 
       this.figuresApiGeom[i] = new SuperFigure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300, scale: 0.5 }))
       this.figuresApiGeom[i].options.latexHeight = 20
+      this.figuresApiGeom[i].options.labelDxInPixels = 20
+      this.figuresApiGeom[i].options.labelDyInPixels = 20
       this.figuresApiGeom[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'CIRCLE_CENTER_POINT', 'RAY', 'LINE', 'SEGMENT', 'POLYGON', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
       this.centres[i] = this.figuresApiGeom[i].create('Point', { x: 0, y: 0, isVisible: true, isSelectable: true, label: labelCentre })
       this.antecedents[i] = nuage.map((el, k) => this.figuresApiGeom[i].create('Point', { x: el.x, y: el.y, isVisible: true, isSelectable: true, label: this.labels[i][k] }))

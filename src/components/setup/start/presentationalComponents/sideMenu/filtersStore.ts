@@ -87,6 +87,12 @@ export const allFilters = writable<
       values: ['interactif'],
       isSelected: false,
       clicked: 0
+    },
+    qcm: {
+      title: 'QCM',
+      values: ['qcm'],
+      isSelected: false,
+      clicked: 0
     }
   },
   types: {
@@ -185,6 +191,7 @@ export function handleUncheckingMutipleFilters (key: string) {
  * Sur la base d'un référentiel passé en paramètre, construit un nouveau référentiel
  * sur la base de trois critères :
  * - les exercices AMC
+ * - les exercices avec des QCM
  * - les exercices interactifs
  * - les niveaux de classe
  * @param {JSONReferentielObject} originalReferentiel Référentiel à filter
@@ -195,6 +202,7 @@ export function handleUncheckingMutipleFilters (key: string) {
  * @author sylvain
  */
 export function updateReferentiel (
+  isQcmOnlySelected: boolean,
   originalReferentiel: JSONReferentielObject,
   isAmcOnlySelected: boolean,
   isInteractiveOnlySelected: boolean,
@@ -203,12 +211,15 @@ export function updateReferentiel (
   // on récupère tous les exercices du référentiel passé en paramètre
   let filteredList: ResourceAndItsPath[] = getAllEndings(originalReferentiel)
   // on commence par créer les critères de filtration pour les spécificités (AMC et/ou Interactif)
-  const features: ('amc' | 'interactif')[] = []
+  const features: ('amc' | 'interactif' | 'qcm')[] = []
   if (isAmcOnlySelected) {
     features.push('amc')
   }
   if (isInteractiveOnlySelected) {
     features.push('interactif')
+  }
+  if (isQcmOnlySelected) {
+    features.push('qcm')
   }
   if (features.length !== 0) {
     // pas de liste de spécificités vide passée à `featuresCriteria`

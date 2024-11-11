@@ -197,10 +197,13 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
 
           /*********************************************************************************/
         }
+        let reponse
         if ((a / b) > (c / d)) {
           texte = `$${f1.texFraction}-${f2.texFraction}$`
+          reponse = new FractionEtendue(a * d - c * b, b * d).toLatex()
         } else {
           texte = `$${f2.texFraction}-${f1.texFraction}$`
+          reponse = new FractionEtendue(-a * d + c * b, b * d).toLatex()
           /** ****************** AMC question/questionmult ******************************/
 
           /*****************************************************************************/
@@ -234,10 +237,10 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
         }
 
         if (this.interactifType === 'mathLive') {
-          handleAnswers(this, i, { reponse: { value: new FractionEtendue(a * d - c * b, b * d).toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
+          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
         }
       }
-      if (this.interactifType === 'mathLive') texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
+      texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
       texte = texte.replaceAll('$$', ' ')
 
       texteCorr = texteCorr.replaceAll('$$', ' ')

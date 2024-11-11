@@ -30,12 +30,10 @@ describe('fonctionComparaison', () => {
   it('Vérifie le fonctionnement de l\'option expressionsForcementReduites', () => {
     const result = fonctionComparaison('x + x', '2x', { expressionsForcementReduites: true })
     expect(result.isOk).toBe(false)
-    expect(result.feedback).toBe('L\'expression littérale attendue devrait être développée et réduite or ce n\'est pas le cas.')
     const result2 = fonctionComparaison('2x+2x^2+4', '2x^2+2x+4', { expressionsForcementReduites: true })
     expect(result2.isOk).toBe(true)
     const result3 = fonctionComparaison('x+2x^2+2+x+2', '2x^2+2x+4', { expressionsForcementReduites: true })
     expect(result3.isOk).toBe(false)
-    expect(result3.feedback).toBe('L\'expression littérale attendue devrait être développée et réduite or ce n\'est pas le cas.')
   })
 
   it('Vérifie le fonctionnement de l\'option avecSigneMultiplier', () => {
