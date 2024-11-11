@@ -3012,31 +3012,59 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "6N30_Poly_x1",
-                      "6N30_Poly_corrige"
-                    ],
+                    "teacherMaterialsNeeded": [],
                     "startSteps": [],
                     "segments": [
                       {
+                        "title": "Multiplier une fraction par un nombre entier",
+                        "steps": [
+                          "Donner à faire https://topmaths.fr/?uuid=c75b6&id=6N22&n=4&d=10&s=true&s2=1&alea=Naya&cd=1&v=exercise",
+                          "Relancer jusqu'à ce que les élèves y arrivent sans utiliser le schéma",
+                          "Entraînement sur https://topmaths.fr/?uuid=c75b6&id=6N22&n=4&d=10&s=true&s2=4&alea=Naya&cd=1&v=exercise",
+                          "Relancer jusqu'à ce que les élèves y arrivent sans utiliser le schéma"
+                        ]
+                      },
+                      {
+                        "title": "Additionner un nombre entier et une fraction",
+                        "steps": [
+                          "Afficher https://topmaths.fr/?uuid=c75b6&id=6N22&n=4&d=10&s=true&s2=2&alea=Naya&cd=1&v=exercise",
+                          "Sur le premier calcul :",
+                          "- Repasser sur le nombre d'unités en une couleur et sur le nombre de parts en une autre couleur",
+                          "- Colorier les cases correspondantes (1 trait par unité, 1 trait par part, avec les couleurs correspondantes",
+                          "Interroger des élèves au hasard pour colorier les suivants au tableau",
+                          "Compter le nombre de parts pour le premier et écrire la réponse",
+                          "Interroger des élèves au hasard pour faire les suivants",
+                          "Répéter si nécessaire",
+                          "Lorsque la plupart semble avoir compris, relancer et les laisser calculer sur l'ardoise (essayer de faire les 4 calculs, on corrige quand tout le monde a fini le premier, aider ceux qui en ont besoin)"
+                        ]
+                      },
+                      {
                         "title": "Calculer en s'aidant d'un schéma",
                         "steps": [
-                          "Faire le lien entre la représentation en disque et la représentation en rectangle",
-                          "Donner des additions de fractions à faire et faire dessiner des rectangles pour s'aider",
-                          "Apprentissage explicite du poly",
-                          "Objectif : réussir à faire les exercices du poly sans schéma donné"
+                          "Entraînement sur https://topmaths.fr/?uuid=c75b6&id=6N22&n=4&d=10&s=true&s2=3&alea=Naya&cd=1&v=exercise",
+                          "Relancer jusqu'à ce que les élèves y arrivent sans utiliser le schéma",
+                          "Entraînement sur https://topmaths.fr/?uuid=c75b6&id=6N22&n=4&d=10&s=true&s2=5&alea=Naya&cd=1&v=exercise"
                         ]
                       },
                       {
                         "title": "Séparer la partie entière",
                         "steps": [
-                          "Deuxième exercice de https://topmaths.fr/?v=objective&ref=6N30"
+                          "Donner à faire https://topmaths.fr/?uuid=c75b6&id=6N22&n=4&d=10&s=true&s2=2&alea=Naya&cd=1&v=exercise",
+                          "Corriger",
+                          "Dire que maintenant on va faire l'inverse : partir du résultat (le nombre de parts) et retrouver le nombre d'unités complètes",
+                          "Montrer comment faire sur les exemples affichés",
+                          "Montrer comment faire https://topmaths.fr/?uuid=6c8a1&id=6N20&n=4&s=false&alea=0nXm&v=exercise en utilisant le brouillon interactif",
+                          "Relancer et interroger des élèves au hasard (pour pouvoir utiliser le brouillon interactif et plus efficace que de les faire utiliser les tablettes) jusqu'à ce qu'ils soient à l'aise",
+                          "Expliquer comment faire pour le faire sans schéma (dans N, il y a combien de fois D ? Il reste combien ?)",
+                          "Entraînement sur l'ardoise"
                         ]
                       },
                       {
                         "title": "Encadrer entre deux nombres entiers",
                         "steps": [
-                          "Troisième exercice de https://topmaths.fr/?v=objective&ref=6N30"
+                          "Troisième exercice de https://topmaths.fr/?v=objective&ref=6N30",
+                          "Séparer la partie entière puis remarquer que la fraction est donc encadrée entre la partie entière et la partie entière + 1",
+                          "Entraînement autant que nécessaire"
                         ]
                       }
                     ],
