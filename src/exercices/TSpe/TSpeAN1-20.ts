@@ -45,7 +45,7 @@ class EquaDiffs extends Exercice {
       defaut: 1,
       melange: 4,
       nbQuestions: this.nbQuestions,
-      listeOfCase: ['ay', 'ay+b', 'ay+f']
+      listeOfCase: ['yprime+ay=0', 'yprime+ay=b', 'yprime+ay=f']
     })
     // Boucle principale pour fabriquer les question
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -60,7 +60,7 @@ class EquaDiffs extends Exercice {
       let texteCorr: string
       let reponse: string
       switch (listeTypeDeQuestion[i]) {
-        case 'ay':
+        case 'yprime+ay=0':
           a = randint(-10, 10, [-1, 0, 1])
           y0 = randint(-10, 10, [-1, 0, 1])
           texte = `Résoudre l'équation différentielle $y^\\prime${ecritureAlgebrique(a)}y=0$, avec $y(0)=${texNombre(y0, 0)}$.`
@@ -71,21 +71,21 @@ class EquaDiffs extends Exercice {
           texteCorr += `La solution de l'équation différentielle  $y^\\prime${ecritureAlgebrique(a)}y=0$ telle que $y(0)=${texNombre(y0, 0)}$ est :<br>$y(x)=${miseEnEvidence(reponse)}$.<br>`
 
           break
-        case 'ay+b':
+        case 'yprime+ay=b':
           a = randint(-10, 10, [-1, 0, 1])
           b = randint(-10, 10, [-1, 0, 1])
           y0 = randint(-10, 10, [-1, 0, 1])
-          bSurA = new FractionEtendue(-b, a)
+          bSurA = new FractionEtendue(b, a)
           texte = `Résoudre l'équation différentielle $y^\\prime${ecritureAlgebrique(a)}y=${texNombre(b, 0)}$, avec $y(0)=${texNombre(y0, 0)}$.`
           texteCorr = 'On sait que la solution générale d\'une équation de la forme $\\boxed{y^\\prime+ay=b}$ est $\\boxed{y(x)=ke^{-ax}+\\dfrac{b}{a}}$ .<br>'
           texteCorr += `Donc $y(x)=ke^{${texNombre(-a, 0)}x}${bSurA.ecritureAlgebrique}$.<br>`
           texteCorr += `De plus, $y(0)=${texNombre(y0, 0)}$, par conséquent : $${texNombre(y0, 0)}=ke^0${bSurA.ecritureAlgebrique}=k${bSurA.ecritureAlgebrique}$.<br>`
-          kString = new FractionEtendue(a * y0 + b, a).simplifie().texFSD
+          kString = new FractionEtendue(a * y0 - b, a).simplifie().texFSD
           texteCorr += `On en déduit que $k=${texNombre(y0, 0)}${bSurA.multiplieEntier(-1).ecritureAlgebrique}=${kString}$.<br>`
           reponse = `${kString}e^{${texNombre(-a, 0)}x}${bSurA.ecritureAlgebrique}`
           texteCorr += `La solution de l'équation différentielle $y^\\prime${ecritureAlgebrique(a)}y=${texNombre(b, 0)}$ telle que $y(0)=${texNombre(y0, 0)}$ est :<br>$y(x)=${miseEnEvidence(reponse)}$.<br>`
           break
-        default: { // 'ay+f':
+        default: { // yprime+ay=f
           do {
             a = randint(-10, 10, [-1, 0, 1])
             b = randint(-10, 10, [-1, 0, 1])

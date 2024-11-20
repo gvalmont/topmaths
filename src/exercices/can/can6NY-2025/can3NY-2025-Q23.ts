@@ -16,17 +16,15 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
- * Référence
 */
 export default class reduireExpression extends Exercice {
   constructor () {
     super()
-    this.titre = titre
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -40,8 +38,12 @@ export default class reduireExpression extends Exercice {
 
     this.question = `Sachant que $${texNombre(a, 0)} \\times ${texNombre(2025, 0)} = ${texNombre(a * 2025, 0)} $, `
     this.question += `quelle est la valeur décimale de $${texNombre(aDiv, 4)} \\times ${texNombre(Nb2025Div, 4)}$ ?`
-    this.reponse = texNombre(new Decimal(aDiv).mul(Nb2025Div), 4)
-    this.correction = `$${texNombre(aDiv, 4)} \\times ${texNombre(Nb2025Div, 4)}=${miseEnEvidence(this.reponse)}$`
+    this.reponse = new Decimal(aDiv).mul(Nb2025Div)
+    const reponse = new Decimal(aDiv).mul(Nb2025Div)
+    this.correction = `Comme $${texNombre(aDiv, 4)}=\\dfrac{${texNombre(a, 4)}}{${new Decimal(10).pow(exposantA)}}$ 
+    et comme $${texNombre(Nb2025Div, 4)}=\\dfrac{${texNombre(2025, 0)}}{${new Decimal(10).pow(exposant2025)}}$, <br><br>
+    alors $${texNombre(aDiv, 4)} \\times ${texNombre(Nb2025Div, 4)}= \\dfrac{${texNombre(a, 4)}}{${new Decimal(10).pow(exposantA)}} \\times \\dfrac{${texNombre(2025, 0)}}{${new Decimal(10).pow(exposant2025)}} = \\dfrac{${texNombre(a, 0)} \\times ${texNombre(2025, 0)}}{${new Decimal(10).pow(exposantA)} \\times ${new Decimal(10).pow(exposant2025)}}= \\dfrac{${texNombre(a * 2025, 0)}}{${new Decimal(10).pow(exposantA + exposant2025)}}$<br><br>
+    et donc $${texNombre(aDiv, 4)} \\times ${texNombre(Nb2025Div, 4)}=${miseEnEvidence(texNombre(reponse, 5))}$`
 
     if (this.interactif) { this.question += '<br>' }
     this.canEnonce = this.question

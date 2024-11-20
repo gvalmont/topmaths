@@ -6,9 +6,9 @@ export default class ExerciceQcmA extends ExerciceQcm {
   constructor () {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
-    this.besoinFormulaire3CaseACocher = ['Ajout de "Je ne sais pas"', false]
+    this.besoinFormulaire4CaseACocher = ['Ajout de "Je ne sais pas"', false]
     this.sup = false
-    this.sup3 = false
+    this.sup4 = false
     this.nbQuestionsModifiable = true
     this.versionAleatoire()
   }

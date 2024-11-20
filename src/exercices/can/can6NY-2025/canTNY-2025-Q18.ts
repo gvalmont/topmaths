@@ -1,0 +1,71 @@
+import Exercice from '../../Exercice'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+export const titre = 'Déterminer une valeur remarquable '
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const uuid = 'f0064'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
+/**
+ * Modèle d'exercice très simple pour la course aux nombres
+ * @author Eric Elter - Gilles Mora
+ * Référence
+*/
+export default class ValeurRemarquable extends Exercice {
+  constructor () {
+    super()
+    this.titre = titre
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.nbQuestions = 1
+    this.formatInteractif = 'calcul'
+    this.formatChampTexte = ''
+    this.optionsChampTexte = { texteAvant: ' $=$' }
+    this.compare = fonctionComparaison
+    this.formatChampTexte = KeyboardType.clavierFullOperations
+  }
+
+  nouvelleVersion () {
+    this.listeCanEnonces = []
+    this.listeCanReponsesACompleter = []
+    const choix = choice([1, 2, 3, 4, 5])
+    if (choix === 1) {
+      this.question = `$\\cos(${texNombre(2025, 0)}\\pi)$ `
+      this.correction = `$\\cos(${texNombre(2025, 0)}\\pi)=\\cos(\\pi)=${miseEnEvidence('-1')}$`
+      this.reponse = -1
+      this.canReponseACompleter = `$\\cos(${texNombre(2025, 0)}\\pi)=\\ldots$`
+    }
+    if (choix === 2) {
+      this.question = `$\\sin(${texNombre(2025, 0)}\\pi)$ `
+      this.correction = `$\\sin(${texNombre(2025, 0)}\\pi)=\\sin(\\pi)=${miseEnEvidence('0')}$`
+      this.reponse = 0
+      this.canReponseACompleter = `$\\sin(${texNombre(2025, 0)}\\pi)=\\ldots$`
+    }
+    if (choix === 3) {
+      this.question = `$\\sin\\left(\\dfrac{${texNombre(2025, 0)}\\pi}{4}\\right)$ `
+      this.correction = `$\\sin\\left(\\dfrac{${texNombre(2025, 0)}\\pi}{4}\\right)=\\sin\\left(506\\pi+\\dfrac{\\pi}{4}\\right)=\\sin\\left(\\dfrac{\\pi}{4}\\right)=${miseEnEvidence('\\dfrac{\\sqrt{2}}{2}')}$`
+      this.reponse = '\\dfrac{\\sqrt{2}}{2}'
+      this.canReponseACompleter = `$\\sin\\left(\\dfrac{${texNombre(2025, 0)}\\pi}{4}\\right)=\\ldots$`
+    }
+    if (choix === 4) {
+      this.question = `$\\sin\\left(-\\dfrac{${texNombre(2025, 0)}\\pi}{4}\\right)$ `
+      this.correction = `$\\sin\\left(-\\dfrac{${texNombre(2025, 0)}\\pi}{4}\\right)=\\sin\\left(-506\\pi-\\dfrac{\\pi}{4}\\right)=\\sin\\left(-\\dfrac{\\pi}{4}\\right)=${miseEnEvidence('-\\dfrac{\\sqrt{2}}{2}')}$`
+      this.reponse = '-\\dfrac{\\sqrt{2}}{2}'
+      this.canReponseACompleter = `$\\sin\\left(-\\dfrac{${texNombre(2025, 0)}\\pi}{4}\\right)=\\ldots$`
+    }
+    if (choix === 5) {
+      this.question = `$\\cos\\left(\\dfrac{${texNombre(2025, 0)}\\pi}{4}\\right)$ `
+      this.correction = `$\\cos\\left(\\dfrac{${texNombre(2025, 0)}\\pi}{4}\\right)=\\cos\\left(506\\pi+\\dfrac{\\pi}{4}\\right)=\\cos\\left(\\dfrac{\\pi}{4}\\right)=${miseEnEvidence('\\dfrac{\\sqrt{2}}{2}')}$`
+      this.reponse = '\\dfrac{\\sqrt{2}}{2}'
+      this.canReponseACompleter = `$\\cos\\left(\\dfrac{${texNombre(2025, 0)}\\pi}{4}\\right)=\\ldots$`
+    }
+    if (!this.interactif) { this.question += '$=\\ldots$' }
+
+    this.canEnonce = 'Compléter.'
+  }
+}

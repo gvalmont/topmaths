@@ -103,35 +103,32 @@ export default function FactoriserIdentitesremarquables2 () {
 $\\begin{aligned}${e ** 2}(${a}x${ecritureAlgebrique(b)})^2-${f ** 2}(${c}x${ecritureAlgebrique(d)})^2
  &= \\left[(\\color{green}${e}\\times ${a}x${ecritureAlgebrique(b)}\\times ${e}\\color{black})-(\\color{blue}${f}\\times ${c}x${ecritureAlgebrique(d)}\\times ${f}\\color{black})\\right]
 \\left[ (\\color{green}${e}\\times ${a}x${ecritureAlgebrique(b)}\\times ${e}\\color{black})+(\\color{blue}${f}\\times ${c}x${ecritureAlgebrique(d)}\\times ${f}\\color{black})\\right]
- &= (${a * e}x${ecritureAlgebrique(b * e)}${ecritureAlgebrique(-c * f)}x${ecritureAlgebrique(-d * f)})(${a * e}x${ecritureAlgebrique(b * e)}${ecritureAlgebrique(c * f)}x${ecritureAlgebrique(d * f)})`
+ \\\\&= (${a * e}x${ecritureAlgebrique(b * e)}${ecritureAlgebrique(-c * f)}x${ecritureAlgebrique(-d * f)})(${a * e}x${ecritureAlgebrique(b * e)}${ecritureAlgebrique(c * f)}x${ecritureAlgebrique(d * f)})\\\\`
           const facteur1 = reduireAxPlusB(e * a - c * f, b * e - d * f)
           const facteur2 = reduireAxPlusB(a * e + c * f, b * e + d * f)
           const facteurConstant = [facteur1, facteur2].filter(el => !el.includes('x'))
-          if (facteurConstant.length === 0) {
-            texteCorr += ` &= (${facteur1})(${facteur2})\\end{aligned}$`
+          if (facteurConstant.length === 0 || !(facteur1.includes('x'))) {
+            texteCorr += ` &= ${miseEnEvidence(`(${facteur1})(${facteur2})`)}\\end{aligned}$`
           } else {
-            if (facteur1.includes('x')) {
-              texteCorr += ` &= ${facteur2}(${facteur1})\\end{aligned}$`
-            } else {
-              texteCorr += ` &= ${facteur1}(${facteur2})\\end{aligned}$`
-            }
+            texteCorr += ` &= ${miseEnEvidence(`(${facteur2})(${facteur1})`)}\\end{aligned}$`
           }
           handleAnswers(this, i, { reponse: { value: `(${facteur1})(${facteur2})`, compare: fonctionComparaison, options: { factorisation: true } } })
         } break
       }
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable, { texteAvant: ' $=$' })
-      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
-      const textCorrSplit = texteCorr.split('=')
-      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
-      aRemplacer = aRemplacer.replace('$', '')
+      if (listeTypeDeQuestions[i] < 4) {
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replace('$', '')
 
-      texteCorr = ''
-      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
-        texteCorr += textCorrSplit[ee] + '='
-      }
-      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
       // Fin de cette uniformisation
-
+      }
       if (this.questionJamaisPosee(i, a, b, c, d, k, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
@@ -142,5 +139,5 @@ $\\begin{aligned}${e ** 2}(${a}x${ecritureAlgebrique(b)})^2-${f ** 2}(${c}x${ecr
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type d\'expression (numéros séparés par des tirets)', '1 :forme (ax+b)²-c²\n2 : forme c²-(ax+b)²\n3 : (ax+b)²-(cx+d)²\n 4 : a²(bx+c)²-d²(ex+f)²\n5 : Mélange des cas précédents']
+  this.besoinFormulaireTexte = ['Type d\'expression (numéros séparés par des tirets)', '1 : forme (ax+b)²-c²\n2 : forme c²-(ax+b)²\n3 : (ax+b)²-(cx+d)²\n4 : a²(bx+c)²-d²(ex+f)²\n5 : Mélange des cas précédents']
 }

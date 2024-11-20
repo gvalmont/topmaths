@@ -5,9 +5,8 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { texNombre } from '../../lib/outils/texNombre'
-
+import type Figure from 'apigeom/src/Figure'
 import figureApigeom from '../../lib/figureApigeom.js'
-import Figure from 'apigeom'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { apigeomGraduatedLine } from '../../lib/apigeom/apigeomGraduatedLine'
 
@@ -34,7 +33,6 @@ type goodAnswer = { label: string, x: number }[]
 
 class PlacerPointsSurAxeRelatifs extends Exercice {
   goodAnswers: goodAnswer[] = []
-  figuresApiGeom: Figure[] = []
   constructor () {
     super()
     this.nbQuestions = 2
@@ -49,6 +47,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
     this.autoCorrection = []
     this.contenu = ''
     this.contenuCorrection = ''
+    this.figures = []
     if (this.sup === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else { typesDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions) }
 
     this.contenu = this.consigne
@@ -105,7 +104,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
       const { figure, latex } = apigeomGraduatedLine({ xMin: abs0 - 1 / (stepBis * stepBis * stepBis * stepBis), xMax: abs0 + 7 / step + 1 / (stepBis * stepBis * stepBis), scale: step })
       figure.options.labelAutomaticBeginsWith = label1
       figure.options.pointDescriptionWithCoordinates = false
-      this.figuresApiGeom[i] = figure
+      this.figures[i] = figure
 
       const { figure: figureCorr, latex: latexCorr } = apigeomGraduatedLine({ xMin: abs0 - 1 / (stepBis * stepBis * stepBis * stepBis), xMax: abs0 + 7 / step + 1 / (stepBis * stepBis * stepBis), scale: step, points: this.goodAnswers[i] })
       figureCorr.create('Point', { label: label1, x: abs1, color: orangeMathalea, colorLabel: orangeMathalea, shape: 'x', labelDxInPixels: 0 })
@@ -150,12 +149,13 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
   }
 
   correctionInteractive = (i?: number) => {
-    if (i === undefined) return ['KO']
+    if (i === undefined || this.figures) return ['KO']
     const result: ('OK'|'KO')[] = []
-    const figure = this.figuresApiGeom[i]
+    if (this.figures === undefined) return ['KO']
+    const figure : Figure = this.figures[i]
     if (this.answers === undefined) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.figuresApiGeom[i].id] = this.figuresApiGeom[i].json
+    this.answers[figure.id] = figure.json
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'

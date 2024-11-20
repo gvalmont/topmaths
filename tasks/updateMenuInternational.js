@@ -57,7 +57,9 @@ async function readInfos (
           file !== 'Exercice.ts' &&
           file !== 'exerciseMethods.ts' &&
           file !== 'ExerciceQcm.ts' &&
-          file !== 'ExerciceQcmA.ts'
+          file !== 'ExerciceQcmA.ts' &&
+          file !== 'ExerciceBrevet.ts' &&
+          file !== 'ExerciceBrevetA.ts'
 
         ) {
           const infos = {}
@@ -325,7 +327,7 @@ const createFiles = (
 function sortQcmInReferentiel (referentiel, codePays) {
   /**
    * Seulement pour le référentiel français
-   * On suppose que le référentiel est de la forme level > theme > exercice
+   * On suppose que le référentiel est de la forme level > theme > exercice ou levelFamily > level > theme > exercice
    * On ne gère donc pas le référentiel CAN
    * Si un exercice a un id qui contient 'QCM', on le déplace dans le sous-thème QCM
    */
@@ -343,6 +345,23 @@ function sortQcmInReferentiel (referentiel, codePays) {
           }
           referentiel[level][theme].QCM[exerciceQcm.id] = { ...exerciceQcm }
           delete referentiel[level][theme][exercice]
+        }
+      }
+    }
+  }
+  for (const levelFamily in referentiel) {
+    if (levelFamily !== 'Terminale') continue
+    for (const level in referentiel[levelFamily]) {
+      for (const theme in referentiel[levelFamily][level]) {
+        for (const exercice in referentiel[levelFamily][level][theme]) {
+          if (referentiel[levelFamily][level][theme][exercice]?.id && referentiel[levelFamily][level][theme][exercice]?.id.includes('QCM')) {
+            const exerciceQcm = referentiel[levelFamily][level][theme][exercice]
+            if (referentiel[levelFamily][level][theme].QCM === undefined) {
+              referentiel[levelFamily][level][theme].QCM = {}
+            }
+            referentiel[levelFamily][level][theme].QCM[exerciceQcm.id] = { ...exerciceQcm }
+            delete referentiel[levelFamily][level][theme][exercice]
+          }
         }
       }
     }

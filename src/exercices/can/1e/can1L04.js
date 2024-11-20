@@ -3,10 +3,12 @@ import { ecritureParentheseSiNegatif, reduirePolynomeDegre3 } from '../../../lib
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive.js'
 import { context } from '../../../modules/context'
 
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const titre = 'Résoudre une équation du second degré'
 export const interactifReady = true
@@ -61,16 +63,19 @@ export default function ResoudreEquationSecondDegre () {
       if (!this.interactif) {
         texte += '.'
       } else {
-        texte += 'dans l\'ordre croissant :'
-        texte += ajouteChampTexteMathLive(this, 2 * i, '')
-        texte += ' et '
-        texte += ajouteChampTexteMathLive(this, 2 * i + 1, '')
-        setReponse(this, 2 * i, Math.min(x1, x2))
-        setReponse(this, 2 * i + 1, Math.max(x1, x2))
+        texte += 'dans l\'ordre croissant :<br>'
+        texte += remplisLesBlancs(this, i, ' %{champ1}  \\text{ et  }  %{champ2} ', KeyboardType.clavierDeBaseAvecFraction)
       }
+      handleAnswers(this, i, {
+        bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+        champ1: { value: Math.min(x1, x2) },
+        champ2: { value: Math.max(x1, x2) }
+      },
+      { formatInteractif: 'mathlive' }
+      )
       texteCorr = context.isHtml ? '<br>' : '' + '$\\Delta>0$ donc l\'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$'
-      texteCorr += `<br>$x_1 = \\dfrac{${-b} -\\sqrt{${d}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${texNombre((-b - Math.sqrt(d)) / (2 * a), 0)}$ et
-       $x_2 = \\dfrac{${-b} +\\sqrt{${d}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${texNombre((-b + Math.sqrt(d)) / (2 * a), 0)}$`
+      texteCorr += `<br>$x_1 = \\dfrac{${-b} -\\sqrt{${d}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${miseEnEvidence(texNombre((-b - Math.sqrt(d)) / (2 * a), 0))}$ et
+       $x_2 = \\dfrac{${-b} +\\sqrt{${d}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${miseEnEvidence(texNombre((-b + Math.sqrt(d)) / (2 * a), 0))}$`
       if (this.questionJamaisPosee(i, a, x1, x2)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

@@ -624,18 +624,21 @@ table.tableauMathlive {
 }
 div.rectangleDND {
   min-width: 40px;
-  min-height: 36px;
-  border: 2px dashed #888;
+  min-height: 40px;
+  border: 1px dashed #ccc;
   border-radius: 10px;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   zoom: 1;
+  flex: 1;
+  flex-wrap: wrap;
+  padding: 6px 0px 6px 0px;
 }
 
 .rectangleDND.hovered {
-  border: 4px dashed green; /* Indique la zone de drop */
-  zoom: 2;
+  border: 2px dashed green; /* Indique la zone de drop */
+  zoom: 1;
 }
 
 div.rectangles {
@@ -644,19 +647,20 @@ div.rectangles {
    min-width: 30px;
 min-height: 30px;
 align-items: center;
-font-size: 30px;
+font-size: 18px;
 }
 
 div.etiquette {
+  position: relative;
   flex: 0 1 auto;
   box-sizing: content-box;
-  padding: 3px;
-  margin: 0;
+  padding: 1px 3px 1px 3px;
+  margin: 0px 2px 0px 2px;
   border: 1px solid #ccc;
   border-radius: 10px;
-  min-height: 30px;
+  min-height: 25px;
   align-content: center;
-  font-size: 30px;
+  font-size: 18px;
 }
 div.etiquette:active {
   cursor: grabbing;
@@ -680,9 +684,24 @@ div.etiquettes {
   align-items: center;
   justify-items: flex-start;
   gap: 5px;
-  width: 60%;
+  width: 100%;
 min-height: 60px;
   margin-bottom: 5px;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 10px;
+  height: 10px;
+  text-align: center;
+  font-size: 10px;
 }
 
 .oblique-strike {
@@ -699,4 +718,26 @@ min-height: 60px;
   height: 2px; /* Épaisseur de la ligne */
   background-color: black; /* Couleur de la ligne */
   transform: rotate(-15deg); /* Angle de la ligne */
+}
+
+.numbered-list > div > li {
+  list-style: none; /* Retire les puces par défaut */
+  position: relative;
+}
+
+.numbered-list > div > li::before {
+  counter-increment: item;
+  display: inline-block; /* Aligne avec le texte */
+  margin-right: 0.5em; /* Espace entre le numéro et le texte */
+  font-weight: bold;
+  color: #216D9A;
+}
+
+.numbered-list >div > li::before {
+    content: counter(item) ') ';
+    margin-right: 0.5em;
+}
+
+.numbered-list {
+  counter-reset: item; /* Initialise le compteur */
 }

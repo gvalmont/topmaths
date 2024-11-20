@@ -21,7 +21,6 @@ export const refs = {
 /**
  * Encadrer un nombre relatif à l'unité, au dixième ou au centième
  * @author Rémi Angot
- * Référence 5R13-2
 */
 export default class EncadrerRelatif extends Exercice {
   constructor () {
@@ -83,7 +82,7 @@ export default class EncadrerRelatif extends Exercice {
         texteCorr += `<br><br>${remarque}`
       }
       texte += '<br><br>' + remplisLesBlancs(this, i, `%{champ1}\\quad<\\quad${texNombre(a)}\\quad<\\quad%{champ2}`,
-        ` ${KeyboardType.clavierNumbers}`,
+        ` ${KeyboardType.clavierDeBase}`,
         '\\ldots\\ldots'
       )
       handleAnswers(this, i,

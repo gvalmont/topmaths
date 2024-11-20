@@ -20,7 +20,7 @@ export const refs = {
 export default class CalculDivers extends Exercice {
   constructor () {
     super()
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.optionsChampTexte = { texteApres: '€' }
     this.formatChampTexte = KeyboardType.clavierDeBase
@@ -39,7 +39,7 @@ export default class CalculDivers extends Exercice {
         b = 20 - a
         this.question = `Pour un concert, $${texNombre(2025, 0)}$ places ont été vendues à $${a}$ € la place.<br>
        $${texNombre(2025, 0)}$ places supplémentaires ont été vendues à $${b}$ € la place.<br>
-       Quelle la recette totale pour ce concert ?`
+       Quelle est la recette totale pour ce concert ?`
         this.reponse = 40500
         this.correction = `$${texNombre(2025, 0)}$ places à $${a}$ € et $${texNombre(2025, 0)}$ places à $${b}$ € rapportent autant que $${texNombre(2025, 0)}$ places à $${a + b}$ €.<br>
          
@@ -51,7 +51,7 @@ export default class CalculDivers extends Exercice {
         b = 10 - a
         this.question = `Pour un concert, $${texNombre(2025, 0)}$ places ont été vendues à $${a}$ € la place.<br>
        $${texNombre(2025, 0)}$ places supplémentaires ont été vendues à $${b}$ € la place.<br>
-       Quelle la recette totale pour ce concert ?`
+       Quelle est la recette totale pour ce concert ?`
         this.reponse = 20250
         this.correction = `$${texNombre(2025, 0)}$ places à $${a}$ € et $${texNombre(2025, 0)}$ places à $${b}$ € rapportent autant que $${texNombre(2025, 0)}$ places à $${a + b}$ €.<br>
          

@@ -18,7 +18,7 @@ export default class TrouverLongueur extends Exercice {
     super()
     this.titre = titre
     this.nbQuestions = 1
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestionsModifiable = false
     this.formatInteractif = 'qcm'
     this.canOfficielle = false

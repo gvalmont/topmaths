@@ -1,6 +1,6 @@
 <script lang="ts">
   import { globalOptions, resultsByExercice, exercicesParams, isMenuNeededForExercises } from '../../../../../lib/stores/generalStore'
-  import { afterUpdate, onMount, tick } from 'svelte'
+  import { afterUpdate, onMount, tick, onDestroy } from 'svelte'
   import type TypeExercice from '../../../../../exercices/Exercice'
   import seedrandom from 'seedrandom'
   import { prepareExerciceCliqueFigure, exerciceInteractif } from '../../../../../lib/interactif/gestionInteractif'
@@ -102,6 +102,13 @@
     }
   }
 
+  onDestroy(() => {
+    log('ondestroy' + exercise.id)
+    // Détruit l'objet exercice pour libérer la mémoire
+    exercise.reinit() // MGu nécessaire pour supprimer les listeners
+  })
+
+
   onMount(async () => {
     log('onMount')
     document.addEventListener('newDataForAll', newData)
@@ -130,7 +137,7 @@
         log('loadMathLive')
         loadMathLive(divExercice)
         log('end loadMathLive')
-        if (exercise.interactifType === 'cliqueFigure') {
+        if (exercise.interactifType === 'cliqueFigure' && !isCorrectionVisible) {
           prepareExerciceCliqueFigure(exercise)
         }
         // Ne pas être noté sur un exercice dont on a déjà vu la correction

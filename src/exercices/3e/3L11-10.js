@@ -9,6 +9,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { expressionDeveloppeeEtNonReduiteCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { toutPourUnPoint } from '../../lib/interactif/mathLive.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const titre = 'Table de double distributivité'
 export const dateDePublication = '23/02/2023'
 export const interactifReady = true
@@ -152,7 +153,7 @@ export default function TableDoubleDistributivite () {
       }
       if (this.interactif) {
         const tableauVide = AddTabDbleEntryMathlive.convertTclToTableauMathlive(entetesCol, entetesLgn, ['', '', '', ''])
-        const tabMathlive = AddTabDbleEntryMathlive.create(this.numeroExercice, 3 * i, tableauVide, ' ', this.interactif, { L0C0: 'red' })
+        const tabMathlive = AddTabDbleEntryMathlive.create(this.numeroExercice, 3 * i, tableauVide, ` ${KeyboardType.clavierDeBaseAvecVariable}`, this.interactif, { L0C0: 'red' })
         texte += tabMathlive.output
       } else {
         texte += tableauColonneLigne(entetesCol, entetesLgn, contenu, 1, true, this.numeroExercice, i, false, { L0C0: 'red' })

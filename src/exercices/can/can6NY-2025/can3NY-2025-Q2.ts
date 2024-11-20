@@ -3,6 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Calculer avec les chiffres (relatifs)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,13 +20,12 @@ export const refs = {
 export default class calcAvecChiffresRel extends Exercice {
   constructor () {
     super()
-    this.titre = titre
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
     this.optionsChampTexte = { texteAvant: ' $=$' }
-    this.formatChampTexte = ''
     this.formatChampTexte = KeyboardType.clavierDeBase
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -35,7 +35,7 @@ export default class calcAvecChiffresRel extends Exercice {
 
     this.reponse = a - 2025
     this.question = `$${a}-${texNombre(2025, 0)}$`
-    this.correction = `$${a}-${texNombre(2025, 0)}=${miseEnEvidence(texNombre(this.reponse, 0))}$`
+    this.correction = `$${a}-${texNombre(2025, 0)}=${a}+(-${texNombre(2025, 0)})=${miseEnEvidence(texNombre(this.reponse, 0))}$`
 
     this.canEnonce = this.question
     this.canReponseACompleter = ''

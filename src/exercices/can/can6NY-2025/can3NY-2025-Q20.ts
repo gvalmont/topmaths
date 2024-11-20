@@ -18,17 +18,14 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
- * Référence
 */
 export default class additionFraction extends Exercice {
   constructor () {
     super()
-    this.titre = titre
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
     this.compare = fonctionComparaison
-    // this.optionsDeComparaison = { fractionEgale: true }
+    this.optionsDeComparaison = { fractionEgale: true }
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
     this.optionsChampTexte = { texteAvant: ' $=$' }
   }
@@ -43,12 +40,12 @@ export default class additionFraction extends Exercice {
       this.question = `Calculer sous la forme d'une fraction :<br>${context.isHtml ? '<br>' : '\\\\[0.7em]'}
     $\\dfrac{${a}}{${texNombre(2025, 0)}} +\\dfrac{1}{${texNombre(4050)}}$`
 
-      this.correction = ` $\\dfrac{${a}}{${texNombre(2025, 0)}} +\\dfrac{1}{${texNombre(4050, 0)}}=${miseEnEvidence(`\\dfrac{${1 + 2 * a}}{${texNombre(4050, 0)}}`)}$`
+      this.correction = ` $\\dfrac{${a}}{${texNombre(2025, 0)}} +\\dfrac{1}{${texNombre(4050, 0)}}=\\dfrac{${2 * a}}{${texNombre(4050, 0)}} +\\dfrac{1}{${texNombre(4050, 0)}}=${miseEnEvidence(`\\dfrac{${1 + 2 * a}}{${texNombre(4050, 0)}}`)}$`
     } else {
       this.reponse = new FractionEtendue(2 * a - 1, 4050).toLatex()
       this.question = `Calculer sous la forme d'une fraction :<br>${context.isHtml ? '<br>' : '\\\\[0.7em]'}
     $\\dfrac{${a}}{${texNombre(2025, 0)}} -\\dfrac{1}{${texNombre(4050)}}$`
-      this.correction = ` $\\dfrac{${a}}{${texNombre(2025, 0)}} -\\dfrac{1}{${texNombre(4050, 0)}}=${miseEnEvidence(`\\dfrac{${2 * a - 1}}{${texNombre(4050, 0)}}`)}$`
+      this.correction = ` $\\dfrac{${a}}{${texNombre(2025, 0)}} -\\dfrac{1}{${texNombre(4050, 0)}}=\\dfrac{${2 * a}}{${texNombre(4050, 0)}} -\\dfrac{1}{${texNombre(4050, 0)}}=${miseEnEvidence(`\\dfrac{${2 * a - 1}}{${texNombre(4050, 0)}}`)}$`
     }
 
     this.canEnonce = this.question

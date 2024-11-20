@@ -171,11 +171,11 @@ export default function DevelopperReduireExprComplexe () {
       // ici on va rédiger la correction détaillée
       if (this.correctionDetaillee) {
         // La correction dans le texte pour tester
-        texteCorr += `&=\\left(${expressionDeveloppee1}\\right)${ope}\\left(${expressionDeveloppee2}\\right)\\\\`
-        texteCorr += `&=${sansParentheses}\\\\`
-        texteCorr += `&=${expressionOrdonnee}\\\\`
+        texteCorr += `&=\\left(${expressionDeveloppee1}\\right)${ope}\\left(${expressionDeveloppee2}\\right)\\\\ \n`
+        texteCorr += `&=${sansParentheses}\\\\ \n`
+        texteCorr += `&=${expressionOrdonnee}\\\\ \n`
       } else {
-        texteCorr += `&=(${devExpr1})${ope}(${devExpr2})\\\\`
+        texteCorr += `&=(${devExpr1})${ope}(${devExpr2})\\\\ \n`
       }
 
       texteCorr += `&=${miseEnEvidence(reponse)}\\end{aligned}$`

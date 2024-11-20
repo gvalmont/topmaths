@@ -2,7 +2,7 @@ import { randint } from '../../../modules/outils.js'
 import { Yohaku } from '../../../lib/outils/Yohaku'
 import Exercice from '../../deprecatedExercice.js'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-export const titre = 'Trouver une valeur dans un Yohaku (additif)'
+export const titre = 'Trouver une valeur dans un Yohaku (multiplicatif)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // export const amcReady = true

@@ -18,7 +18,7 @@ export const refs = {
 export default class multiple extends Exercice {
   constructor () {
     super()
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatInteractif = 'qcm'
     this.formatChampTexte = ''
@@ -50,7 +50,7 @@ export default class multiple extends Exercice {
     Donc  $${texNombre(2025)}$  n'est pas un multiple de ${a === 2 ? '$2$' : '$10$'}.`
     }
     if (a === 3 || a === 9) {
-      this.correction = `La somme des chiffres de $${texNombre(2025)}$ est $9$ qui est divisible par ${a === 3 ? '$3$' : '$9$'}. <br>
+      this.correction = `La somme des chiffres de $${texNombre(2025)}$ est $2+0+2+5=9$ qui est divisible par ${a === 3 ? '$3$' : '$9$'}. <br>
         Donc  $${texNombre(2025)}$  est un multiple de ${a === 3 ? '$3$' : '$9$'}.`
     }
     if (a === 5) {

@@ -153,11 +153,13 @@
 
   let numberOfAnswerFields: number = 0
   async function countMathField () {
-    // IDs de la forme 'champTexteEx1Q0'
-    const answerFields = document.querySelectorAll(
-      `[id^='champTexteEx${exerciseIndex}']`
-    )
-    numberOfAnswerFields = answerFields.length
+    if (isInteractif){
+      // IDs de la forme 'champTexteEx1Q0'
+      const answerFields = document.querySelectorAll(
+        `[id^='champTexteEx${exerciseIndex}']`
+      )
+      numberOfAnswerFields = answerFields.length
+    }
   }
 
   // on détecte les changements dans la liste des exercices
@@ -180,7 +182,7 @@
     }
   }
 
-  beforeUpdate(() => {
+  beforeUpdate(async() => {
     log('beforeUpdate:' + exercise.id)
     if (
       JSON.stringify(get(exercicesParams)[exerciseIndex]) !==
@@ -188,6 +190,9 @@
     ) {
       // interface à changer car un exercice a été supprimé au dessus...
       interfaceParams = get(exercicesParams)[exerciseIndex]
+      log('new interfaceParams:' + interfaceParams)
+      // obliger de charger l'exercice car son numéro à changer, et il faut gérer les id correctement des HTMLElements
+      await updateDisplay() 
     }
   })
 
@@ -214,15 +219,13 @@
       'languageHasChanged',
       updateExerciceAfterLanguageChange
     )
-
-    await updateDisplay()
-    await tick()
-    await countMathField()
+    await updateDisplay()  
   })
 
   onDestroy(() => {
     log('ondestroy' + exercise.id)
     // Détruit l'objet exercice pour libérer la mémoire
+    exercise.reinit() // MGu nécessaire pour supprimer les listeners
     for (const prop of Object.keys(exercise)) {
       Reflect.deleteProperty(exercise, prop)
     }
@@ -241,10 +244,11 @@
   afterUpdate(async () => {
     log('afterUpdate:' + exercise.id)
     if (exercise) {
-      await tick()
+      await tick()      
       if (isInteractif) {
+        await countMathField()
         await loadMathLive()
-        if (exercise?.interactifType === 'cliqueFigure') {
+        if (exercise?.interactifType === 'cliqueFigure' && !isCorrectionVisible) {
           prepareExerciceCliqueFigure(exercise)
         }
         // Ne pas être noté sur un exercice dont on a déjà vu la correction
@@ -355,6 +359,7 @@
   }
 
   async function updateDisplay () {
+    log('updateDisplay:'+ exercise.id)
     if (exercise == null) return
     if (
       exercise.seed === undefined &&
@@ -676,7 +681,7 @@
               class="{exercise.listeQuestions.length === 1 ||
               !exercise.listeAvecNumerotation
                 ? 'list-none'
-                : 'list-decimal'} w-full list-inside mb-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
+                : 'numbered-list'} w-full list-inside mb-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
               {#each exercise.listeQuestions as item, i (i + '_' + (exercise.seed || ''))}
                 <div

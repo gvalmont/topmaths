@@ -39,7 +39,7 @@ export default function Resolutionavecformecanonique () {
   this.sup = 1
 
   this.nouvelleVersion = function () {
-    this.consigne = 'Factoriser, si cela est possible, ' + (this.nbQuestions !== 1 ? 'chaque' : 'le') + ' polynôme suivant de degré 2 : '
+    this.consigne = 'Factoriser sur $\\mathbb{R}$, si cela est possible, ' + (this.nbQuestions !== 1 ? 'chaque' : 'le') + ' polynôme suivant de degré 2 : '
     if (this.interactif) {
       this.consigne += '<br> '
     }
@@ -50,7 +50,7 @@ export default function Resolutionavecformecanonique () {
       delta = b * b - 4 * a * c
       b2 = fraction(delta, 4 * a * a).simplifie() // terme b² dans l'expression a²-b²
       texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
-      texteCorr = `Factoriser, si cela est possible : $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
+      texteCorr = `Factoriser sur $\\mathbb{R}$, si cela est possible : $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
       texteCorr += '<br>On reconnaît un polynôme du second degré sous la forme $ax^2+bx+c$.'
       texteCorr += '<br>On cherche les éventuelles racine(s) du polynôme.'
       texteCorr += '<br>On commence par calculer le discriminant : $\\Delta = b^2-4ac$.'
@@ -59,7 +59,7 @@ export default function Resolutionavecformecanonique () {
       // test des solutions
       if (delta < 0) {
         texteCorr += '<br>Le discriminant étant négatif, d\'après le cours, le polynôme n\'admet aucune racine réelle.'
-        texteCorr += '<br>On en déduit que le polynôme n\'est pas factorisable.'
+        texteCorr += '<br>On en déduit que le polynôme n\'est pas factorisable sur $\\mathbb{R}$.'
       } else if (delta > 0) { // Cas des deux solutions :
         texteCorr += '<br>Le discriminant étant positif, d\'après le cours, le polynôme admet deux racines réelles :'
         texteCorr += '<br>$x_1=\\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2=\\dfrac{-b+\\sqrt{\\Delta}}{2a}$'

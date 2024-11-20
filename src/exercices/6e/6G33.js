@@ -3,23 +3,21 @@ import { codageSegments } from '../../lib/2d/codages.js'
 import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { shuffle } from '../../lib/outils/arrayOutils'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = 'qcm'
-export const dateDeModifImportante = '04/07/2023' // Modif par EE : Correction des QCM, ajout d'une question, amélioration des feedback
+export const dateDeModifImportante = '10/11/2024'
 export const titre = 'Reconnaître un quadrilatère particulier à partir de ses propriétés'
 
 /**
  * Reconnaître un quadrilatère particulier à partir de ses propriétés
  * @author Rémi Angot
- * Référence 6G33
 */
 export const uuid = '4e52e'
 export const ref = '6G33'
@@ -29,22 +27,38 @@ export const refs = {
 }
 export default function ReconnaitreQuadrilatereParticulier () {
   Exercice.call(this)
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.consigne = ''
   this.nbQuestions = 3
-  this.nbQuestionsModifiable = false
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
   this.correctionDetailleeDisponible = true
-  context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
+  this.correctionDetaillee = context.isHtml
+  this.sup = 4
+  this.besoinFormulaireTexte = [
+    'Type de quadrilatères', [
+      'Nombres séparés par des tirets',
+      '1 : Losange',
+      '2 : Rectangle',
+      '3 : Carré',
+      '4 : Mélange'
+    ].join('\n')
+  ]
 
   this.nouvelleVersion = function () {
-    this.consigne = this.interactif ? 'Pour chaque question, cocher la bonne réponse.' : ''
+    const listeDeQuad = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 3,
+      melange: 4,
+      defaut: 4,
+      listeOfCase: [
+        'losange',
+        'rectangle',
+        'carre'
+      ],
+      nbQuestions: this.nbQuestions
+    })
 
-    const listeDeQuad = shuffle(['losange', 'rectangle', 'carre'])
+    this.consigne = !this.interactif ? '' : this.nbQuestions === 1 ? 'Cocher la bonne réponse.' : 'Pour chaque question, cocher la bonne réponse.'
+
     for (let i = 0, numDeQuad, listeDeQuestions, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       numDeQuad = listeDeQuad[i] === 'losange' ? randint(1, 2) : randint(1, 3)
       listeDeQuestions = listeDeQuad[i] + numDeQuad
@@ -133,8 +147,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
         lastChoice: 5
       }
 
-      // listeDeQuestions[0] = 'losange2'
-      // switch (listeDeQuestions) {
       switch (listeDeQuestions) {
         case 'losange1':
           texte = "Quelle est la nature d'un quadrilatère ayant 4 côtés de même longueur ?"
@@ -255,7 +267,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           texteCorr += "C'est un carré."
           break
       }
-      // if (this.modeQcm && !context.isAmc) {
 
       this.autoCorrection[i].enonce = `${texte}\n`
 

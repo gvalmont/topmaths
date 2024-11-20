@@ -196,5 +196,23 @@
   },
   "11ES3": {
     "titre": "Transformations du plan"
+  },
+  "1-ES3": {
+    "titre": "Transformations du plan"
+  },
+  "CalcLit1" : {
+    "titre" : "Généralités"
+  },
+  "CalcLit2" : {
+    "titre" : "Fctorisation"
+  },
+  "CalcLit3" : {
+    "titre" : "Equations du premier degré"
+  },
+  "CalcLit4" : {
+    "titre" : "Equations du second degré"
+  },
+  "CalcLit5" : {
+    "titre" : "Systèmes d'équations"
   }
 }

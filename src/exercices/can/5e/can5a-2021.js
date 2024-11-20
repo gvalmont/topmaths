@@ -671,7 +671,7 @@ export default function SujetCAN20215ieme () {
             reponse = `${texNombre(a + b - 0.1, 3)};${texNombre(a + b, 3)}`
             texte = `Donne un encadrement au dixième près du nombre $${texNombre(nombre)}$ :<br>`
             texte += `$\\ldots \\leqslant ${texNombre(nombre)} \\leqslant \\ldots$`
-            texteCorr = `Le chiffre des dixième est le premier chiffre après la virgule. <br>Ainsi : $${miseEnEvidence(texNombre(a + b - 0.1))} \\leqslant ${texNombre(nombre)} \\leqslant ${miseEnEvidence(texNombre(a + b))}$.`
+            texteCorr = `Le chiffre des dixièmes est le premier chiffre après la virgule. <br>Ainsi : $${miseEnEvidence(texNombre(a + b - 0.1))} \\leqslant ${texNombre(nombre)} \\leqslant ${miseEnEvidence(texNombre(a + b))}$.`
             setReponse(this, index, reponse, { formatInteractif: 'texte' })
             if (this.interactif) {
               texte += '<br>Écrire les entiers dans l’ordre croissant, séparés par un point-virgule.'
@@ -687,7 +687,7 @@ export default function SujetCAN20215ieme () {
             texte = `Donne un encadrement au centième près du nombre $${texNombre(nombre)}$ :<br>`
             texte += `$\\ldots \\leqslant ${texNombre(nombre)} \\leqslant \\ldots$`
 
-            texteCorr = `Le chiffre des centième est le deuxième chiffre après la virgule. <br>Ainsi : $${miseEnEvidence(texNombre(a + b + c - 0.01))} \\leqslant ${texNombre(nombre)} \\leqslant ${miseEnEvidence(texNombre(a + b + c))}$.`
+            texteCorr = `Le chiffre des centièmes est le deuxième chiffre après la virgule. <br>Ainsi : $${miseEnEvidence(texNombre(a + b + c - 0.01))} \\leqslant ${texNombre(nombre)} \\leqslant ${miseEnEvidence(texNombre(a + b + c))}$.`
             setReponse(this, index, reponse, { formatInteractif: 'texte' })
             if (this.interactif) {
               texte += '<br>Écrire les entiers dans l’ordre croissant, séparés par un point-virgule.'

@@ -1,4 +1,6 @@
+/* eslint-disable no-template-curly-in-string */
 import { qcmCamExport } from '../lib/amc/qcmCam'
+import { createList } from '../lib/format/lists'
 import { propositionsQcm } from '../lib/interactif/qcm'
 import { texteEnCouleurEtGras } from '../lib/outils/embellissements'
 import { context } from '../modules/context'
@@ -22,6 +24,8 @@ export const nombreElementsDifferents = (liste: string[]) => {
 export default class ExerciceQcm extends Exercice {
   enonce!: string
   reponses!: string[]
+  bonnesReponses?: boolean[]
+  corrections?: string[]
   options: {vertical?: boolean, ordered: boolean, lastChoice?: number}
   versionAleatoire?: ()=>void
   versionOriginale:()=>void = () => {
@@ -54,10 +58,22 @@ export default class ExerciceQcm extends Exercice {
   nouvelleVersion () {
     this.autoCorrection = []
     if (this.sup2) {
-      this.consigne = `Parmi les ${this.reponses.length} réponses ci-dessous, une seule est correcte.<br>
-${this.interactif || context.isAmc ? 'Cocher la case correspondante.' : 'Donner la lettre correspondante.'}`
+      this.consigne = this.bonnesReponses == null
+        ? `Parmi les ${this.reponses.length} réponses ci-dessous, une seule est correcte.<br>
+${this.interactif || context.isAmc ? 'Cocher la case correspondante' : 'Donner la lettre correspondante'}${this.sup4 ? ', ou choisir "Je ne sais pas".' : '.'}`
+        : `Parmi les ${this.reponses.length} réponses ci-dessous, il peut y avoir plusieurs bonnes réponses.<br>
+${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(s)' : 'Donner la (ou les) lettre(s) correspondante(s)'}${this.sup4 ? ', ou choisir "Je ne sais pas".' : '.'}`
     } else {
       this.consigne = ''
+    }
+    const statuts: boolean[] = []
+    if (this.bonnesReponses == null) {
+      statuts.fill(false, 0, this.reponses.length - 1)
+      statuts[0] = true
+    } else {
+      for (let k = 0; k < this.reponses.length; k++) {
+        statuts[k] = this.bonnesReponses[k] ?? false
+      }
     }
     if (this.versionAleatoire != null) {
       for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 30;) {
@@ -75,10 +91,10 @@ ${this.interactif || context.isAmc ? 'Cocher la case correspondante.' : 'Donner 
           for (let j = 0; j < this.reponses.length; j++) {
             autoCorr.propositions.push({
               texte: this.reponses[j],
-              statut: j === 0
+              statut: statuts[j]
             })
           }
-          if (this.sup3) {
+          if (this.sup4) {
             autoCorr.propositions.push({
               texte: 'Je ne sais pas',
               statut: false
@@ -90,10 +106,41 @@ ${this.interactif || context.isAmc ? 'Cocher la case correspondante.' : 'Donner 
           const lettres = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].slice(0, this.reponses.length)
           const monQcm = propositionsQcm(this, i, { style: 'margin:0 3px 0 3px;', format: this.interactif ? 'case' : 'lettre' })
           texte += `<br>${monQcm.texte}`
-
-          const laBonneLettre = lettres[autoCorr.propositions.findIndex(el => el.statut)]
+          let messageBonnesReponses: string
+          if (this.corrections && autoCorr.propositions != null) {
+            this.correction = ''
+            const correctionsList: string[] = new Array(this.reponses.length)
+            const props = autoCorr.propositions
+            for (let n = 0; n < this.reponses.length; n++) {
+              const index = this.reponses.findIndex(el => el === props[n].texte)
+              if (this.corrections[index] != null) {
+                correctionsList[n] = `réponse ${lettres[n]} : ${this.corrections[index]}${context.isHtml
+              ? props[n].statut
+                ? '\u2705' // ✅
+                : '\u274C' // ❌
+              : props[n].statut
+                ? '${\\bf \\color[cmyk]{.63,.23,.93,.06}\\boldsymbol{\\checkmark}}$' // ✅
+                : '${\\bf \\color[rgb]{1,.1,.1}\\boldsymbol{\\times}}$'// ❌
+                }<br>`
+              }
+            }
+            const liste = createList({
+              items: correctionsList.filter(el => el != null),
+              style: 'fleches'
+            })
+            this.correction = liste
+          } else {
+            this.correction += '<br>'
+          }
+          if (this.bonnesReponses) {
+            const lesBonnesLettres = autoCorr.propositions.map((el, i) => Object.assign({}, { prop: el, index: i })).filter(obj => obj.prop.statut).map(obj => lettres[obj.index])
+            messageBonnesReponses = `Les bonnes réponses sont les réponses ${texteEnCouleurEtGras(lesBonnesLettres.join(' ; '))}.`
+          } else {
+            const laBonneLettre = lettres[autoCorr.propositions.findIndex(el => el.statut)]
+            messageBonnesReponses = `La bonne réponse est la réponse ${texteEnCouleurEtGras(laBonneLettre)}.`
+          }
           // Ici on colle le texte de la correction à partir du latex d'origine (vérifier la compatibilité Katex et doubler les \)s
-          const texteCorr = `${this.correction}<br>${this.interactif ? '' : `La bonne réponse est la réponse ${texteEnCouleurEtGras(laBonneLettre)}.`}`
+          const texteCorr = `${this.correction}${this.interactif ? '' : messageBonnesReponses}`
 
           this.listeQuestions[i] = texte
           this.listeCorrections[i] = texteCorr
@@ -114,7 +161,7 @@ ${this.interactif || context.isAmc ? 'Cocher la case correspondante.' : 'Donner 
       for (let j = 0; j < this.reponses.length; j++) {
         autoCorr.propositions.push({
           texte: this.reponses[j],
-          statut: j === 0
+          statut: statuts[j]
         })
       }
       const lettres = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].slice(0, this.reponses.length)

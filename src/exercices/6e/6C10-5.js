@@ -97,7 +97,9 @@ export default function ExerciceLabyrintheMultiples () {
       texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
 
       /** ********************** AMC Open *****************************/
-      this.autoCorrection = [{ enonce: texte, propositions: [{ texte: texteCorr, statut: 3, feedback: '' }] }]
+      if (context.isAmc) {
+        this.autoCorrection = [{ enonce: texte, propositions: [{ texte: texteCorr, statut: 3, feedback: '' }] }]
+      }
       /****************************************************/
       if (this.questionJamaisPosee(q, listeMultiples[0], listeNonMultiples[0])) {
         this.listeQuestions.push(texte)

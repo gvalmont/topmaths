@@ -57,7 +57,7 @@ export default function IntervallesDeR () {
           c1.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, X2, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x>${a}$ et représenter l'intervalle sur une droite graduée.`
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x>${a}$${this.interactif ? '.' : ' et représenter l\'intervalle sur une droite graduée.'}`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
@@ -78,7 +78,7 @@ export default function IntervallesDeR () {
           c1.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, X2, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x\\geqslant ${a}$ et représenter l'intervalle sur une droite graduée.`
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x\\geqslant ${a}$${this.interactif ? '.' : ' et représenter l\'intervalle sur une droite graduée.'}`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
@@ -98,7 +98,7 @@ export default function IntervallesDeR () {
           c1.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(X1, A, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x<${a}$ et représenter l'intervalle sur une droite graduée.`
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x<${a}$${this.interactif ? '.' : ' et représenter l\'intervalle sur une droite graduée.'}`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
@@ -118,7 +118,7 @@ export default function IntervallesDeR () {
           c1.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(X1, A, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x\\leqslant ${a}$ et représenter l'intervalle sur une droite graduée.`
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x\\leqslant ${a}$${this.interactif ? '.' : ' et représenter l\'intervalle sur une droite graduée.'}`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
@@ -141,7 +141,7 @@ export default function IntervallesDeR () {
           c2.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, B, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a} < x < ${b}$ et représenter l'intervalle sur une droite graduée.`
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a} < x < ${b}$${this.interactif ? '.' : ' et représenter l\'intervalle sur une droite graduée.'}`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
@@ -164,7 +164,7 @@ export default function IntervallesDeR () {
           c2.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, B, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}\\leqslant x<${b}$ et représenter l'intervalle sur une droite graduée.`
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}\\leqslant x<${b}$${this.interactif ? '.' : ' et représenter l\'intervalle sur une droite graduée.'}`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
@@ -187,7 +187,7 @@ export default function IntervallesDeR () {
           c2.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, B, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}\\leqslant x\\leqslant ${b}$ et représenter l'intervalle sur une droite graduée.`
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}\\leqslant x\\leqslant ${b}$${this.interactif ? '.' : ' et représenter l\'intervalle sur une droite graduée.'}`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
@@ -210,7 +210,7 @@ export default function IntervallesDeR () {
           c2.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, B, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}< x\\leqslant ${b}$ et représenter l'intervalle sur une droite graduée.`
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}< x\\leqslant ${b}$${this.interactif ? '.' : ' et représenter l\'intervalle sur une droite graduée.'}`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
@@ -233,7 +233,7 @@ export default function IntervallesDeR () {
           c2.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, B, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};${b}]$ et représenter l'intervalle sur une droite graduée.`
+          texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};${b}]$${this.interactif ? '.' : ' et représenter l\'intervalle sur une droite graduée.'}`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
@@ -255,7 +255,7 @@ export default function IntervallesDeR () {
           c2.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, B, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'inéquation correspondant à $x \\in [${a};${b}]$ et représenter l'intervalle sur une droite graduée.`
+          texte = `Déterminer l'inéquation correspondant à $x \\in [${a};${b}]$${this.interactif ? '.' : ' et représenter l\'intervalle sur une droite graduée.'}`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
@@ -277,7 +277,7 @@ export default function IntervallesDeR () {
           c2.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, B, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'inéquation correspondant à $x \\in [${a};${b}[$ et représenter l'intervalle sur une droite graduée.`
+          texte = `Déterminer l'inéquation correspondant à $x \\in [${a};${b}[$${this.interactif ? '.' : ' et représenter l\'intervalle sur une droite graduée.'}`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
@@ -296,7 +296,7 @@ export default function IntervallesDeR () {
           c1 = crochetG(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
 
-          int1 = intervalle(A, B, 'red', 0); texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};+\\infty[$ et représenter l'intervalle sur une droite graduée.`
+          int1 = intervalle(A, B, 'red', 0); texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};+\\infty[$${this.interactif ? '.' : ' et représenter l\'intervalle sur une droite graduée.'}`
           int1.epaisseur = 6
           texteCorr = mathalea2d({
             xmin: -2,
@@ -318,7 +318,7 @@ export default function IntervallesDeR () {
 
           int1 = intervalle(X1, A, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'inéquation correspondant à $x \\in ]-\\infty;${a}[$ et représenter l'intervalle sur une droite graduée.`
+          texte = `Déterminer l'inéquation correspondant à $x \\in ]-\\infty;${a}[$${this.interactif ? '.' : ' et représenter l\'intervalle sur une droite graduée.'}`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,
@@ -339,7 +339,7 @@ export default function IntervallesDeR () {
 
           int1 = intervalle(X1, A, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'inéquation correspondant à $x \\in ]-\\infty;${a}]$ et représenter l'intervalle sur une droite graduée.`
+          texte = `Déterminer l'inéquation correspondant à $x \\in ]-\\infty;${a}]$${this.interactif ? '.' : ' et représenter l\'intervalle sur une droite graduée.'}`
           texteCorr = mathalea2d({
             xmin: -2,
             ymin: -2,

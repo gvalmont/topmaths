@@ -1,0 +1,45 @@
+import Exercice from '../../Exercice'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
+import { sp } from '../../../lib/outils/outilString'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+export const titre = 'Compléter une suite'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const uuid = 'f4224'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
+/**
+ * Modèle d'exercice très simple pour la course aux nombres
+ * @author Gilles Mora
+ * Référence
+*/
+export default class CompleterUneSuite extends Exercice {
+  constructor () {
+    super()
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
+    this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierDeBase
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  }
+
+  nouvelleVersion () {
+    this.listeCanEnonces = []
+    this.listeCanReponsesACompleter = []
+    const k = randint(3, 9)
+    const nbre2 = 2025 - k
+    const nbre3 = nbre2 - k
+    this.reponse = nbre3 - k
+    this.question = `Compléter la suite : <br>
+   $${texNombre(2025)}$${sp(3)}; ${sp(3)}$${texNombre(nbre2)}$ ${sp(3)}; ${sp(3)}$${texNombre(nbre3)}$ ${sp(3)}; ${sp(3)}`
+    this.correction = `$${texNombre(2025)}-${k}=${texNombre(nbre2)}$ et  $${texNombre(nbre2)}-${k}=${texNombre(nbre3)}$, donc le nombre suivant est  $${texNombre(nbre3)}-${k}=${miseEnEvidence(texNombre(this.reponse, 0))}$.`
+    if (!this.interactif) { this.question += `${sp(3)}$\\ldots$` }
+    this.canEnonce = 'Compléter la suite.'
+    this.canReponseACompleter = `$${texNombre(2025)}$ ; $${texNombre(nbre2)}$ ; $${texNombre(nbre3)}$ ; $\\ldots$`
+  }
+}

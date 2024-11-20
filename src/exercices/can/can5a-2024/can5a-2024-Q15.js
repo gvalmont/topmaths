@@ -29,7 +29,7 @@ export default class NomExercice extends Exercice {
     if (this.canOfficielle) {
       this.reponse = 35
       this.question = 'On donne le tableau de proportionnalité :<br>'
-      this.question += `${context.isHtml ? '<br>' : '\\newline'}`
+      this.question += `${context.isHtml ? '<br>' : ''}`
       this.question += tableauColonneLigne([8, 5], [56], ['?']) + '<br>'
       this.correction = `On constate que $56$ s'obtient en multipliant $8$ par $7$.
           Ainsi, on obtient la quatrième proportionnelle en multipliant $5$ par $7$.<br>
@@ -41,7 +41,7 @@ export default class NomExercice extends Exercice {
       const c = randint(1, 9, a)
       this.reponse = c * k
       this.question = 'On donne le tableau de proportionnalité :<br>'
-      this.question += `${context.isHtml ? '<br>' : '\\newline'}`
+      this.question += `${context.isHtml ? '<br>' : ''}`
       this.question += tableauColonneLigne([a, b], [c], [''])
       this.question += '<br>'
       this.correction = `On constate que $${b}$ s'obtient en multipliant $${a}$ par $${k}$.

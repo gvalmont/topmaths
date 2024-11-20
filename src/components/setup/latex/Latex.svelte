@@ -612,7 +612,7 @@ import {
           <SimpleCard title={'Obtenir un PDF'}>
             <div>
               Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$. Je
-              vais être rediriger vers le site OverLeaf pour compiler le code en
+              vais être redirigé(e) vers le site OverLeaf (qui nécessite d'avoir un compte) pour compiler le code en
               ligne.
             </div>
             <div slot="button1">
@@ -628,10 +628,10 @@ import {
               {/await}
             </div>
           </SimpleCard>
-          <SimpleCard title={'Compiler le code pour avoir un fichier PDF (version béta)'}>
+          <SimpleCard title={'Compiler le code pour avoir un fichier PDF (version encore beta)'}>
             <div>
               Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$. J'essaie
-              le nouveau compilateur en ligne (serveur TexLive.net).
+              le nouveau compilateur en ligne (serveur TexLive.net) qui ne nécessite pas d'avoir un compte.
             </div>
             <div slot="button1">
               {#await promise}

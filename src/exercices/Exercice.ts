@@ -2,7 +2,7 @@
 
 import type Grandeur from '../modules/Grandeur'
 import { exportedApplyNewSeed, exportedNouvelleVersionWrapper, exportedQuestionJamaisPosee, exportedReinit } from './exerciseMethods'
-import type { AutoCorrection } from '../lib/interactif/gestionInteractif'
+import type { AutoCorrection, clickFigures } from '../lib/interactif/gestionInteractif'
 import type { OptionsComparaisonType } from '../lib/interactif/comparisonFunctions'
 import type DragAndDrop from '../lib/interactif/DragAndDrop'
 import type Figure from 'apigeom/src/Figure'
@@ -52,7 +52,7 @@ export default class Exercice {
   contenu?: string
   contenuCorrection?: string
   autoCorrection: AutoCorrection[]
-  figures?: Figure[]
+  figures?: Figure[] | clickFigures[]
   amcType?: string
   tableauSolutionsDuQcm?: object[]
   spacing: number

@@ -3,11 +3,12 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import Decimal from 'decimal.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 export const titre = ''
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const uuid = '30f80'
+export const uuid = '91304'
 export const refs = {
   'fr-fr': [],
   'fr-ch': []
@@ -15,42 +16,48 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
- * Référence
 */
 export default class ComparerFractions extends Exercice {
   constructor () {
     super()
-    this.titre = titre
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
+    this.optionsChampTexte = { texteApres: ' bouteilles' }
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
     this.compare = fonctionComparaison
-    this.formatChampTexte = KeyboardType.clavierDeBase
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
-    const annee = 2025
-    const b = choice([8, 11, 23])
-    const c = choice([13, 17, 19, 31])
-    if (choice([true, false])) {
-      this.reponse = 0
-      this.question = `Utiliser l'égalité $ ${texNombre(annee, 0)} = ${b} \\times  ${texNombre(annee / b - 1, 0)} + ${b} $ pour donner le reste de la division euclidienne de $ ${texNombre(annee, 0)} $ par $ ${b}$`
-      this.correction = ` Comme $${b}$ n'est pas inférieur à $${b}$, l'égalité 
-        $ ${texNombre(annee, 0)} = ${b} \\times  ${texNombre(annee / b - 1, 0)} + ${b} $ ne traduit pas directement la division euclidienne de $ ${texNombre(annee, 0)} $ par ${b}. <br>
-        Transformons cette égalité en :  $${texNombre(annee, 0)}= ${texNombre(annee, 0)} = ${b} \\times  ${texNombre(annee / b - 1, 0)} + 1\\times ${b}=${b} \\times  ${texNombre(annee / b, 0)} $  qui montre que le reste  de la division euclidienne de $ ${texNombre(annee, 0)} $ par $ ${b} $ est $${miseEnEvidence('0')}$.`
+    const oliveK = choice([100, 200])
+    const nbreBouteilles = choice([20, 25, 10])
+    const oliveParBouteille = new Decimal(oliveK).div(nbreBouteilles)
+    this.reponse = new Decimal(2025).div(oliveParBouteille).floor()
+    const reponse = texNombre(new Decimal(2025).div(oliveParBouteille).floor())
+    this.question = `Pour remplir $${nbreBouteilles}$ bouteilles d'huile d'olive, Stéphane utilise $${oliveK}$ kg d'olives.<br>
+      Combien va-t-il remplir de bouteilles pleines avec ses $${texNombre(2025, 0)}$ kg d'olives cueillies ?`
+    this.correction = `Pour remplir $${nbreBouteilles}$ bouteilles d'huile d'olive, Stéphane utilise $${oliveK}$ kg d'olives.<br> Cela signifie que pour remplir $1$ bouteille d'huile, il utilise $${oliveParBouteille}$ kg d'olives car $${oliveK} \\div  ${nbreBouteilles} = ${oliveParBouteille}$.<br>`
+    if (new Decimal(2025).modulo(oliveParBouteille).equals(0)) {
+      this.correction += `On a  : <br>
+      $\\begin{aligned}
+      ${texNombre(2025, 0)}&=${texNombre(2000)}+${texNombre(25)}\\\\
+      &=${texNombre(new Decimal(2000).div(oliveParBouteille))}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).div(oliveParBouteille).floor())}\\times ${oliveParBouteille}\\\\
+      &=${reponse}\\times ${oliveParBouteille}
+      \\end{aligned}$<br>
+      Il peut remplir $${miseEnEvidence(reponse)}$ bouteilles d'huile d'olive.`
     } else {
-      this.question = `Utiliser l'égalité $ ${texNombre(annee, 0)} = ${c} \\times ${Math.floor(annee / c) - 1} + ${annee - c * Math.floor(annee / c) + c} $ pour donner le reste de la division euclidienne de $ ${texNombre(annee, 0)} $ par $ ${c}$`
-      this.correction = ` Comme $${annee - c * Math.floor(annee / c) + c}$ n'est pas inférieur à $${c}$, l'égalité 
-        $ ${texNombre(annee, 0)} = ${c} \\times ${Math.floor(annee / c) - 1} + ${annee - c * Math.floor(annee / c) + c} $ ne traduit pas directement l'expression de la division euclidienne de $ ${texNombre(annee, 0)} $ par ${c}. <br>
-        Transformons cette égalité en :
-        $${texNombre(annee, 0)}= ${c} \\times ${Math.floor(annee / c) - 1}+ ${c} + ${annee - c * Math.floor(annee / c)}=${c} \\times ${Math.floor(annee / c)} + ${annee - c * Math.floor(annee / c)}$.<br>
-        Le reste est donc   $${miseEnEvidence(texNombre(annee - c * Math.floor(annee / c), 0))}$.`
-      this.reponse = annee - c * Math.floor(annee / c)
+      this.correction += `On a :<br> 
+      $\\begin{aligned}
+      ${texNombre(2025)}&=${texNombre(2000)}+${texNombre(25)}\\\\
+      &=${texNombre(new Decimal(2000).div(oliveParBouteille))}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).div(oliveParBouteille).floor())}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).modulo(oliveParBouteille))}\\\\
+      &=${reponse}\\times ${oliveParBouteille}+${texNombre(new Decimal(2025).modulo(oliveParBouteille))}
+      \\end{aligned}$<br>
+      Il peut remplir $${miseEnEvidence(reponse)}$ bouteilles d'huile d'olive.`
     }
     if (this.interactif) { this.question += '<br>' }
     this.canEnonce = this.question
-    this.canReponseACompleter = ''
+    this.canReponseACompleter = '$\\ldots$ bouteilles'
   }
 }

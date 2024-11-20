@@ -16,17 +16,15 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
- * Référence
 */
 export default class ComparerFractions extends Exercice {
   constructor () {
     super()
-    this.titre = titre
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBase
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -47,7 +45,7 @@ export default class ComparerFractions extends Exercice {
        x&=\\dfrac{${texNombre(2025 - b, 0)}}{${a}}\\\\
        x&=${this.reponse}
        \\end{aligned}$<br>
-       La solution de l'équation est : $${miseEnEvidence(texNombre(this.reponse, 0))}$.
+       La solution de l'équation $${a}x+${texNombre(b, 0)}=${texNombre(2025, 0)}$ est $${miseEnEvidence(texNombre(this.reponse, 0))}$.
        `
     if (this.interactif) { this.question += '<br>' }
     this.canEnonce = this.question

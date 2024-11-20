@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import engine from '../../lib/interactif/comparisonFunctions.js'
 import { Point } from '../../lib/2d/points.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
-import type { SemiBoxedExpression } from '@cortex-js/compute-engine'
+import type { SemiBoxedExpression, BoxedExpression } from '@cortex-js/compute-engine'
 
 export const titre = 'Interpolation polynomiale'
 export const dateDePublication = '10/07/2024'
@@ -43,7 +43,7 @@ function polynomeInterpolation (r1: number, r2: number, x: number, fdex: SemiBox
   // Renvoie la fonction polynomiale p de degré 2 telle que f(r1) = f(r2) = 0, et f(x) = fdex.
   // fdex est soit un nombre numérique soit une BoxExpression
   // Renvoie également les détails de à la résolution de ce problème.
-  fdex = (typeof fdex === 'number') ? engine.box(fdex) : fdex.simplify() // fdex est une BoxedExpression
+  fdex = (typeof fdex === 'number' || typeof fdex === 'string') ? engine.box(fdex) : (fdex as BoxedExpression).simplify() // fdex est une BoxedExpression
   const a = engine.box(['Rational',
     fdex,
     ['Multiply', ['Add', x, -r1], ['Add', x, -r2]]], { canonical: false })
@@ -134,8 +134,8 @@ export default class nomExercice extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const [texte, texteCorr, ax, ay, bx, by] = i % 2 === 0 ? questionRacine() : questionInterpolation()
       if (this.questionJamaisPosee(i, ax, ay, bx, by)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions.push(String(texte))
+        this.listeCorrections.push(String(texteCorr))
         i++
       }
       cpt++

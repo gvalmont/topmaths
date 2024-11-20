@@ -20,12 +20,11 @@ export const refs = {
 export default class calculImage extends Exercice {
   constructor () {
     super()
-    this.titre = titre
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -34,9 +33,9 @@ export default class calculImage extends Exercice {
     const c = randint(-5, -1)
     this.question = `$f(x)=x^2+${texNombre(2025, 0)}$<br>`
     this.reponse = c * c + 2025
-    this.correction = `$f(${c})=(${c})^2+${texNombre(2025, 0)}$`
-    this.correction = `$f(${c})=${c * c}+${texNombre(2025, 0)}$`
-    this.correction = `$f(${c})=${miseEnEvidence(texNombre(this.reponse))}$`
+    this.correction = `$f(${c})=(${c})^2+${texNombre(2025, 0)}$<br>`
+    this.correction += `$f(${c})=${c * c}+${texNombre(2025, 0)}$<br>`
+    this.correction += `$f(${c})=${miseEnEvidence(texNombre(this.reponse))}$`
     if (this.interactif) { this.question += `$f(${c})=$` } else { this.question += `Calculer $f(${c})$.` }
     this.canEnonce = `$f(x)=x^2+${texNombre(2025, 0)}$`
     this.canReponseACompleter = `$f(${c})=\\ldots$`

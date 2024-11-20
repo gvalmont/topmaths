@@ -17,7 +17,7 @@ export const uuid = '9bbc7'
 export default class additionnerFrac extends Exercice {
   constructor () {
     super()
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.compare = fonctionComparaison

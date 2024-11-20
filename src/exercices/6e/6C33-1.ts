@@ -70,7 +70,7 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
       let resultat2: string
       let resultat3: string
       let nombreCible: string
-      let cpt = 0
+      let k = 0
       do {
         calcul1 = `${nombres[0]} ${signes[0]} ${nombres[1]}`
         resultat1 = computeEngine.parse(calcul1).simplify().latex
@@ -79,8 +79,8 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
         calcul3 = `${resultat2} ${signes[2]} ${nombres[3]}`
         resultat3 = computeEngine.parse(calcul3).simplify().latex
         calcul4 = `${resultat3} ${signes[3]} ${nombres[4]}`
-        cpt++
-      } while (cpt < 100 && (nombresUtilises.includes(Number(resultat1)) || nombresUtilises.includes(Number(resultat2)) || nombresUtilises.includes(Number(resultat3)) || Number(resultat1) < 0 || Number(resultat2) < 0 || Number(resultat3) < 0 || Math.floor(Number(resultat1)) !== Number(resultat1) || Math.floor(Number(resultat2)) !== Number(resultat2) || Math.floor(Number(resultat3)) !== Number(resultat3)))
+        k++
+      } while (k < 100 && (nombresUtilises.includes(Number(resultat1)) || nombresUtilises.includes(Number(resultat2)) || nombresUtilises.includes(Number(resultat3)) || Number(resultat1) < 0 || Number(resultat2) < 0 || Number(resultat3) < 0 || Math.floor(Number(resultat1)) !== Number(resultat1) || Math.floor(Number(resultat2)) !== Number(resultat2) || Math.floor(Number(resultat3)) !== Number(resultat3)))
 
       nombreCible = computeEngine.parse(calcul2).simplify().latex
       let redaction: string = rediger(calcul1, signes[1], nombres[2].toString())
@@ -242,7 +242,7 @@ $${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')}
       const texte = `${prenom()} a obtenu le nombre ${nombreCible} à partir des nombres suivants : ${lister(nombresUtilises)}.<br>
 Voici ses calculs :<br>
 ${calculs}
-Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, ' college6eme')}`
+Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, ' clavierDeBaseAvecEgal')}`
       const expressionReduite = engine.parse(redaction, { canonical: true }).latex
       handleAnswers(this, i, { reponse: { value: [expressionReduite, redaction], compare: exprCompare, options: { noUselessParen } } })
       if (!this.correctionDetaillee) texteCorr = ''

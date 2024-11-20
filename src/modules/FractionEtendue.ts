@@ -1101,69 +1101,71 @@ class FractionEtendue {
     * @return {string}
     */
   texRacineCarree (detaillee: boolean = false):string {
-    if (this.estParfaite) {
-      const rac = this.racineCarree()
-      if (rac) return rac.texFraction
-      else return `\\sqrt{${this.texFraction}}`
-    }
-    if (this.signe === -1) return 'Not a real number !'
-    let factoDen:[number, number] = extraireRacineCarree(Math.abs(this.den))
-    let factoNum
-    let etape
-    if (!this.estEntiere) {
-      etape = detaillee ? `\\sqrt{\\dfrac{${this.num}}{${this.den}}}=` : ''
-    } else {
-      factoNum = extraireRacineCarree(Math.abs(this.num))
-      if (factoNum[0] !== 1) {
-        etape = detaillee ? `\\sqrt{${Math.abs(this.num)}}=` : ''
-      } else {
-        etape = ''
+    if (this.num === 0) { return '0' } else {
+      if (this.estParfaite) {
+        const rac = this.racineCarree()
+        if (rac) return rac.texFraction
+        else return `\\sqrt{${this.texFraction}}`
       }
-    }
-    if (factoDen[1] !== 1) {
+      if (this.signe === -1) return 'Not a real number !'
+      let factoDen:[number, number] = extraireRacineCarree(Math.abs(this.den))
+      let factoNum
+      let etape
       if (!this.estEntiere) {
-        etape += detaillee ? `\\sqrt{\\dfrac{${Math.abs(this.num)}\\times ${factoDen[1]}}{${Math.abs(this.den)}\\times ${factoDen[1]}}}=` : ''
-        etape += detaillee ? `\\sqrt{\\dfrac{${Math.abs(this.num * factoDen[1])}}{${Math.abs(this.den * factoDen[1])}}}=` : ''
-      }
-      factoNum = extraireRacineCarree(Math.abs(this.num * factoDen[1]))
-      factoDen = extraireRacineCarree(Math.abs(this.den * factoDen[1]))
-    } else {
-      factoNum = extraireRacineCarree(Math.abs(this.num))
-    }
-    const k = new FractionEtendue(factoNum[0], factoDen[0]).simplifie()
-    const r = new FractionEtendue(factoNum[1], factoDen[1]).simplifie()
-
-    if (detaillee) {
-      if (k.valeurDecimale !== 1) {
-        if (k.denIrred === 1) {
-          etape += detaillee ? `\\sqrt{${factoNum[0]}^2\\times${factoNum[1]}}=` : ''
-          etape += detaillee ? `${factoNum[0]}${factoNum[1] !== 1 ? '\\sqrt{' + factoNum[1] + '}' : '}'}` : ''
+        etape = detaillee ? `\\sqrt{\\dfrac{${this.num}}{${this.den}}}=` : ''
+      } else {
+        factoNum = extraireRacineCarree(Math.abs(this.num))
+        if (factoNum[0] !== 1) {
+          etape = detaillee ? `\\sqrt{${Math.abs(this.num)}}=` : ''
         } else {
-          if (factoNum[0] !== 1) {
-            etape += detaillee ? `\\sqrt{\\dfrac{${factoNum[0]}^2${factoNum[1] !== 1 ? '\\times ' + factoNum[1] : ''}}{${factoDen[0]}^2${factoDen[1] !== 1 ? '\\times' + factoDen[1] : ''}}}=` : ''
-            etape += detaillee ? `\\dfrac{${factoNum[0]}${factoNum[1] !== 1 ? '\\times\\sqrt{' + factoNum[1] + '}' : ''}}{${factoDen[0]}${factoDen[1] !== 1 ? '\\times\\sqrt{' + factoDen[1] + '}' : ''}}=` : ''
+          etape = ''
+        }
+      }
+      if (factoDen[1] !== 1) {
+        if (!this.estEntiere) {
+          etape += detaillee ? `\\sqrt{\\dfrac{${Math.abs(this.num)}\\times ${factoDen[1]}}{${Math.abs(this.den)}\\times ${factoDen[1]}}}=` : ''
+          etape += detaillee ? `\\sqrt{\\dfrac{${Math.abs(this.num * factoDen[1])}}{${Math.abs(this.den * factoDen[1])}}}=` : ''
+        }
+        factoNum = extraireRacineCarree(Math.abs(this.num * factoDen[1]))
+        factoDen = extraireRacineCarree(Math.abs(this.den * factoDen[1]))
+      } else {
+        factoNum = extraireRacineCarree(Math.abs(this.num))
+      }
+      const k = new FractionEtendue(factoNum[0], factoDen[0]).simplifie()
+      const r = new FractionEtendue(factoNum[1], factoDen[1]).simplifie()
+
+      if (detaillee) {
+        if (k.valeurDecimale !== 1) {
+          if (k.denIrred === 1) {
+            etape += detaillee ? `\\sqrt{${factoNum[0]}^2\\times${factoNum[1]}}=` : ''
+            etape += detaillee ? `${factoNum[0]}${factoNum[1] !== 1 ? '\\sqrt{' + factoNum[1] + '}' : '}'}` : ''
           } else {
-            if (factoDen[1] !== 1) {
-              etape += detaillee ? `\\sqrt{\\dfrac{${factoNum[1]}}{${factoDen[0]}^2\\times ${factoDen[1]}}}=` : ''
+            if (factoNum[0] !== 1) {
+              etape += detaillee ? `\\sqrt{\\dfrac{${factoNum[0]}^2${factoNum[1] !== 1 ? '\\times ' + factoNum[1] : ''}}{${factoDen[0]}^2${factoDen[1] !== 1 ? '\\times' + factoDen[1] : ''}}}=` : ''
+              etape += detaillee ? `\\dfrac{${factoNum[0]}${factoNum[1] !== 1 ? '\\times\\sqrt{' + factoNum[1] + '}' : ''}}{${factoDen[0]}${factoDen[1] !== 1 ? '\\times\\sqrt{' + factoDen[1] + '}' : ''}}=` : ''
             } else {
-              etape += detaillee ? `\\sqrt{\\dfrac{${factoNum[1]}}{${factoDen[0]}^2}}=` : ''
+              if (factoDen[1] !== 1) {
+                etape += detaillee ? `\\sqrt{\\dfrac{${factoNum[1]}}{${factoDen[0]}^2\\times ${factoDen[1]}}}=` : ''
+              } else {
+                etape += detaillee ? `\\sqrt{\\dfrac{${factoNum[1]}}{${factoDen[0]}^2}}=` : ''
+              }
             }
           }
         }
       }
-    }
 
-    if (arrondi(factoNum[1] / factoDen[1], 6) === 1) {
-      return etape + k.texFraction
-    } else {
-      if (k.numIrred === 1 && k.denIrred !== 1) {
-        if (r.denIrred === 1) {
-          return (k.valeurDecimale === 1 ? etape : etape + `\\dfrac{\\sqrt{${r.numIrred}}}{${k.denIrred}}`)
+      if (arrondi(factoNum[1] / factoDen[1], 6) === 1) {
+        return etape + k.texFraction
+      } else {
+        if (k.numIrred === 1 && k.denIrred !== 1) {
+          if (r.denIrred === 1) {
+            return (k.valeurDecimale === 1 ? etape : etape + `\\dfrac{\\sqrt{${r.numIrred}}}{${k.denIrred}}`)
+          } else {
+            return (k.valeurDecimale === 1 ? etape : etape + k.texFraction) + `\\sqrt{${r.toLatex()}}`
+          }
         } else {
           return (k.valeurDecimale === 1 ? etape : etape + k.texFraction) + `\\sqrt{${r.toLatex()}}`
         }
-      } else {
-        return (k.valeurDecimale === 1 ? etape : etape + k.texFraction) + `\\sqrt{${r.toLatex()}}`
       }
     }
   }

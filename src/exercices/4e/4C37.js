@@ -24,7 +24,6 @@ export const refs = {
 export default class SignePuissance extends Exercice {
   constructor () {
     super()
-    this.consigne = 'Déterminer le signe '
     this.nbQuestions = 5
     this.nbCols = 1
     this.nbColsCorr = 1
@@ -32,6 +31,7 @@ export default class SignePuissance extends Exercice {
   }
 
   nouvelleVersion () {
+    this.consigne = 'Déterminer le signe '
     this.consigne += this.nbQuestions > 1 ? 'des expressions suivantes.' : 'de l\'expression suivante.'
     this.listeQuestions = []
     this.listeCorrections = []

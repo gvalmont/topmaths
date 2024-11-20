@@ -58,7 +58,7 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
 
   let oldZoom = 1
   function updateZoom (event: Event) : void {
-    if (!figure.container) {
+    if (!figure.container || !figure.container.id) {
       // figure effacée, donc on annule la mise à jour...
       document.removeEventListener('zoomChanged', updateZoom)
       return
@@ -75,7 +75,7 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
   document.addEventListener('zoomChanged', updateZoom)
 
   function updateAffichage (): void {
-    if (!figure.container) {
+    if (!figure.container || !figure.container.id) {
       // figure effacée, donc on annule la mise à jour...
       document.removeEventListener('exercicesAffiches', updateAffichage)
       document.removeEventListener('zoomChanged', updateZoom)

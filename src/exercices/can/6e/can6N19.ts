@@ -121,7 +121,7 @@ export default class decomposerDecimal extends Exercice {
          &=${miseEnEvidence(texNombre(u * 10 + d, 0))} \\text{ dixièmes } + ${miseEnEvidence(texNombre(c, 0))}\\text{${c === 1 ? ' centième' : ' centièmes'} }
 \\end{aligned}$`
             this.canEnonce = 'Compléter.'
-            this.canReponseACompleter = `$${texNombre(nbre, 2)}=\\ldots$ unité(s)  $\\ldots$ dixième(s) $\\ldots$ centième(s)`
+            this.canReponseACompleter = `$${texNombre(nbre, 2)}=\\ldots$ dixième(s) $\\ldots$ centième(s)`
           } else {
             texte = 'Compléter avec un nombre décimal : <br>'
             if (this.interactif) {
@@ -141,7 +141,7 @@ export default class decomposerDecimal extends Exercice {
            &=${miseEnEvidence(texNombre(nbre, 2))} 
   \\end{aligned}$`
             this.canEnonce = 'Compléter avec un nombre décimal.'
-            this.canReponseACompleter = `$${texNombre(u * 10 + d, 0)}\\text{' dixièmes '} + ${texNombre(c, 0)}\\text{${c === 1 ? ' centième' : ' centièmes'} }=\\ldots$`
+            this.canReponseACompleter = `$${texNombre(u * 10 + d, 0)}\\text{ dixièmes } + ${texNombre(c, 0)}\\text{${c === 1 ? ' centième' : ' centièmes'} }=\\ldots$`
           }
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)

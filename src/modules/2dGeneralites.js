@@ -92,7 +92,7 @@ export function mathalea2d (
     mainlevee = false,
     amplitude = 1,
     style = 'display: block',
-    id = ''
+    id = '' // L'id peut-être utile pour des animations, c'est celui du svg. Le div englobant aura un id en M2D + id
   } = {},
   ...objets
 ) {
@@ -171,9 +171,8 @@ export function mathalea2d (
     return codeTikz
   }
   // On prépare le code HTML
-  const m2dId = 'M2D' + id // utilise l'identifiant du svg UNIQUE ca devrait faire l'affaire
   const divsLatex = []
-  let codeSvg = `<svg class="mathalea2d" ${style} id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${
+  let codeSvg = `<svg class="mathalea2d" ${style} ${id !== '' ? `id="${id}"` : ''}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${
     (ymax - ymin) * pixelsParCm * zoom
   }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${
     (xmax - xmin) * pixelsParCm
@@ -182,7 +181,7 @@ export function mathalea2d (
   codeSvg += '\n</svg>'
   codeSvg = codeSvg.replace(/\\thickspace/gm, ' ')
   const codeHTML = `<div class="svgContainer" ${style ? `style="${style}"` : ''}>
-        <div id="${m2dId}" style="position: relative;${style}">
+        <div ${id !== '' ? `id="M2D${id}"` : ''} style="position: relative;${style}">
           ${codeSvg}
           ${divsLatex.join('\n')}
         </div>
@@ -549,9 +548,9 @@ export function assombrirOuEclaircir (couleur, coefficient) {
 export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
   let code
   const fenetrexmin = fenetreMathalea2d[0]
-  const fenetreymin = fenetreMathalea2d[3] * -1
+  const fenetreymin = -fenetreMathalea2d[3]
   const fenetrexmax = fenetreMathalea2d[2]
-  const fenetreymax = fenetreMathalea2d[1] * -1
+  const fenetreymax = -fenetreMathalea2d[1]
 
   code = `<svg width="${(fenetrexmax - fenetrexmin) * pixelsParCm}" height="${(fenetreymax - fenetreymin) * pixelsParCm}" viewBox="${fenetrexmin * pixelsParCm} ${fenetreymin * pixelsParCm} ${(fenetrexmax - fenetrexmin) * pixelsParCm} ${(fenetreymax - fenetreymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg">\n`
   for (const objet of objets) {

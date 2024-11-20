@@ -72,7 +72,7 @@ const listWithDescriptionItem = {
   htmlOut: `
 <ul class='puces'>
 	<li>item 1</li>
-	<li><span id="list-item-description-i100042487608363730157575819">en-tête</span>texte</li>
+	<li><span>en-tête</span>texte</li>
 	<li>item 3</li>
 </ul>
 `,
@@ -97,7 +97,7 @@ const listWithIntroAndSubList = {
 	<ul class='carres'>
 		<li>item 3</li>
 	</ul>
-	</li>
+</li>
 </ul>
 `,
   latexOut: `
@@ -117,9 +117,9 @@ describe.each([
   simpleNone,
   simpleNone2Items,
   simplePuces,
-  simplePuces2Items
-  // listWithDescriptionItem,
-  // listWithIntroAndSubList
+  simplePuces2Items,
+  listWithDescriptionItem,
+  listWithIntroAndSubList
 ])('$name', ({ input, htmlOut, latexOut }) => {
   test('html output', () => {
     setOutputHtml()

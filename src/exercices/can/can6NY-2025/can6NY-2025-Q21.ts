@@ -20,7 +20,7 @@ export const refs = {
 export default class rechercherUnNombre extends Exercice {
   constructor () {
     super()
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.compare = fonctionComparaison
@@ -33,9 +33,9 @@ export default class rechercherUnNombre extends Exercice {
     const a = randint(5, 20)
     this.reponse = texNombre(a, 0)
 
-    this.question = `En ajoutant un nombre à $${texNombre(2025, 0)}$, on obtient $${2025 + a}$.<br>
+    this.question = `En ajoutant un nombre à $${texNombre(2025, 0)}$, on obtient $${texNombre(2025 + a, 0)}$.<br>
         Quel nombre a-t-on ajouté ?`
-    this.correction = `Comme $${a}+ ${texNombre(2025, 0)}=${2025 + a}$, 
+    this.correction = `Comme $${a}+ ${texNombre(2025, 0)}=${texNombre(2025 + a, 0)}$, 
         le nombre ajouté est $${miseEnEvidence(this.reponse)}$.`
 
     if (this.interactif) { this.question += '<br>' }

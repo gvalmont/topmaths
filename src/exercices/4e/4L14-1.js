@@ -15,6 +15,6 @@ export const refs = {
   'fr-ch': ['10FA3-3']
 }
 export default function TesterSiUnNombreEstSolutionDUneEquationDeg1 () {
-  TesterSiUnNombreEstSolutionDUneEquation.call(this)
   this.exo = '4L14-1'
+  TesterSiUnNombreEstSolutionDUneEquation.call(this)
 }

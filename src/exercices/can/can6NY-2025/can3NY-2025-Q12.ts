@@ -5,6 +5,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { abs } from '../../../lib/outils/nombres'
 export const titre = 'Simplifier une fraction simple'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,10 +22,8 @@ export const refs = {
 export default class simplifierFractionSimple extends Exercice {
   constructor () {
     super()
-    this.titre = titre
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
@@ -34,11 +33,13 @@ export default class simplifierFractionSimple extends Exercice {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
     const n = choice([2025, -2025])
-    const d = choice([-1, 1, 2025, -2025])
-    // this.optionsDeComparaison = abs(d) === 1 ? { fractionIrreductible: true } : { nombreDecimalSeulement: true }
-    this.reponse = new FractionEtendue(n, d).toLatex()
-    this.question = `Écrire le plus simplement possible : $\\dfrac{${texNombre(n)}}{${texNombre(d)}}$`
-    this.correction = `$\\dfrac{${texNombre(n)}}{${texNombre(d)}}=${miseEnEvidence(this.reponse)}$`
+    const d = choice([-1, 2025, -2025])
+    const signe = n * d < 0 ? '-' : ''
+    this.reponse = new FractionEtendue(n, d).texFractionSimplifiee
+    this.question = `Écrire le plus simplement possible : $\\dfrac{${texNombre(n)}}{${texNombre(d)}}$.`
+    this.correction = `$\\dfrac{${texNombre(n)}}{${texNombre(d)}}=`
+    this.correction += !(signe === '' && n > 0) ? `${signe}\\dfrac{${texNombre(abs(n))}}{${texNombre(abs(d))}}=` : ''
+    this.correction += `${miseEnEvidence(this.reponse)}$`
     if (this.interactif) { this.question += '<br>' }
     this.canEnonce = this.question
     this.canReponseACompleter = ''

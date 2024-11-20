@@ -18,7 +18,7 @@ import renderScratch from './renderScratch.js'
 import { decrypt, isCrypted } from './components/urls.js'
 import { convertVueType, type InterfaceGlobalOptions, type InterfaceParams, type VueType } from './types.js'
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale.js'
-import { handleAnswers, setReponse } from './interactif/gestionInteractif'
+import { handleAnswers, setReponse, type MathaleaSVG } from './interactif/gestionInteractif'
 import type { MathfieldElement } from 'mathlive'
 import { calculCompare } from './interactif/comparisonFunctions'
 import FractionEtendue from '../modules/FractionEtendue'
@@ -632,7 +632,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
     const options = exercice.optionsDeComparaison == null ? {} : exercice.optionsDeComparaison
     seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
     if (exercice.nouvelleVersion && typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion(numeroExercice)
-    if (exercice.questionJamaisPosee(i, String(exercice.reponse))) {
+    if (exercice.questionJamaisPosee(i, String(exercice.correction))) {
       if (exercice.compare != null) { /// DE LA AU PROCHAIN LA, ce sera à supprimer quand il n'y aura plus de this.compare
         let reponse = {}
         if (typeof exercice.reponse !== 'string') {
@@ -783,21 +783,44 @@ export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: 
       continue
     }
     if (answer.includes('apigeom')) {
-      // La réponse correspond à une figure
+      // La réponse correspond à une figure apigeom
       const event = new CustomEvent(answer, { detail: answers[answer] })
       document.dispatchEvent(event)
       continue
     }
-    if (answer.includes('rectangle')) {
+    if (answer.includes('cliquefigure')) {
+      // La réponse correspond à une figure cliquefigures
+      const ele = document.querySelector(`#${answer}`) as MathaleaSVG
+      if (ele) {
+        ele.etat = true
+        ele.style.border = '3px solid #f15929'
+        continue
+      }
+    }
+    if (answer.includes('rectangleDND')) {
       // ATTENTION le test est-il assez spécifique ? Une réponse "rectangle", une figure apigeom avec un texte rectangle...
       try {
         // On n'est pas sûr que la chaine `div#${answer}` soit un sélecteur valide
         const rectangle = document.querySelector(`div#${answer}`)
         if (rectangle !== null) {
-          const etiquette = document.querySelector(`div#${answers[answer]}`)
-          if (etiquette !== null) {
-            // Remet l'étiquette à la bonne réponse
-            rectangle.appendChild(etiquette)
+          const listeOfIds = answers[answer].split(';')
+          for (const id of listeOfIds) {
+            // attention ! on a peut-être à faire à des clones ! qu'il faut recréer !
+            if (!id.includes('-clone-')) { // Non, c'est un original
+              const etiquette = document.querySelector(`div#${id}`)
+              if (etiquette !== null) {
+                // Remet l'étiquette à la bonne réponse
+                rectangle.appendChild(etiquette)
+              }
+            } else { // Là, on doit recloner l'original !
+              const idOriginalAndDate = id.split('-clone-')
+              const etiquetteOriginale = document.querySelector(`div#${idOriginalAndDate[0]}`)
+              if (etiquetteOriginale != null) {
+                const clonedEtiquette = etiquetteOriginale.cloneNode(true) as HTMLDivElement
+                clonedEtiquette.id = `${idOriginalAndDate[0]}-clone-${idOriginalAndDate[1]}`
+                rectangle.appendChild(clonedEtiquette)
+              }
+            }
           }
           continue
         }

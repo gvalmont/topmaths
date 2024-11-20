@@ -6,17 +6,22 @@ import { sp } from './outilString.js'
  * @Example
  * //0 h 24 est accepté
  */
-export function minToHoraire (minutes: number) {
+export function minToHoraire (minutes: number, NbEnLatex = false) {
   let nbHour = Math.floor(minutes / 60)
   if (nbHour > 23) {
     nbHour = nbHour - 24
   }
   const nbminuteRestante = (minutes % 60)
+  if (NbEnLatex) {
+    if (nbminuteRestante > 9) {
+      return (`${nbHour}${sp()}\\text{h}${sp()}${nbminuteRestante}${sp()}\\text{min}`)
+    }
+    return (`${nbHour}${sp()}\\text{h}${sp()}0${nbminuteRestante}${sp()}\\text{min}`)
+  }
   if (nbminuteRestante > 9) {
     return (nbHour + sp() + 'h' + sp() + nbminuteRestante + sp() + 'min')
-  } else {
-    return (nbHour + sp() + 'h' + sp() + '0' + nbminuteRestante + sp() + 'min')
   }
+  return (nbHour + sp() + 'h' + sp() + '0' + nbminuteRestante + sp() + 'min')
 }
 
 /**

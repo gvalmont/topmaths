@@ -12,8 +12,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '22/06/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const uuid = 'betaFonction' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
-export const ref = 'betaFonction'// @todo à modifier aussi
+export const uuid = '9f20b' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
 
 /**
  * Aléatoirise un polynome et dresse le tableau de signes et le tableau de variations

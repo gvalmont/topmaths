@@ -16,6 +16,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context.js'
 import { clone } from 'mathjs'
+import { codageSegments } from '../../lib/2d/codages'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 export const amcReady = true
@@ -23,7 +24,7 @@ export const amcType = 'AMCHybride'
 export const titre = 'Connaître le vocabulaire du cercle'
 
 export const dateDePublication = '19/08/2022'
-export const dateDeModifImportante = '07/11/2023'
+export const dateDeModifImportante = '16/11/2024' // Ajout Mireille du centre de cercle, milieu de diamètre
 
 /**
  * Exercice testant les connaissances des élèves sur le vocabulaire du cercle dans les deux sens (Un rayon est ... et [AB] est ...)
@@ -53,7 +54,7 @@ function longueurAlternative (longueur) {
   return longueur.slice(1) + longueur.slice(0, 1)
 }
 
-// const mots = ['un diamètre', 'le diamètre', 'un rayon', 'le rayon', 'une corde']
+// const mots = ['un diamètre', 'le diamètre', 'un rayon', 'le rayon', 'une corde', 'le centre', 'le milieu']
 // @todo relire la définition de cette fonction et la déplacer
 function segmentAlternatif (reponses) {
   if (reponses[0] != null) {
@@ -72,8 +73,8 @@ export default function VocabulaireDuCercle () {
   this.besoinFormulaire2CaseACocher = ['QCM']
   this.sup2 = true
   this.correctionDetailleeDisponible = true
-  this.sup3 = 5
-  this.besoinFormulaire3Numerique = ['Nombre de sous-questions', 5]
+  this.sup3 = 6 // changement Mireille
+  this.besoinFormulaire3Numerique = ['Nombre de sous-questions', 7]
 
   this.spacing = 1 // Interligne des questions
   this.spacingCorr = 1.5 // Interligne des réponses
@@ -85,7 +86,8 @@ export default function VocabulaireDuCercle () {
     this.listeCorrections = []
     this.autoCorrection = []
     this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
-    const nbSousQuestionMax = 5 // Il y a 5 types de sous-questions pour l'instant... si ça venait à changer, mettre à jour ce paramètre
+    const nbSousQuestionMax = 6 // Il y a 6 types de sous-questions pour l'instant... si ça venait à changer, mettre à jour ce paramètre
+    // changement Mireille
     let sensDesQuestionsDisponibles
     switch (this.sup) {
       case 1:
@@ -98,7 +100,7 @@ export default function VocabulaireDuCercle () {
         sensDesQuestionsDisponibles = ['Un rayon est ...', '[AB] est ...']
         break
     }
-    const nbSousQuestions = contraindreValeur(1, 5, this.sup3, nbSousQuestionMax)
+    const nbSousQuestions = contraindreValeur(1, 6, this.sup3, nbSousQuestionMax) // changement Mireille
     const sensDesQuestions = combinaisonListes(sensDesQuestionsDisponibles, this.nbQuestions * nbSousQuestionMax)
     const distanceMinEntrePoints = 2
     const distanceMinCorde = 3
@@ -128,7 +130,8 @@ export default function VocabulaireDuCercle () {
       const BC = segment(B, C)
       const DE = segment(D, E)
       const polygon = polygoneAvecNom(A, B, C, D, E)
-      objetsEnonce.push(leCercle, labelPoint(O), tracePoint(O), OA, BC, DE, polygon[1])
+      const codage = codageSegments('//', 'blue', O, B, O, C, O, A)
+      objetsEnonce.push(leCercle, labelPoint(O), tracePoint(O), OA, BC, DE, polygon[1], codage)
       // const params = { xmin: -4, ymin: -4, xmax: 4, ymax: 4, pixelsParCm: 20, scale: 1, optionsTikz: 'baseline=(current bounding box.north)' }
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
       const figure = mathalea2d(Object.assign({ }, fixeBordures(objetsEnonce)), objetsEnonce)
@@ -172,6 +175,13 @@ export default function VocabulaireDuCercle () {
           commentaire: '',
           commentaireAlt: '',
           sens: sensDesQuestions[i * nbSousQuestions + 4]
+        },
+        { // Ajout Mireille
+          nom: `$${O.nom}$`,
+          nature: `le centre du cercle, qui est aussi le milieu de [${B.nom + C.nom}]`,
+          commentaire: `On parle du ${texteEnCouleurEtGras('centre d\'un cercle', 'blue')} ; pour un ${texteEnCouleurEtGras('segment', 'blue')}, on parle de son ${texteEnCouleurEtGras('milieu', 'blue')}.`,
+          commentaireAlt: '',
+          sens: sensDesQuestions[i * nbSousQuestions + 5]
         }
       ]
       const propositionsUnRayonEst = []
@@ -282,6 +292,9 @@ export default function VocabulaireDuCercle () {
                   }
                 }
                 reponses = ajouterAlternatives(segmentAlternatif, reponses)
+                break
+              case 'le milieu': // Ajout Mireille
+                reponses.push(B.nom + C.nom)
                 break
             }
             texte += ajouteChampTexteMathLive(this, i * questions.length + j, '  college6eme alphanumericAvecEspace')

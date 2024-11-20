@@ -90,7 +90,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
     this.typesDeQuestions = []
     this.nbPoints = []
     this.typesDeQuestions = gestionnaireFormulaireTexte({ nbQuestions: this.nbQuestions, saisie: this.sup2, min: 1, max: 5, melange: 6, defaut: 6, listeOfCase: ['segment', 'droite', 'demidroite', 'cercle', 'triangle'] }) as typeof this.typesDeQuestions
-    for (let i = 0; i < this.nbQuestions; i++) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 20;) {
       let nuage: {x: number, y:number}[] = []
       // On construit les points
       do {
@@ -247,8 +247,11 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
         default:
           throw new Error('Type de question inconnu')
       }
-
-      this.listeCorrections.push(context.isHtml ? wrapperApigeomToMathalea(correctionFig) : correctionFig.tikz())
+      if (this.questionJamaisPosee(i, this.typesDeQuestions[i], this.labels.join(''), labelCentre)) {
+        i++
+        this.listeCorrections.push(context.isHtml ? wrapperApigeomToMathalea(correctionFig) : correctionFig.tikz())
+      }
+      cpt++
     }
   }
 

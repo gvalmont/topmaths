@@ -4,7 +4,7 @@ import { demiDroite, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs
 import { labelPoint } from '../../lib/2d/textes.ts'
 import { combinaisonListes, enleveElement, shuffle } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
@@ -13,7 +13,7 @@ export const titre = 'Choisir la bonne figure'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = ['cliqueFigure']
+export const interactifType = 'cliqueFigure'
 
 /**
  * Plusieurs éléments sont proposés, il faut choisir le bon (par clic si interactif, par case à cocher par AMC)
@@ -26,17 +26,17 @@ export const refs = {
   'fr-fr': ['6G10-3'],
   'fr-ch': ['9ES1-8']
 }
-export default function CliqueFigure () {
-  Exercice.call(this)
-  this.nbQuestions = 3
-  this.nbCols = 1
-  this.nbColsCorr = 1
+export default class CliqueFigure extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 3
+    this.nbCols = 1
+    this.nbColsCorr = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.autoCorrection = []
-    this.interactifType = 'cliqueFigure'
     this.consigne = (this.interactif) ? 'Cliquer sur la bonne figure.' : context.vue !== 'diap' && !context.isAmc ? 'Entourer la bonne figure.' : 'Choisir la bonne figure représentant : ' /// Penser ici à AMC aussi.
-    this.figures = [] // Liste des objets de toutes les figures sur lesquelles on pourra cliquer avec leur id et un booléen de réponse
     const typesDeQuestions = combinaisonListes(['segment', 'droite', 'demidroite', 'demidroite2'], this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const numeroLettre = randint(1, 20)
@@ -47,19 +47,19 @@ export default function CliqueFigure () {
       // context.pixelsParCm = 10
       context.pixelsParCm = 20
       const labels = labelPoint(A, B)
-      this.figures[i] = [{ id: `figure0Ex${this.numeroExercice}Q${i}`, solution: false },
-        { id: `figure1Ex${this.numeroExercice}Q${i}`, solution: false },
-        { id: `figure2Ex${this.numeroExercice}Q${i}`, solution: false },
-        { id: `figure3Ex${this.numeroExercice}Q${i}`, solution: false }
+      this.figures[i] = [{ id: `cliquefigure0Ex${this.numeroExercice}Q${i}`, solution: false },
+        { id: `cliquefigure1Ex${this.numeroExercice}Q${i}`, solution: false },
+        { id: `cliquefigure2Ex${this.numeroExercice}Q${i}`, solution: false },
+        { id: `cliquefigure3Ex${this.numeroExercice}Q${i}`, solution: false }
       ]
-      const figSegment = mathalea2d({ style: 'display: inline-block', xmin: -2, xmax: 6, ymin: -2, scale: 0.4, id: `figure0Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B))
-      const figDroite = mathalea2d({ style: 'display: inline-block', xmin: -2, xmax: 6, ymin: -2, scale: 0.4, id: `figure1Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), droite(A, B))
-      const figDemiDroite = mathalea2d({ style: 'display: inline-block', xmin: -2, xmax: 6, ymin: -2, scale: 0.4, id: `figure2Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(A, B))
-      const figDemiDroite2 = mathalea2d({ style: 'display: inline-block', xmin: -2, xmax: 6, ymin: -2, scale: 0.4, id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(B, A))
-      const figSegmentAMC = mathalea2d({ style: 'display: inline-block', xmin: -2, xmax: 6, ymin: -2, scale: 0.3, id: `figure0Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B))
-      const figDroiteAMC = mathalea2d({ style: 'display: inline-block', xmin: -2, xmax: 6, ymin: -2, scale: 0.3, id: `figure1Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), droite(A, B))
-      const figDemiDroiteAMC = mathalea2d({ style: 'display: inline-block', xmin: -2, xmax: 6, ymin: -2, scale: 0.3, id: `figure2Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(A, B))
-      const figDemiDroite2AMC = mathalea2d({ style: 'display: inline-block', xmin: -2, xmax: 6, ymin: -2, scale: 0.3, id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(B, A))
+      const figSegment = mathalea2d({ style: 'display: inline-block', xmin: -2, xmax: 6, ymin: -2, scale: 0.4, id: `cliquefigure0Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B))
+      const figDroite = mathalea2d({ style: 'display: inline-block', xmin: -2, xmax: 6, ymin: -2, scale: 0.4, id: `cliquefigure1Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), droite(A, B))
+      const figDemiDroite = mathalea2d({ style: 'display: inline-block', xmin: -2, xmax: 6, ymin: -2, scale: 0.4, id: `cliquefigure2Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(A, B))
+      const figDemiDroite2 = mathalea2d({ style: 'display: inline-block', xmin: -2, xmax: 6, ymin: -2, scale: 0.4, id: `cliquefigure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(B, A))
+      const figSegmentAMC = mathalea2d({ style: 'display: inline-block', xmin: -2, xmax: 6, ymin: -2, scale: 0.3, id: `cliquefigure0Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B))
+      const figDroiteAMC = mathalea2d({ style: 'display: inline-block', xmin: -2, xmax: 6, ymin: -2, scale: 0.3, id: `cliquefigure1Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), droite(A, B))
+      const figDemiDroiteAMC = mathalea2d({ style: 'display: inline-block', xmin: -2, xmax: 6, ymin: -2, scale: 0.3, id: `cliquefigure2Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(A, B))
+      const figDemiDroite2AMC = mathalea2d({ style: 'display: inline-block', xmin: -2, xmax: 6, ymin: -2, scale: 0.3, id: `cliquefigure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), demiDroite(B, A))
       let figCorr
       let figCorrecteAMC
       const figIncorrectAMC = [figSegmentAMC, figDroiteAMC, figDemiDroiteAMC, figDemiDroite2AMC]

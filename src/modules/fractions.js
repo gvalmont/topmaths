@@ -1,5 +1,6 @@
 import FractionEtendue, { rationnalise } from './FractionEtendue'
 import ListeFraction from './ListeFraction'
+import { nombreEnLettres } from './nombreEnLettres'
 
 /**
  * Des fonctions pour manipuler des objets Fraction ou ListeFraction
@@ -106,5 +107,25 @@ export function fraction (a, b) {
       window.notify('fraction de fractions.js : les arguments sont de type inconvenant ', { a, b })
       return NaN
     }
+  }
+}
+
+export function denominateurEnLettre (den, pluriel) {
+  let denEnLettre
+  switch (den) {
+    case 2:
+      return pluriel ? 'demis' : 'demi'
+    case 3:
+      return 'tiers'
+    case 4:
+      return pluriel ? 'quarts' : 'quart'
+    case 9:
+      return pluriel ? 'neuvièmes' : 'neuvième'
+    default:
+      denEnLettre = nombreEnLettres(den)
+      if (!denEnLettre.endsWith('e')) {
+        return `${denEnLettre}ième${pluriel ? 's' : ''}`
+      }
+      return `${denEnLettre.substring(0, denEnLettre.length - 1)}ième${pluriel ? 's' : ''}`
   }
 }

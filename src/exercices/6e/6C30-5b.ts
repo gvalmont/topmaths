@@ -1,4 +1,4 @@
-import { choice } from '../../lib/outils/arrayOutils'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { sp } from '../../lib/outils/outilString.js'
@@ -7,6 +7,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import Exercice from '../Exercice'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const dateDePublication = '23/10/2024'
 
@@ -32,6 +33,7 @@ class MultiplierPar001 extends Exercice {
     this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
     this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
     this.consigne = 'Compléter les pointillés.'
+    this.correctionDetailleeDisponible = true
 
     this.sup = false
     this.sup2 = 4
@@ -54,11 +56,12 @@ class MultiplierPar001 extends Exercice {
     })
 
     const rang = ['millièmes', 'centièmes', 'dixièmes']
-
-    for (let i = 0, texte, texteCorr, coef, nombre, nombreentier, resultat, exposant, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const coefficient = shuffle([-1, -2, -3])
+    for (let i = 0, texte: string, texteCorr: string, coef: number, nombre, nombreentier, resultat, exposant, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
-      coef = -randint(1, 3)
+      coef = coefficient.pop()!
+      if (coefficient.length === 0) coefficient.push(...shuffle([-1, -2, -3]))
       if (!this.sup) {
         exposant = -randint(1, 3)
       } else {
@@ -70,26 +73,31 @@ class MultiplierPar001 extends Exercice {
       let reponse: string = ''
       switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 3 cas sont prévus...
         case 1:
-          texte = remplisLesBlancs(this, i, `%{champ1} \\times ${texNombre2(10 ** coef)}${sp(2)}=${sp(2)}${texNombre2(resultat)}`)
-          texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${texFractionFromString(1, 10 ** (-coef))}$, chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
-          texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
+          texte = remplisLesBlancs(this, i, `%{champ1} \\times ${texNombre2(10 ** coef)}${sp(2)}=${sp(2)}${texNombre2(resultat)}`, KeyboardType.numbersSpace)
+          if (this.correctionDetaillee) {
+            texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${texFractionFromString(1, 10 ** (-coef))}$, chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
+            texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
+          }
           texteCorr += `$${miseEnEvidence(texNombre2(nombre))} \\times ${texNombre2(10 ** coef)}${sp(2)}=${sp(2)}${texNombre2(resultat)}$`
-          reponse = texNombre(nombre, 3)
+          reponse = texNombre(nombre, 6)
           break
         case 3:
-          texte = remplisLesBlancs(this, i, `${texNombre2(nombre)} \\times ${texNombre2(10 ** coef)}${sp(2)}=%{champ1}`)
-          texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${texFractionFromString(1, 10 ** (-coef))}$, chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
-          texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
-          texteCorr += `$${miseEnEvidence(texNombre2(nombre))} \\times ${texNombre2(10 ** coef)}${sp(2)}=${sp(2)}${texNombre2(resultat)}$`
-          reponse = texNombre(resultat, 3)
+          texte = remplisLesBlancs(this, i, `${texNombre2(nombre)} \\times ${texNombre2(10 ** coef)}${sp(2)}=%{champ1}`, KeyboardType.numbersSpace)
+          if (this.correctionDetaillee) {
+            texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${texFractionFromString(1, 10 ** (-coef))}$, chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
+            texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
+          }
+          texteCorr += `$${texNombre2(nombre)} \\times ${texNombre2(10 ** coef)}${sp(2)}=${sp(2)}${miseEnEvidence(texNombre2(resultat))}$`
+          reponse = texNombre(resultat, 6)
           break
         case 2:
-          // texte = `$${texNombre2(nombre)} \\times \\ldots\\ldots\\ldots${sp(2)}=${sp(2)}${texNombre2(resultat)}$`
-          texte = remplisLesBlancs(this, i, `${texNombre2(nombre)} \\times %{champ1}${sp(2)}=${sp(2)}${texNombre2(resultat)}`)
-          texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${texFractionFromString(1, 10 ** (-coef))}$, chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
-          texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
+          texte = remplisLesBlancs(this, i, `${texNombre2(nombre)} \\times %{champ1}${sp(2)}=${sp(2)}${texNombre2(resultat)}`, KeyboardType.numbersSpace)
+          if (this.correctionDetaillee) {
+            texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${texFractionFromString(1, 10 ** (-coef))}$, chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
+            texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
+          }
           texteCorr += `$${texNombre2(nombre)} \\times ${miseEnEvidence(texNombre2(10 ** coef))}${sp(2)}=${sp(2)}${texNombre2(resultat)}$`
-          reponse = texNombre(10 ** coef, 3)
+          reponse = texNombre(10 ** coef, 6)
           break
       }
 

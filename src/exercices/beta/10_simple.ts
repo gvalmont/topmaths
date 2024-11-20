@@ -6,7 +6,12 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '4/5/2024'
-// pnpm getNewUuid pour récupérer l'UUID
+
+export const uuid = '88e43' // Quand on exécute pnpm start la première fois, le terminal renvoie une référence d'uuid, à copier-coller ici
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres

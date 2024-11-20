@@ -17,17 +17,15 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
- * Référence
 */
 export default class reduireExpression extends Exercice {
   constructor () {
     super()
-    this.titre = titre
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -44,10 +42,9 @@ export default class reduireExpression extends Exercice {
     if (choix === 1) {
       this.question = `On donne la série de nombres : $${texNombre(Nombre1[0])}$${sp(2)} ; ${sp(2)} $${texNombre(Nombre1[1])}$ ${sp(2)} ; ${sp(2)}$${texNombre(Nombre1[2])}$.<br>
               Quelle est la moyenne de cette série ?`
-      this.correction = `On remarque que $${texNombre(c)}=${texNombre(2025, 0)}-${a}$ et $${texNombre(b)}=${texNombre(2024)}+${a}$, donc la moyenne est $${miseEnEvidence(`${texNombre(2024)}`)}$.`
+      this.correction = `On remarque que $${texNombre(c)}=${texNombre(2025, 0)}-${a}$ et $${texNombre(b)}=${texNombre(2025)}+${a}$, donc la moyenne est $${miseEnEvidence(`${texNombre(2025)}`)}$.`
       this.reponse = 2025
-    }
-    if (choix === 2) {
+    } else {
       this.question = `On donne la série de nombres : $${texNombre(Nombre2[0], 0)}$${sp(2)} ; ${sp(2)} $${texNombre(Nombre2[1], 0)}$ ${sp(2)} ; ${sp(2)}$${texNombre(Nombre2[2], 0)}$.<br>
             Quelle est la moyenne de cette série ?`
       this.correction = `On remarque que $${texNombre(2025, 0)}=${texNombre(2025 - a)}+${a}$ et $${texNombre(2025 - 2 * a, 0)}=${texNombre(2025 - a, 0)}-${a}$, donc la moyenne est $${miseEnEvidence(`${texNombre(2025 - a)}`)}$.`

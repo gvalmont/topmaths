@@ -51,6 +51,23 @@ function positionneLabel (pointA: Point, pointB: Point) {
 }
 
 /**
+ * supprime les points hors cadre
+ * @param points
+ */
+function deletePoints (points: {x: number, y:number}[], type : number) {
+  const newPoints: {x: number, y:number}[] = []
+  const typeV = [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 1 }, { x: 1, y: -1 }]
+  for (const point of points) {
+    if (point.x >= -7.5 && point.x <= 7.5 && point.y >= -7.5 && point.y <= 7.5 && point.x !== point.y && point.x !== -point.y) {
+      if (!newPoints.some(e => (e.x === point.x && e.y === point.y) || typeV[type].x * point.x + typeV[type].y * point.y === typeV[type].x * e.x + typeV[type].y * e.y)) {
+        newPoints.push(point)
+      }
+    }
+  }
+  return newPoints
+}
+
+/**
  * fonction pour verifier qu'on est dans le cadre
  * @param points
  */
@@ -125,9 +142,11 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       symetriques.length = 0
       antecedents.length = 0
       let nuage: {x: number, y:number}[] = []
+      let nuageSaved: {x: number, y:number}[] = []
       // On construit les points
       do {
-        for (let x = -4; x < 4; x += 2) {
+        nuage = []
+        for (let x = -4; x < 4; x += 1) {
           nuage.push({ y: ((randint(1, 3) * 2) + 1) * choice([-0.5, 0.5]), x })
         }
         // On transforme les points en fonction du choix de l'axe
@@ -148,13 +167,17 @@ class ConstrctionsSymetriquesPoints extends Exercice {
           }
         } else {
           for (let n = 0; n < nuage.length; n++) {
-            nuage[n] = { x: nuage[n].x + nuage[n].y, y: nuage[n].y - nuage[n].x }
+            nuage[n] = {
+              x: Math.round(Math.sqrt(2) * (nuage[n].x + nuage[n].y)),
+              y: Math.round(Math.sqrt(2) * (nuage[n].y - nuage[n].x))
+            }
           }
         }
-        nuage = shuffle(nuage)
-        nuage = nuage.slice(0, this.nbPoints)
-      } while (!checkDistance(nuage))
-
+        nuageSaved.push(...nuage)
+        nuageSaved = deletePoints(nuageSaved, choixDeLaxe[i] - 1)
+      } while (nuageSaved.length < this.nbPoints)
+      nuageSaved = shuffle(nuageSaved)
+      nuage = nuageSaved.slice(0, this.nbPoints)
       this.labels[i] = Array.from(choisitLettresDifferentes(nuage.length, 'Q', true))
 
       // Les antécédents sont des points nommés
@@ -246,7 +269,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       if (context.isHtml && this.interactif) {
         this.figuresApiGeom[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300 }))
         this.figuresApiGeom[i].scale = 0.5
-        this.figuresApiGeom[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE_PERPENDICULAR', 'CIRCLE_CENTER_POINT', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
+        this.figuresApiGeom[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE_PERPENDICULAR', 'CIRCLE_CENTER_POINT', 'SHAKE', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
         const O = this.figuresApiGeom[i].create('Point', { x: 0, y: 0, isVisible: false, isSelectable: false })
         let pointB
         if (choixDeLaxe[i] === 1) {

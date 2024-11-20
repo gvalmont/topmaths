@@ -109,7 +109,7 @@ describe('fonctionComparaison', () => {
     expect(result3.isOk).toBe(true)
     const result4 = fonctionComparaison('0.5', '\\dfrac{4}{8}', { fractionEgale: true })
     expect(result4.isOk).toBe(false)
-    expect(result4.feedback).toBe('Résultat incorrect car une fraction est attendue')
+    expect(result4.feedback).toBe('Résultat incorrect car une fraction est attendue.')
   })
 
   it('Vérifie le fonctionnement de l\'option nombreDecimalSeulement', () => {

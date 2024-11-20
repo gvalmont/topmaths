@@ -60,9 +60,9 @@ export default class VitesseDistanceTemps extends Exercice {
       let t; let prenom; let destination; let texte; let texteCorr
       const v = randint(8, 26, [12]) * 5 // On évite le 60 km/h trop trivial
       if (v % 2 === 0) {
-        t = randint(5, 39) * 3
+        t = randint(5, 39, [20]) * 3
       } else {
-        t = randint(2, 19) * 6
+        t = randint(2, 19, [10]) * 6
       } // On s'assure que le produit v*t est divisible par 6
       const tHour = Math.floor(t / 60)
       const tMin = t % 60

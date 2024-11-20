@@ -113,21 +113,6 @@ class DragAndDropNumerationEntiere extends Exercice {
       let enonceATrous = `$${stringNombre(nombre, 0)}=$ `
       const etiquettes: Etiquette[] = []
       const reponses = []
-      // Je ne sais plus à quoi ça sert !
-      const callback = (e) => {
-        const rectangle = e.target
-        const spanPrec = rectangle.previousSibling
-        if (spanPrec) {
-          const nombre = Number(spanPrec.textContent)
-          if (nombre > 1) {
-            const texte = rectangle.textContent
-            rectangle.innerHTML = rectangle.innerHTML.replace(
-              texte,
-              `${texte}s`
-            )
-          }
-        }
-      }
       for (let e = 0; e < 7; e++) {
         if (enLettre) {
           etiquettes.push({
@@ -166,7 +151,7 @@ class DragAndDropNumerationEntiere extends Exercice {
               `rectangle${indiceRectangle++}`,
               {
                 value: enLettre ? String(2 * this.exposantMorceaux[i][k] + 1 + shift) : String(this.exposantMorceaux[i][k] + 1),
-                callback
+                options: { multi: false }
               }
             ])
           }
@@ -177,12 +162,12 @@ class DragAndDropNumerationEntiere extends Exercice {
       const leDragAndDrop = new DragAndDrop({
         exercice: this,
         question: i,
-        etiquettes,
+        etiquettes: [etiquettes],
         consigne: `Remettre les étiquettes au bon endroit pour reconstituer le nombre $${texNombre(nombre, 0)}$`,
         enonceATrous
       })
       handleAnswers(this, i, objetReponse, { formatInteractif: 'dnd' })
-      texte += leDragAndDrop.ajouteDragAndDrop()
+      texte += leDragAndDrop.ajouteDragAndDrop({ melange: true, duplicable: false })
       for (let k = 0; k < this.morceaux[i].length; k++) {
         if (this.morceaux[i][k] !== '0') {
           texteCorr += enLettre

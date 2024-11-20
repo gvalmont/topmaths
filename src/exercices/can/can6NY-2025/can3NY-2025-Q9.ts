@@ -20,12 +20,11 @@ export const refs = {
 export default class calcAvecChiffresPrio extends Exercice {
   constructor () {
     super()
-    this.titre = titre
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBase
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -49,7 +48,7 @@ export default class calcAvecChiffresPrio extends Exercice {
       this.question = `Quel est le plus petit entier multiple de $${texNombre(b, 0)}$ strictement supérieur à $${texNombre(2025)}$ ?`
       if (2025 % b === 0) {
         this.reponse = texNombre(2025 + b, 0)
-        this.correction = `Comme $${texNombre(2025, 0)}$ est lui-même divisible par $${b}$, le plus petit multiple cherché est $${texNombre(2025, 0)}+${b}= ${texNombre(2025, 0)}+${b}=${miseEnEvidence(this.reponse)}$.`
+        this.correction = `Comme $${texNombre(2025, 0)}$ est lui-même divisible par $${b}$, le plus petit multiple cherché est $${texNombre(2025, 0)}+${b}=${miseEnEvidence(this.reponse)}$.`
       } else {
         this.reponse = texNombre(Math.ceil(2025 / b) * b, 0)
         this.correction = ` Comme $${b}\\times ${texNombre(Math.ceil(2025 / b) - 1)} =${texNombre(Math.ceil(2025 / b) * b - b, 0)} < ${texNombre(2025, 0)}$ et

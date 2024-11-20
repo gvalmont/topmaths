@@ -88,9 +88,9 @@ Chaque uuid doit être différent d'un exercice à l'autre. Lors du pnpm start, 
 Le refs correspond au nom de l'exercice dans le référentiel français et dans le référentiel suisse.
 Selon que c'est une CAN ou un exercice plus classique, les référentiels ne sont pas les mêmes.
 */
-export const uuid = 'XXXXX' // A changer obligatoirement, ne PAS tester avec cet uuid !
+export const uuid = '2e939' // A changer obligatoirement, ne PAS tester avec cet uuid !
 export const refs = {
-  'fr-fr': ['XXXXXXX'], // A changer obligatoirement, ne rien mettre si on ne veut pas que cet exercice soit référencé, donc trouvable dans le menu de gauche de MathALÉA
+  'fr-fr': [], // A changer obligatoirement, ne rien mettre si on ne veut pas que cet exercice soit référencé, donc trouvable dans le menu de gauche de MathALÉA
   'fr-ch': []
 }
 

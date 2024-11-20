@@ -100,12 +100,13 @@ export default class MetaExercice extends Exercice {
           const formatChampTexte = Question.formatChampTexte ?? ''
           const optionsChampTexte = Question.optionsChampTexte ?? {}
           if (Question.formatInteractif === 'fillInTheBlank' || (typeof Question.reponse === 'object' && 'champ1' in Question.reponse)) {
-            this.listeQuestions[indexQuestion] = consigne + remplisLesBlancs(this, indexQuestion, Question.question, 'fillInTheBlank', '\\ldots')
+            this.listeQuestions[indexQuestion] = consigne + remplisLesBlancs(this, indexQuestion, Question.question, formatChampTexte, '\\ldots')
             if (typeof Question.reponse === 'string') {
               handleAnswers(this, indexQuestion, {
                 champ1: {
                   value: Question.reponse,
-                  compare: Question.compare ?? fonctionComparaison
+                  compare: Question.compare ?? fonctionComparaison,
+                  options: optionsChampTexte
                 }
               }, { formatInteractif: 'mathlive' })
             } else if (typeof Question.reponse === 'object') {
@@ -155,6 +156,8 @@ export default class MetaExercice extends Exercice {
                   }, { formatInteractif: 'mathlive' })
                 } else if (reponse instanceof Grandeur) {
                   handleAnswers(this, indexQuestion, { reponse: { value: reponse.toString(), compare, options } }, { formatInteractif: 'mathlive' })
+                } else if (Array.isArray(reponse)) {
+                  handleAnswers(this, indexQuestion, { reponse: { value: reponse, compare, options } })
                 } else {
                   handleAnswers(this, indexQuestion, reponse, { formatInteractif: 'mathlive' }) // EE : Pourquoi ce handleAnswers n'est pas au même format que les autres ?
                 }
@@ -182,7 +185,6 @@ export default class MetaExercice extends Exercice {
             handleAnswers(this, indexQuestion, Question.autoCorrection[0].reponse.valeur, { formatInteractif: 'mathlive' })
           }
         }
-
         if (Question?.autoCorrection[0]?.propositions != null) {
         // qcm
           const monQcm = propositionsQcm(this, indexQuestion) // update les références HTML

@@ -6,6 +6,7 @@ import { randint } from './outils'
 import { getLang } from '../lib/stores/languagesStore'
 import { pgcd } from '../lib/outils/primalite'
 import { extraireRacineCarree } from '../lib/outils/calculs'
+import { miseEnEvidence } from '../lib/outils/embellissements'
 
 interface Options {
   format: string;
@@ -97,8 +98,8 @@ class EquationSecondDegre {
             const b = this.coefficientsEqReduite[0].den * this.coefficientsEqReduite[1].den * racineDelta[0] / pgcdRacines
             const c = racineDelta[1]
             const d = 2 * this.coefficientsEqReduite[0].num * this.coefficientsEqReduite[1].den / pgcdRacines
-            const sol1RevisiteeTex = `\\dfrac{${a} - ${b}\\sqrt{${c}}}{${d}}`
-            const sol2RevisiteeTex = `\\dfrac{${a} + ${b}\\sqrt{${c}}}{${d}}`
+            const sol1RevisiteeTex = `\\dfrac{${a} - ${b === 1 ? '' : b}\\sqrt{${c}}}{${d}}`
+            const sol2RevisiteeTex = `\\dfrac{${a} + ${b === 1 ? '' : b}\\sqrt{${c}}}{${d}}`
             this.solutionsListeTex = [sol1RevisiteeTex, sol2RevisiteeTex]
           }
         } else {
@@ -118,10 +119,10 @@ class EquationSecondDegre {
     if (this.nombreSolutions > 1) {
       this.correctionDetailleeTex += 'l\'équation a deux solutions. Les solutions sont'
       if (lang === 'fr-CH') {
-        this.correctionDetailleeTex += `\\[s_{1,2}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}\\pm\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]`
+        this.correctionDetailleeTex += `\\[${this.variable}_{1,2}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}\\pm\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]`
       } else {
-        this.correctionDetailleeTex += `\\[s_{1}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}+\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\quad`
-        this.correctionDetailleeTex += ` s_{2}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}-\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]`
+        this.correctionDetailleeTex += `\\[${this.variable}_{1}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}+\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\quad`
+        this.correctionDetailleeTex += ` ${this.variable}_{2}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}-\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]`
       }
       if (this.natureDesSolutions === 'entier' || this.natureDesSolutions === 'fractionnaire') {
         this.correctionDetailleeTex += `En réduisant si besoin des fractions et en simplifiant les racines, on obtient $${this.ensembleDeSolutionsTex}$.`
@@ -307,6 +308,47 @@ class EquationSecondDegre {
         }
         checkPreviousNull = false
       }
+    }
+    return expr
+  }
+
+  printToLatexMDG (option = { indice: -1, couleur: 'black' }
+  ): string {
+    let expr = ''
+    let suiteExpr = ''
+    let checkPreviousNull = true
+    const nomVal = [`${this.variable}^2`, this.variable, '', `${this.variable}^2`, this.variable, '']
+    for (let i = 0; i < 3; i++) {
+      suiteExpr = ''
+      if ((this.coefficients.slice(0, 3).every(item => item.num === 0)) && i === 0) {
+        suiteExpr = '0'
+      } else if (!(this.coefficients[i].num === 0) && checkPreviousNull) {
+        if (nomVal[i] === '') {
+          suiteExpr = `${this.coefficients[i].simplifie().texFSD}${nomVal[i]}`
+        } else {
+          suiteExpr = `${rienSi1(this.coefficients[i].simplifie())}${nomVal[i]}`
+        }
+        checkPreviousNull = false
+      } else if (!(this.coefficients[i].num === 0) && !checkPreviousNull) {
+        if (nomVal[i] === '') {
+          suiteExpr = `${ecritureAlgebrique(this.coefficients[i].simplifie())}`
+        } else {
+          suiteExpr = `${ecritureAlgebriqueSauf1(this.coefficients[i].simplifie())}${nomVal[i]}`
+        }
+        checkPreviousNull = false
+      }
+      if (i === option.indice) {
+        if (suiteExpr.split(this.variable)[0] === '+' || suiteExpr.split(this.variable)[0] === '-') {
+          suiteExpr = miseEnEvidence(suiteExpr.split(this.variable)[0] + '1', option.couleur) + this.variable + suiteExpr.split(this.variable)[1]
+        }
+        if ((suiteExpr.split(this.variable).length !== 1)) {
+          suiteExpr = miseEnEvidence(suiteExpr.split(this.variable)[0], option.couleur) + this.variable + suiteExpr.split(this.variable)[1]
+        } else {
+          suiteExpr = miseEnEvidence(suiteExpr.split(this.variable)[0], option.couleur)
+        }
+        suiteExpr = '\\,' + suiteExpr
+      }
+      expr = expr + suiteExpr
     }
     return expr
   }

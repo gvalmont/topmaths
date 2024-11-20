@@ -500,7 +500,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
 
     // mathalea2d() est la fonction qui ajoute soit une figure SVG (en html), soit une figure tikz en Latex. Ici, juste la grille est le point de départ.
     for (let i = 0; i < 4; i++) {
-      paramsEnonces.id = `figure${i}Ex${numeroExercice}Q0`
+      paramsEnonces.id = `cliquefigure${i}Ex${numeroExercice}Q0`
       texte += mathalea2d(paramsEnonces,
         lutins[ordreLutins[i]],
         depart[ordreLutins[i]],
@@ -543,10 +543,10 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     if (this.interactif && context.isHtml) {
       texte += `<span id="resultatCheckEx${this.numeroExercice}Q0"></span>`
     }
-    this.figures[0] = [{ id: `figure0Ex${this.numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 0) },
-      { id: `figure1Ex${numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 1) },
-      { id: `figure2Ex${numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 2) },
-      { id: `figure3Ex${numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 3) }
+    this.figures[0] = [{ id: `cliquefigure0Ex${this.numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 0) },
+      { id: `cliquefigure1Ex${numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 1) },
+      { id: `cliquefigure2Ex${numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 2) },
+      { id: `cliquefigure3Ex${numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 3) }
     ]
     texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
     this.listeQuestions.push(texte) // on met à jour la liste des questions

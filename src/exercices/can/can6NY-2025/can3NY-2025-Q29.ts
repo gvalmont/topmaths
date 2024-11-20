@@ -2,13 +2,16 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
-import Decimal from 'decimal.js'
+import { calculCompare, fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { sp } from '../../../lib/outils/outilString'
+import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
 export const titre = ''
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const uuid = '91304'
+export const uuid = '30f80'
 export const refs = {
   'fr-fr': [],
   'fr-ch': []
@@ -24,30 +27,50 @@ export default class ComparerFractions extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.optionsChampTexte = { texteApres: ' bouteilles' }
-    this.formatInteractif = 'calcul'
+    this.nbQuestionsModifiable = false
+    this.formatInteractif = 'fillInTheBlank'
     this.compare = fonctionComparaison
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
+    this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
   nouvelleVersion () {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
-    const oliveK = choice([100, 200])
-    const nbreBouteilles = choice([20, 25, 10])
-    const oliveParBouteille = new Decimal(oliveK).div(nbreBouteilles)
-    const reponse = new Decimal(2025).div(oliveParBouteille)
-    this.reponse = texNombre(reponse.floor(), 0)
-    this.question = `Pour remplir $${nbreBouteilles}$ bouteilles d'huile d'olive, Stéphane utilise $${oliveK}$ kg d'olives.<br>
-      Combien va-t-il remplir de bouteilles pleines avec ses $${texNombre(2025, 0)}$ kg d'olives cueillies ?`
-    this.correction = `Pour remplir $${nbreBouteilles}$ bouteilles d'huile d'olive, Stéphane utilise $${oliveK}$ kg d'olives.<br> Cela signifie que pour remplir $1$ bouteille d'huile, il utilise $${oliveParBouteille}$ kg d'olives car $${oliveK} \\div  ${nbreBouteilles} = ${oliveParBouteille}$.<br>`
-    if (new Decimal(2025).modulo(oliveParBouteille).equals(0)) {
-      this.correction += `Comme $${texNombre(2025, 0)}=${texNombre(2000)}+${texNombre(25)}=${texNombre(new Decimal(2000).div(oliveParBouteille))}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).div(oliveParBouteille).floor())}\\times ${oliveParBouteille}=${texNombre(reponse)}\\times ${oliveParBouteille}$, il peut remplir $${miseEnEvidence(this.reponse)}$ bouteilles d'huile d'olive.`
-    } else {
-      this.correction += `Comme $${texNombre(2025)}=${texNombre(2000)}+${texNombre(24)}=${texNombre(new Decimal(2000).div(oliveParBouteille))}\\times ${oliveParBouteille}+${texNombre(new Decimal(25).div(oliveParBouteille).floor())}\\times ${oliveParBouteille}+${texNombre(new Decimal(24).modulo(oliveParBouteille))}=${texNombre(reponse)}\\times ${oliveParBouteille}+${texNombre(new Decimal(2025).modulo(oliveParBouteille))}$, il peut remplir $${miseEnEvidence(this.reponse)}$ bouteilles d'huile d'olive.`
+    const a = 2025
+    const b = choice([2024, 2026])
+    const choix = choice([true, false])
+    switch (randint(2, 2)) {
+      case 1 :
+
+        this.consigne = choix ? `L'image de $${texNombre(a, 0)}$ par la fonction $f$ est $${texNombre(b, 0)}$.` : `$${texNombre(b, 0)}$ est l'image de $${texNombre(a, 0)}$ par la fonction $f$.`
+        this.consigne += '<br> Compléter l\'égalité correspondante.'
+        this.question = 'f(%{champ1}) =%{champ2}'
+        this.correction = `$f(${miseEnEvidence(texNombre(a, 0))}) =${miseEnEvidence(texNombre(b, 0))}$`
+        handleAnswers(this, 0, {
+          bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+          champ1: { value: String(a), compare: calculCompare },
+          champ2: { value: String(b), compare: calculCompare }
+        }
+        )
+        this.reponse = { bareme: toutPourUnPoint, champ1: { value: String(a), compare: fonctionComparaison }, champ2: { value: String(b), compare: fonctionComparaison } }
+        this.canReponseACompleter = `$f(${sp()}\\ldots ${sp()}) =${sp()}\\ldots$`
+        break
+
+      case 2 :
+        this.consigne = choix ? `Un antécédent de $${texNombre(a, 0)}$ par la fonction $f$ est $${texNombre(b, 0)}$.` : `$${texNombre(b, 0)}$ est un antécédent de  $${texNombre(a, 0)}$ par la fonction $f$.`
+        this.consigne += '<br> Compléter l\'égalité correspondante.'
+        this.question = 'f(%{champ1}) =%{champ2}'
+        this.correction = `$f(${miseEnEvidence(texNombre(b, 0))}) =${miseEnEvidence(texNombre(a, 0))}$`
+        handleAnswers(this, 0, {
+          bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+          champ1: { value: String(b) },
+          champ2: { value: String(a) }
+        }
+        )
+        this.reponse = { bareme: toutPourUnPoint, champ1: { value: String(b), compare: fonctionComparaison }, champ2: { value: String(a), compare: fonctionComparaison } }
+        this.canReponseACompleter = `$f(${sp()}\\ldots ${sp()}) =${sp()}\\ldots$`
+        break
     }
-    if (this.interactif) { this.question += '<br>' }
-    this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots$ bouteilles'
+    this.canEnonce = this.consigne
   }
 }

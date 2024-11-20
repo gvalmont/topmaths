@@ -15,17 +15,14 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
- * Référence
 */
 export default class reduireExpression extends Exercice {
   constructor () {
     super()
-    this.titre = titre
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'texte'
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
+    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {
@@ -39,13 +36,13 @@ export default class reduireExpression extends Exercice {
         break
       case 2 :
         this.reponse = 'a\\times 2025'
-        this.question = `Comment peut se noter le produit de $a$ par $${texNombre(2025, 0)}$ ?`
+        this.question = `Comment peut se noter le produit de $a$ par $${texNombre(2025, 0)}$  en fonction de $a$?`
 
         this.correction = `Le produit de $a$ par $${texNombre(2025, 0)}$ se note $${miseEnEvidence(`a\\times ${texNombre(2025, 0)}`)}$.`
         break
       case 3 :
-        this.reponse = ['a\\div 2025', '\\dfrac{a}{2025}']
-        this.question = `Exprimer le quotient de $a$ par $${texNombre(2025, 0)}$.`
+        this.reponse = 'a\\div 2025'
+        this.question = `Exprimer le quotient de $a$ par $${texNombre(2025, 0)}$  en fonction de $a$.`
 
         this.correction = `Le quotient de $a$ par $${texNombre(2025, 0)}$ se note  $${miseEnEvidence(`\\dfrac{a}{${texNombre(2025, 0)}}`)}$.`
         break

@@ -54,7 +54,9 @@ export type OptionsComparaisonType = {
   egaliteExpression?: boolean
   noUselessParen?: boolean
   nonReponseAcceptee?: boolean,
-  pluriels?: boolean
+  pluriels?: boolean,
+  multi?: boolean, // options pour le drag and drop
+  ordered?: boolean // options pour le drag and drop
 }
 export type CompareFunction = (
   input: string,
@@ -329,9 +331,9 @@ function allFactorsMatch (ops1: readonly BoxedExpression[], ops2: readonly Boxed
   let nbMatchOK = 0
   let nbNonAttendu = 0
   let allMatch = true
-  for (const op of ops1) {
+  for (const op of ops2) { // Les facteurs de goodAnswer
     let match = false
-    for (const op2 of ops2) {
+    for (const op2 of ops1) { // Les facteurs de input
       if ((exclusifFactorisation && op2.isSame(op)) || (!exclusifFactorisation && op2.isEqual(op))) {
         match = true
         nbMatchOK++
@@ -340,13 +342,13 @@ function allFactorsMatch (ops1: readonly BoxedExpression[], ops2: readonly Boxed
         nbNonAttendu++
         break
       }
-      const newOp = engine.box(['Subtract', '0', op.json], { canonical: true }) // Pour tester avec l'opposé du facteur.
-      if ((exclusifFactorisation && op2.isSame(newOp)) || (!exclusifFactorisation && op2.isEqual(newOp))) {
+      const newOp2 = engine.box(['Subtract', '0', op2.json], { canonical: true }) // Pour tester avec l'opposé du facteur.
+      if ((exclusifFactorisation && op.isSame(newOp2)) || (!exclusifFactorisation && op.isEqual(newOp2))) {
         signeCurrent = !signeCurrent
         match = true
         nbMatchOK++
         break
-      } else if (exclusifFactorisation && !(op2.isSame(newOp)) && op2.isEqual(newOp)) {
+      } else if (exclusifFactorisation && !(op.isSame(newOp2)) && op.isEqual(newOp2)) {
         nbNonAttendu++
         break
       }
@@ -391,6 +393,9 @@ function factorisationCompare (
 
   let signe = true
   const aCleaned = clean(input)
+  if (input.includes('\\times1\\') || input.endsWith('\\times1') || input.startsWith('1\\times')) {
+    return { isOk: false, feedback: 'Une factorisation par 1 a peu d\'intérêt.' }
+  }
   const bCleaned = clean(goodAnswer)
   const saisieParsedInit = engine.parse(aCleaned, { canonical: true })
   const reponseParsedInit = engine.parse(bCleaned, { canonical: true })
@@ -793,7 +798,7 @@ function comparaisonFraction (
         }
         return { isOk: false, feedback: 'Résultat incorrect car dénominateur et numérateur doivent être entiers.' }
       }
-      return { isOk: false, feedback: 'Résultat incorrect car une fraction est attendue' }
+      return { isOk: false, feedback: 'Résultat incorrect car une fraction est attendue.' }
     }
     if (fractionDecimale) {
       if ((saisieNativeParsed.operator === 'Divide' || saisieNativeParsed.operator === 'Rational') &&
@@ -1436,6 +1441,10 @@ function intervalsCompare (input: string, goodAnswer: string) {
   const clean = generateCleaner(['virgules', 'parentheses', 'espaces'])
   const localInput = clean(input)
   const localGoodAnswer = clean(goodAnswer)
+  if (localGoodAnswer === '\\emptyset') {
+    if (localInput === '\\emptyset' || localInput === '\\{\\}') return { isOk: true, feedback: '' }
+    return { isOk: false, feedback: 'la bonne réponse était l\'ensemble vide : $\\emptyset$' }
+  }
   let isOk1 = true
   let isOk2 = true
   let feedback = ''

@@ -21,7 +21,7 @@ export const refs = {
 export default class PlusGrandNombre extends Exercice {
   constructor () {
     super()
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.formatInteractif = 'qcm'
@@ -36,7 +36,7 @@ export default class PlusGrandNombre extends Exercice {
     const nbB = randint(2023, 2030, aa) / 10
 
     this.reponse = nbA > nbB ? nbA : nbB
-    this.correction = `Comme $${texNombre(a, 0)}$ ${b} est égal à $${texNombre(nbA, 3)}$ et que ${nbA > nbB ? `$${texNombre(nbA, 3)}>${texNombre(nbB, 3)}$` : `$${texNombre(nbB, 3)}>${texNombre(nbA, 3)}$`} alors, le plus grand nombre est   ${nbA > nbB ? `$${miseEnEvidence(texNombre(a, 3))}$ ${texteEnCouleurEtGras(b)}` : `$${miseEnEvidence(texNombre(nbB, 1))}$`}.`
+    this.correction = `$${texNombre(a, 0)}$ ${b} $=${texNombre(nbA, 3)}$ et ${nbA > nbB ? `$${texNombre(nbA, 3)}>${texNombre(nbB, 3)}$` : `$${texNombre(nbB, 3)}>${texNombre(nbA, 3)}$`}. Donc le plus grand nombre des deux est   ${nbA > nbB ? `$${miseEnEvidence(texNombre(a, 3))}$ ${texteEnCouleurEtGras(b)}` : `$${miseEnEvidence(texNombre(nbB, 1))}$`}.`
 
     this.autoCorrection[0] = {
       options: { ordered: true },

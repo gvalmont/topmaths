@@ -28,6 +28,7 @@ import Hms from '../../modules/Hms'
 import { context } from '../../modules/context.js'
 import type Exercice from '../../exercices/Exercice'
 import { verifDragAndDrop } from './DragAndDrop'
+import type Figure from 'apigeom/src/Figure'
 export interface ReponseParams {
   digits?: number
   decimals?: number
@@ -52,6 +53,9 @@ export interface ReponseParams {
   precision?: number
 }
 
+/** les figures cliquables pour une question donnée */
+export type clickFigures = { id: string; solution: boolean }[]
+
 export type AnswerType = {
   value: string | string[]
   compare?: CompareFunction
@@ -73,6 +77,15 @@ export interface Valeur {
   champ4?: AnswerType
   champ5?: AnswerType
   champ6?: AnswerType
+  rectangle1?: AnswerType
+  rectangle2?: AnswerType
+  rectangle3?: AnswerType
+  rectangle4?: AnswerType
+  rectangle5?: AnswerType
+  rectangle6?: AnswerType
+  rectangle7?: AnswerType
+  rectangle8?: AnswerType
+
   // on va aller jusque 6 pour l'instant, si besoin on en ajoutera
   L1C1?: AnswerType
   L1C2?: AnswerType
@@ -113,6 +126,10 @@ export interface AutoCorrection {
 export interface MathaleaSVG extends SVGSVGElement {
   etat: boolean
   hasMathaleaListener: boolean
+}
+
+export function isClickFiguresArray (figures: Figure[] | clickFigures[]): figures is clickFigures[] {
+  return figures.length > 0 && Array.isArray(figures[0])
 }
 
 /**
@@ -310,8 +327,9 @@ function verifExerciceCustom (
 export function prepareExerciceCliqueFigure (exercice: Exercice) {
   // Dès que l'exercice est affiché, on rajoute des listenners sur chaque éléments de this.figures.
   for (let i = 0; i < exercice.nbQuestions; i++) {
-    if (exercice.figures != null) {
-      for (const objetFigure of exercice.figures[i]) {
+    if (exercice.figures != null && exercice.figures[i] != null && isClickFiguresArray(exercice.figures)) {
+      const figures = exercice.figures[i]
+      for (const objetFigure of figures) {
         const figSvg: unknown = document.getElementById(objetFigure.id)
         if (figSvg != null) {
           const fig = figSvg as MathaleaSVG
@@ -345,7 +363,7 @@ function verifQuestionCliqueFigure (exercice: Exercice, i: number) {
   const figures = []
   let erreur = false // Aucune erreur détectée
   let nbFiguresCliquees = 0
-  if (exercice.figures != null && exercice.figures[i] != null) {
+  if (exercice.figures != null && exercice.figures[i] != null && Array.isArray(exercice.figures[i])) {
     for (const objetFigure of exercice.figures[i]) {
       const eltFigure: unknown = document.getElementById(objetFigure.id)
       if (eltFigure != null) {
@@ -355,7 +373,11 @@ function verifQuestionCliqueFigure (exercice: Exercice, i: number) {
         fig.removeEventListener('mouseout', mouseOutSvgEffect)
         fig.removeEventListener('click', mouseSvgClick)
         fig.hasMathaleaListener = false
-        if (fig.etat) nbFiguresCliquees++
+        if (fig.etat) {
+          nbFiguresCliquees++
+          // Sauvegarde des reponses
+          if (exercice.answers) exercice.answers[objetFigure.id] = '1'
+        }
         if (fig.etat !== objetFigure.solution) erreur = true
       }
     }

@@ -143,7 +143,7 @@ export function createList (
         output += lineFactory(item.text, shift + `\t\\item[\\textbf{${item.description}}] `)
         continue
       }
-      const span = `<span id="list-item-description-${getUniqueStringBasedOnTimeStamp('i')}">${item.description} </span>`
+      const span = `<span>${item.description}</span>`
       liContent = span + item.text
     } else {
       // item is neither a string or a DescriptionItem, it's probably a sublist

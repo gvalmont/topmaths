@@ -240,7 +240,6 @@ export default class SommeDeVecteurs extends Exercice {
           yPointSecondIntermediaire--
           yPointIntermediaire++
           // console.info('whileyPointIntermediaire:', yPointIntermediaire)
-          // console.info('whileyPointSecondIntermediaire:', yPointSecondIntermediaire)
         }
         while (yPointSecondIntermediaire < -9) {
           yPointSecondIntermediaire++

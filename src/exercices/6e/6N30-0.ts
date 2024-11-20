@@ -48,6 +48,12 @@ class ReperageEntiersOuDecimaux extends Exercice {
     this.besoinFormulaire2CaseACocher = ['Zéro visible', false]
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = false
+  }
+
+  nouvelleVersion () {
+    if (this.interactif) { this.consigne = texteGras(' Penser à mettre les espaces nécessaires.') }
+    // Listes de pas [pasPrincipal, Subdivision] selon degré de difficulté
+    const nbDecimales = this.version === 'entiers' ? 0 : 3
     listesPas = this.version === 'entiers'
       ? [
           [// Liste facile
@@ -63,7 +69,7 @@ class ReperageEntiersOuDecimaux extends Exercice {
             [45, 5], [200, 5], [15, 5], [200, 8], [150, 5], [24, 6] // Pas secondaire farfelu
           ]
         ]
-      : this.version === 'decimaux'
+      : this.version === 'décimaux'
         ? [
             [
               // Liste facile
@@ -94,12 +100,6 @@ class ReperageEntiersOuDecimaux extends Exercice {
               [200, 8], [1000, 4], [100, 4], [1000, 8]
             ]
           ]
-  }
-
-  nouvelleVersion () {
-    if (this.interactif) { this.consigne = texteGras(' Penser à mettre les espaces nécessaires.') }
-    // Listes de pas [pasPrincipal, Subdivision] selon degré de difficulté
-    const nbDecimales = this.version === 'entiers' ? 0 : 3
 
     this.reinit()
     const choix = gestionnaireFormulaireTexte({

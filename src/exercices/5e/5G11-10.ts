@@ -93,7 +93,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
     this.antecedents = []
     this.labels = []
     this.centres = []
-    for (let i = 0; i < this.nbQuestions; i++) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 20;) {
       let enonce = ''
       let antecedents: Array<Point> = []
       const symetriques: Point[] = []
@@ -185,40 +185,44 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
       }
       const options = {}
       if (this.sup === 1) Object.assign(options, { snapGrid: true, dx: 1, dy: 1 })
-      if (context.isHtml && this.interactif) {
-        this.figuresApiGeom[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 600, height: 600 }))
-        this.figuresApiGeom[i].scale = 1
-        this.figuresApiGeom[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'CIRCLE_CENTER_POINT', 'RAY', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
-        this.centres[i] = this.figuresApiGeom[i].create('Point', { x: 0, y: 0, isVisible: true, isSelectable: true, label: labelCentre })
-        this.antecedents[i] = []
-        for (let k = 0; k < this.nbPoints; k++) {
-          (this.antecedents[i][k] as PointApigeom) = this.figuresApiGeom[i].create('Point', { x: antecedents[k].x, y: antecedents[k].y, isFree: false, isSelectable: true, label: antecedents[k].nom })
-        }
-        if (this.sup === 1) {
-          this.figuresApiGeom[i].create('Grid', { xMin: -10, yMin: -10, xMax: 10, yMax: 10, stepX: 1, stepY: 1, color: 'gray', axeX: false, axeY: false, labelX: false, labelY: false })
-        }
-        if (this.sup === 2) {
+      if (this.questionJamaisPosee(i, labelCentre, this.labels.join())) {
+        if (context.isHtml && this.interactif) {
+          this.figuresApiGeom[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 600, height: 600 }))
+          this.figuresApiGeom[i].scale = 1
+          this.figuresApiGeom[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'CIRCLE_CENTER_POINT', 'RAY', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
+          this.centres[i] = this.figuresApiGeom[i].create('Point', { x: 0, y: 0, isVisible: true, isSelectable: true, label: labelCentre })
+          this.antecedents[i] = []
           for (let k = 0; k < this.nbPoints; k++) {
-            this.figuresApiGeom[i].create('Ray', { point1: (this.antecedents[i][k] as PointApigeom), point2: this.centres[i] as PointApigeom, isDashed: true, color: 'gray' })
+            (this.antecedents[i][k] as PointApigeom) = this.figuresApiGeom[i].create('Point', { x: antecedents[k].x, y: antecedents[k].y, isFree: false, isSelectable: true, label: antecedents[k].nom })
           }
-        }
-        if (this.sup === 3) {
-          for (let k = 0; k < this.nbPoints; k++) {
-            this.figuresApiGeom[i].create('CircleCenterPoint', {
-              center: this.figuresApiGeom[i].create('Point', { isVisible: false, x: this.centres[i].x, y: this.centres[i].y }),
-              point: (this.antecedents[i][k] as PointApigeom),
-              isDashed: true,
-              color: 'gray'
-            })
+          if (this.sup === 1) {
+            this.figuresApiGeom[i].create('Grid', { xMin: -10, yMin: -10, xMax: 10, yMax: 10, stepX: 1, stepY: 1, color: 'gray', axeX: false, axeY: false, labelX: false, labelY: false })
           }
+          if (this.sup === 2) {
+            for (let k = 0; k < this.nbPoints; k++) {
+              this.figuresApiGeom[i].create('Ray', { point1: (this.antecedents[i][k] as PointApigeom), point2: this.centres[i] as PointApigeom, isDashed: true, color: 'gray' })
+            }
+          }
+          if (this.sup === 3) {
+            for (let k = 0; k < this.nbPoints; k++) {
+              this.figuresApiGeom[i].create('CircleCenterPoint', {
+                center: this.figuresApiGeom[i].create('Point', { isVisible: false, x: this.centres[i].x, y: this.centres[i].y }),
+                point: (this.antecedents[i][k] as PointApigeom),
+                isDashed: true,
+                color: 'gray'
+              })
+            }
+          }
+          this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
+          const emplacementPourFigure = figureApigeom({ exercice: this, i, figure: this.figuresApiGeom[i], defaultAction: 'NAME_POINT' })
+          this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure)
+        } else {
+          this.listeQuestions.push(enonce + '<br><br>' + mathalea2d(Object.assign({ scale: 0.5, pixelsParCm: 20 }, fixeBordures([...objets, ...objetsCorrection])), objets))
         }
-        this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
-        const emplacementPourFigure = figureApigeom({ exercice: this, i, figure: this.figuresApiGeom[i], defaultAction: 'NAME_POINT' })
-        this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure)
-      } else {
-        this.listeQuestions.push(enonce + '<br><br>' + mathalea2d(Object.assign({ scale: 0.5, pixelsParCm: 20 }, fixeBordures([...objets, ...objetsCorrection])), objets))
+        this.listeCorrections.push(mathalea2d(Object.assign({ scale: 0.5, pixelsParCm: 20 }, fixeBordures(objetsCorrection)), objetsCorrection))
+        i++
       }
-      this.listeCorrections.push(mathalea2d(Object.assign({ scale: 0.5, pixelsParCm: 20 }, fixeBordures(objetsCorrection)), objetsCorrection))
+      cpt++
     }
   }
 

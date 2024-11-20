@@ -21,7 +21,7 @@ export default class SuitesRep extends Exercice {
   constructor () {
     super()
     this.titre = titre
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatInteractif = 'texte'
     this.formatChampTexte = KeyboardType.alphanumeric

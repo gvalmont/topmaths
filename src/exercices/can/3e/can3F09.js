@@ -41,7 +41,7 @@ export default function ReconnaitreFonctionAffine () {
       switch (choice([1, 2, 3])) { //, 2, 3
         case 1 :// b+ax
           a = randint(1, 5)
-          b = randint(-9, 9)
+          b = randint(-9, 9, a)
           if (a === 1) {
             if (b === 0) {
               texte = `Soit $f(x)=x$.<br>
@@ -100,7 +100,7 @@ export default function ReconnaitreFonctionAffine () {
           break
         case 2 :// a/bx +c
           a = randint(-9, 9, 0)
-          b = randint(2, 10)
+          b = randint(2, 10, a)
           c = randint(-9, 9, 0)
           while (pgcd(a, b) !== 1) {
             a = randint(-5, 5, 0)
@@ -118,7 +118,7 @@ export default function ReconnaitreFonctionAffine () {
 
         case 3 :// (ax+c)/b)
           a = randint(-9, 9, 0)
-          b = randint(2, 10)
+          b = randint(2, 10, a)
           c = randint(-9, 9, 0)
           while (pgcd(a, b) !== 1 | pgcd(c, b) !== 1) {
             a = randint(-9, 9, 0)

@@ -57,7 +57,7 @@ function appendCell ({ isInteractif, line, icell, indexCol, indexLine, tag, clas
         // if (classe === 'clavierDeBase') element.setAttribute('data-keyboard', 'numbersOperations')
         // else if (classe === 'clavierDeBaseAvecFraction') element.setAttribute('data-keyboard', 'numbers basicOperations')
         if (classe === 'clavierDeBaseAvecFraction') element.setAttribute('data-keyboard', 'numbers basicOperations')
-        else if (classe === 'clavierAvecVariable') element.setAttribute('data-keyboard', 'numbers basicOperations variables')
+        else if (classe === 'clavierDeBaseAvecVariable') element.setAttribute('data-keyboard', 'numbers basicOperations variables')
         // else if (classe !== '') element.classList.add(classe)
         else element.setAttribute('data-keyboard', 'numbersOperations')
       }

@@ -22,8 +22,9 @@ export const refs = {
 export default class ProduitACompleter extends Exercice {
   constructor () {
     super()
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
     this.optionsChampTexte = { texteAvant: ' $=$' }
     this.formatInteractif = 'fillInTheBlank'
     this.formatChampTexte = KeyboardType.clavierDeBase
@@ -41,7 +42,7 @@ export default class ProduitACompleter extends Exercice {
     this.reponse = texNombre(b, 3)
     this.consigne = 'Compléter l\'égalité.<br>'
     handleAnswers(this, 0, { champ1: { value: this.reponse } })
-    this.question = `${choix ? `${texNombre(a, 0)}\\times %{champ1} =${texNombre(resultat, 3)}` : `%{champ1} \\times ${texNombre(a, 0)}=${texNombre(resultat, 3)} `}`
+    this.question = `${choix ? `${texNombre(a, 0)}\\times ~%{champ1} =${texNombre(resultat, 3)}` : `%{champ1}~ \\times ${texNombre(a, 0)}=${texNombre(resultat, 3)} `}`
     this.correction = `$${choix ? `${texNombre(a, 0)}\\times ${miseEnEvidence(this.reponse)} =${texNombre(resultat, 3)}` : `${miseEnEvidence(this.reponse)} \\times ${texNombre(a, 0)}=${texNombre(resultat, 3)} `}$ `
     this.canEnonce = 'Compléter l\'égalité.'
     this.canReponseACompleter = `$${choix ? `${texNombre(a, 0)}\\times \\ldots =${texNombre(resultat, 3)}` : `\\ldots \\times ${texNombre(a, 0)}=${texNombre(resultat, 3)} `}$`

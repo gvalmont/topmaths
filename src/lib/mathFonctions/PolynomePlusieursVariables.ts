@@ -174,12 +174,24 @@ class PolynomePlusieursVariables {
 
   difference (p: PolynomePlusieursVariables | MonomePlusieursVariables): PolynomePlusieursVariables {
     const nouveauxMonomes = [...this.monomes]
+
     if (p instanceof PolynomePlusieursVariables) {
-      (p.produit(new MonomePlusieursVariables(new FractionEtendue(-1, 1), { variables: [], exposants: [] }))).monomes.forEach(monome => nouveauxMonomes.push(monome))
+      // Negate each monomial in the polynomial and add to nouveauxMonomes
+      p.monomes.forEach(monome => {
+        const negatedMonome = monome.produit(
+          new MonomePlusieursVariables(new FractionEtendue(-1, 1), { variables: [], exposants: [] })
+        )
+        nouveauxMonomes.push(negatedMonome)
+      })
     } else {
-      nouveauxMonomes.push(p.produit(new MonomePlusieursVariables(new FractionEtendue(-1, 1), { variables: [], exposants: [] })))
+      // Negate the single monomial and add to nouveauxMonomes
+      const negatedMonome = p.produit(
+        new MonomePlusieursVariables(new FractionEtendue(-1, 1), { variables: [], exposants: [] })
+      )
+      nouveauxMonomes.push(negatedMonome)
     }
 
+    // Return the non-reduced polynomial as per the original intent
     return PolynomePlusieursVariables.PolynomeNonReduit(nouveauxMonomes)
   }
 
@@ -213,6 +225,35 @@ class PolynomePlusieursVariables {
       return -a.degre + b.degre
     })
     return PolynomePlusieursVariables.PolynomeNonReduit(monomes)
+  }
+
+  evaluer (valeurs: { [key: string]: FractionEtendue }): FractionEtendue {
+    return this.monomes.reduce((acc, monome) => acc.sommeFraction(monome.evaluer(valeurs)), new FractionEtendue(0, 1))
+  }
+
+  // should do the same as to string, but with the values of the variables replaced by the values in the object valeurs
+  toStringEvaluate (valeurs: { [key: string]: FractionEtendue }): string {
+    if (this.monomes.length === 0) return '0'
+    let result = ''
+    this.monomes.forEach((monome, index) => {
+      const monomeStr = monome.toStringEvaluate(valeurs) // Gets the string representation of the monomial
+
+      if (monome.coefficient.num === 0) {
+        return // Ignore zero terms
+      }
+      // Handle the first term separately
+      if (index === 0) {
+        result += monomeStr
+      } else {
+        if (monome.coefficient.signe === 1) {
+          result += ' + ' + monomeStr
+        } else {
+          result += monomeStr
+        }
+      }
+    })
+
+    return result
   }
 
   // Convertit le polynome en une chaîne de caractères

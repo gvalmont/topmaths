@@ -19,9 +19,12 @@ export const refs = {
 export const uuid = 'testEE'
 
 const engine = new ComputeEngine()
-const toto = engine.parse('12+0', { canonical: false })
-console.info(toto.ops, toto.ops[1], toto.ops[1].value)
-console.info(engine.parse('12+0', { canonical: true }))
+const expr1 = engine.parse('\\frac{-3+\\sqrt{41}}{4}', { canonical: true })
+const expr2 = engine.parse('-\\frac34+\\frac{\\sqrt{41}}{4}', { canonical: true })
+console.info(expr1.isEqual(expr2)) // -> false but should be true
+const expr3 = engine.parse('\\frac{-3-\\sqrt{41}}{4}', { canonical: true })
+const expr4 = engine.parse('-\\frac34-\\frac{\\sqrt{41}}{4}', { canonical: true })
+console.info(expr3.isEqual(expr4)) // -> true as it should
 
 // -> ["Add",12,["Delimiter",["Negate",2]]]
 
@@ -47,8 +50,6 @@ console.info('-\\dfrac{-12}{-13}'.replace(/^\\dfrac(?:(\d)(\d)|{(-?\d+)}{(-?\d+)
 
 export default function desTestsPourInteractivité () {
   Exercice.call(this)
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   // this.consigne = 'Quel est le résultat des calculs suivants ?'
   this.consigne = 'Écrire ce nombre sous forme d\'une somme.'
   this.nouvelleVersion = function () {
@@ -62,7 +63,7 @@ export default function desTestsPourInteractivité () {
       // const reponse = new FractionEtendue(-20, 50).valeurDecimale
       // const enonce = '$Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4 +' + reponse + '$ : $'
       // const enonce = '$Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4 :$'
-      const enonce = '10= '
+      const enonce = '\\dfrac{-3+\\sqrt{41}}{4} + -\\dfrac34+\\dfrac{\\sqrt{41}}{4}'
       // const enonce = '$Donner une valeur numér égale à 0.4 : $'
       // reponse = reponse.toString()
       texteCorr = ''

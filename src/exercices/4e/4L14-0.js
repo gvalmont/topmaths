@@ -1,8 +1,8 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-import { rienSi1, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { rienSi1, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../lib/outils/ecritures'
 import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 
 export const titre = 'Tester si un nombre est solution d\'une équation'
 
@@ -17,6 +17,21 @@ export const refs = {
   'fr-fr': ['4L14-0'],
   'fr-ch': ['10FA3-2', '11FA6-1']
 }
+
+/**
+* Tester une égalité pour 2 valeurs données (une vraie et une fausse)
+*
+* * 1) 3x-a=2x+b  =>  x=a+b
+* * 2) 3x+a=5x-b  => x=(a+b)/2
+* * 3) 10(x-a)=4(2x+b) => x=(10a+4b)/2
+* * 4) ax+b=(a+1)x-c => x=b+c
+* * 5) a-2x=b+2x => x=(a-b)/4
+* * 6) ax-ab=x²-bx => (a-x)(x-b)=0 solutions a et b
+* * 7) adx-bd=acx²-bcx  => (ax-b)(d-cx)=0 solutions b/a et d/c.
+* * 8) 12x-4a=4(2x+b) => x=(4a+4b)/4
+* * 9) x²-bx-ax+ab=0 => (a-x)(x-b)=0 solutions a et b.
+*/
+
 export default function TesterSiUnNombreEstSolutionDUneEquation () {
   Exercice.call(this)
   this.nbCols = 1
@@ -24,21 +39,25 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
   this.sup = 1
   if (this.exo === '4L14-1') {
     this.nbQuestions = 4
+    this.sup2 = '1-3-5-2-4'
   } else if (this.exo === '4L14-2') {
     this.nbQuestions = 3
+    this.sup2 = '9-6-7'
   } else {
     this.nbQuestions = 9
+    this.sup2 = '1-2-3-4-5-6-7-8-9'
   }
 
   this.nouvelleVersion = function () {
-    let typesDeQuestionsDisponibles
-    if (this.exo === '4L14-1') {
-      typesDeQuestionsDisponibles = [choice([1, 2]), 3, choice([4, 5]), 8]
-    } else if (this.exo === '4L14-2') {
-      typesDeQuestionsDisponibles = [9, 6, 7]
-    } else {
-      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 8, 6, 7, 9]
-    }
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: 9,
+      melange: 10,
+      defaut: 10,
+      nbQuestions: this.nbQuestions
+    })
+
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
       this.nbQuestions
@@ -50,7 +69,7 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let a, b, c, d, x1, x2, x3
       switch (listeTypeDeQuestions[i]) {
-        case 1: // 3x-a=2x+b   x=a+b
+        case 1: // 3x-a=2x+b  =>  x=a+b
           if (this.sup === 1) {
             a = randint(1, 6)
             b = randint(1, 6, [a])
@@ -101,16 +120,16 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
             )}=2x+${ecritureParentheseSiNegatif(b)}~$`
           )}`
           break
-        case 2: // 3x+a=5x-b   x=(a+b)/2 donc a et b impairs pour une solution entière
+        case 2: // 3x+a=5x-b  => x=(a+b)/2 donc a et b impairs pour une solution entière
           if (this.sup === 1) {
             a = randint(1, 9)
             b = randint(0, 4) * 2 + (a % 2)
-            x1 = parseInt(calculANePlusJamaisUtiliser((a + b) / 2))
+            x1 = (a + b) / 2
             x2 = randint(1, 9, x1)
           } else {
             a = randint(-9, 9, [0])
             b = randint(-4, 4, [a, 0]) * 2 + (a % 2)
-            x1 = parseInt(calculANePlusJamaisUtiliser((a + b) / 2))
+            x1 = (a + b) / 2
             x2 = randint(-9, 9, [0, x1])
           }
 
@@ -152,16 +171,16 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
             )}=5x-${ecritureParentheseSiNegatif(b)}~$`
           )}`
           break
-        case 3: // 10(x-a)=4(2x+b) x=(10a+4b)/2
+        case 3: // 10(x-a)=4(2x+b) => x=(10a+4b)/2
           if (this.sup === 1) {
             a = randint(1, 3)
             b = randint(1, 3)
-            x2 = parseInt(calculANePlusJamaisUtiliser((10 * a + 4 * b) / 2))
+            x2 = (10 * a + 4 * b) / 2
             x1 = randint(1, 9, x2)
           } else {
             a = randint(-3, 3, [0])
             b = randint(-3, 3, [0])
-            x2 = parseInt(calculANePlusJamaisUtiliser((10 * a + 4 * b) / 2))
+            x2 = (10 * a + 4 * b) / 2
             x1 = randint(-9, 9, [0, x2])
           }
 
@@ -203,7 +222,7 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
             )})=4(2x+${ecritureParentheseSiNegatif(b)})~$`
           )}`
           break
-        case 4: // ax+b=(a+1)x-c x=b+c
+        case 4: // ax+b=(a+1)x-c => x=b+c
           if (this.sup === 1) {
             a = randint(2, 9)
             b = randint(2, 9)
@@ -256,7 +275,7 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
             )}x+${ecritureParentheseSiNegatif(b)}=${a + 1}x-${ecritureParentheseSiNegatif(c)}~$`
           )}<br><br>`
           break
-        case 5: // a-2x=b+2x x=(a-b)/4
+        case 5: // a-2x=b+2x => x=(a-b)/4
           if (this.sup === 1) {
             x1 = randint(1, 9)
             b = randint(1, 9)
@@ -291,7 +310,7 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
             `$x=${x2}$ n'est donc pas solution de l'équation $${a}-2x=${b}+2x~$`
           )}<br><br>`
           break
-        case 6: // ax-ab=x²-bx (a-x)(x-b)=0 solutions a et b.
+        case 6: // ax-ab=x²-bx => (a-x)(x-b)=0 solutions a et b.
           if (this.sup === 1) {
             b = randint(2, 9)
             a = randint(2, 9, [b])
@@ -305,63 +324,17 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
             x3 = b
             x2 = randint(-9, 9, [x1, x3])
           }
-          texte = `$${rienSi1(a)}x-${ecritureParentheseSiNegatif(
-            a * b
-          )}=x^2-${ecritureParentheseSiNegatif(
-            b
-          )}x~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`
-          texteCorr = `Pour $x=${x1}$ : <br>`
-          texteCorr += `$${rienSi1(a)}x-${ecritureParentheseSiNegatif(
-            a * b
-          )}=${a}\\times ${ecritureParentheseSiNegatif(
-            x1
-          )}-${ecritureParentheseSiNegatif(a * b)}=${a * x1 - a * b}$ <br> $x^2-${ecritureParentheseSiNegatif(
-            b
-          )}\\times  x=${ecritureParentheseSiNegatif(
-            x1
-          )}^2-${ecritureParentheseSiNegatif(
-            b
-          )}\\times ${ecritureParentheseSiNegatif(x1)}=${x1 * x1}-${ecritureParentheseSiNegatif(b * x1)}=${x1 * x1 - b * x1}$<br>`
-          texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br>'
-          texteCorr += `${texteEnCouleur(
-            `$x=${x1}$ est donc solution de l'équation $${rienSi1(a)}x-${ecritureParentheseSiNegatif(
-              a * b
-            )}=x^2-${ecritureParentheseSiNegatif(b)}x~$`
-          )}<br><br>`
-          texteCorr += `Pour $x=${x2}$ : <br>`
-          texteCorr += `$${rienSi1(a)}x-${ecritureParentheseSiNegatif(
-            a * b
-          )}=${a}\\times ${ecritureParentheseSiNegatif(
-            x2
-          )}-${ecritureParentheseSiNegatif(a * b)}=${a * x2 - a * b}$ <br> $x^2-${b}\\times  x=${ecritureParentheseSiNegatif(
-            x2
-          )}^2-${ecritureParentheseSiNegatif(
-            b
-          )}\\times ${ecritureParentheseSiNegatif(x2)}=${x2 * x2}-${ecritureParentheseSiNegatif(b * x2)}=${x2 * x2 - b * x2}$<br>`
-          texteCorr += `$${a * x2 - a * b}\\not=${x2 * x2 - b * x2}$ donc l'égalité n'est pas vraie.<br>`
-          texteCorr += `${texteEnCouleur(
-            `$x=${x2}$ n'est donc pas solution de l'équation $${rienSi1(a)}x-${ecritureParentheseSiNegatif(
-              a * b
-            )}=x^2-${ecritureParentheseSiNegatif(b)}x~$`
-          )}<br><br>`
-          texteCorr += `Pour $x=${x3}$ : <br>`
-          texteCorr += `$${a}x-${ecritureParentheseSiNegatif(
-            a * b
-          )}=${a}\\times ${ecritureParentheseSiNegatif(
-            x3
-          )}-${ecritureParentheseSiNegatif(a * b)}=${a * x3 - a * b}$ <br> $x^2-${b}\\times  x=${ecritureParentheseSiNegatif(
-            x3
-          )}^2-${ecritureParentheseSiNegatif(
-            b
-          )}\\times ${ecritureParentheseSiNegatif(x3)}=${x3 * x3}-${ecritureParentheseSiNegatif(b * x3)}=${x3 * x3 - b * x3}$<br>`
-          texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br>'
-          texteCorr += `${texteEnCouleur(
-            `$x=${x3}$ est donc solution de l'équation $${rienSi1(a)}x-${ecritureParentheseSiNegatif(
-              a * b
-            )}=x^2-${ecritureParentheseSiNegatif(b)}x~$`
-          )}`
+          [x1, x2, x3] = shuffle([x1, x2, x3])
+          if (this.sup3) {
+            texte = `$${rienSi1(a)}x${ecritureAlgebrique(-1 * a * b)}=x^2${ecritureAlgebrique(-1 * b)}x~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`
+          } else {
+            texte = `$${rienSi1(a)}x-${ecritureParentheseSiNegatif(a * b)}=x^2-${ecritureParentheseSiNegatif(b)}x~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`
+          }
+          texteCorr = testOneValueForCase6(this.sup3, x1, a, b)
+          texteCorr += testOneValueForCase6(this.sup3, x2, a, b)
+          texteCorr += testOneValueForCase6(this.sup3, x3, a, b)
           break
-        case 7: // adx-bd=acx²-bcx  --- (ax-b)(d-cx)=0 solutions b/a et d/c.
+        case 7: // adx-bd=acx²-bcx  => (ax-b)(d-cx)=0 solutions b/a et d/c.
           if (this.sup === 1) {
             c = randint(2, 5)
             a = randint(2, 5)
@@ -374,52 +347,22 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
             c = randint(2, 5) * randint(-1, 1, 0)
             a = randint(2, 5) * randint(-1, 1, 0)
             x2 = randint(1, 6) * randint(-1, 1, 0)
-            x3 = randint(1, 6, x2) * randint(-1, 1, 0)
-            x1 = randint(1, 7, [x2, x3]) * randint(-1, 1, 0)
+            x3 = randint(-6, 6, [x2, 0, 1])
+            x1 = randint(-7, 7, [0, 1, x2, x3])
             b = a * x2
             d = c * x3
           }
-          texte = `$${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * c}x^2-${ecritureParentheseSiNegatif(
-            b * c
-          )}x~$ pour $~x=${x1}~$, pour $~x=${x2}~$ puis pour $~x=${x3}$`
-          texteCorr = `Pour $x=${x1}$ : <br>`
-          texteCorr += `$${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * d}\\times ${ecritureParentheseSiNegatif(
-            x1
-          )}-${ecritureParentheseSiNegatif(b * d)}=${a * d * x1 - d * b}$ <br> $${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x=${a * c}\\times ${ecritureParentheseSiNegatif(
-            x1
-          )}^2-${ecritureParentheseSiNegatif(
-            b * c
-          )}\\times ${ecritureParentheseSiNegatif(x1)}=${a * c * x1 * x1}-${ecritureParentheseSiNegatif(b * c * x1)}=${a * c * x1 * x1 - b * c * x1}$<br>`
-          texteCorr += `$${a * d * x1 - d * b}\\not=${a * c * x1 * x1 - b * c * x1}$ donc l'égalité n'est pas vraie.<br>`
-          texteCorr += `${texteEnCouleur(
-            `$x=${x1}$ n'est donc pas solution de l'équation $${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x~$`
-          )}<br><br>`
-          texteCorr += `Pour $x=${x2}$ : <br>`
-          texteCorr += `$${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * d}\\times ${ecritureParentheseSiNegatif(
-            x2
-          )}-${ecritureParentheseSiNegatif(b * d)}=${a * d * x2 - d * b}$ <br> $${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x=${a * c}\\times ${ecritureParentheseSiNegatif(
-            x2
-          )}^2-${ecritureParentheseSiNegatif(
-            b * c
-          )}\\times ${ecritureParentheseSiNegatif(x2)}=${a * c * x2 * x2}-${ecritureParentheseSiNegatif(b * c * x2)}=${a * c * x2 * x2 - b * c * x2}$<br>`
-          texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br>'
-          texteCorr += `${texteEnCouleur(
-            `$x=${x2}$ est donc solution de l'équation $${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x~$`
-          )}<br><br>`
-          texteCorr += `Pour $x=${x3}$ : <br>`
-          texteCorr += `$${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * d}\\times ${ecritureParentheseSiNegatif(
-            x3
-          )}-${ecritureParentheseSiNegatif(b * d)}=${a * d * x3 - d * b}$ <br> $${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x=${a * c}\\times ${ecritureParentheseSiNegatif(
-            x3
-          )}^2-${ecritureParentheseSiNegatif(
-            b * c
-          )}\\times ${ecritureParentheseSiNegatif(x3)}=${a * c * x3 * x3}-${ecritureParentheseSiNegatif(b * c * x3)}=${a * c * x3 * x3 - b * c * x3}$<br>`
-          texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br>'
-          texteCorr += `${texteEnCouleur(
-            `$x=${x3}$ est donc solution de l'équation $${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x~$`
-          )}`
+          [x1, x2, x3] = shuffle([x1, x2, x3])
+          if (this.sup3) {
+            texte = `$${a * d}x${ecritureAlgebrique(-1 * b * d)}=${a * c}x^2${ecritureAlgebrique(-1 * b * c)}x~$ pour $~x=${x1}~$, pour $~x=${x2}~$ puis pour $~x=${x3}$`
+          } else {
+            texte = `$${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x~$ pour $~x=${x1}~$, pour $~x=${x2}~$ puis pour $~x=${x3}$`
+          }
+          texteCorr = testOneValueForCase7(this.sup3, x1, a, d, b, c)
+          texteCorr += testOneValueForCase7(this.sup3, x2, a, d, b, c)
+          texteCorr += testOneValueForCase7(this.sup3, x3, a, d, b, c)
           break
-        case 8: // 12x-4a=4(2x+b) x=(4a+4b)/4
+        case 8: // 12x-4a=4(2x+b) => x=(4a+4b)/4
           if (this.sup === 1) {
             a = randint(1, 3)
             b = randint(1, 3)
@@ -432,11 +375,7 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
             x1 = randint(-9, 9, [0, x2])
           }
 
-          texte = `$12x-${ecritureParentheseSiNegatif(
-            4 * a
-          )}=4(2x+${ecritureParentheseSiNegatif(
-            b
-          )})~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
+          texte = `$12x-${ecritureParentheseSiNegatif(4 * a)}=4(2x+${ecritureParentheseSiNegatif(b)})~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
           texteCorr = `Pour $x=${x1}$ : <br>`
           texteCorr += `$12x-${ecritureParentheseSiNegatif(
             4 * a
@@ -470,7 +409,7 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
             )}=4(2x+${ecritureParentheseSiNegatif(b)})~$`
           )}<br><br>`
           break
-        case 9: // x²-bx-ax+ab=0 (a-x)(x-b)=0 solutions a et b.
+        case 9: // x²-bx-ax+ab=0 => (a-x)(x-b)=0 solutions a et b.
           if (this.sup === 1) {
             b = randint(2, 9)
             a = randint(2, 9)
@@ -486,71 +425,15 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
               x2 = randint(-9, 9, [x1, x3])
             } while (a + b === 0 || a + b === 1)
           }
-          texte = `$x^2-${ecritureParentheseSiNegatif(
-            b + a
-          )}x+${ecritureParentheseSiNegatif(
-            a * b
-          )}=0~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`
-          texteCorr = `Pour $x=${x1}$ : <br>`
-          texteCorr += `$x^2-${ecritureParentheseSiNegatif(
-            b + a
-          )}\\times  x+${ecritureParentheseSiNegatif(
-            a * b
-          )}=${ecritureParentheseSiNegatif(
-            x1
-          )}^2-${ecritureParentheseSiNegatif(
-            a + b
-          )}\\times ${ecritureParentheseSiNegatif(
-            x1
-          )}+${ecritureParentheseSiNegatif(a * b)}=${x1 * x1}-${ecritureParentheseSiNegatif(
-            (a + b) * x1
-          )}+${ecritureParentheseSiNegatif(a * b)}=${x1 * x1 - (a + b) * x1 + a * b}$<br>`
-          texteCorr += 'On trouve bien $0$ pour le membre de gauche donc l\'égalité est vraie.<br>'
-          texteCorr += `${texteEnCouleur(
-            `$x=${x1}$ est donc solution de l'équation $x^2-${ecritureParentheseSiNegatif(
-              b + a
-            )}x-${ecritureParentheseSiNegatif(a * b)}=0~$`
-          )}<br><br>`
-          texteCorr += `Pour $x=${x2}$ : <br>`
-          texteCorr += `$x^2-${ecritureParentheseSiNegatif(
-            b + a
-          )}\\times  x+${ecritureParentheseSiNegatif(
-            a * b
-          )}=${ecritureParentheseSiNegatif(
-            x2
-          )}^2-${ecritureParentheseSiNegatif(
-            a + b
-          )}\\times ${ecritureParentheseSiNegatif(
-            x2
-          )}+${ecritureParentheseSiNegatif(a * b)}=${x2 * x2}-${ecritureParentheseSiNegatif(
-            (a + b) * x2
-          )}+${ecritureParentheseSiNegatif(a * b)}=${x2 * x2 - (a + b) * x2 + a * b}$<br>`
-          texteCorr += `$${x2 * x2 - (a + b) * x2 + a * b}\\not=0$ donc l'égalité n'est pas vraie.<br>`
-          texteCorr += `${texteEnCouleur(
-            `$x=${x2}$ n'est donc pas solution de l'équation $x^2-${ecritureParentheseSiNegatif(
-              b + a
-            )}x-${ecritureParentheseSiNegatif(a * b)}=0~$`
-          )}<br><br>`
-          texteCorr += `Pour $x=${x3}$ : <br>`
-          texteCorr += `$x^2-${ecritureParentheseSiNegatif(
-            b + a
-          )}\\times  x+${ecritureParentheseSiNegatif(
-            a * b
-          )}=${ecritureParentheseSiNegatif(
-            x3
-          )}^2-${ecritureParentheseSiNegatif(
-            a + b
-          )}\\times ${ecritureParentheseSiNegatif(
-            x3
-          )}+${ecritureParentheseSiNegatif(a * b)}=${x3 * x3}-${ecritureParentheseSiNegatif(
-            (a + b) * x3
-          )}+${ecritureParentheseSiNegatif(a * b)}=${x3 * x3 - (a + b) * x3 + a * b}$<br>`
-          texteCorr += 'On trouve bien $0$ pour le membre de gauche donc l\'égalité est vraie.<br>'
-          texteCorr += `${texteEnCouleur(
-            `$x=${x3}$ est donc solution de l'équation $x^2-${ecritureParentheseSiNegatif(
-              b + a
-            )}x-${ecritureParentheseSiNegatif(a * b)}=0~$`
-          )}`
+          [x1, x2, x3] = shuffle([x1, x2, x3])
+          if (this.sup3) {
+            texte = `$x^2${ecritureAlgebrique(-1 * (b + a))}x${ecritureAlgebrique(a * b)}=0~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`
+          } else {
+            texte = `$x^2-${ecritureParentheseSiNegatif(b + a)}x+${ecritureParentheseSiNegatif(a * b)}=0~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`
+          }
+          texteCorr = testOneValueForCase9(this.sup3, x1, b, a)
+          texteCorr += testOneValueForCase9(this.sup3, x2, b, a)
+          texteCorr += testOneValueForCase9(this.sup3, x3, b, a)
           break
       }
 
@@ -569,5 +452,116 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
     2,
     '1 : Entiers naturels\n2 : Entiers relatifs'
   ]
-  // this.besoinFormulaire2CaseACocher = ["Avec des expressions du second degré"];
+  this.besoinFormulaire2Texte = ['Choix des équations', 'Nombres séparés par des tirets\n1 : 3x-a=2x+b\n2 : 3x+a=5x-b\n3 : 10(x-a)=4(2x+b)\n4 : ax+b=(a+1)x-c\n5 : a-2x=b+2x\n6 : ax-ab=x²-bx\n7 : adx-bd=acx²-bcx\n8 : 2x-4a=4(2x+b)\n9 : x²-bx-ax+ab=0\n10 : Mélange\n']
+  this.besoinFormulaire3CaseACocher = ['Forme simplifiée', false]
+}
+
+function testOneValueForCase6 (sup3, x1, a, b) {
+  let texteCorr = `Pour $x=${x1}$ : <br>`
+  if (sup3) {
+    texteCorr += `$${rienSi1(a)}x${ecritureAlgebrique(-1 * a * b)}=
+        ${a}\\times ${ecritureParentheseSiNegatif(x1)}${ecritureAlgebrique(-1 * a * b)}=${a * x1 - a * b}$ <br>`
+    texteCorr += `$x^2${ecritureAlgebrique(-1 * b)}x=
+        ${ecritureParentheseSiNegatif(x1)}^2${ecritureAlgebrique(-1 * b)}\\times ${ecritureParentheseSiNegatif(x1)}=${x1 * x1} ${ecritureAlgebrique(-1 * b * x1)} = ${x1 * x1 - b * x1}$<br>`
+  } else {
+    texteCorr += `$${rienSi1(a)}x-${ecritureParentheseSiNegatif(a * b)}=
+        ${a}\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(a * b)}=${a * x1 - a * b}$ <br>`
+    texteCorr += `$x^2-${ecritureParentheseSiNegatif(b)}\\times  x=
+        ${ecritureParentheseSiNegatif(x1)}^2-${ecritureParentheseSiNegatif(b)}\\times ${ecritureParentheseSiNegatif(x1)}=${x1 * x1}-${ecritureParentheseSiNegatif(b * x1)}=${x1 * x1 - b * x1}$<br>`
+  }
+  if ((a * x1 - a * b) === (x1 * x1 - b * x1)) {
+    texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br>'
+    if (sup3) {
+      texteCorr += `${texteEnCouleur(
+        `$x=${x1}$ est donc solution de l'équation $${rienSi1(a)}x${ecritureAlgebrique(-1 * a * b)}=x^2${ecritureAlgebrique(b)}x~$`)}<br><br>`
+    } else {
+      texteCorr += `${texteEnCouleur(
+        `$x=${x1}$ est donc solution de l'équation $${rienSi1(a)}x-${ecritureParentheseSiNegatif(a * b)}=x^2-${ecritureParentheseSiNegatif(b)}x~$`)}<br><br>`
+    }
+  } else {
+    texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br>'
+    if (sup3) {
+      texteCorr += `${texteEnCouleur(
+        `$x=${x1}$ n'est donc pas solution de l'équation $${rienSi1(a)}x${ecritureAlgebrique(-1 * a * b)}=x^2${ecritureAlgebrique(b)}x~$`)}<br><br>`
+    } else {
+      texteCorr += `${texteEnCouleur(
+        `$x=${x1}$ n'est donc pas solution de l'équation $${rienSi1(a)}x-${ecritureParentheseSiNegatif(a * b)}=
+            x^2-${ecritureParentheseSiNegatif(b)}x~$`)}<br><br>`
+    }
+  }
+  return texteCorr
+}
+
+function testOneValueForCase7 (sup3, x1, a, d, b, c) {
+  let texteCorr = `Pour $x=${x1}$ : <br>`
+  if (sup3) {
+    texteCorr += `$${a * d}x${ecritureAlgebrique(-1 * b * d)}=
+        ${a * d}\\times ${ecritureParentheseSiNegatif(x1)}${ecritureAlgebrique(-1 * b * d)}=${a * d * x1 - d * b}$ <br>`
+    texteCorr += `$${a * c}x^2${ecritureAlgebrique(-1 * b * c)}x=
+        ${a * c}\\times ${ecritureParentheseSiNegatif(x1)}^2${ecritureAlgebrique(-1 * b * c)}\\times ${ecritureParentheseSiNegatif(x1)}=
+        ${a * c * x1 * x1}${ecritureAlgebrique(b * c * x1)}=${a * c * x1 * x1 - b * c * x1}$<br>`
+  } else {
+    texteCorr += `$${a * d}x-${ecritureParentheseSiNegatif(b * d)}=
+        ${a * d}\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(b * d)}=${a * d * x1 - d * b}$ <br>`
+    texteCorr += `$${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x=
+        ${a * c}\\times ${ecritureParentheseSiNegatif(x1)}^2-${ecritureParentheseSiNegatif(b * c)}\\times ${ecritureParentheseSiNegatif(x1)}=
+        ${a * c * x1 * x1}-${ecritureParentheseSiNegatif(b * c * x1)}=${a * c * x1 * x1 - b * c * x1}$<br>`
+  }
+  if (a * d * x1 - d * b === a * c * x1 * x1 - b * c * x1) {
+    texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br>'
+    if (sup3) {
+      texteCorr += `${texteEnCouleur(
+        `$x=${x1}$ est donc solution de l'équation $${a * d}x${ecritureAlgebrique(-1 * b * d)}=${a * c}x^2${ecritureAlgebrique(-1 * b * c)}x~$`
+      )}<br><br>`
+    } else {
+      texteCorr += `${texteEnCouleur(
+        `$x=${x1}$ est donc solution de l'équation $${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x~$`
+      )}<br><br>`
+    }
+  } else {
+    texteCorr += `$${a * d * x1 - d * b}\\not=${a * c * x1 * x1 - b * c * x1}$ donc l'égalité n'est pas vraie.<br>`
+    if (sup3) {
+      texteCorr += `${texteEnCouleur(
+        `$x=${x1}$ n'est donc pas solution de l'équation $${a * d}x${ecritureAlgebrique(-1 * b * d)}=${a * c}x^2${ecritureAlgebrique(-1 * b * c)}x~$`
+      )}<br><br>`
+    } else {
+      texteCorr += `${texteEnCouleur(
+        `$x=${x1}$ n'est donc pas solution de l'équation $${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x~$`
+      )}<br><br>`
+    }
+  }
+  return texteCorr
+}
+
+function testOneValueForCase9 (sup3, x1, b, a) {
+  let texteCorr = `Pour $x=${x1}$ : <br>`
+  if (sup3) {
+    texteCorr += `$x^2${ecritureAlgebrique(-1 * (b + a))}\\times  x${ecritureAlgebrique(a * b)}=
+        ${ecritureParentheseSiNegatif(x1)}^2${ecritureAlgebrique(-1 * (b + a))}\\times ${ecritureParentheseSiNegatif(x1)}${ecritureAlgebrique(a * b)}=
+        ${x1 * x1}${ecritureAlgebrique(-1 * (a + b) * x1)}${ecritureAlgebrique(a * b)}=${x1 * x1 - (a + b) * x1 + a * b}$<br>`
+  } else {
+    texteCorr += `$x^2-${ecritureParentheseSiNegatif(b + a)}\\times  x+${ecritureParentheseSiNegatif(a * b)}=
+        ${ecritureParentheseSiNegatif(x1)}^2-${ecritureParentheseSiNegatif(a + b)}\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(a * b)}=
+        ${x1 * x1}-${ecritureParentheseSiNegatif((a + b) * x1)}+${ecritureParentheseSiNegatif(a * b)}=${x1 * x1 - (a + b) * x1 + a * b}$<br>`
+  }
+  if (x1 * x1 - (a + b) * x1 + a * b === 0) {
+    texteCorr += 'On trouve bien $0$ pour le membre de gauche donc l\'égalité est vraie.<br>'
+    if (sup3) {
+      texteCorr += `${texteEnCouleur(
+        `$x=${x1}$ est donc solution de l'équation $x^2${ecritureAlgebrique(-1 * (b + a))}x${ecritureAlgebrique(a * b)}=0~$`)}<br><br>`
+    } else {
+      texteCorr += `${texteEnCouleur(
+        `$x=${x1}$ est donc solution de l'équation $x^2-${ecritureParentheseSiNegatif(b + a)}x-${ecritureParentheseSiNegatif(a * b)}=0~$`)}<br><br>`
+    }
+  } else {
+    texteCorr += `$${x1 * x1 - (a + b) * x1 + a * b}\\not=0$ donc l'égalité n'est pas vraie.<br>`
+    if (sup3) {
+      texteCorr += `${texteEnCouleur(
+        `$x=${x1}$ n'est donc pas solution de l'équation $x^2${ecritureAlgebrique(-1 * (b + a))}x${ecritureAlgebrique(a * b)}=0~$`)}<br><br>`
+    } else {
+      texteCorr += `${texteEnCouleur(
+        `$x=${x1}$ n'est donc pas solution de l'équation $x^2-${ecritureParentheseSiNegatif(b + a)}x-${ecritureParentheseSiNegatif(a * b)}=0~$`)}<br><br>`
+    }
+  }
+  return texteCorr
 }

@@ -4,7 +4,8 @@ import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { texNombre } from '../../../lib/outils/texNombre'
-export const titre = ''
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+export const titre = 'Utiliser une égalité pour compléter un calcul'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '3321e'
@@ -14,14 +15,15 @@ export const refs = {
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Gilles Mora
- * Référence
+ * @author Gilles Mora + Eric Elter
 */
 export default class CalculDivers extends Exercice {
   constructor () {
     super()
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+    this.formatInteractif = 'fillInTheBlank'
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
@@ -30,30 +32,37 @@ export default class CalculDivers extends Exercice {
   nouvelleVersion () {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
-    const choix = randint(1, 3)
-    if (choix === 1) {
-      this.question = 'Quel est le plus grand nombre entier de quatre chiffres que l\'on peut écrire en utilisant, une seule fois, les quatre chiffres : $2$, $0$, $2$ et $5$ ?'
-      this.reponse = texNombre(5220, 0)
-      this.correction = ` Le plus grand nombre entier est $${miseEnEvidence(this.reponse)}$.`
-    } else {
-      this.question = 'Quel est le plus grand nombre entier de '
-      switch (choix) {
-        case 2 :
-          this.question += 'cinq'
-          this.reponse = texNombre(55222, 0)
-          this.correction = ` Le plus grand nombre entier est $${miseEnEvidence(this.reponse)}$.`
-          break
-        case 3 :
-          this.question += 'six'
-          this.reponse = texNombre(552222, 0)
-          this.correction = ` Le plus grand nombre entier est $${miseEnEvidence(this.reponse)}$.`
-          break
-      }
-      this.question += ' chiffres que l\'on peut écrire en utilisant, deux fois maximum, les quatre chiffres : $2$, $0$, $2$ et $5$ ?'
+    this.consigne = `En utilisant l'égalité $${texNombre(2025, 0)}=81\\times 25$, compléter :`
+    switch (randint(1, 4)) {
+      case 1 :
+        this.reponse = texNombre(9, 0)
+        this.question = `${texNombre(2025, 0)}=9\\times ~%{champ1} \\times 25`
+        this.correction = `$${texNombre(2025, 0)}=\\underbrace{9\\times${miseEnEvidence(this.reponse)}}_{81} \\times 25$`
+        handleAnswers(this, 0, { champ1: { value: this.reponse } })
+        this.canReponseACompleter = `$${texNombre(2025, 0)}=9\\times \\ldots \\times 25$`
+        break
+      case 2 :
+        this.reponse = texNombre(5, 0)
+        this.question = `${texNombre(2025, 0)}=81 \\times ~ %{champ1} \\times 5`
+        this.correction = `$${texNombre(2025, 0)}=81\\times \\underbrace{5\\times${miseEnEvidence(this.reponse)}}_{25} $`
+        handleAnswers(this, 0, { champ1: { value: this.reponse } })
+        this.canReponseACompleter = `$${texNombre(2025, 0)}=81 \\times \\ldots \\times 5$`
+        break
+      case 3 :
+        this.reponse = texNombre(45, 0)
+        this.question = `${texNombre(2025, 0)}= ~%{champ1} \\times 45`
+        this.correction = `$${texNombre(2025, 0)}=\\underbrace{9\\times 5}_{45}\\times \\underbrace{9\\times 5}_{45}=${miseEnEvidence(this.reponse)}\\times 45$`
+        handleAnswers(this, 0, { champ1: { value: this.reponse } })
+        this.canReponseACompleter = `$${texNombre(2025, 0)}=\\ldots \\times 45$`
+        break
+      case 4 :
+        this.reponse = texNombre(2025, 0)
+        this.question = ' %{champ1}~=9\\times 9\\times 5\\times 5'
+        this.correction = `$${miseEnEvidence(this.reponse)}=\\underbrace{9\\times 9}_{81}\\times \\underbrace{5\\times 5}_{25}$`
+        handleAnswers(this, 0, { champ1: { value: this.reponse } })
+        this.canReponseACompleter = '$\\ldots=9\\times 9\\times 5\\times 5$'
+        break
     }
-
-    if (this.interactif) { this.question += '<br>' }
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
+    this.canEnonce = this.consigne
   }
 }

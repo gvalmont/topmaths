@@ -3,20 +3,18 @@ import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 
 export const titre = 'Titre de l\'exercice'
-export const dateDePublication = '14/12/2023'
 
+export const dateDePublication = '4/5/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+
+export const uuid = '9f6e6' // Quand on exécute pnpm start la première fois, le terminal renvoie une référence d'uuid, à copier-coller ici
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Description didactique de l'exercice
  * @author
 */
-
-export const uuid = '' // exécuter pnpm getNewUuid
-export const ref = ''// Référence de l'exercice
-export const refs = {
-  'fr-fr': [ref],
-  'fr-ch': []
-}
-
 export default class nomExercice extends Exercice {
   constructor () {
     super()
@@ -26,7 +24,6 @@ export default class nomExercice extends Exercice {
 
   nouvelleVersion () {
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3']
-
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''

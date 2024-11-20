@@ -1,5 +1,8 @@
+import Figure from 'apigeom/src/Figure'
 import FractionEtendue from '../modules/FractionEtendue'
 import type Exercice from './Exercice'
+import CryptoJS from 'crypto-js'
+type EventListener = (evt: Event) => void;
 
 export function exportedNouvelleVersionWrapper (this: Exercice, numeroExercice?: number): void {
   this.reinit()
@@ -13,11 +16,20 @@ export function exportedReinit (this: Exercice) {
   this.listeCanReponsesACompleter = []
   this.listeArguments = []
   this.autoCorrection = []
+  if (this.figures) {
+    // figure APIGEOM
+    this.figures.forEach(fig => {
+      if (fig instanceof Figure) {
+        fig.clearHtml()
+        fig.container = document.createElement('div')
+      }
+    })
+  }
   this.figures = []
   if (this.dragAndDrops && this.dragAndDrops.length > 0) {
     for (const leDragAndDrop of this.dragAndDrops) {
       for (const [element, type, listener] of leDragAndDrop.listeners) {
-        element.removeEventListener(type, listener)
+        element.removeEventListener(type, listener as EventListener)
       }
     }
     this.dragAndDrops = []
@@ -34,6 +46,14 @@ export function exportedApplyNewSeed (this: Exercice) {
   this.seed = seed
 }
 
+function empreinteTexte (str: string): string {
+  // Utiliser CryptoJS pour calculer une empreinte SHA256 de la chaîne de caractères
+  const hash = CryptoJS.SHA256(str)
+  // Convertir l'empreinte en chaîne de caractères hexadécimale
+  const empreinteTexte = hash.toString(CryptoJS.enc.Hex)
+  return empreinteTexte.length > str.length ? str : empreinteTexte
+}
+
 /**
  * Compare chaque nouvelle version d'un exercice aux précédentes pour s'assurer de ne pas avoir deux exercices identiques
  * @param {int} i indice de la question
@@ -46,10 +66,11 @@ export function exportedQuestionJamaisPosee (this: Exercice, i: number, ...args:
   for (const arg of args) {
     if (arg !== undefined) argsConcatenes += (arg instanceof FractionEtendue ? arg.texFraction : arg.toString())
   }
-  if (this.listeArguments != null && this.listeArguments.indexOf(argsConcatenes) > -1) {
+  const empreinte = empreinteTexte(argsConcatenes)
+  if (this.listeArguments != null && this.listeArguments.indexOf(empreinte) > -1) {
     return false
   } else if (this.listeArguments != null) {
-    this.listeArguments.push(argsConcatenes)
+    this.listeArguments.push(empreinte)
     return true
   }
 }

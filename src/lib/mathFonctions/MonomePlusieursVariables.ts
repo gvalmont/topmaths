@@ -123,6 +123,19 @@ class MonomePlusieursVariables {
     }
   }
 
+  // we are working with the class fractionEtendue
+  evaluer (variables: { [key: string]: FractionEtendue }): FractionEtendue {
+    let resultat = this.coefficient
+    this.partieLitterale.variables.forEach((variable, index) => {
+      if (variables[variable]) {
+        resultat = resultat.produitFraction(variables[variable].puissanceFraction(this.partieLitterale.exposants[index]))
+      } else {
+        throw new Error(`Impossible d'évaluer le monôme avec les variables fournies. Variable manquante : ${variable}`)
+      }
+    })
+    return resultat
+  }
+
   // Déterminer le pgdc de deux monômes (cela va fonction seulement si les coefficients sont entiers)
   pgcd (m: MonomePlusieursVariables): MonomePlusieursVariables {
     if (this.coefficient.estEntiere && m.coefficient.estEntiere) {
@@ -202,6 +215,41 @@ class MonomePlusieursVariables {
     })
 
     return new MonomePlusieursVariables(nouveauCoefficient, nouvellePartieLitterale)
+  }
+
+  // this function will be a to string, but replacing the variables with a value fractionEtendue with \\left and \\right subsituting the actual variable in the expression by the fractionetendue specified in the argument. i.e it should get the string from the toString method and replace the variables with the values in the argument
+  toStringEvaluate (variables: { [key: string]: FractionEtendue }): string {
+    const partieLitteraleString = this.partieLitterale.variables
+      .map((variable, index) => {
+        const exposant = this.partieLitterale.exposants[index]
+        // Only include the variable if its exponent is not 0
+        if (exposant === 0) {
+          return ''
+        } else if (exposant === 1) {
+          return `\\left(${variables[variable].texFractionSimplifiee}\\right)`
+        } else {
+          return `\\left(${variables[variable].texFractionSimplifiee}\\right)^{${exposant}}`
+        }
+      })
+      .filter((part) => part !== '') // Exclude any empty strings from the result
+      .join(' ')
+    if (this.coefficient.num === 0) {
+      return '0'
+    } else if (this.coefficient.texFractionSimplifiee === '1') {
+      if (partieLitteraleString === '') {
+        return '1'
+      } else {
+        return partieLitteraleString
+      }
+    } else if (this.coefficient.texFractionSimplifiee === '-1') {
+      if (partieLitteraleString === '') {
+        return '-1'
+      } else {
+        return `-${partieLitteraleString}`
+      }
+    } else {
+      return `${this.coefficient.texFractionSimplifiee}${partieLitteraleString === '' ? '' : '\\cdot'} ${partieLitteraleString}`
+    }
   }
 
   // Convertit le monôme en une chaîne de caractères

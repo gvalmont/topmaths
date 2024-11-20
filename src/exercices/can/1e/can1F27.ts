@@ -22,7 +22,7 @@ export const refs = {
 export default class PolyTableauSignes extends Exercice {
   constructor () {
     super()
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.compare = fonctionComparaison
     this.formatChampTexte = ''

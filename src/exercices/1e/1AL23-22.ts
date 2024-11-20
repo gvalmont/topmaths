@@ -7,7 +7,6 @@ export const titre = 'Équation du second degré (cas général)'
 export const dateDePublication = '14/05/2024'
 export const interactifReady = false
 export const uuid = '1be55'
-export const ref = '1AL23-22'
 export const refs = {
   'fr-fr': ['1AL23-22'],
   'fr-ch': ['11FA10-15']
@@ -71,9 +70,9 @@ export default class ExerciceEquationSecondDegre extends Exercice {
       shuffle: true
     })
     if (this.nbQuestions === 1) {
-      this.consigne = 'Résoudre l\'équation suivante en utilisant la formule quadratique.'
+      this.consigne = 'Résoudre l\'équation suivante en utilisant la formule du deuxième degré.'
     } else {
-      this.consigne = 'Résoudre les équations suivantes en utilisant la formule quadratique.'
+      this.consigne = 'Résoudre les équations suivantes en utilisant la formule du deuxième degré.'
     }
     if (this.interactif) {
       this.consigne += ' Entrer les solutions sous forme d\'un ensemble en séparant les éléments séparé par des point-virgules. Si une équation n\'a pas de solution entrer l\'ensemble vide.'
