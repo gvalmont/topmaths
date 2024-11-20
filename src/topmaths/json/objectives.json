@@ -3001,6 +3001,10 @@
                     "description": "Calculer en s'aidant d'un schéma"
                   },
                   {
+                    "slug": "6N22,s=false,n=4,cd=1",
+                    "description": "Calculer sans schéma"
+                  },
+                  {
                     "slug": "6N20,s=false,n=4",
                     "description": "Séparer la partie entière"
                   },
@@ -3042,8 +3046,54 @@
                         "title": "Calculer en s'aidant d'un schéma",
                         "steps": [
                           "Entraînement sur https://topmaths.fr/?uuid=c75b6&id=6N22&n=4&d=10&s=true&s2=3&alea=Naya&cd=1&v=exercise",
-                          "Relancer jusqu'à ce que les élèves y arrivent sans utiliser le schéma",
                           "Entraînement sur https://topmaths.fr/?uuid=c75b6&id=6N22&n=4&d=10&s=true&s2=5&alea=Naya&cd=1&v=exercise"
+                        ]
+                      },
+                      {
+                        "title": "Additionner des fractions sans schéma",
+                        "steps": [
+                          "Afficher https://topmaths.fr/?uuid=c75b6&id=6N22&n=4&d=10&s=true&s2=1&alea=Naya&cd=1&v=exercise",
+                          "Faire les exercices en nommant les objets \"1 tiers + 2 tiers ça fait combien de tiers ?\"",
+                          "Montrer qu'on peut le faire sans schéma, les laisser s'entraîner puis retirer les schémas https://topmaths.fr/?uuid=c75b6&id=6N22&n=4&d=10&s=false&s2=1&alea=Naya&cd=1&v=exercise",
+                          "Entraînement sur l'ardoise"
+                        ]
+                      },
+                      {
+                        "title": "Multiplier par un entier sans schéma",
+                        "steps": [
+                          "Afficher https://topmaths.fr/?uuid=c75b6&id=6N22&n=4&d=10&s=true&s2=4&alea=Naya&cd=1&v=exercise",
+                          "Montrer qu'on peut faire sans schéma \"2 tiers en 3 fois, ça fait combien ?\"",
+                          "Les laisser s'entraîner puis retirer les schémas https://topmaths.fr/?uuid=c75b6&id=6N22&n=4&d=10&s=false&s2=4&alea=Naya&cd=1&v=exercise",
+                          "Entraînement sur l'ardoise"
+                        ]
+                      },
+                      {
+                        "title": "Additionner avec un entier sans schéma",
+                        "steps": [
+                          "Afficher https://topmaths.fr/?uuid=c75b6&id=6N22&n=4&d=10&s=true&s2=2&alea=oMFh&cd=1&v=exercise",
+                          "On a 1 unité + 2 tiers, est-ce qu'on peut faire directement 1 + 2 ?",
+                          "Non, on ne peut pas additionner des unités et des tiers. Il faudrait avoir des tiers avec des tiers.",
+                          "1 unités ça fait combien de tiers ?",
+                          "_Colorier sur le schéma._ 1 unité ça fait 3 tiers",
+                          "_Écrire $3/3$ sous le $1$_",
+                          "Donc 1 unité + 2 tiers ça fait combien ? 3 tiers + 2 tiers = 5 tiers. _Écrire $= 5/3$_",
+                          "Faire de la même façon les deux questions suivantes",
+                          "Pour la dernière question, se demander comment faire sans schéma ?",
+                          "On sait que 1 unité ça fait 3 tiers, donc 3 unités ça fait 3 fois 3 tiers, c'est à dire 9 tiers",
+                          "On peut le vérifier avec le schéma",
+                          "Relancer et demander de juste écrire le nombre d'unités ça fait combien de parts (écrire le dénominateur et entourer pour montrer qu'on attend ce qui est sous l'unité et pas le résultat",
+                          "Relancer jusqu'au moment où on peut retirer le schéma https://topmaths.fr/?uuid=c75b6&id=6N22&n=4&d=10&s=false&s2=2&alea=oMFh&cd=1&v=exercise",
+                          "Vérifier qu'ils y arrivent sans schéma, relancer sinon",
+                          "Corriger en calculant le résultat, relancer en demandant cette fois le résultat"
+                        ]
+                      },
+                      {
+                        "title": "Calculer sans schéma",
+                        "steps": [
+                          "Afficher https://topmaths.fr/?uuid=c75b6&id=6N22&n=4&d=10&s=false&s2=3&alea=oMFh&cd=1&v=exercise",
+                          "Vérifier qu'ils arrivent toujours à écrire les unités sous forme fractionnaire",
+                          "Corriger une fois avec le résultat, relancer et s'entraîner",
+                          "Entraînement sur https://topmaths.fr/?uuid=c75b6&id=6N22&n=4&d=10&s=false&s2=5&alea=oMFh&cd=1&v=exercise"
                         ]
                       },
                       {
@@ -3052,11 +3102,10 @@
                           "Donner à faire https://topmaths.fr/?uuid=c75b6&id=6N22&n=4&d=10&s=true&s2=2&alea=Naya&cd=1&v=exercise",
                           "Corriger",
                           "Dire que maintenant on va faire l'inverse : partir du résultat (le nombre de parts) et retrouver le nombre d'unités complètes",
-                          "Montrer comment faire sur les exemples affichés",
-                          "Montrer comment faire https://topmaths.fr/?uuid=6c8a1&id=6N20&n=4&s=false&alea=0nXm&v=exercise en utilisant le brouillon interactif",
-                          "Relancer et interroger des élèves au hasard (pour pouvoir utiliser le brouillon interactif et plus efficace que de les faire utiliser les tablettes) jusqu'à ce qu'ils soient à l'aise",
-                          "Expliquer comment faire pour le faire sans schéma (dans N, il y a combien de fois D ? Il reste combien ?)",
-                          "Entraînement sur l'ardoise"
+                          "Montrer comment faire sur les exemples affichés (dans 18 cinquièmes, il y a combien de fois 5 cinquièmes ?)",
+                          "Faire ensemble à gauche https://topmaths.fr/?uuid=6c8a1&id=6N20&n=4&s=true&s4=false&alea=0nXm&v=exercise&dv=true",
+                          "Entraînement sur l'ardoise à droite",
+                          "Avant de se quitter, montrer comment fonctionne le brouillon https://topmaths.fr/?uuid=6c8a1&id=6N20&n=4&s=true&s4=false&alea=0nXm&v=exercise&dv=true pour le travail à la maison"
                         ]
                       },
                       {
