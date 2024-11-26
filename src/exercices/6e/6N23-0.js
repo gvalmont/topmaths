@@ -4,7 +4,7 @@ import { nombreEnLettres } from '../../modules/nombreEnLettres.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, ajouteChampTexte } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { setReponse, handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 

@@ -31,7 +31,6 @@ export default class AnglesEtVocabulaire extends Exercice {
   }
 
   nouvelleVersion () {
-    this.reinit()
     const listeTypesDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -86,8 +85,16 @@ export default class AnglesEtVocabulaire extends Exercice {
             const monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
             texteCorr = `$\\widehat{xOy}+\\widehat{yOz}=${a}^\\circ+${b}^\\circ=${a + b}^\\circ$.<br>`
-            texteCorr +=
+            if (goodAnswer === 'complémentaires') {
+              texteCorr +=
+                'Les deux angles sont complémentaires car leur somme vaut $90^\\circ$.'
+            } else if (goodAnswer === 'supplémentaires') {
+              texteCorr +=
+                'Les deux angles sont supplémentaires car leur somme vaut $180^\\circ$.'
+            } else {
+              texteCorr +=
               'Les deux angles ne sont ni complémentaires ni supplémentaires.'
+            }
           }
           break
         case 2:

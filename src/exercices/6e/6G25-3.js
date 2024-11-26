@@ -14,7 +14,7 @@ import { context } from '../../modules/context.js'
 import { egal, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { symetrieAnimee } from '../../modules/2dAnimation.js'
 import { pavage } from '../../modules/Pavage.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 

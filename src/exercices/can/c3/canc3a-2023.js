@@ -8,7 +8,7 @@ import Hms from '../../../modules/Hms'
 import { listeQuestionsToContenu } from '../../../modules/outils.js'
 
 import Grandeur from '../../../modules/Grandeur'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import ClasseCan2023 from './_Canc3a.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 

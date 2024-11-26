@@ -1,7 +1,7 @@
 import { choice, creerCouples } from '../../lib/outils/arrayOutils'
 import { texNombre, texNombre2 } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'

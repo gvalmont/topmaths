@@ -7,8 +7,8 @@ export default class ExerciceBrevetA extends ExerciceBrevet {
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
     this.nbQuestionsModifiable = true
-    this.versionAleatoire()
+    this.versionAleatoire(0)
   }
 
-  versionAleatoire: () => void = () => {}
+  versionAleatoire: (i:number) => void = () => {}
 }

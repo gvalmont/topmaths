@@ -56,13 +56,13 @@ export default function NombreDerivee () {
         c = randint(-10, 10, [0])
         nbre = randint(-3, 3)
         if (choice([true, false])) {
-          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :<br>
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
           $f(x)= ${reduireAxPlusB(b, c)}${ecritureAlgebriqueSauf1(a)}x^2$.<br>
             Déterminer $f'(${nbre})$.`
           this.canEnonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${reduireAxPlusB(b, c)}${ecritureAlgebriqueSauf1(a)}x^2$.`
           this.canReponseACompleter = `$f'(${nbre})=\\ldots$`
         } else {
-          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
           $f(x)= ${c}${ecritureAlgebriqueSauf1(a)}x^2${ecritureAlgebriqueSauf1(b)}x$.<br>
             Déterminer $f'(${nbre})$.`
           this.canEnonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${c}${ecritureAlgebriqueSauf1(a)}x^2${ecritureAlgebriqueSauf1(b)}x$.`
@@ -81,13 +81,13 @@ export default function NombreDerivee () {
         c = randint(-10, 10, [0])
         nbre = randint(-5, 5)
         if (choice([true, false])) {
-          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
           $f(x)= ${reduirePolynomeDegre3(0, a, 0, c)}$.<br>
             Déterminer $f'(${nbre})$.`
           this.canEnonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${reduirePolynomeDegre3(0, a, 0, c)}$.`
           this.canReponseACompleter = `$f'(${nbre})=\\ldots$`
         } else {
-          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :<br>
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
           $f(x)= ${c}${ecritureAlgebriqueSauf1(a)}x^2$.<br>
             Déterminer $f'(${nbre})$.`
           this.canEnonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${c}${ecritureAlgebriqueSauf1(a)}x^2$.`
@@ -101,5 +101,6 @@ export default function NombreDerivee () {
         this.reponse = 2 * a * nbre
         break
     }
+    if (this.interactif) { this.question += '<br>' + `$f'(${nbre})=$` }
   }
 }

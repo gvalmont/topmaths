@@ -16,7 +16,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 export const titre = 'Utiliser les propriétés de conservation de la symétrie axiale'
 
 // Gestion de la date de publication initiale

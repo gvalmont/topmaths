@@ -4,7 +4,7 @@ import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 
 import Hms from '../../../modules/Hms'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'

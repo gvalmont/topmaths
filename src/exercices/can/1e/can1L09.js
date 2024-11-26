@@ -2,9 +2,10 @@ import { ecritureAlgebrique, reduirePolynomeDegre3, rienSi1 } from '../../../lib
 import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 
 export const titre = 'Résoudre une équation $ax^2+bx+c=c$ '
 export const interactifReady = true
@@ -42,18 +43,26 @@ export default function EquationSecondDegreParticuliere () {
       b = randint(-10, 10, 0)
       c = randint(-10, 10, 0)
       f = new FractionEtendue(-b, a)
-      texte = `Donner l'ensemble des solutions $\\mathscr{S}$ de l'équation : $${reduirePolynomeDegre3(0, a, b, c)}=${c}$.`
+      texte = `Donner l'ensemble des solutions $\\mathscr{S}$ de l'équation :<br> $${reduirePolynomeDegre3(0, a, b, c)}=${c}$.`
       if (this.interactif) {
-        texte += 'Écrire les solutions dans l\'ordre croissant :<br> $\\mathscr{S}=\\bigg\\{$'
-        texte += ajouteChampTexteMathLive(this, 2 * i, '')
-        texte += ' ; '
-        texte += ajouteChampTexteMathLive(this, 2 * i + 1, '') + '$\\bigg\\}$'
+        texte += '<br>Écrire les solutions dans l\'ordre croissant :<br> $\\mathscr{S}=$'
+        texte += remplisLesBlancs(this, i, '\\bigg\\{ %{champ1}\\,;\\,  %{champ2} \\bigg\\}', KeyboardType.clavierDeBaseAvecFraction)
         if (-b / a > 0) {
-          setReponse(this, 2 * i, 0)
-          setReponse(this, 2 * i + 1, f, { formatInteractif: 'fractionEgale' })
+          handleAnswers(this, i, {
+            bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+            champ1: { value: 0, compare: fonctionComparaison, options: { fractionEgale: true } },
+            champ2: { value: f.texFSD, compare: fonctionComparaison, options: { fractionEgale: true } }
+          },
+          { formatInteractif: 'mathlive' }
+          )
         } else {
-          setReponse(this, 2 * i, f, { formatInteractif: 'fractionEgale' })
-          setReponse(this, 2 * i + 1, 0)
+          handleAnswers(this, i, {
+            bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+            champ1: { value: f.texFSD, compare: fonctionComparaison, options: { fractionEgale: true } },
+            champ2: { value: 0, compare: fonctionComparaison, options: { fractionEgale: true } }
+          },
+          { formatInteractif: 'mathlive' }
+          )
         }
       }
 

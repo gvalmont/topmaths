@@ -43,7 +43,6 @@ export default function ConstructionsParallelogrammes () {
   this.spacingCorr = 2
   this.correctionDetaillee = false
   this.correctionDetailleeDisponible = true
-  this.typeExercice = 'IEP'
   this.nouvelleVersion = function (numeroExercice) {
     const tailleGrille = 0.2 + this.sup2 * 0.2
     this.autoCorrection = [] // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"

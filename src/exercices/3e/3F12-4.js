@@ -1,7 +1,7 @@
 import Decimal from 'decimal.js'
 import { courbe } from '../../lib/2d/courbes.js'
 import { repere } from '../../lib/2d/reperes.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { chercheMinMaxFonction } from '../../lib/mathFonctions/etudeFonction.js'
 import { resolutionSystemeLineaire2x2, resolutionSystemeLineaire3x3 } from '../../lib/mathFonctions/outilsMaths.js'
 import { abs, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
@@ -29,7 +29,7 @@ export const uuid = 'b8946'
 export const ref = '3F12-4'
 export const refs = {
   'fr-fr': ['3F12-4'],
-  'fr-ch': ['11FA7-3']
+  'fr-ch': ['11FA7-3', '1F1-11']
 }
 export default function ImageGraphique () {
   Exercice.call(this)

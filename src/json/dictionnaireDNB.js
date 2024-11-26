@@ -7146,7 +7146,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2022/tex/dnb_2022_06_ameriquenord_5.tex',
     urlcor: 'static/dnb/2022/tex/dnb_2022_06_ameriquenord_5_cor.tex',
-    tags: ['Programme de calculs', 'Calcul littéral', 'Arithmétique']
+    tags: ['Programme de calculs', 'Calcul littéral']
   },
   dnb_2022_06_asie_1: {
     annee: '2022',
@@ -8526,7 +8526,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2024/tex/dnb_2024_06_polynesie_1.tex',
     urlcor: 'static/dnb/2024/tex/dnb_2024_06_polynesie_1_cor.tex',
-    tags: ['Pythagore', 'Fonctions', 'Transformations', 'Ratio', 'Arithmétique']
+    tags: ['Pythagore', 'Fonctions', 'Transformations', 'Ratio', 'Arithmétique', 'QCM']
   },
   dnb_2024_06_polynesie_2: {
     annee: '2024',

@@ -13,7 +13,7 @@ import Decimal from 'decimal.js'
 import { min, round } from 'mathjs'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Hms from '../../../modules/Hms'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'CAN 3e sujet 2022'

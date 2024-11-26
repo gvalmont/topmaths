@@ -4,7 +4,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import Decimal from 'decimal.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 

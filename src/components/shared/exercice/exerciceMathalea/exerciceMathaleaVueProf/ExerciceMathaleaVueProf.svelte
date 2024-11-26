@@ -153,12 +153,25 @@
 
   let numberOfAnswerFields: number = 0
   async function countMathField () {
-    if (isInteractif){
-      // IDs de la forme 'champTexteEx1Q0'
-      const answerFields = document.querySelectorAll(
-        `[id^='champTexteEx${exerciseIndex}']`
-      )
-      numberOfAnswerFields = answerFields.length
+    if (isInteractif) {
+      let numbOfAnswerFields : number = 0
+      exercise.autoCorrection.forEach(val => {
+        if (val.reponse?.param?.formatInteractif === 'mathlive' ||
+            val.reponse?.param?.formatInteractif === 'qcm') {
+          numbOfAnswerFields++
+        }
+      })
+      if (exercise.interactifType === 'custom' && 'goodAnswers' in exercise && Array.isArray(exercise.goodAnswers)) {
+        exercise.goodAnswers.forEach(val => {
+          if (Array.isArray(val)) {
+            numbOfAnswerFields += val.length
+          } else {
+            numbOfAnswerFields++
+          }
+        })
+      }
+      log('numberOfAnswerFields:' + numbOfAnswerFields)
+      numberOfAnswerFields = numbOfAnswerFields
     }
   }
 
@@ -182,7 +195,7 @@
     }
   }
 
-  beforeUpdate(async() => {
+  beforeUpdate(async () => {
     log('beforeUpdate:' + exercise.id)
     if (
       JSON.stringify(get(exercicesParams)[exerciseIndex]) !==
@@ -192,7 +205,7 @@
       interfaceParams = get(exercicesParams)[exerciseIndex]
       log('new interfaceParams:' + interfaceParams)
       // obliger de charger l'exercice car son numéro à changer, et il faut gérer les id correctement des HTMLElements
-      await updateDisplay() 
+      await updateDisplay()
     }
   })
 
@@ -219,7 +232,7 @@
       'languageHasChanged',
       updateExerciceAfterLanguageChange
     )
-    await updateDisplay()  
+    await updateDisplay()
   })
 
   onDestroy(() => {
@@ -244,7 +257,7 @@
   afterUpdate(async () => {
     log('afterUpdate:' + exercise.id)
     if (exercise) {
-      await tick()      
+      await tick()
       if (isInteractif) {
         await countMathField()
         await loadMathLive()
@@ -358,8 +371,8 @@
     }
   }
 
-  async function updateDisplay () {
-    log('updateDisplay:'+ exercise.id)
+  async function updateDisplay (withNewVersion = true) {
+    log('updateDisplay:' + exercise.id)
     if (exercise == null) return
     if (
       exercise.seed === undefined &&
@@ -368,7 +381,7 @@
       exercise.applyNewSeed()
     }
     seedrandom(exercise.seed, { global: true })
-    if (exercise.typeExercice === 'simple') {
+    if (exercise.typeExercice === 'simple' && withNewVersion) {
       mathaleaHandleExerciceSimple(exercise, Boolean(isInteractif))
     }
     exercise.interactif = isInteractif
@@ -401,10 +414,7 @@
       }
     }
     exercise.numeroExercice = exerciseIndex
-    if (
-      exercise.typeExercice !== 'simple' &&
-      typeof exercise.nouvelleVersionWrapper === 'function'
-    ) {
+    if (exercise.typeExercice !== 'simple' && typeof exercise.nouvelleVersionWrapper === 'function' && withNewVersion) {
       exercise.nouvelleVersionWrapper(exerciseIndex)
     }
     mathaleaUpdateUrlFromExercicesParams()
@@ -628,7 +638,7 @@
             type="button"
             on:click={() => {
               columnsCount--
-              updateDisplay()
+              updateDisplay(false)
             }}
           >
             <i
@@ -640,7 +650,7 @@
             type="button"
             on:click={() => {
               columnsCount++
-              updateDisplay()
+              updateDisplay(false)
             }}
           >
             <i
@@ -661,7 +671,7 @@
                   class="mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
                 >
                   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                  {@html exercise.consigne}
+                  {@html mathaleaFormatExercice(exercise.consigne)}
                 </p>
               </div>
             {/if}

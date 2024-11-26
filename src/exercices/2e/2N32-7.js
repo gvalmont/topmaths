@@ -24,7 +24,7 @@ export const uuid = '4771d'
 export const ref = '2N32-7'
 export const refs = {
   'fr-fr': ['2N32-7'],
-  'fr-ch': []
+  'fr-ch': ['1CN-12']
 }
 export default function Rendreentier () {
   Exercice.call(this)

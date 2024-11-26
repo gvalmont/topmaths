@@ -3,7 +3,7 @@ import { lampeMessage } from '../../../lib/format/message.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'Multiplier un entier par 10, 100, 1 000...'

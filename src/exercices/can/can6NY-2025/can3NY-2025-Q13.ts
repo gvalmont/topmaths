@@ -51,8 +51,7 @@ export default class longueurDansTriangle extends Exercice {
       latex2d('?', milieu(B, C).x + 1, milieu(B, C).y + 0.5, { letterSize: 'scriptsize' }), s1, s2, s3)
 
     this.question = `Le périmètre de ce triangle est  $${texNombre(2 * a + b)}$ cm. <br>
-        Que vaut la longueur indiquée par le point d'interrogation ?<br>
-        La figure n'est pas à l'échelle.`
+        Que vaut la longueur indiquée par le point d'interrogation ?`
     this.reponse = a
     this.correction = `Le triangle est isocèle, il possède donc deux longueurs égales.<br>
             Puisque le périmètre est  $${texNombre(2 * a + b)}$ cm, on obtient la somme des deux longueurs égales  du triangle en effectuant la différence $${texNombre(2 * a + b)}-${texNombre(b)}=${texNombre(2 * a)}$ cm.<br>

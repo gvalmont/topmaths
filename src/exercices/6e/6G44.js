@@ -10,7 +10,7 @@ import {
   vecteur3d
 } from '../../modules/3d.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

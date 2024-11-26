@@ -6,7 +6,7 @@ import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { fraction } from '../../modules/fractions.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -32,7 +32,7 @@ export const uuid = 'afb2f'
 export const ref = '3F12-3'
 export const refs = {
   'fr-fr': ['3F12-3'],
-  'fr-ch': ['10FA5-11', '11FA8-5']
+  'fr-ch': ['10FA5-11', '11FA8-5', '1F1-10']
 }
 export default function TableauDeValeurs () {
   Exercice.call(this)

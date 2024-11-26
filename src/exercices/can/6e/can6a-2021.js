@@ -15,7 +15,7 @@ import { fraction } from '../../../modules/fractions.js'
 import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import Hms from '../../../modules/Hms'
 import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'

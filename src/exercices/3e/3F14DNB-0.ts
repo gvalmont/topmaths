@@ -8,6 +8,7 @@ import { createList } from '../../lib/format/lists'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
+import { texteItalique } from '../../lib/outils/embellissements'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
@@ -20,11 +21,7 @@ export const refs = {
   'fr-fr': ['3F14DNB-0'],
   'fr-ch': []
 }
-export const interactifReady = true
-export const interactifType = 'qcm'
-export const amcReady = 'true'
-export const amcType = 'qcmMono'
-export const titre = 'Exercice 5 (Nouvelle Calédonie 12/2023)'
+export const titre = 'Fonctions, tableur et équation produit nul'
 export const dateDePublication = '17/11/2024'
 /**
  * @Author Jean-Claude Lhote
@@ -44,6 +41,8 @@ export default class Exercice3F14DNB0 extends ExerciceBrevetA {
     this.nbQuestionsModifiable = true
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
+    this.introduction = texteItalique('D\'après l\'exercice 5 du brevet Nouvelle-Calédonie 2023.')
+
     this.versionAleatoire()
   }
 

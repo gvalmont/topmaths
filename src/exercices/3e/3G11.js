@@ -37,7 +37,6 @@ export default function ConstruireHomothetiePoint3e () {
   this.nbColsCorr = 1
   this.sup = 3
   this.sup2 = 3
-  this.typeExercice = 'IEP'
 
   this.nouvelleVersion = function (numeroExercice) {
     let plusieursCiblesPourUnPoint = true

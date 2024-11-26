@@ -18,7 +18,7 @@ import {
   vecteur3d
 } from '../../modules/3d.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexte } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'

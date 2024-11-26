@@ -2,11 +2,10 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
-import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -26,7 +25,7 @@ export const uuid = 'ba520'
 export const ref = '3F10-2'
 export const refs = {
   'fr-fr': ['3F10-2'],
-  'fr-ch': ['10FA5-6', '11FA8-2']
+  'fr-ch': ['10FA5-6', '11FA8-2', '1F1-3']
 }
 export default function CalculsImagesFonctions () {
   Exercice.call(this)
@@ -126,28 +125,28 @@ export default function CalculsImagesFonctions () {
         case 'linéaire':
           switch (sousChoix[i]) {
             case 0:
-              enonce = `Soit $f: x \\longmapsto ${m}x$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
+              enonce = `Soit $f: x \\longmapsto ${m}x$. <br> Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)=${m}x$ donc ici on a : $f(${x})=${m} \\times ${ecritureParentheseSiNegatif(x)}=${m * x}$`
               reponses[i] = m * x
               ant = x
               tagImage = true
               break
             case 1:
-              enonce = `Soit $f$ la fonction définie par $f(x)=\\dfrac{${m}}{${n}}x$. ${sp(5)} Quelle est l'image de $${n * x}$ ?<br>`
+              enonce = `Soit $f$ la fonction définie par $f(x)=\\dfrac{${m}}{${n}}x$. <br> Quelle est l'image de $${n * x}$ ?<br>`
               correction = `$f(x)=\\dfrac{${m}}{${n}}x$ donc ici on a : $f(${n * x})=\\dfrac{${m}}{${n}} \\times ${ecritureParentheseSiNegatif(n * x)}=\\dfrac{${m * x * n}}{${n}}=${m * x}$`
               ant = n * x
               tagImage = true
               reponses[i] = m * x
               break
             case 2:
-              enonce = `Soit $f$ la fonction qui à $x$ associe $${m}x$. ${sp(5)} Quel est l'antécédent de $${m * x}$ ?<br>`
+              enonce = `Soit $f$ la fonction qui à $x$ associe $${m}x$. <br> Quel est l'antécédent de $${m * x}$ ?<br>`
               correction = `$f(x)=${m}x$ donc ici on a : $${m}x=${m * x}$<br> soit $x=\\dfrac{${m * x}}{${m}}=${x}$`
               reponses[i] = x
               img = m * x
               tagImage = false
               break
             case 3:
-              enonce = `Soit $f: x \\longmapsto ${-m}x$. ${sp(5)} Quel est l'antécédent de $${m * x}$ ?<br>`
+              enonce = `Soit $f: x \\longmapsto ${-m}x$. <br> Quel est l'antécédent de $${m * x}$ ?<br>`
               correction = `$f(x)=${-m}x$ donc ici on a : $${-m}x=${m * x}$<br> soit $x=\\dfrac{${-m * x}}{${m}}=${-x}$`
               img = m * x
               reponses[i] = -x
@@ -155,7 +154,7 @@ export default function CalculsImagesFonctions () {
               break
 
             case 4:
-              enonce = `Soit $f$ la fonction telle que $f(x)=\\dfrac{${m}}{${n}}x$. ${sp(5)} Quel est l'antécédent de $${m * x}$ ?<br>`
+              enonce = `Soit $f$ la fonction telle que $f(x)=\\dfrac{${m}}{${n}}x$. <br> Quel est l'antécédent de $${m * x}$ ?<br>`
               correction = `$f(x)=\\dfrac{${m}}{${n}}x$ donc ici on a : $\\dfrac{${m}}{${n}}x=${m * x}$<br> soit $x=${m * x}\\times \\dfrac{${n}}{${m}}=${x * n}$`
               img = m * x
               reponses[i] = n * x
@@ -167,33 +166,33 @@ export default function CalculsImagesFonctions () {
         case 'affine':
           switch (sousChoix[i]) {
             case 0:
-              enonce = `Soit $f: x \\longmapsto ${m}x+${n}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
+              enonce = `Soit $f: x \\longmapsto ${m}x+${n}$. <br> Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)=${m}x+${n}$ donc ici on a : $f(${x})=${m}\\times ${ecritureParentheseSiNegatif(x)}+${n}=${m * x}+${n}=${m * x + n}$`
               ant = x
               reponses[i] = m * x + n
               break
             case 1:
-              enonce = `Soit $f$ la fonction définie par $f(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$. ${sp(5)} Quelle est l'image de $${n * x}$ ?<br>`
+              enonce = `Soit $f$ la fonction définie par $f(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$. <br> Quelle est l'image de $${n * x}$ ?<br>`
               correction = `$f(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$ donc ici on a : $f(${n * x})=\\dfrac{${m}}{${n}}\\times ${ecritureParentheseSiNegatif(n * x)}${ecritureAlgebrique(y)}=${m * x}${ecritureAlgebrique(y)}=${m * x + y}$`
               ant = n * x
               reponses[i] = m * x + y
               break
             case 2:
-              enonce = `Soit $f$ la fonction qui à $x$ associe $${m}x+${n}$. ${sp(5)} Quel est l'antécédent de $${m * x + n}$ ?<br>`
+              enonce = `Soit $f$ la fonction qui à $x$ associe $${m}x+${n}$. <br> Quel est l'antécédent de $${m * x + n}$ ?<br>`
               correction = `$f(x)=${m}x+${n}$ donc ici on a : $${m}x+${n}=${m * x + n}$ <br>Soit $${m}x=${m * x + n}-${n}=${m * x}$ d'où $x=\\dfrac{${m * x}}{${m}}=${x}$`
               img = m * x + n
               reponses[i] = x
               tagImage = false
               break
             case 3:
-              enonce = `Soit $f: x \\longmapsto ${-m}x${ecritureAlgebrique(y)}$. ${sp(5)} Quel est l'antécédent de $${m * x + y}$ ?<br>`
+              enonce = `Soit $f: x \\longmapsto ${-m}x${ecritureAlgebrique(y)}$. <br> Quel est l'antécédent de $${m * x + y}$ ?<br>`
               correction = `$f(x)=${-m}x${ecritureAlgebrique(y)}$ donc ici on a : $${-m}x${ecritureAlgebrique(y)}=${m * x + y}$ <br>Soit $x=\\dfrac{(${m * x + y}${ecritureAlgebrique(-y)})}{${-m}}=${-x}$`
               img = m * x + y
               reponses[i] = -x
               tagImage = false
               break
             case 4:
-              enonce = `Soit $f$ la fonction telle que $f(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$. ${sp(5)} Quel est l'antécédent de $${m * x + y}$ ?<br>`
+              enonce = `Soit $f$ la fonction telle que $f(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$. <br> Quel est l'antécédent de $${m * x + y}$ ?<br>`
               correction = `$f(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$ donc ici on a : $\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}=${m * x + y}$<br>Soit $x=(${m * x + y}${ecritureAlgebrique(-y)})\\times \\dfrac{${n}}{${m}}=${m * x}\\times \\dfrac{${n}}{${m}}=${n * x}$`
               img = m * x + y
               reponses[i] = n * x
@@ -207,29 +206,29 @@ export default function CalculsImagesFonctions () {
           sousChoix[i] = randint(0, 4)
           switch (sousChoix[i]) {
             case 0:
-              enonce = `Soit $f: x \\longmapsto x^2+${m}x+${n}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
+              enonce = `Soit $f: x \\longmapsto x^2+${m}x+${n}$. <br> Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)=x^2+${m}x+${n}$ donc ici on a : $f(${x})=${ecritureParentheseSiNegatif(x)}^2+${m}\\times ${ecritureParentheseSiNegatif(x)}+${n}=${x * x}${ecritureAlgebrique(m * x)}+${n}=${x ** 2 + m * x + n}$`
               reponses[i] = x ** 2 + m * x + n
               break
 
             case 1:
-              enonce = `Soit $f(x)=x^2-${m}x+${n}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
+              enonce = `Soit $f(x)=x^2-${m}x+${n}$. <br> Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)=x^2-${m}x+${n}$ donc ici on a : $f(${x})=${ecritureParentheseSiNegatif(x)}^2-${m}\\times ${ecritureParentheseSiNegatif(x)}+${n}=${x * x}${ecritureAlgebrique(-m * x)}+${n}=${x ** 2 - m * x + n}$`
               reponses[i] = x ** 2 - m * x + n
               break
 
             case 2:
-              enonce = `Soit $f$ la fonction qui à $x$ associe $${m}x^2+${n}x$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
+              enonce = `Soit $f$ la fonction qui à $x$ associe $${m}x^2+${n}x$. <br> Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)=${m}x^2+${n}x$ donc ici on a : $f(${x})=${m}\\times${ecritureParentheseSiNegatif(x)}^2+${n}\\times ${ecritureParentheseSiNegatif(x)}=${m}\\times ${x * x}${ecritureAlgebrique(n * x)}=${m * x ** 2 + n * x}$`
               reponses[i] = m * x ** 2 + n * x
               break
             case 3:
-              enonce = `Soit $f: x \\longmapsto ${m}x^2+${n}x${ecritureAlgebrique(y)}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
+              enonce = `Soit $f: x \\longmapsto ${m}x^2+${n}x${ecritureAlgebrique(y)}$. <br> Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)=${m}x^2+${n}x${ecritureAlgebrique(y)}$ donc ici on a : $f(${x})=${m}\\times${ecritureParentheseSiNegatif(x)}^2+${n}\\times ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(y)}=${m}\\times ${x * x}${ecritureAlgebrique(n * x)}${ecritureAlgebrique(y)}=${m * x ** 2 + n * x + y}$`
               reponses[i] = m * x ** 2 + n * x + y
               break
             case 4:
-              enonce = `Soit $f(x)=${m}x^2-${n}x${ecritureAlgebrique(y)}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
+              enonce = `Soit $f(x)=${m}x^2-${n}x${ecritureAlgebrique(y)}$. <br> Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)=${m}x^2-${n}x${ecritureAlgebrique(y)}$ donc ici on a : $f(${x})=${m}\\times${ecritureParentheseSiNegatif(x)}^2-${n}\\times ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(y)}=${m}\\times ${x * x}${ecritureAlgebrique(-n * x)}${ecritureAlgebrique(y)}=${m * x ** 2 - n * x + y}$`
               reponses[i] = m * x ** 2 - n * x + y
               break
@@ -244,14 +243,14 @@ export default function CalculsImagesFonctions () {
             case 0:
               if (n !== x) m = n - x // n différent de 0 donc m + x différent de zéro
               else m = n ** 2 - x // idem
-              enonce = `Soit $f$ la fonction qui à $x$ associe $\\dfrac{x}{x${ecritureAlgebrique(m)}}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
+              enonce = `Soit $f$ la fonction qui à $x$ associe $\\dfrac{x}{x${ecritureAlgebrique(m)}}$. <br> Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)=\\dfrac{x}{x${ecritureAlgebrique(m)}}$ donc ici on a : $f(${x})=\\dfrac{${x}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${x}}{${x + m}}$`
               reponses[i] = new FractionEtendue(x, x + m)
               break
             case 1:
               if (n !== x) m = n - x // n différent de 0 donc m + x différent de zéro
               else m = n ** 2 - x
-              enonce = `Soit $f$ telle que $f(x)=\\dfrac{${m}x}{x${ecritureAlgebrique(m)}}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
+              enonce = `Soit $f$ telle que $f(x)=\\dfrac{${m}x}{x${ecritureAlgebrique(m)}}$. <br> Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)=\\dfrac{${rienSi1(m)}x}{x${ecritureAlgebrique(m)}}$ donc ici on a : $f(${x})=\\dfrac{${m}\\times ${ecritureParentheseSiNegatif(x)}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${m * x}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${m * x}}{${x + m}}`
               reponses[i] = new FractionEtendue(m * x, x + m)
               correction += reponses[i].estEntiere ? `=${reponses[i].simplifie().texFraction}$` : '$'
@@ -259,7 +258,7 @@ export default function CalculsImagesFonctions () {
             case 2:
               if (n !== x) m = n - x // // n différent de 0 donc m + x différent de zéro et x différent de zéro
               else m = n ** 2 - x
-              enonce = `Soit $f$ telle que $f(x)=\\dfrac{${m}x^2+${n}x}{x^2${ecritureAlgebrique(m)}x}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
+              enonce = `Soit $f$ telle que $f(x)=\\dfrac{${m}x^2+${n}x}{x^2${ecritureAlgebrique(m)}x}$. <br> Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)=\\dfrac{${rienSi1(m)}x^2+${n}x}{x^2${ecritureAlgebrique(m)}x}$ donc ici on a : $f(${x})=\\dfrac{${m}\\times ${ecritureParentheseSiNegatif(x)}^2+${n}\\times ${ecritureParentheseSiNegatif(x)}}{${ecritureParentheseSiNegatif(x)}^2${ecritureAlgebrique(m)}\\times ${ecritureParentheseSiNegatif(x)}}=\\dfrac{${m * x ** 2}${ecritureAlgebrique(n * x)}}{${x ** 2}${ecritureAlgebrique(m * x)}}=\\dfrac{${m * x ** 2 + n * x}}{${x ** 2 + m * x}}=\\dfrac{${m * x + n}}{${x + m}}$`
               reponses[i] = new FractionEtendue(m * x ** 2 + n * x, x ** 2 + m * x)
               break
@@ -267,7 +266,7 @@ export default function CalculsImagesFonctions () {
               if (n !== x && n !== 2 * x) m = n - x // x - m = 2x - n donc différent de zéro
               else if (n ** 2 !== 2 * x) m = n ** 2 - x // x-m = 2x - n**2 donc différent de zéro
               else m = n + x // x-m = n donc différent de zéro
-              enonce = `Soit $f: x \\longmapsto \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
+              enonce = `Soit $f: x \\longmapsto \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$. <br> Quelle est l'image de $${x}$ ?<br>`
               correction = `$f(x)= \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$`
               correction += `donc ici on a : $f(${x})= \\dfrac{${x}${ecritureAlgebrique(-m)}}{${ecritureParentheseSiNegatif(x)}^2${ecritureAlgebrique(-2 * m)}\\times ${ecritureParentheseSiNegatif(x)}+${m * m}}`
               correction += `=\\dfrac{${x - m}}{${x ** 2}${ecritureAlgebrique(-2 * m * x)}+${m * m}}=\\dfrac{${x - m}}{${x ** 2 - 2 * m * x + m * m}}`

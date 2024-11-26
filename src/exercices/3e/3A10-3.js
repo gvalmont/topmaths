@@ -5,7 +5,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const interactifReady = true
@@ -26,7 +26,7 @@ export const uuid = '32f33'
 export const ref = '3A10-3'
 export const refs = {
   'fr-fr': ['3A10-3'],
-  'fr-ch': ['9NO4-17']
+  'fr-ch': ['9NO4-17', '1CN-2']
 }
 export default function DecompositionFacteursPremiers () {
   Exercice.call(this)

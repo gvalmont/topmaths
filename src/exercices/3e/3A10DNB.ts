@@ -1,19 +1,16 @@
 import { createList } from '../../lib/format/lists'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { texteItalique } from '../../lib/outils/embellissements'
 import { listeDesDiviseurs, pgcd, texFactorisation } from '../../lib/outils/primalite'
 import FractionEtendue from '../../modules/FractionEtendue'
 import ExerciceBrevetA from '../ExerciceBrevetA'
 
 export const uuid = '9a8e7'
 export const refs = {
-  'fr-fr': ['3A10DNB-0'],
+  'fr-fr': ['3A10DNB'],
   'fr-ch': []
 }
-export const interactifReady = true
-export const interactifType = 'qcm'
-export const amcReady = 'true'
-export const amcType = 'qcmMono'
-export const titre = 'Exercice 1 (Antilles-Guyane 06/2024)'
+export const titre = 'Problème de partage'
 export const dateDePublication = '15/11/2024'
 /**
  * @Author Jean-Claude Lhote
@@ -30,6 +27,7 @@ export default class Exercice3A10DNB0 extends ExerciceBrevetA {
     this.sup = false
     this.nbQuestionsModifiable = true
     this.versionAleatoire()
+    this.introduction = texteItalique('D\'après l\'exercice 1 du brevet Antilles-Guyane 2024.')
   }
 
   private appliquerLesValeurs (roses: number, blanches: number, ballotins: number, couleur: string = 'blanche') {

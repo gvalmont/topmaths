@@ -19,7 +19,7 @@ import Hms from '../../../modules/Hms'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 import Grandeur from '../../../modules/Grandeur'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 

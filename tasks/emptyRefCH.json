@@ -72,11 +72,20 @@
         "11ES3": {}
     },
     "1re Collège" : {
-        "CalcLit1" : {},
-        "CalcLit2" : {},
-        "CalcLit3" : {},
-        "CalcLit4" : {},
-        "CalcLit5" : {}
+        "1CN" : {},
+        "1E" : {},
+        "1F1" :{},
+        "1F2" : {},
+        "1F3" : {},
+        "1Thales" : {},
+        "1P" : {},
+        "1A" : {},
+        "1Trig" : {},
+        "1CL1" : {},
+        "1CL2" : {},
+        "1CL3" : {},
+        "1CL4" : {},
+        "1CL5" : {}
     },
     "Géométrie dynamique": {
         "elements": {},

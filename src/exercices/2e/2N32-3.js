@@ -1,6 +1,6 @@
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Écrire une racine carrée sous la forme $\\;a\\sqrt{b}$'
@@ -16,7 +16,7 @@ export const uuid = 'd9495'
 export const ref = '2N32-3'
 export const refs = {
   'fr-fr': ['2N32-3'],
-  'fr-ch': ['11NO1-6']
+  'fr-ch': ['11NO1-6', '1CN-8']
 }
 export default function ExtraireUnCarreParfaitDUneRacineCarree () {
   Exercice.call(this)

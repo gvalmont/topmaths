@@ -5,12 +5,12 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import Decimal from 'decimal.js'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
-export const titre = 'Comparaison de nombres relatifs'
+export const titre = 'Comparer des nombres relatifs'
 export const dateDePublication = '1/08/2024'
-export const dateDeModificationImportante = '1/08/2024'
+export const dateDeModificationImportante = '01/08/2024'
 export const uuid = '19060'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,8 +21,7 @@ export const refs = {
 
 /**
  * Description didactique de l'exercice : Comparaison de nombres relatifs
- * @autor Claire Rousset
- * Référence 5R13
+ * @author Claire Rousset
  */
 export default class InequationsLog extends Exercice {
   constructor () {

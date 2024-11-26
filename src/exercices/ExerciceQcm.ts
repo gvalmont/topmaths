@@ -113,7 +113,7 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
             const props = autoCorr.propositions
             for (let n = 0; n < this.reponses.length; n++) {
               const index = this.reponses.findIndex(el => el === props[n].texte)
-              if (this.corrections[index] != null) {
+              if (this.corrections[index] != null && this.corrections[index] !== '') {
                 correctionsList[n] = `réponse ${lettres[n]} : ${this.corrections[index]}${context.isHtml
               ? props[n].statut
                 ? '\u2705' // ✅
@@ -124,11 +124,15 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
                 }<br>`
               }
             }
-            const liste = createList({
-              items: correctionsList.filter(el => el != null),
-              style: 'fleches'
-            })
-            this.correction = liste
+            const listeAffichable = correctionsList.filter(el => el != null && el !== '')
+            if (listeAffichable.length !== 0) {
+              this.correction = createList({
+                items: listeAffichable,
+                style: 'fleches'
+              })
+            } else {
+              this.correction += '<br>'
+            }
           } else {
             this.correction += '<br>'
           }

@@ -3,7 +3,7 @@ import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { listeQuestionsToContenu } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'

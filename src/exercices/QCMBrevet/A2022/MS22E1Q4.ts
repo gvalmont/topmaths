@@ -1,4 +1,3 @@
-import { deuxColonnes } from '../../../lib/format/miseEnPage'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
@@ -30,21 +29,21 @@ export default class MetropoleSep22Ex1Q4 extends ExerciceQcmA {
         `$${String(a)}$ et $${String(-c)}$`
     ]
     this.enonce = `Les solutions de l'équation  $(${String(a)}x+${String(b)})(-x+${String(c)})$ ?`
-    this.correction = 'Un produit est nul quand l\'un de ses facteurs est nul.<br>'
-    const contenuColonne1 = `Donc, soit $~\\begin{alignedat}{2}
-    ${String(a)}&x+${String(b)}&=0\\\\
-    ${String(a)}&x&=-${String(b)}\\\\
-    &x&=-\\dfrac{${String(b)}}{${String(a)}}\\\\
-    \\end{alignedat}$
-    `
-    const contenuColonne2 = `, soit $~\\begin{alignedat}{2}
-    -&x+${String(c)}&=0\\\\
-    -&x&=-${String(c)}\\\\
-    &x&=${String(c)}\\\\
-    \\end{alignedat}$
-    `
+    this.correction = `Un produit de facteurs est nul si l'un des facteurs est nul , soit <br>
+    $\\left\\{\\begin{array}{l c l}
+    ${String(a)}x+${String(b)}&=0\\\\
+    \\text{ou}&\\\\
+    -x+${String(c)}&=0\\\\
+    \\end{array}\\right.$ d'où $\\left\\{\\begin{array}{l c l}
+    ${String(a)}x&=-${String(b)}\\\\
+     \\text{ou}&\\\\
+     -x&=-${String(c)}\\\\
+      \\end{array}\\right.$ soit $\\left\\{\\begin{array}{l c l}
+       x&=-\\dfrac{${String(b)}}{${String(a)}}\\\\
+      \\text{ou}&\\\\
+       x&=${String(c)}\\\\
+        \\end{array}\\right.$.<br>`
 
-    this.correction += deuxColonnes(contenuColonne1, contenuColonne2)
     this.correction += `Donc, l'équation$(${String(a)}x+${String(b)})(-x+${String(c)})=0$ a pour solutions $${miseEnEvidence(`x=-\\dfrac{${String(b)}}{${String(a)}} \\text{ et }x=${String(c)}`)}$.`
   }
 

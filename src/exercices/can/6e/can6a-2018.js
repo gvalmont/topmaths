@@ -18,7 +18,7 @@ import Hms from '../../../modules/Hms'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue'
 
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { min, round } from 'mathjs'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'

@@ -2,7 +2,7 @@ import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils
 import Exercice from '../deprecatedExercice.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { sp } from '../../lib/outils/outilString'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'

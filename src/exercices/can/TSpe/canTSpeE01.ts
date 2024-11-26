@@ -3,7 +3,7 @@ import { lettreDepuisChiffre } from '../../../lib/outils/outilString.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif.js'
 import Exercice from '../../Exercice.js'
 

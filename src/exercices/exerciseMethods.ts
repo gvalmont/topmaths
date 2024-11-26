@@ -2,6 +2,7 @@ import Figure from 'apigeom/src/Figure'
 import FractionEtendue from '../modules/FractionEtendue'
 import type Exercice from './Exercice'
 import CryptoJS from 'crypto-js'
+import type Decimal from 'decimal.js';
 type EventListener = (evt: Event) => void;
 
 export function exportedNouvelleVersionWrapper (this: Exercice, numeroExercice?: number): void {
@@ -60,7 +61,7 @@ function empreinteTexte (str: string): string {
  * @param  {...any} args toutes les variables pertinentes qui "résumeraient" la question
  * @returns {boolean} true si la question n'a jamais été posée
  */
-export function exportedQuestionJamaisPosee (this: Exercice, i: number, ...args:(string|number|FractionEtendue)[]) {
+export function exportedQuestionJamaisPosee (this: Exercice, i: number, ...args:(string|number|FractionEtendue|Decimal)[]) {
   if (i === 0) this.listeArguments = []
   let argsConcatenes = ''
   for (const arg of args) {

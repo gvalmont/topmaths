@@ -7,7 +7,7 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3, rienSi1
 } from '../../lib/outils/ecritures'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texteCentre } from '../../lib/format/miseEnPage.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { pgcd } from '../../lib/outils/primalite'

@@ -1,4 +1,4 @@
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { tableauDeVariation } from '../../../lib/mathFonctions/etudeFonction.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 

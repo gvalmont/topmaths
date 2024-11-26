@@ -7,7 +7,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fraction } from '../../modules/fractions.js'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Développer $(a-b)^2$'
 export const interactifReady = true

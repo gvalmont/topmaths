@@ -19,7 +19,7 @@ import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/f
 import { min, round } from 'mathjs'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { context } from '../../../modules/context.js'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'

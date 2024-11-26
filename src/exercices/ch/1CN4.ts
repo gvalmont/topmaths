@@ -1,14 +1,15 @@
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import NombrePeriodique from '../../modules/NombrePeriodique'
-import { max, min, round } from 'mathjs'
+import { ceil, round } from 'mathjs'
 
 export const titre = 'Convertir un nombre périodique en écriture décimale en fraction irréductible'
 export const dateDePublication = '12/09/2024'
+export const dateDeModifImportante = '21/11/2024'
 export const interactifReady = false
 export const uuid = '8f8bc'
 export const refs = {
-  'fr-ch': ['9NO12-112'],
+  'fr-ch': ['1CN-4'],
   'fr-fr': []
 }
 
@@ -35,7 +36,7 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
   }
 
   nouvelleVersion () {
-    this.consigne = `Transformer en fraction irréductible ${this.nbQuestions > 1 ? 'les nombres périodiques suivants' : 'le nombre périodique suivant'}.`
+    this.consigne = `Écrire en fraction irréductible ${this.nbQuestions > 1 ? 'les nombres périodiques suivants' : 'le nombre périodique suivant'}.`
     if (this.sup5) {
       this.consigne += ' La calculatrice est autorisée.'
     }
@@ -44,11 +45,13 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
     this.autoCorrection = []
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const periode = round(randint(10 ** (this.sup - 2), 10 ** this.sup - 1) / (10 ** randint(0, this.sup - 1)))
-      let entier = round(randint(10 ** (this.sup2 - 2), 10 ** this.sup2 - 1) / (10 ** randint(0, this.sup2 - 1)))
-      let decimal = round(randint(min(1, max(0, 10 ** (this.sup3 - 2) - 1)), 10 ** (this.sup3 - 1) - 1) / (10 ** randint(0, this.sup3 - 1)))
+      const periode = ceil(randint(10 ** (this.sup - 1), 10 ** this.sup - 1) / (10 ** randint(0, this.sup)))
+      let entier = round(randint(10 ** (this.sup2 - 1), 10 ** this.sup2 - 1) / (10 ** randint(0, this.sup2)))
+      let decimal = 0
       if (this.sup3 === 1) {
         decimal = -1
+      } else {
+        decimal = ceil(randint(10 ** (this.sup3 - 1), 10 ** this.sup3 - 1) / (10 ** randint(0, this.sup3)))
       }
       if (this.sup4 === true) {
         entier = 0
@@ -58,7 +61,7 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
       let texteCorr = ''
 
       texte = `$${nombrePerio.toString()}$`
-      texteCorr = `${nombrePerio.toFractionProcedure()}`
+      texteCorr = `${nombrePerio.toFractionNouvelProcedure()}`
 
       if (this.questionJamaisPosee(i, periode)) {
         this.listeQuestions.push(texte)

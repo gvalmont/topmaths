@@ -1,6 +1,6 @@
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'

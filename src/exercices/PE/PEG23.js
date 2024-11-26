@@ -19,7 +19,6 @@ export const refs = {
 }
 export default function ProduitDeDeuxLongueurs () {
   Exercice.call(this)
-  this.typeExercice = 'IEP'
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.sup = 1

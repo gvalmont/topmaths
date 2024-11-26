@@ -2,7 +2,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../deprecatedExercice.js'
 import { texteGras } from '../../lib/format/style'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const titre = 'Justifier l\'existence d\'une racine carrée'
@@ -17,7 +17,7 @@ export const uuid = '55cc0'
 export const ref = '2N32-1'
 export const refs = {
   'fr-fr': ['2N32-1'],
-  'fr-ch': ['11NO1-4']
+  'fr-ch': ['11NO1-4', '1CN-6']
 }
 export default function ExistenceDUneRacineCarree () {
   Exercice.call(this)

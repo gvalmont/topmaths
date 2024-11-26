@@ -12,7 +12,7 @@ import { createList } from '../../lib/format/lists.ts'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts' // fonction qui va préparer l'analyse de la saisie
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js' // fonctions de mise en place des éléments interactifs
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
 import { fonctionComparaison, generateCleaner } from '../../lib/interactif/comparisonFunctions.ts'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { fraction } from '../../modules/fractions.js'

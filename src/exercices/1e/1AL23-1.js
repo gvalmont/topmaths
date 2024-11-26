@@ -6,7 +6,7 @@ import {
 } from '../../lib/outils/ecritures'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { sp } from '../../lib/outils/outilString.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -23,7 +23,7 @@ export const uuid = '60504'
 export const ref = '1AL23-1'
 export const refs = {
   'fr-fr': ['1AL23-1'],
-  'fr-ch': []
+  'fr-ch': ['1F3-2']
 }
 export default function Formacanonique () {
   Exercice.call(this)

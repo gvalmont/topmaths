@@ -1,4 +1,3 @@
-import { deuxColonnes } from '../../../lib/format/miseEnPage'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -31,7 +30,22 @@ export default class EtrangersJuin13Exo1Q1 extends ExerciceQcmA {
       `$${String(s1)}$ et $${String(c - b)}$`
     ]
     this.enonce = `Les solutions de l'équation  $(x+${String(a)})(${String(b)}x-${String(c)})$ ?`
-    this.correction = 'Un produit est nul quand l\'un de ses facteurs est nul.<br>'
+    this.correction = `Un produit de facteurs est nul si l'un des facteurs est nul , soit <br>
+    $\\left\\{\\begin{array}{l c l}
+    x+${String(a)}&=0\\\\
+    \\text{ou}&\\\\
+    ${String(b)}x-${String(c)}&=0\\\\
+    \\end{array}\\right.$ d'où $\\left\\{\\begin{array}{l c l}
+    x&=-${String(a)}\\\\
+     \\text{ou}&\\\\
+     ${String(b)}x&=${String(c)}\\\\
+      \\end{array}\\right.$ soit $\\left\\{\\begin{array}{l c l}
+      x&=${String(s1)}\\\\
+      \\text{ou}&\\\\
+       x&=${texNombre(s2, 2)}\\\\
+        \\end{array}\\right.$.<br>`
+
+    /* 'Un produit est nul quand l\'un de ses facteurs est nul.<br>'
     const contenuColonne1 = `Donc, soit $~\\begin{alignedat}{2}
     &x+${String(a)}&=0\\\\
     &x&=-${String(a)}\\\\
@@ -44,7 +58,8 @@ export default class EtrangersJuin13Exo1Q1 extends ExerciceQcmA {
     &x&=${texNombre(s2, 2)}\\\\
     \\end{alignedat}$
     `
-    this.correction += deuxColonnes(contenuColonne1, contenuColonne2)
+    */
+    // this.correction += deuxColonnesResp(contenuColonne1, contenuColonne2, {})
 
     this.correction += `Donc, l'équation $(x+${String(a)})(${String(b)}x-${String(c)})=0$ a pour solutions $${miseEnEvidence(`x=${String(s1)} \\text{ et }x=${texNombre(s2, 2)}`)}$.`
   }

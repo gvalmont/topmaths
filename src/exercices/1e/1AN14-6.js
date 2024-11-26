@@ -1,4 +1,4 @@
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { Polynome } from '../../lib/mathFonctions/Polynome.js'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -6,8 +6,10 @@ import Exercice from '../deprecatedExercice.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import engine, { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import Trinome from '../../modules/Trinome'
 
-export const titre = 'Dérivée de $\\dfrac{u}{v}$'
+export const titre = 'Dériver $\\dfrac{u}{v}$'
 export const dateDePublication = '22/01/2022'
 export const dateDeModificationImportante = '07/05/2024'
 export const interactifReady = true
@@ -64,7 +66,7 @@ export default function DeriveeQuotient () {
       melange: 5,
       defaut: 1
     })
-    for (let i = 0, texte, texteCorr, expression, nameF, maReponse, df, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, expression, nameF, maReponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On créé les coefficients d'un monome x^m qu'ont va générer
       const coeffs = new Array(randint(2, 9)) // Au moins 2 coeffs, i.e. deg >= 1
       coeffs.fill(0)
@@ -103,6 +105,7 @@ export default function DeriveeQuotient () {
       texteCorr += '\\[\\left(\\frac{u}{v}\\right)\'=\\frac{u\'\\times v-u\\times v\'}{v^2}.\\]'
       texteCorr += `Ici $${nameF}=\\frac{u}{v}$ avec : `
       texteCorr += `\\[\\begin{aligned}u(x)&=${termeNum.latex},\\ u'(x)=${derNum.latex}\\\\ v(x)&=${termeDen.latex},\\ v'(x)=${derDen.latex}.\\end{aligned}\\]`
+      let df = ''
       switch (listeTypeDeQuestions[i]) {
         case 'poly1a/poly1':
         case 'poly/poly1': {
@@ -110,8 +113,11 @@ export default function DeriveeQuotient () {
           const c = fDen.monomes[1]
           const d = fDen.monomes[0]
           const valI = new FractionEtendue(-d, c)
-          df = `\\R\\backslash\\{${valI.texFSD}\\}`
-          texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valI.texFSD}$.<br>`
+          if (valI == null) {
+            window.notify('Erreur dans la détermination de l\'ensemble de dérivation', { c, d })
+          }
+          df = `\\R\\backslash\\{${valI.texFractionSimplifiee}\\}`
+          texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valI.texFractionSimplifiee}$.<br>`
           texteCorr += 'On obtient alors : '
           if (fNum.deg === 1) {
             // fNum = ax+b
@@ -123,7 +129,7 @@ export default function DeriveeQuotient () {
             texteCorr += 'Les termes en $x$ se compensent et on obtient : '
             texteCorr += `\\[${nameF}'(x)=\\frac{${a * d}${ecritureAlgebrique(-c * b)}}{(${termeDen.latex})^2}.\\]`
             texteCorr += 'C\'est-à-dire : '
-            texteCorr += `\\[\\boxed{${nameF}'(x)=\\frac{${(a * d) - (c * b)}}{(${termeDen.latex})^2}.}\\]`
+            texteCorr += `$${miseEnEvidence(`${nameF}'(x)=\\frac{${(a * d) - (c * b)}}{(${termeDen.latex})^2}`)}$.`
             maReponse = `\\frac{${(a * d) - (c * b)}}{(${termeDen.latex})^2}`
           } else if (fNum.deg === 2) {
             texteCorr += `\\[${nameF}'(x)=\\frac{(${fNum.derivee()})(${termeDen.latex})-(${termeNum.latex})\\times${c < 0 ? `(${c})` : c}}{(${termeDen.latex})^2}.\\]`
@@ -132,22 +138,25 @@ export default function DeriveeQuotient () {
             texteCorr += `\\[${nameF}'(x)=\\frac{${polyInterm}-(${fNum.multiply(c)})}{(${termeDen.latex})^2}.\\]`
             texteCorr += 'On réduit le numérateur pour obtenir : '
             maReponse = `\\frac{${polyInterm.add(fNum.multiply(-c))}}{(${termeDen.latex})^2}`
-            texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
-            texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur si possible, mais cela sort du cadre de cet exercice.'
+            texteCorr += `$${miseEnEvidence(`${nameF}'(x)=${maReponse}`)}$.<br>`
+            texteCorr += `${texteEnCouleurEtGras('Remarque :', 'black')} la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur si possible, mais cela sort du cadre de cet exercice.`
           }
           break
         }
         case 'mon/poly2centre': {
           const c = fDen.monomes[2]
           const d = fDen.monomes[0]
+          df = '\\R'
           const fDenDer = fDen.derivee().toLatex()
           if (c * d > 0) {
             texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ car $${termeDen.latex}${c < 0 ? '<0' : '>0'}$ pour tout $x$.<br>`
           } else {
-            const valI = new FractionEtendue(-d, c)
-            df = `\\R\\backslash\\{${valI.texFSD}\\}`
-            const valeurInterdite = `\\sqrt{${valI.texFSD}}`
-            texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valeurInterdite}$ et $x\\neq-${valeurInterdite}$.<br>`
+            const trinom = new Trinome(c, 0, d)
+            const [racine1, racine2] = [trinom.texX1, trinom.texX2]
+            df = `\\R\\backslash\\{${racine1};${racine2}\\}`
+            const valeurInterdite1 = racine1
+            const valeurInterdite2 = racine2
+            texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valeurInterdite1}$ et $x\\neq${valeurInterdite2}$.<br>`
           }
           texteCorr += 'On obtient alors : '
           texteCorr += `\\[${nameF}'(x)=\\frac{${fNum.derivee()}(${fDen})-${fNum}\\times${fDenDer.startsWith('-') ? `(${fDenDer})` : `${fDenDer}`}}{(${termeDen.latex})^2}.\\]`
@@ -155,8 +164,8 @@ export default function DeriveeQuotient () {
           texteCorr += `\\[${nameF}'(x)=\\frac{${fNum.derivee().multiply(fDen)}${fNum.multiply(fDen.derivee().multiply(-1)).toMathExpr(true)}}{(${termeDen.latex})^2}.\\]`
           texteCorr += 'On simplifie pour obtenir :'
           maReponse = `\\frac{${fNum.derivee().multiply(fDen).add(fNum.multiply(fDen.derivee().multiply(-1)))}}{(${termeDen.latex})^2}`
-          texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
-          texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur, mais cela sort du cadre de cet exercice.'
+          texteCorr += `$${miseEnEvidence(`${nameF}'(x)=${maReponse}.`)}$.<br>`
+          texteCorr += `${texteEnCouleurEtGras('Remarque :', 'black')} la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur, mais cela sort du cadre de cet exercice.`
         }
           break
         case 'mon/poly1': {
@@ -164,16 +173,16 @@ export default function DeriveeQuotient () {
           const c = fDen.monomes[1]
           const d = fDen.monomes[0]
           const valI = new FractionEtendue(-d, c)
-          df = `\\R\\backslash\\{${valI.texFSD}\\}`
-          texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valI.texFSD}$.<br>`
+          df = `\\R\\backslash\\{${valI.texFractionSimplifiee}\\}`
+          texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valI.texFractionSimplifiee}$.<br>`
           texteCorr += 'On obtient alors : '
           texteCorr += `\\[${nameF}'(x)=\\frac{${fNum.derivee()}(${fDen})-${fNum}\\times${c < 0 ? `(${c})` : c}}{(${termeDen.latex})^2}.\\]`
           texteCorr += 'D\'où, en développant le numérateur : '
           texteCorr += `\\[${nameF}'(x)=\\frac{${fNum.derivee().multiply(fDen)}${fNum.multiply(-c).toMathExpr(true)}}{(${termeDen.latex})^2}.\\]`
           texteCorr += 'On simplifie pour obtenir :'
           maReponse = `\\frac{${fNum.derivee().multiply(fDen).add(fNum.multiply(-c))}}{(${termeDen.latex})^2}`
-          texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
-          texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur, mais cela sort du cadre de cet exercice.'
+          texteCorr += `$${miseEnEvidence(`${nameF}'(x)=${maReponse}`)}$.<br>`
+          texteCorr += `${texteEnCouleurEtGras('Remarque :', 'black')} la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur, mais cela sort du cadre de cet exercice.`
           break
         }
         case 'exp/poly1' : {
@@ -181,19 +190,20 @@ export default function DeriveeQuotient () {
           const c = fDen.monomes[1]
           const d = fDen.monomes[0]
           const valI = new FractionEtendue(-d, c)
-          df = `\\R\\backslash\\{${valI.texFSD}\\}`
-          texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valI.texFSD}$.<br>`
+          df = `\\R\\backslash\\{${valI.texFractionSimplifiee}\\}`
+          texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valI.texFractionSimplifiee}$.<br>`
           texteCorr += 'On obtient alors : '
           texteCorr += `\\[${nameF}'(x)=\\frac{${fNum}(${fDen})-${fNum}\\times${c < 0 ? `(${c})` : c}}{(${termeDen.latex})^2}.\\]`
           texteCorr += 'On factorise par $e^x$, et on obtient : '
           texteCorr += `\\[${nameF}'(x)=\\frac{${fNum}(${fDen}${ecritureAlgebrique(-c)})}{(${termeDen.latex})^2},\\]`
           texteCorr += 'ce qui donne, après réduction : '
           maReponse = `\\frac{${fNum}(${Polynome.print([d - c, c])})}{(${termeDen.latex})^2}`
-          texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
+          texteCorr += `$${miseEnEvidence(`${nameF}'(x)=${maReponse}`, 'black')}$.`
           break
         }
         default:
           texteCorr += 'TODO'
+          df = '\\R'
           break
       }
       texte = texte.replaceAll('\\frac', '\\dfrac')

@@ -29,6 +29,7 @@
   import { canOptions } from '../lib/stores/canStore'
   import type { CanSolutionsMode } from '../lib/types/can'
   import { updateReferentielLocaleFromURL } from '../lib/stores/languagesStore'
+  import Alacarte from './setup/alacarte/Alacarte.svelte'
 
   let isInitialUrlHandled = false
 
@@ -101,6 +102,9 @@
     if ($globalOptions.v === 'confeleve') {
       context.isHtml = false
     }
+    if ($globalOptions.v === 'alacarte') {
+      context.isHtml = false
+    }
     if ($globalOptions.v === 'amc') {
       context.isAmc = true
       context.isHtml = false
@@ -138,6 +142,8 @@
     <Eleve />
   {:else if $globalOptions.v === 'latex'}
     <Latex />
+  {:else if $globalOptions.v === 'alacarte'}
+    <Alacarte />
   {:else if $globalOptions.v === 'confeleve'}
     <ConfigEleve />
   {:else if $globalOptions.v === 'amc'}

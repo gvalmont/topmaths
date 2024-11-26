@@ -8,7 +8,7 @@ import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../deprecatedExercice.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { texNombre } from '../../lib/outils/texNombre.ts'
@@ -27,7 +27,7 @@ export const uuid = '41e6f'
 export const ref = '2G30-7'
 export const refs = {
   'fr-fr': ['2G30-7'],
-  'fr-ch': ['11FA9-7']
+  'fr-ch': ['11FA9-7', '1F2-6']
 }
 export default function Lecturegraphiquedeaetb () {
   Exercice.call(this)

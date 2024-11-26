@@ -6,7 +6,7 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '.
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi } from '../../lib/outils/nombres'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 

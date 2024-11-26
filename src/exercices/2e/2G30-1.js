@@ -4,7 +4,7 @@ import { unSiPositifMoinsUnSinon } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -27,7 +27,7 @@ export const uuid = '1ea16'
 export const ref = '2G30-1'
 export const refs = {
   'fr-fr': ['2G30-1'],
-  'fr-ch': ['11FA9-9']
+  'fr-ch': ['11FA9-9', '1F2-1']
 }
 export default function CoefficientDirecteurDeDroite () {
   Exercice.call(this)

@@ -12,12 +12,13 @@ import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import Decimal from 'decimal.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Lire des abscisses décimales sous trois formes'
 export const interactifReady = true
@@ -55,7 +56,6 @@ export default function LireAbscisseDecimaleTroisFormes () {
   this.nbColsCorr = 1
   this.sup = 1
   this.nbQuestions = 1
-  // this.nbQuestionsModifiable = false
 
   this.nouvelleVersion = function () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -209,16 +209,16 @@ export default function LireAbscisseDecimaleTroisFormes () {
         })
       }
       const texte1 = `${numAlpha(0)} Donner l'abscisse de $${noms[0]}$ en écriture décimale.`
-      texte = texte1 + ajouteChampTexteMathLive(this, i * 3, ' ', {
+      texte = texte1 + ajouteChampTexteMathLive(this, i * 3, KeyboardType.clavierNumbers, {
         texteAvant: `${sp(10)} $${noms[0]}($`,
         texteApres: `$${sp(1)})$`
       })
-      texte += `<br>${numAlpha(1)} Donner l'abscisse de $${noms[1]}$ comme la somme d'un nombre entier et d'une fraction décimale inférieure à 1.` + ajouteChampTexteMathLive(this, i * 3 + 1, ' ', {
+      texte += `<br>${numAlpha(1)} Donner l'abscisse de $${noms[1]}$ comme la somme d'un nombre entier et d'une fraction décimale inférieure à 1.` + ajouteChampTexteMathLive(this, i * 3 + 1, KeyboardType.clavierDeBaseAvecFraction, {
         texteAvant: `${sp(10)} $${noms[1]}($`,
         texteApres: `$${sp(1)})$`// `$${sp(2)}+$`
       }) // + ajouteChampTexteMathLive(this, i * 3 + 2, ' ', { texteApres: `$${sp(1)})$` })
       let texte3 = `Donner l'abscisse de $${noms[2]}$ sous la forme d'une fraction décimale.`
-      texte += `<br>${numAlpha(2)} ` + texte3 + ajouteChampTexteMathLive(this, i * 3 + 2, ' ', {
+      texte += `<br>${numAlpha(2)} ` + texte3 + ajouteChampTexteMathLive(this, i * 3 + 2, KeyboardType.clavierDeBaseAvecFraction, {
         texteAvant: `${sp(10)} $${noms[2]}($`,
         texteApres: `$${sp(1)})$`
       })

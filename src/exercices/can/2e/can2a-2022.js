@@ -15,12 +15,12 @@ import { texPrix } from '../../../lib/format/style'
 import { sp } from '../../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
@@ -208,8 +208,7 @@ export default function SujetCAN2022Seconde () {
                          $${texNombre(a / 2, 0)}$ croissants coûtent $2$ fois moins, soit : <br>
                          $${texPrix(prix * a)}\\div 2=${texPrix(reponse)}$ €.`
             }
-          }
-          if (choix === 'b') {
+          } else if (choix === 'b') {
             a = randint(1, 3) * 3
             prix = new Decimal(randint(7, 15)).div(10)
             reponse = new Decimal(prix).mul(a).div(3)
@@ -227,8 +226,7 @@ export default function SujetCAN2022Seconde () {
                                        $${texNombre(a / 3, 0)}$ croissants coûtent $3$ fois moins, soit : <br>
                                        $${texPrix(prix * a)}\\div 3=${texPrix(reponse)}$ €.`
             }
-          }
-          if (choix === 'c') {
+          } else {
             a = randint(1, 3) * 4
             prix = new Decimal(randint(7, 15)).div(10)
             reponse = new Decimal(prix).mul(a).div(4)
@@ -333,7 +331,7 @@ export default function SujetCAN2022Seconde () {
           break
 
         case 11:
-          choix = choice(['a', 'b', 'c', 'd'])//,
+          choix = choice(['a', 'b', 'c', 'd'])
           if (choix === 'a') {
             a = randint(101, 500)
             b = new Decimal(a).div(100)
@@ -343,11 +341,9 @@ export default function SujetCAN2022Seconde () {
             texte = `Donner l'écriture  scientifique de $${a}\\times 10^{${exp}}$.`
 
             texteCorr = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
-              Ici : $${a}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^2\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp + 2}}$.
-              
+              Ici : $${a}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^2\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp + 2}}$.          
  `
-          }
-          if (choix === 'b') {
+          } else if (choix === 'b') {
             a = randint(11, 99)
             b = new Decimal(a).div(10)
             exp = randint(5, 30)
@@ -356,11 +352,10 @@ export default function SujetCAN2022Seconde () {
             texte = `Donner l'écriture  scientifique de $${a}\\times 10^{${exp}}$.`
 
             texteCorr = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
-              Ici : $${a}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^1\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp + 2}}$.
+              Ici : $${a}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^1\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp + 1}}$.
               
  `
-          }
-          if (choix === 'c') {
+          } else if (choix === 'c') {
             a = new Decimal(randint(1, 9) * 10 + randint(1, 9)).div(100)
             b = new Decimal(a).mul(10)
             exp = randint(5, 30)
@@ -371,18 +366,16 @@ export default function SujetCAN2022Seconde () {
             texteCorr = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
               Ici : $${texNombre(a, 2)}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^{-1}\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp - 1}}$.
  `
-          }
-
-          if (choix === 'd') {
+          } else {
             a = new Decimal(randint(1, 9) * 10 + randint(1, 9)).div(1000)
             b = new Decimal(a).mul(100)
             exp = randint(5, 30)
 
             reponse = `${b}\\times 10^{${exp - 2}}`
-            texte = `Donner l'écriture  scientifique de $${texNombre(a, 2)}\\times 10^{${exp}}$.`
+            texte = `Donner l'écriture  scientifique de $${texNombre(a, 3)}\\times 10^{${exp}}$.`
 
             texteCorr = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
-  Ici : $${texNombre(a, 2)}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^{-2}\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp - 2}}$.
+  Ici : $${texNombre(a, 3)}\\times 10^{${exp}}=\\underbrace{${texNombre(b, 2)}}_{1\\leqslant ${texNombre(b, 2)} <10}\\times10^{-2}\\times 10^{${exp}}=${texNombre(b, 2)}\\times 10^{${exp - 2}}$.
 `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -404,8 +397,7 @@ export default function SujetCAN2022Seconde () {
               texte = ` $${texNombre(b, 1)}\\times 4\\times 10\\times 0,25= $`
               texteCorr = `$${texNombre(b, 1)}\\times 4\\times 10\\times 0,25=\\underbrace{0,25\\times 4}_{=1}\\times \\underbrace{${texNombre(b, 1)}\\times 10}_{=${texNombre(b * 10, 0)}}=${texNombre(reponse, 0)}$`
             }
-          }
-          if (choix === 'b') {
+          } else if (choix === 'b') {
             b = new Decimal(randint(1, 9) * 10 + randint(1, 9)).div(10)
             reponse = new Decimal(b).mul(10)
             if (choice([true, false])) {
@@ -415,9 +407,7 @@ export default function SujetCAN2022Seconde () {
               texte = ` $${texNombre(b, 1)}\\times 2\\times 10\\times 0,5= $`
               texteCorr = `$${texNombre(b, 1)}\\times 2\\times 10\\times 0,5=\\underbrace{0,5\\times 2}_{=1}\\times \\underbrace{${texNombre(b, 1)}\\times 10}_{=${texNombre(b * 10, 0)}}=${texNombre(reponse, 0)}$`
             }
-          }
-
-          if (choix === 'c') {
+          } else if (choix === 'c') {
             b = new Decimal(randint(1, 9) * 10 + randint(1, 9)).div(10)
             reponse = new Decimal(b).mul(20)
             if (choice([true, false])) {
@@ -427,8 +417,7 @@ export default function SujetCAN2022Seconde () {
               texte = ` $${texNombre(b, 1)}\\times 4\\times 10\\times 0,5= $`
               texteCorr = `$${texNombre(b, 1)}\\times 4\\times 10\\times 0,5=\\underbrace{0,5\\times 4}_{=2}\\times \\underbrace{${texNombre(b, 1)}\\times 10}_{=${texNombre(b * 10, 0)}}=${texNombre(reponse, 0)}$`
             }
-          }
-          if (choix === 'd') {
+          } else if (choix === 'd') {
             b = new Decimal(randint(1, 9) * 10 + randint(1, 9)).div(10)
             reponse = new Decimal(b).mul(20)
             if (choice([true, false])) {
@@ -438,8 +427,7 @@ export default function SujetCAN2022Seconde () {
               texte = ` $${texNombre(b, 1)}\\times 8\\times 10\\times 0,25= $`
               texteCorr = `$${texNombre(b, 1)}\\times 8\\times 10\\times 0,25=\\underbrace{0,25\\times 8}_{=2}\\times \\underbrace{${texNombre(b, 1)}\\times 10}_{=${texNombre(b * 10, 0)}}=${texNombre(reponse, 0)}$`
             }
-          }
-          if (choix === 'e') {
+          } else {
             b = new Decimal(randint(1, 9) * 10 + randint(1, 9)).div(10)
             reponse = new Decimal(b).mul(100)
             if (choice([true, false])) {
@@ -479,7 +467,7 @@ export default function SujetCAN2022Seconde () {
           break
 
         case 14:
-          choix = choice(['a', 'b', 'c', 'd', 'e', 'f'])//, 'b', 'c', 'd','e'
+          choix = choice(['a', 'b', 'c', 'd', 'e', 'f', 'g'])//, 'b', 'c', 'd','e'
           if (choix === 'a') {
             texte = `Vrai ou faux<br>
          Le volume d'un cube est proportionnel à la longueur de son arête.`
@@ -491,8 +479,7 @@ export default function SujetCAN2022Seconde () {
             texteCorr = `Le volume d'un cube d'arête $c$ est donné par $c^3$. <br>
               Si on double la longueur de l'arête, le volume du cube n'est pas multiplié par $2$. Il est multiplié par $2^3$, soit $8$. <br>
               Ces deux grandeurs ne sont pas proportionnelles. `
-          }
-          if (choix === 'b') {
+          } else if (choix === 'b') {
             texte = `Vrai ou faux<br>
          L'aire d'un disque est proportionnelle à son rayon.`
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
@@ -503,8 +490,7 @@ export default function SujetCAN2022Seconde () {
             texteCorr = `L'aire d'un disque de rayon $r$ est donnée par : $\\pi\\times r^2$. <br>
               Si on double la longueur du rayon, l'aire du disque n'est pas multiplée par $2$. Elle est multiplié par $2^2$, soit $4$. <br>
               Ces deux grandeurs ne sont pas proportionnelles. `
-          }
-          if (choix === 'c') {
+          } else if (choix === 'c') {
             texte = `Vrai ou faux<br>
          L'aire d'un rectangle de largeur constante est proportionnelle à sa longueur.`
             setReponse(this, index, ['V', 'v'], { formatInteractif: 'texte' })
@@ -515,8 +501,7 @@ export default function SujetCAN2022Seconde () {
             texteCorr = `L'aire d'un rectangle de largeur constante $l$ et de longueur $L$ est donnée par : $L\\times l$. <br>
               Si on multiplie la longueur par $k$, l'aire du nouveau rectangle est alors : $l\\times k\\times L$. Elle est donc aussi multipliée par $k$. <br>
                         Ces deux grandeurs  sont donc proportionnelles. `
-          }
-          if (choix === 'd') {
+          } else if (choix === 'd') {
             n = randint(13, 35)
             a = randint(4, 6)
             texte = `Vrai ou faux<br>
@@ -530,8 +515,7 @@ export default function SujetCAN2022Seconde () {
             }
             texteCorr = `Si on va $k$ fois plus de fois à la piscine, le prix payé est $k$ fois plus immportant (il est égal à $${n}\\times ${a}\\times k$).<br>
                         Ces deux grandeurs  sont donc proportionnelles. `
-          }
-          if (choix === 'e') {
+          } else if (choix === 'e') {
             n = randint(13, 35)
             a = randint(4, 6)
             b = randint(25, 40)
@@ -546,8 +530,7 @@ export default function SujetCAN2022Seconde () {
             }
             texteCorr = `Si on va $k$ fois plus de fois à la piscine, le prix payé n'est  pas $k$ fois plus immportant (il est égal à $${n}\\times ${a}\\times k +${b}$).<br>
                         Ces deux grandeurs sont donc proportionnelles. `
-          }
-          if (choix === 'e') {
+          } else if (choix === 'f') {
             texte = `Vrai ou faux<br>
          Le périmètre d'un rectangle est proportionnel à la longueur de de ce rectangle.`
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
@@ -558,8 +541,7 @@ export default function SujetCAN2022Seconde () {
             texteCorr = `Le périmètre d'un rectangle de largeur $l$ et de longueur $L$ est donnée par : $2\\times (L+ l)$. <br>
               Si on multiplie la longueur par $k$, l'aire du nouveau rectangle est alors : $2\\times (L\\times k+ l)$. Elle n'est donc pas  multipliée par $k$. <br>
                         Ces deux grandeurs  ne sont  donc pas proportionnelles. `
-          }
-          if (choix === 'f') {
+          } else {
             texte = `Vrai ou faux<br>
          Le périmètre d'un carré  est proportionnel à la longueur de son côté.`
             setReponse(this, index, ['V', 'v'], { formatInteractif: 'texte' })
@@ -600,8 +582,7 @@ export default function SujetCAN2022Seconde () {
             texte = `$${texNombre(a, 1)}$ m$^3=$`
 
             texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 1)}$ m$^3=${texNombre(a, 1)}\\times 1000$ L $ =$ $${texNombre(a * 1000, 1)}$ L`
-          }
-          if (choix === 'b') {
+          } else {
             a = randint(11, 39, [10, 20, 30]) + randint(11, 99, [10, 20, 30, 40, 50, 60, 70, 80, 90]) / 100
 
             reponse = a * 1000
@@ -650,9 +631,7 @@ export default function SujetCAN2022Seconde () {
             texteCorr = `Dans une heure, il y a $4\\times 15$ minutes. <br>Ainsi en $15$ minutes, la distance parcourue est  $${a}\\div 4=${a / 4}$ km.<br>
             Donc en $${h}$ h $15$ min, la distance parcourue est $(${a * h}+${a / 4})$ km, soit $${a * h + a / 4}$ km.
             `
-          }
-
-          if (choix === 'b') {
+          } else if (choix === 'b') {
             a = choice([60, 90, 120])
             h = randint(1, 3)
             reponse = a * h + a / 6
@@ -660,9 +639,7 @@ export default function SujetCAN2022Seconde () {
                       `
             texteCorr = `Dans une heure, il y a $6\\times 10$ minutes. <br>Ainsi en $10$ minutes, la distance parcourue est $${a}\\div 6=${a / 6}$ km. <br>
             Donc en $${h}$ h $10$ min, la distance parcourue est $(${a * h}+${a / 6})$ km, soit $${a * h + a / 6}$ km.      `
-          }
-
-          if (choix === 'c') {
+          } else {
             a = choice([30, 60, 90, 120])
             h = randint(1, 3)
             reponse = a * h + a / 3
@@ -741,23 +718,10 @@ export default function SujetCAN2022Seconde () {
             reponse = a[1]
             texte = 'Calculer la longueur $AB$. <br>'
 
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1,
-              style: 'margin: auto'
-            }, objets)
-
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
               On a $AB^2=BC^2-AC^2$, soit $AB^2=${a[2]}^2-${a[0]}^2=${a[2] ** 2 - a[0] ** 2}$.<br>
               Par conséquent, $AB=${a[1]}$.`
-          }
-          if (choix === 'b') {
+          } else if (choix === 'b') {
             objets.push(pol[0])
             objets.push(
               texteParPosition(`${stringNombre(a[1])} cm`, milieu(A, B).x + 0.6, milieu(A, B).y)
@@ -766,23 +730,10 @@ export default function SujetCAN2022Seconde () {
             reponse = a[0]
             texte = 'Calculer la longueur $AC$. <br>'
 
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1,
-              style: 'margin: auto'
-            }, objets)
-
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
                 On a $AC^2=BC^2-AB^2$, soit $AC^2=${a[2]}^2-${a[1]}^2=${a[2] ** 2 - a[1] ** 2}$.<br>
                 Par conséquent, $AC=${a[0]}$.`
-          }
-          if (choix === 'c') {
+          } else {
             objets.push(pol[0])
             objets.push(
               texteParPosition(`${stringNombre(a[1])} cm`, milieu(A, B).x + 0.5, milieu(A, B).y)
@@ -791,22 +742,17 @@ export default function SujetCAN2022Seconde () {
             reponse = a[2]
             texte = 'Calculer la longueur $BC$. <br>'
 
-            texte += mathalea2d({
-              xmin,
-              ymin,
-              xmax,
-              ymax,
-              pixelsParCm: 40,
-              mainlevee: false,
-              amplitude: 0.5,
-              scale: 1,
-              style: 'margin: auto'
-            }, objets)
-
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
                   On a $BC^2=AB^2+AC^2$, soit $BC^2=${a[0]}^2+${a[1]}^2=${a[0] ** 2 + a[1] ** 2}$.<br>
                   Par conséquent, $BC=${a[2]}$.`
           }
+          texte += mathalea2d(Object.assign({
+            pixelsParCm: 40,
+            mainlevee: false,
+            amplitude: 0.5,
+            scale: 1,
+            style: 'margin: auto'
+          }, fixeBordures(objets)), objets)
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -824,21 +770,17 @@ export default function SujetCAN2022Seconde () {
             texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
             Il y a $3$ issues qui comportent au moins une fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $\\dfrac{3}{4}$.`
             reponse = new FractionEtendue(3, 4)
-          }
-          if (choix === 'b') {
+          } else if (choix === 'b') {
             texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient au plus une fois ${c ? 'pile' : 'face'}" ?`
             texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
             Il y a $3$ issues qui comportent au plus une fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $\\dfrac{3}{4}$.`
             reponse = new FractionEtendue(3, 4)
-          }
-
-          if (choix === 'c') {
+          } else if (choix === 'c') {
             texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient une seule fois ${c ? 'pile' : 'face'}" ?`
             texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
             Il y a $2$ issues qui comportent une seule fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $\\dfrac{1}{2}$.`
             reponse = new FractionEtendue(1, 2)
-          }
-          if (choix === 'd') {
+          } else {
             texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient deux fois ${c ? 'piles' : 'faces'} " ?`
             texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
             Il y a $1$ issue qui comporte deux fois ${c ? 'piles' : 'faces'}. Ainsi, la probabilité cherchée est : $\\dfrac{1}{4}$.`
@@ -866,8 +808,7 @@ export default function SujetCAN2022Seconde () {
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '')
             }
-          }
-          if (choix === 'b') {
+          } else if (choix === 'b') {
             g = choice([3, 5, 7])
             k = choice([2, 3, 4])
             c = choice([true, false])
@@ -880,9 +821,7 @@ export default function SujetCAN2022Seconde () {
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '')
             }
-          }
-
-          if (choix === 'c') {
+          } else if (choix === 'c') {
             g = choice([3, 5, 7])
             k = choice([2, 3, 4])
             c = choice([true, false])
@@ -897,8 +836,7 @@ export default function SujetCAN2022Seconde () {
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '')
             }
-          }
-          if (choix === 'd') {
+          } else {
             g = choice([3, 5, 7])
             k = choice([2, 3])
             c = choice([true, false])
@@ -928,8 +866,7 @@ export default function SujetCAN2022Seconde () {
             texte = `Décomposer $${listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[2]}$ en produit de facteurs premiers.`
 
             texteCorr = `$${listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[2]}=${listeFacteurs24[0]}\\times ${listeFacteurs24[1]}\\times ${listeFacteurs24[2]}$`
-          }
-          if (choix === 'b') {
+          } else {
             listeFacteurs24 = [2, 3, 5]
             listeFacteurs24 = shuffle(listeFacteurs24)
             while (listeFacteurs24[0] ** 2 * listeFacteurs24[1] ** 2 > 190) {
@@ -962,8 +899,7 @@ export default function SujetCAN2022Seconde () {
       `
 
             texteCorr = `Le carré de $${a}x$ est $(${a}x)^2=${a ** 2}x^2$. On en déduit que la somme du carré de $${a}x$ et de $${b}$ s'écrit $${a ** 2}x^2+${b}$. `
-          }
-          if (choix === 'b') {
+          } else {
             a = randint(2, 5)
             b = randint(2, 4)
             reponse = [`(${a}x)^2\\times${b}`, `${a ** 2 * b}x^2`]
@@ -1080,8 +1016,7 @@ export default function SujetCAN2022Seconde () {
             texteCorr = `Dans un agrandissement/réduction, quand les longueurs sont multipliées par $k$, les aires sont multipliées par $k^2$.<br>
             Ici, l'aire a été divisée par $4$, soit multipliée par $\\dfrac{1}{4}$. <br>
             On en déduit que le coefficient de réduction est $\\dfrac{1}{2}$. `
-          }
-          if (choix === 'b') {
+          } else if (choix === 'b') {
             a = randint(2, 10)
             b = a * 9
             reponse = new FractionEtendue(1, 3)
@@ -1092,8 +1027,7 @@ export default function SujetCAN2022Seconde () {
             texteCorr = `Dans un agrandissement/réduction, quand les longueurs sont multipliées par $k$, les aires sont multipliées par $k^2$.<br>
             Ici, l'aire a été divisée par $9$, soit multipliée par $\\dfrac{1}{9}$. <br>
             On en déduit que le coefficient de réduction est $\\dfrac{1}{3}$. `
-          }
-          if (choix === 'c') {
+          } else {
             a = randint(1, 5)
             b = a * 16
             reponse = new FractionEtendue(1, 4)

@@ -12,7 +12,7 @@ import { texPrix } from '../../lib/format/style'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { checkSum, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité'

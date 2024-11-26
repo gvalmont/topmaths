@@ -200,19 +200,49 @@
   "1-ES3": {
     "titre": "Transformations du plan"
   },
-  "CalcLit1" : {
+  "1CL1" : {
     "titre" : "Généralités"
   },
-  "CalcLit2" : {
-    "titre" : "Fctorisation"
+  "1CL2" : {
+    "titre" : "Factorisation"
   },
-  "CalcLit3" : {
-    "titre" : "Equations du premier degré"
+  "1CL3" : {
+    "titre" : "Équations du premier degré"
   },
-  "CalcLit4" : {
+  "1CL4" : {
     "titre" : "Equations du second degré"
   },
-  "CalcLit5" : {
+  "1CL5" : {
     "titre" : "Systèmes d'équations"
+  },
+  "1E" : {
+    "titre" : "Ensembles et intervalles"
+  },
+  "1CN" : {
+    "titre" : "Rappels de calcul numérique"
+  },
+  "1F1" : {
+    "titre" : "Fonctions, généralités"
+  },
+  "1F2" : {
+    "titre" : "Fonctions affines et droites"
+  },
+  "1F3" : {
+    "titre" : "Fonctions quadratiques et paraboles"
+  },
+  "1F4" : {
+    "titre" : "Fonctions racine, inverse, cubique"
+  },
+  "1Thales" : {
+    "titre" : "Théorème de Thalès"
+  },
+  "1P" : {
+    "titre" : "Théorème de Pythagore"
+  },
+  "1A" : {
+    "titre" : "Les angles"
+  },
+  "1Trigo" : {
+    "titre" : "Trigonométrie"
   }
 }

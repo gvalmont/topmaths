@@ -1,6 +1,7 @@
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Déterminer une forme canonique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -36,7 +37,7 @@ export default function FormeCanonique () {
       } else {
         this.question = `Soit $f(x)= x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.<br>
 
-        La forme canonique de $f(x)$ est : $f(x)=$`
+        La forme canonique de $f(x)$ est :<br> $f(x)=$`
       }
     } else {
       if (!this.interactif) {
@@ -56,7 +57,7 @@ export default function FormeCanonique () {
 
     this.correction += `<br> On a $a=1$, et on reconnaît dans $x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$, le début du carré de $(${reduireAxPlusB(1, -alpha)})^2$.`
     this.correction += `<br>On peut donc écrire :  $\\underbrace{x^2${ecritureAlgebriqueSauf1(b)}x}_{(${reduireAxPlusB(1, -alpha)})^2-${(-alpha) ** 2}}${ecritureAlgebrique(c)}
-    =(${reduireAxPlusB(1, -alpha)})^2-${(-alpha) ** 2}${ecritureAlgebrique(c)}$.`
+    =${miseEnEvidence(`(${reduireAxPlusB(1, -alpha)})^2-${(-alpha) ** 2}${ecritureAlgebrique(c)}`)}$.`
     this.correction += '<br>Soit : $f(x)='
     this.correction += `(x ${ecritureAlgebrique(-alpha)})^2${ecritureAlgebrique(beta)}$`
     this.reponse = [`(x${ecritureAlgebrique(b / 2)})^2${ecritureAlgebrique(beta)}`, `${beta}+(x${ecritureAlgebrique(b / 2)})^2`]

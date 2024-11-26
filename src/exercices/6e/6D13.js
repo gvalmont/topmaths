@@ -3,7 +3,7 @@ import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
 import Hms from '../../modules/Hms'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'

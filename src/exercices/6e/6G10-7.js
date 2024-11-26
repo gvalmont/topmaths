@@ -12,14 +12,14 @@ import Exercice from '../deprecatedExercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context.js'
 import { clone } from 'mathjs'
 import { codageSegments } from '../../lib/2d/codages'
-export const interactifReady = true
+export const interactifReady = false
 export const interactifType = ['qcm', 'mathLive']
-export const amcReady = true
+export const amcReady = false
 export const amcType = 'AMCHybride'
 export const titre = 'Connaître le vocabulaire du cercle, version 2'
 

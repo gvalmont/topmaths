@@ -7,8 +7,9 @@ import FractionEtendue from '../../modules/FractionEtendue.ts'
 
 import { fractionCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Effectuer des calculs simples avec des fractions'
 export const dateDePublication = '20/11/21'
@@ -73,7 +74,7 @@ export default function FractionsCalculsSimples () {
           f2 = new FractionEtendue(c, b)
           f3 = new FractionEtendue(a + c, b)
           texte = `$${f1.texFraction} + ${f2.texFraction}$`
-          texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction', { texteAvant: '=' })
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: '=' })
           texteCorr = `$${f1.texFraction} + ${f2.texFraction} = ${f3.texFraction} ${(f3.estEntiere) ? `=${f3.texFractionSimplifiee}` : ''}$`
           schema = fractionCliquable(0, 0, 4, b)
           if (this.sup) texte += '<br>' + mathalea2d({ scale, xmin: -0.2, xmax, ymin: -1, ymax: 2 }, schema)
@@ -99,7 +100,7 @@ export default function FractionsCalculsSimples () {
           f2 = new FractionEtendue(n * b, b)
           f3 = new FractionEtendue(n * b + a, b)
           texte = `$${n} + ${f1.texFraction}$`
-          texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '=' })
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: '=' })
           texteCorr = `$${n} + ${f1.texFraction} = ${f2.texFraction} + ${f1.texFraction} = ${f3.texFraction} ${(f3.estEntiere) ? `=${f3.texFractionSimplifiee}` : ''}$`
           schema = fractionCliquable(0, 0, 4, b)
           schemaCorr = fractionCliquable(0, 0, quotientier(n * b + a, b) + 1, b, {
@@ -125,7 +126,7 @@ export default function FractionsCalculsSimples () {
           f2 = new FractionEtendue(n * b, b)
           f3 = new FractionEtendue(n * b - a, b)
           texte = `$${n} - ${f1.texFraction}$`
-          texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '=' })
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: '=' })
           texteCorr = `$${n} - ${f1.texFraction} = ${f2.texFraction} - ${f1.texFraction} = ${f3.texFraction} ${(f3.estEntiere) ? `=${f3.texFractionSimplifiee}` : ''}$`
           schemaCorr = fractionCliquable(0, 0, quotientier(n * b + a, b) + 1, b, {
             cliquable: false,
@@ -152,7 +153,7 @@ export default function FractionsCalculsSimples () {
           f1 = new FractionEtendue(a, b)
           f3 = new FractionEtendue(n * a, b)
           texte = `$${n} \\times ${f1.texFraction}$`
-          texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '=' })
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: '=' })
           texteCorr = `$${n} \\times ${f1.texFraction} = ${f3.texFraction} ${(f3.estEntiere) ? `=${f3.texFractionSimplifiee}` : ''}$`
           texteCorr += '<br>'
           if (this.correctionDetaillee) {

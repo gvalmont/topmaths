@@ -4,7 +4,7 @@ import { longueur, nomVecteurParPosition, segment, vecteur } from '../../lib/2d/
 import { latexParPoint, texteParPosition } from '../../lib/2d/textes.js'
 import { homothetie } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
@@ -85,8 +85,8 @@ export default class TranslationEtCoordonnes extends Exercice {
       const A = point(xA, yA) // On définit et on trace le point A
       const B = point(xB, yB) // On définit et on trace le point B
       const traceAetB = tracePoint(A, B, 'red') // Variable qui trace les points avec une croix
-      const posLabelA : Point = homothetie(B, A, -0.7 / longueur(A, B)) // pour positionner les noms des points aux extrémités proprement
-      const posLabelB : Point = homothetie(A, B, -0.7 / longueur(A, B))
+      const posLabelA = homothetie(B, A, -0.7 / longueur(A, B)) as Point // pour positionner les noms des points aux extrémités proprement
+      const posLabelB = homothetie(A, B, -0.7 / longueur(A, B)) as Point
       const labelA = latexParPoint('A', posLabelA, 'red', 10, 12, '')
       const labelB = latexParPoint("A'", posLabelB, 'red', 10, 12, '')
       const s = segment(A, B, 'red') // On trace en rouge [AB]

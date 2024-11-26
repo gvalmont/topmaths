@@ -13,7 +13,7 @@ export const uuid = 'd5a6d'
 export const ref = '2N20-2'
 export const refs = {
   'fr-fr': ['2N20-2'],
-  'fr-ch': []
+  'fr-ch': ['1CN-1']
 }
 export default function TableauCritereDeDivisibilite2nde () {
   TableauCriteresDeDivisibilite.call(this)

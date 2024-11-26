@@ -35,7 +35,6 @@ export default function ConstruireUnTriangleAvecCible () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.classe = 6
-  this.typeExercice = 'IEP'
 
   this.nouvelleVersion = function () {
     let IEP

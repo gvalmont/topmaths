@@ -26,7 +26,7 @@ import { Arbre } from '../../../modules/arbres.js'
 import { min, round } from 'mathjs'
 import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils.js'
 
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 

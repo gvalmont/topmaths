@@ -33,7 +33,7 @@ On considère la suite $\\left(v_n\\right)$ définie sur $\\mathbb N$ par : $v_n
 
 La suite $\\left(v_n\\right)$ est:`
 
-    this.correction = 'On a quel que soit $n \\in \\mathbbN$, :<br> '
+    this.correction = 'On a quel que soit $n \\in \\mathbb N$ :<br> '
     this.correction += '$v_{n+1} = u_{n+1} + 60 $<br>$\\qquad=  1,2u_n + 12 + 60$ <br>$\\qquad= 1,2u_n + 72 $<br>$\\qquad= 1,2\\left(u_n + 60\\right)$ <br>$\\qquad= 1,2v_n$<br>'
     this.correction += 'Cette égalité montre que la suite $\\left(v_n\\right)$ est géométrique de raison 1,2.'
   }

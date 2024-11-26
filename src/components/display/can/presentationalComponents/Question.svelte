@@ -42,8 +42,9 @@
         const mf = questionContainer?.querySelector('math-field') as MathfieldElement
         if (mf) {
           // ToDo : gérer les QCM
-          mf.addEventListener('input', (e) => {
-            if (e instanceof InputEvent && e.data === 'insertLineBreak') {
+          mf.addEventListener('keyup', (e) => {
+            /* MGu obliger de mettre l'event quand on relache la touche, car sinon events multiples pour la même touche */
+            if (e instanceof KeyboardEvent && e.code === 'Enter') {
               nextQuestion()
             }
             if (mf.value !== '') {
@@ -56,7 +57,8 @@
           window.setTimeout(() => {
             mf.focus()
             // @ToFix Je remets le clavier visible pour les fillInTheBlanks mais en fait je ne sais pas ce qui les rend invisibles
-            $keyboardState.isVisible = true
+            // Mgu je n'ai pas reproduit le problème ...
+            // $keyboardState.isVisible = true
           }, 0)
         } else {
           // on n'a pas trouvé de math-field, c'est pas du mathlive !

@@ -2,22 +2,28 @@ import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { labelPoint } from '../../lib/2d/textes.ts'
 import { creerCouples, shuffle2tableaux } from '../../lib/outils/arrayOutils'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenuSansNumero, randint, calculANePlusJamaisUtiliser, contraindreValeur } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer les coordonnées (relatives) d\'un point'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '22/01/2024'
+export const dateDeModifImportante = '24/11/2024'
 
 /**
  * Lire les coordonnées d'un point du plan avec une précision allant de l'unité à 0,25.
- * @author Jean-Claude Lhote
+ * @author Jean-Claude Lhote - Eric Elter (pour l'interactivité)
  */
 export const uuid = 'ab968'
 export const ref = '5R12-2'
@@ -91,7 +97,7 @@ export default function ReperagePointDuPlan () {
     texte = 'Déterminer les coordonnées des points'
     texteCorr = 'Les coordonnées des points sont :<br>'
     for (let i = 0; i < nbPoints - 1; i++) {
-      texte += ` $${nom[i]}$,`
+      texte += ` $${nom[i]}$, `
       texteCorr += ` $${nom[i]}(${miseEnEvidence(texNombre(points[i].x))};${miseEnEvidence(texNombre(points[i].y))})$,`
       if (context.isAmc) {
         this.autoCorrection[0].propositions.push(
@@ -157,6 +163,14 @@ export default function ReperagePointDuPlan () {
     }
     texte += '<br>' + mathalea2d({ xmin: xmin - 1, ymin: ymin - 1, xmax: xmax + 1, ymax: ymax + 1, pixelsParCm: 30, scale: 0.75 }, objets2d)
 
+    if (this.interactif) {
+      for (let i = 0; i < nbPoints; i++) {
+        texte += `<br>Les coordonnées de $${nom[i]}$ sont ` + sp(3) + ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierDeBase, { texteAvant: '(' }) + sp() + ';' + ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierDeBase) + ').'
+        handleAnswers(this, 2 * i, { reponse: { value: points[i].x, compare: fonctionComparaison } })
+        handleAnswers(this, 2 * i + 1, { reponse: { value: points[i].y, compare: fonctionComparaison } })
+      }
+    }
+
     if (context.isAmc) {
       this.autoCorrection[0].enonce = texte
     }
@@ -166,6 +180,6 @@ export default function ReperagePointDuPlan () {
     listeQuestionsToContenuSansNumero(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Coordonnées entières\n2 : Coordonnées 'en demis'\n3 : Coordonnées 'en quarts'"]
-  this.besoinFormulaire2CaseACocher = ['Grille de lecture']
+  this.besoinFormulaire2CaseACocher = ['Grille pour les demis ou pour les quarts']
   this.besoinFormulaire3Numerique = ['Nombre de points (entre 2 et 5)', 5]
 }

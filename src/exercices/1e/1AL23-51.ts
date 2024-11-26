@@ -18,7 +18,7 @@ export const uuid = 'e6718'
 export const ref = '1AL23-51'
 export const refs = {
   'fr-fr': ['1AL23-51'],
-  'fr-ch': []
+  'fr-ch': ['1F3-8']
 }
 export default class EtudeParabole extends Exercice {
   constructor () {
@@ -38,7 +38,7 @@ export default class EtudeParabole extends Exercice {
     question1 += `<br><br>${numAlpha(0)} Déterminer la forme canonique de $f(x) = ${p.tex}$.`
     question1 += `<br><br>${numAlpha(1)} En déduire les coordonnées du sommet de la parabole et les variations de la fonction $f$ associée au polynôme $(P)$.`
     let correction1 = `${numAlpha(0)} On cherche la forme canonique de $${p.tex}$ avec $a=${p.a.simplifie().texFraction}$, $b=${p.b.simplifie().texFraction}$ et $c=${p.c.simplifie().texFraction}$.`
-    correction1 += '<br><br> On sait que $f(x)(x-\\alpha)^2+\\beta$ avec $\\alpha = \\dfrac{-b}{2a}$ et $\\beta=f(\\alpha)$.'
+    correction1 += '<br><br> On sait que $f(x)=a(x-\\alpha)^2+\\beta$ avec $\\alpha = \\dfrac{-b}{2a}$ et $\\beta=f(\\alpha)$.'
     correction1 += `<br><br> $\\alpha = \\dfrac{-b}{2a}=\\dfrac{${p.b.simplifie().oppose().texFraction}}{${p.a.multiplieEntier(2).simplifie().texFraction}}=${p.alpha.simplifie().texFraction}$`
     correction1 += `<br><br> $\\beta = f(\\alpha) = f\\left(${p.alpha.simplifie().texFraction} \\right)=${p.texCalculImage(p.alpha.simplifie())}$`
     correction1 += `<br><br> On a donc $f(x) = ${p.texFormeCanonique}$.`

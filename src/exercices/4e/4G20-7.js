@@ -8,7 +8,7 @@ import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import { RedactionPythagore } from './_pythagore.js'
 import * as Blockly from 'blockly/core'
 import { init } from '../../lib/blockly/blocks'
@@ -28,7 +28,7 @@ export const interactifType = 'custom'
 export const uuid = 'c0f90'
 export const ref = '4G20-7'
 export const refs = {
-  'fr-fr': [],
+  'fr-fr': ['4G20-7'],
   'fr-ch': []
 }
 

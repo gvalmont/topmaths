@@ -22,4 +22,21 @@ export default function renderScratch (selector = '') {
     languages: ['fr'],
     scale: 0.7
   })
+
+  // POUR GERER LE ZOOM
+  const elts = document.querySelectorAll(`${selector}pre.blocks2`)
+  const scales = new Set()
+  elts.forEach(ele => {
+    const scale = Number(ele.getAttribute('scale'))
+    scales.add(scale)
+  })
+  scales.forEach(scale => {
+    scratchblocks.renderMatching(`${selector}pre.blocks2[scale="${scale}"]`, {
+      inline: true,
+      style: 'scratch3',
+      languages: ['fr'],
+      scale
+    })
+    document.querySelectorAll(`${selector}pre.blocks2[scale="${scale}"]`).forEach(el => el.classList.remove('blocks2'))
+  })
 }

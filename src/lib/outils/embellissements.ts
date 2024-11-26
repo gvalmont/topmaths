@@ -155,6 +155,17 @@ export function texteGras (texte: string) {
   }
 }
 
+/**
+ * Texte en italique
+ */
+export function texteItalique (texte: string) {
+  if (context.isHtml) {
+    return `<i>${texte}</i>`
+  } else {
+    return `\\textit{${texte}}`
+  }
+}
+
 export function blocCode (texte: string) {
   if (context.isHtml) {
     return `<pre style="background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; padding: 10px; font-family: Courier New, monospace; white-space: pre-wrap;">
@@ -173,4 +184,11 @@ export function texteCode (texte: string) {
     return `<span style="background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; font-family: Courier New, monospace; white-space: pre-wrap;">${texte}</span>`
   }
   return `\\colorbox{lightgray}{\\texttt{${texte}}}`
+}
+
+export function texteEnBoite (texte: string) {
+  if (context.isHtml) {
+    return `<div style="display: inline-block; max-width: fit-content; border: 2px solid #444; border-radius: 4px; padding: 10px;">${texte}</div>`
+  }
+  return `\\fbox{\\parbox{0.5\\linewidth}{\\setlength{\\parskip}{.5cm}${texte}}}\\newline`
 }

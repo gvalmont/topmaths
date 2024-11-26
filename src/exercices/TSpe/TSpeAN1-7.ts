@@ -4,7 +4,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { pgcd } from '../../lib/outils/primalite.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
 
 export const titre = 'Résolution d\'équations du type $x^a = b$'

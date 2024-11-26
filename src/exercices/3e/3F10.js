@@ -2,7 +2,7 @@ import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -19,7 +19,7 @@ export const uuid = 'b92da'
 export const ref = '3F10'
 export const refs = {
   'fr-fr': ['3F10'],
-  'fr-ch': ['10FA5-4']
+  'fr-ch': ['10FA5-4', '1F1-4']
 }
 export default function ImageAntecedentDepuisTableauOuFleche () {
   Exercice.call(this)

@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { context } from '../../../modules/context.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenuSansNumero, randint } from '../../../modules/outils.js'

@@ -6,6 +6,7 @@ import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import Decimal from 'decimal.js'
+import { abs } from '../../../lib/outils/nombres'
 export const titre = 'Écrire un décimal sous une forme particulière'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,7 +26,7 @@ export default class decimalPuisance extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierFullOperations
     this.compare = fonctionComparaison
-    this.optionsDeComparaison = { fractionEgale: true }
+    this.optionsDeComparaison = { fractionIdentique: true }
   }
 
   nouvelleVersion () {
@@ -35,7 +36,7 @@ export default class decimalPuisance extends Exercice {
     const puissance10 = 10 ** puissance
     const a = choice([2025, -2025])
     const dec = new Decimal(a).div(puissance10)
-    this.reponse = `\\dfrac{${a}}{10^{${puissance}}}`
+    this.reponse = [(a < 0 ? '-' : '') + `\\dfrac{${abs(a)}}{10^{${puissance}}}`, `\\dfrac{${a}}{10^{${puissance}}}`] // Sans cela, le cas où la fraction est négative ne passe pas.
 
     this.question = `Écrire $${texNombre(dec, 5)}$ sous la forme $\\dfrac{a}{10^n}$ avec $a\\in \\mathbb{Z}$ et $n\\in \\mathbb{N}$, $n$ le plus petit possible.`
     this.correction = `$${texNombre(dec, 5)}=${miseEnEvidence(`\\dfrac{${texNombre(a, 0)}}{10^{${puissance}}}`)}$`

@@ -1,7 +1,7 @@
 import { lampeMessage } from '../../lib/format/message.js'
 import { texSymbole, texteGras } from '../../lib/format/style'
 
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'

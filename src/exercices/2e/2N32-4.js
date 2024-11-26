@@ -3,7 +3,7 @@ import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -19,7 +19,7 @@ export const uuid = '12b72'
 export const ref = '2N32-4'
 export const refs = {
   'fr-fr': ['2N32-4'],
-  'fr-ch': ['11NO1-7']
+  'fr-ch': ['11NO1-7', '1CN-9']
 }
 export default function SimplifierUneSommeDeRacinesCarrees () {
   Exercice.call(this)

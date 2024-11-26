@@ -44,7 +44,7 @@ export default class entiersConsecutifs extends Exercice {
         texte += '<br>' + remplisLesBlancs(this, i, '\\text{ Le plus petit est : } %{champ1} \\text{ et le plus grand est : } %{champ2}', KeyboardType.clavierDeBase)
       }
       this.correction = `Si on retranche $1$ au plus grand des deux nombres, il devient égal au plus petit et la somme est diminuée de $1$.<br>
-Ainsi le double du plus grand nombre est $${n1 + n2 - 1}$.<br>
+Ainsi le double du plus petit nombre est $${n1 + n2 - 1}$.<br>
           $${n1 + n2 - 1}\\div 2=${n1}$. <br>
           Le plus petit nombre est $${miseEnEvidence(texNombre(n1, 0))}$ et le plus grand est $${miseEnEvidence(texNombre(n2, 0))}$.
           `

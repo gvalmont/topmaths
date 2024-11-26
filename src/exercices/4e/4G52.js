@@ -10,15 +10,14 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 
-export const titre = 'Exercice de repérage dans un pavé droit'
-
-export const dateDeModifImportante = '03/05/2023'
-
+export const titre = 'Se repérer sur un pavé droit'
+export const amcReady = true
+export const amcType = 'AMCHybride'
+export const dateDeModifImportante = '25/11/2024'
+export const dateDePublication = '09/06/2021'
 /**
  * Un point est situé dans un pavé découpé suivant les trois axes, on doit donner ses coordonnées
- * @author Arnaud Durand et Jean-Claude Lhote
- * Référence 4G52
- * publié 9/06/2021
+ * @author Arnaud Durand et Jean-Claude Lhote (AMC par Eric Elter)
  * Ajout d'un paramètre permettant de choisir entre placer un point et lire ses coordonnées
  */
 export const uuid = '9c916'
@@ -29,7 +28,6 @@ export const refs = {
 }
 export default function ReperagePaveDroit () {
   Exercice.call(this)
-  this.titre = titre
   this.consigne = 'Dans le repère $(A;I;J;K)$ :'
   this.nbQuestions = 3
   this.tailleDiaporama = 2
@@ -41,22 +39,25 @@ export default function ReperagePaveDroit () {
   this.sup2 = 1
 
   this.nouvelleVersion = function () { // c'est ici que les données sont relatives
-    this.introduction = '' // consigne avant les question y mettre le dessin + texte
+    this.listeQuestions = []
+    this.listeCorrections = []
+    this.autoCorrection = []
 
     const hauteur = 12
     const largeur = 12
     const profondeur = 12
-    if (parseInt(this.sup) === 3) {
+    if (this.sup === 3) {
       context.anglePerspective = 60
       context.coeffPerspective = 0.4
-    } else if (parseInt(this.sup) === 2) {
+    } else if (this.sup === 2) {
       context.anglePerspective = 45
       context.coeffPerspective = 0.3
-    } else if (parseInt(this.sup) === 1) {
+    } else {
       context.anglePerspective = 30
       context.coeffPerspective = 0.4
     }
     const A = point3d(0, 0, 0, true, 'A', 'below left')
+    /* EE : Sinon, des points sont illisibles car sur ces points-là.
     const B = point3d(largeur, 0, 0, true, 'B', 'below right')
     const C = point3d(largeur, profondeur, 0, true, 'C', 'above right')
     const D = point3d(0, profondeur, 0, true, 'D', 'above left')
@@ -64,7 +65,7 @@ export default function ReperagePaveDroit () {
     const F = point3d(largeur, 0, hauteur, true, 'F', 'above right')
     const G = point3d(largeur, profondeur, hauteur, true, 'G', 'above right')
     const H = point3d(0, profondeur, hauteur, true, 'H', 'above left')
-
+    */
     const objetsAtracer = []
     let nbgraduationx = randint(2, 4)
     let nbgraduationy = randint(2, 3)
@@ -81,7 +82,8 @@ export default function ReperagePaveDroit () {
     const J = point3d(0, deltay, 0, false, 'J', 'above left')
     const K = point3d(0, 0, deltaz, true, 'K', 'left')
 
-    objetsAtracer.push(labelPoint(A, B, C, D, E, F, G, H, I, J, K))
+    // objetsAtracer.push(labelPoint(A, B, C, D, E, F, G, H, I, J, K))
+    objetsAtracer.push(labelPoint(A, I, J, K))
 
     for (let i = 0; i <= nbgraduationy; i++) {
       for (let j = 0, M, N, s; j <= nbgraduationz; j++) {
@@ -138,18 +140,20 @@ export default function ReperagePaveDroit () {
     if (this.sup2 === 1) typesDeQuestionsDisponibles = ['placer']
     if (this.sup2 === 2) typesDeQuestionsDisponibles = ['lire']
     const listeTypesDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-
+    const coordExistantes = [[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]]
     for (let i = 0, texte, texteCorr, cpt = 0, pointCoord, s1, s2, s3, x, y, z, t, pointAplacer, objetsAtracerCorr; i < this.nbQuestions && cpt < 50;) {
-      // Boucle principale où i+1 correspond au numéro de la question
-      x = 0
-      y = 0
-      z = 0
-      while ((x === 0 && y === 0 && z === 0) || (x + y + y === 1)) {
+      let exists
+      do { // Pour éviter d'avoir deux points avec les mêmes coordonnées que des points déjà présents
         x = randint(0, nbgraduationx)
         y = randint(0, nbgraduationy)
         z = randint(0, nbgraduationz)
-      }
+        const target = [x, y, z]
+        exists = coordExistantes.some(coord =>
+          coord.length === target.length && coord.every((val, index) => val === target[index])
+        )
+      } while (exists)
       pointCoord = [x, y, z]
+      coordExistantes[i + 4] = pointCoord
       pointAplacer = point3d(pointCoord[0] * deltax, pointCoord[1] * deltay, pointCoord[2] * deltaz, lettreDepuisChiffre(i + 12), `${lettreDepuisChiffre(i + 12)}`, 'below right')
       s1 = arete3d(A, point3d(pointAplacer.x, 0, 0), 'blue', true)
       s2 = arete3d(point3d(pointAplacer.x, 0, 0), point3d(pointAplacer.x, pointAplacer.y, 0), 'green', true)
@@ -161,6 +165,7 @@ export default function ReperagePaveDroit () {
       t.epaisseur = 2
       t.taille = 6
       objetsAtracerCorr = [s1.c2d, s2.c2d, s3.c2d, t, labelPoint(pointAplacer)].concat(objetsAtracer)
+      let propositionsAMC
       if (listeTypesDeQuestions[i] === 'placer') {
         texte = `Placer le point $${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${pointCoord[0]};${pointCoord[1]};${pointCoord[2]})$.`
         texteCorr = mathalea2d({
@@ -172,8 +177,21 @@ export default function ReperagePaveDroit () {
           style: 'display: block; margin-top:20px;'
         }, objetsAtracerCorr)
         texteCorr += `<br>$${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${miseEnEvidence(pointCoord[0], 'blue')};${miseEnEvidence(pointCoord[1], 'green')};${miseEnEvidence(pointCoord[2], 'red')})$.<br>`
+        propositionsAMC = [
+          {
+            type: 'AMCOpen',
+            propositions: [{
+              texte: '',
+              statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+              feedback: '',
+              enonce: `Placer le point $${lettreDepuisChiffre(i + 12)}$ de coordonnées  ($${x}$ ; $${y}$ ; $${z}$ ).<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+              sanscadre: true, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+              pointilles: true // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+            }]
+          }
+        ]
       } else {
-        texte = `Donner les coordonnées du point $${lettreDepuisChiffre(i + 12)}$`
+        texte = `Donner les coordonnées du point $${lettreDepuisChiffre(i + 12)}$.`
         objetsAtracer.push(tracePoint(pointAplacer, 'blue'), labelPoint(pointAplacer))
         texteCorr = mathalea2d({
           xmin: -1,
@@ -184,15 +202,86 @@ export default function ReperagePaveDroit () {
           style: 'display: block; margin-top:20px;'
         }, objetsAtracerCorr)
         texteCorr += `<br>Le point $${lettreDepuisChiffre(i + 12)}$ a pour coordonnées $(${miseEnEvidence(pointCoord[0], 'blue')};${miseEnEvidence(pointCoord[1], 'green')};${miseEnEvidence(pointCoord[2], 'red')})$.`
+        propositionsAMC = [
+          {
+            type: 'AMCNum',
+            propositions: [{
+              texte: '',
+              statut: '',
+              reponse: {
+                texte: `Donner la première coordonnée du point $${lettreDepuisChiffre(i + 12)}$.`,
+                valeur: pointCoord[0],
+                param: {
+                  digits: 1,
+                  decimals: 0,
+                  signe: false,
+                  approx: 0
+                }
+              }
+            }]
+          },
+          {
+            type: 'AMCNum',
+            propositions: [{
+              texte: '',
+              statut: '',
+              reponse: {
+                texte: `Donner la deuxième coordonnée du point $${lettreDepuisChiffre(i + 12)}$.`,
+                valeur: pointCoord[1],
+                param: {
+                  digits: 1,
+                  decimals: 0,
+                  signe: false,
+                  approx: 0
+                }
+              }
+            }]
+          },
+          {
+            type: 'AMCNum',
+            propositions: [{
+              texte: '',
+              statut: '',
+              reponse: {
+                texte: `Donner la troisième coordonnée du point $${lettreDepuisChiffre(i + 12)}$.`,
+                valeur: pointCoord[2],
+                param: {
+                  digits: 1,
+                  decimals: 0,
+                  signe: false,
+                  approx: 0
+                }
+              }
+            }]
+          }
+        ]
+      }
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: '',
+          enonceAvant: false,
+          enonceAvantUneFois: this.nbQuestions > 1,
+          enonceApresNumQuestion: this.nbQuestions === 1,
+          options: { multicols: true, barreseparation: true, multicolsAll: true },
+          propositions: propositionsAMC
+        }
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on en crée une autre
+      if (this.questionJamaisPosee(i, x, y, z)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
       }
       cpt++
+    }
+    if (context.isAmc) {
+      this.autoCorrection[0].enonce = mathalea2d({
+        xmin: -1,
+        xmax: 1 + largeur + (profondeur * context.coeffPerspective) * Math.cos(radians(context.anglePerspective)),
+        ymin: -1,
+        ymax: 1 + hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective),
+        scale: 0.4
+      }, objetsAtracer)
     }
     this.introduction = (context.vue === 'diap' ? '<center>' : '') + mathalea2d({
       xmin: -1,

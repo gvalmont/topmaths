@@ -231,6 +231,7 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['\\tkzText'], '\\usepackage{tkz-fct}', contents)
   testIfLoaded(['\\begin{wrapfigure}'], '\\usepackage{wrapfig}', contents)
   testIfLoaded(['needspace'], '\\usepackage{needspace}', contents)
+  testIfLoaded(['\\ovaloperator{'], '\\usepackage{scratch3}', contents)
   testIfLoaded(['\\begin{scratch}'], '\\usepackage{scratch3}', contents)
   testIfLoaded(['\\begin{Scratch}'], '\\usepackage{unicode-math}\n\\newfontfamily\\myfontScratch[]{FreeSans}', contents)
   testIfLoaded(['\\degre', '\\og', '\\up{', '\\ieme{', '\\no'], '\\usepackage[french]{babel}', contents)

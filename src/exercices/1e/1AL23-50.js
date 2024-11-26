@@ -22,7 +22,7 @@ export const uuid = 'a896e'
 export const ref = '1AL23-50'
 export const refs = {
   'fr-fr': ['1AL23-50'],
-  'fr-ch': []
+  'fr-ch': ['1F3-1']
 }
 export default function LireElementsCarac () {
   Exercice.call(this)

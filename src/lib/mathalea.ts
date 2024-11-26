@@ -738,6 +738,21 @@ export function mathaleaFormatExercice (texte = ' ') {
   // Check if the language is 'fr-CH' and replace \times with \cdot if true
   if (lang === 'fr-CH') {
     formattedText = formattedText.replace(/\\times/g, '\\cdot')
+    formattedText = formattedText.replace(/un antécédent/g, 'une préimage')
+    formattedText = formattedText.replace(/l'antécédent/g, 'la préimage')
+    formattedText = formattedText.replace(/des antécédents/g, 'des préimages')
+    formattedText = formattedText.replace(/les antécédents/g, 'les préimages')
+    formattedText = formattedText.replace(/pour antécédents/g, 'pour préimages')
+    formattedText = formattedText.replace(/pour antécédent/g, 'pour préimage')
+    formattedText = formattedText.replace(/d'antécédent/g, 'de préimage')
+    formattedText = formattedText.replace(/antécédent/g, 'préimage')
+    formattedText = formattedText.replace(/s'il existe et en l'expliquant, le coefficient directeur/g, 'si elle existe, la pente')
+    formattedText = formattedText.replace(/le coefficient directeur/g, 'la pente')
+    formattedText = formattedText.replace(/coefficients directeurs/g, 'les pentes')
+    formattedText = formattedText.replace(/coefficient directeur respectif/g, 'pente respective')
+    formattedText = formattedText.replace(/le même coefficient directeur/g, 'la même pente')
+    formattedText = formattedText.replace(/aucun coefficient directeur/g, 'aucune pente')
+    formattedText = formattedText.replace(/coefficient directeur/g, 'pente')
   }
 
   return formattedText

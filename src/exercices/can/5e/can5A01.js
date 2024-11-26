@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { scratchblock } from '../../../modules/scratchblock.js'
 
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenuSansNumero, randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'

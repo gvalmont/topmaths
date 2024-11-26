@@ -30,7 +30,6 @@ export default function TransformationsDeTriangle () {
   this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
   this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
-  this.typeExercice = 'IEP'
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
 
   //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre

@@ -13,14 +13,9 @@ import { obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractio
 
 export const titre = 'Développer puis réduire des expressions littérales.'
 export const dateDePublication = '20/04/2024'
-// export const dateDeModifImportante =
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
-
-/* export const amcType = 'AMCHybride'
-export const amcReady = true
-*/
 
 /**
  * Développer puis réduire une expression littérale.
@@ -37,7 +32,7 @@ export default function DevelopperReduireExprComplexe () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.spacing = context.isHtml ? 3 : 2
   this.spacingCorr = context.isHtml ? 3 : 2
-  this.nbQuestions = 1
+  this.nbQuestions = 3
   this.sup = '3'
   this.sup2 = false
   this.sup3 = 3

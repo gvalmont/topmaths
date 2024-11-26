@@ -130,9 +130,11 @@ async function readInfos (
                   - si le titre utilise ` ET ${}
                   - si le titre somme des strings (ex : 'Titre' + 'suite')
                 */
-                const matchTitre = data.match(/^export\s+(?:const|let)\s*titre\s*=\s*'((?:[^\\]\\'|[^'])*)'\s*$/msi) ||
-                  data.match(/^export\s+(?:const|let)\s*titre\s*=\s*"((?:[^\\]\\"|[^"])*)"\s*$/msi) ||
-                  data.match(/^export\s+(?:const|let)\s*titre\s*=\s*`((?:[^\\]\\`|[^`])*)`\s*$/msi)
+                // EE : Rajout de la ligne suivante pour permettre de mettre des commentaires sur la ligne de titre sans gêner la gestion du menu.
+                const dataWithoutComments = data.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '')
+                const matchTitre = dataWithoutComments.match(/^export\s+(?:const|let)\s*titre\s*=\s*'((?:[^\\]\\'|[^'])*)'\s*$/msi) ||
+                dataWithoutComments.match(/^export\s+(?:const|let)\s*titre\s*=\s*"((?:[^\\]\\"|[^"])*)"\s*$/msi) ||
+                dataWithoutComments.match(/^export\s+(?:const|let)\s*titre\s*=\s*`((?:[^\\]\\`|[^`])*)`\s*$/msi)
                 if (matchTitre) {
                   // ToDo : Est-ce qu'il y a d'autres caractères spéciaux à gérer que l'apostrophe ?
                   infos.titre = matchTitre[1]

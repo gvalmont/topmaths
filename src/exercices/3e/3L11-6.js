@@ -7,7 +7,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Factoriser une expression complexe'

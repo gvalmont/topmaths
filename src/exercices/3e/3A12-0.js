@@ -7,7 +7,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { engrenages } from '../../lib/2d/engrenage.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

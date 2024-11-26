@@ -32,7 +32,6 @@ export default function PuzzlesGeometriques () {
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.sup = 1
   this.sup2 = true
-  this.typeExercice = 'IEP'
 
   this.nouvelleVersion = function () {
     const type = parseInt(this.sup)

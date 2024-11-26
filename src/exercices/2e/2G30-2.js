@@ -2,7 +2,7 @@ import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ec
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -21,7 +21,7 @@ export const uuid = '0cee9'
 export const ref = '2G30-2'
 export const refs = {
   'fr-fr': ['2G30-2'],
-  'fr-ch': ['11FA9-5']
+  'fr-ch': ['11FA9-5', '1F2-2']
 }
 export default function EquationReduiteDeDroites () {
   Exercice.call(this)

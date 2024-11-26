@@ -15,7 +15,7 @@ export const uuid = '8a78e'
 export const ref = '3F10-6'
 export const refs = {
   'fr-fr': ['3F10-6'],
-  'fr-ch': []
+  'fr-ch': ['1F1-8']
 }
 export default function CalculsImagesFonctionsPolynomialesOuRationnelles () {
   CalculsImagesFonctions.call(this)

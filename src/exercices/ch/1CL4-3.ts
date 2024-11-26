@@ -10,7 +10,7 @@ export const interactifReady = false
 export const uuid = '89034'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': ['CalcLit4-3']
+  'fr-ch': ['1CL4-3']
 }
 
 /**

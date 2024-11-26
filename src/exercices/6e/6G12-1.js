@@ -41,8 +41,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
     this.nbColsCorr = 1
     this.sup = 1
     this.type = 3
-    this.typeExercice = 'IEP'
-    this.besoinFormulaire2CaseACocher = ['Avec auto-correction']
+    this.besoinFormulaire2CaseACocher = ['Avec auto-correction à l\'aide des carreaux']
     this.sup2 = true
 
     this.besoinFormulaireNumerique = [
@@ -60,6 +59,8 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
     )
     let Xmin; let Xmax; let Ymin; let Ymax; const ppc = 20; let sc
     let anim
+
+    const hasAutoCorrection = this.sup2 && this.sup !== 3
 
     let A
     let B
@@ -142,7 +143,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           cB = codageAngleDroit(A, B, BB)
           cC = codageAngleDroit(C, CC, B)
           cD = codageAngleDroit(D, DD, B)
-          if (this.sup2) {
+          if (hasAutoCorrection) {
             objetsCorrection.push(s1,
               s2,
               dC,
@@ -181,8 +182,8 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
               cC,
               cD,
               d,
-              tracePoint(A, B, C, D, E, CC, DD),
-              labelPoint(A, B, C, D, E, CC, DD)
+              tracePoint(A, B, C, D, CC, DD),
+              labelPoint(A, B, C, D, CC, DD)
             )
           }
           objetsEnonce.push(
@@ -201,7 +202,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           enonce +=
           numAlpha(3) +
           ' Tracer la droite perpendiculaire à $(AB)$ passant par $D$ et nommer $N$ le point d\'intersection de cette droite avec la droite $(AB)$.<br>'
-          if (this.sup2) {
+          if (hasAutoCorrection) {
             enonce +=
           numAlpha(4) +
           ' Mesurer ensuite les distances $AM$ et $AN$. Pour l\'auto-correction comparer ces mesures avec celles données dans la correction<br>'
@@ -243,10 +244,10 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           lC = arrondi(longueur(CC, A) * k, 1)
           lD = arrondi(longueur(DD, A) * k, 1)
           lE = arrondi(longueur(EE, A) * k, 1)
-          if (this.sup2) {
+          if (hasAutoCorrection) {
             objetsCorrection.push(dC, dD, dE, d, p, tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F, CC, DD, EE), afficheCoteSegment(segment(A, CC), `${stringNombre(lC)} cm`, 0.2, 'red', 1, 0.5, 'red'), afficheCoteSegment(segment(DD, A), `${stringNombre(lD)} cm`, -0.2, 'green', 1, -0.5, 'green'), afficheCoteSegment(segment(A, EE), `${stringNombre(lE)} cm`, -0.2, 'blue', 1, -0.5, 'blue'))
           } else {
-            objetsCorrection.push(dC, dD, dE, d, p, tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F, CC, DD, EE))
+            objetsCorrection.push(dC, dD, dE, d, p, tracePoint(A, B, C, D, F), labelPoint(A, B, C, D, E, F, CC, DD, EE))
           }
           objetsEnonce.push(tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F), d, p)
 
@@ -255,7 +256,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           enonce += numAlpha(1) + ' Tracer la droite parallèle à $(AB)$ passant par $C$ et nommer $M$, le point d\'intersection de cette droite avec la droite $(AF)$.<br>'
           enonce += numAlpha(2) + ' Tracer la droite parallèle à $(AB)$ passant par $D$ et nommer $N$, le point d\'intersection de cette droite avec la droite $(AF)$.<br>'
           enonce += numAlpha(3) + ' Tracer la droite parallèle à $(AB)$ passant par $E$ et nommer $O$, le point d\'intersection de cette droite avec la droite $(AF)$.<br>'
-          if (this.sup2) {
+          if (hasAutoCorrection) {
             enonce += numAlpha(4) + ' Mesurer les distances $AM$, $AN$ et $AO$. Pour l\'auto-correction, comparer ces mesures avec celles données par  l\'ordinateur dans la correction.<br>'
 
             correction = `$AM \\approx ${texNombre(lC
@@ -310,7 +311,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           cE = codageAngleDroit(B, E, EE, 'red')
           cF = codageAngleDroit(C, EE, E, 'red')
           cG = codageAngleDroit(C, FF, D, 'red')
-          if (this.sup2) {
+          if (hasAutoCorrection) {
             objetsCorrection.push(dC, dD, dB, dE, cB, cC, cD, cE, cF, cG, d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE), afficheCoteSegment(
               segment(A, CC),
           `${stringNombre(lC)} cm`,
@@ -339,7 +340,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
             'green'
             ))
           } else {
-            objetsCorrection.push(dC, dD, dB, dE, cB, cC, cD, cE, cF, cG, d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE))
+            objetsCorrection.push(dC, dD, dB, dE, cB, cC, cD, cE, cF, cG, d, tracePoint(A, B, C, D, CC, DD, EE), labelPoint(A, B, C, D, CC, DD, EE))
           }
           objetsEnonce.push(tracePoint(A, B, C, D, E), labelPoint(A, B, C, D, E), d)
           if (context.isHtml) enonce = numAlpha(0) + ' Reproduire la figure ci-dessous.<br>'
@@ -348,7 +349,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           enonce += numAlpha(2) + ' Tracer la droite perpendiculaire à $(AB)$ passant par $C$ et nomme $M$, le point d\'intersection de cette droite avec la droite $(AB)$.<br>'
           enonce += numAlpha(3) + ' Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d\'intersection de cette droite avec la droite $(BE)$.<br>'
           enonce += numAlpha(4) + ' Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d\'intersection de cette droite avec la droite $(CM)$.<br>'
-          if (this.sup2) {
+          if (hasAutoCorrection) {
             enonce += numAlpha(5) + ' Mesurer les distances $AM$, $AN$ et $AO$. Pour l\'auto-correction, comparer ces mesures avec celles données par  l\'ordinateur dans la correction.<br>'
 
             correction += `$AM \\approx ${texNombre(

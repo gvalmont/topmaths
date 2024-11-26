@@ -6,7 +6,7 @@ import Operation from '../../modules/operations.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 

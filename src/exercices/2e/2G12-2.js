@@ -10,7 +10,7 @@ import { ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../lib/outil
 import { texNombre } from '../../lib/outils/texNombre'
 import { texteGras } from '../../lib/format/style'
 import Exercice from '../deprecatedExercice.js'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'

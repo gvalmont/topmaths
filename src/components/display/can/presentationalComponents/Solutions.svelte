@@ -40,16 +40,17 @@
     }
   })
 
-  function removeMF (text: string) {
+  function removeMF (text: string, removeDollar: boolean = true) {
     if (typeof text !== 'string') return ''
-    if (text.includes('placeholder')) return cleanFillInTheBlanks(text)
+    if (text.includes('placeholder')) return cleanFillInTheBlanks(text, removeDollar)
     const regex = /<math-field[^>]*>[^]*?<\/math-field>/g
     return text.replace(regex, ' ... ')
   }
 
-  function cleanFillInTheBlanks (text: string) {
+  function cleanFillInTheBlanks (text: string, removeDollar: boolean = true) {
     if (typeof text !== 'string') return ''
-    return text.replace(/\\placeholder\[(.*?)\]\[(.*?)\]\[(.*?)\]/g, '').replaceAll('$', '')
+    if (removeDollar) text = text.replace(/\$/g, '')
+    return text.replace(/\\placeholder\[(.*?)\]\[(.*?)\]\[(.*?)\]/g, '')
   }
 </script>
 
@@ -180,7 +181,7 @@
               hidden={!solutionDisplayed[i] && resultsByQuestion[i] && displayCorrection}
             >
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-              {@html removeMF(questions[i])}
+              {@html removeMF(questions[i], false)}
             </div>
             <div
               class="p-2 text-pretty bg-coopmaths-warn-200 dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus-darkest"

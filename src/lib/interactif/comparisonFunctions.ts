@@ -19,11 +19,13 @@ export type OptionsComparaisonType = {
   expressionsForcementReduites?: boolean
   avecSigneMultiplier?: boolean
   avecFractions?: boolean
+  sansTrigo?:boolean
   fractionIrreductible?: boolean
   fractionSimplifiee?: boolean
   fractionReduite?: boolean
   fractionDecimale?:boolean
   fractionEgale?:boolean
+  fractionIdentique?:boolean
   nombreDecimalSeulement?:boolean
   operationSeulementEtNonResultat?: boolean
   additionSeulementEtNonResultat?:boolean
@@ -57,6 +59,7 @@ export type OptionsComparaisonType = {
   pluriels?: boolean,
   multi?: boolean, // options pour le drag and drop
   ordered?: boolean // options pour le drag and drop
+  tolerance?: number
 }
 export type CompareFunction = (
   input: string,
@@ -514,11 +517,13 @@ engine.latexDictionary = [
  *   expressionsForcementReduites: boolean,
  *   avecSigneMultiplier: boolean,
  *   avecFractions: boolean,
+ *   sansTrigo;boolean,
  *   fractionIrreductible: boolean,
  *   fractionSimplifiee: boolean,
  *   fractionReduite: boolean,
  *   fractionDecimale: boolean,
  *   fractionEgale: boolean,
+ *   fractionIdentique : boolean,
  *   nombreDecimalSeulement: boolean,
  *   operationSeulementEtNonResultat: boolean,
  *   additionSeulementEtNonResultat: boolean,
@@ -557,11 +562,13 @@ export function fonctionComparaison (
     expressionsForcementReduites,
     avecSigneMultiplier,
     avecFractions,
+    sansTrigo,
     fractionIrreductible, // Documenté
     fractionSimplifiee, // Documenté
     fractionReduite, // Documenté
     fractionDecimale, // Documenté
     fractionEgale, // Documenté
+    fractionIdentique,
     nombreDecimalSeulement, // Documenté
     operationSeulementEtNonResultat, // Documenté
     additionSeulementEtNonResultat,
@@ -595,11 +602,13 @@ export function fonctionComparaison (
     expressionsForcementReduites: true,
     avecSigneMultiplier: true,
     avecFractions: true,
+    sansTrigo: false,
     fractionIrreductible: false,
     fractionSimplifiee: false,
     fractionReduite: false,
     fractionDecimale: false,
     fractionEgale: false,
+    fractionIdentique: false,
     nombreDecimalSeulement: false,
     operationSeulementEtNonResultat: false,
     additionSeulementEtNonResultat: false,
@@ -653,7 +662,7 @@ export function fonctionComparaison (
   if (nombreAvecEspace) return numberWithSpaceCompare(input, goodAnswer)
   if (ensembleDeNombres || kUplet) return ensembleNombres(input, goodAnswer, { kUplet }) // ensembleDeNombres est non trié alors que kUplet nécessite le tri
   if (suiteDeNombres || suiteRangeeDeNombres) return ensembleNombres(input, goodAnswer, { kUplet: suiteRangeeDeNombres, avecAccolades: false })
-  if (fractionSimplifiee || fractionReduite || fractionIrreductible || fractionDecimale || fractionEgale) return comparaisonFraction(input, goodAnswer, { fractionReduite, fractionIrreductible, fractionDecimale, fractionEgale }) // feedback OK
+  if (fractionSimplifiee || fractionReduite || fractionIrreductible || fractionDecimale || fractionEgale || fractionIdentique) return comparaisonFraction(input, goodAnswer, { fractionReduite, fractionIrreductible, fractionDecimale, fractionEgale, fractionIdentique }) // feedback OK
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   const inputNew = resultatSeulementEtNonOperation
     ? input.replace('(', '').replace(')', '').replace('\\lparen', '').replace('\\rparen', '') // Utile pour 5R20
@@ -663,6 +672,7 @@ export function fonctionComparaison (
     expressionsForcementReduites,
     avecSigneMultiplier,
     avecFractions,
+    sansTrigo,
     fractionIrreductible,
     operationSeulementEtNonResultat,
     additionSeulementEtNonResultat,
@@ -769,7 +779,8 @@ function comparaisonFraction (
     fractionReduite = false,
     fractionIrreductible = false,
     fractionDecimale = false,
-    fractionEgale = false
+    fractionEgale = false,
+    fractionIdentique = false
   }
   = {}
 ): ResultType {
@@ -785,14 +796,24 @@ function comparaisonFraction (
   const reponseNativeParsed = engine.parse(cleanGoodAnswer, { canonical: false })
   const reponseParsed = reponseNativeParsed.engine.number(Number(reponseNativeParsed.value)) // Ici, c'est la valeur numérique (même approchée) de cleanGoodAnswer.
   if (saisieNativeParsed.isEqual(reponseNativeParsed)) {
+    if (fractionIdentique) {
+      if (saisieNativeParsed.isSame(reponseNativeParsed)) return { isOk: true, feedback: '' }
+      return { isOk: false, feedback: 'Le résultat ne correspond pas à la fraction attendue.' }
+    }
     if (saisieNativeParsed.operator === 'Number' && reponseParsed.isInteger) { // réponse est égale à un entier et saisie est un nombre entier (2) ou décimal (2.0).
       return { isOk: true }
     }
     if (fractionEgale) {
-      if (saisieNativeParsed.operator === 'Divide' || saisieNativeParsed.operator === 'Rational') { // saisie doit être une fraction (ou une division)
+      if (saisieNativeParsed.operator === 'Divide' || saisieNativeParsed.operator === 'Rational' || (saisieNativeParsed.operator === 'Negate' && (saisieNativeParsed.op1.operator === 'Divide' || saisieNativeParsed.op1.operator === 'Rational'))) { // saisie doit être une fraction (ou une division)
         // reponse doit avoir des numérateur/dénominateur multiples de ceux de saisie ou bien fractionReduite est true
-        const num = saisieNativeParsed.op1.evaluate().numericValue
-        const den = saisieNativeParsed.op2.evaluate().numericValue
+        let num, den
+        if (saisieNativeParsed.operator !== 'Negate') { // Traitement des cas si la fraction est négative ou pas.
+          num = saisieNativeParsed.op1.evaluate().numericValue
+          den = saisieNativeParsed.op2.evaluate().numericValue
+        } else {
+          num = saisieNativeParsed.op1.op1.evaluate().numericValue
+          den = saisieNativeParsed.op1.op2.evaluate().numericValue
+        }
         if (Number.isInteger(num) && Number.isInteger(den)) {
           return { isOk: true }
         }
@@ -853,7 +874,7 @@ type Substitutions = { [variable: string]: number }
  * - on n'accepte que l'enchaînement de calculs fourni en goodAnswer et non le résultat de cet enchaînement de calculs
  * @param {string} input
  * @param {string} goodAnswer
- * @param {{expressionsForcementReduites:boolean, avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, nombreDecimalSeulement:boolean, operationSeulementEtNonResultat:boolean, resultatSeulementEtNonOperation:boolean}} [options]
+ * @param {{expressionsForcementReduites:boolean, avecSigneMultiplier:boolean, avecFractions:boolean, sansTrigo:boolean, fractionIrreducibleSeulement:boolean, nombreDecimalSeulement:boolean, operationSeulementEtNonResultat:boolean, resultatSeulementEtNonOperation:boolean}} [options]
  * @author Eric Elter
  * @return ResultType
  */
@@ -865,6 +886,7 @@ function expressionDeveloppeeEtReduiteCompare (
     expressionsForcementReduites = true,
     avecSigneMultiplier = true,
     avecFractions = true,
+    sansTrigo = false,
     fractionIrreductible = false,
     nombreDecimalSeulement = false,
     operationSeulementEtNonResultat = false,
@@ -879,6 +901,7 @@ function expressionDeveloppeeEtReduiteCompare (
   // Ces 2 lignes sont à améliorer... EE : Faut que je teste un truc... et rajouter les racines carrées aussi
   if (!avecSigneMultiplier && input.includes('times')) return { isOk: false, feedback: 'Aucun signe $\\times$ n\'est autorisé.' }
   if (!avecFractions && input.includes('frac')) return { isOk: false, feedback: 'Aucune fraction n\'est autorisée.' }
+  if (sansTrigo && (input.includes('cos') || input.includes('sin') || input.includes('tan'))) return { isOk: false, feedback: 'Aucune fonction trigonométrique n\'est autorisée.' }
 
   const clean = generateCleaner([
     'puissances',

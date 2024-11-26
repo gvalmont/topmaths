@@ -1,11 +1,75 @@
 import { context } from '../../modules/context.js'
 import { sp } from '../outils/outilString.js'
-import { buildDataKeyboardFromStyle } from './claviers/keyboard'
+import { buildDataKeyboardFromStyle } from './claviers/keyboard.js'
 import './champTexte.scss'
+import type Exercice from '../../exercices/Exercice'
+import { handleAnswers, type ReponseParams, type Valeur } from './gestionInteractif'
+import type { interactivityType, TableauMathliveType } from '../types'
+import { AddTabDbleEntryMathlive, AddTabPropMathlive, type ItabDbleEntry, type Itableau } from './tableaux/AjouteTableauMathlive'
 
 const buildDataKeyboardString = (style = '') => {
   const blocks = buildDataKeyboardFromStyle(style)
   return blocks.join(' ')
+}
+
+/**
+ * Une question pour rassembler les ajouteChampTexte et Cie et les handleHanswers.
+ * Il faudrait pouvoir fournir autre chose que objetReponse.
+ * Un truc du style :
+ * [{id: 'reponse', value: 'valeur', compare: fonctionComparaison, options: {}},
+ * {id: 'reponse2', value: 'valeur2', compare: fonctionComparaison, options: {}},
+ * {id: 'reponse3', value: 'valeur3', compare: fonctionComparaison, options: {}}]
+ * qui alimentera objetReponse.
+ * ou alors, on fait un type conditionnel sur objetReponse...
+ * C'est balaize à faire, mais ce serait mieux : on ouvre l'accolade, et si on commence à taper rep... il ouvre l'accolade, demande value, demande compare, demande options... idem si on commence à taper champ1....
+ * @author Jean-Claude Lhote
+ * @param {Exercice} exercice
+ * @param {number} question
+ * @param {Valeur} objetReponse
+ * @param {ReponseParams} reponseParams
+ * @param {interactivityType} typeInteractivite
+ * @param {string} content
+ * @param {string} classe
+ * @param {ItabDbleEntry | Itableau} tableau
+ * @param {TableauMathliveType} typeTableau
+ * @param {string} texteAvant
+ * @param {string} texteApres
+ * @param {boolean} blocCenter
+ * @param {boolean} espace
+ * @returns string
+ */
+export function ajouteQuestionMathlive ({ exercice, question, objetReponse, reponseParams, typeInteractivite, content = '', classe = '', tableau, typeTableau = 'doubleEntree', texteAvant = '', texteApres = '', blocCenter = false, espace = false }:
+  {exercice: Exercice, question: number, objetReponse: Valeur, reponseParams?: ReponseParams, typeInteractivite: interactivityType, content?: string, classe?: string, tableau?: ItabDbleEntry | Itableau, typeTableau?: TableauMathliveType, texteAvant?: string, texteApres?: string, blocCenter?: boolean, espace?: boolean}
+) {
+  if (context.isHtml && exercice.interactif) {
+    if (!(typeInteractivite === 'mathlive' || typeInteractivite === 'remplisLesBlancs' || typeInteractivite === 'tableauMathlive' || typeInteractivite === 'texte')) {
+      window.notify(`Type d'interactivité ${typeInteractivite} non reconnu. Exercice ${exercice.id} ${exercice.uuid}`, { typeInteractivite })
+      return ''
+    }
+    if (reponseParams === undefined) {
+      reponseParams = { formatInteractif: 'mathlive' }
+    }
+    handleAnswers(exercice, question, objetReponse, reponseParams)
+    switch (typeInteractivite) {
+      case 'remplisLesBlancs':
+        return remplisLesBlancs(exercice, question, content, '\\ldots')
+      case 'tableauMathlive':{
+        if (!tableau) {
+          window.notify(`Tableau non défini pour l'interactivité tableauMathlive. Exercice ${exercice.id} ${exercice.uuid}`, { typeInteractivite })
+          return ''
+        }
+        const leTableau = (typeTableau === 'doubleEntree')
+          ? AddTabDbleEntryMathlive.create(exercice.numeroExercice ?? 0, question, tableau as ItabDbleEntry, classe, true, { texteAvant, texteApres, blocCenter: blocCenter ? ' bloccenter' : '', espace: espace ? ' ' : '' })
+          : AddTabPropMathlive.create(exercice.numeroExercice ?? 0, question, tableau as Itableau, classe, true, { texteAvant, texteApres, blocCenter: blocCenter ? ' bloccenter' : '', espace: espace ? ' ' : '' })
+        return leTableau.output
+      }
+      case 'texte':
+        return ajouteChampTexte(exercice, question, classe, { texteAvant, texteApres, blocCenter, espace })
+      default:
+        return ajouteChampTexteMathLive(exercice, question, classe, { texteAvant, texteApres, blocCenter, espace })
+    }
+  }
+  return ''
 }
 
 /**
@@ -15,13 +79,13 @@ const buildDataKeyboardString = (style = '') => {
  * @param {string} style
  * @deprecated si vous l'utilisez après ajouteChampTexteMathlive, ajouteChampTexte ou remplisLesBlancs, vous n'avez pas besoin de l'utiliser, il est ajouté automatiquement.
  */
-export function ajouteFeedback (exercice, question, style = 'style="display: none"') {
+export function ajouteFeedback (exercice: Exercice, question: number, style = 'style="display: none"') {
   if (!context.isHtml) return ''
   const exo = exercice.numeroExercice
   if (exercice == null || typeof exo !== 'number' || typeof question !== 'number') return ''
   return `<div class ="ml-2 py-2 italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${exo}Q${question}" ${style !== '' ? style : ''}></div>`
 }
-export function ajouteChampTexte (exercice, i, style = '', {
+export function ajouteChampTexte (exercice: Exercice, i: number, style = '', {
   texteApres = '',
   texteAvant = '',
   blocCenter = false,
@@ -31,7 +95,7 @@ export function ajouteChampTexte (exercice, i, style = '', {
   if (texteApres !== '') texteApres = sp() + texteApres
   if (context.isHtml && exercice.interactif) {
     if (typeof style !== 'string') {
-      window.notify(`style doit être une chaîne de caractères. Exercice ${exercice.id} ${exercice.uuid}`)
+      window.notify(`style doit être une chaîne de caractères. Exercice ${exercice.id} ${exercice.uuid}`, { style })
     }
     if (style.includes('blocCenter')) blocCenter = true
     const dataKeyboard = buildDataKeyboardString(typeof (style) === 'string' ? style : '')
@@ -50,7 +114,7 @@ export function ajouteChampTexte (exercice, i, style = '', {
   return ''
 }
 
-export function ajouteChampTexteMathLive (exercice, i, style = '', {
+export function ajouteChampTexteMathLive (exercice: Exercice, i:number, style = '', {
   texteApres = '',
   texteAvant = '',
   blocCenter = false,
@@ -60,7 +124,7 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', {
   if (texteApres !== '') texteApres = sp() + texteApres
   if (context.isHtml && exercice.interactif) {
     if (typeof style !== 'string') {
-      window.notify(`style doit être une chaîne de caractères. Exercice ${exercice.id} ${exercice.uuid}`)
+      window.notify(`style doit être une chaîne de caractères. Exercice ${exercice.id} ${exercice.uuid}`, { style })
     }
     if (style.includes('blocCenter')) blocCenter = true
     const dataKeyboard = buildDataKeyboardString(typeof (style) === 'string' ? style : '')
@@ -79,7 +143,7 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', {
   return ''
 }
 
-export function remplisLesBlancs (exercice, question, content, classes = '', blanc = '\\ldots') {
+export function remplisLesBlancs (exercice:Exercice, question:number, content:string, classes = '', blanc = '\\ldots') {
   let mfeValue = ''
   let resteContent = content
   while (resteContent) {

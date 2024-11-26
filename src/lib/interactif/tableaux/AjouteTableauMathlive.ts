@@ -58,7 +58,7 @@ function appendCell ({ isInteractif, line, icell, indexCol, indexLine, tag, clas
         // else if (classe === 'clavierDeBaseAvecFraction') element.setAttribute('data-keyboard', 'numbers basicOperations')
         if (classe === 'clavierDeBaseAvecFraction') element.setAttribute('data-keyboard', 'numbers basicOperations')
         else if (classe === 'clavierDeBaseAvecVariable') element.setAttribute('data-keyboard', 'numbers basicOperations variables')
-        // else if (classe !== '') element.classList.add(classe)
+        else if (classe === 'clavierDeBaseAvecEgal') element.setAttribute('data-keyboard', 'numbers2 basicOperations')
         else element.setAttribute('data-keyboard', 'numbersOperations')
       }
       element.id = `champTexteEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
@@ -247,7 +247,8 @@ export class AddTabDbleEntryMathlive {
       const newLine = document.createElement('tr')
       table.appendChild(newLine)
       if (tableau.headingLines != null) {
-        appendCell({ isInteractif, line: newLine, icell: tableau.headingLines[j], indexCol: 0, indexLine: tableau.headingCols != null ? 1 + j : j, tag: 'th', classes, NoEx, NoQ, style: style[`L${tableau.headingCols != null ? 1 + j : j}C${0}`] })
+        const sty = style[`L${tableau.headingCols != null ? 1 + j : j}C${0}`] || style[`LC${0}`]
+        appendCell({ isInteractif, line: newLine, icell: tableau.headingLines[j], indexCol: 0, indexLine: tableau.headingCols != null ? 1 + j : j, tag: 'th', classes, NoEx, NoQ, style: sty })
         /*
         const head = document.createElement('th')
         head.textContent = `$${tableau.headingLines[j]}$`
@@ -283,7 +284,7 @@ export class AddTabDbleEntryMathlive {
     }
     const headingLines: Icell[] = []
     for (const enTete of tabEntetesLignes) {
-      headingLines.push({ texte: enTete.toString(), latex: true, gras, color })
+      headingLines.push({ texte: enTete.toString(), latex: (!enTete.toString().includes('<pre class')), gras, color })
     }
     const raws: Array<Icell[]> = []
     const haveHeadC = headingCols.length > 0

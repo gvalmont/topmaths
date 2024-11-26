@@ -49,13 +49,12 @@ export default class inequationAResoudre extends Exercice {
       solution1 = [`$\\mathbb{R}\\\\{${b}\\}$`, `]-\\infty;${a}[ \\cup ]${a};+\\infty[`]
       this.correction += ` $${miseEnEvidence(`\\mathbb{R}\\smallsetminus\\{${texNombre(b)}\\}`)}$.`
     } else if ((inégalité === '\\geqslant' && a > 0) || (inégalité === '\\leqslant' && a < 0)) {
-      solution1 = '$\\mathbb{R}$'
+      solution1 = ['$\\mathbb{R}$', ']-\\infty;+\\infty[']
       this.correction += ` $${miseEnEvidence('\\mathbb{R}')}$.`
     } else if ((inégalité === '<' && a > 0) || (inégalité === '>' && a < 0)) {
       solution1 = '$\\emptyset$'
       this.correction += ` $${miseEnEvidence('\\emptyset')}$.`
     } else if ((inégalité === '\\leqslant' && a > 0) || (inégalité === '\\geqslant' && a < 0)) {
-      // solution1 = `$\\{${b}\\}$`
       solution1 = `$\\left\\lbrace${b}\\right\\rbrace$`
       this.correction += ` $${miseEnEvidence(`\\{${texNombre(b)}\\}`)}$.`
     }

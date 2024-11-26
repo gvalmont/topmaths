@@ -42,7 +42,7 @@ export default class aSimplifier extends Exercice {
       this.reponse = 2025 + a
       this.canEnonce = this.question
       this.canReponseACompleter = `$\\dfrac{${texNombre(2025, 0)}${ecritureAlgebrique(a)}}{${texNombre(2025, 0)}-${texNombre(2024, 0)}}=\\ldots$`
-      if (this.interactif) { this.question += `<br>$\\dfrac{${texNombre(2025, 0)}${ecritureAlgebrique(a)}}{${texNombre(2025, 0)}-${texNombre(2024, 0)}}$` }
+      if (this.interactif) { this.question = `Écrire le plus simplement possible.<br><br>$\\dfrac{${texNombre(2025, 0)}${ecritureAlgebrique(a)}}{${texNombre(2025, 0)}-${texNombre(2024, 0)}}$` }
     } else if (choix === 2) {
       this.reponse = `\\dfrac{1}{${2025 + b}}`
       this.question = `Écrire le plus simplement possible : $\\dfrac{${texNombre(2025, 0)}-${texNombre(2024, 0)}}{${texNombre(2025, 0)}${ecritureAlgebrique(b)}}$.`
@@ -50,7 +50,7 @@ export default class aSimplifier extends Exercice {
 
       this.canEnonce = this.question
       this.canReponseACompleter = `$\\dfrac{${texNombre(2025, 0)}-${texNombre(2024, 0)}}{${texNombre(2025, 0)}${ecritureAlgebrique(b)}}=\\ldots$`
-      if (this.interactif) { this.question += `<br>$\\dfrac{${texNombre(2025, 0)}-${texNombre(2024, 0)}}{${texNombre(2025, 0)}${ecritureAlgebrique(b)}}$` }
+      if (this.interactif) { this.question = `Écrire le plus simplement possible.<br><br>$\\dfrac{${texNombre(2025, 0)}-${texNombre(2024, 0)}}{${texNombre(2025, 0)}${ecritureAlgebrique(b)}}$` }
     }
   }
 }

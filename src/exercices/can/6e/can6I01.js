@@ -19,7 +19,7 @@ import {
   creerLutin,
   orienter
 } from '../../../modules/2dLutin.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { roseDesVents, scratchblock } from '../../../modules/scratchblock.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 

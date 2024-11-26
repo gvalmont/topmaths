@@ -10,7 +10,7 @@ import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modul
 import { calculer } from '../../modules/outilsMathjs.ts'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d, colorToLatexOrHTML, vide2d, fixeBordures } from '../../modules/2dGeneralites.js'
-import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context.js'
 import * as pkg from '@cortex-js/compute-engine'
 import FractionEtendue from '../../modules/FractionEtendue.ts'

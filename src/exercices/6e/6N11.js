@@ -11,7 +11,7 @@ import {
   randint
 } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   handleAnswers
 } from '../../lib/interactif/gestionInteractif'

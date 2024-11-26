@@ -2,6 +2,9 @@
 
 import { miseEnEvidence } from '../lib/outils/embellissements'
 import FractionEtendue from './FractionEtendue'
+import Decimal from 'decimal.js'
+import { texNombre } from '../lib/outils/texNombre'
+import { bleuMathalea, vertMathalea } from '../lib/colors'
 
 class NombrePeriodique {
   partieEntiere: number
@@ -71,6 +74,40 @@ class NombrePeriodique {
     if (this.partieDecimale === -1 && this.partieEntiere === 0) {
       procedure += `Ainsi : \\[${justePeriodeApresVirgule}=${miseEnEvidence(new FractionEtendue(this.periode, 10 ** this.periode.toString().length - 1).texFractionSimplifiee)}\\]`
     }
+    return procedure
+  }
+
+  toFractionNouvelProcedure () : string {
+    let partieDecimaleString = ''
+    if (this.partieDecimale !== -1) {
+      partieDecimaleString = this.partieDecimale.toString()
+    } else {
+      partieDecimaleString = ''
+    }
+    const placeVirgule = this.partieEntiere.toString().length + this.periode.toString().length
+    const nombre = this.partieEntiere.toString() + partieDecimaleString + this.periode.toString()
+    const nvPartieEntiere = nombre.slice(0, placeVirgule)
+    let nvPartieDecimale = nombre.slice(placeVirgule)
+    if (nvPartieDecimale === '') {
+      nvPartieDecimale = '-1'
+    }
+    const nouveauNb = new NombrePeriodique(Number(nvPartieEntiere), Number(nvPartieDecimale), this.periode)
+    const nbSansPeriode = nouveauNb.toFraction().differenceFraction(this.toFraction()).fractionDecimale()
+    const nbDecimal = new Decimal(nbSansPeriode.num / nbSansPeriode.den)
+    const procedure = `On multiplie le nombre par $10^{${this.periode.toString().length}}=${10 ** this.periode.toString().length}$ afin de décaler la virgule du nombre de crans correspondant à la période. On a deux égalités avec le même membre de gauche<br><br>
+    $\\begin{aligned}
+    &${miseEnEvidence(`${10 ** this.periode.toString().length}\\times${this.toString()}-${this.toString()}`, vertMathalea)}=${miseEnEvidence(`${10 ** this.periode.toString().length - 1}\\times${this.toString()}`, bleuMathalea)}\\\\
+    &${miseEnEvidence(`${10 ** this.periode.toString().length}\\times${this.toString()}-${this.toString()}`, vertMathalea)}=${nouveauNb.toString()}-${this.toString()}=${miseEnEvidence(texNombre(nbDecimal, 6), bleuMathalea)}
+    \\end{aligned}$<br>
+    donc
+    \\[${miseEnEvidence(`${10 ** this.periode.toString().length - 1}\\times${this.toString()}`, bleuMathalea)}=${miseEnEvidence(texNombre(nbDecimal, 6), bleuMathalea)}.\\]
+    Cela implique que <br><br>
+    $\\begin{aligned}
+    ${this.toString()}&=${texNombre(nbDecimal, 6)}:${10 ** this.periode.toString().length - 1}\\\\
+    &=${nbSansPeriode.entierDivise(10 ** this.periode.toString().length - 1).texFraction} \\quad \\text{on est passé à une écriture fractionnaire}\\\\
+    &=${nbSansPeriode.entierDivise(10 ** this.periode.toString().length - 1).texFractionSimplifiee} \\quad \\text{on simplifie la fraction si nécessaire}
+    \\end{aligned}$.<br><br>
+    Ainsi, $${this.toString()}=${miseEnEvidence(nbSansPeriode.entierDivise(10 ** this.periode.toString().length - 1).texFractionSimplifiee)}$.`
     return procedure
   }
 }

@@ -7,7 +7,7 @@ import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions
 import { ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils'
 import { abs, signe } from '../../../lib/outils/nombres'
-export const titre = 'Trouver un reste dans une division euclidienne'
+export const titre = 'Développer une expression'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'cfe2d'
@@ -19,19 +19,19 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
 */
-export default class resteDivEucl extends Exercice {
+export default class developper extends Exercice {
   constructor () {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBase
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
     this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
-    const choix = choice([3, 3])
+    const choix = choice([1, 2, 3])
     const a = randint(-2, 2, 0)
     const b = randint(-5, 5, 0)
     let reponse1 = ''

@@ -23,7 +23,6 @@ export const refs = {
 }
 export default function RacineCarrAvecTheoremeHauteur () {
   Exercice.call(this)
-  this.typeExercice = 'IEP'
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 

@@ -290,7 +290,7 @@ export function tableauColonneLigne (tabEntetesColonnes: (string | number)[],
   const nbLignes = tabEntetesLignes.length > 0 ? tabEntetesLignes.length : (tabLignes.length / tabEntetesColonnes.length + 1)
   // On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
   if (context.isHtml) {
-    const tableauCL = AddTabDbleEntryMathlive.create(exo, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEntetesColonnes, tabEntetesLignes, tabLignes), 'tableauMathlive', isInteractif, style)
+    const tableauCL = AddTabDbleEntryMathlive.create(exo, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEntetesColonnes, tabEntetesLignes, tabLignes), `tableauMathlive ${style.classes ? style.classes : ''}`, isInteractif, style)
     return tableauCL.output
   } else {
     let tableauCL = ''
@@ -308,7 +308,7 @@ export function tableauColonneLigne (tabEntetesColonnes: (string | number)[],
     tableauCL += '}\n'
 
     tableauCL += '\\hline\n'
-    const color0 = style.L0C0 != null ? style.L0C0 : 'lightgray'
+    const color0 = style.L0C0 ? style.L0C0 : 'lightgray'
     if (tabEntetesColonnes.length > 0) {
       if (typeof tabEntetesColonnes[0] === 'number') {
         tableauCL += `\\cellcolor{${color0}} ${latex ? texNombre(tabEntetesColonnes[0], 2) : '\\text{' + stringNombre(tabEntetesColonnes[0], 2) + '}'}`
@@ -330,7 +330,7 @@ export function tableauColonneLigne (tabEntetesColonnes: (string | number)[],
     // on construit toutes les lignes
     for (let k = 0; k < nbLignes; k++) {
       const enTeteLigne = tabEntetesLignes[k]
-      const color = style[`L${k + 1}C0`] != null ? style[`L${k + 1}C0`] : 'lightgray'
+      const color = style[`L${k + 1}C0`] ? style[`L${k + 1}C0`] : style.LC0 ? style.LC0 : 'lightgray'
       if (typeof enTeteLigne === 'number') {
         tableauCL += `\\cellcolor{${color}} ${latex ? texNombre(enTeteLigne, 6) : '\\text{' + stringNombre(enTeteLigne, 6) + '}'}`
       } else {

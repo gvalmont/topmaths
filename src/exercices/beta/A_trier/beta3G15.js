@@ -18,7 +18,6 @@ export default function ConstructionsDeTransformes () {
   this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
   this.consigne = 'Construire les points suivants.'
   this.video = 'hFoN9sMWnac'
-  this.typeExercice = 'IEP'
 
   this.nouvelleVersion = function (numeroExercice) {
     const anim = new Alea2iep()

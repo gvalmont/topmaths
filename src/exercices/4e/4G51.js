@@ -13,14 +13,16 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 export const titre = 'Compléter une représentation en perspective cavalière'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 export const dateDeModifImportante = '18/06/2022'
 
 /**
  * fonction servant à compléter des solides, inspirée des fonctions de 6G42 et 6G43
- * référence : 6G41
  * @author Mireille Gain, s'inspirant fortement de Jean-Claude Lhote
  * Ajout du cône par Guillaume Valmont le 18/06/2022
+ * AMC pour Eric Elter le 25/11/2024
  */
 export const uuid = '0e754'
 export const ref = '4G51'
@@ -38,8 +40,7 @@ export default function RepresenterUnSolide4e () {
   this.sup2 = 1
   this.classe = 4
   this.nouvelleVersion = function () {
-    this.sup = Number(this.sup)
-    this.sup2 = Number(this.sup2)
+    this.autoCorrection = []
     let typesDeQuestionsDisponibles
 
     if (this.sup === 3) {
@@ -51,7 +52,7 @@ export default function RepresenterUnSolide4e () {
     } else if (this.sup === 9) {
       typesDeQuestionsDisponibles = [1, 2, 4, 6, 8]
     } else {
-      typesDeQuestionsDisponibles = [parseInt(this.sup)]
+      typesDeQuestionsDisponibles = [this.sup]
     }
 
     const listeTypeDeQuestions = combinaisonListes(
@@ -102,20 +103,24 @@ export default function RepresenterUnSolide4e () {
           break
 
         case 4: // prisme
-          enonce = 'On considère un prisme à base triangulaire.<br>Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
+          enonce = 'On considère un prisme à base triangulaire.<br>'
+          if (context.isHtml) { enonce += 'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>' }
           correction = 'Figure complétée :<br>'
           break
 
         case 6: // pyramide
-          enonce = 'On considère une pyramide à base rectangulaire.<br>Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
+          enonce = 'On considère une pyramide à base rectangulaire.<br>'
+          if (context.isHtml) { enonce += 'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>' }
           correction = 'Figure complétée :<br>'
           break
 
         case 8: // cône
-          enonce = 'Reproduire et compléter la figure ci-dessous de façon à obtenir la représentation d\'un cône en perspective cavalière.<br>'
+          enonce = 'On considère un cône de révolution.<br>'
+          if (context.isHtml) { enonce += 'Reproduire et compléter la figure ci-dessous de façon à obtenir la représentation d\'un cône en perspective cavalière.<br>' }
           correction = 'Figure complétée :<br>'
           break
       }
+      if (!context.isHtml) { enonce += 'Reproduire et compléter la figure ci-dessous de façon à obtenir la représentation de ce solide en perspective cavalière.<br>' }
 
       switch (listeTypeDeQuestions[i] % 2) {
         case 1:
@@ -386,6 +391,21 @@ export default function RepresenterUnSolide4e () {
       }
 
       correction += mathalea2d(params, objetsCorrection)
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: enonce + '<br>',
+          propositions: [
+            {
+              texte: '',
+              statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+              feedback: '',
+              enonce: 'Texte écrit au dessus ou avant les cases à cocher', // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+              sanscadre: true, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+              pointilles: false // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+            }
+          ]
+        }
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(enonce + '<br>')

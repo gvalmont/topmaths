@@ -1,9 +1,12 @@
 import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Trouver les racines à partir d’une forme factorisée'
 export const interactifReady = true
@@ -42,29 +45,22 @@ export default function RacinesPoly () {
         $f(x)=${rienSi1(a)}x(${reduireAxPlusB(1, -x2)})$. <br>`
       } else {
         texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
-        $f(x)=${rienSi1(a)}(${reduireAxPlusB(1, -x1)})(${reduireAxPlusB(1, -x2)})$. <br>`
+        $f(x)=${rienSi1(a)}(${reduireAxPlusB(1, -x1)})(${reduireAxPlusB(1, -x2)})$. <br>
+      Déterminer les racines de $f$.`
       }
-      if (!this.interactif) {
-        texte += 'Déterminer les racines de $f$.'
-      } else {
-        if (x1 < x2) {
-          texte += 'Donner les racines de $f$ dans l\'ordre croissant.'
-          texte += ajouteChampTexteMathLive(this, 2 * i, '')
-          texte += ' et '
-          texte += ajouteChampTexteMathLive(this, 2 * i + 1, '')
-          setReponse(this, 2 * i, x1)
-          setReponse(this, 2 * i + 1, x2)
-        } else {
-          texte += 'Donner les racines de $f$ dans l\'ordre croissant.'
-          texte += ajouteChampTexteMathLive(this, 2 * i, '')
-          texte += ' et '
-          texte += ajouteChampTexteMathLive(this, 2 * i + 1, '')
-          setReponse(this, 2 * i, x2)
-          setReponse(this, 2 * i + 1, x1)
-        }
+      if (this.interactif) {
+        texte += '<br>Écrire ces racines dans l\'ordre croissant : '
+        texte += remplisLesBlancs(this, i, ' %{champ1}  \\text{ et  }  %{champ2} ', KeyboardType.clavierDeBaseAvecFraction)
       }
+      handleAnswers(this, i, {
+        bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+        champ1: { value: Math.min(x1, x2), compare: functionCompare },
+        champ2: { value: Math.max(x1, x2), compare: functionCompare }
+      },
+      { formatInteractif: 'mathlive' }
+      )
       texteCorr = `$f$ est une fonction polynôme du second degré écrite sous forme factorisée $a(x-x_1)(x-x_2)$.<br>
-      Les racines sont donc $x_1=${x1}$ et $x_2=${x2}$.`
+      Les racines sont donc $x_1=${miseEnEvidence(x1)}$ et $x_2=${miseEnEvidence(x2)}$.`
       if (this.questionJamaisPosee(i, a, x1, x2)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

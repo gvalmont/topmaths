@@ -7,6 +7,8 @@ import { getLang } from '../lib/stores/languagesStore'
 import { pgcd } from '../lib/outils/primalite'
 import { extraireRacineCarree } from '../lib/outils/calculs'
 import { miseEnEvidence } from '../lib/outils/embellissements'
+import PolynomePlusieursVariables from '../lib/mathFonctions/PolynomePlusieursVariables'
+import MonomePlusieursVariables from '../lib/mathFonctions/MonomePlusieursVariables'
 
 interface Options {
   format: string;
@@ -28,9 +30,11 @@ class EquationSecondDegre {
   correctionDetailleeTex: string
   correctionTex: string
   variable: string
+  fonctionEvaluer: (x:number) => number
   constructor (a: FractionEtendue, b: FractionEtendue, c: FractionEtendue, d: FractionEtendue, e: FractionEtendue, f: FractionEtendue, options = { format: 'initial', variable: 'x' }) {
     const lang = getLang()
     this.coefficients = [a, b, c, d, e, f]
+    this.fonctionEvaluer = (x:number) => this.coefficients[0].num / this.coefficients[0].den * x * x + this.coefficients[1].num / this.coefficients[1].den * x + this.coefficients[2].num / this.coefficients[2].den
     let melange = true
     this.variable = options.variable
     this.natureDelEquation = options.format
@@ -115,7 +119,7 @@ class EquationSecondDegre {
     if (melange) {
       this.correctionDetailleeTex += `On commence par mettre l'équation sous la forme réduite : \\[${this.printToLatexEq(this.coefficientsEqReduite)}\\]`
     }
-    this.correctionDetailleeTex += `On calcule le discriminant : \\[\\Delta=${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}^2-4\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}\\times${this.coefficientsEqReduite[2].ecritureParentheseSiNegatif}=${this.delta.texFSD}.\\] On a $\\Delta=${this.delta.texFSD}$, donc `
+    this.correctionDetailleeTex += `On calcule le discriminant : \\[\\Delta=\\left(${this.coefficientsEqReduite[1].texFractionSimplifiee}\\right)^2-4\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}\\times${this.coefficientsEqReduite[2].ecritureParentheseSiNegatif}=${this.delta.texFractionSimplifiee}.\\] On a $\\Delta=${this.delta.texFractionSimplifiee}$, donc `
     if (this.nombreSolutions > 1) {
       this.correctionDetailleeTex += 'l\'équation a deux solutions. Les solutions sont'
       if (lang === 'fr-CH') {
@@ -125,16 +129,16 @@ class EquationSecondDegre {
         this.correctionDetailleeTex += ` ${this.variable}_{2}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}-\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]`
       }
       if (this.natureDesSolutions === 'entier' || this.natureDesSolutions === 'fractionnaire') {
-        this.correctionDetailleeTex += `En réduisant si besoin des fractions et en simplifiant les racines, on obtient $${this.ensembleDeSolutionsTex}$.`
+        this.correctionDetailleeTex += `En calculant, on obtient $${miseEnEvidence(this.ensembleDeSolutionsTex)}$.`
       } else {
-        this.correctionDetailleeTex += `Ainsi, $${this.ensembleDeSolutionsTex}$.`
+        this.correctionDetailleeTex += `Ainsi, $${miseEnEvidence(this.ensembleDeSolutionsTex)}$.`
       }
     } else if (this.nombreSolutions === 1) {
       this.correctionDetailleeTex += `l'équation a une solution donnée par
     \\[s=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]
-    Ainsi, $${this.ensembleDeSolutionsTex}$.`
+    Ainsi, $${miseEnEvidence(this.ensembleDeSolutionsTex)}$.`
     } else {
-      this.correctionDetailleeTex += ` l'équation n'a pas de solution réelle, $${this.ensembleDeSolutionsTex}$.`
+      this.correctionDetailleeTex += ` l'équation n'a pas de solution réelle, $${miseEnEvidence(this.ensembleDeSolutionsTex)}$.`
     }
   }
 
@@ -263,6 +267,20 @@ class EquationSecondDegre {
       }
     }
     return expr
+  }
+
+  // Méthode pour construire le polynomePlusieursVariables à partir de la forme réduite
+  polynomeFormeReduite (): PolynomePlusieursVariables {
+    const m1 = new MonomePlusieursVariables(this.coefficients[0], { variables: [this.variable], exposants: [2] })
+    const m2 = new MonomePlusieursVariables(this.coefficients[1], { variables: [this.variable], exposants: [1] })
+    const m3 = new MonomePlusieursVariables(this.coefficients[2], { variables: [this.variable], exposants: [0] })
+    return new PolynomePlusieursVariables([m1, m2, m3])
+  }
+
+  formeCanonique (): string {
+    const alpha = this.coefficients[1].oppose().diviseFraction(this.coefficients[0].multiplieEntier(2).simplifie())
+    const beta = this.polynomeFormeReduite().evaluer({ x: alpha }).simplifie()
+    return `\\left(${this.variable}${alpha.oppose().simplifie().texFractionSignee}\\right)^2${beta.texFractionSignee}`
   }
 
   printToLatex (): string {

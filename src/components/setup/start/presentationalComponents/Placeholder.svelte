@@ -31,7 +31,7 @@
         {text}
       </div>
     </div>
-    <div class="flex items-center justify-center">
+    <div class="invisible sm:visible flex items-center justify-center">
       <Footer />
     </div>
   </div>

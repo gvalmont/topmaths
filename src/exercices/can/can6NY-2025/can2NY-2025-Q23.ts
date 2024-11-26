@@ -25,7 +25,7 @@ export default class calcAvecChiffresRel extends Exercice {
     this.nbQuestions = 1
     this.formatInteractif = 'calcul'
     this.formatChampTexte = ''
-    this.formatChampTexte = KeyboardType.clavierDeBase
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
   }
 
   nouvelleVersion () {

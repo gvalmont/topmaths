@@ -18,7 +18,7 @@ export const nombreElementsDifferents = (liste: string[]) => {
 export default class ExerciceBrevet extends Exercice {
   enonce!: string
   checksum!: string
-  versionAleatoire?: ()=>void
+  versionAleatoire?: (i:number)=>void
   versionOriginale:()=>void = () => {
     // Le texte récupéré avant le bloc des réponses (il ne faut pas oublier de doubler les \ du latex et de vérifier que les commandes latex sont supportées par Katex)
     this.enonce = 'Enoncé de la question'
@@ -42,7 +42,7 @@ export default class ExerciceBrevet extends Exercice {
     if (this.versionAleatoire != null) {
       for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 30;) {
         if (this.sup) this.versionOriginale()
-        else this.versionAleatoire()
+        else this.versionAleatoire(i)
         if (this.questionJamaisPosee(i, String(this.correction))) {
           // Ici on colle le texte de la correction à partir du latex d'origine (vérifier la compatibilité Katex et doubler les \)s
           this.listeQuestions[i] = this.enonce

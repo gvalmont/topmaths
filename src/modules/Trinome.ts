@@ -445,22 +445,22 @@ export default class Trinome {
         const [r0, r1] = extraireRacineCarree(this.discriminant.valeurDecimale)
         if (r0 !== 1 && Math.abs(this.b.valeurDecimale) % r0 === 0 && Math.abs(2 * this.a.valeurDecimale) % r0 === 0) { // On peut simplifier par r0
           if (this.a.valeurDecimale > 0) {
-            const num = this.b.entierDivise(r0).simplifie().oppose().texFraction + `- \\sqrt{${r1}}`
+            const num = (this.b.valeurDecimale !== 0 ? this.b.entierDivise(r0).simplifie().oppose().texFraction : '') + `-\\sqrt{${r1}}`
             const den = 2 * this.a.valeurDecimale / r0
             return den === 1 ? num : `\\dfrac{${num}}{${den}}`
           } else {
-            const num = this.b.entierDivise(r0).simplifie().texFraction + `- \\sqrt{${r1}}`
+            const num = (this.b.valeurDecimale !== 0 ? this.b.entierDivise(r0).simplifie().texFraction : '') + `-\\sqrt{${r1}}`
             const den = -2 * this.a.valeurDecimale / r0
             return den === 1 ? num : `\\dfrac{${num}}{${den}}`
           }
         }
       }
       if (this.a.valeurDecimale > 0) {
-        const num = this.b.oppose().texFraction + (this.discriminant.valeurDecimale > 0 ? `- \\sqrt{${this.discriminant.texFraction}}` : '')
+        const num = (this.b.valeurDecimale !== 0 ? this.b.oppose().texFraction : '') + (this.discriminant.valeurDecimale > 0 ? `-\\sqrt{${this.discriminant.texFraction}}` : '')
         const den = 2 * this.a.valeurDecimale
         return `\\dfrac{${num}}{${den}}`
       } else {
-        const num = this.b.texFraction + (this.discriminant.valeurDecimale > 0 ? `- \\sqrt{${this.discriminant.texFraction}}` : '')
+        const num = (this.b.valeurDecimale !== 0 ? this.b.texFraction : '') + (this.discriminant.valeurDecimale > 0 ? `-\\sqrt{${this.discriminant.texFraction}}` : '')
         const den = -2 * this.a.valeurDecimale
         return `\\dfrac{${num}}{${den}}`
       }
@@ -478,22 +478,22 @@ export default class Trinome {
         const [r0, r1] = extraireRacineCarree(this.discriminant.valeurDecimale)
         if (r0 !== 1 && Math.abs(this.b.valeurDecimale) % r0 === 0 && Math.abs(2 * this.a.valeurDecimale) % r0 === 0) { // On peut simplifier par r0
           if (this.a.valeurDecimale > 0) {
-            const num = this.b.entierDivise(r0).simplifie().oppose().texFraction + `+ \\sqrt{${r1}}`
+            const num = (this.b.valeurDecimale !== 0 ? `${this.b.entierDivise(r0).simplifie().oppose().texFraction}+` : '') + `\\sqrt{${r1}}`
             const den = 2 * this.a.valeurDecimale / r0
             return den === 1 ? num : `\\dfrac{${num}}{${den}}`
           } else {
-            const num = this.b.entierDivise(r0).simplifie().texFraction + `+ \\sqrt{${r1}}`
+            const num = (this.b.valeurDecimale !== 0 ? `${this.b.entierDivise(r0).simplifie().texFraction}+` : '') + `\\sqrt{${r1}}`
             const den = -2 * this.a.valeurDecimale / r0
             return den === 1 ? num : `\\dfrac{${num}}{${den}}`
           }
         }
       }
       if (this.a.valeurDecimale > 0) {
-        const num = this.b.oppose().texFraction + (this.discriminant.valeurDecimale > 0 ? `+ \\sqrt{${this.discriminant.texFraction}}` : '')
+        const num = (this.b.valeurDecimale !== 0 ? `${this.b.oppose().texFraction}+` : '') + (this.discriminant.valeurDecimale > 0 ? `\\sqrt{${this.discriminant.texFraction}}` : '')
         const den = 2 * this.a.valeurDecimale
         return `\\dfrac{${num}}{${den}}`
       } else {
-        const num = this.b.texFraction + (this.discriminant.valeurDecimale > 0 ? `+ \\sqrt{${this.discriminant.texFraction}}` : '')
+        const num = (this.b.valeurDecimale !== 0 ? `${this.b.texFraction}+` : '') + (this.discriminant.valeurDecimale > 0 ? `\\sqrt{${this.discriminant.texFraction}}` : '')
         const den = -2 * this.a.valeurDecimale
         return `\\dfrac{${num}}{${den}}`
       }

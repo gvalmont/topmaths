@@ -7,7 +7,7 @@ import { context } from '../../modules/context.js'
 import { abs, signe } from '../../lib/outils/nombres'
 
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { sp } from '../../lib/outils/outilString'

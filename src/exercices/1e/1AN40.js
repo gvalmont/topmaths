@@ -1,5 +1,5 @@
 import { cercleTrigo } from '../../lib/2d/angles.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { valeursTrigo } from '../../lib/mathFonctions/trigo.js'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context.js'

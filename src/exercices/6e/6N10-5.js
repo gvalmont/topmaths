@@ -69,42 +69,63 @@ export default function ExerciceLabyrintheNumeration () {
     const reponsesOK = []
     for (let a = 0; a < nbC * nbL; a++) {
       let partieEntiere = this.sup ? randint(1, Math.pow(10, 5)) : randint(1, Math.pow(10, 4))
-      let partieDecimale = this.sup ? randint(1, Math.pow(10, 5)) : randint(1, Math.pow(10, 4))
+      let partieDecimale = this.sup ? randint(1, Math.pow(10, 4)) : randint(1, Math.pow(10, 3))
       if (this.sup) {
         if (rang > 3) {
           partieEntiere = Math.floor(partieEntiere / Math.pow(10, rang - 3)) * Math.pow(10, rang - 3) + chiffre * Math.pow(10, rang - 4) + (partieEntiere % Math.pow(10, rang - 4))
         } else {
-          partieDecimale = Math.floor(partieDecimale / Math.pow(10, rang + 2)) * Math.pow(10, rang + 2) + chiffre * Math.pow(10, rang + 1) + (partieDecimale % Math.pow(10, rang + 1))
+          partieDecimale = Math.floor(partieDecimale / Math.pow(10, rang + 1)) * Math.pow(10, rang + 1) + chiffre * Math.pow(10, rang) + (partieDecimale % Math.pow(10, rang))
         }
       } else {
-        partieEntiere = Math.floor(partieEntiere / Math.pow(10, rang - 2)) * Math.pow(10, rang - 2) + chiffre * Math.pow(10, rang - 3) + (partieEntiere % Math.pow(10, rang - 3))
+        if (rang > 3) {
+          partieEntiere = Math.floor(partieEntiere / Math.pow(10, rang - 2)) * Math.pow(10, rang - 2) + chiffre * Math.pow(10, rang - 3) + (partieEntiere % Math.pow(10, rang - 3))
+        } else {
+          partieDecimale = Math.floor(partieDecimale / Math.pow(10, rang + 1)) * Math.pow(10, rang + 1) + chiffre * Math.pow(10, rang) + (partieDecimale % Math.pow(10, rang))
+        }
       }
 
-      nombretemp = !this.sup5 ? partieEntiere + partieDecimale / (this.sup ? Math.pow(10, 5) : Math.pow(10, 4)) : partieEntiere
+      nombretemp = !this.sup5 ? partieEntiere + partieDecimale / (this.sup ? Math.pow(10, 4) : Math.pow(10, 3)) : partieEntiere
       reponsesOK.push(nombretemp)
     }
     const reponsesPasOK = []
     for (let a = 0; a < nbC * nbL; a++) {
+      if (this.sup2 === 3) {
+        rangbis = randint(rangMin, rangMax, [rang])
+      } else if (this.sup2 === 2 && !this.sup5) {
+        rangbis = this.sup ? randint(0, 3, [rang]) : randint(0, 2, [rang])
+      } else {
+        rangbis = this.sup ? randint(4, rangMax, [rang]) : randint(3, rangMax, [rang])
+      }
       let partieEntiere = this.sup ? randint(1, Math.pow(10, 5)) : randint(1, Math.pow(10, 4))
-      let partieDecimale = this.sup ? randint(1, Math.pow(10, 5)) : randint(1, Math.pow(10, 4))
+      let partieDecimale = this.sup ? randint(1, Math.pow(10, 4)) : randint(1, Math.pow(10, 3))
       if (this.sup) {
+        // Au rang attendu, on ne met pas le chiffre attendu.
         if (rang > 3) {
           partieEntiere = Math.floor(partieEntiere / Math.pow(10, rang - 3)) * Math.pow(10, rang - 3) + randint(0, 9, [chiffre]) * Math.pow(10, rang - 4) + (partieEntiere % Math.pow(10, rang - 4))
         } else {
-          partieDecimale = Math.floor(partieDecimale / Math.pow(10, rang + 2)) * Math.pow(10, rang + 2) + randint(0, 9, [chiffre]) * Math.pow(10, rang + 1) + (partieDecimale % Math.pow(10, rang + 1))
+          partieDecimale = Math.floor(partieDecimale / Math.pow(10, rang + 1)) * Math.pow(10, rang + 1) + randint(0, 9, [chiffre]) * Math.pow(10, rang) + (partieDecimale % Math.pow(10, rang))
         }
-        rangbis = randint(rangMin, rangMax, [rang])
+        // Au rang non attendu, on met le chiffre attendu.
         if (rangbis > 3) {
           partieEntiere = Math.floor(partieEntiere / Math.pow(10, rangbis - 3)) * Math.pow(10, rangbis - 3) + chiffre * Math.pow(10, rangbis - 4) + (partieEntiere % Math.pow(10, rangbis - 4))
         } else {
-          partieDecimale = Math.floor(partieDecimale / Math.pow(10, rangbis + 2)) * Math.pow(10, rangbis + 2) + chiffre * Math.pow(10, rangbis + 1) + (partieDecimale % Math.pow(10, rangbis + 1))
+          partieDecimale = Math.floor(partieDecimale / Math.pow(10, rangbis + 1)) * Math.pow(10, rangbis + 1) + chiffre * Math.pow(10, rangbis) + (partieDecimale % Math.pow(10, rangbis))
         }
       } else {
-        partieEntiere = Math.floor(partieEntiere / Math.pow(10, rang - 2)) * Math.pow(10, rang - 2) + randint(0, 9, [chiffre]) * Math.pow(10, rang - 3) + (partieEntiere % Math.pow(10, rang - 3))
-        rangbis = randint(rangMin, rangMax, [rang])
-        partieEntiere = Math.floor(partieEntiere / Math.pow(10, rangbis - 2)) * Math.pow(10, rangbis - 2) + chiffre * Math.pow(10, rangbis - 3) + (partieEntiere % Math.pow(10, rangbis - 3))
+        // Au rang attendu, on ne met pas le chiffre attendu.
+        if (rang > 3) {
+          partieEntiere = Math.floor(partieEntiere / Math.pow(10, rang - 2)) * Math.pow(10, rang - 2) + randint(0, 9, [chiffre]) * Math.pow(10, rang - 3) + (partieEntiere % Math.pow(10, rang - 3))
+        } else {
+          partieDecimale = Math.floor(partieDecimale / Math.pow(10, rang + 1)) * Math.pow(10, rang + 1) + randint(0, 9, [chiffre]) * Math.pow(10, rang) + (partieDecimale % Math.pow(10, rang))
+        }
+        // Au rang non attendu, on met le chiffre attendu.
+        if (rangbis > 3) {
+          partieEntiere = Math.floor(partieEntiere / Math.pow(10, rangbis - 2)) * Math.pow(10, rangbis - 2) + chiffre * Math.pow(10, rangbis - 3) + (partieEntiere % Math.pow(10, rangbis - 3))
+        } else {
+          partieDecimale = Math.floor(partieDecimale / Math.pow(10, rangbis + 1)) * Math.pow(10, rangbis + 1) + chiffre * Math.pow(10, rangbis) + (partieDecimale % Math.pow(10, rangbis))
+        }
       }
-      nombretemp = !this.sup5 ? partieEntiere + partieDecimale / (this.sup ? Math.pow(10, 5) : Math.pow(10, 4)) : partieEntiere
+      nombretemp = !this.sup5 ? partieEntiere + partieDecimale / (this.sup ? Math.pow(10, 4) : Math.pow(10, 3)) : partieEntiere
       reponsesPasOK.push(nombretemp)
     }
     // Le tableau de nombre étant fait, on place les objets nombres.

@@ -149,10 +149,9 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
   }
 
   correctionInteractive = (i?: number) => {
-    if (i === undefined || this.figures) return ['KO']
+    if (i === undefined || this.figures === undefined) return ['KO']
     const result: ('OK'|'KO')[] = []
-    if (this.figures === undefined) return ['KO']
-    const figure : Figure = this.figures[i]
+    const figure = this.figures[i] as Figure
     if (this.answers === undefined) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
     this.answers[figure.id] = figure.json

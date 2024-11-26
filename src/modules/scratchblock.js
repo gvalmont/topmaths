@@ -312,15 +312,16 @@ export function scratchblock (stringLatex) {
             compteAccolades--
             resultat = [' ', 1 + index, compteAccolades]
             break
-          case '\\begin':
+          case '\\begin': {
             compteAccolades++
             if (chaine.substring(15 + index)[0] === '[') {
               index = chaine.substring(15 + index).indexOf(']') + 16 + index
             } else {
               index += 15
             }
-            resultat = [' <!-- Code Scratch  -->', index, compteAccolades]
+            resultat = [' <!-- Code Scratch -->', index, compteAccolades]
             break
+          }
           case '\\end':
             compteAccolades--
             resultat = [' <!-- Fin du Code Scratch  -->\n', 13 + index, compteAccolades]
@@ -368,7 +369,14 @@ export function scratchblock (stringLatex) {
   if (!context.isHtml) {
     codeScratch = stringLatex
   } else {
-    codeScratch = '<pre class=\'blocks\'>'
+    const regex = /scale=(\d+)/
+    const matches = stringLatex.match(regex)
+    if (matches) {
+      const scale = matches[0]
+      codeScratch = `<pre class='blocks2' ${scale}>`
+    } else {
+      codeScratch = '<pre class=\'blocks\'>'
+    }
     index = 0
     fin = false
     let k = 0

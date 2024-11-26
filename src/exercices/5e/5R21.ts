@@ -9,7 +9,7 @@ import { arrondi, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/n
 import Exercice from '../Exercice'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
 import Decimal from 'decimal.js'
 import { texNombre } from '../../lib/outils/texNombre'

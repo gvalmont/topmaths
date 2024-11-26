@@ -12,8 +12,6 @@ export type Etiquette = {
   callback?: (e: Event) => void // @todo à implémenter.
 }
 
-let draggedItem: HTMLDivElement | null = null
-
 /*
 L'utilisation de l'interactif façon drag&drop nécessite la déclaration des bonnes réponses avec handleHanswers() :
 Un exemple :
@@ -38,8 +36,8 @@ type TouchHandler = (e: TouchEvent) => void
  * @param e
  */
 function dragStartHandler (e: DragEvent) {
+  // console.log('dragStartHandler', e)
   if (e.target instanceof HTMLDivElement) {
-    draggedItem = e.target
     e.dataTransfer?.setData('text/plain', e.target.id)
   }
 }
@@ -59,18 +57,19 @@ function dragOverHandler (e: DragEvent) {
  * @param e
  */
 function dragEndHandler (e: DragEvent) {
+  // console.log('dragEndHandler', e)
   e.preventDefault()
   // Réinitialise la position de l'étiquette originale après le drop
-  if (e.target instanceof HTMLElement) {
-    e.target.style.position = 'relative'
-  }
-  draggedItem = null
+  // if (e.target instanceof HTMLElement) {
+  //  e.target.style.position = 'relative'
+  // }
 }
 /**
  * gère le dépot à la souris
  * @param e
  */
 function dropHandler (e: DragEvent) {
+  // console.log('dropHandler', e)
   e.preventDefault()
   const dropTarget = e.target as HTMLDivElement
   const etiquetteId = e.dataTransfer?.getData('text/plain')
@@ -81,12 +80,21 @@ function dropHandler (e: DragEvent) {
         etiquette.parentElement?.removeChild(etiquette)
         return
       }
-      if (etiquette.classList.contains('duplicable') && dropTarget.classList.contains('rectangleDND')) {
+      // Expression régulière pour capturer les 3 groupes de chiffres
+      const regex = /Ex(\d+)Q(\d+)I(\d+)/
+      const matches = etiquette.id.match(regex)
+      let numeroExQuest = ''
+      if (matches) {
+        const numeroEx = matches[1]
+        const numeroQuest = matches[2]
+        numeroExQuest = `Ex${numeroEx}Q${numeroQuest}`
+      }
+      if (etiquette.classList.contains('duplicable') && dropTarget.classList.contains('rectangleDND') && dropTarget.id.includes(numeroExQuest)) {
         const clonedEtiquette = etiquette.cloneNode(true) as HTMLDivElement
         clonedEtiquette.id = `${etiquette.id}-clone-${Date.now()}`
         addDeleteButton(clonedEtiquette)
         dropTarget.appendChild(clonedEtiquette)
-      } else if (dropTarget.parentElement?.classList.contains('rectangleDND')) {
+      } else if (dropTarget.parentElement?.classList.contains('rectangleDND') && dropTarget.parentElement?.id.includes(numeroExQuest)) {
         // on est sur une étiquette déjà deposée
         const clonedEtiquette = etiquette.cloneNode(true) as HTMLDivElement
         clonedEtiquette.id = `${etiquette.id}-clone-${Date.now()}`
@@ -94,7 +102,6 @@ function dropHandler (e: DragEvent) {
         dropTarget.after(clonedEtiquette)
       }
       dropTarget.classList.remove('hovered') // Enlève l'effet après le drop
-      draggedItem = null
     }
   }
 }
@@ -102,20 +109,24 @@ function dropHandler (e: DragEvent) {
  *  démarre le déplacement de l'étiquette sur interface tactile et s'assure que toute l'étiquette est déplacée
  */
 function touchStartHandler (e: TouchEvent) {
+  // console.log('touchStartHandler', e)
   let target = e.target as HTMLElement
   // Si le touch a été déclenché sur un élément interne (comme un <span>), on remonte jusqu'au div parent
   while (target && target.tagName !== 'DIV') {
     target = target.parentElement as HTMLElement
   }
 
-  if (target?.classList.contains('etiquette')) {
-    draggedItem = target as HTMLDivElement
-    const touch = e.touches[0]
-    target.dataset.touchId = touch.identifier.toString()
+  if (target?.classList.contains('etiquette') && target?.classList.contains('dragOk')) {
+    // Stocker l'élément HTML complet (pour clonage)
+    const ele = target.cloneNode(true) as HTMLElement
+    ele.style.display = 'none'
+    target.before(ele)
   }
 }
+
 // gère le déplacement de l'étiquette sur interface tactile
 function touchMoveHandler (e: TouchEvent) {
+  // console.log('touchMoveHandler', e)
   e.preventDefault()
   const touch = e.changedTouches[0]
   let etiquette = touch.target as HTMLElement
@@ -123,7 +134,7 @@ function touchMoveHandler (e: TouchEvent) {
     etiquette = etiquette.parentElement as HTMLElement
   }
 
-  if (etiquette) {
+  if (etiquette && etiquette.classList.contains('etiquette') && etiquette.classList.contains('dragOk')) {
     if (etiquette.parentElement) {
       const top = etiquette.parentElement.offsetTop
       const left = etiquette.parentElement.offsetLeft
@@ -131,14 +142,26 @@ function touchMoveHandler (e: TouchEvent) {
       if (rectangleBounds) {
         const touchX = touch.clientX
         const touchY = touch.clientY
-          ; (etiquette as HTMLDivElement).style.position = 'absolute'
+        ; (etiquette.previousElementSibling as HTMLDivElement).style.display = 'block'
+        ; (etiquette as HTMLDivElement).style.position = 'absolute'
         ; (etiquette as HTMLDivElement).style.left =
-            `${touchX - rectangleBounds.left + left + touch.radiusX}px`
+            `${touchX - rectangleBounds.left + left - etiquette.clientWidth / 2}px`
         ; (etiquette as HTMLDivElement).style.top =
-            `${touchY - rectangleBounds.top + top - touch.radiusY * 2}px`
+            `${touchY - rectangleBounds.top + top - etiquette.clientHeight / 2}px`
       }
     }
-    const rectangles = document.querySelectorAll('div.rectangleDND')
+    // Expression régulière pour capturer les 3 groupes de chiffres
+    const regex = /Ex(\d+)Q(\d+)I(\d+)/
+    const matches = etiquette.id.match(regex)
+    let numeroExQuest = ''
+    if (matches) {
+      const numeroEx = matches[1]
+      const numeroQuest = matches[2]
+      numeroExQuest = `Ex${numeroEx}Q${numeroQuest}`
+    }
+
+    // rectangleEx0Q0R1 : on s'intéresse qu'au rectangle de la question et NON toute la page
+    const rectangles = document.querySelectorAll(`div.rectangleDND[id^="rectangle${numeroExQuest}"`)
     for (const rectangle of rectangles) {
       const rectangleBounds = rectangle.getBoundingClientRect()
       const isHovered =
@@ -160,15 +183,33 @@ function touchMoveHandler (e: TouchEvent) {
  * @returns
  */
 function touchEndHandler (e: TouchEvent) {
+  // console.log('touchEndHandler', e)
   const touch = e.changedTouches[0]
   let etiquette = touch.target as HTMLElement
+  /* on a fait un TOUCH sur le bouton SUPPRIMER */
+  if (etiquette && etiquette.tagName === 'BUTTON' && etiquette.classList.contains('delete-btn')) {
+    etiquette.click()
+    return
+  }
+  // On cherche l'étiquette
   while (etiquette && etiquette.tagName !== 'DIV') {
     etiquette = etiquette.parentElement as HTMLElement
   }
-  if (etiquette) {
+  if (etiquette && etiquette.classList.contains('etiquette') && etiquette.classList.contains('dragOk')) {
     const centerX = touch.clientX
     const centerY = touch.clientY
-    const rectangles = document.querySelectorAll('div.rectangleDND')
+    // Expression régulière pour capturer les 3 groupes de chiffres
+    const regex = /Ex(\d+)Q(\d+)I(\d+)/
+    const matches = etiquette.id.match(regex)
+    let numeroExQuest = ''
+    if (matches) {
+      const numeroEx = matches[1]
+      const numeroQuest = matches[2]
+      numeroExQuest = `Ex${numeroEx}Q${numeroQuest}`
+    }
+
+    // rectangleEx0Q0R1 : on s'intéresse qu'au rectangle de la question et NON toute la page.
+    const rectangles = document.querySelectorAll(`div.rectangleDND[id^="rectangle${numeroExQuest}"`)
     let dropTarget: HTMLDivElement | null = null
     for (const rectangle of rectangles) {
       const rectangleBounds = rectangle.getBoundingClientRect()
@@ -178,29 +219,58 @@ function touchEndHandler (e: TouchEvent) {
         centerY > rectangleBounds.top &&
         centerY < rectangleBounds.bottom
       ) {
+        // on a trouché un rectangle qui peut réceptionner l'étiquette
         dropTarget = rectangle as HTMLDivElement
         break
       }
     }
-    if (!dropTarget || !dropTarget.classList.contains('rectangleDND')) {
-      draggedItem?.parentElement?.removeChild(draggedItem)
-      draggedItem = null
-      return
+
+    if (dropTarget?.children?.length) {
+      for (let i = 0; i < dropTarget?.children?.length; i++) {
+        const rectangleBounds = dropTarget.children[i].getBoundingClientRect()
+        if (
+          centerX > rectangleBounds.left &&
+          centerX < rectangleBounds.right &&
+          centerY > rectangleBounds.top &&
+          centerY < rectangleBounds.bottom
+        ) {
+          // on a trouvé une étiquette dans le rectangle qui peut réceptionner l'étiquette
+          dropTarget = dropTarget.children[i] as HTMLDivElement
+          break
+        }
+      }
     }
-    if (dropTarget?.classList.contains('rectangleDND')) {
+    if (dropTarget?.classList.contains('rectangleDND') || dropTarget?.parentElement?.classList.contains('rectangleDND')) {
       if (etiquette.classList.contains('duplicable') && dropTarget.classList.contains('rectangleDND')) {
+        // console.log('cloneEtiquette', etiquette)
         const clonedEtiquette = etiquette.cloneNode(true) as HTMLDivElement
         clonedEtiquette.id = `${etiquette.id}-clone-${Date.now()}`
-        addDeleteButton(clonedEtiquette)
+        addDeleteButton(clonedEtiquette);
+        (clonedEtiquette).style.position = 'relative';
+        (clonedEtiquette).style.top = '0px';
+        (clonedEtiquette).classList.remove('dragOk');
+        (clonedEtiquette as HTMLDivElement).style.left = '0px';
+        (clonedEtiquette as HTMLDivElement).style.zIndex = '1'
         dropTarget.appendChild(clonedEtiquette)
       } else {
-        dropTarget.appendChild(etiquette)
+        // console.log('cloneEtiquette2', etiquette)
+        const clonedEtiquette = etiquette.cloneNode(true) as HTMLDivElement
+        clonedEtiquette.id = `${etiquette.id}-clone-${Date.now()}`
+        addDeleteButton(clonedEtiquette);
+        (clonedEtiquette).style.position = 'relative';
+        (clonedEtiquette).style.top = '0px';
+        (clonedEtiquette).classList.remove('dragOk');
+        (clonedEtiquette as HTMLDivElement).style.left = '0px';
+        (clonedEtiquette as HTMLDivElement).style.zIndex = '1'
+        dropTarget.after(clonedEtiquette)
       }
       dropTarget.classList.remove('hovered')
     }
+    // on remet l'étiquette à sa place
     (etiquette as HTMLDivElement).style.position = 'relative'
-    draggedItem = null
-    delete (etiquette as HTMLDivElement).dataset.touchId
+    ; (etiquette as HTMLDivElement).style.top = '0px'
+    ; (etiquette as HTMLDivElement).style.left = '0px'
+    etiquette.previousElementSibling?.remove()
   }
 }
 // met le rectangle en effet 'green glowing'

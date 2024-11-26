@@ -4,7 +4,8 @@ import { texteParPosition } from '../lib/2d/textes.ts'
 import { nombreDeChiffresDansLaPartieEntiere, ordreDeGrandeur } from '../lib/outils/nombres'
 import Decimal from 'decimal.js'
 import { context } from './context.js'
-import { mathalea2d } from './2dGeneralites.js'
+import { fixeBordures, mathalea2d } from './2dGeneralites.js'
+import { texNombre } from '../lib/outils/texNombre'
 /**
  *
  * Pose une opération
@@ -37,6 +38,18 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
   }
 
   const DivisionPosee3d = function (divid, divis, precision = 0, calculer = true) {
+    if (divis === 0) {
+      return 'On ne peut pas diviser par 0.'
+    }
+    if (divid === 0) {
+      return 'Lorsqu\'on divise 0 par un nombre, le quotient est 0.'
+    }
+    if (divid === divis) {
+      return 'Lorsqu\'on divise un nombre par lui-même, le quotient est 1.'
+    }
+    if (divis === 1) {
+      return `Lorsqu'on divise un nombre par 1, le quotient est le nombre initial : $${texNombre(divid)}$.`
+    }
     const objets = []; let zeroutile = false; const periode = 0
     precision = Math.min(precision, nombreDeChiffresApresLaVirgule(divid.div(divis)))
     const decalage = nombreDeChiffresApresLaVirgule(divis)
@@ -130,11 +143,16 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     if (calculer) objets.push(segment(n * espacement, 10.5, (n + m + i) * espacement, 10.5)) // on trace le trait horizontal
     else objets.push(segment(n * espacement, 10.5, (n + m + 2) * espacement, 10.5)) // on trace le trait horizontal
 
-    const code = mathalea2d({ xmin: -1.5 * espacement, ymin: 10 - 2 * longueurPotence, xmax: (n + m + 10) * espacement, ymax: 11.5, pixelsParCm: 20, scale: 0.8, style }, objets)
+    const code = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.8, style }, fixeBordures(objets)), objets)
     return code
   }
 
   const AdditionPosee3d = function (operande1, operande2, base, retenuesOn, calculer = true) {
+    if (operande1 === 0 || operande2 === 0) {
+      return operande1 === 0
+        ? `$${texNombre(operande1)}$ étant nul, l'addition est égale à $${texNombre(operande2)}$`
+        : `$${texNombre(operande2)}$ étant nul, l'addition est égale à $${texNombre(operande1)}$`
+    }
     const dec1 = nombreDeChiffresApresLaVirgule(operande1)
     const dec2 = nombreDeChiffresApresLaVirgule(operande2)
     const terme1 = operande1
@@ -213,11 +231,15 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       objets.push(texteParPosition(',', 0.3 + espacement * (longueuroperandes - decalage), 3, 0, 'black', 1.2, 'milieu', false))
       if (calculer) objets.push(texteParPosition(',', 0.3 + espacement * (longueuroperandes - decalage), 1, 0, 'black', 1.2, 'milieu', false))
     }
-    code += mathalea2d({ xmin: -0.5, ymin: 0, xmax: (longueuroperandes + 1) * espacement + 0.5, ymax: 5, pixelsParCm: 20, scale: 0.8, style }, objets)
+    code += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.8, style }, fixeBordures(objets)), objets)
     return code
   }
 
   const SoustractionPosee3d = function (operande1, operande2, base, retenuesOn = true, methodeParCompensation = true, calculer = true) {
+    if (operande1 < operande2) {
+      return `Je ne sais pas faire de soustraction avec un résultat négatif, or ici $${texNombre(operande1)} < ${texNombre(operande2)}$.`
+    }
+    if (operande2 === 0) return `Lorsqu'on soustrait 0, le résultat est le nombre initial, ici $${texNombre(operande1)}$.`
     let code = ''
     const objets = []
     let sop1; let sop2
@@ -328,10 +350,20 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       if (calculer) objets.push(texteParPosition(',', 0.3 + espacement * (longueuroperandes - decalage), 1 + (context.vue === 'latex' ? -0.2 : 0), 0, 'black', 1.2, 'milieu', false))
     }
 
-    code += mathalea2d({ xmin: -0.5, ymin: 0, xmax: (longueuroperandes + 1) * espacement + 0.5, ymax: (methodeParCompensation || !retenuesOn ? 5 : 6), pixelsParCm: 20, scale: 0.8, style }, objets)
+    code += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.8, style }, fixeBordures(objets)), objets)
     return code
   }
   const MultiplicationPosee3d = function (operande1, operande2, base, calculer = true) {
+    if (operande1 === 0 || operande2 === 0) {
+      return operande1 === 0
+        ? `$${texNombre(operande1)}$ étant nul, le produit est nul.`
+        : `$${texNombre(operande2)}$ étant nul, le produit est nul.`
+    }
+    if (operande1 === 1 || operande2 === 1) {
+      return operande1 === 1
+        ? `Lorsqu'on multiplie par 1, le produit est le nombre initial, ici $${texNombre(operande2)}$.`
+        : `Lorsqu'on multiplie par 1, le produit est le nombre initial, ici $${texNombre(operande1)}$.`
+    }
     let sop1; let sop2; const objets = []; let lignesinutiles = 0
     let zeroUtile1, zeroUtile2
     const produits = []; let strprod; const sommes = []
@@ -480,7 +512,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
         objets.push(texteParPosition('+', 0, 5 + j - lop2 + lignesinutiles, 0, 'black', 1.2, 'milieu', false))
       }
     }
-    const code = mathalea2d({ xmin: -0.5, ymin: 4 - lop2, xmax: (longueurtotale + 1) * espacement + 0.5, ymax: 8, pixelsParCm: 20, scale: 0.8, style }, objets)
+    const code = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.8, style }, fixeBordures(objets)), objets)
 
     return code
   }

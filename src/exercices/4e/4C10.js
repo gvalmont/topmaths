@@ -5,7 +5,7 @@ import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modul
 import Exercice from '../deprecatedExercice.js'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'

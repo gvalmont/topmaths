@@ -7,7 +7,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import { fraction } from '../../modules/fractions.js'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Résolution d\'équations du type $a^x = b$ avec log'
 export const dateDePublication = '28/07/2024'

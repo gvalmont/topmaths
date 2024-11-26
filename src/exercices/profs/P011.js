@@ -27,7 +27,6 @@ export default function ConstruisMonTriangle () {
   this.sup = 1
   this.sup2 = 'ABC'
   this.sup3 = '3 4 5'
-  this.typeExercice = 'IEP'
 
   function aLeMinDArguments (params, nombre) {
     if (params.length >= nombre) {

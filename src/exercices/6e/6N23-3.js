@@ -10,7 +10,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -582,13 +582,13 @@ export default function LireUneAbscisseAvecZoom () {
         handleAnswers(this, 3 * i + 1, { reponse: { value: `${reponse2A}+${reponse2B.toLatex()}`, compare: fonctionComparaison, options: { operationSeulementEtNonResultat: true } } })
         handleAnswers(this, 3 * i + 2, { reponse: { value: reponse1, compare: fonctionComparaison, options: { fractionDecimale: true } } })
 
-        texte += ajouteChampTexteMathLive(this, i * 3, `  ${KeyboardType.numbersSpace}`, {
+        texte += ajouteChampTexteMathLive(this, i * 3, KeyboardType.clavierNumbers, {
           texteAvant: `Abscisse de $${noms[1]}$ en écriture décimale : `
         })
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 3 + 1, `  ${KeyboardType.numbersSpace}`, {
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 3 + 1, KeyboardType.clavierDeBaseAvecFraction, {
           texteAvant: `Abscisse de $${noms[1]}$ comme somme d'un nombre entier et d'une fraction décimale inférieure à 1 : `
         })
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 3 + 2, `  ${KeyboardType.numbersSpace}`, {
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 3 + 2, KeyboardType.clavierDeBaseAvecFraction, {
           texteAvant: `Abscisse de $${noms[1]}$ sous forme d'une fraction décimale : `
         })
       } else if (context.isAmc) {

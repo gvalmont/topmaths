@@ -33,7 +33,6 @@ export default function TracerTriangle2Angles () {
   this.nbQuestions = 3
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.typeExercice = 'IEP'
   this.sup = false
   this.sup2 = false
   this.sup3 = '3' // Type de questions

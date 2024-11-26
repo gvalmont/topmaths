@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { number } from 'mathjs'
 import { Arbre, texProba } from '../../../modules/arbres.js'
 
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
 import { context } from '../../../modules/context.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'

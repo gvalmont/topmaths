@@ -4,7 +4,7 @@ import { eclatePuissance, simpNotPuissance } from '../../lib/outils/puissance'
 import { texteGras } from '../../lib/format/style'
 import { context } from '../../modules/context.js'
 
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'

@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { choice, combinaisonListes } from '../../../lib/outils/arrayOutils.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements.js'

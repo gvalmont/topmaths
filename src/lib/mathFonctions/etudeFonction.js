@@ -2013,7 +2013,7 @@ export function racines ({
   xMax,
   tol = 1e-13,
   maxIter = 100,
-  precision = 1
+  precision = 3
 }) {
   const racines = []
   for (let x = xMin; x <= xMax - 0.2; x += 0.2) {
@@ -2164,6 +2164,7 @@ export function chercheMinMaxFonction ([a, b, c, d]) {
  * @param {object} options
  * @param {{antVal:number, antTex:string, imgVal:number, imgTex:string}[]} [options.substituts] valeur à remplacer dans le tableau (valeur au centième)
  * @param {number|FractionEtendue} [options.step] // pas de balayage pour trouver les solutions de f(x)=0
+ * @param {boolean} [options.fractionTex] // si true, les nombres sont affichés sous forme de fraction
  * @param {number|FractionEtendue} [options.tolerance] // écart maximum à zéro pour assimiler f(x) à zéro
  * @param {string} [options.nomVariable] // ce qui est écrit dans l'entête de la première ligne 'x' par défaut
  * @returns {string} [options.nomFonction] // ce  qui est écrit dans l'entête de la deuxième ligne 'f(x)' par défaut
@@ -2177,20 +2178,33 @@ export function tableauSignesFonction (
     step = fraction(1, 1000),
     tolerance = 0.005,
     nomVariable = 'x',
-    nomFonction = 'f(x)'
+    nomFonction = 'f(x)',
+    fractionTex = false
   } = {}
 ) {
   const signes = signesFonction(fonction, xMin, xMax, step, tolerance)
   const premiereLigne = []
   for (let i = 0; i < signes.length; i++) {
     if (i === 0) {
-      premiereLigne.push(stringNombre(signes[0].xG, 2), 10)
+      if (fractionTex === false) {
+        premiereLigne.push(stringNombre(signes[0].xG, 2), 10)
+      } else {
+        premiereLigne.push(new FractionEtendue(signes[0].xG).texFractionSimplifiee, 10)
+      }
     }
     if (i > 0 && signes[i].xG !== signes[i - 1].xG) {
-      premiereLigne.push(stringNombre(signes[i].xG, 2), 10)
+      if (fractionTex === false) {
+        premiereLigne.push(stringNombre(signes[i].xG, 2), 10)
+      } else {
+        premiereLigne.push(new FractionEtendue(signes[i].xG).texFractionSimplifiee, 10)
+      }
     }
   }
-  premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 2), 10)
+  if (fractionTex === false) {
+    premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 2), 10)
+  } else {
+    premiereLigne.push(new FractionEtendue(signes[signes.length - 1].xD).texFractionSimplifiee, 10)
+  }
   if (substituts && Array.isArray(substituts)) {
     for (let i = 0; i < premiereLigne.length; i += 2) {
       const strNb = premiereLigne[i].replaceAll(/\s/g, '')

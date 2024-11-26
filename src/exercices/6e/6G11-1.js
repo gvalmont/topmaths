@@ -41,8 +41,7 @@ export default class constructionPerpendiculaires extends Exercice {
     this.nbColsCorr = 1
     this.sup = 1
     this.sup2 = '1'
-    this.typeExercice = 'IEP'
-    this.spacing = (context.isHtml) ? 2 : 1
+      this.spacing = (context.isHtml) ? 2 : 1
     this.besoinFormulaireNumerique = [
       'Type de cahier',
       3,

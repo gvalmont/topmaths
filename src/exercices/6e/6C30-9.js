@@ -30,7 +30,7 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
     this.titre = titre
     this.nbQuestions = 4
     this.spacing = 2
-    this.besoinFormulaireNumerique = ['Nombre de calculs par exercice', 16, 'Entre 1 et 16'] // le paramètre sera numérique de valeur max 3 (le 3 en vert)
+    this.besoinFormulaireNumerique = ['Nombre de calculs par exercice', 3, '1\n2\n3'] // le paramètre sera numérique de valeur max 3 (le 3 en vert)
     this.sup = 3
     this.besoinFormulaire2CaseACocher = ['Mélanger additions et soustractions']
     this.sup2 = false

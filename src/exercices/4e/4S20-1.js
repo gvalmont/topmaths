@@ -2,7 +2,7 @@ import Exercice from '../Exercice'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexte } from '../../lib/interactif/questionMathLive.js' // fonctions de mise en place des éléments interactifs
+import { ajouteChampTexte } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const interactifReady = true

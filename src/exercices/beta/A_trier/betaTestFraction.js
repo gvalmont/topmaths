@@ -3,7 +3,7 @@ import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { evaluate, Fraction } from 'mathjs'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import * as pkg from '@cortex-js/compute-engine'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 

@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { Arbre } from '../../../modules/arbres.js'
 
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 

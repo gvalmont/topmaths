@@ -4,7 +4,7 @@ import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 export const titre = 'Déterminer la racine carrée d\'un carré parfait (calcul mental)'
 export const amcReady = true
 export const amcType = 'AMCNum'

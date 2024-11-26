@@ -14,6 +14,7 @@ import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
 export const titre = 'Calcul du discriminant d\'une équation du second degré'
 
@@ -62,8 +63,8 @@ export default function CalculDiscriminant () {
             texte = `$${rienSi1(a)}x^2${ecritureAlgebrique(c)}=0$`
           }
           texteCorr = `$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`
-          texteCorr += '<br>$\\Delta<0$ donc l\'équation n\'admet pas de solution.'
-          texteCorr += '<br>$\\mathcal{S}=\\emptyset$'
+          texteCorr += `<br>$\\Delta<0$ donc l'équation ${texteEnCouleurEtGras('n\'admet pas de solution')}.`
+          texteCorr += '<br>$\\mathcal{S}=\\emptyset$.'
           break
         case '1solution': // k(x-x1)^2
           aNbPointsIntersection = "n'a qu'un seul point d'intersection"
@@ -80,7 +81,7 @@ export default function CalculDiscriminant () {
             texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x=0$`
           }
           texteCorr = `$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`
-          texteCorr += '<br>$\\Delta=0$ donc l\'équation admet une unique solution.'
+          texteCorr += `<br>$\\Delta=0$ donc l'équation admet ${texteEnCouleurEtGras('une unique solution')}.`
           break
         case '2solutions': // k(x-x1)^2
           aNbPointsIntersection = "a deux points d'intersection"
@@ -105,7 +106,7 @@ export default function CalculDiscriminant () {
             texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x=0$`
           }
           texteCorr = `$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`
-          texteCorr += '<br>$\\Delta>0$ donc l\'équation admet deux solutions.'
+          texteCorr += `<br>$\\Delta>0$ donc l'équation admet ${texteEnCouleurEtGras('deux solutions')}.`
           break
         default:
           break
@@ -122,7 +123,7 @@ export default function CalculDiscriminant () {
         correctionComplementaire += mathalea2d({ xmin: -10.1, ymin: -10.1, xmax: 10.1, ymax: 10.1, pixelsParCm: 15 },
           graphique, r, s)
 
-        texteCorr += modalTexteLong(numeroExercice, 'Complément graphique', correctionComplementaire, 'Complément graphique', 'info circle')
+        texteCorr += modalTexteLong(numeroExercice, '<br>Complément graphique', correctionComplementaire, '<br>Complément graphique', 'info circle')
       }
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)

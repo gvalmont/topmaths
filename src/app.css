@@ -557,41 +557,85 @@ div[id^="xcas-results-"] {
  ul.none {
   @apply list-none list-outside
  }
-
+ ul.none > li {
+  margin-top: 0.5em;
+}
  ul.puces {
   @apply list-["\1F784\00A0"] list-outside ml-4 marker:text-coopmaths-struct
  }
-
+ ul.puces > li {
+  margin-top: 0.5em;
+}
  ul.carres {
   @apply list-["\25AA\00A0"] list-outside ml-4 marker:text-coopmaths-struct
  }
-
+ ul.carres > li {
+  margin-top: 0.5em;
+}
  ul.qcm {
   @apply list-["\25A1\00A0"] list-outside ml-4 marker:text-coopmaths-struct
  }
-
+ ul.qcm > li {
+  margin-top: 0.5em;
+}
  ul.fleches {
   @apply list-["\25B8\00A0"] list-outside ml-4 marker:text-coopmaths-struct
  }
-
+ ul.fleches > li {
+  margin-top: 0.5em;
+}
  ol.nombres {
   @apply list-decimal list-outside ml-4 marker:text-coopmaths-struct
  }
-
+ ol.nombres > li {
+  margin-top: 0.5em;
+}
  ol.alpha {
-  @apply list-[lower-alpha] list-outside ml-4  marker:text-coopmaths-struct
+  @apply list-[lower-alpha] list-outside ml-4  marker:text-coopmaths-struct;
+  margin-left: 1.5rem;
  }
-
+ ol.alpha > li {
+  margin-top: 0.5em;
+}
  ol.Alpha {
   @apply list-[upper-alpha] list-outside ml-4  marker:text-coopmaths-struct
  }
-
+ ol.Alpha > li {
+  margin-top: 0.5em;
+}
 ol.roman {
  @apply list-[lower-roman] list-outside ml-4  marker:text-coopmaths-struct
 }
-
+ol.roman > li {
+  margin-top: 0.5em;
+}
 ol.Roman {
  @apply list-[upper-roman] list-outside ml-4  marker:text-coopmaths-struct
+}
+ol.Roman > li {
+  margin-top: 0.5em;
+}
+
+.numbered-list > div > li {
+  list-style: none; /* Retire les puces par défaut */
+  position: relative;
+}
+
+.numbered-list > div > li::before {
+  counter-increment: item;
+  display: inline-block; /* Aligne avec le texte */
+  margin-right: 0.5em; /* Espace entre le numéro et le texte */
+  font-weight: bold;
+  color: #216D9A;
+}
+
+.numbered-list >div > li::before {
+    content: counter(item) ') ';
+    margin-right: 0.5em;
+}
+
+.numbered-list {
+  counter-reset: item; /* Initialise le compteur */
 }
 
 @keyframes shake {
@@ -601,6 +645,15 @@ ol.Roman {
   75% { transform: translate(-5px, 5px) rotate(-5deg); }
   100% { transform: translate(0, 0) rotate(0deg); }
 }
+
+/*
+d888888b d8b   db d888888b d88888b d8888b.  .d8b.   .o88b. d888888b d888888b db    db d888888b d888888b db    db 
+  `88'   888o  88 `~~88~~' 88'     88  `8D d8' `8b d8P  Y8 `~~88~~'   `88'   88    88   `88'   `~~88~~' `8b  d8' 
+   88    88V8o 88    88    88ooooo 88oobY' 88ooo88 8P         88       88    Y8    8P    88       88     `8bd8'  
+   88    88 V8o88    88    88~~~~~ 88`8b   88~~~88 8b         88       88    `8b  d8'    88       88       88 
+  .88.   88  V888    88    88.     88 `88. 88   88 Y8b  d8    88      .88.    `8bd8'    .88.      88       88    
+Y888888P VP   V8P    YP    Y88888P 88   YD YP   YP  `Y88P'    YP    Y888888P    YP    Y888888P    YP       YP    
+*/
 
 table.tableauMathlive {
   tbody {
@@ -622,6 +675,7 @@ table.tableauMathlive {
   }
   @apply mx-auto mt-2 border-collapse text-center border-2 border-coopmaths-corpus dark:border-coopmathsdark-corpus
 }
+
 div.rectangleDND {
   min-width: 40px;
   min-height: 40px;
@@ -661,6 +715,7 @@ div.etiquette {
   min-height: 25px;
   align-content: center;
   font-size: 18px;
+  z-index: 3;
 }
 div.etiquette:active {
   cursor: grabbing;
@@ -720,24 +775,15 @@ min-height: 60px;
   transform: rotate(-15deg); /* Angle de la ligne */
 }
 
-.numbered-list > div > li {
-  list-style: none; /* Retire les puces par défaut */
-  position: relative;
+.SchemaContainer {
+  display: grid;
+  grid-template-rows: repeat(2, auto); /* Deux lignes ajustées automatiquement */
+  grid-auto-columns: minmax(0, 1fr); /* Largeur des colonnes flexibles */
+  grid-auto-flow: column; /* Remplissage en colonnes */
+  width: 50%; /* Assure que la largeur totale est utilisée */
 }
 
-.numbered-list > div > li::before {
-  counter-increment: item;
-  display: inline-block; /* Aligne avec le texte */
-  margin-right: 0.5em; /* Espace entre le numéro et le texte */
-  font-weight: bold;
-  color: #216D9A;
-}
-
-.numbered-list >div > li::before {
-    content: counter(item) ') ';
-    margin-right: 0.5em;
-}
-
-.numbered-list {
-  counter-reset: item; /* Initialise le compteur */
+.SchemaItem {
+  border: 1px solid rgba(0, 0, 0, 0.458); /* Pour visualiser les blocs */
+  text-align: center;
 }

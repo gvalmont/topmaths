@@ -3,7 +3,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -50,11 +50,11 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
     const couples = creerCouples(
       tables,
       [2, 3, 4, 5, 6, 7, 8, 9, 10],
-      this.nbQuestions
+      50
     ) // Liste tous les couples possibles (2,3)≠(3,2)
-    for (let i = 0, reponse, cpt = 0, a, b, texte, texteCorr; i < this.nbQuestions && cpt < 100;) {
-      a = couples[i][0]
-      b = couples[i][1]
+    for (let i = 0, reponse, cpt = 0, a, b, texte, texteCorr; i < this.nbQuestions && cpt < 50;) {
+      a = couples[cpt][0]
+      b = couples[cpt][1]
       const ordre = this.sup3 ? [true] : [true, false]
       const choix = choice(ordre)
       const typeDeQuestion = listeTypeDeQuestions[i]

@@ -4,7 +4,7 @@ import { nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVe
 import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'

@@ -3,7 +3,7 @@ import { texteCentre } from '../../../lib/format/miseEnPage.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../deprecatedExercice.js'
 import { egal, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 

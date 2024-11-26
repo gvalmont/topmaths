@@ -1,4 +1,4 @@
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { Polynome } from '../../lib/mathFonctions/Polynome.js'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import { signe } from '../../lib/outils/nombres'

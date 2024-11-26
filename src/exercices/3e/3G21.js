@@ -14,7 +14,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexte } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const interactifReady = true

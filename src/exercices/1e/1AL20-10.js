@@ -4,7 +4,8 @@ import Exercice from '../deprecatedExercice.js'
 import { contraindreValeur, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import Trinome from '../../modules/Trinome'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -64,7 +65,7 @@ export default function CalculerDiscriminant () {
         setReponse(this, i, p.discriminant)
       }
       texteCorr = `$\\Delta_${lettreDepuisChiffre(i + 1)} = ${p.texCalculDiscriminantSansResultat}$`
-      texteCorr += `<br><br>$\\Delta_${lettreDepuisChiffre(i + 1)} = ${p.discriminant.texFractionSimplifiee}$`
+      texteCorr += `<br><br>$\\Delta_${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(p.discriminant.texFractionSimplifiee)}$`
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

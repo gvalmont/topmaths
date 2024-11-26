@@ -2,7 +2,7 @@ import { ecritureAlgebrique, reduireAxPlusB } from '../../../lib/outils/ecriture
 import { texteCentre } from '../../../lib/format/miseEnPage.js'
 import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 
