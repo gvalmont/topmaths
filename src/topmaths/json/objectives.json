@@ -6770,6 +6770,10 @@
                 ],
                 "exercises": [
                   {
+                    "slug": "uuid=a9001&id=3C10-4&n=4",
+                    "description": "Lire une puissance"
+                  },
+                  {
                     "slug": "uuid=31bd7&n=4&d=10&s=1&s2=3&s3=1&s4=3&alea=yMey&cd=1",
                     "description": "Donner la signification de l'écriture"
                   },
