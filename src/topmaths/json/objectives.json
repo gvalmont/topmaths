@@ -2796,7 +2796,7 @@
                           "On veut les ranger du plus petit au plus grand, on commence donc par le plus petit pour aller vers le plus grand",
                           "Quel est le plus petit ici ?",
                           "Le recopier en dessous et barrer l'original",
-                          "Ce nombre est plus petit que lequel ? _écrire <_",
+                          "Ce nombre est plus petit que lequel ? _écrire \\<_",
                           "Parmi ceux qui restent, lequel est le plus petit ?",
                           "Recopier, barrer, ainsi de suite",
                           "À vous de jouer",
@@ -2813,7 +2813,7 @@
                           "On veut les ranger du plus grand au plus petit, on commence donc par le plus grand pour aller vers le plus petit",
                           "Quel est le plus grand ici ?",
                           "Le recopier en dessous et barrer l'original",
-                          "Ce nombre est plus grand que lequel ? _écrire >_",
+                          "Ce nombre est plus grand que lequel ? _écrire \\>_",
                           "Parmi ceux qui restent, lequel est le plus grand ?",
                           "Recopier, barrer, ainsi de suite",
                           "À vous de jouer",
@@ -3005,7 +3005,7 @@
                     "description": "Calculer sans schéma"
                   },
                   {
-                    "slug": "6N20,s=false,n=4",
+                    "slug": "6N20,n=4",
                     "description": "Séparer la partie entière"
                   },
                   {
