@@ -6981,12 +6981,12 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "4A12,s=1,n=1,cd=1",
-                    "description": "Nombres plus petits"
+                    "slug": "4A12,s=2,n=1,cd=1",
+                    "description": "Deux phénomènes qui se répètent"
                   },
                   {
-                    "slug": "4A12,s=2,n=1,cd=1",
-                    "description": "Nombres plus grands"
+                    "slug": "uuid=cb844&id=3A10-8",
+                    "description": "Partage de deux quantités"
                   }
                 ]
               }
