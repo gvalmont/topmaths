@@ -32,7 +32,6 @@ export default function renderScratch (selector = '') {
   })
   scales.forEach(scale => {
     scratchblocks.renderMatching(`${selector}pre.blocks2[scale="${scale}"]`, {
-      inline: true,
       style: 'scratch3',
       languages: ['fr'],
       scale

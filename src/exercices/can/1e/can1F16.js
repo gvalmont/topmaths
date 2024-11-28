@@ -1,12 +1,12 @@
 import { courbe } from '../../../lib/2d/courbes.js'
-import { repere } from '../../../lib/2d/reperes.js'
 import { latexParCoordonnees, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
-import { deuxColonnes } from '../../../lib/format/miseEnPage.js'
+import { deuxColonnesResp } from '../../../lib/format/miseEnPage.js'
+import RepereBuilder from '../../../lib/2d/RepereBuilder'
 
 export const titre = 'Déterminer une équation de tangente à partir des courbes de $f$ et $f’$'
 export const interactifReady = true
@@ -35,151 +35,100 @@ export default function LectureGraphiqueTangente () {
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
-    let f
-    let r1
-    let r2
-    let alpha
-    let beta
-    let F
-    let o
-    let nbre
-    let courbef
-    let courbefp
-    let colonne1, colonne2
     switch (choice([1, 2])) { //, 2
       case 1:// second degré (x-alpha)^2+beta
-        if (choice([true, false])) {
-          nbre = randint(0, 3)
-          alpha = randint(0, 2)
-          beta = randint(-2, 2)
-          f = function (x) { // fonction dérivée
-            return 2 * x - 2 * alpha
-          }
-          F = function (x) { // fonction
-            return (x - alpha) ** 2 + beta
-          }
-          while (f(nbre) === 0) {
+        {
+          let f, F, nbre, alpha, beta
+          if (choice([true, false])) {
             nbre = randint(0, 3)
             alpha = randint(0, 2)
             beta = randint(-2, 2)
-          }
-        } else {
-          nbre = randint(-2, 1)
-          alpha = randint(-2, 0)
-          beta = randint(-2, 2)
-          f = function (x) { // fonction dérivée
-            return 2 * x - 2 * alpha
-          }
-          F = function (x) { // fonction
-            return (x - alpha) ** 2 + beta
-          }
-          while (f(nbre) === 0) {
+            f = function (x) { // fonction dérivée
+              return 2 * x - 2 * alpha
+            }
+            F = function (x) { // fonction
+              return (x - alpha) ** 2 + beta
+            }
+            while (f(nbre) === 0) {
+              nbre = randint(0, 3)
+              alpha = randint(0, 2)
+              beta = randint(-2, 2)
+            }
+          } else {
             nbre = randint(-2, 1)
             alpha = randint(-2, 0)
             beta = randint(-2, 2)
+            f = function (x) { // fonction dérivée
+              return 2 * x - 2 * alpha
+            }
+            F = function (x) { // fonction
+              return (x - alpha) ** 2 + beta
+            }
+            while (f(nbre) === 0) {
+              nbre = randint(-2, 1)
+              alpha = randint(-2, 0)
+              beta = randint(-2, 2)
+            }
           }
-        }
 
-        o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
 
-        r1 = repere({
-          xMin: -4,
-          xMax: 4,
-          xUnite: 1.5,
-          yMin: -3, // Math.min(-3,F(nbre)-1)
-          yMax: 12,
-          thickHauteur: 0.2,
-          xLabelMin: -3,
-          xLabelMax: 3,
-          yLabelMax: 11,
-          yLabelMin: -3,
-          axeXStyle: '->',
-          axeYStyle: '->',
-          yLabelDistance: 2,
-          yLabelEcart: 0.8,
-          grilleSecondaire: true,
-          grilleSecondaireYDistance: 1,
-          grilleSecondaireXDistance: 1,
-          grilleSecondaireYMin: -3,
-          grilleSecondaireYMax: 12,
-          grilleSecondaireXMin: -4,
-          grilleSecondaireXMax: 4
-        })
-        r2 = repere({
-          xMin: -4,
-          xMax: 4,
-          xUnite: 1.5,
-          yMin: -5,
-          yMax: 8,
-          thickHauteur: 0.2,
-          xLabelMin: -3,
-          xLabelMax: 3,
-          yLabelMax: 11,
-          yLabelMin: -3,
-          axeXStyle: '->',
-          axeYStyle: '->',
-          yLabelDistance: 2,
-          yLabelEcart: 0.8,
-          grilleSecondaire: true,
-          grilleSecondaireYDistance: 1,
-          grilleSecondaireXDistance: 1,
-          grilleSecondaireYMin: -3,
-          grilleSecondaireYMax: 12,
-          grilleSecondaireXMin: -4,
-          grilleSecondaireXMax: 4
-        })
+          const r1 = new RepereBuilder({ xMin: -3, xMax: 3, yMin: -3, yMax: 12 })
+            .setUniteX(1.5)
+            .setUniteY(1.5)
+            .setLabelX({ xMin: -3, xMax: 3, dx: 3 })
+            .setLabelY({ yMin: -3, yMax: 11, dy: 3 })
+            .setGrille({ grilleX: { dx: 1, xMin: -3, xMax: 3 }, grilleY: { dy: 1, yMin: -3, yMax: 12 } })
+            .setGrilleSecondaire({ grilleX: { dx: 1, xMin: -3, xMax: 3 }, grilleY: { dy: 0.5, yMin: -3, yMax: 12, style: '' } })
+            .setThickX({ xMin: -3, xMax: 3, dx: 1.5 })
+            .setThickY({ yMin: -3, yMax: 12, dy: 1.5 })
+            .buildStandard()
 
-        f = x => 2 * x - 2 * alpha
-        F = x => (x - alpha) ** 2 + beta
-        courbef = latexParCoordonnees('\\Large \\cal C_f', 3, 10, 'blue', 1, 20, '', 8)
-        courbefp = latexParCoordonnees('\\Large\\cal C_f\\prime', 3, 6, 'red', 1, 20, '', 8)
-        colonne1 = mathalea2d({
-          xmin: -6,
-          xmax: 6,
-          ymin: -3,
-          ymax: 12,
-          style: 'display: inline',
-          pixelsParCm: 14,
-          scale: 0.4
-        },
-        r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })
-        )
-        colonne2 = mathalea2d({
-          xmin: -6,
-          xmax: 6,
-          ymin: -5,
-          ymax: 8,
-          style: 'display: inline',
-          pixelsParCm: 14,
-          scale: 0.4
-        },
-        r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })
-        )
-        this.question = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
+          const r2 = new RepereBuilder({ xMin: -3, xMax: 3, yMin: -5, yMax: 8 })
+            .setUniteX(1.5)
+            .setUniteY(1.5)
+            .setLabelX({ xMin: -3, xMax: 3, dx: 3 })
+            .setLabelY({ yMin: -3, yMax: 12, dy: 3 })
+            .setGrille({ grilleX: { dx: 1, xMin: -3, xMax: 3 }, grilleY: { dy: 1, yMin: -5, yMax: 8 } })
+            .setGrilleSecondaire({ grilleX: { dx: 1, xMin: -3, xMax: 3 }, grilleY: { dy: 0.5, yMin: -5, yMax: 8, style: '' } })
+            .setThickX({ xMin: -3, xMax: 3, dx: 1.5 })
+            .setThickY({ yMin: -3, yMax: 12, dy: 1.5 })
+            .buildStandard()
+
+          const courbef = latexParCoordonnees('\\Large \\cal C_f', 3, 10, 'blue', 1, 20, '', 8)
+          const courbefp = latexParCoordonnees('\\Large\\cal C_f\\prime', 3, 6, 'red', 1, 20, '', 8)
+
+          const objets1 = [r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })]
+          const objets2 = [r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })]
+          const colonne2 = mathalea2d(Object.assign({}, fixeBordures(objets2)), objets2)
+          const colonne1 = mathalea2d(Object.assign({}, fixeBordures(objets1)), objets1)
+          this.question = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
         Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br> `
-        this.question += deuxColonnes(colonne1, colonne2)
+          this.question += deuxColonnesResp(colonne1, colonne2, { largeur1: 50, widthmincol1: 100, widthmincol2: 100 })
 
-        this.correction = `L'équation réduite de la tangente au point d'abscisse $${nbre}$ est  : $y=f'(${nbre})(x-${ecritureParentheseSiNegatif(nbre)})+f(${nbre})$.<br>
+          this.correction = `L'équation réduite de la tangente au point d'abscisse $${nbre}$ est  : $y=f'(${nbre})(x-${ecritureParentheseSiNegatif(nbre)})+f(${nbre})$.<br>
         On lit graphiquement $f(${nbre})=${F(nbre)}$ et $f'(${nbre})=${f(nbre)}$.<br>
         L'équation réduite de la tangente est donc donnée par :
         $y=${f(nbre)}(x${ecritureAlgebrique(-nbre)})${ecritureAlgebrique(F(nbre))}$, soit `
-        if (-nbre * f(nbre) + F(nbre) === 0) {
-          this.correction += `$y=${rienSi1(f(nbre))}x$.`
-        } else {
-          this.correction += `$y=${rienSi1(f(nbre))}x${ecritureAlgebrique(-nbre * f(nbre) + F(nbre))}$.`
-        }
+          if (-nbre * f(nbre) + F(nbre) === 0) {
+            this.correction += `$y=${rienSi1(f(nbre))}x$.`
+          } else {
+            this.correction += `$y=${rienSi1(f(nbre))}x${ecritureAlgebrique(-nbre * f(nbre) + F(nbre))}$.`
+          }
 
-        this.reponse = [`y=${f(nbre)}x+${-nbre * f(nbre) + F(nbre)}`]
-        this.canEnonce = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
+          this.reponse = [`y=${f(nbre)}x+${-nbre * f(nbre) + F(nbre)}`]
+          this.canEnonce = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
         Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br>
 
         `
-        this.canEnonce += colonne1
-        this.canReponseACompleter = colonne2
+          this.canEnonce += colonne1
+          this.canReponseACompleter = colonne2
+        }
         break
 
       case 2:// second degré -(x-alpha)^2+beta
-
+      {
+        let f, F, nbre, alpha, beta
         if (choice([true, false])) {
           nbre = randint(0, 2)
           alpha = randint(0, 2)
@@ -212,84 +161,42 @@ export default function LectureGraphiqueTangente () {
           beta = randint(0, 3)
         }
 
-        o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+        const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+        const r1 = new RepereBuilder({ xMin: -4, xMax: 4, yMin: -8, yMax: 6 })
+          .setUniteX(2)
+          .setUniteY(2)
+          .setLabelX({ xMin: -4, xMax: 4, dx: 2 })
+          .setLabelY({ yMin: -8, yMax: 6, dy: 2 })
+          .setGrille({ grilleX: { dx: 1, xMin: -4, xMax: 4 }, grilleY: { dy: 1, yMin: -8, yMax: 6 } })
+          .setGrilleSecondaire({ grilleX: { dx: 1, xMin: -4, xMax: 4 }, grilleY: { dy: 0.5, yMin: -8, yMax: 6 } })
+          .setThickX({ xMin: -4, xMax: 4, dx: 2 })
+          .setThickY({ yMin: -8, yMax: 6, dy: 2 })
+          .buildStandard()
 
-        r1 = repere({
-          xMin: -4,
-          xMax: 4,
-          xUnite: 1.5,
-          yMin: -8, // Math.min(-3,F(nbre)-1)
-          yMax: 5,
-          thickHauteur: 0.2,
-          xLabelMin: -3,
-          xLabelMax: 3,
-          yLabelMax: 4,
-          yLabelMin: -7,
-          axeXStyle: '->',
-          axeYStyle: '->',
-          yLabelDistance: 2,
-          yLabelEcart: 0.8,
-          grilleSecondaire: true,
-          grilleSecondaireYDistance: 1,
-          grilleSecondaireXDistance: 1,
-          grilleSecondaireYMin: -8,
-          grilleSecondaireYMax: 6,
-          grilleSecondaireXMin: -4,
-          grilleSecondaireXMax: 4
-        })
-        r2 = repere({
-          xMin: -4,
-          xMax: 4,
-          xUnite: 1.5,
-          yMin: -8, // Math.min(-3,F(nbre)-1)
-          yMax: 6,
-          thickHauteur: 0.2,
-          xLabelMin: -3,
-          xLabelMax: 3,
-          yLabelMax: 5,
-          yLabelMin: -7,
-          axeXStyle: '->',
-          axeYStyle: '->',
-          yLabelDistance: 2,
-          yLabelEcart: 0.8,
-          grilleSecondaire: true,
-          grilleSecondaireYDistance: 1,
-          grilleSecondaireXDistance: 1,
-          grilleSecondaireYMin: -8,
-          grilleSecondaireYMax: 6,
-          grilleSecondaireXMin: -4,
-          grilleSecondaireXMax: 4
-        })
-        courbef = latexParCoordonnees('\\Large \\cal C_f', 3, 4, 'blue', 1, 20, '', 8)
-        courbefp = latexParCoordonnees('\\Large\\cal C_f\\prime', 3, 4, 'red', 1, 20, '', 8)
+        const r2 = new RepereBuilder({ xMin: -4, xMax: 4, yMin: -8, yMax: 6 })
+          .setUniteX(2)
+          .setUniteY(2)
+          .setLabelX({ xMin: -4, xMax: 4, dx: 2 })
+          .setLabelY({ yMin: -8, yMax: 5, dy: 2 })
+          .setGrille({ grilleX: { dx: 1, xMin: -4, xMax: 4 }, grilleY: { dy: 1, yMin: -8, yMax: 6 } })
+          .setGrilleSecondaire({ grilleX: { dx: 1, xMin: -4, xMax: 4 }, grilleY: { dy: 0.5, yMin: -8, yMax: 6 } })
+          .setThickX({ xMin: -4, xMax: 4, dx: 2 })
+          .setThickY({ yMin: -8, yMax: 6, dy: 2 })
+          .buildStandard()
+
+        const courbef = latexParCoordonnees('\\Large \\cal C_f', 3, 4, 'blue', 1, 20, '', 8)
+        const courbefp = latexParCoordonnees('\\Large\\cal C_f\\prime', 3, 4, 'red', 1, 20, '', 8)
 
         f = x => -2 * x + 2 * alpha
         F = x => (-1) * (x - alpha) ** 2 + beta
+        const objets1 = [r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })]
+        const objets2 = [r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })]
         this.question = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
       Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br> `
-        colonne1 = mathalea2d({
-          xmin: -6,
-          xmax: 6,
-          ymin: -8,
-          ymax: 5,
-          style: 'display: inline',
-          pixelsParCm: 16,
-          scale: 0.4
-        },
-        r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })
-        )
-        colonne2 = mathalea2d({
-          xmin: -6,
-          xmax: 6,
-          ymin: -8,
-          ymax: 6,
-          style: 'display: inline',
-          pixelsParCm: 14,
-          scale: 0.4
-        },
-        r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })
-        )
-        this.question += deuxColonnes(colonne1, colonne2)
+        const colonne1 = mathalea2d(Object.assign({}, fixeBordures(objets1)), objets1)
+        const colonne2 = mathalea2d(Object.assign({}, fixeBordures(objets2)), objets2)
+
+        this.question += deuxColonnesResp(colonne1, colonne2, { largeur1: 50, widthmincol1: 100, widthmincol2: 100 })
         this.correction = `L'équation réduite de la tangente au point d'abscisse $${nbre}$ est  : $y=f'(${nbre})(x-${ecritureParentheseSiNegatif(nbre)})+f(${nbre})$.<br>
       On lit graphiquement $f(${nbre})=${F(nbre)}$ et $f'(${nbre})=${f(nbre)}$.<br>
       L'équation réduite de la tangente est donc donnée par :
@@ -308,6 +215,7 @@ export default function LectureGraphiqueTangente () {
 
         this.canReponseACompleter = colonne2
         break
+      }
     }
   }
 }

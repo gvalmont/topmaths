@@ -1438,7 +1438,7 @@ export function ensembleNombres (input: string, goodAnswer: string, {
 
   const AllExist = inputSorted.every(value => {
     for (let index = 0; index < goodAnswerSorted.length; index++) {
-      if (engine.parse(value).isSame(engine.parse(goodAnswerSorted[index]))) {
+      if (engine.parse(value).isEqual(engine.parse(goodAnswerSorted[index]))) { // Laisser isEqual car avec certaines fractions, on a des misères
         return true // L'élément est trouvé
       }
     }

@@ -102,11 +102,13 @@ export function verifQuestionQcm (exercice, i) {
   if (nbBonnesReponsesAttendues > nbBonnesReponses) {
     message += ` ${nbBonnesReponsesAttendues - nbBonnesReponses} bonne${nbBonnesReponsesAttendues - nbBonnesReponses > 1 ? 's' : ''} réponse${nbBonnesReponsesAttendues - nbBonnesReponses > 1 ? 's' : ''} manquante${nbBonnesReponsesAttendues - nbBonnesReponses > 1 ? 's' : ''}`
   }
-  messageFeedback({
-    id: `resultatCheckEx${exercice.numeroExercice}Q${i}`,
-    message,
-    type: typeFeedback
-  })
+  if (message !== '') {
+    messageFeedback({
+      id: `resultatCheckEx${exercice.numeroExercice}Q${i}`,
+      message,
+      type: typeFeedback
+    })
+  }
   return resultat
 }
 

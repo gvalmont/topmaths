@@ -16,7 +16,6 @@ export const dateDeModifImportante = '15/10/2022' // Ajout du programme équival
 /**
 * Traduire un programme de calcul par une expression littérale de la forme ax+b après simplification
 * @author Rémi Angot
-* 5L10-2
 * Ajout de la possibilité d'afficher un résultat qui n'est pas développé par Guillaume Valmont le 11/05/2022
 */
 export const uuid = '12bb6'

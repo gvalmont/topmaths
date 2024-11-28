@@ -25,7 +25,7 @@ export const uuid = 'ba520'
 export const ref = '3F10-2'
 export const refs = {
   'fr-fr': ['3F10-2'],
-  'fr-ch': ['10FA5-6', '11FA8-2', '1F1-3']
+  'fr-ch': ['10FA5-6', '11FA8-2', '1F1-10']
 }
 export default function CalculsImagesFonctions () {
   Exercice.call(this)

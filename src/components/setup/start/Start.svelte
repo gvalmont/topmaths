@@ -470,7 +470,7 @@
             </button>
             <div
               id="choiceMenuWrapper"
-              class="!visible w-full overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+              class="!visible w-full overflow-y-visible overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
               data-te-collapse-item
               data-te-collapse-show
             >

@@ -7,7 +7,7 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 
 export const uuid = '9a8e7'
 export const refs = {
-  'fr-fr': ['3A10DNB'],
+  'fr-fr': ['3A10DNB0'],
   'fr-ch': []
 }
 export const titre = 'Problème de partage'

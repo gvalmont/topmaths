@@ -45,7 +45,7 @@ export default class EtudeParabole extends Exercice {
     const p = EquationSecondDegre.aPartirDesSolutions(s1, s2, a, { variable: 'x', format: 'reduit' })
     const pPoly = p.polynomeFormeReduite()
     const pAlpha = p.coefficients[1].oppose().diviseFraction(p.coefficients[0].multiplieEntier(2).simplifie())
-    const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+    const o = texteParPosition('O', -0.3, -0.3, undefined, 'black', undefined, 'milieu', undefined, 1)
     this.consigne = `On considère la fonction $f(x)=${p.printToLatexMDG()}$.`
     let question1 = 'Déterminer la forme canonique de $f$.'
     question1 += ' En déduire, les coordonnées du sommet du graphe de $f$.'

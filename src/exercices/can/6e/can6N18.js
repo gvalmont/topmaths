@@ -1,10 +1,12 @@
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { calculCompare } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Encadrer à la dizaine, centaine'
 export const interactifReady = true
@@ -12,7 +14,7 @@ export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '16/11/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-
+export const dateDeModificationImportante = '26/11/2024'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
@@ -46,12 +48,17 @@ export default function EncadrerDizaine () {
             question1 = `Encadrer $${texNombre(N)}$ entre deux dizaines consécutives.`
 
             if (this.interactif) {
-              question1 += '<br>' + ajouteChampTexteMathLive(this, 2 * i, '') + `$< ${texNombre(N)} < $` + ajouteChampTexteMathLive(this, 2 * i + 1, ' ')
+              question1 += '<br>' + remplisLesBlancs(this, i, `%{champ1}< ${texNombre(N)} <  %{champ2}`, KeyboardType.clavierDeBase)
             }
 
             correction1 = `$${miseEnEvidence(`${texNombre(um + c + d)}`)} < ${texNombre(N)}< ${miseEnEvidence(`${texNombre(um + c + d + 10)}`)}$ `
-            setReponse(this, 2 * i, um + c + d)
-            setReponse(this, 2 * i + 1, um + c + d + 10)
+            handleAnswers(this, i, {
+              bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+              champ1: { value: `${um + c + d}`, compare: calculCompare },
+              champ2: { value: `${um + c + d + 10}`, compare: calculCompare }
+            },
+            { formatInteractif: 'mathlive' }
+            )
             this.canEnonce = question1
             this.canReponseACompleter = `$\\ldots < ${texNombre(N)}< \\ldots$`
           }
@@ -68,12 +75,16 @@ export default function EncadrerDizaine () {
             question1 = `Encadrer $${texNombre(N)}$ entre deux centaines consécutives.`
 
             if (this.interactif) {
-              question1 += '<br>' + ajouteChampTexteMathLive(this, 2 * i, '') + `$< ${texNombre(N)} < $` + ajouteChampTexteMathLive(this, 2 * i + 1, ' ')
+              question1 += '<br>' + remplisLesBlancs(this, i, `%{champ1}< ${texNombre(N)} <  %{champ2}`, KeyboardType.clavierDeBase)
             }
-
+            handleAnswers(this, i, {
+              bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+              champ1: { value: `${um + c}`, compare: calculCompare },
+              champ2: { value: `${um + c + 100}`, compare: calculCompare }
+            },
+            { formatInteractif: 'mathlive' }
+            )
             correction1 = `$${miseEnEvidence(`${texNombre(um + c)}`)} < ${texNombre(N)}< ${miseEnEvidence(`${texNombre(um + c + 100)}`)}$ `
-            setReponse(this, 2 * i, um + c)
-            setReponse(this, 2 * i + 1, um + c + 100)
             this.canEnonce = question1
             this.canReponseACompleter = `$\\ldots < ${texNombre(N)}< \\ldots$`
           }

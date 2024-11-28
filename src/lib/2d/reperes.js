@@ -267,7 +267,9 @@ export function DroiteGraduee ({
       T.opacite = pointOpacite
       T.style = pointStyle
       T.epaisseur = pointEpaisseur
-      lab = latexParCoordonnees(
+      lab = latex2d(p[1], x - 0.8 * absord[1] + (p[0] - Min) * absord[0] * Unite,
+        y + 0.8 * absord[0] + (p[0] - Min) * absord[1] * Unite, { color: pointCouleur })
+      /* lab = latexParCoordonnees(
         p[1],
         x - 0.8 * absord[1] + (p[0] - Min) * absord[0] * Unite,
         y + 0.8 * absord[0] + (p[0] - Min) * absord[1] * Unite,
@@ -276,7 +278,7 @@ export function DroiteGraduee ({
         labelPointTaille,
         '',
         labelPointTaille
-      )
+      ) */
       objets.push(T, lab)
     }
   }
@@ -1477,7 +1479,7 @@ export function Repere ({
   grilleSecondaire = false,
   grilleSecondaireDistance = 1,
   grilleSecondaireCouleur = 'gray',
-  grilleSecondaireOpacite = 0.1,
+  grilleSecondaireOpacite = 0.3,
   grilleSecondaireEpaisseur = 1,
   grilleX = grille,
   grilleXListe = [],

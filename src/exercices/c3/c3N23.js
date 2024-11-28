@@ -21,4 +21,5 @@ export default function LireUneAbscisseAvecZoomCM () {
   LireUneAbscisseAvecZoom.call(this)
   this.niveau = 'CM'
   this.sup = 1
+  this.besoinFormulaireNumerique = false
 }

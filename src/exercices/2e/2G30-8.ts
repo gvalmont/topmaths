@@ -46,7 +46,7 @@ export default class ExerciceEquationSecondDegre extends Exercice {
     const choixCoeff = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       min: 1,
-      max: 1,
+      max: 2,
       melange: 3,
       defaut: 3,
       listeOfCase: ['entier', 'fraction'],

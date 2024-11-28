@@ -70,7 +70,7 @@ export default function LireUneAbscisseAvecZoom () {
       let x3 = 0
       const objets = []
       let fenetre
-      let thickOff = 0
+      const thickOff = 0
       const objetsCorr = []
       let xmin
       let xmax
@@ -92,7 +92,6 @@ export default function LireUneAbscisseAvecZoom () {
       if (this.sup === 1) {
         if (this.niveau === 'CM') {
           xmin = 0
-          thickOff = 0
           origine = 0
           extreme = 9
           xmax = 9
@@ -100,7 +99,6 @@ export default function LireUneAbscisseAvecZoom () {
           xmin = randint(5, 10) - 0.2
           origine = Math.round(xmin + 0.2)
           extreme = origine + 9
-          thickOff = 0.1
           xmax = origine + 9.2
         }
 
@@ -125,7 +123,7 @@ export default function LireUneAbscisseAvecZoom () {
           axeHauteur: 4,
           labelsPrincipaux: false,
           labelListe: [[origine, `${stringNombre(origine)}`], [extreme, `${stringNombre(extreme)}`]],
-          pointListe: [[x1, `${noms[1]}`], [x1.floor(), `${noms[0]}`], [x1.add(1).floor(), `${noms[2]}`]],
+          pointListe: [[x1.toNumber(), `${noms[1]}`], [x1.floor(), `${noms[0]}`], [x1.add(1).floor(), `${noms[2]}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
@@ -135,7 +133,7 @@ export default function LireUneAbscisseAvecZoom () {
         })
 
         d2 = droiteGraduee({
-          x: x1.sub(xmin).add(1.5).floor().toNumber(),
+          x: x1.floor().sub(xmin).add(1.5).toNumber(),
           y: 0,
           Min: x1.floor().toNumber(),
           axePosition: 'H',
@@ -148,7 +146,7 @@ export default function LireUneAbscisseAvecZoom () {
           axeCouleur: 'black',
           axeHauteur: 4,
           labelsPrincipaux: false,
-          pointListe: [[x1, `${noms[1]}`], [x1.floor(), `${noms[0]}`], [x1.add(1).floor(), `${noms[2]}`]],
+          pointListe: [[x1.toNumber(), `${noms[1]}`], [x1.floor(), `${noms[0]}`], [x1.add(1).floor(), `${noms[2]}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
@@ -171,7 +169,7 @@ export default function LireUneAbscisseAvecZoom () {
           axeHauteur: 4,
           labelsPrincipaux: true,
           labelListe: [[origine, `${stringNombre(origine)}`], [extreme, `${stringNombre(extreme)}`]],
-          pointListe: [[x1, `${noms[1]}`], [x1.floor(), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
+          pointListe: [[x1.toNumber(), `${noms[1]}`], [x1.floor(), `${noms[0]}`], [x1.ceil(), `${noms[2]}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
@@ -194,8 +192,8 @@ export default function LireUneAbscisseAvecZoom () {
           axeHauteur: 4,
           labelsPrincipaux: false,
           labelsSecondaires: true,
-          labelListe: [[x1.floor(), `${stringNombre(x1.floor())}`], [x1, `${stringNombre(x1)}`], [Math.ceil(x1), `${stringNombre(Math.ceil(x1))}`]],
-          pointListe: [[x1, `${noms[1]}`], [x1.floor(), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
+          // labelListe: [[x1.floor(), `${stringNombre(x1.floor())}`], [x1, `${stringNombre(x1)}`], [Math.ceil(x1), `${stringNombre(Math.ceil(x1))}`]],
+          pointListe: [[x1.toNumber(), `${noms[1]}`], [x1.floor(), `${noms[0]}`], [x1.add(1).floor(), `${noms[2]}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
@@ -228,10 +226,8 @@ export default function LireUneAbscisseAvecZoom () {
       } else if (this.sup === 2) {
         if (this.niveau === 'CM') {
           xmin = 0
-          thickOff = 0
         } else {
           xmin = randint(1, 15) - 0.02
-          thickOff = 0.01
         }
         let alea1 = new Decimal(randint(2, 8)).div(10)
         const alea2 = new Decimal(randint(2, 8)).div(100)
@@ -262,7 +258,7 @@ export default function LireUneAbscisseAvecZoom () {
           thickTerDist: 0.01,
           labelsPrincipaux: false,
           labelListe: [[x1.floor(), `${x1.floor()}`], [Math.ceil(x1), `${Math.ceil(x1)}`]],
-          pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
+          pointListe: [[x1.toNumber(), `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
@@ -287,7 +283,7 @@ export default function LireUneAbscisseAvecZoom () {
           thickSecDist: 0.01,
           thickTerDist: 0.001,
           labelsPrincipaux: false,
-          pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x2.add(0.1), `${noms[2]}`]],
+          pointListe: [[x1.toNumber, `${noms[1]}`], [x2, `${noms[0]}`], [x2.add(0.1), `${noms[2]}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
@@ -312,8 +308,8 @@ export default function LireUneAbscisseAvecZoom () {
           thickSecDist: 0.1,
           thickTerDist: 0.01,
           labelsSecondaires: true,
-          labelListe: [[x1.floor(), `${x1.floor()}`], [Math.ceil(x1), `${Math.ceil(x1)}`]],
-          pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
+          labelListe: [[x1.floor(), `${x1.floor()}`], [x1.ceil(), `${x1.ceil()}`]],
+          pointListe: [[x1.toNumber(), `${noms[1]}`], [x2.toNumber(), `${noms[0]}`], [x3.toNumber(), `${noms[2]}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
@@ -339,8 +335,8 @@ export default function LireUneAbscisseAvecZoom () {
           thickTerDist: 0.001,
           labelsPrincipaux: false,
           labelsSecondaires: true,
-          labelListe: [[x2, `${stringNombre(x2)}`], [x1, `${stringNombre(x1)}`], [x3, `${stringNombre(x3)}`]],
-          pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x2.add(0.1), `${noms[2]}`]],
+          labelListe: [[x2.toNumber(), `${stringNombre(x2)}`], [x1.toNumber(), `${stringNombre(x1)}`], [x3.toNumber(), `${stringNombre(x3)}`]],
+          pointListe: [[x1.toNumber(), `${noms[1]}`], [x2.toNumber(), `${noms[0]}`], [x2.add(0.1).toNumber(), `${noms[2]}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
@@ -371,10 +367,8 @@ export default function LireUneAbscisseAvecZoom () {
       } else { // this.sup === 3
         if (this.niveau === 'CM') {
           xmin = 0
-          thickOff = 0
         } else {
           xmin = randint(1, 15)
-          thickOff = 0.001
         }
         let alea1 = new Decimal(randint(2, 8)).div(10)
         const alea2 = new Decimal(randint(2, 8)).div(100)
@@ -393,9 +387,9 @@ export default function LireUneAbscisseAvecZoom () {
         d1 = droiteGraduee({
           x: 0,
           y: 6,
-          Min: xmin.toNumber() - 0.002,
+          Min: xmin.toNumber(),
           axePosition: 'H',
-          Max: xmax.toNumber() + 0.002,
+          Max: xmax.toNumber(),
           thickSec: true,
           thickTer: true,
           Unite: 30,
@@ -406,7 +400,7 @@ export default function LireUneAbscisseAvecZoom () {
           thickCouleur: 'black',
           axeCouleur: 'black',
           axeHauteur: 6,
-          labelsPrincipaux: true,
+          labelsPrincipaux: false,
           labelListe: [[xmin, `${stringNombre(xmin)}`], [xmax, `${stringNombre(xmax)}`]],
           pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
           pointTaille: 6,
@@ -480,7 +474,7 @@ export default function LireUneAbscisseAvecZoom () {
           thickCouleur: 'black',
           axeCouleur: 'black',
           axeHauteur: 6,
-          labelsPrincipaux: true,
+          labelsPrincipaux: false,
           labelsSecondaires: true,
           labelListe: [[xmin, `${stringNombre(xmin)}`], [xmax, `${stringNombre(xmax)}`]],
           pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
@@ -535,7 +529,6 @@ export default function LireUneAbscisseAvecZoom () {
           labelsPrincipaux: false,
           labelsSecondaires: true,
           pointListe: [[x1, `${noms[1]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
-          labelListe: [[x21, `${stringNombre(x21)}`], [x31, `${stringNombre(x31)}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',

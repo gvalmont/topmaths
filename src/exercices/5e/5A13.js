@@ -38,14 +38,10 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
   this.sup3 = false // Que pour les 2ndes
   this.sup4 = false // Decomposition avec des puissances
   this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
-  this.correctionDetaillee = false // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
+  this.correctionDetaillee = true // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? "Écrire les nombres suivants sous la forme d'un produit de facteurs premiers." : "Écrire le nombre suivant sous la forme d'un produit de facteurs premiers."
-    if (this.level === 2) {
-      this.sup = 3
-      this.sup2 = true
-    }
     let grandNombres
     let listeFacteurs1, listeFacteurs2
     if (this.sup3) {
@@ -161,7 +157,7 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
           propositions: [{ texte: texteCorr, statut: 5, sanscadre: false, pointilles: true, feedback: '' }]
         }
       }
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: ' $=$' })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets, { texteAvant: ' $=$' })
       /* if (!context.isAmc) {
         setReponse(this, i, [reponse, produitAvecPuissances])
       } */

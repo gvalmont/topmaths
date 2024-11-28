@@ -19,7 +19,7 @@ export const uuid = 'b92da'
 export const ref = '3F10'
 export const refs = {
   'fr-fr': ['3F10'],
-  'fr-ch': ['10FA5-4', '1F1-4']
+  'fr-ch': ['10FA5-4', '1F1-6']
 }
 export default function ImageAntecedentDepuisTableauOuFleche () {
   Exercice.call(this)

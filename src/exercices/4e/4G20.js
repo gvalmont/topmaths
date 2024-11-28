@@ -95,10 +95,10 @@ export function pythagoreCompare (input, goodAnswer) {
         return { isOk: false, feedback: 'Il manque au moins un carré.' }
       }
     }
-    const L1 = ordreAlphabetique(inputT1.ops[0].toString()) // on met la longeur saisie dans l'ordre alphabétique
-    const L2 = ordreAlphabetique(inputT2.ops[0].toString())// on met la longeur saisie dans l'ordre alphabétique
-    const LL1 = answerT1.ops[0].toString() // Ces longueurs sont déjà dans l'ordre alphabétique
-    const LL2 = answerT2.ops[0].toString()
+    const L1 = ordreAlphabetique(inputT1.ops[0].toString()).replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
+    const L2 = ordreAlphabetique(inputT2.ops[0].toString()).replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
+    const LL1 = answerT1.ops[0].toString().replaceAll('"', '') // Ces longueurs sont déjà dans l'ordre alphabétique
+    const LL2 = answerT2.ops[0].toString().replaceAll('"', '')
     if ((LL1 === L1 && LL2 === L2) || (LL1 === L2 && LL2 === L1 && !isSub)) return { isOk: true }
     else return { isOk: false, feedback: 'Regarde bien la correction.' }
   }

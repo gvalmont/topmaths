@@ -369,7 +369,7 @@ export function scratchblock (stringLatex) {
   if (!context.isHtml) {
     codeScratch = stringLatex
   } else {
-    const regex = /scale=(\d+)/
+    const regex = /scale=([\d.]+)/
     const matches = stringLatex.match(regex)
     if (matches) {
       const scale = matches[0]

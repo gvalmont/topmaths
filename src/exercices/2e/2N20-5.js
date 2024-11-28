@@ -1,5 +1,5 @@
 import ExerciceDecomposerEnFacteursPremiers from '../5e/5A13.js'
-export const titre = 'Décomposition en facteurs premiers'
+export const titre = 'Décomposer en facteurs premiers'
 export const dateDeModifImportante = '2/11/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,8 +17,7 @@ export const refs = {
 }
 export default function ExerciceDecomposerEnFacteursPremiers2nde () {
   ExerciceDecomposerEnFacteursPremiers.call(this)
-  this.level = 2
   this.sup3 = true
-  this.besoinFormulaireNumerique = false
-  this.besoinFormulaire2CaseACocher = false
+  this.sup = 3
+  this.sup2 = true
 }
