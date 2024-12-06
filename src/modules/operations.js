@@ -201,7 +201,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
         sop1 = ' ' + sop1
       }
     }
-    // les deux operandes ont le même nombre de chiffres
+    // les deux opérandes ont le même nombre de chiffres
     for (let i = longueuroperandes - 1; i > 0; i--) { // on construit la chaine des retenues.
       chiffreop1 = isNaN(parseInt(sop1[i], base)) ? 0 : parseInt(sop1[i], base)
       chiffreop2 = isNaN(parseInt(sop2[i], base)) ? 0 : parseInt(sop2[i], base)
@@ -236,7 +236,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
   }
 
   const SoustractionPosee3d = function (operande1, operande2, base, retenuesOn = true, methodeParCompensation = true, calculer = true) {
-    if (operande1 < operande2) {
+    if (operande1.lessThan(operande2)) {
       return `Je ne sais pas faire de soustraction avec un résultat négatif, or ici $${texNombre(operande1)} < ${texNombre(operande2)}$.`
     }
     if (operande2 === 0) return `Lorsqu'on soustrait 0, le résultat est le nombre initial, ici $${texNombre(operande1)}$.`
@@ -479,7 +479,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     if (dec1 !== 0) { objets.push(texteParPosition(',', 0.3 + (longueurtotale - dec1) * espacement, 7, 0, 'black', 1.2, 'milieu', false)) }
     if (dec2 !== 0) { objets.push(texteParPosition(',', 0.3 + (longueurtotale - dec2) * espacement, 6, 0, 'black', 1.2, 'milieu', false)) }
     // Les produits partiels
-    if (calculer) {
+    if (calculer && lop2 !== 1) {
       for (let j = 0; j < lop2; j++) {
         if (sop2[longueurtotale - j] !== '0') {
           for (let i = 0; i <= longueurtotale; i++) {
@@ -498,15 +498,15 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       }
     }
     // Les traits horizontaux
-    if (calculer) objets.push(segment(0, 5.2 - lop2 + lignesinutiles, (longueurtotale + 1) * espacement, 5.2 - lop2 + lignesinutiles))
-    objets.push(segment(0, 5.7, (longueurtotale + 1) * espacement, 5.7))
+    if (calculer && lop2 !== 1) objets.push(segment(0, 5.2 - lop2 + lignesinutiles, (longueurtotale + 1) * espacement, 5.2 - lop2 + lignesinutiles))
+    objets.push(segment(0, 5.5, (longueurtotale + 1) * espacement, 5.5))
     if (calculer) {
       // Le résultat et sa virgule
       for (let i = 0; i <= longueurtotale; i++) {
-        if (sresultat[i] !== ' ') objets.push(texteParPosition(sresultat[i], i * espacement, 4.5 - lop2 + lignesinutiles, 0, 'black', 1.2, 'milieu', false))
+        if (sresultat[i] !== ' ') objets.push(texteParPosition(sresultat[i], i * espacement, 4.5 - (lop2 === 1 ? 0 : lop2) + lignesinutiles, 0, 'black', 1.2, 'milieu', false))
       }
       if (dec1 + dec2 !== 0) {
-        objets.push(texteParPosition(',', 0.3 + (longueurtotale - dec2 - dec1) * espacement, 4.5 - lop2 + lignesinutiles, 0, 'black', 1.2, 'milieu', false))
+        objets.push(texteParPosition(',', 0.3 + (longueurtotale - dec2 - dec1) * espacement, 4.5 - (lop2 === 1 ? 0 : lop2) + lignesinutiles, 0, 'black', 1.2, 'milieu', false))
       }
       for (let j = 1; j < lop2 - lignesinutiles; j++) {
         objets.push(texteParPosition('+', 0, 5 + j - lop2 + lignesinutiles, 0, 'black', 1.2, 'milieu', false))

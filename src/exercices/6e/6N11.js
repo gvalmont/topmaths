@@ -15,7 +15,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   handleAnswers
 } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
+import { texteGras } from '../../lib/outils/embellissements'
 import { latex2d } from '../../lib/2d/textes'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -141,12 +141,13 @@ export default function LireAbscisseEntiere2d () {
         pointTaille: 5,
         pointStyle: 'x',
         labelsPrincipaux: false,
+        labelColor: '#F15929',
         thickSec: true,
         step1: 10,
         labelListe: [
-          [x1, miseEnEvidence(texNombre(reponse1, 0))],
-          [x2, miseEnEvidence(texNombre(reponse2, 0))],
-          [x3, miseEnEvidence(texNombre(reponse3, 0))]
+          [x1, `\\boldsymbol{${texNombre(reponse1, 0)}}`],
+          [x2, `\\boldsymbol{${texNombre(reponse2, 0)}}`],
+          [x3, `\\boldsymbol{${texNombre(reponse3, 0)}}`]
         ],
         pointListe: [
           [x1, l1],

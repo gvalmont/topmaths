@@ -32,6 +32,8 @@ export default class SommeDeVecteurs extends Exercice {
      * @type {Figure[]}
    */
   figureApigCorr = []
+  pointExtremite = []
+  nomExtremite = []
 
   constructor () {
     super()
@@ -57,13 +59,13 @@ export default class SommeDeVecteurs extends Exercice {
     })
     this.figureApig = []
     this.figureApigCorr = []
+    this.pointExtremite = []
+    this.nomExtremite = []
     let choix = 1
     let choixU
     let choixV
     const xSomme = []
     const ySomme = []
-    const nomExtremite = []
-    const pointExtremite = []
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -182,10 +184,10 @@ export default class SommeDeVecteurs extends Exercice {
       const numeroOrigine = randint(1, 26, [15]) // 15 : Pour éviter le point O
       const nomOrigine = lettreDepuisChiffre(numeroOrigine)
       const numeroExtremite = randint(1, 26, [15, numeroOrigine])
-      nomExtremite[i] = lettreDepuisChiffre(numeroExtremite)
+      this.nomExtremite[i] = lettreDepuisChiffre(numeroExtremite)
       let pointOrigine = this.figureApig[i].create('Point', { x: xOrigin, y: yOrigin, label: nomOrigine, color: 'black', thickness: 3, isSelectable: false })
       const pointOrigineCorrection = this.figureApigCorr[i].create('Point', { x: xOrigin, y: yOrigin, label: nomOrigine, color: 'black', thickness: 3, isSelectable: false })
-      pointExtremite[i] = this.figureApig[i].create('Point', { x: xOrigin + xSomme[i], y: yOrigin + ySomme[i], isVisible: false })
+      this.pointExtremite[i] = this.figureApig[i].create('Point', { x: xOrigin + xSomme[i], y: yOrigin + ySomme[i], isVisible: false })
 
       let distanceOrigineProjOrthogonal
       let distancePointIntermediaireProjOrthogonal
@@ -204,14 +206,14 @@ export default class SommeDeVecteurs extends Exercice {
         // console.info('limitxdroite:', limitxdroite)
         // console.info('limitygauche:', limitygauche)
         // console.info('limitydroite:', limitydroite)
-        if (pointExtremite[i].x >= pointOrigine.x) {
+        if (this.pointExtremite[i].x >= pointOrigine.x) {
           xPointIntermediaire = randint(pointOrigine.x, pointOrigine.x + limitxdroite)
-          xPointSecondIntermediaire = pointExtremite[i].x + pointOrigine.x - xPointIntermediaire
+          xPointSecondIntermediaire = this.pointExtremite[i].x + pointOrigine.x - xPointIntermediaire
           // console.info('xPointIntermediaire:', xPointIntermediaire)
           // console.info('xPointSecondIntermediaire:', xPointSecondIntermediaire)
         } else {
           xPointIntermediaire = randint(pointOrigine.x - limitxgauche, pointOrigine.x)
-          xPointSecondIntermediaire = pointExtremite[i].x + pointOrigine.x - xPointIntermediaire
+          xPointSecondIntermediaire = this.pointExtremite[i].x + pointOrigine.x - xPointIntermediaire
           // console.info('xPointIntermediaire:', xPointIntermediaire)
           // console.info('xPointSecondIntermediaire:', xPointSecondIntermediaire)
         }
@@ -225,14 +227,14 @@ export default class SommeDeVecteurs extends Exercice {
           xPointSecondIntermediaire++
           xPointIntermediaire--
         }
-        if (pointExtremite[i].y >= pointOrigine.y) {
+        if (this.pointExtremite[i].y >= pointOrigine.y) {
           yPointIntermediaire = randint(pointOrigine.y, pointOrigine.y + limitydroite)
-          yPointSecondIntermediaire = pointExtremite[i].y + pointOrigine.y - yPointIntermediaire
+          yPointSecondIntermediaire = this.pointExtremite[i].y + pointOrigine.y - yPointIntermediaire
           // console.info('yPointIntermediaire:', yPointIntermediaire)
           // console.info('yPointSecondIntermediaire:', yPointSecondIntermediaire)
         } else {
           yPointIntermediaire = randint(pointOrigine.y - limitygauche, pointOrigine.y)
-          yPointSecondIntermediaire = pointExtremite[i].y + pointOrigine.y - yPointIntermediaire
+          yPointSecondIntermediaire = this.pointExtremite[i].y + pointOrigine.y - yPointIntermediaire
           // console.info('yPointIntermediaire:', yPointIntermediaire)
           // console.info('yPointSecondIntermediaire:', yPointSecondIntermediaire)
         }
@@ -251,8 +253,8 @@ export default class SommeDeVecteurs extends Exercice {
         distancePointIntermediaireProjOrthogonal = Math.sqrt((xPointIntermediaire - pointOrigine.x) * (xPointIntermediaire - pointOrigine.x) + (yPointIntermediaire - pointOrigine.y) * (yPointIntermediaire - pointOrigine.y))
         distanceVecteurSommeProfOrthogonal = Math.sqrt(distancePointIntermediaireProjOrthogonal * distancePointIntermediaireProjOrthogonal - distanceOrigineProjOrthogonal * distanceOrigineProjOrthogonal)
         // console.info('distanceVecteurSommeProfOrthogonal:', distanceVecteurSommeProfOrthogonal)
-        vecteur2.x = pointExtremite[i].x - xPointIntermediaire
-        vecteur2.y = pointExtremite[i].y - yPointIntermediaire
+        vecteur2.x = this.pointExtremite[i].x - xPointIntermediaire
+        vecteur2.y = this.pointExtremite[i].y - yPointIntermediaire
         // console.info('aire:', distanceVecteurSommeProfOrthogonal * longueurVecteurSomme / 2)
         // console.info('indice:', indice)
         indice++
@@ -299,7 +301,7 @@ export default class SommeDeVecteurs extends Exercice {
 
       pointOrigine = this.figureApig[i].create('Point', { x: xOrigin, y: yOrigin, label: nomOrigine, color: 'black', thickness: 3, isSelectable: false })
       this.figureApigCorr[i].create('Point', { x: xOrigin, y: yOrigin, label: nomOrigine, color: 'black', thickness: 3, isSelectable: false })
-      texte = `Construire le point $${nomExtremite[i]}$ tel que $\\overrightarrow{${nomOrigine}${nomExtremite[i]}} = \\vec{u} + \\vec{v}$.<br>`
+      texte = `Construire le point $${this.nomExtremite[i]}$ tel que $\\overrightarrow{${nomOrigine}${this.nomExtremite[i]}} = \\vec{u} + \\vec{v}$.<br>`
       texte += figureApigeom({
         exercice: this,
         figure: this.figureApig[i],
@@ -370,42 +372,12 @@ export default class SommeDeVecteurs extends Exercice {
       }
 
       this.figureApigCorr[i].create('Vector', { origin: pointOrigineCorrection, x: xSomme[i], y: ySomme[i], color: orangeMathalea, thickness: 3 })
-      this.figureApigCorr[i].create('Point', { x: pointExtremite[i].x, y: pointExtremite[i].y, colorLabel: orangeMathalea, color: orangeMathalea, label: nomExtremite[i] })
+      this.figureApigCorr[i].create('Point', { x: this.pointExtremite[i].x, y: this.pointExtremite[i].y, colorLabel: orangeMathalea, color: orangeMathalea, label: this.nomExtremite[i] })
 
       this.figureApigCorr[i].saveState()
 
       texteCorr = figureApigeom({ animation: true, exercice: this, i, idAddendum: 'Correction', figure: this.figureApigCorr[i] })
-      texteCorr += `Le point $${nomExtremite[i]}$ tel que $\\overrightarrow{${nomOrigine}${nomExtremite[i]}} = \\vec{u} + \\vec{v}$ a pour coordonnées ${texteEnCouleurEtGras(`( ${pointExtremite[i].x} ; ${pointExtremite[i].y} )`)}.<br>`
-
-      this.correctionInteractive = (i) => {
-        if (this.answers == null) this.answers = {}
-        // Sauvegarde de la réponse pour Capytale
-        this.answers[this.figureApig[i].json] = this.figureApig[i].json
-        const divFeedback = document.querySelector(
-          `#feedbackEx${this.numeroExercice}Q${i}`
-        )
-        const divCheck = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-
-        this.figureApig[i].isDynamic = false
-        this.figureApig[i].divButtons.style.display = 'none'
-        this.figureApig[i].divUserMessage.style.display = 'none'
-        const nbPoints = [...this.figureApig[i].elements.values()].filter(
-          (e) => e.type === 'Point' && e.isVisible && !e.isChild
-        ).length
-        const onePointWasAdded = nbPoints >= 3
-
-        if (!onePointWasAdded) {
-          if (divFeedback) {
-            divFeedback.innerHTML = 'Aucun point n\'a été créé.'
-          }
-          return 'KO'
-        }
-
-        const resultatCheck = this.figureApig[i].checkCoords({ label: nomExtremite[i], x: pointExtremite[i].x, y: pointExtremite[i].y })
-        divFeedback.innerHTML = resultatCheck.message
-        if (divCheck) divCheck.innerHTML = resultatCheck.isValid ? '😎' : '☹️'
-        return resultatCheck.isValid ? 'OK' : 'KO'
-      }
+      texteCorr += `Le point $${this.nomExtremite[i]}$ tel que $\\overrightarrow{${nomOrigine}${this.nomExtremite[i]}} = \\vec{u} + \\vec{v}$ a pour coordonnées ${texteEnCouleurEtGras(`( ${this.pointExtremite[i].x} ; ${this.pointExtremite[i].y} )`)}.<br>`
 
       if (this.questionJamaisPosee(i, xSomme[i], xSomme[i])) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
@@ -415,5 +387,35 @@ export default class SommeDeVecteurs extends Exercice {
       cpt++
     }
     listeQuestionsToContenu(this)
+  }
+
+  correctionInteractive = (i) => {
+    if (this.answers == null) this.answers = {}
+    // Sauvegarde de la réponse pour Capytale
+    this.answers[this.figureApig[i].json] = this.figureApig[i].json
+    const divFeedback = document.querySelector(
+      `#feedbackEx${this.numeroExercice}Q${i}`
+    )
+    const divCheck = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+
+    this.figureApig[i].isDynamic = false
+    this.figureApig[i].divButtons.style.display = 'none'
+    this.figureApig[i].divUserMessage.style.display = 'none'
+    const nbPoints = [...this.figureApig[i].elements.values()].filter(
+      (e) => e.type === 'Point' && e.isVisible && !e.isChild
+    ).length
+    const onePointWasAdded = nbPoints >= 3
+
+    if (!onePointWasAdded) {
+      if (divFeedback) {
+        divFeedback.innerHTML = 'Aucun point n\'a été créé.'
+      }
+      return 'KO'
+    }
+
+    const resultatCheck = this.figureApig[i].checkCoords({ label: this.nomExtremite[i], x: this.pointExtremite[i].x, y: this.pointExtremite[i].y })
+    divFeedback.innerHTML = resultatCheck.message
+    if (divCheck) divCheck.innerHTML = resultatCheck.isValid ? '😎' : '☹️'
+    return resultatCheck.isValid ? 'OK' : 'KO'
   }
 }

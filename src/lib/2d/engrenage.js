@@ -146,6 +146,7 @@ function engrenage ({ rayon = 1, rayonExt, rayonInt, nbDents = 12, xCenter = 0, 
 
 /**
  * @ param {object} parametres
+ * @param {object} parametres parametres paramètres de l'objet voir ci-dessous
  * @param {number} [parametres.dureeTourBase = 0] temps en secondes por que la première roue fasse un tour. La vitesse des autres roues est règlée sur celle-ci
  * @param {number} [parametres.module = 0.5] paramètre dimensionnel générateur. La valeur
  * @param {boolean} [parametres.marqueurs = false] Si true, des marqueurs seront ajoutés pour visualiser la synchronisation des roues dentées

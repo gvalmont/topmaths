@@ -32,6 +32,7 @@ export default function Rendreentier () {
   this.nbCols = 2
   this.nbColsCorr = 2
   this.sup = 2
+  this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
     this.consigne = ' Trouver une fraction égale à celle proposée en supprimant la racine carrée de son dénominateur.'

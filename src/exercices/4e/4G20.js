@@ -17,7 +17,7 @@ import { RedactionPythagore } from './_pythagore.js'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import engine from '../../lib/interactif/comparisonFunctions'
 import { ordreAlphabetique } from '../../lib/outils/ecritures'
-import { orangeMathalea } from '../../lib/colors'
+import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
@@ -34,8 +34,8 @@ export const interactifType = 'mathLive'
  */
 export function pythagoreCompare (input, goodAnswer) {
   input = input.replaceAll(/([A-Z]{2})/g, '\\mathrm{$1}')
-  const parsedInput = engine.parse(input)
-  const parsedAnswer = engine.parse(goodAnswer)
+  let parsedInput = engine.parse(input)
+  let parsedAnswer = engine.parse(goodAnswer)
   if (parsedAnswer.operator === 'Equal') {
     if (parsedInput.operator !== 'Equal') return { isOk: false, feedback: 'Il faut saisir une égalité de Pythagore.' }
     // on a deux égalités. c'est le cas écrire l'égalité
@@ -74,10 +74,18 @@ export function pythagoreCompare (input, goodAnswer) {
         const LL2 = ordreAlphabetique(answerT2.ops[0].toString())
         // on teste les deux possibilités identiques ou croisées
         if ((LL1 === L1 && LL2 === L2) || (LL1 === L2 && LL2 === L1)) return { isOk: true }
-        else return { isOk: false, feedback: 'Regarde bien la correction.' }
+        // else return { isOk: false, feedback: 'Regarde bien la correction.' }
       }
     }
   } else { // on a une réponse sans égalité, il faut un input sans égalité
+    // EE : computeEngine 0.47.0
+    // L'usage de mathrm rend le parse problématique alphabétiquement avec un negate d'où les 4 nouvelles lignes
+    // et la suppression de l'ordre alphabétique qui n'a plus d'intérêt.
+    input = input.replace(/\\mathrm\{([^}]+)\}/g, '{$1}')
+    goodAnswer = goodAnswer.replace(/\\mathrm\{([^}]+)\}/g, '{$1}')
+    parsedInput = engine.parse(input)
+    parsedAnswer = engine.parse(goodAnswer)
+
     if (parsedInput.operator !== 'Add') return { isOk: false, feedback: 'Il faut saisir une somme ou une différence de deux carrés.' }
     const isSub = parsedAnswer.ops[0].operator === 'Negate'
     const inputOp = parsedInput.ops[0].operator
@@ -95,14 +103,18 @@ export function pythagoreCompare (input, goodAnswer) {
         return { isOk: false, feedback: 'Il manque au moins un carré.' }
       }
     }
-    const L1 = ordreAlphabetique(inputT1.ops[0].toString()).replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
-    const L2 = ordreAlphabetique(inputT2.ops[0].toString()).replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
+
+    //  const L1 = ordreAlphabetique(inputT1.ops[0].toString()).replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
+    // const L2 = ordreAlphabetique(inputT2.ops[0].toString()).replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
+    const L1 = inputT1.ops[0].toString().replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
+    const L2 = inputT2.ops[0].toString().replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
     const LL1 = answerT1.ops[0].toString().replaceAll('"', '') // Ces longueurs sont déjà dans l'ordre alphabétique
     const LL2 = answerT2.ops[0].toString().replaceAll('"', '')
     if ((LL1 === L1 && LL2 === L2) || (LL1 === L2 && LL2 === L1 && !isSub)) return { isOk: true }
-    else return { isOk: false, feedback: 'Regarde bien la correction.' }
+    // else return { isOk: false, feedback: 'Regarde bien la correction.' }
   }
-  return { isOk: parsedInput.isEqual(parsedAnswer), feedback: '' }
+  // return { isOk: parsedInput.isEqual(parsedAnswer), feedback: '' }
+  return { isOk: false, feedback: 'Regarde bien la correction.' }
 }
 
 /**
@@ -169,6 +181,7 @@ export default class Pythagore2D extends Exercice {
       const xmax = Math.max(A.x, B.x, C.x) + 1
       const ymax = Math.max(A.y, B.y, C.y) + 1
       const nomDuPolygone = creerNomDePolygone(3, listeDeNomsDePolygones)
+
       listeDeNomsDePolygones.push(nomDuPolygone)
       const nomme = nommePolygone(p2, nomDuPolygone)
       const affAB = afficheLongueurSegment(B, A)
@@ -260,19 +273,20 @@ export default class Pythagore2D extends Exercice {
         const cote1 = [`\\mathrm{${ordreAlphabetique(B.nom + A.nom)}}^2`, `\\mathrm{${ordreAlphabetique(A.nom + B.nom)}}^2`]
         const cote2 = [`\\mathrm{${ordreAlphabetique(C.nom + A.nom)}}^2`, `\\mathrm{${ordreAlphabetique(A.nom + C.nom)}}^2`]
 
-        redaction = RedactionPythagore(A.nom, B.nom, C.nom, 0, longueurAB, longueurAC, null, orangeMathalea)
+        redaction = RedactionPythagore(A.nom, B.nom, C.nom, 0, longueurAB, longueurAC, null, null, this.sup === 1 || listeTypeDeQuestions[i] === 'BC' ? orangeMathalea : bleuMathalea)
         texteCorr = redaction[0]
         let expr
         if (this.sup === 1) {
           expr = cote1[0] + '+' + cote2[0] + '=' + hypotenuse[0]
         } else {
-          texteCorr += '<br>'
           if (listeTypeDeQuestions[i] === 'AB') {
             texte += `<br>$${A.nom + B.nom}^2=$`
+            texteCorr += '<br>'
             texteCorr += ` d'où $${miseEnEvidence(`${A.nom + B.nom}^2=${B.nom + C.nom}^2-${A.nom + C.nom}^2`)}$.`
             expr = `\\mathrm{${ordreAlphabetique(B.nom + C.nom)}}^2-\\mathrm{${ordreAlphabetique(A.nom + C.nom)}}^2`
           } else if (listeTypeDeQuestions[i] === 'AC') {
             texte += `<br>$${A.nom + C.nom}^2=$`
+            texteCorr += '<br>'
             texteCorr += ` d'où $${miseEnEvidence(`${A.nom + C.nom}^2=${B.nom + C.nom}^2-${A.nom + B.nom}^2`)}$.`
             expr = `\\mathrm{${ordreAlphabetique(B.nom + C.nom)}}^2-\\mathrm{${ordreAlphabetique(A.nom + B.nom)}}^2`
           } else {

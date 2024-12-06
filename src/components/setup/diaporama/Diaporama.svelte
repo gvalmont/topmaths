@@ -205,7 +205,7 @@
   }
 
   function goToHome () {
-    $globalOptions.v = undefined
+    $globalOptions.v = ''
   }
 
   function goToOverview () {

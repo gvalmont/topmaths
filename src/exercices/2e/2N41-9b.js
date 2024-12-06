@@ -11,7 +11,7 @@ import engine, { fonctionComparaison } from '../../lib/interactif/comparisonFunc
 import { developpe, regroupeTermesMemeDegre, suppressionParentheses } from '../../lib/mathFonctions/outilsMaths'
 import { obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions'
 
-export const titre = 'Développer puis réduire des expressions littérales.'
+export const titre = 'Développer puis réduire des expressions littérales complexes (avec fractions)'
 export const dateDePublication = '20/04/2024'
 
 export const interactifReady = true
@@ -184,7 +184,7 @@ export default function DevelopperReduireExprComplexe () {
 
       // La correction pour de vrai
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: true }, compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
         texte += this.interactif
           ? `<br>$${lettreDepuisChiffre(i + 1)} = $` +
                     ajouteChampTexteMathLive(this, i, ' ')

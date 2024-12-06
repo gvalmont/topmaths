@@ -1,7 +1,10 @@
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { bleuMathalea } from '../../../lib/colors'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Ajouter $10n + 9$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,7 +14,6 @@ export const amcType = 'AMCNum'
 /*!
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
- * Référence can6C04
  */
 export const uuid = '5b591'
 export const ref = 'can6C04'
@@ -24,7 +26,9 @@ export default function Ajoute10NPlus9 () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = ''
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  this.formatChampTexte = KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {
     const a = randint(3, 9)
     const b = randint(2, 8)
@@ -34,10 +38,11 @@ export default function Ajoute10NPlus9 () {
     // Si les exos can avaient toujours cette propriété this.question on pourrait faire un ajout automatique
     this.canEnonce = this.question
     this.canReponseACompleter = ''// `${this.question} \\dots \\dots`
-    this.correction = `$${texNombre(a * 10 + b, 0)} + ${texNombre(c * 10 + 9, 0)}= ${texNombre(this.reponse, 0)}$`
+    this.correction = `$${texNombre(a * 10 + b, 0)} + ${texNombre(c * 10 + 9, 0)}= ${miseEnEvidence(texNombre(this.reponse, 0))}$<br>`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
    Pour ajouter $${c * 10 + 9}$, on peut ajouter $${(c + 1) * 10}$ et on retranche $1$.<br>
    Ainsi,  $${texNombre(a * 10 + b, 0)} + ${texNombre(c * 10 + 9, 0)}=(${texNombre(a * 10 + b, 0)}+${texNombre((c + 1) * 10, 0)}) - 1 =${texNombre(a * 10 + b + (c + 1) * 10, 0)} - 1=${texNombre(this.reponse, 0)}$.
-    `)
+    `, bleuMathalea)
+    // this.reponse = String(this.reponse)
   }
 }

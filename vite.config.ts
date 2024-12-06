@@ -12,17 +12,17 @@ export default defineConfig({
       output: {
         manualChunks: (id) => {
           // Pour les dépendances pnpm
-          // if (id.includes('.pnpm')) {
-          //   // Extraire le vrai nom du package
-          //   const match = id.match(/.pnpm\/(.*?)@/)
-          //   if (match && match[1]) {
-          //     // Nettoyer le nom du package
-          //     const pkgName = match[1]
-          //       .replace(/@/g, '')
-          //       .replace(/\//g, '-')
-          //     return `vendors/${pkgName}`
-          //   }
-          // }
+          if (id.includes('.pnpm')) {
+            // Extraire le vrai nom du package
+            const match = id.match(/.pnpm\/(.*?)@/)
+            if (match && match[1]) {
+              // Nettoyer le nom du package
+              const pkgName = match[1]
+                .replace(/@/g, '')
+                .replace(/\//g, '-')
+              return `vendors/${pkgName}`
+            }
+          }
 
           // // Pour les dépendances normales
           // if (id.includes('node_modules')) {

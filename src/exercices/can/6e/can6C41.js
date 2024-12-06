@@ -6,6 +6,7 @@ import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { listeQuestionsToContenu } from '../../../modules/outils'
 import { context } from '../../../modules/context'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Comparer des fractions de même dénominateur/numérateur'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -74,7 +75,7 @@ export default class ComparerFraction extends Exercice {
               }
             )
             this.correction = `Les deux fractions ont le même dénominateur, la plus grande est celle qui a le plus grand numérateur.<br>
-          Ainsi, $${b.texFraction} >${a.texFraction}$.`
+          Ainsi, $${b.texFraction} ${miseEnEvidence('>')} ${a.texFraction}$.`
             this.reponse = '>'
             this.canEnonce = 'Compléter avec $>$ ou $<$.'
             this.canReponseACompleter = `$${b.texFraction}$ $\\ldots$ $${a.texFraction}$`
@@ -94,7 +95,7 @@ export default class ComparerFraction extends Exercice {
               }
             )
             this.correction = `Les deux fractions ont le même dénominateur, la plus grande est celle qui a le plus grand numérateur.<br>
-          Ainsi, $${a.texFraction} >${b.texFraction}$.`
+          Ainsi, $${a.texFraction} ${miseEnEvidence('>')} ${b.texFraction}$.`
             this.reponse = '>'
             this.canEnonce = 'Compléter avec $>$ ou $<$.'
             this.canReponseACompleter = `$${a.texFraction}$ $\\ldots$ $${b.texFraction}$`
@@ -106,7 +107,7 @@ export default class ComparerFraction extends Exercice {
               }
             )
             this.correction = `Les deux fractions ont le même numérateur, la plus grande est celle qui a le plus petit dénominateur.<br>
-          Ainsi, $${b.texFraction} <${a.texFraction}$.`
+          Ainsi, $${b.texFraction} ${miseEnEvidence('<')} ${a.texFraction}$.`
             this.reponse = '<'
             this.canEnonce = 'Compléter avec $>$ ou $<$.'
             this.canReponseACompleter = `$${b.texFraction}$ $\\ldots$ $${a.texFraction}$`

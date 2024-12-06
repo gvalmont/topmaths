@@ -3,20 +3,17 @@ import { texteEnCouleur, miseEnEvidence } from '../../../lib/outils/embellisseme
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { bleuMathalea } from '../../../lib/colors'
 export const titre = 'Additionner astucieusement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '25/10/2023'
-/*!
-
+/**
  * @author Florence Decool
-
- * Créé pendant octobre 2023
-
- * Référence can6C47
-
  */
 export const uuid = '792c3'
 export const ref = 'can6C47'
@@ -29,7 +26,9 @@ export default function AdditionnerAstucieusement () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = ''
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  this.formatChampTexte = KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {
     const A = randint(2, 4) * 100
     const B = randint(1, 2) * 100
@@ -38,7 +37,7 @@ export default function AdditionnerAstucieusement () {
     const b = randint(1, B)
     const d = B - b
     const e = randint(1, 40)
-    const correction = texteEnCouleur('Mentalement : <br>On regroupe astucieusement les termes pour les additionner plus simplement. <br><br><br>')
+    const correction = texteEnCouleur('Mentalement : <br>On regroupe astucieusement les termes pour les additionner plus simplement. <br><br><br>', bleuMathalea)
     switch (choice([1, 2, 3, 4])) {
       case 1:
         this.reponse = A + e

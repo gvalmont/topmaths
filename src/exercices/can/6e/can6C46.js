@@ -6,6 +6,8 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'//
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import Exercice from '../../deprecatedExercice.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { fractionCliquable } from '../../../modules/2dinteractif.js'
 export const titre = 'Résoudre un problème de reste en fraction'
 export const interactifReady = true
@@ -17,7 +19,6 @@ export const dateDePublication = '13/02/2023'
 
 /*!
  * @author Gilles Mora
- * Référence can6C46
  */
 
 export const uuid = '1cee6'
@@ -31,7 +32,9 @@ export default function ProblemeResteFraction () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = ''
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { fractionEgale: true }
+  this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   this.formatInteractif = 'fractionEgale'
   this.nouvelleVersion = function () {
     const listeFractions1 = [[1, 3], [1, 5], [2, 3], [3, 4], [2, 5], [4, 5],
@@ -57,7 +60,7 @@ export default function ProblemeResteFraction () {
     Elle a déjà parcouru $${f1.texFraction}$ de la distance. <br>
     Quelle fraction de la distance lui reste-t-il à parcourir ?`
 
-      this.correction = `Comme $\\dfrac{${d1}}{${d1}}-${!context.isHtml ? `${miseEnEvidence(f1.texFraction, 'lightgray')}` : `${miseEnEvidence(f1.texFraction, '#f15929')}`}=${!context.isHtml ? `${miseEnEvidence(f2.texFraction, 'gray')}` : `${miseEnEvidence(f2.texFraction, '#1DA962')}`}$, il lui reste à parcourir $\\dfrac{${d1 - n1}}{${d1}}$ de la distance.`
+      this.correction = `Comme $\\dfrac{${d1}}{${d1}}-${!context.isHtml ? `${miseEnEvidence(f1.texFraction, 'lightgray')}` : `${miseEnEvidence(f1.texFraction, '#f15929')}`}=${!context.isHtml ? `${miseEnEvidence(f2.texFraction, 'gray')}` : `${miseEnEvidence(f2.texFraction, '#1DA962')}`}$, il lui reste à parcourir $${miseEnEvidence(`\\dfrac{${d1 - n1}}{${d1}}`)}$ de la distance.`
       this.correction += '<br>' + mathalea2d({ scale: 0.5, xmin: -0.2, xmax: 20, ymin: -1, ymax: 2 }, schemaCorr)
       this.canEnonce = this.question
       this.canReponseACompleter = ''
@@ -65,7 +68,7 @@ export default function ProblemeResteFraction () {
       this.question = `${p1} et ${p2} participent à une course à pied en relais. <br>
     ${p1} a déjà parcouru $${f1.texFraction}$ de la distance. ${p2} réalise le reste de la distance. <br>
     Quelle fraction de la distance lui reste-t-il à parcourir ?`
-      this.correction = `Comme $\\dfrac{${d1}}{${d1}}-${!context.isHtml ? `${miseEnEvidence(f1.texFraction, 'lightgray')}` : `${miseEnEvidence(f1.texFraction, '#f15929')}`}=${!context.isHtml ? `${miseEnEvidence(f2.texFraction, 'gray')}` : `${miseEnEvidence(f2.texFraction, '#1DA962')}`}$, il lui reste à parcourir $\\dfrac{${d1 - n1}}{${d1}}$ de la distance.`
+      this.correction = `Comme $\\dfrac{${d1}}{${d1}}-${!context.isHtml ? `${miseEnEvidence(f1.texFraction, 'lightgray')}` : `${miseEnEvidence(f1.texFraction, '#f15929')}`}=${!context.isHtml ? `${miseEnEvidence(f2.texFraction, 'gray')}` : `${miseEnEvidence(f2.texFraction, '#1DA962')}`}$, il lui reste à parcourir $${miseEnEvidence(`\\dfrac{${d1 - n1}}{${d1}}`)}$ de la distance.`
       this.correction += '<br>' + mathalea2d({ scale: 0.5, xmin: -0.2, xmax: 20, ymin: -1, ymax: 2 }, schemaCorr)
       this.canEnonce = this.question
       this.canReponseACompleter = ''

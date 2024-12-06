@@ -478,7 +478,7 @@
             </div>
           </div>
           <!-- Barre de boutons en mode smartphone -->
-          <div
+          <!--<div
             class={$exercicesParams.length === 0
               ? 'hidden'
               : 'w-full flex flex-col justify-center items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}
@@ -493,7 +493,7 @@
               {handleExport}
               {exportQcmCam}
             />
-          </div>
+          </div>-->
           <!-- Affichage exercices en mode smartphone -->
           <main
             id="exercisesPart"

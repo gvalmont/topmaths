@@ -12,6 +12,7 @@ function log (...args: unknown[]) {
 }
 
 async function testCanView (page: Page) {
+  await page.setDefaultTimeout(60000) // Set timeout to 60 seconds
   log('===========================================================')
   log('===           TEST VUE CAN 2024       =====================')
   log('===========================================================')
@@ -25,17 +26,20 @@ async function testCanView (page: Page) {
   await page.getByRole('tab', { name: 'Course aux nombres' }).click()
   log('tab->Course aux nombres')
   // await page.getByLabel('Accès aux solutions', { exact: true }).click()
-  await page.locator('input#input-config-eleve-solutions-can-toggle').click()
+  await page.locator('input#input-config-eleve-solutions-can-toggle').first().click()
   log('Accès aux solutions->à la fin')
-  await page.getByLabel('Les questions seront posées').locator('input[type="number"]').fill('10')
+  await page.getByLabel('Les questions seront posées').locator('input[type="number"]').first().fill('10')
   log('Les questions seront posées->10min')
 
   const page1Promise = page.waitForEvent('popup')
   await page.getByRole('button', { name: 'Visualiser' }).click()
   const page1 = await page1Promise
+  await page1.setDefaultTimeout(60000) // Set timeout to 60 seconds
   // await page1.goto('http://localhost:5173/alea/?uuid=94d21&v=can&canD=10&canT=2024&canSA=1&canSM=gathered&canI=1')
   log('clique sur démarrer')
   await page1.getByRole('button', { name: ' Démarrer' }).click()
+  log('On attend le time-display-1')
+  await page1.waitForSelector('#time-display-1')
   await page1.locator('.key--1').click()
   await page1.locator('.key--0').click()
   await page1.locator('.bxs-chevron-right').click()
@@ -144,7 +148,7 @@ async function testEleveView (page: Page) {
   // await page.getByRole('button', { name: 'Lien pour les élèves  ' }).click()
   log('Configuration de la can (2024 2e)')
   await page.locator('#presentation0').click()
-  await page.locator('#Interactif1').click()
+  await page.locator('#Interactif1').first().click()
   const page1Promise = page.waitForEvent('popup')
   page.getByRole('button', { name: 'Visualiser' }).click()
   const page1 = await page1Promise
@@ -228,9 +232,9 @@ async function testEleveView (page: Page) {
   await inputAnswerById(page1, '0Q29', '[-5;2]')
   await page1.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
   log('Vérifier les questions')
-  const element = await page1.waitForSelector('#buttonScoreEx0', { timeout: 50000 })
-  await element.click({ timeout: 50000 })
-  await page1.waitForSelector('#consigne0-29 + div', { timeout: 50000 })
+  const element = await page1.waitForSelector('#buttonScoreEx0', { timeout: 5000 })
+  await element.click({ timeout: 5000 })
+  await page1.waitForSelector('#consigne0-29 + div', { timeout: 5000 })
   const buttonResult = await page1.locator('#consigne0-29 + div').innerText()
   expect('30 / 30').toEqual(buttonResult)
   log(buttonResult)
@@ -249,7 +253,7 @@ async function testEleveViewPre2 (page: Page) {
   // await page.getByRole('button', { name: 'Lien pour les élèves  ' }).click()
   log('Configuration de la can (2024 2e)')
   await page.locator('#presentation2').click()
-  await page.locator('#Interactif1').click()
+  await page.locator('#Interactif1').first().click()
   const page1Promise = page.waitForEvent('popup')
   await page.getByRole('button', { name: 'Visualiser' }).click()
   const page1 = await page1Promise
@@ -433,7 +437,7 @@ async function testEleveViewPre3 (page: Page) {
   await page.locator('[data-tip="Lien pour les élèves"]').getByRole('button').click()
   log('Configuration de la can (2024 2e)')
   await page.locator('#presentation3').click()
-  await page.locator('#Interactif1').click()
+  await page.locator('#Interactif1').first().click()
   const page1Promise = page.waitForEvent('popup')
   await page.getByRole('button', { name: 'Visualiser' }).click()
   const page1 = await page1Promise

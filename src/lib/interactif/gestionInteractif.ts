@@ -106,11 +106,11 @@ export interface Valeur {
 export type LegacyReponse = string | FractionEtendue | Decimal | number
 export type LegacyReponses = LegacyReponse[] | LegacyReponse
 export interface AutoCorrection {
-  enonce?:string
+  enonce?: string
   propositions?: {
     texte: string
-    statut?: number|boolean
-    sanscadre?:boolean
+    statut?: number | boolean
+    sanscadre?: boolean
   }[]
   reponse?: {
     valeur?: Valeur
@@ -238,7 +238,7 @@ export function exerciceInteractif (
           nbQuestionsValidees += result.score.nbBonnesReponses
           nbQuestionsNonValidees +=
             result.score.nbReponses - result.score.nbBonnesReponses
-          if (result.feedback !== '') {
+          if (result.feedback && result.feedback !== '') {
             const divFeedback = document.querySelector(
               `#feedbackEx${exercice.numeroExercice}Q${i}`
             )

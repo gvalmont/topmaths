@@ -12,7 +12,7 @@ import { pointCliquable } from '../../modules/2dinteractif.js'
 export const titre = 'Compléter un nuage de points symétriques'
 export const dateDePublication = '18/12/2021'
 export const interactifReady = false
-// remettre interactif_Ready à true qd point_Cliquable sera de nouveau opérationnel
+// remettre interactif_Ready à true qd l'exo sera refait avec apiGEom
 export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -38,18 +38,21 @@ export default function CompleterParSymetrie6e () {
   this.sup = 1
   this.sup2 = 1
   this.sup3 = true
+  this.pointsNonSolution = []
+  this.pointsSolution = []
+  this.pointsCliquables = []
   this.nouvelleVersion = function () {
     const couples = []
-    const pointsCliquables = [[]]
     let pointsPossibles
     const objetsEnonce = []
     const objetsCorrection = []
     const pointsChoisis = []
     const pointsAffiches = []
     const pointsEnPlusCorr = []
-    const pointsNonSolution = []
-    const pointsSolution = []
-    const pointsCliques = []
+    this.pointsNonSolution = []
+    this.pointsSolution = []
+    this.pointsCliquables = []
+    this.pointsCliques = []
     const changeAxe = []
     const typeDePapier = ['quad', 'quad', 'hexa', 'equi'] // l'élément 0 sera changé aléatoirement pour correspondre au type mélange (this.sup2 % 4)
     for (let i = 0, cpt = 0, papier, image, d, j, trouve, texte, texteCorr, nbCouplesComplets; i < this.nbQuestions && cpt < 50;) {
@@ -60,10 +63,10 @@ export default function CompleterParSymetrie6e () {
       pointsChoisis.length = 0
       pointsAffiches.length = 0
       pointsEnPlusCorr.length = 0
-      pointsNonSolution[i] = []
-      pointsSolution[i] = []
-      pointsCliquables[i] = []
-      pointsCliques[i] = []
+      this.pointsNonSolution[i] = []
+      this.pointsSolution[i] = []
+      this.pointsCliquables[i] = []
+      this.pointsCliques[i] = []
       couples.length = 0
       changeAxe[i] = this.sup3 ? 0 : randint(-2, 2, 0)
       papier = papierPointe({ xmin: 0, ymin: 0, xmax: 10, ymax: 10, type: typeDePapier[this.sup2 === 4 ? 0 : this.sup2] })
@@ -108,7 +111,7 @@ export default function CompleterParSymetrie6e () {
       // over, out et click sont des ojets pour le style css des évènements de la souris, radius, width, color, size, style sont les paramètres possibles pour la trace du point
       if (this.interactif && context.isHtml) {
         for (let p = 0; p < papier.listeCoords.length; p++) {
-          pointsCliquables[i].push(pointCliquable(papier.listeCoords[p][0], papier.listeCoords[p][1], { radius: 0.2, color: 'red', width: 2, opacite: 0.7 }))
+          this.pointsCliquables[i].push(pointCliquable(papier.listeCoords[p][0], papier.listeCoords[p][1], { radius: 0.2, color: 'red', width: 2, opacite: 0.7 }))
         }
       }
       while (pointsPossibles.length > 1) { // si il n'en reste qu'un, on ne peut pas trouver de symétrique
@@ -152,26 +155,26 @@ export default function CompleterParSymetrie6e () {
       for (let p = 0; p < pointsEnPlusCorr.length; p++) {
         objetsCorrection[i].push(tracePoint(pointsEnPlusCorr[p], 'red'))
       }
-      for (let p = 0; p < pointsCliquables[i].length; p++) {
+      for (let p = 0; p < this.pointsCliquables[i].length; p++) {
         trouve = false
         let q = 0
         while (q < pointsEnPlusCorr.length && !trouve) {
-          if (longueur(pointsEnPlusCorr[q], pointsCliquables[i][p].point) < 0.1) {
+          if (longueur(pointsEnPlusCorr[q], this.pointsCliquables[i][p].point) < 0.1) {
             trouve = true
-            pointsSolution[i].push(pointsCliquables[i][p])
+            this.pointsSolution[i].push(this.pointsCliquables[i][p])
           } else {
             q++
           }
         }
         if (!trouve) {
-          pointsNonSolution[i].push(pointsCliquables[i][p])
+          this.pointsNonSolution[i].push(this.pointsCliquables[i][p])
         }
       }
       texte = context.isAmc
         ? 'Voici une grille contenant des points et un axe de symétrie.<br>Ajouter un minimum de points afin que la figure soit symétrique par rapport à l\'axe.<br>Écrire le nombre de points ajoutés dans le cadre et coder numériquement ce nombre.<br>'
         : 'Voici une grille contenant des points et un axe de symétrie.<br>Ajouter un minimum de points afin que la figure soit symétrique par rapport à l\'axe.<br>'
       // On prépare la figure...
-      texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5 }, ...objetsEnonce[i], ...pointsCliquables[i])
+      texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5 }, ...objetsEnonce[i], ...this.pointsCliquables[i])
       if (this.interactif && context.isHtml) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
@@ -218,43 +221,43 @@ export default function CompleterParSymetrie6e () {
       }
       cpt++
     }
-    this.correctionInteractive = (i) => {
-      let resultat
-      let aucunMauvaisPointsCliques = true
-      for (const monPoint of pointsNonSolution[i]) {
-        if (monPoint.etat) {
-          aucunMauvaisPointsCliques = false
-          pointsCliques[i].push(tracePoint(monPoint.point, 'red')) // ça c'est pour éventuellement modifier la correction avec les points cliqués par l'utilisateur.
-        }
-        monPoint.stopCliquable()
-      }
-      for (const monPoint of pointsSolution[i]) {
-        if (!monPoint.etat) aucunMauvaisPointsCliques = false
-        else pointsCliques[i].push(tracePoint(monPoint.point, 'red')) // ça c'est pour éventuellement modifier la correction avec les points cliqués par l'utilisateur.
-        monPoint.stopCliquable()
-      }
-      const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-      for (let j = 0; j < pointsSolution[i].length; j++) {
-        pointsSolution[i][j].stopCliquable()
-      }
-      let etat = true
-      for (let k = 0; k < pointsSolution[i].length; k++) {
-        etat = etat && pointsSolution[i][k]
-      }
-      if (aucunMauvaisPointsCliques && etat) {
-        spanResultat.innerHTML = '😎'
-        resultat = 'OK'
-      } else {
-        spanResultat.innerHTML = '☹️'
-        resultat = 'KO'
-      }
-      // this.listeCorrections[i] = mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.7, style: 'inline' }, ...objetsEnonce[i], ...pointsCliques[i]) + mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5, style: 'inline' }, ...objetsEnonce, ...objetsCorrection[i])
-      // le contenu est déjà prêt. Il faudra modifier les <svg> à postéreiori...
-      return resultat
-    }
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Type d\'axes', 5, '1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique /\n4 : Axe oblique \\\n5 : Mélange']
   this.besoinFormulaire2Numerique = ['Type de papier pointé', 4, '1 : Carrés\n2 : Hexagones\n3 : Triangles équilatéraux\n4 : Mélange']
   this.besoinFormulaire3CaseACocher = ['Axe centré', true]
+  this.correctionInteractive = (i) => {
+    let resultat
+    let aucunMauvaisPointsCliques = true
+    for (const monPoint of this.pointsNonSolution[i]) {
+      if (monPoint.etat) {
+        aucunMauvaisPointsCliques = false
+        this.pointsCliques[i].push(tracePoint(monPoint.point, 'red')) // ça c'est pour éventuellement modifier la correction avec les points cliqués par l'utilisateur.
+      }
+      monPoint.stopCliquable()
+    }
+    for (const monPoint of this.pointsSolution[i]) {
+      if (!monPoint.etat) aucunMauvaisPointsCliques = false
+      else this.pointsCliques[i].push(tracePoint(monPoint.point, 'red')) // ça c'est pour éventuellement modifier la correction avec les points cliqués par l'utilisateur.
+      monPoint.stopCliquable()
+    }
+    const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+    for (let j = 0; j < this.pointsSolution[i].length; j++) {
+      this.pointsSolution[i][j].stopCliquable()
+    }
+    let etat = true
+    for (let k = 0; k < this.pointsSolution[i].length; k++) {
+      etat = etat && this.pointsSolution[i][k]
+    }
+    if (aucunMauvaisPointsCliques && etat) {
+      spanResultat.innerHTML = '😎'
+      resultat = 'OK'
+    } else {
+      spanResultat.innerHTML = '☹️'
+      resultat = 'KO'
+    }
+    // this.listeCorrections[i] = mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.7, style: 'inline' }, ...objetsEnonce[i], ...pointsCliques[i]) + mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5, style: 'inline' }, ...objetsEnonce, ...objetsCorrection[i])
+    // le contenu est déjà prêt. Il faudra modifier les <svg> à postéreiori...
+    return resultat
+  }
 }

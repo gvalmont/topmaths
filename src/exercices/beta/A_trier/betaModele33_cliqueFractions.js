@@ -22,6 +22,8 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * Référence
  */
 export default class NomExercice extends Exercice {
+  barres = []
+  nbParts = []
   constructor () {
     super()
     this.titre = titre
@@ -33,11 +35,11 @@ export default class NomExercice extends Exercice {
   }
 
   nouvelleVersion () {
+    this.barres = []
+    this.nbParts = []
     const longueur = 5
     const hauteur = (context.isHtml) ? 1 : 0.6
     const ecart = 0.5
-    const barres = []
-    const nbParts = []
     const ymin = (context.isHtml) ? -2 : -0.1
     const unite = polygone(point(0, 0), point(longueur, 0), point(longueur, hauteur), point(0, hauteur))
     this.introduction = `Pour chaque question, l'unité est représentée par ce rectangle : ${mathalea2d({
@@ -49,8 +51,8 @@ export default class NomExercice extends Exercice {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       const n = randint(1, 4)
       const d = randint(2, 4)
-      nbParts[i] = n
-      barres[i] = fractionCliquable(0, 0, 3, d, {
+      this.nbParts[i] = n
+      this.barres[i] = fractionCliquable(0, 0, 3, d, {
         longueur,
         ecart,
         hauteur,
@@ -66,7 +68,7 @@ export default class NomExercice extends Exercice {
                 ymin,
                 ymax: hauteur + 0.2
             }, rectangleCliquable(0, 0, 4, 1, { etat: true }))}`
-      texte += '<br>' + mathalea2d({ xmin: -0.5, xmax: 18, ymin, ymax: hauteur + 0.2 }, barres[i])
+      texte += '<br>' + mathalea2d({ xmin: -0.5, xmax: 18, ymin, ymax: hauteur + 0.2 }, this.barres[i])
       texteCorr = 'Rien'
 
       if (this.interactif && context.isHtml) {
@@ -85,34 +87,36 @@ export default class NomExercice extends Exercice {
     if (!this.interactif) {
       document.addEventListener('exercicesAffiches', () => {
         for (let i = 0; i < this.nbQuestions; i++) {
-          for (const rectangle of barres[i]) {
+          for (const rectangle of this.barres[i]) {
             rectangle.stopCliquable()
           }
         }
       })
     }
     // Gestion de la correction
-    this.correctionInteractive = () => {
-      let nbBonnesReponses = 0
-      let nbMauvaisesReponses = 0
-      for (let i = 0; i < this.nbQuestions; i++) {
-        let nbPartsColoriees = 0
-        for (const rectangle of barres[i]) {
-          if (rectangle.etat) nbPartsColoriees++
-          rectangle.stopCliquable()
-        }
-        const spanFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
 
-        if (nbPartsColoriees === nbParts[i]) {
-          spanFeedback.innerHTML = '😎'
-          nbBonnesReponses++
-        } else {
-          spanFeedback.innerHTML = '☹️'
-          nbMauvaisesReponses++
-        }
-      }
-      afficheScore(this, nbBonnesReponses, nbMauvaisesReponses)
-    }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
+  }
+
+  correctionInteractive = () => {
+    let nbBonnesReponses = 0
+    let nbMauvaisesReponses = 0
+    for (let i = 0; i < this.nbQuestions; i++) {
+      let nbPartsColoriees = 0
+      for (const rectangle of this.barres[i]) {
+        if (rectangle.etat) nbPartsColoriees++
+        rectangle.stopCliquable()
+      }
+      const spanFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+
+      if (nbPartsColoriees === this.nbParts[i]) {
+        spanFeedback.innerHTML = '😎'
+        nbBonnesReponses++
+      } else {
+        spanFeedback.innerHTML = '☹️'
+        nbMauvaisesReponses++
+      }
+    }
+    afficheScore(this, nbBonnesReponses, nbMauvaisesReponses)
   }
 }

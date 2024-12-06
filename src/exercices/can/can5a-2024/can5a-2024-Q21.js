@@ -12,7 +12,6 @@ export const uuid = '6c739'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -69,7 +68,7 @@ export default class NomExercice extends Exercice {
         this.question = `$${a}$ m$^2=$`
         this.correction = `$1$ m$^2= 100$ dm$^2$, donc $${a}$ m$^2=${a}\\times 100$ dm$^2=${miseEnEvidence(a * 100)}$ dm$^2$.`
         this.canEnonce = 'Complète.'
-        this.canReponseACompleter = `$${a}$ m$^2= dm$^2$`
+        this.canReponseACompleter = `$${a}$ m$^2=\\ldots$ dm$^2$`
         if (!this.interactif) {
           this.question += '$\\ldots$ dm$^2$'
         } else {

@@ -5,7 +5,6 @@ import Exercice from '../Exercice'
 import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
 import Decimal from 'decimal.js'
-import { context } from '../../modules/context'
 export const titre = 'Produit et somme ou différence de décimaux'
 
 export const dateDePublication = '20/12/2022'
@@ -59,21 +58,22 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
       }
       const couples = shuffle(couplesPossibles).slice(0, this.sup)
       texte = 'Calculer.'
-      texteCorr = context.isHtml ? '<br>' : '' + ''
-      texteCorr += Operation({ operande1: A, operande2: B, type: 'multiplication', style: 'display: inline' }) + '<br>'
+      texteCorr = Operation({ operande1: A, operande2: B, type: 'multiplication', style: 'display: inline', solution: true }) + '<br>'
       let indice = 0
       for (const couple of couples) {
         const addition = this.sup2 ? choice([true, false]) : true
         texte += `<br>${numAlpha(indice)}$${texNombre(couple.A)} ${addition ? '+' : '-'} ${texNombre(couple.B)}$ ${sp()} ${sp()} ${sp()} et ${sp()} ${sp()} ${sp()} $${texNombre(couple.A)} \\times ${texNombre(couple.B)}$.`
         texteCorr += `<br>${numAlpha(indice)}<br>`
         texteCorr += Operation({ operande1: couple.A, operande2: couple.B, type: addition ? 'addition' : 'soustraction', style: 'display: inline', methodeParCompensation: addition })
+
         texteCorr += `<br> Je sais que $${texNombre(A)}\\times${texNombre(B)}=${texNombre(B.mul(A))}$.`
         texteCorr += '<br>'
         texteCorr += `<br> J'en déduis que $${texNombre(couple.A)}\\times${texNombre(couple.B)}=${texNombre(couple.B.mul(couple.A))}$.`
         texteCorr += '<br>'
         indice++
       }
-      texteCorr = texteCorr.slice(0, texteCorr.length - 4).slice(4) // Retrait du premier et du dernier <br> pour éviter des erreurs en LaTeX
+      // on retire le dernier <br>
+      texteCorr = texteCorr.slice(0, texteCorr.length - 4)
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

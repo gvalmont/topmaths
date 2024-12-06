@@ -50,11 +50,10 @@ export default class MetropoleJuin24Exo4Q3 extends ExerciceQcmA {
     points.style = '.'
     points.epaisseur = 1.5
     const labels = labelPoint(...nuage)
-    this.enonce += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 1 }, fixeBordures([points, labels])), points, labels)
     this.correction = `Si $${C}$ a pour image $${A}$ par $t_{\\overrightarrow{${C + A}}}$, alors $${J}$ a pour image $${miseEnEvidence(E)}$.`
 
-    this.enonce = `Quelle est l'image du point $${J}$ par la translation qui transforme $${C}$ en $${A}$ ?`
-    this.enonce += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 1 }, fixeBordures([points, labels])), points, labels)
+    this.enonce = `Quelle est l'image du point $${J}$ par la translation qui transforme $${C}$ en $${A}$ ?<br>`
+    this.enonce += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([points, labels])), points, labels)
   }
 
   versionOriginale: () => void = () => {

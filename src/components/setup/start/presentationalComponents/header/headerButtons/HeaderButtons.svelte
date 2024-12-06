@@ -15,10 +15,10 @@
 
 </script>
 
-<ButtonsDeck class="md:pl-10 hidden md:flex">
+<ButtonsDeck class="md:pl-10 flex md:flex">
   <div
     slot="setup-buttons"
-    class="flex flex-row justify-start items-center space-x-4"
+    class="flex flex-row justify-start items-center space-x-3 md:space-x-4"
   >
     <SetupButtons
       bind:reorderModalDisplayed
@@ -31,7 +31,7 @@
   </div>
   <div
     slot="export-buttons"
-    class="flex flex-row justify-end items-center space-x-4"
+    class="flex flex-row justify-end items-center space-x-3 md:space-x-4"
   >
     <ExportButtons
       {handleExport}

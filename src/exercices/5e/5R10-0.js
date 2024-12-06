@@ -18,9 +18,9 @@ export const interactifReady = true
 */
 
 export const uuid = 'cab80'
-export const ref = '5R10-0'
+export const ref = '5R10'
 export const refs = {
-  'fr-fr': ['5R10-0'],
+  'fr-fr': ['5R10'],
   'fr-ch': ['9NO9-3']
 }
 export default class TrouverOppose extends Exercice {
@@ -36,8 +36,6 @@ export default class TrouverOppose extends Exercice {
 
   nouvelleVersion () {
     this.reinit()
-    // const typesDeQuestionsDisponibles = [1]
-    // const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
     const listeSignesPositifs = combinaisonListes(['+', ''], 6 * this.nbQuestions)
     const listeSignes = combinaisonListes(['+', '-'], 6 * this.nbQuestions)
 

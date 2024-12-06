@@ -1,6 +1,5 @@
 import loadjs from 'loadjs'
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // import JSON uuidsRessources
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Exercice from '../exercices/deprecatedExercice.js'
@@ -231,8 +230,10 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
       const infosExerciceStatique = (param.uuid.substring(0, 7) === 'evacom_') ? getExerciceByUuid(referentielStaticCH, param.uuid) : getExerciceByUuid(referentielStaticFR, param.uuid)
       let content = ''
       let contentCorr = ''
-      if (infosExerciceStatique?.url) {
-        const response = await window.fetch(infosExerciceStatique.url)
+      let sujet = param.uuid.substring(0, 4)
+      if (sujet === 'dnb_' || sujet === 'bac_') {
+        sujet = sujet.substring(0, 3)
+        let response = await window.fetch(`static/${sujet}/${infosExerciceStatique.annee}/tex/${param.uuid}.tex`)
         if (response.status === 200) {
           const text = await response.clone().text()
           if (!text.trim().startsWith('<!DOCTYPE html>')) {
@@ -241,15 +242,36 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
             content = '\n\n\t%Exercice non disponible\n\n'
           }
         }
-      }
-      if (infosExerciceStatique?.urlcor) {
-        const response = await window.fetch(infosExerciceStatique.urlcor)
+        response = await window.fetch(`static/${sujet}/${infosExerciceStatique.annee}/tex/${param.uuid}_cor.tex`)
         if (response.status === 200) {
           const text = await response.clone().text()
           if (!text.trim().startsWith('<!DOCTYPE html>')) {
             contentCorr = text
           } else {
             contentCorr = '\n\n\t%Pas de correction disponible\n\n'
+          }
+        }
+      } else {
+        if (infosExerciceStatique?.url) {
+          const response = await window.fetch(infosExerciceStatique.url)
+          if (response.status === 200) {
+            const text = await response.clone().text()
+            if (!text.trim().startsWith('<!DOCTYPE html>')) {
+              content = text
+            } else {
+              content = '\n\n\t%Exercice non disponible\n\n'
+            }
+          }
+        }
+        if (infosExerciceStatique?.urlcor) {
+          const response = await window.fetch(infosExerciceStatique.urlcor)
+          if (response.status === 200) {
+            const text = await response.clone().text()
+            if (!text.trim().startsWith('<!DOCTYPE html>')) {
+              contentCorr = text
+            } else {
+              contentCorr = '\n\n\t%Pas de correction disponible\n\n'
+            }
           }
         }
       }
@@ -511,7 +533,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     } else if (entry[0] === 'es') {
       es = entry[1]
     } else if (entry[0] === 'title') {
-      title = entry[1]
+      title = decodeURIComponent(entry[1])
     } else if (entry[0] === 'iframe') {
       iframe = entry[1]
     } else if (entry[0] === 'answers') {
@@ -587,6 +609,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     twoColumns = es.charAt(5) === '1'
     isTitleDisplayed = es.charAt(6) === '1'
   }
+  v = v ?? ''
   return {
     v,
     z,
@@ -635,7 +658,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
     if (exercice.questionJamaisPosee(i, String(exercice.correction))) {
       if (exercice.compare != null) { /// DE LA AU PROCHAIN LA, ce sera à supprimer quand il n'y aura plus de this.compare
         let reponse = {}
-        if (typeof exercice.reponse !== 'string') {
+        if (typeof exercice.reponse !== 'string' && typeof exercice.reponse !== 'number') {
           if (exercice.reponse instanceof FractionEtendue) {
             reponse = { reponse: { value: exercice.reponse.texFraction, compare, options } }
           } else if (exercice.reponse instanceof Decimal) {
@@ -651,7 +674,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
             reponse = { reponse: { value: String(exercice.reponse), compare, options } }
           }
         } else {
-          reponse = { reponse: { value: exercice.reponse, compare, options } }
+          reponse = { reponse: { value: typeof exercice.reponse === 'number' ? String(exercice.reponse) : exercice.reponse, compare, options } }
         }
         handleAnswers(exercice, i, reponse, { formatInteractif: exercice.formatInteractif ?? 'mathlive' }) /// // PROCHAIN LA : La partie ci-dessus sera à supprimer quand il n'y aura plus de this.compare
       } else if (exercice.reponse instanceof Object && exercice.reponse.reponse != null && exercice.reponse.reponse.value != null && typeof exercice.reponse.reponse.value === 'string') {
@@ -659,7 +682,6 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
       } else {
         setReponse(exercice, i, exercice.reponse, { formatInteractif: exercice.formatInteractif ?? 'calcul' })
       }
-
       if (exercice.formatInteractif !== 'fillInTheBlank') {
         if (exercice.formatInteractif !== 'qcm') {
           exercice.listeQuestions.push(
@@ -766,7 +788,7 @@ export function mathaleaGoToView (destinationView: '' | VueType) {
   previousView.set(originView)
   window.history.pushState(null, '', urlString)
   globalOptions.update((l) => {
-    l.v = destinationView === '' ? undefined : destinationView
+    l.v = destinationView
     return l
   })
 }

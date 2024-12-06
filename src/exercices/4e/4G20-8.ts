@@ -60,7 +60,7 @@ export default class CalculMentalPythagore extends Exercice {
             texte += `Calculer $${sommetA}${sommetB}$.`
             reponse0 = `\\sqrt{${BC ** 2 - AC ** 2}}`
             reponse = Math.floor(Math.sqrt(BC ** 2 - AC ** 2))
-            texteCorr = RedactionPythagore(`${sommetA}`, `${sommetB}`, `${sommetC}`, 2, AC, reponse, BC)[0]
+            texteCorr = RedactionPythagore(`${sommetA}`, `${sommetB}`, `${sommetC}`, 2, reponse, AC, BC)[0]
             texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierFullOperations, { texteAvant: `<br> ${sommetA}${sommetB} = `, texteApres: ('cm (Racine carrée)') })
             texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierNumbers, { texteAvant: `<br> ${sommetA}${sommetB} $\\approx$ `, texteApres: ('cm (Partie entière)') })
           }

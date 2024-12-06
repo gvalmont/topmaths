@@ -1,24 +1,24 @@
 <script lang="ts">
-  import { slide } from 'svelte/transition'
+  import { slide } from "svelte/transition"
   import {
     isExamItemInReferentiel,
     isJSONReferentielEnding,
-    type JSONReferentielObject
-  } from '../../../../../../lib/types/referentiels'
-  import { codeToLevelTitle } from '../../../../../../lib/components/refUtils'
-  import codeToLevelList from '../../../../../../json/codeToLevelList.json'
-  import { toMap } from '../../../../../../lib/components/toMap'
-  import themesList from '../../../../../../json/levelsThemesList.json'
-  import themesListCH from '../../../../../../json/levelsThemesListCH.json'
+    type JSONReferentielObject,
+  } from "../../../../../../lib/types/referentiels"
+  import { codeToLevelTitle } from "../../../../../../lib/components/refUtils"
+  import codeToLevelList from "../../../../../../json/codeToLevelList.json"
+  import { toMap } from "../../../../../../lib/components/toMap"
+  import themesList from "../../../../../../json/levelsThemesList.json"
+  import themesListCH from "../../../../../../json/levelsThemesListCH.json"
   const themes = toMap(themesList)
   const themesCH = toMap(themesListCH)
-  import ReferentielEnding from './ReferentielEnding.svelte'
-  import { onMount } from 'svelte'
+  import ReferentielEnding from "./ReferentielEnding.svelte"
+  import { onMount } from "svelte"
   import {
     exercicesParams,
-    bibliothequeDisplayedContent
-  } from '../../../../../../lib/stores/generalStore'
-  import { monthes } from '../../../../../../lib/components/handleDate'
+    bibliothequeDisplayedContent,
+  } from "../../../../../../lib/stores/generalStore"
+  import { monthes } from "../../../../../../lib/components/handleDate"
 
   export let subset: JSONReferentielObject
   export let unfold: boolean = false
@@ -36,13 +36,13 @@
    * @return {string} intitulé du thème
    * @author Sylvain Chambon & Rémi Angot
    */
-  function themeTitle (themeCode: string) {
+  function themeTitle(themeCode: string) {
     if (themes.has(themeCode)) {
-      return [' : ', themes.get(themeCode).get('titre')].join('')
+      return [" : ", themes.get(themeCode).get("titre")].join("")
     } else if (themesCH.has(themeCode)) {
-      return [' : ', themesCH.get(themeCode).get('titre')].join('')
+      return [" : ", themesCH.get(themeCode).get("titre")].join("")
     } else {
-      return ''
+      return ""
     }
   }
 
@@ -50,40 +50,53 @@
    * Ordonne les entrées d'un sous-menu à l'envers lorsque son titre contient le mot `année`
    * afin de commencer par l'année la plus récente
    */
-  function prepareSubset (s: JSONReferentielObject) {
+  function prepareSubset(s: JSONReferentielObject) {
     if (pathToThisNode.length !== 0) {
       // console.log('object in prepareSubset (pathToThisNode): ')
       // console.log(pathToThisNode)
       // console.log(s)
       // classement entrées CAN
-      if (pathToThisNode[pathToThisNode.length - 1].includes('CAN')) {
+      if (pathToThisNode[pathToThisNode.length - 1].includes("CAN")) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         return Object.entries(s).sort(([keyA, valueA], [keyB, valueB]) => {
           return levels.indexOf(keyA) - levels.indexOf(keyB)
         })
       }
       // classement des entrées par années décroissantes
-      if (pathToThisNode[pathToThisNode.length - 1].includes('année')) {
+      if (pathToThisNode[pathToThisNode.length - 1].includes("année")) {
         return Object.entries(s).reverse()
       }
       // classement des thèmes dans l'ordre alphabétique
-      if (pathToThisNode[pathToThisNode.length - 1].includes('thèmes')) {
+      if (pathToThisNode[pathToThisNode.length - 1].includes("thèmes")) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         return Object.entries(s).sort(([keyA, valueA], [keyB, valueB]) => {
-          return keyA.localeCompare(keyB, 'fr')
+          return keyA.localeCompare(keyB, "fr")
         })
       }
       // classement des entrées par années : sujets 1 et 2
       const regExpForExactlyFourDigits = /^\d{4}$/gm
-      if (regExpForExactlyFourDigits.test(pathToThisNode[pathToThisNode.length - 1])) {
+      if (
+        regExpForExactlyFourDigits.test(
+          pathToThisNode[pathToThisNode.length - 1],
+        )
+      ) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         return Object.entries(s).sort(([keyA, valueA], [keyB, valueB]) => {
-          if (isExamItemInReferentiel(valueA) && isExamItemInReferentiel(valueB) && valueA.jour && valueB.jour) {
-            const jourA = parseInt(valueA.jour.replace('J', ''))
-            const jourB = parseInt(valueB.jour.replace('J', ''))
-            const moisA = monthes.indexOf(valueA.mois ?? '')
-            const moisB = monthes.indexOf(valueB.mois ?? '')
-            return moisB - moisA || valueA.lieu.localeCompare(valueB.lieu) || jourA - jourB
+          if (
+            isExamItemInReferentiel(valueA) &&
+            isExamItemInReferentiel(valueB) &&
+            valueA.jour &&
+            valueB.jour
+          ) {
+            const jourA = parseInt(valueA.jour.replace("J", ""))
+            const jourB = parseInt(valueB.jour.replace("J", ""))
+            const moisA = monthes.indexOf(valueA.mois ?? "")
+            const moisB = monthes.indexOf(valueB.mois ?? "")
+            return (
+              moisB - moisA ||
+              valueA.lieu.localeCompare(valueB.lieu) ||
+              jourA - jourB
+            )
           } else {
             return 0
           }
@@ -116,7 +129,7 @@
   }
 
   onMount(() => {
-    if (nestedLevelCount === 1 && levelTitle === 'Exercices aléatoires') {
+    if (nestedLevelCount === 1 && levelTitle === "Exercices aléatoires") {
       unfold = true
     }
   })
@@ -141,9 +154,9 @@
   - **levelTitle** (_string_) : titre du niveau courant (clé du nœud retraduite sur la base des fichiers `levelsThemesList.json` et `codeToLevelList.json`).
 
  -->
-<div class={`${$$props.class || ''}`}>
+<div class={`${$$props.class || ""}`}>
   <button
-    id={'titre-liste-' + indexBase}
+    id={"titre-liste-" + indexBase}
     type="button"
     disabled={Object.keys(subset).length === 0}
     class="w-full flex flex-row text-start items-center justify-between font-bold first-letter:first-linemarker
@@ -162,7 +175,7 @@
     }}
   >
     <div
-      id={'titre-liste-' + indexBase + '-content'}
+      id={"titre-liste-" + indexBase + "-content"}
       class=" {nestedLevelCount === 1 ? 'text-xl' : 'text-base'}"
     >
       <!-- on va chercher dans les fichiers JSON les significations des clés passées comme titre -->
@@ -172,30 +185,33 @@
     <div>
       <!-- Suivant que c'est le premier niveau (nestedLevelCount = 1) ou pas, on a un affichage différent :
       le premier niveau correspond au tritre du référentiel -->
-      <i
-        class="text-xl bg-transparent transition-transform duration-500 ease-in-out
-        {nestedLevelCount === 1 ? 'hidden' : 'flex'}
+      {#if nestedLevelCount !== 1}
+        <i
+          class=" flex text-xl bg-transparent transition-transform duration-500 ease-in-out
         {unfold && nestedLevelCount !== 1
-          ? 'bx bx-plus rotate-[225deg]'
-          : 'bx bx-plus'}"
-      />
-      <i
-        class="text-sm text-coopmaths-action dark:text-coopmathsdark-action bg-transparent transition-transform duration-500 ease-in-out
-        {nestedLevelCount === 1 ? 'flex' : 'hidden'}
+            ? 'bx bx-plus rotate-[225deg]'
+            : 'bx bx-plus'}"
+        />
+      {/if}
+
+      {#if nestedLevelCount === 1}
+        <i
+          class="flex text-sm text-coopmaths-action dark:text-coopmathsdark-action bg-transparent transition-transform duration-500 ease-in-out
         {unfold ? 'bx bxs-up-arrow' : 'bx bxs-up-arrow rotate-[180deg]'}"
-      />
+        />
+      {/if}
     </div>
   </button>
   <div>
     {#if unfold}
-      <ul transition:slide={{ duration: 500 }}>
+      <ul transition:slide|global={{ duration: 500 }}>
         {#each items as [key, obj], i}
           <li>
             {#if isJSONReferentielEnding(obj)}
               <ReferentielEnding
                 ending={obj}
                 nestedLevelCount={nestedLevelCount + 1}
-                class={i === items.length - 1 ? 'pb-6' : ''}
+                class={i === items.length - 1 ? "pb-6" : ""}
               />
             {:else}
               <svelte:self

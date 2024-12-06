@@ -119,10 +119,14 @@ export function mathalea2d (
               }
               const xSvg = (code.x - xmin) * pixelsParCm * zoom
               const ySvg = -(code.y - ymax) * pixelsParCm * zoom
+
+              code.backgroundColor = code.backgroundColor.replace('{', '').replace('}', '')
+              code.color = code.color.replace('{', '').replace('}', '')
+
               const divOuterHtml =
-                code.backgroundColor !== ''
-                  ? `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${code.orientation}deg); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('\\colorbox{' + code.backgroundColor + '}{\\' + code.letterSize + ' {\\color{' + code.color + '}$' + code.latex + '$}}')}</div>`
-                  : `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${code.orientation}deg); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('\\color{' + code.color + '} \\' + code.letterSize + ' ' + code.latex + '')}</div>`
+                code.backgroundColor !== '' && code.backgroundColor !== 'none'
+                  ? `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${code.orientation}deg); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('\\colorbox{' + code.backgroundColor + '}{\\' + code.letterSize + ' {\\color{' + code.color + '}{' + code.latex + '}}}')}</div>`
+                  : `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${code.orientation}deg); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('{\\color{' + code.color + '} \\' + code.letterSize + '{' + code.latex + '}}')}</div>`
               divsLatex.push(divOuterHtml)
             }
           } else {
@@ -589,7 +593,7 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
   const fenetrexmax = fenetreMathalea2d[2]
   const fenetreymax = fenetreMathalea2d[1] * -1
   const sortie = context.isHtml
-  // eslint-disable-next-line no-global-assign
+
   context.isHtml = false
   if (scale === 1) {
     code += '\\begin{tikzpicture}[baseline]\n'
@@ -627,7 +631,7 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
     }
   }
   code += '\\end{tikzpicture}\n'
-  // eslint-disable-next-line no-global-assign
+
   context.isHtml = sortie
   return code
 }

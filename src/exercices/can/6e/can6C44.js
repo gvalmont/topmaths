@@ -6,11 +6,12 @@ import { listeQuestionsToContenu } from '../../../modules/outils'
 import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Comparer deux fractions*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '04/11/2022'
-/*!
+/**
  * @author Gilles Mora
  */
 
@@ -63,7 +64,7 @@ export default class ComparerFraction extends Exercice {
           }
         )
         this.correction = `$${a.texFraction} <1$ et $${b.texFraction}>1$.<br>
-      On en déduit : $${a.texFraction}<${b.texFraction}$.`
+      On en déduit : $${a.texFraction} ${miseEnEvidence('<')} ${b.texFraction}$.`
         this.reponse = '<'
         this.canEnonce = 'Compléter avec $>$ ou $<$.'
         this.canReponseACompleter = `$${a.texFraction}$ $\\ldots$ $${b.texFraction}$`
@@ -77,7 +78,7 @@ export default class ComparerFraction extends Exercice {
           }
         )
         this.correction = `$${b.texFraction} >1$ et $${a.texFraction}<1$.<br>
-      On en déduit : $${b.texFraction}>${a.texFraction}$.`
+      On en déduit : $${b.texFraction} ${miseEnEvidence('>')} ${a.texFraction}$.`
         this.reponse = '>'
         this.canEnonce = 'Compléter avec $>$ ou $<$.'
         this.canReponseACompleter = `$${b.texFraction}$ $\\ldots$ $${a.texFraction}$`

@@ -1,9 +1,12 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import Decimal from 'decimal.js'
+import { bleuMathalea } from '../../../lib/colors'
 export const titre = 'Multiplier deux décimaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -13,8 +16,6 @@ export const dateDePublication = '04/03/2022'
 
 /*!
  * @author  Gilles Mora
- *
- *
  */
 export const uuid = '16ea9'
 export const ref = 'can6C30'
@@ -25,7 +26,9 @@ export const refs = {
 export default function MultiplierDeuxDecimaux () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = ''
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  this.formatChampTexte = KeyboardType.clavierNumbers
   this.typeExercice = 'simple'
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
@@ -37,12 +40,12 @@ export default function MultiplierDeuxDecimaux () {
         c = randint(2, 9)
         this.reponse = b.mul(c)
         this.question = `Calculer $${texNombre(b, 1)}\\times ${c}$.`
-        this.correction = `$${texNombre(b, 1)}\\times ${c}=${texNombre(this.reponse, 1)}$`
+        this.correction = `$${texNombre(b, 1)}\\times ${c}=${miseEnEvidence(texNombre(this.reponse, 1))}$<br>`
 
         this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
    Comme $${texNombre(b, 1)}=${a}\\times 0,1$, alors $${texNombre(b, 1)}\\times ${c}=${a}\\times 0,1\\times ${c} =
-   ${a * c}\\times 0,1=${texNombre(this.reponse, 1)}$ `)
+   ${a * c}\\times 0,1=${texNombre(this.reponse, 1)}$ `, bleuMathalea)
         break
       case 2:// un entier par un décimal avec deux chiffres après la virgule
         a = randint(2, 9)
@@ -50,12 +53,12 @@ export default function MultiplierDeuxDecimaux () {
         c = randint(2, 9)
         this.reponse = b.mul(c)
         this.question = `Calculer $${texNombre(b, 2)}\\times ${c}$.`
-        this.correction = `$${texNombre(b, 2)}\\times ${c}=${texNombre(this.reponse, 2)}$`
+        this.correction = `$${texNombre(b, 2)}\\times ${c}=${miseEnEvidence(texNombre(this.reponse, 2))}$<br>`
 
         this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
    Comme $${texNombre(b, 2)}=${a}\\times 0,01$, alors $${texNombre(b, 2)}\\times ${c}=${a}\\times 0,01\\times ${c} =
-   ${a * c}\\times 0,01=${texNombre(this.reponse, 2)}$ `)
+   ${a * c}\\times 0,01=${texNombre(this.reponse, 2)}$ `, bleuMathalea)
         break
 
       case 3:// Deux décimaux avec un chiffre après la virgule
@@ -65,12 +68,12 @@ export default function MultiplierDeuxDecimaux () {
         d = (new Decimal(c)).div(10)
         this.reponse = b.mul(d)
         this.question = `Calculer $${texNombre(b, 1)}\\times ${texNombre(d, 1)}$.`
-        this.correction = `$${texNombre(b, 1)}\\times ${texNombre(d, 1)}=${texNombre(this.reponse, 2)}$`
+        this.correction = `$${texNombre(b, 1)}\\times ${texNombre(d, 1)}=${miseEnEvidence(texNombre(this.reponse, 2))}$<br>`
 
         this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
    Comme $${texNombre(b, 1)}=${a}\\times 0,1$ et $${texNombre(d, 1)}=${c}\\times 0,1$,
-    alors $${texNombre(b, 1)}\\times ${texNombre(d, 1)}=${a}\\times ${c}\\times 0,1 \\times 0,1=${a * c}\\times 0,01=${texNombre(this.reponse, 2)}$ `)
+    alors $${texNombre(b, 1)}\\times ${texNombre(d, 1)}=${a}\\times ${c}\\times 0,1 \\times 0,1=${a * c}\\times 0,01=${texNombre(this.reponse, 2)}$ `, bleuMathalea)
         break
 
       case 4:// Deux décimaux avec un chiffre et deux chiffres après la virgule
@@ -80,12 +83,12 @@ export default function MultiplierDeuxDecimaux () {
         d = (new Decimal(c)).div(100)
         this.reponse = b.mul(d)
         this.question = `Calculer $${texNombre(b, 1)}\\times ${texNombre(d, 2)}$.`
-        this.correction = `$${texNombre(b, 1)}\\times ${texNombre(d, 2)}=${texNombre(this.reponse, 3)}$`
+        this.correction = `$${texNombre(b, 1)}\\times ${texNombre(d, 2)}=${miseEnEvidence(texNombre(this.reponse, 3))}$<br>`
 
         this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
    Comme $${texNombre(b, 1)}=${a}\\times 0,1$ et $${texNombre(d, 2)}=${c}\\times 0,01$,
-    alors $${texNombre(b, 1)}\\times ${texNombre(d, 2)}=${a}\\times ${c}\\times 0,01 \\times 0,1=${a * c}\\times 0,001=${texNombre(this.reponse, 3)}$ `)
+    alors $${texNombre(b, 1)}\\times ${texNombre(d, 2)}=${a}\\times ${c}\\times 0,01 \\times 0,1=${a * c}\\times 0,001=${texNombre(this.reponse, 3)}$ `, bleuMathalea)
         break
     }
     this.canEnonce = this.question

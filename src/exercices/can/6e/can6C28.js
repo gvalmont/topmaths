@@ -1,6 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -26,7 +28,9 @@ export default function PetitsProblemeDeFraction () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = ''
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  this.formatChampTexte = KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {
     const a = choice([12, 24, 36, 48])
     const b = choice([15, 20, 25, 30, 35, 40, 45])

@@ -33,6 +33,7 @@
   import { uuidToLocaleRef } from '../../../../../lib/components/languagesUtils'
   import { referentielLocale } from '../../../../../lib/stores/languagesStore'
   import type { Language } from '../../../../../lib/types/languages'
+    import { countMathField } from '../../countMathField';
 
   export let exercise: Exercice
   export let exerciseIndex: number
@@ -152,28 +153,6 @@
   }
 
   let numberOfAnswerFields: number = 0
-  async function countMathField () {
-    if (isInteractif) {
-      let numbOfAnswerFields : number = 0
-      exercise.autoCorrection.forEach(val => {
-        if (val.reponse?.param?.formatInteractif === 'mathlive' ||
-            val.reponse?.param?.formatInteractif === 'qcm') {
-          numbOfAnswerFields++
-        }
-      })
-      if (exercise.interactifType === 'custom' && 'goodAnswers' in exercise && Array.isArray(exercise.goodAnswers)) {
-        exercise.goodAnswers.forEach(val => {
-          if (Array.isArray(val)) {
-            numbOfAnswerFields += val.length
-          } else {
-            numbOfAnswerFields++
-          }
-        })
-      }
-      log('numberOfAnswerFields:' + numbOfAnswerFields)
-      numberOfAnswerFields = numbOfAnswerFields
-    }
-  }
 
   // on détecte les changements dans la liste des exercices
   // afin de mettre à jour le titre
@@ -259,7 +238,7 @@
     if (exercise) {
       await tick()
       if (isInteractif) {
-        await countMathField()
+        await countMathField(exercise)
         await loadMathLive()
         if (exercise?.interactifType === 'cliqueFigure' && !isCorrectionVisible) {
           prepareExerciceCliqueFigure(exercise)

@@ -10,7 +10,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import engine, { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { developpe, regroupeTermesMemeDegre, suppressionParentheses } from '../../lib/mathFonctions/outilsMaths'
 
-export const titre = 'Développer puis réduire des expressions littérales.'
+export const titre = 'Développer puis réduire des expressions littérales complexes'
 export const dateDePublication = '20/04/2024'
 // export const dateDeModifImportante =
 
@@ -28,7 +28,7 @@ export const amcReady = true
  */
 export const uuid = '889ef'
 export const refs = {
-  'fr-fr': ['2N41-9'],
+  'fr-fr': ['2N41-9a'],
   'fr-ch': []
 }
 

@@ -1,5 +1,8 @@
+import { bleuMathalea } from '../../../lib/colors'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
@@ -12,8 +15,6 @@ export const amcType = 'AMCNum'
 export const dateDePublication = '09/05/2022'
 /*!
  * @author  Gilles Mora
- *
- *
  */
 export const uuid = '5b443'
 export const ref = 'can6C31'
@@ -24,7 +25,9 @@ export const refs = {
 export default function SoustraireEntierDecimal () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = ''
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  this.formatChampTexte = KeyboardType.clavierNumbers
   this.typeExercice = 'simple'
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
@@ -36,12 +39,12 @@ export default function SoustraireEntierDecimal () {
         d = randint(1, 9)
 
         this.question = `Calculer $${a}-${texNombre(u + d / 10, 1)}$.`
-        this.correction = `$${a}-${texNombre(u + d / 10, 1)}=${a}-${u}-${texNombre(d / 10, 1)}=${texNombre(a - u - d / 10, 1)}$`
+        this.correction = `$${a}-${texNombre(u + d / 10, 1)}=${a}-${u}-${texNombre(d / 10, 1)}=${miseEnEvidence(texNombre(a - u - d / 10, 1))}$<br>`
         this.reponse = arrondi(a - u - d / 10, 1)
         this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
    On commence par soustraire les unités : $${a}-${u}=${a - u}$.<br>
-    Puis les dixièmes : $${a - u}-${texNombre(d / 10)}=${texNombre(a - u - d / 10, 1)}$`)
+    Puis les dixièmes : $${a - u}-${texNombre(d / 10)}=${texNombre(a - u - d / 10, 1)}$`, bleuMathalea)
         break
       case 2:// 8-2,65
         a = randint(2, 15)
@@ -49,12 +52,12 @@ export default function SoustraireEntierDecimal () {
         d = randint(1, 9)
         c = randint(1, 9)
         this.question = `Calculer $${a}-${texNombre(u + d / 10 + c / 100, 2)}$.`
-        this.correction = `$${a}-${texNombre(u + d / 10 + c / 100, 2)}=${a}-${u}-${texNombre(d / 10 + c / 100, 2)}=${texNombre(a - u - d / 10 - c / 100, 2)}$`
+        this.correction = `$${a}-${texNombre(u + d / 10 + c / 100, 2)}=${a}-${u}-${texNombre(d / 10 + c / 100, 2)}=${miseEnEvidence(texNombre(a - u - d / 10 - c / 100, 2))}$<br>`
         this.reponse = arrondi(a - u - d / 10 - c / 100, 2)
         this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
     On commence par soustraire les unités : $${a}-${u}=${a - u}$.<br>
-    Puis on soustrait la partie décimale de $${texNombre(u + d / 10 + c / 100, 2)}$ c'est-à-dire $${texNombre(d / 10 + c / 100, 2)}$. On obtient $${a - u}-${texNombre(d / 10 + c / 100)}=${texNombre(a - u - d / 10 - c / 100, 2)}$`)
+    Puis on soustrait la partie décimale de $${texNombre(u + d / 10 + c / 100, 2)}$ c'est-à-dire $${texNombre(d / 10 + c / 100, 2)}$. On obtient $${a - u}-${texNombre(d / 10 + c / 100)}=${texNombre(a - u - d / 10 - c / 100, 2)}$`, bleuMathalea)
         break
     }
     this.canEnonce = this.question

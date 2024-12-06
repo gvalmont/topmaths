@@ -5,6 +5,7 @@ import { keyboardState } from '../components/keyboard/stores/keyboardStore'
 import { get } from 'svelte/store'
 import { globalOptions } from '../lib/stores/generalStore'
 import { getKeyboardShortcusts } from '../lib/interactif/claviers/keyboard'
+import { MathfieldElement } from 'mathlive'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -156,95 +157,60 @@ export function loadScratchblocks () {
  * MathLive est chargé dès qu'un tag math-field est créé
  */
 export async function loadMathLive (divExercice) {
-  const champs = divExercice ? divExercice.getElementsByTagName('math-field') : document.getElementsByTagName('math-field')
-  if (champs.length > 0) {
-    await import('mathlive')
-    for (const mf of champs) {
-      mf.mathVirtualKeyboardPolicy = 'manual'
-      mf.menuItems = []
-      mf.virtualKeyboardTargetOrigin = '*'
-      let style = 'font-size: 20px;'
-      if (mf.getAttribute('data-space') === 'true') {
-        mf.mathModeSpace = '\\,'
-      }
-      // if (mf.classList.contains('inline')) { // EE : Tous inline maintenant
-      /* if (mf.classList.contains('nospacebefore')) {
-        style += 'margin-left:5px;'
-      } else {
-        style += 'margin-left: 25px;'
-      } */
-      style += 'margin-left:5px;' // EE : Tous nospacebefore maintenant
-      style +=
-          ' display: inline-block; vertical-align: middle; padding-left: 5px; padding-right: 5px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .3);  '
-      /* if (!mf.classList.contains('fillInTheBlanks') &&
-          !mf.classList.contains('largeur01') &&
-          !mf.classList.contains('largeur10') &&
-          !mf.classList.contains('largeur25') &&
-          !mf.classList.contains('largeur50') &&
-          !mf.classList.contains('largeur75')
-      ) {
-        style += ' width: 25%;'
-      } */
-      /* }  else {
-        style +=
-          ' margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 4px;'
-      } */
-      /* if (mf.classList.contains('largeur10')) {
-        style += ' width: 10%;'
-      } else if (mf.classList.contains('largeur25')) {
-        style += ' width: 25%;'
-      } else if (mf.classList.contains('largeur50')) {
-        style += ' width: 50%;'
-      } else if (mf.classList.contains('largeur75')) {
-        style += ' width: 75%;'
-      }
-      if (mf.classList.contains('largeur01')) {
-        style += ' min-width: 80px'
-      } else {
-        style += ' min-width: 200px'
-      } */
-
-      style += ' min-width: 80px' // EE : Style par défaut
-
-      if (!mf.classList.contains('tableauMathlive')) mf.setAttribute('style', style)
-      if (mf.classList.contains('fillInTheBlanks')) {
-        mf.style.border = 'none'
-        mf.style.boxShadow = 'none'
-        mf.style.fontSize = '1em'
-        mf.style.marginTop = '1px'
-        mf.style.padding = '2px'
-        mf.classList.remove('invisible')
-      }
-      mf.style.fontSize = '1em'
-      mf.classList.add('ml-1')
-      mf.addEventListener('focus', handleFocusMathField)
-      mf.addEventListener('focusout', handleFocusOutMathField)
-      mf.addEventListener('input', () => {
-        const content = mf.getValue()
-        // Remplace les espaces consécutifs par un seul espace
-        const filteredContent = content.replaceAll('\\,\\,', '\\,')
-        mf.setValue(filteredContent)
-      })
-    }
+  await import('mathlive')
+  let champs
+  if (divExercice) {
+    champs = divExercice.getElementsByTagName('math-field')
+  } else {
+    champs = document.getElementsByTagName('math-field')
   }
-  // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
-  if (context.vue === 'exMoodle') {
-    const hauteurExercice =
+  if (champs != null) {
+    for (const mf of champs) {
+      if (mf instanceof MathfieldElement) {
+        if (mf.classList.contains('fillInTheBlanks')) {
+          mf.classList.remove('invisible')
+        }
+        mf.classList.add('ml-1')
+        mf.addEventListener('focus', handleFocusMathField)
+        mf.addEventListener('focusout', handleFocusOutMathField)
+        mf.addEventListener('input', () => {
+          const content = mf.getValue()
+          // Remplace les espaces consécutifs par un seul espace
+          const filteredContent = content.replaceAll('\\,\\,', '\\,')
+          mf.setValue(filteredContent)
+        })
+        if (mf.getAttribute('data-space') === 'true') {
+          mf.mathModeSpace = '\\,'
+        }
+        // ces assignations sont mises dans un onMount pour éviter les problèmes d'assignation sur des mathfields non encore montés
+        const onMount = () => {
+          mf.mathVirtualKeyboardPolicy = 'manual'
+          mf.menuItems = []
+          mf.virtualKeyboardTargetOrigin = '*'
+          mf.removeEventListener('mount', onMount)
+        }
+        mf.addEventListener('mount', onMount)
+      }
+    }
+    // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
+    if (context.vue === 'exMoodle') {
+      const hauteurExercice =
       window.document.querySelector('section').scrollHeight
-    window.parent.postMessage(
-      {
-        hauteurExercice,
-        iMoodle: parseInt(
-          new URLSearchParams(window.location.search).get('iMoodle')
-        )
-      },
-      '*'
-    )
-    const domExerciceInteractifReady = new window.Event(
-      'domExerciceInteractifReady',
-      { bubbles: true }
-    )
-    document.dispatchEvent(domExerciceInteractifReady)
+      window.parent.postMessage(
+        {
+          hauteurExercice,
+          iMoodle: parseInt(
+            new URLSearchParams(window.location.search).get('iMoodle')
+          )
+        },
+        '*'
+      )
+      const domExerciceInteractifReady = new window.Event(
+        'domExerciceInteractifReady',
+        { bubbles: true }
+      )
+      document.dispatchEvent(domExerciceInteractifReady)
+    }
   }
 }
 

@@ -63,6 +63,7 @@ export default class nomExercice extends Exercice {
             champ1: { value: '' },
             champ2: { value: '' },
             callback: (exercice: Exercice, question: number) => {
+              let feedback = ''
               const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`) as MathfieldElement
               if (mfe == null) return { isOk: false, score: { nbBonnesReponses: 0, nbReponses: 0 } }
               const facteur1 = Number(mfe.getPromptValue('champ1') || 0)
@@ -82,12 +83,13 @@ export default class nomExercice extends Exercice {
                   mfe.setPromptState('champ1', 'incorrect', false)
                   mfe.setPromptState('champ2', 'incorrect', false)
                 }
+                feedback = `Attention, ${a * b} n'est pas égal à ${facteur1} × ${facteur2}.`
               }
               const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${question}`)
               if (spanReponseLigne != null) {
                 spanReponseLigne.innerHTML = isOk ? '😎' : '☹️'
               }
-              return { isOk, score: { nbBonnesReponses: (isOk ? 1 : 0), nbReponses: 1 } }
+              return { isOk, feedback, score: { nbBonnesReponses: (isOk ? 1 : 0), nbReponses: 1 } }
             }
           }
 

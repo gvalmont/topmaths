@@ -44,8 +44,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_04_pondichery_1.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_04_pondichery_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_04_pondichery_1.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_04_pondichery_1_cor.tex',
     tags: ['Vrai-faux', 'Calcul numérique', 'Arithmétique', "Géométrie dans l'espace", 'Thalès']
   },
   dnb_2013_04_pondichery_2: {
@@ -56,8 +54,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_04_pondichery_2.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_04_pondichery_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_04_pondichery_2.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_04_pondichery_2_cor.tex',
     tags: ['Statistiques', 'Pourcentages']
   },
   dnb_2013_04_pondichery_3: {
@@ -68,8 +64,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_04_pondichery_3.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_04_pondichery_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_04_pondichery_3.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_04_pondichery_3_cor.tex',
     tags: ['Proportionnalité', 'Trigonométrie', 'Pourcentages']
   },
   dnb_2013_04_pondichery_4: {
@@ -80,8 +74,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_04_pondichery_4.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_04_pondichery_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_04_pondichery_4.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_04_pondichery_4_cor.tex',
     tags: ['Tableur', 'Calcul littéral', 'Équations']
   },
   dnb_2013_04_pondichery_5: {
@@ -92,8 +84,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_04_pondichery_5.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_04_pondichery_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_04_pondichery_5.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_04_pondichery_5_cor.tex',
     tags: ['Volumes', 'Aires et périmètres', 'Agrandissement-réduction', 'Pythagore']
   },
   dnb_2013_04_pondichery_6: {
@@ -104,8 +94,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_04_pondichery_6.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_04_pondichery_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_04_pondichery_6.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_04_pondichery_6_cor.tex',
     tags: ["Prise d'initiatives", 'Proportionnalité', 'Durées', 'Vitesses', 'Puissances']
   },
   dnb_2013_06_ameriquenord_1: {
@@ -116,8 +104,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_ameriquenord_1.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_ameriquenord_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_ameriquenord_1.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_ameriquenord_1_cor.tex',
     tags: ['QCM', 'Probabilités', 'Pourcentages', 'Aires et périmètres']
   },
   dnb_2013_06_ameriquenord_2: {
@@ -128,8 +114,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_ameriquenord_2.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_ameriquenord_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_ameriquenord_2.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_ameriquenord_2_cor.tex',
     tags: ['Hors programme']
   },
   dnb_2013_06_ameriquenord_3: {
@@ -140,8 +124,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_ameriquenord_3.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_ameriquenord_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_ameriquenord_3.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_ameriquenord_3_cor.tex',
     tags: ['Probabilités', 'Pourcentages']
   },
   dnb_2013_06_ameriquenord_4: {
@@ -152,8 +134,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_ameriquenord_4.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_ameriquenord_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_ameriquenord_4.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_ameriquenord_4_cor.tex',
     tags: ['Arithmétique']
   },
   dnb_2013_06_ameriquenord_5: {
@@ -164,8 +144,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_ameriquenord_5.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_ameriquenord_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_ameriquenord_5.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_ameriquenord_5_cor.tex',
     tags: ['Calcul littéral']
   },
   dnb_2013_06_ameriquenord_6: {
@@ -176,8 +154,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_ameriquenord_6.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_ameriquenord_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_ameriquenord_6.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_ameriquenord_6_cor.tex',
     tags: ['Calcul littéral', 'Fonctions', 'Volumes']
   },
   dnb_2013_06_ameriquenord_7: {
@@ -188,8 +164,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_ameriquenord_7.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_ameriquenord_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_ameriquenord_7.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_ameriquenord_7_cor.tex',
     tags: ['Géométrie plane', 'Aires et périmètres', 'Pythagore', 'Trigonométrie']
   },
   dnb_2013_06_ameriquenord_8: {
@@ -200,8 +174,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_ameriquenord_8.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_ameriquenord_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_ameriquenord_8.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_ameriquenord_8_cor.tex',
     tags: ['Aires et périmètres']
   },
   dnb_2013_06_asie_1: {
@@ -212,8 +184,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_asie_1.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_asie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_asie_1.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_asie_1_cor.tex',
     tags: ['Fonctions']
   },
   dnb_2013_06_asie_2: {
@@ -224,8 +194,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_asie_2.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_asie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_asie_2.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_asie_2_cor.tex',
     tags: ['Vrai-faux', 'Arithmétique', 'Calcul numérique', 'Calcul littéral']
   },
   dnb_2013_06_asie_3: {
@@ -236,8 +204,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_asie_3.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_asie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_asie_3.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_asie_3_cor.tex',
     tags: ['Trigonométrie', 'Statistiques']
   },
   dnb_2013_06_asie_4: {
@@ -248,8 +214,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_asie_4.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_asie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_asie_4.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_asie_4_cor.tex',
     tags: ['Calcul littéral', 'Fonctions', 'Équations', 'Programme de calculs']
   },
   dnb_2013_06_asie_5: {
@@ -260,8 +224,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_asie_5.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_asie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_asie_5.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_asie_5_cor.tex',
     tags: ['Proportionnalité']
   },
   dnb_2013_06_asie_6: {
@@ -272,8 +234,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_asie_6.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_asie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_asie_6.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_asie_6_cor.tex',
     tags: ['Pourcentages']
   },
   dnb_2013_06_asie_7: {
@@ -284,8 +244,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_asie_7.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_asie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_asie_7.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_asie_7_cor.tex',
     tags: ['Volumes', 'Agrandissement-réduction']
   },
   dnb_2013_06_asie_8: {
@@ -296,8 +254,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_asie_8.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_asie_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_asie_8.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_asie_8_cor.tex',
     tags: ["Prise d'initiatives", 'Thalès', 'Pythagore', 'Aires et périmètres']
   },
   dnb_2013_06_etrangers_1: {
@@ -308,8 +264,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_etrangers_1.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_etrangers_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_etrangers_1.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_etrangers_1_cor.tex',
     tags: ['QCM', 'Calcul littéral', 'Équations', 'Volumes', "Géométrie dans l'espace"]
   },
   dnb_2013_06_etrangers_2: {
@@ -320,8 +274,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_etrangers_2.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_etrangers_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_etrangers_2.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_etrangers_2_cor.tex',
     tags: ['Probabilités', 'Statistiques']
   },
   dnb_2013_06_etrangers_3: {
@@ -332,8 +284,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_etrangers_3.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_etrangers_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_etrangers_3.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_etrangers_3_cor.tex',
     tags: ['Trigonométrie', 'Géométrie plane']
   },
   dnb_2013_06_etrangers_4: {
@@ -344,8 +294,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_etrangers_4.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_etrangers_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_etrangers_4.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_etrangers_4_cor.tex',
     tags: ['Fonctions', 'Proportionnalité']
   },
   dnb_2013_06_etrangers_5: {
@@ -356,8 +304,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_etrangers_5.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_etrangers_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_etrangers_5.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_etrangers_5_cor.tex',
     tags: ['Statistiques']
   },
   dnb_2013_06_etrangers_6: {
@@ -368,8 +314,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_etrangers_6.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_etrangers_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_etrangers_6.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_etrangers_6_cor.tex',
     tags: ["Prise d'initiatives", 'Thalès', 'Calcul littéral']
   },
   dnb_2013_06_etrangers_7: {
@@ -380,8 +324,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_etrangers_7.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_etrangers_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_etrangers_7.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_etrangers_7_cor.tex',
     tags: ['Calcul numérique', "Recherche d'informations"]
   },
   dnb_2013_06_metropole_1: {
@@ -392,8 +334,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_metropole_1.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_metropole_1.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_metropole_1_cor.tex',
     tags: ['Fonctions']
   },
   dnb_2013_06_metropole_2: {
@@ -404,8 +344,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_metropole_2.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_metropole_2.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_metropole_2_cor.tex',
     tags: ['Tableur', 'Fonctions']
   },
   dnb_2013_06_metropole_3: {
@@ -416,8 +354,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_metropole_3.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_metropole_3.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_metropole_3_cor.tex',
     tags: ['Statistiques']
   },
   dnb_2013_06_metropole_4: {
@@ -428,8 +364,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_metropole_4.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_metropole_4.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_metropole_4_cor.tex',
     tags: ['Géométrie plane', 'Trigonométrie']
   },
   dnb_2013_06_metropole_5: {
@@ -440,8 +374,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_metropole_5.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_metropole_5.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_metropole_5_cor.tex',
     tags: ["Prise d'initiatives", "Recherche d'informations", 'Volumes', 'Proportionnalité']
   },
   dnb_2013_06_metropole_6: {
@@ -452,8 +384,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_metropole_6.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_metropole_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_metropole_6.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_metropole_6_cor.tex',
     tags: ['Thalès', 'Volumes']
   },
   dnb_2013_06_metropole_7: {
@@ -464,8 +394,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_metropole_7.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_metropole_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_metropole_7.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_metropole_7_cor.tex',
     tags: ['Vrai-faux', 'Calcul numérique', 'Pourcentages', 'Calcul littéral']
   },
   dnb_2013_06_polynesie_1: {
@@ -476,8 +404,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_polynesie_1.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_polynesie_1.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_polynesie_1_cor.tex',
     tags: ['QCM', 'Calcul numérique', 'Proportionnalité', 'Vitesses', 'Durées', 'Agrandissement-réduction', 'Calcul littéral']
   },
   dnb_2013_06_polynesie_2: {
@@ -488,8 +414,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_polynesie_2.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_polynesie_2.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_polynesie_2_cor.tex',
     tags: ['Arithmétique']
   },
   dnb_2013_06_polynesie_3: {
@@ -500,8 +424,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_polynesie_3.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_polynesie_3.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_polynesie_3_cor.tex',
     tags: ['Pourcentages']
   },
   dnb_2013_06_polynesie_4: {
@@ -512,8 +434,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_polynesie_4.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_polynesie_4.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_polynesie_4_cor.tex',
     tags: ['Pythagore', 'Géométrie plane']
   },
   dnb_2013_06_polynesie_5: {
@@ -524,8 +444,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_polynesie_5.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_polynesie_5.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_polynesie_5_cor.tex',
     tags: ['Fonctions']
   },
   dnb_2013_06_polynesie_6: {
@@ -536,8 +454,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_polynesie_6.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_polynesie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_polynesie_6.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_polynesie_6_cor.tex',
     tags: ['Volumes', 'Aires et périmètres']
   },
   dnb_2013_06_polynesie_7: {
@@ -548,8 +464,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_polynesie_7.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_polynesie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_polynesie_7.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_polynesie_7_cor.tex',
     tags: ["Prise d'initiatives", 'Thalès']
   },
   dnb_2013_06_polynesie_8: {
@@ -560,8 +474,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_06_polynesie_8.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_06_polynesie_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_06_polynesie_8.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_06_polynesie_8_cor.tex',
     tags: ['Probabilités', 'Tableur', 'Statistiques']
   },
   dnb_2013_09_metropole_1: {
@@ -572,8 +484,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_09_metropole_1.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_09_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_09_metropole_1.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_09_metropole_1_cor.tex',
     tags: ['Fonctions']
   },
   dnb_2013_09_metropole_2: {
@@ -584,8 +494,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_09_metropole_2.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_09_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_09_metropole_2.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_09_metropole_2_cor.tex',
     tags: ['Tableur', 'Probabilités']
   },
   dnb_2013_09_metropole_3: {
@@ -596,8 +504,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_09_metropole_3.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_09_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_09_metropole_3.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_09_metropole_3_cor.tex',
     tags: ['Aires et périmètres', 'Calcul littéral', 'Équations']
   },
   dnb_2013_09_metropole_4: {
@@ -608,8 +514,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_09_metropole_4.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_09_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_09_metropole_4.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_09_metropole_4_cor.tex',
     tags: ['Calcul numérique', 'Pourcentages']
   },
   dnb_2013_09_metropole_5: {
@@ -620,8 +524,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_09_metropole_5.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_09_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_09_metropole_5.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_09_metropole_5_cor.tex',
     tags: ['Thalès', 'Aires et périmètres']
   },
   dnb_2013_09_metropole_6: {
@@ -632,8 +534,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_09_metropole_6.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_09_metropole_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_09_metropole_6.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_09_metropole_6_cor.tex',
     tags: ["Prise d'initiatives", 'Pythagore', 'Trigonométrie']
   },
   dnb_2013_09_metropole_7: {
@@ -644,8 +544,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_09_metropole_7.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_09_metropole_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_09_metropole_7.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_09_metropole_7_cor.tex',
     tags: ['Vrai-faux', 'Vitesses', 'Calcul littéral', 'Statistiques']
   },
   dnb_2013_09_metropole_8: {
@@ -656,8 +554,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_09_metropole_8.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_09_metropole_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_09_metropole_8.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_09_metropole_8_cor.tex',
     tags: ["Prise d'initiatives", 'Volumes']
   },
   dnb_2013_09_polynesie_1: {
@@ -668,8 +564,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_09_polynesie_1.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_09_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_09_polynesie_1.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_09_polynesie_1_cor.tex',
     tags: ['Statistiques', 'Tableur']
   },
   dnb_2013_09_polynesie_2: {
@@ -680,8 +574,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_09_polynesie_2.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_09_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_09_polynesie_2.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_09_polynesie_2_cor.tex',
     tags: ['Calcul numérique', 'Volumes']
   },
   dnb_2013_09_polynesie_3: {
@@ -692,8 +584,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_09_polynesie_3.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_09_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_09_polynesie_3.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_09_polynesie_3_cor.tex',
     tags: ['Statistiques', 'Probabilités']
   },
   dnb_2013_09_polynesie_4: {
@@ -704,8 +594,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_09_polynesie_4.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_09_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_09_polynesie_4.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_09_polynesie_4_cor.tex',
     tags: ['Pythagore', 'Aires et périmètres', 'Durées', 'Proportionnalité', 'Vitesses']
   },
   dnb_2013_09_polynesie_5: {
@@ -716,8 +604,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_09_polynesie_5.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_09_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_09_polynesie_5.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_09_polynesie_5_cor.tex',
     tags: ["Prise d'initiatives", 'Thalès', 'Calcul littéral']
   },
   dnb_2013_09_polynesie_6: {
@@ -728,8 +614,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_09_polynesie_6.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_09_polynesie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_09_polynesie_6.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_09_polynesie_6_cor.tex',
     tags: ["Prise d'initiatives", 'Proportionnalité']
   },
   dnb_2013_11_ameriquesud_1: {
@@ -740,8 +624,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_11_ameriquesud_1.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_11_ameriquesud_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_11_ameriquesud_1.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_11_ameriquesud_1_cor.tex',
     tags: ['Statistiques', "Recherche d'informations", 'Pourcentages']
   },
   dnb_2013_11_ameriquesud_2: {
@@ -752,8 +634,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_11_ameriquesud_2.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_11_ameriquesud_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_11_ameriquesud_2.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_11_ameriquesud_2_cor.tex',
     tags: ['Aires et périmètres', 'Pythagore', 'Proportionnalité']
   },
   dnb_2013_11_ameriquesud_3: {
@@ -764,8 +644,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_11_ameriquesud_3.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_11_ameriquesud_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_11_ameriquesud_3.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_11_ameriquesud_3_cor.tex',
     tags: ['Arithmétique', 'Hors programme']
   },
   dnb_2013_11_ameriquesud_4: {
@@ -776,8 +654,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_11_ameriquesud_4.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_11_ameriquesud_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_11_ameriquesud_4.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_11_ameriquesud_4_cor.tex',
     tags: ["Prise d'initiatives", 'Proportionnalité', 'Grandeurs composées']
   },
   dnb_2013_11_ameriquesud_5: {
@@ -788,8 +664,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_11_ameriquesud_5.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_11_ameriquesud_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_11_ameriquesud_5.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_11_ameriquesud_5_cor.tex',
     tags: ['Probabilités', 'Géométrie plane']
   },
   dnb_2013_11_ameriquesud_6: {
@@ -800,8 +674,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_11_ameriquesud_6.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_11_ameriquesud_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_11_ameriquesud_6.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_11_ameriquesud_6_cor.tex',
     tags: ['Aires et périmètres', 'Calcul littéral', 'Fonctions']
   }, // amerique sud secours nov 2013
   dnb_2013_11_amdusudsecours_1: {
@@ -812,8 +684,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_1.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_11_amdusudsecours_1.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_11_amdusudsecours_1_cor.tex',
     tags: ['QCM', 'Calcul numérique', 'Calcul littéral', 'Statistiques', 'Hors programme']
   },
   dnb_2013_11_amdusudsecours_2: {
@@ -824,8 +694,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_2.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_11_amdusudsecours_2.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_11_amdusudsecours_2_cor.tex',
     tags: ['Calcul numérique', 'Calcul littéral', 'Équations']
   },
   dnb_2013_11_amdusudsecours_3: {
@@ -836,8 +704,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_3.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_11_amdusudsecours_3.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_11_amdusudsecours_3_cor.tex',
     tags: ['Pythagore', 'Trigonométrie', 'Vitesses']
   },
   dnb_2013_11_amdusudsecours_4: {
@@ -848,8 +714,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_4.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_11_amdusudsecours_4.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_11_amdusudsecours_4_cor.tex',
     tags: ['Volumes']
   },
   dnb_2013_11_amdusudsecours_5: {
@@ -860,8 +724,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_5.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_11_amdusudsecours_5.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_11_amdusudsecours_5_cor.tex',
     tags: ['Aires et périmètres', 'Tableur', 'Fonctions']
   },
   dnb_2013_11_amdusudsecours_6: {
@@ -872,8 +734,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_6.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_11_amdusudsecours_6.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_11_amdusudsecours_6_cor.tex',
     tags: ["Prise d'initiatives"]
   }, // fin amerique sud secours nov 2013
   dnb_2013_12_caledonie_1: {
@@ -884,8 +744,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_12_caledonie_1.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_12_caledonie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_12_caledonie_1.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_12_caledonie_1_cor.tex',
     tags: ['QCM', 'Puissances', 'Calcul numérique']
   },
   dnb_2013_12_caledonie_2: {
@@ -896,8 +754,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_12_caledonie_2.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_12_caledonie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_12_caledonie_2.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_12_caledonie_2_cor.tex',
     tags: ['Équations']
   },
   dnb_2013_12_caledonie_3: {
@@ -908,8 +764,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_12_caledonie_3.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_12_caledonie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_12_caledonie_3.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_12_caledonie_3_cor.tex',
     tags: ['Probabilités', 'Aires et périmètres']
   },
   dnb_2013_12_caledonie_4: {
@@ -920,8 +774,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_12_caledonie_4.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_12_caledonie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_12_caledonie_4.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_12_caledonie_4_cor.tex',
     tags: ['Pythagore', 'Géométrie plane']
   },
   dnb_2013_12_caledonie_5: {
@@ -932,8 +784,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_12_caledonie_5.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_12_caledonie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_12_caledonie_5.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_12_caledonie_5_cor.tex',
     tags: ['Thalès']
   },
   dnb_2013_12_caledonie_6: {
@@ -944,8 +794,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_12_caledonie_6.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_12_caledonie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_12_caledonie_6.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_12_caledonie_6_cor.tex',
     tags: ['Volumes', 'Équations']
   },
   dnb_2013_12_caledonie_7: {
@@ -956,8 +804,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_12_caledonie_7.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_12_caledonie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_12_caledonie_7.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_12_caledonie_7_cor.tex',
     tags: ['Statistiques']
   },
   dnb_2013_12_caledonie_8: {
@@ -968,8 +814,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2013/tex/png/dnb_2013_12_caledonie_8.png',
     pngCor: 'static/dnb/2013/tex/png/dnb_2013_12_caledonie_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2013/tex/dnb_2013_12_caledonie_8.tex',
-    urlcor: 'static/dnb/2013/tex/dnb_2013_12_caledonie_8_cor.tex',
     tags: ['Calcul numérique', 'Fonctions']
   }, // Calédonie mars 2014
   dnb_2014_03_caledonie_1: {
@@ -980,8 +824,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_03_caledonie_1.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_03_caledonie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_03_caledonie_1.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_03_caledonie_1_cor.tex',
     tags: ['QCM', 'Thalès', 'Calcul numérique', 'Fonctions', 'Lecture graphique']
   },
   dnb_2014_03_caledonie_2: {
@@ -992,8 +834,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_03_caledonie_2.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_03_caledonie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_03_caledonie_2.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_03_caledonie_2_cor.tex',
     tags: ['Pythagore', 'Aires et périmètres']
   },
   dnb_2014_03_caledonie_3: {
@@ -1004,8 +844,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_03_caledonie_3.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_03_caledonie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_03_caledonie_3.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_03_caledonie_3_cor.tex',
     tags: ['Hors programme', 'Arithmétique', 'Probabilités']
   },
   dnb_2014_03_caledonie_4: {
@@ -1016,8 +854,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_03_caledonie_4.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_03_caledonie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_03_caledonie_4.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_03_caledonie_4_cor.tex',
     tags: ['Calcul numérique', 'Calcul littéral']
   },
   dnb_2014_03_caledonie_5: {
@@ -1028,8 +864,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_03_caledonie_5.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_03_caledonie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_03_caledonie_5.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_03_caledonie_5_cor.tex',
     tags: ['Statistiques']
   },
   dnb_2014_03_caledonie_6: {
@@ -1040,8 +874,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_03_caledonie_6.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_03_caledonie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_03_caledonie_6.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_03_caledonie_6_cor.tex',
     tags: ['Hors programme', 'Géométrie plane', 'Pythagore']
   },
   dnb_2014_03_caledonie_7: {
@@ -1052,8 +884,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_03_caledonie_7.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_03_caledonie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_03_caledonie_7.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_03_caledonie_7_cor.tex',
     tags: ['Vrai-faux']
   },
   dnb_2014_03_caledonie_8: {
@@ -1064,8 +894,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_03_caledonie_8.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_03_caledonie_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_03_caledonie_8.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_03_caledonie_8_cor.tex',
     tags: ['QCM', 'Tableur']
   }, // Fin Calédonie mars 2014
   dnb_2014_04_pondichery_1: {
@@ -1076,8 +904,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_04_pondichery_1.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_04_pondichery_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_04_pondichery_1.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_04_pondichery_1_cor.tex',
     tags: ['Arithmétique']
   },
   dnb_2014_04_pondichery_2: {
@@ -1088,8 +914,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_04_pondichery_2.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_04_pondichery_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_04_pondichery_2.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_04_pondichery_2_cor.tex',
     tags: ['QCM', 'Calcul numérique', 'Aires et périmètres', 'Fonctions', 'Probabilités', 'Calcul littéral']
   },
   dnb_2014_04_pondichery_3: {
@@ -1100,8 +924,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_04_pondichery_3.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_04_pondichery_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_04_pondichery_3.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_04_pondichery_3_cor.tex',
     tags: ['Calcul littéral', 'Programme de calculs']
   },
   dnb_2014_04_pondichery_4: {
@@ -1112,8 +934,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_04_pondichery_4.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_04_pondichery_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_04_pondichery_4.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_04_pondichery_4_cor.tex',
     tags: ['Pythagore', 'Thalès', 'Trigonométrie']
   },
   dnb_2014_04_pondichery_5: {
@@ -1124,8 +944,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_04_pondichery_5.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_04_pondichery_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_04_pondichery_5.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_04_pondichery_5_cor.tex',
     tags: ['Volumes', 'Agrandissement-réduction', 'Fonctions']
   },
   dnb_2014_04_pondichery_6: {
@@ -1136,8 +954,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_04_pondichery_6.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_04_pondichery_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_04_pondichery_6.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_04_pondichery_6_cor.tex',
     tags: ['Statistiques', 'Tableur', 'Pourcentages']
   },
   dnb_2014_06_ameriquenord_1: {
@@ -1148,8 +964,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_ameriquenord_1.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_ameriquenord_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_ameriquenord_1.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_ameriquenord_1_cor.tex',
     tags: ['QCM', 'Calcul numérique', 'Arithmétique', 'Équations']
   },
   dnb_2014_06_ameriquenord_2: {
@@ -1160,8 +974,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_ameriquenord_2.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_ameriquenord_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_ameriquenord_2.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_ameriquenord_2_cor.tex',
     tags: ['Volumes']
   },
   dnb_2014_06_ameriquenord_3: {
@@ -1172,8 +984,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_ameriquenord_3.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_ameriquenord_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_ameriquenord_3.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_ameriquenord_3_cor.tex',
     tags: ['Proportionnalité', 'Vitesses', 'Volumes', 'Pourcentages']
   },
   dnb_2014_06_ameriquenord_4: {
@@ -1184,8 +994,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_ameriquenord_4.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_ameriquenord_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_ameriquenord_4.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_ameriquenord_4_cor.tex',
     tags: ['Tableur']
   },
   dnb_2014_06_ameriquenord_5: {
@@ -1196,8 +1004,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_ameriquenord_5.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_ameriquenord_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_ameriquenord_5.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_ameriquenord_5_cor.tex',
     tags: ["Géométrie dans l'espace", 'Pythagore']
   },
   dnb_2014_06_ameriquenord_6: {
@@ -1208,8 +1014,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_ameriquenord_6.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_ameriquenord_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_ameriquenord_6.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_ameriquenord_6_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2014_06_ameriquenord_7: {
@@ -1220,8 +1024,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_ameriquenord_7.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_ameriquenord_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_ameriquenord_7.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_ameriquenord_7_cor.tex',
     tags: ['Fonctions', 'Équations']
   },
   dnb_2014_06_ameriquenord_8: {
@@ -1232,8 +1034,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_ameriquenord_8.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_ameriquenord_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_ameriquenord_8.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_ameriquenord_8_cor.tex',
     tags: ['Grandeurs composées', 'Aires et périmètres', 'Proportionnalité', 'Durées']
   },
   dnb_2014_06_ameriquenord_9: {
@@ -1244,8 +1044,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_ameriquenord_9.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_ameriquenord_9_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_ameriquenord_9.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_ameriquenord_9_cor.tex',
     tags: ['Trigonométrie']
   },
   dnb_2014_06_asie_1: {
@@ -1256,8 +1054,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_asie_1.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_asie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_asie_1.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_asie_1_cor.tex',
     tags: ['Calcul numérique', 'Puissances']
   },
   dnb_2014_06_asie_2: {
@@ -1268,8 +1064,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_asie_2.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_asie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_asie_2.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_asie_2_cor.tex',
     tags: ['Fonctions']
   },
   dnb_2014_06_asie_3: {
@@ -1280,8 +1074,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_asie_3.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_asie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_asie_3.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_asie_3_cor.tex',
     tags: ['Agrandissement-réduction']
   },
   dnb_2014_06_asie_4: {
@@ -1292,8 +1084,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_asie_4.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_asie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_asie_4.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_asie_4_cor.tex',
     tags: ['Vrai-faux', 'Pourcentages', 'Arithmétique', 'Programme de calculs', 'Calcul littéral']
   },
   dnb_2014_06_asie_5: {
@@ -1304,8 +1094,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_asie_5.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_asie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_asie_5.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_asie_5_cor.tex',
     tags: ['Géométrie plane']
   },
   dnb_2014_06_asie_6: {
@@ -1316,8 +1104,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_asie_6.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_asie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_asie_6.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_asie_6_cor.tex',
     tags: ['Statistiques', 'Probabilités']
   },
   dnb_2014_06_asie_7: {
@@ -1328,8 +1114,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_asie_7.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_asie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_asie_7.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_asie_7_cor.tex',
     tags: ["Prise d'initiatives", 'Pythagore', 'Trigonométrie']
   },
   dnb_2014_06_etrangers_1: {
@@ -1340,8 +1124,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_etrangers_1.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_etrangers_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_etrangers_1.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_etrangers_1_cor.tex',
     tags: ['Tableur', 'Arithmétique']
   },
   dnb_2014_06_etrangers_2: {
@@ -1352,8 +1134,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_etrangers_2.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_etrangers_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_etrangers_2.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_etrangers_2_cor.tex',
     tags: ['Pythagore']
   },
   dnb_2014_06_etrangers_3: {
@@ -1364,8 +1144,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_etrangers_3.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_etrangers_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_etrangers_3.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_etrangers_3_cor.tex',
     tags: ['Vrai-faux', 'Géométrie plane', 'Trigonométrie']
   },
   dnb_2014_06_etrangers_4: {
@@ -1376,8 +1154,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_etrangers_4.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_etrangers_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_etrangers_4.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_etrangers_4_cor.tex',
     tags: ['Volumes', 'Agrandissement-réduction', 'Proportionnalité']
   },
   dnb_2014_06_etrangers_5: {
@@ -1388,8 +1164,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_etrangers_5.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_etrangers_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_etrangers_5.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_etrangers_5_cor.tex',
     tags: ['Calcul littéral']
   },
   dnb_2014_06_etrangers_6: {
@@ -1400,8 +1174,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_etrangers_6.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_etrangers_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_etrangers_6.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_etrangers_6_cor.tex',
     tags: ['Vitesses', 'Proportionnalité']
   },
   dnb_2014_06_etrangers_7: {
@@ -1412,8 +1184,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_etrangers_7.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_etrangers_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_etrangers_7.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_etrangers_7_cor.tex',
     tags: ['Fonctions']
   },
   dnb_2014_06_metropole_1: {
@@ -1424,8 +1194,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_metropole_1.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_metropole_1.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_metropole_1_cor.tex',
     tags: ['Géométrie plane']
   },
   dnb_2014_06_metropole_2: {
@@ -1436,8 +1204,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_metropole_2.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_metropole_2.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_metropole_2_cor.tex',
     tags: ["Recherche d'informations", 'Pourcentages']
   },
   dnb_2014_06_metropole_3: {
@@ -1448,8 +1214,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_metropole_3.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_metropole_3.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_metropole_3_cor.tex',
     tags: ['Programme de calculs', 'Calcul littéral', 'Équations']
   },
   dnb_2014_06_metropole_4: {
@@ -1460,8 +1224,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_metropole_4.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_metropole_4.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_metropole_4_cor.tex',
     tags: ['Statistiques', 'Tableur', 'Probabilités']
   },
   dnb_2014_06_metropole_5: {
@@ -1472,8 +1234,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_metropole_5.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_metropole_5.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_metropole_5_cor.tex',
     tags: ['QCM', 'Agrandissement-réduction', 'Vitesses', 'Calcul numérique', 'Puissances']
   },
   dnb_2014_06_metropole_6: {
@@ -1484,8 +1244,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_metropole_6.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_metropole_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_metropole_6.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_metropole_6_cor.tex',
     tags: ['Thalès', 'Trigonométrie']
   },
   dnb_2014_06_metropole_7: {
@@ -1496,8 +1254,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_metropole_7.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_metropole_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_metropole_7.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_metropole_7_cor.tex',
     tags: ['Volumes', 'Proportionnalité', 'Pythagore']
   },
   dnb_2014_06_polynesie_1: {
@@ -1508,8 +1264,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_polynesie_1.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_polynesie_1.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_polynesie_1_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2014_06_polynesie_2: {
@@ -1520,8 +1274,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_polynesie_2.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_polynesie_2.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_polynesie_2_cor.tex',
     tags: ['Pythagore', 'Thalès']
   },
   dnb_2014_06_polynesie_3: {
@@ -1532,8 +1284,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_polynesie_3.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_polynesie_3.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_polynesie_3_cor.tex',
     tags: ['Fonctions', 'Tableur']
   },
   dnb_2014_06_polynesie_4: {
@@ -1544,8 +1294,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_polynesie_4.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_polynesie_4.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_polynesie_4_cor.tex',
     tags: ['Vrai-faux', 'Arithmétique', 'Calcul numérique']
   },
   dnb_2014_06_polynesie_5: {
@@ -1556,8 +1304,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_polynesie_5.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_polynesie_5.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_polynesie_5_cor.tex',
     tags: ['Tableur']
   },
   dnb_2014_06_polynesie_6: {
@@ -1568,8 +1314,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_polynesie_6.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_polynesie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_polynesie_6.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_polynesie_6_cor.tex',
     tags: ['Volumes', 'Proportionnalité', "Recherche d'informations", 'Durées']
   },
   dnb_2014_06_polynesie_7: {
@@ -1580,8 +1324,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_06_polynesie_7.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_06_polynesie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_06_polynesie_7.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_06_polynesie_7_cor.tex',
     tags: ['Géométrie plane']
   },
   dnb_2014_09_metropole_1: {
@@ -1592,8 +1334,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_09_metropole_1.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_09_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_09_metropole_1.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_09_metropole_1_cor.tex',
     tags: ['Fonctions', 'Vitesses']
   },
   dnb_2014_09_metropole_2: {
@@ -1604,8 +1344,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_09_metropole_2.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_09_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_09_metropole_2.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_09_metropole_2_cor.tex',
     tags: ['Vrai-faux', 'Volumes', 'Géométrie plane', 'Pythagore', 'Fonctions']
   },
   dnb_2014_09_metropole_3: {
@@ -1616,8 +1354,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_09_metropole_3.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_09_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_09_metropole_3.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_09_metropole_3_cor.tex',
     tags: ['Probabilités', 'Pourcentages']
   },
   dnb_2014_09_metropole_4: {
@@ -1628,8 +1364,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_09_metropole_4.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_09_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_09_metropole_4.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_09_metropole_4_cor.tex',
     tags: ['Pythagore', 'Trigonométrie']
   },
   dnb_2014_09_metropole_5: {
@@ -1640,8 +1374,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_09_metropole_5.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_09_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_09_metropole_5.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_09_metropole_5_cor.tex',
     tags: ['Calcul littéral', 'Tableur', 'Équations']
   },
   dnb_2014_09_metropole_6: {
@@ -1652,8 +1384,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_09_metropole_6.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_09_metropole_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_09_metropole_6.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_09_metropole_6_cor.tex',
     tags: ['Thalès', 'Agrandissement-réduction', 'Aires et périmètres']
   },
   dnb_2014_09_metropole_7: {
@@ -1664,8 +1394,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_09_metropole_7.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_09_metropole_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_09_metropole_7.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_09_metropole_7_cor.tex',
     tags: ["Recherche d'informations", 'Durées', 'Proportionnalité']
   },
   dnb_2014_09_polynesie_1: {
@@ -1676,8 +1404,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_09_polynesie_1.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_09_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_09_polynesie_1.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_09_polynesie_1_cor.tex',
     tags: ['Calcul numérique']
   },
   dnb_2014_09_polynesie_2: {
@@ -1688,8 +1414,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_09_polynesie_2.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_09_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_09_polynesie_2.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_09_polynesie_2_cor.tex',
     tags: ['Proportionnalité', 'Pythagore']
   },
   dnb_2014_09_polynesie_3: {
@@ -1700,8 +1424,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_09_polynesie_3.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_09_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_09_polynesie_3.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_09_polynesie_3_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2014_09_polynesie_4: {
@@ -1712,8 +1434,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_09_polynesie_4.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_09_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_09_polynesie_4.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_09_polynesie_4_cor.tex',
     tags: ['Pythagore', 'Trigonométrie', 'Thalès', 'Aires et périmètres']
   },
   dnb_2014_09_polynesie_5: {
@@ -1724,8 +1444,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_09_polynesie_5.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_09_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_09_polynesie_5.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_09_polynesie_5_cor.tex',
     tags: ['Fonctions']
   },
   dnb_2014_09_polynesie_6: {
@@ -1736,8 +1454,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_09_polynesie_6.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_09_polynesie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_09_polynesie_6.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_09_polynesie_6_cor.tex',
     tags: ['Pythagore', 'Aires et périmètres', 'Équations']
   },
   dnb_2014_09_polynesie_7: {
@@ -1748,8 +1464,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_09_polynesie_7.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_09_polynesie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_09_polynesie_7.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_09_polynesie_7_cor.tex',
     tags: ['Programme de calculs', 'Tableur', 'Calcul littéral', 'Équations']
   },
   dnb_2014_09_polynesie_8: {
@@ -1760,8 +1474,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_09_polynesie_8.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_09_polynesie_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_09_polynesie_8.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_09_polynesie_8_cor.tex',
     tags: ["Recherche d'informations", 'Statistiques', 'Pourcentages', 'Équations']
   },
   dnb_2014_11_ameriquesud_1: {
@@ -1772,8 +1484,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_11_ameriquesud_1.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_11_ameriquesud_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_11_ameriquesud_1.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_11_ameriquesud_1_cor.tex',
     tags: ['QCM', 'Calcul numérique', 'Vitesses']
   },
   dnb_2014_11_ameriquesud_2: {
@@ -1784,8 +1494,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_11_ameriquesud_2.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_11_ameriquesud_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_11_ameriquesud_2.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_11_ameriquesud_2_cor.tex',
     tags: ['Aires et périmètres', "Géométrie dans l'espace", 'Volumes']
   },
   dnb_2014_11_ameriquesud_3: {
@@ -1796,8 +1504,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_11_ameriquesud_3.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_11_ameriquesud_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_11_ameriquesud_3.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_11_ameriquesud_3_cor.tex',
     tags: ["Recherche d'informations"]
   },
   dnb_2014_11_ameriquesud_4: {
@@ -1808,8 +1514,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_11_ameriquesud_4.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_11_ameriquesud_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_11_ameriquesud_4.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_11_ameriquesud_4_cor.tex',
     tags: ['Fonctions']
   },
   dnb_2014_11_ameriquesud_5: {
@@ -1820,8 +1524,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_11_ameriquesud_5.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_11_ameriquesud_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_11_ameriquesud_5.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_11_ameriquesud_5_cor.tex',
     tags: ['Durées', 'Tableur', 'Fonctions']
   },
   dnb_2014_11_ameriquesud_6: {
@@ -1832,8 +1534,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_11_ameriquesud_6.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_11_ameriquesud_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_11_ameriquesud_6.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_11_ameriquesud_6_cor.tex',
     tags: ['Calcul littéral', 'Équations', 'Pourcentages']
   },
   dnb_2014_11_ameriquesud_7: {
@@ -1844,8 +1544,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_11_ameriquesud_7.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_11_ameriquesud_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_11_ameriquesud_7.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_11_ameriquesud_7_cor.tex',
     tags: ['Thalès']
   },
   dnb_2014_12_caledonie_1: {
@@ -1856,8 +1554,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_12_caledonie_1.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_12_caledonie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_12_caledonie_1.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_12_caledonie_1_cor.tex',
     tags: ['QCM', 'Calcul numérique', 'Pourcentages']
   },
   dnb_2014_12_caledonie_2: {
@@ -1868,8 +1564,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_12_caledonie_2.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_12_caledonie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_12_caledonie_2.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_12_caledonie_2_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2014_12_caledonie_3: {
@@ -1880,8 +1574,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_12_caledonie_3.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_12_caledonie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_12_caledonie_3.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_12_caledonie_3_cor.tex',
     tags: ['Géométrie plane', 'Thalès']
   },
   dnb_2014_12_caledonie_4: {
@@ -1892,8 +1584,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_12_caledonie_4.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_12_caledonie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_12_caledonie_4.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_12_caledonie_4_cor.tex',
     tags: ['Vitesses', "Recherche d'informations"]
   },
   dnb_2014_12_caledonie_5: {
@@ -1904,8 +1594,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_12_caledonie_5.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_12_caledonie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_12_caledonie_5.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_12_caledonie_5_cor.tex',
     tags: ['Statistiques']
   },
   dnb_2014_12_caledonie_6: {
@@ -1916,8 +1604,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_12_caledonie_6.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_12_caledonie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_12_caledonie_6.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_12_caledonie_6_cor.tex',
     tags: ['Géométrie plane', 'Pythagore']
   },
   dnb_2014_12_caledonie_7: {
@@ -1928,8 +1614,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_12_caledonie_7.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_12_caledonie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_12_caledonie_7.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_12_caledonie_7_cor.tex',
     tags: ['Fonctions', 'Tableur', 'Équations']
   },
   dnb_2014_12_caledonie_8: {
@@ -1940,8 +1624,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2014/tex/png/dnb_2014_12_caledonie_8.png',
     pngCor: 'static/dnb/2014/tex/png/dnb_2014_12_caledonie_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2014/tex/dnb_2014_12_caledonie_8.tex',
-    urlcor: 'static/dnb/2014/tex/dnb_2014_12_caledonie_8_cor.tex',
     tags: ['Volumes', 'Proportionnalité']
   },
   dnb_2015_04_pondichery_1: {
@@ -1952,8 +1634,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_04_pondichery_1.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_04_pondichery_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_04_pondichery_1.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_04_pondichery_1_cor.tex',
     tags: ['QCM', 'Calcul littéral', 'Équations', 'Fonctions', 'Agrandissement-réduction', 'Tableur']
   },
   dnb_2015_04_pondichery_2: {
@@ -1964,8 +1644,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_04_pondichery_2.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_04_pondichery_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_04_pondichery_2.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_04_pondichery_2_cor.tex',
     tags: ['Arithmétique']
   },
   dnb_2015_04_pondichery_3: {
@@ -1976,8 +1654,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_04_pondichery_3.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_04_pondichery_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_04_pondichery_3.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_04_pondichery_3_cor.tex',
     tags: ["Prise d'initiatives", 'Calcul numérique', 'Pourcentages']
   },
   dnb_2015_04_pondichery_4: {
@@ -1988,8 +1664,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_04_pondichery_4.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_04_pondichery_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_04_pondichery_4.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_04_pondichery_4_cor.tex',
     tags: ['Volumes', 'Agrandissement-réduction']
   },
   dnb_2015_04_pondichery_5: {
@@ -2000,8 +1674,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_04_pondichery_5.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_04_pondichery_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_04_pondichery_5.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_04_pondichery_5_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2015_04_pondichery_6: {
@@ -2012,8 +1684,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_04_pondichery_6.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_04_pondichery_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_04_pondichery_6.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_04_pondichery_6_cor.tex',
     tags: ['Pythagore', 'Trigonométrie', 'Aires et périmètres']
   },
   dnb_2015_04_pondichery_7: {
@@ -2024,8 +1694,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_04_pondichery_7.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_04_pondichery_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_04_pondichery_7.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_04_pondichery_7_cor.tex',
     tags: ["Prise d'initiatives", 'Aires et périmètres', 'Calcul littéral']
   },
   dnb_2015_06_ameriquenord_1: {
@@ -2036,8 +1704,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_ameriquenord_1.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_ameriquenord_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_ameriquenord_1.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_ameriquenord_1_cor.tex',
     tags: ['QCM', 'Puissances', 'Calcul littéral', 'Pourcentages', 'Agrandissement-réduction']
   },
   dnb_2015_06_ameriquenord_2: {
@@ -2048,8 +1714,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_ameriquenord_2.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_ameriquenord_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_ameriquenord_2.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_ameriquenord_2_cor.tex',
     tags: ['Fonctions', 'Proportionnalité']
   },
   dnb_2015_06_ameriquenord_3: {
@@ -2060,8 +1724,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_ameriquenord_3.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_ameriquenord_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_ameriquenord_3.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_ameriquenord_3_cor.tex',
     tags: ['Statistiques', 'Probabilités']
   },
   dnb_2015_06_ameriquenord_4: {
@@ -2072,8 +1734,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_ameriquenord_4.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_ameriquenord_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_ameriquenord_4.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_ameriquenord_4_cor.tex',
     tags: ['Calcul littéral', 'Programme de calculs']
   },
   dnb_2015_06_ameriquenord_5: {
@@ -2084,8 +1744,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_ameriquenord_5.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_ameriquenord_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_ameriquenord_5.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_ameriquenord_5_cor.tex',
     tags: ['Thalès']
   },
   dnb_2015_06_ameriquenord_6: {
@@ -2096,8 +1754,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_ameriquenord_6.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_ameriquenord_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_ameriquenord_6.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_ameriquenord_6_cor.tex',
     tags: ['Statistiques', 'Durées']
   },
   dnb_2015_06_asie_1: {
@@ -2108,8 +1764,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_asie_1.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_asie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_asie_1.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_asie_1_cor.tex',
     tags: ['QCM', 'Puissances', 'Calcul littéral', 'Calcul numérique']
   },
   dnb_2015_06_asie_2: {
@@ -2120,8 +1774,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_asie_2.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_asie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_asie_2.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_asie_2_cor.tex',
     tags: ['Pythagore', 'Proportionnalité']
   },
   dnb_2015_06_asie_3: {
@@ -2132,8 +1784,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_asie_3.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_asie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_asie_3.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_asie_3_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2015_06_asie_4: {
@@ -2144,8 +1794,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_asie_4.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_asie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_asie_4.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_asie_4_cor.tex',
     tags: ["Prise d'initiatives", 'Arithmétique']
   },
   dnb_2015_06_asie_5: {
@@ -2156,8 +1804,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_asie_5.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_asie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_asie_5.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_asie_5_cor.tex',
     tags: ['Trigonométrie', 'Proportionnalité']
   },
   dnb_2015_06_asie_6: {
@@ -2168,8 +1814,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_asie_6.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_asie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_asie_6.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_asie_6_cor.tex',
     tags: ['Fonctions', 'Tableur', 'Équations']
   },
   dnb_2015_06_asie_7: {
@@ -2180,8 +1824,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_asie_7.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_asie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_asie_7.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_asie_7_cor.tex',
     tags: ['Volumes']
   },
   dnb_2015_06_etrangers_1: {
@@ -2192,8 +1834,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_1.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_etrangers_1.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_etrangers_1_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2015_06_etrangers_2: {
@@ -2204,8 +1844,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_2.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_etrangers_2.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_etrangers_2_cor.tex',
     tags: ['Proportionnalité', 'Vitesses']
   },
   dnb_2015_06_etrangers_3: {
@@ -2216,8 +1854,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_3.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_etrangers_3.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_etrangers_3_cor.tex',
     tags: ['Aires et périmètres', 'Géométrie plane', 'Pythagore']
   },
   dnb_2015_06_etrangers_4: {
@@ -2228,8 +1864,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_4.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_etrangers_4.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_etrangers_4_cor.tex',
     tags: ['Calcul littéral', 'Équations', 'Tableur', 'Programme de calculs']
   },
   dnb_2015_06_etrangers_5: {
@@ -2240,8 +1874,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_5.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_etrangers_5.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_etrangers_5_cor.tex',
     tags: ['Fonctions', 'Proportionnalité', 'Équations']
   },
   dnb_2015_06_etrangers_6: {
@@ -2252,8 +1884,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_6.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_etrangers_6.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_etrangers_6_cor.tex',
     tags: ['Volumes', 'Grandeurs composées']
   }, // Maroc
   dnb_2015_06_etrangers_maroc_1: {
@@ -2264,8 +1894,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_maroc_1.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_maroc_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_etrangers_maroc_1.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_etrangers_maroc_1_cor.tex',
     tags: ['Statistiques']
   },
   dnb_2015_06_etrangers_maroc_2: {
@@ -2276,8 +1904,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_maroc_2.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_maroc_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_etrangers_maroc_2.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_etrangers_maroc_2_cor.tex',
     tags: ['QCM', 'Équations', 'Puissances', 'Calcul numérique']
   },
   dnb_2015_06_etrangers_maroc_3: {
@@ -2288,8 +1914,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_maroc_3.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_maroc_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_etrangers_maroc_3.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_etrangers_maroc_3_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2015_06_etrangers_maroc_4: {
@@ -2300,8 +1924,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_maroc_4.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_maroc_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_etrangers_maroc_4.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_etrangers_maroc_4_cor.tex',
     tags: ['Trigonométrie', 'Tableur', 'Statistiques']
   },
   dnb_2015_06_etrangers_maroc_5: {
@@ -2312,8 +1934,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_maroc_5.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_maroc_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_etrangers_maroc_5.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_etrangers_maroc_5_cor.tex',
     tags: ['Vrai-faux', 'Pourcentages', 'Fonctions', 'Thalès']
   },
   dnb_2015_06_etrangers_maroc_6: {
@@ -2324,8 +1944,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_maroc_6.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_maroc_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_etrangers_maroc_6.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_etrangers_maroc_6_cor.tex',
     tags: ['Calcul littéral', 'Équations', 'Programme de calculs']
   },
   dnb_2015_06_etrangers_maroc_7: {
@@ -2336,8 +1954,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_maroc_7.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_etrangers_maroc_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_etrangers_maroc_7.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_etrangers_maroc_7_cor.tex',
     tags: ['Volumes', 'Aires et périmètres', 'Grandeurs composées']
   },
   dnb_2015_06_metropole_1: {
@@ -2348,8 +1964,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_metropole_1.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_metropole_1.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_metropole_1_cor.tex',
     tags: ['Statistiques', 'Tableur', 'Pourcentages']
   },
   dnb_2015_06_metropole_2: {
@@ -2360,8 +1974,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_metropole_2.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_metropole_2.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_metropole_2_cor.tex',
     tags: ['Calcul littéral', 'Programme de calculs']
   },
   dnb_2015_06_metropole_3: {
@@ -2372,8 +1984,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_metropole_3.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_metropole_3.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_metropole_3_cor.tex',
     tags: ['Pythagore', 'Thalès']
   },
   dnb_2015_06_metropole_4: {
@@ -2384,8 +1994,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_metropole_4.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_metropole_4.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_metropole_4_cor.tex',
     tags: ['Fonctions', 'Probabilités', 'Puissances', 'Arithmétique', 'Équations']
   },
   dnb_2015_06_metropole_5: {
@@ -2396,8 +2004,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_metropole_5.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_metropole_5.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_metropole_5_cor.tex',
     tags: ["Prise d'initiatives", 'Aires et périmètres', 'Calcul numérique', 'Proportionnalité']
   },
   dnb_2015_06_metropole_6: {
@@ -2408,8 +2014,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_metropole_6.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_metropole_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_metropole_6.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_metropole_6_cor.tex',
     tags: ['Proportionnalité', 'Fonctions', 'Vitesses']
   },
   dnb_2015_06_metropole_7: {
@@ -2420,8 +2024,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_metropole_7.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_metropole_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_metropole_7.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_metropole_7_cor.tex',
     tags: ['Trigonométrie', 'Calcul numérique']
   },
   dnb_2015_06_polynesie_1: {
@@ -2432,8 +2034,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_polynesie_1.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_polynesie_1.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_polynesie_1_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2015_06_polynesie_2: {
@@ -2444,8 +2044,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_polynesie_2.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_polynesie_2.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_polynesie_2_cor.tex',
     tags: ['Fonctions']
   },
   dnb_2015_06_polynesie_3: {
@@ -2456,8 +2054,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_polynesie_3.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_polynesie_3.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_polynesie_3_cor.tex',
     tags: ['Pythagore', 'Trigonométrie', 'Thalès']
   },
   dnb_2015_06_polynesie_4: {
@@ -2468,8 +2064,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_polynesie_4.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_polynesie_4.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_polynesie_4_cor.tex',
     tags: ['Pourcentages', 'Puissances', 'Calcul littéral']
   },
   dnb_2015_06_polynesie_5: {
@@ -2480,8 +2074,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_polynesie_5.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_polynesie_5.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_polynesie_5_cor.tex',
     tags: ['Proportionnalité', 'Vitesses']
   },
   dnb_2015_06_polynesie_6: {
@@ -2492,8 +2084,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_polynesie_6.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_polynesie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_polynesie_6.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_polynesie_6_cor.tex',
     tags: ['Calcul littéral', 'Tableur', 'Équations', 'Programme de calculs']
   },
   dnb_2015_06_polynesie_7: {
@@ -2504,8 +2094,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_polynesie_7.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_polynesie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_polynesie_7.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_polynesie_7_cor.tex',
     tags: ["Prise d'initiatives", 'Proportionnalité', 'Aires et périmètres']
   },
   dnb_2015_09_metropole_1: {
@@ -2516,8 +2104,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_09_metropole_1.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_09_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_09_metropole_1.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_09_metropole_1_cor.tex',
     tags: ['Fonctions', 'Tableur', 'Équations', 'Programme de calculs']
   },
   dnb_2015_09_metropole_2: {
@@ -2528,8 +2114,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_09_metropole_2.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_09_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_09_metropole_2.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_09_metropole_2_cor.tex',
     tags: ['Pythagore', 'Thalès', 'Aires et périmètres']
   },
   dnb_2015_09_metropole_3: {
@@ -2540,8 +2124,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_09_metropole_3.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_09_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_09_metropole_3.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_09_metropole_3_cor.tex',
     tags: ["Prise d'initiatives", 'Proportionnalité', 'Durées', 'Vitesses']
   },
   dnb_2015_09_metropole_4: {
@@ -2552,8 +2134,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_09_metropole_4.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_09_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_09_metropole_4.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_09_metropole_4_cor.tex',
     tags: ['Équations']
   },
   dnb_2015_09_metropole_5: {
@@ -2564,8 +2144,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_09_metropole_5.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_09_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_09_metropole_5.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_09_metropole_5_cor.tex',
     tags: ['Calcul littéral', 'Programme de calculs']
   },
   dnb_2015_09_metropole_6: {
@@ -2576,8 +2154,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_09_metropole_6.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_09_metropole_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_09_metropole_6.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_09_metropole_6_cor.tex',
     tags: ['Durées', 'Pourcentages', 'Probabilités', 'Statistiques']
   },
   dnb_2015_09_metropole_7: {
@@ -2588,8 +2164,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_09_metropole_7.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_09_metropole_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_09_metropole_7.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_09_metropole_7_cor.tex',
     tags: ["Prise d'initiatives", 'Pythagore', 'Trigonométrie']
   },
   dnb_2015_09_polynesie_1: {
@@ -2600,8 +2174,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_09_polynesie_1.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_09_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_09_polynesie_1.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_09_polynesie_1_cor.tex',
     tags: ['Calcul littéral', 'Équations']
   },
   dnb_2015_09_polynesie_2: {
@@ -2612,8 +2184,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_09_polynesie_2.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_09_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_09_polynesie_2.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_09_polynesie_2_cor.tex',
     tags: ['Vrai-faux', 'Trigonométrie', 'Équations', 'Pourcentages', 'Probabilités']
   },
   dnb_2015_09_polynesie_3: {
@@ -2624,8 +2194,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_09_polynesie_3.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_09_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_09_polynesie_3.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_09_polynesie_3_cor.tex',
     tags: ['Fonctions', 'Calcul numérique']
   },
   dnb_2015_09_polynesie_4: {
@@ -2636,8 +2204,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_09_polynesie_4.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_09_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_09_polynesie_4.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_09_polynesie_4_cor.tex',
     tags: ['Hors programme']
   },
   dnb_2015_09_polynesie_5: {
@@ -2648,8 +2214,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_09_polynesie_5.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_09_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_09_polynesie_5.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_09_polynesie_5_cor.tex',
     tags: ['Aires et périmètres', 'Proportionnalité', 'Volumes']
   },
   dnb_2015_09_polynesie_6: {
@@ -2660,8 +2224,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_09_polynesie_6.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_09_polynesie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_09_polynesie_6.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_09_polynesie_6_cor.tex',
     tags: ['Pythagore', 'Thalès']
   },
   dnb_2015_09_polynesie_7: {
@@ -2672,8 +2234,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_09_polynesie_7.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_09_polynesie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_09_polynesie_7.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_09_polynesie_7_cor.tex',
     tags: ['Proportionnalité', 'Grandeurs composées', 'Tableur', 'Calcul numérique']
   },
   dnb_2015_12_ameriquesud_1: {
@@ -2684,8 +2244,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_12_ameriquesud_1.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_12_ameriquesud_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_12_ameriquesud_1.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_12_ameriquesud_1_cor.tex',
     tags: ['QCM', 'Calcul numérique', 'Arithmétique', 'Hors programme']
   },
   dnb_2015_12_ameriquesud_2: {
@@ -2696,8 +2254,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_12_ameriquesud_2.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_12_ameriquesud_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_12_ameriquesud_2.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_12_ameriquesud_2_cor.tex',
     tags: ['Fonctions', 'Tableur']
   },
   dnb_2015_12_ameriquesud_3: {
@@ -2708,8 +2264,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_12_ameriquesud_3.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_12_ameriquesud_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_12_ameriquesud_3.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_12_ameriquesud_3_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2015_12_ameriquesud_4: {
@@ -2720,8 +2274,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_12_ameriquesud_4.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_12_ameriquesud_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_12_ameriquesud_4.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_12_ameriquesud_4_cor.tex',
     tags: ['Pythagore', 'Thalès', 'Trigonométrie']
   },
   dnb_2015_12_ameriquesud_5: {
@@ -2732,8 +2284,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_12_ameriquesud_5.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_12_ameriquesud_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_12_ameriquesud_5.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_12_ameriquesud_5_cor.tex',
     tags: ['Vrai-faux', 'Calcul littéral', 'Proportionnalité']
   },
   dnb_2015_12_ameriquesud_6: {
@@ -2744,8 +2294,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_12_ameriquesud_6.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_12_ameriquesud_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_12_ameriquesud_6.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_12_ameriquesud_6_cor.tex',
     tags: ["Prise d'initiatives", 'Volumes', 'Pourcentages', 'Proportionnalité']
   },
   dnb_2015_12_ameriquesud_7: {
@@ -2756,8 +2304,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_12_ameriquesud_7.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_12_ameriquesud_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_12_ameriquesud_7.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_12_ameriquesud_7_cor.tex',
     tags: ['Volumes', 'Agrandissement-réduction', 'Pythagore']
   },
   dnb_2015_12_ameriquesud_8: {
@@ -2768,8 +2314,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_12_ameriquesud_8.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_12_ameriquesud_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_12_ameriquesud_8.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_12_ameriquesud_8_cor.tex',
     tags: ["Prise d'initiatives", 'Équations']
   },
   dnb_2015_12_caledonie_1: {
@@ -2780,8 +2324,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_12_caledonie_1.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_12_caledonie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_12_caledonie_1.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_12_caledonie_1_cor.tex',
     tags: ['QCM', 'Aires et périmètres', 'Probabilités', 'Volumes', 'Équations']
   },
   dnb_2015_12_caledonie_2: {
@@ -2792,8 +2334,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_12_caledonie_2.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_12_caledonie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_12_caledonie_2.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_12_caledonie_2_cor.tex',
     tags: ['Trigonométrie']
   },
   dnb_2015_12_caledonie_3: {
@@ -2804,8 +2344,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_12_caledonie_3.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_12_caledonie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_12_caledonie_3.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_12_caledonie_3_cor.tex',
     tags: ['Pourcentages']
   },
   dnb_2015_12_caledonie_4: {
@@ -2816,8 +2354,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_12_caledonie_4.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_12_caledonie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_12_caledonie_4.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_12_caledonie_4_cor.tex',
     tags: ["Prise d'initiatives", 'Pythagore']
   },
   dnb_2015_12_caledonie_5: {
@@ -2828,8 +2364,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_12_caledonie_5.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_12_caledonie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_12_caledonie_5.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_12_caledonie_5_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2015_12_caledonie_6: {
@@ -2840,8 +2374,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_12_caledonie_6.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_12_caledonie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_12_caledonie_6.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_12_caledonie_6_cor.tex',
     tags: ['Géométrie plane', 'Aires et périmètres']
   },
   dnb_2015_12_caledonie_7: {
@@ -2852,8 +2384,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_12_caledonie_7.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_12_caledonie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_12_caledonie_7.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_12_caledonie_7_cor.tex',
     tags: ['Hors programme']
   },
   dnb_2015_12_caledonie_8: {
@@ -2864,8 +2394,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_12_caledonie_8.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_12_caledonie_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_12_caledonie_8.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_12_caledonie_8_cor.tex',
     tags: ['Fonctions']
   },
   dnb_2015_12_caledonie_9: {
@@ -2876,8 +2404,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_12_caledonie_9.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_12_caledonie_9_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_12_caledonie_9.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_12_caledonie_9_cor.tex',
     tags: ['Thalès']
   },
   dnb_2016_04_pondichery_1: {
@@ -2888,8 +2414,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_04_pondichery_1.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_04_pondichery_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_04_pondichery_1.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_04_pondichery_1_cor.tex',
     tags: ['Grandeurs composées', 'Durées', 'Vitesses']
   },
   dnb_2016_04_pondichery_2: {
@@ -2900,8 +2424,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_04_pondichery_2.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_04_pondichery_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_04_pondichery_2.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_04_pondichery_2_cor.tex',
     tags: ['Pourcentages', 'Statistiques', 'Tableur']
   },
   dnb_2016_04_pondichery_3: {
@@ -2912,8 +2434,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_04_pondichery_3.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_04_pondichery_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_04_pondichery_3.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_04_pondichery_3_cor.tex',
     tags: ['Arithmétique', 'Probabilités']
   },
   dnb_2016_04_pondichery_4: {
@@ -2924,8 +2444,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_04_pondichery_4.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_04_pondichery_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_04_pondichery_4.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_04_pondichery_4_cor.tex',
     tags: ['Grandeurs composées', 'Pythagore', 'Thalès']
   },
   dnb_2016_04_pondichery_5: {
@@ -2936,8 +2454,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_04_pondichery_5.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_04_pondichery_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_04_pondichery_5.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_04_pondichery_5_cor.tex',
     tags: ['Calcul littéral', 'Fonctions']
   },
   dnb_2016_04_pondichery_6: {
@@ -2948,8 +2464,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_04_pondichery_6.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_04_pondichery_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_04_pondichery_6.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_04_pondichery_6_cor.tex',
     tags: ['Pourcentages']
   },
   dnb_2016_04_pondichery_7: {
@@ -2960,8 +2474,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_04_pondichery_7.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_04_pondichery_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_04_pondichery_7.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_04_pondichery_7_cor.tex',
     tags: ['Calcul littéral', 'Hors programme', 'QCM']
   },
   dnb_2016_04_pondichery_8: {
@@ -2972,8 +2484,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_04_pondichery_8.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_04_pondichery_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_04_pondichery_8.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_04_pondichery_8_cor.tex',
     tags: ['Proportionnalité', 'Aires et périmètres', 'Volumes']
   },
   dnb_2016_06_ameriquenord_1: {
@@ -2984,8 +2494,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_ameriquenord_1.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_ameriquenord_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_ameriquenord_1.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_ameriquenord_1_cor.tex',
     tags: ['Calcul numérique', 'Équations', 'Pourcentages', 'Pythagore']
   },
   dnb_2016_06_ameriquenord_2: {
@@ -2996,8 +2504,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_ameriquenord_2.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_ameriquenord_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_ameriquenord_2.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_ameriquenord_2_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2016_06_ameriquenord_3: {
@@ -3008,8 +2514,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_ameriquenord_3.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_ameriquenord_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_ameriquenord_3.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_ameriquenord_3_cor.tex',
     tags: ['Statistiques', 'Tableur']
   },
   dnb_2016_06_ameriquenord_4: {
@@ -3020,8 +2524,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_ameriquenord_4.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_ameriquenord_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_ameriquenord_4.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_ameriquenord_4_cor.tex',
     tags: ['Grandeurs composées', 'Trigonométrie', 'Durées']
   },
   dnb_2016_06_ameriquenord_5: {
@@ -3032,8 +2534,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_ameriquenord_5.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_ameriquenord_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_ameriquenord_5.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_ameriquenord_5_cor.tex',
     tags: ['Fonctions', 'Proportionnalité']
   },
   dnb_2016_06_ameriquenord_6: {
@@ -3044,8 +2544,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_ameriquenord_6.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_ameriquenord_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_ameriquenord_6.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_ameriquenord_6_cor.tex',
     tags: ['Pythagore', 'Thalès', 'Volumes']
   },
   dnb_2016_06_ameriquenord_7: {
@@ -3056,8 +2554,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_ameriquenord_7.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_ameriquenord_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_ameriquenord_7.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_ameriquenord_7_cor.tex',
     tags: ['Fonctions', "Recherche d'informations"]
   },
   dnb_2016_06_metropole_1: {
@@ -3068,8 +2564,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_metropole_1.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_metropole_1.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_metropole_1_cor.tex',
     tags: ['Pourcentages', 'Probabilités']
   },
   dnb_2016_06_metropole_2: {
@@ -3080,8 +2574,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_metropole_2.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_metropole_2.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_metropole_2_cor.tex',
     tags: ['Programme de calculs']
   },
   dnb_2016_06_metropole_3: {
@@ -3092,8 +2584,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_metropole_3.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_metropole_3.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_metropole_3_cor.tex',
     tags: ['Trigonométrie', 'Pythagore', 'Géométrie plane', "Prise d'initiatives"]
   },
   dnb_2016_06_metropole_4: {
@@ -3104,8 +2594,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_metropole_4.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_metropole_4.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_metropole_4_cor.tex',
     tags: ['Pourcentages']
   },
   dnb_2016_06_metropole_5: {
@@ -3116,8 +2604,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_metropole_5.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_metropole_5.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_metropole_5_cor.tex',
     tags: ['Grandeurs composées', 'Aires et périmètres', 'Thalès']
   },
   dnb_2016_06_metropole_6: {
@@ -3128,8 +2614,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_metropole_6.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_metropole_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_metropole_6.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_metropole_6_cor.tex',
     tags: ['Fonctions', 'Aires et périmètres']
   },
   dnb_2016_06_metropole_7: {
@@ -3140,8 +2624,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_metropole_7.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_metropole_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_metropole_7.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_metropole_7_cor.tex',
     tags: ['Proportionnalité', 'Volumes']
   },
   dnb_2016_06_asie_1: {
@@ -3152,8 +2634,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_asie_1.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_asie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_asie_1.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_asie_1_cor.tex',
     tags: ['Équations', 'Probabilités', 'Agrandissement-réduction', 'Hors programme']
   },
   dnb_2016_06_asie_2: {
@@ -3164,8 +2644,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_asie_2.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_asie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_asie_2.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_asie_2_cor.tex',
     tags: ['Trigonométrie', 'Pythagore', 'Thalès']
   },
   dnb_2016_06_asie_3: {
@@ -3176,8 +2654,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_asie_3.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_asie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_asie_3.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_asie_3_cor.tex',
     tags: ['Statistiques']
   },
   dnb_2016_06_asie_4: {
@@ -3188,8 +2664,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_asie_4.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_asie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_asie_4.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_asie_4_cor.tex',
     tags: ['Grandeurs composées', 'Aires et périmètres', 'Vitesses', "Recherche d'informations"]
   },
   dnb_2016_06_asie_5: {
@@ -3200,8 +2674,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_asie_5.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_asie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_asie_5.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_asie_5_cor.tex',
     tags: ['Fonctions', 'Tableur']
   },
   dnb_2016_06_asie_6: {
@@ -3212,8 +2684,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_asie_6.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_asie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_asie_6.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_asie_6_cor.tex',
     tags: ['Arithmétique', 'Calcul numérique', 'Pourcentages']
   },
   dnb_2016_06_asie_7: {
@@ -3224,8 +2694,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_asie_7.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_asie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_asie_7.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_asie_7_cor.tex',
     tags: ['Grandeurs composées', 'Proportionnalité', 'Volumes']
   },
   dnb_2016_06_etrangers_1: {
@@ -3236,8 +2704,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_etrangers_1.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_etrangers_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_etrangers_1.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_etrangers_1_cor.tex',
     tags: ['Calcul numérique', 'Fonctions', 'Trigonométrie', 'QCM']
   },
   dnb_2016_06_etrangers_2: {
@@ -3248,8 +2714,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_etrangers_2.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_etrangers_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_etrangers_2.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_etrangers_2_cor.tex',
     tags: ['Grandeurs composées', 'Pourcentages', 'Proportionnalité', 'Vrai-faux', 'Vitesses']
   },
   dnb_2016_06_etrangers_3: {
@@ -3260,8 +2724,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_etrangers_3.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_etrangers_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_etrangers_3.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_etrangers_3_cor.tex',
     tags: ['Statistiques', 'Tableur']
   },
   dnb_2016_06_etrangers_4: {
@@ -3272,8 +2734,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_etrangers_4.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_etrangers_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_etrangers_4.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_etrangers_4_cor.tex',
     tags: ['Volumes']
   },
   dnb_2016_06_etrangers_5: {
@@ -3284,8 +2744,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_etrangers_5.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_etrangers_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_etrangers_5.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_etrangers_5_cor.tex',
     tags: ['Équations']
   },
   dnb_2016_06_etrangers_6: {
@@ -3296,8 +2754,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_etrangers_6.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_etrangers_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_etrangers_6.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_etrangers_6_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2016_06_etrangers_7: {
@@ -3308,8 +2764,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_etrangers_7.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_etrangers_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_etrangers_7.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_etrangers_7_cor.tex',
     tags: ['Proportionnalité', 'Volumes']
   },
   dnb_2016_06_etrangers_8: {
@@ -3320,8 +2774,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_etrangers_8.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_etrangers_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_etrangers_8.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_etrangers_8_cor.tex',
     tags: ['Fonctions', 'Proportionnalité', 'Volumes']
   },
   dnb_2016_06_etrangers_9: {
@@ -3332,8 +2784,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_etrangers_9.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_etrangers_9_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_etrangers_9.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_etrangers_9_cor.tex',
     tags: ['Pourcentages', "Recherche d'informations"]
   },
   dnb_2016_06_polynesie_1: {
@@ -3344,8 +2794,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_polynesie_1.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_polynesie_1.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_polynesie_1_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2016_06_polynesie_2: {
@@ -3356,8 +2804,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_polynesie_2.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_polynesie_2.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_polynesie_2_cor.tex',
     tags: ['Programme de calculs']
   },
   dnb_2016_06_polynesie_3: {
@@ -3368,8 +2814,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_polynesie_3.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_polynesie_3.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_polynesie_3_cor.tex',
     tags: ['Trigonométrie', 'Pythagore', 'Thalès', 'Hors programme', 'Géométrie plane']
   },
   dnb_2016_06_polynesie_4: {
@@ -3380,8 +2824,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_polynesie_4.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_polynesie_4.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_polynesie_4_cor.tex',
     tags: ['Grandeurs composées', 'Statistiques', 'Tableur', 'Durées', 'Vitesses', "Recherche d'informations"]
   },
   dnb_2016_06_polynesie_5: {
@@ -3392,8 +2834,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_polynesie_5.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_polynesie_5.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_polynesie_5_cor.tex',
     tags: ['Volumes', "Géométrie dans l'espace"]
   },
   dnb_2016_06_polynesie_6: {
@@ -3404,8 +2844,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_polynesie_6.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_polynesie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_polynesie_6.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_polynesie_6_cor.tex',
     tags: ['Fonctions', 'Proportionnalité', "Recherche d'informations"]
   },
   dnb_2016_06_polynesie_7: {
@@ -3416,8 +2854,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_06_polynesie_7.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_06_polynesie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_06_polynesie_7.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_06_polynesie_7_cor.tex',
     tags: ['Fractions', 'Grandeurs composées']
   },
   dnb_2016_09_metropole_1: {
@@ -3428,8 +2864,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_09_metropole_1.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_09_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_09_metropole_1.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_09_metropole_1_cor.tex',
     tags: ['Fonctions', 'Grandeurs composées', 'Durées']
   },
   dnb_2016_09_metropole_2: {
@@ -3440,8 +2874,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_09_metropole_2.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_09_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_09_metropole_2.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_09_metropole_2_cor.tex',
     tags: ['Pythagore', 'Thalès']
   },
   dnb_2016_09_metropole_3: {
@@ -3452,8 +2884,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_09_metropole_3.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_09_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_09_metropole_3.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_09_metropole_3_cor.tex',
     tags: ['Pourcentages', 'Proportionnalité', 'Tableur']
   },
   dnb_2016_09_metropole_4: {
@@ -3464,8 +2894,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_09_metropole_4.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_09_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_09_metropole_4.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_09_metropole_4_cor.tex',
     tags: ['Calcul littéral', 'Fonctions', 'Fractions', 'Hors programme', 'Vitesses']
   },
   dnb_2016_09_metropole_5: {
@@ -3476,8 +2904,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_09_metropole_5.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_09_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_09_metropole_5.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_09_metropole_5_cor.tex',
     tags: ['Hors programme', 'Géométrie plane', "Prise d'initiatives"]
   },
   dnb_2016_09_metropole_6: {
@@ -3488,8 +2914,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_09_metropole_6.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_09_metropole_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_09_metropole_6.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_09_metropole_6_cor.tex',
     tags: ['Grandeurs composées', 'Pourcentages', 'Proportionnalité', 'Trigonométrie', 'Aires et périmètres']
   },
   dnb_2016_09_metropole_7: {
@@ -3500,8 +2924,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_09_metropole_7.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_09_metropole_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_09_metropole_7.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_09_metropole_7_cor.tex',
     tags: ['Équations', 'Aires et périmètres']
   },
   dnb_2016_12_ameriquesud_1: {
@@ -3512,8 +2934,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_12_ameriquesud_1.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_12_ameriquesud_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_12_ameriquesud_1.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_12_ameriquesud_1_cor.tex',
     tags: ['Pourcentages', 'Probabilités', 'Puissances', 'QCM']
   },
   dnb_2016_12_ameriquesud_2: {
@@ -3524,8 +2944,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_12_ameriquesud_2.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_12_ameriquesud_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_12_ameriquesud_2.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_12_ameriquesud_2_cor.tex',
     tags: ['Fonctions', 'Fractions', 'Vitesses', "Recherche d'informations"]
   },
   dnb_2016_12_ameriquesud_3: {
@@ -3536,8 +2954,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_12_ameriquesud_3.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_12_ameriquesud_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_12_ameriquesud_3.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_12_ameriquesud_3_cor.tex',
     tags: ['Arithmétique']
   },
   dnb_2016_12_ameriquesud_4: {
@@ -3548,8 +2964,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_12_ameriquesud_4.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_12_ameriquesud_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_12_ameriquesud_4.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_12_ameriquesud_4_cor.tex',
     tags: ['Thalès']
   },
   dnb_2016_12_ameriquesud_5: {
@@ -3560,8 +2974,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_12_ameriquesud_5.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_12_ameriquesud_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_12_ameriquesud_5.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_12_ameriquesud_5_cor.tex',
     tags: ['Fonctions', "Recherche d'informations"]
   },
   dnb_2016_12_ameriquesud_6: {
@@ -3572,8 +2984,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_12_ameriquesud_6.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_12_ameriquesud_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_12_ameriquesud_6.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_12_ameriquesud_6_cor.tex',
     tags: ['Proportionnalité', 'Aires et périmètres']
   },
   dnb_2016_12_ameriquesud_7: {
@@ -3584,8 +2994,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2016/tex/png/dnb_2016_12_ameriquesud_7.png',
     pngCor: 'static/dnb/2016/tex/png/dnb_2016_12_ameriquesud_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2016/tex/dnb_2016_12_ameriquesud_7.tex',
-    urlcor: 'static/dnb/2016/tex/dnb_2016_12_ameriquesud_7_cor.tex',
     tags: ['Grandeurs composées', 'Statistiques', 'Trigonométrie', 'Tableur']
   },
   dnb_2017_05_pondichery_1: {
@@ -3596,8 +3004,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_05_pondichery_1.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_05_pondichery_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_05_pondichery_1.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_05_pondichery_1_cor.tex',
     tags: ['Calcul littéral']
   },
   dnb_2017_05_pondichery_2: {
@@ -3608,8 +3014,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_05_pondichery_2.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_05_pondichery_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_05_pondichery_2.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_05_pondichery_2_cor.tex',
     tags: ['Probabilités', 'Arithmétique']
   },
   dnb_2017_05_pondichery_3: {
@@ -3620,8 +3024,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_05_pondichery_3.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_05_pondichery_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_05_pondichery_3.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_05_pondichery_3_cor.tex',
     tags: ['Algorithmique-programmation', 'Programme de calculs', 'Équations']
   },
   dnb_2017_05_pondichery_4: {
@@ -3632,8 +3034,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_05_pondichery_4.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_05_pondichery_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_05_pondichery_4.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_05_pondichery_4_cor.tex',
     tags: ['Probabilités', 'Fonctions']
   },
   dnb_2017_05_pondichery_5: {
@@ -3644,8 +3044,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_05_pondichery_5.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_05_pondichery_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_05_pondichery_5.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_05_pondichery_5_cor.tex',
     tags: ['Calcul numérique', 'Proportionnalité', 'Volumes']
   },
   dnb_2017_05_pondichery_6: {
@@ -3656,8 +3054,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_05_pondichery_6.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_05_pondichery_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_05_pondichery_6.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_05_pondichery_6_cor.tex',
     tags: ['Pythagore', 'Trigonométrie']
   },
   dnb_2017_05_pondichery_7: {
@@ -3668,8 +3064,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_05_pondichery_7.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_05_pondichery_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_05_pondichery_7.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_05_pondichery_7_cor.tex',
     tags: ['Proportionnalité', 'Aires et périmètres']
   },
   dnb_2017_06_ameriquenord_1: {
@@ -3680,8 +3074,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_ameriquenord_1.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_ameriquenord_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_ameriquenord_1.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_ameriquenord_1_cor.tex',
     tags: ['QCM', 'Fractions', 'Équations']
   },
   dnb_2017_06_ameriquenord_2: {
@@ -3692,8 +3084,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_ameriquenord_2.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_ameriquenord_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_ameriquenord_2.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_ameriquenord_2_cor.tex',
     tags: ['Géométrie plane', 'Pythagore', 'Aires et périmètres']
   },
   dnb_2017_06_ameriquenord_3: {
@@ -3704,8 +3094,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_ameriquenord_3.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_ameriquenord_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_ameriquenord_3.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_ameriquenord_3_cor.tex',
     tags: ['Probabilités', 'Arithmétique']
   },
   dnb_2017_06_ameriquenord_4: {
@@ -3716,8 +3104,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_ameriquenord_4.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_ameriquenord_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_ameriquenord_4.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_ameriquenord_4_cor.tex',
     tags: ['Proportionnalité']
   },
   dnb_2017_06_ameriquenord_5: {
@@ -3728,8 +3114,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_ameriquenord_5.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_ameriquenord_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_ameriquenord_5.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_ameriquenord_5_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2017_06_ameriquenord_6: {
@@ -3740,8 +3124,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_ameriquenord_6.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_ameriquenord_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_ameriquenord_6.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_ameriquenord_6_cor.tex',
     tags: ['Aires et périmètres', 'Calcul littéral', 'Tableur']
   },
   dnb_2017_06_asie_1: {
@@ -3752,8 +3134,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_asie_1.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_asie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_asie_1.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_asie_1_cor.tex',
     tags: ['Tableur', 'Fonctions']
   },
   dnb_2017_06_asie_2: {
@@ -3764,8 +3144,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_asie_2.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_asie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_asie_2.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_asie_2_cor.tex',
     tags: ['Statistiques', 'Fractions', 'Proportionnalité']
   },
   dnb_2017_06_asie_3: {
@@ -3776,8 +3154,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_asie_3.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_asie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_asie_3.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_asie_3_cor.tex',
     tags: ['Pythagore', 'Thalès', 'Trigonométrie']
   },
   dnb_2017_06_asie_4: {
@@ -3788,8 +3164,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_asie_4.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_asie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_asie_4.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_asie_4_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2017_06_asie_5: {
@@ -3800,8 +3174,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_asie_5.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_asie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_asie_5.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_asie_5_cor.tex',
     tags: ['Volumes', 'Proportionnalité']
   },
   dnb_2017_06_asie_6: {
@@ -3812,8 +3184,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_asie_6.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_asie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_asie_6.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_asie_6_cor.tex',
     tags: ['Calcul littéral']
   },
   dnb_2017_06_asie_7: {
@@ -3824,8 +3194,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_asie_7.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_asie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_asie_7.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_asie_7_cor.tex',
     tags: ['Statistiques']
   },
   dnb_2017_06_asie_8: {
@@ -3836,8 +3204,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_asie_8.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_asie_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_asie_8.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_asie_8_cor.tex',
     tags: ['Volumes', "Géométrie dans l'espace"]
   },
   dnb_2017_06_etrangers_1: {
@@ -3848,8 +3214,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_etrangers_1.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_etrangers_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_etrangers_1.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_etrangers_1_cor.tex',
     tags: ['Pythagore', 'Trigonométrie', 'Fractions', 'Proportionnalité']
   },
   dnb_2017_06_etrangers_2: {
@@ -3860,8 +3224,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_etrangers_2.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_etrangers_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_etrangers_2.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_etrangers_2_cor.tex',
     tags: ['Fractions', 'Équations', 'Fonctions']
   },
   dnb_2017_06_etrangers_3: {
@@ -3872,8 +3234,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_etrangers_3.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_etrangers_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_etrangers_3.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_etrangers_3_cor.tex',
     tags: ['Volumes']
   },
   dnb_2017_06_etrangers_4: {
@@ -3884,8 +3244,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_etrangers_4.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_etrangers_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_etrangers_4.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_etrangers_4_cor.tex',
     tags: ['Statistiques', 'Probabilités']
   },
   dnb_2017_06_etrangers_5: {
@@ -3896,8 +3254,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_etrangers_5.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_etrangers_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_etrangers_5.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_etrangers_5_cor.tex',
     tags: ['Volumes', 'Proportionnalité']
   },
   dnb_2017_06_etrangers_6: {
@@ -3908,8 +3264,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_etrangers_6.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_etrangers_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_etrangers_6.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_etrangers_6_cor.tex',
     tags: ['Pythagore', 'Trigonométrie', 'Algorithmique-programmation']
   },
   dnb_2017_06_etrangers_7: {
@@ -3920,8 +3274,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_etrangers_7.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_etrangers_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_etrangers_7.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_etrangers_7_cor.tex',
     tags: ['Aires et périmètres', 'Proportionnalité']
   },
   dnb_2017_06_metropole_1: {
@@ -3932,8 +3284,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_metropole_1.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_metropole_1.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_metropole_1_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2017_06_metropole_2: {
@@ -3944,8 +3294,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_metropole_2.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_metropole_2.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_metropole_2_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2017_06_metropole_3: {
@@ -3956,8 +3304,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_metropole_3.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_metropole_3.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_metropole_3_cor.tex',
     tags: ['Proportionnalité', 'Fonctions']
   },
   dnb_2017_06_metropole_4: {
@@ -3968,8 +3314,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_metropole_4.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_metropole_4.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_metropole_4_cor.tex',
     tags: ['Proportionnalité', 'Trigonométrie', 'Pythagore']
   },
   dnb_2017_06_metropole_5: {
@@ -3980,8 +3324,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_metropole_5.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_metropole_5.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_metropole_5_cor.tex',
     tags: ['Calcul littéral', 'Fonctions']
   },
   dnb_2017_06_metropole_6: {
@@ -3992,8 +3334,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_metropole_6.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_metropole_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_metropole_6.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_metropole_6_cor.tex',
     tags: ['Statistiques']
   },
   dnb_2017_06_metropole_7: {
@@ -4004,8 +3344,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_metropole_7.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_metropole_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_metropole_7.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_metropole_7_cor.tex',
     tags: ['Volumes', 'Proportionnalité']
   },
   dnb_2017_06_polynesie_1: {
@@ -4016,8 +3354,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_polynesie_1.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_polynesie_1.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_polynesie_1_cor.tex',
     tags: ['QCM', 'Pythagore', 'Équations', 'Fractions', 'Tableur']
   },
   dnb_2017_06_polynesie_2: {
@@ -4028,8 +3364,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_polynesie_2.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_polynesie_2.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_polynesie_2_cor.tex',
     tags: ['Vitesses']
   },
   dnb_2017_06_polynesie_3: {
@@ -4040,8 +3374,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_polynesie_3.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_polynesie_3.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_polynesie_3_cor.tex',
     tags: ['Géométrie plane', 'Pythagore']
   },
   dnb_2017_06_polynesie_4: {
@@ -4052,8 +3384,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_polynesie_4.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_polynesie_4.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_polynesie_4_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2017_06_polynesie_5: {
@@ -4064,8 +3394,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_polynesie_5.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_polynesie_5.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_polynesie_5_cor.tex',
     tags: ['Algorithmique-programmation', 'Équations']
   },
   dnb_2017_06_polynesie_6: {
@@ -4076,8 +3404,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_06_polynesie_6.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_06_polynesie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_06_polynesie_6.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_06_polynesie_6_cor.tex',
     tags: ['Durées', 'Arithmétique']
   },
   dnb_2017_09_metropole_1: {
@@ -4088,8 +3414,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_09_metropole_1.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_09_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_09_metropole_1.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_09_metropole_1_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2017_09_metropole_2: {
@@ -4100,8 +3424,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_09_metropole_2.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_09_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_09_metropole_2.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_09_metropole_2_cor.tex',
     tags: ['Pythagore', 'Thalès']
   },
   dnb_2017_09_metropole_3: {
@@ -4112,8 +3434,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_09_metropole_3.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_09_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_09_metropole_3.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_09_metropole_3_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2017_09_metropole_4: {
@@ -4124,8 +3444,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_09_metropole_4.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_09_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_09_metropole_4.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_09_metropole_4_cor.tex',
     tags: ['Aires et périmètres', 'Proportionnalité', 'Pythagore']
   },
   dnb_2017_09_metropole_5: {
@@ -4136,8 +3454,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_09_metropole_5.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_09_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_09_metropole_5.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_09_metropole_5_cor.tex',
     tags: ['Calcul littéral', 'Fractions', 'Programme de calculs']
   },
   dnb_2017_09_metropole_6: {
@@ -4148,8 +3464,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_09_metropole_6.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_09_metropole_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_09_metropole_6.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_09_metropole_6_cor.tex',
     tags: ['Volumes', 'Proportionnalité']
   },
   dnb_2017_09_metropole_7: {
@@ -4160,8 +3474,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_09_metropole_7.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_09_metropole_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_09_metropole_7.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_09_metropole_7_cor.tex',
     tags: ['Proportionnalité', 'Fonctions']
   },
   dnb_2017_09_polynesie_1: {
@@ -4172,8 +3484,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_09_polynesie_1.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_09_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_09_polynesie_1.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_09_polynesie_1_cor.tex',
     tags: ['Tableur', 'Statistiques', 'Calcul numérique']
   },
   dnb_2017_09_polynesie_2: {
@@ -4184,8 +3494,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_09_polynesie_2.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_09_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_09_polynesie_2.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_09_polynesie_2_cor.tex',
     tags: ['Durées', 'Vitesses', 'Fonctions']
   },
   dnb_2017_09_polynesie_3: {
@@ -4196,8 +3504,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_09_polynesie_3.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_09_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_09_polynesie_3.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_09_polynesie_3_cor.tex',
     tags: ['Volumes', 'Durées']
   },
   dnb_2017_09_polynesie_4: {
@@ -4208,8 +3514,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_09_polynesie_4.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_09_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_09_polynesie_4.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_09_polynesie_4_cor.tex',
     tags: ['Trigonométrie', 'Géométrie plane']
   },
   dnb_2017_09_polynesie_5: {
@@ -4220,8 +3524,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_09_polynesie_5.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_09_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_09_polynesie_5.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_09_polynesie_5_cor.tex',
     tags: ['Vitesses', 'Durées']
   },
   dnb_2017_09_polynesie_6: {
@@ -4232,8 +3534,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_09_polynesie_6.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_09_polynesie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_09_polynesie_6.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_09_polynesie_6_cor.tex',
     tags: ['Algorithmique-programmation', 'Programme de calculs', 'Équations']
   },
   dnb_2017_11_ameriquesud_1: {
@@ -4244,8 +3544,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_11_ameriquesud_1.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_11_ameriquesud_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_11_ameriquesud_1.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_11_ameriquesud_1_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2017_11_ameriquesud_2: {
@@ -4256,8 +3554,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_11_ameriquesud_2.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_11_ameriquesud_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_11_ameriquesud_2.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_11_ameriquesud_2_cor.tex',
     tags: ["Prise d'initiatives", 'Géométrie plane']
   },
   dnb_2017_11_ameriquesud_3: {
@@ -4268,8 +3564,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_11_ameriquesud_3.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_11_ameriquesud_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_11_ameriquesud_3.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_11_ameriquesud_3_cor.tex',
     tags: ['Programme de calculs', 'Équations']
   },
   dnb_2017_11_ameriquesud_4: {
@@ -4280,8 +3574,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_11_ameriquesud_4.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_11_ameriquesud_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_11_ameriquesud_4.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_11_ameriquesud_4_cor.tex',
     tags: ['Arithmétique', 'Fractions', 'Calcul numérique', 'Pythagore', 'Vrai-faux']
   },
   dnb_2017_11_ameriquesud_5: {
@@ -4292,8 +3584,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_11_ameriquesud_5.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_11_ameriquesud_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_11_ameriquesud_5.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_11_ameriquesud_5_cor.tex',
     tags: ['Statistiques', 'Fonctions', 'Équations']
   },
   dnb_2017_11_ameriquesud_6: {
@@ -4304,8 +3594,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_11_ameriquesud_6.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_11_ameriquesud_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_11_ameriquesud_6.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_11_ameriquesud_6_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2017_11_ameriquesud_7: {
@@ -4316,8 +3604,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_11_ameriquesud_7.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_11_ameriquesud_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_11_ameriquesud_7.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_11_ameriquesud_7_cor.tex',
     tags: ['Calcul numérique']
   },
   dnb_2017_12_caledonie_1: {
@@ -4328,8 +3614,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_12_caledonie_1.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_12_caledonie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_12_caledonie_1.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_12_caledonie_1_cor.tex',
     tags: ['QCM', 'Aires et périmètres', 'Calcul littéral', 'Calcul numérique', 'Fractions', 'Thalès']
   },
   dnb_2017_12_caledonie_2: {
@@ -4340,8 +3624,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_12_caledonie_2.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_12_caledonie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_12_caledonie_2.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_12_caledonie_2_cor.tex',
     tags: ['Programme de calculs', 'Fonctions']
   },
   dnb_2017_12_caledonie_3: {
@@ -4352,8 +3634,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_12_caledonie_3.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_12_caledonie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_12_caledonie_3.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_12_caledonie_3_cor.tex',
     tags: ['Tableur', 'Arithmétique']
   },
   dnb_2017_12_caledonie_4: {
@@ -4364,8 +3644,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_12_caledonie_4.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_12_caledonie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_12_caledonie_4.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_12_caledonie_4_cor.tex',
     tags: ['Vitesses', 'Fractions']
   },
   dnb_2017_12_caledonie_5: {
@@ -4376,8 +3654,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_12_caledonie_5.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_12_caledonie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_12_caledonie_5.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_12_caledonie_5_cor.tex',
     tags: ['Arithmétique']
   },
   dnb_2017_12_caledonie_6: {
@@ -4388,8 +3664,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_12_caledonie_6.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_12_caledonie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_12_caledonie_6.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_12_caledonie_6_cor.tex',
     tags: ['Trigonométrie']
   },
   dnb_2017_12_caledonie_7: {
@@ -4400,8 +3674,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_12_caledonie_7.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_12_caledonie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_12_caledonie_7.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_12_caledonie_7_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2017_12_caledonie_8: {
@@ -4412,8 +3684,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_12_caledonie_8.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_12_caledonie_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_12_caledonie_8.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_12_caledonie_8_cor.tex',
     tags: ['Pythagore']
   },
   dnb_2017_12_wallisfutuna_1: {
@@ -4424,8 +3694,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_12_wallisfutuna_1.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_12_wallisfutuna_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_12_wallisfutuna_1.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_12_wallisfutuna_1_cor.tex',
     tags: ['QCM', 'Fractions', 'Volumes', 'Arithmétique', 'Fonctions']
   },
   dnb_2017_12_wallisfutuna_2: {
@@ -4436,8 +3704,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_12_wallisfutuna_2.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_12_wallisfutuna_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_12_wallisfutuna_2.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_12_wallisfutuna_2_cor.tex',
     tags: ['Statistiques']
   },
   dnb_2017_12_wallisfutuna_3: {
@@ -4448,8 +3714,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_12_wallisfutuna_3.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_12_wallisfutuna_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_12_wallisfutuna_3.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_12_wallisfutuna_3_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2017_12_wallisfutuna_4: {
@@ -4460,8 +3724,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_12_wallisfutuna_4.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_12_wallisfutuna_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_12_wallisfutuna_4.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_12_wallisfutuna_4_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2017_12_wallisfutuna_5: {
@@ -4472,8 +3734,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_12_wallisfutuna_5.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_12_wallisfutuna_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_12_wallisfutuna_5.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_12_wallisfutuna_5_cor.tex',
     tags: ['Fonctions', 'Fractions']
   },
   dnb_2017_12_wallisfutuna_6: {
@@ -4484,8 +3744,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_12_wallisfutuna_6.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_12_wallisfutuna_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_12_wallisfutuna_6.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_12_wallisfutuna_6_cor.tex',
     tags: ['Fractions', 'Arithmétique']
   },
   dnb_2017_12_wallisfutuna_7: {
@@ -4496,8 +3754,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2017/tex/png/dnb_2017_12_wallisfutuna_7.png',
     pngCor: 'static/dnb/2017/tex/png/dnb_2017_12_wallisfutuna_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2017/tex/dnb_2017_12_wallisfutuna_7.tex',
-    urlcor: 'static/dnb/2017/tex/dnb_2017_12_wallisfutuna_7_cor.tex',
     tags: ['Pythagore', 'Thalès']
   },
   dnb_2018_05_pondichery_1: {
@@ -4508,8 +3764,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_05_pondichery_1.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_05_pondichery_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_05_pondichery_1.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_05_pondichery_1_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2018_05_pondichery_2: {
@@ -4520,8 +3774,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_05_pondichery_2.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_05_pondichery_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_05_pondichery_2.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_05_pondichery_2_cor.tex',
     tags: ['Transformations', 'Agrandissement-réduction']
   },
   dnb_2018_05_pondichery_3: {
@@ -4532,8 +3784,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_05_pondichery_3.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_05_pondichery_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_05_pondichery_3.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_05_pondichery_3_cor.tex',
     tags: ['QCM', 'Puissances', 'Fractions', "Géométrie dans l'espace"]
   },
   dnb_2018_05_pondichery_4: {
@@ -4544,8 +3794,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_05_pondichery_4.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_05_pondichery_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_05_pondichery_4.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_05_pondichery_4_cor.tex',
     tags: ['Tableur', 'Équations', 'Calcul littéral', 'Programme de calculs']
 
   },
@@ -4557,8 +3805,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_05_pondichery_5.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_05_pondichery_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_05_pondichery_5.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_05_pondichery_5_cor.tex',
     tags: ['Algorithmique-programmation', 'Pythagore', 'Probabilités', 'Géométrie plane']
   },
   dnb_2018_05_pondichery_6: {
@@ -4569,8 +3815,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_05_pondichery_6.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_05_pondichery_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_05_pondichery_6.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_05_pondichery_6_cor.tex',
     tags: ['Durées', 'Grandeurs composées']
   },
   dnb_2018_05_pondichery_7: {
@@ -4581,8 +3825,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_05_pondichery_7.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_05_pondichery_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_05_pondichery_7.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_05_pondichery_7_cor.tex',
     tags: ['Géométrie plane', 'Trigonométrie', 'Agrandissement-réduction']
   },
   dnb_2018_06_ameriquenord_1: {
@@ -4593,8 +3835,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_ameriquenord_1.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_ameriquenord_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_ameriquenord_1.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_ameriquenord_1_cor.tex',
     tags: ['Tableur', 'Proportionnalité']
   },
   dnb_2018_06_ameriquenord_2: {
@@ -4605,8 +3845,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_ameriquenord_2.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_ameriquenord_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_ameriquenord_2.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_ameriquenord_2_cor.tex',
     tags: ['Géométrie plane', 'Thalès', 'Pythagore']
   },
   dnb_2018_06_ameriquenord_3: {
@@ -4617,8 +3855,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_ameriquenord_3.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_ameriquenord_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_ameriquenord_3.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_ameriquenord_3_cor.tex',
     tags: ['Probabilités', 'Arithmétique']
   },
   dnb_2018_06_ameriquenord_4: {
@@ -4629,8 +3865,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_ameriquenord_4.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_ameriquenord_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_ameriquenord_4.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_ameriquenord_4_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2018_06_ameriquenord_5: {
@@ -4641,8 +3875,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_ameriquenord_5.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_ameriquenord_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_ameriquenord_5.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_ameriquenord_5_cor.tex',
     tags: ['Transformations']
 
   },
@@ -4654,8 +3886,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_ameriquenord_6.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_ameriquenord_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_ameriquenord_6.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_ameriquenord_6_cor.tex',
     tags: ['Trigonométrie', 'Volumes', "Prise d'initiatives"]
   },
   dnb_2018_06_ameriquenord_7: {
@@ -4666,8 +3896,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_ameriquenord_7.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_ameriquenord_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_ameriquenord_7.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_ameriquenord_7_cor.tex',
     tags: ['Calcul littéral', 'Équations', 'Fonctions']
   },
   dnb_2018_06_ameriquenord_8: {
@@ -4678,8 +3906,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_ameriquenord_8.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_ameriquenord_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_ameriquenord_8.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_ameriquenord_8_cor.tex',
     tags: ['Proportionnalité', 'Durées']
   },
   dnb_2018_06_asie_1: {
@@ -4690,8 +3916,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_asie_1.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_asie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_asie_1.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_asie_1_cor.tex',
     tags: ['Statistiques', 'Pourcentages']
   },
   dnb_2018_06_asie_2: {
@@ -4702,8 +3926,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_asie_2.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_asie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_asie_2.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_asie_2_cor.tex',
     tags: ['Volumes', 'Agrandissement-réduction']
   },
   dnb_2018_06_asie_3: {
@@ -4714,8 +3936,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_asie_3.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_asie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_asie_3.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_asie_3_cor.tex',
     tags: ['QCM', 'Puissances', 'Probabilités', 'Équations', 'Calcul littéral', 'Fractions']
   },
   dnb_2018_06_asie_4: {
@@ -4726,8 +3946,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_asie_4.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_asie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_asie_4.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_asie_4_cor.tex',
     tags: ['Algorithmique-programmation', 'Aires et périmètres']
   },
   dnb_2018_06_asie_5: {
@@ -4738,8 +3956,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_asie_5.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_asie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_asie_5.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_asie_5_cor.tex',
     tags: ['Aires et périmètres', 'Calcul littéral', 'Équations']
   },
   dnb_2018_06_asie_6: {
@@ -4750,8 +3966,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_asie_6.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_asie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_asie_6.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_asie_6_cor.tex',
     tags: ['Transformations', 'Agrandissement-réduction']
   },
   dnb_2018_06_asie_7: {
@@ -4762,8 +3976,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_asie_7.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_asie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_asie_7.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_asie_7_cor.tex',
     tags: ["Prise d'initiatives", 'Aires et périmètres']
   },
   dnb_2018_06_asie_8: {
@@ -4774,8 +3986,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_asie_8.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_asie_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_asie_8.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_asie_8_cor.tex',
     tags: ['Fonctions', 'Tableur', 'Proportionnalité']
   },
   dnb_2018_06_etrangers_1: {
@@ -4786,8 +3996,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_etrangers_1.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_etrangers_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_etrangers_1.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_etrangers_1_cor.tex',
     tags: ['Vrai-faux', 'Fractions', 'Calcul littéral', 'Programme de calculs']
   },
   dnb_2018_06_etrangers_2: {
@@ -4798,8 +4006,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_etrangers_2.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_etrangers_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_etrangers_2.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_etrangers_2_cor.tex',
     tags: ['Vitesses', 'Calcul littéral', 'Lecture graphique']
   },
   dnb_2018_06_etrangers_3: {
@@ -4810,8 +4016,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_etrangers_3.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_etrangers_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_etrangers_3.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_etrangers_3_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2018_06_etrangers_4: {
@@ -4822,8 +4026,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_etrangers_4.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_etrangers_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_etrangers_4.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_etrangers_4_cor.tex',
     tags: ['Statistiques', 'Volumes']
   },
   dnb_2018_06_etrangers_5: {
@@ -4834,8 +4036,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_etrangers_5.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_etrangers_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_etrangers_5.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_etrangers_5_cor.tex',
     tags: ['Pourcentages', 'Fonctions', 'Équations']
   },
   dnb_2018_06_etrangers_6: {
@@ -4846,8 +4046,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_etrangers_6.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_etrangers_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_etrangers_6.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_etrangers_6_cor.tex',
     tags: ['Thalès', 'Algorithmique-programmation']
   },
   dnb_2018_06_metropole_1: {
@@ -4858,8 +4056,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_metropole_1.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_metropole_1.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_metropole_1_cor.tex',
     tags: ['Proportionnalité', "Géométrie dans l'espace", 'Volumes']
   },
   dnb_2018_06_metropole_2: {
@@ -4870,8 +4066,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_metropole_2.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_metropole_2.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_metropole_2_cor.tex',
     tags: ['Statistiques']
   },
   dnb_2018_06_metropole_3: {
@@ -4882,8 +4076,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_metropole_3.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_metropole_3.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_metropole_3_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2018_06_metropole_4: {
@@ -4894,8 +4086,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_metropole_4.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_metropole_4.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_metropole_4_cor.tex',
     tags: ['Géométrie plane', 'Pythagore', 'Trigonométrie']
   },
   dnb_2018_06_metropole_5: {
@@ -4906,8 +4096,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_metropole_5.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_metropole_5.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_metropole_5_cor.tex',
     tags: ['Calcul littéral', 'Équations', 'Programme de calculs']
   },
   dnb_2018_06_metropole_6: {
@@ -4918,8 +4106,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_metropole_6.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_metropole_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_metropole_6.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_metropole_6_cor.tex',
     tags: ['Transformations', 'Aires et périmètres', 'Algorithmique-programmation']
   },
   dnb_2018_06_metropole_7: {
@@ -4930,8 +4116,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_metropole_7.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_metropole_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_06_metropole_7.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_06_metropole_7_cor.tex',
     tags: ['Fonctions', 'Proportionnalité', 'Équations']
   },
   dnb_2018_07_polynesie_1: {
@@ -4942,8 +4126,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_07_polynesie_1.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_07_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_07_polynesie_1.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_07_polynesie_1_cor.tex',
     tags: ['Puissances', 'Pourcentages', 'Probabilités', 'Arithmétique', 'Équations', 'Vrai-faux']
 
   },
@@ -4955,8 +4137,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_07_polynesie_2.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_07_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_07_polynesie_2.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_07_polynesie_2_cor.tex',
     tags: ['Proportionnalité', 'Pourcentages']
   },
   dnb_2018_07_polynesie_3: {
@@ -4967,8 +4147,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_07_polynesie_3.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_07_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_07_polynesie_3.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_07_polynesie_3_cor.tex',
     tags: ['Fonctions']
   },
   dnb_2018_07_polynesie_4: {
@@ -4979,8 +4157,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_07_polynesie_4.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_07_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_07_polynesie_4.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_07_polynesie_4_cor.tex',
     tags: ['Statistiques', 'Pourcentages']
   },
   dnb_2018_07_polynesie_5: {
@@ -4991,8 +4167,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_07_polynesie_5.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_07_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_07_polynesie_5.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_07_polynesie_5_cor.tex',
     tags: ['Aires et périmètres', 'Proportionnalité']
   },
   dnb_2018_07_polynesie_6: {
@@ -5003,8 +4177,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_07_polynesie_6.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_07_polynesie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_07_polynesie_6.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_07_polynesie_6_cor.tex',
     tags: ['Algorithmique-programmation', 'Équations']
   },
   dnb_2018_09_metropole_1: {
@@ -5015,8 +4187,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_09_metropole_1.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_09_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_09_metropole_1.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_09_metropole_1_cor.tex',
     tags: ['Probabilités', 'Statistiques', 'Pourcentages', 'Tableur']
   },
   dnb_2018_09_metropole_2: {
@@ -5027,8 +4197,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_09_metropole_2.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_09_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_09_metropole_2.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_09_metropole_2_cor.tex',
     tags: ['Arithmétique']
   },
   dnb_2018_09_metropole_3: {
@@ -5039,8 +4207,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_09_metropole_3.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_09_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_09_metropole_3.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_09_metropole_3_cor.tex',
     tags: ['Vitesses', 'Fonctions']
   },
   dnb_2018_09_metropole_4: {
@@ -5051,8 +4217,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_09_metropole_4.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_09_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_09_metropole_4.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_09_metropole_4_cor.tex',
     tags: ['Proportionnalité', 'Volumes', 'Pourcentages']
   },
   dnb_2018_09_metropole_5: {
@@ -5063,8 +4227,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_09_metropole_5.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_09_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_09_metropole_5.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_09_metropole_5_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2018_09_metropole_6: {
@@ -5075,8 +4237,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_09_metropole_6.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_09_metropole_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_09_metropole_6.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_09_metropole_6_cor.tex',
     tags: ['Programme de calculs', 'Calcul littéral']
   },
   dnb_2018_09_metropole_7: {
@@ -5087,8 +4247,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_09_metropole_7.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_09_metropole_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_09_metropole_7.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_09_metropole_7_cor.tex',
     tags: ['Pythagore', 'Trigonométrie', 'Durées']
   },
   dnb_2018_09_polynesie_1: {
@@ -5099,8 +4257,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_09_polynesie_1.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_09_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_09_polynesie_1.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_09_polynesie_1_cor.tex',
     tags: ['Puissances', 'Pourcentages', 'Probabilités', 'Arithmétique', 'Équations', 'Vrai-faux']
   },
   dnb_2018_09_polynesie_2: {
@@ -5111,8 +4267,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_09_polynesie_2.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_09_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_09_polynesie_2.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_09_polynesie_2_cor.tex',
     tags: ['Statistiques', 'Pourcentages']
   },
   dnb_2018_09_polynesie_3: {
@@ -5123,8 +4277,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_09_polynesie_3.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_09_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_09_polynesie_3.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_09_polynesie_3_cor.tex',
     tags: ['Fonctions']
   },
   dnb_2018_09_polynesie_4: {
@@ -5135,8 +4287,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_09_polynesie_4.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_09_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_09_polynesie_4.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_09_polynesie_4_cor.tex',
     tags: ['Aires et périmètres', 'Grandeurs composées']
   },
   dnb_2018_09_polynesie_5: {
@@ -5147,8 +4297,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_09_polynesie_5.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_09_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_09_polynesie_5.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_09_polynesie_5_cor.tex',
     tags: ['Aires et périmètres', 'Proportionnalité']
   },
   dnb_2018_09_polynesie_6: {
@@ -5159,8 +4307,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_09_polynesie_6.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_09_polynesie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_09_polynesie_6.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_09_polynesie_6_cor.tex',
     tags: ['Algorithmique-programmation', 'Équations']
   },
   dnb_2018_09_polynesie_7: {
@@ -5171,8 +4317,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_09_polynesie_7.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_09_polynesie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_09_polynesie_7.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_09_polynesie_7_cor.tex',
     tags: ['Aires et périmètres', 'Thalès', 'Pythagore']
   },
   dnb_2018_11_ameriquesud_1: {
@@ -5183,8 +4327,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_11_ameriquesud_1.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_11_ameriquesud_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_11_ameriquesud_1.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_11_ameriquesud_1_cor.tex',
     tags: ['QCM', 'Trigonométrie', 'Transformations']
   },
   dnb_2018_11_ameriquesud_2: {
@@ -5195,8 +4337,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_11_ameriquesud_2.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_11_ameriquesud_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_11_ameriquesud_2.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_11_ameriquesud_2_cor.tex',
     tags: ['Fractions', 'Pourcentages']
   },
   dnb_2018_11_ameriquesud_3: {
@@ -5207,8 +4347,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_11_ameriquesud_3.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_11_ameriquesud_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_11_ameriquesud_3.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_11_ameriquesud_3_cor.tex',
     tags: ['Programme de calculs', 'Équations', 'Tableur', 'Calcul littéral']
   },
   dnb_2018_11_ameriquesud_4: {
@@ -5219,8 +4357,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_11_ameriquesud_4.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_11_ameriquesud_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_11_ameriquesud_4.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_11_ameriquesud_4_cor.tex',
     tags: ['Pythagore', "Prise d'initiatives"]
   },
   dnb_2018_11_ameriquesud_5: {
@@ -5231,8 +4367,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_11_ameriquesud_5.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_11_ameriquesud_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_11_ameriquesud_5.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_11_ameriquesud_5_cor.tex',
     tags: ['Statistiques']
   },
   dnb_2018_11_ameriquesud_6: {
@@ -5243,8 +4377,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_11_ameriquesud_6.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_11_ameriquesud_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_11_ameriquesud_6.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_11_ameriquesud_6_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2018_11_ameriquesud_7: {
@@ -5255,8 +4387,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_11_ameriquesud_7.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_11_ameriquesud_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_11_ameriquesud_7.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_11_ameriquesud_7_cor.tex',
     tags: ['Vrai-faux', 'Grandeurs composées']
   },
   dnb_2018_12_caledonie_1: {
@@ -5267,8 +4397,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_12_caledonie_1.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_12_caledonie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_12_caledonie_1.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_12_caledonie_1_cor.tex',
     tags: ['QCM', 'Calcul littéral', 'Trigonométrie', 'Arithmétique', 'Thalès']
   },
   dnb_2018_12_caledonie_2: {
@@ -5279,8 +4407,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_12_caledonie_2.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_12_caledonie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_12_caledonie_2.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_12_caledonie_2_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2018_12_caledonie_3: {
@@ -5291,8 +4417,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_12_caledonie_3.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_12_caledonie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_12_caledonie_3.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_12_caledonie_3_cor.tex',
     tags: ['Arithmétique']
   },
   dnb_2018_12_caledonie_4: {
@@ -5303,8 +4427,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_12_caledonie_4.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_12_caledonie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_12_caledonie_4.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_12_caledonie_4_cor.tex',
     tags: ['Proportionnalité', 'Fonctions', 'Vitesses']
   },
   dnb_2018_12_caledonie_5: {
@@ -5315,8 +4437,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_12_caledonie_5.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_12_caledonie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_12_caledonie_5.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_12_caledonie_5_cor.tex',
     tags: ["Prise d'initiatives", 'Pythagore']
   },
   dnb_2018_12_caledonie_6: {
@@ -5327,8 +4447,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_12_caledonie_6.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_12_caledonie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_12_caledonie_6.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_12_caledonie_6_cor.tex',
     tags: ['Tableur', 'Statistiques', 'Proportionnalité']
   },
   dnb_2018_12_caledonie_7: {
@@ -5339,8 +4457,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_12_caledonie_7.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_12_caledonie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_12_caledonie_7.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_12_caledonie_7_cor.tex',
     tags: ['Vrai-faux', 'Grandeurs composées']
   },
   dnb_2018_12_caledonie_8: {
@@ -5351,8 +4467,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_12_caledonie_8.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_12_caledonie_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2018/tex/dnb_2018_12_caledonie_8.tex',
-    urlcor: 'static/dnb/2018/tex/dnb_2018_12_caledonie_8_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2019_03_caledonie_1: {
@@ -5363,8 +4477,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_03_caledonie_1.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_03_caledonie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_03_caledonie_1.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_03_caledonie_1_cor.tex',
     tags: ['QCM', 'Arithmétique', 'Thalès', 'Calcul littéral']
   },
   dnb_2019_03_caledonie_2: {
@@ -5375,8 +4487,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_03_caledonie_2.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_03_caledonie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_03_caledonie_2.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_03_caledonie_2_cor.tex',
     tags: ['Volumes', 'Grandeurs composées', 'Proportionnalité']
   },
   dnb_2019_03_caledonie_3: {
@@ -5387,8 +4497,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_03_caledonie_3.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_03_caledonie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_03_caledonie_3.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_03_caledonie_3_cor.tex',
     tags: ['Fonctions', 'Équations']
   },
   dnb_2019_03_caledonie_4: {
@@ -5399,8 +4507,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_03_caledonie_4.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_03_caledonie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_03_caledonie_4.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_03_caledonie_4_cor.tex',
     tags: ['Grandeurs composées', 'Vitesses', 'Pourcentages']
   },
   dnb_2019_03_caledonie_5: {
@@ -5411,8 +4517,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_03_caledonie_5.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_03_caledonie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_03_caledonie_5.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_03_caledonie_5_cor.tex',
     tags: ['Statistiques', 'Tableur', 'Probabilités']
   },
   dnb_2019_03_caledonie_6: {
@@ -5423,8 +4527,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_03_caledonie_6.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_03_caledonie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_03_caledonie_6.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_03_caledonie_6_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2019_03_caledonie_7: {
@@ -5435,8 +4537,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_03_caledonie_7.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_03_caledonie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_03_caledonie_7.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_03_caledonie_7_cor.tex',
     tags: ['Vrai-faux', 'Pythagore', 'Agrandissement-réduction']
   },
   dnb_2019_03_caledonie_8: {
@@ -5447,8 +4547,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_03_caledonie_8.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_03_caledonie_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_03_caledonie_8.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_03_caledonie_8_cor.tex',
     tags: ['Grandeurs composées']
   },
   dnb_2019_06_ameriquenord_1: {
@@ -5459,8 +4557,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_ameriquenord_1.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_ameriquenord_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_ameriquenord_1.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_ameriquenord_1_cor.tex',
     tags: ['Pythagore', 'Trigonométrie', 'Thalès']
   },
   dnb_2019_06_ameriquenord_2: {
@@ -5471,8 +4567,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_ameriquenord_2.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_ameriquenord_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_ameriquenord_2.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_ameriquenord_2_cor.tex',
     tags: ['Vrai-faux', 'Fractions', 'Fonctions', 'Probabilités', 'Calcul littéral']
 
   },
@@ -5484,8 +4578,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_ameriquenord_3.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_ameriquenord_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_ameriquenord_3.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_ameriquenord_3_cor.tex',
     tags: ['Tableur', 'Calcul numérique', 'Proportionnalité']
   },
   dnb_2019_06_ameriquenord_4: {
@@ -5496,8 +4588,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_ameriquenord_4.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_ameriquenord_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_ameriquenord_4.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_ameriquenord_4_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2019_06_ameriquenord_5: {
@@ -5508,8 +4598,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_ameriquenord_5.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_ameriquenord_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_ameriquenord_5.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_ameriquenord_5_cor.tex',
     tags: ['Transformations']
   },
   dnb_2019_06_ameriquenord_6: {
@@ -5520,8 +4608,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_ameriquenord_6.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_ameriquenord_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_ameriquenord_6.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_ameriquenord_6_cor.tex',
     tags: ['Fonctions', 'Calcul numérique']
   },
   dnb_2019_06_ameriquenord_7: {
@@ -5532,8 +4618,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_ameriquenord_7.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_ameriquenord_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_ameriquenord_7.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_ameriquenord_7_cor.tex',
     tags: ['Calcul numérique', 'Grandeurs composées', 'Volumes']
   },
   dnb_2019_06_ameriquenord_8: {
@@ -5544,8 +4628,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_ameriquenord_8.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_ameriquenord_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_ameriquenord_8.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_ameriquenord_8_cor.tex',
     tags: ['Statistiques', 'Pourcentages']
   },
   dnb_2019_06_metropole_1: {
@@ -5556,8 +4638,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_metropole_1.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_metropole_1.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_metropole_1_cor.tex',
     tags: ['Probabilités', 'Calcul numérique']
   },
   dnb_2019_06_metropole_2: {
@@ -5568,8 +4648,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_metropole_2.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_metropole_2.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_metropole_2_cor.tex',
     tags: ['Algorithmique-programmation', 'Transformations']
   },
   dnb_2019_06_metropole_3: {
@@ -5580,8 +4658,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_metropole_3.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_metropole_3.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_metropole_3_cor.tex',
     tags: ['Pourcentages', 'Statistiques', 'Tableur']
   },
   dnb_2019_06_metropole_4: {
@@ -5592,8 +4668,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_metropole_4.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_metropole_4.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_metropole_4_cor.tex',
     tags: ['Trigonométrie', 'Thalès']
   },
   dnb_2019_06_metropole_5: {
@@ -5604,8 +4678,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_metropole_5.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_metropole_5.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_metropole_5_cor.tex',
     tags: ['Programme de calculs', 'Calcul littéral', 'Calcul numérique']
   },
   dnb_2019_06_metropole_6: {
@@ -5616,8 +4688,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_metropole_6.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_metropole_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_metropole_6.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_metropole_6_cor.tex',
     tags: ['Proportionnalité', 'Fonctions', 'Volumes']
   },
   dnb_2019_06_asie_1: {
@@ -5628,8 +4698,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_asie_1.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_asie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_asie_1.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_asie_1_cor.tex',
     tags: ['Programme de calculs', 'Calcul littéral']
 
   },
@@ -5641,8 +4709,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_asie_2.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_asie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_asie_2.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_asie_2_cor.tex',
     tags: ['Pourcentages', 'Fractions']
   },
   dnb_2019_06_asie_3: {
@@ -5653,8 +4719,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_asie_3.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_asie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_asie_3.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_asie_3_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2019_06_asie_4: {
@@ -5665,8 +4729,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_asie_4.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_asie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_asie_4.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_asie_4_cor.tex',
     tags: ['Volumes', 'Grandeurs composées']
   },
   dnb_2019_06_asie_5: {
@@ -5677,8 +4739,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_asie_5.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_asie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_asie_5.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_asie_5_cor.tex',
     tags: ['Géométrie plane', 'Pythagore']
   },
   dnb_2019_06_asie_6: {
@@ -5689,8 +4749,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_asie_6.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_asie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_asie_6.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_asie_6_cor.tex',
     tags: ['Proportionnalité', 'Calcul numérique']
   },
   dnb_2019_06_asie_7: {
@@ -5701,8 +4759,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_asie_7.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_asie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_asie_7.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_asie_7_cor.tex',
     tags: ['Fonctions', 'Tableur']
   },
   dnb_2019_06_etrangers_1: {
@@ -5713,8 +4769,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_etrangers_1.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_etrangers_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_etrangers_1.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_etrangers_1_cor.tex',
     tags: ['QCM', 'Arithmétique', 'Pourcentages', 'Trigonométrie', 'Statistiques', 'Transformations']
   },
   dnb_2019_06_etrangers_2: {
@@ -5725,8 +4779,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_etrangers_2.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_etrangers_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_etrangers_2.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_etrangers_2_cor.tex',
     tags: ['Programme de calculs', 'Calcul littéral', 'Équations', 'Tableur']
   },
   dnb_2019_06_etrangers_3: {
@@ -5737,8 +4789,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_etrangers_3.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_etrangers_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_etrangers_3.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_etrangers_3_cor.tex',
     tags: ['Calcul littéral', 'Équations', 'Algorithmique-programmation']
   },
   dnb_2019_06_etrangers_4: {
@@ -5749,8 +4799,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_etrangers_4.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_etrangers_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_etrangers_4.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_etrangers_4_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2019_06_etrangers_5: {
@@ -5761,8 +4809,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_etrangers_5.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_etrangers_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_etrangers_5.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_etrangers_5_cor.tex',
     tags: ['Thalès', 'Pythagore']
   },
   dnb_2019_06_etrangers_6: {
@@ -5773,8 +4819,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_etrangers_6.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_etrangers_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_etrangers_6.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_etrangers_6_cor.tex',
     tags: ['Lecture graphique', 'Vitesses']
   },
   dnb_2019_06_etrangers_7: {
@@ -5785,8 +4829,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_etrangers_7.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_etrangers_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_etrangers_7.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_etrangers_7_cor.tex',
     tags: ["Prise d'initiatives", 'Calcul numérique', 'Volumes']
   },
   dnb_2019_06_grece_1: {
@@ -5797,8 +4839,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_grece_1.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_grece_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_grece_1.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_grece_1_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2019_06_grece_2: {
@@ -5809,8 +4849,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_grece_2.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_grece_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_grece_2.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_grece_2_cor.tex',
     tags: ['Trigonométrie', 'Géométrie plane', 'Agrandissement-réduction']
   },
   dnb_2019_06_grece_3: {
@@ -5821,8 +4859,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_grece_3.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_grece_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_grece_3.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_grece_3_cor.tex',
     tags: ['Vitesses', 'Grandeurs composées']
   },
   dnb_2019_06_grece_4: {
@@ -5833,8 +4869,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_grece_4.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_grece_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_grece_4.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_grece_4_cor.tex',
     tags: ['Algorithmique-programmation', 'Transformations']
   },
   dnb_2019_06_grece_5: {
@@ -5845,8 +4879,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_grece_5.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_grece_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_grece_5.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_grece_5_cor.tex',
     tags: ['Programme de calculs', 'Calcul littéral', 'Fonctions']
   },
   dnb_2019_06_grece_6: {
@@ -5857,8 +4889,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_grece_6.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_grece_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_06_grece_6.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_06_grece_6_cor.tex',
     tags: ['Agrandissement-réduction', 'Volumes', 'Pourcentages', "Prise d'initiatives"]
   },
   dnb_2019_07_metropole_1: {
@@ -5869,8 +4899,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_07_metropole_1.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_07_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_07_metropole_1.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_07_metropole_1_cor.tex',
     tags: ['Arithmétique']
   },
   dnb_2019_07_metropole_2: {
@@ -5881,8 +4909,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_07_metropole_2.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_07_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_07_metropole_2.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_07_metropole_2_cor.tex',
     tags: ['Trigonométrie', 'Proportionnalité', 'Agrandissement-réduction']
   },
   dnb_2019_07_metropole_3: {
@@ -5893,8 +4919,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_07_metropole_3.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_07_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_07_metropole_3.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_07_metropole_3_cor.tex',
     tags: ['Volumes', 'Grandeurs composées', 'Statistiques']
   },
   dnb_2019_07_metropole_4: {
@@ -5905,8 +4929,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_07_metropole_4.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_07_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_07_metropole_4.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_07_metropole_4_cor.tex',
     tags: ['Algorithmique-programmation', 'Probabilités']
   },
   dnb_2019_07_metropole_5: {
@@ -5917,8 +4939,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_07_metropole_5.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_07_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_07_metropole_5.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_07_metropole_5_cor.tex',
     tags: ['Transformations']
   },
   dnb_2019_07_metropole_6: {
@@ -5929,8 +4949,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_07_metropole_6.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_07_metropole_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_07_metropole_6.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_07_metropole_6_cor.tex',
     tags: ['Programme de calculs', 'Fonctions', 'Équations', 'Calcul littéral']
   },
   dnb_2019_07_polynesie_1: {
@@ -5941,8 +4959,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_07_polynesie_1.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_07_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_07_polynesie_1.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_07_polynesie_1_cor.tex',
     tags: ['QCM', 'Arithmétique', 'Thalès']
   },
   dnb_2019_07_polynesie_2: {
@@ -5953,8 +4969,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_07_polynesie_2.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_07_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_07_polynesie_2.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_07_polynesie_2_cor.tex',
     tags: ['Fonctions', 'Tableur', 'Algorithmique-programmation', 'Programme de calculs', 'Calcul littéral', 'Équations']
   },
   dnb_2019_07_polynesie_3: {
@@ -5965,8 +4979,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_07_polynesie_3.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_07_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_07_polynesie_3.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_07_polynesie_3_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2019_07_polynesie_4: {
@@ -5977,8 +4989,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_07_polynesie_4.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_07_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_07_polynesie_4.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_07_polynesie_4_cor.tex',
     tags: ['Agrandissement-réduction', 'Volumes']
   },
   dnb_2019_07_polynesie_5: {
@@ -5989,8 +4999,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_07_polynesie_5.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_07_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_07_polynesie_5.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_07_polynesie_5_cor.tex',
     tags: ['Trigonométrie', 'Pythagore']
   },
   dnb_2019_07_polynesie_6: {
@@ -6001,8 +5009,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_07_polynesie_6.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_07_polynesie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_07_polynesie_6.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_07_polynesie_6_cor.tex',
     tags: ['Vitesses', 'Statistiques']
   },
   dnb_2019_07_polynesie_7: {
@@ -6013,8 +5019,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_07_polynesie_7.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_07_polynesie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_07_polynesie_7.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_07_polynesie_7_cor.tex',
     tags: ['Lecture graphique', 'Grandeurs composées', "Prise d'initiatives"]
   },
   dnb_2019_09_metropole_1: {
@@ -6025,8 +5029,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_09_metropole_1.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_09_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_09_metropole_1.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_09_metropole_1_cor.tex',
     tags: ['Pythagore', 'Thalès', 'Vitesses']
   },
   dnb_2019_09_metropole_2: {
@@ -6037,8 +5039,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_09_metropole_2.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_09_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_09_metropole_2.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_09_metropole_2_cor.tex',
     tags: ['Arithmétique', 'Puissances']
   },
   dnb_2019_09_metropole_3: {
@@ -6049,8 +5049,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_09_metropole_3.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_09_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_09_metropole_3.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_09_metropole_3_cor.tex',
     tags: ['Lecture graphique', 'Fonctions', 'Pourcentages']
   },
   dnb_2019_09_metropole_4: {
@@ -6061,8 +5059,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_09_metropole_4.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_09_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_09_metropole_4.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_09_metropole_4_cor.tex',
     tags: ['Proportionnalité', 'Volumes']
   },
   dnb_2019_09_metropole_5: {
@@ -6073,8 +5069,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_09_metropole_5.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_09_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_09_metropole_5.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_09_metropole_5_cor.tex',
     tags: ['Programme de calculs', 'Tableur', 'Calcul littéral', 'Équations']
   },
   dnb_2019_09_metropole_6: {
@@ -6085,8 +5079,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_09_metropole_6.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_09_metropole_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_09_metropole_6.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_09_metropole_6_cor.tex',
     tags: ['Probabilités', 'Algorithmique-programmation']
   },
   dnb_2019_09_polynesie_1: {
@@ -6097,8 +5089,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_09_polynesie_1.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_09_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_09_polynesie_1.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_09_polynesie_1_cor.tex',
     tags: ['QCM', 'Puissances', 'Vitesses', 'Arithmétique', 'Fonctions', 'Agrandissement-réduction']
   },
   dnb_2019_09_polynesie_2: {
@@ -6109,8 +5099,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_09_polynesie_2.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_09_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_09_polynesie_2.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_09_polynesie_2_cor.tex',
     tags: ['Probabilités', 'Grandeurs composées']
   },
   dnb_2019_09_polynesie_3: {
@@ -6121,8 +5109,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_09_polynesie_3.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_09_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_09_polynesie_3.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_09_polynesie_3_cor.tex',
     tags: ['Statistiques', 'Tableur', 'Calcul numérique']
   },
   dnb_2019_09_polynesie_4: {
@@ -6133,8 +5119,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_09_polynesie_4.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_09_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_09_polynesie_4.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_09_polynesie_4_cor.tex',
     tags: ['Transformations', 'Agrandissement-réduction', 'Thalès', 'Trigonométrie']
   },
   dnb_2019_09_polynesie_5: {
@@ -6145,8 +5129,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_09_polynesie_5.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_09_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_09_polynesie_5.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_09_polynesie_5_cor.tex',
     tags: ['Pythagore', 'Grandeurs composées', 'Volumes']
   },
   dnb_2019_09_polynesie_6: {
@@ -6157,8 +5139,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_09_polynesie_6.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_09_polynesie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_09_polynesie_6.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_09_polynesie_6_cor.tex',
     tags: ['Proportionnalité', 'Lecture graphique', 'Pourcentages', 'Grandeurs composées']
   },
   dnb_2019_09_polynesie_7: {
@@ -6169,8 +5149,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_09_polynesie_7.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_09_polynesie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_09_polynesie_7.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_09_polynesie_7_cor.tex',
     tags: ['Algorithmique-programmation', 'Programme de calculs', 'Calcul littéral', 'Équations']
   },
   dnb_2019_11_ameriquesud_1: {
@@ -6181,8 +5159,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_11_ameriquesud_1.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_11_ameriquesud_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_11_ameriquesud_1.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_11_ameriquesud_1_cor.tex',
     tags: ['Vrai-faux', 'Statistiques', 'Arithmétique', 'Transformations', 'Agrandissement-réduction']
   },
   dnb_2019_11_ameriquesud_2: {
@@ -6193,8 +5169,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_11_ameriquesud_2.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_11_ameriquesud_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_11_ameriquesud_2.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_11_ameriquesud_2_cor.tex',
     tags: ['Tableur', 'Pourcentages']
   },
   dnb_2019_11_ameriquesud_3: {
@@ -6205,8 +5179,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_11_ameriquesud_3.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_11_ameriquesud_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_11_ameriquesud_3.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_11_ameriquesud_3_cor.tex',
     tags: ['Calcul littéral', 'Équations']
   },
   dnb_2019_11_ameriquesud_4: {
@@ -6217,8 +5189,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_11_ameriquesud_4.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_11_ameriquesud_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_11_ameriquesud_4.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_11_ameriquesud_4_cor.tex',
     tags: ['Pythagore', 'Thalès', 'Trigonométrie', 'Volumes']
   },
   dnb_2019_11_ameriquesud_5: {
@@ -6229,8 +5199,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_11_ameriquesud_5.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_11_ameriquesud_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_11_ameriquesud_5.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_11_ameriquesud_5_cor.tex',
     tags: ['Calcul numérique', "Prise d'initiatives"]
   },
   dnb_2019_11_ameriquesud_6: {
@@ -6241,8 +5209,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_11_ameriquesud_6.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_11_ameriquesud_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_11_ameriquesud_6.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_11_ameriquesud_6_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2019_12_caledonie_1: {
@@ -6253,8 +5219,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_12_caledonie_1.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_12_caledonie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_12_caledonie_1.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_12_caledonie_1_cor.tex',
     tags: ['QCM', 'Grandeurs composées', 'Durées', 'Puissances', 'Calcul littéral']
   },
   dnb_2019_12_caledonie_2: {
@@ -6265,8 +5229,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_12_caledonie_2.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_12_caledonie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_12_caledonie_2.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_12_caledonie_2_cor.tex',
     tags: ['Probabilités', 'Pourcentages']
   },
   dnb_2019_12_caledonie_3: {
@@ -6277,8 +5239,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_12_caledonie_3.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_12_caledonie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_12_caledonie_3.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_12_caledonie_3_cor.tex',
     tags: ['Agrandissement-réduction']
   },
   dnb_2019_12_caledonie_4: {
@@ -6289,8 +5249,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_12_caledonie_4.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_12_caledonie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_12_caledonie_4.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_12_caledonie_4_cor.tex',
     tags: ['Pythagore', 'Thalès']
   },
   dnb_2019_12_caledonie_5: {
@@ -6301,8 +5259,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_12_caledonie_5.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_12_caledonie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_12_caledonie_5.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_12_caledonie_5_cor.tex',
     tags: ['Lecture graphique']
   },
   dnb_2019_12_caledonie_6: {
@@ -6313,8 +5269,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_12_caledonie_6.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_12_caledonie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_12_caledonie_6.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_12_caledonie_6_cor.tex',
     tags: ['Grandeurs composées', 'Calcul numérique', 'Fonctions', 'Équations', 'Lecture graphique']
   },
   dnb_2019_12_caledonie_7: {
@@ -6325,8 +5279,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_12_caledonie_7.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_12_caledonie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_12_caledonie_7.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_12_caledonie_7_cor.tex',
     tags: ['Grandeurs composées', 'Proportionnalité', "Prise d'initiatives"]
   },
   dnb_2019_12_caledonie_8: {
@@ -6337,8 +5289,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_12_caledonie_8.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_12_caledonie_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2019/tex/dnb_2019_12_caledonie_8.tex',
-    urlcor: 'static/dnb/2019/tex/dnb_2019_12_caledonie_8_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2020_09_antillesguyanne_1: {
@@ -6349,8 +5299,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_1.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_09_antillesguyanne_1.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_09_antillesguyanne_1_cor.tex',
     tags: ['Pythagore', 'Thalès', 'Trigonométrie']
   },
   dnb_2020_09_antillesguyanne_2: {
@@ -6361,8 +5309,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_2.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_09_antillesguyanne_2.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_09_antillesguyanne_2_cor.tex',
     tags: ['QCM', 'Agrandissement-réduction', 'Calcul littéral', 'Puissances', 'Fractions']
   },
   dnb_2020_09_antillesguyanne_3: {
@@ -6373,8 +5319,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_3.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_09_antillesguyanne_3.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_09_antillesguyanne_3_cor.tex',
     tags: ['Transformations', 'Arithmétique']
   },
   dnb_2020_09_antillesguyanne_4: {
@@ -6385,8 +5329,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_4.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_09_antillesguyanne_4.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_09_antillesguyanne_4_cor.tex',
     tags: ['Statistiques', 'Pourcentages', 'Tableur']
   },
   dnb_2020_09_antillesguyanne_5: {
@@ -6397,8 +5339,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_5.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_09_antillesguyanne_5.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_09_antillesguyanne_5_cor.tex',
     tags: ['Probabilités', 'Arithmétique', 'Algorithmique-programmation']
   },
   dnb_2020_09_metropole_1: {
@@ -6409,8 +5349,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_09_metropole_1.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_09_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_09_metropole_1.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_09_metropole_1_cor.tex',
     tags: ['QCM', 'Statistiques', 'Probabilités', 'Arithmétique', 'Volumes', 'Transformations']
   },
   dnb_2020_09_metropole_2: {
@@ -6421,8 +5359,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_09_metropole_2.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_09_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_09_metropole_2.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_09_metropole_2_cor.tex',
     tags: ['Programme de calculs', 'Calcul littéral', 'Équations']
   },
   dnb_2020_09_metropole_3: {
@@ -6433,8 +5369,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_09_metropole_3.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_09_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_09_metropole_3.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_09_metropole_3_cor.tex',
     tags: ['Pythagore', 'Thalès', 'Pourcentages', 'Trigonométrie', "Recherche d'informations"]
   },
   dnb_2020_09_metropole_4: {
@@ -6445,8 +5379,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_09_metropole_4.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_09_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_09_metropole_4.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_09_metropole_4_cor.tex',
     tags: ['Tableur', 'Fonctions']
   },
   dnb_2020_09_metropole_5: {
@@ -6457,8 +5389,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_09_metropole_5.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_09_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_09_metropole_5.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_09_metropole_5_cor.tex',
     tags: ['Géométrie plane', 'Algorithmique-programmation']
   },
   dnb_2020_09_polynesie_1: {
@@ -6469,8 +5399,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_09_polynesie_1.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_09_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_09_polynesie_1.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_09_polynesie_1_cor.tex',
     tags: ['Calcul littéral', 'Programme de calculs', 'Thalès', 'Statistiques', 'Pourcentages', 'Arithmétique']
   },
   dnb_2020_09_polynesie_2: {
@@ -6481,8 +5409,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_09_polynesie_2.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_09_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_09_polynesie_2.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_09_polynesie_2_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2020_09_polynesie_3: {
@@ -6493,8 +5419,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_09_polynesie_3.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_09_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_09_polynesie_3.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_09_polynesie_3_cor.tex',
     tags: ['Transformations', 'Pythagore', 'Aires et périmètres', 'Agrandissement-réduction']
   },
   dnb_2020_09_polynesie_4: {
@@ -6505,8 +5429,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_09_polynesie_4.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_09_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_09_polynesie_4.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_09_polynesie_4_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2020_09_polynesie_5: {
@@ -6517,8 +5439,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_09_polynesie_5.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_09_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_09_polynesie_5.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_09_polynesie_5_cor.tex',
     tags: ['Fonctions', 'Équations']
   },
   dnb_2020_12_caledonie_1: {
@@ -6529,8 +5449,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_12_caledonie_1.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_12_caledonie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_12_caledonie_1.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_12_caledonie_1_cor.tex',
     tags: ['QCM', 'Calcul numérique', 'Puissances', 'Statistiques', 'Probabilités', "Géométrie dans l'espace"]
   },
   dnb_2020_12_caledonie_2: {
@@ -6541,8 +5459,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_12_caledonie_2.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_12_caledonie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_12_caledonie_2.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_12_caledonie_2_cor.tex',
     tags: ['Pourcentages', 'Tableur']
   },
   dnb_2020_12_caledonie_3: {
@@ -6553,8 +5469,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_12_caledonie_3.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_12_caledonie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_12_caledonie_3.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_12_caledonie_3_cor.tex',
     tags: ['Programme de calculs', 'Calcul littéral', 'Équations']
   },
   dnb_2020_12_caledonie_4: {
@@ -6565,8 +5479,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_12_caledonie_4.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_12_caledonie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_12_caledonie_4.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_12_caledonie_4_cor.tex',
     tags: ['Thalès', 'Pythagore', 'Trigonométrie', 'Proportionnalité', 'Durées', 'Vitesses']
   },
   dnb_2020_12_caledonie_5: {
@@ -6577,8 +5489,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_12_caledonie_5.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_12_caledonie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_12_caledonie_5.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_12_caledonie_5_cor.tex',
     tags: ["Prise d'initiatives", 'Pythagore']
   },
   dnb_2020_12_caledonie_6: {
@@ -6589,8 +5499,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_12_caledonie_6.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_12_caledonie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_12_caledonie_6.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_12_caledonie_6_cor.tex',
     tags: ['Arithmétique']
   },
   dnb_2020_12_caledonie_7: {
@@ -6601,8 +5509,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_12_caledonie_7.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_12_caledonie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_12_caledonie_7.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_12_caledonie_7_cor.tex',
     tags: ['Volumes', 'Calcul littéral', 'Fonctions']
   },
   dnb_2020_12_caledonie_8: {
@@ -6613,8 +5519,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_12_caledonie_8.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_12_caledonie_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_12_caledonie_8.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_12_caledonie_8_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2021_06_ameriquenord_1: {
@@ -6625,8 +5529,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_ameriquenord_1.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_ameriquenord_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_ameriquenord_1.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_ameriquenord_1_cor.tex',
     tags: ['Fonctions', 'Calcul littéral', 'Arithmétique', 'Probabilités', 'Trigonométrie', 'Pythagore']
   },
   dnb_2021_06_ameriquenord_2: {
@@ -6637,8 +5539,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_ameriquenord_2.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_ameriquenord_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_ameriquenord_2.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_ameriquenord_2_cor.tex',
     tags: ['Lecture graphique', 'Vitesses']
   },
   dnb_2021_06_ameriquenord_3: {
@@ -6649,8 +5549,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_ameriquenord_3.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_ameriquenord_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_ameriquenord_3.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_ameriquenord_3_cor.tex',
     tags: ['Transformations']
   },
   dnb_2021_06_ameriquenord_4: {
@@ -6661,8 +5559,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_ameriquenord_4.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_ameriquenord_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_ameriquenord_4.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_ameriquenord_4_cor.tex',
     tags: ["Prise d'initiatives"]
   },
   dnb_2021_06_ameriquenord_5: {
@@ -6673,8 +5569,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_ameriquenord_5.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_ameriquenord_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_ameriquenord_5.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_ameriquenord_5_cor.tex',
     tags: ["Prise d'initiatives", 'Pourcentages', 'Proportionnalité', 'Aires et périmètres']
   },
   dnb_2021_06_etrangers_1: {
@@ -6685,8 +5579,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_etrangers_1.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_etrangers_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_etrangers_1.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_etrangers_1_cor.tex',
     tags: ['Arithmétique', 'Transformations', 'Fractions', 'Calcul numérique', 'Volumes', 'Trigonométrie', 'Aires et périmètres']
   },
   dnb_2021_06_etrangers_2: {
@@ -6697,8 +5589,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_etrangers_2.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_etrangers_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_etrangers_2.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_etrangers_2_cor.tex',
     tags: ['Probabilités', 'Arithmétique']
   },
   dnb_2021_06_etrangers_3: {
@@ -6709,8 +5599,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_etrangers_3.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_etrangers_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_etrangers_3.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_etrangers_3_cor.tex',
     tags: ['Algorithmique-programmation', 'Programme de calculs', 'Équations']
   },
   dnb_2021_06_etrangers_4: {
@@ -6721,8 +5609,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_etrangers_4.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_etrangers_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_etrangers_4.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_etrangers_4_cor.tex',
     tags: ['Thalès', 'Grandeurs composées', 'Trigonométrie']
   },
   dnb_2021_06_etrangers_5: {
@@ -6733,8 +5619,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_etrangers_5.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_etrangers_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_etrangers_5.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_etrangers_5_cor.tex',
     tags: ['Fonctions', 'Lecture graphique', 'Équations']
   },
   dnb_2021_06_metropole_1: {
@@ -6745,8 +5629,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_metropole_1.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_metropole_1.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_metropole_1_cor.tex',
     tags: ['Statistiques', 'Tableur']
   },
   dnb_2021_06_metropole_2: {
@@ -6757,8 +5639,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_metropole_2.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_metropole_2.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_metropole_2_cor.tex',
     tags: ['Arithmétique', 'Thalès']
   },
   dnb_2021_06_metropole_3: {
@@ -6769,8 +5649,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_metropole_3.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_metropole_3.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_metropole_3_cor.tex',
     tags: ['Probabilités', 'Transformations', 'Agrandissement-réduction', 'QCM']
   },
   dnb_2021_06_metropole_4: {
@@ -6781,8 +5659,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_metropole_4.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_metropole_4.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_metropole_4_cor.tex',
     tags: ['Programme de calculs', 'Algorithmique-programmation', 'Calcul littéral']
   },
   dnb_2021_06_metropole_5: {
@@ -6793,8 +5669,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_metropole_5.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_metropole_5.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_metropole_5_cor.tex',
     tags: ['Pourcentages', 'Volumes', 'Pythagore']
   },
   dnb_2021_06_asie_1: {
@@ -6805,8 +5679,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_asie_1.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_asie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_asie_1.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_asie_1_cor.tex',
     tags: ['QCM', 'Fonctions', 'Tableur', 'Équations', 'Puissances']
   },
   dnb_2021_06_asie_2: {
@@ -6818,9 +5690,7 @@ export const dictionnaireDNB = {
     pngCorApmep: 'static/dnb/2021/tex/png/dnb_2021_06_asie_2_cor.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_asie_2_coopmaths_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_asie_2.tex',
     urlcorApmep: 'static/dnb/2021/tex/dnb_2021_06_asie_2_cor.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_asie_2_coopmaths_cor.tex',
     tags: ['Pythagore', 'Transformations', 'Agrandissement-réduction', 'Trigonométrie']
   },
   dnb_2021_06_asie_3: {
@@ -6831,8 +5701,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_asie_3.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_asie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_asie_3.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_asie_3_cor.tex',
     tags: ['Algorithmique-programmation', 'Probabilités']
   },
   dnb_2021_06_asie_4: {
@@ -6843,8 +5711,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_asie_4.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_asie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_asie_4.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_asie_4_cor.tex',
     tags: ['Vitesses', 'Statistiques', 'Grandeurs composées', 'Vrai-faux']
   },
   dnb_2021_06_asie_5: {
@@ -6855,8 +5721,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_asie_5.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_asie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_asie_5.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_asie_5_cor.tex',
     tags: ["Géométrie dans l'espace", 'Volumes', "Prise d'initiatives"]
   },
   dnb_2021_09_metropole_1: {
@@ -6867,8 +5731,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_09_metropole_1.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_09_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_09_metropole_1.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_09_metropole_1_cor.tex',
     tags: ['Fractions', 'Probabilités', 'Transformations', 'Arithmétique', 'Puissances', 'QCM']
   },
   dnb_2021_09_metropole_2: {
@@ -6879,8 +5741,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_09_metropole_2.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_09_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_09_metropole_2.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_09_metropole_2_cor.tex',
     tags: ['Statistiques', 'Pourcentages']
   },
   dnb_2021_09_metropole_3: {
@@ -6891,8 +5751,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_09_metropole_3.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_09_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_09_metropole_3.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_09_metropole_3_cor.tex',
     tags: ['Programme de calculs', 'Calcul littéral', 'Tableur']
   },
   dnb_2021_09_metropole_4: {
@@ -6903,8 +5761,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_09_metropole_4.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_09_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_09_metropole_4.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_09_metropole_4_cor.tex',
     tags: ['Algorithmique-programmation', 'Calcul littéral', 'Géométrie plane']
   },
   dnb_2021_09_metropole_5: {
@@ -6915,8 +5771,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_09_metropole_5.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_09_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_09_metropole_5.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_09_metropole_5_cor.tex',
     tags: ['Pourcentages', 'Thalès', 'Pythagore']
   },
   dnb_2015_03_caledonie_1: {
@@ -6927,8 +5781,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_03_caledonie_1.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_03_caledonie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_03_caledonie_1.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_03_caledonie_1_cor.tex',
     tags: ['QCM', 'Équations', 'Arithmétique', 'Calcul numérique']
 
   },
@@ -6940,8 +5792,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_03_caledonie_2.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_03_caledonie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_03_caledonie_2.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_03_caledonie_2_cor.tex',
     tags: ['Géométrie plane']
   },
   dnb_2015_03_caledonie_3: {
@@ -6952,8 +5802,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_03_caledonie_3.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_03_caledonie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_03_caledonie_3.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_03_caledonie_3_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2015_03_caledonie_4: {
@@ -6964,8 +5812,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_03_caledonie_4.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_03_caledonie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_03_caledonie_4.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_03_caledonie_4_cor.tex',
     tags: ['Système d\'équations', 'Hors programme']
   },
   dnb_2015_03_caledonie_5: {
@@ -6976,8 +5822,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_03_caledonie_5.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_03_caledonie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_03_caledonie_5.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_03_caledonie_5_cor.tex',
     tags: ['Statistiques']
   },
   dnb_2015_03_caledonie_6: {
@@ -6988,8 +5832,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_03_caledonie_6.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_03_caledonie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_03_caledonie_6.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_03_caledonie_6_cor.tex',
     tags: ['Volumes', 'Aires et périmètres', 'Trigonométrie']
   },
   dnb_2015_03_caledonie_7: {
@@ -7000,8 +5842,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_03_caledonie_7.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_03_caledonie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_03_caledonie_7.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_03_caledonie_7_cor.tex',
     tags: ['Tableur', 'Fonctions', 'Lecture graphique']
   },
   dnb_2015_03_caledonie_8: {
@@ -7012,8 +5852,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_03_caledonie_8.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_03_caledonie_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_03_caledonie_8.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_03_caledonie_8_cor.tex',
     tags: ['Thalès', 'Pythagore', 'Géométrie plane']
   },
   dnb_2015_06_ameriquenord_7: {
@@ -7024,8 +5862,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2015/tex/png/dnb_2015_06_ameriquenord_7.png',
     pngCor: 'static/dnb/2015/tex/png/dnb_2015_06_ameriquenord_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2015/tex/dnb_2015_06_ameriquenord_7.tex',
-    urlcor: 'static/dnb/2015/tex/dnb_2015_06_ameriquenord_7_cor.tex',
     tags: ['Volumes', 'Pythagore', 'Agrandissement-réduction', 'Géométrie dans l\'espace']
   },
   dnb_2021_11_ameriquesud_1: {
@@ -7036,8 +5872,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_11_ameriquesud_1.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_11_ameriquesud_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_11_ameriquesud_1.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_11_ameriquesud_1_cor.tex',
     tags: ['Vrai-faux', 'Arithmétique', 'Calcul littéral', 'Fonctions', 'Pythagore', 'Thalès']
   },
   dnb_2021_11_ameriquesud_2: {
@@ -7048,8 +5882,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_11_ameriquesud_2.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_11_ameriquesud_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_11_ameriquesud_2.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_11_ameriquesud_2_cor.tex',
     tags: ['Fonctions', 'Lecture graphique', 'Vitesses']
   },
   dnb_2021_11_ameriquesud_3: {
@@ -7060,8 +5892,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_11_ameriquesud_3.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_11_ameriquesud_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_11_ameriquesud_3.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_11_ameriquesud_3_cor.tex',
     tags: ['Tableur', 'Proportionnalité', 'Ratio', 'Probabilités']
   },
   dnb_2021_11_ameriquesud_4: {
@@ -7072,8 +5902,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_11_ameriquesud_4.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_11_ameriquesud_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_11_ameriquesud_4.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_11_ameriquesud_4_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2021_11_ameriquesud_5: {
@@ -7084,8 +5912,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_11_ameriquesud_5.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_11_ameriquesud_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_11_ameriquesud_5.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_11_ameriquesud_5_cor.tex',
     tags: ['Recherche d\'informations', 'Volumes', 'Pourcentages']
   },
   dnb_2022_06_ameriquenord_1: {
@@ -7096,8 +5922,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_ameriquenord_1.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_ameriquenord_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_ameriquenord_1.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_ameriquenord_1_cor.tex',
     tags: ['Pythagore', 'Thalès', 'Trigonométrie', 'Transformations', 'Agrandissement-réduction']
   },
   dnb_2022_06_ameriquenord_2: {
@@ -7108,8 +5932,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_ameriquenord_2.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_ameriquenord_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_ameriquenord_2.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_ameriquenord_2_cor.tex',
     tags: ['QCM', 'Probabilités', 'Ratio', 'Fonctions', 'Arithmétique', 'Volumes']
   },
   dnb_2022_06_ameriquenord_3: {
@@ -7120,8 +5942,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_ameriquenord_3.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_ameriquenord_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_ameriquenord_3.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_ameriquenord_3_cor.tex',
     tags: ['Statistiques']
   },
   dnb_2022_06_ameriquenord_4: {
@@ -7132,8 +5952,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_ameriquenord_4.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_ameriquenord_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_ameriquenord_4.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_ameriquenord_4_cor.tex',
     tags: ['Algorithmique-programmation', 'Probabilités']
   },
   dnb_2022_06_ameriquenord_5: {
@@ -7144,8 +5962,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_ameriquenord_5.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_ameriquenord_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_ameriquenord_5.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_ameriquenord_5_cor.tex',
     tags: ['Programme de calculs', 'Calcul littéral']
   },
   dnb_2022_06_asie_1: {
@@ -7156,8 +5972,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_asie_1.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_asie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_asie_1.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_asie_1_cor.tex',
     tags: ['Programme de calculs', 'Calcul littéral', 'Fonctions', 'Volumes']
   },
   dnb_2022_06_asie_2: {
@@ -7168,8 +5982,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_asie_2.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_asie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_asie_2.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_asie_2_cor.tex',
     tags: ['Thalès', 'Pythagore', 'Transformations', 'Agrandissement-réduction']
   },
   dnb_2022_06_asie_3: {
@@ -7180,8 +5992,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_asie_3.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_asie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_asie_3.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_asie_3_cor.tex',
     tags: ['Statistiques', 'Tableur', 'Pourcentages']
   },
   dnb_2022_06_asie_4: {
@@ -7192,8 +6002,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_asie_4.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_asie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_asie_4.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_asie_4_cor.tex',
     tags: ['Calcul numérique', 'Algorithmique-programmation', 'Pourcentages']
   },
   dnb_2022_06_asie_5: {
@@ -7204,8 +6012,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_asie_5.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_asie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_asie_5.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_asie_5_cor.tex',
     tags: ['Coordonnées terrestres', 'Aires et périmètres', 'Vitesses']
   },
   dnb_2022_06_etrangers_1: {
@@ -7216,8 +6022,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_etrangers_1.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_etrangers_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_etrangers_1.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_etrangers_1_cor.tex',
     tags: ['QCM', 'Fonctions', 'Tableur', 'Calcul littéral', 'Pythagore']
   },
   dnb_2022_06_etrangers_2: {
@@ -7228,8 +6032,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_etrangers_2.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_etrangers_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_etrangers_2.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_etrangers_2_cor.tex',
     tags: ['Statistiques', 'Pourcentages', 'Durées', 'Vitesses']
   },
   dnb_2022_06_etrangers_3: {
@@ -7240,8 +6042,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_etrangers_3.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_etrangers_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_etrangers_3.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_etrangers_3_cor.tex',
     tags: ['Trigonométrie', 'Thalès', 'Pythagore']
   },
   dnb_2022_06_etrangers_4: {
@@ -7252,8 +6052,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_etrangers_4.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_etrangers_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_etrangers_4.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_etrangers_4_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2022_06_etrangers_5: {
@@ -7264,8 +6062,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_etrangers_5.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_etrangers_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_etrangers_5.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_etrangers_5_cor.tex',
     tags: ['Arithmétique', 'Volumes']
   },
   dnb_2022_06_polynesie_1: {
@@ -7276,8 +6072,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_polynesie_1.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_polynesie_1.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_polynesie_1_cor.tex',
     tags: ['Vrai-faux', 'Calcul numérique', 'Thalès', 'Arithmétique', 'Ratio']
   },
   dnb_2022_06_polynesie_2: {
@@ -7288,8 +6082,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_polynesie_2.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_polynesie_2.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_polynesie_2_cor.tex',
     tags: ['Fonctions', 'Lecture graphique']
   },
   dnb_2022_06_polynesie_3: {
@@ -7300,8 +6092,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_polynesie_3.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_polynesie_3.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_polynesie_3_cor.tex',
     tags: ['Statistiques', 'Probabilités', 'Volumes', 'Équations']
   },
   dnb_2022_06_polynesie_4: {
@@ -7312,8 +6102,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_polynesie_4.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_polynesie_4.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_polynesie_4_cor.tex',
     tags: ['Programme de calculs', 'Calcul littéral']
   },
   dnb_2022_06_polynesie_5: {
@@ -7324,8 +6112,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_polynesie_5.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_polynesie_5.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_polynesie_5_cor.tex',
     tags: ['Prise d\'initiatives', 'Pythagore', 'Trigonométrie']
   },
   dnb_2022_06_metropole_mathalea_1: {
@@ -7336,8 +6122,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_1.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_metropole_mathalea_1.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_metropole_mathalea_1_cor.tex',
     tags: ['Thalès', 'Pythagore', 'Vitesses']
   },
   dnb_2022_06_metropole_mathalea_2: {
@@ -7348,8 +6132,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_2.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_metropole_mathalea_2.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_metropole_mathalea_2_cor.tex',
     tags: ['QCM', 'Transformations', 'Fonctions', 'Statistiques', 'Agrandissement-réduction']
   },
   dnb_2022_06_metropole_mathalea_3: {
@@ -7360,8 +6142,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_3.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_metropole_mathalea_3.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_metropole_mathalea_3_cor.tex',
     tags: ['Arithmétique', 'Probabilités']
   },
   dnb_2022_06_metropole_mathalea_4: {
@@ -7372,8 +6152,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_4.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_metropole_mathalea_4.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_metropole_mathalea_4_cor.tex',
     tags: ['Calcul littéral', 'Algorithmique-programmation', 'Équations']
   },
   dnb_2022_06_metropole_mathalea_5: {
@@ -7384,8 +6162,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_5.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_06_metropole_mathalea_5.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_06_metropole_mathalea_5_cor.tex',
     tags: ['Volumes', 'Pourcentages', 'Proportionnalité']
   },
   dnb_2022_09_metropole_1: {
@@ -7396,8 +6172,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_09_metropole_1.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_09_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_09_metropole_1.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_09_metropole_1_cor.tex',
     tags: ['QCM', 'Puissances', 'Arithmétique', 'Calcul littéral', 'Équations', 'Probabilités']
   },
   dnb_2022_09_metropole_2: {
@@ -7408,8 +6182,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_09_metropole_2.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_09_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_09_metropole_2.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_09_metropole_2_cor.tex',
     tags: ['Fonctions', 'Équations', 'Lecture graphique']
   },
   dnb_2022_09_metropole_3: {
@@ -7420,8 +6192,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_09_metropole_3.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_09_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_09_metropole_3.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_09_metropole_3_cor.tex',
     tags: ['Algorithmique-programmation', 'Transformations']
   },
   dnb_2022_09_metropole_4: {
@@ -7432,8 +6202,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_09_metropole_4.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_09_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_09_metropole_4.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_09_metropole_4_cor.tex',
     tags: ['Tableur', 'Statistiques', 'Vitesses', 'Grandeurs composées']
   },
   dnb_2022_09_metropole_5: {
@@ -7444,8 +6212,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_09_metropole_5.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_09_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_09_metropole_5.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_09_metropole_5_cor.tex',
     tags: ['Trigonométrie', 'Pythagore', 'Thalès', 'Volumes']
   },
   dnb_2022_09_polynesie_1: {
@@ -7456,8 +6222,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_09_polynesie_1.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_09_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_09_polynesie_1.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_09_polynesie_1_cor.tex',
     tags: ['Fractions', 'Arithmétique', 'Calcul littéral', 'Volumes', 'Pourcentages']
   },
   dnb_2022_09_polynesie_2: {
@@ -7468,8 +6232,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_09_polynesie_2.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_09_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_09_polynesie_2.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_09_polynesie_2_cor.tex',
     tags: ['Pythagore', 'Trigonométrie', 'Vitesses', 'Thalès']
   },
   dnb_2022_09_polynesie_3: {
@@ -7480,8 +6242,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_09_polynesie_3.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_09_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_09_polynesie_3.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_09_polynesie_3_cor.tex',
     tags: ['Algorithmique-programmation', 'Transformations']
   },
   dnb_2022_09_polynesie_4: {
@@ -7492,8 +6252,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_09_polynesie_4.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_09_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_09_polynesie_4.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_09_polynesie_4_cor.tex',
     tags: ['Fonctions', 'Programme de calculs', 'Équations', 'Lecture graphique']
   },
   dnb_2022_09_polynesie_5: {
@@ -7504,8 +6262,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2022/tex/png/dnb_2022_09_polynesie_5.png',
     pngCor: 'static/dnb/2022/tex/png/dnb_2022_09_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2022/tex/dnb_2022_09_polynesie_5.tex',
-    urlcor: 'static/dnb/2022/tex/dnb_2022_09_polynesie_5_cor.tex',
     tags: ['Probabilités', 'Statistiques']
   },
   dnb_2023_05_ameriquenord_1: {
@@ -7516,8 +6272,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_05_ameriquenord_1.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_05_ameriquenord_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_1.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_1_cor.tex',
     tags: ['Arithmétique', 'Probabilités', 'Calcul littéral', 'Volumes', 'Agrandissement-réduction']
   },
   dnb_2023_05_ameriquenord_2: {
@@ -7528,8 +6282,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_05_ameriquenord_2.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_05_ameriquenord_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_2.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_2_cor.tex',
     tags: ['Pythagore', 'Thalès', 'Trigonométrie', 'Aires et périmètres', 'Proportionnalité']
   },
   dnb_2023_05_ameriquenord_3: {
@@ -7540,8 +6292,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_05_ameriquenord_3.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_05_ameriquenord_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_3.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_3_cor.tex',
     tags: ['Statistiques']
   },
   dnb_2023_05_ameriquenord_4: {
@@ -7552,8 +6302,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_05_ameriquenord_4.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_05_ameriquenord_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_4.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_4_cor.tex',
     tags: ['Algorithmique-programmation', 'Géométrie plane']
   },
   dnb_2023_05_ameriquenord_5: {
@@ -7564,8 +6312,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_05_ameriquenord_5.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_05_ameriquenord_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_5.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_5_cor.tex',
     tags: ['Aires et périmètres', 'Vitesses', 'Proportionnalité']
   },
   dnb_2023_06_asie_1: {
@@ -7576,8 +6322,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_asie_1.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_asie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_asie_1.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_asie_1_cor.tex',
     tags: ['Pythagore', 'Thalès', 'Proportionnalité', 'Aires et périmètres']
   },
   dnb_2023_06_asie_2: {
@@ -7588,8 +6332,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_asie_2.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_asie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_asie_2.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_asie_2_cor.tex',
     tags: ['QCM', 'Probabilités', 'Pourcentages', 'Transformations', 'Fonctions', 'Puissances', 'Trigonométrie']
   },
   dnb_2023_06_asie_3: {
@@ -7600,8 +6342,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_asie_3.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_asie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_asie_3.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_asie_3_cor.tex',
     tags: ['Programme de calculs', 'Calcul littéral', 'Équations', 'Tableur']
   },
   dnb_2023_06_asie_4: {
@@ -7612,8 +6352,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_asie_4.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_asie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_asie_4.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_asie_4_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2023_06_asie_5: {
@@ -7624,8 +6362,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_asie_5.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_asie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_asie_5.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_asie_5_cor.tex',
     tags: ['Recherche d\'informations', 'Statistiques', 'Pourcentages', 'Volumes']
   },
   dnb_2023_06_etrangers_1: {
@@ -7636,8 +6372,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_etrangers_1.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_etrangers_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_etrangers_1.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_etrangers_1_cor.tex',
     tags: ['QCM', 'Algorithmique-programmation', 'Calcul numérique', 'Puissances', 'Statistiques']
   },
   dnb_2023_06_etrangers_2: {
@@ -7648,8 +6382,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_etrangers_2.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_etrangers_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_etrangers_2.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_etrangers_2_cor.tex',
     tags: ['Trigonométrie', 'Pythagore', 'Thalès', 'Volumes', 'Recherche d\'informations']
   },
   dnb_2023_06_etrangers_3: {
@@ -7660,8 +6392,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_etrangers_3.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_etrangers_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_etrangers_3.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_etrangers_3_cor.tex',
     tags: ['Programme de calculs', 'Tableur', 'Calcul littéral', 'Équations']
   },
   dnb_2023_06_etrangers_4: {
@@ -7672,8 +6402,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_etrangers_4.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_etrangers_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_etrangers_4.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_etrangers_4_cor.tex',
     tags: ['Probabilités', 'Arithmétique']
   },
   dnb_2023_06_etrangers_5: {
@@ -7684,8 +6412,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_etrangers_5.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_etrangers_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_etrangers_5.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_etrangers_5_cor.tex',
     tags: ['Fonctions', 'Lecture graphique', 'Proportionnalité']
   },
   dnb_2023_06_metropole_1: {
@@ -7696,8 +6422,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_metropole_1.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_metropole_1.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_metropole_1_cor.tex',
     tags: ['Statistiques']
   },
   dnb_2023_06_metropole_2: {
@@ -7708,8 +6432,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_metropole_2.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_metropole_2.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_metropole_2_cor.tex',
     tags: ['Aires et périmètres', 'Pythagore', 'Thalès']
   },
   dnb_2023_06_metropole_3: {
@@ -7720,8 +6442,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_metropole_3.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_metropole_3.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_metropole_3_cor.tex',
     tags: ['QCM', 'Pourcentages', 'Probabilités', 'Transformations', 'Volumes']
   },
   dnb_2023_06_metropole_4: {
@@ -7732,8 +6452,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_metropole_4.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_metropole_4.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_metropole_4_cor.tex',
     tags: ['Recherche d\'informations', 'Trigonométrie', 'Algorithmique-programmation']
   },
   dnb_2023_06_metropole_5: {
@@ -7744,8 +6462,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_metropole_5.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_metropole_5.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_metropole_5_cor.tex',
     tags: ['Programme de calculs', 'Calcul littéral', 'Fonctions', 'Équations']
   },
   dnb_2023_06_polynesie_1: {
@@ -7756,8 +6472,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_polynesie_1.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_polynesie_1.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_polynesie_1_cor.tex',
     tags: ['QCM', 'Fonctions', 'Tableur', 'Calcul littéral']
   },
   dnb_2023_06_polynesie_2: {
@@ -7768,8 +6482,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_polynesie_2.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_polynesie_2.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_polynesie_2_cor.tex',
     tags: ['Recherche d\'informations', 'Pythagore', 'Pourcentages', 'Trigonométrie', 'Thalès']
   },
   dnb_2023_06_polynesie_3: {
@@ -7780,8 +6492,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_polynesie_3.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_polynesie_3.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_polynesie_3_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2023_06_polynesie_4: {
@@ -7792,8 +6502,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_polynesie_4.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_polynesie_4.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_polynesie_4_cor.tex',
     tags: ['Algorithmique-programmation', 'Calcul littéral', 'Programme de calculs', 'Équations']
   },
   dnb_2023_06_polynesie_5: {
@@ -7804,8 +6512,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_06_polynesie_5.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_06_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_06_polynesie_5.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_06_polynesie_5_cor.tex',
     tags: ['Aires et périmètres', 'Vitesses', 'Arithmétique']
   },
   dnb_2023_09_metropole_1: {
@@ -7816,8 +6522,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_09_metropole_1.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_09_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_09_metropole_1.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_09_metropole_1_cor.tex',
     tags: ['QCM', 'Arithmétique', 'Agrandissement-réduction', 'Équations', 'Probabilités', 'Transformations']
   },
   dnb_2023_09_metropole_2: {
@@ -7828,8 +6532,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_09_metropole_2.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_09_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_09_metropole_2.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_09_metropole_2_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2023_09_metropole_3: {
@@ -7840,8 +6542,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_09_metropole_3.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_09_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_09_metropole_3.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_09_metropole_3_cor.tex',
     tags: ['Fonctions', 'Équations', 'Statistiques']
   },
   dnb_2023_09_metropole_4: {
@@ -7852,8 +6552,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_09_metropole_4.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_09_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_09_metropole_4.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_09_metropole_4_cor.tex',
     tags: ['Recherche d\'informations', 'Pourcentages', 'Proportionnalité']
   },
   dnb_2023_09_metropole_5: {
@@ -7864,8 +6562,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_09_metropole_5.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_09_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_09_metropole_5.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_09_metropole_5_cor.tex',
     tags: ['Pythagore', 'Thalès', 'Trigonométrie', 'Aires et périmètres']
   },
   dnb_2023_09_polynesie_1: {
@@ -7876,8 +6572,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_09_polynesie_1.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_09_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_09_polynesie_1.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_09_polynesie_1_cor.tex',
     tags: ['QCM', 'Pourcentages', 'Thalès', 'Probabilités']
   },
   dnb_2023_09_polynesie_2: {
@@ -7888,8 +6582,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_09_polynesie_2.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_09_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_09_polynesie_2.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_09_polynesie_2_cor.tex',
     tags: ['Programme de calculs', 'Calcul littéral', 'Fonctions', 'Tableur']
   },
   dnb_2023_09_polynesie_3: {
@@ -7900,8 +6592,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_09_polynesie_3.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_09_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_09_polynesie_3.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_09_polynesie_3_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2023_09_polynesie_4: {
@@ -7912,8 +6602,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_09_polynesie_4.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_09_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_09_polynesie_4.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_09_polynesie_4_cor.tex',
     tags: ['Trigonométrie', 'Pythagore', 'Volumes']
   },
   dnb_2023_09_polynesie_5: {
@@ -7924,8 +6612,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_09_polynesie_5.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_09_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_09_polynesie_5.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_09_polynesie_5_cor.tex',
     tags: ['Coordonnées terrestres', 'Durées', 'Statistiques', 'Vitesses']
   },
 
@@ -7937,8 +6623,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_1.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_10_amsud_1.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_10_amsud_1_cor.tex',
     tags: ['Pythagore', 'Trigonométrie', 'Géométrie plane', 'Agrandissement-réduction', 'Aires et périmètres']
   },
   dnb_2023_10_amsud_2: {
@@ -7949,8 +6633,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_2.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_10_amsud_2.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_10_amsud_2_cor.tex',
     tags: ['Aires et périmètres', 'Calcul littéral', 'Fonctions', 'Tableur', 'Lecture graphique']
   },
   dnb_2023_10_amsud_3: {
@@ -7961,8 +6643,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_3.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_10_amsud_3.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_10_amsud_3_cor.tex',
     tags: ['Vrai-faux', 'Proportionnalité', 'Arithmétique', 'Calcul littéral']
   },
   dnb_2023_10_amsud_4: {
@@ -7973,8 +6653,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_4.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_10_amsud_4.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_10_amsud_4_cor.tex',
     tags: ['Volumes', 'Grandeurs composées', 'Proportionnalité']
   },
   dnb_2023_10_amsud_5: {
@@ -7985,8 +6663,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_5.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_10_amsud_5.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_10_amsud_5_cor.tex',
     tags: ['Probabilités', 'Algorithmique-programmation']
   },
   dnb_2023_12_caledonie_1: {
@@ -7997,8 +6673,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_1.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_1.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_1_cor.tex',
     tags: ['QCM', 'Probabilités', 'Puissances', 'Calcul numérique', 'Transformations', 'Statistiques']
   },
   dnb_2023_12_caledonie_2: {
@@ -8009,8 +6683,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_2.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_2.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_2_cor.tex',
     tags: ['Arithmétique']
   },
   dnb_2023_12_caledonie_3: {
@@ -8021,8 +6693,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_3.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_3.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_3_cor.tex',
     tags: ['Trigonométrie', 'Aires et périmètres', 'Pythagore', 'Volumes', 'Grandeurs composées']
   },
   dnb_2023_12_caledonie_4: {
@@ -8033,8 +6703,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_4.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_4.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_4_cor.tex',
     tags: ['Géométrie plane', 'Thalès', 'Vitesses', 'Durées']
   },
   dnb_2023_12_caledonie_5: {
@@ -8045,8 +6713,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_5.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_5.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_5_cor.tex',
     tags: ['Fonctions', 'Tableur', 'Calcul littéral', 'Équations']
   },
   dnb_2023_12_caledonie_6: {
@@ -8057,8 +6723,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_6.png',
     pngCor: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_6.tex',
-    urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_6_cor.tex',
     tags: ['Géométrie plane', 'Algorithmique-programmation']
   },
 
@@ -8070,8 +6734,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_1.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_1.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_1_cor.tex',
     tags: [
       'Pourcentages', 'Fractions', 'Calcul littéral', 'Équations', 'Calcul numérique', 'Volumes', 'Trigonométrie', 'Géométrie plane'
     ]
@@ -8084,8 +6746,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_2.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_2.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_2_cor.tex',
     tags: [
       'Statistiques', 'Pourcentages'
     ]
@@ -8098,8 +6758,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_3.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_3.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_3_cor.tex',
     tags: [
       'Géométrie plane', 'Pythagore'
     ]
@@ -8112,8 +6770,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_4.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_4.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_4_cor.tex',
     tags: [
       'Arithmétique', 'Pourcentages'
     ]
@@ -8126,8 +6782,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_5.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_5.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_5_cor.tex',
     tags: [
       'Probabilités', 'Fractions'
     ]
@@ -8140,8 +6794,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_6.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_6.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_6_cor.tex',
     tags: [
       'Proportionnalité', 'Lecture graphique', 'Tableur'
     ]
@@ -8154,8 +6806,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_7.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_7.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_7_cor.tex',
     tags: [
       "Recherche d'informations", 'Aires et périmètres'
     ]
@@ -8168,8 +6818,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_8.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_8.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_8_cor.tex',
     tags: [
       'Géométrie plane', 'Thalès', 'Algorithmique-programmation'
     ]
@@ -8183,8 +6831,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_1.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_polynesie_1.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_polynesie_1_cor.tex',
     tags: ['Transformations', 'Calcul littéral', 'Équations', 'Arithmétique', 'Fractions', 'Coordonnées terrestres']
   },
   dnb_2021_06_polynesie_2: {
@@ -8195,8 +6841,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_2.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_polynesie_2.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_polynesie_2_cor.tex',
     tags: ['Probabilités', 'Fractions', 'Équations']
   },
   dnb_2021_06_polynesie_3: {
@@ -8207,8 +6851,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_3.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_polynesie_3.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_polynesie_3_cor.tex',
     tags: ['Pythagore', 'Aires et périmètres', 'Trigonométrie', 'Géométrie plane']
   },
   dnb_2021_06_polynesie_4: {
@@ -8219,8 +6861,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_4.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_polynesie_4.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_polynesie_4_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2021_06_polynesie_5: {
@@ -8231,8 +6871,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_5.png',
     pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2021/tex/dnb_2021_06_polynesie_5.tex',
-    urlcor: 'static/dnb/2021/tex/dnb_2021_06_polynesie_5_cor.tex',
     tags: ['Lecture graphique', 'Proportionnalité', 'Fonctions', 'Équations']
   },
 
@@ -8245,8 +6883,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_1.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_1.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_1_cor.tex',
     tags: ['Vrai-faux', 'Statistiques', 'Vitesses', 'Probabilités', 'Agrandissement-réduction']
   },
   dnb_2024_05_ameriquenord_2: {
@@ -8257,8 +6893,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_2.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_2.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_2_cor.tex',
     tags: ['Programme de calculs', 'Calcul littéral', 'Équations']
   },
   dnb_2024_05_ameriquenord_3: {
@@ -8269,8 +6903,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_3.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_3.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_3_cor.tex',
     tags: ['Fonctions', 'Lecture graphique', 'Proportionnalité']
   },
   dnb_2024_05_ameriquenord_4: {
@@ -8281,8 +6913,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_4.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_4.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_4_cor.tex',
     tags: ['Géométrie plane', 'Pourcentages', 'Proportionnalité', 'Aires et périmètres']
   },
   dnb_2024_05_ameriquenord_5: {
@@ -8293,8 +6923,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_5.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_5.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_5_cor.tex',
     tags: ['Thalès', 'Programme de calculs']
   },
 
@@ -8306,8 +6934,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_06_asie_1.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_asie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_06_asie_1.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_06_asie_1_cor.tex',
     tags: ['Arithmétique', 'Aires et périmètres', 'Calcul littéral', 'Ratio', 'Statistiques']
   },
   dnb_2024_06_asie_2: {
@@ -8318,8 +6944,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_06_asie_2.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_asie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_06_asie_2.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_06_asie_2_cor.tex',
     tags: ["Géométrie dans l'espace", 'Thalès', 'Probabilités']
   },
   dnb_2024_06_asie_3: {
@@ -8330,8 +6954,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_06_asie_3.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_asie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_06_asie_3.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_06_asie_3_cor.tex',
     tags: ['Pythagore', 'Aires et périmètres', 'Trigonométrie', 'Géométrie plane']
   },
   dnb_2024_06_asie_4: {
@@ -8342,8 +6964,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_06_asie_4.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_asie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_06_asie_4.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_06_asie_4_cor.tex',
     tags: ['Fonctions', "Recherche d'informations", 'Équations', 'Lecture graphique']
   },
   dnb_2024_06_asie_5: {
@@ -8354,8 +6974,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_06_asie_5.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_asie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_06_asie_5.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_06_asie_5_cor.tex',
     tags: ['Algorithmique-programmation']
   },
   dnb_2024_06_etrangers_1: {
@@ -8366,8 +6984,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_1.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_06_etrangers_1.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_06_etrangers_1_cor.tex',
     tags: ['Puissances', 'Vitesses', 'Probabilités', 'Fractions', 'Statistiques']
   },
   dnb_2024_06_etrangers_2: {
@@ -8378,8 +6994,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_2.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_06_etrangers_2.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_06_etrangers_2_cor.tex',
     tags: ['Arithmétique', "Prise d'initiatives"]
   },
   dnb_2024_06_etrangers_3: {
@@ -8390,8 +7004,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_3.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_06_etrangers_3.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_06_etrangers_3_cor.tex',
     tags: ['Programme de calculs', 'Algorithmique-programmation', 'Fonctions', 'Calcul littéral', 'Équations']
   },
   dnb_2024_06_etrangers_4: {
@@ -8402,8 +7014,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_4.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_06_etrangers_4.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_06_etrangers_4_cor.tex',
     tags: ['Pythagore', 'Trigonométrie', 'Thalès', 'Transformations']
   },
   dnb_2024_06_etrangers_5: {
@@ -8414,8 +7024,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_5.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_06_etrangers_5.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_06_etrangers_5_cor.tex',
     tags: ['Pythagore', 'Aires et périmètres', 'Proportionnalité', 'Volumes', 'Agrandissement-réduction']
   },
 
@@ -8427,8 +7035,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_1.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_1.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_1_cor.tex',
     tags: ['Fonctions', 'Thalès', 'Géométrie plane']
   },
   dnb_2020_02_caledonie_2: {
@@ -8439,8 +7045,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_2.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_2.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_2_cor.tex',
     tags: ['Algorithmique-programmation', 'Programme de calculs', 'Calcul littéral', 'Équations']
   },
   dnb_2020_02_caledonie_3: {
@@ -8451,8 +7055,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_3.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_3.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_3_cor.tex',
     tags: ['Proportionnalité', 'Lecture graphique', 'Statistiques']
   },
   dnb_2020_02_caledonie_4: {
@@ -8463,8 +7065,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_4.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_4.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_4_cor.tex',
     tags: ['Volumes', 'Pythagore', 'Grandeurs composées']
   },
   dnb_2020_02_caledonie_5: {
@@ -8475,8 +7075,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_5.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_5.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_5_cor.tex',
     tags: ['Proportionnalité', 'Pourcentages']
   },
   dnb_2020_02_caledonie_6: {
@@ -8487,8 +7085,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_6.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_6_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_6.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_6_cor.tex',
     tags: ['Tableur', 'Statistiques', 'Probabilités']
   },
   dnb_2020_02_caledonie_7: {
@@ -8499,8 +7095,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_7.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_7_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_7.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_7_cor.tex',
     tags: ['Géométrie plane', 'Trigonométrie', "Prise d'initiatives"]
   },
   dnb_2020_02_caledonie_8: {
@@ -8511,8 +7105,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_8.png',
     pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_8_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_8.tex',
-    urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_8_cor.tex',
     tags: ['Algorithmique-programmation', "Recherche d'informations"]
   },
 
@@ -8524,8 +7116,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_1.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_06_polynesie_1.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_06_polynesie_1_cor.tex',
     tags: ['Pythagore', 'Fonctions', 'Transformations', 'Ratio', 'Arithmétique', 'QCM']
   },
   dnb_2024_06_polynesie_2: {
@@ -8536,8 +7126,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_2.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_06_polynesie_2.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_06_polynesie_2_cor.tex',
     tags: ['Statistiques', 'Pourcentages']
   },
   dnb_2024_06_polynesie_3: {
@@ -8548,8 +7136,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_3.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_06_polynesie_3.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_06_polynesie_3_cor.tex',
     tags: ['Pythagore', 'Thalès', 'Trigonométrie', 'Volumes', 'Aires et périmètres']
   },
   dnb_2024_06_polynesie_4: {
@@ -8560,8 +7146,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_4.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_06_polynesie_4.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_06_polynesie_4_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2024_06_polynesie_5: {
@@ -8572,8 +7156,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_5.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_06_polynesie_5.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_06_polynesie_5_cor.tex',
     tags: ['Fonctions', 'Tableur', 'Équations', 'Algorithmique-programmation', 'Programme de calculs', 'Calcul littéral']
   },
   dnb_2024_07_antilles_1: {
@@ -8584,8 +7166,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_07_antilles_1.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_07_antilles_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_07_antilles_1.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_07_antilles_1_cor.tex',
     tags: ['Probabilités', 'Arithmétique']
   },
   dnb_2024_07_antilles_2: {
@@ -8596,8 +7176,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_07_antilles_2.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_07_antilles_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_07_antilles_2.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_07_antilles_2_cor.tex',
     tags: ['Puissances', 'Statistiques', 'Transformations', 'Fonctions']
   },
   dnb_2024_07_antilles_3: {
@@ -8608,8 +7186,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_07_antilles_3.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_07_antilles_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_07_antilles_3.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_07_antilles_3_cor.tex',
     tags: ['Pythagore', 'Thalès', 'Trigonométrie']
   },
   dnb_2024_07_antilles_4: {
@@ -8620,8 +7196,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_07_antilles_4.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_07_antilles_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_07_antilles_4.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_07_antilles_4_cor.tex',
     tags: ['Programme de calculs', 'Calcul littéral', 'Algorithmique-programmation', 'Équations']
   },
   dnb_2024_07_antilles_5: {
@@ -8632,8 +7206,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_07_antilles_5.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_07_antilles_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_07_antilles_5.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_07_antilles_5_cor.tex',
     tags: ['Aires et périmètres', 'Volumes', 'Grandeurs composées']
   },
   dnb_2024_09_polynesie_1: {
@@ -8644,8 +7216,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_09_polynesie_1.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_09_polynesie_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_09_polynesie_1.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_09_polynesie_1_cor.tex',
     tags: ['Arithmétique', 'Puissances', 'Grandeurs composées', 'Équations', 'Fonctions', 'Thalès']
   },
   dnb_2024_09_polynesie_2: {
@@ -8656,8 +7226,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_09_polynesie_2.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_09_polynesie_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_09_polynesie_2.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_09_polynesie_2_cor.tex',
     tags: ['Statistiques', 'Tableur', 'Probabilités', 'Pourcentages']
   },
   dnb_2024_09_polynesie_3: {
@@ -8668,8 +7236,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_09_polynesie_3.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_09_polynesie_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_09_polynesie_3.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_09_polynesie_3_cor.tex',
     tags: ['Trigonométrie', 'Pythagore', 'Triangles égaux', 'Agrandissement-réduction', 'Aires et périmètres']
   },
   dnb_2024_09_polynesie_4: {
@@ -8680,8 +7246,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_09_polynesie_4.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_09_polynesie_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_09_polynesie_4.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_09_polynesie_4_cor.tex',
     tags: ['Algorithmique-programmation', 'Transformations']
   },
   dnb_2024_09_polynesie_5: {
@@ -8692,8 +7256,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_09_polynesie_5.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_09_polynesie_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_09_polynesie_5.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_09_polynesie_5_cor.tex',
     tags: ['Volumes', 'Fonctions', 'Vitesses', 'Grandeurs composées']
   },
   dnb_2024_07_metropole_1: {
@@ -8704,8 +7266,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_1.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_1_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_07_metropole_1.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_07_metropole_1_cor.tex',
     tags: ['Probabilités']
   },
   dnb_2024_07_metropole_2: {
@@ -8716,8 +7276,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_2.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_2_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_07_metropole_2.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_07_metropole_2_cor.tex',
     tags: ['Calcul littéral', 'Algorithmique-programmation', 'Programme de calculs', 'Équations']
   },
   dnb_2024_07_metropole_3: {
@@ -8728,8 +7286,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_3.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_3_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_07_metropole_3.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_07_metropole_3_cor.tex',
     tags: ['Pythagore', 'Thalès', 'Aires et périmètres', 'Pourcentages']
   },
   dnb_2024_07_metropole_4: {
@@ -8740,8 +7296,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_4.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_4_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_07_metropole_4.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_07_metropole_4_cor.tex',
     tags: ['Puissances', 'Fonctions', 'QCM', 'Transformations', 'Statistiques', 'Trigonométrie']
   },
   dnb_2024_07_metropole_5: {
@@ -8752,8 +7306,6 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_5.png',
     pngCor: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_5_cor.png',
     typeExercice: 'dnb',
-    url: 'static/dnb/2024/tex/dnb_2024_07_metropole_5.tex',
-    urlcor: 'static/dnb/2024/tex/dnb_2024_07_metropole_5_cor.tex',
     tags: ['Arithmétique', 'Volumes', 'Fractions']
   },
 }

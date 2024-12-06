@@ -3,6 +3,9 @@ import { context } from '../../../modules/context.js'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Trouver la fraction (définition)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,7 +15,6 @@ export const amcType = 'AMCHybride'
 /*!
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
- * Référence can6C15
  */
 export const uuid = '84b48'
 export const ref = 'can6C15'
@@ -25,9 +27,9 @@ export default function FractionCommeFacteurManquant () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = ''
-  this.formatInteractif = 'fractionEgale'
-  this.consigne = ''
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { fractionEgale: true }
+  this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
 
   this.nouvelleVersion = function () {
     let a, b
@@ -37,9 +39,9 @@ export default function FractionCommeFacteurManquant () {
     } while (pgcd(a, b) !== 1)
     const c = new FractionEtendue(a, b)
     this.reponse = c
-    this.question = `Quel est le nombre qui, multiplié par $${b}$ donne $${a}$ ?`
-    this.correction = `Le nombre qui, multiplié par $a$ donne $b$ est le nombre $\\dfrac{b}{a}$.<br>
-    Ainsi, le nombre qui,  multiplié par $${b}$ donne $${a}$ est $${c.texFraction}$.<br>
+    this.question = `Quel est le nombre qui, multiplié par $${b}$, donne $${a}$ ?`
+    this.correction = `Le nombre qui, multiplié par $a$, donne $b$ est le nombre $\\dfrac{b}{a}$.<br>
+    Ainsi, le nombre qui,  multiplié par $${b}$ donne $${a}$ est $${miseEnEvidence(c.texFraction)}$.<br>
     On a bien : $ ${b} \\times${c.texFraction}= ${a}$`
 
     if (context.isAmc) {

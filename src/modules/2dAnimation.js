@@ -224,6 +224,9 @@ function TranslationAnimee (liste, v, animation = 'begin="0s" dur="2s" repeatCou
     code += '</g>'
     return code
   }
+  this.tikz = function () {
+    return ''
+  }
 }
 export function translationAnimee (...args) {
   return new TranslationAnimee(...args)
@@ -266,6 +269,9 @@ function RotationAnimee (
     code += '</g>'
     return code
   }
+  this.tikz = function () {
+    return ''
+  }
 }
 export function rotationAnimee (...args) {
   return new RotationAnimee(...args)
@@ -304,6 +310,9 @@ function HomothetieAnimee (
   </polygon>`
     return code
   }
+  this.tikz = function () {
+    return ''
+  }
 }
 export function homothetieAnimee (...args) {
   return new HomothetieAnimee(...args)
@@ -336,6 +345,9 @@ function SymetrieAnimee (
     </polygon>`
     return code
   }
+  this.tikz = function () {
+    return ''
+  }
 }
 export function symetrieAnimee (...args) {
   return new SymetrieAnimee(...args)
@@ -362,6 +374,9 @@ function AffiniteOrthoAnimee (
     />
     </polygon>`
     return code
+  }
+  this.tikz = function () {
+    return ''
   }
 }
 export function affiniteOrthoAnimee (...args) {

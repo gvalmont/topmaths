@@ -34,7 +34,6 @@ const examsReferentiel: JSONReferentielObject = { ...referentielExams }
 let examens = getAllEndings(examsReferentiel)
 examens = triAnnales(examens, 'ascStringdescNumber')
 const orderedExamsReferentiel = buildReferentiel(examens)
-// console.log('EE : 0000000000000000000', referentielAlea)
 const baseReferentiel: JSONReferentielObject = { ...referentielAlea }
 const referentielOutils: JSONReferentielObject = { ...referentielProfs }
 const referentielHtml: JSONReferentielObject = { ...referentielRessources }
@@ -63,9 +62,6 @@ exercices = [...sortArrayOfResourcesBasedOnProp(exercices, 'id')]
 
 const aleaReferentiel = buildReferentiel(exercices)
 
-// const aleaReferentiel = baseReferentiel
-// console.log('222222222222222222222')
-// console.log(aleaReferentiel.CAN.Terminale)
 const exercicesGeometrieDynamique = getAllEndings(baseGeometrieDynamiqueReferentiel)
 const geometrieDynamiqueReferentiel = buildReferentiel(exercicesGeometrieDynamique)
 // référentiel original

@@ -3,16 +3,18 @@ import { prenomF } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { randint } from '../../../modules/outils.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Rechercher un prix unitaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDePublication = '18/10/2021'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence can6C25
- * Date de publication 18/10/2021
 */
 export const uuid = '81a00'
 export const ref = 'can6C25'
@@ -26,7 +28,9 @@ export default function RecherchePrix () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = ''
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  this.formatChampTexte = KeyboardType.clavierNumbers
   this.optionsChampTexte = { texteApres: ' €' }
   this.nouvelleVersion = function () {
     const listeviennoiserie = [
@@ -46,7 +50,7 @@ export default function RecherchePrix () {
     Quel est le prix d'${s} ?`
     this.correction = `${prenom1} achète $${a}$ ${p}. Comme on lui rend $${texPrix(t - a * pu)}$ euros sur son billet de $${t}$ euros,
     ses ${p} lui ont coûté : $${t}-${texNombre(t - a * pu)}=${texPrix(a * pu)}$ euros.<br>
-    Le prix d'${s} est donc donné par :  $${texNombre(a * pu)}\\div ${a}=${texPrix(pu)}$ euros. `
+    Le prix d'${s} est donc donné par :  $${texNombre(a * pu)}\\div ${a}=${miseEnEvidence(texPrix(pu))}$ euros. `
     this.reponse = pu
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\dots$ €'

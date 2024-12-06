@@ -165,25 +165,25 @@ export default class nomExercice extends Exercice {
             if (j === 1) {
               texte = `$${lettreDepuisChiffre(i + 1)}=${IdentiteRemarquable.carreDuneSomme(p1, p2).produit(pSP3).melangerTermes(this.sup5).toString()}$`
               if (listeDeQuestions[i] === 3) {
-                texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)}&=${miseEnEvidence(pSP3.toString())}\\mathopen{}\\left(${IdentiteRemarquable.carreDuneSomme(p1, p2).melangerTermes(this.sup5).toString()}\\right)\\mathclose{}\\\\&=${miseEnEvidence(`${pSP3.toString()}\\mathopen{}\\left(${p1.toString()}+${p2.toString()}\\right)\\mathclose{}^2`)}\\end{aligned}$`
+                texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)}&=${miseEnEvidence(pSP3.toString())}\\mathopen{}\\left(${IdentiteRemarquable.carreDuneSomme(p1, p2).melangerTermes(this.sup5).toString()}\\right)\\mathclose{}\\text{ ${this.sup5 ? 'on ordonne les termes puis' : ''} on met en évidence}\\\\&=${miseEnEvidence(`${pSP3.toString()}\\mathopen{}\\left(${p1.toString()}+${p2.toString()}\\right)\\mathclose{}^2`)}\\quad \\text{ on factorise avec la première identité}\\end{aligned}$`
               } else if (listeDeQuestions[i] === 2) {
-                texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`\\left(${p1.toString()}+${p2.toString()}\\right)^2`)}$`
+                texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`\\left(${p1.toString()}+${p2.toString()}\\right)^2`)}\\quad \\text{ on factorise avec la première identité}$`
               }
             } else if (j === 2) {
               texte = `$${lettreDepuisChiffre(i + 1)}=${IdentiteRemarquable.carreDuneDifference(p1, p2).produit(pSP3).melangerTermes(this.sup5).toString()}$`
               if (listeDeQuestions[i] === 3) {
-                texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)}&=${miseEnEvidence(pSP3.toString())}\\mathopen{}\\left(${IdentiteRemarquable.carreDuneDifference(p1, p2).melangerTermes(this.sup5).toString()}\\right)\\mathclose{}\\\\&=${miseEnEvidence(`${pSP3.toString()}\\mathopen{}\\left(${p1.toString()}-${p2.toString()}\\right)\\mathclose{}^2`)}\\end{aligned}$`
+                texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)}&=${miseEnEvidence(pSP3.toString())}\\mathopen{}\\left(${IdentiteRemarquable.carreDuneDifference(p1, p2).melangerTermes(this.sup5).toString()}\\right)\\mathclose{}\\text{ ${this.sup5 ? 'on ordonne les termes puis' : ''} on met en évidence}\\\\&=${miseEnEvidence(`${pSP3.toString()}\\mathopen{}\\left(${p1.toString()}-${p2.toString()}\\right)\\mathclose{}^2`)}\\quad \\text{ on factorise avec la deuxième identité}\\end{aligned}$`
               } else if (listeDeQuestions[i] === 2) {
-                texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`\\left(${p1.toString()}-${p2.toString()}\\right)^2`)}$`
+                texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`\\left(${p1.toString()}-${p2.toString()}\\right)^2`)}\\quad \\text{ on factorise avec la deuxième identité}$`
               }
             } else if (j === 3) {
               const signe = ['+', '-']
               const choixSigne = randint(0, 1)
               texte = `$${lettreDepuisChiffre(i + 1)}=${IdentiteRemarquable.differenceDeDeuxCarres(p1, p2).produit(pSP3).melangerTermes(this.sup5).toString()}$`
               if (listeDeQuestions[i] === 3) {
-                texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)}&=${miseEnEvidence(pSP3.toString())}\\mathopen{}\\left(${IdentiteRemarquable.differenceDeDeuxCarres(p1, p2).melangerTermes(this.sup5).toString()}\\right)\\mathclose{}\\\\&=${miseEnEvidence(`${pSP3.toString()}\\mathopen{}\\left(${p1.toString()}${signe[choixSigne]} ${p2.toString()}\\right)\\mathclose{}\\mathopen{}\\left(${p1.toString()}${signe[(choixSigne + 1) % 2]}${p2.toString()}\\right)\\mathclose{}`)}\\end{aligned}$`
+                texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)}&=${miseEnEvidence(pSP3.toString())}\\mathopen{}\\left(${IdentiteRemarquable.differenceDeDeuxCarres(p1, p2).melangerTermes(this.sup5).toString()}\\right)\\mathclose{}\\quad \\text{ ${this.sup5 ? 'on ordonne les termes puis' : ''} on met en évidence}\\\\&=${miseEnEvidence(`${pSP3.toString()}\\mathopen{}\\left(${p1.toString()}${signe[choixSigne]} ${p2.toString()}\\right)\\mathclose{}\\mathopen{}\\left(${p1.toString()}${signe[(choixSigne + 1) % 2]}${p2.toString()}\\right)\\mathclose{}`)}\\quad \\text{ on factorise avec la troisième identité}\\end{aligned}$`
               } else if (listeDeQuestions[i] === 2) {
-                texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`\\left(${p1.toString()}${signe[choixSigne]} ${p2.toString()}\\right)\\left(${p1.toString()}${signe[(choixSigne + 1) % 2]}${p2.toString()}\\right)`)}$`
+                texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`\\left(${p1.toString()}${signe[choixSigne]} ${p2.toString()}\\right)\\left(${p1.toString()}${signe[(choixSigne + 1) % 2]}${p2.toString()}\\right)`)}\\quad \\text{ on factorise avec la troisième identité}$`
               }
             }
           }
@@ -192,9 +192,9 @@ export default class nomExercice extends Exercice {
             const signeT2 = pSP2.coefficient.signe < 0 ? '' : '+'
             texte = `$${lettreDepuisChiffre(i + 1)}=${IdentiteRemarquable.sommeProduit(p1, pSP1, pSP2).produit(pSP3).melangerTermes(this.sup5).toString()}$`
             if (listeDeQuestions[i] === 5 || listeDeQuestions[i] === 7) {
-              texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)}&=${miseEnEvidence(pSP3.toString())}\\mathopen{}\\left(${IdentiteRemarquable.sommeProduit(p1, pSP1, pSP2).melangerTermes(this.sup5).toString()}\\right)\\mathclose{}\\\\&=${miseEnEvidence(`${pSP3.toString()}\\mathopen{}\\left(${p1.toString()}${signeT1}${pSP1.toString()}\\right)\\mathclose{}\\mathopen{}\\left(${p1.toString()}${signeT2}${pSP2.toString()}\\right)\\mathclose{}`)}\\end{aligned}$`
+              texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)}&=${miseEnEvidence(pSP3.toString())}\\mathopen{}\\left(${IdentiteRemarquable.sommeProduit(p1, pSP1, pSP2).melangerTermes(this.sup5).toString()}\\right)\\mathclose{}\\quad \\text{ ${this.sup5 ? 'on ordonne les termes puis' : ''} on met en évidence}\\\\&=${miseEnEvidence(`${pSP3.toString()}\\mathopen{}\\left(${p1.toString()}${signeT1}${pSP1.toString()}\\right)\\mathclose{}\\mathopen{}\\left(${p1.toString()}${signeT2}${pSP2.toString()}\\right)\\mathclose{}`)}\\quad \\text{ on factorise avec la quatrième identité}\\end{aligned}$`
             } else if (listeDeQuestions[i] === 4 || listeDeQuestions[i] === 6) {
-              texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`\\left(${p1.toString()}${signeT1}${pSP1.toString()}\\right)\\left(${p1.toString()}${signeT2}${pSP2.toString()}\\right)`)}$`
+              texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`\\left(${p1.toString()}${signeT1}${pSP1.toString()}\\right)\\left(${p1.toString()}${signeT2}${pSP2.toString()}\\right)`)}\\quad \\text{ on factorise avec la quatrième identité}$`
             }
           }
           break

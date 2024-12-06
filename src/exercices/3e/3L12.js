@@ -135,6 +135,7 @@ export default function FactoriserIdentitesRemarquables3 () {
       const textCorrSplit = texteCorr.split('=')
       let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
       aRemplacer = aRemplacer.replace('$', '')
+      aRemplacer = aRemplacer.replace('<br>', '')
 
       texteCorr = ''
       for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {

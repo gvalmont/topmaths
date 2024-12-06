@@ -89,6 +89,7 @@
   if (canIsInteractive !== null) {
     $canOptions.isInteractive = canIsInteractive === 'true'
   }
+
   onMount(handleInitialUrl)
 
   $: {
@@ -131,6 +132,7 @@
   function isDevMode () {
     return window.location.href.startsWith('http://localhost')
   }
+
 </script>
 
 <div id="appComponent" class="antialiased">

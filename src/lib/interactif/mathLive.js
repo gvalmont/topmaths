@@ -118,7 +118,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           let result
           // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
           if (saisie == null || saisie === '') {
-            result = { isOk: false, feedback: `Vous devez saisir une réponse dans le champ ${key.charAt(key.length - 1)}.<br>` }
+            result = { isOk: false, feedback: `Pas de réponse dans la zone de saisie N°${key.charAt(key.length - 1)}.<br>` }
           } else {
             result = compareFunction(saisie, reponse.value, options)
           }

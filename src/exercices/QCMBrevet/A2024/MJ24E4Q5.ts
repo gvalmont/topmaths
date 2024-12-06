@@ -1,4 +1,4 @@
-import { choice } from '../../../lib/outils/arrayOutils'
+import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { nombreEnLettres } from '../../../modules/nombreEnLettres'
@@ -66,8 +66,10 @@ export default class MetropoleJuin24Exo4Q5 extends ExerciceQcmA {
       else newList.push(liste[ii++])
       i++
     }
+    let k = 0
     do {
-      this.appliquerLesValeurs(newList.map(el => el / 100)) // On applique la division par 100 à chaque élément pour avoir les tailles en m.
-    } while (nombreElementsDifferents(this.reponses) < n)
+      this.appliquerLesValeurs(shuffle(newList.map(el => el / 100))) // On applique la division par 100 à chaque élément pour avoir les tailles en m.
+      k++
+    } while (nombreElementsDifferents(this.reponses) < n && k < 100)
   }
 }

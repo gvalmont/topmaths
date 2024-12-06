@@ -6,11 +6,12 @@ import { context } from '../../../modules/context'
 import { listeQuestionsToContenu } from '../../../modules/outils'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Comparer une fraction avec 1'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '04/11/2022'
-/*!
+/**
  * @author Gilles Mora
  */
 
@@ -53,7 +54,7 @@ export default class ComparerFractionAUn extends Exercice {
       if (choice([true, false])) { // plus petit que 1
         texte = remplisLesBlancs(this, i, `${a.texFraction}\\quad %{champ1} \\quad 1`, KeyboardType.clavierCompare)
         this.correction = `Le numérateur de $${a.texFraction}$ est plus petit que son dénominateur. <br>
-          On en déduit :    $${a.texFraction} <1$.`
+          On en déduit :    $${a.texFraction} ${miseEnEvidence('<')} 1$.`
         this.reponse = '<'
         handleAnswers(this, i,
           {
@@ -65,7 +66,7 @@ export default class ComparerFractionAUn extends Exercice {
       } else { // plus grand que 1
         texte = remplisLesBlancs(this, i, `${b.texFraction}\\quad %{champ1} \\quad 1`, KeyboardType.clavierCompare)
         this.correction = `Le numérateur de $${b.texFraction}$ est plus grand que son dénominateur. <br>
-            On en déduit :    $${b.texFraction} >1$.`
+            On en déduit :    $${b.texFraction} ${miseEnEvidence('>')} 1$.`
         handleAnswers(this, i,
           {
             champ1: { value: '>' }

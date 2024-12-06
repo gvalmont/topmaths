@@ -3,6 +3,9 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import Exercice from '../../deprecatedExercice.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Calculer la moitié d’un nombre décimal'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -10,9 +13,8 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '13/09/2022'
 
-/*!
+/**
  * @author Gilles Mora
- *
  */
 
 export const uuid = 'bfec4'
@@ -26,12 +28,14 @@ export default function CalculMoitieDecimal () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = ''
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  this.formatChampTexte = KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {
     const a = choice([new Decimal(randint(1, 10) * 2 + 1).div(2), new Decimal(randint(0, 10) * 2 + 1).div(10)])
     this.reponse = new Decimal(a).div(2)
     this.question = `Calculer la moitié de $${texNombre(a, 1)}$.`
-    this.correction = `$${texNombre(a, 1)}\\div 2=${texNombre(this.reponse, 2)}$
+    this.correction = `$${texNombre(a, 1)}\\div 2=${miseEnEvidence(texNombre(this.reponse, 2))}$
           `
     this.canEnonce = this.question
     this.canReponseACompleter = ''

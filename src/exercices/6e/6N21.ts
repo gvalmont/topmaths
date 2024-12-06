@@ -9,6 +9,7 @@ import { arrondi } from '../../lib/outils/nombres'
 import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine.js'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues.js'
 import { fraction } from '../../modules/fractions'
+import type SuperFigure from 'apigeom'
 
 export const dateDePublication = '29/06/2021'
 export const dateDeModifImportante = '03/05/2024'
@@ -32,6 +33,7 @@ type goodAnswer = { label: string, x: number }[]
 
 class PlacerPointsAbscissesFractionnaires extends Exercice {
   goodAnswers!: goodAnswer[]
+  figuresApiGeom!: SuperFigure[]
   constructor () {
     super()
     this.consigne = ''
@@ -42,7 +44,7 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
   }
 
   nouvelleVersion () {
-    this.figures = []
+    this.figuresApiGeom = []
     this.goodAnswers = []
     let typeDeQuestions
     if (this.sup > 3) {
@@ -97,7 +99,7 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
       const { figure, latex } = apigeomGraduatedLine({ xMin: origine, xMax: origine + 4, scale, stepBis: 1 / den })
       figure.options.labelAutomaticBeginsWith = label1
       figure.options.pointDescriptionWithCoordinates = false
-      this.figures[i] = figure
+      this.figuresApiGeom[i] = figure
       const { figure: figureCorr, latex: latexCorr } = apigeomGraduatedLine({ xMin: origine, xMax: origine + 4, scale, stepBis: arrondi(1 / den, 6), points: this.goodAnswers[i] })
       figureCorr.create('Point', { label: label1, x: arrondi(num / den, 4), color: orangeMathalea, colorLabel: orangeMathalea, shape: 'x', labelDxInPixels: 0 })
       figureCorr.create('Point', { label: label2, x: arrondi(num2 / den, 4), color: orangeMathalea, colorLabel: orangeMathalea, labelDxInPixels: 0 })
@@ -158,9 +160,9 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
     if (this.answers == null) this.answers = {}
     if (this == null) return ['KO']
     if (this.figures == null) return ['KO']
-    this.answers[this.figures[i].id] = this.figures[i].json
+    this.answers[this.figuresApiGeom[i].id] = this.figuresApiGeom[i].json
     const result: ('OK'|'KO')[] = []
-    const figure = this.figures[i]
+    const figure = this.figuresApiGeom[i]
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'

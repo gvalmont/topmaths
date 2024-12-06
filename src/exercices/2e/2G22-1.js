@@ -41,6 +41,10 @@ export const refs = {
 }
 
 export default class RepresenterUnVecteur extends Exercice {
+  xA = []
+  xB = []
+  yA = []
+  yB = []
   constructor () {
     super()
     this.nbQuestions = 2
@@ -61,10 +65,10 @@ export default class RepresenterUnVecteur extends Exercice {
      * @type {Figure[]}
      */
     this.figure = []
-    const xA = []
-    const xB = []
-    const yA = []
-    const yB = []
+    this.xA = []
+    this.xB = []
+    this.yA = []
+    this.yB = []
     let listeQuestions = []
     if (this.sup === 1) listeQuestions = combinaisonListes([1], this.nbQuestions)
     else if (this.sup === 2) listeQuestions = combinaisonListes([2], this.nbQuestions)
@@ -159,26 +163,26 @@ export default class RepresenterUnVecteur extends Exercice {
       })
       this.figure[i].options.thickness = 3
 
-      xA.push(randint(2, 8) * choice([-1, 1]))
-      yA.push(randint(2, 8) * choice([-1, 1]))
+      this.xA.push(randint(2, 8) * choice([-1, 1]))
+      this.yA.push(randint(2, 8) * choice([-1, 1]))
       ux = randint(3, 8) * choice([-1, 1])
       uy = randint(3, 8) * choice([-1, 1])
-      xB.push(xA[i] + ux)
-      yB.push(yA[i] + uy)
-      while (Math.abs(xB[i]) < 2 || Math.abs(xB[i]) > 8) {
+      this.xB.push(this.xA[i] + ux)
+      this.yB.push(this.yA[i] + uy)
+      while (Math.abs(this.xB[i]) < 2 || Math.abs(this.xB[i]) > 8) {
         // On s'assure de choisir des points bien placés dans le repère.
-        xA[i] = randint(3, 8) * choice([-1, 1])
+        this.xA[i] = randint(3, 8) * choice([-1, 1])
         ux = randint(3, 8) * choice([-1, 1])
-        xB[i] = xA[i] + ux
+        this.xB[i] = this.xA[i] + ux
       }
-      while (Math.abs(yB[i]) < 2 || Math.abs(yB[i]) > 8) {
+      while (Math.abs(this.yB[i]) < 2 || Math.abs(this.yB[i]) > 8) {
         // Idem pour les ordonnées
-        yA[i] = randint(3, 8) * choice([-1, 1])
+        this.yA[i] = randint(3, 8) * choice([-1, 1])
         uy = randint(3, 8) * choice([-1, 1])
-        yB[i] = yA[i] + uy
+        this.yB[i] = this.yA[i] + uy
       }
-      A = point(xA[i], yA[i])
-      B = point(xB[i], yB[i])
+      A = point(this.xA[i], this.yA[i])
+      B = point(this.xB[i], this.yB[i])
       AB = vecteur(A, B)
       r = repere({ axesEpaisseur: 1 }) // On définit le repère
       posLabelA = homothetie(B, A, -0.7 / longueur(A, B), '', 'center') // pour positionner les noms des points aux extrémités proprement
@@ -190,7 +194,7 @@ export default class RepresenterUnVecteur extends Exercice {
       labelA = latexParPoint(nomPoint1, posLabelA, 'red', 10, 12, '')
       labelB = latexParPoint(nomPoint2, posLabelB, 'red', 10, 12, '')
 
-      H = point(xA[i] + ux, yA[i])
+      H = point(this.xA[i] + ux, this.yA[i])
       s = AB.representant(A) // On trace en rouge [AB]
       h1 = vecteur(A, H).representant(A, 'blue')
       h2 = vecteur(H, B).representant(H, 'blue')
@@ -216,10 +220,10 @@ export default class RepresenterUnVecteur extends Exercice {
 
         // texte = ` Dans un repère orthonormé $\\big(O ; \\vec i,\\vec j\\big)$, représenter le vecteur $\\vec{u}\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
         texte = ` Dans un repère orthonormé $\\big(O ; \\vec i,\\vec j\\big)$, représenter le vecteur de coordonnées $\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
-        texte += `ayant pour origine le point $${nomPoint1}\\left(${xA[i]};${yA[i]}\\right)$.`
+        texte += `ayant pour origine le point $${nomPoint1}\\left(${this.xA[i]};${this.yA[i]}\\right)$.`
         this.figure[i].create('Point', {
-          x: xA[i],
-          y: yA[i],
+          x: this.xA[i],
+          y: this.yA[i],
           label: nomPoint1,
           isFree: false,
           isSelectable: false
@@ -230,10 +234,10 @@ export default class RepresenterUnVecteur extends Exercice {
       } else {
         // texte = ` Dans un repère orthonormé $\\big(O ; \\vec i,\\vec j\\big)$, représenter le vecteur $\\vec{u}\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
         texte = ` Dans un repère orthonormé $\\big(O ; \\vec i,\\vec j\\big)$, représenter le vecteur de coordonnées $\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
-        texte += `ayant pour extrémité le point $${nomPoint2}\\left(${xB[i]};${yB[i]}\\right)$.`
+        texte += `ayant pour extrémité le point $${nomPoint2}\\left(${this.xB[i]};${this.yB[i]}\\right)$.`
         this.figure[i].create('Point', {
-          x: xB[i],
-          y: yB[i],
+          x: this.xB[i],
+          y: this.yB[i],
           label: nomPoint2,
           isFree: false,
           isSelectable: false
@@ -277,57 +281,7 @@ export default class RepresenterUnVecteur extends Exercice {
         longueurBH
       ) // On trace le graphique
 
-      this.correctionInteractive = (i) => {
-        if (this.answers == null) this.answers = {}
-        // Sauvegarde de la réponse pour Capytale
-        this.answers[this.figure[i].id] = this.figure[i].json
-        const divFeedback = document.querySelector(
-          `#feedbackEx${this.numeroExercice}Q${i}`
-        )
-        this.figure[i].isDynamic = false
-        this.figure[i].divButtons.style.display = 'none'
-        this.figure[i].divUserMessage.style.display = 'none'
-
-        let { isValid, vectors } = this.figure[i].checkVector({
-          xOrigin: xA[i],
-          x: xB[i] - xA[i],
-          yOrigin: yA[i],
-          y: yB[i] - yA[i]
-        })
-
-        const nbVecteurs = [...this.figure[i].elements.values()].filter(
-          (e) => e.type === 'VectorByPoints' && e.color === 'green'
-        ).length
-
-        isValid &&= nbVecteurs === 1
-
-        if (isValid) {
-          divFeedback.innerHTML = 'Bravo !'
-          if (vectors[0] !== undefined) {
-            vectors[0].color = 'green'
-          }
-          return 'OK'
-        }
-
-        const wrongVectors = [...this.figure[i].elements.values()].filter(
-          (e) => e.type === 'VectorByPoints' && e.isSelectable
-        )
-        for (const vector of wrongVectors) {
-          vector.color = 'red'
-        }
-
-        let message
-        if (nbVecteurs === 0) {
-          message = "Aucun vecteur vert n'est tracé."
-        } else if (nbVecteurs > 1) {
-          message = 'Trop de vecteurs sont tracés.'
-        } else {
-          message = "Le vecteur tracé n'est pas celui qui est attendu."
-        }
-        divFeedback.innerHTML = message
-        return 'KO'
-      }
-      if (this.questionJamaisPosee(i, xA[i], yA[i], xB[i], yB[i])) {
+      if (this.questionJamaisPosee(i, this.xA[i], this.yA[i], this.xB[i], this.yB[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -336,5 +290,56 @@ export default class RepresenterUnVecteur extends Exercice {
       cpt++
     }
     listeQuestionsToContenu(this)
+  }
+
+  correctionInteractive = (i) => {
+    if (this.answers == null) this.answers = {}
+    // Sauvegarde de la réponse pour Capytale
+    this.answers[this.figure[i].id] = this.figure[i].json
+    const divFeedback = document.querySelector(
+      `#feedbackEx${this.numeroExercice}Q${i}`
+    )
+    this.figure[i].isDynamic = false
+    this.figure[i].divButtons.style.display = 'none'
+    this.figure[i].divUserMessage.style.display = 'none'
+
+    let { isValid, vectors } = this.figure[i].checkVector({
+      xOrigin: this.xA[i],
+      x: this.xB[i] - this.xA[i],
+      yOrigin: this.yA[i],
+      y: this.yB[i] - this.yA[i]
+    })
+
+    const nbVecteurs = [...this.figure[i].elements.values()].filter(
+      (e) => e.type === 'VectorByPoints' && e.color === 'green'
+    ).length
+
+    isValid &&= nbVecteurs === 1
+
+    if (isValid) {
+      divFeedback.innerHTML = 'Bravo !'
+      if (vectors[0] !== undefined) {
+        vectors[0].color = 'green'
+      }
+      return 'OK'
+    }
+
+    const wrongVectors = [...this.figure[i].elements.values()].filter(
+      (e) => e.type === 'VectorByPoints' && e.isSelectable
+    )
+    for (const vector of wrongVectors) {
+      vector.color = 'red'
+    }
+
+    let message
+    if (nbVecteurs === 0) {
+      message = "Aucun vecteur vert n'est tracé."
+    } else if (nbVecteurs > 1) {
+      message = 'Trop de vecteurs sont tracés.'
+    } else {
+      message = "Le vecteur tracé n'est pas celui qui est attendu."
+    }
+    divFeedback.innerHTML = message
+    return 'KO'
   }
 }

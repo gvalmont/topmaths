@@ -67,54 +67,56 @@
     <thead class="sticky top-0
       bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
     >
-      <th
-        scope="col"
-        class="py-3.5 pl-4 pr-3 w-4/6
-          text-left text-sm font-semibold
-          text-coopmaths-struct dark:text-coopmathsdark-struct"
-      >
-        Exercices
-        <span
-          class="pl-1 font-light text-xs
-          text-coopmaths-struct-light dark:text-coopmathsdark-struct-light
-          {selectedExercisesIndexes.length > 0 ? '' : 'invisible'}"
+      <tr>
+        <th
+          scope="col"
+          class="py-3.5 pl-4 pr-3 w-4/6
+            text-left text-sm font-semibold
+            text-coopmaths-struct dark:text-coopmathsdark-struct"
         >
-          ({selectedExercisesIndexes.length} parmi {exercises.length})
-        </span>
-      </th>
-      <th
-        scope="col"
-        class="py-3.5 pl-4 pr-3 w-1/6
-          text-center text-sm font-semibold
-          text-coopmaths-struct dark:text-coopmathsdark-struct"
-      >
-        <div class={isManualModeActive ? 'opacity-20' : ''}>
-          Durée par question
-        </div>
-        <div class="font-light text-xs
-          text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          Exercices
+          <span
+            class="pl-1 font-light text-xs
+            text-coopmaths-struct-light dark:text-coopmathsdark-struct-light
+            {selectedExercisesIndexes.length > 0 ? '' : 'invisible'}"
+          >
+            ({selectedExercisesIndexes.length} parmi {exercises.length})
+          </span>
+        </th>
+        <th
+          scope="col"
+          class="py-3.5 pl-4 pr-3 w-1/6
+            text-center text-sm font-semibold
+            text-coopmaths-struct dark:text-coopmathsdark-struct"
         >
-          {#if !isManualModeActive}
-            Durée diapo :<span class="font-light ml-1">{stringDureeTotale}</span>
-          {:else}
-            <span class="font-light ml-1" />
-          {/if}
-        </div>
-      </th>
-      <th
-        scope="col"
-        class="py-3.5 pl-4 pr-3 w-1/6
-          text-center text-sm font-semibold
-          text-coopmaths-struct dark:text-coopmathsdark-struct"
-      >
-        <div>Nombres de questions</div>
-        <div class="font-light text-xs
-          text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          <div class={isManualModeActive ? 'opacity-20' : ''}>
+            Durée par question
+          </div>
+          <div class="font-light text-xs
+            text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            {#if !isManualModeActive}
+              Durée diapo :<span class="font-light ml-1">{stringDureeTotale}</span>
+            {:else}
+              <span class="font-light ml-1" />
+            {/if}
+          </div>
+        </th>
+        <th
+          scope="col"
+          class="py-3.5 pl-4 pr-3 w-1/6
+            text-center text-sm font-semibold
+            text-coopmaths-struct dark:text-coopmathsdark-struct"
         >
-          Total :<span class="font-light ml-1">{getTotalNbOfQuestions()}</span>
-        </div>
-      </th>
-      <th></th>
+          <div>Nombres de questions</div>
+          <div class="font-light text-xs
+            text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            Total :<span class="font-light ml-1">{getTotalNbOfQuestions()}</span>
+          </div>
+        </th>
+        <th></th>
+      </tr>
     </thead>
     <tbody class="overflow-y-auto" id="exercisesList">
       {#each exercises as exercise, i}

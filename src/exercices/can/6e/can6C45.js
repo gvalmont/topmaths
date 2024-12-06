@@ -1,4 +1,7 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
@@ -9,9 +12,8 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '09/02/2023'
 
-/*!
+/**
  * @author Gilles Mora
- * Référence can6C45
  */
 
 export const uuid = '4a157'
@@ -25,7 +27,9 @@ export default function ProblemeSoustractionDivision () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = ''
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  this.formatChampTexte = KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {
     const a = randint(2, 10)
     const b = choice([50, 100])
@@ -36,7 +40,7 @@ export default function ProblemeSoustractionDivision () {
     this.question = `Compléter : <br>
     $${a}$ sachets de $${b}$ ballons et $\\ldots$ sachets de $${d}$ ballons contiennent $${texNombre(res, 0)}$ ballons en tout. `
     this.correction = `$${a}$ sachets de $${b}$ ballons contiennent $${a * b}$ ballons.<br>
-   Puisque l'on a $${res}$ ballons au total, le nombre de sachets de $${d}$ ballons est donné par $(${res}-${a * b})\\div ${d}=${res - a * b}\\div ${d}=${this.reponse}$.`
+   Puisque l'on a $${res}$ ballons au total, le nombre de sachets de $${d}$ ballons est donné par $(${res}-${a * b})\\div ${d}=${res - a * b}\\div ${d}=${miseEnEvidence(this.reponse)}$.`
     this.canEnonce = 'Compléter.'
     this.canReponseACompleter = `$${a}$ sachets de $${b}$ ballons et $\\ldots$ sachets de $${d}$ ballons contiennent $${texNombre(res, 0)}$ ballons en tout.`
   }

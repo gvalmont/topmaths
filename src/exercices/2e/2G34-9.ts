@@ -32,7 +32,7 @@ export default class systemeEquationsPremDeg extends Exercice {
     this.nbQuestions = 3
     this.sup = 3
     this.correctionDetailleeDisponible = true
-    this.besoinFormulaireNumerique = ['Type de questions', 3, 'Problème elèves \n2 : Problème rectangle \n3 : Mélange']
+    this.besoinFormulaireNumerique = ['Type de questions', 3, 'Problème élèves \n2 : Problème rectangle \n3 : Mélange']
   }
 
   nouvelleVersion () {
@@ -45,7 +45,7 @@ export default class systemeEquationsPremDeg extends Exercice {
     this.listeCorrections = []
     this.autoCorrection = []
 
-    let typeQuestionsDisponibles: ('p1' |'p2')[]
+    let typeQuestionsDisponibles: ('p1' | 'p2')[]
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['p1']
     } else if (this.sup === 2) {
@@ -112,23 +112,36 @@ export default class systemeEquationsPremDeg extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.comment = 'Dans cet exercice, des problèmes sont donnés à résoudre. Les solutions sont entières. Le premier problème se résout par la méthode de comparaison et le deuxième problème fait intervenir un membre du second degré qui s\'annule. Le système est ensuite résolu par le méthode de combinaison linéaire.'
       // Problème 1
+      let diff = 1
+      let va : number
+      let vb : number
+      let na : number
+      let a : number
+      let nb : number
+      let b : number
+      let tot : number
+      let plusMoins : string
+      let plusMoinsSigne : string
       let divN: number[]
-      let n: number
+
       do {
-        n = randint(10, 500, premiersEntreBornes(10, 500))
-        divN = listeDesDiviseurs(n)
-      }
-      while (divN.length < 7)
-      const va = randint(2, ceil(divN.length / 2) - 1)
-      const vb = randint(2, ceil(divN.length / 2) - 1, [va])
-      const na = divN[va]
-      const a = divN[divN.length - va]
-      const nb = divN[vb]
-      const b = divN[divN.length - vb]
-      const tot = na * a
-      const diff = na - nb
-      const plusMoins = diff > 0 ? 'plus' : 'moins'
-      const plusMoinsSigne = diff > 0 ? '-' : '+'
+        let n: number
+        do {
+          n = randint(10, 2000, premiersEntreBornes(10, 2000))
+          divN = listeDesDiviseurs(n)
+        }
+        while (divN.length < 7)
+        va = randint(2, ceil(divN.length / 2))
+        vb = randint(2, ceil(divN.length / 2), [va])
+        na = divN[va]
+        a = divN[divN.length - 1 - va]
+        nb = divN[vb]
+        b = divN[divN.length - 1 - vb]
+        tot = na * a
+        diff = na - nb
+        plusMoins = diff > 0 ? 'plus' : 'moins'
+        plusMoinsSigne = diff > 0 ? '-' : '+'
+      } while (diff === 1)
       // Problème 2
       const largeur = randint(10, 30)
       const longueur = randint(largeur + 1, 45)

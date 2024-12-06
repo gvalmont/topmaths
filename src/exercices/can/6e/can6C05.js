@@ -1,5 +1,8 @@
+import { bleuMathalea } from '../../../lib/colors'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
@@ -12,7 +15,6 @@ export const amcType = 'AMCNum'
 /*!
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
- * Référence can6C05
  */
 export const uuid = 'c8078'
 export const ref = 'can6C05'
@@ -25,7 +27,9 @@ export default function MultiplierAstucieusement () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = ''
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  this.formatChampTexte = KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
@@ -35,12 +39,12 @@ export default function MultiplierAstucieusement () {
     switch (choice([1, 2, 3, 4])) {
       case 1:
         this.question = `Calculer $4 \\times ${texNombre(d, 2)}\\times 25$.`
-        this.correction = `$4 \\times ${texNombre(d, 2)}\\times 25 = 100 \\times ${texNombre(d, 2)} = ${texNombre(this.reponse, 0)}$`
+        this.correction = `$4 \\times ${texNombre(d, 2)}\\times 25 = 100 \\times ${texNombre(d, 2)} = ${miseEnEvidence(texNombre(this.reponse, 0))}$<br>`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
   On remarque dans $4 \\times ${texNombre(d, 2)}\\times 25$ le produit $4\\times 25$ qui donne $100$.<br>
   Il reste alors à multiplier par $100$ le nombre $${texNombre(d, 2)}$ : le chiffre des unités ($${a}$) devient le chiffre des centaines, etc ...
   on obtient ainsi comme résultat : $${texNombre(this.reponse, 0)}$.
-    `)
+    `, bleuMathalea)
         break
       case 2:
         this.question = `Calculer $2 \\times ${texNombre(d, 2)}\\times 50$.`

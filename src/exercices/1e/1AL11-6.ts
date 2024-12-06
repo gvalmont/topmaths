@@ -7,22 +7,22 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Decimal from 'decimal.js'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 export const titre = 'Donner la forme explicite d\'une suite arithmétique ou géométrique'
+
+export const dateDePublication = '30/11/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-
-export const dateDePublication = '21/11/2024'
 
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora
 */
 export const uuid = 'b30ac'
-export const ref = ''
+export const ref = '1AL11-6'
 export const refs = {
-  'fr-fr': [''],
+  'fr-fr': ['1AL11-6'],
   'fr-ch': []
 }
 export default class SuitesExplicites extends Exercice {
@@ -78,7 +78,7 @@ export default class SuitesExplicites extends Exercice {
           r = choice([new Decimal(randint(-99, 99, [0, 10])).div(10), new Decimal(randint(-15, 15, 0))])
           indice = this.sup2 ? randint(1, 10) : 0
           b = new Decimal(r).mul(indice).mul(-1).add(a)
-          reponse = this.sup2 ? [`${texNombre(b, 1)}+n\\times ${ecritureParentheseSiNegatif(r)} `, `${texNombre(b, 1)}${ecritureAlgebriqueSauf1(r)}n`] : [`${texNombre(a, 1)}+n\\times ${ecritureParentheseSiNegatif(r)}`, `${texNombre(a, 1)}${ecritureAlgebriqueSauf1(r)}n`]
+          reponse = this.sup2 ? `${reduireAxPlusB(a, b, 'n')}` : `${reduireAxPlusB(r, a, 'n')}`
           handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           texte = `Soit $(${NomS}_n)$ une suite arithmétique de raison $r=${texNombre(r, 1)}$ telle que $${NomS}_{${indice}}=${texNombre(a, 2)}$.<br>
         Donner l'expression de $${NomS}_n$ en fonction de $n$.`
@@ -126,7 +126,7 @@ export default class SuitesExplicites extends Exercice {
           indice = this.sup2 ? randint(1, 10) : 0
 
           reponse = this.sup2 ? `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^{n-${indice}} ` : `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^n`
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { nbFacteursIdentiquesFactorisation: true } } })
           texte = `Soit $(${NomS}_n)$ une suite géométrique de raison $q=${texNombre(q, 1)}$ telle que $${NomS}_{${indice}}=${texNombre(a, 2)}$.<br>
         Donner l'expression de $${NomS}_n$ en fonction de $n$.`
           if (this.sup2) {

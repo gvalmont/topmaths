@@ -1,21 +1,23 @@
 import EqResolvantesThales from '../3e/3L13-2.js'
-export const titre = 'Équations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$ (v2)'
+export const titre = 'Résoudre une équation du type $\\dfrac{x}{a}=\\dfrac{b}{c}$'
 
+/**
+ * Clone de 3L13-2 version déclinée 4L15-1 pour les 2nde
+ *
+ * @author Sébastien LOZANO
+ */
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-
-/**
- * Clone de 3L13-2 pour les 2nde
- * @author Sébastien LOZANO
- */
-export const uuid = '78f02'
-export const ref = '2N51-3v2'
+export const uuid = '7959f'
+export const ref = '2N51-3a'
 export const refs = {
-  'fr-fr': ['2N51-3v2'],
+  'fr-fr': ['2N51-3a'],
   'fr-ch': []
 }
 export default function EqResolvantesThales2nde () {
   EqResolvantesThales.call(this)
+  this.exo = '4L15-1'
+  this.sup = 1
 }

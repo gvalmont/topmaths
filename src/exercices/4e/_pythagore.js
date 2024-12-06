@@ -26,7 +26,7 @@ export function RedactionPythagore (A = 'A', B = 'B', C = 'C', rechercheHypotenu
   let texte, signeEgal
   texte = `Le triangle $${A + B + C}$ est rectangle en $${A}$ donc d'après le théorème de Pythagore, on a : `
   if (rechercheHypotenuse === 1 || rechercheHypotenuse === 2) texte += `<br> $${B + C}^2=${A + B}^2+${A + C}^2$`
-  else texte += `<br> $${miseEnEvidence(`${B + C}^2=${A + B}^2+${A + C}^2`)}$`
+  else texte += `<br> $${miseEnEvidence(`${B + C}^2=${A + B}^2+${A + C}^2`, couleurReponse)}$`
   if (rechercheHypotenuse === 1) {
     texte += `<br> $${B + C}^2=${texNombre(AB, 2)}^2+${texNombre(AC, 2)}^2$`
     texte += `<br> $${B + C}^2=${texNombre(AB ** 2)}+${texNombre(AC ** 2)}$`

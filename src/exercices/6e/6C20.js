@@ -39,7 +39,6 @@ export const refs = {
 }
 export default function AdditionnerSoustrairesDecimaux () {
   Exercice.call(this)
-  this.titre = titre
   this.consigne = 'Poser et effectuer les calculs suivants.'
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies
@@ -49,8 +48,6 @@ export default function AdditionnerSoustrairesDecimaux () {
   this.sup3 = 4
   this.tailleDiaporama = 3
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
-    this.sup2 = parseInt(this.sup2)
     let typesDeQuestions, reponse
     const typesAdditions = combinaisonListes(
       [5, 6, 7, 8],

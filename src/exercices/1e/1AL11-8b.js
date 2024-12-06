@@ -14,9 +14,9 @@ export const dateDePublication = '30/11/2021'
  * Référence 1N12
 */
 export const uuid = 'cfac9'
-export const ref = '1AL11-7b'
+export const ref = '1AL11-8b'
 export const refs = {
-  'fr-fr': ['1AL11-7b'],
+  'fr-fr': ['1AL11-8b'],
   'fr-ch': []
 }
 export default class SommeSuiteArithmetique extends Exercice {

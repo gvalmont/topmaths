@@ -4,13 +4,14 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const dateDePublication = '17/08/2024'
 export const interactifType = 'mathLive'
-export const titre = 'Angles et vocabulaire'
+export const titre = 'Calculer des mesures d\'angles adjacents, supplémentaires ou complémentaires'
 export const uuid = 'ed9f4'
 export const refs = {
   'fr-fr': ['5G30-0'],
@@ -28,6 +29,7 @@ export default class AnglesEtVocabulaire extends Exercice {
       'Type de questions (nombre séparés par des tirets)',
       '1 : Qcm vocabulaire\n2 : Calculer le complémentaire\n3 : Calculer le supplémentaire\n4 : Mélange'
     ]
+    this.sup = '4'
   }
 
   nouvelleVersion () {
@@ -40,7 +42,7 @@ export default class AnglesEtVocabulaire extends Exercice {
       nbQuestions: this.nbQuestions
     })
     for (let i = 0; i < this.nbQuestions;) {
-      let a = randint(1, 89)
+      let a = randint(21, 79, [30, 40, 50, 60, 70])
       let b: number
       let texte: string
       let texteCorr: string
@@ -51,7 +53,7 @@ export default class AnglesEtVocabulaire extends Exercice {
             const choix = randint(1, 3)
             switch (choix) {
               case 1: // ni l'un ni l'autre
-                b = randint(1, 89, [90 - a, 180 - a])
+                b = choice([90 - a + 10, 90 - a - 10, 180 - a + 110, 180 - a - 10])
                 goodAnswer = 'aucun'
                 break
               case 2: // complémentaires
@@ -62,7 +64,9 @@ export default class AnglesEtVocabulaire extends Exercice {
                 b = 180 - a
                 goodAnswer = 'supplémentaires'
             }
-            texte = `L'angle $\\widehat{xOy}$ mesure $${a}^\\circ$ et l'angle $\\widehat{yOz}$ mesure $${b}^\\circ$ que sont-ils l'un pour l'autre ?`
+            texte = `Les angles $\\widehat{xOy}$ et $\\widehat{yOz}$ sont adjacents.<br>
+            L'angle $\\widehat{xOy}$ mesure $${a}^\\circ$ et l'angle $\\widehat{yOz}$ mesure $${b}^\\circ$.<br>
+            Que sont-ils l'un pour l'autre ?`
             this.autoCorrection[i] = {
               propositions: [
                 {
@@ -87,28 +91,34 @@ export default class AnglesEtVocabulaire extends Exercice {
             texteCorr = `$\\widehat{xOy}+\\widehat{yOz}=${a}^\\circ+${b}^\\circ=${a + b}^\\circ$.<br>`
             if (goodAnswer === 'complémentaires') {
               texteCorr +=
-                'Les deux angles sont complémentaires car leur somme vaut $90^\\circ$.'
+                'Les deux angles sont complémentaires car leurs côtés non communs forment un angle droit.'
             } else if (goodAnswer === 'supplémentaires') {
               texteCorr +=
-                'Les deux angles sont supplémentaires car leur somme vaut $180^\\circ$.'
+                'Les deux angles sont supplémentaires car leurs côtés non communs forment un angle plat.'
             } else {
               texteCorr +=
-              'Les deux angles ne sont ni complémentaires ni supplémentaires.'
+              'Les deux angles ne sont ni complémentaires ni supplémentaires car leurs côtés non communs ne forment ni un angle droit, ni un angle plat.'
             }
           }
           break
         case 2:
           b = 90 - a
-          texte = `L'angle $\\widehat{xOy}$ mesure $${a}^\\circ$. Combien mesure l'angle $\\widehat{yOz}$ s'ils sont complémentaires l'un de l'autre ?`
-          texteCorr = `Deux angles complémentaires sont deux angles dont la somme vaut $90^\\circ$. Alors $\\widehat{yOz}=90^\\circ-${a}^\\circ=${90 - a}^\\circ$`
+          texte = `Les angles $\\widehat{xOy}$ et $\\widehat{yOz}$ sont adjacents.<br>
+          L'angle $\\widehat{xOy}$ mesure $${a}^\\circ$.<br>
+          Combien mesure l'angle $\\widehat{yOz}$ s'ils sont complémentaires l'un de l'autre ?`
+          texteCorr = `Deux angles adjacents complémentaires sont deux angles dont les côtés non communs forment un angle droit.<br>
+          Alors $\\widehat{yOz}=90^\\circ-${a}^\\circ=${miseEnEvidence(`${String(90 - a)}^\\circ`)}$.`
           goodAnswer = `${90 - a}^\\circ`
           break
 
         default:
           a = 2 * a + choice([0, 1]) // Ainsi, on peut avoir a>90
           b = 180 - a
-          texte = `L'angle $\\widehat{xOy}$ mesure $${a}^\\circ$. Combien mesure l'angle $\\widehat{yOz}$ s'ils sont supplémentaires l'un de l'autre ?`
-          texteCorr = `Deux angles supplémentaires sont deux angles dont la somme vaut $180^\\circ$. Alors $\\widehat{yOz}=180^\\circ-${a}^\\circ=${180 - a}^\\circ$`
+          texte = `Les angles $\\widehat{xOy}$ et $\\widehat{yOz}$ sont adjacents.<br>
+          L'angle $\\widehat{xOy}$ mesure $${a}^\\circ$.<br>
+          Combien mesure l'angle $\\widehat{yOz}$ s'ils sont supplémentaires l'un de l'autre ?`
+          texteCorr = `Deux angles adjacents supplémentaires sont deux angles dont les côtés non communs forment un angle plat.
+          Alors $\\widehat{yOz}=180^\\circ-${a}^\\circ=${miseEnEvidence(`${String(180 - a)}^\\circ`)}$.`
           goodAnswer = `${180 - a}^\\circ`
           break
       }

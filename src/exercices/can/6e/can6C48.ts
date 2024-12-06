@@ -1,4 +1,6 @@
 import Exercice from '../../Exercice'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
@@ -15,18 +17,17 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class problemeEconomie extends Exercice {
   constructor () {
     super()
-    this.titre = titre
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
+    this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
     this.optionsChampTexte = { texteApres: '€' }
     this.canOfficielle = true
-    this.formatChampTexte = ''
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
+    this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
   nouvelleVersion () {

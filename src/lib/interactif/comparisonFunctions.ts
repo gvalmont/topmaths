@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import {
   ComputeEngine,
   type BoxedExpression
@@ -19,30 +18,30 @@ export type OptionsComparaisonType = {
   expressionsForcementReduites?: boolean
   avecSigneMultiplier?: boolean
   avecFractions?: boolean
-  sansTrigo?:boolean
+  sansTrigo?: boolean
   fractionIrreductible?: boolean
   fractionSimplifiee?: boolean
   fractionReduite?: boolean
-  fractionDecimale?:boolean
-  fractionEgale?:boolean
-  fractionIdentique?:boolean
-  nombreDecimalSeulement?:boolean
+  fractionDecimale?: boolean
+  fractionEgale?: boolean
+  fractionIdentique?: boolean
+  nombreDecimalSeulement?: boolean
   operationSeulementEtNonResultat?: boolean
-  additionSeulementEtNonResultat?:boolean
-  soustractionSeulementEtNonResultat?:boolean
-  multiplicationSeulementEtNonResultat?:boolean
-  divisionSeulementEtNonResultat?:boolean
+  additionSeulementEtNonResultat?: boolean
+  soustractionSeulementEtNonResultat?: boolean
+  multiplicationSeulementEtNonResultat?: boolean
+  divisionSeulementEtNonResultat?: boolean
   resultatSeulementEtNonOperation?: boolean
-  ensembleDeNombres ?:boolean
-  kUplet ? :boolean
-  seulementCertainesPuissances? :boolean
-  sansExposantUn? :boolean
-  suiteDeNombres ?:boolean
-  suiteRangeeDeNombres?:boolean
-  factorisation?:boolean
-  exclusifFactorisation?:boolean
-  nbFacteursIdentiquesFactorisation?:boolean
-  unSeulFacteurLitteral?:boolean
+  ensembleDeNombres ?: boolean
+  kUplet ?: boolean
+  seulementCertainesPuissances?: boolean
+  sansExposantUn?: boolean
+  suiteDeNombres ?: boolean
+  suiteRangeeDeNombres?: boolean
+  factorisation?: boolean
+  exclusifFactorisation?: boolean
+  nbFacteursIdentiquesFactorisation?: boolean
+  unSeulFacteurLitteral?: boolean
   HMS?: boolean
   intervalle?: boolean
   estDansIntervalle?: boolean
@@ -960,9 +959,8 @@ function expressionDeveloppeeEtReduiteCompare (
       return { isOk: false, feedback }
     }
   }
-
   if (saisieParsed.isEqual(reponseParsed) && !(saisieParsed.isSame(reponseParsed))) { // On va essayer de traiter ici tous les feedbacks de façon exhaustive
-  // La saisie est égale à la réponse mais il faut vérifier que cela correspond l'option prévue
+  // La saisie est égale à la réponse mais il faut vérifier que cela correspond à l'option prévue
     if (resultatSeulementEtNonOperation) { // L'un peut être décimal et l'autre peut être fractionnaire ou les deux fractionnaires : Ex. 4C10
       if ((saisieParsed.isNumber && reponseParsed.operator === 'Divide' && reponseParsed.ops?.length === 2) ||
       (reponseParsed.isNumber && saisieParsed.operator === 'Divide' && saisieParsed.ops?.length === 2) ||
@@ -1044,7 +1042,6 @@ function expressionDeveloppeeEtReduiteCompare (
           resultatSeulementEtNonOperation
         }
       )
-      console.log('toto')
       if (saisieCalculeeParsed.isSame(reponseCalculeeParsed)) {
         if (saisieParsed.operator === 'Number') {
           feedback = 'Résultat incorrect car un calcul est attendu.'// Sous-entendu : Et pas une valeur numérique
@@ -1085,7 +1082,7 @@ function expressionDeveloppeeEtReduiteCompare (
         if (engine.parse(localInput, { canonical: false }).operator === 'Number') feedback = 'Résultat incorrect car une fraction est attendue.' // Sous-entendu : Et pas une valeur numérique
         else feedback = 'Résultat incorrect car une fraction irréductible est attendue.' // Sous-entendu : La bonne opération
       } else feedback = 'Résultat incorrect.'
-    } else if ( // Code JCL
+    } else if ( // Code JCL. ---> EE : Ce code renvoie un feebback incorrect si input = (-5)^n \\times (-8) et goodAnswer = -8 \\times (-5)^n. Dommage ! Je laisse ce code car s'il est là, c'est qu'il doit être utile à un moment. Pas encore compris lequel.
       !saisieParsed.isSame(reponseParsed) &&
       evaluateExpression(localGoodAnswer, substitutions) ===
         evaluateExpression(localInput, substitutions)
@@ -1593,9 +1590,9 @@ function unitsCompare (
   goodAnswer: string,
   { precision = 1 } = {}
 ): {
-  isOk: boolean
-  feedback?: string
-} {
+    isOk: boolean
+    feedback?: string
+  } {
   const localInput = input.replace('^\\circ', '°').replace('\\degree', '°')
   const cleaner = generateCleaner([
     'virgules',
@@ -1658,9 +1655,9 @@ function intervalCompare (
   input: string,
   goodAnswer: string
 ): {
-  isOk: boolean
-  feedback?: string
-} {
+    isOk: boolean
+    feedback?: string
+  } {
   let strictGauche = true
   let strictDroit = true
   if (goodAnswer.startsWith('[')) strictGauche = false

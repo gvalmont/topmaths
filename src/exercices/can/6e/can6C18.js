@@ -1,7 +1,10 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { bleuMathalea } from '../../../lib/colors'
 export const titre = 'Utiliser la division euclidienne'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,7 +14,6 @@ export const dateDeModifImportante = '04/12/2021'
 /*!
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
- * Référence can6C18
  */
 export const uuid = 'd02a7'
 export const ref = 'can6C18'
@@ -24,7 +26,9 @@ export default function ResteDivisionEuclidienne () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = ''
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  this.formatChampTexte = KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {
     let a, b, c, d, q, r
     if (choice([true, false])) {
@@ -35,21 +39,21 @@ export default function ResteDivisionEuclidienne () {
       this.reponse = c % a
       this.question = `Je possède $${c}$ bonbons et je fabrique des sacs de $${a}$ bonbons.<br>
      Une fois mes sacs complétés, combien me restera-t-il de bonbons ?`
-      if (b === 1) { this.correction = `Il me restera $${b}$ bonbon.` } else { this.correction = `Il me restera $${b}$ bonbons.` }
+      if (b === 1) { this.correction = `Il me restera $${miseEnEvidence(b)}$ bonbon.<br>` } else { this.correction = `Il me restera $${miseEnEvidence(b)}$ bonbons.<br>` }
       this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
     On cherche un multiple de $${a}$ inférieur à $${c}$ (mais le plus grand possible).
-     C'est $${c - c % a}$. <br> `)
+     C'est $${c - c % a}$. <br> `, bleuMathalea)
       if (b === 1) {
         this.correction += texteEnCouleur(`
      Comme $${c}=${c - c % a} + ${b}$, donc il me restera $${b}$ bonbon.<br>
      Remarque : je pourrai faire $${(c - c % a) / a}$ sacs complets.
-     `)
+     `, bleuMathalea)
       } else {
         this.correction += texteEnCouleur(`
      Comme $${c}=${c - c % a} + ${b}$, donc il me restera $${b}$ bonbons.<br>
      Remarque : je pourrai faire $${(c - c % a) / a}$ sacs complets.
-     `)
+     `, bleuMathalea)
       }
     } else {
       q = randint(11, 15)
@@ -57,7 +61,7 @@ export default function ResteDivisionEuclidienne () {
       r = randint(1, b - 1)
       a = b * q + r
       this.question = `   En utilisant l'égalité $${a}=${b}\\times ${q}+${r}$, donner le reste de la division euclidienne de $${a}$ par $${b}$.`
-      this.correction = `Puisque $${r}$ est strictement inférieur à $${b}$, le reste est $${r}$.`
+      this.correction = `Puisque $${r}$ est strictement inférieur à $${b}$, le reste est $${miseEnEvidence(r)}$.`
       this.reponse = r
     }
     this.canEnonce = this.question

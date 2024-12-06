@@ -270,7 +270,6 @@ export default function MultiplierDecimauxPar101001000 () {
           break
       }
       if (context.isHtml && this.interactif) texte += ajouteChampTexteMathLive(this, i, ' clavierDeBaseAvecEgal')
-      handleAnswers(this, i, { reponse: { value: stringNombre(reponse, 5) } })
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
@@ -280,6 +279,8 @@ export default function MultiplierDecimauxPar101001000 () {
           signe: false,
           exposantNbChiffres: 0
         }
+      } else {
+        handleAnswers(this, i, { reponse: { value: stringNombre(reponse, 5) } })
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

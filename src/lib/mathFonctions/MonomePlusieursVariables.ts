@@ -3,12 +3,12 @@ import FractionEtendue, { rationnalise } from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
 import { pgcd } from '../outils/primalite'
 
-type numberOrFraction = number | FractionEtendue | Decimal;
+type numberOrFraction = number | FractionEtendue | Decimal
 
 type partieLitterale = {
   variables: string[];
   exposants: number[];
-};
+}
 
 class MonomePlusieursVariables {
   coefficient: FractionEtendue

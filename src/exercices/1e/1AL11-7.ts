@@ -1,0 +1,140 @@
+import Exercice from '../Exercice'
+import { choice } from '../../lib/outils/arrayOutils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { texNombre } from '../../lib/outils/texNombre'
+import Decimal from 'decimal.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { createList } from '../../lib/format/lists'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+export const titre = 'Étudier une suite arithmético-géométrique'
+export const dateDePublication = '30/11/2024'
+
+/**
+ * Description didactique de l'exercice
+ * @author Gilles Mora
+ * Référence
+*/
+export const uuid = '12afc'
+export const ref = '1AL11-7'
+export const refs = {
+  'fr-fr': ['1AL11-7'],
+  'fr-ch': []
+}
+export default class SuitesArithmeticoG extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 1
+    this.sup = '3'
+    this.spacing = 1.5
+    this.spacingCorr = 1.5
+    this.besoinFormulaire2CaseACocher = ['Avec des décimaux']
+  }
+
+  nouvelleVersion () {
+    this.autoCorrection = []
+    this.listeQuestions = [] // Vide la liste de questions
+    this.listeCorrections = [] // Vide la liste de questions corrigées
+
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      let a, u0, b, k
+      const ListeNomS = ['u', 'w']
+      const ListeNomSA = ['v', 't']
+      const NomS = choice(ListeNomS)
+      const NomSA = choice(ListeNomSA)
+
+      if (this.sup2) {
+        a = new Decimal(randint(-19, 19, [0, -10, 10])).div(10)
+        u0 = new Decimal(randint(-19, 19, [0, -10, 10])).div(10)
+        k = randint(2, 8)
+        b = new Decimal(a).mul(-1).add(1).mul(k)
+      } else {
+        a = randint(-10, 10, [-1, 0, 1])
+        u0 = randint(-10, 10)
+        k = randint(-6, 6, [u0, 0])
+        b = new Decimal(a).mul(-1).add(1).mul(k)
+      }
+      this.autoCorrection[i] = {
+        enonce: texte,
+        options: { vertical: true },
+        propositions: [
+          {
+            texte: `Pour tout entier naturel $n$, $${NomSA}_{n+1}=${texNombre(a, 1)}${NomSA}_n$`,
+            statut: true
+          },
+          {
+            texte: `Pour tout entier naturel $n$, $${NomSA}_{n+1}=${texNombre(b, 1)}${NomSA}_n$`,
+            statut: false
+          },
+          {
+            texte: `Pour tout entier naturel $n$, $${NomSA}_{n+1}=${texNombre(-k, 1)}${NomSA}_n$`,
+            statut: false
+          },
+          {
+            texte: `Pour tout entier naturel $n$, $${NomSA}_{n+1}=${NomSA}_n${ecritureAlgebrique(-k)}$`,
+            statut: false
+          }
+        ]
+      }
+      const monQcm = propositionsQcm(this, i)
+      if (this.interactif) texte += monQcm.texte
+
+      texte = `Soit $(${NomS}_n)$ la suite définie pour tout entier naturel $n$ par $${NomS}_{n+1}=${texNombre(a, 1)}${NomS}_n ${ecritureAlgebrique(b)}$ et $${NomS}_0=${texNombre(u0, 1)}$.`
+      texte += createList(
+        {
+          items: [
+           `${this.interactif
+? `On pose $${NomSA}_n=${NomS}_n ${ecritureAlgebrique(-k)}$ pour tout entier naturel $n$.<br>
+` + monQcm.texte
+: `On pose $${NomSA}_n=${NomS}_n ${ecritureAlgebrique(-k)}$ pour tout entier naturel $n$.<br>
+Montrer que  $(${NomSA}_n)$ est une suite géométrique.<br>
+ Donner sa raison et son premier terme.`}`,
+ `Exprimer $${NomSA}_n$ en fonction de $n$.` + ajouteChampTexteMathLive(this, 3 * i + 1, '', { texteAvant: `<br>$${NomSA}_n=$` }), `En déduire l'expression du terme général de $(${NomS}_n)$ en fonction de $n$.` + ajouteChampTexteMathLive(this, 3 * i + 2, '', { texteAvant: `<br>$${NomS}_n=$` })
+
+          ],
+          style: 'nombres'
+        }
+      )
+
+      texteCorr = createList(
+        {
+          items: [
+            `Pour tout entier naturel $n$, <br>
+            $\\begin{aligned}
+           ${NomSA}_{n+1}&=${NomS}_{n+1} ${ecritureAlgebrique(-k)}\\\\
+           &=${texNombre(a, 1)}${NomS}_n ${ecritureAlgebrique(b)} ${ecritureAlgebrique(-k)}\\\\
+           &=${texNombre(a, 1)}${NomS}_n ${ecritureAlgebrique(b.sub(k))}\\\\
+           &=${texNombre(a, 1)}(\\underbrace{${NomS}_n${ecritureAlgebrique(-k)}}_{${NomSA}_n})\\\\
+           &=${texNombre(a, 1)}${NomSA}_n
+           \\end{aligned}$<br>
+           $(${NomSA}_n)$ est donc une suite géométrique de raison $${texNombre(a, 1)}$.<br>
+           On calcule son premier terme $${NomSA}_0$ : <br>
+           $\\begin{aligned}
+          ${NomSA}_0&=${NomS}_0${ecritureAlgebrique(-k)}\\\\
+          &=${texNombre(u0, 1)}${ecritureAlgebrique(-k)}\\\\
+          &=${texNombre(new Decimal(u0).sub(k), 1)}
+          \\end{aligned}$`, `
+          On en déduit l'expression de $${NomSA}_n$ en fonction de $n$ pour tout entier naturel $n$ : $${NomSA}_n=${texNombre(new Decimal(u0).sub(k), 1)}\\times ${ecritureParentheseSiNegatif(a)}^n$
+           `, `Puisque $${NomSA}_n=${NomS}_n ${ecritureAlgebrique(-k)}$, alors $${NomS}_n=${NomSA}_n ${ecritureAlgebrique(k)}$.<br>
+           Ainsi l'expression de $${NomS}_n$ en fonction de $n$ est donnée pour tout entier naturel $n$ par  : 
+           $${NomS}_n=${texNombre(new Decimal(u0).sub(k), 1)}\\times ${ecritureParentheseSiNegatif(a)}^n ${ecritureAlgebrique(k)}$`
+          ],
+          style: 'nombres'
+        }
+      )
+      // const reponse1 = `${new Decimal(u0).sub(k)} \\times ${ecritureParentheseSiNegatif(a)}^n}`
+      // const reponse2 = `${new Decimal(u0).sub(k)}\\times ${ecritureParentheseSiNegatif(a)}^n ${ecritureAlgebrique(k)}`
+      // handleAnswers(this, 3 * i + 1, { reponse: { value: reponse1, compare: functionCompare } })
+      // handleAnswers(this, 3 * i + 2, { reponse: { value: reponse2, compare: functionCompare } })
+      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
+    }
+    listeQuestionsToContenu(this)
+  }
+}

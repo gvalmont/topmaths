@@ -12,10 +12,8 @@ export const interactifType = 'mathLive'
 export const titre = 'Comparer deux fractions (dénominateurs multiples)'
 export const dateDePublication = '04/11/2022'
 export const dateDeModifImportante = '12/10/2024'
-/*!
+/**
  * @author Remi Angot repris par Gilles Mora pour une question can
- * Créé le 04/01/2022
- * Référence can6C43
  */
 export const uuid = 'f3b31'
 export const ref = 'can6C43'

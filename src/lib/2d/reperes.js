@@ -86,6 +86,7 @@ export function DroiteGraduee ({
   pointEpaisseur = 2,
   labelsPrincipaux = true,
   labelsSecondaires = false,
+  labelColor = 'black',
   step1 = 1,
   step2 = 1,
   labelCustomDistance = (axeHauteur + 10) / context.pixelsParCm,
@@ -239,7 +240,7 @@ export function DroiteGraduee ({
         p[1],
         x - labelCustomDistance * absord[1] + (p[0] - Min) * absord[0] * Unite,
         y - labelCustomDistance * absord[0] + (p[0] - Min) * absord[1] * Unite,
-        { letterSize: 'scriptsize' }
+        { letterSize: 'scriptsize', color: labelColor }
       )
       objets.push(t)
     }
@@ -790,7 +791,7 @@ export function Grille (
   this.color = color
   this.opacite = opacite
   const objets = []
-  for (let i = xmin; i <= xmax; i = arrondi(i + step)) {
+  for (let i = xmin; i <= xmax; i = i + step) {
     const s = segment(i, ymin, i, ymax, this.color)
     s.opacite = this.opacite
     if (pointilles) {
@@ -798,7 +799,7 @@ export function Grille (
     }
     objets.push(s)
   }
-  for (let i = ymin; i <= ymax; i = arrondi(i + step)) {
+  for (let i = ymin; i <= ymax; i = i + step) {
     const s = segment(xmin, i, xmax, i, this.color)
     s.opacite = this.opacite
     if (pointilles) {

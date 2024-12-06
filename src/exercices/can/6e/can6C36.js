@@ -2,17 +2,17 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Résoudre un problème de partage*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '01/08/2022'
 /**
- * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence can6C36
-//  * Date de publication 01/08/2022
 */
 export const uuid = '6e1de'
 export const ref = 'can6C36'
@@ -26,7 +26,9 @@ export default function PetitsProblemePartage2 () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = ''
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  this.formatChampTexte = KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {
     const listeProportion1 = [['au quart du', 4], [' au tiers du', 3], ['à la moitié du', 2], ['au cinquième du', 5], ['à la moitié du', 2]]
     const listeProportion2 = [['au double du', 2], ['au triple du', 3], ['au triple du ', 3], ['quatre fois le ', 4], ['cinq fois le ', 5]]
@@ -43,7 +45,7 @@ export default function PetitsProblemePartage2 () {
 
       Quelle longueur de fil électrique reste-t-il dans le rouleau ?`
         this.correction = `Les $${nbre}$  morceaux de fil ont une longueur de $${nbre}\\times ${texNombre(b, 2, true)}$, soit $${texNombre(c, 2)}$ m.<br>
-      Il reste alors : $${a}-${texNombre(c, 2)}=${texNombre(this.reponse, 2)}$ m.`
+      Il reste alors : $${a}-${texNombre(c, 2)}=${miseEnEvidence(texNombre(this.reponse, 2))}$ m.`
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' m' } }
         this.canEnonce = this.question
         this.canReponseACompleter = '$\\dots$ m'
@@ -63,7 +65,7 @@ export default function PetitsProblemePartage2 () {
             Combien de verres de jus de fruits ${prenom1} pourra-t-elle servir ? `
         this.correction = `Dans un litre, il y a ${choix ? `$${texNombre(1 / nbre2, 0, true)}\\times ${texNombre(nbre2, 2, true)}$ litre ` : `$${texNombre(100 / nbre1, 0, true)}\\times ${texNombre(nbre1, 0, true)}$ centilitres`}.<br>
         Dans $${a}$ litres, il y a donc ${choix ? `$${texNombre(a / nbre2, 0, true)}\\times ${texNombre(nbre2, 2, true)}$ litre ` : `$${texNombre(100 * a / nbre1, 0, true)}\\times ${texNombre(nbre1, 0, true)}$ centilitres`}.<br>
-        Elle pourra donc servir ${choix ? `$${texNombre(a / nbre2, 0, true)}$` : `$${texNombre(100 * a / nbre1, 0, true)}$`} verres.`
+        Elle pourra donc servir ${choix ? `$${miseEnEvidence(texNombre(a / nbre2, 0, true))}$` : `$${miseEnEvidence(texNombre(100 * a / nbre1, 0, true))}$`} verres.`
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' verres' } }
         this.canEnonce = this.question
         this.canReponseACompleter = '$\\dots$ verres'
@@ -84,7 +86,7 @@ export default function PetitsProblemePartage2 () {
                 Combien de billes a ${prenom1} ? `
           this.correction = `Il faut partager le nombre de billes en $${proportion[1] + 1}$.<br>
         $${nbre}\\div ${proportion[1] + 1}=${nbre / (proportion[1] + 1)}$.<br>
-        ${prenom1} aura donc $${a}$ billes (sa sœur en aura $${a}\\times ${proportion[1]}$, soit $${a * proportion[1]}$).
+        ${prenom1} aura donc $${miseEnEvidence(a)}$ billes (sa sœur en aura $${a}\\times ${proportion[1]}$, soit $${a * proportion[1]}$).
         `
         } else {
           proportion = choice(listeProportion2)
@@ -100,7 +102,7 @@ export default function PetitsProblemePartage2 () {
                   Combien de billes a ${prenom1} ? `
           this.correction = `Il faut partager le nombre de billes en $${proportion[1] + 1}$.<br>
           $${nbre}\\div ${proportion[1] + 1}=${nbre / (proportion[1] + 1)}$.<br>
-          ${prenom1} aura donc $${a}\\times ${proportion[1]}=${this.reponse}$ billes (sa sœur en aura $${a}$).
+          ${prenom1} aura donc $${a}\\times ${proportion[1]}=${miseEnEvidence(this.reponse)}$ billes (sa sœur en aura $${a}$).
           `
         }
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' billes' } }

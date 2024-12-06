@@ -2,7 +2,7 @@ import { sqrt } from 'mathjs'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../lib/outils/ecritures'
 import FractionEtendue from './FractionEtendue'
 import { shuffle2tableauxSansModif } from '../lib/outils/arrayOutils'
-import { randint } from './outils'
+import { num, randint } from './outils'
 import { getLang } from '../lib/stores/languagesStore'
 import { pgcd } from '../lib/outils/primalite'
 import { extraireRacineCarree } from '../lib/outils/calculs'
@@ -281,6 +281,32 @@ class EquationSecondDegre {
     const alpha = this.coefficients[1].oppose().diviseFraction(this.coefficients[0].multiplieEntier(2).simplifie())
     const beta = this.polynomeFormeReduite().evaluer({ x: alpha }).simplifie()
     return `\\left(${this.variable}${alpha.oppose().simplifie().texFractionSignee}\\right)^2${beta.texFractionSignee}`
+  }
+
+  solutionFrac() : FractionEtendue[] | string {
+    if (this.nombreSolutions === 0) {
+      return 'Pas de solution'
+    }
+    else{
+      if(this.solutionsListeTex[0].includes('sqrt')){
+        return 'Les solutions ne peuvent pas être exprimées sous forme de fraction'
+      }
+      else{
+        let solListe = []
+        for (let j = 0; j < this.solutionsListeTex.length; j++) {
+            let solution = new FractionEtendue(0, 1)
+            let numDen1 = [0, 1]
+            if (!this.solutionsListeTex[j].includes('\\dfrac')) {
+              numDen1 = [Number(this.solutionsListeTex[j]), Number('1')]
+            } else {
+              numDen1 = this.solutionsListeTex[j].match(/\\dfrac{(\d+)}{(\d+)}/)?.slice(1)
+            }
+            solution = new FractionEtendue(Number(numDen1[0]), Number(numDen1[1]))
+            solListe.push(solution)
+        }
+        return solListe
+      }
+    }
   }
 
   printToLatex (): string {

@@ -23,7 +23,7 @@
 
   let exercise: Exercice
   let exerciseType: ExerciseType
-  let ComponentExercice: typeof SvelteComponent
+  let ComponentExercice: typeof SvelteComponent<any>
 
   onMount(async () => {
     if (isStatic(paramsExercice.uuid)) {

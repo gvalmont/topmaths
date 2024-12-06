@@ -1,5 +1,8 @@
+import { bleuMathalea } from '../../../lib/colors'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Calculer le quart ou le tiers'
@@ -11,7 +14,6 @@ export const amcType = 'AMCNum'
 /*!
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
- * Référence can6C08
  */
 export const uuid = 'fc2fd'
 export const ref = 'can6C08'
@@ -24,7 +26,9 @@ export default function QuartOuTiers () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = ''
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  this.formatChampTexte = KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {
     const a = randint(5, 10)
     let b
@@ -32,21 +36,21 @@ export default function QuartOuTiers () {
       b = a * 8
       this.reponse = a * 2
       this.question = `Quel est le quart de $${b}$ ?`
-      this.correction = `Le quart de $${b}$ est $${a * 2}.$`
+      this.correction = `Le quart de $${b}$ est $${miseEnEvidence(a * 2)}.$<br>`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
       Prendre le quart d'une quantité revient à la diviser deux fois par $2$.<br>
       Ainsi, le quart de $${b}$ est égal à $${b}\\div 2 \\div 2=${a * 4}\\div 2=${a * 2}$.
-         `)
+         `, bleuMathalea)
     } else {
       b = a * 6
       this.reponse = a * 2
       this.question = `Quel est le tiers de $${b}$ ?`
-      this.correction = `Le tiers de $${b}$ est $${a * 2}.$`
+      this.correction = `Le tiers de $${b}$ est $${miseEnEvidence(a * 2)}.$<br>`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
       Prendre le tiers d'une quantité revient à la diviser par $3$.<br>
       Ainsi, le tiers de $${b}$ est égal à $${b}\\div 3=${a * 2}$.
       
-      `)
+      `, bleuMathalea)
     }
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''

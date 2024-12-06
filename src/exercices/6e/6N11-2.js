@@ -40,6 +40,8 @@ export default function PlacerUnPointAbscisseEntiere2d () {
   this.spacing = 1
   this.spacingCorr = 1
   this.sup = 1
+  this.pointsNonSolutions = []
+  this.pointsSolutions = []
 
   this.nouvelleVersion = function () {
     if (this.interactif) {
@@ -52,6 +54,8 @@ export default function PlacerUnPointAbscisseEntiere2d () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
+    this.pointsNonSolutions = []
+    this.pointsSolutions = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     if (this.sup === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
@@ -60,8 +64,6 @@ export default function PlacerUnPointAbscisseEntiere2d () {
         this.nbQuestions
       )
     }
-    const pointsSolutions = []
-    const pointsNonSolutions = [] // Pour chaque question, la liste des points qui ne doivent pas être cliqués
     const tailleUnite = 4
     const d = []
     let abscisse = []
@@ -135,15 +137,15 @@ export default function PlacerUnPointAbscisseEntiere2d () {
       } else {
         texte = `Placer les points $${l1}\\left(${texNombre(abscisse[0][1])}\\right)$, $~${l2}\\left(${texNombre(abscisse[1][1])}\\right)$ et $~${l3}\\left(${texNombre(abscisse[2][1])}\\right)$.`
       }
-      pointsNonSolutions[i] = []
+      this.pointsNonSolutions[i] = []
       if (this.interactif) {
         for (let indicePoint = 0, monPoint; indicePoint < 70; indicePoint++) {
           monPoint = pointCliquable(indicePoint / 10 * tailleUnite, 0, { size: 5, width: 3, color: 'blue', radius: tailleUnite / 25 })
           mesObjets.push(monPoint)
           if (egal(indicePoint * pas1 / 10 + abs0, abscisse[0][1])) {
-            pointsSolutions[i] = monPoint
+            this.pointsSolutions[i] = monPoint
           } else {
-            pointsNonSolutions[i].push(monPoint)
+            this.pointsNonSolutions[i].push(monPoint)
           }
         }
       }
@@ -193,26 +195,27 @@ export default function PlacerUnPointAbscisseEntiere2d () {
     }
     // Pour distinguer les deux types de codage de recuperation des résultats
     this.exoCustomResultat = true
-    // Gestion de la correction
-    this.correctionInteractive = (i) => {
-      let resultat
-      let aucunMauvaisPointsCliques = true
-      const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-      pointsSolutions[i].stopCliquable()
-      for (const monPoint of pointsNonSolutions[i]) {
-        if (monPoint.etat) aucunMauvaisPointsCliques = false
-        monPoint.stopCliquable()
-        if (aucunMauvaisPointsCliques && pointsSolutions[i].etat) {
-          spanResultat.innerHTML = '😎'
-          resultat = 'OK'
-        } else {
-          spanResultat.innerHTML = '☹️'
-          resultat = 'KO'
-        }
-      }
-      return resultat
-    }
+
     listeQuestionsToContenu(this)
+  }
+  // Gestion de la correction
+  this.correctionInteractive = (i) => {
+    let resultat
+    let aucunMauvaisPointsCliques = true
+    const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+    this.pointsSolutions[i].stopCliquable()
+    for (const monPoint of this.pointsNonSolutions[i]) {
+      if (monPoint.etat) aucunMauvaisPointsCliques = false
+      monPoint.stopCliquable()
+      if (aucunMauvaisPointsCliques && this.pointsSolutions[i].etat) {
+        spanResultat.innerHTML = '😎'
+        resultat = 'OK'
+      } else {
+        spanResultat.innerHTML = '☹️'
+        resultat = 'KO'
+      }
+    }
+    return resultat
   }
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',

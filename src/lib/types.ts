@@ -79,7 +79,7 @@ export interface InterfaceGlobalOptions {
   lang: Language
 }
 
-export interface InterfaceParams extends Partial<Record<string, string| number>> {
+export interface InterfaceParams extends Partial<Record<string, string | number>> {
   uuid: string
   id?: string
   alea?: string
@@ -218,12 +218,12 @@ export type NumericRange<
 // source : https://github.com/type-challenges/type-challenges/issues/9230
 export type NumberRange<L extends number, H extends number, Out extends number[] = [], Flag extends boolean = false> =
     Out['length'] extends L
-        ? NumberRange<L, H, [...Out, L], true>
-        : Flag extends true
-            ? Out['length'] extends H
-                ? [...Out, Out['length']][number]
-                : NumberRange<L, H, [...Out, Out['length']], Flag>
-            : NumberRange<L, H, [...Out, never], Flag>
+      ? NumberRange<L, H, [...Out, L], true>
+      : Flag extends true
+        ? Out['length'] extends H
+          ? [...Out, Out['length']][number]
+          : NumberRange<L, H, [...Out, Out['length']], Flag>
+        : NumberRange<L, H, [...Out, never], Flag>
 // type pour les chips des exercices
 export type ChipContentType = { ref: string; title: string; key: string }
 
@@ -242,7 +242,6 @@ export type FilterObject<T> = {
   content: DisplayedFilterContent<T>
 }
 
-// eslint-disable-next-line no-unused-vars
 export type FilterSectionNameType = { [key in FilterType]: string }
 export const FILTER_SECTIONS_TITLES: FilterSectionNameType = {
   levels: 'Niveaux',
@@ -250,6 +249,6 @@ export const FILTER_SECTIONS_TITLES: FilterSectionNameType = {
   types: 'Types'
 }
 
-export type interactivityType = 'qcm'| 'mathlive'| 'remplisLesBlancs'| 'tableauMathlive' | 'texte' | 'cliqueFigure'| 'dnd'| 'listeDeroulante'
+export type interactivityType = 'qcm' | 'mathlive' | 'remplisLesBlancs' | 'tableauMathlive' | 'texte' | 'cliqueFigure' | 'dnd' | 'listeDeroulante'
 
 export type TableauMathliveType = 'doubleEntree' | 'proportionnalite'

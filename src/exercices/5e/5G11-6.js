@@ -12,7 +12,7 @@ import { pointCliquable } from '../../modules/2dinteractif.js'
 export const titre = 'Compléter un nuage de points symétriques'
 export const dateDePublication = '18/12/2021'
 export const interactifReady = false
-// remettre interactif_Ready à true qd point_Cliquable sera de nouveau opérationnel
+// remettre interactif_Ready à true qd l'exo sera refait avec apiGeom
 export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -34,6 +34,8 @@ export default function CompleterParSymetrie5e () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup2 = 1
+  this.pointsNonSolution = []
+  this.pointsSolution = []
   this.nouvelleVersion = function () {
     if (this.interactif) this.consigne = 'Placer les points en cliquant, puis vérifier la réponse.'
     const couples = []
@@ -42,8 +44,7 @@ export default function CompleterParSymetrie5e () {
     const pointsChoisis = []
     const pointsAffiches = []
     const pointsEnPlusCorr = []
-    const pointsNonSolution = []
-    const pointsSolution = []
+
     const typeDePapier = ['quad', 'quad', 'hexa', 'equi'] // l'élément 0 sera changé aléatoirement pour correspondre au type mélange (this.sup2 % 4)
     for (let i = 0, cpt = 0, papier, image, d, O, j, trouve, texte, texteCorr, objetsEnonce, nbCouplesComplets, objetsCorrection; i < this.nbQuestions && cpt < 50;) {
       typeDePapier[0] = typeDePapier[1 + i % 3]
@@ -53,8 +54,8 @@ export default function CompleterParSymetrie5e () {
       pointsChoisis.length = 0
       pointsAffiches.length = 0
       pointsEnPlusCorr.length = 0
-      pointsNonSolution[i] = []
-      pointsSolution[i] = []
+      this.pointsNonSolution[i] = []
+      this.pointsSolution[i] = []
       pointsCliquables[i] = []
       couples.length = 0
 
@@ -125,13 +126,13 @@ export default function CompleterParSymetrie5e () {
         while (q < pointsEnPlusCorr.length && !trouve) {
           if (longueur(pointsEnPlusCorr[q], pointsCliquables[i][p].point) < 0.1) {
             trouve = true
-            pointsSolution[i].push(pointsCliquables[i][p])
+            this.pointsSolution[i].push(pointsCliquables[i][p])
           } else {
             q++
           }
         }
         if (!trouve) {
-          pointsNonSolution[i].push(pointsCliquables[i][p])
+          this.pointsNonSolution[i].push(pointsCliquables[i][p])
         }
       }
       texte = context.isAmc
@@ -185,35 +186,35 @@ export default function CompleterParSymetrie5e () {
       }
       cpt++
     }
-    this.correctionInteractive = (i) => {
-      let resultat
-      let aucunMauvaisPointsCliques = true
-      for (const monPoint of pointsNonSolution[i]) {
-        if (monPoint.etat) aucunMauvaisPointsCliques = false
-        monPoint.stopCliquable()
-      }
-      for (const monPoint of pointsSolution[i]) {
-        if (!monPoint.etat) aucunMauvaisPointsCliques = false
-        monPoint.stopCliquable()
-      }
-      const spanFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-      for (let j = 0; j < pointsSolution[i].length; j++) {
-        pointsSolution[i][j].stopCliquable()
-      }
-      let etat = true
-      for (let k = 0; k < pointsSolution[i].length; k++) {
-        etat = etat && pointsSolution[i][k]
-      }
-      if (aucunMauvaisPointsCliques && etat) {
-        spanFeedback.innerHTML = '😎'
-        resultat = 'OK'
-      } else {
-        spanFeedback.innerHTML = '☹️'
-        resultat = 'KO'
-      }
-      return resultat
-    }
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaire2Numerique = ['Type de papier pointé', 4, '1 : Carrés\n2 : Hexagones\n3 : Triangles équilatéraux\n4 : Mélange']
+  this.correctionInteractive = (i) => {
+    let resultat
+    let aucunMauvaisPointsCliques = true
+    for (const monPoint of this.pointsNonSolution[i]) {
+      if (monPoint.etat) aucunMauvaisPointsCliques = false
+      monPoint.stopCliquable()
+    }
+    for (const monPoint of this.pointsSolution[i]) {
+      if (!monPoint.etat) aucunMauvaisPointsCliques = false
+      monPoint.stopCliquable()
+    }
+    const spanFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+    for (let j = 0; j < this.pointsSolution[i].length; j++) {
+      this.pointsSolution[i][j].stopCliquable()
+    }
+    let etat = true
+    for (let k = 0; k < this.pointsSolution[i].length; k++) {
+      etat = etat && this.pointsSolution[i][k]
+    }
+    if (aucunMauvaisPointsCliques && etat) {
+      spanFeedback.innerHTML = '😎'
+      resultat = 'OK'
+    } else {
+      spanFeedback.innerHTML = '☹️'
+      resultat = 'KO'
+    }
+    return resultat
+  }
 }

@@ -55,7 +55,18 @@ class ressourceVideo extends Exercice {
       this.button.remove()
     }
     if (this.sup !== undefined) {
-      this.iframe.src = decodeURIComponent(this.sup)
+      let iframeUrl: string | URL
+      try {
+        iframeUrl = new URL(decodeURIComponent(this.sup))
+        if (iframeUrl.protocol === 'http:' || iframeUrl.protocol === 'https:' || iframeUrl.protocol === 'ftp:') {
+          iframeUrl = iframeUrl.href
+        } else {
+          iframeUrl = 'data:text/html,Erreur'
+        }
+      } catch (e) {
+        iframeUrl = 'data:text/html,Erreur'
+      }
+      this.iframe.src = iframeUrl
       this.fieldUrl.value = decodeURIComponent(this.sup)
     }
     if (this.sup2 !== undefined) {

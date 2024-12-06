@@ -1,17 +1,18 @@
 import { texteParPosition } from '../../../lib/2d/textes.ts'
 import Pyramide from '../../../modules/pyramide.js'
 import Exercice from '../../deprecatedExercice.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Calculer dans une pyramide additive inverse'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '09/05/2022'
-/*!
+/**
  * @author  Jean-Claude Lhote
- *
- *
  */
 export const uuid = '7a19d'
 export const ref = 'can6C34'
@@ -22,7 +23,9 @@ export const refs = {
 export default function PyramideAdd3EtagesBaseInconnue () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = ''
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  this.formatChampTexte = KeyboardType.clavierNumbers
   this.typeExercice = 'simple'
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
@@ -32,8 +35,8 @@ export default function PyramideAdd3EtagesBaseInconnue () {
     ${mathalea2d({ xmin: 0, ymin: 0, xmax: 12, ymax: 3.5, scale: 0.6 }, pyr.representeMoi(0, 0), texteParPosition('*', 2, 0.5))}`
     this.reponse = pyr.valeurs[2][0]
     pyr.isVisible = [[true], [true, true], [true, true, true]]
-    this.correction = `Le nombre qui correspond à * est : ${this.reponse}<br>
-    ${mathalea2d({ xmin: 0, ymin: 0, xmax: 12, ymax: 3.5, scale: 0.6 }, pyr.representeMoi(0, 0))}`
+    this.correction = `Le nombre qui correspond à * est : $${miseEnEvidence(this.reponse)}$.<br>
+     ${mathalea2d({ xmin: 0, ymin: 0, xmax: 12, ymax: 3.5, scale: 0.6 }, pyr.representeMoi(0, 0))}`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

@@ -29,7 +29,6 @@ export default class ProblemeFractions extends Exercice {
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.spacing = 1.5
     this.spacingCorr = 1.5
-    this.formatChampTexte = ''
     this.compare = fonctionComparaison
     this.optionsDeComparaison = { fractionEgale: true }
   }

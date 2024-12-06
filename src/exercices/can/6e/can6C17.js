@@ -1,6 +1,9 @@
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { randint } from '../../../modules/outils.js'
+import { bleuMathalea } from '../../../lib/colors'
 export const titre = 'Calculer la fraction d’une quantité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -10,7 +13,6 @@ export const amcType = 'AMCNum'
 /*!
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
- * Référence can6C17
  */
 export const uuid = 'daaa3'
 export const ref = 'can6C17'
@@ -23,19 +25,21 @@ export default function FractionSimpleDeQuantite () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = ''
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  this.formatChampTexte = KeyboardType.clavierNumbers
   this.optionsChampTexte = { texteApres: ' L' }
   this.nouvelleVersion = function () {
     const a = randint(2, 6)
     this.reponse = randint(2, 9) * 10
     const b = this.reponse * a
     this.question = `Calculer $\\dfrac{1}{${a}} \\text{ de } ${b} \\text{ L}$.`
-    this.correction = `$\\dfrac{1}{${a}}$ de $${b}$ L = $${this.reponse}$ L`
+    this.correction = `$\\dfrac{1}{${a}}$ de $${b}$ L = $${miseEnEvidence(this.reponse)}$ L<br>`
     this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
     Prendre $\\dfrac{1}{${a}}$ d'une quantité revient à la diviser par $${a}$.<br>
     Ainsi, $\\dfrac{1}{${a}}$ de $${b}=${b}\\div ${a}=${b / a}$.
-     `)
+     `, bleuMathalea)
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\dots$ L'
   }

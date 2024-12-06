@@ -110,14 +110,24 @@ export default class nomExercice extends Exercice {
         case 5:
         {
           texte = `$${lettreDepuisChiffre(i + 1)}=\\left(${p1.toString()}+${p2.toString()}\\right)^2$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(IdentiteRemarquable.carreDuneSomme(p1, p2).toString())}$`
+          if (listeDeQuestions[i] === 1) {
+            texteCorr = 'L\'expression à développer correspond à la première identité remarquable $\\left(a+b\\right)^2=a^2+2ab+b^2$.<br>'
+          } else {
+            texteCorr = 'L\'expression à développer correspond à la première identité remarquable $\\left(ax+b\\right)^2=a^2x^2+2abx+b^2$.<br>'
+          }
+          texteCorr += `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(IdentiteRemarquable.carreDuneSomme(p1, p2).toString())}$`
           break
         }
         case 2:
         case 6:
         {
           texte = `$${lettreDepuisChiffre(i + 1)}=\\left(${p1.toString()}-${p2.toString()}\\right)^2$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(IdentiteRemarquable.carreDuneDifference(p1, p2).toString())}$`
+          if (listeDeQuestions[i] === 2) {
+            texteCorr = 'L\'expression à développer correspond à la deuxième identité remarquable $\\left(a-b\\right)^2=a^2-2ab+b^2$.<br>'
+          } else {
+            texteCorr = 'L\'expression à développer correspond à la deuxième identité remarquable $\\left(ax-b\\right)^2=a^2x^2-2abx+b^2$.<br>'
+          }
+          texteCorr += `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(IdentiteRemarquable.carreDuneDifference(p1, p2).toString())}$`
           break
         }
         case 3:
@@ -126,7 +136,12 @@ export default class nomExercice extends Exercice {
           const signe = ['+', '-']
           const choixSigne = randint(0, 1)
           texte = `$${lettreDepuisChiffre(i + 1)}=\\left(${p1.toString()}${signe[choixSigne]} ${p2.toString()}\\right)\\left(${p1.toString()}${signe[(choixSigne + 1) % 2]}${p2.toString()}\\right)$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(IdentiteRemarquable.differenceDeDeuxCarres(p1, p2).toString())}$`
+          if (listeDeQuestions[i] === 3) {
+            texteCorr = 'L\'expression à développer correspond à la troisième identité remarquable $\\left(a-b\\right)(a+b)=a^2-b^2$.<br>'
+          } else {
+            texteCorr = 'L\'expression à développer correspond à la troisième identité remarquable $\\left(ax-b\\right)(ax+b)=a^2x^2-b^2$.<br>'
+          }
+          texteCorr += `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(IdentiteRemarquable.differenceDeDeuxCarres(p1, p2).toString())}$`
           break
         }
         case 4:
@@ -135,7 +150,12 @@ export default class nomExercice extends Exercice {
           const signeT1 = pSP1.coefficient.signe < 0 ? '' : '+'
           const signeT2 = pSP2.coefficient.signe < 0 ? '' : '+'
           texte = `$${lettreDepuisChiffre(i + 1)}=\\left(${p1.toString()}${signeT1}${pSP1.toString()}\\right)\\left(${p1.toString()}${signeT2}${pSP2.toString()}\\right)$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(IdentiteRemarquable.sommeProduit(p1, pSP1, pSP2).toString())}$`
+          if (listeDeQuestions[i] === 1) {
+            texteCorr = 'L\'expression à développer correspond à la quatrième identité remarquable $\\left(x+a\\right)(x+b)=x^2+(a+b)x+ab$ avec ${}<br>'
+          } else {
+            texteCorr = 'L\'expression à développer correspond à la quatrième identité remarquable $\\left(ax+b\\right)(ax+c)=a^2x^2+(b+c)ax+cb$.<br>'
+          }
+          texteCorr += `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(IdentiteRemarquable.sommeProduit(p1, pSP1, pSP2).toString())}$`
           break
         }
       }

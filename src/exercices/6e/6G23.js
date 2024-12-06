@@ -19,7 +19,6 @@ export const amcType = 'AMCOpen'
 /**
  * Construire un angle
  * @author Jean-Claude Lhote
- * Référence 6G23
  */
 export const uuid = '34e3c'
 export const ref = '6G23'
@@ -29,8 +28,6 @@ export const refs = {
 }
 export default function ConstruireUnAngle () {
   Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
   this.nbCols = 1

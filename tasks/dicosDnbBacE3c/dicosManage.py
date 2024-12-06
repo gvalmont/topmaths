@@ -139,9 +139,7 @@ def newEntry(file:str,dicoType:str)->list:
             newLines += f'''                
                 png: 'static/{dicoType}/{annee}/tex/png/{filename}.png',                
                 pngCor: 'static/{dicoType}/{annee}/tex/png/{filename}_cor.png',                
-                typeExercice: '{dicoType}',                
-                url: 'static/{dicoType}/{annee}/tex/{filename}.tex',                
-                urlcor: 'static/{dicoType}/{annee}/tex/{filename}_cor.tex',                
+                typeExercice: '{dicoType}',                               
                 tags: ['']            
             }},\n'''
         elif ('crpe' in filename): # EE : Ici, on considère que c'est les CRPE
@@ -165,8 +163,6 @@ def newEntry(file:str,dicoType:str)->list:
                 png: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}.png',
                 pngCor: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}_cor.png',
                 typeExercice: '{dicoType}',
-                url: 'static/{dicoType}/{filename[4:8]}/tex/{filename}.tex',
-                urlcor: 'static/{dicoType}/{filename[4:8]}/tex/{filename}_cor.tex',
                 tags: ['']
             }},\n'''    
     

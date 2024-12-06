@@ -8,7 +8,7 @@
 
 {#if reorderModalDisplayed}
   <div
-  in:fly={{ y: -1000 }} out:blur
+  in:fly|global={{ y: -1000 }} out:blur|global
     id="exoChipsList"
     class="z-[1090] fixed top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-2/3 flex flex-row justify-start items-center p-8 rounded-md shadow-2xl bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p"
   >

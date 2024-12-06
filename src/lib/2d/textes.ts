@@ -6,7 +6,7 @@ import { point, Point } from './points.js'
 import { Point3d } from '../../modules/3d'
 import { Polygone } from './polygones'
 
-export type AncrageDeRotationType = 'gauche'|'milieu'|'droite'
+export type AncrageDeRotationType = 'gauche' | 'milieu' | 'droite'
 export const tikzAncrages = {
   gauche: 'west',
   milieu: 'center',
@@ -68,7 +68,7 @@ export function labelLatexPoint ({
   let y
   let A
   const objets = []
-  let listePoints: Array<Point|Point3d>
+  let listePoints: Array<Point | Point3d>
   if (Array.isArray(points[0])) {
     // Si le premier argument est un tableau
     listePoints = points[0]
@@ -123,7 +123,7 @@ export function labelLatexPoint ({
  * @return object[]
  */
 // JSDOC Validee par EE Septembre 2022
-export function labelPoint (...args: (Point|string)[]) {
+export function labelPoint (...args: (Point | string)[]) {
   const taille = 1
   const points = [...args]
   // ObjetMathalea2D.call(this, {})
@@ -343,20 +343,20 @@ export class TexteParPoint extends ObjetMathalea2D {
  * Si le texte commence et finit par des $ la chaine est traitée par latexParPoint
  * @author Rémi Angot rectifié par Jean-Claude Lhote
  */
-export function texteParPoint (texte: string, A: Point, orientation:number = 0, color:string = 'black', scale:number = 1, ancrageDeRotation:'milieu'|'droite'|'gauche' = 'milieu', mathOn:boolean = false, opacite:number = 1) {
+export function texteParPoint (texte: string, A: Point, orientation:number = 0, color:string = 'black', scale:number = 1, ancrageDeRotation:'milieu' | 'droite' | 'gauche' = 'milieu', mathOn:boolean = false, opacite:number = 1) {
   return new TexteParPoint(texte, A, orientation, color, scale, ancrageDeRotation, mathOn, opacite)
 }
 
 export class TexteParPointEchelle extends ObjetMathalea2D {
   gras: boolean
   texte: string
-  point:Point
-  orientation:number
-  color:[string, string]
-  scale:number
-  ancrageDeRotation:AncrageDeRotationType
-  mathOn:boolean
-  scaleFigure:number
+  point: Point
+  orientation: number
+  color: [string, string]
+  scale: number
+  ancrageDeRotation: AncrageDeRotationType
+  mathOn: boolean
+  scaleFigure: number
   contour: boolean
   couleurDeRemplissage!: [string, string]
   opaciteDeRemplissage!: number
@@ -412,11 +412,11 @@ export class TexteParPointEchelle extends ObjetMathalea2D {
         }) node[anchor = ${tikzAncrages[this.ancrageDeRotation]}, rotate = ${String(-this.orientation)}, scale=${(this.scale * this.scaleFigure * 1.25).toFixed(2)}] {${copyThistexte}};`
   }
 }
-export function texteParPointEchelle (texte:string, A:Point, orientation:number = 0, color:string = 'black', scale:number = 1, ancrageDeRotation:'milieu'|'droite'|'gauche' = 'milieu', mathOn:boolean = false, scaleFigure: number = 1):TexteParPointEchelle {
+export function texteParPointEchelle (texte:string, A:Point, orientation:number = 0, color:string = 'black', scale:number = 1, ancrageDeRotation:'milieu' | 'droite' | 'gauche' = 'milieu', mathOn:boolean = false, scaleFigure: number = 1):TexteParPointEchelle {
   return new TexteParPointEchelle(texte, A, orientation, color, scale, ancrageDeRotation, mathOn, scaleFigure)
 }
 
-export function texteParPositionEchelle (texte:string, x:number, y:number, orientation:number = 0, color: string = 'black', scale:number = 1, ancrageDeRotation:'milieu'|'droite'|'gauche' = 'milieu', mathOn:boolean = false, scaleFigure:number = 1) {
+export function texteParPositionEchelle (texte:string, x:number, y:number, orientation:number = 0, color: string = 'black', scale:number = 1, ancrageDeRotation:'milieu' | 'droite' | 'gauche' = 'milieu', mathOn:boolean = false, scaleFigure:number = 1) {
   return texteParPointEchelle(texte, point(arrondi(x, 2), arrondi(y, 2), '', 'center'), orientation, color, scale, ancrageDeRotation, mathOn, scaleFigure)
 }
 
@@ -440,7 +440,7 @@ export function texteParPositionEchelle (texte:string, x:number, y:number, orien
  *
  * @author Rémi Angot
  */
-export function texteParPosition (texte:string, x:number, y:number, orientation:number = 0, color:string = 'black', scale:number = 1, ancrageDeRotation:'milieu'|'gauche'|'droite' = 'milieu', mathOn:boolean = false, opacite?:number) {
+export function texteParPosition (texte:string, x:number, y:number, orientation:number = 0, color:string = 'black', scale:number = 1, ancrageDeRotation:'milieu' | 'gauche' | 'droite' = 'milieu', mathOn:boolean = false, opacite?:number) {
   if (typeof orientation !== 'number') {
     ancrageDeRotation = orientation
     orientation = 0
@@ -462,7 +462,7 @@ export function texteParPosition (texte:string, x:number, y:number, orientation:
  * tailleCaracteres est à 8 par défaut et correspond à \footnotesize. tailleCaracteres va de 5 = \small à 20 = \huge
  * @author Rémi Angot
  */
-export function latexParPoint (texte: string, A:Point, color:string = 'black', largeur:number = 20, hauteur:number = 12, colorBackground:string = 'white', tailleCaracteres:number = 8): LatexParCoordonnees|Vide2d {
+export function latexParPoint (texte: string, A:Point, color:string = 'black', largeur:number = 20, hauteur:number = 12, colorBackground:string = 'white', tailleCaracteres:number = 8): LatexParCoordonnees | Vide2d {
   let x
   let y
   const coeff = context.pixelsParCm
@@ -620,17 +620,17 @@ export function latexParCoordonnees (texte: string, x:number, y:number, color:st
  */
 export class LatexParCoordonneesBox extends ObjetMathalea2D {
   texte: string
-  x:number
-  y:number
-  color:[string, string]
-  largeur:number
-  hauteur:number
+  x: number
+  y: number
+  color: [string, string]
+  largeur: number
+  hauteur: number
   colorBackground: [string, string]
-  taille:string = 'footnotesize'
-  options?:{anchor: string, dx: string, dy:string}
+  taille: string = 'footnotesize'
+  options?: { anchor: string, dx: string, dy: string }
   bordures: [number, number, number, number]
   style: string
-  constructor (texte: string, x:number, y:number, color:string, largeur:number, hauteur:number, colorBackground:string, tailleCaracteres:number = 8, options:{anchor: string, dx: string, dy: string}) {
+  constructor (texte: string, x:number, y:number, color:string, largeur:number, hauteur:number, colorBackground:string, tailleCaracteres:number = 8, options:{ anchor: string, dx: string, dy: string }) {
     super()
     this.x = x
     this.y = y
@@ -710,20 +710,18 @@ export class LatexParCoordonneesBox extends ObjetMathalea2D {
   }
 }
 
-export function latexParCoordonneesBox (texte: string, x:number, y:number, color:string = 'black', largeur:number = 50, hauteurLigne:number = 20, colorBackground:string = 'white', tailleCaracteres:number = 8, options:{anchor: string, dx: string, dy: string}) {
+export function latexParCoordonneesBox (texte: string, x:number, y:number, color:string = 'black', largeur:number = 50, hauteurLigne:number = 20, colorBackground:string = 'white', tailleCaracteres:number = 8, options:{ anchor: string, dx: string, dy: string }) {
   if (texte === '') return vide2d()
   else return new LatexParCoordonneesBox(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres, options)
 }
 
-type LetterSizeType = 'tiny'|'small'|'scriptsize'|'footnotesize'|'large'|'Large'|'LARGE'|'huge'|'normalsize'
-type DivLatex = {x: number, y: number, orientation: number, color: string, backgroundColor: string, latex: string, letterSize: string, opacity: number}
+type LetterSizeType = 'tiny' | 'small' | 'scriptsize' | 'footnotesize' | 'large' | 'Large' | 'LARGE' | 'huge' | 'normalsize'
+type DivLatex = { x: number, y: number, orientation: number, color: string, backgroundColor: string, latex: string, letterSize: string, opacity: number }
 
 /**
  * crée un obiet mathalea2D qui affiche du latex et qui peut tourner contrairement à latexParCoordonnees qui est horizontal
  */
 export class Latex2d extends ObjetMathalea2D {
-  color: [string, string]
-  backgroundColor: [string, string]|string
   letterSize: LetterSizeType
   latex: string
   x: number
@@ -731,6 +729,8 @@ export class Latex2d extends ObjetMathalea2D {
   opacity: number
   orientation: number
   bordures: [number, number, number, number]
+  col: string
+  backgroundCol: string
 
   /**
    * Les paramètres obligatoires (ne pas mettre de $ $ dans le latex !
@@ -764,8 +764,8 @@ export class Latex2d extends ObjetMathalea2D {
       opacity: number
     }) {
     super()
-    this.color = colorToLatexOrHTML(color)
-    this.backgroundColor = colorToLatexOrHTML(backgroundColor)
+    this.col = color
+    this.backgroundCol = backgroundColor
     this.letterSize = letterSize
     this.orientation = orientation
     this.opacity = opacity
@@ -786,14 +786,25 @@ export class Latex2d extends ObjetMathalea2D {
   }
 
   svg (): DivLatex {
-    return { latex: this.latex, x: this.x, y: this.y, opacity: this.opacity, orientation: this.orientation, letterSize: this.letterSize, color: this.color[0], backgroundColor: this.backgroundColor[0] }
+    // On prend la couleur Latex, parce que c'est pour Katex !
+    return { latex: this.latex, x: this.x, y: this.y, opacity: this.opacity, orientation: this.orientation, letterSize: this.letterSize, color: this.col.replace('#', ''), backgroundColor: this.backgroundCol.replace('#', '') }
   }
 
   // @todo ajouter opacity, orientation au tikz.
   tikz () {
-    return this.backgroundColor[1] !== ''
-      ? `\\draw (${this.x},${this.y}) node[anchor = center] {\\colorbox ${this.backgroundColor[1]} {\\${this.letterSize}  \\color${this.color[1]}{$${this.latex}$}}};`
-      : `\\draw (${this.x},${this.y}) node[anchor = center] {\\${this.letterSize} \\color${this.color[1]}{$${this.latex}$}};`
+    if (this.backgroundCol.startsWith('#')) {
+      this.backgroundCol = `[HTML]{${this.backgroundCol.substring(1)}}`
+    } else {
+      this.backgroundCol = `{${this.backgroundCol}}`
+    }
+    if (this.col.startsWith('#')) {
+      this.col = `[HTML]{${this.col.substring(1)}}`
+    } else {
+      this.col = `{${this.col}}`
+    }
+    return this.backgroundCol !== '{}' && this.backgroundCol !== '{none}'
+      ? `\\draw (${this.x},${this.y}) node[anchor = center] {\\colorbox${this.backgroundCol} {\\${this.letterSize}  \\color${this.col}{$${this.latex}$}}};`
+      : `\\draw (${this.x},${this.y}) node[anchor = center] {\\${this.letterSize} \\color${this.col}{$${this.latex}$}};`
   }
 }
 
