@@ -1,3 +1,21 @@
+== Les triangles
+#definition()[
+  Un #motDefini()[triangle] est un polygone à trois côtés.\
+  Un #motDefini()[triangle rectangle] est un triangle qui a #vert()[un angle droit].\
+  Un #motDefini()[triangle isocèle] est un triangle dont #noir()[deux côtés ont la même longueur].\
+  Un #motDefini()[triangle équilatéral] est un triangle dont les #noir()[trois côtés ont la même longueur].
+]
+
+#exemples()[
+  #grid(
+    columns: (1fr, 1fr, 1fr),
+    align: center,
+    row-gutter: 0.5em,
+    image("6G22-5.png", height: 7em), image("6G22-6.png", height: 7em), image("6G22-7.png", height: 7em),
+    "Triangle rectangle", "Triangle isocèle en A", "Triangle équilatéral"
+  )
+]
+== Les quadrilatères
 #definitions()[
   Un #motDefini()[quadrilatère] est un polygone à quatre côtés.\
   Un #motDefini()[losange] est un quadrilatère dont les #noir()[quatre côtés ont la même longueur].
