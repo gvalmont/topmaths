@@ -4,7 +4,7 @@
 ]
 
 #exemple()[
-  #place(right, image("6G22-1.png", height: 7em), dx:100%, dy:-2em)
+  #place(right, image("6G22-1.png", height: 7em), dy:-2em)
   MARK est un quadrilatère\
   et ses quatre côtés sont de même longueur\
   donc c’est un losange.
@@ -15,7 +15,7 @@
 ]
 
 #exemple()[
-  #place(right, image("6G22-2.png", height: 7em), dx:235%, dy:-2em)
+  #place(right, image("6G22-2.png", height: 7em), dy:-2em)
   ABCD est un quadrilatère\
   et il a quatre angles droits\
   donc c’est un rectangle.
@@ -26,7 +26,7 @@
 ]
 
 #exemple()[
-  #place(right, image("6G22-3.png", height: 7em), dx:90%, dy:-2em)
+  #place(right, image("6G22-3.png", height: 7em), dy:-2em)
   ABCD est un quadrilatère,\
   il a quatre angles droits\
   et ses quatre côtés sont de même longueur,\
