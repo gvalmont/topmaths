@@ -2858,11 +2858,7 @@
                 "exercises": [
                   {
                     "slug": "6N30,s=4,n=3",
-                    "description": "Lire l'abscisse (Niveau 1)"
-                  },
-                  {
-                    "slug": "6N30-1,s=3-4-5,n=3",
-                    "description": "Lire l'abscisse (Niveau 2)"
+                    "description": "Lire l'abscisse"
                   },
                   {
                     "slug": "6N30-2,s=4,n=3",
