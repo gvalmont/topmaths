@@ -15,46 +15,17 @@ export function isUnitReferences (obj: unknown): obj is UnitReference[] {
 }
 export const emptyUnitReference: UnitReference = unitsReferences[0] // keep in sync with build_prepare.ts
 
-export type Review = {
-  description: string,
-  objectiveReference: ObjectiveReference,
-  slug: string
-}
-export function isReview (obj: unknown): obj is Review {
-  if (obj == null || typeof obj !== 'object') return false
-  return 'description' in obj && typeof obj.description === 'string' &&
-    'objectiveReference' in obj && isObjectiveReference(obj.objectiveReference) &&
-    'slug' in obj && typeof obj.slug === 'string'
-}
-export function isReviews (obj: unknown): obj is Review[] {
-  if (obj == null || !Array.isArray(obj)) return false
-  return obj.every(isReview)
-}
-export const emptyReview: Review = {
-  description: '',
-  objectiveReference: '6C10', // Cannot access 'emptyObjectiveReference' before initialization
-  slug: ''
-}
-
 export type UnitLessonPlan = ObjectiveLessonPlan & {
   objectiveReference: ObjectiveReference,
   objectiveTitle: string,
   reference: string,
-  consolidationReviews: Review[],
-  consolidationLink: string,
-  prerequisiteReviews: Review[],
-  prerequisiteLink: string
 }
 export function isUnitLessonPlan (obj: unknown, withStringReference: boolean = false): obj is UnitLessonPlan {
   if (obj == null || typeof obj !== 'object') return false
   return isObjectiveLessonPlan(obj) &&
     'objectiveReference' in obj && (withStringReference ? typeof obj.objectiveReference === 'string' : isObjectiveReference(obj.objectiveReference)) &&
     'objectiveTitle' in obj && typeof obj.objectiveTitle === 'string' &&
-    'reference' in obj && typeof obj.reference === 'string' &&
-    'consolidationReviews' in obj && isReviews(obj.consolidationReviews) &&
-    'consolidationLink' in obj && typeof obj.consolidationLink === 'string' &&
-    'prerequisiteReviews' in obj && isReviews(obj.prerequisiteReviews) &&
-    'prerequisiteLink' in obj && typeof obj.prerequisiteLink === 'string'
+    'reference' in obj && typeof obj.reference === 'string'
 }
 export function isUnitLessonPlans (obj: unknown, withStringReference: boolean = false): obj is UnitLessonPlan[] {
   if (obj == null || !Array.isArray(obj)) return false
@@ -70,11 +41,7 @@ export const emptyUnitLessonPlan: UnitLessonPlan = { // Cannot access 'emptyObje
   comments: [],
   objectiveReference: '6C10', // Cannot access 'emptyObjectiveReference' before initialization
   objectiveTitle: '',
-  reference: '',
-  consolidationReviews: [],
-  consolidationLink: '',
-  prerequisiteReviews: [],
-  prerequisiteLink: ''
+  reference: ''
 }
 
 export type UnitObjective = {

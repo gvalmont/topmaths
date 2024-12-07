@@ -1464,12 +1464,7 @@
                 "prerequisites": [
                   {
                     "description": "Tracer des perpendiculaires",
-                    "objectiveReference": "6G11",
-                    "slugsWithSeed": [
-                      "uuid=7ff97&id=6G11&n=1&s=1&s2=true&alea=gfv4",
-                      "uuid=7ff97&id=6G11&n=1&s=1&s2=true&alea=bL4X",
-                      "uuid=7ff97&id=6G11&n=1&s=1&s2=true&alea=X7Rk"
-                    ]
+                    "objectiveReference": "6G11"
                   }
                 ],
                 "lessonSummaryHTML": "<p><strong>Définition :</strong><br>La médiatrice d'un segment est la droite qui coupe ce segment perpendiculairement en son milieu.</p><p><strong><strong>Propriété :</strong></strong><br>Si un point appartient à la médiatrice d'un segment, alors il est équidistant (= à la même distance) des deux extrémités de ce segment.</p><p><strong>Propriété :</strong><br>Si un point est équidistant des deux extrémités d'un segment, alors il appartient à la médiatrice de ce segment.</p>",
@@ -3245,12 +3240,7 @@
                 "prerequisites": [
                   {
                     "description": "Connaître les tables de multiplication",
-                    "objectiveReference": "6C10",
-                    "slugsWithSeed": [
-                      "uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10-11-12&s2=1-2&s3=false&alea=L8M5",
-                      "uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10-11-12&s2=1-2&s3=false&alea=Pxfd",
-                      "uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10-11-12&s2=1-2&s3=false&alea=TJ1z"
-                    ]
+                    "objectiveReference": "6C10"
                   }
                 ],
                 "videos": [
@@ -3879,12 +3869,7 @@
                 "prerequisites": [
                   {
                     "description": "Construire des triangles connaissant les 3 longueurs",
-                    "objectiveReference": "6G23",
-                    "slugsWithSeed": [
-                      "uuid=36116&id=5G20-0&n=1&s=1&s2=true&alea=yfUV",
-                      "uuid=36116&id=5G20-0&n=1&s=1&s2=true&alea=I0dc",
-                      "uuid=36116&id=5G20-0&n=1&s=1&s2=true&alea=E01R"
-                    ]
+                    "objectiveReference": "6G23"
                   },
                   {
                     "description": "Utiliser le rapporteur pour tracer un angle",
@@ -3984,12 +3969,7 @@
                 "prerequisites": [
                   {
                     "description": "Construire des triangles connaissant des longueurs et des angles",
-                    "objectiveReference": "5G21",
-                    "slugsWithSeed": [
-                      "uuid=6a1a2&id=5G20-2&n=1&s=false&alea=2AsW",
-                      "uuid=6a1a2&id=5G20-2&n=1&s=false&alea=0T49",
-                      "uuid=6a1a2&id=5G20-2&n=1&s=false&alea=rgf2"
-                    ]
+                    "objectiveReference": "5G21"
                   }
                 ],
                 "lessonSummaryHTML": "",
@@ -4460,12 +4440,7 @@
                 "prerequisites": [
                   {
                     "description": "Connaître les tables de multiplication",
-                    "objectiveReference": "6C10",
-                    "slugsWithSeed": [
-                      "uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10-11-12&s2=1-2&s3=false&alea=0001",
-                      "uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10-11-12&s2=1-2&s3=false&alea=0002",
-                      "uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10-11-12&s2=1-2&s3=false&alea=0003"
-                    ]
+                    "objectiveReference": "6C10"
                   },
                   {
                     "description": "Savoir que la multiplication est prioritaire",
@@ -4521,12 +4496,7 @@
                 "prerequisites": [
                   {
                     "description": "Connaître les priorités opératoires",
-                    "objectiveReference": "5N10",
-                    "slugsWithSeed": [
-                      "uuid=e61fc&id=5C12&n=4&s=4&s2=false&s3=true&s4=true&alea=PEA5",
-                      "uuid=e61fc&id=5C12&n=4&s=4&s2=false&s3=true&s4=true&alea=ajA4",
-                      "uuid=e61fc&id=5C12&n=4&s=4&s2=false&s3=true&s4=true&alea=9gZi"
-                    ]
+                    "objectiveReference": "5N10"
                   }
                 ],
                 "lessonSummaryHTML": "",
@@ -5379,12 +5349,7 @@
                 "prerequisites": [
                   {
                     "description": "Savoir que 2a c'est 2×a",
-                    "objectiveReference": "5N50",
-                    "slugsWithSeed": [
-                      "uuid=e2e64&id=5L16&n=4&s=3&s2=true&alea=s7UX",
-                      "uuid=e2e64&id=5L16&n=4&s=3&s2=true&alea=Jhti",
-                      "uuid=e2e64&id=5L16&n=4&s=3&s2=true&alea=Y49K"
-                    ]
+                    "objectiveReference": "5N50"
                   }
                 ],
                 "lessonSummaryHTML": "$2$ <img src='https://freesvg.org/img/taco.png' width='20px' class='inline-block'/> $+ 3$ <img src='https://freesvg.org/img/taco.png' width='20px' class='inline-block'/> $= 5$ <img src='https://freesvg.org/img/taco.png' width='20px' class='inline-block'/> <br> $2t + 3t = 5t$ <br><br> $3$ <img src='https://freesvg.org/img/taco.png' width='20px' class='inline-block'/> $+ 4$ <img src='https://cdn.pixabay.com/photo/2021/07/26/16/14/burger-6494672_960_720.png' width='20px' class='inline-block'/> $=3$ <img src='https://freesvg.org/img/taco.png' width='20px' class='inline-block'/> $+ 4$ <img src='https://cdn.pixabay.com/photo/2021/07/26/16/14/burger-6494672_960_720.png' width='20px' class='inline-block'/> <br> $3t + 4h = 3t + 4h$",
@@ -7084,12 +7049,7 @@
                 "prerequisites": [
                   {
                     "description": "Développer une expression littérale avec des nombres positifs",
-                    "objectiveReference": "4N51",
-                    "slugsWithSeed": [
-                      "uuid=71dd8&id=4L10&n=2&d=10&s=1&s2=2&s3=1-2&s4=false&alea=Toxj",
-                      "uuid=71dd8&id=4L10&n=2&d=10&s=1&s2=2&s3=1-2&s4=false&alea=1234",
-                      "uuid=71dd8&id=4L10&n=2&d=10&s=1&s2=2&s3=1-2&s4=false&alea=5678"
-                    ]
+                    "objectiveReference": "4N51"
                   },
                   {
                     "description": "Effectuer une somme algébrique",
@@ -7138,12 +7098,7 @@
                 "prerequisites": [
                   {
                     "description": "Développer par simple distributivité",
-                    "objectiveReference": "4N52",
-                    "slugsWithSeed": [
-                      "uuid=71dd8&id=4L10&n=2&d=10&s=3&s2=2&s3=1-2&s4=false&alea=1111",
-                      "uuid=71dd8&id=4L10&n=2&d=10&s=3&s2=2&s3=1-2&s4=false&alea=2222",
-                      "uuid=71dd8&id=4L10&n=2&d=10&s=3&s2=2&s3=1-2&s4=false&alea=3333"
-                    ]
+                    "objectiveReference": "4N52"
                   }
                 ],
                 "lessonSummaryHTML": "Factoriser, c'est transformer une somme ou une différence en un produit.<br><strong>k</strong>a + <strong>k</strong>b = <strong>k</strong>(a + b)<br><strong>k</strong>a – <strong>k</strong>b = <strong>k</strong>(a – b)",
@@ -7250,12 +7205,7 @@
                 "prerequisites": [
                   {
                     "description": "Savoir que 2a c'est 2×a",
-                    "objectiveReference": "5N50",
-                    "slugsWithSeed": [
-                      "uuid=e2e64&id=5L16&n=4&s=3&s2=true&alea=s7UX",
-                      "uuid=e2e64&id=5L16&n=4&s=3&s2=true&alea=Jhti",
-                      "uuid=e2e64&id=5L16&n=4&s=3&s2=true&alea=Y49K"
-                    ]
+                    "objectiveReference": "5N50"
                   },
                   {
                     "description": "Calculer avec des nombres relatifs",
@@ -7874,12 +7824,7 @@
                 "prerequisites": [
                   {
                     "description": "Développer par simple distributivité",
-                    "objectiveReference": "4N52",
-                    "slugsWithSeed": [
-                      "uuid=71dd8&id=4L10&n=2&d=10&s=3&s2=2&s3=1-2&s4=false&alea=4444",
-                      "uuid=71dd8&id=4L10&n=2&d=10&s=3&s2=2&s3=1-2&s4=false&alea=5555",
-                      "uuid=71dd8&id=4L10&n=2&d=10&s=3&s2=2&s3=1-2&s4=false&alea=6666"
-                    ]
+                    "objectiveReference": "4N52"
                   }
                 ],
                 "videos": [
@@ -7908,12 +7853,7 @@
                 "prerequisites": [
                   {
                     "description": "Développer par simple distributivité",
-                    "objectiveReference": "4N52",
-                    "slugsWithSeed": [
-                      "uuid=71dd8&id=4L10&n=2&d=10&s=3&s2=2&s3=1-2&s4=false&alea=eXNj",
-                      "uuid=71dd8&id=4L10&n=2&d=10&s=3&s2=2&s3=1-2&s4=false&alea=9ee6",
-                      "uuid=71dd8&id=4L10&n=2&d=10&s=3&s2=2&s3=1-2&s4=false&alea=M9um"
-                    ]
+                    "objectiveReference": "4N52"
                   }
                 ],
                 "lessonSummaryHTML": "$ ({\\color{red} a} + {\\color{blue} b})({\\color{green} c} + d) = {\\color{red} a} \\times {\\color{green} c} + {\\color{red} a} \\times d + {\\color{blue} b} \\times {\\color{green} c} + {\\color{blue} b} \\times d$",
@@ -8109,12 +8049,7 @@
                 "prerequisites": [
                   {
                     "description": "Calculer des probabilités dans une expérience aléatoire à une épreuve",
-                    "objectiveReference": "4S13",
-                    "slugsWithSeed": [
-                      "uuid=69e1f&id=5S21&n=1&s=1&alea=ZHdh",
-                      "uuid=69e1f&id=5S21&n=1&s=1&alea=16u8",
-                      "uuid=69e1f&id=5S21&n=1&s=1&alea=eZLL"
-                    ]
+                    "objectiveReference": "4S13"
                   }
                 ],
                 "lessonSummaryHTML": "Pour calculer la probabilité d'un événement lors d'une expérience aléatoire à deux épreuves, c'est à dire avec deux \"tirages\", on peut utiliser la même formule que lorsqu'il y a une épreuve : $\\text{Probabilité} = \\cfrac{\\text{Nombre de cas favorables}}{\\text{Nombre de cas possibles}}$<br>et s'aider d'un tableau pour compter le \"nombre de cas favorables\"<br>",

@@ -11,9 +11,9 @@
   import { emptyItem, type Item } from './types'
   import RowRegular from './RowRegular.svelte'
   import RowCurriculum from './RowCurriculum.svelte'
-  import { isReviewsDisplayed, isTeacherMode, isTitleAcademicPreferred } from '../../../services/store'
+  import { isTeacherMode, isTitleAcademicPreferred } from '../../../services/store'
   import InputCheckbox from '../InputCheckbox.svelte'
-  import { isReview, isUnit, type Review, type Unit } from '../../../types/unit'
+  import { isUnit, type Unit } from '../../../types/unit'
   import { isObjective, type Objective } from '../../../types/objective'
   import { isSpecialUnit } from '../../../types/specialUnit'
   import { emptyCurriculum, type Curriculum } from '../../../types/curriculum'
@@ -89,7 +89,6 @@
     (isObjective(item) && normalize(item.theme).includes(word)) ||
     (isObjective(item) && normalize(item.subTheme).includes(word)) ||
     (isObjective(item) && normalize(item.titleAcademic).includes(word)) ||
-    (isReview(item) && normalize(item.objectiveReference).includes(word)) ||
     (view === 'classroom' && isUnit(item) && item.objectives.some(objective => normalize(objective.reference).includes(word))) ||
     (view === 'classroom' && isUnit(item) && item.objectives.some(objective => normalize(getTitle(objective)).includes(word)))
   }
@@ -100,22 +99,6 @@
       $filter.term = term
     }
     window.history.pushState({}, '', `?v=${view}&grade=${$filter.grade}&term=${$filter.term}`)
-  }
-
-  function getFilteredReviews (unit: Unit, type: 'consolidation' | 'prerequisite'): Review[] {
-    return unit.objectives
-      .map(objective => objective.lessonPlans)
-      .flat()
-      .map(lessonPlan => type === 'consolidation' ? lessonPlan.consolidationReviews : lessonPlan.prerequisiteReviews)
-      .flat()
-      .reduce<{ seen: Set<string>; filtered: Review[] }>((acc, consolidationReview) => {
-        const objectiveReference = consolidationReview.objectiveReference
-        if (!acc.seen.has(objectiveReference)) {
-          acc.seen.add(objectiveReference)
-          acc.filtered.push(consolidationReview)
-        }
-        return acc
-      }, { seen: new Set<string>(), filtered: [] }).filtered
   }
 </script>
 
@@ -140,13 +123,6 @@
   >
     Intitulés proches des attendus de fin d'année
   </InputCheckbox>
-  {#if view === 'classroom'}
-    <InputCheckbox
-      bind:isChecked={$isReviewsDisplayed}
-    >
-      Afficher les révisions
-    </InputCheckbox>
-  {/if}
 </span>
 {/if}
 {#each stringGradeValidKeys as grade}
@@ -201,27 +177,19 @@
             Période {term}
           </h2>
           <div class="flex flex-row">
-            <div class="{$isReviewsDisplayed ? 'w-1/4' : 'w-1/3'}">
+            <div class="w-1/3">
               Séquence
             </div>
-            <div class="{$isReviewsDisplayed ? 'w-1/4' : 'w-2/3'}">
+            <div class="w-2/3">
               Objectifs
             </div>
-            {#if $isReviewsDisplayed}
-              <div class="w-1/4">
-                Révisions de consolidation
-              </div>
-              <div class="w-1/4">
-                Révisions de prérequis
-              </div>
-            {/if}
           </div>
           {#each $filteredItems.filter(item => isUnit(item)).filter(unit => unit.grade === grade).filter(unit => unit.term === term) as unit}
           <div class="flex flex-row border-t is-{unit.grade}
             text-sm md:text-base"
           >
             <div class="flex flex-col justify-center items-center
-              {$isReviewsDisplayed ? 'w-1/4' : 'w-1/3'}"
+              w-1/3"
             >
               <div class="flex flex-row grow w-full">
                 <div class="w-1/4 flex items-center justify-center">
@@ -239,7 +207,7 @@
               </div>
             </div>
             <div class="flex flex-col justify-center items-center
-              {$isReviewsDisplayed ? 'w-1/4' : 'w-2/3'}">
+              w-2/3">
                 {#each unit.objectives.filter(objective => !isReferenceIgnored(objective.reference)) as objective}
                   <RowCurriculum
                     reference={objective.reference}
@@ -249,26 +217,6 @@
                   />
                 {/each}
             </div>
-            {#if $isReviewsDisplayed}
-              <div class="w-1/4 flex flex-col justify-center items-center">
-                {#each getFilteredReviews(unit, 'consolidation') as consolidationReview}
-                  <RowCurriculum
-                    reference={consolidationReview.objectiveReference}
-                    title={consolidationReview.description}
-                    {goToView}
-                  />
-                {/each}
-              </div>
-              <div class="w-1/4 flex flex-col justify-center items-center">
-                {#each getFilteredReviews(unit, 'prerequisite') as prerequisiteReview}
-                  <RowCurriculum
-                    reference={prerequisiteReview.objectiveReference}
-                    title={prerequisiteReview.description}
-                    {goToView}
-                  />
-                {/each}
-              </div>
-            {/if}
           </div>
           {/each}
         {/each}

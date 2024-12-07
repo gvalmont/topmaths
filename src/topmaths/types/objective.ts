@@ -128,16 +128,14 @@ export type ObjectivePrerequisite = {
   title: string,
   titleAcademic: string,
   description: string,
-  objectiveReference: ObjectiveReference,
-  slugsWithSeed: SlugsWithSeed
+  objectiveReference: ObjectiveReference
 }
 export function isObjectivePrerequisite (obj: unknown, withStringReference: boolean = false): obj is ObjectivePrerequisite {
   if (obj == null || typeof obj !== 'object') return false
   return 'description' in obj && typeof obj.description === 'string' &&
     'title' in obj && typeof obj.title === 'string' &&
     'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
-    'objectiveReference' in obj && (withStringReference ? typeof obj.objectiveReference === 'string' : isObjectiveReference(obj.objectiveReference)) &&
-    'slugsWithSeed' in obj && isSlugsWithSeed(obj.slugsWithSeed)
+    'objectiveReference' in obj && (withStringReference ? typeof obj.objectiveReference === 'string' : isObjectiveReference(obj.objectiveReference))
 }
 export function isObjectivePrerequisites (obj: unknown, withStringReference: boolean = false): obj is ObjectivePrerequisite[] {
   if (obj == null || !Array.isArray(obj)) return false
@@ -147,8 +145,7 @@ export const emptyObjectivePrerequisite: ObjectivePrerequisite = {
   title: '',
   titleAcademic: '',
   description: '',
-  objectiveReference: emptyObjectiveReference,
-  slugsWithSeed: ['', '', '']
+  objectiveReference: emptyObjectiveReference
 }
 
 export type ObjectivePrerequisiteWithStringReference = ReplaceReferencesByStrings<UnitReference, ReplaceReferencesByStrings<ObjectiveReference, ObjectivePrerequisite>>

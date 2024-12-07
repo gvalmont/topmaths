@@ -12,7 +12,7 @@ import { deepCopy, type TuplesToArraysRecursive, type ReplaceReferencesByStrings
 import { DEFAULT_GRADE, emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/grade.js'
 import { buildGradeFromObjectiveReference, isReferenceIgnored } from '../src/topmaths/services/reference.js'
 import { EXERCISE_PARAM_ADDENDUM, isMathalea, REGULAR_VIEW_ADDENDUM, SLIDESHOW_VIEW_ADDENDUM, TOPMATHS_BASE_URL } from '../src/topmaths/services/environment.js'
-import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference, isSlugsWithSeed, type ObjectivePrerequisite, type ObjectiveLessonPlan, emptyObjectiveLessonPlanSegment, type ObjectivePrerequisiteWithStringReference, isObjectivePrerequisitesWithStringReference } from '../src/topmaths/types/objective.js'
+import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference, isSlugsWithSeed, type ObjectiveLessonPlan, emptyObjectiveLessonPlanSegment, type ObjectivePrerequisiteWithStringReference, isObjectivePrerequisitesWithStringReference } from '../src/topmaths/types/objective.js'
 import { type Unit, type UnitObjective, emptyUnitDownloadLinks, type UnitLessonPlan, isUnitLessonPlans, type UnitWithStringReference, type UnitReference, isUnitWithStringReference, emptyUnitLessonPlan, isUnitReference } from '../src/topmaths/types/unit.js'
 import { emptyGlossaryMasterItem, type GlossaryItemWithStringReference, type GlossaryMasterItem, type GlossaryMasterItemWithStringReference, type GlossaryRelatedItem, type GlossaryUniteItemWithStringReference, isGlossaryMasterItemWithStringReference, isGlossaryUniteItemsWithStringReference } from '../src/topmaths/types/glossary.js'
 import { type CalendarSchoolYearMaster, isCalendarSchoolYearMasters, type CalendarSchoolYear, isCalendarSchoolYears, type CalendarPeriod } from '../src/topmaths/types/calendar.js'
@@ -186,114 +186,6 @@ function updateUnits (): void {
       lessonPlanLink: buildDownloadLink('fiche', unit.reference, unit.grade)
     }
   }
-  updateUnitPrerequisiteReviews()
-  updateUnitConsolidationReviews()
-  updateUnitLessonPlansLinks()
-}
-
-function updateUnitConsolidationReviews (): void {
-  stringGradeValidKeys.forEach(grade => {
-    const gradeUnitObjectivesLessonPlans = getGradeUnitObjectivesLessonsPlans(grade)
-    for (let i = 0; i < gradeUnitObjectivesLessonPlans.length; i++) {
-      const currentObjective = gradeUnitObjectivesLessonPlans[i].objective
-      const reference = currentObjective.reference
-      if (isReferenceIgnored(reference as ObjectiveReference)) continue // objectiveReferences.ts is not populated yet
-      const currentLessonPlan = gradeUnitObjectivesLessonPlans[i].lessonPlan
-      if (gradeUnitObjectivesLessonPlans[i + 1] && currentLessonPlan.objectiveReference === gradeUnitObjectivesLessonPlans[i + 1].lessonPlan.objectiveReference) {
-        continue // To avoid duplicated reviews when an objective has multiple lesson plans
-      }
-      const exerciseSlugs = currentObjective.exercises.map(exercise => exercise.slug)
-      if (exerciseSlugs.length === 0) continue
-      let j = 1
-      while (gradeUnitObjectivesLessonPlans[i + 2 ** j]) {
-        const lastExerciseSlug = exerciseSlugs[exerciseSlugs.length - 1]
-        const nextReviewLessonPlan = gradeUnitObjectivesLessonPlans[i + 2 ** j].lessonPlan
-        j++
-        if (isFullLink(lastExerciseSlug)) continue // only add mathalea slugs
-        if (nextReviewLessonPlan.prerequisiteReviews.map(review => review.objectiveReference).includes(currentObjective.reference)) {
-          continue // to avoid reviewing items already reviewed in prerequisites
-        }
-        nextReviewLessonPlan.consolidationReviews.push({
-          description: getTitle(currentObjective),
-          objectiveReference: currentObjective.reference,
-          slug: lastExerciseSlug
-        })
-      }
-    }
-  })
-}
-
-type GradeUnitObjectiveLessonPlan = {
-  objective: ReplaceReferencesByStrings<ObjectiveReference, UnitObjective>;
-  lessonPlan: ReplaceReferencesByStrings<ObjectiveReference, UnitLessonPlan>;
-}
-function getGradeUnitObjectivesLessonsPlans (grade: StringGrade): GradeUnitObjectiveLessonPlan[] {
-  const gradeUnits = units.filter(unit => unit.grade === grade)
-  const gradeUnitObjectivesLessonPlans = gradeUnits
-    .map(unit => unit.objectives
-      .filter(objective => {
-        const reference = objective.reference
-        return !isReferenceIgnored(reference as ObjectiveReference) // objectiveReferences.ts is not populated yet
-      })
-      .map(objective => {
-        return objective.lessonPlans
-          .map(lessonPlan => {
-            return {
-              objective,
-              lessonPlan
-            }
-          })
-      }))
-    .flat(3)
-  return gradeUnitObjectivesLessonPlans
-}
-
-function updateParam (slug: string, param: string, value: string): string {
-  const paramIndex = slug.indexOf(`&${param}=`)
-  if (paramIndex === -1) return `${slug}&${param}=${value}`
-  const paramEndIndex = slug.indexOf('&', paramIndex + 1)
-  return `${slug.slice(0, paramIndex)}&${param}=${value}${slug.slice(paramEndIndex)}`
-}
-
-function updateUnitPrerequisiteReviews (): void {
-  stringGradeValidKeys.forEach(grade => {
-    const gradeUnitObjectivesLessonPlans = getGradeUnitObjectivesLessonsPlans(grade)
-    for (let currentLessonIndex = 0; currentLessonIndex < gradeUnitObjectivesLessonPlans.length; currentLessonIndex++) {
-      const currentPrerequisites = gradeUnitObjectivesLessonPlans[currentLessonIndex].objective.prerequisites
-      currentPrerequisites.forEach(currentPrerequisite => {
-        const objectiveLearnedLessonIndex = gradeUnitObjectivesLessonPlans.findIndex(lessonPlan => lessonPlan.objective.reference === currentPrerequisite.objectiveReference)
-        pushPrerequisiteReview(currentPrerequisite, currentLessonIndex, gradeUnitObjectivesLessonPlans, 0, objectiveLearnedLessonIndex)
-        pushPrerequisiteReview(currentPrerequisite, currentLessonIndex, gradeUnitObjectivesLessonPlans, 1, objectiveLearnedLessonIndex)
-        pushPrerequisiteReview(currentPrerequisite, currentLessonIndex, gradeUnitObjectivesLessonPlans, 2, objectiveLearnedLessonIndex)
-      })
-    }
-  })
-}
-
-function pushPrerequisiteReview (currentPrerequisite: TuplesToArraysRecursive<ReplaceReferencesByStrings<ObjectiveReference, ObjectivePrerequisite>>, currentIndex: number, gradeUnitObjectivesLessonPlans: GradeUnitObjectiveLessonPlan[], reviewIndex: number, objectiveLearnedLessonIndex: number): void {
-  const slugWithSeed = currentPrerequisite.slugsWithSeed[reviewIndex]
-  if (slugWithSeed === '' || isFullLink(slugWithSeed)) return
-  const destinationIndex = Math.max(currentIndex - 2 * reviewIndex, 0)
-  const destinationLessonPlan = gradeUnitObjectivesLessonPlans[destinationIndex].lessonPlan
-  const destinationLessonPlanIncludesObjectiveReference = destinationLessonPlan.prerequisiteReviews.map(prerequisite => prerequisite.objectiveReference).includes(currentPrerequisite.objectiveReference)
-  if (destinationLessonPlanIncludesObjectiveReference) return // to avoid duplicates
-  if (objectiveLearnedLessonIndex >= destinationIndex) return // to avoid reviews of future lessons
-  destinationLessonPlan.prerequisiteReviews.push({
-    description: currentPrerequisite.description,
-    objectiveReference: currentPrerequisite.objectiveReference,
-    slug: updateParam(slugWithSeed, 'n', '1')
-  })
-}
-
-function updateUnitLessonPlansLinks (): void {
-  units.forEach(unit => {
-    unit.objectives.forEach(objective => {
-      objective.lessonPlans.forEach(lessonPlan => {
-        lessonPlan.consolidationLink = buildLinkFromSlugs(lessonPlan.consolidationReviews.map(review => review.slug).flat(), true)
-        lessonPlan.prerequisiteLink = buildLinkFromSlugs(lessonPlan.prerequisiteReviews.map(review => review.slug).flat(), true)
-      })
-    })
-  })
 }
 
 function updateObjectives (): void {
@@ -581,14 +473,6 @@ function buildObjectivePrerequisites (objective: RecursivePartial<TuplesToArrays
     .filter(prerequisite => prerequisite !== undefined)
     .map(prerequisite => {
       if (prerequisite === undefined) throw new Error('Prerequisite is undefined')
-      if (!isSlugsWithSeed(prerequisite.slugsWithSeed)) {
-        console.error(prerequisite.slugsWithSeed)
-        throw new Error('Slugs with seed are not SlugsWithSeed')
-      }
-      if (prerequisite.slugsWithSeed.some(slug => isFullLink(slug))) {
-        console.error(prerequisite.slugsWithSeed)
-        throw new Error('Slugs with seed contain full links')
-      }
       prerequisite.title = ''
       prerequisite.titleAcademic = ''
       return prerequisite
@@ -681,10 +565,6 @@ function buildUnitLessonPlans (objective: ObjectiveWithStringReference, unitGrad
       unitLessonPlan.objectiveReference = objective.reference
       unitLessonPlan.objectiveTitle = getTitle(objective)
       unitLessonPlan.reference = `${objective.reference}${isMultipleLessonPlans ? `-${lessonPlanNumber}` : ''}`
-      unitLessonPlan.consolidationReviews = []
-      unitLessonPlan.consolidationLink = ''
-      unitLessonPlan.prerequisiteReviews = []
-      unitLessonPlan.prerequisiteLink = ''
       lessonPlanNumber++
       return unitLessonPlan
     })

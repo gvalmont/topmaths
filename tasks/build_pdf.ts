@@ -187,8 +187,6 @@ function buildCategories (previousLessonPlan: UnitLessonPlan, currentLessonPlan:
   let content = ''
   content += buildCategory('Matériel élève', currentLessonPlan.studentMaterialsNeeded)
   content += buildCategory('Matériel enseignant', currentLessonPlan.teacherMaterialsNeeded)
-  content += buildCategory('Révisions de consolidation', [currentLessonPlan.consolidationLink])
-  content += buildCategory('Révisions de prérequis', [currentLessonPlan.prerequisiteLink])
   content += buildCategory('Début de séance', currentLessonPlan.startSteps)
   currentLessonPlan.segments.forEach((segment, i) => {
     content += buildCategory(segment.title || `Segment ${i + 1}`, segment.steps)

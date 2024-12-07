@@ -10,21 +10,14 @@
   import type { Reference, View } from '../../../../types/navigation'
   import UnitRegularAssessment from './UnitRegularAssessment.svelte'
   import UnitRegularDownloads from './UnitRegularDownloads.svelte'
-  import UnitRegularReviews from './UnitRegularReviews.svelte'
   import { isReferenceIgnored } from '../../../../services/reference'
 
   export let unitReference
   export let goToView: (event: MouseEvent, view: View, reference: Reference) => void
   let unit: Unit = emptyUnit
-  let lessonPlansWithReviews: UnitLessonPlan[] = []
 
   onMount(() => {
     unit = $units.find((unitFound) => unitFound.reference === unitReference) || emptyUnit
-    lessonPlansWithReviews = unit.objectives
-      .filter(objective => !isReferenceIgnored(objective.reference))
-      .map(objective => objective.lessonPlans)
-      .flat()
-      .filter(lessonPlan => lessonPlan.consolidationLink !== '' || lessonPlan.prerequisiteLink !== '')
   })
 
 </script>
@@ -46,12 +39,6 @@
     {unit}
     {goToView}
   />
-  {#if $isTeacherMode && lessonPlansWithReviews.length > 0}
-    <UnitRegularReviews
-      lessonPlans={lessonPlansWithReviews}
-      {goToView}
-    />
-  {/if}
   <UnitRegularAssessment
     {unit}
   />
