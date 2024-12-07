@@ -1,8 +1,20 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
   import type { ObjectiveVideo } from '../../../../types/objective'
 
   export let videos: ObjectiveVideo[] = []
 
+  onMount(() => {
+    videos.forEach((video) => {
+      const iframe = document.getElementById(video.videoLink)
+      if (!iframe) return
+      iframe.addEventListener('load', () => {
+        setTimeout(() => {
+          iframe.style.display = 'block'
+        }, 1000)
+      })
+    })
+  })
 </script>
 
 <h2 class="{videos.length > 0 && videos[0].title ? 'title' : 'subtitle'}
@@ -22,11 +34,13 @@
     <div class="is-16by9">
       <iframe
         src={video.videoLink}
+        id={video.videoLink}
         title="Vidéo d'explication"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerpolicy="strict-origin-when-cross-origin"
         allowfullscreen
+        style="display: none;"
       />
     </div>
     <p>
