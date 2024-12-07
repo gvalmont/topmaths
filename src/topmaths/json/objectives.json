@@ -6420,6 +6420,31 @@
                   {
                     "slug": "5G24-2,s=6,n=4"
                   }
+                ],
+                "lessonPlans": [
+                  {
+                    "grades": [
+                      "3e"
+                    ],
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "4G30_Presentation"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Relancer plusieurs fois https://topmaths.fr/?uuid=b9a52&id=5G24-2&n=4&d=10&s=1-4-5&alea=qY06&cd=1&v=exercise en répondant à main levée si les triangles sont égaux ou pas (main ouverte ou fermée)",
+                          "Rappeler qu'on n'a pas besoin de connaître les 3 côtés, on a juste besoin d'avoir 1 côté entre 2 angles ou 1 angle entre 2 côtés",
+                          "Noter le cours",
+                          "Corriger une question de https://topmaths.fr/?uuid=b9a52&id=5G24-2&n=4&d=10&s=1-4-5&alea=qY06&cd=1&v=exercise&dv=true à gauche",
+                          "Les élèves font ceux de droite en justifiant sur l'ardoise",
+                          "Lorsqu'ils commencent à avoir l'habitude, le faire sans modèle affiché"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
+                  }
                 ]
               },
               {
