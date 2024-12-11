@@ -19,7 +19,7 @@
   import seedrandom from 'seedrandom'
   import { randint } from '../../../modules/outils'
   import { showDialogForLimitedTime } from '../../../lib/components/dialogs'
-    import { premiereLettreEnMajuscule } from '../../../lib/outils/outilString';
+  import { premiereLettreEnMajuscule } from '../../../lib/outils/outilString'
 
   export let isMd: boolean
 
@@ -37,6 +37,7 @@
 
   let exercisesWithMeta: ExerciseWithMeta[] = []
   let exercicesParams: InterfaceParams[] = []
+  let currentIndex = 0
 
   const apiGeomUuids = getApiGeomUuids()
 
@@ -219,7 +220,8 @@ function spacingUpdate (plusMinus: ('+' | '-'), exerciseIndex: number): void {
 
 async function newData (exerciseIndex: number): Promise<void> {
   if ($exerciseLinks.length > 1) {
-    initComponent($exerciseLinks[randint(0, $exerciseLinks.length - 1)])
+    initComponent($exerciseLinks[currentIndex])
+    currentIndex = (currentIndex + 1) % $exerciseLinks.length
   } else {
     const exercise = exercisesWithMeta[exerciseIndex].exercise
     if (exercise !== undefined && exercise.uuid !== undefined) {

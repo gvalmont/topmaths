@@ -6,6 +6,7 @@
   import { DEFAULT_GRADE, type StringGrade } from '../../types/grade'
   import ButtonImage from '../shared/ButtonImage.svelte'
   import { showDialogForLimitedTime } from '../../../lib/components/dialogs'
+  import { shuffle } from '../../../lib/outils/arrayOutils'
 
   const currentTerm = getCurrentTerm()
   const weekIndexInCurrentTerm = getWeekIndexInCurrentTerm()
@@ -21,7 +22,7 @@
   }
 
   function launchExamExercises (): void {
-    const examExercisesLinks = getExamExercisesLinks()
+    const examExercisesLinks = shuffle(getExamExercisesLinks())
     if (examExercisesLinks.length === 0) {
       showDialogForLimitedTime('topmaths-info-dialog', 2000, 'Tu n\'as pas encore d\'exercice de brevet à réviser, reviens plus tard !')
     } else {
@@ -64,7 +65,7 @@
         const references = []
         for (const entry of entries) {
           if (entry[0] === 'uuid') {
-            references.push(TOPMATHS_BASE_URL + 'uuid=' + entry[1])
+            references.push(TOPMATHS_BASE_URL + 'uuid=' + entry[1] + '&v=exercise')
           }
         }
         return references
