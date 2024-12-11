@@ -28,7 +28,7 @@ export function getCurrentTerm (): CalendarPeriod {
   if (!currentTerm) {
     console.error('Current term not found')
   }
-  return get(calendar).periods[0]
+  return currentTerm ?? get(calendar).periods[0]
 }
 
 export function getWeekIndexInCurrentTerm (): number {
