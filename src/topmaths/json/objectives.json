@@ -5060,8 +5060,12 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "5R12-2,s=1,s2=true",
-                    "description": ""
+                    "slug": "uuid=ab968&id=5R12-2&n=1&d=10&s=1&s2=true&s3=5",
+                    "description": "Coordonnées entières"
+                  },
+                  {
+                    "slug": "uuid=ab968&id=5R12-2&n=1&d=10&s=2&s2=true&s3=5",
+                    "description": "Coordonnées en demis"
                   }
                 ],
                 "lessonPlans": [
