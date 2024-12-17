@@ -7526,7 +7526,12 @@
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
                 ],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=f4b7e&id=3G24-1&n=2&d=10&s=2-3-4&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "3G11",
