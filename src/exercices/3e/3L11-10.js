@@ -180,8 +180,8 @@ export default function TableDoubleDistributivite () {
       texteCorr += context.isHtml ? '<br>' : '\\par\\medskip '
       texteCorr += `Développement réduit : $${lettreDepuisChiffre(i + 1)} = ${developpements.reduit}$`
 
-      handleAnswers(this, 3 * i, { bareme: toutPourUnPoint, L1C1: { value: L1C1, compare: expressionDeveloppeeEtNonReduiteCompare }, L1C2: { value: L1C2, compare: expressionDeveloppeeEtNonReduiteCompare }, L2C1: { value: L2C1, compare: expressionDeveloppeeEtNonReduiteCompare }, L2C2: { value: L2C2, compare: expressionDeveloppeeEtNonReduiteCompare } }, { formatInteractif: 'mathlive' })
-      handleAnswers(this, 3 * i + 1, { reponse: { value: developpements.eclate, compare: expressionDeveloppeeEtNonReduiteCompare } }, { formatInteractif: 'mathlive' })
+      handleAnswers(this, 3 * i, { bareme: toutPourUnPoint, L1C1: { value: L1C1, compare: expressionDeveloppeeEtNonReduiteCompare }, L1C2: { value: L1C2, compare: expressionDeveloppeeEtNonReduiteCompare }, L2C1: { value: L2C1, compare: expressionDeveloppeeEtNonReduiteCompare }, L2C2: { value: L2C2, compare: expressionDeveloppeeEtNonReduiteCompare } })
+      handleAnswers(this, 3 * i + 1, { reponse: { value: developpements.eclate, compare: expressionDeveloppeeEtNonReduiteCompare } })
       const reponse = developpements.reduit
       handleAnswers(this, 3 * i + 2, { reponse: { value: reponse, compare: fonctionComparaison } })
 

@@ -319,7 +319,7 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
       }
       texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
       if (!context.isAMC) {
-        handleAnswers(this, i, { reponse: { value: new FractionEtendue(reponse.num, reponse.den).simplifie().texFSD, compare: reponse.compare } }, { formatInteractif: 'mathlive' })
+        handleAnswers(this, i, { reponse: { value: new FractionEtendue(reponse.num, reponse.den).simplifie().texFSD, compare: reponse.compare } })
       } else {
         // Ici mettre le code pour AMC
       }

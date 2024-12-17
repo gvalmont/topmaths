@@ -24,7 +24,9 @@ import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/o
 import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'CAN 4e sujet 2023'
 export const interactifReady = true
@@ -50,13 +52,7 @@ function compareNombres (a, b) {
 
 export default function SujetCAN2023Quatrieme () {
   Exercice.call(this)
-  this.titre = titre
-  this.keyboard = ['hms']
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.nbQuestions = 30
-  this.nbCols = 1
-  this.nbColsCorr = 1
   this.typeExercice = 'Scratch'
   this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
@@ -965,8 +961,8 @@ export default function SujetCAN2023Quatrieme () {
             texte = `$${texNombre(a + b)}$ h $=$ ${context.isHtml ? '..... h ..... min' : ''}`
           } else {
             texte = `Convertir en heures/minutes : <br>$${texNombre(a + b)}$ h $=$`
-            texte += ajouteChampTexteMathLive(this, i, 'clavierHms ')
-            setReponse(this, i, new Hms({ hour: a, minute: d }), { formatInteractif: 'hms' })
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierHms)
+            handleAnswers(this, i, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
           }
           texteCorr = `$${texNombre(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombre(b)} \\times 60$ min $  = ${miseEnEvidence(a)}$ h $${miseEnEvidence(d)}$ min`
           nbChamps = 1

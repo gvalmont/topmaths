@@ -1,7 +1,7 @@
 import { engrenages } from '../../../lib/2d/engrenage'
 import { latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import { ppcm } from '../../../modules/outils'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
@@ -16,7 +16,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM Brevet Amérique du sud 12/24 : Arithmétique'
+export const titre = 'QCM Brevet Amérique du Sud 2024 : Arithmétique'
 export const dateDePublication = '05/12/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
@@ -27,6 +27,11 @@ export const dateDePublication = '05/12/2024'
 export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
   private appliquerLesValeurs (nb1: number, nb2:number, nbTours:number) : void {
     const engins = engrenages({ dureeTourBase: 0, module: 0.5, marqueurs: false }, nb1, nb2)
+    for (const roue of engins) {
+      roue.couleurDeRemplissage = colorToLatexOrHTML('gray')
+      roue.marqueurD = false
+      roue.marqueurG = false
+    }
     const y0 = Math.min(engins[0].bordures[1], engins[1].bordures[1])
     const x1 = (engins[0].bordures[0] + engins[0].bordures[2]) / 2
     const x2 = (engins[1].bordures[0] + engins[1].bordures[2]) / 2
@@ -44,7 +49,7 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
     const figure = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures([engins, texte1, texte2])), engins, texte1, texte2)
     this.enonce = `Voici un engrenage :<br>
     ${figure}${context.isHtml ? '' : '\n\n'}
-    Si la petite roue effectue exactement $$${nbTours}$$ tours, combien de tours complets effectue la grande roue ?`
+    Si la petite roue effectue exactement $${nbTours}$ tours, combien de tours complets effectue la grande roue ?`
     this.correction = `La petite roue a $${petiteRoue}$ dents et la grande roue a $${grandeRoue}$ dents.<br>
  Soit $x$ le nombre de tours effectués par la grande roue.<br>
  Les produits des 'nombres de dents × nombre de tours' sont égaux : $${petiteRoue} \\times ${nbTours} = ${grandeRoue} \\times x$<br>

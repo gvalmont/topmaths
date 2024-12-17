@@ -6,15 +6,15 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const dateDePublication = '27/10/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Résoudre une équation graphiquement'
 
-/*!
- * @author Gilles MORA
-  *
- * Référence can2F16
+/**
+ * @author Gilles Mora
 */
 export const uuid = '9d293'
 export const ref = 'can2F16'
@@ -26,8 +26,10 @@ export default function EquationsGSpline () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
-  this.formatChampTexte = ' lycee  '
+  this.formatChampTexte = KeyboardType.clavierEnsemble
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { ensembleDeNombres: true }
+
   this.nouvelleVersion = function () {
     const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -3, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
@@ -115,8 +117,8 @@ export default function EquationsGSpline () {
     Résoudre l'équation  $f(x)=${y1}$.<br>` +
        mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
     if (this.interactif) {
-      this.question += '<br>Écrire les solutions rangées dans l\'ordre croissant séparées par des points-virgules (saisir $\\emptyset$ s\'il n\'y en a pas).<br>'
-      this.question += 'Solution(s) : '
+      this.question += '<br>Écrire l\'ensemble de solution(s) (séparées par des points-virgules). Saisir $\\emptyset$ s\'il n\'y en a pas.<br>'
+      this.question += 'Ensemble de solution(s) : '
     }
 
     this.correction = `Résoudre l'équation $f(x)=${y1}$ graphiquement revient à lire les abscisses des points d'intersection entre $\\mathscr{C}_f$ et ${y1 === 0 ? 'l\'axe des abscisses.' : `la droite  d'équation $y = ${y1}$ (parallèle à l'axe des abscisses).`}<br>

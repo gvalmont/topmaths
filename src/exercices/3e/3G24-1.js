@@ -8,11 +8,11 @@ import { triangle2points2angles, triangle2points2longueurs } from '../../lib/2d/
 import { choice, shuffleLettres } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import Exercice from '../Exercice'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
+import { fixeBordures, mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { labelPoint } from '../../lib/2d/textes'
-import { stringNombre } from '../../lib/outils/texNombre'
+import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue'
 export const titre = 'Triangles semblables'
 
@@ -49,10 +49,10 @@ export default class TrianglesSemblables extends Exercice {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
-      const k = randint(5, 15, [10, 11, 9])
-      let l1 = randint(5, 8)
-      let l2 = randint(5, 9, l1)
-      let l3 = randint(5, l1 + l2 - 1, [l1, l2])
+      const k = randint(8, 13, [10, 11, 9])
+      let l1 = randint(6, 8)
+      let l2 = randint(6, 9, l1)
+      let l3 = randint(6, l1 + l2 - 1, [l1, l2])
       const ang1 = randint(45, 80)
       const ang2 = randint(45, 80)
       l1 *= k / 10
@@ -73,7 +73,7 @@ export default class TrianglesSemblables extends Exercice {
       switch (typeQuestionsDisponibles[i]) { // Suivant le type de question, le contenu sera différent
         case 1: {
           const angle = randint(160, 200)
-          const coeff = randint(5, 15, [10, 11, 9]) / 10
+          const coeff = randint(8, 13, [10, 11, 9]) / 10
           p2 = similitude(p1, O2, angle, coeff)
           D = p2.listePoints[0]
           E = p2.listePoints[1]
@@ -94,6 +94,7 @@ export default class TrianglesSemblables extends Exercice {
           Fnom = nom2[2]
           nommeP1 = nommePolygone(p1, nom1)
           nommeP2 = nommePolygone(p2, nom2)
+          const objets = [p1, p2, codeA1, codeA2, codeA5, codeA6, nommeP1, nommeP2]
           texte = 'Compléter les phrases suivantes.<br>'
           texte += `Ci-dessous les triangles $${shuffleLettres(Anom + Bnom + Cnom)}$ et $${shuffleLettres(Dnom + Enom + Fnom)}$ sont semblables.<br>`
           texte += `$[${Anom + Bnom}]$ et ............ sont homologues.<br>`
@@ -102,15 +103,10 @@ export default class TrianglesSemblables extends Exercice {
           texte += `$\\widehat{${Anom + Bnom + Cnom}}$ et ...................... sont homologues.<br>`
           texte += `$\\widehat{${Cnom + Anom + Bnom}}$ et ...................... sont homologues.<br>`
           texte += `$\\widehat{${Bnom + Cnom + Anom}}$ et ...................... sont homologues.<br>`
-          texte += mathalea2d({
-            xmin: Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 2,
-            ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 2,
-            xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 2,
-            ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 2,
+          texte += mathalea2d(Object.assign({
             scale: 0.5,
             zoom
-          },
-          p1, p2, codeA1, codeA2, codeA5, codeA6, nommeP1, nommeP2)
+          }, fixeBordures(objets)), objets)
           texteCorr = `$[${Anom + Bnom}]$ et $[${Dnom + Enom}]$ sont homologues.<br>`
           texteCorr += `$[${Bnom + Cnom}]$ et $[${Enom + Fnom}]$ sont homologues.<br>`
           texteCorr += `$[${Cnom + Anom}]$ et $[${Fnom + Dnom}]$ sont homologues.<br>`
@@ -121,7 +117,7 @@ export default class TrianglesSemblables extends Exercice {
         }
         case 2: {
           const ang = randint(160, 200)
-          const coeff = randint(5, 15, [10, 11, 9]) / 10
+          const coeff = randint(8, 13, [10, 11, 9]) / 10
           p2 = similitude(p1, O2, ang, coeff)
           D = p2.listePoints[0]
           E = p2.listePoints[1]
@@ -144,23 +140,19 @@ export default class TrianglesSemblables extends Exercice {
           Fnom = nom2[2]
           nommeP1 = nommePolygone(p1, nom1)
           nommeP2 = nommePolygone(p2, nom2)
+          const objets = [p1, p2, codeA1, codeA2, codeA3, codeA4, codeA5, codeA6, nommeP1, nommeP2]
           texte = `Démontrer que les triangles $${shuffleLettres(Anom + Bnom + Cnom)}$ et $${shuffleLettres(Dnom + Enom + Fnom)}$ sont semblables.<br>`
-          texte += mathalea2d({
-            xmin: Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 2,
-            ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 2,
-            xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 2,
-            ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 2,
+          texte += mathalea2d(Object.assign({
             scale: 0.5,
             zoom
-          },
-          p1, p2, codeA1, codeA2, codeA3, codeA4, codeA5, codeA6, nommeP1, nommeP2)
+          }, fixeBordures(objets)), objets)
           texteCorr = 'D\'après la règle des 180° dans un triangle, la somme des angles est égale à 180°. <br>'
-          texteCorr += hiddenAngle1 === 1 ? `$\\widehat{${Anom + Bnom + Cnom}}$ = 180° - ${stringNombre(angle(B, C, A), 1)}° - ${stringNombre(angle(C, A, B), 1)}°=${stringNombre(angle(A, B, C), 1)}°. <br>` : ''
-          texteCorr += hiddenAngle1 === 2 ? `$\\widehat{${Bnom + Cnom + Anom}}$ = 180° - ${stringNombre(angle(A, B, C), 1)}° - ${stringNombre(angle(C, A, B), 1)}°=${stringNombre(angle(B, C, A), 1)}°. <br>` : ''
-          texteCorr += hiddenAngle1 === 3 ? `$\\widehat{${Cnom + Anom + Bnom}}$ = 180° - ${stringNombre(angle(B, C, A), 1)}° - ${stringNombre(angle(A, B, C), 1)}°=${stringNombre(angle(C, A, B), 1)}°. <br>` : ''
-          texteCorr += hiddenAngle2 === 4 ? `$\\widehat{${Dnom + Enom + Fnom}}$ = 180° - ${stringNombre(angle(E, F, D), 1)}° - ${stringNombre(angle(F, D, E), 1)}°=${stringNombre(angle(D, E, F), 1)}°. <br>` : ''
-          texteCorr += hiddenAngle2 === 5 ? `$\\widehat{${Enom + Fnom + Dnom}}$ = 180° - ${stringNombre(angle(D, E, F), 1)}° - ${stringNombre(angle(F, D, E), 1)}°=${stringNombre(angle(E, F, D), 1)}°. <br>` : ''
-          texteCorr += hiddenAngle2 === 6 ? `$\\widehat{${Fnom + Dnom + Enom}}$ = 180° - ${stringNombre(angle(D, E, F), 1)}° - ${stringNombre(angle(E, F, D), 1)}°=${stringNombre(angle(F, D, E), 1)}°. <br>` : ''
+          texteCorr += hiddenAngle1 === 1 ? `$\\widehat{${Anom + Bnom + Cnom}} = 180^{\\circ} - ${texNombre(angle(B, C, A), 0)}^{\\circ} - ${texNombre(angle(C, A, B), 0)}^{\\circ}=${texNombre(angle(A, B, C), 0)}^{\\circ}$. <br>` : ''
+          texteCorr += hiddenAngle1 === 2 ? `$\\widehat{${Bnom + Cnom + Anom}} = 180^{\\circ} - ${texNombre(angle(A, B, C), 0)}^{\\circ} - ${texNombre(angle(C, A, B), 0)}^{\\circ}=${texNombre(angle(B, C, A), 0)}^{\\circ}$. <br>` : ''
+          texteCorr += hiddenAngle1 === 3 ? `$\\widehat{${Cnom + Anom + Bnom}} = 180^{\\circ} - ${texNombre(angle(B, C, A), 0)}^{\\circ} - ${texNombre(angle(A, B, C), 0)}^{\\circ}=${texNombre(angle(C, A, B), 0)}^{\\circ}$. <br>` : ''
+          texteCorr += hiddenAngle2 === 4 ? `$\\widehat{${Dnom + Enom + Fnom}} = 180^{\\circ} - ${texNombre(angle(E, F, D), 0)}^{\\circ} - ${texNombre(angle(F, D, E), 0)}^{\\circ}=${texNombre(angle(D, E, F), 0)}^{\\circ}$. <br>` : ''
+          texteCorr += hiddenAngle2 === 5 ? `$\\widehat{${Enom + Fnom + Dnom}} = 180^{\\circ} - ${texNombre(angle(D, E, F), 0)}^{\\circ} - ${texNombre(angle(F, D, E), 0)}^{\\circ}=${texNombre(angle(E, F, D), 0)}^{\\circ}$. <br>` : ''
+          texteCorr += hiddenAngle2 === 6 ? `$\\widehat{${Fnom + Dnom + Enom}} = 180^{\\circ} - ${texNombre(angle(D, E, F), 0)}^{\\circ} - ${texNombre(angle(E, F, D), 0)}^{\\circ}=${texNombre(angle(F, D, E), 0)}^{\\circ}$. <br>` : ''
           texteCorr += `$\\widehat{${Anom + Bnom + Cnom}}$ = $\\widehat{${Dnom + Enom + Fnom}}$.<br>`
           texteCorr += `$\\widehat{${Cnom + Anom + Bnom}}$ = $\\widehat{${Fnom + Dnom + Enom}}$.<br>`
           texteCorr += `$\\widehat{${Bnom + Cnom + Anom}}$ = $\\widehat{${Enom + Fnom + Dnom}}$.<br>`
@@ -196,20 +188,17 @@ export default class TrianglesSemblables extends Exercice {
           Fnom = nom2[2]
           nommeP1 = nommePolygone(p1, nom1)
           nommeP2 = nommePolygone(p2, nom2)
+          const objets = [p1, p2, code1, code2, code3, code4, code5, code6, nommeP1, nommeP2]
           texte = `Est-ce que les triangles $${shuffleLettres(Anom + Bnom + Cnom)}$ et $${shuffleLettres(Dnom + Enom + Fnom)}$ sont semblables? Justifier<br>`
-          texte += mathalea2d({
-            xmin: Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 3,
-            ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
-            xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
-            ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
+          texte += mathalea2d(Object.assign({
             scale: 0.5,
             zoom
-          },
-          p1, p2, code1, code2, code3, code4, code5, code6, nommeP1, nommeP2)
+          }, fixeBordures(objets)), objets)
+
           texteCorr = 'On trie les longueurs des deux triangles afin de les comparer. <br>'
-          texteCorr += `$${stringNombre(longueur(A, B), 1)} \\div  ${stringNombre(longueur(D, E), 1)} = ${new FractionEtendue(longueur(A, B), longueur(D, E)).texFractionSimplifiee}$.<br>`
-          texteCorr += `$${stringNombre(longueur(B, C), 1)} \\div  ${stringNombre(longueur(E, F), 1)} = ${new FractionEtendue(longueur(B, C), longueur(E, F)).texFractionSimplifiee}$.<br>`
-          texteCorr += `$${stringNombre(longueur(C, A), 1)} \\div  ${stringNombre(longueur(F, D), 1)} = ${new FractionEtendue(longueur(C, A), longueur(F, D)).texFractionSimplifiee}$.<br>`
+          texteCorr += `$${texNombre(longueur(A, B), 1)} \\div  ${texNombre(longueur(D, E), 1)} = ${new FractionEtendue(longueur(A, B), longueur(D, E)).texFractionSimplifiee}$.<br>`
+          texteCorr += `$${texNombre(longueur(B, C), 1)} \\div  ${texNombre(longueur(E, F), 1)} = ${new FractionEtendue(longueur(B, C), longueur(E, F)).texFractionSimplifiee}$.<br>`
+          texteCorr += `$${texNombre(longueur(C, A), 1)} \\div  ${texNombre(longueur(F, D), 1)} = ${new FractionEtendue(longueur(C, A), longueur(F, D)).texFractionSimplifiee}$.<br>`
           texteCorr += 'Les longueurs sont proportionnelles deux à deux donc les deux triangles sont semblables.<br>'
           break
         }
@@ -259,16 +248,13 @@ export default class TrianglesSemblables extends Exercice {
           Fnom = nom2[2]
           nommeP1 = nommePolygone(p1, nom1)
           nommeP2 = nommePolygone(p2, nom2)
+          const objets = [p1, p2, code1, code2, code3, code4, code5, code6, codeA1, codeA2, codeA3, codeA4, codeA5, codeA6, nommeP1, labelPoint(p2.listePoints[2])]
           texte = `Est-ce que les triangles $${shuffleLettres(Anom + Bnom + Cnom)}$ et $${shuffleLettres(Dnom + Enom + Fnom)}$ sont semblables? Justifier<br>`
-          texte += mathalea2d({
-            xmin: Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 3,
-            ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
-            xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
-            ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
+          texte += mathalea2d(Object.assign({
             scale: 0.5,
             zoom
-          },
-          p1, p2, code1, code2, code3, code4, code5, code6, codeA1, codeA2, codeA3, codeA4, codeA5, codeA6, nommeP1, labelPoint(p2.listePoints[2]))
+          }, fixeBordures(objets)), objets
+          )
           texteCorr = 'On trie les longueurs des deux triangles afin de les comparer. <br>'
           codeA4 = codageAngleDroit(E, F, D)
           codeA5 = codageAngleDroit(C, A, B)
@@ -296,8 +282,8 @@ export default class TrianglesSemblables extends Exercice {
             // agrandissement
             code6 = afficheCoteSegment(segment(F, D), `${longueur(F, D)}`, -1, 'blue')
           } else if (k > 10 && sign > 0) {
-            code1 = angleOriente(C, A, B) > 0 ? afficheCoteSegment(segment(A, B), `${stringNombre(longueur(A, B))} cm`, 2, 'blue') : afficheCoteSegment(segment(A, B), `${stringNombre(longueur(A, B))} cm`, -2, 'blue')
-            code5 = angleOriente(B, C, A) > 0 ? afficheCoteSegment(segment(A, C), `${stringNombre(longueur(A, C))} cm`, -2, 'blue') : afficheCoteSegment(segment(A, C), `${stringNombre(longueur(A, C))} cm`, 2, 'blue')
+            code1 = angleOriente(C, A, B) > 0 ? afficheCoteSegment(segment(A, B), `$${texNombre(longueur(A, B))}\\text{ cm}$`, 2, 'blue') : afficheCoteSegment(segment(A, B), `$${texNombre(longueur(A, B))}\\text{ cm}$`, -2, 'blue')
+            code5 = angleOriente(B, C, A) > 0 ? afficheCoteSegment(segment(A, C), `$${texNombre(longueur(A, C))}\\text{ cm}$`, -2, 'blue') : afficheCoteSegment(segment(A, C), `$${texNombre(longueur(A, C))}\\text{ cm}$`, 2, 'blue')
           }
           codeA1 = codageAngle(A, B, C, 0.8, '|')
           codeA2 = codageAngle(D, E, F, 0.8, '|')
@@ -316,20 +302,16 @@ export default class TrianglesSemblables extends Exercice {
           Fnom = nom2[2]
           nommeP1 = nommePolygone(p1, nom1)
           nommeP2 = nommePolygone(p2, nom2)
+          const objets = [p1, p2, code1, code2, code3, code4, code5, code6, nommeP1, labelPoint(p2.listePoints[2]), labelPoint(p2.listePoints[1])]
           texte = `Est-ce que les triangles $${shuffleLettres(Anom + Bnom + Cnom)}$ et $${shuffleLettres(Dnom + Enom + Fnom)}$ sont semblables? Justifier<br>`
-          texte += mathalea2d({
-            xmin: Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 3,
-            ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
-            xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
-            ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
+          texte += mathalea2d(Object.assign({
             scale: 0.5,
             zoom
-          },
-          p1, p2, code1, code2, code3, code4, code5, code6, nommeP1, labelPoint(p2.listePoints[2]), labelPoint(p2.listePoints[1]))
+          }, fixeBordures(objets)), objets)
           texteCorr = 'On trie les longueurs des deux triangles afin de les comparer. <br>'
-          texteCorr += `$${stringNombre(longueur(A, B), 1)} \\div  ${stringNombre(longueur(D, E), 1)} = ${new FractionEtendue(longueur(A, B), longueur(D, E)).texFractionSimplifiee}$.<br>`
-          texteCorr += `$${stringNombre(longueur(B, C), 1)} \\div  ${stringNombre(longueur(E, F), 1)} = ${new FractionEtendue(longueur(B, C), longueur(E, F)).texFractionSimplifiee}$.<br>`
-          texteCorr += `$${stringNombre(longueur(C, A), 1)} \\div  ${stringNombre(longueur(F, D), 1)} = ${new FractionEtendue(longueur(C, A), longueur(F, D)).texFractionSimplifiee}$.<br>`
+          texteCorr += `$${texNombre(longueur(A, B), 1)} \\div  ${texNombre(longueur(D, E), 1)} = ${new FractionEtendue(longueur(A, B), longueur(D, E)).texFractionSimplifiee}$.<br>`
+          texteCorr += `$${texNombre(longueur(B, C), 1)} \\div  ${texNombre(longueur(E, F), 1)} = ${new FractionEtendue(longueur(B, C), longueur(E, F)).texFractionSimplifiee}$.<br>`
+          texteCorr += `$${texNombre(longueur(C, A), 1)} \\div  ${texNombre(longueur(F, D), 1)} = ${new FractionEtendue(longueur(C, A), longueur(F, D)).texFractionSimplifiee}$.<br>`
           texteCorr += 'Les longueurs sont proportionnelles deux à deux donc les deux triangles sont semblables.<br>'
           break
         }

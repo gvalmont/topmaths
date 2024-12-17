@@ -47,11 +47,11 @@ type TypesDeFonction = 'constante' | 'affine' | 'poly2' | 'poly3'
  * @param poly2
  */
 function trouveMaxMin (poly1: Polynome, poly2: Polynome, np1: {
-    x: number,
-    y: number
+  x: number,
+  y: number
 }[], np2: {
-    x: number,
-    y: number
+  x: number,
+  y: number
 }[]): number {
   // on s'embête pas avec les constantes, elles sont toujours dans la fenêtre
   // on ne s'embête pas avec les affines, la encore, on sait comment elles se comportent quand elles sortent de la fenêtre
@@ -145,7 +145,6 @@ class resolutionEquationInequationGraphique extends Exercice {
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     // Pour un exercice de type simple qui n'utilise pas le champ de réponse
-    this.formatChampTexte = ''
     this.exoCustomResultat = true
     this.answers = {}
     this.sup2 = 10
@@ -170,15 +169,15 @@ class resolutionEquationInequationGraphique extends Exercice {
     let f1Type: TypesDeFonction
     let f2Type: TypesDeFonction
     let fonction1: {
-            func: (x: number) => number,
-            expr: string,
-            poly: Polynome
-        }
+      func: (x: number) => number,
+      expr: string,
+      poly: Polynome
+    }
     let fonction2: {
-            func: (x: number) => number,
-            expr: string,
-            poly: Polynome
-        }
+      func: (x: number) => number,
+      expr: string,
+      poly: Polynome
+    }
     let texteCorr = ''
     const xbase = randint(-2, 2)
     const x0 = -4 + xbase
@@ -198,30 +197,30 @@ class resolutionEquationInequationGraphique extends Exercice {
       let y2: number
       let y3: number
       let vec1: {
-                u: number,
-                v: number
-            }
+        u: number,
+        v: number
+      }
       let vec2: {
-                u: number,
-                v: number
-            }
+        u: number,
+        v: number
+      }
       let vec3: {
-                u: number,
-                v: number
-            }
-            // Calcul des coordonnées d'un vecteur
+        u: number,
+        v: number
+      }
+      // Calcul des coordonnées d'un vecteur
       const vector = (x0: number, y0: number, x1: number, y1: number) => Object.assign({}, {
         u: x1 - x0,
         v: y1 - y0
       })
       // est-ce que deux vecteurs sont colinéaires ou à peu près colinéaires
       const areColineaires = (v1: {
-                u: number,
-                v: number
-            }, v2: {
-                u: number,
-                v: number
-            }) =>
+        u: number,
+        v: number
+      }, v2: {
+        u: number,
+        v: number
+      }) =>
         Boolean(Math.abs(v1.u * v2.v - v1.v * v2.u) < 0.1)
       if (this.sup2 < 7) { // il faut des points alignés et une pente pas trop importante
         do {
@@ -641,7 +640,7 @@ class resolutionEquationInequationGraphique extends Exercice {
       const nomCourbe2 = latex2d(`\\mathscr{C}_${f2}`, xMin + 0.5, yMax - 2, { color: 'red', letterSize: 'normalsize', backgroundColor: '' })
 
       courbe1.color = colorToLatexOrHTML('blue')
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
       // @ts-expect-error
       courbe1.epaisseur = 2
       if (f2Type === 'affine') {

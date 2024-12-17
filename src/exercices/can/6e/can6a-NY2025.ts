@@ -31,15 +31,15 @@ import Question30 from '../can6NY-2025/can6NY-2025-Q30'
 import MetaExercice from '../../MetaExerciceCan.js'
 import Exercice from '../../Exercice'
 
-export const titre = 'CAN 6e New Year 2025'
+export const titre = 'CAN Spéciale année 2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '301ff'
 export const refs = {
-  'fr-fr': [],
+  'fr-fr': ['can6a-NY2025'],
   'fr-ch': []
 }
-export const dateDePublication = '04/11/2024'
+export const dateDePublication = '08/12/2024'
 /**
  * Annales CAN 2025
  * @author

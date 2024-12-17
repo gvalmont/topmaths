@@ -7,6 +7,7 @@ import { listeQuestionsToContenu } from '../../../modules/outils'
 import { context } from '../../../modules/context'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Comparer des fractions de même dénominateur/numérateur'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -58,7 +59,7 @@ export default class ComparerFraction extends Exercice {
             texte = remplisLesBlancs(this, i, `${a.texFraction} \\quad %{champ1} \\quad ${b.texFraction}`, KeyboardType.clavierCompare)
             handleAnswers(this, i,
               {
-                champ1: { value: '<' }
+                champ1: { value: '<', compare: fonctionComparaison, options: { texteSansCasse: true } }
               }
             )
 
@@ -71,7 +72,7 @@ export default class ComparerFraction extends Exercice {
             texte = remplisLesBlancs(this, i, `${b.texFraction} \\quad %{champ1} \\quad ${a.texFraction}`, KeyboardType.clavierCompare)
             handleAnswers(this, i,
               {
-                champ1: { value: '>' }
+                champ1: { value: '>', compare: fonctionComparaison, options: { texteSansCasse: true } }
               }
             )
             this.correction = `Les deux fractions ont le même dénominateur, la plus grande est celle qui a le plus grand numérateur.<br>
@@ -91,7 +92,7 @@ export default class ComparerFraction extends Exercice {
             texte = remplisLesBlancs(this, i, `${a.texFraction} \\quad %{champ1} \\quad ${b.texFraction}`, KeyboardType.clavierCompare)
             handleAnswers(this, i,
               {
-                champ1: { value: '>' }
+                champ1: { value: '>', compare: fonctionComparaison, options: { texteSansCasse: true } }
               }
             )
             this.correction = `Les deux fractions ont le même dénominateur, la plus grande est celle qui a le plus grand numérateur.<br>
@@ -103,7 +104,7 @@ export default class ComparerFraction extends Exercice {
             texte = remplisLesBlancs(this, i, `${b.texFraction} \\quad %{champ1} \\quad ${a.texFraction}`, KeyboardType.clavierCompare)
             handleAnswers(this, i,
               {
-                champ1: { value: '<' }
+                champ1: { value: '<', compare: fonctionComparaison, options: { texteSansCasse: true } }
               }
             )
             this.correction = `Les deux fractions ont le même numérateur, la plus grande est celle qui a le plus petit dénominateur.<br>

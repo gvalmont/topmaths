@@ -167,6 +167,9 @@
   "canTExC": {
     "titre": "Nombres complexes"
   },
+  "canTSpea": {
+    "titre": "Sujets (annales/créations)"
+  },
   "canTSpeAN": {
     "titre": "Analyse"
   },

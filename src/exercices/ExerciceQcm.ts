@@ -26,7 +26,7 @@ export default class ExerciceQcm extends Exercice {
   reponses!: string[]
   bonnesReponses?: boolean[]
   corrections?: string[]
-  options: {vertical?: boolean, ordered: boolean, lastChoice?: number}
+  options: { vertical?: boolean, ordered: boolean, lastChoice?: number }
   versionAleatoire?: ()=>void
   versionOriginale:()=>void = () => {
     // Le texte récupéré avant le bloc des réponses (il ne faut pas oublier de doubler les \ du latex et de vérifier que les commandes latex sont supportées par Katex)
@@ -105,7 +105,7 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
           }
           const lettres = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].slice(0, this.reponses.length)
           const monQcm = propositionsQcm(this, i, { style: 'margin:0 3px 0 3px;', format: this.interactif ? 'case' : 'lettre' })
-          texte += `<br>${monQcm.texte}`
+          texte += `<br><br>${monQcm.texte}`
           let messageBonnesReponses: string
           if (this.corrections && autoCorr.propositions != null) {
             this.correction = ''
@@ -131,10 +131,10 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
                 style: 'fleches'
               })
             } else {
-              this.correction += '<br>'
+              this.correction += this.correction.endsWith('\\end{tikzpicture}') ? '\n\n' : '<br>'
             }
           } else {
-            this.correction += '<br>'
+            this.correction += this.correction?.endsWith('\\end{tikzpicture}') ? '\n\n' : '<br>'
           }
           if (this.bonnesReponses) {
             const lesBonnesLettres = autoCorr.propositions.map((el, i) => Object.assign({}, { prop: el, index: i })).filter(obj => obj.prop.statut).map(obj => lettres[obj.index])
@@ -182,7 +182,7 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
   }
 
   // Pour permettre d'exporter tous les qcm pour en faire des séries de questions pour QcmCam. Ne pas y toucher
-  qcmCamExport (): {question: string, reponse: string}[] {
+  qcmCamExport (): { question: string, reponse: string }[] {
     return qcmCamExport(this)
   }
 }

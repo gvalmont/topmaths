@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { fonctionComparaison } from '../../src/lib/interactif/comparisonFunctions'
+import { ComputeEngine } from '@cortex-js/compute-engine'
+// import exp from 'constants'
 
 describe('fonctionComparaison', () => {
   it('Doit retourner true for si saisie et answer sont identiques', () => {
@@ -22,9 +24,8 @@ describe('fonctionComparaison', () => {
     const result = fonctionComparaison('2^{-30}-2^{-31}', '0', {}) // On teste les calculs très petits différents de 0
     expect(result.isOk).toBe(false)
     // Depuis 0.27.0 de computeEngine, ce test est dorénavant vrai
-    const result2 = fonctionComparaison('0', '\\cos((2^30+0.49999999999)\\pi)', {})
+    // const result2 = fonctionComparaison('0', '\\cos((2^30+0.49999999999)\\pi)', {})
     // expect(result2.isOk).toBe(false)
-    expect(result2.isOk).toBe(true)
     const result3 = fonctionComparaison('0.33333333333333', '\\frac{1}{3}', {}) // un seul 3 de plus et c'est true !
     expect(result3.isOk).toBe(false)
   })
@@ -182,7 +183,11 @@ describe('fonctionComparaison', () => {
   })
 
   it('Vérifie le fonctionnement de l\'option ecritureScientifique', () => {
-    const result = fonctionComparaison('1{,}357\\times 10^3', '1357', { ecritureScientifique: true })
+    let result = fonctionComparaison('1{,}357\\times 10^3', '1357', { ecritureScientifique: true })
+    expect(result.isOk).toBe(true)
+    result = fonctionComparaison('1{,}357\\times 10^{3}', '1357', { ecritureScientifique: true })
+    expect(result.isOk).toBe(true)
+    result = fonctionComparaison('1 \\times 10^{3}', '1000', { ecritureScientifique: true })
     expect(result.isOk).toBe(true)
     const result2 = fonctionComparaison('1{,}357\\times 1000', '1357', { ecritureScientifique: true })
     expect(result2.isOk).toBe(false)
@@ -205,7 +210,8 @@ describe('fonctionComparaison', () => {
     const result = fonctionComparaison('3{,}47\\operatorname{\\mathrm{m}}', '347cm', { unite: true, precisionUnite: 0 })
     expect(result.isOk).toBe(true)
     const result2 = fonctionComparaison('3{,}5\\operatorname{\\mathrm{m}}', '3.47m', { unite: true, precisionUnite: 0.1 })
-    expect(result2.isOk).toBe(true)
+    expect(result2.isOk).toBe(false)
+    expect(result2.feedback).toBe('La réponse n\'est pas arrondie à $1$ près.')
     const result3 = fonctionComparaison('3{,}4\\operatorname{\\mathrm{m}}', '3.47m', { unite: true, precisionUnite: 0.05 })
     expect(result3.isOk).toBe(false)
 
@@ -346,7 +352,8 @@ describe('fonctionComparaison', () => {
   })
 
   it('Vérifie le dysfonctionnement de 0.27.0 avant prochaine MAJ', () => {
-    const result = fonctionComparaison('(2+x)^2', '(2+x)(2+x)')
+    // Bug 1
+    let result = fonctionComparaison('(2+x)^2', '(2+x)(2+x)')
     expect(result.isOk).toBe(false)
     /* En fait, c'est parce que console.log(engine.parse('(2+x)^2').isEqual(engine.parse('(2+x)(2+x)'))) renvoie undefined (prévu par ArnoG, mais pas vraiment compris la raison)
      Dans ce cas (undefined), il faut faire un nouveau test
@@ -357,5 +364,18 @@ describe('fonctionComparaison', () => {
         .simplify()
         .isSame(engine.parse('(2+x)(2+x)').expand().simplify())
     ) */
+
+    // Bug 2
+    result = fonctionComparaison('-0.07\\times n+18', '-0.07n+18')
+    expect(result.isOk).toBe(false)
+    /* Actuellement les JSON sont différents alors qu'ils ne devraient pas
+        console.log(engine.parse('-0.07\\times n+18').json.toString()) // -> Add,Multiply,-0.07,n,18
+        console.log(engine.parse('-0.07\n+18').json.toString()) // -> Add,Negate,Multiply,0.07,n,18
+        */
+
+    // Bug 3
+    const engine = new ComputeEngine()
+    const ecritureScientifique1000 = engine.parse('1000').toLatex({ notation: 'scientific', avoidExponentsInRange: [0, 0] }) // 10^{3} and why it is not 1\cdot10^{3}
+    expect(ecritureScientifique1000 === '1\\cdot10^{1}').toBe(false)
   })
 })

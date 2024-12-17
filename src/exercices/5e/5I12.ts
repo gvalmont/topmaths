@@ -123,7 +123,7 @@ export default class CalculsAvecPriorité extends Exercice {
         ]
       )
 
-      handleAnswers(this, i, reponses, { formatInteractif: 'mathlive' })
+      handleAnswers(this, i, reponses)
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCoor)
     }

@@ -171,5 +171,10 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('1e')
   // prefs.headless = true
   // testRunAllLots('3e/3G22')
+  // testRunAllLots('TEx')
+  // testRunAllLots('TSpe')
+  // testRunAllLots('Techno1')
+  // testRunAllLots('HP')
+
   testRunAllLots('5e/5R10-0.js')
 }

@@ -175,8 +175,7 @@ export default function Calculercoordonneessommevecteurs () {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
         champ1: { value: wxFraction.texFraction, compare: fonctionComparaison },
         champ2: { value: wyFraction.texFraction, compare: fonctionComparaison }
-      },
-      { formatInteractif: 'mathlive' })
+      })
       if (this.interactif) {
         texte += '<br>' + remplisLesBlancs(this, i,
           '\\overrightarrow{w}\\begin{pmatrix}%{champ1}\\\\\\\\%{champ2}\\end{pmatrix}',

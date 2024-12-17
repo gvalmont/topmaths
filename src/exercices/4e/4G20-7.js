@@ -15,6 +15,7 @@ import { init } from '../../lib/blockly/blocks'
 import * as En from 'blockly/msg/en'
 import blocklypyt from '../../lib/blockly/blocklypyt.json'
 import { stringNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
 
 export const titre = 'Calculer une longueur avec le théorème de Pythagore (blockly)'
 export const interactifReady = true
@@ -108,27 +109,29 @@ export default class Pythagore2DBlockly extends Exercice {
         }
         texteCorr = redaction[0]
 
-        texte += `<div> 
-<table id="tableBlockly${numeroExercice}_${i}" style= "height: 100%;width: 100%;border: 0px solid black;border-collapse: collapse;min-height: 500px">
-  <tr>
-    <td id="blocklyArea${numeroExercice}_${i}"></td>
-  </tr>
-</table></div>
+        if (context.isHtml) {
+          texte += `<div> 
+  <table id="tableBlockly${numeroExercice}_${i}" style= "height: 100%;width: 100%;border: 0px solid black;border-collapse: collapse;min-height: 500px">
+    <tr>
+      <td id="blocklyArea${numeroExercice}_${i}"></td>
+    </tr>
+  </table></div>
 
-<div id="blocklyDiv${numeroExercice}_${i}" style="position: absolute"></div>
-`
-        texteCorr = `<div>
-<table id="tableBlocklyCor${numeroExercice}_${i}" style= "height: 100%;width: 100%;border: 0px solid black;border-collapse: collapse;min-height: 500px">
-  <tr>
-    <td id="secondaryArea${numeroExercice}_${i}"></td>
-  </tr>
-  <tr>
-  </tr>
-</table>
-<div id="secondaryDiv${numeroExercice}_${i}" style="position: absolute"></div>
-`
-        texte += `<div class="ml-2 py-2" id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
-        texte += ajouteFeedback(this, i)
+  <div id="blocklyDiv${numeroExercice}_${i}" style="position: absolute"></div>
+  `
+          texteCorr = `<div>
+  <table id="tableBlocklyCor${numeroExercice}_${i}" style= "height: 100%;width: 100%;border: 0px solid black;border-collapse: collapse;min-height: 500px">
+    <tr>
+      <td id="secondaryArea${numeroExercice}_${i}"></td>
+    </tr>
+    <tr>
+    </tr>
+  </table>
+  <div id="secondaryDiv${numeroExercice}_${i}" style="position: absolute"></div>
+  `
+          texte += `<div class="ml-2 py-2" id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
+          texte += ajouteFeedback(this, i)
+        }
       }
       if (this.questionJamaisPosee(i, B1.x, B1.y, C1.x, C1.y)) {
         // Si la question n'a jamais été posée, on en créé une autre

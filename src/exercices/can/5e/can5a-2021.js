@@ -17,9 +17,10 @@ import { min, round } from 'mathjs'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils.js'
 import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'CAN 5e sujet 2021'
 export const interactifReady = true
@@ -721,10 +722,9 @@ export default function SujetCAN20215ieme () {
 
           texteCorr = ` $${a}$ h $${b}$ min + $1$ h $${c}$ min est égal à $${miseEnEvidence(a + 2)}$ h $${miseEnEvidence(b + c - 60)}$ min.`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'clavierHms ')
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
-
-          setReponse(this, index, new Hms({ hour: a + 2, minute: b + c - 60 }), { formatInteractif: 'hms' })
+          handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 2, minute: b + c - 60 }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
 
           nbChamps = 1
           break

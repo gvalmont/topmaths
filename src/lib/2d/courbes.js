@@ -681,7 +681,8 @@ export function CourbeInterpolee (
     epaisseur = 2,
     repere = { xMin: -1, yMin: 1 },
     xMin = repere.xMin,
-    xMax = repere.xMax
+    xMax = repere.xMax,
+    step = 0.2
   } = {}) {
   ObjetMathalea2D.call(this, {})
   const mesCourbes = []
@@ -694,7 +695,7 @@ export function CourbeInterpolee (
     let depart, fin
     xMin > x0 ? (depart = xMin) : (depart = x0)
     xMax < x1 ? (fin = xMax) : (fin = x1)
-    const c = courbe(f, { repere, xMin: depart, xMax: fin, color, epaisseur })
+    const c = courbe(f, { repere, xMin: depart, xMax: fin, color, epaisseur, step })
     mesCourbes.push(c)
   }
   const lesY = tableau.map(el => el[1])
@@ -725,6 +726,7 @@ export function CourbeInterpolee (
  * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
  * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
  * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
+ * @param {number|false} [parametres.step] Le step pour le tracé de la courbe
  * @example courbeInterpolee(tab, {repere: r})
  * // Trace, en noir avec une épaisseur de 2, la courbe de la fonction interpolée sur les intervalles définis dans tab, dans le repère r, tous deux précédemment définis.
  * @example courbeInterpolee(tab, {repere: r, epaisseur: 5, color: 'blue'})
@@ -738,9 +740,10 @@ export function courbeInterpolee (tableau, {
   epaisseur = 1,
   repere = {},
   xMin = -10,
-  xMax = 10
+  xMax = 10,
+  step = 0.2
 } = {}) {
-  return new CourbeInterpolee(tableau, { color, epaisseur, repere, xMin, xMax })
+  return new CourbeInterpolee(tableau, { color, epaisseur, repere, xMin, xMax, step })
 }
 
 export function GraphiqueInterpole (

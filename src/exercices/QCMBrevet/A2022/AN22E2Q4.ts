@@ -47,7 +47,7 @@ export default class AmeriqueNordJuin22Ex1Q4 extends ExerciceQcmA {
     const n = 4
     let rond: boolean = false
     do {
-      const decompo = shuffle(listeNombresPremiersStrictJusqua(17)).slice(0, 3).sort((a, b) => a - b)
+      const decompo = shuffle(listeNombresPremiersStrictJusqua(29)).slice(0, 3).sort((a, b) => a - b)
       rond = decompo.includes(2) && decompo.includes(5)
       this.appliquerLesValeurs(decompo)
     } while (rond || nombreElementsDifferents(this.reponses) < n)

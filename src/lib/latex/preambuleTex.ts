@@ -227,7 +227,7 @@ export function loadPackagesFromContent (contents: contentsType) {
   }
   testIfLoaded(['\\begin{axis}'], '\\usepackage{pgfplots}', contents)
   testIfLoaded(['decorate,decoration=', 'decorate, decoration='], '\\usetikzlibrary{decorations.pathmorphing}', contents)
-  testIfLoaded(['decoration=brace', 'decoration={brace}'], '\\usetikzlibrary {decorations.pathreplacing}', contents)
+  testIfLoaded(['decoration=brace', 'decoration={brace}', 'decoration={brace,'], '\\usetikzlibrary {decorations.pathreplacing}', contents)
   testIfLoaded(['\\tkzText'], '\\usepackage{tkz-fct}', contents)
   testIfLoaded(['\\begin{wrapfigure}'], '\\usepackage{wrapfig}', contents)
   testIfLoaded(['needspace'], '\\usepackage{needspace}', contents)

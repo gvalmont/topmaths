@@ -8,6 +8,7 @@ import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -26,7 +27,6 @@ export const dateDeModifImportante = '12/12/2021'
  *
  *  * Sup2 : avec ou sans calculs à trous
  * @author Rémi Angot (Ajout 3 décimales maxi et que des entiers par Eric Elter)
- * Référence 6C30-1
  * Relecture : Décembre 2021 par EE
  *
  */
@@ -280,9 +280,9 @@ export default function MultiplierDecimauxPar101001000 () {
           exposantNbChiffres: 0
         }
       } else {
-        handleAnswers(this, i, { reponse: { value: stringNombre(reponse, 5) } })
+        handleAnswers(this, i, { reponse: { value: stringNombre(reponse, 5), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

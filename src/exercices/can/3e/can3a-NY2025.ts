@@ -32,13 +32,13 @@ import Question30 from '../can6NY-2025/can3NY-2025-Q30'
 import MetaExercice from '../../MetaExerciceCan.js'
 import Exercice from '../../Exercice'
 
-export const titre = 'CAN 3e New Year 2025'
+export const titre = 'CAN Spéciale année 2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'f9221'
-export const dateDePublication = '04/11/2024'
+export const dateDePublication = '08/12/2024'
 export const refs = {
-  'fr-fr': [],
+  'fr-fr': ['can3a-NY2025'],
   'fr-ch': []
 }
 /**

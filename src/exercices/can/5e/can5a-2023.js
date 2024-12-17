@@ -25,7 +25,9 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'CAN 5e sujet 2023'
 export const interactifReady = true
@@ -52,13 +54,7 @@ function compareNombres (a, b) {
 
 export default function SujetCAN2023Cinquieme () {
   Exercice.call(this)
-  this.titre = titre
-  this.keyboard = ['hms']
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.nbQuestions = 30
-  this.nbCols = 1
-  this.nbColsCorr = 1
   this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
   Les 10 premières questions, parfois communes à plusieurs niveaux, font appel à des questions élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
@@ -1139,14 +1135,8 @@ export default function SujetCAN2023Cinquieme () {
             Quelle durée met-il pour parcourir ${context.isHtml ? `$${texNombre(1.5 * b, 0)}$ km` : `\\Lg[km]{${texNombre(1.5 * b, 0)}}`} ?`
             texteCorr = `En 1h 30 min, l'avion parcourt $${texNombre(0.5 * b, 0)}$ km.<br>
             Comme il met $3$ h pour parcourir $${texNombre(b)}$ km,  il mettra $${miseEnEvidence(4)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(1.5 * b, 0)}$ km. `
-            setReponse(this, index, new Hms({
-              hour: 4,
-              minute: 30
-            }), { formatInteractif: 'hms' })
-
-            if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'clavierHms ')
-            }
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: 4, minute: 30 }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
           if (m === 2) {
             b = choice([900, 1200, 1500, 1800, 2100, 2400])
@@ -1155,14 +1145,8 @@ export default function SujetCAN2023Cinquieme () {
             Quelle durée met-il pour parcourir ${context.isHtml ? `$${texNombre(b + b / 6, 0)}$ km` : `\\Lg[km]{${texNombre(b + b / 6, 0)}}`} ? `
             texteCorr = `En $1$ h , l'avion parcourt $${texNombre(b / 3, 0)}$ km, donc en $30$ min, il parcourt  $${texNombre(b / 6, 0)}$ km. <br>
             Ainsi, il met $${miseEnEvidence(3)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(b + b / 6, 0)}$ km`
-            setReponse(this, index, new Hms({
-              hour: 3,
-              minute: 30
-            }), { formatInteractif: 'hms' })
-
-            if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'clavierHms ')
-            }
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: 3, minute: 30 }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('$\\ldots\\text{ h }\\ldots\\text{ min}$')

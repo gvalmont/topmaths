@@ -2,7 +2,7 @@ import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -22,17 +22,24 @@ export const refs = {
   'fr-fr': ['5C12'],
   'fr-ch': ['9NO6-2']
 }
-export default function CalculerUneExpressionNumerique () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 3
-  this.sup2 = false // si false alors utilisation de nombres entiers (calcul mental), si true alors utilisation de nombres à un chiffre après la virgule.
-  this.sup3 = true
-  this.sup4 = false
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+export default class CalculerUneExpressionNumerique extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 4
+    this.nbCols = 1
+    this.nbColsCorr = 1
+    this.sup = 3
+    this.sup2 = false // si false alors utilisation de nombres entiers (calcul mental), si true alors utilisation de nombres à un chiffre après la virgule.
+    this.sup3 = true
+    this.sup4 = true
+    this.besoinFormulaireTexte = ['Choix des expressions', 'Nombres séparés par des tirets\n2 : Expressions à deux opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions complexes'] // Texte, tooltip - il faut au moins deux opérations
+    this.besoinFormulaire2CaseACocher = ['Utilisation de décimaux (pas de calcul mental)', false]
+    this.besoinFormulaire3CaseACocher = ['Avec le signe × devant les parenthèses', true]
+    this.besoinFormulaire4CaseACocher = ['Calculs nommés avec des lettres', false]
+  }
+
+  nouvelleVersion () {
+    this.listeAvecNumerotation = !this.sup4
     let reponse
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       min: 2,
@@ -68,7 +75,7 @@ export default function CalculerUneExpressionNumerique () {
       if (!this.sup4) {
         texte = `${expn}`
       } else {
-        texte = `${lettreDepuisChiffre(i + 1)} = ${expn}`
+        texte = addLetterInExpression(expn, i + 1)
       }
       texteCorr = ''
       if (!this.sup4) {
@@ -87,8 +94,8 @@ export default function CalculerUneExpressionNumerique () {
           if (context.isHtml) {
             texteCorr += '<br>'
           }
-          texteCorr += `${lettreDepuisChiffre(i + 1)} = `
-          texteCorr += nbEtapes === etapes.length ? `$${miseEnEvidence(etape)}$ <br>` : `$${etape}$ <br>`
+          texteCorr += `$${lettreDepuisChiffre(i + 1)} = `
+          texteCorr += nbEtapes === etapes.length ? `${miseEnEvidence(etape)}$ <br>` : `${etape}$ <br>`
         })
       }
       reponse = resultats[4]
@@ -139,8 +146,10 @@ export default function CalculerUneExpressionNumerique () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des expressions', 'Nombres séparés par des tirets\n2 : Expressions à deux opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions complexes'] // Texte, tooltip - il faut au moins deux opérations
-  this.besoinFormulaire2CaseACocher = ['Utilisation de décimaux (pas de calcul mental)', false]
-  this.besoinFormulaire3CaseACocher = ['Avec le signe × devant les parenthèses', true]
-  this.besoinFormulaire4CaseACocher = ['Présentation des corrections en colonnes', false]
+}
+
+function addLetterInExpression (expression, i) {
+  const letter = lettreDepuisChiffre(i) + ' = '
+  const index = expression.indexOf('$') + 1
+  return expression.slice(0, index) + letter + expression.slice(index)
 }

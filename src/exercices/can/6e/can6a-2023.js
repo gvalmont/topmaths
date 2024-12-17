@@ -21,7 +21,9 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Grandeur from '../../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'CAN 6e sujet 2023'
 export const interactifReady = true
@@ -39,8 +41,7 @@ export const refs = {
 
 /**
  * Aléatoirisation du sujet 2023 de CAN 6e
- * Gilles Mora
- * Référence can6a-2023
+ * @author Gilles Mora
  */
 
 function compareNombres (a, b) {
@@ -49,13 +50,7 @@ function compareNombres (a, b) {
 
 export default function SujetCAN2023Sixieme () {
   Exercice.call(this)
-  this.keyboard = ['hms']
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.nbQuestions = 30
-  this.nbCols = 1
-  this.nbColsCorr = 1
   this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
   Les 10 premières questions, parfois communes à plusieurs niveaux, font appel à des questions élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
@@ -346,11 +341,10 @@ export default function SujetCAN2023Sixieme () {
             On obtient  $${miseEnEvidence(1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           }
 
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'clavierHms  ')
-          }
+          texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
 
-          setReponse(this, index, new Hms({ hour: 1, minute: reponse }), { formatInteractif: 'hms' })
+          handleAnswers(this, index, { reponse: { value: new Hms({ hour: 1, minute: reponse }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('$\\ldots\\text{ h }\\ldots \\text{ min}$')
           nbChamps = 1

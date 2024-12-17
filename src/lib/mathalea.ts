@@ -1,34 +1,34 @@
 import loadjs from 'loadjs'
 
 // import JSON uuidsRessources
-import renderMathInElement from 'katex/dist/contrib/auto-render.js'
-import Exercice from '../exercices/deprecatedExercice.js'
+import renderMathInElement from 'katex/contrib/auto-render'
+import Exercice from '../exercices/deprecatedExercice'
 import type TypeExercice from '../exercices/Exercice'
 // import context from '../modules/context.js'
 import seedrandom from 'seedrandom'
-import { exercicesParams, freezeUrl, globalOptions, presModeId, previousView, updateGlobalOptionsInURL } from './stores/generalStore.js'
+import { exercicesParams, freezeUrl, globalOptions, presModeId, previousView, updateGlobalOptionsInURL } from './stores/generalStore'
 import { get } from 'svelte/store'
-import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive'
 import uuidToUrl from '../json/uuidsToUrlFR.json'
 import referentielStaticFR from '../json/referentielStaticFR.json'
 import referentielStaticCH from '../json/referentielStaticCH.json'
 import 'katex/dist/katex.min.css'
-import renderScratch from './renderScratch.js'
-import { decrypt, isCrypted } from './components/urls.js'
-import { convertVueType, type InterfaceGlobalOptions, type InterfaceParams, type VueType } from './types.js'
-import { sendToCapytaleMathaleaHasChanged } from './handleCapytale.js'
+import renderScratch from './renderScratch'
+import { decrypt, isCrypted } from './components/urls'
+import { convertVueType, type InterfaceGlobalOptions, type InterfaceParams, type VueType } from './types'
+import { sendToCapytaleMathaleaHasChanged } from './handleCapytale'
 import { handleAnswers, setReponse, type MathaleaSVG } from './interactif/gestionInteractif'
 import type { MathfieldElement } from 'mathlive'
-import { calculCompare } from './interactif/comparisonFunctions'
+import { fonctionComparaison } from './interactif/comparisonFunctions'
 import FractionEtendue from '../modules/FractionEtendue'
-import Decimal from 'decimal.js'
 import Grandeur from '../modules/Grandeur'
-import { canOptions } from './stores/canStore.js'
-import { getLang, localisedIDToUuid, referentielLocale, updateURLFromReferentielLocale } from './stores/languagesStore.js'
-import { delay } from './components/time.js'
-import { contraindreValeur } from '../modules/outils.js'
-import { isIntegerInRange0to2, isIntegerInRange0to4, isIntegerInRange1to4 } from './types/integerInRange.js'
-import { resizeContent } from './components/sizeTools.js'
+import { canOptions } from './stores/canStore'
+import { getLang, localisedIDToUuid, referentielLocale, updateURLFromReferentielLocale } from './stores/languagesStore'
+import { delay } from './components/time'
+import { contraindreValeur } from '../modules/outils'
+import { isIntegerInRange0to2, isIntegerInRange0to4, isIntegerInRange1to4 } from './types/integerInRange'
+import { resizeContent } from './components/sizeTools'
+import Decimal from 'decimal.js'
 
 const ERROR_MESSAGE = 'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
 
@@ -651,7 +651,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
   exercice.reinit()
   exercice.interactif = isInteractif
   for (let i = 0, cptSecours = 0; i < exercice.nbQuestions && cptSecours < 50;) {
-    const compare = exercice.compare == null ? calculCompare : exercice.compare
+    const compare = exercice.compare == null ? fonctionComparaison : exercice.compare
     const options = exercice.optionsDeComparaison == null ? {} : exercice.optionsDeComparaison
     seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
     if (exercice.nouvelleVersion && typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion(numeroExercice)

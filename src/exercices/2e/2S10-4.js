@@ -119,8 +119,7 @@ export default function TableauProportion () {
             L3C1: { value: totalGA, compare: fonctionComparaison },
             L3C2: { value: totalF, compare: fonctionComparaison },
             L3C3: { value: total, compare: fonctionComparaison }
-          },
-          { formatInteractif: 'mathlive' })
+          })
           increment = 1
           break
         case 2: // tableau à utiliser

@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texteEnCouleur } from '../../lib/outils/embellissements'
+import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
 import Hms from '../../modules/Hms'
@@ -7,7 +7,10 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { minToHoraire } from '../../lib/outils/dateEtHoraires'
 
 export const titre = 'Convertir en min vers h et min ou en s vers min et s'
 export const interactifReady = true
@@ -19,7 +22,6 @@ export const dateDeModifImportante = '14/05/2022'
 /**
  *
  * @author
- * Référence 6D13
  * Ajout d'une option "Mélange" par Guillaume Valmont le 14/05/2022
  */
 export const uuid = '4f8f4'
@@ -30,7 +32,6 @@ export const refs = {
 }
 export default function ConversionHeuresMinutesOuMinutesEtSecondes (can = false) {
   Exercice.call(this)
-  this.keyboard = ['hms']
   this.nbQuestions = 5
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
@@ -48,11 +49,11 @@ export default function ConversionHeuresMinutesOuMinutesEtSecondes (can = false)
       b = randint(10, 59)
       d = calculANePlusJamaisUtiliser(a * 60 + b)
       if (listeTypeQuestions[i] === 'min vers h et min') {
-        texte = `Convertir $${d}$ minutes en heures (h) et minutes (min).` + ajouteChampTexteMathLive(this, i, ' clavierHms')
+        texte = `Convertir $${d}$ minutes en heures (h) et minutes (min).` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierHms)
         this.canEnonce = `Convertir $${d}$ minutes en heures et minutes.`
         this.canReponseACompleter = '$\\ldots$ h $\\ldots$ min'
       } else {
-        texte = `Convertir $${d}$ secondes en minutes (min) et secondes (s).` + ajouteChampTexteMathLive(this, i, ' clavierHms')
+        texte = `Convertir $${d}$ secondes en minutes (min) et secondes (s).` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierHms)
         this.canEnonce = `Convertir $${d}$ secondes en minutes et secondes.`
         this.canReponseACompleter = '$\\ldots$ min $\\ldots$ s'
       }
@@ -78,9 +79,9 @@ Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.f
         }
       }
       if (listeTypeQuestions[i] === 'min vers h et min') {
-        texteCorr += `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = $${a}$${sp(1)}h${sp(1)}$${b}$${sp(1)}min.`
+        texteCorr += `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${texteEnCouleurEtGras(minToHoraire(a * 60 + b))}.`
       } else {
-        texteCorr += `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ s = $${a}$${sp(1)}min${sp(1)}$${b}$${sp(1)}s.`
+        texteCorr += `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ s = ${texteEnCouleurEtGras(`${a}${sp()}min${sp()}${b}${sp()}s`)}.`
       }
       if (this.questionJamaisPosee(i, a, b, d)) {
         this.listeQuestions.push(texte)
@@ -171,9 +172,9 @@ Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.f
           }
         } else {
           if (listeTypeQuestions[i] === 'min vers h et min') {
-            setReponse(this, i, new Hms({ hour: a, minute: b }), { formatInteractif: 'hms' })
+            handleAnswers(this, i, { reponse: { value: new Hms({ hour: a, minute: b }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
           } else {
-            setReponse(this, i, new Hms({ minute: a, second: b }), { formatInteractif: 'hms' })
+            handleAnswers(this, i, { reponse: { value: new Hms({ minute: a, second: b }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
           }
         }
 

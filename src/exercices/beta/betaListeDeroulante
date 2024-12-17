@@ -1,12 +1,12 @@
 import { Courbe } from '../../lib/2d/courbes.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import Exercice from '../Exercice'
-import { choice } from '../../lib/outils/arrayOutils'
-import RepereBuilder from '../../lib/2d/RepereBuilder.ts'
-import ListeDeroulante from '../../lib/interactif/listeDeroulante/ListeDeroulante'
+import Exercice from '../Exercice.js'
+import { choice } from '../../lib/outils/arrayOutils.js'
+import RepereBuilder from '../../lib/2d/RepereBuilder.js'
+import ListeDeroulante from '../../lib/interactif/listeDeroulante/ListeDeroulante.js'
 import '../../lib/interactif/listeDeroulante/listeDeroulante.scss'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Reconnaître une fonction d\'après sa courbe'
 export const interactifReady = true

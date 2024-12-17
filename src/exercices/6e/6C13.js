@@ -9,6 +9,7 @@ import choisirExpressionNumerique from '../5e/_choisirExpressionNumerique.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../../lib/interactif/qcm'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 export const titre = 'Traduire des phrases en calculs et réciproquement'
 export const dateDeModifImportante = '30/06/2024' // Ajout de l'interactivité par Jean-Claude Lhote
 export const interactifReady = true
@@ -18,7 +19,6 @@ export const interactifType = ['qcm', 'mathLive']
  * Mettre en relation un calcul, une traduction en français, une expression, un résultat, pour les décliner dans différents exercices.
  * Exercice sur le vocabulaire : somme,différence, produit, quotient...
  * @author Jean-Claude Lhote
- * Référence 6C13
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = 'ed0ea'
@@ -29,8 +29,6 @@ export const refs = {
 }
 export default function VocabulaireEtOperations () {
   Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -159,7 +157,7 @@ export default function VocabulaireEtOperations () {
           texte += `${expf}.`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i, '')
-            handleAnswers(this, i, { reponse: { value: resultat } }, { formatInteractif: 'mathlive' })
+            handleAnswers(this, i, { reponse: { value: resultat, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
           }
           expf = 'L' + expf.substring(1)
           texteCorr += numAlpha(i) + `${expf} s'écrit ${expn}.<br>`

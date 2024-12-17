@@ -103,7 +103,6 @@ class LireImageParApiGeom extends Exercice {
           this.X[i] = randint(-6, 6, this.X)
         }
         // je sais que i n'est pas modifié, mais la condition sur this.x[i] l'est et c'est ça qui compte !
-        // eslint-disable-next-line no-unmodified-loop-condition
       } while (this.X.slice(0, i).indexOf(this.X[i]) !== -1 || !(this.X[i] < -1 || this.X[i] > 1))
     }
     // on ordonne les X dans l'ordre croissant
@@ -189,7 +188,7 @@ class LireImageParApiGeom extends Exercice {
         reponses.push([`L1C${i + 1}`, { value: this.Y[i], compare: fonctionComparaison }])
       }
       reponses.push(['bareme', toutAUnPoint])
-      handleAnswers(this, 0, Object.fromEntries(reponses), { formatInteractif: 'mathlive' })
+      handleAnswers(this, 0, Object.fromEntries(reponses))
     } else {
       this.listeCorrections[0] = figureCorrection + '\\\\' +
         'Les images sont tolérées à $0{,}1$ près :' +

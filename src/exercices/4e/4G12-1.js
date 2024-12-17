@@ -5,21 +5,20 @@ import { grille } from '../../lib/2d/reperes.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { texteParPointEchelle } from '../../lib/2d/textes.ts'
 import { homothetie, rotation, symetrieAxiale, translation } from '../../lib/2d/transformations.js'
-import { choice, shuffle, shuffle2tableaux } from '../../lib/outils/arrayOutils'
+import { choice, shuffle, shuffle3tableaux } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texcolors } from '../../lib/format/style'
 import { lettreDepuisChiffre, numAlpha, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
-import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'
 import { colorToLatexOrHTML, mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { range } from '../../lib/outils/nombres'
 
 export const dateDePublication = '3/12/2021'
-export const dateDeModifImportante = '19/10/2023'
+export const dateDeModifImportante = '16/12/2024'
 export const titre = 'Trouver la transformation'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
@@ -30,12 +29,9 @@ export const refs = {
   'fr-fr': ['4G12-1'],
   'fr-ch': ['9ES6-17', '10ES2-6']
 }
-export default function TrouverLaTransformations () {
+export default function TrouverLaTransformation () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.spacing = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
   this.spacing = 1.5
   const A = point(0, 0)
   let typeDeTransfos
@@ -174,22 +170,9 @@ export default function TrouverLaTransformations () {
     this.autoCorrection = []
     this.listeQuestions = []
     this.listeCorrections = []
-    if (this.version === 1) {
-      this.sup = 1
-    } else if (this.version === 2) {
-      this.sup = 2
-    }
     this.sup = contraindreValeur(1, 3, this.sup, 3)
-
-    const listeSousQuestions = gestionnaireFormulaireTexte({
-      saisie: this.sup2,
-      min: 1,
-      max: 4,
-      defaut: 2,
-      shuffle: false,
-      nbQuestions: 1
-    })
-    const nbSousQuestions = listeSousQuestions[0]
+    this.sup2 = contraindreValeur(1, 4, isNaN(this.sup2) ? 3 : this.sup2, 3)
+    const nbSousQuestions = this.sup2
 
     if (this.sup === 1) typeDeTransfos = ['symax', 'rot180']
     else if (this.sup === 2) typeDeTransfos = ['symax', 'trans', 'rot180']
@@ -261,16 +244,8 @@ export default function TrouverLaTransformations () {
         }
       }
 
-      const listeQuestionsPossibles = shuffle(range(3))
-      for (let ee = 0; ee < this.sup2; ee++) {
-        objetsCorrection.push(transfos[listeQuestionsPossibles[ee]].animation)
-      }
-
       const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 }
       const paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 }
-
-      texte = mathalea2d(paramsEnonce, objetsEnonce)
-      texteCorr = mathalea2d(paramsCorrection, objetsCorrection)
 
       const textePossible = []
       const texteCorrPossible = []
@@ -314,28 +289,30 @@ export default function TrouverLaTransformations () {
           }
         }
         objetEnonce.push({
-          textePossible: this.interactif
-            ? `Quelle transformation permet de passer de la figure ${transfos[k].depart} à la figure ${transfos[k].arrivee} ? `
-            : `Quelle transformation permet de passer de la figure ${transfos[k].depart} à la figure ${transfos[k].arrivee} ?`,
+          textePossible: `Quelle transformation permet de passer de la figure ${transfos[k].depart} à la figure ${transfos[k].arrivee} ? `,
           texteCorrPossible: transfos[k].texteCorr,
           reponsePossible: transfos[k].texteInteractif
         })
-        textePossible.push(this.interactif
-          ? `Quelle transformation permet de passer de la figure ${transfos[k].depart} à la figure ${transfos[k].arrivee} ? `
-          : `Quelle transformation permet de passer de la figure ${transfos[k].depart} à la figure ${transfos[k].arrivee} ?`)
+        textePossible.push(`Quelle transformation permet de passer de la figure ${transfos[k].depart} à la figure ${transfos[k].arrivee} ? `)
         texteCorrPossible.push(transfos[k].texteCorr)
         reponsePossible.push(transfos[k].texteInteractif)
       }
-      shuffle2tableaux(objetEnonce, propositions)
+      shuffle3tableaux(objetEnonce, transfos, propositions)
+
+      texte = mathalea2d(paramsEnonce, objetsEnonce)
+      let texteCorrComplement = ''
       for (let ee = 0; ee < nbSousQuestions; ee++) {
         texte += ee > 0 ? '<br>' : ''
         texte += nbSousQuestions > 1 ? numAlpha(ee) : ''
         texte += objetEnonce[ee].textePossible + choixDeroulant(this, i * nbSousQuestions + ee, propositions[ee], 'une réponse')
-        texteCorr += ee > 0 ? '<br>' : ''
-        texteCorr += nbSousQuestions > 1 ? numAlpha(ee) : ''
-        texteCorr += objetEnonce[ee].texteCorrPossible
+        texteCorrComplement += ee > 0 ? '<br>' : ''
+        texteCorrComplement += nbSousQuestions > 1 ? numAlpha(ee) : ''
+        texteCorrComplement += objetEnonce[ee].texteCorrPossible
+        objetsCorrection.push(transfos[ee].animation)
         handleAnswers(this, i * nbSousQuestions + ee, { reponse: { value: objetEnonce[ee].reponsePossible } }, { formatInteractif: 'listeDeroulante' })
       }
+
+      texteCorr = mathalea2d(paramsCorrection, objetsCorrection) + texteCorrComplement
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

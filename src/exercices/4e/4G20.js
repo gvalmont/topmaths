@@ -14,8 +14,8 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Grandeur from '../../modules/Grandeur'
 import { RedactionPythagore } from './_pythagore.js'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
-import engine from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import engine, { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { ordreAlphabetique } from '../../lib/outils/ecritures'
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -227,12 +227,7 @@ export default class Pythagore2D extends Exercice {
         }
         texteCorr = redaction[0]
         texte += this.interactif ? (`$${nomCote} ${redaction[1]}$` + ajouteChampTexteMathLive(this, i, '  unites[longueurs]', { texteApres: '<em class="ml-2">(Une unité de longueur est attendue.)</em>' })) : ''
-        if (this.interactif) {
-          setReponse(this, i, new Grandeur(reponse, 'cm'), {
-            formatInteractif: 'unites',
-            precision: 1
-          })
-        }
+        handleAnswers(this, i, { reponse: { value: new Grandeur(reponse.toFixed(1), 'cm'), compare: fonctionComparaison, options: { precisionUnite: 0.1, unite: true } } })
 
         if (context.isAmc) {
           this.autoCorrection[i] = {
@@ -296,7 +291,7 @@ export default class Pythagore2D extends Exercice {
           texte += this.interactif ? '' : `$${sp(2)}\\ldots$`
         }
 
-        handleAnswers(this, i, { reponse: { value: expr, compare: pythagoreCompare } }, { formatInteractif: 'calcul' })
+        handleAnswers(this, i, { reponse: { value: expr, compare: pythagoreCompare } })
         texte += ajouteChampTexteMathLive(this, i, ' clavierDeBase alphanumeric')
       }
       if (this.questionJamaisPosee(i, B1.x, B.y, C1.x, C1.y)) {

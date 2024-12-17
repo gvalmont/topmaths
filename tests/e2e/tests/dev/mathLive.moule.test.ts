@@ -3,6 +3,10 @@ import type { Page } from 'playwright'
 
 async function test (page: Page) {
   const urlExercice = '' // Mettre ici l'url de l'exercice (éventuellement avec la graine mais push sans la graine)
+  if (urlExercice === '') {
+    console.error('Il faut renseigner l\'url de l\'exercice')
+    return true
+  }
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {

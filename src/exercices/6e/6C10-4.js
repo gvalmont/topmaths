@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
@@ -8,6 +7,7 @@ import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { choice } from '../../lib/outils/arrayOutils'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Effectuer addition de deux entiers'
 export const amcReady = true
@@ -58,7 +58,7 @@ export default function ExerciceTablesAdditions (max = 20) {
         : `$ ${texNombre(a, 0)} + ${texNombre(b, 0)} = ${miseEnEvidence(texNombre(a + b, 0))} $`
 
       if (this.interactif) {
-        handleAnswers(this, i, { champ1: { value: listeTypeDeQuestions[i] === 'somme' ? a + b : b } })
+        handleAnswers(this, i, { champ1: { value: listeTypeDeQuestions[i] === 'somme' ? a + b : b, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
       }
 
       if (context.isAmc) {

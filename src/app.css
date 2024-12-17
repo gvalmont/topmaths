@@ -792,15 +792,3 @@ min-height: 60px;
   transform: rotate(-15deg); /* Angle de la ligne */
 }
 
-.SchemaContainer {
-  display: grid;
-  grid-template-rows: repeat(2, auto); /* Deux lignes ajustées automatiquement */
-  grid-auto-columns: minmax(0, 1fr); /* Largeur des colonnes flexibles */
-  grid-auto-flow: column; /* Remplissage en colonnes */
-  width: 50%; /* Assure que la largeur totale est utilisée */
-}
-
-.SchemaItem {
-  border: 1px solid rgba(0, 0, 0, 0.458); /* Pour visualiser les blocs */
-  text-align: center;
-}

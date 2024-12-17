@@ -4,10 +4,11 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { evaluate, Fraction } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import * as pkg from '@cortex-js/compute-engine'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+// import * as pkg from '@cortex-js/compute-engine'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
-const { ComputeEngine } = pkg
+// const { ComputeEngine } = pkg
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Tester la classe FractionEtendue'
@@ -27,9 +28,9 @@ export default function TestFractions () {
   this.besoinFormulaireTexte = ['numérateur ', '']
   this.besoinFormulaire2Texte = ['dénominateur ', '']
   this.nouvelleVersion = function () {
-    const engine = new ComputeEngine({ numericMode: 'decimal', numericPrecision: 30 })
-    const rac3 = engine.parse('\\frac{\\sqrt{3}}{2}')
-    const sinPiSur3 = engine.parse('\\sin(\\frac{\\pi}{3})')
+    // const engine = new ComputeEngine({ numericMode: 'decimal', numericPrecision: 30 })
+    // const rac3 = engine.parse('\\frac{\\sqrt{3}}{2}')
+    // const sinPiSur3 = engine.parse('\\sin(\\frac{\\pi}{3})')
 
     this.listeCorrections = []
     this.listeQuestions = []
@@ -37,7 +38,7 @@ export default function TestFractions () {
     const b = Number(evaluate(this.sup2)) // randint(101, 999) * randint(101, 999) * randint(101, 999) * randint(101, 999) / 10 ** 12
     const f1 = new FractionEtendue(a, b)
     const f2 = new Fraction(a, b)
-    setReponse(this, 0, f1.valeurDecimale, { formatInteractif: 'nombreDecimal', decimals: 2 })
+    handleAnswers(this, 0, { reponse: { value: f1.valeurDecimale, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
     let texte = `Saisir une fraction ou ce que vous voulez (la réponse attendue est $${f1.texFSD}$ et le mode Interactif est : ${this.autoCorrection[0].reponse.param.formatInteractif} avec ${this.autoCorrection[0].reponse.param.decimals} chiffres après la virgule): ` + ajouteChampTexteMathLive(this, 0, '')
     texte += `<br>$${f1.texFractionSR}${f1.texSimplificationAvecEtapes()}$<br><br>`
     texte += `$${f1.texFractionSR}${simplificationDeFractionAvecEtapes(f1.num, f1.den)}$`

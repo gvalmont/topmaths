@@ -1,10 +1,10 @@
 import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
-import { stringNombre } from '../../lib/outils/texNombre'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi } from '../../lib/outils/nombres'
@@ -106,7 +106,8 @@ export default function LireAbscisseDecimale () {
         thickSec: true,
         thickSecDist: 1 / pas2,
         labelListe: [[thick1, `${stringNombre(abs0 + thick1 / pas1, 1 + Math.log10(pas1))}`], [thick2, `${stringNombre(abs0 + thick2 / pas1, 1 + Math.log10(pas1))}`]],
-        pointListe: [[xA, l1], [xB, l2], [xC, l3]]
+        pointListe: [[xA, l1], [xB, l2], [xC, l3]],
+        labelCustomDistance: 1
       })
       d[2 * i + 1] = droiteGraduee({
         Unite: 4,
@@ -120,19 +121,19 @@ export default function LireAbscisseDecimale () {
         thickSecDist: 1 / pas2,
         labelListe: [
           // [0, `${stringNombre(abs0)}`],
-          [xA, stringNombre(xA / pas1 + abs0, 1 + Math.log10(pas1))],
-          [xB, stringNombre(xB / pas1 + abs0, 1 + Math.log10(pas1))],
-          [xC, stringNombre(xC / pas1 + abs0, 1 + Math.log10(pas1))]
+          [xA, `\\boldsymbol{${texNombre(xA / pas1 + abs0, 1 + Math.log10(pas1))}}`],
+          [xB, `\\boldsymbol{${texNombre(xB / pas1 + abs0, 1 + Math.log10(pas1))}}`],
+          [xC, `\\boldsymbol{${texNombre(xC / pas1 + abs0, 1 + Math.log10(pas1))}}`]
         ],
         labelColor: '#f15929',
-        labelDistance: 1.4,
+        labelDistance: 1.5,
         labelScale: 1.2,
-        pointListe: [[xA, l1], [xB, l2], [xC, l3]]
-
+        pointListe: [[xA, l1], [xB, l2], [xC, l3]],
+        labelCustomDistance: 1
       })
 
-      texte = mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i])
-      texteCorr = mathalea2d({ xmin: -2, ymin: -2, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i], d[2 * i + 1])
+      texte = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(d[2 * i])), d[2 * i])
+      texteCorr = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([d[2 * i + 1]])), d[2 * i + 1])
 
       if (this.interactif && context.isHtml) {
         setReponse(this, 3 * i, arrondi(xA / pas1 + abs0, 1 + Math.log10(pas1)))

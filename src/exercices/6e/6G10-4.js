@@ -10,7 +10,7 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -24,12 +24,13 @@ export const amcType = 'AMCHybride'
 export const titre = 'Connaître le vocabulaire du cercle'
 
 export const dateDePublication = '19/08/2022'
-export const dateDeModifImportante = '16/11/2024' // Ajout Mireille du centre de cercle, milieu de diamètre
+export const dateDeModifImportante = '16/12/2024'
 
 /**
  * Exercice testant les connaissances des élèves sur le vocabulaire du cercle dans les deux sens (Un rayon est ... et [AB] est ...)
  * et en travaillant la reconnaissance et la production (QCM ou réponse libre)
  * @author Guillaume Valmont
+ * Ajout Mireille du centre de cercle, milieu de diamètre et nombre de sous-questions le 16/11/2024
  * Référence 6G10-4
  */
 export const uuid = '03b49'
@@ -73,21 +74,35 @@ export default function VocabulaireDuCercle () {
   this.besoinFormulaire2CaseACocher = ['QCM']
   this.sup2 = true
   this.correctionDetailleeDisponible = true
-  this.sup3 = 6 // changement Mireille
-  this.besoinFormulaire3Numerique = ['Nombre de sous-questions', 7]
+  const typesDeQuestionsParDefaut = '1-2-3-4-5-6-7'
+  this.sup3 = typesDeQuestionsParDefaut
+  this.besoinFormulaire3Texte = [
+    'Type de questions', [
+      'Nombres séparés par des tirets',
+      '1 : Le rayon',
+      '2 : Un rayon',
+      '3 : Le diamètre',
+      '4 : Un diamètre',
+      '5 : Une corde',
+      '6 : Le centre',
+      '7 : Le centre, qui est aussi le milieu'
+    ].join('\n')
+  ]
 
   this.spacing = 1 // Interligne des questions
   this.spacingCorr = 1.5 // Interligne des réponses
 
+  this.avecLeCentreQuiEstAussiLeMilieu = false
+
   this.nouvelleVersion = function () {
+    const typesDeQuestions = String(this.sup3 ?? typesDeQuestionsParDefaut)
     this.consigne = this.sup2 ? 'Cocher la (ou les) bonne(s) réponse(s).' : 'Compléter.'
     if (context.isHtml) this.consigne += '<br><br>'
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
     this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
-    const nbSousQuestionMax = 6 // Il y a 6 types de sous-questions pour l'instant... si ça venait à changer, mettre à jour ce paramètre
-    // changement Mireille
+    const nbSousQuestionMax = 7 // Il y a 6 types de sous-questions pour l'instant... si ça venait à changer, mettre à jour ce paramètre
     let sensDesQuestionsDisponibles
     switch (this.sup) {
       case 1:
@@ -100,7 +115,6 @@ export default function VocabulaireDuCercle () {
         sensDesQuestionsDisponibles = ['Un rayon est ...', '[AB] est ...']
         break
     }
-    const nbSousQuestions = contraindreValeur(1, 6, this.sup3, nbSousQuestionMax) // changement Mireille
     const sensDesQuestions = combinaisonListes(sensDesQuestionsDisponibles, this.nbQuestions * nbSousQuestionMax)
     const distanceMinEntrePoints = 2
     const distanceMinCorde = 3
@@ -140,50 +154,89 @@ export default function VocabulaireDuCercle () {
       // On ajoute au texte de la correction, la figure de la correction
       texteCorr += texte
 
-      let questions = [
-        {
-          nom: `[$${O.nom + A.nom}$]`,
-          nature: 'un rayon',
-          commentaire: `${texteEnCouleurEtGras('Un', 'blue')} rayon est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
-          commentaireAlt: `${texteEnCouleurEtGras('Le', 'blue')} rayon est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
-          sens: sensDesQuestions[i * nbSousQuestions]
-        },
-        {
-          nom: `[$${B.nom + C.nom}$]`,
-          nature: 'un diamètre',
-          commentaire: `${texteEnCouleurEtGras('Un', 'blue')} diamètre est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.<br>Un diamètre est une corde qui passe par le centre du cercle.`,
-          commentaireAlt: `${texteEnCouleurEtGras('Le', 'blue')} diamètre est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
-          sens: sensDesQuestions[i * nbSousQuestions + 1]
-        },
-        {
-          nom: `$${O.nom + A.nom}$`,
-          nature: 'le rayon',
-          commentaire: `${texteEnCouleurEtGras('Le', 'blue')} rayon est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
-          commentaireAlt: `${texteEnCouleurEtGras('Un', 'blue')} rayon est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
-          sens: sensDesQuestions[i * nbSousQuestions + 2]
-        },
-        {
-          nom: `$${B.nom + C.nom}$`,
-          nature: 'le diamètre',
-          commentaire: `${texteEnCouleurEtGras('Le', 'blue')} diamètre est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
-          commentaireAlt: `${texteEnCouleurEtGras('Un', 'blue')} diamètre est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
-          sens: sensDesQuestions[i * nbSousQuestions + 3]
-        },
-        {
-          nom: `[$${D.nom + E.nom}$]`,
-          nature: 'une corde',
-          commentaire: '',
-          commentaireAlt: '',
-          sens: sensDesQuestions[i * nbSousQuestions + 4]
-        },
-        { // Ajout Mireille
-          nom: `$${O.nom}$`,
-          nature: `le centre du cercle, qui est aussi le milieu de [${B.nom + C.nom}]`,
-          commentaire: `On parle du ${texteEnCouleurEtGras('centre d\'un cercle', 'blue')} ; pour un ${texteEnCouleurEtGras('segment', 'blue')}, on parle de son ${texteEnCouleurEtGras('milieu', 'blue')}.`,
-          commentaireAlt: '',
-          sens: sensDesQuestions[i * nbSousQuestions + 5]
-        }
-      ]
+      let questions = []
+
+      if (typesDeQuestions.includes('1')) {
+        questions.push(
+          {
+            nom: `$${O.nom + A.nom}$`,
+            nature: 'le rayon',
+            commentaire: `${texteEnCouleurEtGras('Le', 'blue')} rayon est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
+            commentaireAlt: `${texteEnCouleurEtGras('Un', 'blue')} rayon est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
+            sens: sensDesQuestions[i * nbSousQuestionMax + 2]
+          })
+      }
+      if (typesDeQuestions.includes('2')) {
+        questions.push(
+          {
+            nom: `[$${O.nom + A.nom}$]`,
+            nature: 'un rayon',
+            commentaire: `${texteEnCouleurEtGras('Un', 'blue')} rayon est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
+            commentaireAlt: `${texteEnCouleurEtGras('Le', 'blue')} rayon est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
+            sens: sensDesQuestions[i * nbSousQuestionMax]
+          })
+      }
+      if (typesDeQuestions.includes('3')) {
+        questions.push(
+          {
+            nom: `[$${B.nom + C.nom}$]`,
+            nature: 'un diamètre',
+            commentaire: `${texteEnCouleurEtGras('Un', 'blue')} diamètre est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.<br>Un diamètre est une corde qui passe par le centre du cercle.`,
+            commentaireAlt: `${texteEnCouleurEtGras('Le', 'blue')} diamètre est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
+            sens: sensDesQuestions[i * nbSousQuestionMax + 1]
+          })
+      }
+      if (typesDeQuestions.includes('4')) {
+        questions.push(
+          {
+            nom: `$${B.nom + C.nom}$`,
+            nature: 'le diamètre',
+            commentaire: `${texteEnCouleurEtGras('Le', 'blue')} diamètre est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
+            commentaireAlt: `${texteEnCouleurEtGras('Un', 'blue')} diamètre est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
+            sens: sensDesQuestions[i * nbSousQuestionMax + 3]
+          })
+      }
+      if (typesDeQuestions.includes('5')) {
+        questions.push(
+          {
+            nom: `[$${D.nom + E.nom}$]`,
+            nature: 'une corde',
+            commentaire: '',
+            commentaireAlt: '',
+            sens: sensDesQuestions[i * nbSousQuestionMax + 4]
+          })
+      }
+      if (typesDeQuestions.includes('6')) {
+        questions.push(
+          {
+            nom: `$${O.nom}$`,
+            nature: 'le centre',
+            commentaire: '',
+            commentaireAlt: '',
+            sens: sensDesQuestions[i * nbSousQuestionMax + 5]
+          })
+      }
+      if (typesDeQuestions.includes('7')) {
+        questions.push(
+          { // Ajout Mireille
+            nom: `$${O.nom}$`,
+            nature: `le centre du cercle, qui est aussi le milieu de [${B.nom + C.nom}]`,
+            commentaire: `On parle du ${texteEnCouleurEtGras('centre d\'un cercle', 'blue')} ; pour un ${texteEnCouleurEtGras('segment', 'blue')}, on parle de son ${texteEnCouleurEtGras('milieu', 'blue')}.`,
+            commentaireAlt: '',
+            sens: sensDesQuestions[i * nbSousQuestionMax + 5]
+          })
+      }
+
+      if (this.avecLeCentreQuiEstAussiLeMilieu) {
+        questions.push(
+          { // Ajout Mireille
+            nom: `$${O.nom}$`,
+            nature: `le centre du cercle, qui est aussi le milieu de [${B.nom + C.nom}]`,
+            commentaire: `On parle du ${texteEnCouleurEtGras('centre d\'un cercle', 'blue')} ; pour un ${texteEnCouleurEtGras('segment', 'blue')}, on parle de son ${texteEnCouleurEtGras('milieu', 'blue')}.`,
+            commentaireAlt: '',
+            sens: sensDesQuestions[i * nbSousQuestionMax + 5]
+          })
+      }
       const propositionsUnRayonEst = []
       for (const question of questions) {
         const texteProposition = question.nom
@@ -212,22 +265,22 @@ export default function VocabulaireDuCercle () {
           break
         }
       }
-      questions = shuffle(questions).slice(0, nbSousQuestions)
+      questions = shuffle(questions).slice(0, nbSousQuestionMax)
       for (const question of questions) {
         let enonce
         const propositionsEE = []
         texte += numAlpha(j)
         texteCorr += numAlpha(j)
         if (question.sens === 'Un rayon est ...') {
-          enonce = `${premiereLettreEnMajuscule(question.nature)} est ...`
-          texte += enonce
-          texteCorr += `${premiereLettreEnMajuscule(question.nature)} est ${texteEnCouleurEtGras(question.nom)}.<br>`
+          enonce = `${premiereLettreEnMajuscule(question.nature)} du cercle est ...`
+          texte += `${enonce}`
+          texteCorr += `${premiereLettreEnMajuscule(question.nature)} du cercle est ${texteEnCouleurEtGras(question.nom)}.<br>`
           if (question.nature === 'une corde') texteCorr += `${texteEnCouleurEtGras(nomDiametre)} étant un diamètre, c'est aussi une corde.<br>`
         }
         if (question.sens === '[AB] est ...') {
           enonce = `${question.nom} est ...`
-          texte += enonce
-          texteCorr += `${premiereLettreEnMajuscule(question.nom)} est ${texteEnCouleurEtGras(question.nature)}${question.nom === nomDiametre ? ' et aussi ' + texteEnCouleurEtGras('une corde') : ''}.<br>`
+          texte += `${enonce} du cercle.`
+          texteCorr += `${premiereLettreEnMajuscule(question.nom)} est ${texteEnCouleurEtGras(question.nature)}${question.nom === nomDiametre ? ' et aussi ' + texteEnCouleurEtGras('une corde') : ''} du cercle.<br>`
         }
         if (this.correctionDetaillee && question.commentaire !== '') texteCorr += question.commentaire + '<br>'
         if (this.sup2 || context.isAmc) {

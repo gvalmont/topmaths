@@ -6,7 +6,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { labelPoint, latex2d } from '../../../lib/2d/textes'
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { point } from '../../../lib/2d/points'
@@ -44,7 +44,7 @@ export default class calculerPythagore extends Exercice {
     const objets = []
     if (choix === true) {
       objets.push(segment(A, B), segment(A, C), segment(B, C), labelPoint(A, B, C), codageAngleDroit(A, B, C),
-        texteParPosition('$\\sqrt{2025}$', 2.6, 2.1), texteParPosition(`$${a}$`, 6.8, 1))
+        latex2d('\\sqrt{2025}', 2.6, 2.1, {}), latex2d(`${a}`, 6.8, 1, {}))
       this.question = `Calculer $${nom[0]}${nom[1]}$.`
       this.correction = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[1]}$.<br>
               On obtient :<br>
@@ -61,7 +61,7 @@ export default class calculerPythagore extends Exercice {
       this.canReponseACompleter = `$${nom[0]}${nom[1]}=\\ldots$`
     } else {
       objets.push(segment(A, B), segment(A, C), segment(B, C), labelPoint(A, B, C), codageAngleDroit(A, B, C),
-        texteParPosition('$\\sqrt{2025}$', 2.6, -1), texteParPosition(`$${a}$`, 6.8, 1))
+        latex2d('\\sqrt{2025}', 2.6, -1, {}), latex2d(`${a}`, 6.8, 1, {}))
       this.question = `Calculer $${nom[0]}${nom[2]}$.`
       this.correction = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[1]}$.<br>
                     On obtient :<br>

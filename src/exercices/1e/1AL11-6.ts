@@ -160,7 +160,7 @@ export default class SuitesExplicites extends Exercice {
           break
       }
 
-      if (this.interactif) { texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `$${NomS}_n=$` }) }
+      if (this.interactif) { texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${NomS}_n=$` }) }
       if (this.questionJamaisPosee(i, a, q, r, b)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

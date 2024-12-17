@@ -5,6 +5,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import Operation from '../../modules/operations'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
+import SchemaEnBoite from '../../lib/outils/SchemaEnBoite'
 
 export const uuid = '9d5ef'
 export const refs = {
@@ -81,15 +82,15 @@ export default class ExerciceProbleme002 extends Exercice {
     const prenomsMelanges = shuffle(prenoms)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const listeFruit1 = [
-        { nomSingulier: 'une fraise', nomPluriel: 'fraises', pluriel: 'de fraises', masseUnitaire: 50 },
-        { nomSingulier: 'un abricot', nomPluriel: 'abricots', pluriel: 'd\'abricots', masseUnitaire: 100 },
-        { nomSingulier: 'un kiwi', nomPluriel: 'kiwis', pluriel: 'de kiwis', masseUnitaire: 150 },
-        { nomSingulier: 'un citron', nomPluriel: 'citrons', pluriel: 'de citrons', masseUnitaire: 100 },
-        { nomSingulier: 'une orange', nomPluriel: 'oranges', pluriel: 'd\'oranges', masseUnitaire: 200 },
-        { nomSingulier: 'une banane', nomPluriel: 'bananes', pluriel: 'de bananes', masseUnitaire: 150 },
-        { nomSingulier: 'une pomme', nomPluriel: 'pommes', pluriel: 'de pommes', masseUnitaire: 200 },
-        { nomSingulier: 'une poire', nomPluriel: 'poires', pluriel: 'de poires', masseUnitaire: 200 },
-        { nomSingulier: 'une cerise', nomPluriel: 'cerises', pluriel: 'de cerises', masseUnitaire: 5 }
+        { nomSingulier: 'une fraise', nomPluriel: 'fraises', pluriel: 'de fraises', masseUnitaire: 50, color: 'pink' },
+        { nomSingulier: 'un abricot', nomPluriel: 'abricots', pluriel: 'd\'abricots', masseUnitaire: 100, color: 'orange' },
+        { nomSingulier: 'un kiwi', nomPluriel: 'kiwis', pluriel: 'de kiwis', masseUnitaire: 150, color: 'olive' },
+        { nomSingulier: 'un citron', nomPluriel: 'citrons', pluriel: 'de citrons', masseUnitaire: 100, color: 'yellow' },
+        { nomSingulier: 'une orange', nomPluriel: 'oranges', pluriel: 'd\'oranges', masseUnitaire: 200, color: 'orange' },
+        { nomSingulier: 'une banane', nomPluriel: 'bananes', pluriel: 'de bananes', masseUnitaire: 150, color: 'gold' },
+        { nomSingulier: 'une pomme', nomPluriel: 'pommes', pluriel: 'de pommes', masseUnitaire: 200, color: 'red' },
+        { nomSingulier: 'une poire', nomPluriel: 'poires', pluriel: 'de poires', masseUnitaire: 200, color: 'olive' },
+        { nomSingulier: 'une cerise', nomPluriel: 'cerises', pluriel: 'de cerises', masseUnitaire: 5, color: 'purple' }
       ]
       const fruit1 = choice(listeFruit1)
       const fruit2 = choice(listeFruit1.filter(fruit => fruit.nomSingulier !== fruit1.nomSingulier))
@@ -193,23 +194,82 @@ Le contenu de son panier pèse $${texNombre(masseTotale, 3, true)}$ kg.`
           `Quelle est la masse des ${fruit3.nomPluriel} ?` + ajouteQuestionMathlive({ exercice: this, question: 4 * i + 3, objetReponse: { reponse: { value: texNombre(masseFruit3, 0) } }, typeInteractivite: 'mathlive', texteApres: 'g' })
         ]
         listeCorrections = [
-          `${this.correctionDetaillee ? 'Pour exprimer la masse totale du panier en grammes, on multiplie la masse totale par 1000.<br>' : ''}
-          $${texNombre(masseTotale, 0)}\\times 1000$ kg = $${texNombre(masseTotale * 1000, 0)}$ g.<br>
+          `${this.correctionDetaillee ? 'Pour exprimer la masse totale du panier en grammes, on multiplie la masse totale en kg par 1000.<br>' : ''}
+          $${texNombre(masseTotale, 3, true)}\\times 1000 = ${texNombre(masseTotale * 1000, 0)}$ g<br>
           ${this.sup3 ? Operation({ operande1: masseTotale, operande2: 1000, type: 'multiplication', precision: 0 }) : ''}
              ${this.sup3 ? '<br><br>' : ''}
     La masse totale de fruits dans le panier est de $${texNombre(masseTotale * 1000, 0)}$ g.`,
-          `${this.correctionDetaillee ? `Pour exprimer la masse des ${fruit2.nomPluriel} en grammes, on multiplie la masse par 1000.<br>` : ''}
-          $${texNombre(masseFruit2 / 1000, 3, true)}\\text{ kg }\\times 1000=${texNombre(masseFruit2, 0)}\\text{ g}$.<br>
+          `${this.correctionDetaillee ? `Pour exprimer la masse des ${fruit2.nomPluriel} en grammes, on multiplie la masse en kg par 1000.<br>` : ''}
+          $${texNombre(masseFruit2 / 1000, 3, true)}\\times 1000=${texNombre(masseFruit2, 0)}\\text{ g}$<br>
           ${this.sup3 ? Operation({ operande1: masseFruit2 / 1000, operande2: 1000, type: 'multiplication', precision: 0 }) : ''}
              ${this.sup3 ? '<br><br>' : ''}
     La masse des ${fruit2.nomPluriel} est de $${texNombre(masseFruit2, 0)}$ g.`,
          `${this.correctionDetaillee ? `Pour exprimer la masse totale ${fruit1.pluriel} et ${fruit2.pluriel} achetés, on additionne les masses.<br>` : ''}
-          $${texNombre(masseFruit1, 0)}$ g + $${texNombre(masseFruit2, 0)}$ g = $${texNombre(masseFruit1 + masseFruit2, 0)}$ g.<br>
+         ${this.correctionDetaillee
+? `${new SchemaEnBoite({
+          topBraces: [{
+            start: 1,
+            end: 5,
+            text: `${fruit1.nomPluriel}`
+          },
+          {
+            start: 5,
+            end: 9,
+            text: `${fruit2.nomPluriel}`
+          }],
+          topBar: [{
+            length: 4,
+            color: fruit1.color,
+            content: `$${masseFruit1}$`
+          },
+          {
+            length: 4,
+            color: fruit2.color,
+            content: `$${masseFruit2}$`
+          }],
+          bottomBar: [{
+            length: 8,
+            color: 'grey',
+            content: '?'
+          }]
+         }).display()}<br><br>`
+: ''}
+         $${texNombre(masseFruit1, 0)}$ g + $${texNombre(masseFruit2, 0)}$ g = $${texNombre(masseFruit1 + masseFruit2, 0)}$ g<br>
           ${this.sup3 ? Operation({ operande1: masseFruit1, operande2: masseFruit2, type: 'addition', precision: 0 }) : ''}
              ${this.sup3 ? '<br><br>' : ''}
     La masse totale ${fruit1.pluriel} et ${fruit2.pluriel} achetés est de $${texNombre(masseFruit1 + masseFruit2, 0)}$ g.`,
           `${this.correctionDetaillee ? `Pour exprimer la masse des ${fruit3.nomPluriel} en grammes, on calcule la différence entre la masse du panier et la masse totale ${fruit1.pluriel} et ${fruit2.pluriel} calculée à la question précédente.<br>` : ''}
-          $${texNombre(masseTotale * 1000, 0)}-${texNombre(masseFruit1 + masseFruit2, 0)}= ${texNombre(masseFruit3, 0)}$ g.<br>
+         ${this.correctionDetaillee
+? `${new SchemaEnBoite({
+          topBraces: [{
+            start: 1,
+            end: 11,
+            text: `${fruit1.nomPluriel} et ${fruit2.nomPluriel}`
+          },
+          {
+            start: 11,
+            end: 15,
+            text: `${fruit3.nomPluriel}`
+          }],
+          topBar: [{
+            length: 10,
+            color: 'cyan',
+            content: `$${masseFruit1 + masseFruit2}$`
+          },
+          {
+            length: 4,
+            color: 'white',
+            content: '?'
+          }],
+          bottomBar: [{
+            length: 14,
+            color: 'grey',
+            content: `$${masseTotale * 1000}$`
+          }]
+         }).display()}<br><br>`
+: ''}
+
+          $${texNombre(masseTotale * 1000, 0)}-${texNombre(masseFruit1 + masseFruit2, 0)}= ${texNombre(masseFruit3, 0)}$ g<br>
           ${this.sup3 ? Operation({ operande1: masseTotale * 1000, operande2: masseFruit1 + masseFruit2, type: 'soustraction', precision: 0 }) : ''}
              ${this.sup3 ? '<br><br>' : ''}
     ${prenom} a acheté $${texNombre(masseFruit3, 0)}$ g ${fruit3.pluriel}.`
@@ -222,17 +282,17 @@ Le contenu de son panier pèse $${texNombre(masseTotale, 3, true)}$ kg.`
         ]
         listeCorrections = [
           `${this.correctionDetaillee ? 'Pour exprimer la masse totale du panier en grammes, on multiplie la masse totale par 1000.<br>' : ''}
-          $${texNombre(masseTotale, 0)}\\times 1000$ kg = $${texNombre(masseTotale * 1000, 0)}$ g.<br>
+          $${texNombre(masseTotale, 0)}\\times 1000$ kg = $${texNombre(masseTotale * 1000, 0)}$ g<br>
           ${this.sup3 ? Operation({ operande1: masseTotale, operande2: 1000, type: 'multiplication', precision: 0 }) : ''}
          ${this.sup3 ? '<br><br>' : ''}
      La masse totale de fruits dans le panier est de $${texNombre(masseTotale * 1000, 0)}$ g.`,
           `${this.correctionDetaillee ? `Pour exprimer la masse des ${fruit2.nomPluriel} en grammes, on multiplie la masse par 1000.<br>` : ''}
-          $${texNombre(masseFruit2 / 1000, 3, true)}\\text{ kg }\\times 1000=${texNombre(masseFruit2, 0)}\\text{ g}$.<br>
+          $${texNombre(masseFruit2 / 1000, 3, true)}\\text{ kg }\\times 1000=${texNombre(masseFruit2, 0)}\\text{ g}$<br>
         ${this.sup3 ? Operation({ operande1: masseFruit2 / 1000, operande2: 1000, type: 'multiplication', precision: 0 }) : ''}
              ${this.sup3 ? '<br><br>' : ''}
      La masse des ${fruit2.nomPluriel} est de $${texNombre(masseFruit2, 0)}$ g.`,
           `${this.correctionDetaillee ? `Pour exprimer la masse des ${fruit3.nomPluriel} en grammes, on calcule la différence entre la masse du panier et la somme des masses de ${fruit1.nomPluriel} et de ${fruit2.nomPluriel}.<br>` : ''}
-          $${texNombre(masseTotale * 1000, 0)}-(${texNombre(masseFruit1, 0)} + ${texNombre(masseFruit2, 0)})=${texNombre(masseTotale * 1000, 0)}-${texNombre(masseFruit1 + masseFruit2, 0)}= ${texNombre(masseFruit3, 0)}$ g.<br>
+          $${texNombre(masseTotale * 1000, 0)}-(${texNombre(masseFruit1, 0)} + ${texNombre(masseFruit2, 0)})=${texNombre(masseTotale * 1000, 0)}-${texNombre(masseFruit1 + masseFruit2, 0)}= ${texNombre(masseFruit3, 0)}$ g<br>
             ${this.sup3 ? Operation({ operande1: masseFruit1, operande2: masseFruit2, type: 'addition', precision: 0, style: 'display: inline-block' }) : ''}
           ${this.sup3 ? Operation({ operande1: masseTotale * 1000, operande2: masseFruit1 + masseFruit2, type: 'soustraction', precision: 0, style: 'display: inline-block' }) : ''}
            ${this.sup3 ? '<br><br>' : ''}

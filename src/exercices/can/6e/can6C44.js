@@ -7,6 +7,7 @@ import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Comparer deux fractions*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -60,7 +61,7 @@ export default class ComparerFraction extends Exercice {
         texte = remplisLesBlancs(this, i, `${a.texFraction}\\quad %{champ1} \\quad ${b.texFraction}`, KeyboardType.clavierCompare)
         handleAnswers(this, i,
           {
-            champ1: { value: '<' }
+            champ1: { value: '<', compare: fonctionComparaison, options: { texteSansCasse: true } }
           }
         )
         this.correction = `$${a.texFraction} <1$ et $${b.texFraction}>1$.<br>
@@ -74,7 +75,7 @@ export default class ComparerFraction extends Exercice {
         texte = remplisLesBlancs(this, i, `${b.texFraction}\\quad %{champ1} \\quad ${a.texFraction}`, KeyboardType.clavierCompare)
         handleAnswers(this, i,
           {
-            champ1: { value: '>' }
+            champ1: { value: '>', compare: fonctionComparaison, options: { texteSansCasse: true } }
           }
         )
         this.correction = `$${b.texFraction} >1$ et $${a.texFraction}<1$.<br>

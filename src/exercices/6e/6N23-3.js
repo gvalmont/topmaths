@@ -2,13 +2,12 @@ import { point } from '../../lib/2d/points.js'
 import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -102,8 +101,9 @@ export default function LireUneAbscisseAvecZoom () {
           xmax = origine + 9.2
         }
 
-        const alea1 = new Decimal(randint(2, 8)).div(10)
-        x1 = new Decimal(xmin).add(alea1).add(0.2).add(randint(1, 5))
+        const alea1 = new Decimal(randint(2, 8)).div(10) // EE : Ne pas mettre entre 1 et 9 pour éviter la superpostion des lettres
+        // x1 = new Decimal(xmin).add(alea1).add(0.2).add(randint(1, 5)) // EE : Ce 0.2 met parfois deux points confondus.
+        x1 = new Decimal(xmin).add(alea1).add(randint(1, 5))
 
         if (xmin === 0) extremite = '|->'
         else extremite = '->'
@@ -190,7 +190,7 @@ export default function LireUneAbscisseAvecZoom () {
           thickCouleur: 'black',
           axeCouleur: 'black',
           axeHauteur: 4,
-          labelsPrincipaux: false,
+          labelsPrincipaux: true,
           labelsSecondaires: true,
           // labelListe: [[x1.floor(), `${stringNombre(x1.floor())}`], [x1, `${stringNombre(x1)}`], [Math.ceil(x1), `${stringNombre(Math.ceil(x1))}`]],
           pointListe: [[x1.toNumber(), `${noms[1]}`], [x1.floor(), `${noms[0]}`], [x1.add(1).floor(), `${noms[2]}`]],
@@ -213,7 +213,7 @@ export default function LireUneAbscisseAvecZoom () {
         objets.push(d1, d2, sA, sB)
         objetsCorr.push(d1Corr, d2Corr, sA, sB)
         fenetre = { xmin: -1.5, xmax: 35, ymin: -1, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
-        texteCorr = `L'abscisse de $${noms[1]} $est : $${texNombre(x1)}=${texNombre(x1.floor())} + ${texFractionFromString(calculANePlusJamaisUtiliser(10 * (x1 - x1.floor())), 10)}=${texFractionFromString(calculANePlusJamaisUtiliser(x1 * 10), 10)}$.<br>`
+        // texteCorr = `L'abscisse de $${noms[1]} $est : $${texNombre(x1)}=${texNombre(x1.floor())} + ${texFractionFromString(calculANePlusJamaisUtiliser(10 * (x1 - x1.floor())), 10)}=${texFractionFromString(calculANePlusJamaisUtiliser(x1 * 10), 10)}$.<br>`
 
         const partent = x1.floor()
         const pardec = new Decimal(x1).sub(partent)
@@ -266,6 +266,7 @@ export default function LireUneAbscisseAvecZoom () {
           pointEpaisseur: 2,
           axeStyle: extremite
         })
+
         d2 = droiteGraduee({
           x: x2.sub(xmin).add(6).toNumber(),
           y: 0,
@@ -283,7 +284,7 @@ export default function LireUneAbscisseAvecZoom () {
           thickSecDist: 0.01,
           thickTerDist: 0.001,
           labelsPrincipaux: false,
-          pointListe: [[x1.toNumber, `${noms[1]}`], [x2, `${noms[0]}`], [x2.add(0.1), `${noms[2]}`]],
+          pointListe: [[x1.toNumber(), `${noms[1]}`], [x2, `${noms[0]}`], [x2.add(0.1), `${noms[2]}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',

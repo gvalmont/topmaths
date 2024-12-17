@@ -7,7 +7,6 @@ import Grandeur from '../../modules/Grandeur'
 import Decimal from 'decimal.js'
 import {
   fonctionComparaison,
-  calculCompare,
   // fractionCompare,
   // equalFractionCompare,
   // simplerFractionCompare,
@@ -24,7 +23,7 @@ import {
   type CompareFunction,
   type OptionsComparaisonType
 } from './comparisonFunctions'
-import Hms from '../../modules/Hms'
+// import Hms from '../../modules/Hms'
 import { context } from '../../modules/context.js'
 import type Exercice from '../../exercices/Exercice'
 import { verifDragAndDrop } from './DragAndDrop'
@@ -562,15 +561,15 @@ export function setReponse (
             .replace(',', '.')
         }
         break
-      case 'nombreDecimal':
+        /* case 'nombreDecimal':
         if (!(reponse instanceof Decimal)) {
           window.notify(
             'setReponse : type "nombreDecimal" un nombre est attendu !',
             { reponses, exercice: exercice.uuid }
           )
         }
-        break
-      case 'ecritureScientifique':
+        break */
+        /* case 'ecritureScientifique':
         if (!(typeof reponse === 'string')) {
           window.notify(
             'setReponse : type "ecritureScientifique" la réponse n\'est pas un string !',
@@ -578,7 +577,7 @@ export function setReponse (
           )
         }
         // ToFix : vérifier que la chaine est au bon format
-        break
+        break */
 
       case 'texte':
         if (!(typeof reponse === 'string')) {
@@ -753,7 +752,7 @@ export function setReponse (
           return handleAnswers(
             exercice,
             i,
-            { reponse: { value: laReponseDemandee, compare: calculCompare } },
+            { reponse: { value: laReponseDemandee, compare: fonctionComparaison } },
             params
           )
         }
@@ -781,11 +780,12 @@ export function setReponse (
         return handleAnswers(
           exercice,
           i,
-          { reponse: { value, compare: calculCompare } },
+          { reponse: { value, compare: fonctionComparaison } },
           params
         )
       }
-      case 'hms':
+      // Avec handleAnswers(), ce case n'a plus lieu d'être !
+      /* case 'hms':
         if (!(reponse instanceof Hms)) {
           window.notify(
             'setReponse : type "hms" la réponse n\'est pas une instance de Hms !',
@@ -803,8 +803,9 @@ export function setReponse (
             }
           },
           params
-        )
-      case 'nombreDecimal':
+        ) */
+      // Avec handleAnswers(), ce case n'a plus lieu d'être !
+      /* case 'nombreDecimal':
         if (reponse instanceof Decimal) {
           return handleAnswers(
             exercice,
@@ -839,8 +840,9 @@ export function setReponse (
             }
           },
           params
-        )
-      case 'ecritureScientifique':
+        ) */
+      // Avec handleAnswers(), ce case n'a plus lieu d'être !
+      /* case 'ecritureScientifique':
         {
           if (typeof reponse !== 'string') {
             window.notify(
@@ -876,7 +878,7 @@ export function setReponse (
             { reponses, exercice: exercice.uuid }
           )
         }
-        break
+        break */
       case 'texte':
         if (typeof reponse !== 'string') {
           window.notify(

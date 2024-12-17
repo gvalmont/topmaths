@@ -5,7 +5,7 @@ import { runTest } from '../../helpers/run'
 import type { Page } from 'playwright'
 
 async function test (page: Page) {
-  const uuid = Object.entries(process.env).filter(([key]) => key === 'uuid').map(el => el[1])[0]
+  const uuid = Object.entries(process.env).filter(([key]) => key === 'uuid').map(el => el[1])[0] ?? 'ace0a'
   const urlExercice = `http://localhost:5173/alea/?uuid=${uuid}`
   await page.goto(urlExercice)
   await page.screenshot({ path: `screenshots/${uuid}/prof.png` })
@@ -33,8 +33,8 @@ async function test (page: Page) {
   await page.screenshot({ path: 'screenshots/last/interactifZoom.png' })
   const urlDiaporama = urlExercice + '&v=diaporama'
   await page.goto(urlDiaporama)
-  await page.click('text=Défilement manuel')
-  await page.click('text=Play')
+ // await page.click('text=Défilement manuel')
+  await page.click('text=Démarrer')
   await page.screenshot({ path: `screenshots/${uuid}/diaporama1.png` })
   await page.screenshot({ path: 'screenshots/last/diaporama1.png' })
   await page.locator('.bx-show').click()
@@ -60,7 +60,7 @@ async function test (page: Page) {
   await page.click('text=Démarrer')
   await page.waitForTimeout(6000)
   await page.screenshot({ path: `screenshots/${uuid}/can.png` })
-  await page.screenshot({ path: 'screenshots/last/can.png'})
+  await page.screenshot({ path: 'screenshots/last/can.png' })
 
   return true
 }

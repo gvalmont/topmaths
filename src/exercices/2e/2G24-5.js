@@ -235,8 +235,7 @@ export default function Calculercoordonneesegalitevecteurs () {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
         champ1: { value: xB.texFraction, compare: fonctionComparaison },
         champ2: { value: yB.texFraction, compare: fonctionComparaison }
-      },
-      { formatInteractif: 'mathlive' })
+      })
       if (this.interactif) {
         texte += '<br>' + remplisLesBlancs(this, i,
           'B(%{champ1}\\,;\\,%{champ2})',

@@ -191,9 +191,28 @@ async function readInfos (
                 }
                 const matchQcm = data.match(/(= propositionsQcm\()|(extends ExerciceQcm)/)
                 if (matchQcm) {
-                  infos.features.qcm = {
-                    isActive: true,
-                    type: ''
+                  if (matchQcm[0] === 'extends ExerciceQcm') {
+                    infos.features.qcm = {
+                      isActive: true,
+                      type: ''
+                    }
+                  } else {
+                    const objectRegex = /this\.autoCorrection\[\w+\]\s*=\s*\{[^}]*propositions\s*:\s*\[([^\]]*)\][^}]*\}/g
+                    const objectMatch = objectRegex.exec(data)
+
+                    if (objectMatch) {
+                      const propositionsContent = objectMatch[1]
+                      // Regex pour compter les éléments de propositions à l'intérieur de l'objet capturé
+                      const propositionRegex = /\{\s*texte:\s*.*?,\s*statut:\s*.*?\s*\}/g
+                      const matchPropositions = propositionsContent.match(propositionRegex)
+                      const count = matchPropositions ? matchPropositions.length : 0
+                      if (count < 5 && count > 1) {
+                        infos.features.qcm = {
+                          isActive: true,
+                          type: ''
+                        }
+                      }
+                    }
                   }
                 }
                 infos.typeExercice = 'alea'

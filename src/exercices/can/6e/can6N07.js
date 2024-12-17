@@ -40,7 +40,7 @@ export default function LireAbscisseDecimaleDeFraction () {
         this.question = `Determiner l'abscisse du point $A$.<br>
         On donnera le résultat sous  forme décimale.<br>`
 
-        this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1, pixelsParCm: 35, scale: 0.6, style: 'margin: auto' }, latex2d('A', 3 * a / 4, 0.6, { color: 'blue', letterSize: '' }), droiteGraduee({
+        this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1, pixelsParCm: 35, scale: 0.6, style: 'margin: auto' }, latex2d('A', 3 * a / 4, 0.5, { color: 'blue' }), droiteGraduee({
           Unite: 3,
           Min: 0,
           Max: 3.2,
@@ -68,7 +68,7 @@ export default function LireAbscisseDecimaleDeFraction () {
     
     `
 
-        this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1, pixelsParCm: 35, scale: 0.6, style: 'margin: auto' }, latex2d('A', 3 * a / 5, 0.6, { color: 'blue', letterSize: '' }), droiteGraduee({
+        this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1, pixelsParCm: 35, scale: 0.6, style: 'margin: auto' }, latex2d('A', 3 * a / 5, 0.5, { color: 'blue' }), droiteGraduee({
           Unite: 3,
           Min: 0,
           Max: 3.2,

@@ -14,7 +14,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM Brevet Amérique du sud 12/24 : probabilités'
+export const titre = 'QCM Brevet Amérique du Sud 2024 : probabilités'
 export const dateDePublication = '05/12/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
@@ -31,8 +31,8 @@ export default class AmeriqueSud1224Ex1Q1 extends ExerciceQcmA {
     ]
     const frac = fraction(nb2, nb1 + nb2)
     this.enonce = `Une urne contient ${nombreEnLettres(nb1)} jeton${nb1 > 1 ? 's' : ''} ${couleur1}${nb1 > 1 ? 's' : ''} et ${nombreEnLettres(nb2)} jeton${nb2 > 1 ? 's' : ''} ${couleur2}${nb2 > 1 ? 's' : ''}. On tire un jeton au hasard.<br>
-    Quelle est la probalité d'obtenir un jeton ${couleur2} ?`
-    this.correction = `Il y a en tout ${nombreEnLettres(nb1 + nb2)} jetons. Il y a${nombreEnLettres(nb2)} jeton${nb2 > 1 ? 's' : ''} ${couleur2}${nb2 > 1 ? 's' : ''}. La probabilité d'obtenir un jeton ${couleur2} est donc de $\\dfrac{${nb2}}{${nb1 + nb2}}$`
+    Quelle est la probabilité d'obtenir un jeton ${couleur2} ?`
+    this.correction = `Il y a en tout ${nombreEnLettres(nb1 + nb2)} jetons. Il y a ${nombreEnLettres(nb2)} jeton${nb2 > 1 ? 's' : ''} ${couleur2}${nb2 > 1 ? 's' : ''}. La probabilité d'obtenir un jeton ${couleur2} est donc de $\\dfrac{${nb2}}{${nb1 + nb2}}$`
     this.correction += frac.estIrreductible ? '.' : `, ou $${frac.texFractionSimplifiee}$ en simplifiant.`
   }
 

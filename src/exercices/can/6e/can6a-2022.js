@@ -18,7 +18,9 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Grandeur from '../../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'CAN 6e sujet 2022'
 export const interactifReady = true
@@ -318,10 +320,10 @@ export default function SujetCAN2022Sixieme () {
 
           texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - b}$ min, et il faut ajouter $1$ heure et $${d}$ min pour arriver à $${c}$ h $${d}$, soit au total $${miseEnEvidence(1)}$ h $${miseEnEvidence(60 - b + d)}$ min.`
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'clavierHms ')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
 
-          setReponse(this, index, new Hms({ hour: 1, minute: 60 - b + d }), { formatInteractif: 'hms' })
+          handleAnswers(this, index, { reponse: { value: new Hms({ hour: 1, minute: 60 - b + d }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
 
           nbChamps = 1
           break
@@ -367,10 +369,10 @@ export default function SujetCAN2022Sixieme () {
             texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne
             $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'clavierHms ')
+              texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
             }
 
-            setReponse(this, index, new Hms({ hour: a + 1, minute: reponse }), { formatInteractif: 'hms' })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 1, minute: reponse }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
           } else {
             a = randint(6, 10)
             b = choice([20, 25, 30, 35])
@@ -380,10 +382,10 @@ export default function SujetCAN2022Sixieme () {
             texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne
 $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'clavierHms ')
+              texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
             }
 
-            setReponse(this, index, new Hms({ hour: a + 1, minute: reponse }), { formatInteractif: 'hms' })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 1, minute: reponse }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
           }
 
           nbChamps = 1

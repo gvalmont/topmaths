@@ -3,6 +3,7 @@ import { Yohaku } from '../../../lib/outils/Yohaku'
 import Exercice from '../../deprecatedExercice.js'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Trouver une valeur dans un Yohaku (additif)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -44,7 +45,7 @@ export default function YohakuCan6a () {
     this.listeCorrections[0] = `La valeur de la case vide est : $${miseEnEvidence(this.reponse)}$.<br>`
     // On remet la valeur de la case avant de représenter le tableau pour la correction
     yohaku1.cellules[laCase] = this.reponse
-    const reponse = [`L${1 + Math.floor(laCase / 2)}C${1 + laCase % 2}`, { value: this.reponse }]
+    const reponse = [`L${1 + Math.floor(laCase / 2)}C${1 + laCase % 2}`, { value: this.reponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }]
     handleAnswers(this, 0, Object.fromEntries([reponse]))
     this.listeCorrections[0] += yohaku1.representation({ numeroExercice: this.numeroExercice, question: 0, isInteractif: this.interactif, classes: 'college6e' })
     this.canEnonce = this.listeQuestions[0]

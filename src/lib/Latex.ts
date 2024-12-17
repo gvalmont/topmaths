@@ -30,7 +30,7 @@ export type LatexFileInfos = {
   subtitle: string
   style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can'
   nbVersions: number
-  fontOption: 'StandardFont'| 'DysFont'
+  fontOption: 'StandardFont' | 'DysFont'
   tailleFontOption: number,
   dysTailleFontOption: number,
   correctionOption: 'AvecCorrection' | 'SansCorrection'
@@ -136,7 +136,7 @@ class Latex {
           }
           if (Number(exercice.nbQuestions) > 1) {
             if (Number(exercice.spacingCorr) > 0) {
-              contentCorr += `\n\\begin{enumerate}[itemsep=${exercice.spacingCorr}em]`
+              contentCorr += `\n\\begin{enumerate}[itemsep=${exercice.spacingCorr}em, label=\\arabic*)]`
             } else {
               contentCorr += '\n\\begin{enumerate}'
             }
@@ -442,9 +442,11 @@ function writeQuestions (questions: string[], spacing = 1, numbersNeeded: boolea
     }
     if (!numbersNeeded) {
       specs.push('label={}')
+    } else {
+      specs.push('label=\\arabic*)')
     }
     if (specs.length !== 0) {
-      content += '[' + specs.join(',') + ']'
+      content += '[' + specs.join(', ') + ']'
     }
     for (const question of questions) {
       if (nbCols > 1) {

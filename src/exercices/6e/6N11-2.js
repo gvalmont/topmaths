@@ -5,11 +5,10 @@ import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, egal } from '../../modules/outils.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 
 export const dateDeModifImportante = '16/09/2024'
@@ -120,10 +119,11 @@ export default function PlacerUnPointAbscisseEntiere2d () {
         labelsPrincipaux: false,
         // labelListe: [[0, `${texNombre(abs0, 0)}`], [1, `${texNombre(calculANePlusJamaisUtiliser(abs0 + pas1))}`]],
         labelListe: [
-          [x1, miseEnEvidence(texNombre(x11, 0))],
-          [x2, miseEnEvidence(texNombre(x22, 0))],
-          [x3, miseEnEvidence(texNombre(x33, 0))]
+          [x1, `\\boldsymbol{${texNombre(x11, 0)}}`],
+          [x2, `\\boldsymbol{${texNombre(x22, 0)}}`],
+          [x3, `\\boldsymbol{${texNombre(x33, 0)}}`]
         ],
+        labelColor: '#F15929',
         thickSec: true,
         step1: 10,
         labelCustomDistance: 1.5
@@ -156,25 +156,25 @@ export default function PlacerUnPointAbscisseEntiere2d () {
 
       A = point(abscisse[0][0] * tailleUnite, 0, l1)
       traceA = tracePoint(A, orangeMathalea)
-      traceA.epaisseur = 3
-      traceA.taille = 5
+      traceA.epaisseur = 2
+      traceA.taille = 3
       labels = labelPoint(A)
       if (!this.interactif) {
         A.nom = lettreIndiceeDepuisChiffre(i * 3 + 1)
         B = point(abscisse[1][0] * tailleUnite, 0, l2)
         traceB = tracePoint(B, orangeMathalea)
-        traceB.epaisseur = 3
-        traceB.taille = 5
+        traceB.epaisseur = 2
+        traceB.taille = 3
         C = point(abscisse[2][0] * tailleUnite, 0, l3)
         traceC = tracePoint(C, orangeMathalea)
-        traceC.epaisseur = 3
-        traceC.taille = 5
+        traceC.epaisseur = 2
+        traceC.taille = 3
         labels = labelPoint(A, B, C)
       }
       if (this.interactif) {
-        texteCorr = mathalea2d({ xmin: -2, xmax: 30, ymin: -1, ymax: 1, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1], traceA, labels)
+        texteCorr = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([d[2 * i + 1], traceA, labels])), d[2 * i + 1], traceA, labels)
       } else {
-        texteCorr = mathalea2d({ xmin: -2, xmax: 30, ymin: -2, ymax: 1, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1], traceA, traceB, traceC, labels, label1, label2)
+        texteCorr = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([d[2 * i + 1], traceA, traceB, traceC, labels, label1, label2])), d[2 * i + 1], traceA, traceB, traceC, labels, label1, label2)
       }
       if (context.isAmc) {
         this.autoCorrection[i] =

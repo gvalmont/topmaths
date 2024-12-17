@@ -1,5 +1,3 @@
-/* eslint-disable no-multiple-empty-lines */
-/* eslint-disable comma-dangle */
 /* Thèmes
    Combinatoire
    Convexité
@@ -271,7 +269,6 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     tags: ['Logarithme', 'TVI']
   },
-
 
   bac_2021_06_asie_1: {
     annee: '2021',
@@ -673,8 +670,6 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     tags: ['Suites']
   },
-
-
 
   bac_2022_05_sujet1_ameriquenord_1: {
     annee: '2022',
@@ -1512,8 +1507,6 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     tags: ['QCM', 'Suites', 'Exponentielle', 'Logarithme']
   },
-
-
 
   bac_2024_01_sujet0_1: {
     annee: '2024',

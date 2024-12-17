@@ -350,33 +350,75 @@ export class Polynome {
     let res = ''
     let maj = ''
     for (const [i, c] of this.monomes.entries()) {
-      switch (i) {
-        case this.deg: {
-          const coeffD = alg ? ecritureAlgebriqueSauf1(c) : this.deg === 0 ? c : rienSi1(c)
-          if (this.deg === 0) return texNombre(c, 2)
-          switch (this.deg) {
-            case 1:
-              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x`
-              break
-            case 0:
-              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}`
-              break
-            default:
-              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x^{${i}}`
+      if (c instanceof FractionEtendue) {
+        if (c.valeurDecimale === 0) continue
+        switch (i) {
+          case this.deg: {
+            const coeffD = alg
+              ? `${c.valeurDecimale < 0 ? c.valeurAbsolue().valeurDecimale === 1 ? '-' : c.texFSD : c.valeurDecimale === 1 ? '+' : c.ecritureAlgebrique}`
+              : this.deg === 0 ? c.texFSD : rienSi1(c)
+            if (this.deg === 0) return c.texFSD
+            switch (this.deg) {
+              case 1:
+                maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x`
+                break
+              case 0:
+                maj = egal(c, 0, 1e-15) ? '' : `${coeffD}`
+                break
+              default:
+                maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x^{${i}}`
+            }
+            break
           }
-          break
+          case 0:
+            maj = egal(c, 0, 1e-15) ? '' : c.ecritureAlgebrique
+            break
+          case 1:
+            maj = egal(c, 0, 1e-15)
+              ? ''
+              : `${c.valeurDecimale < 0
+                ? c.valeurAbsolue().valeurDecimale === 1 ? '-' : c.texFSD
+                : c.valeurDecimale === 1 ? '+' : c.ecritureAlgebrique}x`
+            break
+          default:
+            maj = egal(c, 0, 1e-15)
+
+              ? ''
+              : `${c.valeurDecimale < 0
+                ? c.valeurAbsolue().valeurDecimale === 1 ? '-' : c.texFSD
+                : c.valeurDecimale === 1 ? '+' : c.ecritureAlgebrique}x^{${i}}`
+            break
         }
-        case 0:
-          maj = egal(c, 0, 1e-15) ? '' : ecritureAlgebrique(c)
-          break
-        case 1:
-          maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
-          break
-        default:
-          maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x^{${i}}`
-          break
+        res = maj + res
+      } else {
+        switch (i) {
+          case this.deg: {
+            const coeffD = alg ? ecritureAlgebriqueSauf1(c) : this.deg === 0 ? c : rienSi1(c)
+            if (this.deg === 0) return texNombre(c, 2)
+            switch (this.deg) {
+              case 1:
+                maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x`
+                break
+              case 0:
+                maj = egal(c, 0, 1e-15) ? '' : `${coeffD}`
+                break
+              default:
+                maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x^{${i}}`
+            }
+            break
+          }
+          case 0:
+            maj = egal(c, 0, 1e-15) ? '' : ecritureAlgebrique(c)
+            break
+          case 1:
+            maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
+            break
+          default:
+            maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x^{${i}}`
+            break
+        }
+        res = maj + res
       }
-      res = maj + res
     }
     return res
   }

@@ -4,12 +4,20 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { listeNombresPremiersStrictJusqua, premiersEntreBornes } from '../../lib/outils/primalite'
 import { egalOuApprox, lister } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const amcReady = true
+export const amcType = 'qcmMono'
 
 export const titre = 'Reconnaître un nombre premier'
+export const dateDePublication = '11/07/2022'
 export const dateDeModifImportante = '06/12/2024'
 
 /**
- * @author Guillaume Valmont
+ * Verifier qu'un nombre est premier par divisions succesives des premiers nombres premiers
+ * ou connaisance des nombres premiers inférieurs à 30
+ * @author Guillaume Valmont ; Olivier Mimeau : Interactivité
 */
 
 export const uuid = '03d65'
@@ -35,20 +43,55 @@ export default class ReconnaitreNombrePremier extends Exercice {
     const typeQuestionsDisponibles = ['premier', 'non premier']
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texteCorr = ''
       const max = Number(this.sup)
       const listePremiers = listeNombresPremiersStrictJusqua(max)
       let a = 0
       switch (listeTypeQuestions[i]) {
         case 'premier':
           a = listePremiers[randint(0, listePremiers.length - 1)]
+          this.autoCorrection[i] = {}
+          this.autoCorrection[i].enonce = `Le nombre $${texNombre(a)}$ est-il un nombre premier ?`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: 'Oui',
+              statut: true,
+            },
+            {
+              texte: 'Non',
+              statut: false,
+            },
+          ]
           break
         case 'non premier':
           a = randint(2, max, listePremiers)
+          this.autoCorrection[i] = {}
+          this.autoCorrection[i].enonce = `Le nombre $${texNombre(a)}$ est-il un nombre premier ?`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: 'Oui',
+              statut: false,
+            },
+            {
+              texte: 'Non',
+              statut: true,
+            },
+          ]
+          this.autoCorrection[i].options = {
+            ordered: true
+          }
           break
       }
-      const texte = `Vérifier si $${texNombre(a)}$ est un nombre premier.`
-      const texteCorr = rediger(a, this.sup2)
+      let texte = this.interactif ? `Le nombre $${texNombre(a)}$ est-il un nombre premier ?` : `Vérifier si $${texNombre(a)}$ est un nombre premier.`
+      texteCorr = rediger(a, this.sup2)
+      const monQcm = propositionsQcm(this, i)
+      if (this.interactif) {
+        texte += monQcm.texte
+        texteCorr += monQcm.texteCorr
+      }
+
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

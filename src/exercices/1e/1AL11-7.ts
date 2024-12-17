@@ -3,17 +3,21 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { createList } from '../../lib/format/lists'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Étudier une suite arithmético-géométrique'
 export const dateDePublication = '30/11/2024'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
- * Description didactique de l'exercice
+ * Étudier une suite arithmético-géométrique
  * @author Gilles Mora
- * Référence
 */
 export const uuid = '12afc'
 export const ref = '1AL11-7'
@@ -69,7 +73,7 @@ export default class SuitesArithmeticoG extends Exercice {
             statut: false
           },
           {
-            texte: `Pour tout entier naturel $n$, $${NomSA}_{n+1}=${texNombre(-k, 1)}${NomSA}_n$`,
+            texte: `Pour tout entier naturel $n$, $${NomSA}_{n+1}= ${rienSi1(-k)}${NomSA}_n$`,
             statut: false
           },
           {
@@ -109,6 +113,7 @@ Montrer que  $(${NomSA}_n)$ est une suite géométrique.<br>
            &=${texNombre(a, 1)}(\\underbrace{${NomS}_n${ecritureAlgebrique(-k)}}_{${NomSA}_n})\\\\
            &=${texNombre(a, 1)}${NomSA}_n
            \\end{aligned}$<br>
+           On a donc $${miseEnEvidence(`${NomSA}_{n+1}=${texNombre(a, 1)}${NomSA}_n`)}$.<br>
            $(${NomSA}_n)$ est donc une suite géométrique de raison $${texNombre(a, 1)}$.<br>
            On calcule son premier terme $${NomSA}_0$ : <br>
            $\\begin{aligned}
@@ -116,18 +121,18 @@ Montrer que  $(${NomSA}_n)$ est une suite géométrique.<br>
           &=${texNombre(u0, 1)}${ecritureAlgebrique(-k)}\\\\
           &=${texNombre(new Decimal(u0).sub(k), 1)}
           \\end{aligned}$`, `
-          On en déduit l'expression de $${NomSA}_n$ en fonction de $n$ pour tout entier naturel $n$ : $${NomSA}_n=${texNombre(new Decimal(u0).sub(k), 1)}\\times ${ecritureParentheseSiNegatif(a)}^n$
+          On en déduit l'expression de $${NomSA}_n$ en fonction de $n$ pour tout entier naturel $n$ : $${NomSA}_n=${miseEnEvidence(`${texNombre(new Decimal(u0).sub(k), 1)}\\times ${ecritureParentheseSiNegatif(a)}^n`)}$.
            `, `Puisque $${NomSA}_n=${NomS}_n ${ecritureAlgebrique(-k)}$, alors $${NomS}_n=${NomSA}_n ${ecritureAlgebrique(k)}$.<br>
            Ainsi l'expression de $${NomS}_n$ en fonction de $n$ est donnée pour tout entier naturel $n$ par  : 
-           $${NomS}_n=${texNombre(new Decimal(u0).sub(k), 1)}\\times ${ecritureParentheseSiNegatif(a)}^n ${ecritureAlgebrique(k)}$`
+           $${NomS}_n=${miseEnEvidence(`${texNombre(new Decimal(u0).sub(k), 1)}\\times ${ecritureParentheseSiNegatif(a)}^n ${ecritureAlgebrique(k)}`)}$.`
           ],
           style: 'nombres'
         }
       )
-      // const reponse1 = `${new Decimal(u0).sub(k)} \\times ${ecritureParentheseSiNegatif(a)}^n}`
-      // const reponse2 = `${new Decimal(u0).sub(k)}\\times ${ecritureParentheseSiNegatif(a)}^n ${ecritureAlgebrique(k)}`
-      // handleAnswers(this, 3 * i + 1, { reponse: { value: reponse1, compare: functionCompare } })
-      // handleAnswers(this, 3 * i + 2, { reponse: { value: reponse2, compare: functionCompare } })
+      const reponse1 = `${new Decimal(u0).sub(k)} \\times ${ecritureParentheseSiNegatif(a)}^n`
+      const reponse2 = `${new Decimal(u0).sub(k)}\\times ${ecritureParentheseSiNegatif(a)}^n ${ecritureAlgebrique(k)}`
+      handleAnswers(this, 3 * i + 1, { reponse: { value: reponse1, compare: fonctionComparaison } })
+      handleAnswers(this, 3 * i + 2, { reponse: { value: reponse2, compare: fonctionComparaison } })
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

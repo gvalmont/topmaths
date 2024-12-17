@@ -3,8 +3,10 @@ import Hms from '../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Additionner des durées'
 export const interactifReady = true
@@ -18,7 +20,6 @@ export const interactifType = 'mathLive'
  * * HMS+HMS avec retenue sur les min
  * * HMS+HMS avec retenues min et s
  * @author Rémi Angot
- * Référence 6D11
  */
 export const uuid = '5f315'
 export const ref = '6D11'
@@ -28,8 +29,6 @@ export const refs = {
 }
 export default function SommeDeDurees () {
   Exercice.call(this)
-  this.titre = titre
-  this.keyboard = ['hms']
   this.consigne = this.nbQuestions > 1 ? 'Compléter les égalités suivantes.' : 'Compléter l\'égalité suivante.'
   this.sup = '1-2' // 2 niveaux de difficultés
   this.spacing = 2
@@ -58,6 +57,14 @@ export default function SommeDeDurees () {
     })
 
     for (let i = 0, h1, h2, m1, m2, s1, s2, t1, t2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      h1 = 0
+      h2 = 0
+      m1 = 0
+      m2 = 0
+      s1 = 0
+      s2 = 0
+      t1 = 0
+      t2 = 0
       if (typesDeQuestions[i] === 1) {
         s1 = randint(11, 39)
         s2 = randint(1, 20)
@@ -65,7 +72,6 @@ export default function SommeDeDurees () {
         m2 = randint(40, 59)
         t1 = new Hms({ minute: m1, second: s1 })
         t2 = new Hms({ minute: m2, second: s2 })
-        setReponse(this, i, t1.add(t2), { formatInteractif: 'hms' })
         texte = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}=$`
         texteCorr = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}= ${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s}= ${miseEnEvidence(`1~\\text{h}~${m1 + m2 - 60}~\\text{min}~${s1 + s2}~\\text{s}`)}$`
       } else if (typesDeQuestions[i] === 2) {
@@ -75,7 +81,6 @@ export default function SommeDeDurees () {
         m2 = randint(30, 50)
         t1 = new Hms({ minute: m1, hour: h1 })
         t2 = new Hms({ minute: m2, hour: h2 })
-        setReponse(this, i, t1.add(t2), { formatInteractif: 'hms' })
         texte = `$${h1}~\\text{h}~${m1}~\\text{min}+${h2}~\\text{h}~${m2}~\\text{min}=$`
         texteCorr = `$${h1}~\\text{h}~${m1}~\\text{min}+${h2}~\\text{h}~${m2}~\\text{min}= ${h1 + h2}~\\text{h}~${m1 + m2}~\\text{min} = ${miseEnEvidence(`${h1 + h2 + 1}~\\text{h}~${m1 + m2 - 60}~\\text{min}`)}$`
       } else if (typesDeQuestions[i] === 3) {
@@ -87,7 +92,6 @@ export default function SommeDeDurees () {
         s2 = randint(1, 59 - s1)
         t1 = new Hms({ hour: h1, minute: m1, second: s1 })
         t2 = new Hms({ hour: h2, minute: m2, second: s2 })
-        setReponse(this, i, t1.add(t2), { formatInteractif: 'hms' })
         texte = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}=$`
         texteCorr = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}= ${miseEnEvidence(`${h1 + h2}~\\text{h}~${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s}`)}$`
       } else if (typesDeQuestions[i] === 4) {
@@ -97,7 +101,6 @@ export default function SommeDeDurees () {
         m2 = randint(40, 59)
         t1 = new Hms({ minute: m1, second: s1 })
         t2 = new Hms({ minute: m2, second: s2 })
-        setReponse(this, i, t1.add(t2), { formatInteractif: 'hms' })
         texte = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}=$`
         texteCorr = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}= ${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s} = ${m1 + m2 + 1}~\\text{min}~${s1 + s2 - 60}~\\text{s} = ${miseEnEvidence(`1~\\text{h}~${m1 + m2 + 1 - 60}~\\text{min}~${s1 + s2 - 60}~\\text{s}`)}$`
       } else if (typesDeQuestions[i] === 5) {
@@ -110,7 +113,6 @@ export default function SommeDeDurees () {
           s2 = randint(1, 60 - s1 - 1)
           t1 = new Hms({ hour: h1, minute: m1, second: s1 })
           t2 = new Hms({ hour: h2, minute: m2, second: s2 })
-          setReponse(this, i, t1.add(t2), { formatInteractif: 'hms' })
           texte = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}=$`
           texteCorr = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}= ${h1 + h2}~\\text{h}~${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s} = ${miseEnEvidence(`${h1 + h2 + 1}~\\text{h}~${m1 + m2 - 60}~\\text{min}~${s1 + s2}~\\text{s}`)}$`
         } else {
@@ -122,7 +124,6 @@ export default function SommeDeDurees () {
           s2 = randint(60 - s1, 59)
           t1 = new Hms({ hour: h1, minute: m1, second: s1 })
           t2 = new Hms({ hour: h2, minute: m2, second: s2 })
-          setReponse(this, i, t1.add(t2), { formatInteractif: 'hms' })
           texte = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}=$`
           texteCorr = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}=`
           texteCorr += ` ${h1 + h2}~\\text{h}~${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s} = ${h1 + h2}~\\text{h}~${m1 + m2 + 1}~\\text{min}~${s1 + s2 - 60}~\\text{s} =${miseEnEvidence(`${h1 + h2 + 1}~\\text{h}~${m1 + m2 + 1 - 60}~\\text{min}~${s1 + s2 - 60}~\\text{s}`)}$`
@@ -130,10 +131,11 @@ export default function SommeDeDurees () {
       }
 
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, ' clavierHms')
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierHms)
+        handleAnswers(this, i, { reponse: { value: t1.add(t2).toString(), compare: fonctionComparaison, options: { HMS: true } } })
       }
 
-      if (this.questionJamaisPosee(i, texte)) {
+      if (this.questionJamaisPosee(i, m1, s1, h1, t1, m2, s2, h2, t2)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

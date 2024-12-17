@@ -356,6 +356,30 @@ export function shuffle2tableauxSansModif<T, U> (obj1: T[], obj2: U[]): [T[], U[
 }
 
 /**
+ * Mélange les items de trois tableaux de la même manière
+ *
+ *
+ */
+export function shuffle3tableaux<T, U, V> (obj1: T[], obj2: U[], obj3: V[]): void {
+  let index = obj1.length
+  let rnd, tmp1, tmp2, tmp3
+
+  while (index) {
+    rnd = Math.floor(Math.random() * index)
+    index -= 1
+    tmp1 = obj1[index]
+    tmp2 = obj2[index]
+    tmp3 = obj3[index]
+    obj1[index] = obj1[rnd]
+    obj2[index] = obj2[rnd]
+    obj3[index] = obj3[rnd]
+    obj1[rnd] = tmp1
+    obj2[rnd] = tmp2
+    obj3[rnd] = tmp3
+  }
+}
+
+/**
  * Concatène liste à elle-même en changeant l'ordre à chaque cycle
  * @param {Array | ReadonlyArray} liste - Un tableau
  * @param {number} tailleMinimale - La taille minimale du tableau de sortie
@@ -390,7 +414,7 @@ export function combinaisonListes2<T> (liste: T[], tailleMinimale: number) {
   if (liste.length === 0) window.notify('erreur dans CombinaisonListes : la liste à combiner est vide', { liste })
   let l = [...liste] // on ne modifie pas la liste passée en argument !
   while (l.length < tailleMinimale) {
-    l = l.concat(choice(liste)as T[])
+    l = l.concat(choice(liste) as T[])
   }
   return shuffle(l)
 }

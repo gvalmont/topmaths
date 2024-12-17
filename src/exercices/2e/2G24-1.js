@@ -160,8 +160,7 @@ export default function Calculercoordonneesvecteurs () {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
         champ1: { value: xABFraction.texFraction, compare: fonctionComparaison },
         champ2: { value: yABFraction.texFraction, compare: fonctionComparaison }
-      },
-      { formatInteractif: 'mathlive' })
+      })
       if (this.interactif) {
         texte += '<br>' + remplisLesBlancs(this, i,
           `\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}%{champ1}\\\\\\\\%{champ2}\\end{pmatrix}`,

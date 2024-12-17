@@ -9,7 +9,7 @@ import { context } from '../../../modules/context'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Résoudre une équation du second degré*'
 export const interactifReady = true
@@ -69,10 +69,9 @@ export default function ResoudreEquationSecondDegre2 () {
       }
       handleAnswers(this, i, {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-        champ1: { value: Math.min(x1, x2), compare: functionCompare },
-        champ2: { value: Math.max(x1, x2), compare: functionCompare }
-      },
-      { formatInteractif: 'mathlive' }
+        champ1: { value: Math.min(x1, x2), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
+        champ2: { value: Math.max(x1, x2), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+      }
       )
       texteCorr = `${context.isHtml ? '<br>' : ''}$\\Delta = b^2-4ac=${ecritureParentheseSiNegatif(b)}^2-4\\times ${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(c)}=${d}>0$ donc l'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$`
       texteCorr += `<br>$x_1 = \\dfrac{${-b} -\\sqrt{${d}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${miseEnEvidence(texNombre((-b - Math.sqrt(d)) / (2 * a), 0))}$ et

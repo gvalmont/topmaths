@@ -15,7 +15,7 @@ import { randint } from '../outils.js'
    */
 export function symetrieAxialePoint (p, d, nom, { couleur = this.couleur, couleurCodage = this.couleurCodage, codage = '//' } = {}) {
   this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-  this.couleur = 'grey'
+  this.couleur = 'gray'
   if (nom === undefined || nom === '') {
     nom = p.nom + "'"
   }
@@ -50,7 +50,7 @@ export function symetrieAxialePoint (p, d, nom, { couleur = this.couleur, couleu
    */
 export const rotationPoint = function (p, centre, angle, nom, { couleur = this.couleur, couleurCodage = this.couleurCodage, codage = true } = {}) {
   this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-  this.couleur = 'grey'
+  this.couleur = 'gray'
   if (nom === undefined || nom === '') {
     nom = p.nom + "'"
   }
@@ -84,7 +84,7 @@ export const rotationPoint = function (p, centre, angle, nom, { couleur = this.c
 //  */
 //   this.symetrieAxialePoint = function (p, d, nom, { couleur = this.couleur, couleurCodage = this.couleurCodage, codage = '//' } = {}) {
 //     this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-//     this.couleur = 'grey'
+//     this.couleur = 'gray'
 //     if (nom === undefined || nom === '') {
 //       nom = p.nom + "'"
 //     }
@@ -120,7 +120,7 @@ export const rotationPoint = function (p, centre, angle, nom, { couleur = this.c
 export const translationPoint = function (p, A, B, nom, { couleur = 'black', couleurCodage = this.couleurCodage } = {}) {
   const v = vecteur(A, B)
   this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-  this.couleur = 'grey'
+  this.couleur = 'gray'
   if (nom === undefined || nom === '') {
     nom = p.nom + "'"
   }
@@ -160,7 +160,7 @@ export const translationPoint = function (p, A, B, nom, { couleur = 'black', cou
    */
 export const demiTourPoint = function (p, centre, nom, { couleur = 'black', couleurCodage = this.couleurCodage, codage = '//' } = {}) {
   this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-  this.couleur = 'grey'
+  this.couleur = 'gray'
   if (nom === undefined || nom === '') {
     nom = p.nom + "'"
   }
@@ -190,7 +190,7 @@ export const demiTourPoint = function (p, centre, nom, { couleur = 'black', coul
 export const homothetiePoint = function (p, centre, k, nom, { couleur = this.couleur, positionTexte = { x: 0, y: 0 } } = {}) {
   this.epaisseur = 1 // épaisseur et couleur de crayon de papier bien taillé pour la construction
   const couleurSave = this.couleur
-  this.couleur = 'grey'
+  this.couleur = 'gray'
   let t
   if (nom === undefined || nom === '') {
     nom = p.nom + "'"
@@ -228,7 +228,7 @@ export const rotationPolygone = function (p, centre, angle, noms = [], { couleur
   let nom
   const p2 = rotation(p, centre, angle) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
   this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-  this.couleur = 'grey'
+  this.couleur = 'gray'
   let i = 0; let codage
   for (const sommet of p.listePoints) { // On répète la construction pour chaque sommet du polygone
     if (noms[i] !== undefined) {
@@ -264,7 +264,7 @@ export const symetrieAxialePolygone = function (p, d, noms = [], { couleur = thi
   const p2 = symetrieAxiale(p, d) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
   // const N = homothetie(milieu(p.listePoints[0], p2.listePoints[0]), milieu(p.listePoints[1], p2.listePoints[1]), 1.23456) // créer unh point de l'axe de symétrie pour les alignements et les mesure d'angles
   this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-  this.couleur = 'grey'
+  this.couleur = 'gray'
   let i = 0
   const marques = ['/', '//', '///', 'O', '\\\\']
   for (const sommet of p.listePoints) { // On répète la construction pour chaque sommet du polygone
@@ -297,7 +297,7 @@ export const translationPolygone = function (p, A, B, noms = [], { couleur = thi
   const v = vecteur(A, B)
   const p2 = translation(p, v) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
   this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-  this.couleur = 'grey'
+  this.couleur = 'gray'
   let i = 0
   for (const sommet of p.listePoints) { // On répète la construction pour chaque sommet du polygone
     if (noms[i] !== undefined) {
@@ -323,7 +323,7 @@ export const translationPolygone = function (p, A, B, noms = [], { couleur = thi
 export const demiTourPolygone = function (p, centre, noms = [], { couleur = this.couleur, couleurCodage = this.couleurCodage } = {}) {
   const p2 = rotation(p, centre, 180) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
   this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-  this.couleur = 'grey'
+  this.couleur = 'gray'
   let nom
   let i = 0
   const marques = ['/', '//', '///', 'O', '\\\\']
@@ -353,7 +353,7 @@ export const homothetiePolygone = function (p, centre, k, noms = [], { couleur =
   let nom
   const p2 = homothetie(p, centre, k) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
   this.epaisseur = 1 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-  this.couleur = 'grey'
+  this.couleur = 'gray'
   const t = this.textePosition('Comme k est ' + (k >= 0 ? 'positif' : 'négatif') + ' alors ' + (k >= 0 ? 'les figures sont du même côté de ' + centre.nom : centre.nom + ' est entre les figures'), 0, 0, { taille: 15 })
   let i = 0
   for (const sommet of p.listePoints) { // On répète la construction pour chaque sommet du polygone

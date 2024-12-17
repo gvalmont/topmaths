@@ -10,7 +10,7 @@ interface AssignmentData {
   resultsByQuestion?: boolean[]
 }
 
-interface ActivityParams { mode: 'create' | 'assignment' | 'review' | 'view', activity: Activity, workflow: 'current' | 'finished' | 'corrected', studentAssignment: InterfaceResultExercice[], assignmentData: AssignmentData}
+interface ActivityParams { mode: 'create' | 'assignment' | 'review' | 'view', activity: Activity, workflow: 'current' | 'finished' | 'corrected', studentAssignment: InterfaceResultExercice[], assignmentData: AssignmentData }
 
 const serviceId = 'capytale-player'
 
@@ -62,8 +62,10 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
     for (const exercice of studentAssignment) {
       if (exercice != null && exercice.alea != null && exercice.indice != null) {
         exercicesParams.update((l) => {
-          l[exercice.indice as number].alea = exercice.alea
-          l[exercice.indice as number].bestScore = exercice.bestScore
+          if (Array.isArray(l)) {
+            l[exercice.indice as number].alea = exercice.alea
+            l[exercice.indice as number].bestScore = exercice.bestScore
+          }
           return l
         })
       }
@@ -165,7 +167,7 @@ export async function sendToCapytaleMathaleaHasChanged () {
   }
 }
 
-export function sendToCapytaleSaveStudentAssignment ({ indiceExercice, assignmentData }: { indiceExercice?: number | 'all', assignmentData?: AssignmentData}) {
+export function sendToCapytaleSaveStudentAssignment ({ indiceExercice, assignmentData }: { indiceExercice?: number | 'all', assignmentData?: AssignmentData }) {
   if (indiceExercice === undefined) return
   const results = get(resultsByExercice)
   let evaluation = 0
@@ -178,8 +180,8 @@ export function sendToCapytaleSaveStudentAssignment ({ indiceExercice, assignmen
     // exerciceGraded est l'indice du dernier exercice évalué
     // L'information est envoyée à Capytale pour qu'ils sachent quel exercice ajouter en base de données
     if (indiceExercice !== 'all') {
-      const bestScore = results[indiceExercice].bestScore
-      const newScore = results[indiceExercice].numberOfPoints
+      const bestScore = results[indiceExercice]?.bestScore
+      const newScore = results[indiceExercice]?.numberOfPoints
       if (bestScore !== undefined && newScore !== undefined && newScore < bestScore) {
         console.info('Exercice non sauvegardé car le score est inférieur au meilleur score')
         return

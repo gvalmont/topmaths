@@ -19,6 +19,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import Hms from '../../../modules/Hms'
 import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'CAN 6e sujet 2021'
 export const interactifReady = true
@@ -223,10 +224,10 @@ export default function SujetCAN2021Sixieme () {
             texteCorr = `Un quart d'heure est égal à $15$ minutes. Ainsi $${a}$ h $${b}$ min + $15$ min est égal à $${miseEnEvidence(a + 1)}$ h $${miseEnEvidence(b - 45)}$ min.`
           }
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'clavierHms ')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
 
-          setReponse(this, index, new Hms({ hour: a + 1, minute: reponse }), { formatInteractif: 'hms' })
+          handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 1, minute: reponse }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
 
           nbChamps = 1
 

@@ -197,6 +197,22 @@ export function polyline (...args) {
  * polygone(A,B,C,D,E) //Trace ABCDE
  * polygone([A,B,C,D],"blue") // Trace ABCD en bleu
  * polygone([A,B,C,D],"blue","red","green") // Trace ABCD en bleu, rempli en rouge et hachuré en vert.
+ * @property {Point[]} listePoints
+ * @property {string[]} color
+ * @property {string[]} couleurDeRemplissage
+ * @property {string[]} couleurDesHachures
+ * @property {number} epaisseurDesHachures
+ * @property {number} distanceDesHachures
+ * @property {number} opaciteDeRemplissage
+ * @property {boolean|string} hachures
+ * @property {number[]} bordures
+ * @property {string} nom
+ * @property {string} id
+ * @property {string} style
+ * @property {number} opacite
+ * @property {number} epaisseur
+ * @property {number} pointilles
+ *
  * @author Rémi Angot*
  * @class
  */
@@ -430,11 +446,27 @@ export function Polygone (...points) {
 }
 
 /**
- * Propriétés possibles : .color, .opacite, .epaisseur, .couleurDeRemplissage, .opaciteDeRemplissage, .hachures (true or false), .distanceDesHachures, .epaisseurDesHachures,.couleurDesHachures
+ * Propriétés possibles : .color, .opacite, .epaisseur, .couleurDeRemplissage, .opaciteDeRemplissage, .hachures (un string correspondant à l'un des motifs de pattern), .distanceDesHachures, .epaisseurDesHachures,.couleurDesHachures
  * @return {Polygone} objet Polygone
  * @example polygone(A,B,C,D,E) //Trace ABCDE
  * @example polygone([A,B,C,D],"blue") // Trace ABCD en bleu
  * @example polygone([A,B,C,D],"#f15929") // Trace ABCD en orange (code couleur HTML : #f15929)
+ * @property {Point[]} listePoints
+ * @property {string[]} color
+ * @property {string[]} couleurDeRemplissage
+ * @property {string[]} couleurDesHachures
+ * @property {number} epaisseurDesHachures
+ * @property {number} distanceDesHachures
+ * @property {number} opaciteDeRemplissage
+ * @property {boolean|string} hachures
+ * @property {number[]} bordures
+ * @property {string} nom
+ * @property {string} id
+ * @property {string} style
+ * @property {number} opacite
+ * @property {number} epaisseur
+ * @property {number} pointilles
+ *
  * @author Rémi Angot
  */
 export function polygone (...args) {
@@ -910,22 +942,22 @@ export function pattern ({
         break
       case 'dots':
         myPattern += `<pattern id="pattern${id}" width="${distanceDesHachures}" height="${distanceDesHachures}"  patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
-            <circle cx="3" cy="3" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
-            <circle cx="8" cy="3" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
-            <circle cx="3" cy="8" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
-            <circle cx="8" cy="8" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+            <circle cx="3" cy="3" r="${epaisseurDesHachures}" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+            <circle cx="8" cy="3" r="${epaisseurDesHachures}" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+            <circle cx="3" cy="8" r="${epaisseurDesHachures}" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+            <circle cx="8" cy="8" r="${epaisseurDesHachures}" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
             </pattern>`
         break
       case 'crosshatch dots':
         myPattern += `<pattern id="pattern${id}" width="12" height="12" x="12" y="12" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
-          <circle cx="2" cy="2" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="8" cy="2" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="5" cy="5" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="2" cy="8" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="8" cy="8" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="5" cy="11" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="11" cy="5" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="11" cy="11" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="2" cy="2" r="${epaisseurDesHachures}" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="8" cy="2" r="${epaisseurDesHachures}" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="5" cy="5" r="${epaisseurDesHachures}" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="2" cy="8" r="${epaisseurDesHachures}" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="8" cy="8" r="${epaisseurDesHachures}" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="5" cy="11" r="${epaisseurDesHachures}" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="11" cy="5" r="${epaisseurDesHachures}" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="11" cy="11" r="${epaisseurDesHachures}" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
           </pattern>`
         break
       case 'fivepointed stars':

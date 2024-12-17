@@ -52,16 +52,14 @@ export default function EquationSecondDegreParticuliere () {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
             champ1: { value: 0, compare: fonctionComparaison, options: { fractionEgale: true } },
             champ2: { value: f.texFSD, compare: fonctionComparaison, options: { fractionEgale: true } }
-          },
-          { formatInteractif: 'mathlive' }
+          }
           )
         } else {
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
             champ1: { value: f.texFSD, compare: fonctionComparaison, options: { fractionEgale: true } },
             champ2: { value: 0, compare: fonctionComparaison, options: { fractionEgale: true } }
-          },
-          { formatInteractif: 'mathlive' }
+          }
           )
         }
       }

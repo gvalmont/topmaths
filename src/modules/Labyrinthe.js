@@ -1,6 +1,6 @@
 import { point } from '../lib/2d/points.js'
 import { segment } from '../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonnees, texteParPoint, texteParPointEchelle, texteParPositionEchelle } from '../lib/2d/textes.ts'
+import { latex2d, texteParPoint, texteParPointEchelle, texteParPositionEchelle } from '../lib/2d/textes.ts'
 import { combinaisonListesSansChangerOrdre, enleveElement } from '../lib/outils/arrayOutils'
 import { nombreAvecEspace } from '../lib/outils/texNombre'
 import { randint } from './outils.js'
@@ -343,7 +343,7 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
         } else if (typeof (nombres[a - 1][b]) === 'string') { // écriture mode Maths
           objets.push(texteParPositionEchelle(nombres[a - 1][b], -1.5 + a * 3, 2.5 + b * 3, 0, 'black', taille, 'milieu', true, scaleFigure))
         } else {
-          objets.push(latexParCoordonnees(nombres[a - 1][b].texFraction, -1.5 + a * 3, 2.5 + b * 3, 'black', 20, 20, 'white', Math.max(6, 9 * taille)))
+          objets.push(latex2d(nombres[a - 1][b].texFraction, -1.5 + a * 3, 2.5 + b * 3, { color: 'black', backgroundColor: 'white', letterSize: 'scriptsize' }))
         }
       }
     }

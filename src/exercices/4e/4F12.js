@@ -97,7 +97,7 @@ export default function ExploiterRepresentationGraphique () {
           'À l\'aide de ce graphique, répondre aux questions suivantes :'
 
         this.listeQuestions.push(
-          'Au bout de combien de temps le projectile retombe-t-il au sol ?' + ajouteChampTexteMathLive(this, indiceQuestion, ' clavierHms')
+          'Au bout de combien de temps le projectile retombe-t-il au sol ?' + ajouteChampTexteMathLive(this, indiceQuestion, KeyboardType.clavierHms)
         )
         handleAnswers(this, indiceQuestion, { reponse: { value: texNombre(t1, 0) + 's', compare: fonctionComparaison, options: { HMS: true } } })
         indiceQuestion++
@@ -309,14 +309,14 @@ export default function ExploiterRepresentationGraphique () {
 
         this.listeCorrections.push(`La température la plus élevée de la journée est $${miseEnEvidence(`${tmax}^\\circ\\text{C}`)}$.`)
         this.listeQuestions.push(
-          'À quelle heure fait-il le plus chaud ?' + ajouteChampTexteMathLive(this, indiceQuestion, ' clavierHms')
+          'À quelle heure fait-il le plus chaud ?' + ajouteChampTexteMathLive(this, indiceQuestion, KeyboardType.clavierHms)
         )
         handleAnswers(this, indiceQuestion, { reponse: { value: String(hmax) + ' h', compare: fonctionComparaison, options: { HMS: true } } })
         indiceQuestion++
 
         this.listeCorrections.push(`C'est à $${miseEnEvidence(hmax + sp() + '\\text{h}')}$ qu'il fait le plus chaud.`)
         this.listeQuestions.push(
-          'À quelle heure fait-il le plus froid ?' + ajouteChampTexteMathLive(this, indiceQuestion, ' clavierHms')
+          'À quelle heure fait-il le plus froid ?' + ajouteChampTexteMathLive(this, indiceQuestion, KeyboardType.clavierHms)
         )
         handleAnswers(this, indiceQuestion, { reponse: { value: String(hmin) + ' h', compare: fonctionComparaison, options: { HMS: true } } })
         indiceQuestion++

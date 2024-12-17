@@ -129,7 +129,7 @@ export default function Rendreentier () {
         }
       }
       texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: listeQuestions[i] < 3 ? `$${sp()}=$` : (`<br><br>$${lettreIndiceeDepuisChiffre(i + 1)}=$`) })
-      handleAnswers(this, i, { reponse: { value: reponse, compare: equalFractionCompareSansRadical } }, { formatInteractif: 'calcul' })
+      handleAnswers(this, i, { reponse: { value: reponse, compare: equalFractionCompareSansRadical } })
 
       if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser  le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)

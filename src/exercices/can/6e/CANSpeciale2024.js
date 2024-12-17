@@ -21,6 +21,7 @@ import Hms from '../../../modules/Hms'
 import { prenomF } from '../../../lib/outils/Personne'
 import { context } from '../../../modules/context.js'
 import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'CAN Spéciale année 2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -35,7 +36,6 @@ export const dateDePublication = '01/01/2024'
 export default function CourseAuxNombresSpeciale2024 () {
   Exercice.call(this)
 
-  this.keyboard = ['lycee', 'hms']
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
@@ -1291,8 +1291,8 @@ export default function CourseAuxNombresSpeciale2024 () {
             }
             texteCorr = ` Comme $0,4$ h $=0,4\\times 60$ min $= 24$ min, on en déduit $20,4$ h  $=${miseEnEvidence('20')}$ h $${miseEnEvidence('24')}$ min.`
             reponse = new Hms({ hour: 20, minute: 24 })
-            setReponse(this, index, reponse, { formatInteractif: 'hms' })
-            texte += ajouteChampTexteMathLive(this, index, '  clavierHms ')
+            handleAnswers(this, index, { reponse: { value: reponse.toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
             this.listeCanEnonces.push('Compléter.')
             this.listeCanReponsesACompleter.push('$20,4$ h  $=\\ldots$ h $\\ldots$ min')
           }
@@ -1763,8 +1763,8 @@ export default function CourseAuxNombresSpeciale2024 () {
               Compléter (en heures/minutes) : 
                 $${texNombre(a, 0)}$ min  $=$`
               reponse = new Hms({ hour: 33, minute: 2024 % 60 - (2024 - a) })
-              setReponse(this, index, reponse, { formatInteractif: 'hms' })
-              texte += ajouteChampTexteMathLive(this, index, ' clavierHms  ')
+              handleAnswers(this, index, { reponse: { value: reponse.toString(), compare: fonctionComparaison, options: { HMS: true } } })
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
             }
             texteCorr = ` Le résultat indique qu'il y a 33 heures pleines dans $${texNombre(2024)}$ min. <br>
               Le reste de la  division euclidienne de $${texNombre(2024)}$ par $60$ est $44$.<br>
@@ -2476,8 +2476,8 @@ export default function CourseAuxNombresSpeciale2024 () {
           texteCorr = `On ajoute $${k}$ minutes à chaque fois, donc l'heure qui suit est $${miseEnEvidence(h + 1)}$ h $${miseEnEvidence(24 + 3 * k - 60)}$ min.`
 
           reponse = new Hms({ hour: h + 1, minute: 24 + 3 * k - 60 })
-          setReponse(this, index, reponse, { formatInteractif: 'hms' })
-          texte += !this.interactif ? '$\\ldots$ h $\\ldots$ min' : ajouteChampTexteMathLive(this, index, '  clavierHms  ')
+          handleAnswers(this, index, { reponse: { value: reponse.toString(), compare: fonctionComparaison, options: { HMS: true } } })
+          texte += !this.interactif ? '$\\ldots$ h $\\ldots$ min' : ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           this.listeCanEnonces.push('Compléter la suite.')
           this.listeCanReponsesACompleter.push(`$${h}$ h $24$ min <br> $${h}$ h $${24 + k}$ min <br> $${h}$ h $${24 + 2 * k}$ min <br>  $\\ldots$ h $\\ldots$ min`)
         }

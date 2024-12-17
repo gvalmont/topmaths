@@ -142,8 +142,7 @@ export default class AnglesEtVocabulaire extends Exercice {
                 compare: fonctionComparaison,
                 options: { unite: true }
               }
-            },
-            { formatInteractif: 'mathlive' }
+            }
           )
         }
         i++

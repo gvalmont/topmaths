@@ -20,7 +20,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM Brevet Amérique du sud 12/24 : Homothétie'
+export const titre = 'QCM Brevet Amérique du Sud 2024 : Homothétie'
 export const dateDePublication = '05/12/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
@@ -46,7 +46,7 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
     const xmax = Math.max(rapport * coef, -rapport * coef) + 1
     const labels = labelPoint(A, B, C, D, E, F, G)
 
-    const g = grille(xmin, xmin, xmax, xmax, 'grey', 0.7, step)
+    const g = grille(xmin, xmin, xmax, xmax, 'gray', 0.7, step)
     const objets = [g, poly1, poly2, segGE, segBD, labels]
     const figure = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures([objets])), objets)
 

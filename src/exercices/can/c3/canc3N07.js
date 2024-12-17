@@ -49,8 +49,7 @@ export default function DecompositionNombre () {
                 bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
                 champ1: { value: c },
                 champ2: { value: d * 10 + u }
-              },
-              { formatInteractif: 'mathlive' }
+              }
               )
             } else {
               texte = `Compléter : <br>
@@ -67,8 +66,7 @@ export default function DecompositionNombre () {
                 bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
                 champ1: { value: c * 10 + d },
                 champ2: { value: u }
-              },
-              { formatInteractif: 'mathlive' }
+              }
               )
             } else {
               texte = `Compléter : <br>
@@ -94,8 +92,7 @@ export default function DecompositionNombre () {
                 bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
                 champ1: { value: um * 10 + c },
                 champ2: { value: d * 10 + u }
-              },
-              { formatInteractif: 'mathlive' }
+              }
               )
             } else {
               texte = `Compléter : <br>
@@ -112,8 +109,7 @@ export default function DecompositionNombre () {
                 bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
                 champ1: { value: um * 100 + c * 10 + d },
                 champ2: { value: u }
-              },
-              { formatInteractif: 'mathlive' }
+              }
               )
             } else {
               texte = `Compléter : <br>

@@ -286,6 +286,6 @@ export default function ReperageSurLaSphere () {
 
   this.besoinFormulaireNumerique = ['Type de questions', 3, ' 1 : Lire des coordonnées\n 2 : Placer des points\n 3 : Mélange']
   this.besoinFormulaire2CaseACocher = ['Coordonnées relatives']
-  this.besoinFormulaire3CaseACocher = ['Axe Ouest-Est']
+  this.besoinFormulaire3CaseACocher = ['Axe Nord-Sud présent']
   this.besoinFormulaire4CaseACocher = ['Afficher demi-équateur caché']
 }

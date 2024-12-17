@@ -15,7 +15,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM Brevet Amérique du sud 12/24 : Espace'
+export const titre = 'QCM Brevet Amérique du Sud 2024 : Espace'
 export const dateDePublication = '05/12/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
@@ -64,28 +64,47 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
     for (let i = 0; i < lstCoordonneesCubes.length; i++) {
       objets2.push(...cube(lstCoordonneesCubes[i][0], lstCoordonneesCubes[i][1], lstCoordonneesCubes[i][2], 0, 0, { colorD: 'white', colorG: 'white', colorT: 'white' }).c2d)
     }
-    const figure2 = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets2)), objets2)
+    const figure2 = mathalea2d(Object.assign({ scale: 0.5, style: 'display: inline' }, fixeBordures(objets2)), objets2)
 
     const objets3: ObjetMathalea2D[] = []
     for (let i = 0; i < lstCoordonneesBis.length; i++) {
       objets3.push(...cube(lstCoordonneesBis[i][0], lstCoordonneesBis[i][1], lstCoordonneesBis[i][2], 0, 0, { colorD: 'white', colorG: 'white', colorT: 'white' }).c2d)
     }
-    const figure3 = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets3)), objets3)
+    const figure3 = mathalea2d(Object.assign({ scale: 0.5, style: 'display: inline' }, fixeBordures(objets3)), objets3)
 
     const objets4: ObjetMathalea2D[] = []
     for (let i = 0; i < lstCoordonneesCubes.length; i++) {
       objets4.push(...cube(lstCoordonneesCubes[i][0], lstCoordonneesCubes[i][1], lstCoordonneesCubes[i][2], 90, 0, { colorD: 'white', colorG: 'white', colorT: 'white' }).c2d)
     }
-    const figure4 = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets4)), objets4)
+    const figure4 = mathalea2d(Object.assign({ scale: 0.5, style: 'display: inline' }, fixeBordures(objets4)), objets4)
 
+    const objets5: ObjetMathalea2D[] = []
+    for (let i = 0; i < lstCoordonneesBis.length; i++) {
+      objets5.push(...cube(lstCoordonneesBis[i][0], lstCoordonneesBis[i][1], lstCoordonneesBis[i][2], 90, 0, { colorD: 'white', colorG: 'white', colorT: 'white' }).c2d)
+    }
     this.reponses = [
       figure2,
       figure3,
       figure4
     ]
     this.enonce = `Quelle est la vue de droite de ce solide ?<br>
-  ${figure}`
-    this.correction = ''
+  ${figure}.`
+    this.correction = figure2 /* 'La vue de droite présente de haut en bas:'
+    const rangees: [number, number, number][] = []
+    for (let h = 0; h < 5; h++) {
+      const rangee: [number, number, number] = [0, 0, 0]
+      for (let x = 0; x < 3; x++) {
+        for (const cube of lstCoordonneesCubes) {
+          if (cube[0] === x && cube[2] === h) {
+            rangee[x]++
+          }
+        }
+      }
+      rangees[h] = rangee
+    }
+    rangees.reverse()
+    this.correction += ` ${rangees.map(rangee => rangee.map(cube => cube !== 0 ? '$\\square$' : '$\\phantom{\\square}$').join('')).join('<br>')}`
+    */
   }
 
   versionOriginale: () => void = () => {
@@ -181,6 +200,8 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
 
   constructor () {
     super()
+    this.spacingCorr = 1
+    this.options = { vertical: false }
     this.versionAleatoire()
   }
 }

@@ -21,7 +21,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM Brevet Amérique du sud 12/24 : Thales'
+export const titre = 'QCM Brevet Amérique du Sud 2024 : Thales'
 export const dateDePublication = '05/12/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.

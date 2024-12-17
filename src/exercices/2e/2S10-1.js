@@ -8,6 +8,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Connaître les différentes écritures d\'une proportion'
@@ -32,27 +33,21 @@ export const refs = {
 }
 export default function DiffentesEcrituresProportions () {
   Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 4 // type de questions
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.autoCorrection = [] // Cette ligne doit être ajoutée afin de vider les précédentes valeurs pour AMC
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['Decimal']
-    }
-    if (this.sup === 2) {
+    } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = ['Pourcentage']
-    }
-    if (this.sup === 3) {
+    } else if (this.sup === 3) {
       typesDeQuestionsDisponibles = ['Fraction']
-    }
-    if (this.sup === 4) {
+    } else {
       typesDeQuestionsDisponibles = ['Decimal', 'Pourcentage', 'Fraction']//,
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -117,7 +112,7 @@ export default function DiffentesEcrituresProportions () {
             }
           }
           texteCorr = `$${texNombre(dec, 4)}=\\dfrac{${miseEnEvidence(texNombre(pourc, 3))}}{${miseEnEvidence(100)}}=${miseEnEvidence(texNombre(pourc, 3))} \\,\\%$`
-          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2], champ1: { value: pourc.toFixed(4) }, champ2: { value: String(100) }, champ3: { value: pourc.toFixed(4) } }, { formatInteractif: 'mathlive' })
+          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2], champ1: { value: pourc.toFixed(4), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ2: { value: String(100), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ3: { value: pourc.toFixed(4) }, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } })
           break
 
         case 'Pourcentage':
@@ -138,7 +133,7 @@ export default function DiffentesEcrituresProportions () {
             }
           }
           texteCorr = `$${texNombre(pourc, 3)}\\,\\%=${miseEnEvidence(texNombre(dec, 4))}=\\dfrac{${miseEnEvidence(texNombre(pourc, 3))}}{${miseEnEvidence(100)}}$`
-          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1] * listePoints[2], 2], champ1: { value: dec.toFixed(4) }, champ2: { value: pourc.toFixed(4) }, champ3: { value: String(100) } }, { formatInteractif: 'mathlive' })
+          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1] * listePoints[2], 2], champ1: { value: dec.toFixed(4), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ2: { value: pourc.toFixed(4), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ3: { value: String(100), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
 
           break
         case 'Fraction':
@@ -160,7 +155,7 @@ export default function DiffentesEcrituresProportions () {
           }
 
           texteCorr = `$\\dfrac{${texNombre(n, 0)}}{${texNombre(d, 0)}}=${miseEnEvidence(texNombre(f, 4))}=${miseEnEvidence(texNombre(f * 100, 4))}\\,\\%$`
-          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1], 2], champ1: { value: f.toFixed(4) }, champ2: { value: (f * 100).toFixed(4) } }, { formatInteractif: 'mathlive' })
+          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1], 2], champ1: { value: f.toFixed(4), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ2: { value: (f * 100).toFixed(4), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
           break
       }
 

@@ -108,9 +108,9 @@ export default class MetaExercice extends Exercice {
                   compare: Question.compare ?? fonctionComparaison,
                   options: optionsChampTexte
                 }
-              }, { formatInteractif: 'mathlive' })
+              })
             } else if (typeof Question.reponse === 'object') {
-              handleAnswers(this, indexQuestion, Question.reponse, { formatInteractif: 'mathlive' })
+              handleAnswers(this, indexQuestion, Question.reponse)
             } else {
               window.notify('Erreur avec cette question de type fillInTheBlank qui contient une reponse au format inconnu', { reponse: Question.reponse })
             }
@@ -135,7 +135,7 @@ export default class MetaExercice extends Exercice {
                     compare,
                     options
                   }
-                }, { formatInteractif: 'mathlive' })
+                })
               } else if (typeof Question.reponse === 'object') {
                 const reponse = Question.reponse
                 if (reponse instanceof FractionEtendue) {
@@ -145,7 +145,7 @@ export default class MetaExercice extends Exercice {
                       compare,
                       options
                     }
-                  }, { formatInteractif: 'mathlive' })
+                  })
                 } else if (reponse instanceof Decimal) {
                   handleAnswers(this, indexQuestion, {
                     reponse: {
@@ -153,13 +153,13 @@ export default class MetaExercice extends Exercice {
                       compare,
                       options
                     }
-                  }, { formatInteractif: 'mathlive' })
+                  })
                 } else if (reponse instanceof Grandeur) {
-                  handleAnswers(this, indexQuestion, { reponse: { value: reponse.toString(), compare, options } }, { formatInteractif: 'mathlive' })
+                  handleAnswers(this, indexQuestion, { reponse: { value: reponse.toString(), compare, options } })
                 } else if (Array.isArray(reponse)) {
                   handleAnswers(this, indexQuestion, { reponse: { value: reponse, compare, options } })
                 } else {
-                  handleAnswers(this, indexQuestion, reponse, { formatInteractif: 'mathlive' }) // EE : Pourquoi ce handleAnswers n'est pas au même format que les autres ?
+                  handleAnswers(this, indexQuestion, reponse) // EE : Pourquoi ce handleAnswers n'est pas au même format que les autres ?
                 }
               } else {
                 window.notify('Erreur avec cette question qui contient une reponse au format inconnu', { reponse: Question.reponse })
@@ -182,7 +182,7 @@ export default class MetaExercice extends Exercice {
           if (formatInteractif === 'qcm') {
             this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
           } else {
-            handleAnswers(this, indexQuestion, Question.autoCorrection[0].reponse.valeur, { formatInteractif: 'mathlive' })
+            handleAnswers(this, indexQuestion, Question.autoCorrection[0].reponse.valeur)
           }
         }
         if (Question?.autoCorrection[0]?.propositions != null) {

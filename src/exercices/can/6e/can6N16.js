@@ -52,7 +52,7 @@ export default function AbscisseDroiteEntiers () {
         pointListe: [[x1, '']]
       })
       this.reponse = new Decimal(x1).mul(1000).add(abs0)
-      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.9, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 35, scale: 0.7 }, latex2d('A', 4 * x1, 0.5, { color: 'blue', letterSize: '' }), d)
+      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.9, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 35, scale: 0.7 }, latex2d('A', x1 * 4, 0.5, { color: 'blue' }), d)
       this.correction = `Entre $${texNombre(abs0, 0)}$ et $${texNombre(abs1, 0)}$, il y a $5$ intervalles. Une graduation correspond donc à $200$. <br>
        Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(this.reponse, 0))}$.`
     }
@@ -76,7 +76,7 @@ export default function AbscisseDroiteEntiers () {
         pointListe: [[x1, '']]
       })
       this.reponse = new Decimal(x1).mul(1000).add(abs0)
-      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.9, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 30, scale: 0.7 }, latex2d('A', 4 * x1, 0.5, { color: 'blue', letterSize: '' }), d)
+      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.9, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 30, scale: 0.7 }, latex2d('A', 4 * x1, 0.5, { color: 'blue' }), d)
       this.correction = `Entre $${texNombre(abs0, 0)}$ et $${texNombre(abs1, 0)}$, il y a $4$ intervalles. Une graduation correspond donc à $250$. <br>
          Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(this.reponse, 0))}$.`
     }
@@ -100,7 +100,7 @@ export default function AbscisseDroiteEntiers () {
         pointListe: [[x1, '']]
       })
       this.reponse = new Decimal(x1).mul(100).add(abs0)
-      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.9, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 30, scale: 0.7 }, latex2d('A', 4 * x1, 0.5, { color: 'blue', letterSize: '' }), d)
+      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.9, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 30, scale: 0.7 }, latex2d('A', 4 * x1, 0.5, { color: 'blue' }), d)
       this.correction = `Entre $${texNombre(abs0, 0)}$ et $${texNombre(abs1, 0)}$, il y a $5$ intervalles. Une graduation correspond donc à $20$. <br>Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(this.reponse, 0))}$.`
     }
 
@@ -123,7 +123,7 @@ export default function AbscisseDroiteEntiers () {
         pointListe: [[x1, '']]
       })
       this.reponse = new Decimal(x1).mul(100).add(abs0)
-      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.9, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 30, scale: 0.7 }, latex2d('A', 4 * x1, 0.5, { color: 'blue', letterSize: '' }), d)
+      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.9, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 30, scale: 0.7 }, latex2d('A', 4 * x1, 0.5, { color: 'blue' }), d)
       this.correction = `Entre $${texNombre(abs0, 0)}$ et $${texNombre(abs1, 0)}$, il y a $4$ intervalles. Une graduation correspond donc à $25$. <br>
       Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(this.reponse, 0))}$.`
     }
@@ -146,7 +146,7 @@ export default function AbscisseDroiteEntiers () {
         pointListe: [[x1, '']]
       })
       this.reponse = new Decimal(x1).mul(10).add(abs0)
-      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.9, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 30, scale: 0.7 }, latex2d('A', 4 * x1, 0.5, { color: 'blue', letterSize: '' }), d)
+      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.9, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 30, scale: 0.7 }, latex2d('A', 4 * x1, 0.5, { color: 'blue' }), d)
       this.correction = `Entre $${texNombre(abs0, 0)}$ et $${texNombre(abs1, 0)}$, il y a $5$ i.5ntervalles.<br>
          Une graduation correspond donc à $2$. Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(this.reponse, 0))}$.`
     }
@@ -169,7 +169,7 @@ export default function AbscisseDroiteEntiers () {
         pointListe: [[x1, '']]
       })
       this.reponse = new Decimal(x1).mul(10).add(abs0)
-      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.9, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 30, scale: 0.7 }, latex2d('A', 4 * x1, 0.5, { color: 'blue', letterSize: '' }), d)
+      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.9, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 30, scale: 0.7 }, latex2d('A', 4 * x1, 0.5, { color: 'blue' }), d)
       this.correction = `Entre $${texNombre(abs0, 0)}$ et $${texNombre(abs1, 0)}$, il y a $4$ intervalles. Une graduation correspond donc à $2,5$. <br>
       Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(this.reponse, 1))}$.`
     }
@@ -192,7 +192,7 @@ export default function AbscisseDroiteEntiers () {
         pointListe: [[x1, '']]
       })
       this.reponse = new Decimal(x1).add(abs0)
-      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 30, scale: 0.7 }, latex2d('A', 4 * x1, 0.5, { color: 'blue', letterSize: '' }), d)
+      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 30, scale: 0.7 }, latex2d('A', 4 * x1, 0.5, { color: 'blue' }), d)
       this.correction = `Entre $${texNombre(abs0, 0)}$ et $${texNombre(abs1, 0)}$, il y a $5$ intervalles. Une graduation correspond donc à $0,2$. <br>
       Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(this.reponse, 1))}$.`
     }
@@ -216,7 +216,7 @@ export default function AbscisseDroiteEntiers () {
         pointListe: [[x1, '']]
       })
       this.reponse = new Decimal(x1).add(abs0)
-      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.9, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 30, scale: 0.7 }, latex2d('A', 4 * x1, 0.5, { color: 'blue', letterSize: '' }), d)
+      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.9, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 30, scale: 0.7 }, latex2d('A', 4 * x1, 0.5, { color: 'blue' }), d)
       this.correction = `Entre $${texNombre(abs0, 0)}$ et $${texNombre(abs1, 0)}$, il y a $4$ intervalles. Une graduation correspond donc à $0,25$.<br>
        Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(this.reponse, 2))}$.`
     }

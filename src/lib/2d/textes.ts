@@ -795,15 +795,17 @@ export class Latex2d extends ObjetMathalea2D {
     if (this.backgroundCol.startsWith('#')) {
       this.backgroundCol = `[HTML]{${this.backgroundCol.substring(1)}}`
     } else {
-      this.backgroundCol = `{${this.backgroundCol}}`
+      this.backgroundCol = `${this.backgroundCol}`
     }
     if (this.col.startsWith('#')) {
       this.col = `[HTML]{${this.col.substring(1)}}`
     } else {
-      this.col = `{${this.col}}`
+      this.col = this.col.startsWith('{') && this.col.endsWith('}')
+        ? this.col
+        : `{${this.col}}`
     }
-    return this.backgroundCol !== '{}' && this.backgroundCol !== '{none}'
-      ? `\\draw (${this.x},${this.y}) node[anchor = center] {\\colorbox${this.backgroundCol} {\\${this.letterSize}  \\color${this.col}{$${this.latex}$}}};`
+    return this.backgroundCol !== '' && this.backgroundCol !== 'none'
+      ? `\\draw (${this.x},${this.y}) node[anchor = center] {\\colorbox{${this.backgroundCol}} {\\${this.letterSize}  \\color${this.col}{$${this.latex}$}}};`
       : `\\draw (${this.x},${this.y}) node[anchor = center] {\\${this.letterSize} \\color${this.col}{$${this.latex}$}};`
   }
 }
@@ -824,7 +826,7 @@ export class Latex2d extends ObjetMathalea2D {
  */
 export function latex2d (latex: string, x: number, y: number, { color, backgroundColor, letterSize, orientation, opacity }:{ color?: string, backgroundColor?: string, letterSize?: LetterSizeType, orientation?: number, opacity?: number }) {
   color = color ?? 'black'
-  backgroundColor = backgroundColor == null || backgroundColor === '' || backgroundColor === 'none' ? 'none' : backgroundColor
+  backgroundColor = backgroundColor == null || backgroundColor === '' || backgroundColor === 'none' ? '' : backgroundColor
   letterSize = letterSize ?? 'normalsize'
   orientation = orientation ?? 0
   opacity = opacity ?? 1

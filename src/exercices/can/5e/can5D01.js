@@ -7,7 +7,9 @@ import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Convertir des heures décimales en heures/minutes et inversement'
 export const interactifReady = true
@@ -15,10 +17,9 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '08/02/2022' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-/*!
+/**
  * @author Jean-Claude Lhote & Gilles Mora
  * Créé pendant l'été 2021
- * Référence can5D01
  */
 export const uuid = 'd8797'
 export const ref = 'can5D01'
@@ -28,9 +29,7 @@ export const refs = {
 }
 export default function ConversionHeuresDecimalesMinutes () {
   Exercice.call(this)
-  this.keyboard = ['hms']
   this.nbQuestions = 1
-  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     let a, b, d, texte, texteCorr
     for (let i = 0, index = 0, nbChamps, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -45,8 +44,8 @@ export default function ConversionHeuresDecimalesMinutes () {
             texteCorr = `$${texNombre(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombre(b)} \\times 60  = ${a}$ h $${d}$ min`
           } else {
             texte = `Convertir en heures/minutes : <br>$${texNombre(a + b)}$ h $=$`
-            texte += ajouteChampTexteMathLive(this, i, 'clavierHms ')
-            setReponse(this, i, new Hms({ hour: a, minute: d }), { formatInteractif: 'hms' })
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierHms)
+            handleAnswers(this, i, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
             texteCorr = `$${texNombre(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombre(b)} \\times 60$ min $  = ${a}$ h $${d}$ min`
             nbChamps = 2
           }

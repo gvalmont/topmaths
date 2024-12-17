@@ -15,7 +15,6 @@ export const dateDePublication = '20/12/2022'
  $ quand on a effectué une multiplication de deux nombres, on n'a pas besoin de poser à nouveau la multiplication si les chiffres significatifs des deux nombres sont les mêmes mais que seule la virgule n'est pas au même endroit.
  * @author Guillaume Valmont
  * idée originale de Mireille Gain
- * Référence 6C30-9
 */
 export const uuid = 'c6836'
 export const ref = '6C30-9'
@@ -26,7 +25,6 @@ export const refs = {
 export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.nbQuestions = 4
     this.spacing = 2
     this.besoinFormulaireNumerique = ['Nombre de calculs par exercice', 3, '1\n2\n3'] // le paramètre sera numérique de valeur max 3 (le 3 en vert)

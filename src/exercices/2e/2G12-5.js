@@ -19,6 +19,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer les coordonnées du 4e sommet d\'un parallélogramme'
@@ -135,7 +136,7 @@ export default function ParallélogrammeSommet () {
           texte += ` $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$.<br>
        `
           texte += `Déterminer les coordonnées du point $${D.nom}$ tel que $${A.nom}${B.nom}${C.nom}${D.nom}$ soit un parallélogramme. Justifier.`
-          handleAnswers(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], champ1: { value: absReponse }, champ2: { value: ordReponse } }, { formatInteractif: 'mathlive' })
+          handleAnswers(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], champ1: { value: absReponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ2: { value: ordReponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i, `${D.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`)
           }
@@ -260,7 +261,7 @@ export default function ParallélogrammeSommet () {
             yLabelDistance: 2,
             xLabelDistance: 2
           }))
-          handleAnswers(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], champ1: { value: absReponse }, champ2: { value: ordReponse } }, { formatInteractif: 'mathlive' })
+          handleAnswers(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], champ1: { value: absReponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ2: { value: ordReponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i, `${D.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`)
           }
@@ -377,7 +378,7 @@ export default function ParallélogrammeSommet () {
             yLabelDistance: 15,
             xLabelDistance: 15
           }))
-          handleAnswers(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], champ1: { value: absReponse }, champ2: { value: ordReponse } }, { formatInteractif: 'mathlive' })
+          handleAnswers(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], champ1: { value: absReponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ2: { value: ordReponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
 
           texte += mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX, pixelsParCm: 25, scale: 0.6 }, objets, E, G, M)
           if (this.interactif) {

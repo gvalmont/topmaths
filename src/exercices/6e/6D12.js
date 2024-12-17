@@ -1,13 +1,15 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { minToHoraire, minToHour } from '../../lib/outils/dateEtHoraires'
 import { prenom, prenomF } from '../../lib/outils/Personne'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Hms from '../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Calculer des durées ou déterminer un horaire'
 export const interactifReady = true
@@ -32,18 +34,23 @@ export const refs = {
   'fr-fr': ['6D12'],
   'fr-ch': ['10GM3-4']
 }
-export default function CalculsDeDureesOuHoraires () {
-  Exercice.call(this)
-  this.keyboard = ['hms']
-  this.consigne = ''
-  this.sup = 4
-  this.spacing = 2
-  this.nbQuestions = 3
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacingCorr = 2
+export default class CalculsDeDureesOuHoraires extends Exercice {
+  constructor () {
+    super()
+    this.sup = 4
+    this.spacing = 2
+    this.nbQuestions = 3
+    this.nbCols = 1
+    this.nbColsCorr = 1
+    this.spacingCorr = 2
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      "1 : Calcul de durées\n2 : Calcul de l'horaire de fin\n3 : Calcul de l'horaire de début\n4 : Mélange"
+    ]
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typeDeContexte = combinaisonListes(
       [1, 2, 3, 4, 5],
       this.nbQuestions
@@ -62,6 +69,13 @@ export default function CalculsDeDureesOuHoraires () {
       // d1 : heure de début (h1 heures m1 min)
       // d2 : heure de fin (h2 heures m2 min)
       // d : durée
+      h1 = 0
+      h2 = 0
+      m1 = 0
+      m2 = 0
+      d1 = 0
+      d2 = 0
+      let reponse
       if (typeDeContexte[i] === 1) {
         h1 = randint(20, 22)
         m1 = randint(35, 58)
@@ -82,7 +96,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += '<br>'
           texteCorr += `Le film dure ${texteEnCouleurEtGras(d)}.`
           texteInteractif = 'Le film dure'
-          setReponse(this, i, Hms.fromString(d), { formatInteractif: 'hms' })
+          reponse = Hms.fromString(d)
         } else if (typesDeQuestions[i] === 2) {
           texte = `Un film dure ${d} et commence à ${d1}. À quelle heure se terminera-t-il ?`
           texteCorr = `${d1} + ${d} = ${h1 + h} h ${m1 + m} min`
@@ -90,7 +104,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += '<br>'
           texteCorr += `Le film terminera à ${texteEnCouleurEtGras(d2)}.`
           texteInteractif = 'Le film terminera à'
-          setReponse(this, i, Hms.fromString(d2), { formatInteractif: 'hms' })
+          reponse = Hms.fromString(d2)
         } else if (typesDeQuestions[i] === 3) {
           texte = `Un film de ${d} termine à ${d2}. À quelle heure a-t-il commencé ?`
           texteCorr = `$${h2 % 24}~\\text{h}~${m2}~\\text{min}`
@@ -100,7 +114,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += '<br>'
           texteCorr += `Le film a commencé à ${texteEnCouleurEtGras(d1)}.`
           texteInteractif = 'Le film a commencé à'
-          setReponse(this, i, Hms.fromString(d1), { formatInteractif: 'hms' })
+          reponse = Hms.fromString(d1)
         }
       } else if (typeDeContexte[i] === 2) {
         h1 = randint(20, 23)
@@ -131,7 +145,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d1} = ${d}`
           texteCorr += '<br>'
           texteCorr += `La série a duré ${texteEnCouleurEtGras(d)}. `
-          setReponse(this, i, Hms.fromString(d), { formatInteractif: 'hms' })
+          reponse = Hms.fromString(d)
           texteInteractif = 'La série a duré'
         } else if (typesDeQuestions[i] === 2) {
           texte = `${prenom()} allume son ordinateur à ${d1} pour regarder une série de ${d}. À quelle heure la série s'achèvera-t-elle ?`
@@ -139,7 +153,7 @@ export default function CalculsDeDureesOuHoraires () {
           if (m1 + m > 59) texteCorr += ` = ${d2}`
           texteCorr += '<br>'
           texteCorr += `La série s'achèvera à ${texteEnCouleurEtGras(d2)}. `
-          setReponse(this, i, Hms.fromString(d2), { formatInteractif: 'hms' })
+          reponse = Hms.fromString(d2)
           texteInteractif = 'La série s\'achèvera à'
         } else if (typesDeQuestions[i] === 3) {
           texte = `${prenom()} termine de regarder une série de ${d} à ${d2}. À quelle heure la série a-t-elle commencé ?`
@@ -149,7 +163,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d} = ${d1}`
           texteCorr += '<br>'
           texteCorr += `La série a commencé à ${texteEnCouleurEtGras(d1)}. `
-          setReponse(this, i, Hms.fromString(d1), { formatInteractif: 'hms' })
+          reponse = Hms.fromString(d1)
           texteInteractif = 'La série a commencé à'
         }
       } else if (typeDeContexte[i] === 3) {
@@ -172,7 +186,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d1} = ${d}`
           texteCorr += '<br>'
           texteCorr += `L'émission dure ${texteEnCouleurEtGras(d)}. `
-          setReponse(this, i, Hms.fromString(d), { formatInteractif: 'hms' })
+          reponse = Hms.fromString(d)
           texteInteractif = 'L\'émission dure'
         } else if (typesDeQuestions[i] === 2) {
           texte = `Une émission télévisée de ${d} commence à ${d1}. À quelle heure s'achèvera-t-elle ?`
@@ -180,7 +194,7 @@ export default function CalculsDeDureesOuHoraires () {
           if (m1 + m > 59) texteCorr += ` = ${d2}`
           texteCorr += '<br>'
           texteCorr += `L'émission s'achèvera à ${texteEnCouleurEtGras(d2)}. `
-          setReponse(this, i, Hms.fromString(d2), { formatInteractif: 'hms' })
+          reponse = Hms.fromString(d2)
           texteInteractif = 'L\'émission s\'achèvera à'
         } else if (typesDeQuestions[i] === 3) {
           texte = `À ${d2}, ${prenom()} termine de regarder une émission de ${d}. À quelle heure l'émission a-t-elle commencé ?`
@@ -190,7 +204,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d} = ${d1}`
           texteCorr += '<br>'
           texteCorr += `L'émission a commencé à ${texteEnCouleurEtGras(d1)}. `
-          setReponse(this, i, Hms.fromString(d1), { formatInteractif: 'hms' })
+          reponse = Hms.fromString(d1)
           texteInteractif = 'L\'émission a commencé à'
         }
       } else if (typeDeContexte[i] === 4) {
@@ -222,7 +236,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d1} = ${d}`
           texteCorr += '<br>'
           texteCorr += `La compétition dure ${texteEnCouleurEtGras(d)}. `
-          setReponse(this, i, Hms.fromString(d), { formatInteractif: 'hms' })
+          reponse = Hms.fromString(d)
           texteInteractif = 'La compétition dure'
         } else if (typesDeQuestions[i] === 2) {
           texte = `Une compétition de gymnastique commence à ${d1} et dure ${d}. À quelle heure sera-t-elle terminée ?`
@@ -230,7 +244,7 @@ export default function CalculsDeDureesOuHoraires () {
           if (m1 + m > 59) texteCorr += ` = ${d2}`
           texteCorr += '<br>'
           texteCorr += `La compétition terminera à ${texteEnCouleurEtGras(d2)}. `
-          setReponse(this, i, Hms.fromString(d2), { formatInteractif: 'hms' })
+          reponse = Hms.fromString(d2)
           texteInteractif = 'La compétition terminera à'
         } else if (typesDeQuestions[i] === 3) {
           texte = `Une compétition de gymnastique qui se termine à ${d2} a duré ${d}. À quelle heure a-t-elle commencé ?`
@@ -240,7 +254,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d} = ${d1}`
           texteCorr += '<br>'
           texteCorr += `La compétition a commencé à ${texteEnCouleurEtGras(d1)}. `
-          setReponse(this, i, Hms.fromString(d1), { formatInteractif: 'hms' })
+          reponse = Hms.fromString(d1)
           texteInteractif = 'La compétition a commencé à'
         }
       } else if (typeDeContexte[i] === 5) {
@@ -272,7 +286,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d1} = ${d}`
           texteCorr += '<br>'
           texteCorr += `Le trajet dure ${texteEnCouleurEtGras(d)}. `
-          setReponse(this, i, Hms.fromString(d), { formatInteractif: 'hms' })
+          reponse = Hms.fromString(d)
           texteInteractif = 'Le trajet dure'
         } else if (typesDeQuestions[i] === 2) {
           const prenom = prenomF()
@@ -281,7 +295,7 @@ export default function CalculsDeDureesOuHoraires () {
           if (m1 + m > 59) texteCorr += ` = ${d2}`
           texteCorr += '<br>'
           texteCorr += `${prenom} arrivera à ${texteEnCouleurEtGras(d2)}. `
-          setReponse(this, i, Hms.fromString(d2), { formatInteractif: 'hms' })
+          reponse = Hms.fromString(d2)
           texteInteractif = `${prenom} arrivera à`
         } else if (typesDeQuestions[i] === 3) {
           texte = `Un train arrive en gare à ${d2} après un trajet de ${d}. À quelle heure le voyage a-t-il commencé ?`
@@ -291,7 +305,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `<br>${d2} $-$ ${d} = ${d1}`
           texteCorr += '<br>'
           texteCorr += `Le voyage a commencé à ${texteEnCouleurEtGras(d1)}. `
-          setReponse(this, i, Hms.fromString(d1), { formatInteractif: 'hms' })
+          reponse = Hms.fromString(d1)
           texteInteractif = 'Le voyage a commencé à'
         }
       }
@@ -319,11 +333,12 @@ export default function CalculsDeDureesOuHoraires () {
                     }
       }
       if (this.interactif) {
-        texte += '<br><br>'
-        texte += ajouteChampTexteMathLive(this, i, 'clavierHms ', { texteAvant: texteInteractif + ' : ' })
+        texte += '<br>'
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierHms, { texteAvant: texteInteractif + ' : ' })
+        handleAnswers(this, i, { reponse: { value: reponse.toString(), compare: fonctionComparaison, options: { HMS: true } } })
       }
 
-      if (this.questionJamaisPosee(i, texte)) {
+      if (this.questionJamaisPosee(i, m1, d1, h1, m2, d2, h2)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -333,9 +348,4 @@ export default function CalculsDeDureesOuHoraires () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    4,
-    "1 : Calcul de durées\n2 : Calcul de l'horaire de fin\n3 : Calcul de l'horaire de début\n4 : Mélange"
-  ]
 }

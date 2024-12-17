@@ -18,7 +18,7 @@ export const dateDeModificationImportante = '27/08/2024'
 /**
  * Organiser donnees depuis texte
  * @author Erwan Duplessy
- * Mise en interactif par Jean-Claude Lhote
+ * Mis en interactif par Jean-Claude Lhote
  */
 
 // source : http://www.ac-grenoble.fr/savoie/pedagogie/docs_pedas/ogd_c2_c3/ogd_c2_c3.pdf
@@ -144,7 +144,7 @@ export default function OrganiserDonneesDepuisTexte () {
       const ligne = Math.floor(i / (nbFruits + 1))
       const colonne = i % (nbFruits + 1)
       const ref = `L${ligne + 1}C${colonne + 1}`
-      const valeur = Object.assign({}, { value: `${tabLinesCorr[i]}` })
+      const valeur = Object.assign({}, { value: `${tabLinesCorr[i]}`, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } })
       const cellule = Object.fromEntries([[ref, valeur]])
       objetReponse = Object.assign(objetReponse, cellule)
     }
@@ -276,13 +276,13 @@ export default function OrganiserDonneesDepuisTexte () {
       texte += tableauColonneLigne(tabEntetesColonnes, tabEntetesLignes, tabLines, 1, true, 0, 0, false)
     }
     handleAnswers(this, 0, objetReponse)
-    handleAnswers(this, 1, { reponse: { value: `${sommeTotale}${this.sup ? ' kg' : ''}`, compare: fonctionComparaison, options: this.sup ? { unite: true } : { } } })
+    handleAnswers(this, 1, { reponse: { value: `${sommeTotale}${this.sup ? ' kg' : ''}`, compare: fonctionComparaison, options: this.sup ? { unite: true } : { nombreDecimalSeulement: true } } })
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaire2Numerique = ['Nombre de fruits différents', 4]
-  this.besoinFormulaire3Numerique = ['Nombres d\'amis', 4]
+  this.besoinFormulaire3Numerique = ['Nombre d\'amis', 4]
   this.besoinFormulaireCaseACocher = ['Pour utiliser des nombres décimaux et des masses', false]
   this.besoinFormulaire4CaseACocher = ['Avec au moins un fruit de chaque', false]
 }

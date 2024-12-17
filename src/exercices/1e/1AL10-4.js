@@ -7,7 +7,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { calculCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Déterminer les termes d\'une suite définie par récurrence'
@@ -78,7 +78,6 @@ export default function TermeDUneSuiteDefinieParRecurrence () {
           }
           reponse = u
           texteCorr += `<br> Ainsi, $${s}_{${k}}= ${miseEnEvidence(u)}$.`
-          handleAnswers(this, i, { reponse: { value: reponse, compare: calculCompare } })
           break
 
         case 2: // suite géométrique
@@ -97,7 +96,6 @@ export default function TermeDUneSuiteDefinieParRecurrence () {
           }
           reponse = u
           texteCorr += `<br> Ainsi, $${s}_{${k}}= ${miseEnEvidence(texNombre(u, 1))}$.`
-          handleAnswers(this, i, { reponse: { value: reponse, compare: calculCompare } })
           break
 
         case 3: // suite arithmético-géométrique
@@ -118,7 +116,6 @@ export default function TermeDUneSuiteDefinieParRecurrence () {
           }
           reponse = u
           texteCorr += `<br> Ainsi, $${s}_{${k}}= ${miseEnEvidence(u)}$.`
-          handleAnswers(this, i, { reponse: { value: reponse, compare: calculCompare } })
           break
 
         case 4: // suite de la forme u(n+1) = a +- u(n)^2
@@ -139,7 +136,6 @@ export default function TermeDUneSuiteDefinieParRecurrence () {
           }
           reponse = u
           texteCorr += `<br> Ainsi, $${s}_{${k}}= ${miseEnEvidence(texNombre(u, 0))}$.`
-          handleAnswers(this, i, { reponse: { value: reponse, compare: calculCompare } })
           break
 
         case 5: // suite u(n+1)=au(n)+bn
@@ -159,9 +155,10 @@ export default function TermeDUneSuiteDefinieParRecurrence () {
           }
           reponse = u
           texteCorr += `<br> Ainsi, $${s}_{${k}}= ${miseEnEvidence(texNombre(u, 0))}$.`
-          handleAnswers(this, i, { reponse: { value: reponse, compare: calculCompare } })
           break
       }
+      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+
       texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${s}_{${k}}=$` })
       if (this.questionJamaisPosee(i, a, u, k)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte) // Sinon on enregistre la question dans listeQuestions

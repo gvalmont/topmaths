@@ -1,4 +1,4 @@
-import { MathfieldElement } from 'mathlive'
+// import { MathfieldElement } from 'mathlive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -8,10 +8,13 @@ import Exercice from '../Exercice'
 import Hms from '../../modules/Hms'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Operation from '../../modules/operations'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Convertir des durées'
 export const interactifReady = true
-export const interactifType = 'custom'
+// export const interactifType = 'custom'
+export const interactifType = 'mathLive'
 
 /**
  * Conversions de durées.
@@ -21,7 +24,6 @@ export const interactifType = 'custom'
  * * 4 : h vers semaines j h
  * * 5 : toutes les conversions
  * @author Rémi Angot
- * Référence 6D10
  */
 export const dateDeModifImportante = '10/11/2024'
 export const uuid = '8b0f9'
@@ -35,10 +37,7 @@ export default class ConversionsDeDurees extends Exercice {
   constructor () {
     super()
     this.sup = 5
-    this.titre = titre
     this.consigne = 'Convertir.'
-    this.nbCols = 1
-    this.nbColsCorr = 1
     this.spacing = 2
     this.nbQuestions = 5
     this.besoinFormulaireNumerique = [
@@ -66,10 +65,10 @@ export default class ConversionsDeDurees extends Exercice {
     }
     let texte = ''
     let texteCorr = ''
-    let h: number
-    let m: number
-    let s: number
-    let j: number
+    let h = 0
+    let m = 0
+    let s = 0
+    let j = 0
 
     for (
       let i = 0, cpt = 0;
@@ -179,8 +178,10 @@ export default class ConversionsDeDurees extends Exercice {
       if (this.interactif) {
         texte = texte.replace('.', ' : ')
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierHms)
+        handleAnswers(this, i, { reponse: { value: this.expectedAnswers[i].toString(), compare: fonctionComparaison, options: { HMS: true } } })
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      // if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, m, s, h, j)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -191,6 +192,7 @@ export default class ConversionsDeDurees extends Exercice {
     listeQuestionsToContenu(this)
   }
 
+  /*
   correctionInteractive = (i: number) => {
     const mf = document.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${i}`)
     if (mf instanceof MathfieldElement === false) return 'KO'
@@ -233,5 +235,5 @@ export default class ConversionsDeDurees extends Exercice {
     const divCheck = document.querySelector(`span#resultatCheckEx${this.numeroExercice}Q${i}`)
     if (divCheck) divCheck.innerHTML = smiley
     return reponse
-  }
+  } */
 }

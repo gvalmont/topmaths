@@ -17,12 +17,13 @@ export function shuffleJusquaWithIndexes (array: unknown[], lastChoice:number) {
   return { shuffledArray: newArray, indexes }
 }
 
-export function qcmCamExport (exercice: Exercice): {question: string, reponse: string}[] {
-  const questions: {question: string, reponse: string}[] = []
+export function qcmCamExport (exercice: Exercice): { question: string, reponse: string }[] {
+  const questions: { question: string, reponse: string }[] = []
   if (exercice.autoCorrection.length !== exercice.listeQuestions.length) return []
   for (let j = 0; j < exercice.autoCorrection.length; j++) {
     const propositions = exercice.autoCorrection[j].propositions
     if (propositions == null) continue
+    if (propositions.length > 4) continue
     const laConsigne = exercice.consigne.replaceAll(/\$([^$]*)\$/g, '<span class="math-tex">$1</span>') ?? ''
     const introduction = exercice.introduction.replaceAll(/\$([^$]*)\$/g, '<span class="math-tex">$1</span>') ?? ''
     const laQuestion = exercice.listeQuestions[j]

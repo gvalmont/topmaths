@@ -191,7 +191,7 @@ export default class ProblemesPythagore extends Exercice {
             }=${texNombre(c)}$ cm et $${A + C}=${texNombre(2 * a)}$ cm.<br>`
           texte += `Calculer $${D + B}$.`
           texte += this.interactif ? (sp(20) + `$${D + B} = $` + ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' cm' })) : ''
-          handleAnswers(this, i, { reponse: { value: 2 * b } }, { formatInteractif: 'mathlive' })
+          handleAnswers(this, i, { reponse: { value: 2 * b } })
 
           texteCorr = `$${nomQuadrilatere}$ est un losange donc ses diagonales se coupent en leur milieu : $${A + O
             }=${A + C}\\div2=${texNombre(2 * a)}\\div2=${texNombre(
@@ -211,7 +211,7 @@ export default class ProblemesPythagore extends Exercice {
             }=${texNombre(a)}$ cm et $${A + C}=${texNombre(c)}$ cm.<br>`
           texte += `Calculer $${B + C}$.`
           texte += this.interactif ? (sp(20) + `$${B + C} = $` + ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' cm' })) : ''
-          handleAnswers(this, i, { reponse: { value: b } }, { formatInteractif: 'mathlive' })
+          handleAnswers(this, i, { reponse: { value: b } })
           texteCorr = `$${nomQuadrilatere}$ est un rectangle donc il possède 4 angles droits.`
           texteCorr += RedactionPythagore(B, A, C, 2, b, a, c)[0]
           break
@@ -221,7 +221,7 @@ export default class ProblemesPythagore extends Exercice {
             }=${texNombre(a)}$ cm et $${B + C}=${texNombre(b)}$ cm.<br>`
           texte += `Calculer $${A + C}$.`
           texte += this.interactif ? (sp(20) + `$${A + C} = $` + ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' cm' })) : ''
-          handleAnswers(this, i, { reponse: { value: c } }, { formatInteractif: 'mathlive' })
+          handleAnswers(this, i, { reponse: { value: c } })
           texteCorr = `$${nomQuadrilatere}$ est un rectangle donc il possède 4 angles droits `
           texteCorr += RedactionPythagore(B, A, C, 1, b, a, c)[0]
           break

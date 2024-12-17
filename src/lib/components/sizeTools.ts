@@ -38,6 +38,27 @@ export const setSizeWithinSvgContainer = (parent: HTMLDivElement) => {
     }
   } while (zoom > 0.6 && (parent.firstElementChild.scrollHeight > originalClientHeight || parent.firstElementChild.scrollWidth > originalClientWidth))
 }
+// Pour les schémas en boite
+
+function resizeSchemaContainer (schemaContainer: HTMLElement, zoom: number) {
+  const originalWidth = schemaContainer.dataset.originalWidth || schemaContainer.offsetWidth
+  const originalHeight = schemaContainer.dataset.originalHeight || schemaContainer.offsetHeight
+
+  // Store the original dimensions if not already stored
+  if (!schemaContainer.dataset.originalWidth) {
+    schemaContainer.dataset.originalWidth = originalWidth.toString()
+  }
+  if (!schemaContainer.dataset.originalHeight) {
+    schemaContainer.dataset.originalHeight = originalHeight.toString()
+  }
+
+  // Apply the zoom
+  // schemaContainer.style.transform = `scale(${zoom})`
+  // schemaContainer.style.transformOrigin = 'top left'
+
+  schemaContainer.style.height = `${Math.round(parseFloat(String(originalHeight)) * zoom)}px`
+  schemaContainer.style.width = `${Math.round(parseFloat(String(originalWidth)) * zoom)}px`
+}
 
 export function resizeContent (container: HTMLElement | null, zoom: number) {
   const ZOOM_MIN = 0.2
@@ -60,6 +81,11 @@ export function resizeContent (container: HTMLElement | null, zoom: number) {
       resizeTags([checkbox], Math.max(zoom, ZOOM_MIN))
     }
   }
+  // Schémas en boite
+  const schemaContainers = container.getElementsByClassName('SchemaContainer') ?? []
+  for (const schemaContainer of schemaContainers) {
+    resizeSchemaContainer(schemaContainer as HTMLElement, Math.max(zoom, ZOOM_MIN))
+  }
   // Texte
   container.style.fontSize = `${Math.max(zoom, ZOOM_MIN)}rem`
 }
@@ -67,14 +93,20 @@ export function resizeContent (container: HTMLElement | null, zoom: number) {
 export function updateFigures (svgContainer: Element, zoom: number) {
   const svgDivs = svgContainer.querySelectorAll<SVGElement>('.mathalea2d')
   for (const svgDiv of svgDivs) {
-    if (svgDiv.clientWidth > 0 && svgDiv instanceof SVGElement) {
+    if (svgDiv instanceof SVGElement) {
       const figure = svgDiv
       const width = figure.getAttribute('width')
       const height = figure.getAttribute('height')
       if (!figure.dataset.widthInitiale && width != null) figure.dataset.widthInitiale = width
       if (!figure.dataset.heightInitiale && height != null) figure.dataset.heightInitiale = height
-      figure.setAttribute('height', (Number(figure.dataset.heightInitiale) * zoom).toString())
-      figure.setAttribute('width', (Number(figure.dataset.widthInitiale) * zoom).toString())
+      const newHeight = (Number(figure.dataset.heightInitiale) * zoom).toString()
+      const newWidth = (Number(figure.dataset.widthInitiale) * zoom).toString()
+      if (newHeight !== height) {
+        figure.setAttribute('height', (Number(figure.dataset.heightInitiale) * zoom).toString())
+      }
+      if (newWidth !== width) {
+        figure.setAttribute('width', (Number(figure.dataset.widthInitiale) * zoom).toString())
+      }
 
       // accorder la position des éléments dans la figure SVG
       const eltsInVariationTables = svgContainer.getElementsByClassName('divLatex') ?? []
@@ -109,7 +141,7 @@ export const resizeTags = (tags: HTMLElement[] | SVGElement[], factor:number = 1
     const widthAttributeExists: boolean = tag.hasAttribute('width')
     const heightAttributeExists: boolean = tag.hasAttribute('height')
     if (tag.hasAttribute('data-width') === false) {
-      let originalWidth: string|null
+      let originalWidth: string | null
       if (widthAttributeExists) {
         originalWidth = tag.getAttribute('width')
       } else {
@@ -124,7 +156,7 @@ export const resizeTags = (tags: HTMLElement[] | SVGElement[], factor:number = 1
       tag.dataset.widthUnit = widthUnit
     }
     if (tag.hasAttribute('data-height') === false) {
-      let originalHeight:string|null
+      let originalHeight:string | null
       if (heightAttributeExists) {
         originalHeight = tag.getAttribute('height')
         heightUnit = 'px'

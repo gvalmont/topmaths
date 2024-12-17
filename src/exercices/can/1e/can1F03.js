@@ -9,6 +9,7 @@ import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Lire graphiquement le signe de $a$ et de $\\Delta$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +20,6 @@ export const dateDeModifImportante = '12/10/2024'
 /**
  *
  * @author Gilles Mora
- * Référence can1F03
  */
 export const uuid = 'a8936'
 export const ref = 'can1F03'
@@ -30,7 +30,6 @@ export const refs = {
 export default function LectureGraphiqueParabole () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
@@ -56,10 +55,9 @@ export default function LectureGraphiqueParabole () {
           }
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: '>' },
-            champ2: { value: '<' }
-          },
-          { formatInteractif: 'mathlive' }
+            champ1: { value: '>', compare: fonctionComparaison, options: { texteSansCasse: true } },
+            champ2: { value: '<', compare: fonctionComparaison, options: { texteSansCasse: true } }
+          }
           )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
           r = repere({
@@ -105,10 +103,9 @@ export default function LectureGraphiqueParabole () {
           }
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: '>' },
-            champ2: { value: '>' }
-          },
-          { formatInteractif: 'mathlive' }
+            champ1: { value: '>', compare: fonctionComparaison, options: { texteSansCasse: true } },
+            champ2: { value: '>', compare: fonctionComparaison, options: { texteSansCasse: true } }
+          }
           )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
 
@@ -155,10 +152,9 @@ export default function LectureGraphiqueParabole () {
           }
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: '>' },
-            champ2: { value: '=' }
-          },
-          { formatInteractif: 'mathlive' }
+            champ1: { value: '>', compare: fonctionComparaison, options: { texteSansCasse: true } },
+            champ2: { value: '=', compare: fonctionComparaison, options: { texteSansCasse: true } }
+          }
           )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
           r = repere({
@@ -205,10 +201,9 @@ export default function LectureGraphiqueParabole () {
           }
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: '<' },
-            champ2: { value: '=' }
-          },
-          { formatInteractif: 'mathlive' }
+            champ1: { value: '<', compare: fonctionComparaison, options: { texteSansCasse: true } },
+            champ2: { value: '=', compare: fonctionComparaison, options: { texteSansCasse: true } }
+          }
           )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
 
@@ -255,10 +250,9 @@ export default function LectureGraphiqueParabole () {
           }
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: '<' },
-            champ2: { value: '>' }
-          },
-          { formatInteractif: 'mathlive' }
+            champ1: { value: '<', compare: fonctionComparaison, options: { texteSansCasse: true } },
+            champ2: { value: '>', compare: fonctionComparaison, options: { texteSansCasse: true } }
+          }
           )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
 
@@ -306,10 +300,9 @@ export default function LectureGraphiqueParabole () {
           }
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: '<' },
-            champ2: { value: '<' }
-          },
-          { formatInteractif: 'mathlive' }
+            champ1: { value: '<', compare: fonctionComparaison, options: { texteSansCasse: true } },
+            champ2: { value: '<', compare: fonctionComparaison, options: { texteSansCasse: true } }
+          }
           )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
 

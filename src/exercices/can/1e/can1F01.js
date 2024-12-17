@@ -5,6 +5,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer les coordonnées du sommet d\'une parabole à partir de la forme canonique'
 export const interactifReady = true
@@ -86,7 +87,7 @@ export default function CoordonneesSommetParabole () {
         par  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$.`
         this.canReponseACompleter = ''
       }
-      handleAnswers(this, i, { champ1: { value: String(-b) }, champ2: { value: String(c) } })
+      handleAnswers(this, i, { champ1: { value: String(-b), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ2: { value: String(c), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
 
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)

@@ -1,7 +1,7 @@
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
@@ -45,14 +45,7 @@ export default function RapportsSurUnSegment () {
       const entierMax = 9
       const m = randint(1, entierMax)
       const n = randint(1, entierMax, m) // on évite l'autre pour éviter la fraction 1
-      const params = {
-        xmin: -0.4,
-        ymin: -2,
-        xmax: 15 * entierMax, // pour éviter un cadrage trop large
-        ymax: 1,
-        pixelsParCm: 20,
-        scale: 1
-      }
+
       // on colle la figure à l'énoncé
       const yEnonce = -1.2
 
@@ -70,54 +63,42 @@ export default function RapportsSurUnSegment () {
       const noms = nomsChoix[randint(0, nomsChoix.length - 1)]
 
       // pour les situations, autant de situations que de cas dans le switch !
+      const f0 = fraction(Math.min(m, n), Math.max(m, n)).representation(0, 0, rayon, 0, 'segment', 'none', noms[0], noms[1], 1, noms[2])
+      const f0Corr = fraction(Math.min(m, n), Math.max(m, n)).representation(0, yEnonce, rayon, 0, 'segment', 'red', noms[0], noms[1], 1, noms[2])
+      const f0Corr2 = fraction(Math.max(m, n), Math.min(m, n)).representation(0, yEnonce, (Math.min(m, n) / Math.max(m, n)) * rayon, 0, 'segment', 'blue', noms[0], noms[2], 1, noms[1])
+      const f1 = fraction(Math.max(m, n), Math.min(m, n)).representation(0, 0, 5, 0, 'segment', 'none', noms[0], noms[1], 1, noms[2])
+      const f1Corr = fraction(Math.max(m, n), Math.min(m, n)).representation(0, yEnonce, 5, 0, 'segment', 'red', noms[0], noms[1], 1, noms[2])
+      const f1Corr2 = fraction(Math.min(m, n), Math.max(m, n)).representation(0, yEnonce, (Math.max(m, n) / Math.min(m, n)) * 5, 0, 'segment', 'blue', noms[0], noms[2], 1, noms[1])
       const situations = [
         { // case 0 --> m < n
           m: Math.min(m, n),
           n: Math.max(m, n),
           rapport: `\\dfrac{${noms[0] + noms[1]}}{${noms[0] + noms[2]}}`,
           rapport_inverse: `\\dfrac{${noms[0] + noms[2]}}{${noms[0] + noms[1]}}`,
-          fig: mathalea2d(
-            params,
-            fraction(Math.min(m, n), Math.max(m, n)).representation(0, 0, rayon, 0, 'segment', 'none', noms[0], noms[1], 1, noms[2])
-          ),
+          fig: mathalea2d(Object.assign({}, fixeBordures(f0)), f0),
           segment_corr1: `\\textcolor{red}{[${noms[0] + noms[2]}]}`,
           longueur_corr1: `\\textcolor{red}{${noms[0] + noms[2]}}`,
           m_color_corr: `\\textcolor{red}{${Math.min(m, n)}}`,
           n_color_corr: `\\textcolor{blue}{${Math.max(m, n)}}`,
-          fig_corr1: mathalea2d(
-            params,
-            fraction(Math.min(m, n), Math.max(m, n)).representation(0, yEnonce, rayon, 0, 'segment', 'red', noms[0], noms[1], 1, noms[2])
-          ),
+          fig_corr1: mathalea2d(Object.assign({}, fixeBordures(f0Corr)), f0Corr),
           segment_corr2: `\\textcolor{blue}{[${noms[0] + noms[1]}]}`,
           longueur_corr2: `\\textcolor{blue}{${noms[0] + noms[1]}}`,
-          fig_corr2: mathalea2d(
-            params,
-            fraction(Math.max(m, n), Math.min(m, n)).representation(0, yEnonce, (Math.min(m, n) / Math.max(m, n)) * rayon, 0, 'segment', 'blue', noms[0], noms[2], 1, noms[1])
-          )
+          fig_corr2: mathalea2d(Object.assign({}, fixeBordures(f0Corr2)), f0Corr2),
         },
         { // case 1 --> m > n
           m: Math.max(m, n),
           n: Math.min(m, n),
           rapport: `\\dfrac{${noms[0] + noms[1]}}{${noms[0] + noms[2]}}`,
           rapport_inverse: `\\dfrac{${noms[0] + noms[2]}}{${noms[0] + noms[1]}}`,
-          fig: mathalea2d(
-            params,
-            fraction(Math.max(m, n), Math.min(m, n)).representation(0, 0, 5, 0, 'segment', 'none', noms[0], noms[1], 1, noms[2])
-          ),
+          fig: mathalea2d(Object.assign({}, fixeBordures(f1)), f1),
           segment_corr1: `\\textcolor{red}{[${noms[0] + noms[2]}]}`,
           longueur_corr1: `\\textcolor{red}{${noms[0] + noms[2]}}`,
           m_color_corr: `\\textcolor{red}{${Math.max(m, n)}}`,
           n_color_corr: `\\textcolor{blue}{${Math.min(m, n)}}`,
-          fig_corr1: mathalea2d(
-            params,
-            fraction(Math.max(m, n), Math.min(m, n)).representation(0, yEnonce, 5, 0, 'segment', 'red', noms[0], noms[1], 1, noms[2])
-          ),
+          fig_corr1: mathalea2d(Object.assign({}, fixeBordures(f1Corr)), f1Corr),
           segment_corr2: `\\textcolor{blue}{[${noms[0] + noms[1]}]}`,
           longueur_corr2: `\\textcolor{blue}{${noms[0] + noms[1]}}`,
-          fig_corr2: mathalea2d(
-            params,
-            fraction(Math.min(m, n), Math.max(m, n)).representation(0, yEnonce, (Math.max(m, n) / Math.min(m, n)) * 5, 0, 'segment', 'blue', noms[0], noms[2], 1, noms[1])
-          )
+          fig_corr2: mathalea2d(Object.assign({}, fixeBordures(f1Corr2)), f1Corr2),
         }
 
       ]

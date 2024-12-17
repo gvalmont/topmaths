@@ -10,6 +10,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { propositionsQcm } from '../../lib/interactif/qcm'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Résoudre des problèmes utilisant la division euclidienne'
 
@@ -71,8 +72,8 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr += `<br>${numAlpha(1)} Il reste ${reste} fleurs et il en faut ${diviseur} pour un bouquet.`
           texteCorr += `<br>$${diviseur} - ${reste} = ${diviseur - reste}$`
           texteCorr += `<br> Il manque donc ${texteEnCouleurEtGras(diviseur - reste)} fleurs pour faire un bouquet de plus.`
-          handleAnswers(this, indiceInteractif, { reponse: { value: quotient } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, indiceInteractif + 1, { reponse: { value: diviseur - reste } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: quotient, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: diviseur - reste, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
           indiceInteractif += 2
           break
         case 2:
@@ -92,8 +93,8 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr += `<br>${numAlpha(1)} Il reste ${reste} oeufs et il en faut ${diviseur} pour une boîte.`
           texteCorr += `<br>$${diviseur} - ${reste} = ${diviseur - reste}$`
           texteCorr += `<br>Il lui manquera ${texteEnCouleurEtGras(diviseur - reste)} oeufs pour en remplir une de plus.`
-          handleAnswers(this, indiceInteractif, { reponse: { value: quotient } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, indiceInteractif + 1, { reponse: { value: diviseur - reste } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: quotient, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: diviseur - reste, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
           indiceInteractif += 2
           break
         case 3:
@@ -111,8 +112,8 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr += Operation({ operande1: dividende, operande2: diviseur, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(dividende)}=${diviseur}\\times${texNombre(quotient)}+ ${texNombre(reste)}`, 'blue')}$`
           texteCorr += `<br>Chaque pirate aura ${texteEnCouleurEtGras(quotient)} pièces.`
           texteCorr += `<br>${numAlpha(1)}  Il restera ${texteEnCouleurEtGras(reste)} pièces d'or.`
-          handleAnswers(this, indiceInteractif, { reponse: { value: quotient } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, indiceInteractif + 1, { reponse: { value: reste } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: quotient, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: reste, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
           indiceInteractif += 2
           break
         case 4: {
@@ -167,8 +168,8 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr += `<br>${numAlpha(1)} Posons la division euclidienne de $${texNombre(prixHotelTotal + prixForfaitTotal)}$ par $${nbAmis}$. <br>`
           texteCorr += Operation({ operande1: prixHotelTotal + prixForfaitTotal, operande2: nbAmis, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(prixHotelTotal + prixForfaitTotal)}=${nbAmis}\\times${texNombre((prixHotel + prixForfait) * nbJour)}`, 'blue')}$`
           texteCorr += `<br>Chaque personne a dépensé  $${miseEnEvidence(texNombre((prixHotel + prixForfait) * nbJour))}$ €.`
-          handleAnswers(this, indiceInteractif, { reponse: { value: prixHotelTotal + prixForfaitTotal } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, indiceInteractif + 1, { reponse: { value: (prixHotel + prixForfait) * nbJour } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: prixHotelTotal + prixForfaitTotal, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: (prixHotel + prixForfait) * nbJour, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
           indiceInteractif += 2
           break
         }
@@ -193,8 +194,8 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr += `<br>Il y a ${texteEnCouleurEtGras(nbPlacesPetiteSalles)} places dans une petite salle.`
           texteCorr += `<br>${numAlpha(1)} $${nbPlacesPetiteSalles} \\times ${nb} = ${nbPlacesPetiteSalles * nb}$ places`
           texteCorr += `<br>Il y a ${texteEnCouleurEtGras(nbPlacesPetiteSalles * nb)} places dans une grande salle.`
-          handleAnswers(this, indiceInteractif, { reponse: { value: nbPlacesPetiteSalles } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, indiceInteractif + 1, { reponse: { value: nbPlacesPetiteSalles * nb } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: nbPlacesPetiteSalles, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: nbPlacesPetiteSalles * nb, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
           indiceInteractif += 2
           break
         }
@@ -232,9 +233,9 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr += nbPerlesRougeTotal - nbPerlesRouge * Math.min(nbColliersRouge, nbColliersJaune) === 0
             ? '<br>Il ne restera aucune perle rouge.'
             : `<br>Il restera $${miseEnEvidence(nbPerlesRougeTotal - nbPerlesRouge * Math.min(nbColliersRouge, nbColliersJaune))}$  perles rouges.`
-          handleAnswers(this, indiceInteractif, { reponse: { value: Math.min(nbColliersRouge, nbColliersJaune) } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, indiceInteractif + 1, { reponse: { value: nbPerlesJauneTotal - nbPerlesJaune * Math.min(nbColliersRouge, nbColliersJaune) } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, indiceInteractif + 2, { reponse: { value: nbPerlesRougeTotal - nbPerlesRouge * Math.min(nbColliersRouge, nbColliersJaune) } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: Math.min(nbColliersRouge, nbColliersJaune), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: nbPerlesJauneTotal - nbPerlesJaune * Math.min(nbColliersRouge, nbColliersJaune), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, indiceInteractif + 2, { reponse: { value: nbPerlesRougeTotal - nbPerlesRouge * Math.min(nbColliersRouge, nbColliersJaune), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
           indiceInteractif += 3
           break
         }
@@ -255,8 +256,8 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr += Operation({ operande1: nbTimbres, operande2: nbTimbresParPage, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(nbTimbres)}=${nbTimbresParPage}\\times${texNombre(nbPages)}${nbTimbres - nbTimbresParPage * nbPages === 0 ? '' : `+ ${nbTimbres - nbTimbresParPage * nbPages}`}`, 'blue')}$`
           texteCorr += `<br>Il y aura $${miseEnEvidence(texNombre(nbPages), 'blue')}$ pages remplies et une page avec $${miseEnEvidence(texNombre(reste), 'blue')}$ timbres. Donc au total, il faudra $${miseEnEvidence(texNombre(nbPages + 1))}$ pages.`
           texteCorr += `<br>${numAlpha(1)} Comme l'indique la division euclidienne ci-dessus, il y aura $${miseEnEvidence(texNombre(reste))}$ timbres sur la dernière page.`
-          handleAnswers(this, indiceInteractif, { reponse: { value: nbPages + 1 } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, indiceInteractif + 1, { reponse: { value: reste } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: nbPages + 1 }, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: reste }, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } })
           indiceInteractif += 2
           break
         }
@@ -277,8 +278,8 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr += Operation({ operande1: dividende, operande2: diviseur, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(dividende)}=${diviseur}\\times${texNombre(nbPiecesParPirate)} +  ${reste}`, 'blue')}$`
           texteCorr += `<br>Chaque pirate aura $${miseEnEvidence(texNombre(nbPiecesParPirate))}$ pièces.`
           texteCorr += `<br>${numAlpha(1)} Comme l'indique la division euclidienne ci-dessus, le capitaine aura $${miseEnEvidence(texNombre(reste))}$ pièces et il aura le plus de pièces.`
-          handleAnswers(this, indiceInteractif, { reponse: { value: nbPiecesParPirate } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, indiceInteractif + 1, { reponse: { value: reste } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: nbPiecesParPirate, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: reste, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
           indiceInteractif += 2
           break
         }
@@ -310,8 +311,8 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr += `<br> <br> Comme $${Math.min(nbPlaces2ParRangée - reste2, nbPlaces1ParRangée - reste1)} < ${Math.max(nbPlaces2ParRangée - reste2, nbPlaces1ParRangée - reste1)}$,
            alors pour avoir le moins de places libres, les organisateurs vont préférer $${miseEnEvidence(nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbPlaces2ParRangée : nbPlaces1ParRangée)}$ places par rangée.`
           texteCorr += `<br>${numAlpha(1)} Comme l'indique la division euclidienne ci-dessus, il y aura ${nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbRangée2 : nbRangée1} rangées remplies et $1$ rangée avec ${nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? reste2 : reste1} places occupées, soit $${miseEnEvidence(nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbRangée2 + 1 : nbRangée1 + 1)}$ rangées au total.`
-          handleAnswers(this, indiceInteractif, { reponse: { value: nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbPlaces2ParRangée : nbPlaces1ParRangée } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, indiceInteractif + 1, { reponse: { value: nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbRangée2 + 1 : nbRangée1 + 1 } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbPlaces2ParRangée : nbPlaces1ParRangée, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbRangée2 + 1 : nbRangée1 + 1, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
           indiceInteractif += 2
           break
         }

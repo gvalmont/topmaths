@@ -8,7 +8,7 @@ export const interactifReady = true
 export const interactifType = 'custom'
 
 /**
- * Tracer un rectangle
+ * Tracer un parallélogramme
  * @author Rémi Angot
  * Références geoParallelogramme2
  */
@@ -45,10 +45,9 @@ class ConstructionParallelogramme extends Exercice {
     const enonce = 'Placer le point $D$ tel que $ABCD$ soit un parallélogramme.'
     this.figure.setToolbar({ tools: ['POINT', 'POINT_ON', 'POINT_INTERSECTION', 'SEGMENT', 'POLYGON', 'CIRCLE_CENTER_POINT', 'CIRCLE_RADIUS', 'NAME_POINT', 'DRAG', 'HIDE', 'REMOVE', 'UNDO', 'REDO', 'SHAKE'], position: 'top' })
     const emplacementPourFigure = figureApigeom({ exercice: this, i: 0, figure: this.figure })
-    let texteCorr = 'Un rectangle est un quadrilatère qui a 4 angles droits.'
-    texteCorr += '<br>On peut tracer un rectangle de différentes façons.'
-    texteCorr += '<br>Dans cette animation, on va tracer un quadrilatère avec 3 angles droits mais on n\'aurait pu aussi ne faire qu\'un angle droit et tracer des côtés opposés parallèles.'
-    const figureCorrection = createAnimationConstructionRectangle()
+    let texteCorr = 'Un parallélogramme est un quadrilatère qui a ses côtés opposés deux à deux.'
+    texteCorr += '<br>Dans cette animation, on va utiliser le « cercle centre-rayon » pour reporter les longueurs.'
+    const figureCorrection = createAnimationConstructionParallelogramme()
     const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, i: 0, idAddendum: 'Correction', figure: figureCorrection })
     this.question = enonce + emplacementPourFigure
     this.correction = texteCorr + emplacementPourFigureCorrection
@@ -85,7 +84,7 @@ class ConstructionParallelogramme extends Exercice {
 
 export default ConstructionParallelogramme
 
-function createAnimationConstructionRectangle () : Figure {
+function createAnimationConstructionParallelogramme () : Figure {
   const figure = new Figure({ xMin: 0, yMin: 0, width: 800, height: 500, border: true })
   figure.setToolbar({ position: 'top', tools: ['RESTART', 'PLAY_SKIP_BACK', 'PLAY', 'PLAY_SKIP_FORWARD', 'PAUSE'] })
   const description = figure.create('TextByPosition', { anchor: 'bottomLeft', backgroundColor: 'white', text: 'Si un quarilatère non croisé a ses côtés opoosés deux à deux de même longueur alors c\'est un parallélogramme.', x: 10, y: 15 })

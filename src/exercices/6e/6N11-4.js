@@ -16,15 +16,14 @@ import {
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-export const titre =
-  "Ranger des nombres entiers dans l'ordre croissant ou décroissant"
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+export const titre = "Ranger des nombres entiers dans l'ordre croissant ou décroissant"
 export const dateDeModificationImportante = '28/08/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
  * * Ranger une liste de nombres dans l'odre croissant ou décroissant
- * * 6N11-4
  * @author Sébastien Lozano
  * Refactorisé et passé en interactif par Jean-Claude Lhote
  */
@@ -124,22 +123,22 @@ export default class RangerOrdreCroissantDecroissant extends Exercice {
       handleAnswers(this, i,
         {
           // @ts-expect-error problème typage handleAnswers
-          champ1: { value: nombresRanges[0] },
+          champ1: { value: nombresRanges[0], compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
           // @ts-expect-error problème typage handleAnswers
-          champ2: { value: nombresRanges[1] },
+          champ2: { value: nombresRanges[1], compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
           // @ts-expect-error problème typage handleAnswers
-          champ3: { value: nombresRanges[2] },
+          champ3: { value: nombresRanges[2], compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
           // @ts-expect-error problème typage handleAnswers
-          champ4: { value: nombresRanges[3] },
+          champ4: { value: nombresRanges[3], compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
           // @ts-expect-error problème typage handleAnswers
-          champ5: { value: nombresRanges[4] },
+          champ5: { value: nombresRanges[4], compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
           // @ts-expect-error problème typage handleAnswers
-          champ6: { value: nombresRanges[5] }
+          champ6: { value: nombresRanges[5], compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
         }
       )
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
-      // Si la question n'a jamais été posée, on en crée une autre
+      if (this.questionJamaisPosee(i, c1, c2, c3, c4, c5)) {
+        // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

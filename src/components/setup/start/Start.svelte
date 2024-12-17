@@ -47,9 +47,7 @@
   import SideMenuWrapper from './presentationalComponents/header/SideMenuWrapper.svelte'
   import { qcmCamExportAll } from '../../../lib/amc/qcmCam'
   import { downloadFile } from '../../../lib/files'
-  import ExerciceQcm from '../../../exercices/ExerciceQcm'
-    import Exercice from '../../shared/exercice/Exercice.svelte';
-
+  
   let isNavBarVisible: boolean = true
   let innerWidth = 0
   let isBackToTopButtonVisible = false

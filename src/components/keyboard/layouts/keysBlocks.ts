@@ -80,6 +80,11 @@ const ensembleDefiniCaps: CompleteKeysList = {
   block: ['COMP', 'REAL', 'RATIO', 'DECIMAL', 'REL', 'INTEG', 'EMPTY', 'UNION', 'INTER']
 }
 
+const suiteCaps: CompleteKeysList = {
+  inline: ['U_INDICE_N', 'V_INDICE_N', 'W_INDICE_N', 'C_INDICE_N', 'nMath', 'kMath', 'INDICE_N', 'INDICE'],
+  block: ['U_INDICE_N', 'V_INDICE_N', 'W_INDICE_N', 'C_INDICE_N', 'nMath', 'kMath', 'INDICE_N', 'INDICE']
+}
+
 const hmsCaps: CompleteKeysList = {
   inline: ['WEEK', 'DAY', 'HOUR', 'MIN', 'SEC'],
   block: ['WEEK', 'DAY', 'HOUR', 'MIN', 'SEC']
@@ -375,6 +380,13 @@ export const ensembleDefini: KeyboardBlock = {
   isUnits: false
 }
 
+export const suite: KeyboardBlock = {
+  keycaps: suiteCaps,
+  cols: 2,
+  title: 'Suites',
+  isUnits: false
+}
+
 export const volumes: KeyboardBlock = {
   keycaps: volumesCaps,
   cols: 2,
@@ -431,7 +443,6 @@ export const uppercaseXToZ: KeyboardBlock = {
   isUnits: false
 }
 
-// eslint-disable-next-line no-unused-vars
 export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>]: KeyboardBlock } = {
   advanced,
   angles,
@@ -445,6 +456,7 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   degreCelsius,
   ensemble,
   ensembleDefini,
+  suite,
   greek,
   fullOperations,
   hms,

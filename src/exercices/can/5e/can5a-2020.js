@@ -23,7 +23,9 @@ import Hms from '../../../modules/Hms'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'CAN 5e sujet 2020'
 export const interactifReady = true
@@ -201,10 +203,10 @@ export default function SujetCAN20205ieme () {
           et $${d - 60 + b}$ min, soit une arrivée à  $${miseEnEvidence(a + c + 1)}$ h $${miseEnEvidence(b + d - 60)}$ min.`
 
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'clavierHms ')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
 
-          setReponse(this, index, new Hms({ hour: a + c + 1, minute: b + d - 60 }), { formatInteractif: 'hms' })
+          handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + c + 1, minute: b + d - 60 }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
 
           nbChamps = 1
           break
@@ -548,10 +550,8 @@ export default function SujetCAN20205ieme () {
             texteCorr = `$${texNombre(new Decimal(a).add(b), 2)}\\text{ h}= ${a}\\text{ h} + ${texNombre(b, 2)} \\times 60 \\text{ min} = ${miseEnEvidence(a)}\\text{ h }${miseEnEvidence(d)}\\text{ min}$`
           } else {
             texte = `Convertis en heures/minutes : <br>$${texNombre(new Decimal(a).add(b), 2)}\\text{ h}=$`
-
-            texte += ajouteChampTexteMathLive(this, index, 'clavierHms  ')
-
-            setReponse(this, index, new Hms({ hour: a, minute: d }), { formatInteractif: 'hms' })
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
           }
 
           nbChamps = 1

@@ -14,7 +14,9 @@ import { min, round } from 'mathjs'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'CAN 3e sujet 2022'
 export const interactifReady = true
@@ -489,9 +491,9 @@ export default function SujetCAN2022troisieme () {
             texteCorr = `$${texNombre(b.plus(a), 2)}$h$ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60  = ${a}$ h $${texNombre(d, 0)}$ min`
           } else {
             texte = `Convertir en heures/minutes : <br>$${texNombre(b.plus(a), 2)}$ h $=$`
-            texte += ajouteChampTexteMathLive(this, index, 'clavierHms ')
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
 
-            setReponse(this, index, new Hms({ hour: a, minute: d }), { formatInteractif: 'hms' })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
             texteCorr = `$${texNombre(b.plus(a), 2)}\\text{ h } = ${a}\\text{ h }+${texNombre(b, 2)} \\times 60\\text{ min } = ${a}\\text{ h }${texNombre(d, 0)}\\text{ min }$`
 
             nbChamps = 1
@@ -815,9 +817,9 @@ export default function SujetCAN2022troisieme () {
             texteCorr = `On ajoute $3$ h à $${a}$h $${b}$. Cela fait $${a + 3}$h $${b}$.<br>
             On complète l'heure avec $60-${b}$ min soit $${60 - b}$. Il reste $${c}-${60 - b}$ soit $${c - 60 + b}$ min qu'il faut encore ajouter.<br>
             Benoît arrive  à $${a + 4}$h $${c - 60 + b}$.`
-            texte += ajouteChampTexteMathLive(this, index, 'clavierHms ')
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
 
-            setReponse(this, index, new Hms({ hour: a + 4, minute: c - 60 + b }), { formatInteractif: 'hms' })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 4, minute: c - 60 + b }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
 
             nbChamps = 1
           }

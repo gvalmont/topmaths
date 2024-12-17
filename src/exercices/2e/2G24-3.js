@@ -177,8 +177,7 @@ export default function Calculercoordonneesdifferencevecteurs () {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
         champ1: { value: wx.texFraction, compare: fonctionComparaison },
         champ2: { value: wy.texFraction, compare: fonctionComparaison }
-      },
-      { formatInteractif: 'mathlive' })
+      })
       if (this.interactif) {
         texte += '<br>' + remplisLesBlancs(this, i,
           '\\overrightarrow{w}\\begin{pmatrix}%{champ1}\\\\\\\\%{champ2}\\end{pmatrix}',

@@ -107,8 +107,7 @@ export default function Milieu () {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
             champ1: { value: xM.texFraction, compare: fonctionComparaison },
             champ2: { value: yM.texFraction, compare: fonctionComparaison }
-          },
-          { formatInteractif: 'mathlive' })
+          })
 
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$.`
@@ -139,7 +138,7 @@ export default function Milieu () {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
             champ1: { value: new Decimal(xM).mul(2).sub(xA).toString(), compare: fonctionComparaison },
             champ2: { value: new Decimal(yM).mul(2).sub(yA).toString(), compare: fonctionComparaison }
-          }, { formatInteractif: 'mathlive' })
+          })
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
           texte += `  $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${M.nom}\\left(${texNombre(xM, 1)}\\,;\\,${texNombre(yM, 1)}\\right)$.`
           texte += `<br>Déterminer les coordonnées du point $${B.nom}$ tel que $${M.nom}$ soit le milieu du segment $[${A.nom}${B.nom}]$. `
@@ -199,8 +198,7 @@ export default function Milieu () {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
             champ1: { value: xM.texFraction, compare: fonctionComparaison },
             champ2: { value: yM.texFraction, compare: fonctionComparaison }
-          },
-          { formatInteractif: 'mathlive' })
+          })
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i,
               `${M.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`,

@@ -70,7 +70,7 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
       switch (typesDeQuestions) {
         case 2: // fraction décimale -> écriture décimale
           consi[1] = true
-          handleAnswers(this, i, { reponse: { value: texNombre(n, 3), compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: texNombre(n, 3), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
           texte = `$${texFraction(String(a), String(b))}  ${(!this.interactif ? '=\\ldots\\ldots\\ldots\\ldots' : '=')} $` + ajouteChampTexteMathLive(this, i, '')
           texteCorr = '$ ' + texFraction(String(a), String(b)) + ' = ' + texNombre(n, 3) + ' $'
           this.autoCorrection[i].reponse.param.digits = 5
@@ -97,9 +97,8 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
           }
           handleAnswers(this, i, {
             bareme: (listePoints) => [listePoints[0], 1],
-            champ1: { value: String(a) }
-          },
-          { formatInteractif: 'mathlive' }
+            champ1: { value: String(a), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+          }
           )
 
           if (this.interactif) {

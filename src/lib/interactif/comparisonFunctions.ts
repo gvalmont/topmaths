@@ -9,6 +9,8 @@ import Hms from '../../modules/Hms'
 // import { texFractionFromString } from '../outils/deprecatedFractions'
 import type { Expression } from 'mathlive'
 import { areSameArray } from '../outils/arrayOutils'
+import { texNombre } from '../outils/texNombre'
+import { number } from 'mathjs'
 
 const engine = new ComputeEngine()
 export default engine
@@ -501,6 +503,12 @@ engine.latexDictionary = [
   } as unknown as LatexDictionaryEntry // Conversion en 'unknown' puis en 'LatexDictionaryEntry'
 ]
 
+// Pour éviter que G en Latex soit pris pour CatalanConstant
+engine.latexDictionary = [
+  ...engine.latexDictionary,
+  { identifierTrigger: 'G', name: 'G' } as LatexDictionaryEntry
+]
+
 /****************************************************************************************************
  *
  *                  C'est la fonction, ci-dessous, la future fonction couteauSuisse
@@ -567,29 +575,29 @@ export function fonctionComparaison (
     fractionReduite, // Documenté
     fractionDecimale, // Documenté
     fractionEgale, // Documenté
-    fractionIdentique,
+    fractionIdentique, // Documenté
     nombreDecimalSeulement, // Documenté
     operationSeulementEtNonResultat, // Documenté
-    additionSeulementEtNonResultat,
-    soustractionSeulementEtNonResultat,
-    multiplicationSeulementEtNonResultat,
-    divisionSeulementEtNonResultat,
+    additionSeulementEtNonResultat, // Documenté
+    soustractionSeulementEtNonResultat, // Documenté
+    multiplicationSeulementEtNonResultat, // Documenté
+    divisionSeulementEtNonResultat, // Documenté
     resultatSeulementEtNonOperation, // Documenté
     ensembleDeNombres, // Documenté
     kUplet, // Documenté
-    suiteDeNombres,
-    suiteRangeeDeNombres,
+    suiteDeNombres, // Documenté
+    suiteRangeeDeNombres, // Documenté
     puissance, // Documenté
     seulementCertainesPuissances, // Documenté
     sansExposantUn, // Documenté
     factorisation, // Documenté
     exclusifFactorisation, // Documenté
     nbFacteursIdentiquesFactorisation, // Documenté
-    unSeulFacteurLitteral,
-    HMS,
+    unSeulFacteurLitteral, // Documenté
+    HMS, // Documenté
     intervalle,
     estDansIntervalle,
-    ecritureScientifique,
+    ecritureScientifique, // Documenté
     unite,
     precisionUnite,
     texteAvecCasse,
@@ -651,7 +659,7 @@ export function fonctionComparaison (
   if (HMS) return hmsCompare(input, goodAnswer)
   if (intervalle) return intervalsCompare(input, goodAnswer)
   if (estDansIntervalle) return intervalCompare(input, goodAnswer)
-  if (ecritureScientifique) return scientificCompare(input, goodAnswer)
+  if (ecritureScientifique) return scientifiqueCompare(input, goodAnswer)
   if (unite) { return unitsCompare(input, goodAnswer, { precision: precisionUnite }) }
   if (factorisation || exclusifFactorisation || nbFacteursIdentiquesFactorisation || unSeulFacteurLitteral) return factorisationCompare(input, goodAnswer, { exclusifFactorisation, nbFacteursIdentiquesFactorisation, unSeulFacteurLitteral })
   if (puissance || seulementCertainesPuissances || sansExposantUn) return comparaisonPuissances(input, goodAnswer, { seulementCertainesPuissances, sansExposantUn })
@@ -1161,13 +1169,13 @@ export function expressionDeveloppeeEtNonReduiteCompare (
 }
 
 /**
- * comparaison de nombres en écritures scientifiques @todo à vérifier celle-là, j'suis pas convaincu
+ * Comparaison de nombres en notation scientifique
  * @param {string} input
  * @param {string} goodAnswer
  * @return ResultType
- * @author Jean-Claude Lhote
+ * @author Eric Elter
  */
-function scientificCompare (input: string, goodAnswer: string): ResultType {
+function scientifiqueCompare (input: string, goodAnswer: string): ResultType {
   const clean = generateCleaner([
     'virgules',
     'espaces',
@@ -1176,17 +1184,33 @@ function scientificCompare (input: string, goodAnswer: string): ResultType {
   ])
   const saisieClean = clean(input)
   const reponseClean = clean(goodAnswer)
-  if (
-    engine
-      .parse(saisieClean)
-      .canonical.isSame(engine.parse(reponseClean).canonical)
-  ) {
-    const [mantisse] = saisieClean.split('\\times')
-    if (Number(mantisse) >= 1 && Number(mantisse) < 10) {
-      return { isOk: true }
-    }
+
+  let saisieCleanFormattee = saisieClean.replace(/\s+/g, '') // Supprimer tous les espaces
+    .replace(/\\times/g, '\\cdot') // Remplacer \times par \cdot
+    .replace(/\^(\d+)/g, '^{$1}') // Ajouter des accolades autour des exposants
+    .replace(/\{\+(\d+)\}/g, '{$1}')  // Remplacer {+a} par {a}
+
+  // Si la puissance est 0, on accepte mais computeEngine ne met pas en notation scientitique et donc la comparaison entre notation scientifique n'est pas possible.
+  // Donc il faut ces trois lignes pour comparer les nombres décimaux, dans ce cas précis.
+  const match = saisieCleanFormattee.match(/\^{(-?\d+)}$/) // Recherche des nombres entre accolades
+  const puissance = match ? number(match[match.length - 1]) : null
+  if (puissance === 0) saisieCleanFormattee = engine.parse(saisieClean).toLatex({ notation: 'scientific', avoidExponentsInRange: [0, 0] })
+
+  // Ce code ci-dessous sera à supprimer après correction de l'issue 223 de computeEngine 0.27.0
+  const regex = /(?:\{(-?\d+)\}|(-?\d+))\\cdot(.+)/ // Expression régulière pour capturer le nombre avant et ce qui suit \cdot
+  const decoupageSaisie = saisieCleanFormattee.match(regex)
+  let mantisseSaisie: string | null = null
+  if (decoupageSaisie) {
+    mantisseSaisie = (decoupageSaisie[1] || decoupageSaisie[2]) || null
+    if (mantisseSaisie === '1' && decoupageSaisie[3]) saisieCleanFormattee = decoupageSaisie[3].trim()
   }
-  return { isOk: false }
+  // Ce code ci-dessus sera à supprimer après correction de l'issue 223 de computeEngine 0.27.0
+
+  const reponseCleanFormattee = engine.parse(reponseClean).toLatex({ notation: 'scientific', avoidExponentsInRange: [0, 0] })
+  if (saisieCleanFormattee === reponseCleanFormattee) return { isOk: true }
+
+  if (engine.parse(saisieClean).isEqual(engine.parse(reponseClean))) return { isOk: false, feedback: 'La réponse fournie est bien égale à celle attendue mais la réponse fournie n\'est pas en notation scientifique.' }
+  return { isOk: false, feedback: 'La réponse fournie n\'est pas égale à celle attendue.' }
 }
 
 /**
@@ -1259,7 +1283,9 @@ export function upperCaseCompare (input: string, goodAnswer: string): ResultType
 function texteSansCasseCompare (input: string, goodAnswer: string): ResultType {
   const localInput = input.toLowerCase()
   const localGoodAnswer = goodAnswer.toLowerCase()
-  return texteAvecCasseCompare(localInput, localGoodAnswer)
+  // Ligne ci-dessous utile si la réponse est (B,F) comme dans 2S30-5
+  const cleanInput = localInput.replace(/\\lparen\s*([^{}]+)\s*\{,\}\s*([^{}]+)\s*\\rparen/g, '($1,$2)')
+  return texteAvecCasseCompare(cleanInput, localGoodAnswer)
 }
 
 /**
@@ -1615,8 +1641,18 @@ function unitsCompare (
       }
     }
     if (precision !== undefined) {
-      if (inputGrandeur.estUneApproximation(goodAnswerGrandeur, precision)) {
+      const okPrecision1: boolean = inputGrandeur.estUneApproximation(goodAnswerGrandeur, precision)
+      const okPrecision2: boolean = goodAnswerGrandeur.estUneApproximation(inputGrandeur, precision / 10)
+      if (okPrecision1 && okPrecision2) {
         return { isOk: true }
+      } else {
+        if (okPrecision1) {
+          return {
+            isOk: false,
+            feedback:
+              `La réponse n'est pas arrondie à $${texNombre(10 ** (-precision), precision)}$ près.`
+          }
+        }
       }
       return { isOk: false }
     }

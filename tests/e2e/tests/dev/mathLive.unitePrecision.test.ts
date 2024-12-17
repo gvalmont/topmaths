@@ -16,9 +16,9 @@ async function test (page: Page) {
       // On fait exprès de faire une erreur d'arrondi et un feedback devrait s'afficher
       // Todo : vérifier que le feedback sur l'arrondi s'affiche bien
       if (a.pow(2).plus(b.pow(2)).sqrt().toFixed(2).at(-1) !== '0') {
-        reponse = a.pow(2).plus(b.pow(2)).sqrt().toFixed(2) + 'cm'
+        reponse = a.pow(2).plus(b.pow(2)).sqrt().add(0.1).toFixed(2) + 'cm'
       } else {
-        reponse = a.pow(2).plus(1).sqrt().toFixed(2) + 'cm'
+        reponse = a.pow(2).plus(1).sqrt().add(0.1).toFixed(2) + 'cm'
       }
     }
     await inputAnswer(page, question, reponse)

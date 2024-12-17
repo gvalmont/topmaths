@@ -39,7 +39,7 @@ const buildDataKeyboardString = (style = '') => {
  * @returns string
  */
 export function ajouteQuestionMathlive ({ exercice, question, objetReponse, reponseParams, typeInteractivite, content = '', classe = '', tableau, typeTableau = 'doubleEntree', texteAvant = '', texteApres = '', blocCenter = false, espace = false }:
-  {exercice: Exercice, question: number, objetReponse: Valeur, reponseParams?: ReponseParams, typeInteractivite: interactivityType, content?: string, classe?: string, tableau?: ItabDbleEntry | Itableau, typeTableau?: TableauMathliveType, texteAvant?: string, texteApres?: string, blocCenter?: boolean, espace?: boolean}
+{ exercice: Exercice, question: number, objetReponse: Valeur, reponseParams?: ReponseParams, typeInteractivite: interactivityType, content?: string, classe?: string, tableau?: ItabDbleEntry | Itableau, typeTableau?: TableauMathliveType, texteAvant?: string, texteApres?: string, blocCenter?: boolean, espace?: boolean }
 ) {
   if (context.isHtml && exercice.interactif) {
     if (!(typeInteractivite === 'mathlive' || typeInteractivite === 'remplisLesBlancs' || typeInteractivite === 'tableauMathlive' || typeInteractivite === 'texte')) {

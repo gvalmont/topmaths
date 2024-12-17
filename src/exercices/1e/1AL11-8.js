@@ -2,6 +2,9 @@ import { texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { randint } from '../../modules/outils.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Calculer une somme de termes'
 export const interactifReady = true
@@ -12,7 +15,6 @@ export const dateDePublication = '28/12/2022'
 /**
  * Calculer une somme du type S = 3 + 5 + 7 + ... + 29
  * @author Rémi Angot
- * Référence 1N14
 */
 export const uuid = '8ed19'
 export const ref = '1AL11-8'
@@ -26,6 +28,10 @@ export default class SommeSuite extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.spacingCorr = 2
+    this.formatChampTexte = KeyboardType.clavierDeBase
+    this.optionsChampTexte = { texteAvant: '<br>$S=$' }
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -41,6 +47,6 @@ export default class SommeSuite extends Exercice {
     this.correction += `<br>$S = ${texNombre(this.reponse)}$`
     this.correction += `<br><br>${texteGras('Autre méthode')} : on reconnait la somme des $${n + 1}$ premiers termes d'une suite arithmétique de premier terme $${u0}$ et de raison $${r}$.`
     this.correction += '<br>Donc d\'après le cours :'
-    this.correction += `<br>$S=(\\text{nombre de termes})\\times\\dfrac{\\text{premier terme} + \\text{dernier terme}}{2}=${n + 1}\\times\\dfrac{${u0} + ${u0 + n * r}}{2}=${texNombre(this.reponse)}$.`
+    this.correction += `<br>$S=(\\text{nombre de termes})\\times\\dfrac{\\text{premier terme} + \\text{dernier terme}}{2}=${n + 1}\\times\\dfrac{${u0} + ${u0 + n * r}}{2}=${miseEnEvidence(texNombre(this.reponse))}$.`
   }
 }

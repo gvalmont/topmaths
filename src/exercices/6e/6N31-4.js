@@ -1,12 +1,11 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { infoMessage } from '../../lib/format/message.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const titre = 'Intercaler un nombre décimal entre deux nombres décimaux'
 export const amcReady = true
@@ -27,40 +26,55 @@ export const refs = {
   'fr-fr': ['6N31-4'],
   'fr-ch': ['9NO7-7']
 }
-export default function IntercalerDecimalEntre2Decimaux () {
-  Exercice.call(this)
-  this.consigne = 'Compléter avec un nombre décimal.'
-  this.nbQuestions = 6
-  this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
-  this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
+export default class IntercalerDecimalEntre2Decimaux extends Exercice {
+  constructor () {
+    super()
+    this.consigne = 'Compléter avec un nombre décimal.'
+    this.nbQuestions = 6
+    this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
+    this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
+    this.besoinFormulaireTexte = ['Type de question', [
+      'Nombres séparés par des tirets',
+      '1 : b-a > 0,1',
+      '2 : b-a = 0,1',
+      '3 : b-a = 0,1, b entier',
+      '4 : b-a = 0,01',
+      '5 : b-a = 0,01, a avec 9 centièmes',
+      '6 : b-a = 0,01, a avec 99 centièmes',
+      '7 : a avec 3 chiffres après la virgule et b un seul',
+      '8 : b-a = 0,1, a entier',
+      '9 : b-a = 0,01, a entier',
+      '10 : b-a = 1, a et b entiers',
+      '11 : Mélange'
+    ].join('\n')]
+    this.sup = '11'
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.autoCorrection = []
-
-    const listeTypeDeQuestionsDisponibles = ['a,b1', 'a,b2', 'a,9', 'a,bc', 'a,b9', 'a,99', 'a,b0c', 'a,1', 'a,01', 'a']
-    const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 10, melange: 11, defaut: 11, nbQuestions: this.nbQuestions, listeOfCase: ['a,b1', 'a,b2', 'a,9', 'a,bc', 'a,b9', 'a,99', 'a,b0c', 'a,1', 'a,01', 'a'] })
     for (let i = 0, texte, texteCorr, a, b, r, u, d1, c1, c2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
-        case 'a,b1':
+        case 'a,b1': // 1 : b-a > 0,1
           d1 = randint(1, 6)
           u = randint(1, 39)
           a = u + d1 / 10
           b = u + randint(d1 + 2, 9) / 10
           r = a + 1 / 10
           break
-        case 'a,b2':
+        case 'a,b2': // 2 : b-a = 0,1
           d1 = randint(1, 8)
           u = randint(1, 39)
           a = u + d1 / 10
           b = u + (d1 + 1) / 10
           r = a + 5 / 100
           break
-        case 'a,9':
+        case 'a,9': // 3 : b-a = 0,1, b entier
           a = randint(1, 39) + 9 / 10
           b = a + 1 / 10
           r = a + 5 / 100
           break
-        case 'a,bc':
+        case 'a,bc': // 4 : b-a = 0,01
           u = randint(1, 39)
           d1 = randint(1, 9)
           c1 = randint(1, 8)
@@ -69,7 +83,7 @@ export default function IntercalerDecimalEntre2Decimaux () {
           b = u + d1 / 10 + c2 / 100
           r = a + 5 / 1000
           break
-        case 'a,b9':
+        case 'a,b9': // 5 : b-a = 0,01, a avec 9 centièmes
           u = randint(1, 39)
           d1 = randint(1, 9)
           c1 = 9
@@ -77,13 +91,13 @@ export default function IntercalerDecimalEntre2Decimaux () {
           b = u + (d1 + 1) / 10
           r = a + 5 / 1000
           break
-        case 'a,99':
+        case 'a,99': // 6 : b-a = 0,01, a avec 99 centièmes
           u = randint(1, 39)
           a = u + 99 / 100
           b = u + 1
           r = a + 5 / 1000
           break
-        case 'a,b0c':
+        case 'a,b0c': // 7 : a avec 3 chiffres après la virgule et b un seul
           u = randint(1, 39)
           d1 = randint(1, 6)
           c1 = randint(1, 8)
@@ -132,7 +146,7 @@ export default function IntercalerDecimalEntre2Decimaux () {
           propositions: [{ texte: texteCorr, statut: 3, feedback: '', sanscadre: true }]
         }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

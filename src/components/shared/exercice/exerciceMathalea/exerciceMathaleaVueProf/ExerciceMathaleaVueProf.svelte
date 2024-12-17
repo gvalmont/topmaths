@@ -176,6 +176,7 @@
 
   beforeUpdate(async () => {
     log('beforeUpdate:' + exercise.id)
+    numberOfAnswerFields = countMathField(exercise)
     if (
       JSON.stringify(get(exercicesParams)[exerciseIndex]) !==
       JSON.stringify(interfaceParams)
@@ -238,7 +239,6 @@
     if (exercise) {
       await tick()
       if (isInteractif) {
-        await countMathField(exercise)
         await loadMathLive()
         if (exercise?.interactifType === 'cliqueFigure' && !isCorrectionVisible) {
           prepareExerciceCliqueFigure(exercise)

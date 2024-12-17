@@ -6,7 +6,7 @@ import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Trouver les racines à partir d’une forme factorisée'
 export const interactifReady = true
@@ -18,7 +18,6 @@ export const dateDePublication = '01/06/2022' // La date de publication initiale
 /**
  *
  * @author Gilles Mora
- * Référence can1L03
  */
 export const uuid = 'a23a1'
 export const ref = 'can1L03'
@@ -29,8 +28,6 @@ export const refs = {
 export default function RacinesPoly () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = ''
-  this.tailleDiaporama = 2
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
@@ -54,10 +51,9 @@ export default function RacinesPoly () {
       }
       handleAnswers(this, i, {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-        champ1: { value: Math.min(x1, x2), compare: functionCompare },
-        champ2: { value: Math.max(x1, x2), compare: functionCompare }
-      },
-      { formatInteractif: 'mathlive' }
+        champ1: { value: Math.min(x1, x2), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
+        champ2: { value: Math.max(x1, x2), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+      }
       )
       texteCorr = `$f$ est une fonction polynôme du second degré écrite sous forme factorisée $a(x-x_1)(x-x_2)$.<br>
       Les racines sont donc $x_1=${miseEnEvidence(x1)}$ et $x_2=${miseEnEvidence(x2)}$.`

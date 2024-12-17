@@ -140,8 +140,8 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
               const { feedback } = consecutiveCompare(`${rep1}<${(n / d).toFixed(4)}<${rep2}`, `${k}<${(2 * k + 1) / 2}<${k + 1}`)
               return feedback
             },
-            champ1: { value: String(k), compare: fonctionComparaison },
-            champ2: { value: String(k + 1), compare: fonctionComparaison }
+            champ1: { value: String(k), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
+            champ2: { value: String(k + 1), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
           }, { formatInteractif: 'fillInTheBlank' })
         }
         // Si la question n'a jamais été posée, on en crée une autre

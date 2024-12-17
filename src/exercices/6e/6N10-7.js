@@ -16,7 +16,7 @@ import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { calculCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Recomposer un décimal ou un entier'
@@ -146,7 +146,8 @@ export default function RecomposerEntierC3 () {
           nameProperty,
           {
             value: String(10 ** exposantMorceaux[i][k]),
-            compare: calculCompare
+            compare: fonctionComparaison,
+            options: { nombreAvecEspace: true }
           }
         ])
       }
@@ -161,7 +162,7 @@ export default function RecomposerEntierC3 () {
         const nameProperty = `champ${k + 1}`
         listeReponses.push([
           nameProperty,
-          { value: morceaux[i][k], compare: calculCompare }
+          { value: morceaux[i][k], compare: fonctionComparaison, options: { nombreAvecEspace: true } }
         ])
       }
       /* const chiffreDes = (k, i, morceaux, exposantMorceaux) => {
@@ -169,7 +170,7 @@ export default function RecomposerEntierC3 () {
         const nameProperty = `champ${k + 1}`
         listeReponses.push([
           nameProperty,
-          { value: morceaux[i][k], compare: calculCompare }
+          { value: morceaux[i][k], , compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
         ])
       } */
       const trouveLeNombre = (nombre, nombreDeChiffresDec) => {

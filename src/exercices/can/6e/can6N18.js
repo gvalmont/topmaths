@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { calculCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Encadrer à la dizaine, centaine'
 export const interactifReady = true
@@ -54,10 +54,9 @@ export default function EncadrerDizaine () {
             correction1 = `$${miseEnEvidence(`${texNombre(um + c + d)}`)} < ${texNombre(N)}< ${miseEnEvidence(`${texNombre(um + c + d + 10)}`)}$ `
             handleAnswers(this, i, {
               bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-              champ1: { value: `${um + c + d}`, compare: calculCompare },
-              champ2: { value: `${um + c + d + 10}`, compare: calculCompare }
-            },
-            { formatInteractif: 'mathlive' }
+              champ1: { value: `${um + c + d}`, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
+              champ2: { value: `${um + c + d + 10}`, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+            }
             )
             this.canEnonce = question1
             this.canReponseACompleter = `$\\ldots < ${texNombre(N)}< \\ldots$`
@@ -79,10 +78,9 @@ export default function EncadrerDizaine () {
             }
             handleAnswers(this, i, {
               bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-              champ1: { value: `${um + c}`, compare: calculCompare },
-              champ2: { value: `${um + c + 100}`, compare: calculCompare }
-            },
-            { formatInteractif: 'mathlive' }
+              champ1: { value: `${um + c}`, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
+              champ2: { value: `${um + c + 100}`, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+            }
             )
             correction1 = `$${miseEnEvidence(`${texNombre(um + c)}`)} < ${texNombre(N)}< ${miseEnEvidence(`${texNombre(um + c + 100)}`)}$ `
             this.canEnonce = question1

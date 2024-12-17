@@ -34,12 +34,12 @@ const basicKeys = {
     insert: '\\frac{#@}{#1}'
   },
   SQRT: {
-    // eslint-disable-next-line no-useless-escape
+
     display: '$\\sqrt{\\square}$',
     insert: '\\sqrt{#1}'
   },
   SQRTN: {
-    // eslint-disable-next-line no-useless-escape
+
     display: '$\\sqrt[\\square]{\\square}$',
     insert: '\\sqrt[#1]{#2}'
   },
@@ -67,14 +67,37 @@ const basicKeys = {
     display: '$\\ln(\\square)$',
     insert: '\\ln(#0)'
   },
-  INDICE: {
-    display: '$\\square_\\square$',
-    insert: '#@_{#0}'
-  },
   POW10: {
     display: '$\\times10^\\square$',
     insert: '$$\\times10^#0$$'
   },
+  // ================== suites
+
+  INDICE: {
+    display: '$\\square_\\square$',
+    insert: '#@_{#0}'
+  },
+  INDICE_N: {
+    display: '$\\square_{n}$',
+    insert: '#@_{n}'
+  },
+  U_INDICE_N: {
+    display: '$u_{n}$',
+    insert: 'u_{n}'
+  },
+  V_INDICE_N: {
+    display: '$v_{n}$',
+    insert: 'v_{n}'
+  },
+  W_INDICE_N: {
+    display: '$w_{n}$',
+    insert: 'w_{n}'
+  },
+  C_INDICE_N: {
+    display: '$c_{n}$',
+    insert: 'c_{n}'
+  },
+
   // ================== functions
   COS: {
     display: 'cos',

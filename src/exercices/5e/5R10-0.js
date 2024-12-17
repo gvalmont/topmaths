@@ -6,6 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 export const titre = 'Trouver l\'opposé d\'un nombre relatif'
 export const dateDeModifImportante = '24/11/2024'
 export const interactifType = 'mathLive'
@@ -142,7 +143,7 @@ export default class TrouverOppose extends Exercice {
           const ligne = Math.floor(i / (6))
           const colonne = i % (6)
           const ref = `L${ligne + 1}C${colonne + 1}`
-          const valeur = Object.assign({}, { value: `${enonces[0].tabLinesCorr[i]}` })
+          const valeur = Object.assign({}, { value: `${enonces[0].tabLinesCorr[i]}`, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } })
           const cellule = Object.fromEntries([[ref, valeur]])
           objetReponse = Object.assign(objetReponse, cellule)
         }

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { globalOptions, resultsByExercice, exercicesParams, isMenuNeededForExercises } from '../../../../../lib/stores/generalStore'
-  import { afterUpdate, onMount, tick, onDestroy } from 'svelte'
+  import { afterUpdate, onMount, tick, onDestroy, beforeUpdate } from 'svelte'
   import type TypeExercice from '../../../../../exercices/Exercice'
   import seedrandom from 'seedrandom'
   import { prepareExerciceCliqueFigure, exerciceInteractif } from '../../../../../lib/interactif/gestionInteractif'
@@ -13,7 +13,7 @@
   import ExerciceVueEleveButtons from './presentationalComponents/ExerciceVueEleveButtons.svelte'
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
   import type { InterfaceParams, InterfaceResultExercice } from 'src/lib/types'
-    import { countMathField } from '../../countMathField';
+  import { countMathField } from '../../countMathField'
   export let exercise: TypeExercice
   export let exerciseIndex: number
   export let indiceLastExercice: number
@@ -24,6 +24,8 @@
   let buttonScore: HTMLButtonElement
   let columnsCount = $exercicesParams[exerciseIndex].cols || 1
   let isInteractif = exercise.interactif && exercise?.interactifReady
+  // une variable locale car si on modifie isCorrectionVisible, parfois elle devient undefined 
+  let isCorrectVisible = isCorrectionVisible
 
   let title: string
   if ($globalOptions.isTitleDisplayed) {
@@ -106,10 +108,7 @@
     document.addEventListener('setAllInteractif', setAllInteractif)
     document.addEventListener('removeAllInteractif', removeAllInteractif)
     document.addEventListener('updateAsyncEx', forceUpdate)
-    updateDisplay()
-    if (isInteractif && !isCorrectionVisible) {
-      numberOfAnswerFields = await countMathField(exercise)
-    }
+    updateDisplay()    
     if ($globalOptions.setInteractive === '1') {
       setAllInteractif()
     } else if ($globalOptions.setInteractive === '0') {
@@ -117,18 +116,36 @@
     }
   })
 
+  beforeUpdate(async () => {
+    log('beforeUpdate:' + exercise.id)
+    numberOfAnswerFields = countMathField(exercise)
+    log('isCorrectVisible:' +  isCorrectVisible)
+  })
+
   afterUpdate(async () => {
     log('afterUpdate')
+    // console.trace()
+    // const starttime = window.performance.now()
     if (exercise) {
       await tick()
+      // let time = window.performance.now()
+      // log('duration tick:'+ (time - starttime))
       updateAnswers()
+      // time = window.performance.now()
+      // log('duration updateAnswers:'+ (time - starttime))
       mathaleaRenderDiv(divExercice)
+      // time = window.performance.now()
+      // log('duration mathaleaRenderDiv:'+ (time - starttime))
       adjustMathalea2dFiguresWidth()
+      // time = window.performance.now()
+      // log('duration adjustMathalea2dFiguresWidth:'+ (time - starttime))
       if (exercise.interactif) {
         log('loadMathLive')
         loadMathLive(divExercice)
         log('end loadMathLive')
-        if (exercise.interactifType === 'cliqueFigure' && !isCorrectionVisible) {
+        // time = window.performance.now()
+        // log('duration loadMathLive:'+ (time - starttime))
+        if (exercise.interactifType === 'cliqueFigure' && !isCorrectVisible) {
           prepareExerciceCliqueFigure(exercise)
         }
         // Ne pas être noté sur un exercice dont on a déjà vu la correction
@@ -139,6 +156,8 @@
         } catch (e) {
           console.error(e)
         }
+        // time = window.performance.now()
+        // log('duration interactif:'+ (time - starttime))
       }
     }
     // affectation du zoom pour les figures scratch
@@ -165,7 +184,7 @@
 
   async function newData () {
     exercise.isDone = false
-    if (isCorrectionVisible) switchCorrectionVisible()
+    if (isCorrectVisible) switchCorrectionVisible()
     const seed = mathaleaGenerateSeed()
     exercise.seed = seed
     if (buttonScore) initButtonScore()
@@ -173,12 +192,16 @@
   }
 
   async function setAllInteractif () {
-    if (exercise?.interactifReady) isInteractif = true
-    updateDisplay()
+    if (exercise?.interactifReady && !isInteractif) {
+      isInteractif = true
+      updateDisplay()
+    }
   }
   async function removeAllInteractif () {
-    if (exercise?.interactifReady) isInteractif = false
-    updateDisplay()
+    if (exercise?.interactifReady && isInteractif) {
+      isInteractif = false
+      updateDisplay()
+    } 
   }
 
   const debug = false
@@ -194,11 +217,14 @@
     seedrandom(exercise.seed, { global: true })
     if (exercise.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercise, !!isInteractif, exerciseIndex)
     exercise.interactif = isInteractif
-  if ($exercicesParams[exerciseIndex] != null) { // Des erreurs bugsnag font état de cet objet undefined. JC le 3/12/2024
-    $exercicesParams[exerciseIndex].alea = exercise.seed
-    $exercicesParams[exerciseIndex].interactif = isInteractif ? '1' : '0'
-    $exercicesParams[exerciseIndex].cols = columnsCount > 1 ? columnsCount : undefined
-  }
+    if ($exercicesParams[exerciseIndex] != null) { // Des erreurs bugsnag font état de cet objet undefined. JC le 3/12/2024
+      // MGU ne sette que si nécessaire, car ici c'est un storer
+      if ($exercicesParams[exerciseIndex].alea !== exercise.seed) $exercicesParams[exerciseIndex].alea = exercise.seed
+      if (isInteractif && $exercicesParams[exerciseIndex].interactif !== '1' ) $exercicesParams[exerciseIndex].interactif = '1'
+      if (!isInteractif && $exercicesParams[exerciseIndex].interactif !== '0' ) $exercicesParams[exerciseIndex].interactif = '0'
+      if (columnsCount > 1 && columnsCount !== $exercicesParams[exerciseIndex].cols) $exercicesParams[exerciseIndex].cols = columnsCount
+      if (columnsCount <= 1 && $exercicesParams[exerciseIndex].hasOwnProperty('cols') && $exercicesParams[exerciseIndex].cols !==undefined) $exercicesParams[exerciseIndex].cols = undefined
+    }
     exercise.numeroExercice = exerciseIndex
     if (exercise !== undefined && exercise.typeExercice !== 'simple' && typeof exercise.nouvelleVersionWrapper === 'function') {
       exercise.nouvelleVersionWrapper(exerciseIndex)
@@ -210,7 +236,7 @@
   function verifExerciceVueEleve () {
     log('verifExerciceVueEleve')
     exercise.isDone = true
-    if ($globalOptions.isSolutionAccessible) isCorrectionVisible = true
+    if ($globalOptions.isSolutionAccessible) isCorrectVisible = true
     if (exercise.numeroExercice != null) {
       const previousBestScore = $exercicesParams[exercise.numeroExercice]?.bestScore ?? 0
       const { numberOfPoints, numberOfQuestions } = exerciceInteractif(exercise, divScore, buttonScore)
@@ -303,7 +329,7 @@
      // console.log('zoom:' + zoom )
      if (mathalea2dFigures != null) {
        if (mathalea2dFigures.length !== 0) {
-         await tick()
+         // await tick()
          // console.log('adjustMathalea2dFiguresWidth:' + initialDimensionsAreNeeded )
          for (let k = 0; k < mathalea2dFigures.length; k++) {
            if (initialDimensionsAreNeeded) {
@@ -335,9 +361,15 @@
              const height = mathalea2dFigures[k].getAttribute('height')
              if (!mathalea2dFigures[k].dataset.widthInitiale && width != null) mathalea2dFigures[k].dataset.widthInitiale = width
              if (!mathalea2dFigures[k].dataset.heightInitiale && height != null) mathalea2dFigures[k].dataset.heightInitiale = height
-             mathalea2dFigures[k].setAttribute('height', (Number(mathalea2dFigures[k].dataset.heightInitiale) * zoom * coef).toString())
-             mathalea2dFigures[k].setAttribute('width', (Number(mathalea2dFigures[k].dataset.widthInitiale) * zoom * coef).toString())
-
+             const newHeight = (Number(mathalea2dFigures[k].dataset.heightInitiale) * zoom * coef).toString()
+             const newWidth = (Number(mathalea2dFigures[k].dataset.widthInitiale) * zoom * coef).toString()
+             if (width !== newWidth) {
+              mathalea2dFigures[k].setAttribute('width', newWidth)
+             }
+             if (height !== newHeight) {
+              mathalea2dFigures[k].setAttribute('height', newHeight)
+             }
+             
              if (mathalea2dFigures[k] != null && mathalea2dFigures[k].parentElement !== null) {
                const eltsInFigures = mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>('div.divLatex') || []
                for (const elt of eltsInFigures) {
@@ -360,18 +392,18 @@
   }
 
   function switchCorrectionVisible () {
-    isCorrectionVisible = !isCorrectionVisible
-    if (isCorrectionVisible && isLocalStorageAvailable() && exercise.id !== undefined) {
+    isCorrectVisible = !isCorrectVisible
+    if (isCorrectVisible && isLocalStorageAvailable() && exercise.id !== undefined) {
       window.localStorage.setItem(`${exercise.id}|${exercise.seed}`, 'true')
     }
-    if (!$globalOptions.oneShot && exercise.interactif && !isCorrectionVisible && !exercise.isDone) {
+    if (!$globalOptions.oneShot && exercise.interactif && !isCorrectVisible && !exercise.isDone) {
       newData()
     }
     adjustMathalea2dFiguresWidth()
   }
 
   function switchInteractif () {
-    if (isCorrectionVisible) switchCorrectionVisible()
+    if (isCorrectVisible) switchCorrectionVisible()
     isInteractif = !isInteractif
     exercise.interactif = isInteractif
     $exercicesParams[exerciseIndex].interactif = isInteractif ? '1' : '0'
@@ -402,7 +434,7 @@
       globalOptions={$globalOptions}
       {indiceLastExercice}
       {exercise}
-      {isCorrectionVisible}
+      isCorrectionVisible={isCorrectVisible}
       {newData}
       {switchCorrectionVisible}
       {isInteractif}
@@ -441,14 +473,14 @@
                 {exercise}
                 {questionIndex}
                 {exerciseIndex}
-                {isCorrectionVisible}
+                isCorrectionVisible={isCorrectVisible}
               />
             {/each}
             <div bind:this={divScore} />
           </ul>
         </div>
       </article>
-      {#if isInteractif && !isCorrectionVisible}
+      {#if isInteractif && !isCorrectVisible}
         <button type="submit" on:click={verifExerciceVueEleve} bind:this={buttonScore}>Vérifier {numberOfAnswerFields > 1 ? 'les réponses' : 'la réponse'}</button>
       {/if}
     </div>

@@ -97,7 +97,22 @@ def newEntry(file:str,dicoType:str)->list:
             numeroInitial = filename.split('_')[6]
         else: # EE : Ici, on considère que c'est le cas général
             numeroInitial = filename.split('_')[4]
-        if ((('sujet1' in filename) or ('sujet2' in filename))and('bac' in filename)): # EE : Ici, on considère que c'est le BAC ....
+        if ('sti2d' in filename) :
+            lieu = locationName(filename.split('_')[3])
+            annee = filename.split('_')[1]
+            mois = filename.split('_')[2]
+            numeroInitial = filename.split('_')[4]
+            dicoType = 'sti2d'
+            newLines = f'''  {filename}: {{                
+                annee: '{annee}',                
+                lieu: '{lieu}',                
+                mois: '{mois}',                
+                numeroInitial: '{numeroInitial}',
+                typeExercice: '{dicoType}',                               
+                tags: ['']            
+            }},\n'''
+        
+        elif ((('sujet1' in filename) or ('sujet2' in filename))and('bac' in filename)): # EE : Ici, on considère que c'est le BAC ....
             isQCM = filename.startswith('qcm') # EE : Est-ce que c'est un QCM (FlashBac) ?
             if isQCM:
                 filename=filename[4:]  # EE : Enlève 'QCM_' (4 caractères)
@@ -244,7 +259,7 @@ def manageDico(dicoPath:str,dicoType:str):
     **Paramètres**
 
         * dicoPath -- Un string avec le chemin vers le dico
-        * dicoType -- Un string avec dnb, bac ou e3c
+        * dicoType -- Un string avec dnb, bac, e3c ou autres
     
     """
     pass
@@ -297,14 +312,15 @@ def main():
 
     # On choisit le type de dico à synchroniser/générer
     choiceDico = ''
-    while choiceDico not in ['1','2','3','4','5']:
+    while choiceDico not in ['1','2','3','4','5','6']:
         choiceDico = input("""Quel dictionnaire faut-il synchroniser/générer ?
         ---> 1 : DNB
         ---> 2 : BAC
         ---> 3 : E3C
         ---> 4 : CRPE
-        ---> 5 : FlashBAC      
-Taper 1, 2, 3, 4 ou 5 pour lancer le script --> """)
+        ---> 5 : FlashBAC
+        ---> 6 : STI2D  
+Taper 1, 2, 3, 4, 5 ou 6 pour lancer le script --> """)
     # Une variable pour le chemin vers le dico à synchroniser/générer        
     dicoPath = ''
     # Une variable pour le type de dico à synchroniser/générer        
@@ -325,6 +341,9 @@ Taper 1, 2, 3, 4 ou 5 pour lancer le script --> """)
     elif (choiceDico == '5'):
         dicoPath = '../../src/json/dictionnaireFlashBac.js'
         dicoType = 'flashbac'
+    elif (choiceDico == '6'):
+        dicoPath = '../../src/json/dictionnaireSTI2D.js'
+        dicoType = 'sti2d'
 
     manageDico(dicoPath,dicoType)
 

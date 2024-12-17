@@ -56,7 +56,7 @@ export default function AbscisseDroiteDecimaux () {
         pointListe: [[x1, '']]
       })
       this.reponse = new Decimal(x1).div(100).add(abs0)
-      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 35, scale: 0.75 }, latex2d('A', 4 * x1, 0.5, { color: 'blue', letterSize: '' }), d)
+      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 35, scale: 0.75 }, latex2d('A', 4 * x1, 0.5, { color: 'blue' }), d)
       this.correction = `Entre $${texNombre(abs0)}$ et $${texNombre(abs1)}$, il y a $5$ intervalles. Une graduation correspond donc à $0,002$. <br>
       Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(this.reponse, 4))}$.`
     }
@@ -84,7 +84,7 @@ export default function AbscisseDroiteDecimaux () {
         pointListe: [[x1, '']]
       })
       this.reponse = new Decimal(x1).div(100).add(abs0)
-      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 35, scale: 0.75 }, latex2d('A', 4 * x1, 0.5, { color: 'blue', letterSize: '' }), d)
+      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 35, scale: 0.75 }, latex2d('A', 4 * x1, 0.5, { color: 'blue' }), d)
       this.correction = `Entre $${texNombre(abs0)}$ et $${texNombre(abs1)}$, il y a $4$ intervalles. Une graduation correspond donc à $${texNombre(0.0025)}$. <br>
       Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(this.reponse, 4))}$.`
     }

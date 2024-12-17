@@ -18,7 +18,7 @@
   } from '../../../lib/stores/generalStore'
   import type TypeExercice from '../../../exercices/Exercice'
   import Exercice from '../../shared/exercice/Exercice.svelte'
-  import { onDestroy, onMount, tick, afterUpdate } from 'svelte'
+  import { onDestroy, onMount, tick, afterUpdate, beforeUpdate } from 'svelte'
   // import seedrandom from 'seedrandom'
   import { loadMathLive } from '../../../modules/loaders'
   import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
@@ -69,10 +69,9 @@
    * @author sylvain
    */
   function buildExoTitle (dim: number, nbOfExercises: number) {
-    // if ($globalOptions.title.length === 0) {
-    //   $isMenuNeededForExercises = false
-    //   return ""
-    // }
+    if ($globalOptions.presMode === 'liste_exos' || nbOfExercises === 0) {
+      return 'Exercice'
+    }
     const navigationHeaderElt = document.getElementById('navigationHeaderID')
     const exerciseTitleElt = document.getElementById('exerciseTitleID0')
     // soit l'élément existe et on récupère sa vraie largeur, soit on calcule une valeur approchée
@@ -88,26 +87,27 @@
         getCanvasFont(exerciseTitleElt ?? document.body)
       )
     ) {
-      $isMenuNeededForExercises = false
+      if ($isMenuNeededForExercises) $isMenuNeededForExercises = false
       return 'Exercice'
     } else if (
       roomForOne >=
       getTextWidth('Ex 10', getCanvasFont(exerciseTitleElt ?? document.body)) +
         20
     ) {
-      $isMenuNeededForExercises = false
+      if ($isMenuNeededForExercises) $isMenuNeededForExercises = false
       return 'Ex'
     } else if (
       roomForOne >=
       getTextWidth('10', getCanvasFont(exerciseTitleElt ?? document.body)) + 20
     ) {
-      $isMenuNeededForExercises = false
+      if ($isMenuNeededForExercises) $isMenuNeededForExercises = false
       return ''
     } else {
-      $isMenuNeededForExercises = true
+      if (!$isMenuNeededForExercises) $isMenuNeededForExercises = true
       return ''
     }
   }
+  
   $: exerciseTitle = buildExoTitle(currentWindowWidth, exercices.length)
 
   /**
@@ -119,6 +119,9 @@
    * @author sylvain
    */
   function buildQuestionTitle (dim: number, nbOfQuestions: number) {
+    if ($globalOptions.presMode === 'liste_exos' || nbOfQuestions === 0) {
+      return 'Question'
+    }
     const navigationHeaderElt = document.getElementById('navigationHeaderID')
     const questionTitleElt = document.getElementById('questionTitleID0')
     // soit l'élément existe et on récupère sa vraie largeur, soit on calcule une valeur approchée
@@ -155,7 +158,22 @@
     }
   }
 
+  $: questionTitle = buildQuestionTitle(currentWindowWidth, questions.length)
+  
+  function log (str: string) {
+    const debug = false
+    if (debug) {
+      console.info(str)
+    }
+  }
+
+  beforeUpdate(() => {
+    log('before eleve')
+  })
+
   afterUpdate(() => {
+    log('after eleve')
+    
     // Evènement indispensable pour pointCliquable par exemple
     const exercicesAffiches = new window.Event('exercicesAffiches', {
       bubbles: true
@@ -168,9 +186,10 @@
     }
   })
 
-  $: questionTitle = buildQuestionTitle(currentWindowWidth, questions.length)
+  
   let resizeObserver: ResizeObserver
   onMount(async () => {
+    log('mount eleve')
     // Si presMode est undefined cela signifie que l'on charge cet url
     // sinon en venant du modal il existerait
     if ($globalOptions.presMode === undefined) {
@@ -182,33 +201,32 @@
       urlToDisplay()
     } else {
       // Si ce n'est pas un chargement d'url alors il faut initialiser le store des résultats
-      resultsByExercice.update(() => [])
+      if ($resultsByExercice.length > 0) {
+        resultsByExercice.update(() => [])
+      }
+      
     }
     if ($globalOptions.setInteractive === '1') {
       for (const param of $exercicesParams) {
-        param.interactif = '1'
+        if (param.interactif !== '1') {
+          param.interactif = '1'
+        }
       }
     }
-    // for (const paramsExercice of $exercicesParams) {
-    //   const exercice: TypeExercice = await mathaleaLoadExerciceFromUuid(
-    //     paramsExercice.uuid
-    //   )
-    //   if (typeof exercice === 'undefined') return
-    //   mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
-    //   if ($globalOptions.setInteractive === '1' && exercice?.interactifReady) {
-    //     exercice.interactif = true
-    //   }
-    //   exercices.push(exercice)
-    // }
+
+    /** Charge les exercices*/
     exercices = await Promise.all(buildExercisesList())
 
     if ($globalOptions.presMode === 'liste_questions' || $globalOptions.presMode === 'une_question_par_page') {
+      // construit les questions
       buildQuestions()
-    } else {
-      await tick()
-    }
+    } 
 
     if ($globalOptions.recorder === 'capytale' || $globalOptions.recorder === 'moodle' || $globalOptions.recorder === 'anki' || $globalOptions.recorder === 'labomep') {
+
+      // attend la fin de la mise à jour pour mettre l'observer
+      await tick()
+
       /*
       Ce code est nécessaire seulement si coopmaths est intégré dans un autre site pour permettre de redimensionner la fenêtre
       */
@@ -231,6 +249,7 @@
     if ($globalOptions.recorder === 'capytale') {
       $globalOptions.isInteractiveFree = false
     }
+    log('fin mount eleve')
   })
 
   onDestroy(() => {

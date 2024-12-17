@@ -6,7 +6,7 @@ import { randint } from '../../../modules/outils'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { arrondi } from '../../../lib/outils/nombres'
-import { calculCompare, fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
@@ -51,8 +51,8 @@ export default class coordMilieu extends Exercice {
 
     handleAnswers(this, 0, {
       bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-      champ1: { value: reponse1, compare: calculCompare },
-      champ2: { value: reponse2, compare: calculCompare }
+      champ1: { value: reponse1, compare: fonctionComparaison },
+      champ2: { value: reponse2, compare: fonctionComparaison }
     }
     )
     this.reponse = { bareme: toutPourUnPoint, champ1: { value: reponse1, compare: fonctionComparaison }, champ2: { value: reponse2, compare: fonctionComparaison } }

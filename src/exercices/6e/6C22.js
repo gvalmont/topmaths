@@ -1,14 +1,14 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { lampeMessage } from '../../lib/format/message.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { prenomF } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Résoudre des problèmes de type : ... de plus ou ... de moins'
 export const interactifReady = true
@@ -16,12 +16,12 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
-// Gestion de la date de publication initiale
 export const dateDePublication = '10/07/2021'
+export const dateDeModificationImportante = '11/12/2024'
 
 /**
  * Description didactique de l'exercice
- * @author Laurence CANDILLE
+ * @author Laurence CANDILLE, Olivier Mimeau (ajout d'un cas) et Rémi Angot (refactorisation)
  * Référence 6C22
  * Relecture : Novembre 2021 par EE
  */
@@ -31,51 +31,24 @@ export const refs = {
   'fr-fr': ['6C22'],
   'fr-ch': ['9NO16-4']
 }
-export default function ProblemesDePlusEtDeMoins () {
-  Exercice.call(this)
-  this.consigne = 'Résoudre les problèmes suivants au brouillon et écrire les réponses dans les cases, ne pas préciser "€" ni "euros" ...'
-  this.nbQuestions = 3
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
-
-  const nombreDecimales = function (n) {
-    let r, e
-    if (n === 0) {
-      r = randint(40, 70)
-      e = randint(10, 30)
-    }
-    if (n === 1) {
-      r = calculANePlusJamaisUtiliser((randint(40, 60) * 100 + randint(1, 9) * 10) / 100) // évite de retomber dans le cas n=0 par ex  4200/100
-      e = calculANePlusJamaisUtiliser((randint(10, 20) * 100 + randint(1, 9) * 10) / 100)
-    }
-    if (n === 2) {
-      r = calculANePlusJamaisUtiliser((randint(40, 60) * 100 + randint(1, 9) * 10 + randint(1, 9)) / 100)
-      e = calculANePlusJamaisUtiliser((randint(10, 20) * 100 + randint(1, 9) * 10 + randint(1, 9)) / 100)
-    }
-    return [r, e]
+export default class ProblemesDePlusEtDeMoins extends Exercice {
+  constructor () {
+    super()
+    this.consigne = 'Résoudre les problèmes suivants au brouillon et écrire les réponses dans les cases, ne pas préciser "€" ni "euros" ...'
+    this.nbQuestions = 4
+    this.sup = 1 // Niveau de difficulté
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Valeurs entières\n2 : Une décimale\n3 : Deux décimales']
   }
-  this.nouvelleVersion = function () {
+
+  nouvelleVersion () {
     const n = parseInt(this.sup) - 1
     if (this.interactif && context.isHtml) {
       this.consigne = this.nbQuestions > 1 ? 'Résoudre les problèmes suivants au brouillon et écrire les réponses dans les cases, ne pas préciser "€" ni "euros" ...' : 'Résoudre le problème suivant au brouillon et écrire la réponse dans la case, ne pas préciser "€" ni "euros" ...'
-      this.introduction = lampeMessage({
-        titre: 'Calculatrice interdite.',
-        texte: '',
-        couleur: 'nombres'
-      })
     } else {
       this.consigne = this.nbQuestions > 1 ? 'Résoudre les problèmes suivants.' : 'Résoudre le problème suivant.'
-      this.introduction = lampeMessage({
-        titre: 'Calculatrice interdite.',
-        texte: '',
-        couleur: 'nombres'
-      })
     }
-    const typeQuestionsDisponibles = ['deplus', 'demoins', 'deplus'] // On créé 2 types de questions
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    const typeQuestionsDisponibles = ['dePlusPourSoustraction', 'deMoinsPourAddition', 'dePlusPourAddition', 'deMoinsPourSoustraction'] // On créé 2 types de questions /// j'en ajoute deux et supprime la répition pour l'equilibrage
+    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
 
     let r, e // argent de Romane et écart
     let m // argent de Malika
@@ -90,7 +63,7 @@ export default function ProblemesDePlusEtDeMoins () {
       }
       [r, e] = nombreDecimales(n)
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'deplus':
+        case 'dePlusPourSoustraction':
           m = r - e
           somme = m + r
 
@@ -99,9 +72,8 @@ export default function ProblemesDePlusEtDeMoins () {
             texte += 'Combien d\'argent,  en tout, possèdent les deux filles ?'
             texte += '<br>Les deux filles possèdent,  en tout, '
             texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' €' })
-            setReponse(this, i, somme)
           } else {
-            texte += 'Combien d\'argent en euros possèdent,  en tout, les deux filles ?<br>'
+            texte += 'Combien d\'argent en euros possèdent,  en tout, les deux filles ?'
           }
           texteCorr = `D'après l'énoncé, ${prenom2} a $${texPrix(r)}$ €.<br>${prenom2}  a $${texPrix(e)}$ € `
           texteCorr += texteEnCouleurEtGras('de plus')
@@ -112,7 +84,7 @@ export default function ProblemesDePlusEtDeMoins () {
           texteCorr += texteEnCouleur(`<br>Les deux filles possèdent,  en tout, $${miseEnEvidence(texPrix(somme))}$ €.`)
 
           break
-        case 'demoins':
+        case 'deMoinsPourAddition':
           m = r + e
           somme = m + r
 
@@ -120,9 +92,8 @@ export default function ProblemesDePlusEtDeMoins () {
           if (this.interactif && !context.isAmc) {
             texte += 'Combien d\'argent,  en tout, possèdent les deux filles ?<br>Les deux filles possèdent,  en tout, :'
             texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' €' })
-            setReponse(this, i, somme)
           } else {
-            texte += 'Combien d\'argent en euros possèdent,  en tout, les deux filles ?<br>'
+            texte += 'Combien d\'argent en euros possèdent,  en tout, les deux filles ?'
           }
           texteCorr = `D'après l'énoncé, ${prenom2} a $${texPrix(r)}$ €.<br>${prenom2}  a $${texPrix(e)}$ € `
           texteCorr += texteEnCouleurEtGras('de moins')
@@ -133,9 +104,47 @@ export default function ProblemesDePlusEtDeMoins () {
           texteCorr += texteEnCouleur(`<br>Les deux filles possèdent,  en tout, $${miseEnEvidence(texPrix(somme))}$ €.`)
 
           break
-      }
+        case 'dePlusPourAddition':
+          m = r + e
+          somme = m + r
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+          texte = `${prenom2} dit à ${prenom1} : «${sp()}Tu as $${texPrix(r)}$ €, j'ai $${texPrix(e)}$ € de plus que toi.${sp()}»<br>`
+          if (this.interactif && !context.isAmc) {
+            texte += 'Combien d\'argent,  en tout, possèdent les deux filles ?<br>Les deux filles possèdent,  en tout, :'
+            texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' €' })
+          } else {
+            texte += 'Combien d\'argent en euros possèdent,  en tout, les deux filles ?'
+          }
+          texteCorr = `D'après l'énoncé, ${prenom1} a $${texPrix(r)}$ €.<br>${prenom2}  a $${texPrix(e)}$ € `
+          texteCorr += texteEnCouleurEtGras('de plus')
+          texteCorr += ` que ${prenom1}. <br>${prenom2} a donc : $${texPrix(r)}$ € + $${texPrix(e)}$ € = $${texPrix(m)}$ €.`
+          texteCorr += `<br>$${texPrix(r)}$ € + $${texPrix(m)}$ € = $${texPrix(somme)}$ € `
+          texteCorr += texteEnCouleur(`<br>Les deux filles possèdent,  en tout, $${miseEnEvidence(texPrix(somme))}$ €.`)
+
+          break
+        case 'deMoinsPourSoustraction':
+          m = r - e
+          somme = m + r
+
+          texte = `${prenom2} dit à ${prenom1} : «${sp()}Tu as $${texPrix(r)}$ €, j'ai $${texPrix(e)}$ € de moins que toi.${sp()}»<br>`
+          if (this.interactif && !context.isAmc) {
+            texte += 'Combien d\'argent,  en tout, possèdent les deux filles ?<br>Les deux filles possèdent,  en tout, :'
+            texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' €' })
+          } else {
+            texte += 'Combien d\'argent en euros possèdent,  en tout, les deux filles ?'
+          }
+          texteCorr = `D'après l'énoncé, ${prenom1} a $${texPrix(r)}$ €.<br>${prenom2}  a $${texPrix(e)}$ € `
+          texteCorr += texteEnCouleurEtGras('de moins')
+          texteCorr += ` que ${prenom1}. <br>${prenom2} a donc : $${texPrix(r)}$ € - $${texPrix(e)}$ € = $${texPrix(m)}$ €.`
+          texteCorr += `<br>$${texPrix(r)}$ € + $${texPrix(m)}$ € = $${texPrix(somme)}$ € `
+          texteCorr += texteEnCouleur(`<br>Les deux filles possèdent,  en tout, $${miseEnEvidence(texPrix(somme))}$ €.`)
+
+          break
+      }
+      if (context.isAmc) setReponse(this, i, somme)
+      else handleAnswers(this, i, { reponse: { value: texPrix(somme), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+
+      if (this.questionJamaisPosee(i, m, somme)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -145,5 +154,21 @@ export default function ProblemesDePlusEtDeMoins () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Valeurs entières\n2 : Une décimale\n3 : Deux décimales']
+}
+
+function nombreDecimales (n) {
+  let r, e
+  if (n === 0) {
+    r = randint(40, 70)
+    e = randint(10, 30)
+  }
+  if (n === 1) {
+    r = (randint(40, 60) * 100 + randint(1, 9) * 10) / 100 // évite de retomber dans le cas n=0 par ex  4200/100
+    e = (randint(10, 20) * 100 + randint(1, 9) * 10) / 100
+  }
+  if (n === 2) {
+    r = (randint(40, 60) * 100 + randint(1, 9) * 10 + randint(1, 9)) / 100
+    e = (randint(10, 20) * 100 + randint(1, 9) * 10 + randint(1, 9)) / 100
+  }
+  return [r, e]
 }

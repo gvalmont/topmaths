@@ -19,6 +19,7 @@ import { min, round } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'CAN 3e sujet 2021'
 export const interactifReady = true
@@ -428,9 +429,9 @@ export default function SujetCAN20213ieme () {
           } else {
             texte = `$${texNombre(a + b, 2)}$ h $=$`
 
-            texte += ajouteChampTexteMathLive(this, index, 'clavierHms ')
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
 
-            setReponse(this, index, new Hms({ hour: a, minute: d }), { formatInteractif: 'hms' })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
 
             texteCorr = `$${texNombre(a + b)}$h$ = ${a}$ h $ + ${texNombre(b)} \\times 60$ min $  = ${a}$ h $${d}$ min`
 

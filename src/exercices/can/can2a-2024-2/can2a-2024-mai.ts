@@ -3,7 +3,7 @@ import { listeQuestionsToContenu } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { calculCompare, fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison, functionCompare } from '../../../lib/interactif/comparisonFunctions'
 import { context } from '../../../modules/context'
 import { sp } from '../../../lib/outils/outilString'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -40,12 +40,12 @@ export default class nomExercice extends Exercice {
     let i = 0
     this.listeQuestions[i] = '$8 \\times 1,25 = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$8 \\times 1,25 = ${miseEnEvidence('10')}$`
-    handleAnswers(this, 0, { reponse: { value: '10', compare: calculCompare } })
+    handleAnswers(this, 0, { reponse: { value: '10', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
 
     i = 1
     this.listeQuestions[i] = '$42 - 55 + 5 = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$42 - 55 + 5 = ${miseEnEvidence('-8')}$`
-    handleAnswers(this, i, { reponse: { value: '-8', compare: calculCompare } })
+    handleAnswers(this, i, { reponse: { value: '-8', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
 
     i = 2
     this.listeQuestions[i] = 'Développer et réduire l\'expression suivante.<br><br>$(2x-5)^2= $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets)
@@ -60,27 +60,27 @@ export default class nomExercice extends Exercice {
     i = 4
     this.listeQuestions[i] = '$30~\\%~\\text{de}~20 = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$\\dfrac{30}{100} \\times 20 = 0,3 \\times 20 = ${miseEnEvidence('6')} $`
-    handleAnswers(this, i, { reponse: { value: '6', compare: calculCompare } })
+    handleAnswers(this, i, { reponse: { value: '6', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
 
     i = 5
     this.listeQuestions[i] = '$0{,}2 \\times 0{,}4 = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$0{,}2 \\times 0{,}4 = ${miseEnEvidence('0{,}08')} $`
-    handleAnswers(this, i, { reponse: { value: '0.08', compare: calculCompare } })
+    handleAnswers(this, i, { reponse: { value: '0.08', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
 
     i = 6
     this.listeQuestions[i] = 'Augmenter une quantité de $17~\\%$ revient à la multiplier par ' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$1 + 17~\\% = \\dfrac{117}{100} = 1{,}17$ <br>  Augmenter une quantité de $17~\\%$ revient à la multiplier par $${miseEnEvidence('1{,}17')}$.`
-    handleAnswers(this, i, { reponse: { value: '1.17', compare: calculCompare } })
+    handleAnswers(this, i, { reponse: { value: '1.17', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
 
     i = 7
     this.listeQuestions[i] = 'Médiane de la série ;<br>$15\\;;\\;2\\;;\\;12\\;;\\;10\\;;\\;7$ :<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `Série ordonnée : $2\\;;\\;7\\;;\\;10\\;;\\;12\\;;\\;15$<br>L'effectif total est 5 donc la médiane est la 3e valeur : $${miseEnEvidence('10')}$.`
-    handleAnswers(this, i, { reponse: { value: '10', compare: calculCompare } })
+    handleAnswers(this, i, { reponse: { value: '10', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
 
     i = 8
     this.listeQuestions[i] = '$\\sqrt{0{,}36} = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$\\sqrt{0{,}36} = ${miseEnEvidence('0{,}6')} $`
-    handleAnswers(this, i, { reponse: { value: '0.6', compare: calculCompare } })
+    handleAnswers(this, i, { reponse: { value: '0.6', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
 
     i = 9
     this.listeQuestions[i] = 'Soit le script Python :<br> '
@@ -110,23 +110,23 @@ export default class nomExercice extends Exercice {
     }
     this.listeQuestions[i] += '<br><br>Que renvoie $\\texttt{mystere(-5)}$ ?' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$-5 \\lt 0 $ donc le script renvoie $-5 \\times 3 = ${miseEnEvidence('-15')}$.`
-    handleAnswers(this, i, { reponse: { value: '-15', compare: calculCompare } })
+    handleAnswers(this, i, { reponse: { value: '-15', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
 
     i = 10
     this.listeQuestions[i] = 'Si je parcours $1{,}5~\\text{km}$ en $10~\\text{min}$, quelle est ma vitesse moyenne en $\\text{km/h}$ ?<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$1{,}5~\\text{km}$ en $10~\\text{min}$ donc $1{,}5~\\text{km} \\times 6 = 9~\\text{km}$ en une heure.<br>Ma vitesse moyenne est donc de $${miseEnEvidence('9')}~\\text{km/h}$.`
-    handleAnswers(this, i, { reponse: { value: '9', compare: calculCompare } })
+    handleAnswers(this, i, { reponse: { value: '9', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
 
     i = 11
     this.listeQuestions[i] = 'Simplifier.<br> $\\Big(2\\sqrt{3}\\Big)^2 = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$\\Big(2\\sqrt{3}\\Big)^2 = 4 \\times 3 =  ${miseEnEvidence('12')} $`
-    handleAnswers(this, i, { reponse: { value: '12', compare: calculCompare } })
+    handleAnswers(this, i, { reponse: { value: '12', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
 
     i = 12
     this.listeQuestions[i] = 'Comparer $0,7$ et $0,7^2$.<br>'
     this.listeQuestions[i] += '$0,7$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierCompare + ' ') + '$0,7^2$'
     this.listeCorrections[i] = `$0,7 \\lt 1$ donc $0{,}7~${miseEnEvidence('\\gt')}~0{,}7^2 $`
-    handleAnswers(this, i, { reponse: { value: '>', compare: calculCompare } })
+    handleAnswers(this, i, { reponse: { value: '>', compare: fonctionComparaison, options: { texteSansCasse: true } } })
 
     i = 13
     this.listeQuestions[i] = 'Quel est le périmètre d\'un carré de $49~\\text{cm}^2$ ?<br>'
@@ -134,7 +134,7 @@ export default class nomExercice extends Exercice {
       this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) + ' cm'
     }
     this.listeCorrections[i] = `L'aire est de $49~\\text{cm}^2$ donc c'est un carré de $7~\\text{cm}$ de côté.<br> Son périmètre est : $4 \\times 7~\\text{cm} =  ${miseEnEvidence('28')}~\\text{cm}$`
-    handleAnswers(this, i, { reponse: { value: '28', compare: calculCompare } })
+    handleAnswers(this, i, { reponse: { value: '28', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
 
     i = 14
     this.listeQuestions[i] = 'Quel est l\'intervalle de l\'ensemble des solutions de l\'équation $\\mid x-1 \\mid \\lt 2$ ?<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
@@ -155,16 +155,15 @@ export default class nomExercice extends Exercice {
     }
     handleAnswers(this, i, {
       bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-      champ1: { value: '2', compare: calculCompare },
-      champ2: { value: '-6', compare: calculCompare }
-    },
-    { formatInteractif: 'mathlive' }
+      champ1: { value: '2', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
+      champ2: { value: '-6', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+    }
     )
 
     i = 16
     this.listeQuestions[i] = 'Soient $A(5\\;;\\;9)$ et $B(7\\;;\\;3)$ dans un repère orthonormé.<br>Déterminer la longueur $AB$.<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)
     this.listeCorrections[i] = `$AB = \\sqrt{{x_{\\overrightarrow{AB}}}^2 + {y_{\\overrightarrow{AB}}}^2}=\\sqrt{2^2 + 6^2} =   ${miseEnEvidence('\\sqrt{40}')}$`
-    handleAnswers(this, i, { reponse: { value: '\\sqrt{40}', compare: calculCompare } })
+    handleAnswers(this, i, { reponse: { value: '\\sqrt{40}', compare: functionCompare } })
 
     i = 17
     this.listeQuestions[i] = 'Écriture scientifique de $0{,}0314$ :<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations) + '.'
@@ -180,16 +179,15 @@ export default class nomExercice extends Exercice {
     this.listeCorrections[i] = `Un produit est nul si et seulement si l'un au moins de ses facteurs est nul.<br>$S=${miseEnEvidence('\\{0\\;;\\;3\\}')}$`
     handleAnswers(this, i, {
       bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-      champ1: { value: '0', compare: calculCompare },
-      champ2: { value: '3', compare: calculCompare }
-    },
-    { formatInteractif: 'mathlive' }
+      champ1: { value: '0', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
+      champ2: { value: '3', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+    }
     )
 
     i = 19
     this.listeQuestions[i] = 'Valeur de $5x - 8$ pour $x=\\dfrac{4}{5}$ :<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction) + '.'
     this.listeCorrections[i] = `$5\\times\\dfrac{4}{5} - 8 = 4 - 8 =   ${miseEnEvidence('-4')}$`
-    handleAnswers(this, i, { reponse: { value: '-4', compare: calculCompare } })
+    handleAnswers(this, i, { reponse: { value: '-4', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
 
     i = 20
     const objets = []
@@ -238,7 +236,7 @@ export default class nomExercice extends Exercice {
       scale: 0.5,
       style: 'margin: auto'
     }, objets) + '<br>Longueur de la ligne brisée en unités de longueur (u.l) :<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
-    handleAnswers(this, i, { reponse: { value: '3', compare: fonctionComparaison } })
+    handleAnswers(this, i, { reponse: { value: '3', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
     this.listeCorrections[i] = `$L = ${miseEnEvidence('3')}$ u.l.`
 
     i = 21
@@ -252,7 +250,7 @@ export default class nomExercice extends Exercice {
     this.listeQuestions[i] = 'La décomposition en produit de facteurs premiers de 30 est : <br>'
     this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
     this.listeCorrections[i] = `$30 = ${miseEnEvidence('2\\times3\\times5')}$`
-    handleAnswers(this, i, { reponse: { value: '2\\times3\\times5', compare: calculCompare } })
+    handleAnswers(this, i, { reponse: { value: '2\\times3\\times5', compare: fonctionComparaison, options: { exclusifFactorisation: true } } })
 
     i = 23
     this.listeQuestions[i] = 'Soient $A(4\\;;\\;9)$ et $B(2\\;;\\;4)$.<br>Déterminer le coefficient directeur de la droite $(AB)$.<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
@@ -267,10 +265,9 @@ export default class nomExercice extends Exercice {
     this.listeCorrections[i] = `$M\\Big( \\dfrac{x_A + x_B}{2}  \\;;\\;  \\dfrac{y_A + y_B}{2}\\Big) \\iff M\\Big( \\dfrac{-2 + 2}{2}  \\;;\\;  \\dfrac{3 + 7}{2}\\Big) \\iff M\\Big(${miseEnEvidence('0\\;;\\;5')}\\Big)$`
     handleAnswers(this, i, {
       bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-      champ1: { value: '0', compare: fonctionComparaison },
-      champ2: { value: '5', compare: fonctionComparaison }
-    },
-    { formatInteractif: 'mathlive' }
+      champ1: { value: '0', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
+      champ2: { value: '5', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+    }
     )
 
     i = 25
@@ -339,10 +336,10 @@ export default class nomExercice extends Exercice {
     this.listeQuestions[i] = 'On donne le graphique d’une fonction $f$ : <br>'
     this.listeQuestions[i] += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: -6, ymin: -5, xmax: 6, ymax: 4 }), objetsEnonce)
     this.listeQuestions[i] += '<br>Quels sont les antécédents de $0$ par $f$ ?<br>'
-    this.listeQuestions[i] += '<em>(Les écrire dans l\'ordre croissant et les séparer avec un point-virgule.)</em><br>'
+    this.listeQuestions[i] += '<em>(Les séparer avec un point-virgule.)</em><br>'
     this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
     this.listeCorrections[i] = `Les antécédents de $0$ par $f$ sont $${miseEnEvidence('-3\\;;\\;1')}$.`
-    handleAnswers(this, i, { reponse: { value: '-3;1', compare: calculCompare } })
+    handleAnswers(this, i, { reponse: { value: '-3;1', compare: fonctionComparaison, options: { suiteDeNombres: true } } })
 
     i = 28
     this.listeQuestions[i] = 'On donne le graphique d’une fonction $f$ : <br>'
@@ -350,7 +347,7 @@ export default class nomExercice extends Exercice {
     this.listeQuestions[i] += '<br>Quelle est l\'image de $0$ par la fonction $f$ ?<br>'
     this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `L'image de $0$ par la fonction $f$ est $${miseEnEvidence('1')}$.`
-    handleAnswers(this, i, { reponse: { value: '1', compare: calculCompare } })
+    handleAnswers(this, i, { reponse: { value: '1', compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
 
     i = 29
     this.listeQuestions[i] = 'On donne le graphique d’une fonction $f$ : <br>'

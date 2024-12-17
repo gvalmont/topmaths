@@ -1,5 +1,3 @@
-/* eslint-disable no-multiple-empty-lines */
-/* eslint-disable comma-dangle */
 /*
   Vrai-faux
   Agrandissement-réduction
@@ -30,6 +28,7 @@
   Tableur
   Thalès
   Transformations
+  Triangles semblables
   Trigonométrie
   Volumes
   Vitesses
@@ -4086,7 +4085,7 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2018/tex/png/dnb_2018_06_metropole_4.png',
     pngCor: 'static/dnb/2018/tex/png/dnb_2018_06_metropole_4_cor.png',
     typeExercice: 'dnb',
-    tags: ['Géométrie plane', 'Pythagore', 'Trigonométrie']
+    tags: ['Géométrie plane', 'Pythagore', 'Trigonométrie', 'Triangles semblables']
   },
   dnb_2018_06_metropole_5: {
     annee: '2018',
@@ -4849,7 +4848,7 @@ export const dictionnaireDNB = {
     png: 'static/dnb/2019/tex/png/dnb_2019_06_grece_2.png',
     pngCor: 'static/dnb/2019/tex/png/dnb_2019_06_grece_2_cor.png',
     typeExercice: 'dnb',
-    tags: ['Trigonométrie', 'Géométrie plane', 'Agrandissement-réduction']
+    tags: ['Trigonométrie', 'Géométrie plane', 'Agrandissement-réduction', 'Triangles semblables']
   },
   dnb_2019_06_grece_3: {
     annee: '2019',
@@ -6873,7 +6872,6 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Lecture graphique', 'Proportionnalité', 'Fonctions', 'Équations']
   },
-
 
   dnb_2024_05_ameriquenord_1: {
     annee: '2024',

@@ -6,7 +6,6 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { context } from '../../../modules/context'
 export const titre = 'Additionner deux fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -37,13 +36,13 @@ export default class additionFraction extends Exercice {
 
     if (choice([true, false])) {
       this.reponse = new FractionEtendue(1 + 2 * a, 4050).toLatex()
-      this.question = `Calculer sous la forme d'une fraction :<br>${context.isHtml ? '<br>' : '\\\\[0.7em]'}
+      this.question = `Calculer sous la forme d'une fraction :<br>
     $\\dfrac{${a}}{${texNombre(2025, 0)}} +\\dfrac{1}{${texNombre(4050)}}$`
 
       this.correction = ` $\\dfrac{${a}}{${texNombre(2025, 0)}} +\\dfrac{1}{${texNombre(4050, 0)}}=\\dfrac{${2 * a}}{${texNombre(4050, 0)}} +\\dfrac{1}{${texNombre(4050, 0)}}=${miseEnEvidence(`\\dfrac{${1 + 2 * a}}{${texNombre(4050, 0)}}`)}$`
     } else {
       this.reponse = new FractionEtendue(2 * a - 1, 4050).toLatex()
-      this.question = `Calculer sous la forme d'une fraction :<br>${context.isHtml ? '<br>' : '\\\\[0.7em]'}
+      this.question = `Calculer sous la forme d'une fraction : <br>
     $\\dfrac{${a}}{${texNombre(2025, 0)}} -\\dfrac{1}{${texNombre(4050)}}$`
       this.correction = ` $\\dfrac{${a}}{${texNombre(2025, 0)}} -\\dfrac{1}{${texNombre(4050, 0)}}=\\dfrac{${2 * a}}{${texNombre(4050, 0)}} -\\dfrac{1}{${texNombre(4050, 0)}}=${miseEnEvidence(`\\dfrac{${2 * a - 1}}{${texNombre(4050, 0)}}`)}$`
     }
