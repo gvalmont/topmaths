@@ -7608,6 +7608,25 @@
                 ]
               },
               {
+                "reference": "3G14",
+                "titleAcademic": "Construire une figure en multipliant les rotations",
+                "lessonSummaryHTML": "",
+                "lessonSummaryImage": "",
+                "videos": [
+                  {
+                    "title": "",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=txezksrGZZ8&vignette=https://i.ytimg.com/vi/txezksrGZZ8/hqdefault.jpg&debut=0&fin=165&largeur=16&hauteur=9",
+                    "authorName": "Mathlab",
+                    "authorLink": "https://www.youtube.com/@MathLaboudigue"
+                  }
+                ],
+                "exercises": [
+                  {
+                    "slug": "uuid=972f6&id=3I1DNB-0"
+                  }
+                ]
+              },
+              {
                 "reference": "3G15",
                 "title": "Utiliser le rapport d'une homothétie",
                 "titleAcademic": "Comprendre l'effet d'une homothétie",
