@@ -22,7 +22,7 @@
 >
   Résumé du cours
 </h2>
-<div class="p-6">
+<div class="p-6 flex flex-col items-center">
   <div bind:this={lessonSummaryDiv} />
   {#if lessonSummaryImage}
     <img
