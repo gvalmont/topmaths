@@ -7533,7 +7533,11 @@
                 "exercises": [
                   {
                     "slug": "uuid=f4b7e&id=3G24-1&n=2&d=10&s=2-3-4&cd=1",
-                    "description": ""
+                    "description": "Reconnaître des triangles semblables"
+                  },
+                  {
+                    "slug": "uuid=58a64&id=3G24-2&n=3&d=10&cd=1",
+                    "description": "Calculer des longueurs"
                   }
                 ]
               },
